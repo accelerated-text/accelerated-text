@@ -1,100 +1,166 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <title>Accelerated Text</title>
+        <title>Accelerated Text</title>
 
-    <style>
-     input {
-         border: none;
-         background: transparent;
-     }
-    </style>
-  </head>
+        <style>
+         input {
+             border: none;
+             background: transparent;
+         }
+        </style>
+    </head>
 
-  <body>
+    <body>
 
-      <div class="d-flex flex-column">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="d-flex flex-row">
+                        <div class="d-flex flex-column m-2">
+                            <h4>Attributes</h4>
+                            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                Brand Name
+                            </button>
+                            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                Color
+                            </button>
+                            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                Cut type
+                            </button>
+                            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                Material
+                            </button>
+                        </div>
+                        <div class="d-flex flex-column m-2">
+                            <h4>Marketing</h4>
+                            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                T-shirt
+                            </button>
+                            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                Price
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-          <!-- Sentence -->
-          <div class="d-flex flex-row">
-              <div class="d-flex flex-row justify-content-start">
-                  <input type="text" value="T-shirts and vests are the power players in every man’s wardrobe" style='width:30em'/>
-              </div>
-              <div class="d-flex flex-row justify-content-end">
-                  <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/chevron-right.svg" type="image/svg+xml"></object></button>
-                  <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/trashcan.svg" type="image/svg+xml"></object></button>
-              </div>
-          </div>
+                <div class="col-md">
 
-          <!-- Sentence -->
-          <div class="d-flex flex-row">
-              <div class="d-flex flex-row justify-content-start">
-                  <input type="text" value="This" style='width:4em'/>
-                  <button class="btn btn-dark mr-2">Brand Name</button>
-                  <input type="text" value="t-shirt" style='width:4em'/>
-                  <div class="dropdown mr-2">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Color set
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="#">conservative</a>
-                          <a class="dropdown-item" href="#">militaristic</a>
-                          <a class="dropdown-item" href="#">youth</a>
-                      </div>
-                  </div>
-                  <div class="dropdown mr-2">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Cut type
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="#">v-neck</a>
-                          <a class="dropdown-item" href="#">crewneck</a>
-                          <a class="dropdown-item" href="#">gla</a>
-                      </div>
-                  </div>
-                  <input type="text" value="is made from 100% cotton" style='width:50em'/>
-              </div>
+                    <div class="d-flex flex-column">
 
-              <div class="d-flex flex-row justify-content-end">
-                  <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/chevron-right.svg" type="image/svg+xml"></object></button>
-                  <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/trashcan.svg" type="image/svg+xml"></object></button>
-              </div>
-          </div>
+                        <!-- Sentence -->
+                        <div class="d-flex flex-row mr-2">
+                            <div class="d-flex flex-row justify-content-end">
+                                <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/chevron-right.svg" type="image/svg+xml"></object></button>
+                                <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/trashcan.svg" type="image/svg+xml"></object></button>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <input type="text" value="T-shirts and vests are the power players in every man’s wardrobe" style='width:30em'/>
+                            </div>
+                        </div>
 
-          <!-- Sentence -->
-          <div class="d-flex flex-row">
-              <div class="d-flex flex-row justify-content-start">
-                  <div class="dropdown mr-2">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Cut type
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="#">v-neck</a>
-                          <a class="dropdown-item" href="#">crewneck</a>
-                          <a class="dropdown-item" href="#">gla</a>
-                      </div>
-                  </div>
-                  <input type="text" value="something something" style='width:50em'/>
-              </div>
+                        <!-- Sentence -->
+                        <div class="d-flex flex-row mr-2">
+                            <div class="d-flex justify-content-start">
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/chevron-right.svg" type="image/svg+xml"></object></button>
+                                    <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/trashcan.svg" type="image/svg+xml"></object></button>
+                                </div>
 
-              <div class="d-flex flex-row justify-content-end">
-                  <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/chevron-right.svg" type="image/svg+xml"></object></button>
-                  <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/trashcan.svg" type="image/svg+xml"></object></button>
-              </div>
-          </div>
+                                <input type="text" value="This" style='width:4em'/>
+                                <button class="btn btn-dark mr-2">Brand Name</button>
+                                <input type="text" value="t-shirt" style='width:4em'/>
+                                <div class="dropdown mr-2">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Color set
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">conservative</a>
+                                        <a class="dropdown-item" href="#">militaristic</a>
+                                        <a class="dropdown-item" href="#">youth</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown mr-2">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Cut type
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">v-neck</a>
+                                        <a class="dropdown-item" href="#">crewneck</a>
+                                        <a class="dropdown-item" href="#">gla</a>
+                                    </div>
+                                </div>
+                                <input type="text" value="is made from 100% cotton" style='width:40em'/>
+                            </div>
+                        </div>
 
-      </div>
+                        <!-- Sentence -->
+                        <div class="d-flex flex-row">
+                            <div class="d-flex justify-content-end mr-2">
+                                <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/chevron-right.svg" type="image/svg+xml"></object></button>
+                                <button type="button" class="btn btn-outline-light"><object id="svg1" data="icons/trashcan.svg" type="image/svg+xml"></object></button>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="dropdown mr-2">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Cut type
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">v-neck</a>
+                                        <a class="dropdown-item" href="#">crewneck</a>
+                                        <a class="dropdown-item" href="#">gla</a>
+                                    </div>
+                                </div>
+                                <input type="text" value="something something" style='width:50em'/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <h4>Proofreader</h4>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox">
+                                <span>Intro </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox">
+                                <span>Size </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox">
+                                <span>Price </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  </body>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
 </html>
 
 <!--
