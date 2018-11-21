@@ -1,0 +1,6 @@
+node_modules
+package-lock.json
+*.lock
+preact-demo/dist
+preact-demo/*.log
+
