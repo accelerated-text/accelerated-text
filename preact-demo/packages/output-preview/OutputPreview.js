@@ -1,8 +1,8 @@
 import { h, Component } from 'preact';
 
-import S from './WriterExamples.sass';
+import S from './OutputPreview.sass';
 
-export default class WriterExamples extends Component {
+export default class OutputPreview extends Component {
 
     render() {
         return (
