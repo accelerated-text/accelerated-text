@@ -6,7 +6,7 @@ export default class OutputPreview extends Component {
 
     render() {
         return (
-            <div className={ S.root }>
+            <div className={ S.className }>
                 <h2>Generated examples</h2>
             </div>
         );

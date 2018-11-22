@@ -6,7 +6,7 @@ import OutputPreview        from '../output-preview/OutputPreview';
 import S from './AugmentedWriter.sass';
 
 export default () =>
-    <div className={ S.root }>
+    <div className={ S.className }>
         <Editor />
         <OutputPreview />
     </div>;
