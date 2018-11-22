@@ -4,14 +4,16 @@
 
 ### Dependencies
 
-* [npm](https://nodejs.org)
-
-```bash
-npm install
-```
+You should have NPM installed in your path. Get it from https://nodejs.org .
 
 ### Running
 
 ```bash
-npm start
+make run
+```
+
+### Running tests
+
+```bash
+make test
 ```
