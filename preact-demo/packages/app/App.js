@@ -6,6 +6,6 @@ import S from './App.sass';
 
 export default () =>
     <div className={ S.className }>
-        <h1>Augmented Writer</h1>
+        <h1 className={ S.title }>Augmented Writer</h1>
         <AugmentedWriter />
     </div>;
