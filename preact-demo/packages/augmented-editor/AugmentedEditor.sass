@@ -1,4 +1,16 @@
 @import '../styles/mixins';
 
 .className
-    @include widget-block;
+    @include padded-block;
+
+    > .code
+
+        min-height:     16em;
+
+    > .input
+        > input
+
+            display:    block;
+            box-sizing: border-box;
+            width:      100%;
+            padding:    $unit-m; 

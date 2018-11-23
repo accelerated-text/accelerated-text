@@ -2,13 +2,11 @@ import { h, Component } from 'preact';
 
 import S from './OutputPreview.sass';
 
-export default class OutputPreview extends Component {
+export default ({ examples }) =>
 
-    render() {
-        return (
-            <div className={ S.className }>
-                <h2>Generated examples</h2>
-            </div>
-        );
-    }
-}
+    <div className={ S.className }>
+        <h2 className={ S.title }>Generated examples:</h2>
+        { examples.map( str =>
+            <div className={ S.example }>{ str }</div>
+        )}
+    </div>
