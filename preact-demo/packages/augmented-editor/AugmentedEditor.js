@@ -51,6 +51,7 @@ export default class AugmentedEditor extends Component {
                     onSubmit={ this.onSubmitInput }
                 >
                     <input
+                        className="qa-augmented-editor-text-input"
                         onChange={ this.onChangeInput }
                         placeholder="Enter your text here"
                         value={ inputText }
