@@ -1,4 +1,9 @@
-image: node:latest
+image:
+    - debian:stretch-slim
+
+services:
+    - node:latest
+    - alekzonder/puppeteer:1
 
 before_script:
     - apt-get update -qq && apt-get install -y -qq make build-essential
