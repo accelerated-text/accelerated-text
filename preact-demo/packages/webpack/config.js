@@ -1,15 +1,11 @@
-/// Imports --------------------------------------------------------------------
-
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require( 'path' );
 const webpack = require('webpack');
 
-/// Constants ------------------------------------------------------------------
 
 const DIST = path.resolve( __dirname, 'dist' );
 
-/// Exports --------------------------------------------------------------------
 
 module.exports = {
     devtool:            'inline-source-map',

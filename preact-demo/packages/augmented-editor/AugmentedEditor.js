@@ -1,5 +1,3 @@
-///Imports ---------------------------------------------------------------------
-
 import { h, Component } from 'preact';
 
 import ABlock from '../blocks/ABlock';
@@ -7,7 +5,6 @@ import tokenizer from '../tokenizer/tokenizer';
 
 import S from './AugmentedEditor.sass';
 
-/// Exports --------------------------------------------------------------------
 
 export default class AugmentedEditor extends Component {
 
