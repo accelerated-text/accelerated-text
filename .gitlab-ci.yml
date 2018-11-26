@@ -1,7 +1,4 @@
-image: node:11-slim
-
-before_script:
-    - apt-get update -qq && apt-get install -y -qq build-essential chromium libatk-bridge2.0-0 libgtk-3-0
+image: registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest
 
 test:preact_demo:
     script:
