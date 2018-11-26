@@ -1,11 +1,7 @@
-image: debian:stretch-slim
-
-services:
-    - node:latest
-    - alekzonder/puppeteer:1
+image: node:latest
 
 before_script:
-    - apt-get update -qq && apt-get install -y -qq make build-essential
+    - apt-get update -qq && apt-get install -y -qq build-essential chromium-browser make
 
 test:preact_demo:
     script:
