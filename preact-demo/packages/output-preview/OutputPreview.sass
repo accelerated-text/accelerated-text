@@ -1,0 +1,14 @@
+@import '../styles/mixins';
+@import '../styles/variables';
+
+.className
+    @include widget-block;
+
+    > .title
+
+        margin:         0 0 $unit-m;
+
+    > .example
+
+        padding:        $unit-m 0;
+        border-top:     1px dashed $border-color;

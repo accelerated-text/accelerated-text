@@ -1,11 +1,8 @@
-/// Imports --------------------------------------------------------------------
-
 const webpack =           require( 'webpack' );
 const webpackDevServer =  require( 'webpack-dev-server' );
 
 const webpackConfig =     require( '../webpack/config' );
 
-/// Constants ------------------------------------------------------------------
 
 const OPTIONS = {
     host:               process.env.npm_package_config_test_host,
@@ -13,12 +10,12 @@ const OPTIONS = {
     stats:              'none',
 }
 
-/// Main -----------------------------------------------------------------------
+/// Main
 
 const compiler =        webpack( webpackConfig );
 const server =          new webpackDevServer( compiler, OPTIONS );
 
-/// Exports --------------------------------------------------------------------
+/// Exports
 
 module.exports = new Promise(( resolve, reject ) => {
 
