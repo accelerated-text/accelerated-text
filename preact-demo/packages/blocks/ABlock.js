@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
 
 import S from './ABlock.sass';
 
@@ -6,25 +6,24 @@ const blockComponents = {
     word:               require( './Word' ).default,
 };
 
-export default function ABlock({ block }) {
+const ABlock = ({ block }) =>
 
-    if( !block ){
-        return null;
+    ( !block )
+        ? null
 
-    } else if( block instanceof Array ){
-        return (
-            <div className={ S.list }>
-                { block.map( block => ABlock({ block })) }
-            </div>
-        );
-    } else if( blockComponents[block.type] ){
-        return blockComponents[block.type]({ block });
+    : block instanceof Array
+        ? <div className={ S.list }>
+            { block.map( block => <ABlock block={ block } /> )}
+        </div>
 
-    } else {
-        return (
-            <div className={ S.unknownBlock }>
-                Unknown block { block.type }!
-            </div>
-        );
-    }
-}
+    : blockComponents[block.type]
+        ? blockComponents[block.type]({ block })
+
+    : (
+        <div className={ S.unknownBlock }>
+            Unknown block { block.type }!
+        </div>
+    );
+
+
+export default ABlock;
