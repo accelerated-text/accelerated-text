@@ -1,0 +1,14 @@
+@import '../styles/variables';
+@import './mixins';
+
+.list
+    
+    display:        block;
+    padding:        $unit-s;
+
+.unknownBlock
+    @include code-block;
+
+    background:     $red;
+    border-color:   lighten( $red, 20% );
+    color:          $white; 

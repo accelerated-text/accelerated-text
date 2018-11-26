@@ -1,5 +1,19 @@
-.root
+@import '../styles/mixins';
+
+.className
 
     display:                grid;
-    grid-template-columns:  1fr 1fr 1fr;
-    grid-gap:               1em;
+    grid-template-columns:  5fr $unit-m 4fr;
+    grid-gap:               0;
+
+    > .documentActions
+        @include padded-block;
+        @include border-radius;
+
+        background:         #eee;
+
+    > .dataSetup
+        @include padded-block;
+        @include border-radius;
+
+        background:         #cfc;
