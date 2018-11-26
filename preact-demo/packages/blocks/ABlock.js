@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 
 import S from './ABlock.sass';
 
-const blocks = {
+const blockComponents = {
     word:               require( './Word' ).default,
 };
 
@@ -17,8 +17,8 @@ export default function ABlock({ block }) {
                 { block.map( block => ABlock({ block })) }
             </div>
         );
-    } else if( blocks[block.type] ){
-        return blocks[block.type]({ block });
+    } else if( blockComponents[block.type] ){
+        return blockComponents[block.type]({ block });
 
     } else {
         return (
