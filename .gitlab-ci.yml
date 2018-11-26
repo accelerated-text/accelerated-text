@@ -1,4 +1,4 @@
-image: alekzonder/puppeteer:1
+image: alekzonder/puppeteer:1.1.1
 
 before_script:
     - apt-get update -qq && apt-get install -y -qq build-essential make nodejs
