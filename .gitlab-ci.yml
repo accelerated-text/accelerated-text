@@ -1,7 +1,7 @@
-image: debian:unstable-slim
+image: node:11-slim
 
 before_script:
-    - apt-get update -qq && apt-get install -y -qq build-essential chromium nodejs
+    - apt-get update -qq && apt-get install -y -qq build-essential chromium
 
 test:preact_demo:
     script:
