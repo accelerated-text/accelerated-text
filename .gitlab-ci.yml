@@ -1,0 +1,8 @@
+image: node:latest
+
+before_script:
+    - apt-get update -qq && apt-get install -y -qq make build-essential
+
+test:preact_demo:
+    script:
+        - make test
