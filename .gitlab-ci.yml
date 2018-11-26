@@ -1,7 +1,7 @@
-image: alekzonder/puppeteer:1.1.1
+image: debian:stable-slim
 
 before_script:
-    - apt-get update -qq && apt-get install -y -qq build-essential make nodejs
+    - apt-get update -qq && apt-get install -y -qq build-essential chromium nodejs
 
 test:preact_demo:
     script:

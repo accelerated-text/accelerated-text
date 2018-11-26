@@ -38,7 +38,7 @@
     "jest": "^23.6.0",
     "jest-puppeteer": "^3.5.1",
     "node-sass": "^4.10.0",
-    "puppeteer": "1.1.1",
+    "puppeteer": "1.7.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.26.0",
