@@ -1,0 +1,5 @@
+image: registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest
+
+test:preact_demo:
+    script:
+        - make test

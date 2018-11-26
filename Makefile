@@ -12,3 +12,8 @@ run:
 clean:
 	${PREACT_MAKE} clean
 
+build-demo-test-env:
+	(cd dockerfiles && docker build -f Dockerfile.test-env -t registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest .)
+
+publish-demo-test-env: build-demo-test-env
+	docker push registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest
