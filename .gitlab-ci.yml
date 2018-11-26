@@ -1,7 +1,7 @@
 image: node:11-slim
 
 before_script:
-    - apt-get update -qq && apt-get install -y -qq build-essential chromium
+    - apt-get update -qq && apt-get install -y -qq build-essential chromium libatk-bridge2.0-0
 
 test:preact_demo:
     script:
