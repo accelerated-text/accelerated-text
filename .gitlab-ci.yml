@@ -1,5 +1,4 @@
-image:
-    - debian:stretch-slim
+image: debian:stretch-slim
 
 services:
     - node:latest
