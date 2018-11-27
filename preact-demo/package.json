@@ -24,6 +24,7 @@
   "author": "Tokenmill.lt",
   "license": "UNLICENSED",
   "dependencies": {
+    "isomorphic-unfetch": "^3.0.0",
     "preact": "^8.3.1",
     "preact-router": "^2.6.1"
   },

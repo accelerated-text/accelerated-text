@@ -1,5 +1,3 @@
-export default async str =>
-    str
-        .split( /\s+/ )
-        .map( content => ({ type: 'word', content }));
+import parseText        from '../analysis-api/parse-text';
 
+export default parseText;
