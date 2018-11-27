@@ -48,6 +48,10 @@
             } 
         }],
         "linebreak-style":          [ "error", "unix" ],
+        "new-cap":                  [ "error", {
+            "capIsNew":         false,
+            "newIsCap":         true
+        }],
         "no-use-before-define":     [ "error", {
             "functions": false
         }],
