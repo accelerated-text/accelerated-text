@@ -1,6 +1,6 @@
 import fetch                from 'isomorphic-unfetch';
 
-import { host, mountPath }  from './constants';
+import { mountPath }        from './constants';
     
 
 const analysisFetch =       async ( path, options = null ) =>
