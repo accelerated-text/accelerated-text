@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config packages/webpack/config.js",
-    "test": "jest"
+    "test": "eslint packages && jest"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,9 @@
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^1.0.0",
     "css-loader": "^1.0.1",
+    "eslint": "^5.9.0",
+    "eslint-config-crockford": "^2.0.0",
+    "eslint-config-developit": "^1.1.1",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^23.6.0",
     "jest-puppeteer": "^3.5.1",

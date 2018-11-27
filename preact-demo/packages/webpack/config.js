@@ -1,7 +1,7 @@
-const CleanWebpackPlugin =  require('clean-webpack-plugin');
-const HtmlWebpackPlugin =   require('html-webpack-plugin');
+const CleanWebpackPlugin =  require( 'clean-webpack-plugin' );
+const HtmlWebpackPlugin =   require( 'html-webpack-plugin' );
 const path =                require( 'path' );
-const webpack =             require('webpack');
+const webpack =             require( 'webpack' );
 
 const analysisProxy =       require( '../analysis-api/http-proxy-middleware-config' );
 
@@ -26,19 +26,19 @@ module.exports = {
             test:       /\.jsx?$/,
             exclude:    /node_modules/,
             loader:     'babel-loader',
-        },{
+        }, {
             test:       /\.s(a|c)ss$/,
             use: [
                 'style-loader', // creates style nodes from JS strings
                 'css-loader?modules=true',   // translates CSS into CommonJS
-                'sass-loader',  // compiles Sass to CSS 
+                'sass-loader',  // compiles Sass to CSS
             ],
         }],
     },
     plugins: [
         new CleanWebpackPlugin([ 'dist' ]),
         new HtmlWebpackPlugin({
-            title:      'Augmented Writer'
+            title:      'Augmented Writer',
         }),
         new webpack.HotModuleReplacementPlugin(),
     ],
