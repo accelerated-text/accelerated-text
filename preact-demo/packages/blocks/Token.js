@@ -1,12 +1,12 @@
 import { h } from 'preact';
 
-import S from './Word.sass';
+import S from './Token.sass';
 
-export default ({ block: { content }}) =>
-    ( !content )
+export default ({ block: { text }}) =>
+    ( !text )
         ? null
         : (
             <div className={ `${ S.className } qa-blocks-word` }>
-                { content }
+                { text }
             </div>
         );

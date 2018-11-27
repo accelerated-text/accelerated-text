@@ -1,9 +1,11 @@
-import { h } from 'preact';
+import { h }            from 'preact';
 
-import S from './ABlock.sass';
+import S                from './ABlock.sass';
+
 
 const blockComponents = {
-    word:               require( './Word' ).default,
+    SENTENCE:           require( './Sentence' ).default,
+    TOKEN:              require( './Token' ).default,
 };
 
 const ABlock = ({ block }) =>
