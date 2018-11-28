@@ -1,10 +1,23 @@
 @import '../styles/variables';
 
+@mixin code-inline-block
+
+    display:            inline-block
+    padding:            $unit-xs (1em / 8);
+    margin:             0
+    color:              $black
+    cursor:             pointer
+
+    &:hover
+
+        box-shadow:         1px 1px 1px $gray
+        background-color:   $subtle-gray;
+
 @mixin code-block
 
-    display:            inline-block;
-    padding:            $unit-s $unit-m;
-    border-radius:      $unit-xs;
-    box-shadow:         1px 1px #ccc;
-    margin:             $unit-xs;
-    cursor:             pointer;
+    display:            block
+    padding:            $unit-m
+    border-radius:      $border-radius
+    box-shadow:         1px 1px $gray
+    margin:             $unit-m
+    cursor:             pointer
