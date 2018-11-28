@@ -3,6 +3,8 @@ const HtmlWebpackPlugin =   require( 'html-webpack-plugin' );
 const path =                require( 'path' );
 const webpack =             require( 'webpack' );
 
+const analysisProxy =       require( '../analysis-api/http-proxy-middleware-config' );
+
 
 const DIST = path.resolve( __dirname, 'dist' );
 
@@ -13,6 +15,9 @@ module.exports = {
         contentBase:    './dist',
         hot:            true,
         open:           false,
+        proxy: {
+            ...analysisProxy,
+        },
     },
     entry:              './packages/app/start-in-browser.js',
     mode:               'development',

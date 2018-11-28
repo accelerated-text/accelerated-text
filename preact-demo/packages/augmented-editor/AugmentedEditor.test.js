@@ -1,7 +1,7 @@
 const delay =           require( 'timeout-as-promise' );
 
 
-const WORD_SELECTOR =  '.qa-blocks-word';
+const TOKEN_SELECTOR =  '.qa-blocks-token';
 const INPUT_SELECTOR =  '.qa-augmented-editor-text-input';
 
 
@@ -19,13 +19,13 @@ describe( 'augmented-editor/AugmentedEditor', () => {
         expect( input ).toBeTruthy();
     });
 
-    test( 'should split text into words', async () => {
+    test( 'should split text into tokens', async () => {
 
-        await page.type( INPUT_SELECTOR, 'one two' );
+        await page.type( INPUT_SELECTOR, 'dog cat' );
         await page.keyboard.press( 'Enter' );
 
-        await delay( 500 );
-        const words = await page.$$( WORD_SELECTOR );
-        expect( words ).toHaveLength( 2 );
-    });
+        await delay( 5e3 );
+        const tokens = await page.$$( TOKEN_SELECTOR );
+        expect( tokens ).toHaveLength( 2 );
+    }, 10e3 );
 });

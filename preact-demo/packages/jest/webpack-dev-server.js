@@ -5,6 +5,7 @@ const webpackConfig =     require( '../webpack/config' );
 
 
 const OPTIONS = {
+    ...webpackConfig.devServer,
     host:               process.env.npm_package_config_test_host,
     port:               process.env.npm_package_config_test_port,
     stats:              'none',
