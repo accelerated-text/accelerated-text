@@ -6,7 +6,7 @@ export default ({ block: { text }}) =>
     ( !text )
         ? null
         : (
-            <div className={ `${ S.className } qa-blocks-word` }>
+            <div className={ `${ S.className } qa-blocks-token` }>
                 { text }
             </div>
         );
