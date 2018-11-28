@@ -10,7 +10,9 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config packages/webpack/config.js",
-    "test": "eslint packages && jest"
+    "test": "eslint packages && jest",
+    "test:eslint": "eslint packages",
+    "test:jest": "jest"
   },
   "repository": {
     "type": "git",
