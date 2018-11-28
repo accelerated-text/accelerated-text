@@ -1,12 +1,12 @@
 describe( 'app/App', () => {
 
-  beforeEach( async () => {
+    beforeEach( async () => {
 
-    await page.goto( TEST_URL, { waitUntil: 'load' })
-  })
+        await page.goto( TEST_URL, { waitUntil: 'load' });
+    });
 
-  test( 'should render title', async () => {
+    test( 'should render title', async () => {
 
-    await expect( page ).toMatch( 'Augmented Writer' );
-  });
+        await expect( page ).toMatch( 'Augmented Writer' );
+    });
 });

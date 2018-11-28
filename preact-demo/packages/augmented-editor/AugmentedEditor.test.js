@@ -9,8 +9,8 @@ describe( 'augmented-editor/AugmentedEditor', () => {
 
     beforeEach( async () => {
 
-        await page.goto( TEST_URL, { waitUntil: 'load' })
-    })
+        await page.goto( TEST_URL, { waitUntil: 'load' });
+    });
 
     test( 'should render text input', async () => {
 

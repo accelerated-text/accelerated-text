@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
 
 import S from './OutputPreview.sass';
 
@@ -9,4 +9,4 @@ export default ({ examples }) =>
         { examples.map( str =>
             <div className={ S.example }>{ str }</div>
         )}
-    </div>
+    </div>;
