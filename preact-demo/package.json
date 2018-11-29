@@ -28,7 +28,8 @@
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
     "preact": "^8.3.1",
-    "preact-router": "^2.6.1"
+    "preact-router": "^2.6.1",
+    "shallow-equal": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
