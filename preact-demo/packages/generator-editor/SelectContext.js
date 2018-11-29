@@ -24,18 +24,16 @@ export default useStores([
         },
     }) {
         return (
-            <select onChange={ this.onChange }>
+            <select onChange={ this.onChange } value={ contextName }>
                 <option value="">select a context</option>
-                { OPTIONS.map(
-                    name => (
-                        <option
-                            key={ name }
-                            selected={ name === contextName }
-                            value={ name }
-                        >
-                            { name }
-                        </option>
-                    )
+                { OPTIONS.map( value =>
+                    <option
+                        key={ value }
+                        value={ value }
+                        selected={ value === contextName }
+                    >
+                        { value }
+                    </option>
                 )}
             </select>
         );
