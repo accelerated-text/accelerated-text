@@ -2,7 +2,7 @@ import { h, Component }     from 'preact';
 import { mapObjIndexed }    from 'ramda';
 
 
-export default ( propName, store ) => Child =>
+export default ( storeName, store ) => Child =>
     class ContextStoreProvider extends Component {
 
         state =     store.getInitialState( this.props, this );
@@ -14,7 +14,7 @@ export default ( propName, store ) => Child =>
 
         getChildContext() {
             return {
-                [propName]: {
+                [storeName]: {
                     ...this.functions,
                     ...this.state,
                 },
