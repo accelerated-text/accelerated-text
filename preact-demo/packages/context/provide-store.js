@@ -1,18 +1,16 @@
-import { h, Component } from 'preact';
+import { h, Component }     from 'preact';
+import { mapObjIndexed }    from 'ramda';
 
-const bindStoreFunctions = ( that, store ) => {
-    const functions =   {};
-    for( const k in store ) {
-        functions[k] =  arg => that.setState( store[k]( arg, that ));
-    }
-    return functions;
-};
 
 export default ( propName, store ) => Child =>
     class ContextStoreProvider extends Component {
 
         state =     store.getInitialState( this.props, this );
-        functions = bindStoreFunctions( this, store );
+
+        functions = mapObjIndexed(
+            fn => arg => this.setState( fn( arg, this )),
+            store
+        );
 
         getChildContext() {
             return {
@@ -24,10 +22,9 @@ export default ( propName, store ) => Child =>
         }
 
         render() {
-            const childProps = {
+            return h( Child, {
                 ...this.props,
                 ...this.getChildContext(),
-            };
-            return <Child { ...childProps } />;
+            });
         }
     };
