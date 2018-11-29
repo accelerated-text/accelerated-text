@@ -10,7 +10,7 @@ export default propName => Child =>
                 || !shallowEqual( nextContext[propName], this.context[propName])
             );
         }
-        
+
         render( props, state, context ) {
             return h( Child, {
                 ...props,

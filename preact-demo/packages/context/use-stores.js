@@ -13,7 +13,7 @@ export default storeNames => Child =>
                 )
             );
         }
-        
+
         render( props, state, context ) {
             return h( Child, {
                 ...props,
