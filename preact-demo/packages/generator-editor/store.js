@@ -1,7 +1,7 @@
 export default {
 
     getInitialState: () => ({
-        children:       [],
+        blocks:         [],
         contextName:    null,
         dataSample:     null,
         generatorName:  'Example Generator',
