@@ -17,9 +17,7 @@ export default provideStore(
     },
 }) =>
     <div className={ S.className }>
-        <div className={ S.head }>
-            <Header />
-        </div>
+        <Header />
         <div className={ S.body }>
             <OnboardData>
                 next step
