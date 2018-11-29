@@ -4,6 +4,7 @@ import ABlock           from '../blocks/ABlock';
 import provideStore     from '../context/provide-store';
 
 import Header           from './Header';
+import OnboardCode      from './OnboardCode';
 import OnboardData      from './OnboardData';
 import S                from './GeneratorEditor.sass';
 import store            from './store';
@@ -20,8 +21,11 @@ export default provideStore(
         <Header />
         <div className={ S.body }>
             <OnboardData>
-                next step
-                { blocks.map( block => <ABlock block={ block } /> )}
+                <OnboardCode>
+                    { blocks && blocks.length &&
+                        blocks.map( block => <ABlock block={ block } /> )
+                    }
+                </OnboardCode>
             </OnboardData>
         </div>
     </div>
