@@ -31,6 +31,8 @@ export default useStores([
             generatorEditor: {
                 blocks,
                 onClickAddOnboardSegment,
+                tokenizerLoading,
+                tokenizerError,
             },
         } = this.props;
 
@@ -51,7 +53,16 @@ export default useStores([
                                 rows="3"
                                 value={ this.inputValue }
                             />
-                            <button type="submit">Go</button>
+                            <button
+                                children={ tokenizerLoading ? '...' : 'Go' }
+                                disabled={ tokenizerLoading }
+                                type="submit"
+                            />
+                            { tokenizerError &&
+                                <div className={ S.tokenizerError }>{
+                                    tokenizerError.toString()
+                                }</div>
+                            }
                         </form>
                     </div>
                 }

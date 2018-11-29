@@ -20,10 +20,12 @@ const EXAMPLE_BLOCKS = [{
 export default {
 
     getInitialState: () => ({
-        blocks:         null,
-        contextName:    null,
-        dataSample:     null,
-        generatorName:  'Example Generator',
+        blocks:             null,
+        contextName:        null,
+        dataSample:         null,
+        generatorName:      'Example Generator',
+        tokenizerLoading:   false,
+        tokenizerError:     null,
     }),
 
     onChangeContext:    ({ contextName }) => ({ contextName }),
@@ -32,9 +34,19 @@ export default {
 
     onClickAddOnboardSegment:   () => ({ blocks: EXAMPLE_BLOCKS }),
 
-    onSubmitTextExample: ({ text }, element ) => {
+    onSubmitTextExample: ({ text }, E ) => {
 
+        E.setState({
+            tokenizerLoading:           true,
+        });
         tokenizer( text )
-            .then( blocks => element.setState({ blocks }));
+            .then( blocks => E.setState({
+                blocks,
+                tokenizerLoading:       false,
+            }))
+            .catch( tokenizerError => E.setState({
+                tokenizerError,
+                tokenizerLoading:       false,
+            }));
     },
 };
