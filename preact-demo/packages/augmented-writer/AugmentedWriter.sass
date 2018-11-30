@@ -1,19 +1,20 @@
-@import '../styles/mixins';
+@import '../styles/mixins'
+@import '../styles/variables'
 
 .className
 
-    display:                grid;
-    grid-template-columns:  5fr $unit-m 4fr;
-    grid-gap:               0;
+    display:                grid
+    grid-template-columns:  5fr $unit-m 4fr
+    grid-gap:               0
 
     > .documentActions
-        @include padded-block;
-        @include border-radius;
+        @include padded-block
+        @include border-radius
 
-        background:         #eee;
+        background:         $subtle-gray
 
     > .dataSetup
-        @include padded-block;
-        @include border-radius;
+        @include padded-block
+        @include border-radius
 
-        background:         #cfc;
+        background:         $green
