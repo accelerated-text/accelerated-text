@@ -2,22 +2,22 @@
 
 @mixin code-inline-block
 
-    display:            inline-block
-    padding:            $unit-xs (1em / 8)
-    margin:             0
     color:              $black
     cursor:             pointer
+    display:            inline-block
+    margin:             0
+    padding:            $unit-xs (1em / 8)
 
     &:hover
 
-        box-shadow:         1px 1px 1px $gray
         background-color:   $subtle-gray
+        box-shadow:         1px 1px 1px $gray
 
 @mixin code-block
 
-    display:            block
-    padding:            $unit-m
     border-radius:      $border-radius
     box-shadow:         1px 1px $gray
-    margin:             $unit-m
     cursor:             pointer
+    display:            block
+    margin:             $unit-m
+    padding:            $unit-m
