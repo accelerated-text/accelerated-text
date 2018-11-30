@@ -29,6 +29,7 @@
             "arraysInArrays":   false,
             "objectsInArrays":  false
         }],
+        "brace-style":              [ "error", "1tbs" ],
         "comma-dangle":             [ "error", "always-multiline" ],
         "indent":                   ["error", 4, {
             "ignoredNodes":     ["ConditionalExpression"]
@@ -61,6 +62,8 @@
         }],
         "one-var":                  "off",
         "quotes":                   [ "error", "single" ],
+        "react/jsx-closing-bracket-location":
+                                    "off",
         "react/jsx-curly-spacing":  [ "error", {
             "when": "always",
             "spacing": {
