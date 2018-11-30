@@ -2,6 +2,9 @@ import { h, Component } from 'preact';
 
 import useStores        from '../context/use-stores';
 
+import { QA }           from './qa.constants';
+
+
 export default useStores([
     'generatorEditor',
 ])( class UploadDataSample extends Component {
@@ -15,9 +18,12 @@ export default useStores([
         const { dataSample } =  this.props.generatorEditor;
 
         return (
-            <button onClick={ this.onClick }>{
-                dataSample ? dataSample : 'upload'
-            }</button>
+            <button
+                className={ QA.UPLOAD_SAMPLE }
+                onClick={ this.onClick }
+            >
+                { dataSample ? dataSample : 'upload' }
+            </button>
         );
     }
 });

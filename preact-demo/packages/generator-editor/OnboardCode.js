@@ -3,6 +3,7 @@ import { h, Component } from 'preact';
 import OnboardBlocker   from '../onboard-blocker/OnboardBlocker';
 import useStores        from '../context/use-stores';
 
+import { QA }           from './qa.constants';
 import S                from './OnboardCode.sass';
 
 
@@ -41,7 +42,12 @@ export default useStores([
                 { !blocks &&
                     <div className={ S.options }>
                         <div className={ S.addSegment }>
-                            <button onClick={ onClickAddOnboardSegment }>Add</button>
+                            <button
+                                className={ QA.ADD_EXAMPLE }
+                                onClick={ onClickAddOnboardSegment }
+                            >
+                                Add
+                            </button>
                             {' '}<em>description</em>
                             {' segment with all attributes.'}
                         </div>

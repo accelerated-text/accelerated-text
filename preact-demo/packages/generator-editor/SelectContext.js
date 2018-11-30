@@ -2,6 +2,8 @@ import { h, Component } from 'preact';
 
 import useStores        from '../context/use-stores';
 
+import { QA }           from './qa.constants';
+
 
 const OPTIONS = [
     'T-Shirts',
@@ -24,7 +26,11 @@ export default useStores([
         },
     }) {
         return (
-            <select onChange={ this.onChange } value={ contextName }>
+            <select
+                className={ QA.SELECT_CONTEXT }
+                onChange={ this.onChange }
+                value={ contextName }
+            >
                 <option value="">select a context</option>
                 { OPTIONS.map( name =>
                     <option key={ name } name={ name }>{ name }</option>

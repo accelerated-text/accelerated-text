@@ -1,3 +1,4 @@
+import classnames       from 'classnames';
 import { h }            from 'preact';
 
 import useStores        from '../context/use-stores';
@@ -9,18 +10,20 @@ import UploadDataSample from './UploadDataSample';
 
 export default useStores([
     'generatorEditor',
-])(
-    ({ generatorEditor: {
+])(({
+    className,
+    generatorEditor: {
         generatorName,
-    }}) =>
-        <div className={ S.className }>
-            <select className={ S.name }>
-                <optgroup label="Select a generator">
-                    <option selected>{ generatorName }</option>
-                </optgroup>
-                <option disabled>New...</option>
-            </select>
-            <span>Context: <SelectContext /></span>
-            <span>Data sample: <UploadDataSample /></span>
-        </div>
+    },
+}) =>
+    <div className={ classnames( S.className, className ) }>
+        <select className={ S.name }>
+            <optgroup label="Select a generator">
+                <option selected>{ generatorName }</option>
+            </optgroup>
+            <option disabled>New...</option>
+        </select>
+        <span>Context: <SelectContext /></span>
+        <span>Data sample: <UploadDataSample /></span>
+    </div>
 );
