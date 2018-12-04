@@ -1,10 +1,9 @@
 import { h, Component } from 'preact';
 
-import Editor               from '../augmented-editor/AugmentedEditor';
 import exampleGenerator     from '../example-generator/example-generator';
+import GeneratorEditor      from '../generator-editor/GeneratorEditor';
 import OutputPreview        from '../output-preview/OutputPreview';
 
-import Hints from './Hints';
 import S from './AugmentedWriter.sass';
 
 export default class AugmentedWriter extends Component {
@@ -26,29 +25,11 @@ export default class AugmentedWriter extends Component {
     }
 
     render() {
-        const { examples } = this.state;
-
         return (
             <div className={ S.className }>
-
-                <div className={ S.documentActions }>
-                    Document + actions
-                </div>
-                <div />
-                <div className={ S.dataSetup }>
-                    Add data source
-                </div>
-
-                <div />
-                <div />
-                <div>↓</div>
-
-                <Editor onChangeTokens={ this.onChangeTokens } />
+                <GeneratorEditor onChangeTokens={ this.onChangeTokens } />
                 <div>→</div>
-                { examples
-                    ? <OutputPreview examples={ examples } />
-                    : <Hints />
-                }
+                <OutputPreview examples={ this.state.examples } />
             </div>
         );
     }

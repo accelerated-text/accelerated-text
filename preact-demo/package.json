@@ -26,9 +26,12 @@
   "author": "Tokenmill.lt",
   "license": "UNLICENSED",
   "dependencies": {
+    "classnames": "^2.2.6",
     "isomorphic-unfetch": "^3.0.0",
     "preact": "^8.3.1",
-    "preact-router": "^2.6.1"
+    "preact-router": "^2.6.1",
+    "ramda": "^0.26.1",
+    "shallow-equal": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
