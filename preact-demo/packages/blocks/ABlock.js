@@ -2,10 +2,17 @@ import { h }            from 'preact';
 
 import S                from './ABlock.sass';
 
+import Sentence         from './Sentence';
+import Token            from './Token';
+
 
 const blockComponents = {
-    SENTENCE:           require( './Sentence' ).default,
-    TOKEN:              require( './Token' ).default,
+    ATTRIBUTE:          Token,
+    CARDINAL:           Token,
+    ORG:                Token,
+    SEGMENT:            Sentence,
+    SENTENCE:           Sentence,
+    TOKEN:              Token,
 };
 
 const ABlock = ({ block }) =>
@@ -21,11 +28,12 @@ const ABlock = ({ block }) =>
     : blockComponents[block.type]
         ? blockComponents[block.type]({ block })
 
-    : (
-        <div className={ S.unknownBlock }>
-            Unknown block { block.type }!
-        </div>
-    );
+    : block.text
+        ? <Token block={ block } />
 
+    : ( block.children && block.children.length )
+        ? <Sentence block={ block } />
+
+    : null;
 
 export default ABlock;

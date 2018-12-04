@@ -3,16 +3,22 @@ import fetch                from 'isomorphic-unfetch';
 import { mountPath }        from './constants';
     
 
-const analysisFetch =       async ( path, options = null ) =>
-    fetch( mountPath + path, {
+const analysisFetch =       async ( path, options = null ) => {
+
+    const response = await fetch( mountPath + path, {
         ...options,
         headers: {
             Accept:         'application/json',
             ...( options && options.headers || null ),
         },
-    }).then(
-        response => response.json()
-    );
+    });
+
+    if( response.status >= 400 ) {
+        throw Error( response.statusText );
+    } else {
+        return await response.json();
+    }
+};
 
 export default analysisFetch;
 

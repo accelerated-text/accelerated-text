@@ -7,8 +7,24 @@
     @include code-inline-block
 
     background-color:       $white
+    color:                  $gray
 
     &:hover
 
         background-color:   $subtle-gray
+
+    &.ATTRIBUTE
+
+        background-color:   $green
+        color:              $black
+
+    &.CARDINAL,
+    &.ORG,
+    &.PERSON
+
+        color:              $red
+
+    &.TOKEN
+
+        color:              $black
 
