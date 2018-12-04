@@ -6,13 +6,17 @@ const webpack =             require( 'webpack' );
 const analysisProxy =       require( '../analysis-api/http-proxy-middleware-config' );
 
 
-const DIST = path.resolve( __dirname, 'dist' );
+const ASSETS =              path.resolve( __dirname, '../../assets' );
+const DIST =                path.resolve( __dirname, 'dist' );
 
 
 module.exports = {
     devtool:            'inline-source-map',
     devServer: {
-        contentBase:    './dist',
+        contentBase:    [
+            './dist',
+            ASSETS,
+        ],
         hot:            true,
         open:           false,
         proxy: {

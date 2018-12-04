@@ -2,6 +2,7 @@ import classnames       from 'classnames';
 import { h }            from 'preact';
 
 import ABlock           from '../blocks/ABlock';
+import BlocklyEditor    from '../blockly-editor/BlocklyEditor';
 import provideStore     from '../context/provide-store';
 
 import Header           from './Header';
@@ -27,6 +28,7 @@ export default provideStore(
                     { blocks && blocks.length &&
                         blocks.map( block => <ABlock block={ block } /> )
                     }
+                    <BlocklyEditor />
                 </OnboardCode>
             </OnboardData>
         </div>
