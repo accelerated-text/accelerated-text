@@ -1,3 +1,5 @@
+PROJECT_TAG=lexical-analyser
+
 init:
 	pip install pipenv
 
@@ -16,3 +18,9 @@ deploy:
 
 tests: init install-dev-deps download-spacy-models
 	pipenv run python -m pytest tests
+
+build-docker:
+	docker build -t ${PROJECT_TAG} .
+
+run-docker: build-docker
+	docker run -d -p 8000:8000 ${PROJECT_TAG}
