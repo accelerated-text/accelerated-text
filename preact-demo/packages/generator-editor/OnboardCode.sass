@@ -1,25 +1,26 @@
-@import '../styles/variables';
+@import '../styles/variables'
+
 
 .className
 
     > .options
 
-        padding:            0
         border-bottom:      1px dotted $gray
-        margin-bottom:      $unit-s
+        margin-bottom:      $space-s
+        padding:            0
 
         > *
 
-            padding-bottom: $unit-s
+            padding-bottom: $space-s
 
         > .textForm
 
-            display:                grid
-            width:                  100%
-            grid-template-columns:  1fr 4em
-            grid-gap:               $unit-s
             align-items:            stretch
+            display:                grid
+            grid-gap:               $space-s
+            grid-template-columns:  1fr 4em
             justify-items:          stretch
+            width:                  100%
 
             > .tokenizerError
 
@@ -27,5 +28,5 @@
 
         > .or
 
-            text-align:     center
             font-weight:    bold
+            text-align:     center

@@ -10,9 +10,10 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config packages/webpack/config.js",
-    "test": "eslint packages && jest",
+    "test": "npm run test:eslint && npm run test:sasslint && npm run test:jest",
     "test:eslint": "eslint packages",
-    "test:jest": "jest"
+    "test:jest": "jest",
+    "test:sasslint": "sass-lint -vq"
   },
   "repository": {
     "type": "git",
@@ -50,6 +51,7 @@
     "jest-puppeteer": "^3.5.1",
     "node-sass": "^4.10.0",
     "puppeteer": "1.7.0",
+    "sass-lint": "^1.12.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "timeout-as-promise": "^1.0.0",
