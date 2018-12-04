@@ -4,7 +4,7 @@ from flask import Flask
 from flask_restplus import Api, Resource
 from flask_cors import CORS
 
-from api.routes import analyser
+from api.routes import analyser, utils
 
 
 def register_endpoint(app, api, mod):
@@ -28,6 +28,7 @@ def create_app():
             return {'status': 'OK'}
 
     register_endpoint(app, api, analyser)
+    register_endpoint(app, api, utils)
     return app
 
 

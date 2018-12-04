@@ -16,11 +16,6 @@ logger = logging.getLogger(__name__)
 bp = Blueprint('analyser', __name__, url_prefix='/analyse')
 ns = Namespace('analyser', description='Text Analysis API')
 
-attribute = ns.model('attribute', {
-    'key': fields.String(required=True),
-    'value': fields.String(required=True)
-})
-
 
 annotation = ns.model('annotation', {
     'text': fields.String(required=True),
@@ -31,18 +26,30 @@ annotation = ns.model('annotation', {
         description=('Defines type of result.'
                      'If it is an entity - returns label')
     ),
-    'attributes': fields.List(fields.Nested(attribute))
 })
 
+token = ns.model('token', {
+    'text': fields.String(required=True),
+    'start': fields.Integer(required=True),
+    'end': fields.Integer(required=True),
+    'type': fields.String(
+        required=True,
+        description=('Defines type of result.'
+                     'If it is an entity - returns label')
+    ),
+    'partOfSpeech': fields.String(),
+    'isStopWord': fields.String()
+})
 
-nested_annotation = ns.model('nested_annotation', {
+sentence = ns.model('sentence', {
     'text': fields.String(required=True),
     'type': fields.String(
         required=True,
-        description=('Define type of result')
+        description='Define type of result'
     ),
-
-    'children': fields.List(fields.Nested(annotation))
+    'start': fields.Integer(required=True),
+    'end': fields.Integer(required=True),
+    'children': fields.List(fields.Nested(token))
 })
 
 text = ns.model('text', {
@@ -60,9 +67,9 @@ parse_response = ns.model('parse_response', {
     'results': fields.List(fields.Nested(annotation))
 })
 
-nested_response = ns.model('parse_response', {
+combined_response = ns.model('combined_response', {
     'text': fields.String(required=True, description='Original text'),
-    'results': fields.List(fields.Nested(nested_annotation))
+    'results': fields.List(fields.Nested(sentence))
 })
 
 
@@ -114,17 +121,34 @@ class NERParse(Resource):
             )
         }
 
+
 @ns.route('/combined')
 class CombinedParser(Resource):
     @ns.expect(text)
-    #@ns.marshal_with(nested_response)
     def post(self):
         content = request.json
         lang = content['lang']
-        return {
-            'text': content['text'],
-            'results': parse_combined(
+        results = parse_combined(
                 content['text'],
                 LANG_TO_MODEL.get(lang, DEFAULT_LANG)
-            )
+        )
+
+        def map_token_to_response(token):
+            return {'text': token.text,
+                    'type': token.type,
+                    'start': token.start,
+                    'end': token.end,
+                    'partOfSpeech': token.part_of_speech,
+                    'isStopWord': token.is_stopword}
+
+        def map_sentence_to_response(sent):
+            return {'text': sent['text'],
+                    'type': sent['type'],
+                    'start': sent['start'],
+                    'end': sent['end'],
+                    'children': map(map_token_to_response, sent['children'])}
+
+        return {
+            'text': content['text'],
+            'results': map(map_sentence_to_response, results)
         }
