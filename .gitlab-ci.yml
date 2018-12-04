@@ -3,3 +3,21 @@ image: registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest
 test:preact_demo:
     script:
         - make test
+
+lexical-analysis:code-linter:
+  image: python:3.7.1-alpine3.8
+  stage: test
+  when: on_success
+  script:
+    - pip install flake8
+    - flake8 api
+    - flake8 core
+    
+lexical-analysis:unit-tests:
+  image: python:3.7.1-alpine3.8
+  stage: test
+  when: on_success
+  script:
+    - pip install pytest
+    - pip install pytest-flask
+    - python -m pytest tests
