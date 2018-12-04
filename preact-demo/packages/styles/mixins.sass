@@ -1,22 +1,21 @@
-@import './colors';
-@import './variables';
+@import './colors'
+@import './variables'
 
 @mixin border-radius
 
-    border-radius:      $border-radius;
+    border-radius:      $border-radius
 
 
 @mixin padded-block
 
-    box-sizing:         border-box;
-    padding:            $unit-m;
+    box-sizing:         border-box
+    padding:            $space-m
 
 
 @mixin widget-block
 
-    display:            block;
-    box-sizing:         border-box;
-    min-height:         20em;
-    padding:            calc( 1em - 1px );
-    border:             1px solid $border-color;
-
+    border:             1px solid $border-color
+    box-sizing:         border-box
+    display:            block
+    min-height:         20em
+    padding:            calc( 1em - 1px )
