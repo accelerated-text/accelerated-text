@@ -48,18 +48,18 @@ export default {
         tokenizerLoading:   false,
     }),
 
-    onSubmitTextExample: ({ text }, { actions, state }) => {
+    onSubmitTextExample: ({ text }, { events, state }) => {
 
         /// Prevent new requests while the previous one is not finished:
         if( state.tokenizerLoading ) {
             return;
         }
 
-        actions.onTokenizerRequest();
+        events.onTokenizerRequest();
 
         tokenizer( text )
             .then( tokensToBlockly )
-            .then( actions.onTokenizerResult )
-            .catch( actions.onTokenizerError );
+            .then( events.onTokenizerResult )
+            .catch( events.onTokenizerError );
     },
 };
