@@ -11,6 +11,7 @@
         "crockford"
     ],
     "globals": {
+        "Blockly":      true,
         "page":         true,
         "TEST_URL":     true
     },
@@ -32,7 +33,11 @@
         "brace-style":              [ "error", "1tbs" ],
         "comma-dangle":             [ "error", "always-multiline" ],
         "indent":                   ["error", 4, {
-            "ignoredNodes":     ["ConditionalExpression"]
+            "ignoredNodes": [
+                "ConditionalExpression",
+                "TemplateElement *",
+                "TemplateLiteral *"
+            ]
         }],
         "key-spacing":              [ "error", {
             "beforeColon":      false,
@@ -53,6 +58,7 @@
             "capIsNew":         false,
             "newIsCap":         true
         }],
+        "no-underscore-dangle":     "warn",
         "no-use-before-define":     [ "error", {
             "functions": false
         }],
