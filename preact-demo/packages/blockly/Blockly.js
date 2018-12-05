@@ -30,9 +30,8 @@ export default class Blockly extends Component {
             this.lastOffsetWidth =                  offsetWidth;
             this.workspaceElement.style.height =    `${ offsetHeight }px`;
             this.workspaceElement.style.width =     `${ offsetWidth }px`;
+            this.Blockly.svgResize( this.workspace );
         }
-
-        this.Blockly.svgResize( this.workspace );
     }
 
     async componentDidMount() {
@@ -53,9 +52,7 @@ export default class Blockly extends Component {
             ...options,
         });
 
-        onMount && onMount( this.Blockly, {
-            workspace:  this.workspace,
-        });
+        onMount && onMount( this.workspace );
 
         window.addEventListener( 'resize', this.onResize, false );
         this.onResize();

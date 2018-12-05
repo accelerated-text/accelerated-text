@@ -20,9 +20,18 @@ const toolboxXml =      toolbox.toXmlString();
 
 export default class BlocklyEditor extends Component {
 
-    onMountBlockly = ( Blockly, { workspace }) => {
+    Blockly =           null;
+    workspace =         null;
 
-        window.workspace =  workspace;
+    onLoadBlockly = Blockly => {
+
+        this.Blockly =  Blockly;
+        toolbox.registerBlocks( Blockly );
+    };
+
+    onMountWorkspace = workspace => {
+
+        this.workspace =    window.workspace =  workspace;
     }
 
     render() {
@@ -30,8 +39,8 @@ export default class BlocklyEditor extends Component {
             <div className={ S.className }>
                 <Blockly
                     assetUrl="/blockly"
-                    onLoad={ toolbox.registerBlocks }
-                    onMount={ this.onMountBlockly }
+                    onLoad={ this.onLoadBlockly }
+                    onMount={ this.onMountWorkspace }
                     options={{ toolbox: toolboxXml }}
                 />
             </div>
