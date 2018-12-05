@@ -5,7 +5,7 @@ test:preact_demo:
         - make test
 
 lexical-analysis:code-linter:
-  image: alpine:flake8
+  image: registry.gitlab.com/tokenmill/nlg/augmented-writter/pytest:latest
   stage: test
   when: on_success
   script:
