@@ -5,11 +5,10 @@ test:preact_demo:
         - make test
 
 lexical-analysis:code-linter:
-  image: python:3.7.1-alpine3.8
+  image: alpine:flake8
   stage: test
   when: on_success
   script:
-    - pip install flake8
     - flake8 lexical-analyser/api
     - flake8 lexical-analyser/core
 
