@@ -1,0 +1,5 @@
+FROM python:3.7.1-alpine3.8
+
+RUN pip install flake8
+RUN pip install pytest
+RUN pip install pytest-flask
