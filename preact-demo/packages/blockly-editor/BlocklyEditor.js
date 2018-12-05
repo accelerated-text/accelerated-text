@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import PropTypes        from 'prop-types';
 
 import attribute        from '../blockly-blocks/attribute';
 import getToolbox       from '../blockly-blocks/get-toolbox';
@@ -20,8 +21,26 @@ const toolboxXml =      toolbox.toXmlString();
 
 export default class BlocklyEditor extends Component {
 
+    static propTypes = {
+        onChangeWorkspace:  PropTypes.func,
+        workspaceXml:       PropTypes.object,
+    };
+
     Blockly =           null;
     workspace =         null;
+
+    onChangeWorkspace = () => {
+
+        if( this.props.onChangeWorkspace ) {
+            this.props.onChangeWorkspace(
+                this.Blockly.Xml.domToText(
+                    this.Blockly.Xml.workspaceToDom(
+                        this.workspace
+                    )
+                )
+            );
+        }
+    }
 
     onLoadBlockly = Blockly => {
 
@@ -31,7 +50,18 @@ export default class BlocklyEditor extends Component {
 
     onMountWorkspace = workspace => {
 
+        const { workspaceXml } =    this.props;
+
         this.workspace =    window.workspace =  workspace;
+
+        if( workspaceXml ) {
+            this.Blockly.Xml.domToWorkspace(
+                this.Blockly.Xml.textToDom( workspaceXml ),
+                workspace,
+            );
+        }
+
+        this.workspace.addChangeListener( this.onChangeWorkspace );
     }
 
     render() {

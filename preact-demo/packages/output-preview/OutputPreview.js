@@ -2,16 +2,14 @@ import { h } from 'preact';
 
 import S from './OutputPreview.sass';
 
-export default ({ examples }) =>
+export default ({ xml }) =>
 
     <div className={ S.className }>
-        { ( examples && examples.length )
+        { xml
             ? (
                 <div>
                     <h2 className={ S.title }>Generated examples:</h2>
-                    { examples.map( str =>
-                        <div className={ S.example }>{ str }</div>
-                    )}
+                    <div className={ S.example }>{ xml }</div>
                 </div>
             )
             : <div>No examples yet.</div>

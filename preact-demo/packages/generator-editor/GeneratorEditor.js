@@ -19,6 +19,8 @@ export default provideStore(
     generatorEditor: {
         blocks,
     },
+    onChangeXml,
+    xml,
 }) =>
     <div className={ S.className }>
         <Header className={ QA.HEADER } />
@@ -28,7 +30,10 @@ export default provideStore(
                     { blocks && blocks.length &&
                         blocks.map( block => <ABlock block={ block } /> )
                     }
-                    <BlocklyEditor />
+                    <BlocklyEditor
+                        onChangeWorkspace={ onChangeXml }
+                        workspaceXml={ xml }
+                    />
                 </OnboardCode>
             </OnboardData>
         </div>
