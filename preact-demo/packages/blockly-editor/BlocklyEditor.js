@@ -1,11 +1,11 @@
 import { h, Component } from 'preact';
 import PropTypes        from 'prop-types';
 
-import attribute        from '../blockly-blocks/attribute';
-import getToolbox       from '../blockly-blocks/get-toolbox';
+import attribute        from '../blocks/attribute';
+import getToolbox       from '../blocks/get-toolbox';
 import Blockly          from '../blockly/Blockly';
-import segment          from '../blockly-blocks/segment';
-import unorderedList    from '../blockly-blocks/unordered-list';
+import segment          from '../blocks/segment';
+import unorderedList    from '../blocks/unordered-list';
 
 import S                from './BlocklyEditor.sass';
 
