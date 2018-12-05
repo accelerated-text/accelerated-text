@@ -15,7 +15,7 @@ export default Block({
             name:           'GOAL',
             options: [
                 [ 'Description',    'description' ],
-                [ 'Pitch',          'ditch' ],
+                [ 'Pitch',          'pitch' ],
             ],
         }],
         message1:           'with %1',
