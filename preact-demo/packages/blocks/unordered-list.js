@@ -8,6 +8,7 @@ export default Block({
     json: {
         colour:             180,
         previousStatement:  'Action',
+        nextStatement:      'Action',
         message0:           'UL',
         message1:           '%1',
         args1: [{

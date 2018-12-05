@@ -15,7 +15,6 @@ export default {
         generatorName:      'Example Generator',
         tokenizerError:     null,
         tokenizerLoading:   false,
-        tokenizerResult:    null,
     }),
 
     onChangeContext: ({ contextName }) => ({
@@ -38,10 +37,10 @@ export default {
         tokenizerLoading:   true,
     }),
 
-    onTokenizerResult: tokenizerResult => ({
+    onTokenizerResult: blocklyXml => ({
+        blocklyXml,
         tokenizerError:     false,
         tokenizerLoading:   false,
-        tokenizerResult,
     }),
 
     onTokenizerError: tokenizerError => ({

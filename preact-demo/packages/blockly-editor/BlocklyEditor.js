@@ -5,6 +5,8 @@ import attribute        from '../blocks/attribute';
 import getToolbox       from '../blocks/get-toolbox';
 import Blockly          from '../blockly/Blockly';
 import segment          from '../blocks/segment';
+import sentence         from '../blocks/sentence';
+import token            from '../blocks/token';
 import unorderedList    from '../blocks/unordered-list';
 
 import S                from './BlocklyEditor.sass';
@@ -14,6 +16,8 @@ const toolbox = getToolbox([
     segment,
     unorderedList,
     attribute,
+    sentence,
+    token,
 ]);
 
 const toolboxXml =      toolbox.toXmlString();

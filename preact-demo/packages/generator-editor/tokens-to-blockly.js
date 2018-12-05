@@ -10,18 +10,37 @@ const sentenceToBlock = result =>
         ${ result.children.map(
             ( child, i ) =>
                 `<value name="CHILD${ i }">${ tokenToBlock( child ) }</value>`
-        ).join( '' )}
+        ).join( '' ) }
+        ${ result.next
+            ? `<next>${ sentenceToBlock( result.next ) }</next>`
+            : ''
+        }
     </block>`;
 
-const resultToBlock = result =>
-    ( result.type === 'SENTENCE' || result.children )
-        ? sentenceToBlock( result )
-    : ( result.type === 'TOKEN' || result.text )
-        ? tokenToBlock( result )
-    : '';
+const arrayToLinkedList = ( acc, item, i ) => {
+
+    if( i === 1 ) {
+        acc.next =          item;
+        return {
+            head:           acc,
+            previous:       item,
+        };
+    } else {
+        acc.previous.next = item;
+        acc.previous =      item;
+        return acc;
+    }
+};
 
 
-export default results =>
+export default sentences =>
     `<xml xmlns="http://www.w3.org/1999/xhtml">
-        ${ results.map( resultToBlock ).join( '' ) }
+        <block type="segment">
+            <field name="GOAL">description</field>
+            <statement name="CHILDREN">
+                ${ sentenceToBlock(
+                    sentences.reduce( arrayToLinkedList ).head
+                )}
+            </statement>
+        </block>
     </xml>`;

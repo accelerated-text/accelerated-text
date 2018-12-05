@@ -41,23 +41,26 @@ export default useStores([
             <div className={ S.className }>
                 { !blocklyXml &&
                     <div className={ S.options }>
-                        <div className={ S.addSegment }>
-                            <button
-                                className={ QA.ADD_EXAMPLE }
-                                onClick={ onClickAddOnboardSegment }
-                            >
-                                Add
-                            </button>
-                            {' '}<em>description</em>
-                            {' segment with all attributes.'}
-                        </div>
-                        <div className={ S.or }>OR</div>
+                        { !tokenizerLoading && [
+                            <div className={ S.addSegment }>
+                                <button
+                                    className={ QA.ADD_EXAMPLE }
+                                    onClick={ onClickAddOnboardSegment }
+                                >
+                                    Add
+                                </button>
+                                {' '}<em>description</em>
+                                {' segment with all attributes.'}
+                            </div>,
+                            <div className={ S.or }>OR</div>,
+                        ]}
                         <form className={ S.textForm } onSubmit={ this.onSubmitInput }>
                             <textarea
-                                placeholder="Input a text example"
+                                disabled={ tokenizerLoading }
                                 onChange={ this.onChangeInput }
+                                placeholder="Input a text example"
                                 rows="3"
-                                value={ this.inputValue }
+                                value={ tokenizerLoading ? 'loading...' : this.inputValue }
                             />
                             <button
                                 children={ tokenizerLoading ? '...' : 'Go' }
