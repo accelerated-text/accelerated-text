@@ -1,5 +1,7 @@
 import tokenizer            from '../tokenizer/tokenizer';
 
+import tokensToBlockly      from './tokens-to-blockly';
+
 
 const EXAMPLE_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="segment" id="DK}9g^x|yLs%I]mh%jB{" x="30" y="39"><field name="GOAL">description</field><statement name="CHILDREN"><block type="unordered-list" id="t[Z%upfy@+5R(pr365xS"><mutation input_count="4"></mutation><value name="CHILD1"><block type="attribute" id="3Af_4b-FKj#Um%j@[eam"><field name="ATTRIBUTE">color</field></block></value><value name="CHILD2"><block type="attribute" id="pN2{}2ejgJ`5?of~%`X5"><field name="ATTRIBUTE">material</field></block></value><value name="CHILD3"><block type="attribute" id="wT1Z-fTn`I!v+^u`M.$]"><field name="ATTRIBUTE">make</field></block></value></block></statement></block></xml>';
 
@@ -7,13 +9,13 @@ const EXAMPLE_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="segm
 export default {
 
     getInitialState: () => ({
-        blocks:             null,
         blocklyXml:         '',
         contextName:        null,
         dataSample:         null,
         generatorName:      'Example Generator',
         tokenizerError:     null,
         tokenizerLoading:   false,
+        tokenizerResult:    null,
     }),
 
     onChangeContext: ({ contextName }) => ({
@@ -36,10 +38,10 @@ export default {
         tokenizerLoading:   true,
     }),
 
-    onTokenizerResult: blocks => ({
-        blocks,
+    onTokenizerResult: tokenizerResult => ({
         tokenizerError:     false,
         tokenizerLoading:   false,
+        tokenizerResult,
     }),
 
     onTokenizerError: tokenizerError => ({
@@ -57,6 +59,7 @@ export default {
         actions.onTokenizerRequest();
 
         tokenizer( text )
+            .then( tokensToBlockly )
             .then( actions.onTokenizerResult )
             .catch( actions.onTokenizerError );
     },
