@@ -30,7 +30,7 @@ export default useStores([
         const {
             children,
             generatorEditor: {
-                blocks,
+                blocklyXml,
                 onClickAddOnboardSegment,
                 tokenizerLoading,
                 tokenizerError,
@@ -39,7 +39,7 @@ export default useStores([
 
         return (
             <div className={ S.className }>
-                { !blocks &&
+                { !blocklyXml &&
                     <div className={ S.options }>
                         <div className={ S.addSegment }>
                             <button
@@ -72,7 +72,7 @@ export default useStores([
                         </form>
                     </div>
                 }
-                <OnboardBlocker showBlock={ !blocks }>
+                <OnboardBlocker showBlock={ !blocklyXml }>
                     { children }
                 </OnboardBlocker>
             </div>

@@ -1,17 +1,26 @@
-import { h } from 'preact';
+import { h }            from 'preact';
 
-import S from './OutputPreview.sass';
+import useStores        from '../context/use-stores';
 
-export default ({ xml }) =>
+import S                from './OutputPreview.sass';
 
+
+export default useStores([
+    'generatorEditor',
+])(({
+    generatorEditor: {
+        blocklyXml,
+    },
+}) =>
     <div className={ S.className }>
-        { xml
+        { blocklyXml
             ? (
                 <div>
                     <h2 className={ S.title }>Generated examples:</h2>
-                    <div className={ S.example }>{ xml }</div>
+                    <div className={ S.example }>{ blocklyXml }</div>
                 </div>
             )
             : <div>No examples yet.</div>
         }
-    </div>;
+    </div>
+);

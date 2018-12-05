@@ -1,27 +1,19 @@
-import { h }            from 'preact';
+import { h }                from 'preact';
 
-import GeneratorEditor  from '../generator-editor/GeneratorEditor';
-import OutputPreview    from '../output-preview/OutputPreview';
-import provideStore     from '../context/provide-store';
+import GeneratorEditor      from '../generator-editor/GeneratorEditor';
+import generatorEditorStore from '../generator-editor/store';
+import OutputPreview        from '../output-preview/OutputPreview';
+import provideStore         from '../context/provide-store';
 
 import S                from './AugmentedWriter.sass';
-import store            from './store';
 
 
 export default provideStore(
-    'augmentedWriter', store,
-)(({
-    augmentedWriter: {
-        onChangeXml,
-        xml,
-    },
-}) =>
+    'generatorEditor', generatorEditorStore,
+)(() =>
     <div className={ S.className }>
-        <GeneratorEditor
-            onChangeXml={ onChangeXml }
-            xml={ xml }
-        />
+        <GeneratorEditor />
         <div>→</div>
-        <OutputPreview xml={ xml } />
+        <OutputPreview />
     </div>
 );
