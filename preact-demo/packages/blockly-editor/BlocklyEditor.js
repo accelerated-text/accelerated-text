@@ -1,35 +1,28 @@
-/// import Blockly          from '@code-dot-org/blockly';
 import { h, Component } from 'preact';
 
 import attribute        from '../blockly-blocks/attribute';
+import getToolbox       from '../blockly-blocks/get-toolbox';
 import Blockly          from '../blockly/Blockly';
 import segment          from '../blockly-blocks/segment';
+import unorderedList    from '../blockly-blocks/unordered-list';
 
 import S                from './BlocklyEditor.sass';
 
 
-const toolbox = `
-<xml style="display: none">
-    <category name="Building blocks">
-        <block type="segment" />
-        <block type="attribute" />
-    </category>
-    <category name="Styling" />
-</xml>
-`;
+const toolbox = getToolbox([
+    segment,
+    unorderedList,
+    attribute,
+]);
+
+const toolboxXml =      toolbox.toXmlString();
 
 
 export default class BlocklyEditor extends Component {
 
-    onLoadBlockly = Blockly => {
-        attribute( Blockly );
-        segment( Blockly );
-    }
-
     onMountBlockly = ( Blockly, { workspace }) => {
 
-        console.log( Blockly );
-        console.log( workspace );
+        window.workspace =  workspace;
     }
 
     render() {
@@ -37,9 +30,9 @@ export default class BlocklyEditor extends Component {
             <div className={ S.className }>
                 <Blockly
                     assetUrl="/blockly"
-                    onLoad={ this.onLoadBlockly }
+                    onLoad={ toolbox.registerBlocks }
                     onMount={ this.onMountBlockly }
-                    options={{ toolbox }}
+                    options={{ toolbox: toolboxXml }}
                 />
             </div>
         );
