@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 
-import loadBlockly      from './load';
+import injectBlockly    from '../inject-blockly/inject-blockly';
+
 import S                from './Blockly.sass';
 
 
@@ -43,7 +44,7 @@ export default class Blockly extends Component {
             options,
         } = this.props;
 
-        this.Blockly =  await loadBlockly({ prefix: assetUrl });
+        this.Blockly =  await injectBlockly({ prefix: assetUrl });
 
         onLoad && onLoad( this.Blockly );
 
