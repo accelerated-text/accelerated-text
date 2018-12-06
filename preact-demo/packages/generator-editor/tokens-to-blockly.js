@@ -19,17 +19,13 @@ const sentenceToBlock = result =>
 
 const arrayToLinkedList = ( acc, item, i ) => {
 
-    if( i === 1 ) {
-        acc.next =          item;
-        return {
-            head:           acc,
-            previous:       item,
-        };
+    if( !acc.head ) {
+        acc.head =      item;
     } else {
         acc.previous.next = item;
-        acc.previous =      item;
-        return acc;
     }
+    acc.previous =      item;
+    return acc;
 };
 
 
@@ -39,7 +35,7 @@ export default sentences =>
             <field name="GOAL">description</field>
             <statement name="CHILDREN">
                 ${ sentenceToBlock(
-                    sentences.reduce( arrayToLinkedList ).head
+                    sentences.reduce( arrayToLinkedList, {}).head
                 )}
             </statement>
         </block>
