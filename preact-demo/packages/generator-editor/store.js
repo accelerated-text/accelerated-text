@@ -1,3 +1,5 @@
+import pTap                 from 'p-tap';
+
 import tokenizer            from '../tokenizer/tokenizer';
 
 import tokensToBlockly      from './tokens-to-blockly';
@@ -60,9 +62,7 @@ export default {
         tokenizer( text )
             .then( tokensToBlockly )
             .then( events.onTokenizerResult )
-            .catch( err => {
-                console.error( err );
-                events.onTokenizerError( err );
-            });
+            .catch( pTap( console.error ))
+            .catch( events.onTokenizerError );
     },
 };

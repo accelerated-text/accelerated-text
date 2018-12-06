@@ -31,6 +31,7 @@
     "dom-dom": "^1.2.3",
     "fetch-inject": "^2.0.2",
     "isomorphic-unfetch": "^3.0.0",
+    "p-tap": "^2.0.0",
     "preact": "^8.3.1",
     "preact-router": "^2.6.1",
     "prop-types": "^15.6.2",
