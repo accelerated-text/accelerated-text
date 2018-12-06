@@ -8,10 +8,10 @@ export default blocks => ({
     },
 
     toXmlString() {
-
         return `
             <xml style="display: none">
                 ${ blocks
+                    .filter( block => !block.noToolbox )
                     .map( block => `<block type="${ block.type }" />` )
                     .join( '' )
                 }
@@ -20,5 +20,3 @@ export default blocks => ({
 
     },
 });
-
-

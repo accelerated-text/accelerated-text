@@ -35,4 +35,4 @@ export default ({ init, json, type, ...spec }) =>
         } else if( hasExtension ) {
             Blockly.Extensions.register( extensions[0], init );
         }
-    }, { type });
+    }, { json, type, ...spec });

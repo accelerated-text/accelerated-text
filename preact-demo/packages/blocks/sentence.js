@@ -5,6 +5,8 @@ export default Block({
 
     type:                   'sentence',
 
+    noToolbox:              true,
+
     json: {
         colour:             300,
         previousStatement:  'Action',
