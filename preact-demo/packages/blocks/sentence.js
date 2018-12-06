@@ -21,7 +21,7 @@ export default Block({
 
     mutationToDom() {
 
-        const el =      document.createElement( 'mutation' );
+        const el =          document.createElement( 'mutation' );
         el.setAttribute( 'children_count', this.inputList.length - 1 );
         return el;
     },
@@ -29,10 +29,7 @@ export default Block({
 
     domToMutation( xmlElement ) {
 
-        const children_count =  parseInt(
-            xmlElement.getAttribute( 'children_count' ),
-            10
-        );
+        const children_count =  xmlElement.getAttribute( 'children_count' );
 
         for( let i = 0; i < children_count; i += 1 ) {
             this.appendInput_(

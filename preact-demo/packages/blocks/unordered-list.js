@@ -28,7 +28,7 @@ export default Block({
 
     mutationToDom() {
 
-        const el =      document.createElement( 'mutation' );
+        const el =          document.createElement( 'mutation' );
         el.setAttribute( 'input_count', this.input_count );
         return el;
     },
@@ -36,12 +36,9 @@ export default Block({
 
     domToMutation( xmlElement ) {
 
-        const input_count =  parseInt(
-            xmlElement.getAttribute( 'input_count' ),
-            10
+        this.onChange(
+            xmlElement.getAttribute( 'input_count' )
         );
-
-        this.onChange( input_count );
     },
 
     appendNextInput() {
@@ -53,8 +50,8 @@ export default Block({
     onChange( input_count = 0 ) {
 
         const emptyInputs = this.inputList.filter( input => (
-            input.isVisible() &&
-                !input.connection || !input.connection.isConnected()
+            !input.connection || !input.connection.isConnected()
+            && input.isVisible()
         ));
 
         emptyInputs.shift();
