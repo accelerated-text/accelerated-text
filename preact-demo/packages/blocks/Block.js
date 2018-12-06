@@ -1,3 +1,6 @@
+const EMPTY_FUNCTION =          () => {};
+
+
 export default ({ init, json, type, ...spec }) =>
     Object.assign( Blockly => {
 
@@ -31,8 +34,16 @@ export default ({ init, json, type, ...spec }) =>
         Blockly.defineBlocksWithJsonArray([ blockJson ]);
 
         if( hasMutator ) {
-            Blockly.Extensions.registerMutator( mutator, spec, init, spec.blockList );
+            Blockly.Extensions.registerMutator(
+                mutator,
+                spec,
+                init || EMPTY_FUNCTION,
+                spec.blockList,
+            );
         } else if( hasExtension ) {
-            Blockly.Extensions.register( extensions[0], init );
+            Blockly.Extensions.register(
+                extensions[0],
+                init || EMPTY_FUNCTION,
+            );
         }
     }, { json, type, ...spec });

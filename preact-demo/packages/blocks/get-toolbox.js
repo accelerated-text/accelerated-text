@@ -11,7 +11,7 @@ export default blocks => ({
         return `
             <xml style="display: none">
                 ${ blocks
-                    .filter( block => !block.noToolbox )
+                    .filter( block => !block.skipToolbox )
                     .map( block => `<block type="${ block.type }" />` )
                     .join( '' )
                 }

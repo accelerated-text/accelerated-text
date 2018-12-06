@@ -1,3 +1,6 @@
+import { h, mount }         from 'dom-dom';
+import { times }            from 'ramda';
+
 import Block                from './Block';
 
 
@@ -5,7 +8,7 @@ export default Block({
 
     type:                   'sentence',
 
-    noToolbox:              true,
+    skipToolbox:            true,
 
     json: {
         colour:             300,
@@ -14,28 +17,17 @@ export default Block({
         message0:           'Sentence',
     },
 
-    init() {
-
-        this.setEditable( false );
-    },
-
     mutationToDom() {
-
-        const el =          document.createElement( 'mutation' );
-        el.setAttribute( 'children_count', this.inputList.length - 1 );
-        return el;
+        return mount(
+            <mutation children_count={ this.inputList.length - 1 } />
+        );
     },
-
 
     domToMutation( xmlElement ) {
 
-        const children_count =  xmlElement.getAttribute( 'children_count' );
-
-        for( let i = 0; i < children_count; i += 1 ) {
-            this.appendInput_(
-                Blockly.INPUT_VALUE,
-                `CHILD${ i }`,
-            );
-        }
+        times(
+            i => this.appendInput_( Blockly.INPUT_VALUE, `CHILD${ i }` ),
+            xmlElement.getAttribute( 'children_count' )
+        );
     },
 });

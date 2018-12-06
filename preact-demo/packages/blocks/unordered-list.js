@@ -1,3 +1,5 @@
+import { h, mount }         from 'dom-dom';
+
 import Block                from './Block';
 
 
@@ -9,28 +11,24 @@ export default Block({
         colour:             180,
         previousStatement:  'Action',
         nextStatement:      'Action',
-        message0:           'UL',
-        message1:           '%1',
-        args1: [{
-            type:           'input_value',
-            name:           'CHILD1',
-        }],
+        message0:           'all words',
     },
 
-    input_count:            1,
+    input_count:            0,
 
     init() {
 
         this.setOnChange( e => {
             this.onChange();
         });
+        this.onChange();
     },
 
     mutationToDom() {
 
-        const el =          document.createElement( 'mutation' );
-        el.setAttribute( 'input_count', this.input_count );
-        return el;
+        return mount(
+            <mutation input_count={ this.input_count } />
+        );
     },
 
 
@@ -43,26 +41,25 @@ export default Block({
 
     appendNextInput() {
 
-        this.input_count += 1;
         this.appendInput_( Blockly.INPUT_VALUE, `CHILD${ this.input_count }` );
+        this.input_count += 1;
     },
 
     onChange( input_count = 0 ) {
 
         const emptyInputs = this.inputList.filter( input => (
-            !input.connection || !input.connection.isConnected()
-            && input.isVisible()
+            input.name
+            && ( !input.connection || !input.connection.isConnected())
         ));
-
-        emptyInputs.shift();
 
         if( emptyInputs.length < 1 ) {
             this.appendNextInput();
         } else if( emptyInputs.length > 1 ) {
-            emptyInputs.pop();
-            emptyInputs.forEach(
-                input => this.removeInput( input.name )
-            );
+            emptyInputs
+                .slice( 1 )
+                .forEach(
+                    input => this.removeInput( input.name )
+                );
         }
 
         while( this.input_count < input_count ) {
