@@ -60,6 +60,9 @@ export default {
         tokenizer( text )
             .then( tokensToBlockly )
             .then( events.onTokenizerResult )
-            .catch( events.onTokenizerError );
+            .catch( err => {
+                console.error( err );
+                events.onTokenizerError( err );
+            });
     },
 };
