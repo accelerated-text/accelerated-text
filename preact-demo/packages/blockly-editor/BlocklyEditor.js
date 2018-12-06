@@ -3,7 +3,7 @@ import PropTypes        from 'prop-types';
 
 import attribute        from '../blocks/attribute';
 import getToolbox       from '../blocks/get-toolbox';
-import Blockly          from '../blockly/Blockly';
+import ResizableBlockly from '../preact-blockly/Resizable';
 import segment          from '../blocks/segment';
 import sentence         from '../blocks/sentence';
 import token            from '../blocks/token';
@@ -46,13 +46,13 @@ export default class BlocklyEditor extends Component {
         }
     }
 
-    onLoadBlockly = Blockly => {
+    onBlockly = Blockly => {
 
         this.Blockly =  Blockly;
         toolbox.registerBlocks( Blockly );
     };
 
-    onMountWorkspace = workspace => {
+    onWorkspace = workspace => {
 
         const { workspaceXml } =    this.props;
 
@@ -71,10 +71,10 @@ export default class BlocklyEditor extends Component {
     render() {
         return (
             <div className={ S.className }>
-                <Blockly
+                <ResizableBlockly
                     assetUrl="/blockly"
-                    onLoad={ this.onLoadBlockly }
-                    onMount={ this.onMountWorkspace }
+                    onBlockly={ this.onBlockly }
+                    onWorkspace={ this.onWorkspace }
                     options={{ toolbox: toolboxXml }}
                 />
             </div>
