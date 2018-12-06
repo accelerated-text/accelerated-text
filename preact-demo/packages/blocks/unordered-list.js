@@ -56,7 +56,7 @@ export default Block({
             this.appendNextInput();
         } else if( emptyInputs.length > 1 ) {
             emptyInputs
-                .slice( 1 )
+                .slice( 0, 1 )
                 .forEach(
                     input => this.removeInput( input.name )
                 );
