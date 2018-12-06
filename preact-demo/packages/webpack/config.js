@@ -14,7 +14,7 @@ module.exports = {
     devtool:            'inline-source-map',
     devServer: {
         contentBase:    [
-            './dist',
+            DIST,
             ASSETS,
         ],
         hot:            true,
@@ -40,7 +40,7 @@ module.exports = {
         }],
     },
     plugins: [
-        new CleanWebpackPlugin([ 'dist' ]),
+        new CleanWebpackPlugin([ DIST ]),
         new HtmlWebpackPlugin({
             title:      'Augmented Writer',
         }),
