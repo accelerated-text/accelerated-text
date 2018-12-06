@@ -1,32 +1,32 @@
-const tokenToBlock = result =>
+const arrayToLinkedList = arr =>
+    arr.reduce(( acc, item ) => {
+        if( !acc.head ) {
+            acc.head =          item;
+        } else {
+            acc.previous.next = item;
+        }
+        acc.previous =          item;
+        return acc;
+    }, {}).head;
+
+const tokenToBlock = ({ partOfSpeech, text }) =>
     `<block type="token">
-        <field name="part_of_speech">${ result.partOfSpeech }</field>
-        <field name="text">${ result.text }</field>
+        <field name="part_of_speech">${ partOfSpeech }</field>
+        <field name="text">${ text }</field>
     </block>`;
 
-const sentenceToBlock = result =>
+const sentenceToBlock = ({ children, next }) =>
     `<block type="sentence">
-        <mutation children_count="${ result.children.length }"/>
-        ${ result.children.map(
+        <mutation children_count="${ children.length }"/>
+        ${ children.map(
             ( child, i ) =>
                 `<value name="CHILD${ i }">${ tokenToBlock( child ) }</value>`
         ).join( '' ) }
-        ${ result.next
-            ? `<next>${ sentenceToBlock( result.next ) }</next>`
+        ${ next
+            ? `<next>${ sentenceToBlock( next ) }</next>`
             : ''
         }
     </block>`;
-
-const arrayToLinkedList = ( acc, item, i ) => {
-
-    if( !acc.head ) {
-        acc.head =      item;
-    } else {
-        acc.previous.next = item;
-    }
-    acc.previous =      item;
-    return acc;
-};
 
 
 export default sentences =>
@@ -34,9 +34,7 @@ export default sentences =>
         <block type="segment">
             <field name="GOAL">description</field>
             <statement name="CHILDREN">
-                ${ sentenceToBlock(
-                    sentences.reduce( arrayToLinkedList, {}).head
-                )}
+                ${ sentenceToBlock( arrayToLinkedList( sentences )) }
             </statement>
         </block>
     </xml>`;
