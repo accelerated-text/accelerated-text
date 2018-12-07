@@ -16,7 +16,7 @@ export default useStores([
 ])(({
     generatorEditor: {
         workspaceXml,
-        onChangeBlocklyWorkspace,
+        onChangeWorkspace,
     },
 }) =>
     <div className={ S.className }>
@@ -26,7 +26,7 @@ export default useStores([
                 <OnboardCode>
                     { workspaceXml &&
                         <Workspace
-                            onChangeWorkspace={ onChangeBlocklyWorkspace }
+                            onChangeWorkspace={ onChangeWorkspace }
                             workspaceXml={ workspaceXml }
                         />
                     }

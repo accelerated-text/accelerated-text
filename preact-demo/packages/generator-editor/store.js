@@ -22,7 +22,7 @@ export default {
         contextName,
     }),
 
-    onChangeBlocklyWorkspace: workspaceXml => ({
+    onChangeWorkspace: workspaceXml => ({
         workspaceXml,
     }),
 
