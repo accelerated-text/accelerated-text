@@ -8,7 +8,7 @@ const blocks = [
 ];
 
 
-export const provide = Blockly =>
+export const provideBlocks = Blockly =>
     blocks.forEach(
         block => block.default( Blockly )
     );

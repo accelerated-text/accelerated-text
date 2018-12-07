@@ -1,11 +1,11 @@
-import { h, Component } from 'preact';
-import PropTypes        from 'prop-types';
+import { h, Component }     from 'preact';
+import PropTypes            from 'prop-types';
 
-import { provide }      from '../nlg-blocks/';
-import ResizableBlockly from '../preact-blockly/Resizable';
-import toolboxXml       from '../generator-editor/toolbox.xml';
+import { provideBlocks }    from '../nlg-blocks/';
+import ResizableBlockly     from '../preact-blockly/Resizable';
+import toolboxXml           from '../generator-editor/toolbox.xml';
 
-import S                from './BlocklyEditor.sass';
+import S                    from './BlocklyEditor.sass';
 
 
 export default class BlocklyEditor extends Component {
@@ -15,8 +15,8 @@ export default class BlocklyEditor extends Component {
         workspaceXml:       PropTypes.object,
     };
 
-    Blockly =           null;
-    workspace =         null;
+    Blockly =               null;
+    workspace =             null;
 
     onChangeWorkspace = () => {
 
@@ -33,8 +33,8 @@ export default class BlocklyEditor extends Component {
 
     onBlockly = Blockly => {
 
-        this.Blockly =  Blockly;
-        provide( Blockly );
+        this.Blockly =      Blockly;
+        provideBlocks( Blockly );
     };
 
     onWorkspace = workspace => {
