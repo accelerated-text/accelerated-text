@@ -1,25 +1,11 @@
 import { h, Component } from 'preact';
 import PropTypes        from 'prop-types';
 
-import allWords         from '../nlg-blocks/all-words';
-import attribute        from '../nlg-blocks/attribute';
-import getToolbox       from '../nlg-blocks/get-toolbox';
+import { provide }      from '../nlg-blocks/';
 import ResizableBlockly from '../preact-blockly/Resizable';
-import segment          from '../nlg-blocks/segment';
-import sentence         from '../nlg-blocks/sentence';
 import toolboxXml       from '../generator-editor/toolbox.xml';
-import token            from '../nlg-blocks/token';
 
 import S                from './BlocklyEditor.sass';
-
-
-const toolbox = getToolbox([
-    segment,
-    allWords,
-    attribute,
-    sentence,
-    token,
-]);
 
 
 export default class BlocklyEditor extends Component {
@@ -48,7 +34,7 @@ export default class BlocklyEditor extends Component {
     onBlockly = Blockly => {
 
         this.Blockly =  Blockly;
-        toolbox.registerBlocks( Blockly );
+        provide( Blockly );
     };
 
     onWorkspace = workspace => {
