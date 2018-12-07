@@ -9,15 +9,15 @@ export default useStores([
     'generatorEditor',
 ])(({
     generatorEditor: {
-        blocklyXml,
+        workspaceXml,
     },
 }) =>
     <div className={ S.className }>
-        { blocklyXml
+        { workspaceXml
             ? (
                 <div>
                     <h2 className={ S.title }>Generated examples:</h2>
-                    <div className={ S.example }>{ blocklyXml }</div>
+                    <div className={ S.example }>{ workspaceXml }</div>
                 </div>
             )
             : <div>No examples yet.</div>

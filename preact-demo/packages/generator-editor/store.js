@@ -10,7 +10,7 @@ const EXAMPLE_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="segm
 export default {
 
     getInitialState: () => ({
-        blocklyXml:         '',
+        workspaceXml:       '',
         contextName:        null,
         dataSample:         null,
         generatorName:      'Example Generator',
@@ -22,12 +22,12 @@ export default {
         contextName,
     }),
 
-    onChangeBlocklyWorkspace: blocklyXml => ({
-        blocklyXml,
+    onChangeBlocklyWorkspace: workspaceXml => ({
+        workspaceXml,
     }),
 
     onClickAddOnboardSegment: () => ({
-        blocklyXml:         EXAMPLE_XML,
+        workspaceXml:       EXAMPLE_XML,
     }),
 
     onClickUpload: ({ dataSample }) => ({
@@ -38,8 +38,8 @@ export default {
         tokenizerLoading:   true,
     }),
 
-    onTokenizerResult: blocklyXml => ({
-        blocklyXml,
+    onTokenizerResult: workspaceXml => ({
+        workspaceXml,
         tokenizerError:     false,
         tokenizerLoading:   false,
     }),

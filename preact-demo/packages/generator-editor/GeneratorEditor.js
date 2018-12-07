@@ -15,7 +15,7 @@ export default useStores([
     'generatorEditor',
 ])(({
     generatorEditor: {
-        blocklyXml,
+        workspaceXml,
         onChangeBlocklyWorkspace,
     },
 }) =>
@@ -24,10 +24,10 @@ export default useStores([
         <div className={ classnames( S.body, QA.BODY ) }>
             <OnboardData>
                 <OnboardCode>
-                    { blocklyXml &&
+                    { workspaceXml &&
                         <Workspace
                             onChangeWorkspace={ onChangeBlocklyWorkspace }
-                            workspaceXml={ blocklyXml }
+                            workspaceXml={ workspaceXml }
                         />
                     }
                 </OnboardCode>

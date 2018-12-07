@@ -31,7 +31,7 @@ export default useStores([
         const {
             children,
             generatorEditor: {
-                blocklyXml,
+                workspaceXml,
                 onClickAddOnboardSegment,
                 tokenizerLoading,
                 tokenizerError,
@@ -40,7 +40,7 @@ export default useStores([
 
         return (
             <div className={ S.className }>
-                { !blocklyXml &&
+                { !workspaceXml &&
                     <div className={ S.options }>
                         { !tokenizerLoading && [
                             <div className={ S.addSegment }>
@@ -61,7 +61,7 @@ export default useStores([
                                 onChange={ this.onChangeInput }
                                 placeholder="Input a text example"
                                 rows="3"
-                                value={ tokenizerLoading ? 'loading...' : this.inputValue }
+                                value={ tokenizerLoading ? 'loading...' : this.state.inputValue }
                             />
                             <button
                                 children={ tokenizerLoading ? '...' : 'Go' }
@@ -76,7 +76,7 @@ export default useStores([
                         </form>
                     </div>
                 }
-                <OnboardBlocker showBlock={ !blocklyXml }>
+                <OnboardBlocker showBlock={ !workspaceXml }>
                     { children }
                 </OnboardBlocker>
             </div>
