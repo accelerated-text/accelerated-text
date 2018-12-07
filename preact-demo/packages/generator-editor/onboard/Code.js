@@ -1,10 +1,11 @@
 import { h, Component } from 'preact';
 
-import OnboardBlocker   from '../onboard-blocker/OnboardBlocker';
-import useStores        from '../context/use-stores';
+import OnboardBlocker   from '../../onboard-blocker/OnboardBlocker';
+import useStores        from '../../context/use-stores';
 
-import { QA }           from './qa.constants';
-import S                from './OnboardCode.sass';
+import { QA }           from '../qa.constants';
+
+import S                from './Code.sass';
 
 
 export default useStores([

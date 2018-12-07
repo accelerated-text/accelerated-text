@@ -1,12 +1,12 @@
 import { h }            from 'preact';
 
-import OnboardBlocker   from '../onboard-blocker/OnboardBlocker';
-import useStores        from '../context/use-stores';
+import OnboardBlocker   from '../../onboard-blocker/OnboardBlocker';
+import useStores        from '../../context/use-stores';
 
-import SelectContext    from './SelectContext';
-import S                from './OnboardData.sass';
-import UploadDataSample from './UploadDataSample';
+import SelectContext    from '../SelectContext';
+import UploadDataSample from '../UploadDataSample';
 
+import S                from './Data.sass';
 
 export default useStores([
     'generatorEditor',

@@ -5,8 +5,8 @@ import BlocklyEditor    from '../blockly-editor/BlocklyEditor';
 import useStores        from '../context/use-stores';
 
 import Header           from './Header';
-import OnboardCode      from './OnboardCode';
-import OnboardData      from './OnboardData';
+import OnboardCode      from './onboard/Code';
+import OnboardData      from './onboard/Data';
 import { QA }           from './qa.constants';
 import S                from './GeneratorEditor.sass';
 

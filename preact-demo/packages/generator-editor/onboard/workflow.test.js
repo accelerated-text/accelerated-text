@@ -1,7 +1,7 @@
-const { SELECTORS } =   require( './qa.constants' );
+const { SELECTORS } =   require( '../qa.constants' );
 
 
-describe( 'generator-editor/onboard', () => {
+describe( 'generator-editor/onboard/workflow', () => {
 
     beforeEach( async () => {
 
