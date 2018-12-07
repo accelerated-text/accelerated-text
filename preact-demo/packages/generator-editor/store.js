@@ -34,18 +34,18 @@ export default {
         dataSample,
     }),
 
-    onTokenizerRequest: () => ({
+    onTokenizerCall: () => ({
         tokenizerLoading:   true,
+    }),
+
+    onTokenizerError: tokenizerError => ({
+        tokenizerError,
+        tokenizerLoading:   false,
     }),
 
     onTokenizerResult: workspaceXml => ({
         workspaceXml,
         tokenizerError:     false,
-        tokenizerLoading:   false,
-    }),
-
-    onTokenizerError: tokenizerError => ({
-        tokenizerError,
         tokenizerLoading:   false,
     }),
 
@@ -56,7 +56,7 @@ export default {
             return;
         }
 
-        events.onTokenizerRequest();
+        events.onTokenizerCall();
 
         tokenizer( text )
             .then( tokensToBlockly )
