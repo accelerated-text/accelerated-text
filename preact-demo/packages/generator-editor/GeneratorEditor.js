@@ -1,7 +1,6 @@
 import classnames       from 'classnames';
 import { h }            from 'preact';
 
-import BlocklyEditor    from '../blockly-editor/BlocklyEditor';
 import useStores        from '../context/use-stores';
 
 import Header           from './Header';
@@ -9,6 +8,7 @@ import OnboardCode      from './onboard/Code';
 import OnboardData      from './onboard/Data';
 import { QA }           from './qa.constants';
 import S                from './GeneratorEditor.sass';
+import Workspace        from './Workspace';
 
 
 export default useStores([
@@ -25,7 +25,7 @@ export default useStores([
             <OnboardData>
                 <OnboardCode>
                     { blocklyXml &&
-                        <BlocklyEditor
+                        <Workspace
                             onChangeWorkspace={ onChangeBlocklyWorkspace }
                             workspaceXml={ blocklyXml }
                         />

@@ -3,12 +3,12 @@ import PropTypes            from 'prop-types';
 
 import { provideBlocks }    from '../nlg-blocks/';
 import ResizableBlockly     from '../preact-blockly/Resizable';
-import toolboxXml           from '../generator-editor/toolbox.xml';
 
-import S                    from './BlocklyEditor.sass';
+import S                    from './Workspace.sass';
+import toolbox              from './toolbox.xml';
 
 
-export default class BlocklyEditor extends Component {
+export default class GeneratorEditorWorkspace extends Component {
 
     static propTypes = {
         onChangeWorkspace:  PropTypes.func,
@@ -60,7 +60,7 @@ export default class BlocklyEditor extends Component {
                     assetUrl="/blockly"
                     onBlockly={ this.onBlockly }
                     onWorkspace={ this.onWorkspace }
-                    options={{ toolbox: toolboxXml }}
+                    options={{ toolbox }}
                 />
             </div>
         );
