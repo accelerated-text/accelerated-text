@@ -7,6 +7,7 @@ import getToolbox       from '../nlg-blocks/get-toolbox';
 import ResizableBlockly from '../preact-blockly/Resizable';
 import segment          from '../nlg-blocks/segment';
 import sentence         from '../nlg-blocks/sentence';
+import toolboxXml       from '../generator-editor/toolbox.xml';
 import token            from '../nlg-blocks/token';
 
 import S                from './BlocklyEditor.sass';
@@ -19,8 +20,6 @@ const toolbox = getToolbox([
     sentence,
     token,
 ]);
-
-const toolboxXml =      toolbox.toXmlString();
 
 
 export default class BlocklyEditor extends Component {

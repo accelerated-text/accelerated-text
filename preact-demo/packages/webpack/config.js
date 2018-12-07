@@ -37,6 +37,9 @@ module.exports = {
                 'css-loader?modules=true',   // translates CSS into CommonJS
                 'sass-loader',  // compiles Sass to CSS
             ],
+        }, {
+            test:       /\.xml$/,
+            loader:     'raw-loader',
         }],
     },
     plugins: [
