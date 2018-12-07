@@ -32,7 +32,7 @@ export default useStores([
             children,
             generatorEditor: {
                 workspaceXml,
-                onClickAddOnboardSegment,
+                onClickAddExample,
                 tokenizerLoading,
                 tokenizerError,
             },
@@ -46,7 +46,7 @@ export default useStores([
                             <div className={ S.addSegment }>
                                 <button
                                     className={ QA.ADD_EXAMPLE }
-                                    onClick={ onClickAddOnboardSegment }
+                                    onClick={ onClickAddExample }
                                 >
                                     Add
                                 </button>

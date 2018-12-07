@@ -26,7 +26,7 @@ export default {
         workspaceXml,
     }),
 
-    onClickAddOnboardSegment: () => ({
+    onClickAddExample: () => ({
         workspaceXml:       EXAMPLE_XML,
     }),
 
