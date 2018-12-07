@@ -1,13 +1,13 @@
 import { h, Component } from 'preact';
 import PropTypes        from 'prop-types';
 
-import attribute        from '../blocks/attribute';
-import getToolbox       from '../blocks/get-toolbox';
+import attribute        from '../nlg-blocks/attribute';
+import getToolbox       from '../nlg-blocks/get-toolbox';
 import ResizableBlockly from '../preact-blockly/Resizable';
-import segment          from '../blocks/segment';
-import sentence         from '../blocks/sentence';
-import token            from '../blocks/token';
-import unorderedList    from '../blocks/unordered-list';
+import segment          from '../nlg-blocks/segment';
+import sentence         from '../nlg-blocks/sentence';
+import token            from '../nlg-blocks/token';
+import unorderedList    from '../nlg-blocks/unordered-list';
 
 import S                from './BlocklyEditor.sass';
 
