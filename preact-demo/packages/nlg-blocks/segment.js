@@ -12,7 +12,7 @@ export default Block({
         message0:           '%1 segment',
         args0: [{
             type:           'field_dropdown',
-            name:           'GOAL',
+            name:           'goal',
             options: [
                 [ 'Description',    'description' ],
                 [ 'Pitch',          'pitch' ],
@@ -21,7 +21,7 @@ export default Block({
         message1:           'with %1',
         args1: [{
             type:           'input_statement',
-            name:           'CHILDREN',
+            name:           'first_child',
         }],
     },
 });

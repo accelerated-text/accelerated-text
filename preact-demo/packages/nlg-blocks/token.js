@@ -4,8 +4,6 @@ export default Block({
 
     type:                   'token',
 
-    skipToolbox:            true,
-
     json: {
         colour:             270,
         output:             null,

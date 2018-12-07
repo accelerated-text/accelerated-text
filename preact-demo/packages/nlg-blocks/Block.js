@@ -1,9 +1,8 @@
-export default ( spec ) =>
+export default ({ type, ...spec }) =>
     Object.assign(
-        Blockly => Blockly.Blocks[spec.type] = {
+        Blockly => Blockly.Blocks[type] = {
 
             init() {
-
                 const { init, json, ...mixin } = spec;
 
                 this.jsonInit( json );
@@ -11,5 +10,5 @@ export default ( spec ) =>
                 init && init.call( this );
             },
         },
-        spec,
+        { type, ...spec },
     );

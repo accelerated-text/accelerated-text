@@ -1,20 +1,20 @@
 import { h, Component } from 'preact';
 import PropTypes        from 'prop-types';
 
+import allWords         from '../nlg-blocks/all-words';
 import attribute        from '../nlg-blocks/attribute';
 import getToolbox       from '../nlg-blocks/get-toolbox';
 import ResizableBlockly from '../preact-blockly/Resizable';
 import segment          from '../nlg-blocks/segment';
 import sentence         from '../nlg-blocks/sentence';
 import token            from '../nlg-blocks/token';
-import unorderedList    from '../nlg-blocks/unordered-list';
 
 import S                from './BlocklyEditor.sass';
 
 
 const toolbox = getToolbox([
     segment,
-    unorderedList,
+    allWords,
     attribute,
     sentence,
     token,

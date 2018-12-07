@@ -17,10 +17,10 @@ const tokenToBlock = ({ partOfSpeech, text }) =>
 
 const sentenceToBlock = ({ children, next }) =>
     `<block type="sentence">
-        <mutation children_count="${ children.length }"/>
+        <mutation value_count="${ children.length }"/>
         ${ children.map(
             ( child, i ) =>
-                `<value name="CHILD${ i }">${ tokenToBlock( child ) }</value>`
+                `<value name="value_${ i }">${ tokenToBlock( child ) }</value>`
         ).join( '' ) }
         ${ next
             ? `<next>${ sentenceToBlock( next ) }</next>`
@@ -32,8 +32,8 @@ const sentenceToBlock = ({ children, next }) =>
 export default sentences =>
     `<xml xmlns="http://www.w3.org/1999/xhtml">
         <block type="segment">
-            <field name="GOAL">description</field>
-            <statement name="CHILDREN">
+            <field name="goal">description</field>
+            <statement name="first_child">
                 ${ sentenceToBlock( arrayToLinkedList( sentences )) }
             </statement>
         </block>
