@@ -1,4 +1,4 @@
-const { SELECTORS } =   require( '../qa.constants' );
+const { QA, SELECTORS } =   require( '../qa.constants' );
 
 
 describe( 'generator-editor/onboard/workflow', () => {
@@ -27,5 +27,7 @@ describe( 'generator-editor/onboard/workflow', () => {
 
         await expect( header ).toMatchElement( SELECTORS.UPLOAD_SAMPLE );
         await expect( header ).toMatchElement( SELECTORS.SELECT_CONTEXT );
+
+        await expect( body ).toMatchElement( `[data-id=${ QA.EXAMPLE_XML }]` );
     });
 });
