@@ -1,4 +1,5 @@
 PREACT_MAKE= cd preact-demo && make
+PYTEST_DOCKER="registry.gitlab.com/tokenmill/nlg/augmented-writter/pytest:latest"
 
 .PHONY: test
 test:
@@ -12,8 +13,18 @@ run:
 clean:
 	${PREACT_MAKE} clean
 
+docker-repo-login:
+	docker login registry.gitlab.com
+
 build-demo-test-env:
 	(cd dockerfiles && docker build -f Dockerfile.test-env -t registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest .)
 
 publish-demo-test-env: build-demo-test-env
 	docker push registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest
+
+
+build-pytest-docker:
+	(cd dockerfiles && docker build -f Dockerfile.pytest -t ${PYTEST_DOCKER} .)
+
+publish-pytest-docker: build-pytest-docker
+	docker push ${PYTEST_DOCKER}

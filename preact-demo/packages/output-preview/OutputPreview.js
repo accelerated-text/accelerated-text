@@ -1,19 +1,26 @@
-import { h } from 'preact';
+import { h }            from 'preact';
 
-import S from './OutputPreview.sass';
+import useStores        from '../context/use-stores';
 
-export default ({ examples }) =>
+import S                from './OutputPreview.sass';
 
+
+export default useStores([
+    'generatorEditor',
+])(({
+    generatorEditor: {
+        workspaceXml,
+    },
+}) =>
     <div className={ S.className }>
-        { ( examples && examples.length )
+        { workspaceXml
             ? (
                 <div>
                     <h2 className={ S.title }>Generated examples:</h2>
-                    { examples.map( str =>
-                        <div className={ S.example }>{ str }</div>
-                    )}
+                    <div className={ S.example }>{ workspaceXml }</div>
                 </div>
             )
             : <div>No examples yet.</div>
         }
-    </div>;
+    </div>
+);

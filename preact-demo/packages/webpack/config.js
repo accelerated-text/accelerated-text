@@ -6,13 +6,17 @@ const webpack =             require( 'webpack' );
 const analysisProxy =       require( '../analysis-api/http-proxy-middleware-config' );
 
 
-const DIST = path.resolve( __dirname, 'dist' );
+const ASSETS =              path.resolve( __dirname, '../../assets' );
+const DIST =                path.resolve( __dirname, 'dist' );
 
 
 module.exports = {
     devtool:            'inline-source-map',
     devServer: {
-        contentBase:    './dist',
+        contentBase:    [
+            DIST,
+            ASSETS,
+        ],
         hot:            true,
         open:           false,
         proxy: {
@@ -33,10 +37,13 @@ module.exports = {
                 'css-loader?modules=true',   // translates CSS into CommonJS
                 'sass-loader',  // compiles Sass to CSS
             ],
+        }, {
+            test:       /\.xml$/,
+            loader:     'raw-loader',
         }],
     },
     plugins: [
-        new CleanWebpackPlugin([ 'dist' ]),
+        new CleanWebpackPlugin([ DIST ]),
         new HtmlWebpackPlugin({
             title:      'Augmented Writer',
         }),
