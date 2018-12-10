@@ -3,3 +3,12 @@ image: registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest
 test:preact_demo:
     script:
         - make test
+
+lexical-analysis:code-linter:
+  image: registry.gitlab.com/tokenmill/nlg/augmented-writter/pytest:latest
+  stage: test
+  when: on_success
+  script:
+    - flake8 lexical-analyser/api
+    - flake8 lexical-analyser/core
+
