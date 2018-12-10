@@ -1,15 +1,19 @@
 #   NLG APIs
 
-##  Generate documents
+##  TODO
+
+*   Add CSV to a generator
+
+##  Generate variants
 
 *   The API accepts a Text Generator id and paging variables.
-*   The API responds with an iterable list of text examples in Document JSON format.
+*   The API responds with an iterable list of text variants in [Annotated Text JSON (ATJ)][ATJ] format.
 
 ####    Request:
 
 ```yaml
 # HTTP:
-POST:           .../gen-documents
+POST:           .../gen-variants
 # Headers:
 Content-Type:   application/json
 # Body:
@@ -26,7 +30,7 @@ Content-Type:   application/json
 # Body:
 offset:         0
 totalCount:     1234567
-documents:
+variants:
     -
         id:                 doc-uuid-0002
         type:               document
@@ -160,4 +164,5 @@ blocks:         [...]
 ```
 
 
+[ATJ]:          annotated-text-json.md
 [BWJ]:          blockly-workspace-json.md
