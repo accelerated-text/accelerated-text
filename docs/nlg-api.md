@@ -66,8 +66,8 @@ documents:
 
 ##  Create a generator
 
-*   The API accepts a Text Generator in Blockly JSON format (without an id property).
-*   The API responds with a Text Generator in Blockly JSON format (including the assigned id value).
+*   The API accepts a Text Generator in [Blockly Workspace JSON (BWJ)][BWJ] format (without an id property).
+*   The API responds with a Text Generator in [BWJ] format (including the assigned id value).
 
 ####    Request
 
@@ -144,8 +144,8 @@ blocks:
 
 ##  Update a generator
 
-*   The API accepts a Text Generator in Blockly JSON format.
-*   The API responds with the up-to-date version of the Text Generator in Blockly JSON format.
+*   The API accepts a Text Generator in [BWJ] format.
+*   The API responds with the up-to-date version of the Text Generator in [BWJ].
 
 ####    Request
 
@@ -156,5 +156,8 @@ PUT:            .../generators/generator-uuid-0001
 Content-Type:   application/json
 # Body:
 id:             generator-uuid-0001
-blocks:         [] # See "Create a generator" above.
+blocks:         [...]
 ```
+
+
+[BWJ]:          blockly-workspace-json.md
