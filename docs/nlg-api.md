@@ -105,6 +105,43 @@ blocks:
                                 name:   color
 ```
 
+####    Response
+
+```yaml
+# HTTP:
+POST:           .../generators/
+# Headers:
+Content-Type:   application/json
+# Body:
+id:                 generator-uuid-0001
+blocks:
+    -
+        id:         blockly-uuid-000b
+        type:       segment
+        x:          123
+        y:          456
+        fields:
+            goal:   description
+        statements:
+            -
+                id:                 blockly-uuid-000c
+                type:               all-words
+                mutation:
+                    children_count: 1
+                values:
+                    children:
+                        -
+                            id:         blockly-uuid-000d
+                            type:       word
+                            fields:
+                                text:   huge
+                        -
+                            id:         blockly-uuid-000d
+                            type:       attribute
+                            fields:
+                                name:   color
+```
+
 ##  Update a generator
 
 *   The API accepts a Text Generator in Blockly JSON format.
