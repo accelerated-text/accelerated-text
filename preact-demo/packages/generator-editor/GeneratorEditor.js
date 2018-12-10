@@ -1,22 +1,22 @@
 import classnames       from 'classnames';
 import { h }            from 'preact';
 
-import ABlock           from '../blocks/ABlock';
-import provideStore     from '../context/provide-store';
+import useStores        from '../context/use-stores';
 
 import Header           from './Header';
-import OnboardCode      from './OnboardCode';
-import OnboardData      from './OnboardData';
+import OnboardCode      from './onboard/Code';
+import OnboardData      from './onboard/Data';
 import { QA }           from './qa.constants';
 import S                from './GeneratorEditor.sass';
-import store            from './store';
+import Workspace        from './Workspace';
 
 
-export default provideStore(
-    'generatorEditor', store,
-)(({
+export default useStores([
+    'generatorEditor',
+])(({
     generatorEditor: {
-        blocks,
+        onChangeWorkspace,
+        workspaceXml,
     },
 }) =>
     <div className={ S.className }>
@@ -24,8 +24,11 @@ export default provideStore(
         <div className={ classnames( S.body, QA.BODY ) }>
             <OnboardData>
                 <OnboardCode>
-                    { blocks && blocks.length &&
-                        blocks.map( block => <ABlock block={ block } /> )
+                    { workspaceXml &&
+                        <Workspace
+                            onChangeWorkspace={ onChangeWorkspace }
+                            workspaceXml={ workspaceXml }
+                        />
                     }
                 </OnboardCode>
             </OnboardData>

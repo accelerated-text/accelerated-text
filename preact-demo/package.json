@@ -28,9 +28,13 @@
   "license": "UNLICENSED",
   "dependencies": {
     "classnames": "^2.2.6",
+    "dom-dom": "^1.2.3",
+    "fetch-inject": "^2.0.2",
     "isomorphic-unfetch": "^3.0.0",
+    "p-tap": "^2.0.0",
     "preact": "^8.3.1",
     "preact-router": "^2.6.1",
+    "prop-types": "^15.6.2",
     "ramda": "^0.26.1",
     "shallow-equal": "^1.0.0"
   },
@@ -51,6 +55,7 @@
     "jest-puppeteer": "^3.5.1",
     "node-sass": "^4.10.0",
     "puppeteer": "1.7.0",
+    "raw-loader": "^0.5.1",
     "sass-lint": "^1.12.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",

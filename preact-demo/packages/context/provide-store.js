@@ -7,7 +7,7 @@ export default ( storeName, store ) => Child =>
 
         state =     store.getInitialState( this.props, this );
 
-        functions = mapObjIndexed(
+        events = mapObjIndexed(
             fn => arg => this.setState( fn( arg, this )),
             store
         );
@@ -15,7 +15,7 @@ export default ( storeName, store ) => Child =>
         getChildContext() {
             return {
                 [storeName]: {
-                    ...this.functions,
+                    ...this.events,
                     ...this.state,
                 },
             };
