@@ -1,6 +1,6 @@
 #   NLG APIs
 
-##  Generate document
+##  Generate documents
 
 *   The API accepts a Text Generator id and paging variables.
 *   The API responds with an iterable list of text examples in Document JSON format.
@@ -9,7 +9,7 @@
 
 ```yaml
 # HTTP:
-POST:           .../gen-document
+POST:           .../gen-documents
 # Headers:
 Content-Type:   application/json
 # Body:
