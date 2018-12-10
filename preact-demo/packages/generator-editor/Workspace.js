@@ -41,7 +41,7 @@ export default class GeneratorEditorWorkspace extends Component {
 
         const { workspaceXml } =    this.props;
 
-        this.workspace =    window.workspace =  workspace;
+        this.workspace =            workspace;
 
         if( workspaceXml ) {
             this.Blockly.Xml.domToWorkspace(
