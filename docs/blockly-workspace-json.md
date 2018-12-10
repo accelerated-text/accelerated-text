@@ -58,7 +58,9 @@ A _value_ may be a _BWJ block_ or an _array_ of _BWJ blocks_.
 ```yaml
 ...
 values:
-    text:           "A word"
+    phrase:
+        id:             uuid-0001
+        type:           all-attributes
 ...
 ```
 
