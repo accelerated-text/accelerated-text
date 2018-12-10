@@ -15,8 +15,8 @@ export default useStores([
     'generatorEditor',
 ])(({
     generatorEditor: {
-        workspaceXml,
         onChangeWorkspace,
+        workspaceXml,
     },
 }) =>
     <div className={ S.className }>

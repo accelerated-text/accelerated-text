@@ -25,12 +25,12 @@ const EXAMPLE_XML = `
 export default {
 
     getInitialState: () => ({
-        workspaceXml:       '',
         contextName:        null,
         dataSample:         null,
         generatorName:      'Example Generator',
         tokenizerError:     null,
         tokenizerLoading:   false,
+        workspaceXml:       '',
     }),
 
     onChangeContext: ({ contextName }) => ({
@@ -59,9 +59,9 @@ export default {
     }),
 
     onTokenizerResult: workspaceXml => ({
-        workspaceXml,
         tokenizerError:     false,
         tokenizerLoading:   false,
+        workspaceXml,
     }),
 
     onSubmitTextExample: ({ text }, { events, state }) => {

@@ -31,10 +31,10 @@ export default useStores([
         const {
             children,
             generatorEditor: {
-                workspaceXml,
                 onClickAddExample,
-                tokenizerLoading,
                 tokenizerError,
+                tokenizerLoading,
+                workspaceXml,
             },
         } = this.props;
 
