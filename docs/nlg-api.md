@@ -182,9 +182,10 @@ totalCount:     1234567
 variants:       [ ...Annotated Text Elements... ]
 ```
 
-_See [variant-examples.json][] for full example._
+_See [full JSON example][Variants] for full example._
 
 _See [Annotated Text JSON (ATJ) docs][ATJ] for more details._
 
 [ATJ]:          annotated-text-json.md
 [BWJ]:          blockly-workspace-json.md
+[Variants]:     variants-examples.json
