@@ -3,192 +3,144 @@
     "totalCount":   123,
     "variants": [{
         "id":           "104a18e8-6960-49e0-8ec9-33ee1da9a9a9",
-        "type":         "VARIANT",
+        "type":         "ANNOTATED_TEXT",
         "annotations": [{
-            "id":       "ce219e66-803b-4598-b01e-455d65e8c815",
-            "type":     "_EXAMPLE_PROPERTY_LIST_"
+            "id":           "ce219e66-803b-4598-b01e-455d65e8c815",
+            "type":         "_EXAMPLE_PROPERTY_LIST_"
         }],
         "references": [{
-            "id":       "94473a81-d114-4946-a096-bcae561fc9b9",
-            "type":     "_EXAMPLE_CALL_TO_ACTION_"
+            "id":           "94473a81-d114-4946-a096-bcae561fc9b9",
+            "type":         "_EXAMPLE_CALL_TO_ACTION_"
         }],
-        "text_tree": {
-            "id":           "fbe2b266-5e36-40a8-aa55-61d261dbfaef",
-            "type":         "CONTAINER",
-            "plan_id":      "863efe0d-4c41-4666-b20f-985617127390",
-            "plan_version": "c3c2550b-690a-4c29-ba56-a072f468a7d7",
+        "children": [{
+            "id":           "92554966-c7b5-4783-bea8-7a875e099047",
+            "type":         "PARAGRAPH",
             "children": [{
-                "id":       "92554966-c7b5-4783-bea8-7a875e099047",
-                "type":     "PARAGRAPH",
+                "id":               "352509d4-92c9-4bd2-8a12-3a278b7661b0",
+                "type":             "SENTENCE",
                 "children": [{
-                    "id":               "352509d4-92c9-4bd2-8a12-3a278b7661b0",
-                    "type":             "SENTENCE",
-                    "children": [{
-                        "id":               "413e5111-3076-49db-a26f-8dc251ecb8fe",
-                        "type":             "SYNONYM_SET",
-                        "text":             "Buy",
-                        "synonyms": [
-                            "Buy", "Grab"
-                        ],
-                        "references": [
-                            "94473a81-d114-4946-a096-bcae561fc9b9"
-                        ]
-                    }, {
-                        "id":               "717567cd-ab9f-4203-be47-2a27238f6276",
-                        "type":             "ATTRIBUTE",
-                        "attribute_name":   "color",
-                        "text":             "red",
-                        "annotations": [
-                            "ce219e66-803b-4598-b01e-455d65e8c815"
-                        ]
-                    }, {
-                        "id":               "83a04d16-8466-4ee3-a826-143743eac2e6",
-                        "type":             "ATTRIBUTE",
-                        "attribute_name":   "material",
-                        "text":             "cotton",
-                        "annotations": [
-                            "ce219e66-803b-4598-b01e-455d65e8c815"
-                        ]
-                    }, {
-                        "id":               "76a77861-fb45-452c-8068-95afcbf2b542",
-                        "type":             "WORD",
-                        "text":             "t-shirt"
-                    }, {
-                        "id":               "942b68bd-32cd-4cbb-add3-d52ebc0fbfcc",
-                        "type":             "PUNCTUATION",
-                        "text":             "!",
-                        "references": [
-                            "94473a81-d114-4946-a096-bcae561fc9b9"
-                        ]
-                    }]
+                    "id":               "413e5111-3076-49db-a26f-8dc251ecb8fe",
+                    "type":             "SYNONYM_SET",
+                    "text":             "Buy",
+                    "synonyms":         [ "Buy", "Grab" ],
+                    "references":       [ "94473a81-d114-4946-a096-bcae561fc9b9" ]
+                }, {
+                    "id":               "717567cd-ab9f-4203-be47-2a27238f6276",
+                    "type":             "ATTRIBUTE",
+                    "attribute_name":   "color",
+                    "text":             "red",
+                    "annotations":      [ "ce219e66-803b-4598-b01e-455d65e8c815" ]
+                }, {
+                    "id":               "83a04d16-8466-4ee3-a826-143743eac2e6",
+                    "type":             "ATTRIBUTE",
+                    "attribute_name":   "material",
+                    "text":             "cotton",
+                    "annotations":      [ "ce219e66-803b-4598-b01e-455d65e8c815" ]
+                }, {
+                    "id":               "76a77861-fb45-452c-8068-95afcbf2b542",
+                    "type":             "WORD",
+                    "text":             "t-shirt"
+                }, {
+                    "id":               "942b68bd-32cd-4cbb-add3-d52ebc0fbfcc",
+                    "type":             "PUNCTUATION",
+                    "text":             "!",
+                    "references":       [ "94473a81-d114-4946-a096-bcae561fc9b9" ]
                 }]
             }]
-        }
+        }]
     },{
-        "id":           "c71988e4-d09e-4df3-8d26-bc5c5b1e3528",
-        "type":         "VARIANT",
+        "id":           "c6e8deda-12d4-44de-9d88-93f3c16f3526",
+        "type":         "ANNOTATED_TEXT",
         "annotations": [{
-            "id":       "ce219e66-803b-4598-b01e-455d65e8c815",
-            "type":     "_EXAMPLE_PROPERTY_LIST_"
+            "id":           "ce219e66-803b-4598-b01e-455d65e8c815",
+            "type":         "_EXAMPLE_PROPERTY_LIST_"
         }],
         "references": [{
-            "id":       "94473a81-d114-4946-a096-bcae561fc9b9",
-            "type":     "_EXAMPLE_CALL_TO_ACTION_"
+            "id":           "94473a81-d114-4946-a096-bcae561fc9b9",
+            "type":         "_EXAMPLE_CALL_TO_ACTION_"
         }],
-        "text_tree": {
-            "id":           "fbe2b266-5e36-40a8-aa55-61d261dbfaef",
-            "type":         "CONTAINER",
-            "plan_id":      "863efe0d-4c41-4666-b20f-985617127390",
-            "plan_version": "c3c2550b-690a-4c29-ba56-a072f468a7d7",
+        "children": [{
+            "id":           "92554966-c7b5-4783-bea8-7a875e099047",
+            "type":         "PARAGRAPH",
             "children": [{
-                "id":       "92554966-c7b5-4783-bea8-7a875e099047",
-                "type":     "PARAGRAPH",
+                "id":               "352509d4-92c9-4bd2-8a12-3a278b7661b0",
+                "type":             "SENTENCE",
                 "children": [{
-                    "id":               "352509d4-92c9-4bd2-8a12-3a278b7661b0",
-                    "type":             "SENTENCE",
-                    "children": [{
-                        "id":               "413e5111-3076-49db-a26f-8dc251ecb8fe",
-                        "type":             "SYNONYM_SET",
-                        "text":             "Buy",
-                        "synonyms": [
-                            "Buy", "Grab"
-                        ],
-                        "references": [
-                            "94473a81-d114-4946-a096-bcae561fc9b9"
-                        ]
-                    }, {
-                        "id":               "717567cd-ab9f-4203-be47-2a27238f6276",
-                        "type":             "ATTRIBUTE",
-                        "attribute_name":   "color",
-                        "text":             "red",
-                        "annotations": [
-                            "ce219e66-803b-4598-b01e-455d65e8c815"
-                        ]
-                    }, {
-                        "id":               "83a04d16-8466-4ee3-a826-143743eac2e6",
-                        "type":             "ATTRIBUTE",
-                        "attribute_name":   "material",
-                        "text":             "cotton",
-                        "annotations": [
-                            "ce219e66-803b-4598-b01e-455d65e8c815"
-                        ]
-                    }, {
-                        "id":               "76a77861-fb45-452c-8068-95afcbf2b542",
-                        "type":             "WORD",
-                        "text":             "t-shirt"
-                    }, {
-                        "id":               "942b68bd-32cd-4cbb-add3-d52ebc0fbfcc",
-                        "type":             "PUNCTUATION",
-                        "text":             "!",
-                        "references": [
-                            "94473a81-d114-4946-a096-bcae561fc9b9"
-                        ]
-                    }]
+                    "id":               "413e5111-3076-49db-a26f-8dc251ecb8fe",
+                    "type":             "SYNONYM_SET",
+                    "text":             "Buy",
+                    "synonyms":         [ "Buy", "Grab" ],
+                    "references":       [ "94473a81-d114-4946-a096-bcae561fc9b9" ]
+                }, {
+                    "id":               "717567cd-ab9f-4203-be47-2a27238f6276",
+                    "type":             "ATTRIBUTE",
+                    "attribute_name":   "color",
+                    "text":             "red",
+                    "annotations":      [ "ce219e66-803b-4598-b01e-455d65e8c815" ]
+                }, {
+                    "id":               "83a04d16-8466-4ee3-a826-143743eac2e6",
+                    "type":             "ATTRIBUTE",
+                    "attribute_name":   "material",
+                    "text":             "cotton",
+                    "annotations":      [ "ce219e66-803b-4598-b01e-455d65e8c815" ]
+                }, {
+                    "id":               "76a77861-fb45-452c-8068-95afcbf2b542",
+                    "type":             "WORD",
+                    "text":             "t-shirt"
+                }, {
+                    "id":               "942b68bd-32cd-4cbb-add3-d52ebc0fbfcc",
+                    "type":             "PUNCTUATION",
+                    "text":             "!",
+                    "references":       [ "94473a81-d114-4946-a096-bcae561fc9b9" ]
                 }]
             }]
-        }
+        }]
     },{
-        "id":           "c6a11f5d-4968-4c3d-a5a7-e77cb6f93e74",
-        "type":         "VARIANT",
+        "id":           "bf857368-c804-425a-a1e1-36523b3771ae",
+        "type":         "ANNOTATED_TEXT",
         "annotations": [{
-            "id":       "ce219e66-803b-4598-b01e-455d65e8c815",
-            "type":     "_EXAMPLE_PROPERTY_LIST_"
+            "id":           "ce219e66-803b-4598-b01e-455d65e8c815",
+            "type":         "_EXAMPLE_PROPERTY_LIST_"
         }],
         "references": [{
-            "id":       "94473a81-d114-4946-a096-bcae561fc9b9",
-            "type":     "_EXAMPLE_CALL_TO_ACTION_"
+            "id":           "94473a81-d114-4946-a096-bcae561fc9b9",
+            "type":         "_EXAMPLE_CALL_TO_ACTION_"
         }],
-        "text_tree": {
-            "id":           "fbe2b266-5e36-40a8-aa55-61d261dbfaef",
-            "type":         "CONTAINER",
-            "plan_id":      "863efe0d-4c41-4666-b20f-985617127390",
-            "plan_version": "c3c2550b-690a-4c29-ba56-a072f468a7d7",
+        "children": [{
+            "id":           "92554966-c7b5-4783-bea8-7a875e099047",
+            "type":         "PARAGRAPH",
             "children": [{
-                "id":       "92554966-c7b5-4783-bea8-7a875e099047",
-                "type":     "PARAGRAPH",
+                "id":               "352509d4-92c9-4bd2-8a12-3a278b7661b0",
+                "type":             "SENTENCE",
                 "children": [{
-                    "id":               "352509d4-92c9-4bd2-8a12-3a278b7661b0",
-                    "type":             "SENTENCE",
-                    "children": [{
-                        "id":               "413e5111-3076-49db-a26f-8dc251ecb8fe",
-                        "type":             "SYNONYM_SET",
-                        "text":             "Buy",
-                        "synonyms": [
-                            "Buy", "Grab"
-                        ],
-                        "references": [
-                            "94473a81-d114-4946-a096-bcae561fc9b9"
-                        ]
-                    }, {
-                        "id":               "717567cd-ab9f-4203-be47-2a27238f6276",
-                        "type":             "ATTRIBUTE",
-                        "attribute_name":   "color",
-                        "text":             "red",
-                        "annotations": [
-                            "ce219e66-803b-4598-b01e-455d65e8c815"
-                        ]
-                    }, {
-                        "id":               "83a04d16-8466-4ee3-a826-143743eac2e6",
-                        "type":             "ATTRIBUTE",
-                        "attribute_name":   "material",
-                        "text":             "cotton",
-                        "annotations": [
-                            "ce219e66-803b-4598-b01e-455d65e8c815"
-                        ]
-                    }, {
-                        "id":               "76a77861-fb45-452c-8068-95afcbf2b542",
-                        "type":             "WORD",
-                        "text":             "t-shirt"
-                    }, {
-                        "id":               "942b68bd-32cd-4cbb-add3-d52ebc0fbfcc",
-                        "type":             "PUNCTUATION",
-                        "text":             "!",
-                        "references": [
-                            "94473a81-d114-4946-a096-bcae561fc9b9"
-                        ]
-                    }]
+                    "id":               "413e5111-3076-49db-a26f-8dc251ecb8fe",
+                    "type":             "SYNONYM_SET",
+                    "text":             "Buy",
+                    "synonyms":         [ "Buy", "Grab" ],
+                    "references":       [ "94473a81-d114-4946-a096-bcae561fc9b9" ]
+                }, {
+                    "id":               "717567cd-ab9f-4203-be47-2a27238f6276",
+                    "type":             "ATTRIBUTE",
+                    "attribute_name":   "color",
+                    "text":             "red",
+                    "annotations":      [ "ce219e66-803b-4598-b01e-455d65e8c815" ]
+                }, {
+                    "id":               "83a04d16-8466-4ee3-a826-143743eac2e6",
+                    "type":             "ATTRIBUTE",
+                    "attribute_name":   "material",
+                    "text":             "cotton",
+                    "annotations":      [ "ce219e66-803b-4598-b01e-455d65e8c815" ]
+                }, {
+                    "id":               "76a77861-fb45-452c-8068-95afcbf2b542",
+                    "type":             "WORD",
+                    "text":             "t-shirt"
+                }, {
+                    "id":               "942b68bd-32cd-4cbb-add3-d52ebc0fbfcc",
+                    "type":             "PUNCTUATION",
+                    "text":             "!",
+                    "references":       [ "94473a81-d114-4946-a096-bcae561fc9b9" ]
                 }]
             }]
-        }
+        }]
     }]
 }

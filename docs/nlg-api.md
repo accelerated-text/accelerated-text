@@ -164,9 +164,12 @@ Content-Type:   application/json
 # Body:
 offset:         0
 totalCount:     1234567
-variants:       [ ...Variants... ]
+variants:       [ ...Annotated Text Elements... ]
 ```
 
 _See [variant-examples.json][] for full example._
 
+_See [Annotated Text JSON (ATJ) docs][ATJ] for more details._
+
+[ATJ]:          annotated-text-json.md
 [BWJ]:          blockly-workspace-json.md
