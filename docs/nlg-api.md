@@ -22,10 +22,14 @@ GET:            /document-plans
 # Headers:
 Content-Type:   application/json
 # Body:
-items:          [ ... ]
+items:
+    -
+        id:     plan-uuid-0001
+        name:   Document Plan One
+    -
+        id:     plan-uuid-0002
+        name:   Document Plan Two
 ```
-
-_See [POST](#create-a-document-plan) Response for item structure._
 
 ##  Create a Document Plan
 
