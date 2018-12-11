@@ -153,6 +153,17 @@ Content-Type: text/csv
 ------RandomString1234567890--
 ```
 
+####    Response
+```yaml
+# HTTP:
+Status:         200
+# Headers:
+Content-Type:   text/csv
+# Body:
+"color","material"
+"red","cotton"
+"blue","wool"
+
 ##  Get Text Variants
 
 ####    Request
