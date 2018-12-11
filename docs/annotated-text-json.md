@@ -48,7 +48,7 @@ children:
 
 ## Element
 
-There are two types of elements: _Container Elements_ and _Text Elements_.
+There are two groups of elements: _Container Elements_ and _Text Elements_.
 
 ### Container Element
 
@@ -64,7 +64,7 @@ Example types: `ATTRIBUTE`, `PUNCTUATION`, `SYNONYM_SET`, `WORD`.
 
 ### JSON structure
 
-Both types of elements are represented by a [JSON] object with some of these fields:
+Both groups of elements are represented by a [JSON] object with some of these fields:
 
 ```yaml
 id:                 element-uuid-0001   # required
