@@ -183,7 +183,7 @@ totalCount:     1234567
 variants:       [ ...Annotated Text Elements... ]
 ```
 
-_See [full JSON example][Variants] for full example._
+_See [full JSON example][Variants]._
 
 _See [Annotated Text JSON (ATJ) docs][ATJ] for more details._
 
