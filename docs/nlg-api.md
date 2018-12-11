@@ -151,8 +151,6 @@ Content-Type: text/csv
 
 ##  Get Text Variants
 
-Should return an array of [Annotated Text][ATJ] objects.
-
 ####    Request
 ```yaml
 # HTTP:
@@ -166,8 +164,9 @@ Content-Type:   application/json
 # Body:
 offset:         0
 totalCount:     1234567
-variants:       [ ...ATJ objects... ]
+variants:       [ ...Variants... ]
 ```
 
-[ATJ]:          annotated-text-json.md
+_See [variant-examples.json][] for full example._
+
 [BWJ]:          blockly-workspace-json.md
