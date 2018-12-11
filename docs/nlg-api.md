@@ -24,10 +24,10 @@ Content-Type:   application/json
 # Body:
 items:
     -
-        id:     plan-uuid-0001
+        id:     uuid-0001
         name:   Document Plan One
     -
-        id:     plan-uuid-0002
+        id:     uuid-0002
         name:   Document Plan Two
 ```
 
@@ -38,7 +38,7 @@ items:
 # HTTP:
 POST:           /document-plans
 # Body:
-name:           Human set name
+name:           Document Plan One
 blocks:         [ ...BWJ blocks... ]
 ```
 
@@ -48,7 +48,7 @@ blocks:         [ ...BWJ blocks... ]
 Content-Type:   application/json
 # Body:
 id:             uuid-0001
-name:           Human set name
+name:           Document Plan One
 blocks:         [ ...BWJ blocks... ]
 ```
 
@@ -62,7 +62,7 @@ _See [BWJ docs][BWJ] for more details._
 PUT:            /document-plans/uuid-0002
 # Body:
 id:             uuid-0002
-name:           Human set name
+name:           Document Plan Two
 blocks:         [ ...BWJ blocks... ]
 ```
 
@@ -72,7 +72,7 @@ blocks:         [ ...BWJ blocks... ]
 Content-Type:   application/json
 # Body:
 id:             uuid-0002
-name:           Human set name
+name:           Document Plan Two
 blocks:         [ ...BWJ blocks... ]
 ```
 
@@ -92,7 +92,7 @@ GET:            /document-plans/uuid-0003
 Content-Type:   application/json
 # Body:
 id:             uuid-0003
-name:           Human set name
+name:           Document Plan Three
 blocks:         [ ...BWJ blocks... ]
 ```
 
