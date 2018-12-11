@@ -83,11 +83,9 @@ All Element objects:
 
 ### Annotations & References
 
-_Annotations & References_:
-
-*   desribe relationships between words,
-*   can only be attached to the `ANNOTATED_TEXT` Element at the root,
-*   should be referenced by the _Text Elements_ participating in the relationship.
+*   Describe relationships between words.
+*   Can only be attached to the `ANNOTATED_TEXT` Element at the root.
+*   Should be referenced by the _Text Elements_ participating in the relationship.
 
 ####    Synthetic example:
 ```yaml
@@ -97,19 +95,15 @@ type:               SAME_PERSON
 
 ### Container Elements
 
-_Container Elements_:
-
-*   must have a (non-empty) `children` _array_ containing _Elements_.
+*   Must have a (non-empty) `children` _array_ containing _Container Elements_ and/or _Text Elements_.
 
 Example types: `ANNOTATED_TEXT`, `EMPHASIS`, `PARAGRAPH`, `SENTENCE`.
 
 ### Annotated Text Element
 
-_Annotated Text Elements_:
-
-*   must have type `ANNOTATED_TEXT`,
-*   must reference the _Document Plan_ that created it.
-*   should include lists of _Annotations_ and _References_ used by child Elements.
+*   Must have type `ANNOTATED_TEXT`.
+*   Must reference the _Document Plan_ that created it.
+*   Should include _arrays_ of _Annotations & References_ used by child Elements.
 
 ####    Minimal Valid Example
 ```yaml
@@ -124,11 +118,9 @@ children:           []
 
 ### Text Elements
 
-_Text Elements_:
-
-*   must have a non-empty `text` _string_ property,
-*   must not have children,
-*   should list the relevant annotations and references
+*   Must have a non-empty `text` _string_ property.
+*   Must not have children.
+*   Should list the relevant annotations and references.
 
 Example types: `ATTRIBUTE`, `PUNCTUATION`, `SYNONYM_SET`, `WORD`.
 
@@ -147,7 +139,7 @@ references:
 
 ### Reserved property names
 
-These properties are reserved for future use and should not be used for _Element_ types without a consultation:
+These properties are reserved for future use and should NOT be used for _Element_ types without a consultation:
 
 *   attributes
 *   class
