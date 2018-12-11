@@ -163,6 +163,7 @@ Content-Type:   text/csv
 "color","material"
 "red","cotton"
 "blue","wool"
+```
 
 ##  Get Text Variants
 
