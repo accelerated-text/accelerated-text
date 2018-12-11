@@ -124,7 +124,7 @@ children:           []
 
 Example types: `ATTRIBUTE`, `PUNCTUATION`, `SYNONYM_SET`, `WORD`.
 
-####    JSON example
+####    Example
 ```yaml
 id:                 element-uuid-0001
 type:               WORD
