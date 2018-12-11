@@ -4,7 +4,7 @@ The format helps describe pieces of text generated from a _Document Plan_.
 
 A piece of text consists of DOM-like _Element_ tree starting with a root _Element_.
 
-_*Note:* this doc uses [Yaml][] instead of [JSON] in code examples to increase readability._
+_*Note:* this doc uses [Yaml] instead of [JSON] in code examples to increase readability. JSON example file is [here](atj-example.json)._
 
 ####    Example
 
