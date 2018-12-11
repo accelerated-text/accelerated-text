@@ -9,40 +9,41 @@ _*Note:* this doc uses [Yaml] instead of [JSON] in code examples to increase rea
 ####    Example
 
 ```yaml
-id:                 doc-uuid-0002
+id:                 doc-uuid-0001
 type:               document
-generatorId:        generator-uuid-0001
+generatorId:        generator-uuid-0002
+generatorVersion:   version-uuid-0003
 children:
     -
-        id:         element-uuid-0003
+        id:         element-uuid-0004
         type:       paragraph
-        implements: blockly-uuid-0004
+        implements: blockly-uuid-0005
         children:
             -
-                id:         element-uuid-0005
+                id:         element-uuid-0006
                 type:       sentence
-                implements: blockly-uuid-0006
+                implements: blockly-uuid-0007
                 children:
                     -
-                        id:         element-uuid-0007
+                        id:         element-uuid-0008
                         type:       word
                         implements: null
                         text:       "An"
                     -
-                        id:         element-uuid-0008
+                        id:         element-uuid-0009
                         type:       synonym-set
                         implements: null
                         text:       "eerie"
                         synonyms:   []  # TBD
                     -
-                        id:         element-uuid-0008
+                        id:         element-uuid-000a
                         type:       attribute
-                        implements: blockly-uuid-0009
+                        implements: blockly-uuid-000b
                         text:       "yellow"
                     -
-                        id:         element-uuid-000a
-                        type:       sentence-terminal # Such type would be useful for front-end.
-                        text:       "."
+                        id:         element-uuid-000c
+                        type:       punctuation
+                        text:       "..."
 ```
 
 ## Element
@@ -50,15 +51,18 @@ children:
 A [JSON] object with some of these fields:
 
 ```yaml
-id:             element-uuid-0001   # required
-type:           paragraph           # required
+id:                 element-uuid-0001   # required
+type:               paragraph           # required
 
-generatedBy:    generator-id-0002   # optional
-implements:     blockly-uuid-0002   # optional
-text:           plain-text          # optional
-children:       [...]               # optional
+text:               plain-text          # one of these required
+children:           [...]               # one of these required
 
-class:          string              # reserved for future use
-className:      string              # reserved for future use
-style:          string              # reserved for future use
+generatorId:        generator-uuid-0002 # optional
+generatorVersion:   version-uuid-0003   # optional
+implements:         blockly-uuid-0002   # optional
+
+class:              string              # reserved for future use
+classList:          [...]               # reserved for future use
+className:          string              # reserved for future use
+style:              string              # reserved for future use
 ```
