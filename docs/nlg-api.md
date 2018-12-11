@@ -1,168 +1,173 @@
 #   NLG APIs
 
-##  TODO
+*   [GET /document-plans](#list-document-plans)
+*   [POST /document-plans](#create-a-document-plan)
+*   [PUT /document-plans/{id}](#update-a-document-plan)
+*   [GET /document-plans/{id}](#get-a-document-plan)
+*   [DELETE /document-plans/{id}](#delete-a-document-plan)
+*   [GET /document-plans/{id}/data-sample](#get-a-data-sample)
+*   [POST /document-plans/{id}/data-sample](#set-a-data-sample)
+*   [GET /document-plans/{id}/variants](#get-text-variants)
 
-*   Add CSV to a generator
-
-##  Generate variants
-
-*   The API accepts a Text Generator id and paging variables.
-*   The API responds with an iterable list of text variants in [Annotated Text JSON (ATJ)][ATJ] format.
+##  List Document Plans
 
 ####    Request:
-
 ```yaml
 # HTTP:
-POST:           .../gen-variants
-# Headers:
-Content-Type:   application/json
-# Body:
-generatorId:    generator-uuid-0001
-offset:         0
-limit:          10
+GET:            /document-plans
 ```
 
 ####    Response:
+```yaml
+# Headers:
+Content-Type:   application/json
+# Body:
+items:          [ ... ]
+```
 
+_See [POST](#create-a-document-plan) Response for item structure._
+
+##  Create a Document Plan
+
+####    Request:
+```yaml
+# HTTP:
+POST:           /document-plans
+# Body:
+name:           Human set name
+blocks:         [ ...BWJ blocks... ]
+```
+
+####    Response:
+```yaml
+# Headers:
+Content-Type:   application/json
+# Body:
+id:             uuid-0001
+name:           Human set name
+blocks:         [ ...BWJ blocks... ]
+```
+
+_See [BWJ docs][BWJ] for more details._
+
+##  Update a Document Plan
+
+####    Request:
+```yaml
+# HTTP:
+PUT:            /document-plans/uuid-0002
+# Body:
+id:             uuid-0002
+name:           Human set name
+blocks:         [ ...BWJ blocks... ]
+```
+
+####    Response:
+```yaml
+# Headers:
+Content-Type:   application/json
+# Body:
+id:             uuid-0002
+name:           Human set name
+blocks:         [ ...BWJ blocks... ]
+```
+
+_See [BWJ docs][BWJ] for more details._
+
+##  Get a Document Plan
+
+####    Request
+```yaml
+# HTTP:
+GET:            /document-plans/uuid-0003
+```
+
+####    Response
+```yaml
+# Headers:
+Content-Type:   application/json
+# Body:
+id:             uuid-0003
+name:           Human set name
+blocks:         [ ...BWJ blocks... ]
+```
+
+_See [BWJ docs][BWJ] for more details._
+
+##  Delete a Document Plan
+
+####    Request
+```yaml
+# HTTP:
+DELETE:         /document-plans/uuid-0004
+```
+
+####    Response
+```yaml
+# HTTP:
+Status:         200
+# Headers:
+Content-Type:   application/json
+# Body:
+"ok"
+```
+
+##  Get a Data Sample
+
+####    Request
+```yaml
+# HTTP:
+GET:            /document-plans/uuid-0005/data-sample
+```
+
+####    Response
+```yaml
+# Headers:
+Content-Type:   text/csv
+# Body:
+"color","material"
+"red","cotton"
+"blue","wool"
+```
+
+##  Set a Data Sample
+
+####    Request
+```yaml
+# HTTP:
+POST:           /document-plans/uuid-0006/data-sample
+# Headers:
+Content-Type: multipart/form-data; boundary=----RandomString1234567890
+# Body:
+------RandomString1234567890
+Content-Disposition: form-data; name="data_sample"; filename="t-shirts.csv"
+Content-Type: text/csv
+
+"color","material"
+"red","cotton"
+"blue","wool"
+------RandomString1234567890--
+```
+
+##  Get Text Variants
+
+Should return an array of [Annotated Text][ATJ] objects.
+
+####    Request
+```yaml
+# HTTP:
+GET:            /document-plans/uuid-0007/text-variants
+```
+
+####    Response
 ```yaml
 # Headers:
 Content-Type:   application/json
 # Body:
 offset:         0
 totalCount:     1234567
-variants:
-    -
-        id:                 doc-uuid-0002
-        type:               document
-        generatorId:        generator-uuid-0001
-        children:
-            -
-                id:         element-uuid-0003
-                type:       paragraph
-                implements: blockly-uuid-0004
-                children:
-                    -
-                        id:         element-uuid-0005
-                        type:       sentence
-                        implements: blockly-uuid-0006
-                        children:
-                            -
-                                id:         element-uuid-0007
-                                type:       word
-                                implements: null
-                                text:       "An"
-                            -
-                                id:         element-uuid-0008
-                                type:       synonym-set
-                                implements: null
-                                text:       "eerie"
-                                synonyms:   []  # TBD
-                            -
-                                id:         element-uuid-0008
-                                type:       attribute
-                                implements: blockly-uuid-0009
-                                text:       "yellow"
-                            -
-                                id:         element-uuid-000a
-                                type:       sentence-terminal # Such type would be useful for front-end.
-                                text:       "."
+variants:       [ ...ATJ objects... ]
 ```
-
-##  Create a generator
-
-*   The API accepts a Text Generator in [Blockly Workspace JSON (BWJ)][BWJ] format (without an id property).
-*   The API responds with a Text Generator in [BWJ] format (including the assigned id value).
-
-####    Request
-
-```yaml
-# HTTP:
-POST:           .../generators/
-# Headers:
-Content-Type:   application/json
-# Body:
-blocks:
-    -
-        id:         blockly-uuid-000b
-        type:       segment
-        x:          123
-        y:          456
-        fields:
-            goal:   description
-        statements:
-            -
-                id:                 blockly-uuid-000c
-                type:               all-words
-                mutation:
-                    children_count: 1
-                values:
-                    children:
-                        -
-                            id:         blockly-uuid-000d
-                            type:       word
-                            fields:
-                                text:   huge
-                        -
-                            id:         blockly-uuid-000d
-                            type:       attribute
-                            fields:
-                                name:   color
-```
-
-####    Response
-
-```yaml
-# HTTP:
-POST:           .../generators/
-# Headers:
-Content-Type:   application/json
-# Body:
-id:                 generator-uuid-0001
-blocks:
-    -
-        id:         blockly-uuid-000b
-        type:       segment
-        x:          123
-        y:          456
-        fields:
-            goal:   description
-        statements:
-            -
-                id:                 blockly-uuid-000c
-                type:               all-words
-                mutation:
-                    children_count: 1
-                values:
-                    children:
-                        -
-                            id:         blockly-uuid-000d
-                            type:       word
-                            fields:
-                                text:   huge
-                        -
-                            id:         blockly-uuid-000d
-                            type:       attribute
-                            fields:
-                                name:   color
-```
-
-##  Update a generator
-
-*   The API accepts a Text Generator in [BWJ] format.
-*   The API responds with the up-to-date version of the Text Generator in [BWJ].
-
-####    Request
-
-```yaml
-# HTTP:
-PUT:            .../generators/generator-uuid-0001
-# Headers:
-Content-Type:   application/json
-# Body:
-id:             generator-uuid-0001
-blocks:         [...]
-```
-
 
 [ATJ]:          annotated-text-json.md
 [BWJ]:          blockly-workspace-json.md
