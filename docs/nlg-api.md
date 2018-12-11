@@ -189,4 +189,4 @@ _See [Annotated Text JSON (ATJ) docs][ATJ] for more details._
 
 [ATJ]:          annotated-text-json.md
 [BWJ]:          blockly-workspace-json.md
-[Variants]:     variants-examples.json
+[Variants]:     variants-example.json
