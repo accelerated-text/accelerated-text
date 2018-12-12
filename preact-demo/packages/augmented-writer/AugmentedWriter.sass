@@ -1,21 +1,9 @@
-@import '../styles/mixins'
 @import '../styles/variables'
 
 
 .className
 
     display:                grid
-    grid-gap:               0
-    grid-template-columns:  6fr $space-m 4fr
-
-    > .documentActions
-        @include padded-block
-        @include border-radius
-
-        background:         $subtle-gray
-
-    > .dataSetup
-        @include padded-block
-        @include border-radius
-
-        background:         $green
+    grid-gap:               $space-xxs
+    grid-template-columns:  1fr 1fr
+    height:                 100%

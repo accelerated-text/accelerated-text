@@ -2,12 +2,16 @@
 
 .className
 
-    background-color:       $green
-    padding:                0 $space-xs $space-xs
+    background-color:       $blockly-green
+    border-radius:          $border-radius 0 0 $border-radius
+    display:                grid
+    grid-gap:               0
+    grid-template-rows:     ( $space-m * 3 ) 1fr
+    padding:                $space-xxs
 
     > .body
 
         background-color:   $white
-        border:             1px inset $green
-        border-radius:      $border-radius
-        padding:            $space-s
+        border:             $space-xxs inset $blockly-green
+        color:              $text-color
+        padding:            0

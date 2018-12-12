@@ -6,6 +6,14 @@ import S from './App.sass';
 
 export default () =>
     <div className={ S.className }>
-        <h1 className={ S.title }>Augmented Writer</h1>
-        <AugmentedWriter />
+        <div className={ S.header }>
+            <img
+                className={ S.logo }
+                src="/augmented-writer-logo.png"
+                title="Augmented Writer"
+            />
+        </div>
+        <div className={ S.body }>
+            <AugmentedWriter />
+        </div>
     </div>;

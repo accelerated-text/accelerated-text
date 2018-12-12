@@ -10,7 +10,7 @@ export default Block({
 
     json: {
         ...valueListStatement.json,
-        colour:             180,
+        colour:             202,
         message0:           'all words',
     },
 });

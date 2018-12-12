@@ -23,15 +23,14 @@ export default useStores([
         <Header className={ QA.HEADER } />
         <div className={ classnames( S.body, QA.BODY ) }>
             <OnboardData>
-                <OnboardCode>
-                    { workspaceXml &&
-                        <Workspace
-                            onChangeWorkspace={ onChangeWorkspace }
-                            workspaceXml={ workspaceXml }
-                        />
-                    }
-                </OnboardCode>
+                <OnboardCode />
             </OnboardData>
+            { workspaceXml &&
+                <Workspace
+                    onChangeWorkspace={ onChangeWorkspace }
+                    workspaceXml={ workspaceXml }
+                />
+            }
         </div>
     </div>
 );

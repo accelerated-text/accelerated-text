@@ -5,8 +5,8 @@ describe( 'app/App', () => {
         await page.goto( TEST_URL, { waitUntil: 'load' });
     });
 
-    test( 'should render title', async () => {
+    test( 'should render logo', async () => {
 
-        await expect( page ).toMatch( 'Augmented Writer' );
+        await expect( page ).toMatchElement( '[title="Augmented Writer"]' );
     });
 });

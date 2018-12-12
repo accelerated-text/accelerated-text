@@ -13,7 +13,6 @@ export default provideStore(
 )(() =>
     <div className={ S.className }>
         <GeneratorEditor />
-        <div>→</div>
         <OutputPreview />
     </div>
 );

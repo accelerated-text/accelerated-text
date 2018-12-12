@@ -1,7 +1,25 @@
-@import '../styles/mixins'
+@import '../styles/variables'
 
 .className
 
-    > .title
+    display:                grid
+    grid-gap:               0
+    grid-template-rows:     ( $space-m * 4 ) 1fr
+    height:                 100%
+    margin:                 0
+    padding:                0
 
-        @include padded-block
+    > .header
+
+        background-color:   $white
+        height:             $space-m * 2.5
+        margin:             0
+        padding:            $space-m $space-s $space-s
+
+        > .logo
+
+            height:         100%
+
+    > .body
+
+        padding:        $space-s

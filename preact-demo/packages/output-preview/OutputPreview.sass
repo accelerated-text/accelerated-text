@@ -1,15 +1,42 @@
-@import '../styles/mixins'
 @import '../styles/variables'
 
 
 .className
-    @include widget-block
 
-    > .title
+    background-color:       $blockly-blue
+    border-radius:          0 $border-radius $border-radius 0
+    display:                grid
+    grid-gap:               0
+    grid-template-rows:     ( $space-m * 3 ) 1fr
+    padding:                $space-xxs
 
-        margin:         0 0 $space-m
+    > .header
 
-    > .example
+        background-color:   $blockly-blue
+        color:              $white
+        font-weight:        bold
+        line-height:        $space-m
+        padding:            $space-m $space-s
+        position:           relative
 
-        border-top:     1px dashed $border-color
-        padding:        $space-m 0
+        &::before
+
+            background-color:   $blockly-green
+            border:             $space-xxs solid $white
+            border-radius:      50%
+            border-width:       0 $space-xxs 0 0
+            content:            ''
+            display:            block
+            height:             $space-m
+            left:               -$space-m
+            position:           absolute
+            top:                $space-m
+            width:              $space-m
+            z-index:            2
+
+    > .body
+
+        background-color:   $white
+        border:             $space-xxs inset $blockly-green
+        color:              $text-color
+        padding:            $space-s
