@@ -6,7 +6,7 @@ export default Block({
     type:                   'segment',
 
     json: {
-        colour:             32,
+        colour:             105,
         nextStatement:      'Action',
         previousStatement:  'Action',
         message0:           '%1 segment',
