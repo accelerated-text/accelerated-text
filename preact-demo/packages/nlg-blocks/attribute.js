@@ -5,7 +5,7 @@ export default Block({
     type:                   'attribute',
 
     json: {
-        colour:             120,
+        colour:             20,
         output:             null,
         message0:           '%1 attribute',
         args0: [{

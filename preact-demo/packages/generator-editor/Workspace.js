@@ -4,7 +4,6 @@ import PropTypes            from 'prop-types';
 import { provideBlocks }    from '../nlg-blocks/';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 
-import S                    from './Workspace.sass';
 import toolbox              from './toolbox.xml';
 
 
@@ -34,6 +33,11 @@ export default class GeneratorEditorWorkspace extends Component {
     onBlockly = Blockly => {
 
         this.Blockly =      Blockly;
+
+        /// Set Style for the workspace
+        Blockly.HSV_SATURATION =    0.55;
+        Blockly.HSV_VALUE =         0.6;
+
         provideBlocks( Blockly );
     };
 
@@ -55,14 +59,16 @@ export default class GeneratorEditorWorkspace extends Component {
 
     render() {
         return (
-            <div className={ S.className }>
-                <ResizableBlockly
-                    assetUrl="/blockly"
-                    onBlockly={ this.onBlockly }
-                    onWorkspace={ this.onWorkspace }
-                    options={{ toolbox }}
-                />
-            </div>
+            <ResizableBlockly
+                assetUrl="/blockly"
+                onBlockly={ this.onBlockly }
+                onWorkspace={ this.onWorkspace }
+                options={{
+                    horizontalLayout:   true,
+                    toolbox,
+                    trashcan:           false,
+                }}
+            />
         );
     }
 }

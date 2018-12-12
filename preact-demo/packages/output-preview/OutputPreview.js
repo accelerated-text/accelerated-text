@@ -13,14 +13,14 @@ export default useStores([
     },
 }) =>
     <div className={ S.className }>
-        { workspaceXml
-            ? (
-                <div>
-                    <h2 className={ S.title }>Generated examples:</h2>
-                    <div className={ S.example }>{ workspaceXml }</div>
-                </div>
-            )
-            : <div>No examples yet.</div>
-        }
+        <div className={ S.header }>
+            [P]review
+        </div>
+        <div className={ S.body }>
+            { workspaceXml
+                ? <div className={ S.example }>{ workspaceXml }</div>
+                : <div>No examples yet.</div>
+            }
+        </div>
     </div>
 );
