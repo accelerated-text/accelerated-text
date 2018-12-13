@@ -7,14 +7,14 @@ import Header           from './Header';
 import OnboardCode      from './onboard/Code';
 import OnboardData      from './onboard/Data';
 import { QA }           from './qa.constants';
-import S                from './GeneratorEditor.sass';
+import S                from './PlanEditor.sass';
 import Workspace        from './Workspace';
 
 
 export default useStores([
-    'generatorEditor',
+    'planEditor',
 ])(({
-    generatorEditor: {
+    planEditor: {
         onChangeWorkspace,
         workspaceXml,
     },

@@ -1,18 +1,18 @@
-import { h }                from 'preact';
+import { h }            from 'preact';
 
-import GeneratorEditor      from '../generator-editor/GeneratorEditor';
-import generatorEditorStore from '../generator-editor/store';
-import OutputPreview        from '../output-preview/OutputPreview';
-import provideStore         from '../context/provide-store';
+import PlanEditor       from '../plan-editor/PlanEditor';
+import planEditorStore  from '../plan-editor/store';
+import provideStore     from '../context/provide-store';
+import VariantReview    from '../variant-review/VariantReview';
 
 import S                from './AugmentedWriter.sass';
 
 
 export default provideStore(
-    'generatorEditor', generatorEditorStore,
+    'planEditor', planEditorStore,
 )(() =>
     <div className={ S.className }>
-        <GeneratorEditor />
-        <OutputPreview />
+        <PlanEditor />
+        <VariantReview />
     </div>
 );

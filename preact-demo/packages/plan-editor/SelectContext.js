@@ -12,16 +12,16 @@ const OPTIONS = [
 
 
 export default useStores([
-    'generatorEditor',
+    'planEditor',
 ])( class SelectContext extends Component {
 
     onChange = e =>
-        this.props.generatorEditor.onChangeContext({
+        this.props.planEditor.onChangeContext({
             contextName:    e.target.value,
         });
 
     render({
-        generatorEditor: {
+        planEditor: {
             contextName,
         },
     }) {

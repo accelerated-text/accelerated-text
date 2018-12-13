@@ -7,7 +7,7 @@ import ResizableBlockly     from '../preact-blockly/Resizable';
 import toolbox              from './toolbox.xml';
 
 
-export default class GeneratorEditorWorkspace extends Component {
+export default class PlanEditorWorkspace extends Component {
 
     static propTypes = {
         onChangeWorkspace:  PropTypes.func,

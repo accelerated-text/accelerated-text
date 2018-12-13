@@ -9,11 +9,11 @@ import UploadDataSample from '../UploadDataSample';
 import S                from './Data.sass';
 
 export default useStores([
-    'generatorEditor',
+    'planEditor',
 ])(
     ({
         children,
-        generatorEditor: {
+        planEditor: {
             contextName,
             dataSample,
         },

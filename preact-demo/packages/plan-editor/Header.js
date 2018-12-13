@@ -9,17 +9,17 @@ import UploadDataSample from './UploadDataSample';
 
 
 export default useStores([
-    'generatorEditor',
+    'planEditor',
 ])(({
     className,
-    generatorEditor: {
-        generatorName,
+    planEditor: {
+        planName,
     },
 }) =>
     <div className={ classnames( S.className, className ) }>
         <select className={ S.name }>
-            <optgroup label="Select a generator">
-                <option selected>{ generatorName }</option>
+            <optgroup label="Select a plan">
+                <option selected>{ planName }</option>
             </optgroup>
             <option disabled>New...</option>
         </select>

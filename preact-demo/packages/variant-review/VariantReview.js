@@ -2,13 +2,13 @@ import { h }            from 'preact';
 
 import useStores        from '../context/use-stores';
 
-import S                from './OutputPreview.sass';
+import S                from './VariantReview.sass';
 
 
 export default useStores([
-    'generatorEditor',
+    'planEditor',
 ])(({
-    generatorEditor: {
+    planEditor: {
         workspaceXml,
     },
 }) =>
