@@ -1,0 +1,130 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Serverless API - NLG
+
+Globals:
+  Api:
+    Cors:
+      AllowMethods: "'*'"
+      AllowHeaders: "'*'"
+      AllowOrigin: "'*'"
+
+Resources:
+  getDocumentPlans:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.DocumentPlansHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /document-plans/{id}/variants
+            Method: get
+
+  getWorkspace:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+        - AmazonDynamoDBReadOnlyAccess 
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /document-plans/{id}
+            Method: get
+
+  addWorkspace:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+        - AmazonDynamoDBFullAccess
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /document-plans
+            Method: post
+
+  updateWorkspace:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+        - AmazonDynamoDBFullAccess
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /document-plans/{id}
+            Method: put
+
+  deleteWorkspace:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+        - AmazonDynamoDBFullAccess
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /document-plans/{id}
+            Method: delete
+Outputs:
+  GetDocumentsPlansAPI:
+    Description: URL for document plans
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}/variants'
+    Export:
+      Name: getDocumentPlans
+
+  GetWorkspaceAPI:
+    Description: URL to get Workspace
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
+    Export:
+      Name: getWorkspace
+
+  AddWorkspaceAPI:
+    Description: URL to add Workspace
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/'
+    Export:
+      Name: addWorkspace
+
+  UpdateWorkspaceAPI:
+    Description: URL to update Workspace
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
+    Export:
+      Name: updateWorkspace
+
+  DeleteWorkspaceAPI:
+    Description: URL to delete Workspace
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
+    Export:
+      Name: deleteWorkspace
