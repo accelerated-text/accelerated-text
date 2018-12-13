@@ -2,6 +2,7 @@ import { h }            from 'preact';
 
 import useStores        from '../context/use-stores';
 
+import AnnotatedText    from './AnnotatedText';
 import S                from './VariantReview.sass';
 
 
@@ -9,6 +10,9 @@ export default useStores([
     'planEditor',
 ])(({
     planEditor: {
+        variants,
+        variantsError,
+        variantsLoading,
         workspaceXml,
     },
 }) =>
@@ -17,10 +21,26 @@ export default useStores([
             [P]review
         </div>
         <div className={ S.body }>
-            { workspaceXml
-                ? <div className={ S.example }>{ workspaceXml }</div>
-                : <div>No examples yet.</div>
+            <div className={ S.item }>
+                { workspaceXml ? workspaceXml : 'No Blockly yet.' }
+            </div>
+            { variantsError &&
+                <div className={ S.itemError }>
+                    { variantsError }
+                </div>
             }
+            { variantsLoading &&
+                <div className={ S.item }>Loading variants...</div>
+            }
+            { variants && (
+                !( variants.variants && variants.variants.length )
+                    ? <div className={ S.item }>No variants</div>
+                    : variants.variants.map( element =>
+                        <div className={ S.item }>
+                            <AnnotatedText key={ element.id } element={ element } />
+                        </div>
+                    )
+            )}
         </div>
     </div>
 );
