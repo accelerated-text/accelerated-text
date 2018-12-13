@@ -147,12 +147,18 @@ These properties are reserved for future use and should NOT be used for _Element
 *   className
 *   data
 *   dataset
-*   innerHTML, inner_html
-*   innerText, inner_text
-*   outerHTML, outer_html
+*   href
+*   innerHTML
+*   innerText
+*   name
+*   outerHTML
 *   parent
+*   rel
+*   src
 *   title
+*   value
 
+*Note: this rule applies to all forms of the name (e.g. classList, class_list, etc.).*
 
 [JSON]:             https://json.org/
 [Yaml]:             https://yaml.org/
