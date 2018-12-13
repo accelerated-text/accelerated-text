@@ -6,9 +6,9 @@ const URL =             'https://zihxo6d93h.execute-api.eu-central-1.amazonaws.c
 export const getForDataSample = async () => {
 
     const response =    await fetch( URL, {
-        method:         'GET',
-        mode:           'no-cors',
+        mode:           'cors',
     });
+
     return response.json();
 };
 
