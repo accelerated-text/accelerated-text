@@ -282,7 +282,7 @@ _See [Annotated Text JSON (ATJ) docs][ATJ] for more details._
 ####    Request
 ```yaml
 # HTTP:
-POST:           /text-variants/from-data-sample
+POST:           /text-variants/from-record
 # Headers:
 Accept:         application/json
 Content-Type:   application/json
