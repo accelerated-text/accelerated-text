@@ -1,8 +1,8 @@
 import { h }            from 'preact';
 
+import AtjReview        from '../atj-review/AtjReview';
 import useStores        from '../context/use-stores';
 
-import AnnotatedText    from './AnnotatedText';
 import S                from './VariantReview.sass';
 
 
@@ -37,7 +37,7 @@ export default useStores([
                     ? <div className={ S.item }>No variants</div>
                     : variants.variants.map( element =>
                         <div className={ S.item }>
-                            <AnnotatedText key={ element.id } element={ element } />
+                            <AtjReview key={ element.id } element={ element } />
                         </div>
                     )
             )}
