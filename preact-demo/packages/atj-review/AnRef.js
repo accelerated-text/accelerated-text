@@ -19,15 +19,15 @@ export default useStores([
     onClick = () => {
         const { atjReview, element } = this.props;
 
-        atjReview.annotations.includes( element ) &&
-            atjReview.onClickAnnotation(
+        atjReview.annotations.includes( element )
+            && atjReview.onClickAnnotation(
                 element.id === atjReview.activeAnnotation
                     ? null
                     : element.id
             );
 
-        atjReview.references.includes( element ) &&
-            atjReview.onClickReference(
+        atjReview.references.includes( element )
+            && atjReview.onClickReference(
                 element.id === atjReview.activeReference
                     ? null
                     : element.id

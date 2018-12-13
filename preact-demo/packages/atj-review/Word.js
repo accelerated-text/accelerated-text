@@ -16,7 +16,7 @@ export default useStores([
                 ? null
                 : this.props.element
         );
-    
+
     render({
         atjReview: {
             activeAnnotation,
