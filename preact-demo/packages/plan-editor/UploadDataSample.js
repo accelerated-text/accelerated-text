@@ -6,16 +6,16 @@ import { QA }           from './qa.constants';
 
 
 export default useStores([
-    'generatorEditor',
+    'planEditor',
 ])( class UploadDataSample extends Component {
 
     onClick = () =>
-        this.props.generatorEditor.onClickUpload({
+        this.props.planEditor.onClickUpload({
             dataSample: 't-shirts.csv',
         });
 
     render() {
-        const { dataSample } =  this.props.generatorEditor;
+        const { dataSample } =  this.props.planEditor;
 
         return (
             <button

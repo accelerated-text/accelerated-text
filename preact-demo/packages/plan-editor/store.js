@@ -27,7 +27,7 @@ export default {
     getInitialState: () => ({
         contextName:        null,
         dataSample:         null,
-        generatorName:      'Example Generator',
+        planName:           'Example Plan',
         tokenizerError:     null,
         tokenizerLoading:   false,
         workspaceXml:       '',

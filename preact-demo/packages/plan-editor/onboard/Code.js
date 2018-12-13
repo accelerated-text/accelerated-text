@@ -9,7 +9,7 @@ import S                from './Code.sass';
 
 
 export default useStores([
-    'generatorEditor',
+    'planEditor',
 ])( class OnboardCode extends Component {
 
     state = {
@@ -22,7 +22,7 @@ export default useStores([
     onSubmitInput = e => {
         e.preventDefault();
 
-        this.props.generatorEditor.onSubmitTextExample({
+        this.props.planEditor.onSubmitTextExample({
             text:       this.state.inputValue,
         });
     };
@@ -30,7 +30,7 @@ export default useStores([
     render() {
         const {
             children,
-            generatorEditor: {
+            planEditor: {
                 onClickAddExample,
                 tokenizerError,
                 tokenizerLoading,
