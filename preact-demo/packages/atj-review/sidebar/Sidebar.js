@@ -19,6 +19,9 @@ export default useStores([
 }) =>
     <div className={ S.className }>
         { activeWord && [
+            <h4 className={ S.word }>
+                { activeWord.text }
+            </h4>,
             activeWord.annotations &&
                 annotations
                     .filter( a => activeWord.annotations.includes( a.id ))
