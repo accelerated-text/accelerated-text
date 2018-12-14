@@ -12,9 +12,7 @@ export default useStores([
 
     onClick = () =>
         this.props.atjReview.onClickWord(
-            ( this.props.element === this.props.atjReview.activeWord )
-                ? null
-                : this.props.element
+            this.props.element
         );
 
     render({

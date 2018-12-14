@@ -16,12 +16,13 @@ export default {
         activeReference,
     }),
 
-    onClickWord: ( activeWord, { state }) =>
-        activeWord !== state.activeWord
-            ? ({
-                activeAnnotation:   null,
-                activeReference:    null,
-                activeWord,
-            })
-            : null,
+    onClickWord: ( activeWord, { state }) => ({
+        activeAnnotation:   null,
+        activeReference:    null,
+        activeWord: (
+            activeWord === state.activeWord
+                ? null
+                : activeWord
+        ),
+    }),
 };
