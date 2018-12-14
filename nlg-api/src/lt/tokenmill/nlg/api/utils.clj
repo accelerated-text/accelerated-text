@@ -14,7 +14,9 @@
 (defn resp [status-code body]
   (let [resp {"statusCode" status-code
               "body" (cheshire/encode body)
-              "isBase64Encoded" false}]
+              "isBase64Encoded" false
+              "headers" {"Content-Type" "application/json"
+                         "Access-Control-Allow-Origin" "*"}}]
     (cheshire/encode resp)))
 
 (defn decode-body [^InputStream is]
