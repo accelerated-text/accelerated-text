@@ -4,7 +4,7 @@ import provideStore     from '../context/provide-store';
 
 import AnnotatedText    from './AnnotatedText';
 import S                from './AtjReview.sass';
-import Sidebar          from './Sidebar';
+import Sidebar          from './sidebar/Sidebar';
 import store            from './store';
 
 

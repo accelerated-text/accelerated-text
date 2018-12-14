@@ -1,6 +1,6 @@
 import { h }            from 'preact';
 
-import useStores        from '../context/use-stores';
+import useStores        from '../../context/use-stores';
 
 import AnRef            from './AnRef';
 import S                from './Sidebar.sass';

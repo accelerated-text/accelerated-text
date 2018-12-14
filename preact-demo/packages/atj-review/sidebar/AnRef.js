@@ -1,7 +1,7 @@
 import classnames       from 'classnames';
 import { h, Component } from 'preact';
 
-import useStores        from '../context/use-stores';
+import useStores        from '../../context/use-stores';
 
 import S                from './AnRef.sass';
 
