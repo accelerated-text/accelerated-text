@@ -2,6 +2,7 @@ import pTap                 from 'p-tap';
 
 import tokenizer            from '../tokenizer/tokenizer';
 import tokensToBlockly      from '../tokenizer/json-to-blockly';
+import variantsApi          from '../variants-api/';
 
 import { QA }               from './qa.constants';
 
@@ -30,6 +31,9 @@ export default {
         planName:           'Example Plan',
         tokenizerError:     null,
         tokenizerLoading:   false,
+        variants:           null,
+        variantsError:      false,
+        variantsLoading:    false,
         workspaceXml:       '',
     }),
 
@@ -49,6 +53,21 @@ export default {
         dataSample,
     }),
 
+    onGetVariants: () => ({
+        variantsLoading:    true,
+    }),
+
+    onGetVariantsError: variantsError => ({
+        variantsError,
+        variantsLoading:    false,
+    }),
+
+    onGetVariantsSuccess: variants => ({
+        variants,
+        variantsError:      false,
+        variantsLoading:    false,
+    }),
+
     onTokenizerCall: () => ({
         tokenizerLoading:   true,
     }),
@@ -63,6 +82,26 @@ export default {
         tokenizerLoading:   false,
         workspaceXml,
     }),
+
+    /// Adapter functions:
+
+    getVariants: ( workspaceXml, { events, state }) => {
+
+        if( state.variantsLoading ) {
+            return;
+        }
+
+        events.onChangeWorkspace( workspaceXml );
+        events.onGetVariants();
+
+        variantsApi.getForDataSample({
+            dataSampleId:   'TODO_REPLACE',
+            documentPlanId: 'TODO_REPLACE',
+        })
+            .then( events.onGetVariantsSuccess )
+            .catch( pTap( console.error ))
+            .catch( events.onGetVariantsError );
+    },
 
     onSubmitTextExample: ({ text }, { events, state }) => {
 

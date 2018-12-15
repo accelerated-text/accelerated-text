@@ -15,7 +15,7 @@ export default useStores([
     'planEditor',
 ])(({
     planEditor: {
-        onChangeWorkspace,
+        getVariants,
         workspaceXml,
     },
 }) =>
@@ -27,7 +27,7 @@ export default useStores([
             </OnboardData>
             { workspaceXml &&
                 <Workspace
-                    onChangeWorkspace={ onChangeWorkspace }
+                    onChangeWorkspace={ getVariants }
                     workspaceXml={ workspaceXml }
                 />
             }
