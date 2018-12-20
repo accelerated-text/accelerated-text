@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 
-import useStores        from '../context/use-stores';
+import useStores        from '../vesa/use-stores';
 
 import { QA }           from './qa.constants';
 
@@ -16,7 +16,7 @@ export default useStores([
 ])( class SelectContext extends Component {
 
     onChange = e =>
-        this.props.planEditor.onChangeContext({
+        this.props.E.planEditor.onChangeContext({
             contextName:    e.target.value,
         });
 

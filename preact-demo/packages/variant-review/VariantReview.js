@@ -1,19 +1,22 @@
 import { h }            from 'preact';
 
 import AtjReview        from '../atj-review/AtjReview';
-import useStores        from '../context/use-stores';
+import useStores        from '../vesa/use-stores';
 
 import S                from './VariantReview.sass';
 
 
 export default useStores([
     'planEditor',
+    'variantsApi',
 ])(({
     planEditor: {
-        variants,
-        variantsError,
-        variantsLoading,
         workspaceXml,
+    },
+    variantsApi: {
+        error,
+        loading,
+        result,
     },
 }) =>
     <div className={ S.className }>
@@ -24,18 +27,18 @@ export default useStores([
             <div className={ S.item }>
                 { workspaceXml ? workspaceXml : 'No Blockly yet.' }
             </div>
-            { variantsError &&
+            { error &&
                 <div className={ S.itemError }>
-                    { variantsError }
+                    { error }
                 </div>
             }
-            { variantsLoading &&
+            { loading &&
                 <div className={ S.item }>Loading variants...</div>
             }
-            { variants && (
-                !( variants.variants && variants.variants.length )
+            { result && (
+                !( result.variants && result.variants.length )
                     ? <div className={ S.item }>No variants</div>
-                    : variants.variants.map( element =>
+                    : result.variants.map( element =>
                         <div className={ S.item }>
                             <AtjReview key={ element.id } element={ element } />
                         </div>

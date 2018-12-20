@@ -1,7 +1,7 @@
 import classnames       from 'classnames';
 import { h, Component } from 'preact';
 
-import useStores        from '../../context/use-stores';
+import useStores        from '../../vesa/use-stores';
 
 import S                from './AnRef.sass';
 
@@ -17,17 +17,17 @@ export default useStores([
 ])( class AnRef extends Component {
 
     onClick = () => {
-        const { atjReview, element } = this.props;
+        const { atjReview, E, element } = this.props;
 
         atjReview.annotations.includes( element )
-            && atjReview.onClickAnnotation(
+            && E.atjReview.onClickAnnotation(
                 element.id === atjReview.activeAnnotation
                     ? null
                     : element.id
             );
 
         atjReview.references.includes( element )
-            && atjReview.onClickReference(
+            && E.atjReview.onClickReference(
                 element.id === atjReview.activeReference
                     ? null
                     : element.id

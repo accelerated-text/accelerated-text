@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 
 import OnboardBlocker   from '../../onboard-blocker/OnboardBlocker';
-import useStores        from '../../context/use-stores';
+import useStores        from '../../vesa/use-stores';
 
 import { QA }           from '../qa.constants';
 
@@ -22,7 +22,7 @@ export default useStores([
     onSubmitInput = e => {
         e.preventDefault();
 
-        this.props.planEditor.onSubmitTextExample({
+        this.props.E.planEditor.onSubmitTextExample({
             text:       this.state.inputValue,
         });
     };
@@ -30,8 +30,8 @@ export default useStores([
     render() {
         const {
             children,
+            E,
             planEditor: {
-                onClickAddExample,
                 tokenizerError,
                 tokenizerLoading,
                 workspaceXml,
@@ -46,7 +46,7 @@ export default useStores([
                             <div className={ S.addSegment }>
                                 <button
                                     className={ QA.ADD_EXAMPLE }
-                                    onClick={ onClickAddExample }
+                                    onClick={ E.planEditor.onClickAddExample }
                                 >
                                     Add
                                 </button>
