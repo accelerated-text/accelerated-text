@@ -29,7 +29,7 @@ export default storeNames => Child =>
         componentWillUnmount() {
 
             storeNames.forEach( name =>
-                this.context.S[name].viewDispatcher.unregister(
+                this.context.S[name] && this.context.S[name].viewDispatcher.unregister(
                     this.onStoreChange[name]
                 )
             );
