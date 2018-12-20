@@ -58,6 +58,7 @@
             "capIsNew":         false,
             "newIsCap":         true
         }],
+        "new-parens":               "off",
         "no-else-return":           "off",
         "no-underscore-dangle":     "warn",
         "no-use-before-define":     [ "error", {
