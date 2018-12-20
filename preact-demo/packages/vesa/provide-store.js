@@ -42,11 +42,18 @@ export default ( storeName, store ) => Child => {
 
         E = addEventHandlers( this.context.E, eventHandlers, this.dispatcher );
 
-        onDispatch =    ({ arg, eventNamespace, eventName }) => {
-            const patch = this.callEventHandler(
-                R.path([ eventNamespace, eventName ], eventHandlers ),
-                arg
-            );
+        onDispatch =    ({ arg, eventId, eventNamespace, eventName }) => {
+
+            const getPath = R.path([ eventNamespace, eventName ]);
+            const eventFn = getPath( this.E );
+
+            /// console.log( storeName, 'onDispatch', eventNamespace, eventName, eventId, eventFn, typeof arg, this.E );
+            if( !eventFn || eventId !== eventFn.eventId ) {
+                /// Ignore events created in other Component tree branches.
+                return;
+            }
+
+            const patch =   this.callEventHandler( getPath( eventHandlers ), arg );
 
             const shouldUpdate = (
                 patch
