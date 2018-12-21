@@ -4,7 +4,7 @@ import shallowEqual     from 'shallow-equal/objects';
 
 
 export default storeNames => Child =>
-    class MultiStoreUser extends Component {
+    class VesaMultiStoreUser extends Component {
 
         state = R.zipObj(
             storeNames,

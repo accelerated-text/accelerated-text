@@ -3,7 +3,7 @@ import shallowEqual     from 'shallow-equal/objects';
 
 
 export default storeName => Child =>
-    class StoreUser extends Component {
+    class VesaStoreUser extends Component {
 
         store =         this.context.S[storeName];
         state =         this.store.storeState;
