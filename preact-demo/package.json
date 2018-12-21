@@ -58,6 +58,7 @@
     "raw-loader": "^0.5.1",
     "sass-lint": "^1.12.1",
     "sass-loader": "^7.1.0",
+    "slimdom-sax-parser": "^1.1.3",
     "style-loader": "^0.23.1",
     "timeout-as-promise": "^1.0.0",
     "webpack": "^4.26.0",

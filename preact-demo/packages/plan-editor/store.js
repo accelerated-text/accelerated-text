@@ -1,5 +1,6 @@
 import pTap                 from 'p-tap';
 
+import domToGremlin         from '../blockly-gremlin/dom-to-gremlin';
 import tokenizer            from '../tokenizer/tokenizer';
 import tokensToBlockly      from '../tokenizer/json-to-blockly';
 import variantsApi          from '../variants-api/';
@@ -11,12 +12,12 @@ const EXAMPLE_XML = `
 <xml xmlns="http://www.w3.org/1999/xhtml">
     <block type="segment" id="${ QA.EXAMPLE_XML }">
         <field name="goal">description</field>
-        <statement name="first_child">
+        <statement name="first_statement">
             <block type="all-words">
                 <mutation value_count="3"></mutation>
-                <value name="value_0"><block type="attribute"><field name="name">color</field></block></value>
-                <value name="value_1"><block type="attribute"><field name="name">material</field></block></value>
-                <value name="value_2"><block type="attribute"><field name="name">make</field></block></value>
+                <value name="value_0"><block type="attribute"><field name="attribute_name">color</field></block></value>
+                <value name="value_1"><block type="attribute"><field name="attribute_name">material</field></block></value>
+                <value name="value_2"><block type="attribute"><field name="attribute_name">make</field></block></value>
             </block>
         </statement>
     </block>
@@ -28,12 +29,14 @@ export default {
     getInitialState: () => ({
         contextName:        null,
         dataSample:         null,
+        gremlinCode:        '',
         planName:           'Example Plan',
         tokenizerError:     null,
         tokenizerLoading:   false,
         variants:           null,
         variantsError:      false,
         variantsLoading:    false,
+        workspaceDom:       null,
         workspaceXml:       '',
     }),
 
@@ -41,7 +44,12 @@ export default {
         contextName,
     }),
 
-    onChangeWorkspace: workspaceXml => ({
+    onChangeGremlinCode: gremlinCode => ({
+        gremlinCode,
+    }),
+
+    onChangeWorkspace: ({ workspaceDom, workspaceXml }) => ({
+        workspaceDom,
         workspaceXml,
     }),
 
@@ -85,13 +93,14 @@ export default {
 
     /// Adapter functions:
 
-    getVariants: ( workspaceXml, { events, state }) => {
+    getVariants: ({ workspaceDom, workspaceXml }, { events, state }) => {
 
         if( state.variantsLoading ) {
             return;
         }
 
-        events.onChangeWorkspace( workspaceXml );
+        events.onChangeWorkspace({ workspaceDom, workspaceXml });
+        events.onChangeGremlinCode( domToGremlin( workspaceDom ));
         events.onGetVariants();
 
         variantsApi.getForDataSample({

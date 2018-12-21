@@ -10,7 +10,7 @@ export default Block({
         message0:           '%1 attribute',
         args0: [{
             type:           'field_dropdown',
-            name:           'name',
+            name:           'attribute_name',
             options: [
                 [ 'Color',      'color' ],
                 [ 'Material',   'material' ],

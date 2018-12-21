@@ -1,0 +1,38 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+    <block type="segment" id="root-segment" x="10" y="10">
+        <field name="goal">description</field>
+        <statement name="first_statement">
+            <block type="all-words" id="first-list">
+                <mutation value_count="4">
+                </mutation>
+                <value name="value_0">
+                    <block type="attribute" id="attribute-color">
+                        <field name="attribute_name">color</field>
+                    </block>
+                </value>
+                <next>
+                    <block type="all-words" id="second-list">
+                        <mutation value_count="2">
+                        </mutation>
+                        <value name="value_0">
+                            <block type="attribute" id="attribute-material">
+                                <field name="attribute_name">material</field>
+                            </block>
+                        </value>
+                        <next>
+                            <block type="all-words" id="third-list">
+                                <mutation value_count="2">
+                                </mutation>
+                                <value name="value_0">
+                                    <block type="attribute" id="attribute-make">
+                                        <field name="attribute_name">make</field>
+                                    </block>
+                                </value>
+                            </block>
+                        </next>
+                    </block>
+                </next>
+            </block>
+        </statement>
+    </block>
+</xml>
