@@ -20,13 +20,15 @@ export default class PlanEditorWorkspace extends Component {
     onChangeWorkspace = () => {
 
         if( this.props.onChangeWorkspace ) {
-            this.props.onChangeWorkspace(
-                this.Blockly.Xml.domToText(
-                    this.Blockly.Xml.workspaceToDom(
-                        this.workspace
-                    )
-                )
-            );
+
+            const { Xml } =         this.Blockly;
+            const workspaceDom =    Xml.workspaceToDom( this.workspace );
+            const workspaceXml =    Xml.domToText( workspaceDom );
+
+            this.props.onChangeWorkspace({
+                workspaceDom,
+                workspaceXml,
+            });
         }
     }
 

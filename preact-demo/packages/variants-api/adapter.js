@@ -7,7 +7,10 @@ export default {
 
     planEditor: {
 
-        onChangeWorkspace: ( workspaceXml, { E, getStoreState }) => {
+        onChangeWorkspace: (
+            { workspaceXml },
+            { E, getStoreState }
+        ) => {
 
             if( getStoreState( 'variantsApi' ).loading ) {
                 return;
