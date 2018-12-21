@@ -1,6 +1,5 @@
-import pTap                 from 'p-tap';
+import pTap             from 'p-tap';
 
-import jsonToBlockly    from './json-to-blockly';
 import tokenizer        from './tokenizer';
 
 
@@ -18,7 +17,6 @@ export default {
             E.tokenizer.onCall.async();
 
             tokenizer( text )
-                .then( jsonToBlockly )
                 .then( E.tokenizer.onCallResult )
                 .catch( pTap( console.error ))
                 .catch( E.tokenizer.onCallError );

@@ -1,3 +1,5 @@
+import jsonToBlockly        from '../tokenizer/json-to-blockly';
+
 import { QA }               from './qa.constants';
 
 
@@ -47,8 +49,8 @@ export default {
 
     tokenizer: {
 
-        onCallResult: workspaceXml => ({
-            workspaceXml,
+        onCallResult: result => ({
+            workspaceXml:   jsonToBlockly( result ),
         }),
     },
 };
