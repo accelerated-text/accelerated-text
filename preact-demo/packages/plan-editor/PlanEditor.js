@@ -1,7 +1,7 @@
 import classnames       from 'classnames';
 import { h }            from 'preact';
 
-import useStores        from '../vesa/use-stores';
+import { useStores }    from '../vesa/';
 
 import Header           from './Header';
 import OnboardCode      from './onboard/Code';

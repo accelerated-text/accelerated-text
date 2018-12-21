@@ -1,6 +1,6 @@
 import { h }            from 'preact';
 
-import provideStores    from '../vesa/provide-stores';
+import { mount }        from '../vesa/';
 
 import AnnotatedText    from './AnnotatedText';
 import atjReview        from './store';
@@ -8,7 +8,7 @@ import S                from './AtjReview.sass';
 import Sidebar          from './sidebar/Sidebar';
 
 
-export default provideStores({
+export default mount({
     atjReview,
 })(({ element }) =>
     <div className={ S.className }>

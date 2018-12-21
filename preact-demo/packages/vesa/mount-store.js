@@ -3,8 +3,8 @@ import { Dispatcher }       from 'flux';
 import * as R               from 'ramda';
 import shallowEqual         from 'shallow-equal/objects';
 
-import FnDispatcher         from './fn-dispatcher';
-import addEventHandlers     from './add-event-handlers';
+import ChangeDispatcher     from './change-dispatcher';
+import createEvents         from './create-events';
 
 
 export default ( storeName, store ) => Child => {
@@ -16,7 +16,7 @@ export default ( storeName, store ) => Child => {
         ...eventHandlers
     } = store;
 
-    return class VesaStoreProvider extends Component {
+    return class VesaStoreComponent extends Component {
 
         /// Constructor --------------------------------------------------------
 
@@ -28,9 +28,9 @@ export default ( storeName, store ) => Child => {
                 : null
         );
 
-        viewDispatcher = (
+        changeDispatcher = (
             storeName
-                ? new FnDispatcher
+                ? new ChangeDispatcher
                 : null
         );
 
@@ -40,7 +40,7 @@ export default ( storeName, store ) => Child => {
                 : this.context.S
         );
 
-        E = addEventHandlers( this.context.E, eventHandlers, this.dispatcher );
+        E = createEvents( this.context.E, eventHandlers, this.dispatcher );
 
         onDispatch =    ({ arg, eventId, eventNamespace, eventName }) => {
 
@@ -69,7 +69,7 @@ export default ( storeName, store ) => Child => {
                     patch,
                 );
                 if( storeName ) {
-                    this.viewDispatcher.dispatch( this.storeState );
+                    this.changeDispatcher.dispatch( this.storeState );
                 }
             }
         };
@@ -95,16 +95,19 @@ export default ( storeName, store ) => Child => {
             return this.S[name].storeState;
         };
 
+        onChangeState =     storeName && this.changeDispatcher.register;
+        offChangeState =    storeName && this.changeDispatcher.unregister;
+
         /// Register only when everything set-up:
-        token =         this.dispatcher.register( this.onDispatch );
+        token =             this.dispatcher.register( this.onDispatch );
 
         /// Component lifecycle ------------------------------------------------
 
         getChildContext() {
             return {
-                dispatcher:     this.dispatcher,
-                E:              this.E,
-                S:              this.S,
+                dispatcher: this.dispatcher,
+                E:          this.E,
+                S:          this.S,
             };
         }
 

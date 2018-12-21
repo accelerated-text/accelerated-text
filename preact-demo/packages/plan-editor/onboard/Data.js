@@ -1,7 +1,7 @@
 import { h }            from 'preact';
 
 import OnboardBlocker   from '../../onboard-blocker/OnboardBlocker';
-import useStores        from '../../vesa/use-stores';
+import { useStores }    from '../../vesa/';
 
 import SelectContext    from '../SelectContext';
 import UploadDataSample from '../UploadDataSample';

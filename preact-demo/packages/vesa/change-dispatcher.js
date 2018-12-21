@@ -1,6 +1,6 @@
 import { Dispatcher }   from 'flux';
 
-export default class FnDispatcher {
+export default class VesaChangeDispatcher {
 
     dispatcher =        new Dispatcher;
     fnMap =             new Map;

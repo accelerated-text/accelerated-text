@@ -1,7 +1,7 @@
 import { h }            from 'preact';
 
 import AtjReview        from '../atj-review/AtjReview';
-import useStores        from '../vesa/use-stores';
+import { useStores }    from '../vesa/';
 
 import S                from './VariantReview.sass';
 

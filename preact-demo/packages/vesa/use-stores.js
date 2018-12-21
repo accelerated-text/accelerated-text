@@ -20,7 +20,7 @@ export default storeNames => Child =>
             super( props, context );
 
             storeNames.forEach( name =>
-                this.context.S[name].viewDispatcher.register(
+                this.context.S[name].onChangeState(
                     this.onStoreChange[name]
                 )
             );
@@ -29,7 +29,7 @@ export default storeNames => Child =>
         componentWillUnmount() {
 
             storeNames.forEach( name =>
-                this.context.S[name].viewDispatcher.unregister(
+                this.context.S[name].offChangeState(
                     this.onStoreChange[name]
                 )
             );

@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 
 import OnboardBlocker   from '../../onboard-blocker/OnboardBlocker';
-import useStores        from '../../vesa/use-stores';
+import { useStores }    from '../../vesa/';
 
 import { QA }           from '../qa.constants';
 

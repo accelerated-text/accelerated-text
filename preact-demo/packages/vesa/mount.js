@@ -1,4 +1,4 @@
-import provideStore     from './provide-store';
+import mountStore       from './mount-store';
 
 
 export default ( storeMap = {}, adapters = []) => Child =>
@@ -7,10 +7,10 @@ export default ( storeMap = {}, adapters = []) => Child =>
         .reverse()
         .reduce(
             ( childComponent, name ) =>
-                provideStore( name, storeMap[name])( childComponent ),
+                mountStore( name, storeMap[name])( childComponent ),
             adapters.reduce(
                 ( childComponent, adapter ) =>
-                    provideStore( null, adapter )( childComponent ),
+                    mountStore( null, adapter )( childComponent ),
                 Child,
             ),
         );

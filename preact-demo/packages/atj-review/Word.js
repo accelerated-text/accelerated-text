@@ -1,7 +1,7 @@
 import classnames       from 'classnames';
 import { h, Component } from 'preact';
 
-import useStores        from '../vesa/use-stores';
+import { useStores }    from '../vesa/';
 
 import S                from './Word.sass';
 

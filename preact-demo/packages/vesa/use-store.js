@@ -14,12 +14,12 @@ export default storeName => Child =>
         constructor( props, context ) {
             super( props, context );
 
-            this.store.viewDispatcher.register( this.onStoreChange );
+            this.store.onChangeState( this.onStoreChange );
         }
 
         componentWillUnmount() {
 
-            this.store.viewDispatcher.unregister( this.onStoreChange );
+            this.store.offChangeState( this.onStoreChange );
         }
 
         shouldComponentUpdate( nextProps, nextState, nextContext ) {

@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 
-import useStores        from '../vesa/use-stores';
+import { useStores }    from '../vesa/';
 
 import { QA }           from './qa.constants';
 

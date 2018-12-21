@@ -1,6 +1,6 @@
 import { h }            from 'preact';
 
-import useStores        from '../../vesa/use-stores';
+import { useStores }    from '../../vesa/';
 
 import AnRef            from './AnRef';
 import S                from './Sidebar.sass';
