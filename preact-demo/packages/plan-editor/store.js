@@ -27,6 +27,7 @@ export default {
         dataSample:         null,
         gremlinCode:        '',
         planName:           'Example Plan',
+        textExample:        '',
         workspaceDom:       null,
         workspaceXml:       '',
     }),
@@ -34,6 +35,10 @@ export default {
     planEditor: {
         onChangeContext: ({ contextName }) => ({
             contextName,
+        }),
+
+        onChangeTextExample: textExample => ({
+            textExample,
         }),
 
         onChangeGremlinCode: gremlinCode => ({

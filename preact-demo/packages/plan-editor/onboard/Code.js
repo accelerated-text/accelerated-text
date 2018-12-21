@@ -13,19 +13,15 @@ export default useStores([
     'tokenizer',
 ])( class OnboardCode extends Component {
 
-    state = {
-        inputValue:     '',
-    };
-
     onChangeInput = e =>
-        this.setState({ inputValue: e.target.value });
+        this.props.E.planEditor.onChangeTextExample(
+            e.target.value
+        );
 
     onSubmitInput = e => {
         e.preventDefault();
 
-        this.props.E.planEditor.onSubmitTextExample({
-            text:       this.state.inputValue,
-        });
+        this.props.E.planEditor.onSubmitTextExample();
     };
 
     render() {
@@ -33,6 +29,7 @@ export default useStores([
             children,
             E,
             planEditor: {
+                textExample,
                 workspaceXml,
             },
             tokenizer,
@@ -58,10 +55,10 @@ export default useStores([
                         <form className={ S.textForm } onSubmit={ this.onSubmitInput }>
                             <textarea
                                 disabled={ tokenizer.loading }
-                                onChange={ this.onChangeInput }
+                                onInput={ this.onChangeInput }
                                 placeholder="Input a text example"
                                 rows="3"
-                                value={ tokenizer.loading ? 'loading...' : this.state.inputValue }
+                                value={ tokenizer.loading ? 'loading...' : textExample }
                             />
                             <button
                                 children={ tokenizer.loading ? '...' : 'Go' }

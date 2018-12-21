@@ -7,16 +7,19 @@ export default {
 
     planEditor: {
 
-        onSubmitTextExample: ({ text }, { E, getStoreState }) => {
+        onSubmitTextExample: ( _, { E, getStoreState }) => {
+
+            const { loading } =     getStoreState( 'tokenizer' );
+            const { textExample } = getStoreState( 'planEditor' );
 
             /// Prevent new requests while the previous one is not finished:
-            if( getStoreState( 'tokenizer' ).loading ) {
+            if( loading || !textExample ) {
                 return;
             }
 
             E.tokenizer.onCall.async();
 
-            tokenizer( text )
+            tokenizer( textExample )
                 .then( E.tokenizer.onCallResult )
                 .catch( pTap( console.error ))
                 .catch( E.tokenizer.onCallError );
