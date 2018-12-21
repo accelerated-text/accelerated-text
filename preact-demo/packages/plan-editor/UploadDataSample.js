@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 
-import useStores        from '../context/use-stores';
+import { useStores }    from '../vesa/';
 
 import { QA }           from './qa.constants';
 
@@ -10,7 +10,7 @@ export default useStores([
 ])( class UploadDataSample extends Component {
 
     onClick = () =>
-        this.props.planEditor.onClickUpload({
+        this.props.E.planEditor.onClickUpload({
             dataSample: 't-shirts.csv',
         });
 

@@ -1,7 +1,7 @@
 import classnames       from 'classnames';
 import { h, Component } from 'preact';
 
-import useStores        from '../context/use-stores';
+import { useStores }    from '../vesa/';
 
 import S                from './Word.sass';
 
@@ -11,7 +11,7 @@ export default useStores([
 ])( class Word extends Component {
 
     onClick = () =>
-        this.props.atjReview.onClickWord(
+        this.props.E.atjReview.onClickWord(
             this.props.element
         );
 
@@ -20,7 +20,6 @@ export default useStores([
             activeAnnotation,
             activeReference,
             activeWord,
-            onClickWord,
         },
         element: {
             id,

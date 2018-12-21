@@ -8,21 +8,24 @@ export default {
         references,
     }),
 
-    onClickAnnotation: activeAnnotation => ({
-        activeAnnotation,
-    }),
+    atjReview: {
 
-    onClickReference: activeReference => ({
-        activeReference,
-    }),
+        onClickAnnotation: activeAnnotation => ({
+            activeAnnotation,
+        }),
 
-    onClickWord: ( activeWord, { state }) => ({
-        activeAnnotation:   null,
-        activeReference:    null,
-        activeWord: (
-            activeWord === state.activeWord
-                ? null
-                : activeWord
-        ),
-    }),
+        onClickReference: activeReference => ({
+            activeReference,
+        }),
+
+        onClickWord: ( activeWord, { state }) => ({
+            activeAnnotation:   null,
+            activeReference:    null,
+            activeWord: (
+                activeWord === state.activeWord
+                    ? null
+                    : activeWord
+            ),
+        }),
+    },
 };

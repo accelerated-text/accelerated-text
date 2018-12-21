@@ -1,9 +1,5 @@
-import pTap                 from 'p-tap';
-
 import domToGremlin         from '../blockly-gremlin/dom-to-gremlin';
-import tokenizer            from '../tokenizer/tokenizer';
-import tokensToBlockly      from '../tokenizer/json-to-blockly';
-import variantsApi          from '../variants-api/';
+import jsonToBlockly        from '../tokenizer/json-to-blockly';
 
 import { QA }               from './qa.constants';
 
@@ -31,100 +27,38 @@ export default {
         dataSample:         null,
         gremlinCode:        '',
         planName:           'Example Plan',
-        tokenizerError:     null,
-        tokenizerLoading:   false,
-        variants:           null,
-        variantsError:      false,
-        variantsLoading:    false,
         workspaceDom:       null,
         workspaceXml:       '',
     }),
 
-    onChangeContext: ({ contextName }) => ({
-        contextName,
-    }),
+    planEditor: {
+        onChangeContext: ({ contextName }) => ({
+            contextName,
+        }),
 
-    onChangeGremlinCode: gremlinCode => ({
-        gremlinCode,
-    }),
+        onChangeGremlinCode: gremlinCode => ({
+            gremlinCode,
+        }),
 
-    onChangeWorkspace: ({ workspaceDom, workspaceXml }) => ({
-        workspaceDom,
-        workspaceXml,
-    }),
+        onChangeWorkspace: ({ workspaceDom, workspaceXml }) => ({
+            gremlinCode:    domToGremlin( workspaceDom ),
+            workspaceDom,
+            workspaceXml,
+        }),
 
-    onClickAddExample: () => ({
-        workspaceXml:       EXAMPLE_XML,
-    }),
+        onClickAddExample: () => ({
+            workspaceXml:       EXAMPLE_XML,
+        }),
 
-    onClickUpload: ({ dataSample }) => ({
-        dataSample,
-    }),
-
-    onGetVariants: () => ({
-        variantsLoading:    true,
-    }),
-
-    onGetVariantsError: variantsError => ({
-        variantsError,
-        variantsLoading:    false,
-    }),
-
-    onGetVariantsSuccess: variants => ({
-        variants,
-        variantsError:      false,
-        variantsLoading:    false,
-    }),
-
-    onTokenizerCall: () => ({
-        tokenizerLoading:   true,
-    }),
-
-    onTokenizerError: tokenizerError => ({
-        tokenizerError,
-        tokenizerLoading:   false,
-    }),
-
-    onTokenizerResult: workspaceXml => ({
-        tokenizerError:     false,
-        tokenizerLoading:   false,
-        workspaceXml,
-    }),
-
-    /// Adapter functions:
-
-    getVariants: ({ workspaceDom, workspaceXml }, { events, state }) => {
-
-        if( state.variantsLoading ) {
-            return;
-        }
-
-        events.onChangeWorkspace({ workspaceDom, workspaceXml });
-        events.onChangeGremlinCode( domToGremlin( workspaceDom ));
-        events.onGetVariants();
-
-        variantsApi.getForDataSample({
-            dataSampleId:   'TODO_REPLACE',
-            documentPlanId: 'TODO_REPLACE',
-        })
-            .then( events.onGetVariantsSuccess )
-            .catch( pTap( console.error ))
-            .catch( events.onGetVariantsError );
+        onClickUpload: ({ dataSample }) => ({
+            dataSample,
+        }),
     },
 
-    onSubmitTextExample: ({ text }, { events, state }) => {
+    tokenizer: {
 
-        /// Prevent new requests while the previous one is not finished:
-        if( state.tokenizerLoading ) {
-            return;
-        }
-
-        events.onTokenizerCall();
-
-        tokenizer( text )
-            .then( tokensToBlockly )
-            .then( events.onTokenizerResult )
-            .catch( pTap( console.error ))
-            .catch( events.onTokenizerError );
+        onCallResult: result => ({
+            workspaceXml:   jsonToBlockly( result ),
+        }),
     },
 };

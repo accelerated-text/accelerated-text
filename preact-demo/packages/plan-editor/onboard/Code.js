@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 
 import OnboardBlocker   from '../../onboard-blocker/OnboardBlocker';
-import useStores        from '../../context/use-stores';
+import { useStores }    from '../../vesa/';
 
 import { QA }           from '../qa.constants';
 
@@ -10,6 +10,7 @@ import S                from './Code.sass';
 
 export default useStores([
     'planEditor',
+    'tokenizer',
 ])( class OnboardCode extends Component {
 
     state = {
@@ -22,7 +23,7 @@ export default useStores([
     onSubmitInput = e => {
         e.preventDefault();
 
-        this.props.planEditor.onSubmitTextExample({
+        this.props.E.planEditor.onSubmitTextExample({
             text:       this.state.inputValue,
         });
     };
@@ -30,23 +31,22 @@ export default useStores([
     render() {
         const {
             children,
+            E,
             planEditor: {
-                onClickAddExample,
-                tokenizerError,
-                tokenizerLoading,
                 workspaceXml,
             },
+            tokenizer,
         } = this.props;
 
         return (
             <div className={ S.className }>
                 { !workspaceXml &&
                     <div className={ S.options }>
-                        { !tokenizerLoading && [
+                        { !tokenizer.loading && [
                             <div className={ S.addSegment }>
                                 <button
                                     className={ QA.ADD_EXAMPLE }
-                                    onClick={ onClickAddExample }
+                                    onClick={ E.planEditor.onClickAddExample }
                                 >
                                     Add
                                 </button>
@@ -57,20 +57,20 @@ export default useStores([
                         ]}
                         <form className={ S.textForm } onSubmit={ this.onSubmitInput }>
                             <textarea
-                                disabled={ tokenizerLoading }
+                                disabled={ tokenizer.loading }
                                 onChange={ this.onChangeInput }
                                 placeholder="Input a text example"
                                 rows="3"
-                                value={ tokenizerLoading ? 'loading...' : this.state.inputValue }
+                                value={ tokenizer.loading ? 'loading...' : this.state.inputValue }
                             />
                             <button
-                                children={ tokenizerLoading ? '...' : 'Go' }
-                                disabled={ tokenizerLoading }
+                                children={ tokenizer.loading ? '...' : 'Go' }
+                                disabled={ tokenizer.loading }
                                 type="submit"
                             />
-                            { tokenizerError &&
+                            { tokenizer.error &&
                                 <div className={ S.tokenizerError }>{
-                                    tokenizerError.toString()
+                                    tokenizer.error.toString()
                                 }</div>
                             }
                         </form>

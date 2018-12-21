@@ -1,7 +1,7 @@
 import classnames       from 'classnames';
 import { h }            from 'preact';
 
-import useStores        from '../context/use-stores';
+import { useStores }    from '../vesa/';
 
 import Header           from './Header';
 import OnboardCode      from './onboard/Code';
@@ -14,8 +14,8 @@ import Workspace        from './Workspace';
 export default useStores([
     'planEditor',
 ])(({
+    E,
     planEditor: {
-        getVariants,
         workspaceXml,
     },
 }) =>
@@ -27,7 +27,7 @@ export default useStores([
             </OnboardData>
             { workspaceXml &&
                 <Workspace
-                    onChangeWorkspace={ getVariants }
+                    onChangeWorkspace={ E.planEditor.onChangeWorkspace }
                     workspaceXml={ workspaceXml }
                 />
             }
