@@ -1,6 +1,7 @@
 const blocks = [
     require( './all-words' ),
     require( './attribute' ),
+    require( './quote' ),
     require( './segment' ),
     require( './sentence' ),
     require( './token' ),
