@@ -118,7 +118,6 @@ export default ( storeName, store ) => Child => {
 
         componentWillUnmount() {
             this.dispatcher.unregister( this.token );
-            delete this.S[storeName];
             this.callEventHandler( componentWillUnmount, this.props );
         }
 

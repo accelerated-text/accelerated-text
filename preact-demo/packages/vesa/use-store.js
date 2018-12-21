@@ -19,7 +19,7 @@ export default storeName => Child =>
 
         componentWillUnmount() {
 
-            this.store && this.store.viewDispatcher.unregister( this.onStoreChange );
+            this.store.viewDispatcher.unregister( this.onStoreChange );
         }
 
         shouldComponentUpdate( nextProps, nextState, nextContext ) {
