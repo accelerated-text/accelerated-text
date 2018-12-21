@@ -44,4 +44,11 @@ export default {
             dataSample,
         }),
     },
+
+    tokenizer: {
+
+        onCallResult: workspaceXml => ({
+            workspaceXml,
+        }),
+    },
 };
