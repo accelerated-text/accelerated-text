@@ -33,7 +33,7 @@ export default sentences =>
     `<xml xmlns="http://www.w3.org/1999/xhtml">
         <block type="segment">
             <field name="goal">description</field>
-            <statement name="first_child">
+            <statement name="first_statement">
                 ${ sentenceToBlock( arrayToLinkedList( sentences )) }
             </statement>
         </block>

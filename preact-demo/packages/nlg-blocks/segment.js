@@ -21,7 +21,7 @@ export default Block({
         message1:           'with %1',
         args1: [{
             type:           'input_statement',
-            name:           'first_child',
+            name:           'first_statement',
         }],
     },
 });

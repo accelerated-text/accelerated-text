@@ -1,6 +1,7 @@
 import { h }            from 'preact';
 
 import AtjReview        from '../atj-review/AtjReview';
+import TextLines        from '../text-lines/TextLines';
 import useStores        from '../context/use-stores';
 
 import S                from './VariantReview.sass';
@@ -10,6 +11,7 @@ export default useStores([
     'planEditor',
 ])(({
     planEditor: {
+        gremlinCode,
         variants,
         variantsError,
         variantsLoading,
@@ -23,6 +25,11 @@ export default useStores([
         <div className={ S.body }>
             <div className={ S.item }>
                 { workspaceXml ? workspaceXml : 'No Blockly yet.' }
+            </div>
+            <div className={ S.item }>
+                <TextLines
+                    text={ gremlinCode ? gremlinCode : 'No Gremlin code yet.' }
+                />
             </div>
             { variantsError &&
                 <div className={ S.itemError }>
