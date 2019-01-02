@@ -5,16 +5,17 @@ import tokenizer        from './tokenizer';
 
 export default {
 
-    planEditor: {
+    tokenizer: {
 
-        onSubmitTextExample: ({ text }, { E, getStoreState }) => {
+        onCall: ( text, { E, getStoreState }) => {
 
-            /// Prevent new requests while the previous one is not finished:
-            if( getStoreState( 'tokenizer' ).loading ) {
+            const { loading } =     getStoreState( 'tokenizer' );
+
+            if( loading || !text ) {
                 return;
             }
 
-            E.tokenizer.onCall.async();
+            E.tokenizer.onCallStart.async();
 
             tokenizer( text )
                 .then( E.tokenizer.onCallResult )

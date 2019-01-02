@@ -1,52 +1,65 @@
-import { h, Component } from 'preact';
+import { h, Component }     from 'preact';
+import PropTypes            from 'prop-types';
 
-import OnboardBlocker   from '../../onboard-blocker/OnboardBlocker';
-import { useStores }    from '../../vesa/';
+import { mount, useStores } from '../vesa/';
+import OnboardBlocker       from '../onboard-blocker/OnboardBlocker';
+import { QA }               from '../plan-editor/qa.constants';
+import tokenizer            from '../tokenizer/store';
+import tokenizerAdapter     from '../tokenizer/adapter';
 
-import { QA }           from '../qa.constants';
+import onboardCode          from './store';
+import onboardCodeAdapter   from './adapter';
+import S                    from './OnboardCode.sass';
 
-import S                from './Code.sass';
 
-
-export default useStores([
-    'planEditor',
+export default mount({
+    onboardCode,
+    tokenizer,
+}, [
+    onboardCodeAdapter,
+    tokenizerAdapter,
+])( useStores([
+    'onboardCode',
     'tokenizer',
 ])( class OnboardCode extends Component {
 
-    state = {
-        inputValue:     '',
+    static propTypes = {
+        blocklyXml:         PropTypes.any,
     };
 
     onChangeInput = e =>
-        this.setState({ inputValue: e.target.value });
+        this.props.E.onboardCode.onChangeTextExample(
+            e.target.value
+        );
 
     onSubmitInput = e => {
         e.preventDefault();
 
-        this.props.E.planEditor.onSubmitTextExample({
-            text:       this.state.inputValue,
-        });
+        this.props.E.tokenizer.onCall(
+            this.props.onboardCode.textExample
+        );
     };
 
     render() {
         const {
+            blocklyXml,
             children,
             E,
-            planEditor: {
-                workspaceXml,
+            onboardCode: {
+                textExample,
             },
             tokenizer,
         } = this.props;
 
         return (
             <div className={ S.className }>
-                { !workspaceXml &&
+                { !blocklyXml &&
                     <div className={ S.options }>
                         { !tokenizer.loading && [
                             <div className={ S.addSegment }>
                                 <button
                                     className={ QA.ADD_EXAMPLE }
-                                    onClick={ E.planEditor.onClickAddExample }
+                                    onClick={ E.onboardCode.onClickAddExample }
                                 >
                                     Add
                                 </button>
@@ -58,10 +71,10 @@ export default useStores([
                         <form className={ S.textForm } onSubmit={ this.onSubmitInput }>
                             <textarea
                                 disabled={ tokenizer.loading }
-                                onChange={ this.onChangeInput }
+                                onInput={ this.onChangeInput }
                                 placeholder="Input a text example"
                                 rows="3"
-                                value={ tokenizer.loading ? 'loading...' : this.state.inputValue }
+                                value={ tokenizer.loading ? 'loading...' : textExample }
                             />
                             <button
                                 children={ tokenizer.loading ? '...' : 'Go' }
@@ -76,10 +89,10 @@ export default useStores([
                         </form>
                     </div>
                 }
-                <OnboardBlocker showBlock={ !workspaceXml }>
+                <OnboardBlocker showBlock={ !blocklyXml }>
                     { children }
                 </OnboardBlocker>
             </div>
         );
     }
-});
+}));
