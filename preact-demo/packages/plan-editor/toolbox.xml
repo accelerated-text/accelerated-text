@@ -12,5 +12,6 @@
     </category>
     <category name="Word sources">
         <block type="attribute" />
+        <block type="quote" />
     </category>
 </xml>
