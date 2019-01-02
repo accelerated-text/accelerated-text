@@ -1,16 +1,15 @@
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
-import { mount, useStores } from '../../vesa/';
-import OnboardBlocker       from '../../onboard-blocker/OnboardBlocker';
-import tokenizer            from '../../tokenizer/store';
-import tokenizerAdapter     from '../../tokenizer/adapter';
+import { mount, useStores } from '../vesa/';
+import OnboardBlocker       from '../onboard-blocker/OnboardBlocker';
+import { QA }               from '../plan-editor/qa.constants';
+import tokenizer            from '../tokenizer/store';
+import tokenizerAdapter     from '../tokenizer/adapter';
 
-import { QA }               from '../qa.constants';
-
-import onboardCode          from './code-store';
-import onboardCodeAdapter   from './code-adapter';
-import S                    from './Code.sass';
+import onboardCode          from './store';
+import onboardCodeAdapter   from './adapter';
+import S                    from './OnboardCode.sass';
 
 
 export default mount({

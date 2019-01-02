@@ -1,6 +1,7 @@
-import jsonToBlockly        from '../../tokenizer/json-to-blockly';
+import { QA }               from '../plan-editor/qa.constants';
 
-import { QA }               from '../qa.constants';
+import jsonToBlockly        from './json-to-blockly';
+
 
 const EXAMPLE_XML = `
 <xml xmlns="http://www.w3.org/1999/xhtml">
@@ -16,6 +17,7 @@ const EXAMPLE_XML = `
         </statement>
     </block>
 </xml>`;
+
 
 export default {
 
