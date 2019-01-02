@@ -4,6 +4,7 @@ import PropTypes            from 'prop-types';
 import { provideBlocks }    from '../nlg-blocks/';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 
+import S                    from './Workspace.sass';
 import toolbox              from './toolbox.xml';
 
 
@@ -63,6 +64,7 @@ export default class PlanEditorWorkspace extends Component {
         return (
             <ResizableBlockly
                 assetUrl="/blockly"
+                className={ S.className }
                 onBlockly={ this.onBlockly }
                 onWorkspace={ this.onWorkspace }
                 options={{

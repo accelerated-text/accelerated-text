@@ -1,3 +1,4 @@
+import classnames       from 'classnames';
 import { h, Component } from 'preact';
 import PropTypes        from 'prop-types';
 
@@ -14,6 +15,7 @@ export default class ResizableBlockly extends Component {
 
     static propTypes = {
         assetUrl:       PropTypes.string.required,
+        className:      PropTypes.string,
         language:       PropTypes.string,
         onBlockly:      PropTypes.func,
         onWorkspace:    PropTypes.func,
@@ -93,7 +95,7 @@ export default class ResizableBlockly extends Component {
     render() {
         return (
             <div
-                className={ S.className }
+                className={ classnames( S.className, this.props.className ) }
                 ref={ el => this.rootElement = el }
             >
                 <div

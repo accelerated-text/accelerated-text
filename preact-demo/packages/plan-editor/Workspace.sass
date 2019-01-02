@@ -1,0 +1,58 @@
+@import '../styles/variables'
+
+
+// sass-lint:disable force-pseudo-nesting, nesting-depth, no-important
+
+.className
+    \:global
+        .blocklyToolboxDiv
+
+            background-color:   $blockly-green
+            color:              $white
+
+            .blocklyTreeRoot
+
+                padding:        0
+
+                .blocklyTreeRow
+
+                    height:     auto
+                    margin:     0
+                    padding:    0
+
+                    &.blocklyTreeSelected
+
+                        background-color:   whiten-4( $gray ) !important
+
+                        .blocklyTreeLabel
+
+                            color:          blacken-1( $blockly-green )
+
+                    &:not( .blocklyTreeSelected ):hover
+
+                        background-color:   tint-4( $blockly-green )
+
+                    .blocklyTreeLabel
+
+                        cursor:     pointer
+                        display:    inline-block
+                        padding:    $space-s $space-m
+
+        .blocklyFlyout
+
+            > .blocklyFlyoutBackground
+
+                fill:           whiten-4( $gray )
+                fill-opacity:   1
+
+        .blocklyScrollbarHandle
+
+            fill:               whiten-2( $gray )
+
+            &:hover
+
+                fill:           whiten-1( $gray )
+
+        .blocklyScrollbarBackground:hover + .blocklyScrollbarHandle
+
+            fill:               whiten-1( $gray )
