@@ -1,9 +1,8 @@
-$black:             #000
-$dark-gray:         #333
-$gray:              #ccc
-$subtle-gray:       lighten( $black, 96% )
-$white:             #fff
+@import './color-functions'
 
+
+$black:             #000
+$white:             #fff
 
 /// red	    d36027	20	996044
 /// orange	e79f26	38	997a44
@@ -42,5 +41,7 @@ $blockly-blue:      #447a99
 $blockly-purple:    #994473
 
 
-$border-color:      $dark-gray
-$text-color:        darken( $blue, 28% )
+$gray:              whiten-1( $black )
+$subtle-gray:       whiten-8( $gray )
+
+$text-color:        blacken-8( $blue );
