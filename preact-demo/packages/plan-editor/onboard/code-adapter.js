@@ -23,7 +23,7 @@ export default {
 
         onClickAddExample: ( _, { props }) => {
 
-            props.onCreateXml( EXAMPLE_XML );
+            props.onCreateXml.async( EXAMPLE_XML );
         },
     },
 
@@ -31,7 +31,7 @@ export default {
 
         onCallResult: ( result, { props }) => {
 
-            props.onCreateXml( jsonToBlockly( result ));
+            props.onCreateXml.async( jsonToBlockly( result ));
         },
     },
 };

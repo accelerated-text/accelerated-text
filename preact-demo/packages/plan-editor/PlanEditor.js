@@ -25,7 +25,7 @@ export default useStores([
             <OnboardData>
                 <OnboardCode
                     blocklyXml={ workspaceXml }
-                    onCreateXml={ E.planEditor.onCreateWorkspaceXml.async }
+                    onCreateXml={ E.planEditor.onCreateWorkspaceXml }
                 />
             </OnboardData>
             { workspaceXml &&
