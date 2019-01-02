@@ -8,7 +8,7 @@ export default {
 
     tokenizer: {
 
-        onCall: () => ({
+        onCallStart: () => ({
             loading:    true,
         }),
 

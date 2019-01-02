@@ -23,7 +23,10 @@ export default useStores([
         <Header className={ QA.HEADER } />
         <div className={ classnames( S.body, QA.BODY ) }>
             <OnboardData>
-                <OnboardCode />
+                <OnboardCode
+                    blocklyXml={ workspaceXml }
+                    onCreateXml={ E.planEditor.onCreateWorkspaceXml.async }
+                />
             </OnboardData>
             { workspaceXml &&
                 <Workspace
