@@ -7,21 +7,20 @@ export default Block({
 
     json: {
         colour:             105,
-        nextStatement:      'Action',
-        previousStatement:  'Action',
-        message0:           '%1 segment',
+        message0:           '%1',
         args0: [{
             type:           'field_dropdown',
-            name:           'goal',
+            name:           'text_type',
             options: [
                 [ 'Description',    'description' ],
                 [ 'Pitch',          'pitch' ],
             ],
         }],
-        message1:           'with %1',
-        args1: [{
-            type:           'input_statement',
-            name:           'first_statement',
+        message1:           'segment',
+        message2:           'with %1',
+        args2: [{
+            type:           'input_value',
+            name:           'items',
         }],
     },
 });

@@ -1,15 +1,15 @@
 import Block                from './Block';
-import valueListStatement   from './value-list-statement';
+import valueListValue       from './value-list-value';
 
 
 export default Block({
 
-    ...valueListStatement,
+    ...valueListValue,
 
     type:                   'all-words',
 
     json: {
-        ...valueListStatement.json,
+        ...valueListValue.json,
         colour:             202,
         message0:           'all words',
     },
