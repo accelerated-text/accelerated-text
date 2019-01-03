@@ -6,6 +6,8 @@
                  [ch.qos.logback/logback-classic "1.2.3"]
                  [clj-time "0.5.1"]
                  [com.taoensso/faraday "1.9.0"] ;; DynamoDB client
+                 [uk.ac.abdn/SimpleNLG "4.4.8"] ;; SimpleNLG
+                 [lingo "0.2.0"] ;; SimpleNLG wrapper
 ]
   :plugins [[jonase/eastwood "0.3.3"]]
   :target-path "target/%s"
