@@ -6,11 +6,11 @@ export default Block({
 
     ...valueListValue,
 
-    type:                   'all-words',
+    type:                   'sequence',
 
     json: {
         ...valueListValue.json,
         colour:             202,
-        message0:           'all words',
+        message0:           'sequence:',
     },
 });

@@ -8,7 +8,7 @@ const EXAMPLE_XML = `
     <block type="segment" id="${ QA.EXAMPLE_XML }">
         <field name="text_type">description</field>
         <value name="items">
-            <block type="all-words">
+            <block type="sequence">
                 <mutation value_count="3"></mutation>
                 <value name="value_0"><block type="attribute"><field name="attribute_name">color</field></block></value>
                 <value name="value_1"><block type="attribute"><field name="attribute_name">material</field></block></value>

@@ -6,11 +6,11 @@ export default Block({
 
     ...valueListValue,
 
-    type:                   'sentence',
+    type:                   'all',
 
     json: {
         ...valueListValue.json,
-        colour:             300,
-        message0:           'Sentence',
+        colour:             202,
+        message0:           'all:',
     },
 });
