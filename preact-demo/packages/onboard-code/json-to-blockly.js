@@ -1,14 +1,3 @@
-const arrayToLinkedList = arr =>
-    arr.reduce(( acc, item ) => {
-        if( !acc.head ) {
-            acc.head =          item;
-        } else {
-            acc.previous.next = item;
-        }
-        acc.previous =          item;
-        return acc;
-    }, {}).head;
-
 const tokenToBlock = ({ partOfSpeech, text }) =>
     `<block type="token">
         <field name="part_of_speech">${ partOfSpeech }</field>
