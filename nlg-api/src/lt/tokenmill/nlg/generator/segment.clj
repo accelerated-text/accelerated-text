@@ -8,8 +8,9 @@
   (let [gen (nlg/generator)]
     (gen
      (fn
-       [clause]
+       [clause factory]
        (do
-         (nlg/add-obj clause product-name)
+         (nlg/add-subj clause (nlg/create-noun factory "the" product-name))
          (nlg/add-verb clause rel)
-         (doseq [f features] (fn [f] (nlg/add-complement clause f))))))))
+         (nlg/add-obj clause (nlg/concat-multi factory features)))))))
+
