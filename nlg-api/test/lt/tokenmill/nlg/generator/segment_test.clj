@@ -6,8 +6,9 @@
   (testing "Generate 'Nike Air Max 95 Premium' example"
     (let [product-name "Nike Air Max 95 Premium"
           rel "provide"
+          adverb "exceptional"
           att1 "support"
           att2 "comfort"
-          expected "The Nike Air Max 95 Premium provides support and comfort."]
-      (is (= expected (dummy-product product-name rel att1 att2))))))
+          expected "The Nike Air Max 95 Premium provides exceptional support and comfort."]
+      (is (= expected (product-template-1 product-name rel adverb att1 att2))))))
 
