@@ -8,6 +8,6 @@
           rel "provides"
           att1 "support"
           att2 "comfort"
-          expected "The Nike Air Max 95 Premium provides exceptional support and comfort"]
+          expected "The Nike Air Max 95 Premium provides support and comfort."]
       (is (= expected (dummy-product product-name rel att1 att2))))))
 
