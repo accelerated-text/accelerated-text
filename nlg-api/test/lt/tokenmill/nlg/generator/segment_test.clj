@@ -5,7 +5,7 @@
 (deftest test-dummy-generator
   (testing "Generate 'Nike Air Max 95 Premium' example"
     (let [product-name "Nike Air Max 95 Premium"
-          rel "provides"
+          rel "provide"
           att1 "support"
           att2 "comfort"
           expected "The Nike Air Max 95 Premium provides support and comfort."]
