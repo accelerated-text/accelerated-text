@@ -12,11 +12,24 @@
 (defn add-verb [^SPhraseSpec clause verb] (.setVerb clause verb))
 (defn add-complement [^SPhraseSpec clause complement] (.addComplement clause complement))
 
+(defn add-adverb
+  [^NPPhraseSpec noun adverb]
+  (do
+    (.addPreModifier noun adverb)
+    noun)) 
+
 (defn create-noun
   ([^NLGFactory factory noun]
    (.createNounPhrase factory noun))
-   ([^NLGFactory factory specifier noun]
-    (.createNounPhrase factory specifier noun)))
+  ([^NLGFactory factory specifier noun]
+   (.createNounPhrase factory specifier noun)))
+
+(defn create-multi-nouns
+  [^NLGFactory factory adverb args]
+  (let [nouns (map #(create-noun factory %) args)
+        head (add-adverb (first nouns) adverb)
+        tail (rest nouns)]
+    (cons head tail)))
   
 (defn create-verb [^NLGFactory factory verb] (.createVerbPhrase factory verb))
 (defn create-adverb [^NLGFactory factory adverb] (.createAdverbPhrase factory adverb))
