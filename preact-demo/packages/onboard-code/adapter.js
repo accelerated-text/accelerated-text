@@ -9,7 +9,7 @@ const EXAMPLE_XML = `
         <field name="text_type">description</field>
         <value name="items">
             <block type="sequence">
-                <mutation value_count="3"></mutation>
+                <mutation next_values="value_" value_count="3"></mutation>
                 <value name="value_0"><block type="attribute"><field name="attribute_name">color</field></block></value>
                 <value name="value_1"><block type="attribute"><field name="attribute_name">material</field></block></value>
                 <value name="value_2"><block type="attribute"><field name="attribute_name">make</field></block></value>
