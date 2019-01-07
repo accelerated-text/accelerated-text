@@ -70,11 +70,11 @@ const convertMutations = parentEl => mutationEl =>
                     .filter( isValue )
                     .filter( valueEl => valueEl.getAttribute( 'name' ).startsWith( value ))
                     .map(( valueEl, idx, array ) =>
-                        idx && connectElements( 'has-next', array[idx - 1].firstElementChild, valueEl.firstElementChild )
+                        idx && connectElements( 'has-next', array[idx - 1].firstElementChild, valueEl.firstElementChild ).join( CHAIN_SEP )
                     ).filter( identity )
-                    .join( STATEMENT_SEP );
+                    .join( CHAIN_SEP );
             default:
-                return '';
+                return null;
             }
         })
         .filter( identity )
