@@ -86,4 +86,27 @@ describe( 'blockly-gremlin/dom-to-gremlin', () => {
             'has-next', 'second-list', 'third-list',
         ));
     });
+
+    test( 'should support next_values mutation', async () => {
+
+        const gremlinCode = await fileToGremlin( 'next-values-mutation.xml' );
+        const toMatch =     expect( gremlinCode ).toMatch;
+        const notToMatch =  expect( gremlinCode ).not.toMatch;
+
+        toMatch( matchVertex( 'segment', 'root-segment' ));
+        toMatch( matchVertex( 'value-block', 'ignore-1' ));
+        toMatch( matchVertex( 'value-block', 'ignore-2' ));
+        toMatch( matchVertex( 'value-block', 'value-1' ));
+        toMatch( matchVertex( 'value-block', 'value-2' ));
+        toMatch( matchVertex( 'value-block', 'value-3' ));
+
+        toMatch( matchEdge( 'has-next', 'value-1', 'value-2' ));
+        toMatch( matchEdge( 'has-next', 'value-2', 'value-3' ));
+
+        notToMatch( matchEdge( 'has-next', 'ignore-1', 'value-1' ));
+        notToMatch( matchEdge( 'has-next', 'value-2', 'ignore-2' ));
+        notToMatch( matchEdge( 'has-next', 'ignore-2', 'value-3' ));
+
+        notToMatch( matchEdge( 'has-next', 'ignore-1', 'ignore-2' ));
+    });
 });

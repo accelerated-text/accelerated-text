@@ -2,6 +2,7 @@
 
 const {
     flatten,
+    identity,
     toPairs,
 } = require( 'ramda' );
 
@@ -52,13 +53,34 @@ const connectElements = ( type, fromEl, toEl, properties ) => [
     STATEMENT_SEP,
 ];
 
-/// Element converters ---------------------------------------------------------
+/// Mutation converters --------------------------------------------------------
 
-const convertMutation = el =>
+const setMutationProperties = el =>
     [ ...el.attributes ]
         .filter(({ name, value }) => value )
         .map(({ name, value }) => setProperty( name, value ))
         .join( CHAIN_SEP );
+
+const convertMutations = parentEl => mutationEl =>
+    [ ...mutationEl.attributes ]
+        .map(({ name, value }) => {
+            switch( name ) {
+            case 'next_values':
+                return [ ...parentEl.children ]
+                    .filter( isValue )
+                    .filter( valueEl => valueEl.getAttribute( 'name' ).startsWith( value ))
+                    .map(( valueEl, idx, array ) =>
+                        idx && connectElements( 'has-next', array[idx - 1].firstElementChild, valueEl.firstElementChild )
+                    ).filter( identity )
+                    .join( STATEMENT_SEP );
+            default:
+                return '';
+            }
+        })
+        .filter( identity )
+        .join( STATEMENT_SEP );
+
+/// Element converters ---------------------------------------------------------
 
 const convertBlock =    ( el, parentEl, parentEdgeType, parentEdgeName ) => {
 
@@ -74,7 +96,7 @@ const convertBlock =    ( el, parentEl, parentEdgeType, parentEdgeName ) => {
             ),
         ...children
             .filter( isMutation )
-            .map( convertMutation ),
+            .map( setMutationProperties ),
         STATEMENT_SEP,
         ...flatten( children
             .filter( isValue )
@@ -101,6 +123,9 @@ const convertBlock =    ( el, parentEl, parentEdgeType, parentEdgeName ) => {
                     name:   parentEdgeName,
                 }),
             ])),
+        ...children
+            .filter( isMutation )
+            .map( convertMutations( el )),
     ].join( CHAIN_SEP );
 };
 

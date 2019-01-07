@@ -13,4 +13,11 @@ export default Block({
         colour:             202,
         message0:           'sequence:',
     },
+
+    mutationToDom() {
+
+        const el = valueListValue.mutationToDom.call( this );
+        el.setAttribute( 'next_values', 'value_' );
+        return el;
+    },
 });
