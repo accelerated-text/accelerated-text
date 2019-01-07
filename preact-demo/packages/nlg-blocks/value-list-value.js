@@ -64,7 +64,7 @@ export default Block({
             /// Always at least 2 inputs:
             this.appendNextInput();
         } else {
-            
+
             const emptyInputs = valueInputs.filter( input => (
                 !input.connection || !input.connection.isConnected()
             ));
