@@ -1,14 +1,3 @@
-const arrayToLinkedList = arr =>
-    arr.reduce(( acc, item ) => {
-        if( !acc.head ) {
-            acc.head =          item;
-        } else {
-            acc.previous.next = item;
-        }
-        acc.previous =          item;
-        return acc;
-    }, {}).head;
-
 const tokenToBlock = ({ partOfSpeech, text }) =>
     `<block type="token">
         <field name="part_of_speech">${ partOfSpeech }</field>
@@ -32,9 +21,17 @@ const sentenceToBlock = ({ children, next }) =>
 export default sentences =>
     `<xml xmlns="http://www.w3.org/1999/xhtml">
         <block type="segment">
-            <field name="goal">description</field>
-            <statement name="first_statement">
-                ${ sentenceToBlock( arrayToLinkedList( sentences )) }
-            </statement>
+            <field name="text_type">description</field>
+            <value name="items">
+                <block type="all-words">
+                    <mutation value_count="${ sentences.length }"/>
+                    ${ sentences.map(
+                        ( sentence, i ) =>
+                            `<value name="value_${ i }">
+                                ${ sentenceToBlock( sentence ) }
+                            </value>`
+                    )}
+                </block>
+            </value>
         </block>
     </xml>`;
