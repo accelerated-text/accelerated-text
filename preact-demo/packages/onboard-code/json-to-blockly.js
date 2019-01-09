@@ -1,20 +1,19 @@
 const tokenToBlock = ({ partOfSpeech, text }) =>
-    `<block type="token">
-        <field name="part_of_speech">${ partOfSpeech }</field>
+    `<block type="quote">
         <field name="text">${ text }</field>
     </block>`;
 
-const sentenceToBlock = ({ children, next }) =>
-    `<block type="sentence">
+const sentenceToBlock = ({ children }) =>
+    `<block type="sequence">
         <mutation value_count="${ children.length }"/>
         ${ children.map(
             ( child, i ) =>
-                `<value name="value_${ i }">${ tokenToBlock( child ) }</value>`
+                `<value name="value_${ i }">
+                    ${ child.children
+                        ? sentenceToBlock( child )
+                        : tokenToBlock( child ) }
+                </value>`
         ).join( '' ) }
-        ${ next
-            ? `<next>${ sentenceToBlock( next ) }</next>`
-            : ''
-        }
     </block>`;
 
 
@@ -23,15 +22,7 @@ export default sentences =>
         <block type="segment">
             <field name="text_type">description</field>
             <value name="items">
-                <block type="all-words">
-                    <mutation value_count="${ sentences.length }"/>
-                    ${ sentences.map(
-                        ( sentence, i ) =>
-                            `<value name="value_${ i }">
-                                ${ sentenceToBlock( sentence ) }
-                            </value>`
-                    )}
-                </block>
+                ${ sentenceToBlock({ children: sentences }) }
             </value>
         </block>
     </xml>`;

@@ -1,10 +1,10 @@
 const blocks = [
-    require( './all-words' ),
+    require( './all' ),
+    require( './any-count-from' ),
     require( './attribute' ),
     require( './quote' ),
     require( './segment' ),
-    require( './sentence' ),
-    require( './token' ),
+    require( './sequence' ),
     require( './value-list-statement' ),
 ];
 

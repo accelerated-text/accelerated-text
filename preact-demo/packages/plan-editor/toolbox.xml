@@ -7,8 +7,10 @@
             <field name="text_type">pitch</field>
         </block>
     </category>
-    <category name="Filters">
-        <block type="all-words" />
+    <category name="Lists">
+        <block type="all" />
+        <block type="sequence" />
+        <block type="any-count-from" />
     </category>
     <category name="Word sources">
         <block type="attribute" />
