@@ -9,7 +9,16 @@
    :adverb s/Str
    :features [s/Str]})
 
-(def available-templates [{:schema product-schema-1 :fn templates/product-1}])
+(def product-schema-2
+  {:product-name s/Str
+   :relation s/Str
+   :adverb s/Str
+   :features [s/Str]
+   :elaborate s/Str})
+
+
+(def available-templates [{:schema product-schema-1 :fn templates/product-1}
+                          {:schema product-schema-2 :fn template/product-2}])
 
 (defn check-template
   [template data]
