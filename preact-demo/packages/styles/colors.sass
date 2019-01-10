@@ -7,6 +7,7 @@
 
 $black:             #000
 $white:             #fff
+$gray:              mix( $black, $white )
 
 $red:               map-get( $bw-color-blind-palette, 'vermillion' )
 $orange:            map-get( $bw-color-blind-palette, 'orange' )
@@ -18,9 +19,6 @@ $magenta:           map-get( $bw-color-blind-palette, 'reddish-purple' )
 /// Avoid this color without good surrounding contrast:
 $lime:              mix( $yellow, $green )
 
-/// Gray is a desaturated average of all 8 colors:
-///$gray:              change-color( mix( mix( mix( $red, $orange ), mix( $yellow, $lime ) ), mix( mix( $green, $cyan ), mix( $blue, $magenta ) ) ), $saturation: 2% )
-$gray:              mix( $black, $white )
 
 /// Blockly colors -------------------------------------------------------------
 
