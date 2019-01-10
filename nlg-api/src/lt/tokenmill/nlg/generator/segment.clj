@@ -1,17 +1,16 @@
 (ns lt.tokenmill.nlg.generator.segment
-  (:require [lt.tokenmill.nlg.generator.simple-nlg :as nlg]))
+  (:require [lt.tokenmill.nlg.generator.schemas :as schemas]))
  
-(defn product-template-1
-  ;; The <product-name> <has|provides|etc.> <some-adverb> <features-list>
-  ;; Example: The Nike Air Max 95 Premium provides exceptional support and comfort
-  [product-name rel adverb & features]
-  (let [gen (nlg/generator)]
-    (gen
-     (fn
-       [clause factory]
-       (do
-         (nlg/add-subj clause (nlg/create-noun factory "the" product-name))
-         (nlg/add-verb clause rel)
-         (nlg/add-obj clause (nlg/concat-multi
-                              factory
-                              (nlg/create-multi-nouns factory adverb features))))))))
+(defn select-values [map ks]
+         (reduce #(conj %1 (map %2)) [] ks))
+
+
+(defn generate-text
+  ;; Lets imagine magical way to select proper template by given arguments
+  ;; Expect `args` to be a hashmap
+  [args]
+  (let [templates (schemas/matching-templates args)]
+    (if (not (empty? templates))
+      (let [selected (first templates)]
+        (apply (selected :fn) (select-values args [:product-name :relation :adverb :features])))
+      {:error "No Matching templates for this argument group"})))

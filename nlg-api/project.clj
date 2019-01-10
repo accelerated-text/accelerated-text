@@ -7,6 +7,7 @@
                  [clj-time "0.5.1"]
                  [com.taoensso/faraday "1.9.0"] ;; DynamoDB client
                  [uk.ac.abdn/SimpleNLG "4.4.8"] ;; SimpleNLG
+                 [prismatic/schema "1.1.9"]
 ]
   :plugins [[jonase/eastwood "0.3.3"]]
   :target-path "target/%s"
