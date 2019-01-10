@@ -4,8 +4,12 @@
 (defn product-1
   ;; The <product-name> <has|provides|etc.> <some-adverb> <features-list>
   ;; Example: The Nike Air Max 95 Premium provides exceptional support and comfort
-  [product-name relation adverb features]
-  (let [gen (nlg/generator)]
+  [args]
+  (let [product-name (args :product-name)
+        relation (args :relation)
+        adverb (args :adverb)
+        features (args :features)
+        gen (nlg/generator)]
     (gen
      (fn
        [clause factory]

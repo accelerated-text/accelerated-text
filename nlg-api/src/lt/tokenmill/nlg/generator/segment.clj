@@ -1,9 +1,6 @@
 (ns lt.tokenmill.nlg.generator.segment
   (:require [lt.tokenmill.nlg.generator.schemas :as schemas]))
  
-(defn select-values [map ks]
-         (reduce #(conj %1 (map %2)) [] ks))
-
 
 (defn generate-text
   ;; Lets imagine magical way to select proper template by given arguments
@@ -12,5 +9,5 @@
   (let [templates (schemas/matching-templates args)]
     (if (not (empty? templates))
       (let [selected (first templates)]
-        (apply (selected :fn) (select-values args [:product-name :relation :adverb :features])))
+        ((selected :fn) args))
       {:error "No Matching templates for this argument group"})))
