@@ -6,7 +6,7 @@
 (deftest test-simple-nlg-functions
   (testing "Simple object + verb + subject"
     (let [gen (nlg/generator)
-          expected "Jim attacks Jill"]
+          expected "Jim attacks Jill."]
       (is (= expected (gen
                        (fn
                          [clause factory]
@@ -27,7 +27,7 @@
   ;;                          (nlg/add-verb clause "attack"))))))))
   (testing "subject + complement "
     (let [gen (nlg/generator)
-          expected "Fizzy Cola is fresh and tasty"]
+          expected "Fizzy Cola is fresh and tasty."]
       (is (= expected (gen
                        (fn
                          [clause factory]
