@@ -1,0 +1,11 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+    <block type="segment" id="root-segment">
+        <mutation next_values="value_" />
+        <field name="first_field">first field</field>
+        <value name="ignore_1"><block type="value-block" id="ignore-1" /></value>
+        <value name="value_1"><block type="value-block" id="value-1" /></value>
+        <value name="value_2"><block type="value-block" id="value-2" /></value>
+        <value name="ignore_2"><block type="value-block" id="ignore-2" /></value>
+        <value name="value_3"><block type="value-block" id="value-3" /></value>
+    </block>
+</xml>

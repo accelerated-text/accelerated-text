@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config packages/webpack/config.js",
-    "test": "npm run test:eslint && npm run test:sasslint && npm run test:jest",
+    "test": "npm run test:eslint && npm run test:sasslint && npm run test:jest && npm run test:audit",
+    "test:audit": "npm audit",
     "test:eslint": "eslint packages",
     "test:jest": "jest",
     "test:sasslint": "sass-lint -vq"
@@ -67,7 +68,7 @@
     "timeout-as-promise": "^1.0.0",
     "webpack": "^4.26.0",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.14"
   },
   "jest": {
     "preset": "jest-puppeteer",

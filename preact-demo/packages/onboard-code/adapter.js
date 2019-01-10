@@ -6,15 +6,15 @@ import jsonToBlockly        from './json-to-blockly';
 const EXAMPLE_XML = `
 <xml xmlns="http://www.w3.org/1999/xhtml">
     <block type="segment" id="${ QA.EXAMPLE_XML }">
-        <field name="goal">description</field>
-        <statement name="first_statement">
-            <block type="all-words">
-                <mutation value_count="3"></mutation>
+        <field name="text_type">description</field>
+        <value name="items">
+            <block type="sequence">
+                <mutation next_values="value_" value_count="3"></mutation>
                 <value name="value_0"><block type="attribute"><field name="attribute_name">color</field></block></value>
                 <value name="value_1"><block type="attribute"><field name="attribute_name">material</field></block></value>
                 <value name="value_2"><block type="attribute"><field name="attribute_name">make</field></block></value>
             </block>
-        </statement>
+        </value>
     </block>
 </xml>`;
 
