@@ -7,6 +7,17 @@
             <field name="text_type">pitch</field>
         </block>
     </category>
+    <category name="Rhetoric">
+        <block type="rhetorical">
+            <field name="type">elaboration</field>
+        </block>
+        <block type="rhetorical">
+            <field name="type">explanation</field>
+        </block>
+        <block type="rhetorical">
+            <field name="type">summary</field>
+        </block>
+    </category>
     <category name="Lists">
         <block type="all" />
         <block type="sequence" />

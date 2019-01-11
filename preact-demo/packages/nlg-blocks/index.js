@@ -3,6 +3,7 @@ const blocks = [
     require( './any-count-from' ),
     require( './attribute' ),
     require( './quote' ),
+    require( './rhetorical' ),
     require( './segment' ),
     require( './sequence' ),
     require( './value-list-statement' ),
