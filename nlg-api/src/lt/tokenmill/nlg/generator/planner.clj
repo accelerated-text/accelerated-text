@@ -1,9 +1,16 @@
-(ns lt.tokenmill.nlg.generator.planner)
+(ns lt.tokenmill.nlg.generator.planner
+  (:require [clojure.string :as string]
+            [lt.tokenmill.nlg.generator.simple-nlg :as nlg]))
 
 (defn set-subj [selector]  (fn [context data] (assoc context :subj (selector data))))
 (defn set-verb-w-selector [selector] (fn [context data] (assoc context :verb (selector data))))
 (defn set-verb-static [verb] (fn [context _] (assoc context :verb verb)))
 (defn set-obj [selector] (fn [context data] (update context :objs (fn [vals] (conj vals (selector data))))))
+
+(defn normalize-context
+  "Build proper context for our segment builder"
+  [context]
+  context)
 
 (defn compile-attribute-selector
   "Defines what attribute to select from CSV"
@@ -73,3 +80,30 @@
             tail (rest fs)
             result (head context data)]
         (recur (merge context result) tail)))))
+
+(defn generate-sentence
+  "Takes context and creates sentence"
+  [context]
+  (let [gen (nlg/generator)]
+    (gen
+     (fn
+       [clause factory]
+       (do
+         (nlg/add-subj clause (context :subj))
+         (nlg/add-verb clause (context :verb))
+         (nlg/add-obj clause (nlg/concat-multi
+                              factory
+                              (nlg/create-multi-nouns
+                               factory
+                               (context :adverb)
+                               (context :objs)))))))))
+
+(defn render-dp
+  "document-plan - a hash map with document plan
+   data - a flat hashmap (represents CSV)
+   returns: generated text"
+  [document-plan data]
+  (let [plans (compile-dp document-plan)
+        instances (map #(build-dp-instance % data) plans)
+        sentences (map generate-sentence instances)]
+    (string/join sentences)))
