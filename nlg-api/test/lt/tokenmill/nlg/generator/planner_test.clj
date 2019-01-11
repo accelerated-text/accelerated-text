@@ -10,7 +10,7 @@
       (is (= 1 (count compiled)))
       (let [concrete-plan (first compiled)
             data {"product-name" "TestSubj"}
-            expected {:subj "TestSubj" :verb nil :objs []}]
+            expected {:subj "TestSubj" :verb nil :objs [] :adverb nil}]
         (println "Concrete plan: " concrete-plan)
         (let [result (build-dp-instance concrete-plan data)]
           (is (= expected result))))))
@@ -31,7 +31,8 @@
                   "secondary-feature" "support"}
             expected {:subj "Nike Air"
                       :objs ["comfort", "support"]
-                      :verb "provide"}]
+                      :verb "provide"
+                      :adverb nil}]
         (println "Concrete plan: " concrete-plan)
         (let [result (build-dp-instance concrete-plan data)]
           (is (= expected result))))))
@@ -41,7 +42,9 @@
                                   :purposes [{:relationship "provide"
                                               :value {:type "All"
                                                       :attributes [{:attribute "main-feature"}
-                                                                   {:attribute "secondary-feature"}]}}]}
+                                                                   {:attribute "secondary-feature"}]}}]
+                                  :elaborate {:type "Attribute"
+                                              :attribute "style"}}
                                  {:type "Component"
                                   :name {:attribute "lacing"}
                                   :purposes [{:relationship "result in"
@@ -52,10 +55,12 @@
           data {"product-name" "Nike Air"
                 "main-feature" "comfort"
                 "secondary-feature" "support"
-                "lacing" "premium lacing"}
+                "lacing" "premium lacing"
+                "style" "with sleek update on a classic design"}
           result (render-dp document-plan data)
-          expected-any ["Nike Air provides support. Premium lacing results in snug fit for everyday wear."
+          expected-any ["Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in snug fit for everyday wear."
                         ;; TODO: rething these two quotes to make more sense in sentence
-                        "Nike Air provides support. Premium lacing results in never gets into a knot."
-                        "Nike Air provides support. Premium lacing results in remains firmly tied."]]
+                        "Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in never gets into a knot."
+                        "Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in remains firmly tied."]]
+      (println "Result: " result)
       (is (some #(= % result) expected-any)))))

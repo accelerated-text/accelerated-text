@@ -27,7 +27,7 @@
 (defn create-multi-nouns
   [^NLGFactory factory adverb args]
   (let [nouns (map #(create-noun factory %) args)
-        head (if adverb (add-adverb (first nouns) adverb))
+        head (if adverb (add-adverb (first nouns) adverb) (first nouns))
         tail (rest nouns)]
     (cons head tail)))
   
