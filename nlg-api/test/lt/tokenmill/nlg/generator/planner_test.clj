@@ -49,7 +49,7 @@
                                   :name {:attribute "lacing"}
                                   :purposes [{:relationship "result in"
                                               :value {:type "Any-of"
-                                                      :quotes [{:quote "snug fit for everyday wear"}
+                                                      :quotes [{:quote "a snug fit for everyday wear"}
                                                                {:quote "never gets into a knot"}
                                                                {:quote "remains firmly tied"}]}}]}]}
           data {"product-name" "Nike Air"
@@ -58,7 +58,7 @@
                 "lacing" "premium lacing"
                 "style" "with sleek update on a classic design"}
           result (render-dp document-plan data)
-          expected-any ["Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in snug fit for everyday wear."
+          expected-any ["Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."
                         ;; TODO: rething these two quotes to make more sense in sentence
                         "Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in never gets into a knot."
                         "Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in remains firmly tied."]]
