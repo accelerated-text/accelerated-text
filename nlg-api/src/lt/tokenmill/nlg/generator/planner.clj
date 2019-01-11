@@ -1,5 +1,6 @@
 (ns lt.tokenmill.nlg.generator.planner
   (:require [clojure.string :as string]
+            [clojure.tools.logging :as log]
             [lt.tokenmill.nlg.generator.simple-nlg :as nlg]))
 
 (defn set-subj [selector]  (fn [context data] (assoc context :subj (selector data))))
@@ -32,11 +33,21 @@
   (let [selector (compile-attribute-selector value)]
     (set-obj selector)))
 
-(defn compile-random-quote
+(defn compile-random-quote-selector
   "Selects random attribute from list each time"
   [value]
   (let [quotes (map #(% :quote) (value :quotes))]
-    (set-complement (fn [_] (rand-nth quotes)))))
+    (fn [_] (rand-nth quotes))))
+
+(defn compile-elaborate
+  "Adds an elaboration quote at the end of sentence"
+  [value]
+  (when value
+    (let [type (value :type)
+          selector (case type
+                     "Attribute" (compile-attribute-selector value)
+                     "Any-of" (compile-random-quote-selector value))]
+      (set-complement selector))))
 
 (defn compile-purpose
   "it can be either single attribute, or a list (strict order, random order)"
@@ -47,7 +58,7 @@
         children (case type
                    "Attribute" (list (compile-single value))
                    "All" (compile-static-seq value)
-                   "Any-of" (list (compile-random-quote value)))]
+                   "Any-of" (list (set-complement (compile-random-quote-selector value))))]
     (conj children (set-verb-static rel-name))))
 
 (defn compile-purposes
@@ -59,10 +70,14 @@
 (defn compile-component
   "Component - Product or Product's Component element"
   [component]
-  (let [purposes  (compile-purposes (component :purposes))]
-    (concat (list
-             (set-subj
-              (compile-attribute-selector (component :name))))
+  (let [purposes  (compile-purposes (component :purposes))
+        elaborate (compile-elaborate (component :elaborate))]
+    (concat (remove
+             nil?
+             (list
+              (set-subj
+               (compile-attribute-selector (component :name)))
+              elaborate))
             (flatten purposes))))
 
 (defn compile-dp
@@ -80,7 +95,8 @@
   [dp data]
   (loop [context {:subj nil
                   :objs []
-                  :verb nil}
+                  :verb nil
+                  :adverb nil}
          fs dp]
     (if (empty? fs)
       context
@@ -115,4 +131,5 @@
   (let [plans (compile-dp document-plan)
         instances (map #(build-dp-instance % data) plans)
         sentences (map generate-sentence instances)]
+    (log/debug "Plans for building string: " plans)
     (string/join " " sentences)))
