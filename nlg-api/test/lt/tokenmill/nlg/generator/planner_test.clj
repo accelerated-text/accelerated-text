@@ -27,11 +27,24 @@
       (is (= 1 (count compiled)))
       (let [concrete-plan (first compiled)
             data {"product-name" "Nike Air"
-                  "main-feature" "light"
-                  "secondary-feature" "comfortable"}
+                  "main-feature" "comfort"
+                  "secondary-feature" "support"}
             expected {:subj "Nike Air"
-                      :objs ["light", "comfortable"]
+                      :objs ["comfort", "support"]
                       :verb "provide"}]
         (println "Concrete plan: " concrete-plan)
         (let [result (build-dp-instance concrete-plan data)]
-          (is (= expected result)))))))
+          (is (= expected result))))))
+  (testing "Generate a simple text from previous context"
+    (let [document-plan {:items [{:type "Product"
+                                  :name {:attribute "product-name"}
+                                  :purposes [{:relationship "provide"
+                                              :value {:type "All"
+                                                      :attributes [{:attribute "main-feature"}
+                                                                   {:attribute "secondary-feature"}]}}
+                                             ]}]}
+          data {"product-name" "Nike Air"
+                "main-feature" "comfort"
+                "secondary-feature" "support"}
+          result (render-dp document-plan data)]
+      (is (= "Nike Air provides comfort and support." result)))))
