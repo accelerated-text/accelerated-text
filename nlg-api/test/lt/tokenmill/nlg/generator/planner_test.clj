@@ -50,8 +50,7 @@
                                   :purposes [{:relationship "result in"
                                               :value {:type "Any-of"
                                                       :quotes [{:quote "a snug fit for everyday wear"}
-                                                               {:quote "never gets into a knot"}
-                                                               {:quote "remains firmly tied"}]}}]}]}
+                                                               {:quote "a situation where laces never gets into a knot"}]}}]}]}
           data {"product-name" "Nike Air"
                 "main-feature" "comfort"
                 "secondary-feature" "support"
@@ -59,8 +58,6 @@
                 "style" "with sleek update on a classic design"}
           result (render-dp document-plan data)
           expected-any ["Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."
-                        ;; TODO: rething these two quotes to make more sense in sentence
-                        "Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in never gets into a knot."
-                        "Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in remains firmly tied."]]
+                        "Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in a situation where laces never gets into a knot."]]
       (println "Result: " result)
       (is (some #(= % result) expected-any)))))
