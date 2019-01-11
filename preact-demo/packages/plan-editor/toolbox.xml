@@ -12,7 +12,7 @@
         <block type="sequence" />
         <block type="any-count-from" />
     </category>
-    <category name="Word sources">
+    <category name="Values">
         <block type="attribute" />
         <block type="quote" />
     </category>
