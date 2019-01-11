@@ -16,9 +16,8 @@ export default Block({
             type:           'field_dropdown',
             name:           'operator',
             options: [
-                [ 'AND',    'and' ],
-                [ 'OR',     'or' ],
-                [ 'XOR',    'xor' ],
+                [ 'and',        'and' ],
+                [ 'or',         'or' ],
             ],
         }],
     },

@@ -24,6 +24,7 @@
         <block type="and-or">
             <field name="operator">or</field>
         </block>
+        <block type="xor" />
         <block type="not" />
     </category>
     <category name="Checks">
