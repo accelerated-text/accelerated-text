@@ -35,16 +35,27 @@
         (println "Concrete plan: " concrete-plan)
         (let [result (build-dp-instance concrete-plan data)]
           (is (= expected result))))))
-  (testing "Generate a simple text from previous context"
+  (testing "Generate a simple text"
     (let [document-plan {:items [{:type "Product"
                                   :name {:attribute "product-name"}
                                   :purposes [{:relationship "provide"
                                               :value {:type "All"
                                                       :attributes [{:attribute "main-feature"}
-                                                                   {:attribute "secondary-feature"}]}}
-                                             ]}]}
+                                                                   {:attribute "secondary-feature"}]}}]}
+                                 {:type "Component"
+                                  :name {:attribute "lacing"}
+                                  :purposes [{:relationship "result in"
+                                              :value {:type "Any-of"
+                                                      :quotes [{:quote "snug fit for everyday wear"}
+                                                               {:quote "never gets into a knot"}
+                                                               {:quote "remains firmly tied"}]}}]}]}
           data {"product-name" "Nike Air"
                 "main-feature" "comfort"
-                "secondary-feature" "support"}
-          result (render-dp document-plan data)]
-      (is (= "Nike Air provides comfort and support." result)))))
+                "secondary-feature" "support"
+                "lacing" "premium lacing"}
+          result (render-dp document-plan data)
+          expected-any ["Nike Air provides support. Premium lacing results in snug fit for everyday wear."
+                        ;; TODO: rething these two quotes to make more sense in sentence
+                        "Nike Air provides support. Premium lacing results in never gets into a knot."
+                        "Nike Air provides support. Premium lacing results in remains firmly tied."]]
+      (is (some #(= % result) expected-any)))))
