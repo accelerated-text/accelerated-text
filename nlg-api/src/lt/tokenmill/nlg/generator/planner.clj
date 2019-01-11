@@ -6,6 +6,7 @@
 (defn set-verb-w-selector [selector] (fn [context data] (assoc context :verb (selector data))))
 (defn set-verb-static [verb] (fn [context _] (assoc context :verb verb)))
 (defn set-obj [selector] (fn [context data] (update context :objs (fn [vals] (conj vals (selector data))))))
+(defn set-complement [selector] (fn [context data] (assoc context :complement (selector data))))
 
 (defn normalize-context
   "Build proper context for our segment builder"
@@ -31,6 +32,12 @@
   (let [selector (compile-attribute-selector value)]
     (set-obj selector)))
 
+(defn compile-random-quote
+  "Selects random attribute from list each time"
+  [value]
+  (let [quotes (map #(% :quote) (value :quotes))]
+    (set-complement (fn [_] (rand-nth quotes)))))
+
 (defn compile-purpose
   "it can be either single attribute, or a list (strict order, random order)"
   [purpose]
@@ -39,7 +46,8 @@
         type (value :type)
         children (case type
                    "Attribute" (list (compile-single value))
-                   "All" (compile-static-seq value))]
+                   "All" (compile-static-seq value)
+                   "Any-of" (list (compile-random-quote value)))]
     (conj children (set-verb-static rel-name))))
 
 (defn compile-purposes
@@ -96,7 +104,8 @@
                               (nlg/create-multi-nouns
                                factory
                                (context :adverb)
-                               (context :objs)))))))))
+                               (context :objs))))
+         (nlg/add-complement clause (context :complement)))))))
 
 (defn render-dp
   "document-plan - a hash map with document plan
@@ -106,4 +115,4 @@
   (let [plans (compile-dp document-plan)
         instances (map #(build-dp-instance % data) plans)
         sentences (map generate-sentence instances)]
-    (string/join sentences)))
+    (string/join " " sentences)))

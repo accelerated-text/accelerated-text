@@ -7,10 +7,10 @@
 
 (def lexicon (Lexicon/getDefaultLexicon))
 
-(defn add-obj [^SPhraseSpec clause obj] (.setObject clause obj))
-(defn add-subj [^SPhraseSpec clause subj] (.setSubject clause subj))
-(defn add-verb [^SPhraseSpec clause verb] (.setVerb clause verb))
-(defn add-complement [^SPhraseSpec clause complement] (.addComplement clause complement))
+(defn add-obj [^SPhraseSpec clause obj] (if obj (.setObject clause obj)))
+(defn add-subj [^SPhraseSpec clause subj] (if subj (.setSubject clause subj)))
+(defn add-verb [^SPhraseSpec clause verb] (if verb (.setVerb clause verb)))
+(defn add-complement [^SPhraseSpec clause complement] (if complement (.addComplement clause complement)))
 
 (defn add-adverb
   [^NPPhraseSpec noun adverb]
@@ -27,7 +27,7 @@
 (defn create-multi-nouns
   [^NLGFactory factory adverb args]
   (let [nouns (map #(create-noun factory %) args)
-        head (add-adverb (first nouns) adverb)
+        head (if adverb (add-adverb (first nouns) adverb))
         tail (rest nouns)]
     (cons head tail)))
   
