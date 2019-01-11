@@ -1,47 +1,49 @@
-@import './color-functions'
+@import '~bw-color-blind-palette'
+@import '~sass-mix-ratio'
+@import '~sass-mix-ratio/2x-scale'
 
+
+/// Main colors ----------------------------------------------------------------
 
 $black:             #000
 $white:             #fff
+$gray:              mix( $black, $white )
 
-/// red	    d36027	20	996044
-/// orange	e79f26	38	997a44
-/// yellow	f2e646	56	999344
-/// lime	2c9f06	105	599944
-/// green	069f73	163	449981
-/// cyan	06879e	189	448c99
-/// blue	0773b3	202	447a99
-/// purple	cc79a7	327	994473
-
-$red:               #d36027
-$orange:            #e79f26
-$yellow:            #f2e646
-$lime:              #2c9f06
-$green:             #069f73
-$cyan:              #06879e
-$blue:              #0773b3
-$purple:            #cc79a7
-
-$red-hue:           20
-$orange-hue:        38
-$yellow-hue:        56
-$lime-hue:          105
-$green-hue:         163
-$cyan-hue:          189
-$blue-hue:          202
-$purple-hue:        327
-
-$blockly-red:       #996044
-$blockly-orange:    #997a44
-$blockly-yellow:    #999344
-$blockly-lime:      #599944
-$blockly-green:     #449981
-$blockly-cyan:      #448c99
-$blockly-blue:      #447a99
-$blockly-purple:    #994473
+$red:               map-get( $bw-color-blind-palette, 'vermillion' )
+$orange:            map-get( $bw-color-blind-palette, 'orange' )
+$yellow:            map-get( $bw-color-blind-palette, 'yellow' )
+$green:             map-get( $bw-color-blind-palette, 'bluish-green' )
+$cyan:              map-get( $bw-color-blind-palette, 'sky-blue' )
+$blue:              map-get( $bw-color-blind-palette, 'blue' )
+$magenta:           map-get( $bw-color-blind-palette, 'reddish-purple' )
+/// Avoid this color without good surrounding contrast:
+$lime:              mix( $yellow, $green )
 
 
-$gray:              whiten-1( $black )
-$subtle-gray:       whiten-8( $gray )
+/// Blockly colors -------------------------------------------------------------
 
-$text-color:        blacken-8( $blue );
+$red-hue:           hue( $red )
+$orange-hue:        hue( $orange )
+$yellow-hue:        hue( $yellow )
+$lime-hue:          hue( $lime )
+$green-hue:         hue( $green )
+$cyan-hue:          hue( $cyan ) /// Note: Same as blue!!!
+$blue-hue:          hue( $blue )
+$magenta-hue:       hue( $magenta )
+
+$blockly-saturation:    38.46%
+$blockly-lightness:     43.33%
+
+$blockly-red:       hsl( $red-hue, $blockly-saturation, $blockly-lightness )
+$blockly-orange:    hsl( $orange-hue, $blockly-saturation, $blockly-lightness )
+$blockly-yellow:    hsl( $yellow-hue, $blockly-saturation, $blockly-lightness )
+$blockly-lime:      hsl( $lime-hue, $blockly-saturation, $blockly-lightness )
+$blockly-green:     hsl( $green-hue, $blockly-saturation, $blockly-lightness )
+$blockly-cyan:      hsl( $cyan-hue, $blockly-saturation, $blockly-lightness )
+$blockly-blue:      hsl( $blue-hue, $blockly-saturation, $blockly-lightness )
+$blockly-magenta:   hsl( $magenta-hue, $blockly-saturation, $blockly-lightness )
+
+/// Additional colors ----------------------------------------------------------
+
+$subtle-gray:       tint-16( $gray )
+$text-color:        shade-16( $blue )
