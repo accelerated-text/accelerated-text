@@ -22,8 +22,6 @@ export default Block({
         }, {
             type:           'input_value',
             name:           'list',
-            inline:         false,
-            inputsInline:   false,
         }],
     },
 });
