@@ -21,18 +21,6 @@
     (fn [data]
       (get data attr-name))))
 
-(defn compile-static-seq
-  "Builds a list from multiple attributes"
-  [value]
-  (let [selectors (map compile-attribute-selector (value :attributes))]
-    (map #(set-obj %) selectors)))
-
-(defn compile-single
-  "Compiles single attribute"
-  [value]
-  (let [selector (compile-attribute-selector value)]
-    (set-obj selector)))
-
 (defn compile-random-quote-selector
   "Selects random attribute from list each time"
   [value]
@@ -56,8 +44,8 @@
         value (purpose :value)
         type (value :type)
         children (case type
-                   "Attribute" (list (compile-single value))
-                   "All" (compile-static-seq value)
+                   "Attribute" (list (set-obj (compile-attribute-selector value)))
+                   "All" (map #(set-obj (compile-attribute-selector %)) (value :attributes))
                    "Any-of" (list (set-complement (compile-random-quote-selector value))))]
     (conj children (set-verb-static rel-name))))
 

@@ -18,7 +18,7 @@
 
 
 (def available-templates [{:schema product-schema-1 :fn templates/product-1}
-                          {:schema product-schema-2 :fn template/product-2}])
+                          {:schema product-schema-2 :fn templates/product-2}])
 
 (defn check-template
   [template data]
