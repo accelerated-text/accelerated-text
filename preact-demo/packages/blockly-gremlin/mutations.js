@@ -17,7 +17,7 @@ const {
 
 module.exports = {
 
-    else_if_count: ( parentEl, mutationValue ) => {
+    else_if_count: parentEl => {
 
         const EMPTY_THEN_EXPRESSION =  '';
         const valueMap =    getValueMap( parentEl );
