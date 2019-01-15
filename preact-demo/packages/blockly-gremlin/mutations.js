@@ -1,5 +1,4 @@
 const {
-    identity,
     props,
 } = require( 'ramda' );
 
