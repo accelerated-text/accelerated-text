@@ -1,0 +1,88 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+
+    <block type="test" id="empty">
+        <mutation else_if_count="0" />
+    </block>
+    
+    <block type="test" id="empty-long">
+        <mutation else_if_count="2" />
+    </block>
+
+    <block type="test" id="only-if">
+        <mutation else_if_count="0" />
+        <value name="if">
+            <block type="value-block" id="only-if-if-value" />
+        </value>
+    </block>
+
+    <block type="test" id="if-then">
+        <mutation else_if_count="0" />
+        <value name="if">
+            <block type="value-block" id="if-then-if-value" />
+        </value>
+        <value name="then">
+            <block type="value-block" id="if-then-then-value" />
+        </value>
+    </block>
+
+    <block type="test" id="if-then-else">
+        <mutation else_if_count="0" />
+        <value name="if">
+            <block type="value-block" id="if-then-else-if-value" />
+        </value>
+        <value name="then">
+            <block type="value-block" id="if-then-else-then-value" />
+        </value>
+        <value name="else">
+            <block type="value-block" id="if-then-else-else-value" />
+        </value>
+    </block>
+
+    <block type="test" id="if-then-elseif">
+        <mutation else_if_count="1" />
+        <value name="if">
+            <block type="value-block" id="if-then-elseif-if-value" />
+        </value>
+        <value name="then">
+            <block type="value-block" id="if-then-elseif-then-value" />
+        </value>
+        <value name="else_if_0">
+            <block type="value-block" id="if-then-elseif-elseif-value-0" />
+        </value>
+    </block>
+
+    <block type="test" id="if-then-elseif-then">
+        <mutation else_if_count="1" />
+        <value name="if">
+            <block type="value-block" id="if-then-elseif-then-if-value" />
+        </value>
+        <value name="then">
+            <block type="value-block" id="if-then-elseif-then-then-value" />
+        </value>
+        <value name="else_if_0">
+            <block type="value-block" id="if-then-elseif-then-elseif-value-0" />
+        </value>
+        <value name="then_0">
+            <block type="value-block" id="if-then-elseif-then-then-value-0" />
+        </value>
+    </block>
+        
+    <block type="test" id="if-then-elseif-then-else">
+        <mutation else_if_count="1" />
+        <value name="if">
+            <block type="value-block" id="if-then-elseif-then-else-if-value" />
+        </value>
+        <value name="then">
+            <block type="value-block" id="if-then-elseif-then-else-then-value" />
+        </value>
+        <value name="else_if_0">
+            <block type="value-block" id="if-then-elseif-then-else-elseif-value-0" />
+        </value>
+        <value name="then_0">
+            <block type="value-block" id="if-then-elseif-then-else-then-value-0" />
+        </value>
+        <value name="else">
+            <block type="value-block" id="if-then-elseif-then-else-else-value" />
+        </value>
+    </block>
+</xml>
