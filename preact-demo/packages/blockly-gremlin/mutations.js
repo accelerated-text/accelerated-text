@@ -5,15 +5,13 @@ const {
 
 const {
     CHAIN_SEP,
-    STATEMENT_SEP,
 } = require( './constants' );
 
 const {
+    addProperty,
     connectElements,
     getValueMap,
     isValue,
-    setProperty,
-    vById,
 } = require( './functions' );
 
 
@@ -25,8 +23,6 @@ module.exports = {
         console.log( valueMap );
         const elseIfEl =    n => valueMap[`else_if_${ n }`];
         const thenEl =      n => valueMap[`then_${ n }`];
-        const addProperty = ( el, name, value ) =>
-            vById( el.id ) + setProperty( name, value ) + STATEMENT_SEP;
 
         return [
             addProperty( valueMap.if, 'is-condition', true ),

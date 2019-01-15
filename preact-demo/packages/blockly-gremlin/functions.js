@@ -63,6 +63,9 @@ const connectElements = ( type, fromEl, toEl, properties ) => [
     STATEMENT_SEP,
 ];
 
+const addProperty = ( el, name, value ) =>
+    vById( el.id ) + setProperty( name, value ) + STATEMENT_SEP;
+
 
 module.exports = {
     isBlock,
@@ -78,4 +81,5 @@ module.exports = {
     vById,
     objToProperties,
     connectElements,
+    addProperty,
 };
