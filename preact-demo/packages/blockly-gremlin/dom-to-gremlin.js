@@ -36,8 +36,7 @@ const convertMutation = parentEl => mutationEl =>
     [ ...mutationEl.attributes ]
         .filter(({ name, value }) => mutations[name])
         .map(({ name, value }) => mutations[name]( parentEl, value, mutationEl ))
-        .filter( identity )
-        .join( STATEMENT_SEP );
+        .filter( identity );
 
 /// Element converters ---------------------------------------------------------
 
@@ -82,9 +81,10 @@ const convertBlock =    ( el, parentEl, parentEdgeType, parentEdgeName ) => {
                     name:   parentEdgeName,
                 }),
             ])),
-        ...children
+        ...flatten( children
             .filter( isMutation )
-            .map( convertMutation( el )),
+            .map( convertMutation( el ))
+        ),
     ].join( CHAIN_SEP );
 };
 
