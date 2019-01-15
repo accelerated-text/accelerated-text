@@ -1,5 +1,6 @@
 const {
     toPairs,
+    zipWith,
 } = require( 'ramda' );
 
 const {
@@ -63,6 +64,13 @@ const connectElements = ( type, fromEl, toEl, properties ) => [
     STATEMENT_SEP,
 ];
 
+const connectElementList = ( type, list, properties ) => zipWith(
+    ( elFirst, elSecond ) =>
+        connectElements( type, elFirst, elSecond, properties ),
+    list.slice( 0, -1 ),
+    list.slice( 1 ),
+);
+
 const addProperty = ( el, name, value ) =>
     vById( el.id ) + setProperty( name, value ) + STATEMENT_SEP;
 
@@ -81,5 +89,6 @@ module.exports = {
     vById,
     objToProperties,
     connectElements,
+    connectElementList,
     addProperty,
 };

@@ -1,6 +1,6 @@
 const {
     identity,
-    times,
+    props,
 } = require( 'ramda' );
 
 const {
@@ -10,6 +10,7 @@ const {
 const {
     addProperty,
     connectElements,
+    connectElementList,
     getValueMap,
     isValue,
 } = require( './functions' );
@@ -19,31 +20,40 @@ module.exports = {
 
     else_if_count: ( parentEl, mutationValue ) => {
 
+        const EMPTY_THEN_EXPRESSION =  '';
         const valueMap =    getValueMap( parentEl );
-        console.log( valueMap );
-        const elseIfEl =    n => valueMap[`else_if_${ n }`];
-        const thenEl =      n => valueMap[`then_${ n }`];
+        const findThen =    name => valueMap[`then_${ name.slice( -1 ) }`];
+
+        const isCondition = name => (
+            name === 'if'
+            || name === 'else'
+            || name.startsWith( 'else_if_' )
+        );
+        const conditions =  Object.keys( valueMap ).filter( isCondition );
 
         return [
-            addProperty( valueMap.if, 'is-condition', true ),
-            connectElements( 'has-condition', parentEl, valueMap.if ),
-            connectElements( 'then-expression', valueMap.if, valueMap.then ),
-            ...times(
-                n => [
-                    addProperty( elseIfEl( n ), 'is-condition', true ),
-                    connectElements( 'has-condition', parentEl, elseIfEl( n )),
-                    connectElements( 'then-expression', elseIfEl( n ), thenEl( n )),
-                    n
-                        ? connectElements( 'has-next', elseIfEl( n - 1 ), elseIfEl( n ))
-                        : connectElements( 'has-next', valueMap.if, elseIfEl( n )),
-                ],
-                mutationValue,
+            conditions.map(
+                name => connectElements( 'has-condition', parentEl, valueMap[name])
             ),
-            addProperty( valueMap.else, 'is-default-condition', true ),
-            connectElements( 'has-condition', parentEl, valueMap.else ),
-            mutationValue
-                ? connectElements( 'has-next', elseIfEl( mutationValue - 1 ), valueMap.else )
-                : connectElements( 'has-next', valueMap.if, valueMap.else ),
+            conditions.map( name => (
+                name === 'else'
+                ? addProperty( valueMap[name], 'is-default-condition', true )
+                : addProperty( valueMap[name], 'is-condition', true )
+            )),
+            conditions.map( name => (
+                name === 'else'
+                ? EMPTY_THEN_EXPRESSION
+                : name === 'if'
+                ? (
+                    valueMap.then
+                    ? connectElements( 'then-expression', valueMap.if, valueMap.then )
+                    : EMPTY_THEN_EXPRESSION
+                )
+                : findThen( name ) /// corresponding then_X to else_if_X
+                ? connectElements( 'then-expression', valueMap[name], findThen( name ))
+                : EMPTY_THEN_EXPRESSION
+            )),
+            connectElementList( 'has-next', props( conditions, valueMap )),
         ];
     },
 
@@ -60,6 +70,5 @@ module.exports = {
                     array[idx - 1].firstElementChild,
                     valueEl.firstElementChild
                 ).join( CHAIN_SEP )
-            ).filter( identity )
-            .join( CHAIN_SEP ),
+            ),
 };
