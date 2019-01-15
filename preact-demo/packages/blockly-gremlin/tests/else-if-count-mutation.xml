@@ -3,7 +3,7 @@
     <block type="test" id="empty">
         <mutation else_if_count="0" />
     </block>
-    
+
     <block type="test" id="empty-long">
         <mutation else_if_count="2" />
     </block>
@@ -66,7 +66,7 @@
             <block type="value-block" id="if-then-elseif-then-then-value-0" />
         </value>
     </block>
-        
+
     <block type="test" id="if-then-elseif-then-else">
         <mutation else_if_count="1" />
         <value name="if">
