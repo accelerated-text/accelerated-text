@@ -106,7 +106,10 @@ export default Block({
     domToMutation( xmlElement ) {
 
         this.fixInputCount(
-            xmlElement.getAttribute( 'else_if_count' )
+            parseInt(
+                xmlElement.getAttribute( 'else_if_count' ),
+                10,
+            )
         );
     },
 
