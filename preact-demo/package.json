@@ -28,6 +28,7 @@
   "author": "Tokenmill.lt",
   "license": "UNLICENSED",
   "dependencies": {
+    "bw-color-blind-palette": "^1.0.0",
     "classnames": "^2.2.6",
     "dom-dom": "^1.2.3",
     "fetch-inject": "^2.0.2",
@@ -38,6 +39,7 @@
     "preact-router": "^2.6.1",
     "prop-types": "^15.6.2",
     "ramda": "^0.26.1",
+    "sass-mix-ratio": "^0.0.1",
     "shallow-equal": "^1.0.0"
   },
   "devDependencies": {
