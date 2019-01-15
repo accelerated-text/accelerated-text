@@ -40,6 +40,7 @@ module.exports = {
                 mutationValue,
             ),
             addProperty( valueMap.else, 'is-default-condition', true ),
+            connectElements( 'has-condition', parentEl, valueMap.else ),
             mutationValue
                 ? connectElements( 'has-next', elseIfEl( mutationValue - 1 ), valueMap.else )
                 : connectElements( 'has-next', valueMap.if, valueMap.else ),
