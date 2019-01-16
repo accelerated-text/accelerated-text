@@ -1,12 +1,18 @@
 import Block                from './Block';
+import valueListStatement   from './value-list-statement';
 
 
 export default Block({
+    ...valueListStatement,
 
     type:                   'segment',
 
     json: {
+        ...valueListStatement.json,
+
         colour:             105,
+        nextStatement:      'Segment',
+        previousStatement:  'Segment',
         message0:           '%1',
         args0: [{
             type:           'field_dropdown',
@@ -17,10 +23,6 @@ export default Block({
             ],
         }],
         message1:           'segment',
-        message2:           'with %1',
-        args2: [{
-            type:           'input_value',
-            name:           'items',
-        }],
+        message2:           'about',
     },
 });
