@@ -31,7 +31,7 @@ export default Block({
                 [ 'Topic Change', 'topic-change' ],
             ],
         }],
-        message1:           '%1',
+        message1:           'from %1',
         args1: [{
             type:           'input_value',
             name:           'value',
