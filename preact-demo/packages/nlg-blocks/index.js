@@ -7,6 +7,7 @@ const blocks = [
     require( './not' ),
     require( './number-comparison' ),
     require( './quote' ),
+    require( './rhetorical' ),
     require( './segment' ),
     require( './sequence' ),
     require( './value-in-list' ),
