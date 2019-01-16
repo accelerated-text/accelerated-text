@@ -1,5 +1,6 @@
 import Block            from './Block';
 
+
 export default Block({
 
     type:                   'attribute',
@@ -12,10 +13,16 @@ export default Block({
             type:           'field_dropdown',
             name:           'attribute_name',
             options: [
-                [ 'Title',      'title' ],
-                [ 'Color',      'color' ],
-                [ 'Material',   'material' ],
-                [ 'Make',       'make' ],
+                [ 'Color',              'Color' ],
+                [ 'Lacing',             'Lacing' ],
+                [ 'Main feature',       'Main Feature' ],
+                [ 'Make',               'Make' ],
+                [ 'Material',           'Material' ],
+                [ 'Name',               'Name' ],
+                [ 'Product name',       'Product name' ],
+                [ 'Style',              'Style' ],
+                [ 'Secondary feature',  'Secondary feature' ],
+                [ 'Title',              'Title' ],
             ],
         }],
     },
