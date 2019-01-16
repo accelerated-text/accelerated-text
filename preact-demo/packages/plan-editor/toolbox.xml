@@ -1,11 +1,16 @@
 <xml style="display: none">
-    <category name="Segments">
+    <category name="Document">
+        <block type="document-plan" />
         <block type="segment">
             <field name="text_type">description</field>
         </block>
         <block type="segment">
             <field name="text_type">pitch</field>
         </block>
+    </category>
+    <category name="Topics">
+        <block type="product" />
+        <block type="product-component" />
     </category>
     <category name="Rhetoric">
         <block type="rhetorical">
@@ -16,6 +21,12 @@
         </block>
         <block type="rhetorical">
             <field name="type">elaboration</field>
+        </block>
+        <block type="relationship">
+            <field name="type">provides</field>
+        </block>
+        <block type="relationship">
+            <field name="type">consequence</field>
         </block>
     </category>
     <category name="Lists">
