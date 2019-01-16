@@ -4,10 +4,14 @@
 // sass-lint:disable force-pseudo-nesting, nesting-depth, no-important
 
 .className
+
+    $background:            $blockly-green
+    $ribbon-background:     tint-8( $gray )
+
     \:global
         .blocklyToolboxDiv
 
-            background-color:   $blockly-green
+            background-color:   $background
             color:              $white
 
             .blocklyTreeRoot
@@ -22,15 +26,15 @@
 
                     &.blocklyTreeSelected
 
-                        background-color:   whiten-4( $gray ) !important
+                        background-color:   $ribbon-background !important
 
                         .blocklyTreeLabel
 
-                            color:          blacken-1( $blockly-green )
+                            color:          shade-2( $blockly-green )
 
                     &:not( .blocklyTreeSelected ):hover
 
-                        background-color:   tint-4( $blockly-green )
+                        background-color:   tint-1-8( $background )
 
                     .blocklyTreeLabel
 
@@ -40,7 +44,7 @@
 
         .blocklyFlyout
 
-            background-color:   whiten-4( $gray )
+            background-color:   $ribbon-background
             box-shadow:         0 1px 2px $gray
             min-height:         6rem
             padding:            $space-xs 0 0
@@ -51,12 +55,12 @@
 
         .blocklyScrollbarHandle
 
-            fill:               whiten-2( $gray )
+            fill:               tint-2( $gray )
 
             &:hover
 
-                fill:           whiten-1( $gray )
+                fill:           tint-1( $gray )
 
         .blocklyScrollbarBackground:hover + .blocklyScrollbarHandle
 
-            fill:               whiten-1( $gray )
+            fill:               tint-1( $gray )

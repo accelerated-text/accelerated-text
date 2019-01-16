@@ -5,7 +5,7 @@ export default Block({
     type:                   'quote',
 
     json: {
-        colour:             163,
+        colour:             26,
         output:             null,
         message0:           '%1',
         args0: [{

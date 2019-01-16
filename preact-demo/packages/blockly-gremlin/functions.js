@@ -1,5 +1,6 @@
 const {
     toPairs,
+    zipWith,
 } = require( 'ramda' );
 
 const {
@@ -9,6 +10,7 @@ const {
     STATEMENT_SEP,
 } = require( './constants' );
 
+/// DOM tests ------------------------------------------------------------------
 
 const isBlock =         el => el.tagName.toLowerCase() === 'block';
 const isField =         el => el.tagName.toLowerCase() === 'field';
@@ -16,6 +18,20 @@ const isMutation =      el => el.tagName.toLowerCase() === 'mutation';
 const isNext =          el => el.tagName.toLowerCase() === 'next';
 const isStatement =     el => el.tagName.toLowerCase() === 'statement';
 const isValue =         el => el.tagName.toLowerCase() === 'value';
+
+/// Other DOM functions --------------------------------------------------------
+
+const getValueMap = el =>
+    [ ...el.children ]
+        .filter( isValue )
+        .reduce(
+            ( acc, valueEl ) => {
+                const name =    valueEl.getAttribute( 'name' );
+                acc[name] =     valueEl.firstElementChild;
+                return acc;
+            },
+            {}
+        );
 
 /// Base Gremlin generators ----------------------------------------------------
 
@@ -48,6 +64,16 @@ const connectElements = ( type, fromEl, toEl, properties ) => [
     STATEMENT_SEP,
 ];
 
+const connectElementList = ( type, list, properties ) => zipWith(
+    ( elFirst, elSecond ) =>
+        connectElements( type, elFirst, elSecond, properties ),
+    list.slice( 0, -1 ),
+    list.slice( 1 ),
+);
+
+const addProperty = ( el, name, value ) =>
+    vById( el.id ) + setProperty( name, value ) + STATEMENT_SEP;
+
 
 module.exports = {
     isBlock,
@@ -56,10 +82,13 @@ module.exports = {
     isNext,
     isStatement,
     isValue,
+    getValueMap,
     addEdge,
     addVertex,
     setProperty,
     vById,
     objToProperties,
     connectElements,
+    connectElementList,
+    addProperty,
 };
