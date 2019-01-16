@@ -33,7 +33,6 @@ export default Block({
         );
     },
 
-
     domToMutation( xmlElement ) {
 
         const valueCount = xmlElement.getAttribute( 'value_count' );
