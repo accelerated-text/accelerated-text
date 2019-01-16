@@ -6,7 +6,7 @@ export default Block({
     type:                   'rhetorical',
 
     json: {
-        colour:             56,
+        colour:             327,
         output:             null,
         message0:           '%1',
         args0: [{
