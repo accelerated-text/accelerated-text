@@ -9,13 +9,13 @@
     </category>
     <category name="Rhetoric">
         <block type="rhetorical">
-            <field name="type">elaboration</field>
+            <field name="type">summary</field>
         </block>
         <block type="rhetorical">
             <field name="type">explanation</field>
         </block>
         <block type="rhetorical">
-            <field name="type">summary</field>
+            <field name="type">elaboration</field>
         </block>
     </category>
     <category name="Lists">
