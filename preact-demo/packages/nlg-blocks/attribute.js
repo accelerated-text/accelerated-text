@@ -12,6 +12,7 @@ export default Block({
             type:           'field_dropdown',
             name:           'attribute_name',
             options: [
+                [ 'Title',      'title' ],
                 [ 'Color',      'color' ],
                 [ 'Material',   'material' ],
                 [ 'Make',       'make' ],
