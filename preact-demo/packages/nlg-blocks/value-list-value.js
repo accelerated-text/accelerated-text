@@ -13,6 +13,7 @@ export default Block({
     json: {
         colour:             0,
         output:             null,
+        inputsInline:       false,
         message0:           '',
     },
 

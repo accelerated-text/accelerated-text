@@ -14,6 +14,7 @@ export default Block({
         colour:             0,
         previousStatement:  'Action',
         nextStatement:      'Action',
+        inputsInline:       false,
         message0:           '',
     },
 
