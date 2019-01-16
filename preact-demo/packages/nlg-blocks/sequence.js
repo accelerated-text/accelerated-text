@@ -1,23 +1,18 @@
 import Block                from './Block';
-import valueListValue       from './value-list-value';
+import valueSequence        from './value-sequence';
 
 
 export default Block({
 
-    ...valueListValue,
+    ...valueSequence,
 
     type:                   'sequence',
+    output:                 null,
 
     json: {
-        ...valueListValue.json,
+        ...valueSequence.json,
+
         colour:             202,
         message0:           'sequence:',
-    },
-
-    mutationToDom() {
-
-        const el = valueListValue.mutationToDom.call( this );
-        el.setAttribute( 'next_values', 'value_' );
-        return el;
     },
 });

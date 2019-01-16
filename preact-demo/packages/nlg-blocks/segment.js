@@ -1,14 +1,14 @@
 import Block                from './Block';
-import valueListStatement   from './value-list-statement';
+import valueSequence        from './value-sequence';
 
 
 export default Block({
-    ...valueListStatement,
+    ...valueSequence,
 
     type:                   'segment',
 
     json: {
-        ...valueListStatement.json,
+        ...valueSequence.json,
 
         colour:             105,
         nextStatement:      'Segment',

@@ -15,8 +15,6 @@ const blocks = [
     require( './segment' ),
     require( './sequence' ),
     require( './value-in-list' ),
-    require( './value-list-statement' ),
-    require( './value-list-value' ),
     require( './xor' ),
 ];
 

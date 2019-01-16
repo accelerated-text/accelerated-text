@@ -1,14 +1,14 @@
 import Block                from './Block';
-import valueListValue       from './value-list-value';
+import valueSequence        from './value-sequence';
 
 
 export default Block({
-    ...valueListValue,
+    ...valueSequence,
 
     type:                   'relationship',
 
     json: {
-        ...valueListValue.json,
+        ...valueSequence.json,
 
         colour:             56,
         output:             null,

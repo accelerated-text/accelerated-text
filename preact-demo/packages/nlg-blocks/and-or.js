@@ -1,16 +1,18 @@
 import Block                from './Block';
-import valueListValue       from './value-list-value';
+import valueSequence        from './value-sequence';
 
 
 export default Block({
 
-    ...valueListValue,
+    ...valueSequence,
 
     type:                   'and-or',
 
     json: {
-        ...valueListValue.json,
+        ...valueSequence.json,
+
         colour:             164,
+        output:             null,
         message0:           '%1',
         args0: [{
             type:           'field_dropdown',
