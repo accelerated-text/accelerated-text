@@ -1,4 +1,5 @@
 import Block                from './Block';
+import * as T               from './types';
 import valueList            from './value-list';
 
 
@@ -12,7 +13,7 @@ export default Block({
         ...valueList.json,
 
         colour:             202,
-        output:             null,
+        output:             T.LIST,
         message0:           'any %1',
         args0: [{
             type:           'field_number',
@@ -21,4 +22,6 @@ export default Block({
         }],
         message1:           'from:',
     },
+
+    valueListCheck:         T.ANY,
 });

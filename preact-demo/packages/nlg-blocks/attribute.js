@@ -1,4 +1,5 @@
 import Block            from './Block';
+import * as T           from './types';
 
 
 export default Block({
@@ -7,7 +8,7 @@ export default Block({
 
     json: {
         colour:             26,
-        output:             null,
+        output:             T.STRING,
         message0:           '%1 attribute',
         args0: [{
             type:           'field_dropdown',

@@ -45,7 +45,10 @@ export default Block({
 
     appendNextInput() {
 
-        this.appendInput_( Blockly.INPUT_VALUE, `${ PREFIX }${ this.value_count }` );
+        this
+            .appendValueInput( `${ PREFIX }${ this.value_count }` )
+            .setCheck( this.valueListCheck || null );
+
         this.value_count += 1;
     },
 
