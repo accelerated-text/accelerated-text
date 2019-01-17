@@ -9,7 +9,7 @@ export default Block({
     mutationToDom() {
 
         const el = valueList.mutationToDom.call( this );
-        el.setAttribute( 'next_values', 'value_' );
+        el.setAttribute( 'value_sequence', 'value_' );
         return el;
     },
 });

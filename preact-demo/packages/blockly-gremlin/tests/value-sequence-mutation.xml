@@ -1,6 +1,6 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
     <block type="segment" id="root-segment">
-        <mutation next_values="value_" />
+        <mutation value_sequence="value_" />
         <field name="first_field">first field</field>
         <value name="ignore_1"><block type="value-block" id="ignore-1" /></value>
         <value name="value_1"><block type="value-block" id="value-1" /></value>
