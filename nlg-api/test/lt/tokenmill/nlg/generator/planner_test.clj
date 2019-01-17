@@ -42,7 +42,8 @@
                                   :purposes [{:relationship "provide"
                                               :value {:type "All"
                                                       :attributes [{:attribute "main-feature"}
-                                                                   {:attribute "secondary-feature"}]}}]
+                                                                   {:attribute "secondary-feature"}
+                                                                   {:attribute "other-feature"}]}}]
                                   :elaborate {:type "Attribute"
                                               :attribute "style"}}
                                  {:type "Component"
@@ -54,10 +55,11 @@
           data {"product-name" "Nike Air"
                 "main-feature" "comfort"
                 "secondary-feature" "support"
+                "other-feature" "style"
                 "lacing" "premium lacing"
                 "style" "with sleek update on a classic design"}
           result (render-dp document-plan data)
-          expected-any ["Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."
-                        "Nike Air provides comfort and support with sleek update on a classic design. Premium lacing results in a situation where laces never gets into a knot."]]
+          expected-any ["Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."
+                        "Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a situation where laces never gets into a knot."]]
       (println "Result: " result)
       (is (some #(= % result) expected-any)))))
