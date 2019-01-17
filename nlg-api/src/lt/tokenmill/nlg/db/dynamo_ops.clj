@@ -19,7 +19,7 @@
 
 (defn add-workspace
   [key workspace]
-  (let [body (assoc workspace :created-at (utils/ts-now))]
+  (let [body (assoc workspace :createdAt (utils/ts-now))]
     (write-workspace key body)))
 
 (defn update-workspace
@@ -27,7 +27,7 @@
   (let [original (get-workspace key)
         body (merge
               original
-              (assoc workspace :updated-at (utils/ts-now)))]
+              (assoc workspace :updatedAt (utils/ts-now)))]
     (write-workspace key body)))
   
 
