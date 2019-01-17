@@ -7,6 +7,11 @@
   [key]
   (far/get-item config/client-opts config/blockly-table {:id key}))
 
+(defn list-workspaces
+  [limit]
+  (far/query config/client-opts config/blockly-table))
+
+
 (defn write-workspace
   [key workspace]
   (let [body (assoc workspace :id key)]

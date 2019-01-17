@@ -74,6 +74,7 @@
                                                       :attribute "main-feature"
                                                       :modifier {:synset-id :good-shoe}
                                                       :selector {:min 2 :max 4}
+                                                      :format {:type "Currency" :value "EUR"}
                                                       :elaborate {:type :quote
                                                                   :quote "lasts as long as you can run"}}}]}
                                  {:type "Component"
