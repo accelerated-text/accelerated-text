@@ -35,7 +35,7 @@
         <block type="any-count-from" />
     </category>
     <category name="Values">
-        <block type="attribute" />
+        <block type="Cell" />
         <block type="quote" />
     </category>
     <category name="Logic">

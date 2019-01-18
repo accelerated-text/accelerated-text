@@ -64,7 +64,7 @@ export default mount({
                                     Add
                                 </button>
                                 {' '}<em>description</em>
-                                {' segment with all attributes.'}
+                                {' segment with all cell values.'}
                             </div>,
                             <div className={ S.or }>OR</div>,
                         ]}

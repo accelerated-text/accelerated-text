@@ -2,7 +2,7 @@ const blocks = [
     require( './all' ),
     require( './and-or' ),
     require( './any-count-from' ),
-    require( './attribute' ),
+    require( './Cell' ),
     require( './document-plan' ),
     require( './if-then-else' ),
     require( './not' ),
