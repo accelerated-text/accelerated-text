@@ -39,7 +39,7 @@
   (let [input (utils/decode-body is)
         method (input :httpMethod)
         path-params (input :pathParameters)
-        query-params (input :queryParameters)
+        query-params (input :queryStringParameters)
         request-body (ch/decode (input :body))
         {:keys [status body]} (case method
                                 "GET"    (if (empty? path-params)

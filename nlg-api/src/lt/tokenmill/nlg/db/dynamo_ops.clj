@@ -9,7 +9,7 @@
 
 (defn list-workspaces
   [limit]
-  (far/query config/client-opts config/blockly-table {} {:limit limit}))
+  (far/scan config/client-opts config/blockly-table {:limit limit}))
 
 
 (defn write-workspace
