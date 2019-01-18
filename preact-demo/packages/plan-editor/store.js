@@ -3,8 +3,8 @@ export default {
     getInitialState: () => ({
         contextName:        null,
         dataSample:         null,
+        documentPlan:       null,
         planName:           'Example Plan',
-        workspaceDom:       null,
         workspaceXml:       '',
     }),
 
@@ -13,8 +13,8 @@ export default {
             contextName,
         }),
 
-        onChangeWorkspace: ({ workspaceDom, workspaceXml }) => ({
-            workspaceDom,
+        onChangeWorkspace: ({ documentPlan, workspaceDom, workspaceXml }) => ({
+            documentPlan,
             workspaceXml,
         }),
 

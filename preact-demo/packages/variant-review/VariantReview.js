@@ -11,6 +11,7 @@ export default useStores([
     'variantsApi',
 ])(({
     planEditor: {
+        documentPlan,
         workspaceXml,
     },
     variantsApi: {
@@ -26,6 +27,9 @@ export default useStores([
         <div className={ S.body }>
             <div className={ S.item }>
                 { workspaceXml ? workspaceXml : 'No Blockly yet.' }
+            </div>
+            <div className={ S.item }>
+                { documentPlan ? JSON.stringify( documentPlan ) : 'No JSON yet.' }
             </div>
             { error &&
                 <div className={ S.itemError }>

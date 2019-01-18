@@ -3,7 +3,7 @@ const blocks = [
     require( './and-or' ),
     require( './any-count-from' ),
     require( './Cell' ),
-    require( './document-plan' ),
+    require( './Document-plan' ),
     require( './if-then-else' ),
     require( './not' ),
     require( './number-comparison' ),

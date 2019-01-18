@@ -1,6 +1,5 @@
 <xml style="display: none">
     <category name="Document">
-        <block type="document-plan" />
         <block type="segment">
             <field name="text_type">description</field>
         </block>
