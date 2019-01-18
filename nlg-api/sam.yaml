@@ -62,6 +62,24 @@ Resources:
             Path: /document-plans/{id}
             Method: get
 
+  listWorkspaces:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+        - AmazonDynamoDBReadOnlyAccess 
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /document-plans
+            Method: get
+
   addWorkspace:
     Type: AWS::Serverless::Function
     Properties:
@@ -127,6 +145,12 @@ Outputs:
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
     Export:
       Name: getWorkspace
+
+  ListWorkspacesAPI:
+    Description: URL to list Workspaces
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans'
+    Export:
+      Name: listWorkspaces
 
   AddWorkspaceAPI:
     Description: URL to add Workspace
