@@ -1,13 +1,17 @@
 (ns lt.tokenmill.nlg.generator.planner
   (:require [clojure.string :as string]
             [clojure.tools.logging :as log]
-            [lt.tokenmill.nlg.generator.simple-nlg :as nlg]))
+            [lt.tokenmill.nlg.generator.simple-nlg :as nlg]
+            [clojure.java.io :as io]
+            [cheshire.core :as ch]))
 
 (defn set-subj [selector]  (fn [context data] (assoc context :subj (selector data))))
 (defn set-verb-w-selector [selector] (fn [context data] (assoc context :verb (selector data))))
 (defn set-verb-static [verb] (fn [context _] (assoc context :verb verb)))
 (defn set-obj [selector] (fn [context data] (update context :objs (fn [vals] (conj vals (selector data))))))
 (defn set-complement [selector] (fn [context data] (assoc context :complement (selector data))))
+
+(defn node-plus-children [node children] (cons node children))
 
 (defn normalize-context
   "Build proper context for our segment builder"
@@ -67,6 +71,69 @@
                (compile-attribute-selector (component :name)))
               elaborate))
             (flatten purposes))))
+
+
+(defn load-example-dp
+  []
+  (with-open [in (io/input-stream (io/resource "dp-example.json"))]
+    (-> (slurp in)
+        (ch/decode true)
+        :documentPlan)))
+
+(declare parse-node)
+
+(defn parse-segment
+  [node]
+  (let [children (node :children)]
+    (map parse-node children)))
+
+(defn parse-component
+  [node]
+  (let [name (parse-node (node :name))
+        children (flatten (map parse-node (node :children)))]
+    (node-plus-children (set-subj name) children)))
+
+(defn parse-product [node] (parse-component node))
+
+(defn parse-relationship
+  [node]
+  (let [rel-name (node :relationshipType)
+        children (map parse-node (node :children))]
+    (node-plus-children (set-verb-static rel-name) (map set-obj children))))
+
+(defn parse-rhetorical [node] ())
+
+(defn parse-cell
+  [node]
+  (let [cell-name (node :name)]
+    (fn [data]
+      (let [result (get data cell-name)]
+        (log/debugf "Searching for: '%s' in %s. Result: %s" cell-name, data, result)
+        result))))
+
+(defn parse-quote
+  [node]
+  (fn [_] (node :text)))
+
+(defn parse-document-plan
+  [node]
+  (let [statements (node :statements)]
+    (doall (map parse-node statements))))
+
+(defn parse-node
+  [node]
+  (let [t (keyword (node :type))]
+    (case t
+      :Document-plan (parse-document-plan node)
+      :Segment (parse-segment node)
+      :Product (parse-product node)
+      :Product-Component (parse-component node)
+      :Cell (parse-cell node)
+      :Quote (parse-quote node)
+      :Relationship (parse-relationship node)
+      :Rhetorical (parse-rhetorical node)
+      :If-then-else ())))
+
 
 (defn compile-dp
   "document-plan - a hashmap representing document plan
