@@ -41,8 +41,25 @@ Resources:
         GetResource:
           Type: Api
           Properties:
-            Path: /nlg/generate
+            Path: /nlg/
             Method: post
+
+  readNLGresult:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /nlg/{id}
+            Method: get
 
   getWorkspace:
     Type: AWS::Serverless::Function
@@ -169,3 +186,15 @@ Outputs:
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
     Export:
       Name: deleteWorkspace
+
+  textGenerationAPI:
+    Description: URL to generate text
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/nlg'
+    Export:
+      Name: generateText
+
+  NLGresultAPI:
+    Description: URL to generate text
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/nlg/{id}'
+    Export:
+      Name: readNLGresult
