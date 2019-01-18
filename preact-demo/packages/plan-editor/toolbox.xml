@@ -1,17 +1,50 @@
 <xml style="display: none">
     <category name="Segments">
         <block type="segment">
-            <field name="goal">description</field>
+            <field name="text_type">description</field>
         </block>
         <block type="segment">
-            <field name="goal">pitch</field>
+            <field name="text_type">pitch</field>
         </block>
     </category>
-    <category name="Filters">
-        <block type="all-words" />
+    <category name="Rhetoric">
+        <block type="rhetorical">
+            <field name="type">summary</field>
+        </block>
+        <block type="rhetorical">
+            <field name="type">explanation</field>
+        </block>
+        <block type="rhetorical">
+            <field name="type">elaboration</field>
+        </block>
     </category>
-    <category name="Word sources">
+    <category name="Lists">
+        <block type="all" />
+        <block type="sequence" />
+        <block type="any-count-from" />
+    </category>
+    <category name="Values">
         <block type="attribute" />
         <block type="quote" />
+    </category>
+    <category name="Logic">
+        <block type="if-then-else" />
+        <block type="and-or">
+            <field name="operator">and</field>
+        </block>
+        <block type="and-or">
+            <field name="operator">or</field>
+        </block>
+        <block type="xor" />
+        <block type="not" />
+    </category>
+    <category name="Checks">
+        <block type="number-comparison">
+            <field name="operator">=</field>
+        </block>
+        <block type="number-comparison">
+            <field name="operator">&gt;</field>
+        </block>
+        <block type="value-in-list" />
     </category>
 </xml>

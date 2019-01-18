@@ -1,6 +1,6 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
     <block type="segment" id="root-segment">
-        <field name="goal">description</field>
+        <field name="text_type">description</field>
         <statement name="first_statement">
             <block id="first-statement" type="all-words">
                 <mutation value_count="3" />

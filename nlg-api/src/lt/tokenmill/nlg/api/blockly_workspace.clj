@@ -29,13 +29,22 @@
   (let [key (path-params :id)]
     (utils/do-update ops/update-workspace key request-body)))
 
+(defn list-workspaces
+  [query-params]
+  (let [limit (get query-params :limit 20)]
+    {:body (ops/list-workspaces limit)
+     :status 200}))
+
 (defn -handleRequest [_ is os _]
   (let [input (utils/decode-body is)
         method (input :httpMethod)
         path-params (input :pathParameters)
+        query-params (input :queryParameters)
         request-body (ch/decode (input :body))
         {:keys [status body]} (case method
-                                "GET"    (get-workspace path-params)
+                                "GET"    (if (empty? path-params)
+                                           (list-workspaces query-params)
+                                           (get-workspace path-params))
                                 "DELETE" (delete-workspace path-params)
                                 "POST"   (add-workspace request-body)
                                 "PUT"    (update-workspace path-params request-body))]

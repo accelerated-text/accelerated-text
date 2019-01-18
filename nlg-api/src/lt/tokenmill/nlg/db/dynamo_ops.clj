@@ -7,6 +7,11 @@
   [key]
   (far/get-item config/client-opts config/blockly-table {:id key}))
 
+(defn list-workspaces
+  [limit]
+  (far/query config/client-opts config/blockly-table))
+
+
 (defn write-workspace
   [key workspace]
   (let [body (assoc workspace :id key)]
@@ -19,7 +24,7 @@
 
 (defn add-workspace
   [key workspace]
-  (let [body (assoc workspace :created-at (utils/ts-now))]
+  (let [body (assoc workspace :createdAt (utils/ts-now))]
     (write-workspace key body)))
 
 (defn update-workspace
@@ -27,7 +32,7 @@
   (let [original (get-workspace key)
         body (merge
               original
-              (assoc workspace :updated-at (utils/ts-now)))]
+              (assoc workspace :updatedAt (utils/ts-now)))]
     (write-workspace key body)))
   
 
