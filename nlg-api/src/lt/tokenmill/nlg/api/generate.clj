@@ -3,6 +3,7 @@
             [clojure.java.io :as io]
             [lt.tokenmill.nlg.api.utils :as utils]
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
+            [lt.tokenmill.nlg.generator.planner :as planner]
             [cheshire.core :as ch])
   (:import (java.io BufferedWriter))
   (:gen-class
@@ -13,9 +14,15 @@
 (defn generate-request [request-body]
   (let [document-plan-id (request-body :documentPlanId)
         data-id (request-body :dataId)
-        document-plan (ops/get-workspace document-plan-id)]
+        data [{"Product name" "Nike Air"
+               "Main Feature" "comfort"
+               "Secondary feature" "support"}]
+        document-plan (-> (ops/get-workspace document-plan-id)
+                          :documentPlan) 
+        results (map #(planner/render-dp document-plan %) data)]
     {:status 200
-     :body {:resultId "123A"}}))
+     :body {:resultId "123A"
+            :results results}}))
 
 (defn read-result [path-params]
   (let [request-id (path-params :id)]
