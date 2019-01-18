@@ -45,7 +45,10 @@
         children (map parse-node (node :children))]
     (node-plus-children (set-verb-static rel-name) (map set-obj children))))
 
-(defn parse-rhetorical [node] ())
+(defn parse-rhetorical [node]
+  (let [rst-type (node :rstType)
+        children (map parse-node (node :children))]
+    (map set-complement children)))
 
 (defn parse-cell
   [node]
@@ -127,5 +130,5 @@
    data - a flat hashmap (represents CSV)
    returns: generated text"
   [document-plan data]
-  (let [segments (map #(render-segment % data) parse-document-plan document-plan)]
+  (let [segments (map #(render-segment % data) (parse-document-plan document-plan))]
     (string/join "" segments)))

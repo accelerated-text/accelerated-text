@@ -48,34 +48,45 @@
         (println "Concrete plan: " concrete-plan)
         (let [result (build-dp-instance concrete-plan data)]
           (is (= expected result))))))
-  ;; (testing "Generate a simple text"
-  ;;   (let [document-plan {:items [{:type "Product"
-  ;;                                 :name {:attribute "product-name"}
-  ;;                                 :purposes [{:relationship "provide"
-  ;;                                             :value {:type "All"
-  ;;                                                     :attributes [{:attribute "main-feature"}
-  ;;                                                                  {:attribute "secondary-feature"}
-  ;;                                                                  {:attribute "other-feature"}]}}]
-  ;;                                 :elaborate {:type "Attribute"
-  ;;                                             :attribute "style"}}
-  ;;                                {:type "Component"
-  ;;                                 :name {:attribute "lacing"}
-  ;;                                 :purposes [{:relationship "result in"
-  ;;                                             :value {:type "Any-of"
-  ;;                                                     :quotes [{:quote "a snug fit for everyday wear"}
-  ;;                                                              {:quote "a situation where laces never gets into a knot"}]}}]}]}
-  ;;         data {"product-name" "Nike Air"
-  ;;               "main-feature" "comfort"
-  ;;               "secondary-feature" "support"
-  ;;               "other-feature" "style"
-  ;;               "lacing" "premium lacing"
-  ;;               "style" "with sleek update on a classic design"}
-  ;;         result (render-dp document-plan data)
-  ;;         expected-any ["Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."
-  ;;                       "Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a situation where laces never gets into a knot."]]
-  ;;     (println "Result: " result)
-  ;;     (is (some #(= % result) expected-any)))))
-  )
+  (testing "Generate a simple text"
+    (let [document-plan {:type "Document-plan"
+                         :statements [{:type "Segment"
+                                       :textType "description"
+                                       :children [{:type "Product"
+                                                   :name {:type "Cell"
+                                                          :name "product-name"}
+                                                   :children [{:type "Relationship"
+                                                               :relationshipType "provide"
+                                                               :children [{:type "Cell"
+                                                                           :name "main-feature"}
+                                                                          {:type "Cell"
+                                                                           :name "secondary-feature"}
+                                                                          {:type "Cell"
+                                                                           :name "other-feature"}]}
+                                                              {:type "Rhetorical"
+                                                               :rstType "elaboration"
+                                                               :children [{:type "Cell"
+                                                                           :name "style"}]
+                                                               }]}
+                                                  {:type "Product-Component"
+                                                   :name {:type "Cell"
+                                                          :name "lacing"}
+                                                   :children [{:type "Relationship"
+                                                               :relationshipType "result in"
+                                                               :children [{:type "Quote"
+                                                                           :text "a snug fit for everyday wear"}]}]}]}]}
+
+          data {"product-name" "Nike Air"
+                "main-feature" "comfort"
+                "secondary-feature" "support"
+                "other-feature" "style"
+                "lacing" "premium lacing"
+                "style" "with sleek update on a classic design"}
+          result (render-dp document-plan data)
+          expected-any ["Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."
+                        "Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a situation where laces never gets into a knot."]]
+      (println "Result: " result)
+      (is (some #(= % result) expected-any)))))
 
 
 ;; (deftest compile-advanced-case
