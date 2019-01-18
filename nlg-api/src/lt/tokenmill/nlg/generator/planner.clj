@@ -11,6 +11,12 @@
 (defn set-obj [selector] (fn [context data] (update context :objs (fn [vals] (conj vals (selector data))))))
 (defn set-complement [selector] (fn [context data] (assoc context :complement (selector data))))
 
+
+(defn node-plus-children [node children]
+  (if (not (empty? children))
+    (cons node children)
+    (list node)))
+
 (defn load-example-dp
   []
   (with-open [in (io/input-stream (io/resource "dp-example.json"))]
@@ -71,14 +77,6 @@
       :Relationship (parse-relationship node)
       :Rhetorical (parse-rhetorical node)
       :If-then-else ())))
-
-
-(defn compile-dp
-  "document-plan - a hashmap representing document plan
-   returns: a list of lists of functions. Each list represents single sentence"
-  [document-plan]
-  (let [items (document-plan :items)]
-    (doall (map compile-component items))))
 
 
 (defn build-dp-instance
