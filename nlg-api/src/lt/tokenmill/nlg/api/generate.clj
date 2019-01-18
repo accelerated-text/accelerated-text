@@ -1,7 +1,8 @@
 (ns lt.tokenmill.nlg.api.generate
   (:require [clojure.tools.logging :as log]
             [clojure.java.io :as io]
-            [lt.tokenmill.nlg.api.utils :as utils])
+            [lt.tokenmill.nlg.api.utils :as utils]
+            [cheshire.core :as ch])
   (:import (java.io BufferedWriter))
   (:gen-class
     :name lt.tokenmill.nlg.api.NLGHandler
@@ -12,7 +13,7 @@
   (let [document-plan-id (request-body :documentPlanId)
         data-id (request-body :dataId)]
     {:status 200
-     :body {:result-id "123A"}}))
+     :body {:resultId "123A"}}))
 
 (defn read-result [path-params]
   (let [request-id (path-params :id)]
