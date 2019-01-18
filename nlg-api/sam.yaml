@@ -37,6 +37,7 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
+        - AmazonDynamoDBFullAccess
       Events:
         GetResource:
           Type: Api
@@ -54,6 +55,7 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
+        - AmazonDynamoDBReadOnlyAccess 
       Events:
         GetResource:
           Type: Api
