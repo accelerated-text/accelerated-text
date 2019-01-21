@@ -15,7 +15,7 @@
 (defn write-results
   [key data]
   (let [body (assoc data :createdAt (utils/ts-now))]
-    (far/put-item config/client-opts config/results-table body)))
+    (far/put-item config/client-opts config/results-table (assoc body :key key))))
 
 (defn get-workspace
   [key]

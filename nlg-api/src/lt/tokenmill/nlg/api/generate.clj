@@ -12,8 +12,15 @@
 
 
 (defn generation-process
-  [result-id dp data]
-  (let [results (map #(planner/render-dp dp %) data)
+  [result-id dp-id data-id]
+  (let [data [{"Product name" "Nike Air"
+               "Main Feature" "comfort"
+               "Secondary feature" "support"
+               "Style" "with sleek update on a classic design"
+               "Lacing" "premium lacing"}]
+        document-plan (-> (ops/get-workspace dp-id)
+                          :documentPlan)
+        results (utils/result-or-error map #(planner/render-dp dp %) data)
         body (assoc results :ready true)]
     (ops/write-results result-id results)))
 
@@ -22,15 +29,8 @@
   (let [document-plan-id (log/spyf :info "Document Id: %s" (request-body :documentPlanId))
         data-id (request-body :dataId)
         result-id (utils/gen-uuid)
-        data [{"Product name" "Nike Air"
-               "Main Feature" "comfort"
-               "Secondary feature" "support"
-               "Style" "with sleek update on a classic design"
-               "Lacing" "premium lacing"}]
-        document-plan (-> (ops/get-workspace document-plan-id)
-                          :documentPlan)
         init-results (ops/write-results result-id {:ready false})
-        job (future (generation-process result-id document-plan data))]
+        job (future (generation-process result-id document-plan-id data-id))]
     {:status 200
      :body {:resultId result-id}}))
 

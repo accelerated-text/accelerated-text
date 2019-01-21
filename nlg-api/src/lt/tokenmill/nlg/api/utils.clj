@@ -31,6 +31,13 @@
   []
   (cheshire/decode (slurp (io/resource "stub.json"))))
 
+(defn result-or-error
+  [fun & args]
+  (try (let [result (apply fun args)]
+         result)
+       (catch Exception e ({:error true
+                            :message (.getMessage e)}))))
+
 (defn do-insert
   [func & args]
   (let [id (gen-uuid)
@@ -38,11 +45,11 @@
     (try (let [resp (apply insert-fn args)]
            {:status 200
             :body resp})
-          (catch Exception e (do
-                               (log/error e)
-                               {:status 500
-                                :body {:error true
-                                       :message (.getMessage e)}})))))
+         (catch Exception e (do
+                              (log/error e)
+                              {:status 500
+                               :body {:error true
+                                      :message (.getMessage e)}})))))
 
 (defn do-update
   [func & args]
