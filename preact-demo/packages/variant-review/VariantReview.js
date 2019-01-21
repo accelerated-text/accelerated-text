@@ -29,7 +29,12 @@ export default useStores([
                 { workspaceXml ? workspaceXml : 'No Blockly yet.' }
             </div>
             <div className={ S.item }>
-                { documentPlan ? JSON.stringify( documentPlan ) : 'No JSON yet.' }
+                <pre>
+                    { documentPlan
+                        ? JSON.stringify( documentPlan, null, 4 )
+                        : 'No JSON yet.'
+                    }
+                </pre>
             </div>
             { error &&
                 <div className={ S.itemError }>

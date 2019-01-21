@@ -16,7 +16,7 @@ export default Block({
         message0:           '%1',
         args0: [{
             type:           'field_dropdown',
-            name:           'type',
+            name:           'relationshipType',
             options: [
                 [ 'Provides', 'provides' ],
                 [ 'Consequence', 'consequence' ],

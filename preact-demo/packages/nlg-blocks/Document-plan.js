@@ -21,12 +21,4 @@ export default Block({
 
         this.setDeletable( false );
     },
-
-    toNlgJson() {
-        return {
-            type:           this.type,
-            blocklyId:      this.id,
-            statements:     [],
-        };
-    },
 });

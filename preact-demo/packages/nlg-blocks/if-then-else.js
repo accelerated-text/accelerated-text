@@ -6,21 +6,40 @@ import {
     createBlock,
     getAllNextBlocks,
     getInputsByPrefix,
+    getValueInputs,
     orderInputs,
 } from '../blockly-helpers';
 
 import Block                from './Block';
 import * as T               from './types';
+import {
+    blockToJson,
+    fieldsToJson,
+    statementsToJson,
+}   from './to-nlg-json';
 
 
 const ELSE_IF_LABEL =       'else if';
 const ELSE_IF_PREFIX =      'else_if_';
 const ELSE_NAME =           'else';
+const IF_NAME =             'if';
 const THEN_LABEL =          'then';
+const THEN_NAME =           'then';
 const THEN_PREFIX =         'then_';
 
 const BT_IF =                'controls_if_if';
 const BT_ELSE_IF =           'controls_if_elseif';
+
+
+const getThenName = condName => (
+    condName === ELSE_NAME
+        ? ELSE_NAME
+    : condName === IF_NAME
+        ? THEN_NAME
+    : condName.startsWith( ELSE_IF_PREFIX )
+        ? `${ THEN_PREFIX }${ condName.replace( ELSE_IF_PREFIX, '' )}`
+        : null
+);
 
 
 export default Block({
@@ -33,13 +52,13 @@ export default Block({
         message0:           'if %1',
         args0: [{
             type:           'input_value',
-            name:           'if',
+            name:           IF_NAME,
             check:          T.ATOMIC_VALUE,
         }],
         message1:           'then %1',
         args1: [{
             type:           'input_value',
-            name:           'then',
+            name:           THEN_NAME,
             check:          T.ANY,
         }],
         message2:           'else %1',
@@ -78,6 +97,49 @@ export default Block({
         this.else_if_count =    newCount;
         /// Fix orphan block visibility:
         this.bumpNeighbours_();
+    },
+
+    toNlgJson() {
+
+        const getChildJson = inputName => {
+            const block = this.getInputTargetBlock( inputName );
+            return (
+                block
+                    ? block.toNlgJson()
+                    : null
+            );
+        };
+
+        const conditions =
+            getValueInputs( this )
+                .filter( input => (
+                    input.name === 'if'
+                    || input.name === ELSE_NAME
+                    || input.name.startsWith( ELSE_IF_PREFIX )
+                ))
+                .filter( input => this.getInputTargetBlock( input.name ))
+                .map( input => {
+                    if( input.name === ELSE_NAME ) {
+                        return {
+                            type:           'Default-condition',
+                            condition:      true,
+                            thenExpression: getChildJson( getThenName( input.name )),
+                        };
+                    } else {
+                        return {
+                            type:           'If-condition',
+                            condition:      getChildJson( input.name ),
+                            thenExpression: getChildJson( getThenName( input.name )),
+                        };
+                    }
+                });
+
+        return {
+            ...statementsToJson( this ),
+            conditions,
+            ...fieldsToJson( this ),
+            ...blockToJson( this ),
+        };
     },
 
     mutatorBlockList: [ BT_ELSE_IF ],

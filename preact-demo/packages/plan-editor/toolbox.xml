@@ -13,19 +13,19 @@
     </category>
     <category name="Rhetoric">
         <block type="rhetorical">
-            <field name="type">summary</field>
+            <field name="rstType">summary</field>
         </block>
         <block type="rhetorical">
-            <field name="type">explanation</field>
+            <field name="rstType">explanation</field>
         </block>
         <block type="rhetorical">
-            <field name="type">elaboration</field>
+            <field name="rstType">elaboration</field>
         </block>
         <block type="relationship">
-            <field name="type">provides</field>
+            <field name="relationshipType">provides</field>
         </block>
         <block type="relationship">
-            <field name="type">consequence</field>
+            <field name="relationshipType">consequence</field>
         </block>
     </category>
     <category name="Lists">
