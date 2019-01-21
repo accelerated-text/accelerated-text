@@ -20,7 +20,7 @@
                "Lacing" "premium lacing"}]
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
-        results (utils/result-or-error map #(planner/render-dp dp %) data)
+        results (utils/result-or-error doall (map #(planner/render-dp dp %) data))
         body (assoc results :ready true)]
     (ops/write-results result-id results)))
 
@@ -30,7 +30,7 @@
         data-id (request-body :dataId)
         result-id (utils/gen-uuid)
         init-results (ops/write-results result-id {:ready false})
-        job (future (generation-process result-id document-plan-id data-id))]
+        job @(future (generation-process result-id document-plan-id data-id))]
     {:status 200
      :body {:resultId result-id}}))
 

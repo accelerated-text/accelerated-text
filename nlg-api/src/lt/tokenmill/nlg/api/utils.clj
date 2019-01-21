@@ -33,10 +33,13 @@
 
 (defn result-or-error
   [fun & args]
-  (try (let [result (apply fun args)]
-         result)
-       (catch Exception e ({:error true
-                            :message (.getMessage e)}))))
+  (try
+    (let [result (apply fun args)]
+      result)
+    (catch Exception e
+      (log/errorf "Failed to get result: %s" e)
+      {:error true
+       :message (.getMessage e)})))
 
 (defn do-insert
   [func & args]
