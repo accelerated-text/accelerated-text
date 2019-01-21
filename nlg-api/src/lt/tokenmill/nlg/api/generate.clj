@@ -13,7 +13,7 @@
 
 (defn generation-process
   [result-id dp data]
-  (let [results (map #(planner/render-dp document-plan %) data)
+  (let [results (map #(planner/render-dp dp %) data)
         body (assoc results :ready true)]
     (ops/write-results result-id results)))
 
