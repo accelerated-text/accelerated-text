@@ -1,6 +1,7 @@
 import { h }            from 'preact';
 
 import AtjReview        from '../atj-review/AtjReview';
+import { QA }           from '../plan-editor/qa.constants';
 import { useStores }    from '../vesa/';
 
 import S                from './VariantReview.sass';
@@ -29,7 +30,7 @@ export default useStores([
                 { workspaceXml ? workspaceXml : 'No Blockly yet.' }
             </div>
             <div className={ S.item }>
-                <pre>
+                <pre className={ QA.NLG_JSON }>
                     { documentPlan
                         ? JSON.stringify( documentPlan, null, 4 )
                         : 'No JSON yet.'

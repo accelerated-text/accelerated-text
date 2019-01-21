@@ -29,5 +29,13 @@ describe( 'plan-editor/onboard/workflow', () => {
         await expect( header ).toMatchElement( SELECTORS.SELECT_CONTEXT );
 
         await expect( body ).toMatchElement( `[data-id=${ QA.EXAMPLE_XML }]` );
+
+        const jsonEl =      await expect( page ).toMatchElement( SELECTORS.NLG_JSON );
+        const jsonCode =    await jsonEl.getProperty( 'innerHTML' );
+        const jsonValue =   await jsonCode.jsonValue();
+        const nlgJson =     JSON.parse( jsonValue );
+
+        expect( nlgJson ).toHaveProperty( 'type', 'Document-plan' );
+        expect( nlgJson ).toHaveProperty( 'blocklyId', QA.EXAMPLE_XML );
     });
 });
