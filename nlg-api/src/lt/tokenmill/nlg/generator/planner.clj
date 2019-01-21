@@ -11,6 +11,18 @@
 (defn set-obj [selector] (fn [context data] (update context :objs (fn [vals] (conj vals (selector data))))))
 (defn set-complement [selector] (fn [context data] (assoc context :complement (selector data))))
 
+(def synset
+  {:provides ["provide"]
+   :consequence ["results in"]})
+
+(defn get-random [key col]
+  (let [words (get col key [])]
+    (when (not (empty? words))
+      (rand-nth words))))
+
+(defn get-word
+  [word]
+  (get-random (keyword word) synset))
 
 (defn node-plus-children [node children]
   (if (not (empty? children))
@@ -43,7 +55,7 @@
   [node]
   (let [rel-name (node :relationshipType)
         children (map parse-node (node :children))]
-    (node-plus-children (set-verb-static rel-name) (map set-obj children))))
+    (node-plus-children (set-verb-static (get-word rel-name)) (map set-obj children))))
 
 (defn parse-rhetorical [node]
   (let [rst-type (node :rstType)

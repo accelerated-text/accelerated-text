@@ -28,7 +28,7 @@
                                                    :name {:type "Cell"
                                                           :name "product-name"}
                                                    :children [{:type "Relationship"
-                                                               :relationshipType "provide"
+                                                               :relationshipType "provides"
                                                                :children [{:type "Cell"
                                                                            :name "main-feature"}
                                                                           {:type "Cell"
@@ -56,7 +56,7 @@
                                                    :name {:type "Cell"
                                                           :name "product-name"}
                                                    :children [{:type "Relationship"
-                                                               :relationshipType "provide"
+                                                               :relationshipType "provides"
                                                                :children [{:type "Cell"
                                                                            :name "main-feature"}
                                                                           {:type "Cell"
@@ -72,7 +72,7 @@
                                                    :name {:type "Cell"
                                                           :name "lacing"}
                                                    :children [{:type "Relationship"
-                                                               :relationshipType "result in"
+                                                               :relationshipType "consequence"
                                                                :children [{:type "Quote"
                                                                            :text "a snug fit for everyday wear"}]}]}]}]}
 
