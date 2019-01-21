@@ -3,6 +3,20 @@
             [lt.tokenmill.nlg.db.config :as config]
             [lt.tokenmill.nlg.api.utils :as utils]))
 
+
+(defn get-results
+  [key]
+  (far/get-item config/client-opts config/results-table {:key key}))
+
+(defn delete-results
+  [key]
+  (far/delete-item config/client-opts config/results-table {:key key}))
+
+(defn write-results
+  [key data]
+  (let [body (assoc data :createdAt (utils/ts-now))]
+    (far/put-item config/client-opts config/results-table body)))
+
 (defn get-workspace
   [key]
   (far/get-item config/client-opts config/blockly-table {:id key}))
