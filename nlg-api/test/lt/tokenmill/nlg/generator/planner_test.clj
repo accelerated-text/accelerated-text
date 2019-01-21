@@ -68,7 +68,7 @@
                                                                :children [{:type "Cell"
                                                                            :name "style"}]
                                                                }]}
-                                                  {:type "Product-Component"
+                                                  {:type "Product-component"
                                                    :name {:type "Cell"
                                                           :name "lacing"}
                                                    :children [{:type "Relationship"
@@ -107,7 +107,7 @@
                                                                :children [{:type "Cell"
                                                                            :name "style"}]
                                                                }]}
-                                                  {:type "Product-Component"
+                                                  {:type "Product-component"
                                                    :name {:type "Cell"
                                                           :name "lacing"}
                                                    :children [{:type "Relationship"

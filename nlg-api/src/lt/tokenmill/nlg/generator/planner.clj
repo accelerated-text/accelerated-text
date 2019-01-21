@@ -138,7 +138,7 @@
       :Document-plan (parse-document-plan node)
       :Segment (parse-segment node)
       :Product (parse-product node)
-      :Product-Component (parse-component node)
+      :Product-component (parse-component node)
       :Cell (parse-cell node)
       :Quote (parse-quote node)
       :Relationship (parse-relationship node)
