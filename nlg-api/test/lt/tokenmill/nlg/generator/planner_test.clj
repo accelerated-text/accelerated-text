@@ -115,15 +115,16 @@
                                                                :children [{:type "If-then-else"
                                                                            :conditions [{:type "If-condition"
                                                                                          :condition {:type "Value-comparison"
+                                                                                                     :operator "=="
                                                                                                      :value1 {:type "Cell"
                                                                                                               :name "lacing"}
                                                                                                      :value2 {:type "Quote"
                                                                                                               :text "premium lacing"}}
                                                                                          :thenExpression {:type "One-of-synonyms"
                                                                                                           :children [{:type "Quote"
-                                                                                                                      :text "snug fit for everyday wear"}
+                                                                                                                      :text "a snug fit for everyday wear"}
                                                                                                                      {:type "Quote"
-                                                                                                                      :text "in a situation where laces never gets into a knot"}]}}
+                                                                                                                      :text "a situation where laces never gets into a knot"}]}}
                                                                                         {:type "Default-condition"
                                                                                          :thenExpression {:type "Quote"
                                                                                                           :text "The laces look brillant!"}}]}]}]}]}]}
