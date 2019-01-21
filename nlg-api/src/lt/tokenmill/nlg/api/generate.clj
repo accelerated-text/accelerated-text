@@ -18,8 +18,8 @@
                "Secondary feature" "support"
                "Style" "with sleek update on a classic design"
                "Lacing" "premium lacing"}]
-        document-plan (-> (ops/get-workspace dp-id)
-                          :documentPlan)
+        dp (-> (ops/get-workspace dp-id)
+               :documentPlan)
         results (utils/result-or-error map #(planner/render-dp dp %) data)
         body (assoc results :ready true)]
     (ops/write-results result-id results)))
