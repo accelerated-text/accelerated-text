@@ -8,12 +8,12 @@ export default Block({
     ...valueSequence,
 
     type:                   'Sequence',
-    output:                 T.LIST,
 
     json: {
         ...valueSequence.json,
 
         colour:             202,
+        output:             T.LIST,
         message0:           'sequence:',
     },
 
