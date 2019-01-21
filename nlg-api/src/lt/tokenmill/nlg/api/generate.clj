@@ -17,16 +17,19 @@
                "Main Feature" "comfort"
                "Secondary feature" "support"
                "Style" "with sleek update on a classic design"
-               "Lacing" "premium lacing"}]
+               "Lacing" "premium"}]
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
-        results (utils/result-or-error doall (map #(planner/render-dp dp %) data))
-        body (assoc results :ready true)]
-    (ops/write-results result-id results)))
+        results (utils/result-or-error (map #(planner/render-dp dp %) data))
+        body {:ready true
+              :results (vec results)}]
+    (log/debugf "Body: %s" body)
+    (ops/write-results result-id body)
+    {:done true}))
 
 
 (defn generate-request [request-body]
-  (let [document-plan-id (log/spyf :info "Document Id: %s" (request-body :documentPlanId))
+  (let [document-plan-id (request-body :documentPlanId)
         data-id (request-body :dataId)
         result-id (utils/gen-uuid)
         init-results (ops/write-results result-id {:ready false})

@@ -3,7 +3,8 @@
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [clj-time.core :as time]
-            [clj-time.coerce :as tc])
+            [clj-time.coerce :as tc]
+            [clojure.string :as string])
   (:import (java.io InputStream))
   (:import (java.util.UUID)))
 
@@ -31,15 +32,21 @@
   []
   (cheshire/decode (slurp (io/resource "stub.json"))))
 
+(defn get-stack-trace
+  [e]
+  (string/join "\n" (map str (.getStackTrace e))))
+
 (defn result-or-error
-  [fun & args]
+  [results]
   (try
-    (let [result (apply fun args)]
-      result)
+    (doall results)
     (catch Exception e
-      (log/errorf "Failed to get result: %s" e)
-      {:error true
-       :message (.getMessage e)})))
+      (do
+        (log/errorf "Failed to get result: %s" (get-stack-trace e))
+        {:error true
+         :ready true
+         :message (.getMessage e)}))))
+      
 
 (defn do-insert
   [func & args]
@@ -49,7 +56,7 @@
            {:status 200
             :body resp})
          (catch Exception e (do
-                              (log/error e)
+                              (log/error (get-stack-trace e))
                               {:status 500
                                :body {:error true
                                       :message (.getMessage e)}})))))
