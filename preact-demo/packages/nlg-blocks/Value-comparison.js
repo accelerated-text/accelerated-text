@@ -4,7 +4,7 @@ import * as T               from './types';
 
 export default Block({
 
-    type:                   'number-comparison',
+    type:                   'Value-comparison',
 
     json: {
         colour:             202,

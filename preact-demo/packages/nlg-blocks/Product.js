@@ -6,7 +6,7 @@ import valueSequence        from './value-sequence';
 export default Block({
     ...valueSequence,
 
-    type:                   'product',
+    type:                   'Product',
 
     value_count:            1,
 

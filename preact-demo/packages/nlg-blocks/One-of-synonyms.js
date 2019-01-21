@@ -7,14 +7,15 @@ export default Block({
 
     ...valueList,
 
-    type:                   'all',
+    type:                   'One-of-synonyms',
 
     json: {
         ...valueList.json,
 
         colour:             202,
         output:             T.LIST,
-        message0:           'all:',
+        message0:           'A synonym',
+        message1:           'from:',
     },
 
     valueListCheck:         T.ANY,

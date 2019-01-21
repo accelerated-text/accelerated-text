@@ -44,7 +44,7 @@ const getThenName = condName => (
 
 export default Block({
 
-    type:                   'if-then-else',
+    type:                   'If-then-else',
 
     json: {
         colour:             164,

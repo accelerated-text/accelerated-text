@@ -1,60 +1,60 @@
 <xml style="display: none">
     <category name="Document">
-        <block type="segment">
+        <block type="Segment">
             <field name="text_type">description</field>
         </block>
-        <block type="segment">
+        <block type="Segment">
             <field name="text_type">pitch</field>
         </block>
     </category>
     <category name="Topics">
-        <block type="product" />
-        <block type="product-component" />
+        <block type="Product" />
+        <block type="Product-component" />
     </category>
     <category name="Rhetoric">
-        <block type="rhetorical">
+        <block type="Rhetorical">
             <field name="rstType">summary</field>
         </block>
-        <block type="rhetorical">
+        <block type="Rhetorical">
             <field name="rstType">explanation</field>
         </block>
-        <block type="rhetorical">
+        <block type="Rhetorical">
             <field name="rstType">elaboration</field>
         </block>
-        <block type="relationship">
+        <block type="Relationship">
             <field name="relationshipType">provides</field>
         </block>
-        <block type="relationship">
+        <block type="Relationship">
             <field name="relationshipType">consequence</field>
         </block>
     </category>
     <category name="Lists">
-        <block type="all" />
-        <block type="sequence" />
-        <block type="any-count-from" />
+        <block type="Sequence" />
+        <block type="Shuffle" />
+        <block type="One-of-synonyms" />
     </category>
     <category name="Values">
         <block type="Cell" />
-        <block type="quote" />
+        <block type="Quote" />
     </category>
     <category name="Logic">
-        <block type="if-then-else" />
-        <block type="and-or">
+        <block type="If-then-else" />
+        <block type="And-or">
             <field name="operator">and</field>
         </block>
-        <block type="and-or">
+        <block type="And-or">
             <field name="operator">or</field>
         </block>
-        <block type="xor" />
-        <block type="not" />
+        <block type="Xor" />
+        <block type="Not" />
     </category>
     <category name="Checks">
-        <block type="number-comparison">
+        <block type="Value-comparison">
             <field name="operator">=</field>
         </block>
-        <block type="number-comparison">
+        <block type="Value-comparison">
             <field name="operator">&gt;</field>
         </block>
-        <block type="value-in-list" />
+        <block type="Value-in" />
     </category>
 </xml>

@@ -4,7 +4,7 @@ import * as T               from './types';
 
 export default Block({
 
-    type:                   'value-in-list',
+    type:                   'Value-in',
 
     json: {
         colour:             202,

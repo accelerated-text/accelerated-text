@@ -7,7 +7,7 @@ export default Block({
 
     ...valueSequence,
 
-    type:                   'sequence',
+    type:                   'Sequence',
     output:                 T.LIST,
 
     json: {

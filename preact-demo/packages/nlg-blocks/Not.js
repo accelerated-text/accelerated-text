@@ -4,19 +4,15 @@ import * as T               from './types';
 
 export default Block({
 
-    type:                   'xor',
+    type:                   'Not',
 
     json: {
         colour:             164,
         output:             T.BOOLEAN,
-        message0:           'either %1 or %2',
+        message0:           'not %1',
         args0: [{
             type:           'input_value',
-            name:           'value1',
-            check:          T.ATOMIC_VALUE,
-        }, {
-            type:           'input_value',
-            name:           'value2',
+            name:           'value',
             check:          T.ATOMIC_VALUE,
         }],
     },
