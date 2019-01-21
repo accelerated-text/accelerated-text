@@ -8,9 +8,9 @@ export default Block({
 
     json: {
         colour:             164,
+        inputsInline:       false,
         output:             T.BOOLEAN,
-        message0:           'either %1 or %2',
-        message1:           '...but not both',
+        message0:           'either: %1 or: %2 ...but not both',
         args0: [{
             type:           'input_value',
             name:           'value1',
