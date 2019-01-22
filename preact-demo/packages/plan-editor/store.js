@@ -4,7 +4,6 @@ export default {
         contextName:        null,
         dataSample:         null,
         documentPlan:       null,
-        planName:           'Example Plan',
         workspaceXml:       '',
     }),
 
