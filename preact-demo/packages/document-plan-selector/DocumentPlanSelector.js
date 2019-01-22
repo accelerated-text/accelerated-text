@@ -63,7 +63,7 @@ export default mount({
                             onChange={ this.onChange }
                             value={ selectedPlan }
                         >
-                            <optgroup label="📂 Select a plan">
+                            <optgroup label="📂 Open a plan">
                                 { plans.map( plan => (
                                     <option value={ plan.id }>
                                         📄 { plan.name }
