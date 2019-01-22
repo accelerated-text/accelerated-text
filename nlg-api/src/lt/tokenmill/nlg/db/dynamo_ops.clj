@@ -31,8 +31,9 @@
       DBAccess
       (read-item [this key]
         (far/get-item config/client-opts table-name {:key key}))
-      (write-item [this key data]
-        (let [body (-> data
+      (write-item [this data]
+        (let [key (utils/gen-uuid)
+              body (-> data
                        (assoc :key key)
                        (assoc :createdAt (utils/ts-now))
                        (assoc :updatedAt (utils/ts-now)))]
