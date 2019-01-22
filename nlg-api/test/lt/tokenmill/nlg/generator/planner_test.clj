@@ -1,6 +1,7 @@
 (ns lt.tokenmill.nlg.generator.planner-test
   (:require [clojure.test :refer :all]
-            [lt.tokenmill.nlg.generator.planner :refer :all]))
+            [lt.tokenmill.nlg.generator.planner :refer :all]
+            [lt.tokenmill.nlg.generator.parser :as parser]))
 
 (deftest test-compile-single-node-plan
   (testing "Create a single subject plan"
@@ -10,7 +11,7 @@
                                        :children [{:type "Product"
                                                    :name {:type "Cell"
                                                           :name "product-name"}}]}]}
-          compiled (parse-document-plan document-plan)]
+          compiled (parser/parse-document-plan document-plan)]
       (is (not (empty? compiled)))
       (is (= 1 (count compiled)))
       (let [first-segment (first compiled)
@@ -33,7 +34,7 @@
                                                                            :name "main-feature"}
                                                                           {:type "Cell"
                                                                            :name "secondary-feature"}]}]}]}]}
-          compiled (parse-document-plan document-plan)]
+          compiled (parser/parse-document-plan document-plan)]
       (is (not (empty? compiled)))
       (is (= 1 (count compiled)))
       (let [first-segment (first compiled)

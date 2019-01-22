@@ -5,6 +5,18 @@
             [lt.tokenmill.nlg.generator.ops :as ops]))
 
 
+(def synset
+  {:provides ["provide"]
+   :consequence ["results in"]})
+
+(defn get-random [key col]
+  (let [words (get col key [])]
+    (when (not (empty? words))
+      (rand-nth words))))
+
+(defn get-word
+  [word]
+  (get-random (keyword word) synset))
 
 (defn node-plus-children [node children]
   (if (not (empty? children))

@@ -1,7 +1,8 @@
 (ns lt.tokenmill.nlg.generator.planner
   (:require [clojure.string :as string]
             [clojure.tools.logging :as log]
-            [lt.tokenmill.nlg.generator.parser :as parser]))
+            [lt.tokenmill.nlg.generator.parser :as parser]
+            [lt.tokenmill.nlg.generator.simple-nlg :as nlg]))
 
 
 
