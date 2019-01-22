@@ -1,28 +1,25 @@
 import { h, Component }     from 'preact';
 
-import { mount, useStores } from '../vesa/';
+import { useStores }    from '../vesa/';
 
-import documentPlanSelector from './store';
-import S                    from './PlanSelector.sass';
-
-
-const ADD_NEW =             `ADD-NEW-${ Math.random() }`;
+import S                from './PlanSelector.sass';
 
 
-export default mount({
-    documentPlanSelector,
-})( useStores([
-    'documentPlanSelector',
-])( class DocumentPlanSelector extends Component {
+const ADD_NEW =         `ADD-NEW-${ Math.random() }`;
+
+
+export default useStores([
+    'planSelector',
+])( class PlanSelector extends Component {
 
     onChange = evt =>
         ( evt.target.value === ADD_NEW )
             ? this.onClickNew()
-            : this.props.E.documentPlanSelector.onSelectPlan( evt.target.value )
+            : this.props.E.planSelector.onSelectPlan( evt.target.value )
 
     onClickEdit = evt => {
         const {
-            documentPlanSelector: {
+            planSelector: {
                 plans,
                 selectedPlan,
             },
@@ -34,7 +31,7 @@ export default mount({
         }
 
         const planName =    window.prompt( 'Rename Document Plan:', plan.name );
-        return this.props.E.documentPlanSelector.onRenamePlan({
+        return this.props.E.planSelector.onRenamePlan({
             id:             selectedPlan,
             name:           planName,
         });
@@ -42,16 +39,16 @@ export default mount({
 
     onClickNew = evt => {
         const planName = window.prompt( 'Add a new Document Plan:', 'Untitled Plan' );
-        planName && this.props.E.documentPlanSelector.onAddNew( planName );
+        planName && this.props.E.planSelector.onAddNew( planName );
     }
 
     onClickRemove = evt => (
         window.confirm( '⚠️ Are you sure you want to remove this plan?' )
-        && this.props.E.documentPlanSelector.onRemoveSelected()
+        && this.props.E.planSelector.onRemoveSelected()
     );
 
     render({
-        documentPlanSelector: {
+        planSelector: {
             plans,
             selectedPlan,
         }}) {
@@ -89,4 +86,4 @@ export default mount({
             </div>
         );
     }
-}));
+});

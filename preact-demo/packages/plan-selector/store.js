@@ -5,7 +5,7 @@ export default {
         selectedPlan:   null,
     }),
 
-    documentPlanSelector: {
+    planSelector: {
 
         onAddNew: ( name, { state }) => {
             if( !name ) {
