@@ -3,7 +3,7 @@ import { h, Component }     from 'preact';
 import { mount, useStores } from '../vesa/';
 
 import documentPlanSelector from './store';
-import S                    from './DocumentPlanSelector.sass';
+import S                    from './PlanSelector.sass';
 
 
 const ADD_NEW =             `ADD-NEW-${ Math.random() }`;
