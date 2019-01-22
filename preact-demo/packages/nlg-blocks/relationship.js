@@ -3,23 +3,22 @@ import valueSequence        from './value-sequence';
 
 
 export default Block({
-
     ...valueSequence,
 
-    type:                   'and-or',
+    type:                   'relationship',
 
     json: {
         ...valueSequence.json,
 
-        colour:             164,
+        colour:             56,
         output:             null,
         message0:           '%1',
         args0: [{
             type:           'field_dropdown',
-            name:           'operator',
+            name:           'type',
             options: [
-                [ 'and',        'and' ],
-                [ 'or',         'or' ],
+                [ 'Provides', 'provides' ],
+                [ 'Consequence', 'consequence' ],
             ],
         }],
     },

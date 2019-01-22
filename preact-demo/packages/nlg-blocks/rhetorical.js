@@ -1,13 +1,18 @@
 import Block                from './Block';
+import valueSequence        from './value-sequence';
 
 
 export default Block({
+    ...valueSequence,
 
     type:                   'rhetorical',
 
     json: {
-        colour:             56,
+        ...valueSequence.json,
+
+        colour:             327,
         output:             null,
+
         message0:           '%1',
         args0: [{
             type:           'field_dropdown',

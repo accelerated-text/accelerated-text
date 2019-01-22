@@ -1,16 +1,18 @@
 import Block                from './Block';
-import valueListValue       from './value-list-value';
+import valueList            from './value-list';
 
 
 export default Block({
 
-    ...valueListValue,
+    ...valueList,
 
     type:                   'all',
 
     json: {
-        ...valueListValue.json,
+        ...valueList.json,
+
         colour:             202,
+        output:             null,
         message0:           'all:',
     },
 });

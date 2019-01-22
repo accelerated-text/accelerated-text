@@ -8,12 +8,11 @@ const PREFIX =              'value_';
 
 export default Block({
 
-    type:                   'value-list-statement',
+    type:                   null,
 
     json: {
         colour:             0,
-        previousStatement:  'Action',
-        nextStatement:      'Action',
+        inputsInline:       false,
         message0:           '',
     },
 
@@ -33,7 +32,6 @@ export default Block({
             <mutation value_count={ this.value_count } />
         );
     },
-
 
     domToMutation( xmlElement ) {
 
@@ -65,7 +63,7 @@ export default Block({
             /// Always at least 2 inputs:
             this.appendNextInput();
         } else {
-            
+
             const emptyInputs = valueInputs.filter( input => (
                 !input.connection || !input.connection.isConnected()
             ));

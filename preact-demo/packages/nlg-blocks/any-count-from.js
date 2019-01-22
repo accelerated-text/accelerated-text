@@ -1,16 +1,18 @@
 import Block                from './Block';
-import valueListValue       from './value-list-value';
+import valueList            from './value-list';
 
 
 export default Block({
 
-    ...valueListValue,
+    ...valueList,
 
     type:                   'any-count-from',
 
     json: {
-        ...valueListValue.json,
+        ...valueList.json,
+
         colour:             202,
+        output:             null,
         message0:           'any %1',
         args0: [{
             type:           'field_number',

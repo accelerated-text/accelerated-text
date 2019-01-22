@@ -90,9 +90,9 @@ describe( 'blockly-gremlin/dom-to-gremlin', () => {
         ));
     });
 
-    test( 'should support next_values mutation', async () => {
+    test( 'should support value_sequence mutation', async () => {
 
-        const gremlinCode = await fileToGremlin( 'next-values-mutation.xml' );
+        const gremlinCode = await fileToGremlin( 'value-sequence-mutation.xml' );
         const toMatch =     expect( gremlinCode ).toMatch;
         const notToMatch =  expect( gremlinCode ).not.toMatch;
 

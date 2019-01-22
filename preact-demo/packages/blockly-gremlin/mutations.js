@@ -56,7 +56,7 @@ module.exports = {
         ];
     },
 
-    next_values: ( parentEl, mutationValue ) =>
+    value_sequence: ( parentEl, mutationValue ) =>
         [ ...parentEl.children ]
             .filter( isValue )
             .filter( valueEl =>
