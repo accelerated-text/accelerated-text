@@ -4,6 +4,49 @@
             [lt.tokenmill.nlg.api.utils :as utils]))
 
 
+(defn resolve-table
+  [type]
+  (case type
+    :results config/results-table
+    :data config/data-table
+    :blockly config/blockly-table))
+
+(defprotocol DBAccess
+  (read-item [this key])
+  (write-item [this key data])
+  (update-item [this key data])
+  (delete-item [this key])
+  (list-items [this limit]))
+
+(defn read! [this key] (read-item this key))
+(defn write! [this key data] (write-item this key data))
+(defn update! [this key data] (update-item this key data))
+(defn delete! [this key] (delete-item this key))
+(defn list! [this limit] (list-items this limit))
+
+(defn db-access
+  [resource-type]
+  (let [table-name (resolve-table resource-type)]
+    (reify
+      DBAccess
+      (read-item [this key]
+        (far/get-item config/client-opts table-name {:key key}))
+      (write-item [this key data]
+        (let [body (-> data
+                       (assoc :key key)
+                       (assoc :createdAt (utils/ts-now))
+                       (assoc :updatedAt (utils/ts-now)))]
+          (far/put-item config/client-opts table-name body)))
+      (update-item [this key data]
+        (let [original (far/get-item config/client-opts table-name {:key key})
+              body (-> (merge data original)
+                       (assoc :updatedAt (utils/ts-now)))]
+          (far/put-item config/client-opts table-name body)))
+      (delete-item [this key]
+        (far/delete-item config/client-opts table-name {:key key}))
+      (list-items [this limit]
+        (far/scan config/client-opts table-name)))))
+
 (defn get-results
   [key]
   (far/get-item config/client-opts config/results-table {:key key}))
