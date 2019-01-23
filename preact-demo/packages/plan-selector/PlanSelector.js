@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 
+import ClockSpinner     from '../clock-spinner/ClockSpinner';
 import { useStores }    from '../vesa/';
 import * as planList    from '../plan-list/functions';
 
@@ -48,49 +49,78 @@ export default useStores([
         && this.props.E.planList.onRemovePlan( this.props.planList.selectedPlanId )
     );
 
+    renderActions({
+        planList: {
+            addLoading,
+            getListLoading,
+            plans,
+            removeLoading,
+            renameLoading,
+            selectedPlanId,
+        },
+    }) {
+
+        const hasPlans =    plans && plans.length;
+        const noPlans =     !hasPlans;
+        const isWeird = (
+            noPlans && selectedPlanId
+            || hasPlans && !selectedPlanId
+        );
+        const isLoading = (
+            noPlans && getListLoading
+            || noPlans && addLoading
+            || selectedPlanId === removeLoading
+            || selectedPlanId === renameLoading
+        );
+
+        return (
+            isWeird
+                ? <span>❓</span>
+            : isLoading
+                ? <ClockSpinner />
+            : selectedPlanId
+                ? [
+                    <button onClick={ this.onClickEdit }>📝</button>,
+                    <button onClick={ this.onClickRemove }>❌</button>,
+                ]
+            : <span>❓</span>
+        );
+    }
+
+
     render({
         planList: {
-            getListError,
-            getListLoading,
-            addError,
-            addLoading,
             plans,
+            removeLoading,
+            renameLoading,
             selectedPlanId,
         }}) {
         return (
             <div className={ S.className }>
                 { plans.length
-                    ? [
+                    ? (
                         <select
+                            className={ S.list }
                             onChange={ this.onChange }
                             value={ selectedPlanId }
                         >
+                            <option value={ ADD_NEW }>➕ New...</option>
                             <optgroup label="📂 Open a plan">
-                                { plans.map( plan => (
+                                { plans.map( plan =>
                                     <option value={ plan.id }>
                                         📄 { plan.name }
                                     </option>
-                                ))}
+                                )}
                             </optgroup>
-                            <option value={ ADD_NEW }>➕ New...</option>
-                        </select>,
-                        ...( selectedPlanId
-                            ? [
-                                <button onClick={ this.onClickEdit }>📝</button>,
-                                <button onClick={ this.onClickRemove }>❌</button>,
-                            ]
-                            : []
-                        ),
-                    ]
-                : getListLoading
-                    ? <span>Loading list...</span>
-                : addLoading
-                    ? <span>Creating the plan...</span>
-                : (
-                    <button onClick={ this.onClickNew }>
-                        ➕ New document plan
-                    </button>
-                )}
+                        </select>
+                    )
+                    : (
+                        <button className={ S.list } onClick={ this.onClickNew }>
+                            ➕ New document plan
+                        </button>
+                    )
+                }
+                { this.renderActions( this.props ) }
             </div>
         );
     }

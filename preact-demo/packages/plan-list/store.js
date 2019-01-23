@@ -70,8 +70,8 @@ export default {
 
         /// Remove -------------------------------------------------------------
 
-        onRemoveStart: () => ({
-            removeLoading:  true,
+        onRemoveStart: id => ({
+            removeLoading:  id || true,
         }),
 
         onRemoveError: removeError => ({
@@ -88,8 +88,8 @@ export default {
 
         /// Rename -------------------------------------------------------------
 
-        onRenameStart: () => ({
-            renameLoading:  true,
+        onRenameStart: id => ({
+            renameLoading:  id || true,
         }),
 
         onRenameError: renameError => ({

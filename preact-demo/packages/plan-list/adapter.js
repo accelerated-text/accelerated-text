@@ -57,7 +57,7 @@ export default {
                 return;
             }
 
-            E.planList.onRemoveStart.async();
+            E.planList.onRemoveStart.async( id );
 
             DELETE( `/${ id }` )
                 .then( E.planList.onRemoveResult )
@@ -79,7 +79,7 @@ export default {
                 return;
             }
 
-            E.planList.onRenameStart.async();
+            E.planList.onRenameStart.async( id );
 
             PUT( `/${ id }`, {
                 ...plan,
