@@ -42,4 +42,5 @@
                                                                           (get-workspace path-params)))
                             :post-handler add-workspace
                             :delete-handler delete-workspace
-                            :put-handler update-workspace}))
+                            :put-handler update-workspace}
+                           true))

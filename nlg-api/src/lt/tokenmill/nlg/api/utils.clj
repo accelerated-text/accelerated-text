@@ -4,7 +4,8 @@
             [clojure.tools.logging :as log]
             [clj-time.core :as time]
             [clj-time.coerce :as tc]
-            [clojure.string :as string])
+            [clojure.string :as string]
+            [clojure.data.csv :as csv])
   (:import (java.io InputStream))
   (:import (java.util.UUID)))
 
@@ -62,6 +63,15 @@
         {:error true
          :ready true
          :message (.getMessage e)}))))
+
+
+(defn csv-to-map
+  [f]
+  (let [raw-csv (csv/read-csv f)]
+    (zipmap
+     (->> (first raw-csv)
+          (map keyword)
+          (rest raw-csv)))))
       
 
 (defn do-return

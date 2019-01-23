@@ -3,8 +3,7 @@
             [clojure.java.io :as io]
             [lt.tokenmill.nlg.api.utils :as utils]
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
-            [lt.tokenmill.nlg.api.resource :as resource]
-            [cheshire.core :as ch])
+            [lt.tokenmill.nlg.api.resource :as resource])
   (:import (java.io BufferedWriter))
   (:gen-class
     :name lt.tokenmill.nlg.api.DataHandler
@@ -18,8 +17,9 @@
     (utils/do-return ops/read! db request-id)))
 
 (defn add-data [request-body]
-  (let [db (get-db)]
-    (utils/do-insert ops/write! db request-body)))
+  (let [db (get-db)
+        parsed-body (utils/csv-to-map request-body)]
+    (utils/do-insert ops/write! db parsed-body)))
 
 (defn delete-data [path-params]
   (let [request-id (path-params :id)
