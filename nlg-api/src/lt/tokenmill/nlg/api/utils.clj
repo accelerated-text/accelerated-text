@@ -14,12 +14,27 @@
 
 (defn resp [status-code body]
   (let [resp {"statusCode" status-code
-              "body" (when body (cheshire/encode body))
-              "isBase64Encoded" false
-              "headers" {"Content-Type" "application/json"
-                         "Access-Control-Allow-Origin" "*"
-                         "Access-Control-Allow-Methods" "*"}}]
-    (cheshire/encode resp)))
+              "isBase64Encoded" false}]
+    (defn add-body
+      [r]
+      (if body
+        (assoc r :body (cheshire/encode body))
+        (assoc r :body "")))
+
+    (defn add-headers
+      [r]
+      (let [cors-headers {"Access-Control-Allow-Origin" "*"
+                          "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"}
+            headers (if body
+                      (conj cors-headers ["Content-Type" "application/json"])
+                      cors-headers)]
+        (assoc r :headers headers)))
+        
+    
+    (-> resp
+        (add-body)
+        (add-headers)
+        (cheshire/encode))))
 
 (defn decode-body [^InputStream is]
   (try

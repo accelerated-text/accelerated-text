@@ -37,7 +37,7 @@
         job @(future (generation-process result-id document-plan-id data-id))]
     (utils/do-return (fn [] {:resultId result-id}))))
 
-(defn read-result [path-params]
+(defn read-result [query-params path-params]
   (let [request-id (path-params :id)]
     (utils/do-return ops/get-results request-id)))
 

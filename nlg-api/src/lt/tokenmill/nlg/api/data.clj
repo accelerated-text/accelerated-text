@@ -3,7 +3,7 @@
             [clojure.java.io :as io]
             [lt.tokenmill.nlg.api.utils :as utils]
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
-            [lt.tokenmill.nlg.generator.planner :as planner]
+            [lt.tokenmill.nlg.api.resource :as resource]
             [cheshire.core :as ch])
   (:import (java.io BufferedWriter))
   (:gen-class
@@ -28,16 +28,8 @@
         db (get-db)]
     (ops/delete! db request-id)))
 
-(defn -handleRequest [_ is os _]
-  (let [input (utils/decode-body is)
-        method (input :httpMethod)
-        path-params (input :pathParameters)
-        query-params (input :queryStringParameters)
-        request-body (ch/decode (input :body) true)
-        {:keys [status body]} (case (keyword method)
-                                :GET    (read-data path-params)
-                                :DELETE (delete-data path-params)
-                                :POST   (add-data request-body))]
-    (log/debugf "Received '%s' and produced output '%s'" input body)
-    (with-open [^BufferedWriter w (io/writer os)]
-      (.write w ^String (utils/resp 200 body)))))
+
+(def -handleRequest
+  (resource/build-resource {:get-handler read-data
+                            :delete-handler delete-data
+                            :post add-data}))

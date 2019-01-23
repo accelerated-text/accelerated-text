@@ -81,6 +81,23 @@ Resources:
             Path: /nlg/{id}
             Method: get
 
+  NLGCors:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /nlg/{id}
+            Method: options
+
   getWorkspace:
     Type: AWS::Serverless::Function
     Properties:
@@ -98,6 +115,23 @@ Resources:
           Properties:
             Path: /document-plans/{id}
             Method: get
+
+  dpCors:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /document-plans/{id}
+            Method: options
 
   listWorkspaces:
     Type: AWS::Serverless::Function
@@ -224,3 +258,15 @@ Outputs:
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/nlg/{id}'
     Export:
       Name: deleteNLGresult
+
+  NLGCorsAPI:
+    Description: setup CORS
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/nlg/{id}'
+    Export:
+      Name: NLGCors
+
+  dpCorsAPI:
+    Description: setup CORS
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
+    Export:
+      Name: dpCors

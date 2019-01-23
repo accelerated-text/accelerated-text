@@ -3,6 +3,7 @@
             [clojure.java.io :as io]
             [lt.tokenmill.nlg.api.utils :as utils]
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
+            [lt.tokenmill.nlg.api.resource :as resource]
             [cheshire.core :as ch])
   (:import (java.io BufferedWriter))
   (:gen-class
@@ -35,19 +36,10 @@
     {:body (ops/list-workspaces limit)
      :status 200}))
 
-(defn -handleRequest [_ is os _]
-  (let [input (utils/decode-body is)
-        method (input :httpMethod)
-        path-params (input :pathParameters)
-        query-params (input :queryStringParameters)
-        request-body (ch/decode (input :body))
-        {:keys [status body]} (case method
-                                "GET"    (if (empty? path-params)
-                                           (list-workspaces query-params)
-                                           (get-workspace path-params))
-                                "DELETE" (delete-workspace path-params)
-                                "POST"   (add-workspace request-body)
-                                "PUT"    (update-workspace path-params request-body))]
-    (log/debugf "Received '%s' and produced output '%s'" input body)
-    (with-open [^BufferedWriter w (io/writer os)]
-      (.write w ^String (utils/resp status body)))))
+(def -handleRequest
+  (resource/build-resource {:get-handler (fn [query-params path-params] (if (empty? path-params)
+                                                                          (list-workspaces query-params)
+                                                                          (get-workspace path-params)))
+                            :post-handler add-workspace
+                            :delete-handler delete-workspace
+                            :put-handler update-workspace}))
