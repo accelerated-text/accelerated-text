@@ -14,7 +14,7 @@
 
 (defn resp [status-code body]
   (let [resp {"statusCode" status-code
-              "body" (cheshire/encode body)
+              "body" (when body (cheshire/encode body))
               "isBase64Encoded" false
               "headers" {"Content-Type" "application/json"
                          "Access-Control-Allow-Origin" "*"
@@ -72,6 +72,17 @@
                               {:status 500
                                :body {:error true
                                       :message (.getMessage e)}})))))
+
+(defn do-delete
+  [func & args]
+  (try (let [_ (apply func args)]
+         {:status 200
+          :body {:success true}})
+       (catch Exception e (do
+                            (log/error e)
+                            {:status 500
+                             :body {:error true
+                                    :message (.getMessage e)}}))))
 
 (defn do-update
   [func & args]

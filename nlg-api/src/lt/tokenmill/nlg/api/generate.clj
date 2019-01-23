@@ -4,6 +4,7 @@
             [lt.tokenmill.nlg.api.utils :as utils]
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
             [lt.tokenmill.nlg.generator.planner :as planner]
+            [lt.tokenmill.nlg.api.resource :as resource]
             [cheshire.core :as ch])
   (:import (java.io BufferedWriter))
   (:gen-class
@@ -42,18 +43,9 @@
 
 (defn delete-result [path-params]
   (let [request-id (path-params :id)]
-    (utils/do-update ops/delete-results request-id)))
+    (utils/do-delete ops/delete-results request-id)))
 
-(defn -handleRequest [_ is os _]
-  (let [input (utils/decode-body is)
-        method (input :httpMethod)
-        path-params (input :pathParameters)
-        query-params (input :queryStringParameters)
-        request-body (ch/decode (input :body) true)
-        {:keys [status body]} (case (keyword method)
-                                :GET    (read-result path-params)
-                                :DELETE (delete-result path-params)
-                                :POST   (generate-request request-body))]
-    (log/debugf "Received '%s' and produced output '%s'" input body)
-    (with-open [^BufferedWriter w (io/writer os)]
-      (.write w ^String (utils/resp status body)))))
+(def -handleRequest
+  (resource/build-resource {:get-handler read-result
+                            :post-handler generate-request
+                            :delete-handler delete-result}))
