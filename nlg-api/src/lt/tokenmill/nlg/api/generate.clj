@@ -34,13 +34,11 @@
         result-id (utils/gen-uuid)
         init-results (ops/write-results result-id {:ready false})
         job @(future (generation-process result-id document-plan-id data-id))]
-    {:status 200
-     :body {:resultId result-id}}))
+    (utils/do-return (fn [] {:resultId result-id}))))
 
 (defn read-result [path-params]
   (let [request-id (path-params :id)]
-    {:status 200
-     :body (ops/get-results request-id)}))
+    (utils/do-return ops/get-results request-id)))
 
 (defn delete-result [path-params]
   (let [request-id (path-params :id)]
@@ -58,4 +56,4 @@
                                 :POST   (generate-request request-body))]
     (log/debugf "Received '%s' and produced output '%s'" input body)
     (with-open [^BufferedWriter w (io/writer os)]
-      (.write w ^String (utils/resp 200 body)))))
+      (.write w ^String (utils/resp status body)))))

@@ -17,7 +17,8 @@
               "body" (cheshire/encode body)
               "isBase64Encoded" false
               "headers" {"Content-Type" "application/json"
-                         "Access-Control-Allow-Origin" "*"}}]
+                         "Access-Control-Allow-Origin" "*"
+                         "Access-Control-Allow-Methods" "*"}}]
     (cheshire/encode resp)))
 
 (defn decode-body [^InputStream is]
@@ -47,6 +48,17 @@
          :ready true
          :message (.getMessage e)}))))
       
+
+(defn do-return
+  [func & args]
+  (try (let [resp (apply func args)]
+         {:status 200
+          :body resp})
+       (catch Exception e (do
+                            (log/error (get-stack-trace e))
+                            {:status 500
+                             :body {:error true
+                                    :message (.getMessage e)}}))))
 
 (defn do-insert
   [func & args]
