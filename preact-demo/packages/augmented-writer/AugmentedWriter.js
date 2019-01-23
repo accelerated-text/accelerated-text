@@ -1,6 +1,7 @@
 import { h }                from 'preact';
 
 import planSelector         from '../plan-selector/store';
+import planSelectorAdapter  from '../plan-selector/api-adapter';
 import { mount }            from '../vesa/';
 import PlanEditor           from '../plan-editor/PlanEditor';
 import planEditor           from '../plan-editor/store';
@@ -16,6 +17,7 @@ export default mount({
     planSelector,
     variantsApi,
 }, [
+    planSelectorAdapter,
     variantsApiAdapter,
 ])(() =>
     <div className={ S.className }>

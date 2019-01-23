@@ -44,18 +44,22 @@ export default useStores([
 
     onClickRemove = evt => (
         window.confirm( '⚠️ Are you sure you want to remove this plan?' )
-        && this.props.E.planSelector.onRemoveSelected()
+        && this.props.E.planSelector.onRemovePlan( this.props.planSelector.selectedPlan )
     );
 
     render({
         planSelector: {
+            getListError,
+            getListLoading,
+            addError,
+            addLoading,
             plans,
             selectedPlan,
         }}) {
         return (
             <div className={ S.className }>
                 { plans.length
-                    ? (
+                    ? [
                         <select
                             onChange={ this.onChange }
                             value={ selectedPlan }
@@ -68,21 +72,24 @@ export default useStores([
                                 ))}
                             </optgroup>
                             <option value={ ADD_NEW }>➕ New...</option>
-                        </select>
-                    )
-                    : null
-                }
-                { selectedPlan
-                    ? [
-                        <button onClick={ this.onClickEdit }>📝</button>,
-                        <button onClick={ this.onClickRemove }>❌</button>,
+                        </select>,
+                        ...( selectedPlan
+                            ? [
+                                <button onClick={ this.onClickEdit }>📝</button>,
+                                <button onClick={ this.onClickRemove }>❌</button>,
+                            ]
+                            : []
+                        ),
                     ]
-                    : (
-                        <button onClick={ this.onClickNew }>
-                            ➕ New document plan
-                        </button>
-                    )
-                }
+                : getListLoading
+                    ? <span>Loading list...</span>
+                : addLoading
+                    ? <span>Creating the plan...</span>
+                : (
+                    <button onClick={ this.onClickNew }>
+                        ➕ New document plan
+                    </button>
+                )}
             </div>
         );
     }
