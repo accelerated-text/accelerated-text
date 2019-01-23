@@ -25,7 +25,7 @@ export default {
         selectedPlan:   null,
     }),
 
-    planSelector: {
+    planList: {
 
         /// Add ----------------------------------------------------------------
 

@@ -9,17 +9,17 @@ const ADD_NEW =         `ADD-NEW-${ Math.random() }`;
 
 
 export default useStores([
-    'planSelector',
+    'planList',
 ])( class PlanSelector extends Component {
 
     onChange = evt =>
         ( evt.target.value === ADD_NEW )
             ? this.onClickNew()
-            : this.props.E.planSelector.onSelectPlan( evt.target.value )
+            : this.props.E.planList.onSelectPlan( evt.target.value )
 
     onClickEdit = evt => {
         const {
-            planSelector: {
+            planList: {
                 plans,
                 selectedPlan,
             },
@@ -31,7 +31,7 @@ export default useStores([
         }
 
         const planName =    window.prompt( 'Rename Document Plan:', plan.name );
-        return this.props.E.planSelector.onRenamePlan({
+        return this.props.E.planList.onRenamePlan({
             id:             selectedPlan,
             name:           planName,
         });
@@ -39,16 +39,16 @@ export default useStores([
 
     onClickNew = evt => {
         const planName = window.prompt( 'Add a new Document Plan:', 'Untitled Plan' );
-        planName && this.props.E.planSelector.onAddNew( planName );
+        planName && this.props.E.planList.onAddNew( planName );
     }
 
     onClickRemove = evt => (
         window.confirm( '⚠️ Are you sure you want to remove this plan?' )
-        && this.props.E.planSelector.onRemovePlan( this.props.planSelector.selectedPlan )
+        && this.props.E.planList.onRemovePlan( this.props.planList.selectedPlan )
     );
 
     render({
-        planSelector: {
+        planList: {
             getListError,
             getListLoading,
             addError,
