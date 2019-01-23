@@ -7,6 +7,7 @@ import {
     PUT,
 } from './document-plans-api';
 import emptyPlan        from './empty-plan';
+import { findById }     from './functions';
 
 
 export default {
@@ -34,7 +35,8 @@ export default {
             })
                 .then( E.planList.onAddResult )
                 .catch( pTap( console.error ))
-                .catch( E.planList.onAddError );
+                .catch( E.planList.onAddError )
+                .then( E.planList.onGetList );
         },
 
         onGetList: ( _, { E }) => {
@@ -71,7 +73,7 @@ export default {
                 renameLoading,
             } = getStoreState( 'planList' );
 
-            const plan =    plans.find( plan => plan.id === id );
+            const plan =    findById( plans, id );
 
             if( renameLoading || !id || !plan || !name ) {
                 return;
@@ -85,7 +87,8 @@ export default {
             })
                 .then( E.planList.onRenameResult )
                 .catch( pTap( console.error ))
-                .catch( E.planList.onRenameError );
+                .catch( E.planList.onRenameError )
+                .then( E.planList.onGetList );
         },
     },
 };

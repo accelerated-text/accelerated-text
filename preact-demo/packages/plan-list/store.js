@@ -1,28 +1,25 @@
-const sortByCreatedAt = ( a, b ) => (
-    ( a.createdAt && b.createdAt )
-        ? ( b.createdAt - a.createdAt )
-    : a.createdAt
-        ? -1
-    : b.createdAt
-        ? 1
-    : -1
-);
+import {
+    getActiveId,
+    removeItem,
+    sortPlans,
+    updateItem,
+} from './functions';
 
 
 export default {
 
     getInitialState: () => ({
-        addError:       null,
-        addLoading:     false,
-        getListError:   null,
-        getListLoading: false,
-        plans:          [],
-        removeError:    null,
-        removeLoading:  false,
-        removeResult:   null,
-        renameError:    null,
-        renameLoading:  false,
-        selectedPlan:   null,
+        addError:           null,
+        addLoading:         false,
+        getListError:       null,
+        getListLoading:     false,
+        plans:              [],
+        removeError:        null,
+        removeLoading:      false,
+        removeResult:       null,
+        renameError:        null,
+        renameLoading:      false,
+        selectedPlanId:     null,
     }),
 
     planList: {
@@ -40,7 +37,7 @@ export default {
                 newPlan,
                 ...state.plans,
             ],
-            selectedPlan:   newPlan.id,
+            selectedPlanId:   newPlan.id,
         }),
 
         onAddError: addError => ({
@@ -59,16 +56,17 @@ export default {
             getListLoading: false,
         }),
 
-        onGetListResult: ( plans, { state }) => ({
-            getListError:   null,
-            getListLoading: false,
-            plans:          plans.sort( sortByCreatedAt ),
-            selectedPlan: (
-                state.selectedPlan
-                    ? state.selectedPlan
-                    : plans[0] && plans[0].id || null
-            ),
-        }),
+        onGetListResult: ( newPlans, { state }) => {
+
+            const plans =           sortPlans( newPlans );
+
+            return {
+                getListError:   null,
+                getListLoading: false,
+                plans,
+                selectedPlanId: getActiveId( plans, state.selectedPlanId ),
+            };
+        },
 
         /// Remove -------------------------------------------------------------
 
@@ -81,31 +79,12 @@ export default {
             removeLoading:  false,
         }),
 
-        onRemoveResult: ( removeResult, { state }) => {
-
-            const idx = state.plans.findIndex(
-                plan => plan.id === removeResult.id
-            );
-
-            if( !removeResult.id || idx === -1 ) {
-                return {
-                    removeError:    null,
-                    removeLoading:  false,
-                    removeResult,
-                };
-            }
-
-            /// [...].splice() modifies the array in-place:
-            const plans =   [ ...state.plans ];
-            plans.splice( idx, 1 );
-
-            return {
-                plans,
-                removeError:    null,
-                removeLoading:  false,
-                removeResult,
-            };
-        },
+        onRemoveResult: ( removeResult, { state }) => ({
+            plans:          removeItem( state.plans, removeResult ),
+            removeError:    null,
+            removeLoading:  false,
+            removeResult,
+        }),
 
         /// Rename -------------------------------------------------------------
 
@@ -118,34 +97,16 @@ export default {
             renameLoading:  false,
         }),
 
-        onRenameResult: ( newPlan, { state }) => {
-
-            const idx = state.plans.findIndex(
-                plan => plan.id === newPlan.id
-            );
-
-            if( !newPlan.id || idx === -1 ) {
-                return {
-                    renameError:    null,
-                    renameLoading:  false,
-                };
-            }
-
-            /// [...].splice() modifies the array in-place:
-            const plans =   [ ...state.plans ];
-            plans.splice( idx, 1, newPlan );
-
-            return {
-                plans,
-                renameError:    null,
-                renameLoading:  false,
-            };
-        },
+        onRenameResult: ( newPlan, { state }) => ({
+            plans:          updateItem( state.plans, newPlan ),
+            renameError:    null,
+            renameLoading:  false,
+        }),
 
         /// Other --------------------------------------------------------------
 
-        onSelectPlan: selectedPlan => ({
-            selectedPlan,
+        onSelectPlan: selectedPlanId => ({
+            selectedPlanId,
         }),
     },
 };

@@ -1,6 +1,7 @@
-import { h, Component }     from 'preact';
+import { h, Component } from 'preact';
 
 import { useStores }    from '../vesa/';
+import * as planList    from '../plan-list/functions';
 
 import S                from './PlanSelector.sass';
 
@@ -21,10 +22,10 @@ export default useStores([
         const {
             planList: {
                 plans,
-                selectedPlan,
+                selectedPlanId,
             },
         } = this.props;
-        const plan =        plans.find( plan => plan.id === selectedPlan );
+        const plan =        planList.findById( plans, selectedPlanId );
 
         if( !plan ) {
             return;
@@ -32,7 +33,7 @@ export default useStores([
 
         const planName =    window.prompt( 'Rename Document Plan:', plan.name );
         return this.props.E.planList.onRenamePlan({
-            id:             selectedPlan,
+            id:             selectedPlanId,
             name:           planName,
         });
     }
@@ -44,7 +45,7 @@ export default useStores([
 
     onClickRemove = evt => (
         window.confirm( '⚠️ Are you sure you want to remove this plan?' )
-        && this.props.E.planList.onRemovePlan( this.props.planList.selectedPlan )
+        && this.props.E.planList.onRemovePlan( this.props.planList.selectedPlanId )
     );
 
     render({
@@ -54,7 +55,7 @@ export default useStores([
             addError,
             addLoading,
             plans,
-            selectedPlan,
+            selectedPlanId,
         }}) {
         return (
             <div className={ S.className }>
@@ -62,7 +63,7 @@ export default useStores([
                     ? [
                         <select
                             onChange={ this.onChange }
-                            value={ selectedPlan }
+                            value={ selectedPlanId }
                         >
                             <optgroup label="📂 Open a plan">
                                 { plans.map( plan => (
@@ -73,7 +74,7 @@ export default useStores([
                             </optgroup>
                             <option value={ ADD_NEW }>➕ New...</option>
                         </select>,
-                        ...( selectedPlan
+                        ...( selectedPlanId
                             ? [
                                 <button onClick={ this.onClickEdit }>📝</button>,
                                 <button onClick={ this.onClickRemove }>❌</button>,
