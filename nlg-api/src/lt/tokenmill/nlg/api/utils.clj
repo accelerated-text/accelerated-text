@@ -68,8 +68,12 @@
   [func & args]
   (try (let [resp (apply func args)]
          (if resp
-           {:status 200
-            :body resp}
+           (if (contains? resp :error)
+             {:status 500
+              :body {:error true :message "ERROR_01"}}
+             {:status 200
+              :body resp})
+           
            {:status 404}))
        (catch Exception e (do
                             (log/error (get-stack-trace e))
