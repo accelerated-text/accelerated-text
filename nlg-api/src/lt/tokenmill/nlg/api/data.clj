@@ -19,7 +19,7 @@
 (defn add-data [request-body]
   (let [db (get-db)
         parsed-body (utils/csv-to-map request-body)]
-    (utils/do-insert ops/write! db parsed-body)))
+    (utils/do-insert (partial ops/write! db) parsed-body)))
 
 (defn delete-data [path-params]
   (let [request-id (path-params :id)
@@ -30,5 +30,5 @@
 (def -handleRequest
   (resource/build-resource {:get-handler read-data
                             :delete-handler delete-data
-                            :post add-data}
+                            :post-handler add-data}
                            false))

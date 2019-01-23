@@ -205,7 +205,7 @@ Resources:
             Path: /document-plans/{id}
             Method: delete
 
-   addData:
+  addData:
     Type: AWS::Serverless::Function
     Properties:
       Handler: lt.tokenmill.nlg.api.DataHandler::handleRequest

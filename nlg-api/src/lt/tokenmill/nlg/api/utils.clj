@@ -71,7 +71,8 @@
     (zipmap
      (->> (first raw-csv)
           (map keyword)
-          (rest raw-csv)))))
+          repeat)
+     (rest raw-csv))))
       
 
 (defn do-return
