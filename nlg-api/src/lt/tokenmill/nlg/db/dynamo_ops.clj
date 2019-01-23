@@ -13,13 +13,13 @@
 
 (defprotocol DBAccess
   (read-item [this key])
-  (write-item [this key data])
+  (write-item [this data])
   (update-item [this key data])
   (delete-item [this key])
   (list-items [this limit]))
 
 (defn read! [this key] (read-item this key))
-(defn write! [this key data] (write-item this key data))
+(defn write! [this data] (write-item this data))
 (defn update! [this key data] (update-item this key data))
 (defn delete! [this key] (delete-item this key))
 (defn list! [this limit] (list-items this limit))

@@ -17,7 +17,7 @@
                "Main Feature" "comfort"
                "Secondary feature" "support"
                "Style" "with sleek update on a classic design"
-               "Lacing" "premium"}]
+               "Lacing" "premium lacing"}]
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
         results (utils/result-or-error (map #(planner/render-dp dp %) data))
