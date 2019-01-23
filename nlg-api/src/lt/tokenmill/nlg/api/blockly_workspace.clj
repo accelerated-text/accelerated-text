@@ -19,7 +19,7 @@
 (defn delete-workspace
   [path-params]
   (let [key (path-params :id)]
-    (utils/do-update ops/delete-workspace key)))
+    (utils/do-delete ops/get-workspace ops/delete-workspace key)))
 
 (defn add-workspace
   [request-body]

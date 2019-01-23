@@ -67,8 +67,10 @@
 (defn do-return
   [func & args]
   (try (let [resp (apply func args)]
-         {:status 200
-          :body resp})
+         (if resp
+           {:status 200
+            :body resp}
+           {:status 404}))
        (catch Exception e (do
                             (log/error (get-stack-trace e))
                             {:status 500
@@ -89,10 +91,11 @@
                                       :message (.getMessage e)}})))))
 
 (defn do-delete
-  [func & args]
-  (try (let [_ (apply func args)]
+  [search-fn delete-fn & args]
+  (try (let [original (apply search-fn args)
+             _ (apply delete-fn args)]
          {:status 200
-          :body {:success true}})
+          :body original})
        (catch Exception e (do
                             (log/error e)
                             {:status 500

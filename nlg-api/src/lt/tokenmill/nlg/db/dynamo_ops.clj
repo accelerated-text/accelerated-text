@@ -40,26 +40,14 @@
           (far/put-item config/client-opts table-name body)))
       (update-item [this key data]
         (let [original (far/get-item config/client-opts table-name {:key key})
-              body (-> (merge data original)
-                       (assoc :updatedAt (utils/ts-now)))]
+              body (-> (merge original data)
+                       (assoc :updatedAt (utils/ts-now))
+                       (assoc :key key))]
           (far/put-item config/client-opts table-name body)))
       (delete-item [this key]
         (far/delete-item config/client-opts table-name {:key key}))
       (list-items [this limit]
         (far/scan config/client-opts table-name)))))
-
-(defn get-results
-  [key]
-  (far/get-item config/client-opts config/results-table {:key key}))
-
-(defn delete-results
-  [key]
-  (far/delete-item config/client-opts config/results-table {:key key}))
-
-(defn write-results
-  [key data]
-  (let [body (assoc data :createdAt (utils/ts-now))]
-    (far/put-item config/client-opts config/results-table (assoc body :key key))))
 
 (defn get-workspace
   [key]

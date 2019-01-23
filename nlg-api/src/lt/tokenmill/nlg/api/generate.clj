@@ -11,6 +11,7 @@
     :name lt.tokenmill.nlg.api.NLGHandler
     :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
 
+(defn get-db [] (ops/db-access :results))
 
 (defn generation-process
   [result-id dp-id data-id]
@@ -19,31 +20,34 @@
                "Secondary feature" "support"
                "Style" "with sleek update on a classic design"
                "Lacing" "premium lacing"}]
+        db (get-db)
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
         results (utils/result-or-error (map #(planner/render-dp dp %) data))
         body {:ready true
               :results (vec results)}]
     (log/debugf "Body: %s" body)
-    (ops/write-results result-id body)
-    {:done true}))
+    (ops/update! db result-id body)))
 
 
 (defn generate-request [request-body]
-  (let [document-plan-id (request-body :documentPlanId)
+  (let [db (get-db)
+        document-plan-id (request-body :documentPlanId)
         data-id (request-body :dataId)
         result-id (utils/gen-uuid)
-        init-results (ops/write-results result-id {:ready false})
+        init-results (ops/update! db result-id {:ready false})
         job @(future (generation-process result-id document-plan-id data-id))]
     (utils/do-return (fn [] {:resultId result-id}))))
 
 (defn read-result [query-params path-params]
-  (let [request-id (path-params :id)]
-    (utils/do-return ops/get-results request-id)))
+  (let [db (get-db)
+        request-id (path-params :id)]
+    (utils/do-return ops/read! db request-id)))
 
 (defn delete-result [path-params]
-  (let [request-id (path-params :id)]
-    (utils/do-delete ops/delete-results request-id)))
+  (let [db (get-db)
+        request-id (path-params :id)]
+    (utils/do-delete (partial ops/read! db) (partial ops/delete! db) request-id)))
 
 (def -handleRequest
   (resource/build-resource {:get-handler read-result
