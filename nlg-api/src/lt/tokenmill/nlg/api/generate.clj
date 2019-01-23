@@ -52,4 +52,5 @@
 (def -handleRequest
   (resource/build-resource {:get-handler read-result
                             :post-handler generate-request
-                            :delete-handler delete-result}))
+                            :delete-handler delete-result}
+                           true))

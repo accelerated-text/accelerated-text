@@ -14,14 +14,14 @@
                 :body {:text "I do nothing."}})
 
 (defn build-resource
-  [resources]
+  [resources decode-body]
   (let [{:keys [get-handler post-handler delete-handler put-handler]} resources]
     (fn [_ is os _]
       (let [input (utils/decode-body is)
             method (input :httpMethod)
             path-params (input :pathParameters)
             query-params (input :queryStringParameters)
-            request-body (ch/decode (input :body) true)
+            request-body (if decode-body (ch/decode (input :body) true) (input :body))
             {:keys [status body]} (case (keyword method)
                                     :GET    (if get-handler (get-handler query-params path-params) (dummy))
                                     :DELETE (if delete-handler (delete-handler path-params) (dummy))

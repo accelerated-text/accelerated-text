@@ -15,21 +15,20 @@
 (defn read-data [path-params]
   (let [request-id (path-params :id)
         db (get-db)]
-    {:status 200
-     :body (ops/read! db request-id)}))
+    (utils/do-return ops/read! db request-id)))
 
 (defn add-data [request-body]
   (let [db (get-db)]
-    {:status 200
-     :body (ops/write! db request-body)}))
+    (utils/do-insert ops/write! db request-body)))
 
 (defn delete-data [path-params]
   (let [request-id (path-params :id)
         db (get-db)]
-    (ops/delete! db request-id)))
+    (utils/do-delete (partial ops/read! db) (partial ops/delete! db) request-id)))
 
 
 (def -handleRequest
   (resource/build-resource {:get-handler read-data
                             :delete-handler delete-data
-                            :post add-data}))
+                            :post add-data}
+                           false))
