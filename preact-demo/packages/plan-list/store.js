@@ -1,4 +1,5 @@
 import {
+    findById,
     getActiveId,
     removeById,
     sortPlans,
@@ -71,16 +72,13 @@ export default {
         /// Remove -------------------------------------------------------------
 
         onRemovePlan: ( id, { state }) => {
-
-            if( !id || state.removeLoading ) {
-                return;
+            if( id && !state.removeLoading ) {
+                const plans =       removeById( state.plans, id );
+                return {
+                    plans,
+                    openedPlanId:   getActiveId( plans, state.openedPlanId ),
+                };
             }
-
-            const plans =       removeById( state.plans, id );
-            return {
-                plans,
-                openedPlanId:   getActiveId( plans, state.openedPlanId ),
-            };
         },
 
         onRemoveStart: id => ({
@@ -99,6 +97,17 @@ export default {
         }),
 
         /// Rename -------------------------------------------------------------
+
+        onRenamePlan: ({ id, name }, { state }) =>
+            ( id && name && !state.renameLoading )
+                ? {
+                    plans:
+                        updateItem( state.plans, {
+                            ...findById( state.plans, id ),
+                            name,
+                        }),
+                }
+                : null,
 
         onRenameStart: id => ({
             renameLoading:  id || true,
