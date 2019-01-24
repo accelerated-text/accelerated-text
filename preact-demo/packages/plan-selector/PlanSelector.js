@@ -77,7 +77,7 @@ export default useStores([
             isWeird
                 ? <span>❓</span>
             : isLoading
-                ? <ClockSpinner />
+                ? <ClockSpinner className={ S.spinner } />
             : openedPlanId
                 ? [
                     <button onClick={ this.onClickEdit }>📝</button>,
