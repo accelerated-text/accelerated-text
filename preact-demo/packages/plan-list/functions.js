@@ -16,6 +16,11 @@ export const findById = ( list, id ) =>
         ? list.find( item => item.id === id )
         : null;
 
+export const findByTmpId = ( list, tmpId ) =>
+    tmpId
+        ? list.find( item => item.tmpId === tmpId )
+        : null;
+
 export const findIndexById = ( list, id ) =>
     id
         ? list.findIndex( item => item.id === id )
@@ -24,6 +29,11 @@ export const findIndexById = ( list, id ) =>
 export const findIndexByItem = ( list, item ) =>
     ( item && item.id )
         ? list.findIndex( listItem => listItem.id === item.id )
+        : -1;
+
+export const findIndexByTmpId = ( list, tmpId ) =>
+    tmpId
+        ? list.findIndex( item => item.tmpId === tmpId )
         : -1;
 
 export const removeById = ( list, id ) => {
@@ -44,6 +54,19 @@ export const removeItem = ( list, item ) =>
 export const updateItem = ( list, newItem ) => {
 
     const idx =     findIndexByItem( list, newItem );
+    if( idx === -1 ) {
+        return list;
+    } else {
+        const newList =    [ ...list ];
+        newList.splice( idx, 1, newItem );
+        return newList;
+    }
+};
+
+export const updateByTmpId = ( list, tmpId, newItem ) => {
+
+    const idx =     findIndexByTmpId( list, tmpId );
+
     if( idx === -1 ) {
         return list;
     } else {

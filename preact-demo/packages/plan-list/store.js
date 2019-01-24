@@ -1,8 +1,10 @@
+import emptyPlan        from './empty-plan';
 import {
     findById,
     getActiveId,
     removeById,
     sortPlans,
+    updateByTmpId,
     updateItem,
 } from './functions';
 
@@ -12,20 +14,46 @@ export default {
     getInitialState: () => ({
         addError:           null,
         addLoading:         false,
+        addTmpId:           null,
         getListError:       null,
         getListLoading:     false,
+        openedPlanId:       null,
         plans:              null,
         removeError:        null,
         removeLoading:      false,
         removeResult:       null,
         renameError:        null,
         renameLoading:      false,
-        openedPlanId:       null,
     }),
 
     planList: {
 
         /// Add ----------------------------------------------------------------
+
+        onAddNew: ( name, { state }) => {
+
+            if( !name || state.addLoading ) {
+                return;
+            }
+
+            const tmpId =       Math.random().toString();
+
+            const tmpPlan = {
+                ...emptyPlan,
+                createdAt:      +new Date,
+                name,
+                tmpId,
+            };
+
+            return {
+                addTmpId:       tmpId,
+                openedPlanId:   tmpId,
+                plans: [
+                    tmpPlan,
+                    ...state.plans,
+                ],
+            };
+        },
 
         onAddStart: () => ({
             addLoading:     true,
@@ -34,11 +62,12 @@ export default {
         onAddResult: ( newPlan, { state }) => ({
             addError:       null,
             addLoading:     false,
-            plans: [
-                newPlan,
-                ...state.plans,
-            ],
-            openedPlanId:   newPlan.id,
+            addTmpId:       null,
+            plans:          updateByTmpId( state.plans, state.addTmpId, newPlan ),
+            openedPlanId:
+                state.openedPlanId === state.addTmpId
+                    ? newPlan.id
+                    : state.openedPlanId,
         }),
 
         onAddError: addError => ({

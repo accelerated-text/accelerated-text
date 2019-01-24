@@ -52,6 +52,7 @@ export default useStores([
     renderActions({
         planList: {
             addLoading,
+            addTmpId,
             getListLoading,
             plans,
             removeLoading,
@@ -71,6 +72,7 @@ export default useStores([
             || noPlans && addLoading
             || openedPlanId === removeLoading
             || openedPlanId === renameLoading
+            || openedPlanId === addTmpId
         );
 
         return (
@@ -119,7 +121,7 @@ export default useStores([
                                 <option value={ ADD_NEW }>➕ New...</option>
                                 <optgroup label="📂 Open a plan">
                                     { plans.map( plan =>
-                                        <option value={ plan.id }>
+                                        <option value={ plan.id || plan.tmpId }>
                                             📄 { plan.name }
                                         </option>
                                     )}

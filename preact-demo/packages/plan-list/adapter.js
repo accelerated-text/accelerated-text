@@ -5,9 +5,11 @@ import {
     GET,
     POST,
     PUT,
-} from './document-plans-api';
-import emptyPlan        from './empty-plan';
-import { findById }     from './functions';
+}   from './document-plans-api';
+import {
+    findById,
+    findByTmpId,
+}   from './functions';
 
 
 export default {
@@ -21,17 +23,25 @@ export default {
 
         onAddNew: ( name, { E, getStoreState }) => {
 
-            const { addLoading } =  getStoreState( 'planList' );
+            const {
+                addLoading,
+                addTmpId,
+                plans,
+            } = getStoreState( 'planList' );
 
-            if( addLoading || !name ) {
+            const tmpPlan = findByTmpId( plans, addTmpId );
+
+            if( addLoading || !tmpPlan ) {
                 return;
             }
 
             E.planList.onAddStart.async();
 
             POST( '/', {
-                ...emptyPlan,
-                name,
+                ...tmpPlan,
+                createdAt:  undefined,
+                id:         undefined,
+                tmpId:      undefined,
             })
                 .then( E.planList.onAddResult )
                 .catch( pTap( console.error ))
