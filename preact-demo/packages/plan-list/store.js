@@ -1,5 +1,6 @@
 import {
     getActiveId,
+    removeById,
     removeItem,
     sortPlans,
     updateItem,
@@ -58,7 +59,7 @@ export default {
 
         onGetListResult: ( newPlans, { state }) => {
 
-            const plans =           sortPlans( newPlans );
+            const plans =       sortPlans( newPlans );
 
             return {
                 getListError:   null,
@@ -70,6 +71,19 @@ export default {
 
         /// Remove -------------------------------------------------------------
 
+        onRemovePlan: ( id, { state }) => {
+
+            if( !id || state.removeLoading ) {
+                return;
+            }
+
+            const plans =       removeById( state.plans, id );
+            return {
+                plans,
+                selectedPlanId: getActiveId( plans, state.selectedPlanId ),
+            };
+        },
+
         onRemoveStart: id => ({
             removeLoading:  id || true,
         }),
@@ -79,8 +93,7 @@ export default {
             removeLoading:  false,
         }),
 
-        onRemoveResult: ( removeResult, { state }) => ({
-            plans:          removeItem( state.plans, removeResult ),
+        onRemoveResult: removeResult => ({
             removeError:    null,
             removeLoading:  false,
             removeResult,

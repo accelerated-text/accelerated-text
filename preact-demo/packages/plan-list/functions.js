@@ -26,9 +26,9 @@ export const findIndexByItem = ( list, item ) =>
         ? list.findIndex( listItem => listItem.id === item.id )
         : -1;
 
-export const removeItem = ( list, item ) => {
+export const removeById = ( list, id ) => {
 
-    const idx =     findIndexByItem( list, item );
+    const idx =     findIndexById( list, id );
     if( idx === -1 ) {
         return list;
     } else {
@@ -37,6 +37,9 @@ export const removeItem = ( list, item ) => {
         return newList;
     }
 };
+
+export const removeItem = ( list, item ) =>
+    removeById( list, item && item.id );
 
 export const updateItem = ( list, newItem ) => {
 
