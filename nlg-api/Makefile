@@ -24,4 +24,4 @@ test-generate-text:
 	curl -X POST "${REMOTE_API_URL}/nlg" -H "Content-Type: application/json" -d '{"documentPlanId": "6c91d58d-6815-4269-93f7-33673be9400c", "dataId": "-1"}'
 
 test-upload-data:
-	curl -X POST "${REMOTE_API_URL}/data" -H "Content-Type: application/json" -d @resources/example-data.csv
+	curl -X POST "${REMOTE_API_URL}/data" -H "Content-Type: text/csv" -d @resources/example-data.csv

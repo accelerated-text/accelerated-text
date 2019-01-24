@@ -64,15 +64,17 @@
          :ready true
          :message (.getMessage e)}))))
 
+(defn zip [coll1 coll2]
+  (interleave coll1 coll2))
 
 (defn csv-to-map
   [f]
-  (let [raw-csv (csv/read-csv f)]
-    (zipmap
-     (->> (first raw-csv)
-          (map keyword)
-          repeat)
-     (rest raw-csv))))
+  (let [raw-csv (doall (csv/read-csv f))]
+    (let [header (->> (first raw-csv)
+                      (map keyword))
+          data (rest raw-csv)
+          pairs (map #(zip header %) data)]
+      (map #(apply array-map %) pairs))))
       
 
 (defn do-return
