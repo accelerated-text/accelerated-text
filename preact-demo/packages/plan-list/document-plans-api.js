@@ -33,7 +33,7 @@ export const DELETE = path =>
     apiFetch( path, {
         method: 'DELETE',
     });
-    
+
 export const GET = path =>
     apiFetch( path );
 
