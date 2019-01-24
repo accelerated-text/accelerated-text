@@ -3,21 +3,36 @@
 
 .className
 
-    display:            inline-block
-    width:              11.5em
+    align-items:        center
+    display:            flex
+    width:              12em
 
-    > .list
+    > .main
 
         box-sizing:     border-box
         display:        inline-block
-        overflow:       hidden
-        text-overflow:  ellipsis
-        white-space:    nowrap
-        width:          10em
+        width:          9em
 
-    > button
+        > button,
+        > select,
+        > span
 
-        background:     transparent
-        border:         0 none transparent
-        cursor:         pointer
-        padding:        $space-s $space-xs
+            box-sizing:     border-box
+            display:        inline-block
+            overflow:       hidden
+            text-overflow:  ellipsis
+            white-space:    nowrap
+            width:          100%;
+
+        > span
+
+            padding:        $space-s
+
+    > .actions
+
+        > button
+
+            background:     transparent
+            border:         0 none transparent
+            cursor:         pointer
+            padding:        $space-s $space-xs

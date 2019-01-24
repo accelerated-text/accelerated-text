@@ -13,7 +13,7 @@ export default {
         addLoading:         false,
         getListError:       null,
         getListLoading:     false,
-        plans:              [],
+        plans:              null,
         removeError:        null,
         removeLoading:      false,
         removeResult:       null,

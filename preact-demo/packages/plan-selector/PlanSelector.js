@@ -90,6 +90,8 @@ export default useStores([
 
     render({
         planList: {
+            getListLoading,
+            getListError,
             plans,
             removeLoading,
             renameLoading,
@@ -97,30 +99,42 @@ export default useStores([
         }}) {
         return (
             <div className={ S.className }>
-                { plans.length
-                    ? (
-                        <select
-                            className={ S.list }
-                            onChange={ this.onChange }
-                            value={ selectedPlanId }
-                        >
-                            <option value={ ADD_NEW }>➕ New...</option>
-                            <optgroup label="📂 Open a plan">
-                                { plans.map( plan =>
-                                    <option value={ plan.id }>
-                                        📄 { plan.name }
-                                    </option>
-                                )}
-                            </optgroup>
-                        </select>
-                    )
-                    : (
-                        <button className={ S.list } onClick={ this.onClickNew }>
-                            ➕ New document plan
-                        </button>
-                    )
-                }
-                { this.renderActions( this.props ) }
+                <div className={ S.main }>{
+                    !plans
+                        ? (
+                            <span>{
+                                getListLoading
+                                    ? 'Loading plans...'
+                                : getListError
+                                    ? 'Loading error!'
+                                    : '❓'
+                            }</span>
+                        )
+                    : plans.length
+                        ? (
+                            <select
+                                onChange={ this.onChange }
+                                value={ selectedPlanId }
+                            >
+                                <option value={ ADD_NEW }>➕ New...</option>
+                                <optgroup label="📂 Open a plan">
+                                    { plans.map( plan =>
+                                        <option value={ plan.id }>
+                                            📄 { plan.name }
+                                        </option>
+                                    )}
+                                </optgroup>
+                            </select>
+                        )
+                        : (
+                            <button onClick={ this.onClickNew }>
+                                ➕ New document plan
+                            </button>
+                        )
+                }</div>
+                <div className={ S.actions }>
+                    { this.renderActions( this.props ) }
+                </div>
             </div>
         );
     }
