@@ -1,7 +1,6 @@
 import {
     getActiveId,
     removeById,
-    removeItem,
     sortPlans,
     updateItem,
 } from './functions';
@@ -20,7 +19,7 @@ export default {
         removeResult:       null,
         renameError:        null,
         renameLoading:      false,
-        selectedPlanId:     null,
+        openedPlanId:       null,
     }),
 
     planList: {
@@ -38,7 +37,7 @@ export default {
                 newPlan,
                 ...state.plans,
             ],
-            selectedPlanId:   newPlan.id,
+            openedPlanId:   newPlan.id,
         }),
 
         onAddError: addError => ({
@@ -65,7 +64,7 @@ export default {
                 getListError:   null,
                 getListLoading: false,
                 plans,
-                selectedPlanId: getActiveId( plans, state.selectedPlanId ),
+                openedPlanId:   getActiveId( plans, state.openedPlanId ),
             };
         },
 
@@ -80,7 +79,7 @@ export default {
             const plans =       removeById( state.plans, id );
             return {
                 plans,
-                selectedPlanId: getActiveId( plans, state.selectedPlanId ),
+                openedPlanId:   getActiveId( plans, state.openedPlanId ),
             };
         },
 
@@ -118,8 +117,8 @@ export default {
 
         /// Other --------------------------------------------------------------
 
-        onSelectPlan: selectedPlanId => ({
-            selectedPlanId,
+        onSelectPlan: openedPlanId => ({
+            openedPlanId,
         }),
     },
 };

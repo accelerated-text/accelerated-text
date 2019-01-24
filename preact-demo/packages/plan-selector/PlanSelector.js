@@ -23,10 +23,10 @@ export default useStores([
         const {
             planList: {
                 plans,
-                selectedPlanId,
+                openedPlanId,
             },
         } = this.props;
-        const plan =        planList.findById( plans, selectedPlanId );
+        const plan =        planList.findById( plans, openedPlanId );
 
         if( !plan ) {
             return;
@@ -34,7 +34,7 @@ export default useStores([
 
         const planName =    window.prompt( 'Rename Document Plan:', plan.name );
         return this.props.E.planList.onRenamePlan({
-            id:             selectedPlanId,
+            id:             openedPlanId,
             name:           planName,
         });
     }
@@ -46,7 +46,7 @@ export default useStores([
 
     onClickRemove = evt => (
         window.confirm( '⚠️ Are you sure you want to remove this plan?' )
-        && this.props.E.planList.onRemovePlan( this.props.planList.selectedPlanId )
+        && this.props.E.planList.onRemovePlan( this.props.planList.openedPlanId )
     );
 
     renderActions({
@@ -56,21 +56,21 @@ export default useStores([
             plans,
             removeLoading,
             renameLoading,
-            selectedPlanId,
+            openedPlanId,
         },
     }) {
 
         const hasPlans =    plans && plans.length;
         const noPlans =     !hasPlans;
         const isWeird = (
-            noPlans && selectedPlanId
-            || hasPlans && !selectedPlanId
+            noPlans && openedPlanId
+            || hasPlans && !openedPlanId
         );
         const isLoading = (
             noPlans && getListLoading
             || noPlans && addLoading
-            || selectedPlanId === removeLoading
-            || selectedPlanId === renameLoading
+            || openedPlanId === removeLoading
+            || openedPlanId === renameLoading
         );
 
         return (
@@ -78,7 +78,7 @@ export default useStores([
                 ? <span>❓</span>
             : isLoading
                 ? <ClockSpinner />
-            : selectedPlanId
+            : openedPlanId
                 ? [
                     <button onClick={ this.onClickEdit }>📝</button>,
                     <button onClick={ this.onClickRemove }>❌</button>,
@@ -95,7 +95,7 @@ export default useStores([
             plans,
             removeLoading,
             renameLoading,
-            selectedPlanId,
+            openedPlanId,
         }}) {
         return (
             <div className={ S.className }>
@@ -114,7 +114,7 @@ export default useStores([
                         ? (
                             <select
                                 onChange={ this.onChange }
-                                value={ selectedPlanId }
+                                value={ openedPlanId }
                             >
                                 <option value={ ADD_NEW }>➕ New...</option>
                                 <optgroup label="📂 Open a plan">
