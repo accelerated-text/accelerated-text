@@ -69,12 +69,13 @@
 
 (defn csv-to-map
   [f]
-  (let [raw-csv (doall (csv/read-csv f))]
+  (let [raw-csv (csv/read-csv f)]
+    (log/debug "Raw CSV: " raw-csv)
     (let [header (->> (first raw-csv)
                       (map keyword))
           data (rest raw-csv)
           pairs (map #(zip header %) data)]
-      (map #(apply array-map %) pairs))))
+      (doall (map #(apply array-map %) pairs)))))
       
 
 (defn do-return
@@ -96,7 +97,7 @@
 
 (defn do-insert
   [func & args]
-  (let [id (gen-uuid)
+  (let [id (doall (gen-uuid))
         insert-fn (partial func id)]
     (try (let [resp (apply insert-fn args)]
            {:status 200

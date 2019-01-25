@@ -40,13 +40,17 @@
                        (assoc :key key)
                        (assoc :createdAt (utils/ts-now))
                        (assoc :updatedAt (utils/ts-now)))]
-          (far/put-item config/client-opts table-name body)))
+          (do
+            (far/put-item config/client-opts table-name body)
+            body)))
       (update-item [this key data]
         (let [original (far/get-item config/client-opts table-name {:key key})
               body (-> (merge original data)
                        (assoc :updatedAt (utils/ts-now))
                        (assoc :key key))]
-          (far/put-item config/client-opts table-name body)))
+          (do
+            (far/put-item config/client-opts table-name body)
+            body)))
       (delete-item [this key]
         (far/delete-item config/client-opts table-name {:key key}))
       (list-items [this limit]

@@ -18,7 +18,7 @@
 
 (defn add-data [request-body]
   (let [db (get-db)
-        parsed-body (utils/csv-to-map request-body)]
+        parsed-body (doall (utils/csv-to-map request-body))]
     (utils/do-insert (partial ops/write! db) parsed-body)))
 
 (defn delete-data [path-params]
