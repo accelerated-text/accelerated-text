@@ -19,26 +19,35 @@ export default class PlanEditorWorkspace extends Component {
     Blockly =               null;
     workspace =             null;
 
-    onChangeWorkspace = () => {
+    onChangeWorkspace = evt => {
+        console.log( 'onChangeWorkspace', evt.type, evt );
 
         if( this.props.onChangeWorkspace ) {
 
             const {
-                Blockly: { Xml },
+                Blockly: { Events, Xml },
                 workspace,
             } = this;
 
-            this.props.onChangeWorkspace({
-                documentPlan:
-                    workspace
-                        .getTopBlocks()
-                        .find( block => block.type === DocumentPlan.type )
-                        .toNlgJson(),
-                workspaceXml:
-                    Xml.domToText(
-                        Xml.workspaceToDom( workspace )
-                    ),
-            });
+            const skipTypes = [
+                Events.BLOCK_MOVE,
+                Events.MOVE,
+                Events.UI,
+            ];
+
+            if( !skipTypes.includes( evt.type )) {
+                this.props.onChangeWorkspace({
+                    documentPlan:
+                        workspace
+                            .getTopBlocks()
+                            .find( block => block.type === DocumentPlan.type )
+                            .toNlgJson(),
+                    workspaceXml:
+                        Xml.domToText(
+                            Xml.workspaceToDom( workspace )
+                        ),
+                });
+            }
         }
     }
 

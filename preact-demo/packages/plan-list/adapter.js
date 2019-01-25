@@ -6,10 +6,6 @@ import {
     POST,
     PUT,
 }   from './document-plans-api';
-import {
-    findById,
-    findByTmpId,
-}   from './functions';
 
 
 export default {
@@ -25,23 +21,19 @@ export default {
 
             const {
                 addLoading,
-                addTmpId,
-                plans,
+                addNewPlan,
             } = getStoreState( 'planList' );
 
-            const tmpPlan = findByTmpId( plans, addTmpId );
-
-            if( addLoading || !tmpPlan ) {
+            if( addLoading || !addNewPlan ) {
                 return;
             }
 
-            E.planList.onAddStart.async();
+            E.planList.onAddStart.async( addNewPlan.uid );
 
             POST( '/', {
-                ...tmpPlan,
+                ...addNewPlan,
                 createdAt:  undefined,
                 id:         undefined,
-                tmpId:      undefined,
             })
                 .then( E.planList.onAddResult )
                 .catch( pTap( console.error ))
@@ -49,7 +41,15 @@ export default {
                 .then( E.planList.onGetList );
         },
 
-        onGetList: ( _, { E }) => {
+        onGetList: ( _, { E, getStoreState }) => {
+
+            const {
+                getListLoading,
+            } = getStoreState( 'planList' );
+
+            if( getListLoading ) {
+                return;
+            }
 
             E.planList.onGetListStart.async();
 
@@ -59,40 +59,39 @@ export default {
                 .catch( E.planList.onGetListError );
         },
 
-        onRemovePlan: ( id, { E, getStoreState }) => {
+        onRemovePlan: ( item, { E, getStoreState }) => {
 
-            const { removeLoading } =   getStoreState( 'planList' );
+            const {
+                removeLoading,
+            } = getStoreState( 'planList' );
 
-            if( removeLoading || !id ) {
+            if( removeLoading || !item ) {
                 return;
             }
 
-            E.planList.onRemoveStart.async( id );
+            E.planList.onRemoveStart.async( item.uid );
 
-            DELETE( `/${ id }` )
+            DELETE( `/${ item.id }` )
                 .then( E.planList.onRemoveResult )
                 .catch( pTap( console.error ))
                 .catch( E.planList.onRemoveError )
                 .then( E.planList.onGetList );
         },
 
-        onRenamePlan: ({ id, name }, { E, getStoreState }) => {
+        onRenamePlan: ({ item, name }, { E, getStoreState }) => {
 
             const {
-                plans,
                 renameLoading,
             } = getStoreState( 'planList' );
 
-            const plan =    findById( plans, id );
-
-            if( renameLoading || !id || !plan || !name ) {
+            if( renameLoading || !item || !name ) {
                 return;
             }
 
-            E.planList.onRenameStart.async( id );
+            E.planList.onRenameStart.async( item.uid );
 
-            PUT( `/${ id }`, {
-                ...plan,
+            PUT( `/${ item.id }`, {
+                ...item,
                 name,
             })
                 .then( E.planList.onRenameResult )

@@ -1,3 +1,5 @@
+import uuid             from 'uuid';
+
 export const sortByCreatedAt = ( a, b ) => (
     ( a.createdAt && b.createdAt )
         ? ( b.createdAt - a.createdAt )
@@ -11,72 +13,54 @@ export const sortByCreatedAt = ( a, b ) => (
 export const sortPlans = list =>
     list.sort( sortByCreatedAt );
 
-export const findById = ( list, id ) =>
-    id
-        ? list.find( item => item.id === id )
+export const addMissingUids = list =>
+    list.map( item => ({
+        ...item,
+        uid:    item.uid || uuid.v4(),
+    }));
+
+
+export const findByUid = ( list, uid ) =>
+    uid
+        ? list.find( item => item.uid === uid )
         : null;
 
-export const findByTmpId = ( list, tmpId ) =>
-    tmpId
-        ? list.find( item => item.tmpId === tmpId )
-        : null;
-
-export const findIndexById = ( list, id ) =>
-    id
-        ? list.findIndex( item => item.id === id )
+export const findIndexByUid = ( list, uid ) =>
+    uid
+        ? list.findIndex( item => item.uid === uid )
         : -1;
 
 export const findIndexByItem = ( list, item ) =>
-    ( item && item.id )
-        ? list.findIndex( listItem => listItem.id === item.id )
-        : -1;
+    findIndexByUid( list, item && item.uid );
 
-export const findIndexByTmpId = ( list, tmpId ) =>
-    tmpId
-        ? list.findIndex( item => item.tmpId === tmpId )
-        : -1;
 
-export const removeById = ( list, id ) => {
+export const removeItem = ( list, item ) => {
 
-    const idx =     findIndexById( list, id );
+    const idx =         findIndexByItem( list, item );
     if( idx === -1 ) {
         return list;
     } else {
-        const newList =    [ ...list ];
+        const newList = [ ...list ];
         newList.splice( idx, 1 );
         return newList;
     }
 };
 
-export const removeItem = ( list, item ) =>
-    removeById( list, item && item.id );
-
 export const updateItem = ( list, newItem ) => {
 
-    const idx =     findIndexByItem( list, newItem );
+    const idx =         findIndexByItem( list, newItem );
     if( idx === -1 ) {
-        return list;
-    } else {
-        const newList =    [ ...list ];
-        newList.splice( idx, 1, newItem );
-        return newList;
+        throw Error( `Item ${ newItem.uid } not found in document plan list.` );
     }
+
+    const newList =     [ ...list ];
+    newList.splice( idx, 1, newItem );
+    return newList;
 };
 
-export const updateByTmpId = ( list, tmpId, newItem ) => {
 
-    const idx =     findIndexByTmpId( list, tmpId );
-
-    if( idx === -1 ) {
-        return list;
-    } else {
-        const newList =    [ ...list ];
-        newList.splice( idx, 1, newItem );
-        return newList;
-    }
-};
-
-export const getActiveId = ( list, currentId ) =>
-    findById( list, currentId )
+export const getActiveUid = ( list, currentId ) =>
+    findByUid( list, currentId )
         ? currentId
-        : list[0] && list[0].id || null;
+        : list[0] && list[0].uid || null;
+

@@ -1,10 +1,11 @@
+import uuid             from 'uuid';
+
 import emptyPlan        from './empty-plan';
 import {
-    findById,
-    getActiveId,
-    removeById,
+    addMissingUids,
+    getActiveUid,
+    removeItem,
     sortPlans,
-    updateByTmpId,
     updateItem,
 } from './functions';
 
@@ -12,18 +13,18 @@ import {
 export default {
 
     getInitialState: () => ({
-        addError:           null,
-        addLoading:         false,
-        addTmpId:           null,
-        getListError:       null,
-        getListLoading:     false,
-        openedPlanId:       null,
-        plans:              null,
-        removeError:        null,
-        removeLoading:      false,
-        removeResult:       null,
-        renameError:        null,
-        renameLoading:      false,
+        addError:       null,
+        addNewUid:      null,
+        addLoading:     null,
+        getListError:   null,
+        getListLoading: false,
+        openedPlanUid:  null,
+        plans:          null,
+        removeError:    null,
+        removeLoading:  null,
+        removeResult:   null,
+        renameError:    null,
+        renameLoading:  null,
     }),
 
     planList: {
@@ -32,43 +33,59 @@ export default {
 
         onAddNew: ( name, { state }) => {
 
-            if( !name || state.addLoading ) {
-                return;
+            if( !name ) {
+                return {
+                    addError:   'Cannot create a document plan without the name.',
+                };
+            } else if( state.addLoading ) {
+                return {
+                    addError:   'Cannot create a new document plan while the previous one is not yet saved.',
+                };
+            } else {
+                const uid =         uuid.v4();
+                const newPlan = {
+                    ...emptyPlan,
+                    createdAt:      +new Date,
+                    name,
+                    uid,
+                };
+
+                return {
+                    addNewPlan:     newPlan,
+                    openedPlanUid:  uid,
+                    plans: [
+                        newPlan,
+                        ...state.plans,
+                    ],
+                };
             }
-
-            const tmpId =       Math.random().toString();
-
-            const tmpPlan = {
-                ...emptyPlan,
-                createdAt:      +new Date,
-                name,
-                tmpId,
-            };
-
-            return {
-                addTmpId:       tmpId,
-                openedPlanId:   tmpId,
-                plans: [
-                    tmpPlan,
-                    ...state.plans,
-                ],
-            };
         },
 
-        onAddStart: () => ({
-            addLoading:     true,
+        onAddStart: uid => ({
+            addLoading:     uid || true,
         }),
 
-        onAddResult: ( newPlan, { state }) => ({
-            addError:       null,
-            addLoading:     false,
-            addTmpId:       null,
-            plans:          updateByTmpId( state.plans, state.addTmpId, newPlan ),
-            openedPlanId:
-                state.openedPlanId === state.addTmpId
-                    ? newPlan.id
-                    : state.openedPlanId,
-        }),
+        onAddResult: ( newPlan, { state }) => {
+
+            let plans;
+            try {
+                plans =     updateItem( state.plans, newPlan );
+                return {
+                    addError:       null,
+                    addLoading:     false,
+                    openedPlanUid:
+                        state.openedPlanUid === state.addLoading
+                            ? newPlan.uid
+                            : state.openedPlanUid,
+                    plans,
+                };
+            } catch( addError ) {
+                return {
+                    addError,
+                    addLoading:     false,
+                };
+            }
+        },
 
         onAddError: addError => ({
             addError,
@@ -77,41 +94,56 @@ export default {
 
         /// Get list -----------------------------------------------------------
 
-        onGetListStart: () => ({
-            getListLoading: true,
-        }),
+        onGetListStart: ( _,  { state }) => (
+            state.getListLoading
+                ? { getListError:   'Will not start a new document plan list request while the previous one is not finished.' }
+                : { getListLoading: true }
+        ),
 
         onGetListError: getListError => ({
             getListError,
-            getListLoading: false,
+            getListLoading:     false,
         }),
 
         onGetListResult: ( newPlans, { state }) => {
 
-            const plans =       sortPlans( newPlans );
+            const sortedPlans = sortPlans( addMissingUids( newPlans ));
+            const plans = (
+                state.addNewPlan
+                    ? [ state.addNewPlan, ...sortedPlans ]
+                    : sortedPlans
+            );
 
             return {
                 getListError:   null,
                 getListLoading: false,
                 plans,
-                openedPlanId:   getActiveId( plans, state.openedPlanId ),
+                openedPlanUid:  getActiveUid( plans, state.openedPlanUid ),
             };
         },
 
         /// Remove -------------------------------------------------------------
 
-        onRemovePlan: ( id, { state }) => {
-            if( id && !state.removeLoading ) {
-                const plans =       removeById( state.plans, id );
+        onRemovePlan: ( item, { state }) => {
+            if( !item ) {
+                return {
+                    removeError:    'Missing item for document plan remove operation.',
+                };
+            } else if( state.removeLoading ) {
+                return {
+                    removeError:    'Cannot remove document plan while the previous request is not finished.',
+                };
+            } else {
+                const plans =       removeItem( state.plans, item );
                 return {
                     plans,
-                    openedPlanId:   getActiveId( plans, state.openedPlanId ),
+                    openedPlanUid:  getActiveUid( plans, state.openedPlanUid ),
                 };
             }
         },
 
-        onRemoveStart: id => ({
-            removeLoading:  id || true,
+        onRemoveStart: uid => ({
+            removeLoading:  uid || true,
         }),
 
         onRemoveError: removeError => ({
@@ -127,19 +159,23 @@ export default {
 
         /// Rename -------------------------------------------------------------
 
-        onRenamePlan: ({ id, name }, { state }) =>
-            ( id && name && !state.renameLoading )
-                ? {
-                    plans:
-                        updateItem( state.plans, {
-                            ...findById( state.plans, id ),
-                            name,
-                        }),
+        onRenamePlan: ({ item, name }, { state }) => (
+            !item
+                ? { renameError:    'Missing item for document plan rename operation.' }
+            : !name
+                ? { renameError:    'Missing UID for document plan rename operation.' }
+            : state.renameLoading
+                ? { renameError:    'Cannot rename the document plan while the previous request is not finished.' }
+                : {
+                    plans: updateItem( state.plans, {
+                        ...item,
+                        name,
+                    }),
                 }
-                : null,
+        ),
 
-        onRenameStart: id => ({
-            renameLoading:  id || true,
+        onRenameStart: uid => ({
+            renameLoading:  uid || true,
         }),
 
         onRenameError: renameError => ({
@@ -147,16 +183,16 @@ export default {
             renameLoading:  false,
         }),
 
-        onRenameResult: ( newPlan, { state }) => ({
-            plans:          updateItem( state.plans, newPlan ),
+        onRenameResult: ( updatedPlan, { state }) => ({
+            plans:          updateItem( state.plans, updatedPlan ),
             renameError:    null,
             renameLoading:  false,
         }),
 
         /// Other --------------------------------------------------------------
 
-        onSelectPlan: openedPlanId => ({
-            openedPlanId,
+        onSelectPlan: openedPlanUid => ({
+            openedPlanUid,
         }),
     },
 };
