@@ -1,9 +1,8 @@
 import { h, Component }     from 'preact';
 
-import ClockSpinner         from '../clock-spinner/ClockSpinner';
 import Error                from '../ui-messages/Error';
+import Loading              from '../ui-messages/Loading';
 import * as planList        from '../plan-list/functions';
-import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
 import { useStores }        from '../vesa/';
 
 import S                    from './ItemControls.sass';
@@ -49,72 +48,32 @@ export default useStores([
         planList: {
             addError,
             addLoading,
-            getListError,
-            getListLoading,
-            plans,
-            removeError,
+            /// removeError,
             removeLoading,
-            renameError,
+            /// renameError,
             renameLoading,
             openedPlanUid,
         },
     }) {
-        console.log( 'ItemControls#render' );
-        const hasPlans =    plans && plans.length;
-        const noPlans =     !hasPlans;
-
-        const isUnexpected = (
-            noPlans && openedPlanUid
-            || hasPlans && !openedPlanUid
-        );
-
-        const isLoading = (
-            noPlans && getListLoading
-            || noPlans && addLoading
-            || openedPlanUid === addLoading
-            || openedPlanUid === removeLoading
-            || openedPlanUid === renameLoading
-        );
-
-        const errorList =
-            [ getListError, addError, removeError, renameError ]
-                .filter( x => x );
-        const isError = (
-            errorList.length
-            && ( noPlans || isLoading )
-        );
-        const renderError = err =>
-            err
-                ? <Error className={ S.icon } message={ err.toString() } />
-                : null;
-
-        console.log({
-            hasPlans,
-            noPlans,
-            isUnexpected,
-            isLoading,
-            errorList,
-            isError,
-            openedPlanUid,
-        });
+        const isAdding =    addLoading === openedPlanUid;
+        const isRemoving =  removeLoading === openedPlanUid;
+        const isRenaming =  renameLoading === openedPlanUid;
 
         return (
             <div className={ S.className }>{
-                isUnexpected
-                    ? <UnexpectedWarning className={ S.icon } justIcon />
-                : isLoading
-                    ? [
-                        <ClockSpinner className={ S.icon } />,
-                        ...( isError ? errorList.map( renderError ) : []),
-                    ]
-                : isError
-                    ? errorList.map( renderError )
-                : openedPlanUid
-                    ? [
-                        <button onClick={ this.onClickEdit }>📝</button>,
+                isAdding
+                    ? addError
+                        ? <Error className={ S.icon } justIcon message={ addError.toString() } />
+                        : <Loading className={ S.icon } justIcon message="Saving." />
+                : isRemoving
+                    ? <Loading className={ S.icon } justIcon message="Removing." />
+                    : [
+                        ( isRenaming
+                            ? <Loading className={ S.icon } justIcon message="Saving." />
+                            : <button onClick={ this.onClickEdit }>📝</button>
+                        ),
                         <button onClick={ this.onClickRemove }>🗑️</button>,
                     ]
-                : <UnexpectedWarning className={ S.icon } justIcon />
             }</div>
         );
     }

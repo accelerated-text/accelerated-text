@@ -1,12 +1,65 @@
-import { h }            from 'preact';
+import { h, Component }     from 'preact';
 
-import ItemControls     from './ItemControls';
-import List             from './List';
-import S                from './PlanSelector.sass';
+import Error                from '../ui-messages/Error';
+import Loading              from '../ui-messages/Loading';
+import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
+import { useStores }        from '../vesa/';
+
+import ItemControls         from './ItemControls';
+import List                 from './List';
+import S                    from './PlanSelector.sass';
 
 
-export default () =>
-    <div className={ S.className }>
-        <List />
-        <ItemControls />
-    </div>;
+const DEFAULT_NAME =        'Untitled Plan';
+
+
+export default useStores([
+    'planList',
+])( class PlanSelector extends Component {
+
+    onClickNew = evt => {
+        const planName = window.prompt( 'Add a new Document Plan:', DEFAULT_NAME );
+        planName && this.props.E.planList.onAddNew( planName );
+    }
+
+    render({
+        planList: {
+            getListError,
+            getListLoading,
+            openedPlanUid,
+            plans,
+        },
+    }) {
+
+        const hasPlans =    plans && plans.length;
+        const noPlans =     !hasPlans;
+
+        const isLoading = (
+            noPlans && getListLoading
+        );
+
+        const isLoadError = (
+            noPlans && getListError
+        );
+
+        return (
+            <div className={ S.className }>{
+                isLoading
+                    ? <Loading message="Loading plans." />
+                : isLoadError
+                    ? <Error message="Loading error! Please refresh the page." />
+                : noPlans
+                    ? <button
+                        onClick={ this.onClickNew }
+                        children="➕ New document plan"
+                    />
+                : !openedPlanUid
+                    ? <UnexpectedWarning />
+                    : [
+                        <List onClickNew={ this.onClickNew } />,
+                        <ItemControls />,
+                    ]
+            }</div>
+        );
+    }
+});
