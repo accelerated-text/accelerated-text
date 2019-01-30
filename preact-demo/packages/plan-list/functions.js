@@ -64,3 +64,13 @@ export const getActiveUid = ( list, currentId ) =>
         ? currentId
         : list[0] && list[0].uid || null;
 
+
+export const patchStatus = ( state, uid, patch ) => ({
+    statuses: {
+        ...state.statuses,
+        [uid]: {
+            ...state.statuses[uid],
+            ...patch,
+        },
+    },
+});

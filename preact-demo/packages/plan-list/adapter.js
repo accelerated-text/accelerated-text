@@ -20,18 +20,13 @@ export default {
         onAddNew: ( name, { E, getStoreState }) => {
 
             const {
-                addLoading,
-                addNewPlan,
+                addedPlan,
             } = getStoreState( 'planList' );
 
-            if( addLoading || !addNewPlan ) {
-                return;
-            }
-
-            E.planList.onAddStart.async( addNewPlan.uid );
+            E.planList.onAddStart.async( addedPlan.uid );
 
             POST( '/', {
-                ...addNewPlan,
+                ...addedPlan,
                 createdAt:  undefined,
                 id:         undefined,
             })
@@ -62,33 +57,33 @@ export default {
         onRemovePlan: ( item, { E, getStoreState }) => {
 
             const {
-                removeLoading,
+                statuses,
             } = getStoreState( 'planList' );
 
-            if( removeLoading || !item ) {
+            if( !item || statuses[item.uid].removeLoading ) {
                 return;
             }
 
-            E.planList.onRemoveStart.async( item.uid );
+            E.planList.onRemoveStart.async( item );
 
             DELETE( `/${ item.id }` )
                 .then( E.planList.onRemoveResult )
                 .catch( pTap( console.error ))
-                .catch( E.planList.onRemoveError )
+                .catch( removeError => E.planList.onRemoveError({ removeError, item }))
                 .then( E.planList.onGetList );
         },
 
         onRenamePlan: ({ item, name }, { E, getStoreState }) => {
 
             const {
-                renameLoading,
+                statuses,
             } = getStoreState( 'planList' );
 
-            if( renameLoading || !item || !name ) {
+            if( !item || !name || statuses[item.uid].renameLoading ) {
                 return;
             }
 
-            E.planList.onRenameStart.async( item.uid );
+            E.planList.onRenameStart.async( item );
 
             PUT( `/${ item.id }`, {
                 ...item,
@@ -96,7 +91,7 @@ export default {
             })
                 .then( E.planList.onRenameResult )
                 .catch( pTap( console.error ))
-                .catch( E.planList.onRenameError )
+                .catch( renameError => E.planList.onRenameError({ renameError, item }))
                 .then( E.planList.onGetList );
         },
     },

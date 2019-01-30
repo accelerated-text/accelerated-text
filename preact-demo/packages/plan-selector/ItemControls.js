@@ -2,7 +2,6 @@ import { h, Component }     from 'preact';
 
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
-import * as planList        from '../plan-list/functions';
 import { useStores }        from '../vesa/';
 
 import S                    from './ItemControls.sass';
@@ -15,13 +14,9 @@ export default useStores([
     onClickEdit = evt => {
         const {
             E,
-            planList: {
-                plans,
-                openedPlanUid,
-            },
+            item,
         } = this.props;
 
-        const item =    planList.findByUid( plans, openedPlanUid );
         if( !item ) {
             return E.planList.onGetList();
         }
@@ -36,39 +31,23 @@ export default useStores([
 
     onClickRemove = () => (
         window.confirm( '⚠️ Are you sure you want to remove this plan?' )
-            && this.props.E.planList.onRemovePlan(
-                planList.findByUid(
-                    this.props.planList.plans,
-                    this.props.planList.openedPlanUid
-                )
-            )
+            && this.props.E.planList.onRemovePlan( this.props.item )
     )
 
-    render({
-        planList: {
-            addError,
-            addLoading,
-            /// removeError,
-            removeLoading,
-            /// renameError,
-            renameLoading,
-            openedPlanUid,
-        },
-    }) {
-        const isAdding =    addLoading === openedPlanUid;
-        const isRemoving =  removeLoading === openedPlanUid;
-        const isRenaming =  renameLoading === openedPlanUid;
-
+    render({ status }) {
         return (
             <div className={ S.className }>{
-                isAdding
-                    ? addError
-                        ? <Error className={ S.icon } justIcon message={ addError.toString() } />
+                status.addLoading
+                    ? status.addError
+                        ? <Error
+                            className={ S.icon }
+                            justIcon message={ status.addError.toString() }
+                        />
                         : <Loading className={ S.icon } justIcon message="Saving." />
-                : isRemoving
+                : status.removeLoading
                     ? <Loading className={ S.icon } justIcon message="Removing." />
                     : [
-                        ( isRenaming
+                        ( status.renameLoading
                             ? <Loading className={ S.icon } justIcon message="Saving." />
                             : <button onClick={ this.onClickEdit }>📝</button>
                         ),

@@ -4,27 +4,34 @@ import emptyPlan        from './empty-plan';
 import {
     addMissingUids,
     getActiveUid,
+    patchStatus,
     removeItem,
     sortPlans,
     updateItem,
 } from './functions';
 
 
+const CLEAN_STATUS = {
+    addError:           null,
+    addLoading:         false,
+    renameError:        null,
+    renameLoading:      false,
+    removeError:        null,
+    removeLoading:      false,
+};
+
+
 export default {
 
     getInitialState: () => ({
-        addError:       null,
-        addNewUid:      null,
-        addLoading:     null,
+        addCheckError:  null,
+        addedPlan:     null,
         getListError:   null,
         getListLoading: false,
         openedPlanUid:  null,
         plans:          null,
-        removeError:    null,
-        removeLoading:  null,
-        removeResult:   null,
-        renameError:    null,
-        renameLoading:  null,
+        removedPlan:    null,
+        statuses:       {},
     }),
 
     planList: {
@@ -35,15 +42,15 @@ export default {
 
             if( !name ) {
                 return {
-                    addError:   'Cannot create a document plan without the name.',
+                    addCheckError:  'Cannot create a document plan without the name.',
                 };
-            } else if( state.addLoading ) {
+            } else if( state.addedPlan && state.statuses[state.addedPlan.uid].addLoading ) {
                 return {
-                    addError:   'Cannot create a new document plan while the previous one is not yet saved.',
+                    addCheckError: 'Cannot create a new document plan while the previous one is not yet saved. Please wait.',
                 };
             } else {
                 const uid =         uuid.v4();
-                const newPlan = {
+                const addedPlan = {
                     ...emptyPlan,
                     createdAt:      +new Date,
                     name,
@@ -51,54 +58,56 @@ export default {
                 };
 
                 return {
-                    addNewPlan:     newPlan,
+                    addedPlan,
                     openedPlanUid:  uid,
-                    plans: [
-                        newPlan,
-                        ...state.plans,
-                    ],
+                    plans: [ addedPlan, ...state.plans ],
+                    ...patchStatus( state, uid, CLEAN_STATUS ),
                 };
             }
         },
 
-        onAddStart: uid => ({
-            addLoading:     uid || true,
-        }),
+        onAddStart: ( uid, { state }) =>
+            patchStatus( state, uid, {
+                addLoading: true,
+            }),
 
         onAddResult: ( newPlan, { state }) => {
 
             let plans;
             try {
-                plans =     updateItem( state.plans, newPlan );
+                plans =             updateItem( state.plans, newPlan );
                 return {
-                    addError:       null,
-                    addLoading:     false,
-                    openedPlanUid:
-                        state.openedPlanUid === state.addLoading
-                            ? newPlan.uid
-                            : state.openedPlanUid,
+                    addedPlan:      null,
                     plans,
+                    ...patchStatus( state, newPlan.uid, {
+                        addError:   null,
+                        addLoading: false,
+                    }),
                 };
             } catch( addError ) {
-                return {
+                return patchStatus( state, newPlan.uid, {
                     addError,
                     addLoading:     false,
-                };
+                });
             }
         },
 
-        onAddError: addError => ({
-            addError,
-            addLoading:     false,
-        }),
+        onAddError: ({ uid, addError }, { state }) =>
+            patchStatus( state, uid, {
+                addError,
+                addLoading:     false,
+            }),
 
         /// Get list -----------------------------------------------------------
 
-        onGetListStart: ( _,  { state }) => (
-            state.getListLoading
-                ? { getListError:   'Will not start a new document plan list request while the previous one is not finished.' }
-                : { getListLoading: true }
-        ),
+        onGetList: ( _, { state }) =>
+            state.getListLoading && {
+                getListError:   'Will not start a new document plan list request while the previous one is not finished. Please wait.',
+            },
+
+        onGetListStart: () => ({
+            getListLoading:     true,
+        }),
 
         onGetListError: getListError => ({
             getListError,
@@ -109,84 +118,105 @@ export default {
 
             const sortedPlans = sortPlans( addMissingUids( newPlans ));
             const plans = (
-                state.addNewPlan
-                    ? [ state.addNewPlan, ...sortedPlans ]
+                state.addedPlan
+                    ? [ state.addedPlan, ...sortedPlans ]
                     : sortedPlans
             );
+
+            const statuses =    { ...state.statuses };
+            for( let plan of plans ) {
+                statuses[plan.uid] =    statuses[plan.uid] || CLEAN_STATUS;
+            }
 
             return {
                 getListError:   null,
                 getListLoading: false,
                 plans,
                 openedPlanUid:  getActiveUid( plans, state.openedPlanUid ),
+                statuses,
             };
         },
 
         /// Remove -------------------------------------------------------------
 
         onRemovePlan: ( item, { state }) => {
-            if( !item ) {
-                return {
-                    removeError:    'Missing item for document plan remove operation.',
-                };
-            } else if( state.removeLoading ) {
-                return {
-                    removeError:    'Cannot remove document plan while the previous request is not finished.',
-                };
-            } else {
-                const plans =       removeItem( state.plans, item );
-                return {
-                    plans,
-                    openedPlanUid:  getActiveUid( plans, state.openedPlanUid ),
-                };
+            const status =  state.statuses[item.uid];
+
+            if( status.removeLoading ) {
+                return patchStatus( state, item.uid, {
+                    removeError:    'Cannot remove document plan while the previous request is not finished. Please wait.',
+                });
             }
         },
 
-        onRemoveStart: uid => ({
-            removeLoading:  uid || true,
-        }),
+        onRemoveStart: ( item, { state }) =>
+            patchStatus( state, item.uid, {
+                removeLoading:  true,
+            }),
 
-        onRemoveError: removeError => ({
-            removeError,
-            removeLoading:  false,
-        }),
+        onRemoveError: ({ removeError, item }, { state }) =>
+            patchStatus( state, item.uid, {
+                removeError,
+                removeLoading:  false,
+            }),
 
-        onRemoveResult: removeResult => ({
-            removeError:    null,
-            removeLoading:  false,
-            removeResult,
-        }),
+        onRemoveResult: ( removedPlan, { state }) => {
+            const plans =           removeItem( state.plans, removedPlan );
+
+            return {
+                plans,
+                openedPlanUid:      getActiveUid( plans, state.openedPlanUid ),
+                removedPlan,
+                ...patchStatus( state, removedPlan.uid, {
+                    removeError:    null,
+                    removeLoading:  false,
+                }),
+            };
+        },
 
         /// Rename -------------------------------------------------------------
 
-        onRenamePlan: ({ item, name }, { state }) => (
-            !item
-                ? { renameError:    'Missing item for document plan rename operation.' }
-            : !name
-                ? { renameError:    'Missing UID for document plan rename operation.' }
-            : state.renameLoading
-                ? { renameError:    'Cannot rename the document plan while the previous request is not finished.' }
-                : {
-                    plans: updateItem( state.plans, {
-                        ...item,
-                        name,
-                    }),
-                }
-        ),
+        onRenamePlan: ({ item, name }, { state }) => {
 
-        onRenameStart: uid => ({
-            renameLoading:  uid || true,
-        }),
+            if( !name ) {
+                return patchStatus( state, item.uid, {
+                    renameError:    'Please supply a non-empty name for the plan.',
+                });
+            }
 
-        onRenameError: renameError => ({
-            renameError,
-            renameLoading:  false,
-        }),
+            const status =  state.statuses[item.uid];
+
+            if( status.renameLoading ) {
+                return patchStatus( state, item.uid, {
+                    renameError:    'Cannot rename the document plan while the previous request is not finished. Please wait.',
+                });
+            }
+
+            return {
+                plans: updateItem( state.plans, {
+                    ...item,
+                    name,
+                }),
+            };
+        },
+
+        onRenameStart: ( item, { state }) =>
+            patchStatus( state, item.uid, {
+                renameLoading:  true,
+            }),
+
+        onRenameError: ({ renameError, item }, { state }) =>
+            patchStatus( state, item, {
+                renameError,
+                renameLoading:  false,
+            }),
 
         onRenameResult: ( updatedPlan, { state }) => ({
             plans:          updateItem( state.plans, updatedPlan ),
-            renameError:    null,
-            renameLoading:  false,
+            ...patchStatus( state, updatedPlan.uid, {
+                renameError:    null,
+                renameLoading:  false,
+            }),
         }),
 
         /// Other --------------------------------------------------------------

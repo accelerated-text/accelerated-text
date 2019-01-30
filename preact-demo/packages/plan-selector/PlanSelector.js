@@ -2,6 +2,7 @@ import { h, Component }     from 'preact';
 
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
+import * as planList        from '../plan-list/functions';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
 import { useStores }        from '../vesa/';
 
@@ -28,9 +29,9 @@ export default useStores([
             getListLoading,
             openedPlanUid,
             plans,
+            statuses,
         },
     }) {
-
         const hasPlans =    plans && plans.length;
         const noPlans =     !hasPlans;
 
@@ -57,7 +58,10 @@ export default useStores([
                     ? <UnexpectedWarning />
                     : [
                         <List onClickNew={ this.onClickNew } />,
-                        <ItemControls />,
+                        <ItemControls
+                            item={ planList.findByUid( plans, openedPlanUid ) }
+                            status={ statuses[openedPlanUid] }
+                        />,
                     ]
             }</div>
         );
