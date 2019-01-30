@@ -20,8 +20,6 @@ export default class PlanEditorWorkspace extends Component {
     workspace =             null;
 
     onChangeWorkspace = evt => {
-        console.log( 'onChangeWorkspace', evt.type, evt );
-
         if( this.props.onChangeWorkspace ) {
 
             const {
