@@ -34,19 +34,31 @@ export default useStores([
             && this.props.E.planList.onRemovePlan( this.props.item )
     )
 
+    renderError( err ) {
+        return (
+            err
+                ? <Error className={ S.icon } justIcon message={ err.toString() } />
+                : null
+        );
+    }
+
     render({ status }) {
+
         return (
             <div className={ S.className }>{
                 status.addLoading
-                    ? status.addError
-                        ? <Error
-                            className={ S.icon }
-                            justIcon message={ status.addError.toString() }
-                        />
-                        : <Loading className={ S.icon } justIcon message="Saving." />
+                    ? [
+                        this.renderError( status.addError ),
+                        <Loading className={ S.icon } justIcon message="Saving." />,
+                    ]
                 : status.removeLoading
-                    ? <Loading className={ S.icon } justIcon message="Removing." />
+                    ? [
+                        this.renderError( status.removeError ),
+                        <Loading className={ S.icon } justIcon message="Removing." />,
+                    ]
                     : [
+                        this.renderError( status.renameError ),
+                        this.renderError( status.removeError ),
                         ( status.renameLoading
                             ? <Loading className={ S.icon } justIcon message="Saving." />
                             : <button onClick={ this.onClickEdit }>📝</button>
