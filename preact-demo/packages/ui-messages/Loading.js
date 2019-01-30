@@ -3,8 +3,11 @@ import { h }            from 'preact';
 import ClockSpinner     from '../clock-spinner/ClockSpinner';
 
 
-export default ({ message, justIcon }) =>
-    <a title={ message }>
+export default ({ className, justIcon, message = 'Loading' }) =>
+    <a
+        className={ className }
+        title={ message && message.toString() }
+    >
         <ClockSpinner />
-        { justIcon ? null : ` ${ message }` }
+        { justIcon ? null : [ ' ', message ] }
     </a>;

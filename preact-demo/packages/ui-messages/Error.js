@@ -1,7 +1,11 @@
 import { h }            from 'preact';
 
 
-export default ({ message, justIcon }) =>
-    <a title={ message }>
-        🛑 { justIcon ? null : message }
+export default ({ className, justIcon, message = 'Unknown error' }) =>
+    <a
+        className={ className }
+        title={ message && message.toString() }
+    >
+        🛑
+        { justIcon ? null : [ ' ', message ] }
     </a>;
