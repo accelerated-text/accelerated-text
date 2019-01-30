@@ -72,6 +72,7 @@
         }],
         "one-var":                  "off",
         "quotes":                   [ "error", "single" ],
+        "react/display-name":       "off",
         "react/jsx-closing-bracket-location":
                                     "off",
         "react/jsx-curly-spacing":  [ "error", {
