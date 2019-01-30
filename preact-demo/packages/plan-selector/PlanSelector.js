@@ -58,7 +58,7 @@ export default useStores([
                 : !openedPlanUid
                     ? <UnexpectedWarning />
                     : [
-                        <Status />,
+                        <Status className={ S.status } />,
                         <List onClickNew={ this.onClickNew } />,
                         <ItemControls
                             item={ planList.findByUid( plans, openedPlanUid ) }

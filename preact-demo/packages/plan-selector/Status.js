@@ -8,6 +8,7 @@ import { useStores }    from '../vesa/';
 export default useStores([
     'planList',
 ])(({
+    className,
     planList: {
         addCheckError,
         getListError,
@@ -31,7 +32,7 @@ export default useStores([
     );
 
     return (
-        <div>{
+        <div className={ className }>{
             isError
                 ? <Error justIcon message="There are some errors." />
             : isLoading
