@@ -9,6 +9,7 @@ import { useStores }        from '../vesa/';
 import ItemControls         from './ItemControls';
 import List                 from './List';
 import S                    from './PlanSelector.sass';
+import Status               from './Status';
 
 
 const DEFAULT_NAME =        'Untitled Plan';
@@ -57,6 +58,7 @@ export default useStores([
                 : !openedPlanUid
                     ? <UnexpectedWarning />
                     : [
+                        <Status />,
                         <List onClickNew={ this.onClickNew } />,
                         <ItemControls
                             item={ planList.findByUid( plans, openedPlanUid ) }
