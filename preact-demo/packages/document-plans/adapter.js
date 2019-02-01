@@ -37,7 +37,7 @@ export default {
                 .then( E.documentPlans.onCreateResult )
                 .catch( pTap( console.error ))
                 .catch( createError => E.documentPlans.onCreateError({ createError, plan }))
-                .then( E.documentPlans.onCheckPending( plan )),
+                .then(() => E.documentPlans.onCheckPending( plan )),
 
         onDelete: ( plan, { E, getStoreState }) => {
 
@@ -124,7 +124,7 @@ export default {
                 })
                 .catch( pTap( console.error ))
                 .catch( updateError => E.documentPlans.onUpdateError({ updateError, plan }))
-                .then( E.documentPlans.onCheckPending( plan )),
+                .then(() => E.documentPlans.onCheckPending( plan )),
 
         onCheckPending: ( plan, { E, getStoreState }) => {
 
