@@ -2,12 +2,9 @@ import uuid             from 'uuid';
 
 import planTemplate     from './plan-template';
 
-const EXECUTE =         'execute';
-const WAIT =            'wait';
 
 const STATUS_TEMPLATE = {
     isDeleted:          false,
-    isNew:              false,
 
     createError:        null,
     createLoading:      false,
@@ -72,10 +69,7 @@ export default {
 
             return {
                 ...patchPlan( state, createdPlan ),
-                ...patchStatus( state, createdPlan, {
-                    ...STATUS_TEMPLATE,
-                    isNew:      true,
-                }),
+                ...patchStatus( state, createdPlan, STATUS_TEMPLATE ),
                 createdPlan,
             };
         },
@@ -94,7 +88,6 @@ export default {
         onCreateResult: ( plan, { state }) => ({
             ...patchPlan( state, plan ),
             ...patchStatus( state, plan, {
-                isNew:          false,
                 createError:    null,
                 createLoading:  false,
             }),
@@ -172,7 +165,6 @@ export default {
 
             const {
                 isDeleted,
-                isNew,
                 createLoading,
                 deleteLoading,
                 deletePending,
@@ -187,7 +179,7 @@ export default {
             );
 
             const shouldWait = (
-                isNew
+                !plan.id
                 || createLoading
                 || updateLoading
                 || updatePending
