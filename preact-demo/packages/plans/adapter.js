@@ -8,70 +8,53 @@ import {
 }   from './document-plans-api';
 
 
-const doDeletePlan = ( plan, { E }) => {
-
-    E.plans.onDeleteStart.async( plan );
-    
-    DELETE( `/${ plan.id }` )
-        .then( E.plans.onDeleteResult )
-        .catch( pTap( console.error ))
-        .catch( deleteError => E.plans.onDeleteError({ deleteError, plan }));
-};
-
-const doUpdatePlan = ( plan, { E, getStoreState }) => {
-    E.plans.onUpdateStart.async( plan );
-
-    PUT( `/${ plan.id }` )
-        .then( serverPlan => {
-            const status =  getStoreState( 'plans' ).statuses[plan.uid];
-
-            if( status.updatePending ) {
-                return;
-            } else if( serverPlan.updateCount !== plan.updateCount ) {
-                E.plans.onDifferingUpdateResult( serverPlan );
-            } else {
-                E.plans.onUpdateResult( serverPlan );
-            }
-        })
-        .catch( pTap( console.error ))
-        .catch( updateError => E.plans.onUpdateError({ updateError, plan }))
-        .then( E.plans.onCheckPending( plan ));
-};
+const isSamePlan = ( p1, p2 ) => (
+    p1.uid === p2.uid
+    && p1.id === p2.id
+    && p1.updateCount === p2.updateCount
+    && p1.name === p2.name
+    && p1.blocklyXml === p2.blocklyXml
+    && JSON.stringify( p1.documentPlan ) === JSON.stringify( p2.documentPlan )
+);
 
 
 export default {
 
     plans: {
 
-        onCreate: ( _, { E, getStoreState }) => {
+        onCreate: ( _, { E, getStoreState }) =>
 
-            const { createdPlan } = getStoreState( 'plans' );
+            E.plans.onCreateStart.async(
+                getStoreState( 'plans' ).createdPlan
+            ),
 
-            E.plans.onCreateStart.async( createdPlan );
+        onCreateStart: ( plan, { E }) =>
 
             POST( '/', {
-                ...createdPlan,
+                ...plan,
                 createdAt:  undefined,
                 id:         undefined,
             })
                 .then( E.plans.onCreateResult )
                 .catch( pTap( console.error ))
-                .catch( createError => E.plans.onCreateError({ createError, createdPlan }))
-                .then( E.plans.onCheckPending( createdPlan ));
-        },
+                .catch( createError => E.plans.onCreateError({ createError, plan }))
+                .then( E.plans.onCheckPending( plan )),
 
         onDelete: ( plan, { E, getStoreState }) => {
 
-            const {
-                deletePending,
-            } = getStoreState( 'plans' ).statuses[plan.uid];
+            const status =  getStoreState( 'plans' ).statuses[plan.uid];
 
-            if( deletePending || !plan.id ) {
-                return;
-            } else {
-                doDeletePlan( plan, { E });
+            if( plan.id && !status.deletePending ) {
+                E.plans.onDeleteStart.async( plan );
             }
         },
+
+        onDeleteStart: ( plan, { E }) =>
+
+            DELETE( `/${ plan.id }` )
+                .then( E.plans.onDeleteResult )
+                .catch( pTap( console.error ))
+                .catch( deleteError => E.plans.onDeleteError({ deleteError, plan })),
 
         onRead: ( plan, { E, getStoreState }) => {
 
@@ -93,15 +76,17 @@ export default {
 
             const isPending = ( deletePending || updatePending );
 
-            if( isLoading || isPending || !plan.id ) {
-                return;
+            if( plan.id && !isLoading && !isPending ) {
+                E.plans.onReadStart.async( plan );
             }
+        },
+
+        onReadStart: ( plan, { E }) =>
 
             GET( `/${ plan.id }` )
                 .then( E.plans.onReadResult )
                 .catch( pTap( console.error ))
-                .catch( readError => E.plans.onReadError({ readError, plan }));
-        },
+                .catch( readError => E.plans.onReadError({ readError, plan })),
 
         onUpdate: ( plan, { E, getStoreState }) => {
 
@@ -113,19 +98,34 @@ export default {
             } = getStoreState( 'plans' ).statuses[plan.uid];
 
             const shouldSkip = (
-                !plan.id
-                || isDeleted
+                isDeleted
                 || deleteLoading
                 || deletePending
                 || updatePending
             );
 
-            if( shouldSkip ) {
-                return;
-            } else {
-                doUpdatePlan( plan, { E, getStoreState });
+            if( plan.id && !shouldSkip ) {
+                E.plans.onUpdateStart.async( plan );
             }
         },
+
+        onUpdateStart: ( plan, { E, getStoreState }) =>
+
+            PUT( `/${ plan.id }` )
+                .then( serverPlan => {
+                    const status =  getStoreState( 'plans' ).statuses[plan.uid];
+
+                    if( status.updatePending ) {
+                        return;
+                    } else if( isSamePlan( serverPlan, plan )) {
+                        E.plans.onUpdateResult( serverPlan );
+                    } else {
+                        E.plans.onDifferingUpdateResult( serverPlan );
+                    }
+                })
+                .catch( pTap( console.error ))
+                .catch( updateError => E.plans.onUpdateError({ updateError, plan }))
+                .then( E.plans.onCheckPending( plan )),
 
         onCheckPending: ( plan, { E, getStoreState }) => {
 
@@ -138,9 +138,9 @@ export default {
             const status =      statuses[plan.uid];
 
             if( status.deletePending ) {
-                doDeletePlan( currentPlan, { E });
+                E.plans.onDeleteStart.async( currentPlan );
             } else if( status.updatePending ) {
-                doUpdatePlan( currentPlan, { E, getStoreState });
+                E.plans.onUpdateStart.async( currentPlan );
             }
         },
     },
