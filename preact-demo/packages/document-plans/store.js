@@ -84,17 +84,15 @@ export default {
                 deletePending,
             } = getStatus( state, plan );
 
-            if( deleteLoading || deletePending ) {
-                return;
+            if( !deleteLoading && !deletePending ) {
+                return {
+                    ...patchStatus( state, plan, {
+                        deletePending:  !!createLoading,
+                        updatePending:  false,
+                        isDeleted:      true,
+                    }),
+                };
             }
-
-            return {
-                ...patchStatus( state, plan, {
-                    deletePending:  !!createLoading,
-                    updatePending:  false,
-                    isDeleted:      true,
-                }),
-            };
         },
 
         onDeleteStart: ( plan, { state }) =>
@@ -166,16 +164,14 @@ export default {
                 || updatePending
             );
 
-            if( shouldSkip ) {
-                return;
+            if( !shouldSkip ) {
+                return {
+                    ...patchPlan( state, plan ),
+                    ...patchStatus( state, plan, {
+                        updatePending:  !!shouldWait,
+                    }),
+                };
             }
-
-            return {
-                ...patchPlan( state, plan ),
-                ...patchStatus( state, plan, {
-                    updatePending:  !!shouldWait,
-                }),
-            };
         },
 
         onUpdateStart: ( plan, { state }) =>
@@ -221,6 +217,15 @@ export default {
         /// Other ------------------------------------------------------------------
 
         onGetAList: ( planList, { state }) =>
-            planList.reduce( patchPlan, state ),
+            planList.reduce(
+                ( state, plan ) => ({
+                    ...patchPlan( state, plan ),
+                    ...patchStatus( state, plan, {
+                        ...statusTemplate,
+                        ...state.statuses[plan.uid],
+                    }),
+                }),
+                state,
+            ),
     },
 };
