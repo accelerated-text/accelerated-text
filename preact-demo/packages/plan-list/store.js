@@ -1,6 +1,6 @@
 import uuid             from 'uuid';
 
-import emptyPlan        from './empty-plan';
+import emptyPlan        from '../document-plans/plan-template';
 import {
     addMissingUids,
     getActiveUid,

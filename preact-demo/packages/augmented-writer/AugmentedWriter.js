@@ -1,5 +1,7 @@
 import { h }                from 'preact';
 
+import documentPlans        from '../document-plans/store';
+import documentPlansAdapter from '../document-plans/adapter';
 import planList             from '../plan-list/store';
 import planListAdapter      from '../plan-list/adapter';
 import { mount }            from '../vesa/';
@@ -13,10 +15,12 @@ import S                from './AugmentedWriter.sass';
 
 
 export default mount({
+    documentPlans,
     planEditor,
     planList,
     variantsApi,
 }, [
+    documentPlansAdapter,
     planListAdapter,
     variantsApiAdapter,
 ])(() =>

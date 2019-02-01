@@ -5,7 +5,7 @@ import {
     GET,
     POST,
     PUT,
-}   from './document-plans-api';
+}   from '../document-plans/api';
 
 
 export default {
