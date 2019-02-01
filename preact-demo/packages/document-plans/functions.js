@@ -10,6 +10,13 @@ export const createPlan = fields => ({
     uid:                uuid.v4(),
 });
 
+export const fixPlan = fields => ({
+    ...planTemplate,
+    ...fields,
+    createdAt:          fields.createdAt || 0,
+    uid:                fields.uid || fields.id || uuid.v4(),
+});
+
 export const getPlan = ( state, plan ) =>
     state.plans[plan.uid];
 

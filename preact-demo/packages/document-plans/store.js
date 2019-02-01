@@ -1,5 +1,5 @@
 import {
-    createPlan,
+    fixPlan,
     getStatus,
 }   from './functions';
 import statusTemplate   from './status-template';
@@ -41,13 +41,12 @@ export default {
     documentPlans: {
         /// Create -----------------------------------------------------------------
 
-        onCreate: ( someFields, { state }) => {
-            if( !someFields || !someFields.name ) {
+        onCreate: ( plan, { state }) => {
+            if( !plan || !plan.name ) {
                 return;
             }
 
-            const createdPlan = createPlan( someFields );
-
+            const createdPlan = fixPlan( plan );
             return {
                 ...patchPlan( state, createdPlan ),
                 ...patchStatus( state, createdPlan, statusTemplate ),
