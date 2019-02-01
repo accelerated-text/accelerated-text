@@ -1,27 +1,9 @@
-import uuid             from 'uuid';
+import {
+    createPlan,
+    getStatus,
+}   from './functions';
+import statusTemplate   from './status-template';
 
-import planTemplate     from './plan-template';
-
-
-const STATUS_TEMPLATE = {
-    isDeleted:          false,
-
-    createError:        null,
-    createLoading:      false,
-    deleteError:        null,
-    deleteLoading:      false,
-    deletePending:      false,
-    readError:          null,
-    readLoading:        false,
-    updateError:        null,
-    updateLoading:      false,
-    updatePending:      false,
-    updateFromServer:   null,
-};
-
-const patchUpdateCount = ( container, plan ) => ({
-    updateCount:        1 + ( container[plan.uid] && container[plan.uid].updateCount || 0 ),
-});
 
 const patchPlan = ( state, plan ) => ({
     plans: {
@@ -29,7 +11,11 @@ const patchPlan = ( state, plan ) => ({
         [plan.uid]: {
             ...state.plans[plan.uid],
             ...plan,
-            ...patchUpdateCount( state.plans, plan ),
+            updateCount:        1 + (
+                state.plans[plan.uid]
+                    ? state.plans[plan.uid].updateCount
+                    : 0
+            ),
         },
     },
 });
@@ -52,7 +38,7 @@ export default {
         createdPlan:    null,
     }),
 
-    plans: {
+    documentPlans: {
         /// Create -----------------------------------------------------------------
 
         onCreate: ( someFields, { state }) => {
@@ -60,16 +46,11 @@ export default {
                 return;
             }
 
-            const createdPlan = {
-                ...planTemplate,
-                ...someFields,
-                createdAt:      +new Date,
-                uid:            uuid.v4(),
-            };
+            const createdPlan = createPlan( someFields );
 
             return {
                 ...patchPlan( state, createdPlan ),
-                ...patchStatus( state, createdPlan, STATUS_TEMPLATE ),
+                ...patchStatus( state, createdPlan, statusTemplate ),
                 createdPlan,
             };
         },
@@ -101,7 +82,7 @@ export default {
                 createLoading,
                 deleteLoading,
                 deletePending,
-            } = state.statuses[plan.uid];
+            } = getStatus( state, plan );
 
             if( deleteLoading || deletePending ) {
                 return;
@@ -170,7 +151,7 @@ export default {
                 deletePending,
                 updateLoading,
                 updatePending,
-            } = state.statuses[plan.uid];
+            } = getStatus( state, plan );
 
             const shouldSkip = (
                 isDeleted
@@ -225,7 +206,7 @@ export default {
             }),
 
         onMergeFromServerResult: ( plan, { state }) => ({
-            ...patchPlan( state, state.statuses[plan.uid].updateFromServer ),
+            ...patchPlan( state, getStatus( state, plan ).updateFromServer ),
             ...patchStatus( state, plan, {
                 updateFromServer:   null,
             }),
