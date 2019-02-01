@@ -110,7 +110,7 @@ export default {
 
         onUpdateStart: ( plan, { E, getStoreState }) =>
 
-            PUT( `/${ plan.id }` )
+            PUT( `/${ plan.id }`, plan )
                 .then( serverPlan => {
                     const status =  getStoreStatus( getStoreState, plan );
 
