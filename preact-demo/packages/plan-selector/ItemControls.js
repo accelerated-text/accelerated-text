@@ -2,37 +2,29 @@ import { h, Component }     from 'preact';
 
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
-import { useStores }        from '../vesa/';
 
 import S                    from './ItemControls.sass';
 
 
-export default useStores([
-    'planList',
-])( class PlanSelectorItemControls extends Component {
+export default class PlanSelectorItemControls extends Component {
 
-    onClickEdit = evt => {
+    onClickEdit = () => {
         const {
-            E,
-            item,
+            onUpdate,
+            plan,
         } = this.props;
 
-        if( !item ) {
-            return E.planList.onGetList();
+        const name =    window.prompt( 'Rename Document Plan:', plan.name );
+        if( name ) {
+            onUpdate({ ...plan, name });
         }
-
-        const name =    window.prompt( 'Rename Document Plan:', item.name );
-        if( !name ) {
-            return;
-        }
-
-        return E.planList.onRenamePlan({ item, name });
     }
 
-    onClickRemove = () => (
-        window.confirm( '⚠️ Are you sure you want to remove this plan?' )
-            && this.props.E.planList.onRemovePlan( this.props.item )
-    )
+    onClickRemove = () => {
+        if( window.confirm( '⚠️ Are you sure you want to remove this plan?' )) {
+            this.props.onDelete( this.props.plan );
+        }
+    }
 
     renderError( err ) {
         return (
@@ -42,24 +34,25 @@ export default useStores([
         );
     }
 
-    render({ status }) {
-
+    render({ plan, status }) {
         return (
             <div className={ S.className }>{
-                status.addLoading
+                ( !plan || !status || status.isDeleted )
+                    ? null
+                : status.createLoading
                     ? [
-                        this.renderError( status.addError ),
+                        this.renderError( status.createError ),
                         <Loading className={ S.icon } justIcon message="Saving." />,
                     ]
-                : status.removeLoading
+                : status.deleteLoading
                     ? [
-                        this.renderError( status.removeError ),
+                        this.renderError( status.deleteError ),
                         <Loading className={ S.icon } justIcon message="Removing." />,
                     ]
                     : [
-                        this.renderError( status.renameError ),
-                        this.renderError( status.removeError ),
-                        ( status.renameLoading
+                        this.renderError( status.updateError ),
+                        this.renderError( status.deleteError ),
+                        ( status.updateLoading
                             ? <Loading className={ S.icon } justIcon message="Saving." />
                             : <button onClick={ this.onClickEdit }>📝</button>
                         ),
@@ -68,4 +61,4 @@ export default useStores([
             }</div>
         );
     }
-});
+}

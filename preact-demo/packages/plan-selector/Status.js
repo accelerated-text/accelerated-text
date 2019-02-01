@@ -1,33 +1,30 @@
 import { h }            from 'preact';
+import { props }        from 'ramda';
 
 import Error            from '../ui-messages/Error';
 import Loading          from '../ui-messages/Loading';
-import { useStores }    from '../vesa/';
 
 
-export default useStores([
-    'planList',
-])(({
+export default ({
     className,
-    planList: {
-        addCheckError,
-        getListError,
-        getListLoading,
-        statuses,
-    },
+    listStatus,
+    planStatuses,
+    uids,
 }) => {
+    const statuses =    props( uids, planStatuses );
 
     const isError = (
-        addCheckError
-        || getListError
+        listStatus.addCheckError
+        || listStatus.getListError
     );
 
     const isLoading = (
-        getListLoading
-        || Object.values( statuses ).find( status => (
-            status.addLoading
-            || status.removeLoading
-            || status.renameLoading
+        listStatus.getListLoading
+        || statuses.find( status => (
+            status.createLoading
+            || status.readLoading
+            || status.updateLoading
+            || status.deleteLoading
         ))
     );
 
@@ -40,4 +37,4 @@ export default useStores([
                 : <span>✅</span>
         }</div>
     );
-});
+};

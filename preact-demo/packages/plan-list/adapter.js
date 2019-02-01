@@ -1,11 +1,7 @@
 import pTap             from 'p-tap';
 
-import {
-    DELETE,
-    GET,
-    POST,
-    PUT,
-}   from '../document-plans/api';
+import { fixPlan }      from '../document-plans/functions';
+import { GET }          from '../document-plans/api';
 
 
 export default {
@@ -15,84 +11,37 @@ export default {
         E.planList.onGetList();
     },
 
+    documentPlans: {
+
+        onCreateResult: ( _, { E }) =>
+            E.planList.onGetList.async(),
+
+        onDeleteResult: ( _, { E }) =>
+            E.planList.onGetList.async(),
+    },
+
     planList: {
 
-        onAddNew: ( name, { E, getStoreState }) => {
+        onAddNew: ( _, { E, getStoreState }) =>
 
-            const {
-                addedPlan,
-            } = getStoreState( 'planList' );
+            E.documentPlans.onCreate.async(
+                getStoreState( 'planList' ).addedPlan,
+            ),
 
-            E.planList.onAddStart.async( addedPlan.uid );
+        onGetList: ( _, { E, getStoreState }) =>
 
-            POST( '/', {
-                ...addedPlan,
-                createdAt:  undefined,
-                id:         undefined,
-            })
-                .then( E.planList.onAddResult )
-                .catch( pTap( console.error ))
-                .catch( E.planList.onAddError )
-                .then( E.planList.onGetList );
-        },
+            !getStoreState( 'planList' ).getListLoading &&
+                E.planList.onGetListStart.async(),
 
-        onGetList: ( _, { E, getStoreState }) => {
-
-            const {
-                getListLoading,
-            } = getStoreState( 'planList' );
-
-            if( getListLoading ) {
-                return;
-            }
-
-            E.planList.onGetListStart.async();
+        onGetListStart: ( _, { E }) =>
 
             GET( '/' )
-                .then( E.planList.onGetListResult )
+                .then( result => {
+                    const plans =   result.map( fixPlan );
+                    E.documentPlans.onGetAList( plans );
+                    E.planList.onGetListResult( plans );
+                })
                 .catch( pTap( console.error ))
-                .catch( E.planList.onGetListError );
-        },
-
-        onRemovePlan: ( item, { E, getStoreState }) => {
-
-            const {
-                statuses,
-            } = getStoreState( 'planList' );
-
-            if( !item || statuses[item.uid].removeLoading ) {
-                return;
-            }
-
-            E.planList.onRemoveStart.async( item );
-
-            DELETE( `/${ item.id }` )
-                .then( E.planList.onRemoveResult )
-                .catch( pTap( console.error ))
-                .catch( removeError => E.planList.onRemoveError({ removeError, item }))
-                .then( E.planList.onGetList );
-        },
-
-        onRenamePlan: ({ item, name }, { E, getStoreState }) => {
-
-            const {
-                statuses,
-            } = getStoreState( 'planList' );
-
-            if( !item || !name || statuses[item.uid].renameLoading ) {
-                return;
-            }
-
-            E.planList.onRenameStart.async( item );
-
-            PUT( `/${ item.id }`, {
-                ...item,
-                name,
-            })
-                .then( E.planList.onRenameResult )
-                .catch( pTap( console.error ))
-                .catch( renameError => E.planList.onRenameError({ renameError, item }))
-                .then( E.planList.onGetList );
-        },
+                .catch( E.planList.onGetListError ),
     },
 };

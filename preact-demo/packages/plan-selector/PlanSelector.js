@@ -2,7 +2,7 @@ import { h, Component }     from 'preact';
 
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
-import * as planList        from '../plan-list/functions';
+import planTemplate         from '../document-plans/plan-template';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
 import { useStores }        from '../vesa/';
 
@@ -12,37 +12,33 @@ import S                    from './PlanSelector.sass';
 import Status               from './Status';
 
 
-const DEFAULT_NAME =        'Untitled Plan';
-
-
 export default useStores([
+    'documentPlans',
     'planList',
 ])( class PlanSelector extends Component {
 
     onClickNew = evt => {
-        const planName = window.prompt( 'Add a new Document Plan:', DEFAULT_NAME );
-        planName && this.props.E.planList.onAddNew( planName );
+        const name =        window.prompt( 'Add a new Document Plan:', planTemplate.name );
+        name && this.props.E.planList.onAddNew( name );
     }
 
     render({
+        E,
+        documentPlans: {
+            plans,
+            statuses,
+        },
         planList: {
             getListError,
             getListLoading,
             openedPlanUid,
-            plans,
-            statuses,
+            uids,
         },
     }) {
-        const hasPlans =    plans && plans.length;
+        const hasPlans =    uids && uids.length;
         const noPlans =     !hasPlans;
-
-        const isLoading = (
-            noPlans && getListLoading
-        );
-
-        const isLoadError = (
-            noPlans && getListError
-        );
+        const isLoading =   noPlans && getListLoading;
+        const isLoadError = noPlans && getListError;
 
         return (
             <div className={ S.className }>{
@@ -58,10 +54,23 @@ export default useStores([
                 : !openedPlanUid
                     ? <UnexpectedWarning />
                     : [
-                        <Status className={ S.status } />,
-                        <List onClickNew={ this.onClickNew } />,
+                        <Status
+                            className={ S.status }
+                            listStatus={ this.props.planList }
+                            planStatuses={ statuses }
+                            uids={ uids }
+                        />,
+                        <List
+                            onClickNew={ this.onClickNew }
+                            onChangeSelected={ E.planList.onSelectPlan }
+                            plans={ plans }
+                            selectedUid={ openedPlanUid }
+                            uids={ uids }
+                        />,
                         <ItemControls
-                            item={ planList.findByUid( plans, openedPlanUid ) }
+                            onDelete={ E.documentPlans.onDelete }
+                            onUpdate={ E.documentPlans.onUpdate }
+                            plan={ plans[openedPlanUid] }
                             status={ statuses[openedPlanUid] }
                         />,
                     ]
