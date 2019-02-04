@@ -6,7 +6,7 @@ describe( 'plan-editor/onboard/workflow', () => {
     beforeEach( async () => {
 
         await page.goto( TEST_URL, { waitUntil: 'load' });
-    });
+    }, 10e3 );
 
     test( 'Default workflow', async () => {
 
@@ -29,5 +29,5 @@ describe( 'plan-editor/onboard/workflow', () => {
         await expect( header ).toMatchElement( SELECTORS.SELECT_CONTEXT );
 
         await expect( body ).toMatchElement( `[data-id=${ QA.EXAMPLE_XML }]` );
-    });
+    }, 10e3 );
 });
