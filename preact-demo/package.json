@@ -13,7 +13,7 @@
     "test": "npm run test:eslint && npm run test:sasslint && npm run test:jest && npm run test:audit",
     "test:audit": "npm audit",
     "test:eslint": "eslint packages",
-    "test:jest": "jest",
+    "test:jest": "jest --runInBand",
     "test:sasslint": "sass-lint -vq"
   },
   "repository": {
