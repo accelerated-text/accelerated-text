@@ -1,6 +1,7 @@
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
+import DocumentPlan         from '../nlg-blocks/Document-plan';
 import { provideBlocks }    from '../nlg-blocks/';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 
@@ -22,13 +23,21 @@ export default class PlanEditorWorkspace extends Component {
 
         if( this.props.onChangeWorkspace ) {
 
-            const { Xml } =         this.Blockly;
-            const workspaceDom =    Xml.workspaceToDom( this.workspace );
-            const workspaceXml =    Xml.domToText( workspaceDom );
+            const {
+                Blockly: { Xml },
+                workspace,
+            } = this;
 
             this.props.onChangeWorkspace({
-                workspaceDom,
-                workspaceXml,
+                documentPlan:
+                    workspace
+                        .getTopBlocks()
+                        .find( block => block.type === DocumentPlan.type )
+                        .toNlgJson(),
+                workspaceXml:
+                    Xml.domToText(
+                        Xml.workspaceToDom( workspace )
+                    ),
             });
         }
     }

@@ -1,14 +1,14 @@
 import Block                from './Block';
-import product              from './product';
+import Product              from './Product';
 
 
 export default Block({
-    ...product,
+    ...Product,
 
-    type:                   'product-component',
+    type:                   'Product-component',
 
     json: {
-        ...product.json,
+        ...Product.json,
 
         message0:           'Component',
     },

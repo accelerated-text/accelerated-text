@@ -1,12 +1,14 @@
 import Block            from './Block';
+import * as T           from './types';
+
 
 export default Block({
 
-    type:                   'quote',
+    type:                   'Quote',
 
     json: {
         colour:             26,
-        output:             null,
+        output:             T.STRING,
         message0:           '%1',
         args0: [{
             type:           'field_input',
