@@ -1,7 +1,9 @@
 const blocks = [
     require( './And-or' ),
     require( './Cell' ),
+    require( './Define-var' ),
     require( './Document-plan' ),
+    require( './Get-var' ),
     require( './If-then-else' ),
     require( './Not' ),
     require( './One-of-synonyms' ),
