@@ -1,4 +1,5 @@
 import Block                from './Block';
+import * as T               from './types';
 import valueSequence        from './value-sequence';
 
 
@@ -11,7 +12,7 @@ export default Block({
         ...valueSequence.json,
 
         colour:             56,
-        output:             null,
+        output:             T.STRING,
         message0:           '%1',
         args0: [{
             type:           'field_dropdown',
@@ -22,4 +23,6 @@ export default Block({
             ],
         }],
     },
+
+    valueListCheck:         T.TEXT,
 });

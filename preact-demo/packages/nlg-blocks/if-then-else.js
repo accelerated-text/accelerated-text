@@ -10,6 +10,7 @@ import {
 } from '../blockly-helpers';
 
 import Block                from './Block';
+import * as T               from './types';
 
 
 const ELSE_IF_LABEL =       'else if';
@@ -28,21 +29,24 @@ export default Block({
 
     json: {
         colour:             164,
-        output:             null,
+        output:             T.ANY,
         message0:           'if %1',
         args0: [{
             type:           'input_value',
             name:           'if',
+            check:          T.ATOMIC_VALUE,
         }],
         message1:           'then %1',
         args1: [{
             type:           'input_value',
             name:           'then',
+            check:          T.ANY,
         }],
         message2:           'else %1',
         args2: [{
             type:           'input_value',
             name:           ELSE_NAME,
+            check:          T.ANY,
         }],
     },
 
@@ -62,8 +66,10 @@ export default Block({
             /// Add missing inputs:
             for( let n = this.else_if_count; n < newCount; n += 1 ) {
                 orderInputs( this, [
-                    appendLabeledValue( this, `${ ELSE_IF_PREFIX }${ n }`, ELSE_IF_LABEL ),
-                    appendLabeledValue( this, `${ THEN_PREFIX }${ n }`, THEN_LABEL ),
+                    appendLabeledValue( this, `${ ELSE_IF_PREFIX }${ n }`, ELSE_IF_LABEL )
+                        .setCheck( T.ATOMIC_VALUE ),
+                    appendLabeledValue( this, `${ THEN_PREFIX }${ n }`, THEN_LABEL )
+                        .setCheck( T.ANY ),
                     this.getInput( ELSE_NAME ),
                 ]);
             }

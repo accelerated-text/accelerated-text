@@ -1,4 +1,6 @@
 import Block            from './Block';
+import * as T           from './types';
+
 
 export default Block({
 
@@ -11,6 +13,7 @@ export default Block({
         args1: [{
             type:           'input_statement',
             name:           'segments',
+            check:          [ T.DEFINITION, T.STRING ],
         }],
     },
 });

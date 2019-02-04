@@ -1,4 +1,5 @@
 import Block                from './Block';
+import * as T               from './types';
 
 
 export default Block({
@@ -7,7 +8,7 @@ export default Block({
 
     json: {
         colour:             202,
-        output:             null,
+        output:             T.BOOLEAN,
         inputsInline:       true,
         message0:           '%2 %1 %3',
         args0: [{
@@ -19,9 +20,11 @@ export default Block({
         }, {
             type:           'input_value',
             name:           'value',
+            check:          T.STRING,
         }, {
             type:           'input_value',
             name:           'list',
+            check:          T.TEXT,
         }],
     },
 });
