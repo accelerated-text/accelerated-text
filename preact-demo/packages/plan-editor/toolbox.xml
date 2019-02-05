@@ -6,6 +6,7 @@
         <block type="Segment">
             <field name="text_type">pitch</field>
         </block>
+        <block type="Define-var" />
     </category>
     <category name="Topics">
         <block type="Product" />
@@ -36,6 +37,7 @@
     <category name="Values">
         <block type="Cell" />
         <block type="Quote" />
+        <block type="Get-var" />
     </category>
     <category name="Logic">
         <block type="If-then-else" />
