@@ -13,10 +13,14 @@ import Workspace        from './Workspace';
 
 export default useStores([
     'planEditor',
+    'planList',
 ])(({
     E,
     planEditor: {
         workspaceXml,
+    },
+    planList: {
+        openedPlanUid,
     },
 }) =>
     <div className={ S.className }>
@@ -30,6 +34,7 @@ export default useStores([
             </OnboardData>
             { workspaceXml &&
                 <Workspace
+                    key={ openedPlanUid }
                     onChangeWorkspace={ E.planEditor.onChangeWorkspace }
                     workspaceXml={ workspaceXml }
                 />
