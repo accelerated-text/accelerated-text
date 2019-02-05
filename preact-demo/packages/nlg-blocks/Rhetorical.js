@@ -6,7 +6,7 @@ import valueSequence        from './value-sequence';
 export default Block({
     ...valueSequence,
 
-    type:                   'rhetorical',
+    type:                   'Rhetorical',
 
     value_count:            1,
 
@@ -19,7 +19,7 @@ export default Block({
         message0:           '%1',
         args0: [{
             type:           'field_dropdown',
-            name:           'type',
+            name:           'rstType',
             options: [
                 [ 'Attribution', 'attribution' ],
                 [ 'Background', 'background' ],

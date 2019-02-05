@@ -4,15 +4,15 @@ import * as T           from './types';
 
 export default Block({
 
-    type:                   'attribute',
+    type:                   'Cell',
 
     json: {
         colour:             26,
         output:             T.STRING,
-        message0:           '%1 attribute',
+        message0:           '%1 cell',
         args0: [{
             type:           'field_dropdown',
-            name:           'attribute_name',
+            name:           'name',
             options: [
                 [ 'Color',              'Color' ],
                 [ 'Lacing',             'Lacing' ],

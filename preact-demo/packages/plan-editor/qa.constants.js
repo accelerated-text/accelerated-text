@@ -5,6 +5,7 @@ module.exports = createConstants( 'plan-editor', {
     BODY:               'body',
     EXAMPLE_XML:        'example-xml',
     HEADER:             'header',
+    NLG_JSON:           'nlg-json',
     SELECT_CONTEXT:     'select-context',
     UPLOAD_SAMPLE:      'upload-data-sample',
 });

@@ -6,7 +6,7 @@ import valueSequence        from './value-sequence';
 export default Block({
     ...valueSequence,
 
-    type:                   'segment',
+    type:                   'Segment',
 
     json: {
         ...valueSequence.json,

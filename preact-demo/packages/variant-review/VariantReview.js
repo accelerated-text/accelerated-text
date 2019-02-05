@@ -1,7 +1,7 @@
 import { h }            from 'preact';
 
 import AtjReview        from '../atj-review/AtjReview';
-import TextLines        from '../text-lines/TextLines';
+import { QA }           from '../plan-editor/qa.constants';
 import { useStores }    from '../vesa/';
 
 import S                from './VariantReview.sass';
@@ -12,7 +12,7 @@ export default useStores([
     'variantsApi',
 ])(({
     planEditor: {
-        gremlinCode,
+        documentPlan,
         workspaceXml,
     },
     variantsApi: {
@@ -30,9 +30,12 @@ export default useStores([
                 { workspaceXml ? workspaceXml : 'No Blockly yet.' }
             </div>
             <div className={ S.item }>
-                <TextLines
-                    text={ gremlinCode ? gremlinCode : 'No Gremlin code yet.' }
-                />
+                <pre className={ QA.NLG_JSON }>
+                    { documentPlan
+                        ? JSON.stringify( documentPlan, null, 4 )
+                        : 'No JSON yet.'
+                    }
+                </pre>
             </div>
             { error &&
                 <div className={ S.itemError }>

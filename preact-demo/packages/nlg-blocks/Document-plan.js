@@ -4,7 +4,7 @@ import * as T           from './types';
 
 export default Block({
 
-    type:                   'document-plan',
+    type:                   'Document-plan',
 
     json: {
         colour:             '#555555',
@@ -15,5 +15,10 @@ export default Block({
             name:           'segments',
             check:          [ T.DEFINITION, T.STRING ],
         }],
+    },
+
+    init() {
+
+        this.setDeletable( false );
     },
 });

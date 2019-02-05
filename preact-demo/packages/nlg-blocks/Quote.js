@@ -4,7 +4,7 @@ import * as T           from './types';
 
 export default Block({
 
-    type:                   'quote',
+    type:                   'Quote',
 
     json: {
         colour:             26,

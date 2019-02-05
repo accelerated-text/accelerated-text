@@ -1,6 +1,13 @@
 import { h, mount }         from 'dom-dom';
+import { props, omit }    from 'ramda';
 
 import Block                from './Block';
+import {
+    blockToJson,
+    fieldsToJson,
+    statementsToJson,
+    valuesToJson,
+}   from './to-nlg-json';
 
 
 const PREFIX =              'value_';
@@ -24,6 +31,22 @@ export default Block({
             this.onChange();
         });
         this.onChange();
+    },
+
+    toNlgJson() {
+        const valueMap =    valuesToJson( this );
+
+        const prefixedValues =
+            Object.keys( valueMap )
+                .filter( name => name.startsWith( PREFIX ));
+
+        return {
+            ...statementsToJson( this ),
+            children:   props( prefixedValues, valueMap ),
+            ...omit( prefixedValues, valueMap ),
+            ...fieldsToJson( this ),
+            ...blockToJson( this ),
+        };
     },
 
     mutationToDom() {
