@@ -6,7 +6,7 @@ describe( 'plan-editor/onboard/workflow', () => {
     beforeEach( async () => {
 
         await page.goto( TEST_URL, { waitUntil: 'load' });
-    });
+    }, 10e3 );
 
     test( 'Default workflow', async () => {
 
@@ -37,5 +37,5 @@ describe( 'plan-editor/onboard/workflow', () => {
 
         expect( nlgJson ).toHaveProperty( 'type', 'Document-plan' );
         expect( nlgJson ).toHaveProperty( 'blocklyId', QA.EXAMPLE_XML );
-    });
+    }, 10e3 );
 });
