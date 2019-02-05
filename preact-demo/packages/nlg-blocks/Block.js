@@ -1,3 +1,5 @@
+import toNlgJson        from './to-nlg-json';
+
 export default ({ type, ...spec }) =>
     Object.assign(
         Blockly => Blockly.Blocks[type] = {
@@ -17,7 +19,12 @@ export default ({ type, ...spec }) =>
                     this.setMutator( new Blockly.Mutator( mixin.mutatorBlockList ));
                 }
 
-                this.mixin( mixin );
+                this.mixin({
+                    toNlgJson() {
+                        return toNlgJson( this );
+                    },
+                    ...mixin,
+                });
                 init && init.call( this );
             },
         },

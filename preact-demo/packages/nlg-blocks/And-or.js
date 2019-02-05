@@ -1,25 +1,29 @@
 import Block                from './Block';
+import * as T               from './types';
 import valueSequence        from './value-sequence';
 
 
 export default Block({
+
     ...valueSequence,
 
-    type:                   'relationship',
+    type:                   'And-or',
 
     json: {
         ...valueSequence.json,
 
-        colour:             56,
-        output:             null,
+        colour:             164,
+        output:             T.BOOLEAN,
         message0:           '%1',
         args0: [{
             type:           'field_dropdown',
-            name:           'type',
+            name:           'operator',
             options: [
-                [ 'Provides', 'provides' ],
-                [ 'Consequence', 'consequence' ],
+                [ 'and',        'and' ],
+                [ 'or',         'or' ],
             ],
         }],
     },
+
+    valueListCheck:         T.ATOMIC_VALUE,
 });

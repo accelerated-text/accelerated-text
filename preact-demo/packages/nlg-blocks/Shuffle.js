@@ -1,4 +1,5 @@
 import Block                from './Block';
+import * as T               from './types';
 import valueList            from './value-list';
 
 
@@ -6,13 +7,15 @@ export default Block({
 
     ...valueList,
 
-    type:                   'all',
+    type:                   'Shuffle',
 
     json: {
         ...valueList.json,
 
         colour:             202,
-        output:             null,
-        message0:           'all:',
+        output:             T.LIST,
+        message0:           'in random order:',
     },
+
+    valueListCheck:         T.ANY,
 });
