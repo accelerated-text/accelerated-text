@@ -6,7 +6,7 @@ describe( 'plan-editor/onboard/workflow', () => {
     beforeEach( async () => {
 
         await page.goto( TEST_URL, { waitUntil: 'load' });
-    });
+    }, 10e3 );
 
     test( 'Default workflow', async () => {
 
