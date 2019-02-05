@@ -40,7 +40,8 @@
     "prop-types": "^15.6.2",
     "ramda": "^0.26.1",
     "sass-mix-ratio": "^0.0.1",
-    "shallow-equal": "^1.0.0"
+    "shallow-equal": "^1.0.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",

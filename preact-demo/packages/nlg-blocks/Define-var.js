@@ -10,7 +10,7 @@ export default Block({
 
         colour:             327,
         nextStatement:      [ T.DEFINITION, T.STRING ],
-        previousStatement:  [ T.DEFINITION, T.STRING ],
+        previousStatement:  T.DEFINITION,
 
         message0:           '%{BKY_VARIABLES_SET}',
         args0: [{
