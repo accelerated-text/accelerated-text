@@ -14,8 +14,7 @@ export default Block({
 
         colour:             202,
         output:             T.LIST,
-        message0:           'A synonym',
-        message1:           'from:',
+        message0:           'A synonym from:',
     },
 
     valueListCheck:         T.ANY,

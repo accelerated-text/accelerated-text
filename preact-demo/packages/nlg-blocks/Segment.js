@@ -14,7 +14,7 @@ export default Block({
         colour:             105,
         nextStatement:      T.STRING,
         previousStatement:  [ T.DEFINITION, T.STRING ],
-        message0:           '%1',
+        message0:           '%1 segment about:',
         args0: [{
             type:           'field_dropdown',
             name:           'text_type',
@@ -23,8 +23,6 @@ export default Block({
                 [ 'Pitch',          'pitch' ],
             ],
         }],
-        message1:           'segment',
-        message2:           'about',
     },
 
     valueListCheck:         T.TEXT,
