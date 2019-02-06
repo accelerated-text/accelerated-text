@@ -3,12 +3,12 @@ import { h }            from 'preact';
 
 import OnboardCode      from '../onboard-code/OnboardCode';
 import { useStores }    from '../vesa/';
+import Workspace        from '../nlg-workspace/NlgWorkspace';
 
 import Header           from './Header';
 import OnboardData      from './onboard/Data';
 import { QA }           from './qa.constants';
 import S                from './PlanEditor.sass';
-import Workspace        from './Workspace';
 
 
 export default useStores([

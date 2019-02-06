@@ -5,11 +5,12 @@ import DocumentPlan         from '../nlg-blocks/Document-plan';
 import { provideBlocks }    from '../nlg-blocks/';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 
-import S                    from './Workspace.sass';
+import blockSvgOverride     from './block-svg-override';
+import S                    from './NlgWorkspace.sass';
 import toolbox              from './toolbox.xml';
 
 
-export default class PlanEditorWorkspace extends Component {
+export default class NlgWorkspace extends Component {
 
     static propTypes = {
         onChangeWorkspace:  PropTypes.func,
@@ -57,6 +58,7 @@ export default class PlanEditorWorkspace extends Component {
         Blockly.HSV_SATURATION =    0.55;
         Blockly.HSV_VALUE =         0.6;
 
+        blockSvgOverride( Blockly );
         provideBlocks( Blockly );
     };
 
