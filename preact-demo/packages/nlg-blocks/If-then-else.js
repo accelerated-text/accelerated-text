@@ -9,6 +9,7 @@ import {
     getValueInputs,
     orderInputs,
 } from '../blockly-helpers';
+import { CYAN }             from '../styles/blockly-colors';
 
 import Block                from './Block';
 import * as T               from './types';
@@ -47,7 +48,7 @@ export default Block({
     type:                   'If-then-else',
 
     json: {
-        colour:             164,
+        colour:             CYAN,
         output:             T.ANY,
         message0:           'if %1',
         args0: [{

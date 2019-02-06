@@ -1,3 +1,5 @@
+import { MAGENTA }          from '../styles/blockly-colors';
+
 import Block                from './Block';
 import * as T               from './types';
 
@@ -8,7 +10,7 @@ export default Block({
 
     json: {
 
-        colour:             327,
+        colour:             MAGENTA,
         nextStatement:      [ T.DEFINITION, T.STRING ],
         previousStatement:  T.DEFINITION,
 

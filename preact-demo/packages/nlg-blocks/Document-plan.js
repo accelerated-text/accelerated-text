@@ -1,3 +1,5 @@
+import { BLACK }        from '../styles/blockly-colors';
+
 import Block            from './Block';
 import * as T           from './types';
 
@@ -7,7 +9,7 @@ export default Block({
     type:                   'Document-plan',
 
     json: {
-        colour:             '#555555',
+        colour:             BLACK,
         message0:           'Document plan:',
         message1:           '%1',
         args1: [{

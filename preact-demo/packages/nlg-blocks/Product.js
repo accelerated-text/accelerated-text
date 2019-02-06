@@ -1,3 +1,5 @@
+import { YELLOW }           from '../styles/blockly-colors';
+
 import Block                from './Block';
 import * as T               from './types';
 import valueSequence        from './value-sequence';
@@ -11,7 +13,7 @@ export default Block({
     json: {
         ...valueSequence.json,
 
-        colour:             164,
+        colour:             YELLOW,
         output:             T.STRING,
         message0:           'Product named: %1',
         args0: [{
