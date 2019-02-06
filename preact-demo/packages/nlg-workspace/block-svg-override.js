@@ -35,23 +35,27 @@ export default Blockly => {
       this.renderFields_(input.fieldRow, fieldX, fieldY);
       /// Tokenmill: inset value inputs:
       var h = (
-          rightEdge
-          - input.fieldWidth
-          - Blockly.BlockSvg.TAB_WIDTH
-          - 2 * Blockly.BlockSvg.SEP_SPACE_X
+          input.fieldWidth
+            ? 0
+            : (
+              rightEdge
+              - input.fieldWidth
+              - Blockly.BlockSvg.TAB_WIDTH
+              - 2 * Blockly.BlockSvg.SEP_SPACE_X
+            )
       );
-      steps.push('h', -h);
+      h && steps.push('h', -h);
       steps.push(Blockly.BlockSvg.TAB_PATH_DOWN);
       var v = row.height - Blockly.BlockSvg.TAB_HEIGHT;
       steps.push('v', v);
-      steps.push('h', h);
+      h && steps.push('h', h);
       if (this.RTL) {
         // Highlight around back of tab.
-        highlightSteps.push('h', -h);
+        h && highlightSteps.push('h', -h);
         highlightSteps.push(Blockly.BlockSvg.TAB_PATH_DOWN_HIGHLIGHT_RTL);
         highlightSteps.push('v', v + 0.5);
-        highlightSteps.push('h', h);
-      } else {
+        h && highlightSteps.push('h', h);
+      } else if ( !h ) {
         // Short highlight glint at bottom of tab.
         highlightSteps.push('M', (rightEdge - 5) + ',' +
             (cursor.y + Blockly.BlockSvg.TAB_HEIGHT - 0.7));
@@ -62,7 +66,7 @@ export default Blockly => {
       /// Tokenmill: inset input connections:
       connectionPos.x = (
           this.RTL
-            ? ( -rightEdge - 1 )
+            ? ( -rightEdge + h - 1 )
             : ( rightEdge - h + 1 )
       );
       input.connection.setOffsetInBlock(connectionPos.x, cursor.y);
