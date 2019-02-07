@@ -26,10 +26,10 @@ export default useStores([
             [P]review
         </div>
         <div className={ S.body }>
-            <div className={ S.item }>
+            <div className={ S.hiddenItem }>
                 { workspaceXml ? workspaceXml : 'No Blockly yet.' }
             </div>
-            <div className={ S.item }>
+            <div className={ S.hiddenItem }>
                 <pre className={ QA.NLG_JSON }>
                     { documentPlan
                         ? JSON.stringify( documentPlan, null, 4 )
