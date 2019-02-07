@@ -4,6 +4,7 @@ export default Blockly => {
     Blockly.BlockSvg.INLINE_PADDING_Y =     8;
     Blockly.BlockSvg.MIN_BLOCK_Y =          31;
     Blockly.BlockSvg.SEP_SPACE_X =          10;
+    Blockly.BlockSvg.SEP_SPACE_Y =          20;
     Blockly.BlockSvg.START_HAT =            true;
 
     Blockly.FieldDropdown.DROPDOWN_HEIGHT = 25;
