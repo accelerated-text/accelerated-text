@@ -3,13 +3,21 @@ export default {
     getInitialState: () => ({
         error:          false,
         loading:        false,
+        pending:        false,
         result:         null,
     }),
 
     variantsApi: {
 
-        onGet: () => ({
+        onGet: ( _, { state }) => (
+            state.loading
+                ? { pending: true }
+                : null
+        ),
+
+        onGetStart: () => ({
             loading:    true,
+            pending:    false,
         }),
 
         onGetError: error => ({
@@ -17,7 +25,7 @@ export default {
             loading:    false,
         }),
 
-        onGetSuccess: result => ({
+        onGetResult: result => ({
             error:      false,
             loading:    false,
             result,
