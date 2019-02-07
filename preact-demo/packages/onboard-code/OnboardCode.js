@@ -24,7 +24,7 @@ export default mount({
 ])( class OnboardCode extends Component {
 
     static propTypes = {
-        blocklyXml:         PropTypes.any,
+        hasCode:            PropTypes.boolean,
     };
 
     onChangeInput = e =>
@@ -42,8 +42,8 @@ export default mount({
 
     render() {
         const {
-            blocklyXml,
             children,
+            hasCode,
             E,
             onboardCode: {
                 textExample,
@@ -53,7 +53,7 @@ export default mount({
 
         return (
             <div className={ S.className }>
-                { !blocklyXml &&
+                { !hasCode &&
                     <div className={ S.options }>
                         { !tokenizer.loading && [
                             <div className={ S.addSegment }>
@@ -89,7 +89,7 @@ export default mount({
                         </form>
                     </div>
                 }
-                <OnboardBlocker showBlock={ !blocklyXml }>
+                <OnboardBlocker showBlock={ !hasCode }>
                     { children }
                 </OnboardBlocker>
             </div>
