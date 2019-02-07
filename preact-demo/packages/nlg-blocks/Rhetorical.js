@@ -1,3 +1,5 @@
+import { RED }              from '../styles/blockly-colors';
+
 import Block                from './Block';
 import * as T               from './types';
 import valueSequence        from './value-sequence';
@@ -8,15 +10,13 @@ export default Block({
 
     type:                   'Rhetorical',
 
-    value_count:            1,
-
     json: {
         ...valueSequence.json,
 
-        colour:             327,
+        colour:             RED,
         output:             T.STRING,
 
-        message0:           '%1',
+        message0:           '%1 from:',
         args0: [{
             type:           'field_dropdown',
             name:           'rstType',
@@ -38,12 +38,6 @@ export default Block({
                 [ 'Temporal', 'temporal' ],
                 [ 'Topic Change', 'topic-change' ],
             ],
-        }],
-        message1:           'from %1',
-        args1: [{
-            type:           'input_value',
-            name:           'value_0',
-            check:          T.TEXT,
         }],
     },
 

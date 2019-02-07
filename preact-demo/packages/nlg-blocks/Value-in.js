@@ -1,3 +1,5 @@
+import { BLUE }             from '../styles/blockly-colors';
+
 import Block                from './Block';
 import * as T               from './types';
 
@@ -7,7 +9,7 @@ export default Block({
     type:                   'Value-in',
 
     json: {
-        colour:             202,
+        colour:             BLUE,
         output:             T.BOOLEAN,
         inputsInline:       true,
         message0:           '%2 %1 %3',

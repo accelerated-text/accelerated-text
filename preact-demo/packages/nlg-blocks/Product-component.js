@@ -10,6 +10,6 @@ export default Block({
     json: {
         ...Product.json,
 
-        message0:           'Component',
+        message0:           'Component named: %1',
     },
 });

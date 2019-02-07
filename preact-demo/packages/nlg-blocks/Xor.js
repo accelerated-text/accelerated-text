@@ -1,3 +1,5 @@
+import { CYAN }             from '../styles/blockly-colors';
+
 import Block                from './Block';
 import * as T               from './types';
 
@@ -7,7 +9,7 @@ export default Block({
     type:                   'Xor',
 
     json: {
-        colour:             164,
+        colour:             CYAN,
         inputsInline:       false,
         output:             T.BOOLEAN,
         message0:           'either: %1 or: %2 ...but not both',

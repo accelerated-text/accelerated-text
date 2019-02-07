@@ -1,3 +1,5 @@
+import { MAGENTA }      from '../styles/blockly-colors';
+
 import Block            from './Block';
 import * as T           from './types';
 
@@ -7,7 +9,7 @@ export default Block({
     type:                   'Get-var',
 
     json: {
-        colour:             26,
+        colour:             MAGENTA,
         output:             T.TEXT,
 
         message0:           '%1 variable',

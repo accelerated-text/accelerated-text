@@ -1,3 +1,5 @@
+import { BLUE }             from '../styles/blockly-colors';
+
 import Block                from './Block';
 import * as T               from './types';
 import valueList            from './value-list';
@@ -12,10 +14,9 @@ export default Block({
     json: {
         ...valueList.json,
 
-        colour:             202,
+        colour:             BLUE,
         output:             T.LIST,
-        message0:           'A synonym',
-        message1:           'from:',
+        message0:           'A synonym from:',
     },
 
     valueListCheck:         T.ANY,

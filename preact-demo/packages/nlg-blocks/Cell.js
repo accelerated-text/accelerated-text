@@ -1,3 +1,5 @@
+import { LIME }         from '../styles/blockly-colors';
+
 import Block            from './Block';
 import * as T           from './types';
 
@@ -7,7 +9,7 @@ export default Block({
     type:                   'Cell',
 
     json: {
-        colour:             26,
+        colour:             LIME,
         output:             T.STRING,
         message0:           '%1 cell',
         args0: [{
