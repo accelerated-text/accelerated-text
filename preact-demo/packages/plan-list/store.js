@@ -38,9 +38,9 @@ export default {
             openedPlanUid,
         }),
 
-        onAddNew: ( name, { state }) => (
-            name
-                ? { addedPlan:      createPlan({ name }) }
+        onAddNew: ( fields, { state }) => (
+            fields.name
+                ? { addedPlan:      createPlan( fields ) }
                 : { addCheckError:  'Cannot create a document plan without the name.' }
         ),
 
