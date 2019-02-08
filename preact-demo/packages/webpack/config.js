@@ -1,4 +1,5 @@
 const CleanWebpackPlugin =  require( 'clean-webpack-plugin' );
+const DotenvPlugin =        require( 'webpack-dotenv-extended-plugin' );
 const HtmlWebpackPlugin =   require( 'html-webpack-plugin' );
 const path =                require( 'path' );
 const webpack =             require( 'webpack' );
@@ -8,6 +9,7 @@ const analysisProxy =       require( '../analysis-api/http-proxy-middleware-conf
 
 const ASSETS =              path.resolve( __dirname, '../../assets' );
 const DIST =                path.resolve( __dirname, 'dist' );
+const ROOT =                path.resolve( __dirname, '../..' );
 
 
 module.exports = {
@@ -43,6 +45,10 @@ module.exports = {
         }],
     },
     plugins: [
+        new DotenvPlugin({
+            defaults:   process.env.dotenv_config_defaults || `${ ROOT }/.env.defaults`,
+            path:       process.env.dotenv_config_path || `${ ROOT }/.env`,
+        }),
         new CleanWebpackPlugin([ DIST ]),
         new HtmlWebpackPlugin({
             title:      'Augmented Writer',
