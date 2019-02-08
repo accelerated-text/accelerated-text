@@ -1,20 +1,19 @@
 import { h }            from 'preact';
 
 import AtjReview        from '../atj-review/AtjReview';
-import { QA }           from '../plan-editor/qa.constants';
+import {
+    Error,
+    Info,
+    Loading,
+}   from '../ui-messages/';
 import { useStores }    from '../vesa/';
 
 import S                from './VariantReview.sass';
 
 
 export default useStores([
-    'planEditor',
     'variantsApi',
 ])(({
-    planEditor: {
-        documentPlan,
-        workspaceXml,
-    },
     variantsApi: {
         error,
         loading,
@@ -26,28 +25,15 @@ export default useStores([
             [P]review
         </div>
         <div className={ S.body }>
-            <div className={ S.hiddenItem }>
-                { workspaceXml ? workspaceXml : 'No Blockly yet.' }
-            </div>
-            <div className={ S.hiddenItem }>
-                <pre className={ QA.NLG_JSON }>
-                    { documentPlan
-                        ? JSON.stringify( documentPlan, null, 4 )
-                        : 'No JSON yet.'
-                    }
-                </pre>
-            </div>
             { error &&
-                <div className={ S.itemError }>
-                    { error }
-                </div>
+                <Error className={ S.itemError } message={ error } />
             }
             { loading &&
-                <div className={ S.item }>Loading variants...</div>
+                <Loading className={ S.item } message="Loading variants..." />
             }
             { result && (
                 !( result.variants && result.variants.length )
-                    ? <div className={ S.item }>No variants</div>
+                    ? <Info className={ S.item } message="No variants" />
                     : result.variants.map( element =>
                         <div className={ S.item }>
                             <AtjReview key={ element.id } element={ element } />

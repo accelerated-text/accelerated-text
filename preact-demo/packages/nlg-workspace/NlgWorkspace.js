@@ -63,19 +63,34 @@ export default class NlgWorkspace extends Component {
     };
 
     onWorkspace = workspace => {
-
-        const { workspaceXml } =    this.props;
+        const {
+            Blockly:    { Events, Xml },
+            props:      { workspaceXml },
+        } = this;
 
         this.workspace =            workspace;
 
+        let blockIds =              [];
         if( workspaceXml ) {
-            this.Blockly.Xml.domToWorkspace(
-                this.Blockly.Xml.textToDom( workspaceXml ),
+            blockIds = Xml.domToWorkspace(
+                Xml.textToDom( workspaceXml ),
                 workspace,
             );
         }
 
-        this.workspace.addChangeListener( this.onChangeWorkspace );
+        this.workspace.addChangeListener( evt => {
+            const initialCreate = (
+                evt.type === Events.CREATE
+                && blockIds.length
+                && blockIds.includes( evt.blockId )
+            );
+            /// Skip initial CREATE events:
+            if( initialCreate ) {
+                blockIds.splice( blockIds.findIndex( id => id === evt.blockId ));
+            } else {
+                this.onChangeWorkspace( evt );
+            }
+        });
     }
 
     render() {
