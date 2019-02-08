@@ -1,7 +1,8 @@
 import pTap                 from 'p-tap';
 
 import { getOpenedPlan }    from '../plan-list/functions';
-import variantsApi          from '../variants-api/';
+
+import { getVariants }      from './api';
 
 
 const updateVariants = ( plan, { E, getStoreState }) => (
@@ -57,10 +58,7 @@ export default {
                 return;
             }
 
-            variantsApi.getForDataSample({
-                dataSampleId:   'TODO_REPLACE',
-                documentPlanId: plan.id,
-            })
+            getVariants( plan.id )
                 .then( E.variantsApi.onGetResult )
                 .catch( pTap( console.error ))
                 .catch( E.variantsApi.onGetError );
