@@ -17,17 +17,17 @@ export default storeName => Child =>
             this.store.onChangeState( this.onStoreChange );
         }
 
-        componentWillUnmount() {
-
-            this.store.offChangeState( this.onStoreChange );
-        }
-
         shouldComponentUpdate( nextProps, nextState, nextContext ) {
 
             return (
                 !shallowEqual( nextProps, this.props )
                 || !shallowEqual( nextState, this.state )
             );
+        }
+
+        componentWillUnmount() {
+
+            this.store.offChangeState( this.onStoreChange );
         }
 
         render( props, state, context ) {

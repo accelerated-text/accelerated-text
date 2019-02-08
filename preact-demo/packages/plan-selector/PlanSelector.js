@@ -18,7 +18,10 @@ export default useStores([
 ])( class PlanSelector extends Component {
 
     onClickNew = evt => {
-        const name =        window.prompt( 'Add a new Document Plan:', planTemplate.name );
+        const name = window.prompt(         // eslint-disable-line no-alert
+            'Add a new Document Plan:',
+            planTemplate.name,
+        );
         name && this.props.E.planList.onAddNew( name );
     }
 

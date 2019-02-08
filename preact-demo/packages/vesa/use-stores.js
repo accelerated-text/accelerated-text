@@ -26,20 +26,20 @@ export default storeNames => Child =>
             );
         }
 
+        shouldComponentUpdate( nextProps, nextState, nextContext ) {
+
+            return (
+                !shallowEqual( nextProps, this.props )
+                || !shallowEqual( nextState, this.state )
+            );
+        }
+
         componentWillUnmount() {
 
             storeNames.forEach( name =>
                 this.context.S[name].offChangeState(
                     this.onStoreChange[name]
                 )
-            );
-        }
-
-        shouldComponentUpdate( nextProps, nextState, nextContext ) {
-
-            return (
-                !shallowEqual( nextProps, this.props )
-                || !shallowEqual( nextState, this.state )
             );
         }
 
