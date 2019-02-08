@@ -1,8 +1,8 @@
 export default {
 
     getInitialState: () => ({
-        contextName:        null,
-        dataSample:         null,
+        contextName:        'Shoes',
+        dataSample:         'shoes.csv',
     }),
 
     planEditor: {

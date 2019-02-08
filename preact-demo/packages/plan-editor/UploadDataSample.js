@@ -11,7 +11,7 @@ export default useStores([
 
     onClick = () =>
         this.props.E.planEditor.onClickUpload({
-            dataSample: 't-shirts.csv',
+            dataSample: 'shoes.csv',
         });
 
     render() {
