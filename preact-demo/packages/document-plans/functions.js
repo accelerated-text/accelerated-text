@@ -7,6 +7,7 @@ export const createPlan = fields => ({
     ...planTemplate,
     ...fields,
     createdAt:          +new Date,
+    id:                 undefined,
     uid:                uuid.v4(),
 });
 
