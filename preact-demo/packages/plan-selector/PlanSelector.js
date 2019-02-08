@@ -29,9 +29,9 @@ export default useStores([
             planList:       { openedPlanUid },
         } = this.props;
 
-        const plan =        plans[openedPlanUid];
-        const name =        window.prompt( 'Enter name for the new plan:', plan.name );
-        name && E.planList.onAddNew({ ...plan, name });
+        const currentPlan = plans[openedPlanUid];
+        const name =        window.prompt( 'Enter name for the new plan:', currentPlan.name );
+        name && E.planList.onAddNew({ ...currentPlan, name });
     }
 
     render({
