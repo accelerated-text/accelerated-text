@@ -8,6 +8,7 @@ import { useStores }        from '../vesa/';
 
 import ItemControls         from './ItemControls';
 import List                 from './List';
+import { QA }               from './qa.constants';
 import S                    from './PlanSelector.sass';
 import Status               from './Status';
 
@@ -66,8 +67,9 @@ export default useStores([
                     ? <Error message="Loading error! Please refresh the page." />
                 : noPlans
                     ? <button
-                        onClick={ this.onClickNew }
                         children="➕ New document plan"
+                        className={ QA.BTN_NEW_PLAN }
+                        onClick={ this.onClickNew }
                     />
                 : !openedPlanUid
                     ? <UnexpectedWarning />
