@@ -22,5 +22,5 @@ describe( 'plan-selector/PlanSelector', () => {
         await expect( page ).toMatchElement( SELECTORS.BTN_NEW_PLAN );
 
         await stopMocker();
-    }, 5e3 );
+    }, 10e3 );
 });
