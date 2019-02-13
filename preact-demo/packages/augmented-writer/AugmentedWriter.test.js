@@ -11,10 +11,10 @@ const TEST_PLAN = {
     blocklyXml:     '<xml xmlns="http://www.w3.org/1999/xhtml"><block id="test-document-plan" type="Document-plan" deletable="false"><statement name="segments"><block id="test-segment" type="Segment"><mutation value_count="2" value_sequence="value_"></mutation><field name="text_type">description</field></block></statement></block></xml>',
     documentPlan: {
         type:           'Document-plan',
-        blocklyId:      'test-document-plan',
+        srcId:          'test-document-plan',
         segments: [{
             type:       'Segment',
-            blocklyId:  'test-segment',
+            srcId:      'test-segment',
             text_type:  'description',
             children:   [],
         }],
@@ -41,8 +41,8 @@ describe( 'augmented-writer/AugmentedWriter', () => {
 
         await mockResponse( 'GET', `/document-plans/${ TEST_PLAN.id }/variants`, []);
 
-        await expect( page ).toMatchElement( `[data-id=${ TEST_PLAN.documentPlan.blocklyId }]` );
-        await expect( page ).toMatchElement( `[data-id=${ TEST_PLAN.documentPlan.segments[0].blocklyId }]` );
+        await expect( page ).toMatchElement( `[data-id=${ TEST_PLAN.documentPlan.srcId }]` );
+        await expect( page ).toMatchElement( `[data-id=${ TEST_PLAN.documentPlan.segments[0].srcId }]` );
 
         await stopMocker();
     }, 10e3 );
