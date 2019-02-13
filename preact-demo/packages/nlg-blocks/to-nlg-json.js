@@ -9,7 +9,7 @@ import getValueMap      from '../blockly-helpers/get-value-map';
 
 export const blockToJson = block => ({
     type:               block.type,
-    blocklyId:          block.id,
+    srcId:              block.id,
 });
 
 export const fieldsToJson = block =>
