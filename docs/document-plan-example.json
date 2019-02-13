@@ -1,87 +1,87 @@
 {
     "type": "Document-plan",
-    "blocklyId": "qa-plan-editor-example-xml",
+    "srcId": "qa-plan-editor-example-xml",
     "statements": [{
         "type": "Segment",
-        "blocklyId": "gVVXSJkhHN@A|cqKK0L$",
+        "srcId": "gVVXSJkhHN@A|cqKK0L$",
         "textType": "description",
         "children": [{
             "type": "Product",
-            "blocklyId": "m~qkKi;R1i3UqX/CIYnG",
+            "srcId": "m~qkKi;R1i3UqX/CIYnG",
             "name": {
                 "type": "Cell",
-                "blocklyId": "E#)-@W$.6}DD,_*l;0e@",
+                "srcId": "E#)-@W$.6}DD,_*l;0e@",
                 "name": "Product name"
             },
             "children": [{
                 "type": "Relationship",
-                "blocklyId": ";oz#,d}OLjwN|wXhSV@u",
+                "srcId": ";oz#,d}OLjwN|wXhSV@u",
                 "relationshipType": "provides",
                 "children": [{
                     "type": "Cell",
-                    "blocklyId": "sA_J?0}ERf1UqSF#an8k",
+                    "srcId": "sA_J?0}ERf1UqSF#an8k",
                     "name": "Main Feature"
                 },{
                     "type": "Cell",
-                    "blocklyId": "{B)_$V-nt.ZNY.z*#}v(",
+                    "srcId": "{B)_$V-nt.ZNY.z*#}v(",
                     "name": "Secondary feature"
                 }]
             },{
                 "type": "Rhetorical",
-                "blocklyId": "i!oqsk`W|kt2t4I)9uD@",
+                "srcId": "i!oqsk`W|kt2t4I)9uD@",
                 "rstType": "elaboration",
                 "children": [{
                     "type": "Cell",
-                    "blocklyId": "x}57j@VpjJXOsKYV]9=U",
+                    "srcId": "x}57j@VpjJXOsKYV]9=U",
                     "name": "Style"
                 }]
             }]
         },{
             "type": "Product-component",
-            "blocklyId": "D,zuNsMhXbrEd%7Z{g|X",
+            "srcId": "D,zuNsMhXbrEd%7Z{g|X",
             "name": {
                 "type": "Cell",
-                "blocklyId": ",H#d=qOLK,bN@z25wT:J",
+                "srcId": ",H#d=qOLK,bN@z25wT:J",
                 "name": "Lacing"
             },
             "children": [{
                 "type": "Relationship",
-                "blocklyId": "39K:Z]8f`@m/YWB,qkZT",
+                "srcId": "39K:Z]8f`@m/YWB,qkZT",
                 "relationshipType": "consequence",
                 "children": [{
                     "type": "If-then-else",
-                    "blocklyId": "yzn1bT{b;o{/Y!S`a0eU",
+                    "srcId": "yzn1bT{b;o{/Y!S`a0eU",
                     "conditions": [{
                         "type": "If-condition",
                         "condition": {
                             "type": "Value-comparison",
-                            "blocklyId": "Ip6,=R7mE^w3.Q]rRWNE",
+                            "srcId": "Ip6,=R7mE^w3.Q]rRWNE",
                             "operator": "==",
                             "value1": {
                                 "type": "Cell",
-                                "blocklyId": "dfX%Bme]eN9Z|ya:#1VM",
+                                "srcId": "dfX%Bme]eN9Z|ya:#1VM",
                                 "name": "Lacing"
                             },
                             "value2": {
                                 "type": "Quote",
-                                "blocklyId": "QK_PKn7ybNmfvH|@yr}c",
+                                "srcId": "QK_PKn7ybNmfvH|@yr}c",
                                 "text": "premium"
                             }
                         },
                         "thenExpression": {
                             "type": "One-of-synonyms",
-                            "blocklyId": "w6gg/~[+o6H1L+^^FOG7",
+                            "srcId": "w6gg/~[+o6H1L+^^FOG7",
                             "children": [{
                                 "type": "Quote",
-                                "blocklyId": "cexb}1zxkFE7,4I,LIN(",
+                                "srcId": "cexb}1zxkFE7,4I,LIN(",
                                 "text": "snug fit for everyday wear"
                             },{
                                 "type": "Quote",
-                                "blocklyId": "vXi5My/baqdUYn{2PV,e",
+                                "srcId": "vXi5My/baqdUYn{2PV,e",
                                 "text": "never gets into a knot"
                             },{
                                 "type": "Quote",
-                                "blocklyId": "O%WHjtHj)e/d#.7yJSbW",
+                                "srcId": "O%WHjtHj)e/d#.7yJSbW",
                                 "text": "remains firmly tied"
                             }]
                         }
@@ -89,7 +89,7 @@
                         "type": "Default-condition",
                         "thenExpression": {
                             "type": "Quote",
-                            "blocklyId": "asdfgasdfasdasdsf",
+                            "srcId": "asdfgasdfasdasdsf",
                             "text": "The laces look brillant!"
                         }
                     }]
