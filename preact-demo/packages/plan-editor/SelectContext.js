@@ -6,8 +6,9 @@ import { QA }           from './qa.constants';
 
 
 const OPTIONS = [
-    'T-Shirts',
     'Hotels',
+    'Shoes',
+    'T-Shirts',
 ];
 
 

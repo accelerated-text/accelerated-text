@@ -10,3 +10,8 @@ export const sortByCreatedAt = ( a, b ) => (
 
 export const sortPlans = list =>
     list.sort( sortByCreatedAt );
+
+export const getOpenedPlan = getStoreState =>
+    getStoreState( 'documentPlans' ).plans[
+        getStoreState( 'planList' ).openedPlanUid
+    ];

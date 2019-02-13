@@ -19,7 +19,7 @@ export default useStores([
 
     onClickNew = evt => {
         const name =        window.prompt( 'Add a new Document Plan:', planTemplate.name );
-        name && this.props.E.planList.onAddNew( name );
+        name && this.props.E.planList.onAddNew({ name });
     }
 
     render({
