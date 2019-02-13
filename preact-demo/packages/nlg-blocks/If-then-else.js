@@ -97,7 +97,7 @@ export default Block({
         /// Update input count:
         this.else_if_count =    newCount;
         /// Fix orphan block visibility:
-        this.bumpNeighbours_();
+        this.bumpNeighbours_(); // eslint-disable-line no-underscore-dangle
     },
 
     toNlgJson() {

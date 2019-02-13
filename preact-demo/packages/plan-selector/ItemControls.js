@@ -14,17 +14,20 @@ export default class PlanSelectorItemControls extends Component {
             plan,
         } = this.props;
 
-        const name =    window.prompt( 'Rename Document Plan:', plan.name );
+        const name = window.prompt(     // eslint-disable-line no-alert
+            'Rename Document Plan:',
+            plan.name,
+        );
         if( name ) {
             onUpdate({ ...plan, name });
         }
     }
 
-    onClickRemove = () => {
-        if( window.confirm( '⚠️ Are you sure you want to remove this plan?' )) {
-            this.props.onDelete( this.props.plan );
-        }
-    }
+    onClickRemove = () => (
+        window.confirm(                 // eslint-disable-line no-alert
+            '⚠️ Are you sure you want to remove this plan?'
+        ) && this.props.onDelete( this.props.plan )
+    )
 
     renderError( err ) {
         return (

@@ -1,16 +1,18 @@
-const CleanWebpackPlugin =  require( 'clean-webpack-plugin' );
-const HtmlWebpackPlugin =   require( 'html-webpack-plugin' );
-const path =                require( 'path' );
-const webpack =             require( 'webpack' );
+import CleanWebpackPlugin   from 'clean-webpack-plugin';
+import DotenvPlugin         from 'webpack-dotenv-extended-plugin';
+import HtmlWebpackPlugin    from 'html-webpack-plugin';
+import path                 from 'path';
+import webpack              from 'webpack';
 
-const analysisProxy =       require( '../analysis-api/http-proxy-middleware-config' );
+import analysisProxy        from '../analysis-api/http-proxy-middleware-config';
 
 
 const ASSETS =              path.resolve( __dirname, '../../assets' );
 const DIST =                path.resolve( __dirname, 'dist' );
+const ROOT =                path.resolve( __dirname, '../..' );
 
 
-module.exports = {
+export default {
     devtool:            'inline-source-map',
     devServer: {
         contentBase:    [
@@ -43,6 +45,10 @@ module.exports = {
         }],
     },
     plugins: [
+        new DotenvPlugin({
+            defaults:   process.env.dotenv_config_defaults || `${ ROOT }/.env.defaults`,
+            path:       process.env.dotenv_config_path || `${ ROOT }/.env`,
+        }),
         new CleanWebpackPlugin([ DIST ]),
         new HtmlWebpackPlugin({
             title:      'Augmented Writer',
