@@ -36,6 +36,6 @@ describe( 'plan-editor/onboard/workflow', () => {
         const nlgJson =     JSON.parse( jsonValue );
 
         expect( nlgJson ).toHaveProperty( 'type', 'Document-plan' );
-        expect( nlgJson ).toHaveProperty( 'blocklyId', QA.EXAMPLE_XML );
+        expect( nlgJson ).toHaveProperty( 'srcId', QA.EXAMPLE_XML );
     }, 10e3 );
 });
