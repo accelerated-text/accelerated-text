@@ -22,6 +22,18 @@ export default useStores([
         name && this.props.E.planList.onAddNew({ name });
     }
 
+    onClickSaveAs = evt => {
+        const {
+            E,
+            documentPlans:  { plans },
+            planList:       { openedPlanUid },
+        } = this.props;
+
+        const currentPlan = plans[openedPlanUid];
+        const name =        window.prompt( 'Enter name for the new plan:', currentPlan.name );
+        name && E.planList.onAddNew({ ...currentPlan, name });
+    }
+
     render({
         E,
         documentPlans: {
@@ -62,6 +74,7 @@ export default useStores([
                         />,
                         <List
                             onClickNew={ this.onClickNew }
+                            onClickSaveAs={ this.onClickSaveAs }
                             onChangeSelected={ E.planList.onSelectPlan }
                             plans={ plans }
                             selectedUid={ openedPlanUid }
