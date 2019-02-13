@@ -26,12 +26,12 @@ module.exports = ( page, prefix ) => {
             rejectFn( `Expected: ${ expectMethod } ${ expectUrl }.\n Got: ${ method } ${ url }.` );
             resetState();
         } else if( provideResponse ) {
-            await request.respond( provideResponse );
-            resolveFn( request ); ///.respond( provideResponse ));
+            request.respond( provideResponse );
+            resolveFn( request );
             resetState();
         } else {
-            await request.continue();
-            resolveFn( request ); ///.continue());
+            request.continue();
+            resolveFn( request );
             resetState();
         }
     };
