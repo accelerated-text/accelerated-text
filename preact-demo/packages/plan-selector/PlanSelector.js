@@ -8,6 +8,7 @@ import { useStores }        from '../vesa/';
 
 import ItemControls         from './ItemControls';
 import List                 from './List';
+import { QA }               from './qa.constants';
 import S                    from './PlanSelector.sass';
 import Status               from './Status';
 
@@ -18,7 +19,10 @@ export default useStores([
 ])( class PlanSelector extends Component {
 
     onClickNew = evt => {
-        const name =        window.prompt( 'Add a new Document Plan:', planTemplate.name );
+        const name = window.prompt(         // eslint-disable-line no-alert
+            'Add a new Document Plan:',
+            planTemplate.name,
+        );
         name && this.props.E.planList.onAddNew({ name });
     }
 
@@ -30,7 +34,10 @@ export default useStores([
         } = this.props;
 
         const currentPlan = plans[openedPlanUid];
-        const name =        window.prompt( 'Enter name for the new plan:', currentPlan.name );
+        const name = window.prompt(         // eslint-disable-line no-alert
+            'Enter name for the new plan:',
+            currentPlan.name,
+        );
         name && E.planList.onAddNew({ ...currentPlan, name });
     }
 
@@ -60,8 +67,9 @@ export default useStores([
                     ? <Error message="Loading error! Please refresh the page." />
                 : noPlans
                     ? <button
-                        onClick={ this.onClickNew }
                         children="➕ New document plan"
+                        className={ QA.BTN_NEW_PLAN }
+                        onClick={ this.onClickNew }
                     />
                 : !openedPlanUid
                     ? <UnexpectedWarning />

@@ -1,14 +1,14 @@
-const webpack =           require( 'webpack' );
-const WebpackDevServer =  require( 'webpack-dev-server' );
+const webpack =             require( 'webpack' );
+const WebpackDevServer =    require( 'webpack-dev-server' );
 
-const webpackConfig =     require( '../webpack/config' );
+const webpackConfig =       require( '../webpack/config' ).default;
 
 
 const OPTIONS = {
     ...webpackConfig.devServer,
-    host:               process.env.npm_package_config_test_host,
-    port:               process.env.npm_package_config_test_port,
-    stats:              'none',
+    host:                   process.env.TEST_HOST,
+    port:                   process.env.TEST_PORT,
+    stats:                  'none',
 };
 
 /// Main

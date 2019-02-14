@@ -1,7 +1,7 @@
-import unfetch            from 'isomorphic-unfetch';
+import unfetch          from 'isomorphic-unfetch';
 
 
-const BASE_URL =        'https://zihxo6d93h.execute-api.eu-central-1.amazonaws.com/Prod';
+const BASE_URL =        process.env.NLG_API_URL;
 
 
 export const fetch = async ( path, options = {}) => {
