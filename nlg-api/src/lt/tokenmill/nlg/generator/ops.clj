@@ -8,14 +8,25 @@
 (defn set-obj [selector] (fn [context data] (update context :objs (fn [vals] (conj vals (selector data))))))
 (defn set-complement [selector] (fn [context data] (assoc context :complement (selector data))))
 
+(defn fnlist->map
+  [initial fns & args]
+  (loop [context initial
+         fs fns]
+    (if (empty? fs)
+      context
+      (let [head (log/spyf "Resolving %s function " (first fs))
+            tail (rest fs)
+            result (log/spyf "Result after transform %s " (apply head (cons context args)))]
+        (recur (merge context result) tail)))))
+
 (defn lazy-if
   [condition then-branch else-branch]
   (fn
     [ctx data]
     (if (condition data)
-      (then-branch data)
+      (fnlist->map ctx (log/spyf "Then: %s" then-branch) data)
       (when (not (nil? else-branch))
-        (else-branch ctx data)))))
+        ((log/spyf "Else: %s" else-branch) ctx data)))))
 
 (def synset
   {:provides ["provide"]

@@ -18,10 +18,9 @@
          fs dp]
     (if (empty? fs)
       context
-      (let [head (first fs)
+      (let [head (log/spyf "Resolving %s function " (first fs))
             tail (rest fs)
-            result (head context data)]
-        (log/debug "Result context: " result)
+            result (log/spyf "Result after transform %s " (head context data))]
         (recur (merge context result) tail)))))
 
 (defn generate-sentence

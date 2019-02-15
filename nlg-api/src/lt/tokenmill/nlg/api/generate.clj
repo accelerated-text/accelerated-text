@@ -19,7 +19,7 @@
                "Main Feature" "comfort"
                "Secondary feature" "support"
                "Style" "with sleek update on a classic design"
-               "Lacing" "premium"}]
+               "Lacing" "premium lacing"}]
         db (get-db)
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
@@ -27,8 +27,8 @@
         body (if (map? results)
                results
                {:ready true
-                :results (when (not (empty? results)
-                                  (vec results)))})]
+                :results (when (not (empty? results))
+                           (vec results))})]
     (log/debugf "Body: %s" body)
     (ops/update! db result-id body)))
 
@@ -42,10 +42,31 @@
         job @(future (generation-process result-id document-plan-id data-id))]
     (utils/do-return (fn [] {:resultId result-id}))))
 
+(defn wrap-to-annotated-text
+  [results]
+  {:type "ANNOTATED_TEXT"
+   :id (utils/gen-uuid)
+   :annotations []
+   :references []
+   :children [{:type "PARAGRAPH"
+               :id (utils/gen-uuid)
+               :children (map (fn [r]
+                                {:type "OUTPUT_TEXT"
+                                 :id (utils/gen-uuid)
+                                 :text r}) results)}]
+   }
+)
+
 (defn read-result [query-params path-params]
   (let [db (get-db)
-        request-id (path-params :id)]
-    (utils/do-return ops/read! db request-id)))
+        request-id (path-params :id)
+        gen-result (ops/read! db request-id)
+        body {:offset 0
+              :totalCount 123
+              :ready (gen-result :ready)
+              :updatedAt (gen-result :updatedAt)
+              :variants (wrap-to-annotated-text (gen-result :results))}]
+    (utils/do-return (fn [] body))))
 
 (defn delete-result [path-params]
   (let [db (get-db)

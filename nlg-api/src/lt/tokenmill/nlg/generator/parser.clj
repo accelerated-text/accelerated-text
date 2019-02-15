@@ -5,9 +5,7 @@
             [lt.tokenmill.nlg.generator.ops :as ops]))
 
 (defn node-plus-children [node children]
-  (if (not (empty? children))
-    (cons node children)
-    (list node)))
+  (cons node children))
 
 (declare parse-node)
 

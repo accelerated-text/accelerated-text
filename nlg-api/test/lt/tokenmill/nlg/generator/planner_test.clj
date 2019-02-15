@@ -88,60 +88,8 @@
                         "Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a situation where laces never gets into a knot."]]
       (println "Result: " result)
       (is (some #(= % result) expected-any))))
-  ;; (testing "Document plan with `if-then-else` expression"
-  ;;   (let [document-plan {:type "Document-plan"
-  ;;                        :segments [{:type "Segment"
-  ;;                                      :textType "description"
-  ;;                                      :children [{:type "Product"
-  ;;                                                  :name {:type "Cell"
-  ;;                                                         :name "product-name"}
-  ;;                                                  :children [{:type "Relationship"
-  ;;                                                              :relationshipType "provides"
-  ;;                                                              :children [{:type "Cell"
-  ;;                                                                          :name "main-feature"}
-  ;;                                                                         {:type "Cell"
-  ;;                                                                          :name "secondary-feature"}
-  ;;                                                                         {:type "Cell"
-  ;;                                                                          :name "other-feature"}]}
-  ;;                                                             {:type "Rhetorical"
-  ;;                                                              :rstType "elaboration"
-  ;;                                                              :children [{:type "Cell"
-  ;;                                                                          :name "style"}]
-  ;;                                                              }]}
-  ;;                                                 {:type "Product-component"
-  ;;                                                  :name {:type "Cell"
-  ;;                                                         :name "lacing"}
-  ;;                                                  :children [{:type "Relationship"
-  ;;                                                              :relationshipType "consequence"
-  ;;                                                              :children [{:type "If-then-else"
-  ;;                                                                          :conditions [{:type "If-condition"
-  ;;                                                                                        :condition {:type "Value-comparison"
-  ;;                                                                                                    :operator "=="
-  ;;                                                                                                    :value1 {:type "Cell"
-  ;;                                                                                                             :name "lacing"}
-  ;;                                                                                                    :value2 {:type "Quote"
-  ;;                                                                                                             :text "premium lacing"}}
-  ;;                                                                                        :thenExpression {:type "One-of-synonyms"
-  ;;                                                                                                         :children [{:type "Quote"
-  ;;                                                                                                                     :text "a snug fit for everyday wear"}
-  ;;                                                                                                                    {:type "Quote"
-  ;;                                                                                                                     :text "a situation where laces never gets into a knot"}]}}
-  ;;                                                                                       {:type "Default-condition"
-  ;;                                                                                        :thenExpression {:type "Quote"
-  ;;                                                                                                         :text "The laces look brillant!"}}]}]}]}]}]}
-
-  ;;         data {"product-name" "Nike Air"
-  ;;               "main-feature" "comfort"
-  ;;               "secondary-feature" "support"
-  ;;               "other-feature" "style"
-  ;;               "lacing" "premium lacing"
-  ;;               "style" "with sleek update on a classic design"}
-  ;;         result (render-dp document-plan data)
-  ;;         expected-any ["Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."
-  ;;                       "Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a situation where laces never gets into a knot."]]
-  ;;     (println "Result: " result)
-  ;;     (is (some #(= % result) expected-any))))
-  (testing "Document plan with `if-then-else` expression without else statement"
+  
+  (testing "Document plan with `if-then-else` expression without else statement missmatch"
     (let [document-plan {:type "Document-plan"
                          :segments [{:type "Segment"
                                        :textType "description"
@@ -188,5 +136,54 @@
                 "style" "with sleek update on a classic design"}
           result (render-dp document-plan data)
           expected "Nike Air provides comfort, support and style with sleek update on a classic design."]
+      (println "Result: " result)
+      (is (= result expected))))
+  (testing "Document plan with `if-then-else` expression without else statement match"
+    (let [document-plan {:type "Document-plan"
+                         :segments [{:type "Segment"
+                                       :textType "description"
+                                       :children [{:type "Product"
+                                                   :name {:type "Cell"
+                                                          :name "product-name"}
+                                                   :children [{:type "Relationship"
+                                                               :relationshipType "provides"
+                                                               :children [{:type "Cell"
+                                                                           :name "main-feature"}
+                                                                          {:type "Cell"
+                                                                           :name "secondary-feature"}
+                                                                          {:type "Cell"
+                                                                           :name "other-feature"}]}
+                                                              {:type "Rhetorical"
+                                                               :rstType "elaboration"
+                                                               :children [{:type "Cell"
+                                                                           :name "style"}]
+                                                               }]}
+                                                  {:type "If-then-else"
+                                                   :conditions [{:type "If-condition"
+                                                                 :condition {:type "Value-comparison"
+                                                                             :operator "="
+                                                                             :value1 {:type "Cell"
+                                                                                      :name "lacing"}
+                                                                             :value2 {:type "Quote"
+                                                                                      :text "premium lacing"}}
+                                                                 :thenExpression {:type "Product-component"
+                                                                                  :name {:type "Cell"
+                                                                                         :name "lacing"}
+                                                                                  :children [{:type "Relationship"
+                                                                                              :relationshipType "consequence"
+                                                                                              :children [{:type "Quote"
+                                                                                                          :text "a snug fit for everyday wear"}]
+                                                                                              }]                
+                                                                                  }}
+                                                                ]}]}]}
+
+          data {"product-name" "Nike Air"
+                "main-feature" "comfort"
+                "secondary-feature" "support"
+                "other-feature" "style"
+                "lacing" "premium lacing"
+                "style" "with sleek update on a classic design"}
+          result (render-dp document-plan data)
+          expected "Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."]
       (println "Result: " result)
       (is (= result expected)))))
