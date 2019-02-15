@@ -5,6 +5,10 @@ import shallowEqual         from 'shallow-equal/objects';
 
 import ChangeDispatcher     from './change-dispatcher';
 import createEvents         from './create-events';
+import debugStore           from './debug-store';
+
+
+let counter =               0;
 
 
 export default ( storeName, store ) => Child => {
@@ -19,12 +23,15 @@ export default ( storeName, store ) => Child => {
     return class VesaStoreComponent extends Component {
 
         /// Constructor --------------------------------------------------------
+        id =                counter += 1;
+
+        debug =             debugStore( storeName, this.id );
 
         dispatcher =        this.context.dispatcher || new Dispatcher;
 
         storeState = (
             getInitialState
-                ? getInitialState( this.props )
+                ? this.debug.tapInit( getInitialState( this.props ))
                 : null
         );
 
@@ -68,9 +75,12 @@ export default ( storeName, store ) => Child => {
                     this.storeState,
                     patch,
                 );
+                this.debug.onEvent( eventNamespace, eventName, eventId, this.storeState );
                 if( storeName ) {
                     this.changeDispatcher.dispatch( this.storeState );
                 }
+            } else {
+                this.debug.onEvent( eventNamespace, eventName, eventId, this.storeState );
             }
         };
 
