@@ -1,6 +1,9 @@
-import pTap             from 'p-tap';
+import debugSan         from '../debug-san/';
 
 import tokenizer        from './tokenizer';
+
+
+const debug =           debugSan( 'tokenizer/adapter' );
 
 
 export default {
@@ -11,6 +14,7 @@ export default {
 
             const { loading } =     getStoreState( 'tokenizer' );
 
+            debug( 'onCall', text, { loading });
             if( loading || !text ) {
                 return;
             }
@@ -18,8 +22,9 @@ export default {
             E.tokenizer.onCallStart.async();
 
             tokenizer( text )
+                .then( debug.tapThen( 'onCall result' ))
                 .then( E.tokenizer.onCallResult )
-                .catch( pTap( console.error ))
+                .catch( debug.tapCatch( 'onCall error' ))
                 .catch( E.tokenizer.onCallError );
         },
     },
