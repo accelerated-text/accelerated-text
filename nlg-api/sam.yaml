@@ -300,6 +300,12 @@ Outputs:
     Export:
       Name: NLGCors
 
+  TextGenCorsAPI:
+    Description: setup CORS
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/nlg/'
+    Export:
+      Name: TextGenCors
+
   dpCorsAPI:
     Description: setup CORS
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
