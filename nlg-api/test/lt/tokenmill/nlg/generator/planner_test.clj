@@ -6,7 +6,7 @@
 (deftest test-compile-single-node-plan
   (testing "Create a single subject plan"
     (let [document-plan {:type "Document-plan"
-                         :statements [{:type "Segment"
+                         :segments [{:type "Segment"
                                        :textType "description"
                                        :children [{:type "Product"
                                                    :name {:type "Cell"
@@ -23,7 +23,7 @@
           (is (= expected result))))))
   (testing "Create subject with two features"
     (let [document-plan {:type "Document-plan"
-                         :statements [{:type "Segment"
+                         :segments [{:type "Segment"
                                        :textType "description"
                                        :children [{:type "Product"
                                                    :name {:type "Cell"
@@ -51,7 +51,7 @@
           (is (= expected result))))))
   (testing "Generate a simple text"
     (let [document-plan {:type "Document-plan"
-                         :statements [{:type "Segment"
+                         :segments [{:type "Segment"
                                        :textType "description"
                                        :children [{:type "Product"
                                                    :name {:type "Cell"
@@ -90,7 +90,7 @@
       (is (some #(= % result) expected-any))))
   (testing "Document plan with `if-then-else` expression"
     (let [document-plan {:type "Document-plan"
-                         :statements [{:type "Segment"
+                         :segments [{:type "Segment"
                                        :textType "description"
                                        :children [{:type "Product"
                                                    :name {:type "Cell"
