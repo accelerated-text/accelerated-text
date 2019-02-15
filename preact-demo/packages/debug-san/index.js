@@ -5,18 +5,18 @@ import pTap             from 'p-tap';
 export default modulePrefix => {
 
     const debugFn =     debug( modulePrefix );
-    const error =       debug( `${ modulePrefix }:error` );
-    const log =         debug( `${ modulePrefix }:log` );
-    log.log =           console.log.bind( console ); // eslint-disable-line no-console
+    const error =       debugFn.extend( 'error' );
+    const info =        debugFn.extend( 'info' );
+    info.log =          console.log.bind( console ); // eslint-disable-line no-console
 
     debugFn.error =     error;
-    debugFn.log =       log;
+    debugFn.info =      info;
 
-    debugFn.tapCatch = linePrefix =>
-        pTap.catch( error.bind( null, linePrefix ));
+    debugFn.tapCatch = ( linePrefix = '' ) =>
+        pTap.catch( debugFn.bind( null, linePrefix, 'catch' ));
 
-    debugFn.tapThen = linePrefix =>
-        pTap( log.bind( null, linePrefix ));
+    debugFn.tapThen = ( linePrefix = '' ) =>
+        pTap( debugFn.bind( null, linePrefix, 'then' ));
 
     return debugFn;
 };
