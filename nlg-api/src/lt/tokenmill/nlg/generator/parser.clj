@@ -4,20 +4,6 @@
             [cheshire.core :as ch]
             [lt.tokenmill.nlg.generator.ops :as ops]))
 
-
-(def synset
-  {:provides ["provide"]
-   :consequence ["results in"]})
-
-(defn get-random [key col]
-  (let [words (get col key [])]
-    (when (not (empty? words))
-      (rand-nth words))))
-
-(defn get-word
-  [word]
-  (get-random (keyword word) synset))
-
 (defn node-plus-children [node children]
   (if (not (empty? children))
     (cons node children)
@@ -88,29 +74,20 @@
       :If-condition {:if (parse-if-statement (node :condition)) :then (parse-node (node :thenExpression))}
       :Default-condition {:if (fn [_] true) :then (parse-node (node :thenExpression))})))
 
-
-(defn lazy-if
-  [condition then-branch else-branch]
-  (fn
-    [data]
-    (if (condition data)
-      (then-branch data)
-      (else-branch data))))
-
 (defn resolve-cond-seq
   [conds]
-  (if (not (empty? conds))
+  (when (not (empty? conds))
     (let [head (first conds)
           tail (rest conds)
           if-statement (head :if)
           then-statement (head :then)]
-      (lazy-if if-statement then-statement (resolve-cond-seq tail)))))
+      (ops/lazy-if if-statement then-statement (resolve-cond-seq tail)))))
   
 
 (defn parse-conditional
   [node]
   (let [conditions (map parse-condition (node :conditions))]
-    (resolve-cond-seq conditions)))
+    (list (resolve-cond-seq conditions))))
 
 (defn parse-list
   [opts node]

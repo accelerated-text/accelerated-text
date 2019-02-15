@@ -21,6 +21,7 @@
       (let [head (first fs)
             tail (rest fs)
             result (head context data)]
+        (log/debug "Result context: " result)
         (recur (merge context result) tail)))))
 
 (defn generate-sentence
@@ -55,4 +56,4 @@
    returns: generated text"
   [document-plan data]
   (let [segments (map #(render-segment % data) (parser/parse-document-plan document-plan))]
-    (string/join "" segments)))
+    (string/trim (string/join "" segments))))

@@ -19,7 +19,7 @@
                "Main Feature" "comfort"
                "Secondary feature" "support"
                "Style" "with sleek update on a classic design"
-               "Lacing" "premium lacing"}]
+               "Lacing" "premium"}]
         db (get-db)
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)

@@ -8,6 +8,15 @@
 (defn set-obj [selector] (fn [context data] (update context :objs (fn [vals] (conj vals (selector data))))))
 (defn set-complement [selector] (fn [context data] (assoc context :complement (selector data))))
 
+(defn lazy-if
+  [condition then-branch else-branch]
+  (fn
+    [ctx data]
+    (if (condition data)
+      (then-branch data)
+      (when (not (nil? else-branch))
+        (else-branch ctx data)))))
+
 (def synset
   {:provides ["provide"]
    :consequence ["results in"]})
