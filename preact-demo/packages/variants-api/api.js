@@ -17,11 +17,11 @@ const checkResult = async ( resultId, resolve, reject ) => {
 };
 
 
-export const getVariants = async documentId => {
+export const getVariants = async documentPlanId => {
 
     const { resultId } = await nlgApi.POST( `${ PREFIX }/`, {
         dataId:     '-1',
-        documentId,
+        documentPlanId,
     });
 
     return new Promise(( resolve, reject ) =>
