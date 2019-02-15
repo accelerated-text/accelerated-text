@@ -1,7 +1,9 @@
-import pTap             from 'p-tap';
-
+import debugSan         from '../debug-san/';
 import { fixPlan }      from '../document-plans/functions';
 import { GET }          from '../document-plans/api';
+
+
+const debug =           debugSan( 'plan-list/adapter' );
 
 
 export default {
@@ -36,12 +38,14 @@ export default {
         onGetListStart: ( _, { E }) =>
 
             GET( '/' )
+                .then( debug.tapThen( 'onGetListStart' ))
                 .then( result => {
                     const plans =   result.map( fixPlan );
+                    debug( 'onGetListStart plans', plans );
                     E.documentPlans.onGetAList( plans );
                     E.planList.onGetListResult( plans );
                 })
-                .catch( pTap( console.error ))
+                .catch( debug.tapCatch( 'onGetListStart' ))
                 .catch( E.planList.onGetListError ),
     },
 };

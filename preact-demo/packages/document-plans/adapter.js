@@ -1,4 +1,4 @@
-import pTap             from 'p-tap';
+import debugSan         from '../debug-san/';
 
 import {
     DELETE,
@@ -12,6 +12,8 @@ import {
     isSamePlan,
 }   from './functions';
 
+
+const debug =           debugSan( 'document-plans/adapter' );
 
 const getStoreStatus = ( getStoreState, plan ) =>
     getStatus( getStoreState( 'documentPlans' ), plan );
@@ -34,8 +36,9 @@ export default {
                 createdAt:  undefined,
                 id:         undefined,
             })
+                .then( debug.tapThen( 'onCreateStart' ))
                 .then( E.documentPlans.onCreateResult )
-                .catch( pTap( console.error ))
+                .catch( debug.tapCatch( 'onCreateStart' ))
                 .catch( createError => E.documentPlans.onCreateError({ createError, plan }))
                 .then(() => E.documentPlans.onCheckPending( plan )),
 
@@ -43,6 +46,7 @@ export default {
 
             const status =  getStoreStatus( getStoreState, plan );
 
+            debug( 'onDelete', plan, { status });
             if( plan.id && !status.deletePending ) {
                 E.documentPlans.onDeleteStart.async( plan );
             }
@@ -51,8 +55,9 @@ export default {
         onDeleteStart: ( plan, { E }) =>
 
             DELETE( `/${ plan.id }` )
+                .then( debug.tapThen( 'onDeleteStart' ))
                 .then( E.documentPlans.onDeleteResult )
-                .catch( pTap( console.error ))
+                .catch( debug.tapCatch( 'onDeleteStart' ))
                 .catch( deleteError => E.documentPlans.onDeleteError({ deleteError, plan })),
 
         onRead: ( plan, { E, getStoreState }) => {
@@ -75,6 +80,8 @@ export default {
 
             const isPending = ( deletePending || updatePending );
 
+            debug( 'onRead', { isLoading, isPending });
+
             if( plan.id && !isLoading && !isPending ) {
                 E.documentPlans.onReadStart.async( plan );
             }
@@ -83,8 +90,9 @@ export default {
         onReadStart: ( plan, { E }) =>
 
             GET( `/${ plan.id }` )
+                .then( debug.tapThen( 'onReadStart' ))
                 .then( E.documentPlans.onReadResult )
-                .catch( pTap( console.error ))
+                .catch( debug.tapCatch( 'onReadStart' ))
                 .catch( readError => E.documentPlans.onReadError({ readError, plan })),
 
         onUpdate: ( plan, { E, getStoreState }) => {
@@ -103,6 +111,7 @@ export default {
                 || updatePending
             );
 
+            debug( 'onUpdate', plan, { shouldSkip });
             if( plan.id && !shouldSkip ) {
                 E.documentPlans.onUpdateStart.async( plan );
             }
@@ -113,6 +122,7 @@ export default {
             PUT( `/${ plan.id }`, plan )
                 .then( serverPlan => {
                     const status =  getStoreStatus( getStoreState, plan );
+                    debug( 'onUpdateStart then', plan, serverPlan, { status });
 
                     if( status.updatePending ) {
                         return;
@@ -122,7 +132,7 @@ export default {
                         E.documentPlans.onDifferingUpdateResult( serverPlan );
                     }
                 })
-                .catch( pTap( console.error ))
+                .catch( debug.tapCatch( 'onUpdateStart' ))
                 .catch( updateError => E.documentPlans.onUpdateError({ updateError, plan }))
                 .then(() => E.documentPlans.onCheckPending( plan )),
 
@@ -131,6 +141,7 @@ export default {
             const state =       getStoreState( 'documentPlans' );
             const currentPlan = getPlan( state, plan );
             const status =      getStatus( state, plan );
+            debug( 'onCheckPending', plan, { currentPlan, status });
 
             if( status.deletePending ) {
                 E.documentPlans.onDeleteStart.async( currentPlan );
