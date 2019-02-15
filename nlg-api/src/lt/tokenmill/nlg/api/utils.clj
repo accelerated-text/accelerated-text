@@ -3,7 +3,9 @@
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [clj-time.core :as time]
-            [clj-time.coerce :as tc])
+            [clj-time.coerce :as tc]
+            [clojure.string :as string]
+            [clojure.data.csv :as csv])
   (:import (java.io InputStream))
   (:import (java.util.UUID)))
 
@@ -13,11 +15,27 @@
 
 (defn resp [status-code body]
   (let [resp {"statusCode" status-code
-              "body" (cheshire/encode body)
-              "isBase64Encoded" false
-              "headers" {"Content-Type" "application/json"
-                         "Access-Control-Allow-Origin" "*"}}]
-    (cheshire/encode resp)))
+              "isBase64Encoded" false}]
+    (defn add-body
+      [r]
+      (if body
+        (assoc r :body (cheshire/encode body))
+        (assoc r :body "")))
+
+    (defn add-headers
+      [r]
+      (let [cors-headers {"Access-Control-Allow-Origin" "*"
+                          "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"}
+            headers (if body
+                      (conj cors-headers ["Content-Type" "application/json"])
+                      cors-headers)]
+        (assoc r :headers headers)))
+        
+    
+    (-> resp
+        (add-body)
+        (add-headers)
+        (cheshire/encode))))
 
 (defn decode-body [^InputStream is]
   (try
@@ -31,18 +49,76 @@
   []
   (cheshire/decode (slurp (io/resource "stub.json"))))
 
+(defn get-stack-trace
+  [e]
+  (string/join "\n" (map str (.getStackTrace e))))
+
+(defn result-or-error
+  [results]
+  (try
+    (doall results)
+    (catch Exception e
+      (do
+        (log/errorf "Failed to get result: %s" (get-stack-trace e))
+        {:error true
+         :ready true
+         :message (.getMessage e)}))))
+
+(defn zip [coll1 coll2]
+  (interleave coll1 coll2))
+
+(defn csv-to-map
+  [f]
+  (let [raw-csv (csv/read-csv f)]
+    (log/debug "Raw CSV: " raw-csv)
+    (let [header (->> (first raw-csv)
+                      (map keyword))
+          data (rest raw-csv)
+          pairs (map #(zip header %) data)]
+      (doall (map #(apply array-map %) pairs)))))
+      
+
+(defn do-return
+  [func & args]
+  (try (let [resp (apply func args)]
+         (if resp
+           (if (contains? resp :error)
+             {:status 500
+              :body {:error true :message "ERROR_01"}}
+             {:status 200
+              :body resp})
+           
+           {:status 404}))
+       (catch Exception e (do
+                            (log/error (get-stack-trace e))
+                            {:status 500
+                             :body {:error true
+                                    :message (.getMessage e)}}))))
+
 (defn do-insert
   [func & args]
-  (let [id (gen-uuid)
+  (let [id (doall (gen-uuid))
         insert-fn (partial func id)]
     (try (let [resp (apply insert-fn args)]
            {:status 200
             :body resp})
-          (catch Exception e (do
-                               (log/error e)
-                               {:status 500
-                                :body {:error true
-                                       :message (.getMessage e)}})))))
+         (catch Exception e (do
+                              (log/error (get-stack-trace e))
+                              {:status 500
+                               :body {:error true
+                                      :message (.getMessage e)}})))))
+
+(defn do-delete
+  [search-fn delete-fn & args]
+  (try (let [original (apply search-fn args)
+             _ (apply delete-fn args)]
+         {:status 200
+          :body original})
+       (catch Exception e (do
+                            (log/error e)
+                            {:status 500
+                             :body {:error true
+                                    :message (.getMessage e)}}))))
 
 (defn do-update
   [func & args]
