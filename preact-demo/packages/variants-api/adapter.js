@@ -1,9 +1,10 @@
-import pTap                 from 'p-tap';
-
+import debugSan             from '../debug-san/';
 import { getOpenedPlan }    from '../plan-list/functions';
 
 import { getVariants }      from './api';
 
+
+const debug =               debugSan( 'variants-api/adapter' );
 
 const updateVariants = ( plan, { E, getStoreState }) => (
     ( getStoreState( 'planList' ).openedPlanUid === plan.uid )
@@ -39,6 +40,7 @@ export default {
 
             /// Load variants on first document plan load:
             if( !result && !pending && !loading && !error ) {
+                debug( 'First document plan load' );
                 E.variantsApi.onGetStart.async();
             }
         },
@@ -59,13 +61,14 @@ export default {
             }
 
             getVariants( plan.id )
+                .then( debug.tapThen( 'getVariants result' ))
                 .then( result => {
                     E.variantsApi.onGetResult( result );
                     if( getStoreState( 'variantsApi' ).pending ) {
                         E.variantsApi.onGetStart();
                     }
                 })
-                .catch( pTap.catch( console.error ))
+                .catch( debug.tapCatch( 'getVariants error' ))
                 .catch( E.variantsApi.onGetError );
         },
 
