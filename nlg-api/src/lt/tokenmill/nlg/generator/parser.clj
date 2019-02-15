@@ -63,7 +63,7 @@
 
 (defn parse-document-plan
   [node]
-  (let [statements (node :statements)]
+  (let [statements (node :segments)]
     (doall (map parse-node statements))))
 
 
@@ -73,7 +73,8 @@
   (let [op (keyword (node :operator))
         t (keyword (node :type))
         cond-fn (case op
-                  :== (partial =))]
+                  :== (partial =)
+                  := (partial =))]
     (case t
       :Value-comparison (fn [data]
                           (let [v1 (parse-node (node :value1))

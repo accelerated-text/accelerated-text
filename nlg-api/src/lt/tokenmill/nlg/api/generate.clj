@@ -24,8 +24,11 @@
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
         results (utils/result-or-error (map #(planner/render-dp dp %) data))
-        body {:ready true
-              :results (vec results)}]
+        body (if (map? results)
+               results
+               {:ready true
+                :results (when (not (empty? results)
+                                  (vec results)))})]
     (log/debugf "Body: %s" body)
     (ops/update! db result-id body)))
 
