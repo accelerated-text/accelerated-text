@@ -8,16 +8,12 @@ const PREFIX =          '/nlg';
 const checkResult = async ( resultId, resolve, reject ) => {
 
     try {
-        const {
-            error,
-            message,
-            ready,
-            results,
-        } = await nlgApi.GET( `${ PREFIX }/${ resultId }` );
-        if( error ) {
-            reject( message );
-        } else if( ready ) {
-            resolve( results );
+        const result =  await nlgApi.GET( `${ PREFIX }/${ resultId }` );
+
+        if( result.error ) {
+            reject( result.message );
+        } else if( result.ready ) {
+            resolve( result );
         } else {
             setTimeout( checkResult, POLL_INTERVAL, resultId, resolve, reject );
         }
