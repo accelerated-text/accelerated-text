@@ -7,12 +7,22 @@ const PREFIX =          '/nlg';
 
 const checkResult = async ( resultId, resolve, reject ) => {
 
-    const { ready, results } =
-        await nlgApi.GET( `${ PREFIX }/${ resultId }` );
-    if( ready ) {
-        resolve( results );
-    } else {
-        setTimeout( checkResult, POLL_INTERVAL, resultId, resolve, reject );
+    try {
+        const {
+            error,
+            message,
+            ready,
+            results,
+        } = await nlgApi.GET( `${ PREFIX }/${ resultId }` );
+        if( error ) {
+            reject( message );
+        } else if( ready ) {
+            resolve( results );
+        } else {
+            setTimeout( checkResult, POLL_INTERVAL, resultId, resolve, reject );
+        }
+    } catch( err ) {
+        reject( err );
     }
 };
 
