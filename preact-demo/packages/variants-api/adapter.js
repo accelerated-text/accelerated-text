@@ -59,7 +59,12 @@ export default {
             }
 
             getVariants( plan.id )
-                .then( E.variantsApi.onGetResult )
+                .then( result => {
+                    E.variantsApi.onGetResult( result );
+                    if( getStoreState( 'variantsApi' ).pending ) {
+                        E.variantsApi.onGetStart();
+                    }
+                })
                 .catch( pTap( console.error ))
                 .catch( E.variantsApi.onGetError );
         },
