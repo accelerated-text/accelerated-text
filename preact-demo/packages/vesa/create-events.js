@@ -1,12 +1,18 @@
+import debug        from 'debug';
+
+
 let counter =   0;
 
 
 const createFn = ( dispatcher, eventName, eventNamespace ) => {
 
     const eventId = counter += 1;
-    /// console.log( 'createFn', eventNamespace, eventName, eventId );
+    const log =     debug( `E.${ eventNamespace }.${ eventName }[${ eventId }]` );
 
-    const fn =      arg => dispatcher.dispatch({ arg, eventId, eventName, eventNamespace });
+    const fn =      arg => {
+        log( arg );
+        dispatcher.dispatch({ arg, eventId, eventName, eventNamespace });
+    };
 
     return Object.assign( fn, {
         eventId,

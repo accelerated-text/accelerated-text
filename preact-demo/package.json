@@ -26,6 +26,7 @@
   "dependencies": {
     "bw-color-blind-palette": "^1.0.0",
     "classnames": "^2.2.6",
+    "debug": "^4.1.1",
     "dom-dom": "^1.2.3",
     "dotenv-extended": "^2.3.0",
     "fetch-inject": "^2.0.2",
