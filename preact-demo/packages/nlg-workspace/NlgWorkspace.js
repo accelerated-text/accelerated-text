@@ -1,3 +1,4 @@
+import debug                from 'debug';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
@@ -8,6 +9,9 @@ import ResizableBlockly     from '../preact-blockly/Resizable';
 import blockSvgOverride     from './block-svg-override';
 import S                    from './NlgWorkspace.sass';
 import toolbox              from './toolbox.xml';
+
+
+const log =                 debug( 'NlgWorkspace' );
 
 
 export default class NlgWorkspace extends Component {
@@ -21,6 +25,7 @@ export default class NlgWorkspace extends Component {
     workspace =             null;
 
     onChangeWorkspace = evt => {
+        log( 'onChangeWorkspace', evt && evt.type, evt );
         if( this.props.onChangeWorkspace ) {
 
             const {
@@ -28,13 +33,17 @@ export default class NlgWorkspace extends Component {
                 workspace,
             } = this;
 
-            const skipTypes = [
-                Events.BLOCK_MOVE,
-                Events.MOVE,
-                Events.UI,
-            ];
+            const isSameParent = (
+                ( !evt.oldParentId && !evt.newParentId )
+                || ( evt.oldParentId === evt.newParentId )
+            );
 
-            if( !skipTypes.includes( evt.type )) {
+            const shouldSkip = (
+                evt.type === Events.UI
+                || ( evt.type === Events.MOVE && isSameParent )
+            );
+
+            if( !shouldSkip ) {
                 this.props.onChangeWorkspace({
                     documentPlan:
                         workspace
