@@ -1,7 +1,6 @@
 (ns lt.tokenmill.nlg.api.generate
   (:require [clojure.tools.logging :as log]
             [clojure.java.io :as io]
-            [clojure.data.csv :as csv]
             [lt.tokenmill.nlg.api.utils :as utils]
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
             [lt.tokenmill.nlg.generator.planner :as planner]
