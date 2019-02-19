@@ -1,6 +1,7 @@
 (ns lt.tokenmill.nlg.api.generate
   (:require [clojure.tools.logging :as log]
             [clojure.java.io :as io]
+            [clojure.data.csv :as csv]
             [lt.tokenmill.nlg.api.utils :as utils]
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
             [lt.tokenmill.nlg.generator.planner :as planner]
@@ -15,11 +16,7 @@
 
 (defn generation-process
   [result-id dp-id data-id]
-  (let [data [{"Product name" "Nike Air"
-               "Main Feature" "comfort"
-               "Secondary feature" "support"
-               "Style" "with sleek update on a classic design"
-               "Lacing" "premium lacing"}]
+  (let [data (utils/read-stub-csv)
         db (get-db)
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
