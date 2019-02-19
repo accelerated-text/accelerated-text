@@ -18,8 +18,10 @@
 
 (defn add-data [request-body]
   (let [db (get-db)
-        parsed-body (doall (utils/csv-to-map request-body))]
-    (utils/do-insert (partial ops/write! db) parsed-body)))
+        parsed-body (doall
+                     (utils/csv-to-map request-body))]
+    (log/debugf "Parsed body: %s" parsed-body)
+    (utils/do-insert (partial ops/write! db) {:data parsed-body})))
 
 (defn delete-data [path-params]
   (let [request-id (path-params :id)

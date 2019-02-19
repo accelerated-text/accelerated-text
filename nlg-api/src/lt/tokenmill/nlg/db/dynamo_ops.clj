@@ -1,7 +1,8 @@
 (ns lt.tokenmill.nlg.db.dynamo-ops
   (:require [taoensso.faraday :as far]
             [lt.tokenmill.nlg.db.config :as config]
-            [lt.tokenmill.nlg.api.utils :as utils]))
+            [lt.tokenmill.nlg.api.utils :as utils]
+            [clojure.tools.logging :as log]))
 
 
 (defn resolve-table
@@ -28,6 +29,17 @@
 (defn delete! [this key] (delete-item this key))
 (defn list! [this limit] (list-items this limit))
 
+(defn freeze! [coll] (far/freeze coll))
+
+(defn normalize
+  [data]
+  (into {}  (map (fn
+                    [[k v]]
+                    (if (coll? v)
+                      {k (freeze! v)}
+                      {k v}))
+                  data)))
+
 (defn db-access
   [resource-type]
   (let [table-name (resolve-table resource-type)]
@@ -36,14 +48,17 @@
       (read-item [this key]
         (far/get-item config/client-opts table-name {:key key}))
       (write-item [this key data]
+        (log/debugf "Writing\n key: '%s' \n content: '%s'" key data)
         (let [body (-> data
                        (assoc :key key)
                        (assoc :createdAt (utils/ts-now))
-                       (assoc :updatedAt (utils/ts-now)))]
+                       (assoc :updatedAt (utils/ts-now)))
+              normalized (doall (normalize body))]
           (do
-            (far/put-item config/client-opts table-name body)
+            (far/put-item config/client-opts table-name normalized)
             body)))
       (update-item [this key data]
+        (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
         (let [original (far/get-item config/client-opts table-name {:key key})
               body (-> (merge original data)
                        (assoc :updatedAt (utils/ts-now))
@@ -52,6 +67,7 @@
             (far/put-item config/client-opts table-name body)
             body)))
       (delete-item [this key]
+        (log/debugf "Deleting\n key: '%s'" key)
         (far/delete-item config/client-opts table-name {:key key}))
       (list-items [this limit]
         (far/scan config/client-opts table-name)))))

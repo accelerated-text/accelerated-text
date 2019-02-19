@@ -22,4 +22,11 @@
     (is (not (empty? result)))
     (is (:something result))))
 
+(deftest test-write-w-key
+  (let [db mock-db
+        result (ops/write! db "testKey" {:something "somedata"})]
+    (is (not (empty? result)))
+    (is (= "testKey" (:key result)))
+    (is (:something result))))
+
 
