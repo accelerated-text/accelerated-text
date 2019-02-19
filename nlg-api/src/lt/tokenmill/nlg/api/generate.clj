@@ -15,11 +15,7 @@
 
 (defn generation-process
   [result-id dp-id data-id]
-  (let [data [{"Product name" "Nike Air"
-               "Main Feature" "comfort"
-               "Secondary feature" "support"
-               "Style" "with sleek update on a classic design"
-               "Lacing" "premium lacing"}]
+  (let [data (utils/read-stub-csv)
         db (get-db)
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)

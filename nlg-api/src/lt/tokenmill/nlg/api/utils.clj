@@ -76,7 +76,12 @@
           data (rest raw-csv)
           pairs (map #(zip header %) data)]
       (doall (map #(apply array-map %) pairs)))))
-      
+
+(defn read-stub-csv
+  []
+  (let [data (slurp (io/resource "data-example.csv"))]
+    (doall
+     (csv-to-map data))))
 
 (defn do-return
   [func & args]
