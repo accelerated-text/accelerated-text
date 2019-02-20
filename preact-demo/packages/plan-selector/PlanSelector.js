@@ -10,6 +10,7 @@ import ItemControls         from './ItemControls';
 import List                 from './List';
 import { QA }               from './qa.constants';
 import S                    from './PlanSelector.sass';
+import SelectContext        from './SelectContext';
 import Status               from './Status';
 
 
@@ -58,6 +59,7 @@ export default useStores([
         const noPlans =     !hasPlans;
         const isLoading =   noPlans && getListLoading;
         const isLoadError = noPlans && getListError;
+        const openedPlan  = plans && openedPlanUid && plans[openedPlanUid];
 
         return (
             <div className={ S.className }>{
@@ -91,9 +93,11 @@ export default useStores([
                         <ItemControls
                             onDelete={ E.documentPlans.onDelete }
                             onUpdate={ E.documentPlans.onUpdate }
-                            plan={ plans[openedPlanUid] }
+                            plan={ openedPlan }
                             status={ statuses[openedPlanUid] }
                         />,
+                        <span className={ S.contextLabel }>Context: </span>,
+                        <SelectContext plan={ openedPlan } />,
                     ]
             }</div>
         );
