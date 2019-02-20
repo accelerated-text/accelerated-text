@@ -1,5 +1,7 @@
 import { h }                from 'preact';
 
+import contexts             from '../contexts/store';
+import contextsAdapter      from '../contexts/adapter';
 import documentPlans        from '../document-plans/store';
 import documentPlansAdapter from '../document-plans/adapter';
 import planList             from '../plan-list/store';
@@ -15,11 +17,13 @@ import S                from './AugmentedWriter.sass';
 
 
 export default mount({
+    contexts,
     documentPlans,
     planEditor,
     planList,
     variantsApi,
 }, [
+    contextsAdapter,
     documentPlansAdapter,
     planListAdapter,
     variantsApiAdapter,
