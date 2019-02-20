@@ -70,7 +70,7 @@
         (log/debugf "Deleting\n key: '%s'" key)
         (far/delete-item config/client-opts table-name {:key key}))
       (list-items [this limit]
-        (far/scan config/client-opts table-name)))))
+        (far/scan config/client-opts table-name {:limit limit})))))
 
 (defn get-workspace
   [key]
