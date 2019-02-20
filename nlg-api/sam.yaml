@@ -239,6 +239,24 @@ Resources:
           Properties:
             Path: /data
             Method: post
+
+  listData:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.DataHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+        - AmazonDynamoDBReadOnlyAccess 
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /data
+            Method: get
             
   deleteData:
     Type: AWS::Serverless::Function
