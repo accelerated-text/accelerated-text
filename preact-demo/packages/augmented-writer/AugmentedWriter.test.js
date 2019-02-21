@@ -20,6 +20,9 @@ const TEST_PLAN = {
         }],
     },
 };
+const TEST_RESULT = {
+    resultId:       'test-result-id',
+};
 
 
 describe( 'augmented-writer/AugmentedWriter', () => {
@@ -39,7 +42,14 @@ describe( 'augmented-writer/AugmentedWriter', () => {
 
         await mockResponse( 'GET', '/document-plans/', [ TEST_PLAN ]);
 
-        await mockResponse( 'GET', `/document-plans/${ TEST_PLAN.id }/variants`, []);
+        await mockResponse( 'POST', '/nlg/', TEST_RESULT );
+
+        await mockResponse( 'GET', `/nlg/${ TEST_RESULT.resultId }`, {
+            key:        TEST_RESULT.resultId,
+            ready:      true,
+            results:    [],
+            updatedAt:  +new Date,
+        });
 
         await expect( page ).toMatchElement( `[data-id=${ TEST_PLAN.documentPlan.srcId }]` );
         await expect( page ).toMatchElement( `[data-id=${ TEST_PLAN.documentPlan.segments[0].srcId }]` );
