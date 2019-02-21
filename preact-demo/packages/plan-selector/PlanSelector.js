@@ -20,11 +20,18 @@ export default useStores([
 ])( class PlanSelector extends Component {
 
     onClickNew = evt => {
+        const {
+            E,
+            documentPlans:  { plans },
+            planList:       { openedPlanUid },
+        } = this.props;
+
+        const contextId =   plans && plans[openedPlanUid] && plans[openedPlanUid].contextId || null;
         const name = window.prompt(         // eslint-disable-line no-alert
             'Add a new Document Plan:',
             planTemplate.name,
         );
-        name && this.props.E.planList.onAddNew({ name });
+        name && E.planList.onAddNew({ contextId, name });
     }
 
     onClickSaveAs = evt => {
