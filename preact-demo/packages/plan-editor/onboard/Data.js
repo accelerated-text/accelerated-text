@@ -1,7 +1,7 @@
 import { h }            from 'preact';
 
+import ContextsSelect   from '../../contexts/Select';
 import OnboardBlocker   from '../../onboard-blocker/OnboardBlocker';
-import SelectContext    from '../../plan-selector/SelectContext';
 import { useStores }    from '../../vesa/';
 
 import UploadDataSample from '../UploadDataSample';
@@ -28,7 +28,7 @@ export default useStores([
         { !contextName &&
             <div className={ S.task }>
                 { 'Please ' }
-                <SelectContext />
+                <ContextsSelect />
             </div>
         }
         <OnboardBlocker showBlock={ !dataSample || !contextName }>

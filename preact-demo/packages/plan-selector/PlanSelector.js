@@ -11,7 +11,6 @@ import ItemControls         from './ItemControls';
 import List                 from './List';
 import { QA }               from './qa.constants';
 import S                    from './PlanSelector.sass';
-import SelectContext        from './SelectContext';
 import Status               from './Status';
 
 

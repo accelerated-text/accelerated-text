@@ -1,8 +1,7 @@
 import { h, Component } from 'preact';
 
+import ContextsSelect   from '../contexts/Select';
 import { useStores }    from '../vesa/';
-
-import SelectContext    from './SelectContext';
 
 
 export default useStores([
@@ -18,7 +17,7 @@ export default useStores([
     render({ className, plan }) {
         return (
             <span className={ className }>
-                ( <SelectContext onChange={ this.onChange } value={ plan.contextId } /> )
+                ( <ContextsSelect onChange={ this.onChange } value={ plan.contextId } /> )
             </span>
         );
     }
