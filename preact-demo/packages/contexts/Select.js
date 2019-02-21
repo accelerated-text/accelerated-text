@@ -29,7 +29,7 @@ export default useStores([
                 >
                     <option value="">select a context</option>
                     { contexts.map(({ id, name }) =>
-                        <option key={ id } name={ id }>{ name }</option>
+                        <option key={ id } value={ id }>{ name }</option>
                     )}
                 </select>
             );
