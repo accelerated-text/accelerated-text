@@ -1,6 +1,5 @@
 import { h }            from 'preact';
 
-import ContextsSelect   from '../../contexts/Select';
 import OnboardBlocker   from '../../onboard-blocker/OnboardBlocker';
 import { useStores }    from '../../vesa/';
 
@@ -13,7 +12,6 @@ export default useStores([
 ])(({
     children,
     planEditor: {
-        contextName,
         dataSample,
     },
 }) =>
@@ -25,13 +23,7 @@ export default useStores([
                 { ' a data sample CSV.' }
             </div>
         }
-        { !contextName &&
-            <div className={ S.task }>
-                { 'Please ' }
-                <ContextsSelect />
-            </div>
-        }
-        <OnboardBlocker showBlock={ !dataSample || !contextName }>
+        <OnboardBlocker showBlock={ !dataSample }>
             { children }
         </OnboardBlocker>
     </div>
