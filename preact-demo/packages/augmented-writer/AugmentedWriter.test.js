@@ -2,6 +2,11 @@ const debugConsole =        require( '../qa-utils/debug-console' );
 const nlgMocker =           require( '../nlg-api/response-mocker' );
 
 
+const DATA_FILE = {
+    key:            'test-data-item-key',
+    fieldNames:     [ 'First', 'Second', 'Third' ],
+};
+
 const TEST_PLAN = {
     id:             'test-id',
     createdAt:      +new Date,
@@ -39,6 +44,8 @@ describe( 'augmented-writer/AugmentedWriter', () => {
 
         await startMocker();
         page.goto( TEST_URL );
+
+        await mockResponse( 'GET', '/data/', [ DATA_FILE ]);
 
         await mockResponse( 'GET', '/document-plans/', [ TEST_PLAN ]);
 

@@ -18,6 +18,7 @@ describe( 'plan-selector/PlanSelector', () => {
         await startMocker();
         page.goto( TEST_URL );
 
+        await mockResponse( 'GET', '/data/', []);
         await mockResponse( 'GET', '/document-plans/', []);
         await expect( page ).toMatchElement( SELECTORS.BTN_NEW_PLAN );
 
