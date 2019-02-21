@@ -6,6 +6,7 @@ import planTemplate         from '../document-plans/plan-template';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
 import { useStores }        from '../vesa/';
 
+import Context              from './Context';
 import ItemControls         from './ItemControls';
 import List                 from './List';
 import { QA }               from './qa.constants';
@@ -90,14 +91,13 @@ export default useStores([
                             selectedUid={ openedPlanUid }
                             uids={ uids }
                         />,
+                        <Context plan={ openedPlan } />,
                         <ItemControls
                             onDelete={ E.documentPlans.onDelete }
                             onUpdate={ E.documentPlans.onUpdate }
                             plan={ openedPlan }
                             status={ statuses[openedPlanUid] }
                         />,
-                        <span className={ S.contextLabel }>Context: </span>,
-                        <SelectContext plan={ openedPlan } />,
                     ]
             }</div>
         );
