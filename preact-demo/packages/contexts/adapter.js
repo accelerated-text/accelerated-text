@@ -1,4 +1,9 @@
+import debugSan         from '../debug-san/';
+
 import { getList }      from './api';
+
+
+const debug =           debugSan( 'contexts/adapter' );
 
 
 export default {
@@ -18,7 +23,9 @@ export default {
         onGetListStart: ( _, { E }) =>
 
             getList()
+                .then( debug.tapThen( 'onGetListStart' ))
                 .then( E.contexts.onGetListResult )
+                .catch( debug.tapCatch( 'onGetListStart' ))
                 .catch( E.contexts.onGetListError ),
     },
 };
