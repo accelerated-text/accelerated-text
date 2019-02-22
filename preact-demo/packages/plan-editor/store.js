@@ -1,12 +1,13 @@
 export default {
 
     getInitialState: () => ({
-        dataSample:         'shoes.csv',
+        dataSampleId:       null,
     }),
 
     planEditor: {
-        onClickUpload: ({ dataSample }) => ({
-            dataSample,
+
+        onChangeDataSample: dataSampleId => ({
+            dataSampleId,
         }),
     },
 };
