@@ -89,22 +89,34 @@ export default Block({
             /// Always at least 2 inputs:
             this.appendNextInput();
         } else {
-
             const emptyInputs = valueInputs.filter( input => (
                 !input.connection || !input.connection.isConnected()
             ));
 
-            if( emptyInputs.length === 0 ) {
+            const isOneLastEmpty = (
+                emptyInputs.length === 1
+                && valueInputs[ valueInputs.length - 1 ] === emptyInputs[0]
+            );
+            const areTwoEmpty = (
+                emptyInputs.length === 2
+                && valueInputs.length === 2
+            );
+
+            if( !isOneLastEmpty && !areTwoEmpty ) {
+                /// Remove all empty inputs
+                emptyInputs.forEach( input => this.removeInput( input.name ));
+
+                /// Fix remaining inputs:
+                const remainingInputs = this.inputList.filter( input =>
+                    input.name && input.name.startsWith( PREFIX )
+                );
+                remainingInputs.forEach(( input, i ) => {
+                    input.name =    `${ PREFIX }${ i }`;
+                });
+                this.value_count =  remainingInputs.length;
+
                 /// Always show at least 1 empty input:
                 this.appendNextInput();
-            } else if( emptyInputs.length > 1 && valueInputs.length !== 2 ) {
-                /// Leave only 1 empty input at the end:
-                /// (unless exactly 2 inputs)
-                emptyInputs
-                    .slice( 0, 1 )
-                    .forEach(
-                        input => this.removeInput( input.name )
-                    );
             }
         }
     },
