@@ -6,6 +6,7 @@ import planTemplate         from '../document-plans/plan-template';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
 import { useStores }        from '../vesa/';
 
+import Context              from './Context';
 import ItemControls         from './ItemControls';
 import List                 from './List';
 import { QA }               from './qa.constants';
@@ -19,11 +20,18 @@ export default useStores([
 ])( class PlanSelector extends Component {
 
     onClickNew = evt => {
+        const {
+            E,
+            documentPlans:  { plans },
+            planList:       { openedPlanUid },
+        } = this.props;
+
+        const contextId =   plans && plans[openedPlanUid] && plans[openedPlanUid].contextId || null;
         const name = window.prompt(         // eslint-disable-line no-alert
             'Add a new Document Plan:',
             planTemplate.name,
         );
-        name && this.props.E.planList.onAddNew({ name });
+        name && E.planList.onAddNew({ contextId, name });
     }
 
     onClickSaveAs = evt => {
@@ -58,6 +66,7 @@ export default useStores([
         const noPlans =     !hasPlans;
         const isLoading =   noPlans && getListLoading;
         const isLoadError = noPlans && getListError;
+        const openedPlan  = plans && openedPlanUid && plans[openedPlanUid];
 
         return (
             <div className={ S.className }>{
@@ -88,10 +97,11 @@ export default useStores([
                             selectedUid={ openedPlanUid }
                             uids={ uids }
                         />,
+                        <Context plan={ openedPlan } />,
                         <ItemControls
                             onDelete={ E.documentPlans.onDelete }
                             onUpdate={ E.documentPlans.onUpdate }
-                            plan={ plans[openedPlanUid] }
+                            plan={ openedPlan }
                             status={ statuses[openedPlanUid] }
                         />,
                     ]
