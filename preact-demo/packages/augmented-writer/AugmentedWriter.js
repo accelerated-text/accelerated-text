@@ -10,7 +10,6 @@ import planList             from '../plan-list/store';
 import planListAdapter      from '../plan-list/adapter';
 import { mount }            from '../vesa/';
 import PlanEditor           from '../plan-editor/PlanEditor';
-import planEditor           from '../plan-editor/store';
 import VariantReview        from '../variant-review/VariantReview';
 import variantsApi          from '../variants-api/store';
 import variantsApiAdapter   from '../variants-api/adapter';
@@ -22,7 +21,6 @@ export default mount({
     contexts,
     dataSamples,
     documentPlans,
-    planEditor,
     planList,
     variantsApi,
 }, [
