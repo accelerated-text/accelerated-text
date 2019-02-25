@@ -1,6 +1,10 @@
 import { h, Component } from 'preact';
 
-import { Loading }      from '../ui-messages/';
+import {
+    Error,
+    Info,
+    Loading,
+}   from '../ui-messages/';
 import { useStores }    from '../vesa/';
 
 
@@ -21,6 +25,12 @@ export default useStores([
     }) {
         if( getListLoading ) {
             return <Loading message="Loading contexts" />;
+        } else if( !contexts ) {
+            if( getListError ) {
+                return <Error message="Error loading contexts" />;
+            } else {
+                return <Info message="No contexts yet." />;
+            }
         } else {
             return (
                 <select
