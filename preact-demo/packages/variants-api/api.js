@@ -13,7 +13,10 @@ const checkResult = async ( resultId, resolve, reject ) => {
         if( result.error ) {
             reject( result.message );
         } else if( result.ready ) {
-            resolve( result );
+            resolve({
+                ...result,
+                variants:   [].concat( result.variants ),
+            });
         } else {
             setTimeout( checkResult, POLL_INTERVAL, resultId, resolve, reject );
         }
@@ -23,10 +26,10 @@ const checkResult = async ( resultId, resolve, reject ) => {
 };
 
 
-export const getVariants = async documentPlanId => {
+export const getVariants = async ({ dataId, documentPlanId }) => {
 
     const { resultId } = await nlgApi.POST( `${ PREFIX }/`, {
-        dataId:     '-1',
+        dataId,
         documentPlanId,
     });
 

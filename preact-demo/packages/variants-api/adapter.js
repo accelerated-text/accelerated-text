@@ -60,7 +60,10 @@ export default {
                 return;
             }
 
-            getVariants( plan.id )
+            getVariants({
+                dataId:         plan.dataSampleId,
+                documentPlanId: plan.id,
+            })
                 .then( debug.tapThen( 'getVariants result' ))
                 .then( result => {
                     E.variantsApi.onGetResult( result );
