@@ -14,11 +14,12 @@ export default useStores([
             contextId,
         });
 
-    render({ className, plan }) {
+    render({ plan }) {
         return (
-            <span className={ className }>
-                ( <ContextsSelect onChange={ this.onChange } value={ plan.contextId } /> )
-            </span>
+            <ContextsSelect
+                onChange={ this.onChange }
+                value={ plan && plan.contextId }
+            />
         );
     }
 });

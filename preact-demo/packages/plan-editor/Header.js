@@ -1,14 +1,16 @@
 import classnames       from 'classnames';
 import { h }            from 'preact';
 
+import SelectContext    from '../document-plans/SelectContext';
+import SelectDataSample from '../document-plans/SelectDataSample';
 import PlanSelector     from '../plan-selector/PlanSelector';
 
 import S                from './Header.sass';
-import UploadDataSample from './UploadDataSample';
 
 
-export default ({ className }) =>
+export default ({ className, openedPlan }) =>
     <div className={ classnames( S.className, className ) }>
-        <PlanSelector />
-        <span>Data sample: <UploadDataSample /></span>
+        <PlanSelector openedPlan={ openedPlan } />
+        <span>Context: <SelectContext plan={ openedPlan } /></span>
+        <span>Data sample: <SelectDataSample plan={ openedPlan } /></span>
     </div>;

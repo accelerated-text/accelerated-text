@@ -54,7 +54,7 @@ export default useStores([
 
         return (
             <div className={ S.className }>
-                <Header className={ QA.HEADER } />
+                <Header className={ QA.HEADER } openedPlan={ openedPlan } />
                 <div className={ classnames( S.body, QA.BODY ) }>
                     { getListError &&
                         <Error className={ S.item } message="Error loading document plans." />

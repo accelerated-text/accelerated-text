@@ -9,16 +9,16 @@ export default useStores([
 ])( class UploadDataSample extends Component {
 
     onChange = dataSampleId =>
-        this.props.E.planEditor.onChangeDataSample
+        this.props.E.documentPlans.onUpdate({
+            ...this.props.plan,
+            dataSampleId,
+        });
 
-    render({
-        E,
-        planEditor: { dataSampleId },
-    }) {
+    render({ plan }) {
         return (
             <SelectDataSample
-                onChange={ E.planEditor.onChangeDataSample }
-                value={ dataSampleId }
+                onChange={ this.onChange }
+                value={ plan && plan.dataSampleId }
             />
         );
     }

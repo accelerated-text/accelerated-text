@@ -6,7 +6,6 @@ import planTemplate         from '../document-plans/plan-template';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
 import { useStores }        from '../vesa/';
 
-import Context              from './Context';
 import ItemControls         from './ItemControls';
 import List                 from './List';
 import { QA }               from './qa.constants';
@@ -22,31 +21,34 @@ export default useStores([
     onClickNew = evt => {
         const {
             E,
-            documentPlans:  { plans },
-            planList:       { openedPlanUid },
+            openedPlan,
         } = this.props;
 
-        const contextId =   plans && plans[openedPlanUid] && plans[openedPlanUid].contextId || null;
         const name = window.prompt(         // eslint-disable-line no-alert
             'Add a new Document Plan:',
             planTemplate.name,
         );
-        name && E.planList.onAddNew({ contextId, name });
+        name && E.planList.onAddNew({
+            contextId:      openedPlan.contextId || null,
+            dataSampleId:   openedPlan.dataSampleId || null,
+            name,
+        });
     }
 
     onClickSaveAs = evt => {
         const {
             E,
-            documentPlans:  { plans },
-            planList:       { openedPlanUid },
+            openedPlan,
         } = this.props;
 
-        const currentPlan = plans[openedPlanUid];
         const name = window.prompt(         // eslint-disable-line no-alert
             'Enter name for the new plan:',
-            currentPlan.name,
+            openedPlan.name,
         );
-        name && E.planList.onAddNew({ ...currentPlan, name });
+        name && E.planList.onAddNew({
+            ...openedPlan,
+            name,
+        });
     }
 
     render({
@@ -55,6 +57,7 @@ export default useStores([
             plans,
             statuses,
         },
+        openedPlan,
         planList: {
             getListError,
             getListLoading,
@@ -66,7 +69,6 @@ export default useStores([
         const noPlans =     !hasPlans;
         const isLoading =   noPlans && getListLoading;
         const isLoadError = noPlans && getListError;
-        const openedPlan  = plans && openedPlanUid && plans[openedPlanUid];
 
         return (
             <div className={ S.className }>{
@@ -80,7 +82,7 @@ export default useStores([
                         className={ QA.BTN_NEW_PLAN }
                         onClick={ this.onClickNew }
                     />
-                : !openedPlanUid
+                : !openedPlan
                     ? <UnexpectedWarning />
                     : [
                         <Status
@@ -97,7 +99,6 @@ export default useStores([
                             selectedUid={ openedPlanUid }
                             uids={ uids }
                         />,
-                        <Context plan={ openedPlan } />,
                         <ItemControls
                             onDelete={ E.documentPlans.onDelete }
                             onUpdate={ E.documentPlans.onUpdate }
