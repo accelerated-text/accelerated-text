@@ -13,10 +13,7 @@ const checkResult = async ( resultId, resolve, reject ) => {
         if( result.error ) {
             reject( result.message );
         } else if( result.ready ) {
-            resolve({
-                ...result,
-                variants:   [].concat( result.variants ),
-            });
+            resolve( result );
         } else {
             setTimeout( checkResult, POLL_INTERVAL, resultId, resolve, reject );
         }
