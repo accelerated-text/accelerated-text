@@ -6,6 +6,7 @@ import dataSamples          from '../data-samples/store';
 import dataSamplesAdapter   from '../data-samples/adapter';
 import documentPlans        from '../document-plans/store';
 import documentPlansAdapter from '../document-plans/adapter';
+import Header               from '../header/Header';
 import planList             from '../plan-list/store';
 import planListAdapter      from '../plan-list/adapter';
 import { mount }            from '../vesa/';
@@ -31,7 +32,8 @@ export default mount({
     variantsApiAdapter,
 ])(() =>
     <div className={ S.className }>
-        <PlanEditor />
-        <VariantReview />
+        <Header className={ S.header } />
+        <PlanEditor className={ S.main } />
+        <VariantReview className={ S.sidebar } />
     </div>
 );

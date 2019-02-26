@@ -4,6 +4,20 @@
 .className
 
     display:                grid
-    grid-gap:               $space-xxs
-    grid-template-columns:  4fr 3fr
+    grid-gap:               0
+    grid-template-areas:    'header header' 'main sidebar'
+    grid-template-columns:  auto 32rem
+    grid-template-rows:     ( 3 * $space-m ) auto
     height:                 100%
+
+    > .header
+
+        grid-area:          header
+
+    > .main
+
+        grid-area:          main
+
+    > .sidebar
+
+        grid-area:          sidebar

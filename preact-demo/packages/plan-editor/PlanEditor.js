@@ -2,14 +2,13 @@ import classnames       from 'classnames';
 import { h, Component } from 'preact';
 
 import Error            from '../ui-messages/Error';
+import getOpenedPlan    from '../plan-list/get-opened-plan';
 import Loading          from '../ui-messages/Loading';
 import OnboardCode      from '../onboard-code/OnboardCode';
 import planTemplate     from '../document-plans/plan-template';
 import { useStores }    from '../vesa/';
 import Workspace        from '../nlg-workspace/NlgWorkspace';
 
-import Header           from './Header';
-import { QA }           from './qa.constants';
 import S                from './PlanEditor.sass';
 
 
@@ -18,19 +17,12 @@ export default useStores([
     'planList',
 ])( class PlanEditor extends Component {
 
-    onChangeWorkspace = ({ documentPlan, workspaceXml }) => {
-        const {
-            E,
-            documentPlans:  { plans },
-            planList:       { openedPlanUid },
-        } = this.props;
-
-        E.documentPlans.onUpdate({
-            ...plans[openedPlanUid],
+    onChangeWorkspace = ({ documentPlan, workspaceXml }) =>
+        this.props.E.documentPlans.onUpdate({
+            ...getOpenedPlan( this.props ),
             documentPlan,
             blocklyXml:     workspaceXml,
         });
-    }
 
     onCreateXml = blocklyXml =>
         this.props.E.planList.onCreate({
@@ -39,10 +31,7 @@ export default useStores([
         })
 
     render({
-        E,
-        documentPlans: {
-            plans,
-        },
+        className,
         planList: {
             getListError,
             getListLoading,
@@ -50,32 +39,29 @@ export default useStores([
             uids,
         },
     }) {
-        const openedPlan =  openedPlanUid && plans[openedPlanUid];
+        const openedPlan =  getOpenedPlan( this.props );
 
         return (
-            <div className={ S.className }>
-                <Header className={ QA.HEADER } openedPlan={ openedPlan } />
-                <div className={ classnames( S.body, QA.BODY ) }>
-                    { getListError &&
-                        <Error className={ S.item } message="Error loading document plans." />
-                    }
-                    { getListLoading
-                        ? <Loading className={ S.item } message="Loading document plans." />
-                        : (
-                            <OnboardCode
-                                hasCode={ !!openedPlan }
-                                onCreateXml={ this.onCreateXml }
-                            />
-                        )
-                    }
-                    { openedPlan &&
-                        <Workspace
-                            key={ openedPlanUid }
-                            onChangeWorkspace={ this.onChangeWorkspace }
-                            workspaceXml={ openedPlan.blocklyXml }
+            <div className={ classnames( S.className, className ) }>
+                { getListError &&
+                    <Error className={ S.item } message="Error loading document plans." />
+                }
+                { getListLoading
+                    ? <Loading className={ S.item } message="Loading document plans." />
+                    : (
+                        <OnboardCode
+                            hasCode={ !!openedPlan }
+                            onCreateXml={ this.onCreateXml }
                         />
-                    }
-                </div>
+                    )
+                }
+                { openedPlan &&
+                    <Workspace
+                        key={ openedPlanUid }
+                        onChangeWorkspace={ this.onChangeWorkspace }
+                        workspaceXml={ openedPlan.blocklyXml }
+                    />
+                }
             </div>
         );
     }
