@@ -2,20 +2,36 @@
 
 .className
 
-    align-content:      flex-start
-    align-items:        flex-start
-    background-color:   shade-1-8( $blockly-green )
-    color:              $white
-    display:            flex
-    flex-direction:     row
-    flex-wrap:          nowrap
-    justify-content:    flex-start
-    line-height:        $space-m
-    padding:            $space-s
+    background-color:       shade-1-8( $blockly-green )
+    color:                  $white
+    display:                grid
+    grid-gap:               $space-m
+    grid-template-areas:    'left center right'
+    grid-template-columns:  10rem auto 10rem
+    grid-template-rows:     auto
+    line-height:            $space-m
+    padding:                $space-s
 
     > *
-        margin-right:   $space-m
 
-    > .logo
+        align-self:         center
 
-        height:         100%
+    > .left
+
+        grid-area:          left
+        justify-self:       start
+
+        > .logo
+
+            max-height:     $space-l
+            width:          100%;
+
+    > .center
+
+        grid-area:          center
+        justify-self:       center
+
+    > .right
+
+        grid-area:          right
+        justify-self:       end

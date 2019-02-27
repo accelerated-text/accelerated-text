@@ -5,8 +5,8 @@
 
     display:                grid
     grid-gap:               0
-    grid-template-areas:    'header header' 'main sidebar'
-    grid-template-columns:  auto 32rem
+    grid-template-areas:    'header header' 'main right-sidebar'
+    grid-template-columns:  auto 40rem
     grid-template-rows:     ( 3 * $space-m ) auto
     height:                 100%
 
@@ -18,6 +18,8 @@
 
         grid-area:          main
 
-    > .sidebar
+    > .rightSidebar
 
-        grid-area:          sidebar
+        grid-area:          right-sidebar
+        height:             100%
+        overflow-y:         auto

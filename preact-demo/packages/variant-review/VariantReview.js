@@ -21,25 +21,20 @@ export default useStores([
     },
 }) =>
     <div className={ S.className }>
-        <div className={ S.header }>
-            [P]review
-        </div>
-        <div className={ S.body }>
-            { error &&
-                <Error className={ S.itemError } message={ error } />
-            }
-            { loading &&
-                <Loading className={ S.item } message="Loading variants..." />
-            }
-            { result && (
-                !( result.variants && result.variants.length )
-                    ? <Info className={ S.item } message="No variants" />
-                    : result.variants.map( element =>
-                        <div className={ S.item }>
-                            <AtjReview key={ element.id } element={ element } />
-                        </div>
-                    )
-            )}
-        </div>
+        { error &&
+            <Error className={ S.itemError } message={ error } />
+        }
+        { loading &&
+            <Loading className={ S.item } message="Loading variants..." />
+        }
+        { result && (
+            !( result.variants && result.variants.length )
+                ? <Info className={ S.item } message="No variants" />
+                : result.variants.map( element =>
+                    <div className={ S.item }>
+                        <AtjReview key={ element.id } element={ element } />
+                    </div>
+                )
+        )}
     </div>
 );
