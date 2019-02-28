@@ -1,0 +1,20 @@
+@import                 '../styles/variables'
+
+
+.className
+
+    display:                grid
+    grid-gap:               $space-xs
+    grid-template-columns:  12rem auto
+    grid-template-rows:     auto
+    margin:                 $space-s 0
+
+    > *
+
+        box-shadow:         0 1px 0 $subtle-border
+        margin:             0
+        padding:            $space-s
+
+        &.wordListHeader
+
+            font-weight:    bold

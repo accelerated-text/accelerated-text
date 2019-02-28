@@ -1,6 +1,7 @@
 import { h }                from 'preact';
 
 import getOpenedPlan        from '../plan-list/get-opened-plan';
+import Lexicon              from '../lexicon/Lexicon';
 import SelectContext        from '../document-plans/SelectContext';
 import SelectDataSample     from '../document-plans/SelectDataSample';
 import SidebarItem          from '../sidebar/Item';
@@ -27,7 +28,7 @@ export default useStores([
                 Topic: <SelectContext plan={ openedPlan } />
             </SidebarItem>
             <SidebarItem isExpanded title="Word lists">
-                Lexicon here.
+                <Lexicon />
             </SidebarItem>
         </div>
     );
