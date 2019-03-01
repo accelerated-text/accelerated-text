@@ -1,5 +1,5 @@
 const debugConsole =        require( '../qa-utils/debug-console' );
-const nlgMocker =           require( '../nlg-api/response-mocker' );
+const nlgProvide =          require( '../nlg-api/provide-response' );
 const requestInterceptor =  require( '../qa-utils/request-interceptor' );
 
 const { SELECTORS } =       require( './qa.constants' );
@@ -10,22 +10,12 @@ describe( 'plan-selector/PlanSelector', () => {
 
         debugConsole( page );
 
-        /*
-        const {
-            startMocker,
-            stopMocker,
-            mockResponse,
-        } = nlgMocker( page );
-
-        await startMocker();
-        */
         const {
             continueAll,
             provideOnce,
             stopInterception,
         } = await requestInterceptor( page );
-
-        const nlgProvideOnce =  nlgMocker( provideOnce );
+        const nlgProvideOnce =  nlgProvide( provideOnce );
 
         continueAll( 'GET', new RegExp( `${ TEST_URL }/.*` ));
 
@@ -36,13 +26,8 @@ describe( 'plan-selector/PlanSelector', () => {
             nlgProvideOnce( 'GET', '/document-plans/', []),
         ]);
 
-        /*
-        await mockResponse( 'GET', '/data/', []);
-        await mockResponse( 'GET', '/document-plans/', []);
-        */
         await expect( page ).toMatchElement( SELECTORS.BTN_NEW_PLAN );
 
-        ///await stopMocker();
         await stopInterception( page );
     }, 10e3 );
 });

@@ -1,5 +1,5 @@
 const debugConsole =        require( '../qa-utils/debug-console' );
-const nlgMocker =           require( '../nlg-api/response-mocker' );
+const nlgProvide =          require( '../nlg-api/provide-response' );
 const requestInterceptor =  require( '../qa-utils/request-interceptor' );
 
 
@@ -44,8 +44,7 @@ describe( 'augmented-writer/AugmentedWriter', () => {
             provideOnce,
             stopInterception,
         } = await requestInterceptor( page );
-
-        const nlgProvideOnce =  nlgMocker( provideOnce );
+        const nlgProvideOnce =  nlgProvide( provideOnce );
 
         continueAll( 'GET', new RegExp( `${ TEST_URL }/.*` ));
 
