@@ -1,6 +1,6 @@
 const debugConsole =        require( '../qa-utils/debug-console' );
 const nlgMocker =           require( '../nlg-api/response-mocker' );
-const requestInterceptor =  require( '../qa-utils/interceptor' );
+const requestInterceptor =  require( '../qa-utils/request-interceptor' );
 
 
 const DATA_FILE = {
