@@ -51,13 +51,13 @@ module.exports = async page => {
 
         const method =  request.method();
         const url =     request.url();
-        console.log( 'onRequest', method, url );
+        /// console.log( 'onRequest', method, url );
 
         const handler = handlers.findMatch( method, url );
         if( !handler ) {
             throw Error( `Got unexpected request for ${ method } ${ url }.` );
         }
-        console.log( `Handler: ${ handler.type } ${ handler.occurance }.` );
+        /// console.log( `Handler: ${ handler.type } ${ handler.occurance }.` );
 
         switch( handler.type ) {
 
