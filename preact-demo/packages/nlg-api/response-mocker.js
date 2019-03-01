@@ -1,4 +1,4 @@
-const responseMocker =      require( '../qa-utils/response-mocker' );
+/// const responseMocker =      require( '../qa-utils/response-mocker' );
 
 
 const CORS_HEADERS = {
@@ -6,7 +6,16 @@ const CORS_HEADERS = {
     'access-control-allow-origin':  '*',
 };
 
+module.exports = fn => ( method, url, body, status, headers ) =>
+    fn(
+        method,
+        `${ process.env.NLG_API_URL }${ url }`,
+        body,
+        status,
+        { ...CORS_HEADERS, ...headers }
+    );
 
+/*
 module.exports = page => {
 
     const mocker = responseMocker( page, process.env.NLG_API_URL );
@@ -23,3 +32,4 @@ module.exports = page => {
         mockResponse,
     };
 };
+*/
