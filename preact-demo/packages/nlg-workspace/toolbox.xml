@@ -38,6 +38,7 @@
         <block type="Cell" />
         <block type="Quote" />
         <block type="Get-var" />
+        <block type="Lexicon" />
     </category>
     <category name="Logic">
         <block type="If-then-else" />

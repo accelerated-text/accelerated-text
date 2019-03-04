@@ -7,5 +7,6 @@ export const LIME =     103;
 export const GREEN =    164;
 export const CYAN =     190;
 export const BLUE =     202;
+export const BLUER =    214;
 export const MAGENTA =  340;
 export const HUE_STEP = 12;
