@@ -4,6 +4,22 @@
 .className
 
     display:                grid
-    grid-gap:               $space-xxs
-    grid-template-columns:  4fr 3fr
+    grid-gap:               0
+    grid-template-areas:    'header header' 'main right-sidebar'
+    grid-template-columns:  auto 40rem
+    grid-template-rows:     ( 3 * $space-m ) auto
     height:                 100%
+
+    > .header
+
+        grid-area:          header
+
+    > .main
+
+        grid-area:          main
+
+    > .rightSidebar
+
+        grid-area:          right-sidebar
+        height:             100%
+        overflow-y:         auto

@@ -12,7 +12,9 @@ export default mount({
     atjReview,
 })(({ element }) =>
     <div className={ S.className }>
-        <AnnotatedText element={ element } />
+        <div className={ S.text }>
+            <AnnotatedText element={ element } />
+        </div>
         <Sidebar />
     </div>
 );

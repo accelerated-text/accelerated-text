@@ -7,7 +7,6 @@
 
 $black:             #000
 $white:             #fff
-$gray:              mix( $black, $white )
 
 $red:               map-get( $bw-color-blind-palette, 'vermillion' )
 $orange:            map-get( $bw-color-blind-palette, 'orange' )
@@ -45,5 +44,9 @@ $blockly-magenta:   hsl( $magenta-hue, $blockly-saturation, $blockly-lightness )
 
 /// Additional colors ----------------------------------------------------------
 
-$subtle-gray:       tint-16( $gray )
-$text-color:        shade-16( $blue )
+$primary-color:     $blockly-green
+$text-color:        shade-16( $primary-color )
+
+$gray:              mix-ratio( mix( $black, $white ), $yellow, 32 );
+$subtle-gray:       tint-8( $gray )
+$subtle-border:     shade-1-8( $subtle-gray )
