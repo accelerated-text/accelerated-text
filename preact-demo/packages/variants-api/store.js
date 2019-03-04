@@ -20,6 +20,10 @@ export default {
             pending:    false,
         }),
 
+        onGetAbort: () => ({
+            loading:    false,
+        }),
+
         onGetError: error => ({
             error,
             loading:    false,
