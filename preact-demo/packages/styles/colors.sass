@@ -44,8 +44,9 @@ $blockly-magenta:   hsl( $magenta-hue, $blockly-saturation, $blockly-lightness )
 
 /// Additional colors ----------------------------------------------------------
 
-$gray:              mix-ratio( mix( $black, $white ), $yellow, 32 );
 $primary-color:     $blockly-green
+$text-color:        shade-16( $primary-color )
+
+$gray:              mix-ratio( mix( $black, $white ), $yellow, 32 );
 $subtle-gray:       tint-8( $gray )
 $subtle-border:     shade-1-8( $subtle-gray )
-$text-color:        shade-16( $primary-color )
