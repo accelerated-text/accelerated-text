@@ -5,6 +5,7 @@ const blocks = [
     require( './Document-plan' ),
     require( './Get-var' ),
     require( './If-then-else' ),
+    require( './Lexicon' ),
     require( './Not' ),
     require( './One-of-synonyms' ),
     require( './Product' ),
