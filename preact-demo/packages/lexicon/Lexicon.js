@@ -18,7 +18,7 @@ export default () =>
             />
         </div>
         <div className={ S.list }>
-            <WordLists lists={ EXAMPLE_DATA.results } />
+            <WordLists lists={ EXAMPLE_DATA.items } />
         </div>
         <button className={ S.more }>
             More results

@@ -1,7 +1,7 @@
 {
     "offset":       0,
     "totalCount":   9001,
-    "results": [{
+    "items": [{
         "id":       "good",
         "words":    [ "bestest", "tremendous" ]
     }, {
