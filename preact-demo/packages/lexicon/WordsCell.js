@@ -31,7 +31,7 @@ export default class WordsCell extends Component {
             isEdited:   false,
         });
     };
-    
+
     render({ words }) {
         const {
             isEdited,
