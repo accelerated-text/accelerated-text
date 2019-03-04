@@ -6,8 +6,8 @@ import WordsCell        from './WordsCell';
 
 export default ({ lists }) =>
     <dl className={ S.className } >
-        <dt className={ S.wordListHeader }>ID</dt>
-        <dd className={ S.wordListHeader }>words</dd>
+        <div className={ S.header }>ID</div>
+        <div className={ S.header }>words</div>
         { lists.map(({ id, words }) => [
             <dt key={ id }>{ id }</dt>,
             <WordsCell key={ id } words={ words } />,
