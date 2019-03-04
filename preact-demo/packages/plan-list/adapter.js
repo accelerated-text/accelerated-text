@@ -24,11 +24,14 @@ export default {
 
     planList: {
 
-        onAddNew: ( _, { E, getStoreState }) =>
+        onAddNew: ( _, { E, getStoreState }) => {
 
-            E.documentPlans.onCreate.async(
-                getStoreState( 'planList' ).addedPlan,
-            ),
+            const { addedPlan } =   getStoreState( 'planList' );
+
+            if( addedPlan ) {
+                E.documentPlans.onCreate.async( addedPlan );
+            }
+        },
 
         onGetList: ( _, { E, getStoreState }) =>
 

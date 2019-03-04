@@ -9,7 +9,6 @@ import { useStores }    from '../vesa/';
 import Workspace        from '../nlg-workspace/NlgWorkspace';
 
 import Header           from './Header';
-import OnboardData      from './onboard/Data';
 import { QA }           from './qa.constants';
 import S                from './PlanEditor.sass';
 
@@ -55,7 +54,7 @@ export default useStores([
 
         return (
             <div className={ S.className }>
-                <Header className={ QA.HEADER } />
+                <Header className={ QA.HEADER } openedPlan={ openedPlan } />
                 <div className={ classnames( S.body, QA.BODY ) }>
                     { getListError &&
                         <Error className={ S.item } message="Error loading document plans." />
@@ -63,12 +62,10 @@ export default useStores([
                     { getListLoading
                         ? <Loading className={ S.item } message="Loading document plans." />
                         : (
-                            <OnboardData>
-                                <OnboardCode
-                                    hasCode={ !!openedPlan }
-                                    onCreateXml={ this.onCreateXml }
-                                />
-                            </OnboardData>
+                            <OnboardCode
+                                hasCode={ !!openedPlan }
+                                onCreateXml={ this.onCreateXml }
+                            />
                         )
                     }
                     { openedPlan &&

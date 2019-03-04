@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 
 import {
-    Error,
     Info,
     Loading,
 }   from '../ui-messages/';
@@ -9,37 +8,33 @@ import { useStores }    from '../vesa/';
 
 
 export default useStores([
-    'contexts',
-])( class SelectContext extends Component {
+    'dataSamples',
+])( class SelectDataSample extends Component {
 
     onChange = e =>
         this.props.onChange( e.target.value );
 
     render({
-        contexts: {
-            contexts,
+        dataSamples: {
+            files,
             getListError,
             getListLoading,
         },
         value,
     }) {
         if( getListLoading ) {
-            return <Loading message="Loading contexts" />;
-        } else if( !contexts ) {
-            if( getListError ) {
-                return <Error message="Error loading contexts" />;
-            } else {
-                return <Info message="No contexts yet." />;
-            }
+            return <Loading message="Loading files" />;
+        } else if( !files || !files.length ) {
+            return <Info message="No files" />;
         } else {
             return (
                 <select
                     onChange={ this.onChange }
                     value={ value }
                 >
-                    <option value="">select a context</option>
-                    { contexts.map(({ id, name }) =>
-                        <option key={ id } value={ id }>{ name }</option>
+                    <option value="">select a file</option>
+                    { files.map(({ id, fileName }) =>
+                        <option key={ id } value={ id }>{ fileName }</option>
                     )}
                 </select>
             );

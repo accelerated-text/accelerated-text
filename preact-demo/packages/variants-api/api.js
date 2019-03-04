@@ -23,10 +23,10 @@ const checkResult = async ( resultId, resolve, reject ) => {
 };
 
 
-export const getVariants = async documentPlanId => {
+export const getVariants = async ({ dataId, documentPlanId }) => {
 
     const { resultId } = await nlgApi.POST( `${ PREFIX }/`, {
-        dataId:     '-1',
+        dataId,
         documentPlanId,
     });
 
