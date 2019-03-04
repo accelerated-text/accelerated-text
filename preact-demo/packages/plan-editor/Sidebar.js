@@ -4,6 +4,7 @@ import getOpenedPlan        from '../plan-list/get-opened-plan';
 import Lexicon              from '../lexicon/Lexicon';
 import SelectContext        from '../document-plans/SelectContext';
 import SelectDataSample     from '../document-plans/SelectDataSample';
+import Sidebar              from '../sidebar/Sidebar';
 import SidebarItem          from '../sidebar/Item';
 import VariantReview        from '../variant-review/VariantReview';
 import { useStores }        from '../vesa/';
@@ -12,12 +13,12 @@ import { useStores }        from '../vesa/';
 export default useStores([
     'documentPlans',
     'planList',
-])( props => {
+])(({ className, ...props }) => {
 
     const openedPlan =      getOpenedPlan( props );
 
     return (
-        <div>
+        <Sidebar className={ className }>
             <SidebarItem isExpanded title="Preview">
                 <VariantReview />
             </SidebarItem>
@@ -30,6 +31,6 @@ export default useStores([
             <SidebarItem isExpanded title="Word lists">
                 <Lexicon />
             </SidebarItem>
-        </div>
+        </Sidebar>
     );
 });

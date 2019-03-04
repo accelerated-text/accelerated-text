@@ -12,7 +12,6 @@ import planList             from '../plan-list/store';
 import planListAdapter      from '../plan-list/adapter';
 import { mount }            from '../vesa/';
 import PlanEditor           from '../plan-editor/PlanEditor';
-import Sidebar              from '../sidebar/Sidebar';
 import variantsApi          from '../variants-api/store';
 import variantsApiAdapter   from '../variants-api/adapter';
 
@@ -35,8 +34,6 @@ export default mount({
     <div className={ S.className }>
         <Header className={ S.header } />
         <PlanEditor className={ S.main } />
-        <Sidebar className={ S.rightSidebar }>
-            <EditorSidebar />
-        </Sidebar>
+        <EditorSidebar className={ S.rightSidebar } />
     </div>
 );
