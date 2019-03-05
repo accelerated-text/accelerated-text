@@ -73,7 +73,7 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
-        - AmazonDynamoDBReadOnlyAccess 
+        - AmazonDynamoDBReadOnlyAccess
       Events:
         GetResource:
           Type: Api
@@ -108,7 +108,7 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
-        - AmazonDynamoDBReadOnlyAccess 
+        - AmazonDynamoDBReadOnlyAccess
       Events:
         GetResource:
           Type: Api
@@ -143,7 +143,7 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
-        - AmazonDynamoDBReadOnlyAccess 
+        - AmazonDynamoDBReadOnlyAccess
       Events:
         GetResource:
           Type: Api
@@ -250,14 +250,14 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
-        - AmazonDynamoDBReadOnlyAccess 
+        - AmazonDynamoDBReadOnlyAccess
       Events:
         GetResource:
           Type: Api
           Properties:
             Path: /data
             Method: get
-            
+
   deleteData:
     Type: AWS::Serverless::Function
     Properties:
@@ -286,7 +286,7 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
-        - AmazonDynamoDBReadOnlyAccess 
+        - AmazonDynamoDBReadOnlyAccess
       Events:
         GetResource:
           Type: Api
@@ -304,6 +304,7 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
+        - AmazonDynamoDBReadOnlyAccess
       Events:
         GetResource:
           Type: Api
@@ -338,6 +339,7 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
+        - AmazonDynamoDBFullAccess
       Events:
         GetResource:
           Type: Api
@@ -372,6 +374,7 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
+        - AmazonDynamoDBFullAccess
       Events:
         GetResource:
           Type: Api
@@ -480,7 +483,7 @@ Outputs:
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/data/{id}'
     Export:
       Name: getData
-      
+
   deleteDataAPI:
     Description: delete data
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/data/{id}'
