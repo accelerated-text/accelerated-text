@@ -10,7 +10,8 @@
   (case type
     :results config/results-table
     :data config/data-table
-    :blockly config/blockly-table))
+    :blockly config/blockly-table
+    :lexicon config/lexicon-table))
 
 (defprotocol DBAccess
   (read-item [this key])
