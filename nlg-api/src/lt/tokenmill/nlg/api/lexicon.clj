@@ -8,15 +8,24 @@
 
 (defn get-db [] (ops/db-access :lexicon))
 
-(defn create [])
-
-(defn update [])
-
-(defn search [query path]
-  (let [db (get-db)
-        result (ops/read! db "test")]
+(defn create [request-body]
+  (let [db (get-db)]
     {:status 200
-     :body   result}))
+     :body   {:request-body request-body}}))
+
+(defn update [path-params request-body]
+  (let [db (get-db)]
+    {:status 200
+     :body   {:path-params  path-params
+              :request-body request-body}}))
+
+(defn search [query-params path-params]
+  (let [db (get-db)
+        result (ops/read! db (get path-params :query))]
+    {:status 200
+     :body   {:query-params query-params
+              :path-params  path-params
+              :result       result}}))
 
 (def -handleRequest
   (resource/build-resource {:put-handler  update
