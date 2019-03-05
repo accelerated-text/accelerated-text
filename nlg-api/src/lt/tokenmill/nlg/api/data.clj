@@ -18,17 +18,36 @@
 
 (defn add-data [request-body]
   (let [db (get-db)
-        parsed-body (doall (utils/csv-to-map request-body))]
-    (utils/do-insert (partial ops/write! db) parsed-body)))
+        parsed-body (doall
+                     (utils/csv-to-map request-body))]
+    (log/debugf "Parsed body: %s" parsed-body)
+    (utils/do-insert (partial ops/write! db) {:data parsed-body})))
 
 (defn delete-data [path-params]
   (let [request-id (path-params :id)
         db (get-db)]
     (utils/do-delete (partial ops/read! db) (partial ops/delete! db) request-id)))
 
+(defn data->listing
+  [data]
+  (let [first-row (first (data :data))
+        header (keys first-row)]
+    {:key (data :key)
+     :header header}))
+
+(defn list-data
+  [query-params]
+  (let [limit (get query-params :limit 20)
+        db (get-db)
+        data (ops/list! db limit)]
+    {:body (map data->listing data)
+     :status 200}))
+
 
 (def -handleRequest
-  (resource/build-resource {:get-handler read-data
+  (resource/build-resource {:get-handler (fn [query-params path-params] (if (empty? path-params)
+                                                                          (list-data query-params)
+                                                                          (read-data path-params)))
                             :delete-handler delete-data
                             :post-handler add-data}
                            false))

@@ -1,6 +1,6 @@
 S3_BUCKET_NAME=nlg-api
 STACK_NAME=nlg-api
-REMOTE_API_URL=https://zihxo6d93h.execute-api.eu-central-1.amazonaws.com/Prod
+REMOTE_API_URL=https://5cf9n85hrg.execute-api.eu-central-1.amazonaws.com/Prod
 USER_BASE=$(shell python -m site --user-base)
 
 

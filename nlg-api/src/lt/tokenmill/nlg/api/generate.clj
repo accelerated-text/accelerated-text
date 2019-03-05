@@ -61,7 +61,7 @@
               :totalCount 123
               :ready (gen-result :ready)
               :updatedAt (gen-result :updatedAt)
-              :variants (wrap-to-annotated-text (gen-result :results))}]
+              :variants (list (wrap-to-annotated-text (gen-result :results)))}]
     (utils/do-return (fn [] body))))
 
 (defn delete-result [path-params]
