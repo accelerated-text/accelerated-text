@@ -33,7 +33,7 @@
   (let [first-row (first (data :data))
         header (keys first-row)]
     {:key (data :key)
-     :header header}))
+     :fieldNames header}))
 
 (defn list-data
   [query-params]
