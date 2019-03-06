@@ -1,32 +1,21 @@
 import CleanWebpackPlugin   from 'clean-webpack-plugin';
 import DotenvPlugin         from 'webpack-dotenv-extended-plugin';
 import HtmlWebpackPlugin    from 'html-webpack-plugin';
-import path                 from 'path';
-import webpack              from 'webpack';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-import analysisProxy        from '../analysis-api/http-proxy-middleware-config';
-
-
-const ASSETS =              path.resolve( __dirname, '../../assets' );
-const DIST =                path.resolve( __dirname, 'dist' );
-const ROOT =                path.resolve( __dirname, '../..' );
+import {
+    DIST,
+    ROOT,
+}   from './constants';
 
 
-export default {
-    devtool:            'inline-source-map',
-    devServer: {
-        contentBase:    [
-            DIST,
-            ASSETS,
-        ],
-        hot:            true,
-        open:           false,
-        proxy: {
-            ...analysisProxy,
-        },
-    },
+export default ({
+    mode =              'development',
+    appendPlugins =     [],
+    ...overrides
+}) => ({
     entry:              './packages/app/start-in-browser.js',
-    mode:               'development',
+    mode,
     module: {
         rules: [{
             test:       /\.jsx?$/,
@@ -35,7 +24,10 @@ export default {
         }, {
             test:       /\.s(a|c)ss$/,
             use: [
-                'style-loader', // creates style nodes from JS strings
+                ( mode === 'production'
+                    ? MiniCssExtractPlugin.loader
+                    : 'style-loader' // creates style nodes from JS strings
+                ),
                 'css-loader?modules=true',   // translates CSS into CommonJS
                 'sass-loader',  // compiles Sass to CSS
             ],
@@ -49,14 +41,19 @@ export default {
             defaults:   process.env.dotenv_config_defaults || `${ ROOT }/.env.defaults`,
             path:       process.env.dotenv_config_path || `${ ROOT }/.env`,
         }),
-        new CleanWebpackPlugin([ DIST ]),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title:      'Augmented Writer',
         }),
-        new webpack.HotModuleReplacementPlugin(),
+        ...( mode === 'production'
+            ? [ new MiniCssExtractPlugin() ]
+            : []
+        ),
+        ...appendPlugins,
     ],
     output: {
         filename:       '[name].bundle.js',
         path:           DIST,
     },
-};
+    ...overrides,
+});
