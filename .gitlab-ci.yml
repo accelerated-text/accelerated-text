@@ -1,8 +1,14 @@
+stages:
+    - test
+    - build
+    - deploy
+
 image: registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest
 
 test:preact_demo:
     script:
         - make test
+    stage:  test
 
 lexical-analysis:code-linter:
   image: registry.gitlab.com/tokenmill/nlg/augmented-writter/pytest:latest
@@ -12,3 +18,11 @@ lexical-analysis:code-linter:
     - flake8 lexical-analyser/api
     - flake8 lexical-analyser/core
 
+
+buid-app:
+    stage:  build
+    when:   on_success
+    # only:
+    #    - master
+    script:
+        - make build-app
