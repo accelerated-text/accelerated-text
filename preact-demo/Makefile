@@ -1,3 +1,4 @@
+BUILD_DIR=dist
 S3_BUCKET=augmented-writer-app
 S3_BUCKET_URL=s3://${S3_BUCKET}
 
@@ -11,7 +12,7 @@ run: setup
 
 .PHONY: deploy
 deploy: build
-	aws s3 sync dist/ "${S3_BUCKET_URL}" \
+	aws s3 sync "${BUILD_DIR}/" "${S3_BUCKET_URL}" \
 		--acl public-read \
 		--delete
 
@@ -24,11 +25,11 @@ fix-s3-permissions:
 .PHONY:	build
 build: setup
 	npm run build
-	rsync -aL assets/ dist/
+	rsync -aL assets/ "${BUILD_DIR}/"
 
 .PHONY: clean
 clean:
-	rm -rf node_modules package-lock.json
+	rm -rf node_modules package-lock.json "${BUILD_DIR}"
 
 .PHONY: setup
 setup: node_modules
