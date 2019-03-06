@@ -3,24 +3,31 @@ import { props }        from 'ramda';
 
 import Error            from '../ui-messages/Error';
 import Loading          from '../ui-messages/Loading';
+import { useStores }    from '../vesa/';
 
 
-export default ({
+export default useStores([
+    'documentPlans',
+    'planList',
+    'variantsApi',
+])(({
     className,
-    listStatus,
-    planStatuses,
-    uids,
+    documentPlans,
+    planList,
+    variantsApi,
 }) => {
-    const statuses =    props( uids, planStatuses );
+    const planStatuses =    props( planList.uids, documentPlans.statuses );
 
     const isError = (
-        listStatus.addCheckError
-        || listStatus.getListError
+        variantsApi.error
+        || planList.addCheckError
+        || planList.getListError
     );
 
     const isLoading = (
-        listStatus.getListLoading
-        || statuses.find( status => (
+        variantsApi.loading
+        || planList.getListLoading
+        || planStatuses.find( status => (
             status.createLoading
             || status.readLoading
             || status.updateLoading
@@ -31,10 +38,10 @@ export default ({
     return (
         <div className={ className }>{
             isError
-                ? <Error justIcon message="There are some errors." />
+                ? <Error message="There are some errors." />
             : isLoading
-                ? <Loading justIcon message="Syncing with server." />
+                ? <Loading message="Syncing..." />
                 : <span>✅</span>
         }</div>
     );
-};
+});
