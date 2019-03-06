@@ -19,10 +19,10 @@ lexical-analysis:code-linter:
     - flake8 lexical-analyser/core
 
 
-buid-app:
-    stage:  build
+deploy-app:
+    stage:  deploy
     when:   on_success
     # only:
     #    - master
     script:
-        - make build-app
+        - make deploy-app
