@@ -12,9 +12,8 @@ import {
 export default ({
     mode =              'development',
     appendPlugins =     [],
-    ...override
+    ...overrides
 }) => ({
-    devtool:            'inline-source-map',
     entry:              './packages/app/start-in-browser.js',
     mode,
     module: {
@@ -46,11 +45,15 @@ export default ({
         new HtmlWebpackPlugin({
             title:      'Augmented Writer',
         }),
+        ...( mode === 'production'
+            ? [ new MiniCssExtractPlugin() ]
+            : []
+        ),
         ...appendPlugins,
     ],
     output: {
         filename:       '[name].bundle.js',
         path:           DIST,
     },
-    ...override,
+    ...overrides,
 });
