@@ -205,6 +205,23 @@ Resources:
             Path: /document-plans/{id}
             Method: delete
 
+  dataCors:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /data
+            Method: options
+
   addData:
     Type: AWS::Serverless::Function
     Properties:
@@ -222,6 +239,25 @@ Resources:
           Properties:
             Path: /data
             Method: post
+
+  listData:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.DataHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+        - AmazonDynamoDBReadOnlyAccess 
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /data
+            Method: get
+            
   deleteData:
     Type: AWS::Serverless::Function
     Properties:
@@ -239,6 +275,26 @@ Resources:
           Properties:
             Path: /data/{id}
             Method: delete
+
+  getData:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.DataHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+        - AmazonDynamoDBReadOnlyAccess 
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /data/{id}
+            Method: get
+
+          
 Outputs:
   GetDocumentsPlansAPI:
     Description: URL for document plans
@@ -313,13 +369,19 @@ Outputs:
       Name: dpCors
 
   addDataAPI:
-    Description: setup CORS
+    Description: add data
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/data'
     Export:
       Name: addData
+
+  getDataAPI:
+    Description: get data
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/data/{id}'
+    Export:
+      Name: getData
       
   deleteDataAPI:
-    Description: setup CORS
+    Description: delete data
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/data/{id}'
     Export:
       Name: deleteData

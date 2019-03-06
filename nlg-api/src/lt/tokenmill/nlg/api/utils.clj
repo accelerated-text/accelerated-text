@@ -71,10 +71,11 @@
   [f]
   (let [raw-csv (csv/read-csv f)]
     (log/debug "Raw CSV: " raw-csv)
-    (let [header (->> (first raw-csv)
-                      (map keyword))
+    (let [header (vec  (->> (first raw-csv)
+                            (map keyword)))
           data (rest raw-csv)
           pairs (map #(zip header %) data)]
+      (log/debugf "Header: %s" header)
       (doall (map #(apply array-map %) pairs)))))
 
 (defn read-stub-csv
@@ -102,7 +103,7 @@
 
 (defn do-insert
   [func & args]
-  (let [id (doall (gen-uuid))
+  (let [id (gen-uuid)
         insert-fn (partial func id)]
     (try (let [resp (apply insert-fn args)]
            {:status 200

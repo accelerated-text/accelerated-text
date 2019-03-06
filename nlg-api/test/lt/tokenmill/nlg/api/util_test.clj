@@ -4,5 +4,7 @@
 
 
 (deftest test-read-stub-csv
-  (let [data (read-stub-csv)]
-    (is (not (empty? data)))))
+  (let [data (read-stub-csv)
+        first-row (first data)]
+    (is (not (empty? data)))
+    (is (= "premium lacing" (first-row :Lacing)))))
