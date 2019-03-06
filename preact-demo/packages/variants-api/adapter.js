@@ -57,6 +57,7 @@ export default {
 
             const plan =    getOpenedPlan( getStoreState );
             if( !plan || !plan.id ) {
+                E.variantsApi.onGetAbort.async();
                 return;
             }
 
