@@ -22,7 +22,7 @@ lexical-analysis:code-linter:
 deploy-app:
     stage:  deploy
     when:   on_success
-    # only:
-    #    - master
+    only:
+       - master
     script:
         - make deploy-app
