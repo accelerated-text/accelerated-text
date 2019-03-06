@@ -9,6 +9,10 @@ test:
 run:
 	${PREACT_MAKE} run
 
+.PHONY: deploy-app
+deploy-app:
+	${PREACT_MAKE} deploy
+
 .PHONY: clean
 clean:
 	${PREACT_MAKE} clean
