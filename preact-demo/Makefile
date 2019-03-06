@@ -11,7 +11,6 @@ run: setup
 
 .PHONY: deploy
 deploy: build
-	rsync -aL assets/ dist/
 	aws s3 sync dist/ "${S3_BUCKET_URL}" \
 		--acl public-read \
 		--delete
@@ -25,6 +24,7 @@ fix-s3-permissions:
 .PHONY:	build
 build: setup
 	npm run build
+	rsync -aL assets/ dist/
 
 .PHONY: clean
 clean:
