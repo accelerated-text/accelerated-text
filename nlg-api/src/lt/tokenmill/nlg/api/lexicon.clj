@@ -21,19 +21,18 @@
               :request-body request-body}}))
 
 (defn process-search-response [resp offset limit]
-  (when (seq resp)
-    (let [offset (max 0 (or (Integer/parseInt offset) 0))
-          limit (max 0 (or (Integer/parseInt limit) 15))
-          count (count resp)]
-      {:offset     offset
-       :totalCount count
-       :items      (subvec resp (min count offset) (min count (+ offset limit)))})))
+  (let [offset (max 0 (Integer/parseInt (or offset "0")))
+        limit (max 0 (Integer/parseInt (or limit "15")))
+        count (count resp)]
+    {:offset     offset
+     :totalCount count
+     :items      (subvec resp (min count offset) (min count (+ offset limit)))}))
 
 (defn search [{:keys [query offset limit] :as query-params} path-params]
   (let [db (get-db)]
     (utils/do-return
       (comp (fn [resp]
-              (when resp (process-search-response resp offset limit)))
+              (when (seq resp) (process-search-response resp offset limit)))
             (partial ops/scan! db))
       {:attr-conds {:word [:begins-with query]}})))
 
