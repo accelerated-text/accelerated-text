@@ -13,7 +13,7 @@
 
 (defn get-db [] (ops/db-access :results))
 
-(def get-data
+(defn get-data
   [data-id]
   (let [db (ops/db-access :data)
         result (ops/read! db data-id)]
