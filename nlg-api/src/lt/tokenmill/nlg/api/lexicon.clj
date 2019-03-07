@@ -62,7 +62,7 @@
         sorted-resp (sort-by #(get-key-id (get % :key)) resp)]
     {:offset     offset
      :totalCount count
-     :items      (subvec sorted-resp
+     :items      (subvec (vec sorted-resp)
                          (min count offset)
                          (min count (+ offset limit)))}))
 
@@ -73,10 +73,11 @@
       (comp (fn [resp]
               (when (seq resp) (process-search-response resp offset limit)))
             (partial ops/scan! db))
-      {:attr-conds {:word (cond (= \* (first query) (last query)) [:contains (subs query 1 (dec length))]
-                                (= \* (first query) [:contains (subs query 1 length)])
-                                (= \* (last query) [:begins-with (subs query 0 (dec length))])
-                                :else [:eq query])}})))
+      {:attr-conds {:word (cond
+                            (= \* (first query) (last query)) [:contains (subs query 1 (dec length))]
+                            (= \* (first query) [:contains (subs query 1 length)])
+                            (= \* (last query) [:begins-with (subs query 0 (dec length))])
+                            :else [:eq query])}})))
 
 (def -handleRequest
   (resource/build-resource {:put-handler  update
