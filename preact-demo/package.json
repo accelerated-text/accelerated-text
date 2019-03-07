@@ -5,7 +5,8 @@
   "description": "Augmented Writer (Preact version)",
   "main": "index.js",
   "scripts": {
-    "start": "node -r esm node_modules/.bin/webpack-dev-server --config packages/webpack/config.js",
+    "build": "node -r esm node_modules/.bin/webpack --config packages/webpack/build.config.js",
+    "start": "node -r esm node_modules/.bin/webpack-dev-server --config packages/webpack/run.config.js",
     "test": "npm run test:eslint && npm run test:sasslint && npm run test:jest && npm run test:audit",
     "test:audit": "npm audit",
     "test:eslint": "eslint packages",
@@ -57,6 +58,7 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.1.0",
     "jest-puppeteer": "^3.5.1",
+    "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.10.0",
     "puppeteer": "1.7.0",
     "raw-loader": "^0.5.1",
