@@ -13,10 +13,16 @@
 
 (defn get-db [] (ops/db-access :results))
 
+(def get-data
+  [data-id]
+  (let [db (ops/db-access :data)
+        result (ops/read! db data-id)]
+    (:data result)))
+
 (defn generation-process
   [result-id dp-id data-id]
-  (let [data (utils/read-stub-csv)
-        db (get-db)
+  (let [db (get-db)
+        data (get-data data-id)
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
         results (utils/result-or-error (map #(planner/render-dp dp %) data))
