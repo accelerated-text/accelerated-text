@@ -22,8 +22,13 @@
     (map (partial format (str word "_%s"))
          (remove #(contains? ids %) (range)))))
 
-(defn create-single [db key request-body]
-  (utils/do-update (partial ops/write! db key) (dissoc request-body :key)))
+(defn sort-entries [coll]
+  (into [] (->> coll
+                (sort-by (fn [{:keys [word key]}]
+                           [word (get-key-id key)])))))
+
+(defn create-single [db key {:keys [word] :as request-body}]
+  (utils/do-update (when (< 0 (count word)) (partial ops/write! db key)) (dissoc request-body :key)))
 
 (defn create-multiple [db request-body]
   (let [request-map (group-by #(get % :word) request-body)
@@ -62,9 +67,7 @@
     {:offset     offset
      :totalCount count
      :items      (-> resp
-                     (sort-by (fn [{:keys [word key]}]
-                                [word (get-key-id key)]))
-                     (vec)
+                     (sort-entries)
                      (subvec (min count offset)
                              (min count (+ offset limit))))}))
 
