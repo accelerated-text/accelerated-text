@@ -18,7 +18,7 @@
          (remove #(contains? ids %) (range)))))
 
 (defn insert [db key request-body]
-  (utils/do-insert (partial ops/write! db) key (dissoc request-body :key)))
+  (utils/do-update (partial ops/write! db key) (dissoc request-body :key)))
 
 (defn insert-multiple [db keys request-vec]
   (mapv (partial insert db) keys request-vec))
