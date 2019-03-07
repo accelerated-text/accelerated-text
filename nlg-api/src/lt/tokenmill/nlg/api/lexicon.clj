@@ -35,10 +35,10 @@
                                 (get key-map word)
                                 (get request-map word))))))))
 
-(defn create [request-body]
+(defn create [{:keys [word] :as request-body}]
   (let [db (get-db)]
     (if (map? request-body)
-      (create-single db (first (next-keys db (get request-body :word))) request-body)
+      (create-single db (first (next-keys db word)) request-body)
       (utils/add-status (create-multiple db request-body)))))
 
 (defn update-single [db request-body]
@@ -58,13 +58,15 @@
 (defn process-search-response [resp offset limit]
   (let [offset (max 0 (Integer/parseInt (or offset "0")))
         limit (max 0 (Integer/parseInt (or limit "15")))
-        count (count resp)
-        sorted-resp (sort-by #(get-key-id (get % :key)) resp)]
+        count (count resp)]
     {:offset     offset
      :totalCount count
-     :items      (subvec (vec sorted-resp)
-                         (min count offset)
-                         (min count (+ offset limit)))}))
+     :items      (-> resp
+                     (sort-by (fn [{:keys [word key]}]
+                                [word (get-key-id key)]))
+                     (vec)
+                     (subvec (min count offset)
+                             (min count (+ offset limit))))}))
 
 (defn search [{:keys [query offset limit] :as query-params} path-params]
   (let [db (get-db)
