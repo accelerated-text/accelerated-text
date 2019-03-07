@@ -59,10 +59,12 @@
   (let [offset (max 0 (Integer/parseInt (or offset "0")))
         limit (max 0 (Integer/parseInt (or limit "15")))
         count (count resp)
-        items (subvec resp (min count offset) (min count (+ offset limit)))]
+        sorted-resp (sort-by #(get-key-id (get % :key)) resp)]
     {:offset     offset
      :totalCount count
-     :items      (sort-by #(get-key-id (get % :key)) items)}))
+     :items      (subvec sorted-resp
+                         (min count offset)
+                         (min count (+ offset limit)))}))
 
 (defn search [{:keys [query offset limit] :as query-params} path-params]
   (let [db (get-db)
