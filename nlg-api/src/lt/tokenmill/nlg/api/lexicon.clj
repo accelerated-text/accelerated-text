@@ -61,7 +61,7 @@
               (when (seq resp) (process-search-response resp offset limit)))
             (partial ops/scan! db))
       {:attr-conds {:word (cond (= \* (first query) (last query)) [:contains (subs query 1 (dec length))]
-                                #_(= \* (first query) [:contains (subs query 1 length)])
+                                (= \* (first query) [:contains (subs query 1 length)])
                                 (= \* (last query) [:begins-with (subs query 0 (dec length))])
                                 :else [:eq query])}})))
 
