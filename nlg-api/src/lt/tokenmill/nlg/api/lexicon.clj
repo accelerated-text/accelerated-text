@@ -8,50 +8,61 @@
 
 (defn get-db [] (ops/db-access :lexicon))
 
-(defn get-key-ids [coll]
-  (map #(Integer/parseInt (second (re-find #"^.+_(\d+)$" (get % :key)))) coll))
+(defn get-key-id [key]
+  (-> (re-find #"^.+_(\d+)$" key)
+      (second)
+      (Integer/parseInt)))
+
+(defn get-used-key-ids [m]
+  (set (map #(get-key-id (get % :key)) m)))
 
 (defn next-keys [db word]
   (let [matches (ops/scan! db {:attr-conds {:word [:eq word]}})
-        ids (conj (set (get-key-ids matches)) 0)]
+        ids (-> (get-used-key-ids matches) (conj 0))]
     (map (partial format (str word "_%s"))
          (remove #(contains? ids %) (range)))))
 
-(defn insert [db key request-body]
+(defn create-single [db key request-body]
   (utils/do-update (partial ops/write! db key) (dissoc request-body :key)))
-
-(defn insert-multiple [db keys request-vec]
-  (mapv (partial insert db) keys request-vec))
 
 (defn create-multiple [db request-body]
   (let [request-map (group-by #(get % :word) request-body)
         words (keys request-map)
-        keys (zipmap words (map (partial next-keys db) words))]
-    (into [] (flatten (->> words
-                           (pmap (fn [word]
-                                   (insert-multiple db
-                                                    (get keys word)
-                                                    (get request-map word)))))))))
+        key-map (zipmap words (map (partial next-keys db) words))]
+    (flatten (->> words
+                  (pmap (fn [word]
+                          (mapv (partial create-single db)
+                                (get key-map word)
+                                (get request-map word))))))))
 
 (defn create [request-body]
   (let [db (get-db)]
     (if (map? request-body)
-      (insert db (first (next-keys db (get request-body :word))) request-body)
-      (create-multiple db request-body))))
+      (create-single db (first (next-keys db (get request-body :word))) request-body)
+      (utils/add-status (create-multiple db request-body)))))
+
+(defn update-single [db request-body]
+  (utils/do-update (partial ops/update! db)
+                   (get request-body :key)
+                   (dissoc request-body :key)))
+
+(defn update-multiple [db request-body]
+  (map (partial update-single db) request-body))
 
 (defn update [path-params request-body]
-  (let [db (get-db)
-        key (get request-body :key)
-        body (dissoc request-body :key)]
-    (utils/do-update (partial ops/update! db) key body)))
+  (let [db (get-db)]
+    (if (map? request-body)
+      (update-single db request-body)
+      (utils/add-status (update-multiple db request-body)))))
 
 (defn process-search-response [resp offset limit]
   (let [offset (max 0 (Integer/parseInt (or offset "0")))
         limit (max 0 (Integer/parseInt (or limit "15")))
-        count (count resp)]
+        count (count resp)
+        items (subvec resp (min count offset) (min count (+ offset limit)))]
     {:offset     offset
      :totalCount count
-     :items      (subvec resp (min count offset) (min count (+ offset limit)))}))
+     :items      (sort-by #(get-key-id (get % :key)) items)}))
 
 (defn search [{:keys [query offset limit] :as query-params} path-params]
   (let [db (get-db)

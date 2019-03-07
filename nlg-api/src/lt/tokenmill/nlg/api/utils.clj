@@ -137,3 +137,8 @@
                              :body {:error true
                                     :message (.getMessage e)}}))))
 
+(defn add-status [resp-vec]
+  (let [statuses (set (map #(get % :status) resp-vec))]
+    {:status (if (= #{200} statuses) 200 500)
+     :body   resp-vec}))
+
