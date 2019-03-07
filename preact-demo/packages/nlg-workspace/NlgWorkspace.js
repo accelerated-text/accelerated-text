@@ -8,6 +8,7 @@ import ResizableBlockly     from '../preact-blockly/Resizable';
 
 import blockSvgOverride     from './block-svg-override';
 import S                    from './NlgWorkspace.sass';
+import { setCellOptions }   from './cell-options';
 import toolbox              from './toolbox.xml';
 
 
@@ -17,6 +18,7 @@ const log =                 debug( 'NlgWorkspace' );
 export default class NlgWorkspace extends Component {
 
     static propTypes = {
+        cellNames:          PropTypes.array,
         onChangeWorkspace:  PropTypes.func,
         workspaceXml:       PropTypes.object,
     };
@@ -78,6 +80,7 @@ export default class NlgWorkspace extends Component {
         } = this;
 
         this.workspace =            workspace;
+        setCellOptions( this.workspace, this.props.cellNames );
 
         let blockIds =              [];
         if( workspaceXml ) {
@@ -100,6 +103,12 @@ export default class NlgWorkspace extends Component {
                 this.onChangeWorkspace( evt );
             }
         });
+    }
+
+    componentWillReceiveProps( nextProps ) {
+        if( nextProps.cellNames !== this.props.cellNames ) {
+            setCellOptions( this.workspace, this.props.cellNames );
+        }
     }
 
     render() {
