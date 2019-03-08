@@ -27,8 +27,8 @@
                 (sort-by (fn [{:keys [word key]}]
                            [word (get-key-id key)])))))
 
-(defn create-single [db key request-body]
-  (utils/do-update (partial ops/write! db key) (dissoc request-body :key)))
+(defn create-single [db key {:keys [word] :as request-body}]
+  (utils/do-update (when (< 0 (count word)) (partial ops/write! db key)) (dissoc request-body :key)))
 
 (defn create-multiple [db request-body]
   (let [request-map (group-by #(get % :word) request-body)
