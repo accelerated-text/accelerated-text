@@ -3,6 +3,7 @@ import { h }            from 'preact';
 
 import getOpenedPlan    from '../plan-list/get-opened-plan';
 import PlanSelector     from '../plan-selector/PlanSelector';
+import Status           from '../status/Status';
 import { useStores }    from '../vesa/';
 
 import S                from './Header.sass';
@@ -26,7 +27,9 @@ export default useStores([
             <div className={ S.center }>
                 <PlanSelector openedPlan={ openedPlan } />
             </div>
-            <div className={ S.right } />
+            <div className={ S.right }>
+                <Status openedPlan={ openedPlan } />
+            </div>
         </div>
     );
 });
