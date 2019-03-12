@@ -48,28 +48,25 @@ export default useStores([
         const planFile =    getPlanFile( files, openedPlan );
 
         return (
-            <div className={ classnames( S.className, className ) }>
-                { getListError &&
-                    <Error className={ S.item } message="Error loading document plans." />
-                }
-                { getListLoading
+            <div className={ classnames( S.className, className ) }>{
+                openedPlan
+                    ? <Workspace
+                        cellNames={ planFile && planFile.fieldNames }
+                        key={ openedPlanUid }
+                        onChangeWorkspace={ this.onChangeWorkspace }
+                        workspaceXml={ openedPlan.blocklyXml }
+                    />
+                : getListLoading
                     ? <Loading className={ S.item } message="Loading document plans." />
+                : getListError
+                    ?  <Error className={ S.item } message="Error loading document plans." />
                     : (
                         <OnboardCode
                             hasCode={ !!openedPlan }
                             onCreateXml={ this.onCreateXml }
                         />
                     )
-                }
-                { openedPlan &&
-                    <Workspace
-                        cellNames={ planFile && planFile.fieldNames }
-                        key={ openedPlanUid }
-                        onChangeWorkspace={ this.onChangeWorkspace }
-                        workspaceXml={ openedPlan.blocklyXml }
-                    />
-                }
-            </div>
+            }</div>
         );
     }
 });
