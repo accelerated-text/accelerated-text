@@ -19,7 +19,7 @@
 (defn next-keys [db word]
   (let [matches (ops/scan! db {:attr-conds {:word [:eq word]}})
         ids (-> (get-used-key-ids matches) (conj 0))]
-    (map (partial format (str word "\.%s"))
+    (map (partial format (str word ".%s"))
          (remove #(contains? ids %) (range)))))
 
 (defn sort-entries [coll]
