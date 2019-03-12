@@ -68,22 +68,28 @@
                      (subvec (min count offset)
                              (min count (+ offset limit))))}))
 
-(defn search [query-params path-params]
-  (let [db (get-db)
-        offset (max 0 (Integer/parseInt (get query-params :offset "0")))
-        limit (max 0 (Integer/parseInt (get query-params :limit "20")))
-        query (get query-params :query)
-        length (count query)]
+(defn list-entries [db offset limit]
+  (utils/do-return (comp #(process-search-response % offset limit) (partial ops/list! db)) nil))
+
+(defn scan [db query offset limit]
+  (let [length (count query)]
     (utils/do-return
-      (comp (fn [resp]
-              (when (seq resp) (process-search-response resp offset limit)))
+      (comp #(process-search-response % offset limit)
             (partial ops/scan! db))
       {:attr-conds {:word (cond
-                            (= "*" query) (ops/list! db limit)
                             (= \* (first query) (last query)) [:contains (subs query 1 (dec length))]
                             (= \* (first query)) [:contains (subs query 1 length)]
                             (= \* (last query)) [:begins-with (subs query 0 (dec length))]
                             :else [:eq query])}})))
+
+(defn search [query-params _]
+  (let [db (get-db)
+        query (get query-params :query)
+        offset (max 0 (Integer/parseInt (get query-params :offset "0")))
+        limit (max 0 (Integer/parseInt (get query-params :limit "20")))]
+    (if (or (nil? query) (= "*" query))
+      (list-entries db offset limit)
+      (scan db query offset limit))))
 
 (def -handleRequest
   (resource/build-resource {:put-handler    update
