@@ -1,9 +1,9 @@
 import { h }                from 'preact';
 
+import DataManager          from '../data-manager/DataManager';
 import getOpenedPlan        from '../plan-list/get-opened-plan';
 import Lexicon              from '../lexicon/Lexicon';
 import SelectContext        from '../document-plans/SelectContext';
-import SelectDataSample     from '../document-plans/SelectDataSample';
 import Sidebar              from '../sidebar/Sidebar';
 import SidebarItem          from '../sidebar/Item';
 import VariantReview        from '../variant-review/VariantReview';
@@ -23,7 +23,7 @@ export default useStores([
                 <VariantReview />
             </SidebarItem>
             <SidebarItem isExpanded title="Data">
-                <SelectDataSample plan={ openedPlan } />
+                <DataManager plan={ openedPlan } />
             </SidebarItem>
             <SidebarItem isExpanded title="Context">
                 Topic: <SelectContext plan={ openedPlan } />

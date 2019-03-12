@@ -3,6 +3,7 @@ import { h, Component } from 'preact';
 
 import Error            from '../ui-messages/Error';
 import getOpenedPlan    from '../plan-list/get-opened-plan';
+import getPlanFile      from '../data-manager/get-plan-file';
 import Loading          from '../ui-messages/Loading';
 import OnboardCode      from '../onboard-code/OnboardCode';
 import planTemplate     from '../document-plans/plan-template';
@@ -13,6 +14,7 @@ import S                from './PlanEditor.sass';
 
 
 export default useStores([
+    'dataSamples',
     'documentPlans',
     'planList',
 ])( class PlanEditor extends Component {
@@ -32,6 +34,9 @@ export default useStores([
 
     render({
         className,
+        dataSamples: {
+            files,
+        },
         planList: {
             getListError,
             getListLoading,
@@ -40,11 +45,13 @@ export default useStores([
         },
     }) {
         const openedPlan =  getOpenedPlan( this.props );
+        const planFile =    getPlanFile( files, openedPlan );
 
         return (
             <div className={ classnames( S.className, className ) }>{
                 openedPlan
                     ? <Workspace
+                        cellNames={ planFile && planFile.fieldNames }
                         key={ openedPlanUid }
                         onChangeWorkspace={ this.onChangeWorkspace }
                         workspaceXml={ openedPlan.blocklyXml }
