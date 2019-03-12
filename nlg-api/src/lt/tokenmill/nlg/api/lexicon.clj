@@ -23,9 +23,8 @@
          (remove #(contains? ids %) (range)))))
 
 (defn sort-entries [coll]
-  (into [] (->> coll
-                (sort-by (fn [{:keys [word key]}]
-                           [word (get-key-id key)])))))
+  (into [] (->> coll (sort-by (fn [{:keys [word key]}]
+                                [word (get-key-id key)])))))
 
 (defn create-single [db key {:keys [word] :as request-body}]
   (utils/do-update (when (< 0 (count word)) (partial ops/write! db key)) (dissoc request-body :key)))
@@ -63,6 +62,7 @@
   (let [count (count resp)]
     {:offset     offset
      :totalCount count
+     :limit      limit
      :items      (-> resp
                      (sort-entries)
                      (subvec (min count offset)
