@@ -23,14 +23,21 @@
          (remove #(contains? ids %) (range)))))
 
 (defn sort-entries [coll]
-  (into [] (->> coll (sort-by (fn [{:keys [word key]}]
-                                [word (get-key-id key)])))))
+  (->> coll (sort-by (fn [{:keys [word key]}] [word (get-key-id key)]))))
 
-(defn create-single [db key {:keys [word] :as request-body}]
-  (utils/do-update (when (< 0 (count word)) (partial ops/write! db key)) (dissoc request-body :key)))
+(defn remove-word-key [coll]
+  (->> coll (map #(dissoc % :word))))
+
+(defn create-single [db key request-body]
+  (let [word (first (get request-body :synonyms))]
+    (utils/do-update (when (< 0 (count word))
+                       (comp #(dissoc % :word)
+                             (partial ops/write! db key))) (-> request-body
+                                                               (assoc :word word)
+                                                               (dissoc :key)))))
 
 (defn create-multiple [db request-body]
-  (let [request-map (group-by #(get % :word) request-body)
+  (let [request-map (group-by #(first (get % :synonyms)) request-body)
         words (keys request-map)
         key-map (zipmap words (map (partial next-keys db) words))]
     (flatten (->> words
@@ -41,22 +48,32 @@
 
 (defn create [request-body]
   (let [db (get-db)]
-    (if (map? request-body)
-      (create-single db (first (next-keys db (get request-body :word))) request-body)
-      (utils/add-status (create-multiple db request-body)))))
+    (if (vector? request-body)
+      (utils/add-status (create-multiple db request-body))
+      (let [word (first (get request-body :synonyms))
+            key (first (next-keys db word)) request-body]
+        (create-single db key request-body)))))
 
 (defn update [path-params request-body]
   (let [db (get-db)
-        id (get path-params :id)
-        response (utils/do-return ops/read! db id)]
-    (if (= 200 (get response :status))
-      (utils/do-update (partial ops/update! db) id (merge (get response :body) (dissoc request-body :key)))
-      response)))
+        key (get path-params :id)
+        word (first (get request-body :synonyms))
+        response (utils/do-return ops/read! db key)]
+    (if (not= 200 (get response :status))
+      response
+      (utils/do-update (comp #(dissoc % :word) (partial ops/update! db))
+                       key
+                       (merge
+                         (get response :body)
+                         (dissoc request-body :key)
+                         (when word
+                           {:word word}))))))
 
 (defn delete [path-params]
   (let [db (get-db)
         id (get path-params :id)]
-    (utils/do-delete (partial ops/read! db) (partial ops/delete! db) id)))
+    (utils/do-delete (comp #(dissoc % :word) (partial ops/read! db))
+                     (partial ops/delete! db) id)))
 
 (defn process-search-response [resp offset limit]
   (let [count (count resp)]
@@ -65,6 +82,8 @@
      :limit      limit
      :items      (-> resp
                      (sort-entries)
+                     (remove-word-key)
+                     (vec)
                      (subvec (min count offset)
                              (min count (+ offset limit))))}))
 
