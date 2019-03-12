@@ -10,7 +10,6 @@ import ItemControls         from './ItemControls';
 import List                 from './List';
 import { QA }               from './qa.constants';
 import S                    from './PlanSelector.sass';
-import Status               from './Status';
 
 
 export default useStores([
@@ -85,12 +84,6 @@ export default useStores([
                 : !openedPlan
                     ? <UnexpectedWarning />
                     : [
-                        <Status
-                            className={ S.status }
-                            listStatus={ this.props.planList }
-                            planStatuses={ statuses }
-                            uids={ uids }
-                        />,
                         <List
                             onClickNew={ this.onClickNew }
                             onClickSaveAs={ this.onClickSaveAs }
