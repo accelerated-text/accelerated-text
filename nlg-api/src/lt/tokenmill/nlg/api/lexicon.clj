@@ -46,19 +46,13 @@
       (create-single db (first (next-keys db (get request-body :word))) request-body)
       (utils/add-status (create-multiple db request-body)))))
 
-(defn update-single [db request-body]
-  (utils/do-update (partial ops/update! db)
-                   (get request-body :key)
-                   (dissoc request-body :key)))
-
-(defn update-multiple [db request-body]
-  (map (partial update-single db) request-body))
-
-(defn update [path-params request-body]
+(defn update [{:keys [id] :as path-params} request-body]
   (let [db (get-db)]
-    (if (map? request-body)
-      (update-single db request-body)
-      (utils/add-status (update-multiple db request-body)))))
+    (utils/do-update (partial ops/update! db) id (dissoc request-body :key))))
+
+(defn delete [{:keys [id] :as path-params}]
+  (let [db (get-db)]
+    (utils/do-delete (partial ops/read! db) (partial ops/delete! db) id)))
 
 (defn process-search-response [resp offset limit]
   (let [offset (max 0 (Integer/parseInt (or offset "0")))
@@ -79,13 +73,15 @@
               (when (seq resp) (process-search-response resp offset limit)))
             (partial ops/scan! db))
       {:attr-conds {:word (cond
+                            (= "*" query) (ops/list! db limit)
                             (= \* (first query) (last query)) [:contains (subs query 1 (dec length))]
                             (= \* (first query)) [:contains (subs query 1 length)]
                             (= \* (last query)) [:begins-with (subs query 0 (dec length))]
                             :else [:eq query])}})))
 
 (def -handleRequest
-  (resource/build-resource {:put-handler  update
-                            :post-handler create
-                            :get-handler  search}
+  (resource/build-resource {:put-handler    update
+                            :post-handler   create
+                            :get-handler    search
+                            :delete-handler delete}
                            true))
