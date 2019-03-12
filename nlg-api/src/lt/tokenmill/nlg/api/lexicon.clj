@@ -9,7 +9,7 @@
 (defn get-db [] (ops/db-access :lexicon))
 
 (defn get-key-id [key]
-  (-> (re-find #"^.+_(\d+)$" key)
+  (-> (re-find #"^.+\.(\d+)$" key)
       (second)
       (Integer/parseInt)))
 
@@ -19,7 +19,7 @@
 (defn next-keys [db word]
   (let [matches (ops/scan! db {:attr-conds {:word [:eq word]}})
         ids (-> (get-used-key-ids matches) (conj 0))]
-    (map (partial format (str word "_%s"))
+    (map (partial format (str word "\.%s"))
          (remove #(contains? ids %) (range)))))
 
 (defn sort-entries [coll]
