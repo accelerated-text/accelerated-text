@@ -46,18 +46,21 @@
       (create-single db (first (next-keys db (get request-body :word))) request-body)
       (utils/add-status (create-multiple db request-body)))))
 
-(defn update [{:keys [id] :as path-params} request-body]
-  (let [db (get-db)]
-    (utils/do-update (partial ops/update! db) id (dissoc request-body :key))))
+(defn update [path-params request-body]
+  (let [db (get-db)
+        id (get path-params :id)
+        response (utils/do-return ops/read! db id)]
+    (if (= 200 (get response :status))
+      (utils/do-update (partial ops/update! db) id (merge (get response :body) (dissoc request-body :key)))
+      response)))
 
-(defn delete [{:keys [id] :as path-params}]
-  (let [db (get-db)]
+(defn delete [path-params]
+  (let [db (get-db)
+        id (get path-params :id)]
     (utils/do-delete (partial ops/read! db) (partial ops/delete! db) id)))
 
 (defn process-search-response [resp offset limit]
-  (let [offset (max 0 (Integer/parseInt (or offset "0")))
-        limit (max 0 (Integer/parseInt (or limit "15")))
-        count (count resp)]
+  (let [count (count resp)]
     {:offset     offset
      :totalCount count
      :items      (-> resp
@@ -65,8 +68,11 @@
                      (subvec (min count offset)
                              (min count (+ offset limit))))}))
 
-(defn search [{:keys [query offset limit] :as query-params} path-params]
+(defn search [query-params path-params]
   (let [db (get-db)
+        offset (max 0 (Integer/parseInt (get query-params :offset "0")))
+        limit (max 0 (Integer/parseInt (get query-params :limit "20")))
+        query (get query-params :query)
         length (count query)]
     (utils/do-return
       (comp (fn [resp]
