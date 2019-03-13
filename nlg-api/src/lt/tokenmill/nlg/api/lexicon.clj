@@ -48,11 +48,11 @@
 
 (defn create [request-body]
   (let [db (get-db)]
-    (if (vector? request-body)
-      (utils/add-status (create-multiple db request-body))
+    (if (map? request-body)
       (let [word (first (get request-body :synonyms))
             key (first (next-keys db word))]
-        (create-single db key request-body)))))
+        (create-single db key request-body))
+      (utils/add-status (create-multiple db request-body)))))
 
 (defn update [path-params request-body]
   (let [db (get-db)
