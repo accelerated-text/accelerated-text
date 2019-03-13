@@ -1,7 +1,9 @@
 export default {
 
     getInitialState: () => ({
+        uploadCounter:  0,
         uploadError:    null,
+        uploadFileName: null,
         uploadLoading:  false,
     }),
 
@@ -13,7 +15,8 @@ export default {
             }
         ),
 
-        onUploadStart: () => ({
+        onUploadStart: inputFile => ({
+            uploadFileName: inputFile.name,
             uploadLoading:  true,
         }),
 
@@ -22,7 +25,8 @@ export default {
             uploadLoading:  false,
         }),
 
-        onUploadSuccess: () => ({
+        onUploadSuccess: ( _, { state }) => ({
+            uploadCounter:  state.uploadCounter + 1,
             uploadError:    null,
             uploadLoading:  false,
         }),

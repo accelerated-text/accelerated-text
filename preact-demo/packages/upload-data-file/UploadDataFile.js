@@ -1,8 +1,14 @@
 import { h, Component }     from 'preact';
 
+import {
+    Error,
+    Loading,
+    Success,
+}   from '../ui-messages/';
 import { mount, useStores } from '../vesa/';
 
 import adapter              from './adapter';
+import S                    from './UploadDataFile.sass';
 import uploadDataFile       from './store';
 
 
@@ -27,20 +33,34 @@ export default mount({
 
     render({
         uploadDataFile: {
+            uploadCounter,
             uploadError,
             uploadLoading,
         },
     }) {
         return (
-            <form onSubmit={ this.onSubmit }>
-                { uploadError && 'Error!' }
-                { uploadLoading && 'Loading!' }
-                <input name="file" type="file" />
-                <button
+            <form className={ S.className } onSubmit={ this.onSubmit }>
+                <input
+                    className={ S.file }
                     disabled={ uploadLoading }
-                    children="Upload"
+                    key={ uploadCounter }
+                    type="file"
+                />
+                <button
+                    children={ uploadLoading ? 'Uploading...' : 'Upload' }
+                    className={ S.upload }
+                    disabled={ uploadLoading }
                     type="submit"
                 />
+                {
+                    uploadError
+                        ? <Error justIcon message={ uploadError } />
+                    : uploadLoading
+                        ? <Loading justIcon message="Uploading..." />
+                    : uploadCounter
+                        ? <Success message="Done" />
+                        : null
+                }
             </form>
         );
     }
