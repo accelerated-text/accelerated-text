@@ -1,14 +1,16 @@
 import unfetch          from 'isomorphic-unfetch';
 
 
-export default async fileFromInput => {
+const URL =             `${ process.env.DATA_FILES_BUCKET }/`;
+
+
+export default async ( key, file ) => {
 
     const fData =       new FormData;
 
-    fData.append( 'key',    fileFromInput.name );
-    fData.append( 'file',   fileFromInput );
+    fData.append( 'key',    key );
+    fData.append( 'file',   file );
 
-    const URL =         `${ process.env.DATA_FILES_BUCKET }/`;
     const response =    await unfetch( URL, {
         method: 'POST',
         body:   fData,
