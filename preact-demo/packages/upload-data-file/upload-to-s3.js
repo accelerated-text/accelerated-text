@@ -9,6 +9,7 @@ export default async ( key, file ) => {
     const fData =       new FormData;
 
     fData.append( 'key',    key );
+    fData.append( 'acl',    'public-read' );
     fData.append( 'file',   file );
 
     const response =    await unfetch( URL, {
