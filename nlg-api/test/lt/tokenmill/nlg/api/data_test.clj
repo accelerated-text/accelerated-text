@@ -9,7 +9,12 @@
           body (result :body)
           first-item (first body)]
       (is (= (:key first-item) "example-user/example.csv"))
-      (is (= (:fieldNames first-item) (list :first :second :third)))))
+      (is (= (:fieldNames first-item) (list
+                                       (keyword "Product name")
+                                       (keyword "Main Feature")
+                                       (keyword "Secondary feature")
+                                       :Style
+                                       :Lacing)))))
   (testing "Test get concrete csv"
     (let [result (read-data {:user "example-user" :file "example.csv"})
           body (result :body)]
