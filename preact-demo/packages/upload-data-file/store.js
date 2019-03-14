@@ -1,10 +1,11 @@
 export default {
 
     getInitialState: () => ({
-        uploadCounter:  0,
-        uploadError:    null,
-        uploadFileName: null,
-        uploadLoading:  false,
+        uploadCounter:      0,
+        uploadError:        null,
+        uploadFileKey:      null,
+        uploadForPlan:      null,
+        uploadLoading:      false,
     }),
 
     uploadDataFile: {
@@ -15,13 +16,16 @@ export default {
             }
         ),
 
-        onUploadStart: inputFile => ({
-            uploadFileName: inputFile.name,
+        onUploadStart: ( inputFile, { getStoreState }) => ({
+            uploadFileKey:  `${ getStoreState( 'user' ).id }/${ inputFile.name }`,
+            uploadForPlan:  getStoreState( 'planList' ).openedPlanUid,
             uploadLoading:  true,
         }),
 
         onUploadError: uploadError => ({
             uploadError,
+            uploadFileKey:  null,
+            uploadForPlan:  null,
             uploadLoading:  false,
         }),
 
@@ -29,6 +33,11 @@ export default {
             uploadCounter:  state.uploadCounter + 1,
             uploadError:    null,
             uploadLoading:  false,
+        }),
+
+        onUploadSyncSuccess: () => ({
+            uploadFileKey:  null,
+            uploadForPlan:  null,
         }),
     },
 };
