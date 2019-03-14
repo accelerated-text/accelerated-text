@@ -13,22 +13,16 @@
 
 (defn get-db [] (ops/db-access :data))
 
-(defn read-data [path-params]
-  (let [request-id (path-params :id)
-        db (get-db)]
-    (utils/do-return ops/read! db request-id)))
-
-(defn add-data [request-body]
-  (let [db (get-db)
-        parsed-body (doall
-                     (utils/csv-to-map request-body))]
-    (log/debugf "Parsed body: %s" parsed-body)
-    (utils/do-insert (partial ops/write! db) {:data parsed-body})))
-
-(defn delete-data [path-params]
-  (let [request-id (path-params :id)
-        db (get-db)]
-    (utils/do-delete (partial ops/read! db) (partial ops/delete! db) request-id)))
+(defn read-data
+  [path-params]
+  (let [user (path-params :user)
+        filename (path-params :file)
+        key (clojure.string/join "/" [user filename])
+        raw (s3/read-file config/data-bucket key)
+        csv (doall (utils/csv-to-map raw))]
+    {:body {:data csv
+            :key key}
+     :status 200}))
 
 (defn data->listing
   [data]
@@ -55,7 +49,5 @@
 (def -handleRequest
   (resource/build-resource {:get-handler (fn [query-params path-params] (if (empty? path-params)
                                                                           (list-data query-params)
-                                                                          (read-data path-params)))
-                            :delete-handler delete-data
-                            :post-handler add-data}
+                                                                          (read-data path-params)))}
                            false))
