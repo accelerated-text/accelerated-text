@@ -19,10 +19,11 @@
     (slurp content)))
 
 (defn list-files
-  [bucket path]
+  [bucket path limit]
   (let [req (-> (ListObjectsV2Request.)
                 (.withBucketName bucket)
-                (.withPrefix path))
+                (.withPrefix path)
+                (.withMaxKeys (int limit)))
         resp (.listObjectsV2 client req)
         summary (.getObjectSummaries resp)
         results (map summary->map summary)]

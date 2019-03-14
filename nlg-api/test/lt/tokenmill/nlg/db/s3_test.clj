@@ -9,5 +9,5 @@
     (let [result (s3/read-file config/data-bucket "test.txt")]
       (is (= "testas\n" result))))
   (testing "List files in bucket"
-    (let [result (s3/list-files config/data-bucket "example-user")]
+    (let [result (s3/list-files config/data-bucket "example-user" 20)]
       (is (= (list {:key "example-user/example.csv"}) result)))))
