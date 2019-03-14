@@ -3,7 +3,7 @@ import PropTypes            from 'prop-types';
 
 import { mount, useStores } from '../vesa/';
 import OnboardBlocker       from '../onboard-blocker/OnboardBlocker';
-import { QA }               from '../plan-editor/qa.constants';
+import { QA }               from '../tests/constants';
 import tokenizer            from '../tokenizer/store';
 import tokenizerAdapter     from '../tokenizer/adapter';
 

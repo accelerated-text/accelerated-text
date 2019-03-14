@@ -33,7 +33,7 @@ const TEST_RESULT = {
 };
 
 
-describe( 'augmented-writer/AugmentedWriter', () => {
+describe( 'default start', () => {
 
     test( 'should load document plans and variants', async () => {
 

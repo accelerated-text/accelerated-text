@@ -2,9 +2,9 @@ const debugConsole =        require( '../qa-utils/debug-console' );
 const nlgProvide =          require( '../nlg-api/provide-response' );
 const requestInterceptor =  require( '../qa-utils/request-interceptor' );
 
-const { SELECTORS } =       require( './qa.constants' );
+const { SELECTORS } =       require( './constants' );
 
-describe( 'plan-selector/PlanSelector', () => {
+describe( 'no records', () => {
 
     test( 'should handle empty plan list', async () => {
 
