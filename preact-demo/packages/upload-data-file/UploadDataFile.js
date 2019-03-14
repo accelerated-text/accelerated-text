@@ -35,6 +35,7 @@ export default mount({
         uploadDataFile: {
             uploadCounter,
             uploadError,
+            uploadFileKey,
             uploadLoading,
         },
     }) {
@@ -57,6 +58,8 @@ export default mount({
                         ? <Error justIcon message={ uploadError } />
                     : uploadLoading
                         ? <Loading justIcon message="Uploading..." />
+                    : uploadFileKey
+                        ? <Loading justIcon message="Syncing..." />
                     : uploadCounter
                         ? <Success message="Done" />
                         : null
