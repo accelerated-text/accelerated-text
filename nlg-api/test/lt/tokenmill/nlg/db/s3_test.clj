@@ -6,5 +6,5 @@
 
 (deftest reading-from-s3
   (testing "Read test.txt"
-    (let [result (s3/read-file [config/data-bucket "test.txt"])]
-      (is (= "testas" result)))))
+    (let [result (s3/read-file config/data-bucket "test.txt")]
+      (is (= "testas\n" result)))))
