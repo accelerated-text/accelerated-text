@@ -7,10 +7,23 @@
   (let [configuration (-> (ClientConfiguration.))]
     (AmazonS3Client. configuration)))
 
+(defn grant->map
+  [grant]
+  (let [grantee (.getGrantee grant)
+        permission (.getPermission grant)]
+    {:permission (.toString permission)
+     :grantee (.getIdentifier grantee)}))
+
 (defn summary->map
   [summary]
   (let [key (.getKey summary)]
     {:key key}))
+
+(defn get-acl
+  [bucket path]
+  (let [acl (.getObjectAcl client bucket path)
+        grants (.getGrantsAsList acl)]
+    (map grant->map grants)))
 
 (defn read-file
   [bucket path]
