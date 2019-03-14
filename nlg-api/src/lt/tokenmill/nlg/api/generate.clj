@@ -18,7 +18,7 @@
   [data-id]
   (let [raw (s3/read-file data-id)
         csv (doall (utils/csv-to-map raw))]
-    (:data csv)))
+    csv))
 
 (defn generation-process
   [result-id dp-id data-id]
