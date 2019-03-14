@@ -9,6 +9,7 @@
                  [uk.ac.abdn/SimpleNLG "4.4.8"] ;; SimpleNLG
                  [prismatic/schema "1.1.9"]
                  [org.clojure/data.csv "0.1.4"]
+                 [com.amazonaws/aws-java-sdk-s3 "1.11.517"] ;; S3 Access
 ]
   :plugins [[jonase/eastwood "0.3.3"]]
   :target-path "target/%s"

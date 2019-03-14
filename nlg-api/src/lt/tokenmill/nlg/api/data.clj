@@ -10,6 +10,7 @@
     :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
 
 (defn get-db [] (ops/db-access :data))
+(def data-bucket "augmented-writer-data-files")
 
 (defn read-data [path-params]
   (let [request-id (path-params :id)
