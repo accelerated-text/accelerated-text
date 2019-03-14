@@ -3,6 +3,7 @@
             [clojure.java.io :as io]
             [lt.tokenmill.nlg.api.utils :as utils]
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
+            [lt.tokenmill.nlg.db.s3 :as s3]
             [lt.tokenmill.nlg.generator.planner :as planner]
             [lt.tokenmill.nlg.api.resource :as resource]
             [cheshire.core :as ch])
@@ -15,9 +16,9 @@
 
 (defn get-data
   [data-id]
-  (let [db (ops/db-access :data)
-        result (ops/read! db data-id)]
-    (:data result)))
+  (let [raw (s3/read-file data-id)
+        csv (doall (utils/csv-to-map raw))]
+    (:data csv)))
 
 (defn generation-process
   [result-id dp-id data-id]
