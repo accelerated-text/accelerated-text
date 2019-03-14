@@ -29,7 +29,7 @@ export default {
             uploadLoading:  false,
         }),
 
-        onUploadSuccess: ( _, { state }) => ({
+        onUploadFileSuccess: ( _, { state }) => ({
             uploadCounter:  state.uploadCounter + 1,
             uploadError:    null,
             uploadLoading:  false,
