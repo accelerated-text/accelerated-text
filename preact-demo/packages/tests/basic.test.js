@@ -1,4 +1,4 @@
-describe( 'app/App', () => {
+describe( 'basic', () => {
 
     beforeEach( async () => {
 
@@ -7,6 +7,6 @@ describe( 'app/App', () => {
 
     test( 'should render logo', async () => {
 
-        await expect( page ).toMatchElement( '[title="Augmented Writer"]' );
+        await expect( page ).toMatchElement( 'img[title="Augmented Writer"]' );
     });
 });
