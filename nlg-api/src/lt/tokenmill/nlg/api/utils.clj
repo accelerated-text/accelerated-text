@@ -30,8 +30,8 @@
                       (conj cors-headers ["Content-Type" "application/json"])
                       cors-headers)]
         (assoc r :headers headers)))
-        
-    
+
+
     (-> resp
         (add-body)
         (add-headers)
@@ -93,7 +93,7 @@
               :body {:error true :message "ERROR_01"}}
              {:status 200
               :body resp})
-           
+
            {:status 404}))
        (catch Exception e (do
                             (log/error (get-stack-trace e))
@@ -137,3 +137,6 @@
                              :body {:error true
                                     :message (.getMessage e)}}))))
 
+(defn add-status [resp-vec]
+  {:status (if (every? #(= 200 (get % :status)) resp-vec) 200 500)
+   :body   resp-vec})
