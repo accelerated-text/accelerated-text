@@ -12,6 +12,12 @@ upload-sam:
 deploy: build upload-sam
 	aws cloudformation deploy --template-file output-sam.yaml --stack-name ${STACK_NAME} --capabilities CAPABILITY_IAM --profile tm
 
+upload-sam-dev:
+	aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket ${S3_BUCKET_NAME}-dev --profile tm
+
+deploy-dev: build upload-sam-dev
+	aws cloudformation deploy --template-file output-sam.yaml --stack-name ${STACK_NAME}-dev --capabilities CAPABILITY_IAM --profile tm
+
 
 install-aws-sam:
 	pip install --user aws-sam-cli awscli
