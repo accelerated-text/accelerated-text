@@ -39,7 +39,7 @@
 
 (defn parse-cell
   [node]
-  (let [cell-name (node :name)]
+  (let [cell-name (keyword (node :name))]
     (fn [data]
       (let [result (get data cell-name)]
         (log/debugf "Searching for: '%s' in %s. Result: %s" cell-name, data, result)
