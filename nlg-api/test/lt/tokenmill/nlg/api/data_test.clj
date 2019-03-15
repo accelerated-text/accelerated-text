@@ -8,7 +8,7 @@
     (let [result (list-data {:limit 10 :user "example-user"})
           body (result :body)
           first-item (first body)]
-      (is (= (:key first-item) "example-user/example.csv"))
+      (is (= (:key first-item) "example-user/data-example.csv"))
       (is (= (:fieldNames first-item) (list
                                        (keyword "Product name")
                                        (keyword "Main Feature")

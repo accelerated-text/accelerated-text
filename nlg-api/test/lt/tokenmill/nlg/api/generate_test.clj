@@ -9,5 +9,7 @@
         dataId "example-user/data-example.csv"
         result-fn (fn [body]
                     (println (format "Generation result: %s", body))
-                    (is (= body {})))
+                    (let [results (:results body)
+                          first-result (first results)]
+                      (is (= 1 (count results)))))
         result (generation-process documentPlanId dataId result-fn)]))
