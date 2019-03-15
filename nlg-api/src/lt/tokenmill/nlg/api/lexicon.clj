@@ -23,10 +23,10 @@
          (remove #(contains? ids %) (range)))))
 
 (defn sort-entries [coll]
-  (->> coll (sort-by (fn [{:keys [word key]}] [word (get-key-id key)]))))
+  (sort-by (fn [{:keys [word key]}] [word (get-key-id key)]) coll))
 
 (defn remove-word-key [coll]
-  (->> coll (map #(dissoc % :word))))
+  (map #(dissoc % :word) coll))
 
 (defn create-single [db key request-body]
   (let [word (first (get request-body :synonyms))]
