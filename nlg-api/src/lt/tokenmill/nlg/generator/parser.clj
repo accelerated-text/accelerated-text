@@ -28,6 +28,10 @@
         children (flatten (map parse-node (node :children)))]
     (node-plus-children (ops/set-verb-static (ops/get-word rel-name)) (map ops/set-obj children))))
 
+(defn parse-lexicon
+  [node]
+  (fn [_] (format "<%s>" (node :text))))
+
 (defn parse-rhetorical [node]
   (let [rst-type (node :rstType)
         children (map parse-node (node :children))]
@@ -107,5 +111,6 @@
       :Relationship (parse-relationship node)
       :Rhetorical (parse-rhetorical node)
       :If-then-else (parse-conditional node)
-      :One-of-synonyms (parse-list {:type :Any-of} node))))
+      :One-of-synonyms (parse-list {:type :Any-of} node)
+      :Lexicon (parse-lexicon node))))
 
