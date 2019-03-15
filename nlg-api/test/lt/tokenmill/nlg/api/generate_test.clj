@@ -4,11 +4,10 @@
             [lt.tokenmill.nlg.api.generate :refer :all]))
 
 
-;; DISABLED until proper DynamoDB mocking will be made
-;; (deftest basic-generation
-;;   (let [documentPlanId "6c91d58d-6815-4269-93f7-33673be9400c"
-;;         dataId "example-user/data-example.csv"
-;;         result-fn (fn [body]
-;;                     (println (format "Generation result: %s", body))
-;;                     (is (= body {})))
-;;         result (generation-process documentPlanId dataId result-fn)]))
+(deftest basic-generation
+  (let [documentPlanId "8fa07eda-68d1-480f-a8e5-d39385977ca3"
+        dataId "example-user/data-example.csv"
+        result-fn (fn [body]
+                    (println (format "Generation result: %s", body))
+                    (is (= body {})))
+        result (generation-process documentPlanId dataId result-fn)]))
