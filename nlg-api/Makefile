@@ -1,6 +1,7 @@
 S3_BUCKET_NAME=nlg-api
 STACK_NAME=nlg-api
 REMOTE_API_URL=https://5cf9n85hrg.execute-api.eu-central-1.amazonaws.com/Prod
+DEV_API_URL=https://9u87u8ycfk.execute-api.eu-central-1.amazonaws.com/Prod
 
 
 build:
@@ -26,10 +27,10 @@ test-add-workspace:
 	curl -X POST "${REMOTE_API_URL}/document-plans" -H "Content-Type: application/json" -d '{"name": "test-workspace", "blocklyXml": {}, "germlinCode": {}}'
 
 test-generate-text:
-	curl -X POST "${REMOTE_API_URL}/nlg" -H "Content-Type: application/json" -d '{"documentPlanId": "6c91d58d-6815-4269-93f7-33673be9400c", "dataId": "-1"}'
+	curl -X POST "${REMOTE_API_URL}/nlg" -H "Content-Type: application/json" -d '{"documentPlanId": "8fa07eda-68d1-480f-a8e5-d39385977ca3", "dataId": "-1"}'
 
-test-upload-data:
-	curl -X POST "${REMOTE_API_URL}/data" -H "Content-Type: text/csv" --data-binary @resources/data-example.csv
+test-generate-text-dev:
+	curl -X POST "${DEV_API_URL}/nlg" -H "Content-Type: application/json" -d '{"documentPlanId": "8fa07eda-68d1-480f-a8e5-d39385977ca3", "dataId": "example-user/data-example.csv"}'
 
 list-log-groups:
 	aws logs describe-log-groups --query "*" --profile=tm
