@@ -1,12 +1,16 @@
 const noRecords =           require( './response-templates/no-records' );
 
-
 const { SELECTORS } =       require( './constants' );
 
 
 describe( 'no records', () => {
 
-    beforeEach(() => noRecords( page ), 10e3 );
+    beforeAll(() => noRecords( page ), 10e3 );
+
+    test( 'should not have errors', async () => {
+
+        await expect( page ).not.toMatchElement( SELECTORS.UI_ERROR );
+    });
 
     test( 'should handle empty plan list', async () => {
 
