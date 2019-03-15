@@ -14,4 +14,6 @@
   :plugins [[jonase/eastwood "0.3.3"]]
   :target-path "target/%s"
   :resource-paths ["resources/"]
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :test {:dependencies [[com.amazonaws/aws-java-sdk "1.11.517"]
+                                   [com.amazonaws/aws-java-sdk-core "1.11.517"]]}})
