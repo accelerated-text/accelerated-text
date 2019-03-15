@@ -1,4 +1,4 @@
 module.exports = {
-    key:            'test-data-item-key',
+    key:            'tests-data-data-file-key',
     fieldNames:     [ 'First', 'Second', 'Third' ],
 };

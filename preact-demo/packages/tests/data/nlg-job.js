@@ -1,3 +1,3 @@
 module.exports = {
-    resultId:       'test-result-id',
+    resultId:       'tests-data-result-id',
 };

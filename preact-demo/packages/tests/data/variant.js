@@ -1,5 +1,5 @@
 module.exports = {
-    id:             'example-variant',
+    id:             'tests-data-variant-id',
     type:           'ANNOTATED_TEXT',
     annotations:    [],
     references:     [],
