@@ -9,11 +9,11 @@
                  [uk.ac.abdn/SimpleNLG "4.4.8"] ;; SimpleNLG
                  [prismatic/schema "1.1.9"]
                  [org.clojure/data.csv "0.1.4"]
-                 [com.amazonaws/aws-java-sdk-s3 "1.11.517"] ;; S3 Access
+                 [com.amazonaws/aws-java-sdk-s3 "1.10.49"] ;; S3 Access
 ]
   :plugins [[jonase/eastwood "0.3.3"]]
   :target-path "target/%s"
   :resource-paths ["resources/"]
   :profiles {:uberjar {:aot :all}
-             :test {:dependencies [[com.amazonaws/aws-java-sdk "1.11.517"]
-                                   [com.amazonaws/aws-java-sdk-core "1.11.517"]]}})
+             :test {:dependencies [[com.amazonaws/aws-java-sdk "1.10.49"]
+                                   [com.amazonaws/aws-java-sdk-core "1.10.49"]]}})
