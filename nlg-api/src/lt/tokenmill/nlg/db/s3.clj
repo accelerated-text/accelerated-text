@@ -1,7 +1,6 @@
 (ns lt.tokenmill.nlg.db.s3
-  (:import (com.amazonaws.services.s3 AmazonS3Client AmazonS3ClientBuilder)
-           (com.amazonaws ClientConfiguration)
-           (com.amazonaws.services.s3.model ListObjectsV2Request ListObjectsV2Result)))
+  (:import (com.amazonaws.services.s3 AmazonS3Client)
+           (com.amazonaws ClientConfiguration)))
 
 (def client
   (let [configuration (-> (ClientConfiguration.))]
@@ -33,11 +32,7 @@
 
 (defn list-files
   [bucket path limit]
-  (let [req (-> (ListObjectsV2Request.)
-                (.withBucketName bucket)
-                (.withPrefix path)
-                (.withMaxKeys (int limit)))
-        resp (.listObjectsV2 client req)
+  (let [resp (.listObjects client bucket path)
         summary (.getObjectSummaries resp)
         results (map summary->map summary)]
     results))
