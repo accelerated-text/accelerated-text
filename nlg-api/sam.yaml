@@ -81,7 +81,7 @@ Resources:
             Path: /nlg/{id}
             Method: get
 
-  NLGCors:
+  NLGIdCors:
     Type: AWS::Serverless::Function
     Properties:
       Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
@@ -96,6 +96,22 @@ Resources:
           Type: Api
           Properties:
             Path: /nlg/{id}
+            Method: options
+  NLGCors:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /nlg
             Method: options
 
   getWorkspace:
