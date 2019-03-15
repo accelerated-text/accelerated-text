@@ -232,7 +232,6 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
-        - S3Access
       Events:
         GetResource:
           Type: Api
@@ -250,7 +249,6 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
-        - S3Access
       Events:
         GetResource:
           Type: Api
