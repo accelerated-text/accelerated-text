@@ -25,11 +25,11 @@ export default useStores([
             <SidebarItem isExpanded title="Data">
                 <DataManager plan={ openedPlan } />
             </SidebarItem>
-            <SidebarItem isExpanded title="Context">
-                Topic: <SelectContext plan={ openedPlan } />
-            </SidebarItem>
             <SidebarItem isExpanded title="Word lists">
                 <Lexicon />
+            </SidebarItem>
+            <SidebarItem isExpanded title="Context">
+                Topic: <SelectContext plan={ openedPlan } />
             </SidebarItem>
         </Sidebar>
     );
