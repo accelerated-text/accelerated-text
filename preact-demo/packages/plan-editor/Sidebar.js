@@ -28,7 +28,7 @@ export default useStores([
             <SidebarItem isExpanded title="Word lists">
                 <Lexicon />
             </SidebarItem>
-            <SidebarItem isExpanded title="Context">
+            <SidebarItem title="Context">
                 Topic: <SelectContext plan={ openedPlan } />
             </SidebarItem>
         </Sidebar>
