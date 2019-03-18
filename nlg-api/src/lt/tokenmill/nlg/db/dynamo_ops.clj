@@ -10,14 +10,16 @@
   (case type
     :results config/results-table
     :data config/data-table
-    :blockly config/blockly-table))
+    :blockly config/blockly-table
+    :lexicon config/lexicon-table))
 
 (defprotocol DBAccess
   (read-item [this key])
   (write-item [this key data])
   (update-item [this key data])
   (delete-item [this key])
-  (list-items [this limit]))
+  (list-items [this limit])
+  (scan-items [this opts]))
 
 (defn read! [this key] (read-item this key))
 (defn write!
@@ -28,6 +30,7 @@
 (defn update! [this key data] (update-item this key data))
 (defn delete! [this key] (delete-item this key))
 (defn list! [this limit] (list-items this limit))
+(defn scan! [this opts] (scan-items this opts))
 
 (defn freeze! [coll] (far/freeze coll))
 
@@ -70,7 +73,9 @@
         (log/debugf "Deleting\n key: '%s'" key)
         (far/delete-item config/client-opts table-name {:key key}))
       (list-items [this limit]
-        (far/scan config/client-opts table-name {:limit limit})))))
+        (far/scan config/client-opts table-name {:limit limit}))
+      (scan-items [this opts]
+        (far/scan config/client-opts table-name opts)))))
 
 (defn get-workspace
   [key]
