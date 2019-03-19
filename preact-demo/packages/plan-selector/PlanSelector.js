@@ -3,12 +3,12 @@ import { h, Component }     from 'preact';
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
 import planTemplate         from '../document-plans/plan-template';
+import { QA }               from '../tests/constants';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
 import { useStores }        from '../vesa/';
 
 import ItemControls         from './ItemControls';
 import List                 from './List';
-import { QA }               from './qa.constants';
 import S                    from './PlanSelector.sass';
 
 
