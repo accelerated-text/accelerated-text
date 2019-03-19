@@ -1,14 +1,23 @@
 (ns local-server
   (:require [org.httpkit.server :as server]
-            [lt.tokenmill.nlg.api.data :as data])
+            [lt.tokenmill.nlg.api.data :as data]
+            [cheshire.core :refer :all]
+            [clojure.java.io :as io])
   (:gen-class))
 
-(defn normalize-req [req] req)
+(defn normalize-req
+  [req]
+  (let [json-str (generate-string req)]
+    json-str))
 
 (defn app [req]
-  (let [path (req :uri)]
+  (let [path (req :uri)
+        is (io/input-stream (.getBytes (normalize-req req)))
+        os (java.io.ByteArrayOutputStream.)]
     (case path
-      "/data" (data/-handleRequest (normalize-req req)))))
+      "/data" (data/-handleRequest nil is os nil))
+    (-> (slurp os)
+        decode)))
 
 
 (defn -main
