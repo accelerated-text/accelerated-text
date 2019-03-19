@@ -20,9 +20,9 @@ export default {
             !getStoreState( 'dataSamples' ).getListLoading &&
                 E.dataSamples.onGetListStart.async(),
 
-        onGetListStart: ( _, { E }) =>
+        onGetListStart: ( _, { E, getStoreState }) =>
 
-            getList( '/' )
+            getList( getStoreState( 'user' ).id )
                 .then( debug.tapThen( 'onGetListStart' ))
                 .then( E.dataSamples.onGetListResult )
                 .catch( debug.tapCatch( 'onGetListStart' ))

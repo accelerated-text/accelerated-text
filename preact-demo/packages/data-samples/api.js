@@ -9,7 +9,7 @@ const fixListResult = list =>
             ...item,
             contentType:    item.contentType || 'text/csv',
             id:             item.key,
-            fileName:       `file0${ i }.csv`,
+            fileName:       item.key.split( '/' ).pop(),
         }));
 
 
@@ -19,6 +19,6 @@ export const fetch = ( path, options = {}) =>
 export const GET = path =>
     nlgApi.GET( `${ PREFIX }${ path }` );
 
-export const getList = () =>
-    GET( '/' )
+export const getList = userId =>
+    GET( `/?user=${ encodeURIComponent( userId )}` )
         .then( fixListResult );

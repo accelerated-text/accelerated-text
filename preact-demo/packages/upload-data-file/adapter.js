@@ -28,7 +28,7 @@ export default {
             uploadToS3( uploadFileKey, inputFile )
                 .then( debug.tapThen( 'onUploadStart' ))
                 .then(  E.uploadDataFile.onUploadFileSuccess )
-                .then(() => dataSamplesApi.getList())
+                .then(() => dataSamplesApi.getList( getStoreState( 'user' ).id ))
                 .then( files => {
                     E.dataSamples.onGetListResult( files );
 
