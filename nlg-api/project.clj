@@ -13,4 +13,7 @@
   :plugins [[jonase/eastwood "0.3.3"]]
   :target-path "target/%s"
   :resource-paths ["resources/"]
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :local-server {:main local-server
+                            :dependencies [[http-kit "2.3.0"]]
+                            :aot [local-server]}})

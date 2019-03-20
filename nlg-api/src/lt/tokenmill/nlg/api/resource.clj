@@ -28,6 +28,9 @@
                                     :POST   (if post-handler (post-handler request-body) (dummy))
                                     :PUT    (if put-handler (put-handler path-params request-body) (dummy))
                                     :OPTIONS (preflight))]
+        (log/debugf "Method: %s" method)
+        (log/debugf "Path Params: %s" path-params)
+        (log/debugf "Query Params: %s" query-params)
         (log/debugf "Received '%s' and produced output '%s'" input body)
         (with-open [^BufferedWriter w (io/writer os)]
           (.write w ^String (utils/resp status body)))))))
