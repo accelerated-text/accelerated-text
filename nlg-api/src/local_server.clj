@@ -1,5 +1,6 @@
 (ns local-server
   (:require [org.httpkit.server :as server]
+            [clojure.tools.logging :as log]
             [lt.tokenmill.nlg.api.data :as data]
             [lt.tokenmill.nlg.api.lexicon :as lexicon]
             [cheshire.core :refer :all]
@@ -45,9 +46,12 @@
 
 (defn parse-path
   [uri]
-  (let [namespace (re-find #"/\w+/?" uri)]
+  (let [matcher (re-matcher #"(?<namespace>(/\w+))/?(?<id>(\w+))?/?" uri)
+        _ (re-find matcher)
+        namespace (.group matcher "namespace")
+        id (.group matcher "id")]
     {:namespace namespace
-     :path-params {}}))
+     :path-params {:id id}}))
 
 (defn stop-server []
   (when-not (nil? @server)
