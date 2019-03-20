@@ -3,6 +3,8 @@
             [clojure.tools.logging :as log]
             [lt.tokenmill.nlg.api.data :as data]
             [lt.tokenmill.nlg.api.lexicon :as lexicon]
+            [lt.tokenmill.nlg.api.generate :as generate]
+            [lt.tokenmill.nlg.api.blockly-workspace :as workspace]
             [cheshire.core :refer :all]
             [clojure.java.io :as io])
   (:gen-class))
@@ -26,7 +28,7 @@
                     :queryStringParameters query-string
                     :headers headers
                     :body body
-                    :pathParams path-params}
+                    :pathParameters path-params}
         json-str (generate-string normalized)]
     json-str))
 
@@ -48,12 +50,14 @@
 
 (defn parse-path
   [uri]
-  (let [matcher (re-matcher #"(?<namespace>(/\w+))/?(?<id>(\w+))?/?" uri)
+  (let [matcher (re-matcher #"(?<namespace>(/(\w|[-])+))/?(?<id>((\w|[-])+))?/?" uri)
         _ (re-find matcher)
         namespace (.group matcher "namespace")
         id (.group matcher "id")]
     {:namespace namespace
-     :path-params {:id id}}))
+     :path-params (if (nil? id)
+                    {}
+                    {:id id})}))
 
 (defn stop-server []
   (when-not (nil? @server)
@@ -67,7 +71,10 @@
         is (io/input-stream (.getBytes (normalize-req req path)))
         os (java.io.ByteArrayOutputStream.)]
     (case (:namespace path)
-      "/data" (data/-handleRequest nil is os nil))
+      "/data" (data/-handleRequest nil is os nil)
+      "/lexicon" (lexicon/-handleRequest nil is os nil)
+      "/nlg" (generate/-handleRequest nil is os nil)
+      "/document-plans" (workspace/-handleRequest nil is os nil))
     
     (-> (read-os os)
         (http-result))))

@@ -28,3 +28,5 @@ test-upload-data:
 list-log-groups:
 	aws logs describe-log-groups --query "*" --profile=tm
 
+run-local-server:
+	lein with-profile local-server run
