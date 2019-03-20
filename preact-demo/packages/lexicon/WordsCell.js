@@ -36,18 +36,17 @@ export default class WordsCell extends Component {
         const {
             isEdited,
         } = this.state;
-        const wordsStr =    words.join( ', ' );
 
         return (
             <dd className={ S.className } onClick={ this.onClickCell }>
                 { isEdited
                     ? [
-                        <textarea value={ wordsStr } />,
+                        <textarea value={ words.join( '\n' ) } />,
                         <button onClick={ this.onClickSave }>Save</button>,
                         <button onClick={ this.onClickCancel }>Cancel</button>,
                     ]
                     : [
-                        wordsStr,
+                        words.join( ', ' ),
                         <span className={ S.edit }> 📝</span>,
                     ]
                 }
