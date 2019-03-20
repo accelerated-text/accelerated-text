@@ -81,7 +81,7 @@ Resources:
             Path: /nlg/{id}
             Method: get
 
-  NLGCors:
+  NLGIdCors:
     Type: AWS::Serverless::Function
     Properties:
       Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
@@ -96,6 +96,22 @@ Resources:
           Type: Api
           Properties:
             Path: /nlg/{id}
+            Method: options
+  NLGCors:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
+      Runtime: java8
+      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      MemorySize: 512
+      Timeout: 60
+      Policies:
+        - AWSLambdaExecute
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /nlg
             Method: options
 
   getWorkspace:
@@ -222,24 +238,6 @@ Resources:
             Path: /data
             Method: options
 
-  addData:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: lt.tokenmill.nlg.api.DataHandler::handleRequest
-      Runtime: java8
-      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
-      Timeout: 60
-      Policies:
-        - AWSLambdaExecute
-        - AmazonDynamoDBFullAccess
-      Events:
-        GetResource:
-          Type: Api
-          Properties:
-            Path: /data
-            Method: post
-
   listData:
     Type: AWS::Serverless::Function
     Properties:
@@ -250,31 +248,12 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
-        - AmazonDynamoDBReadOnlyAccess
       Events:
         GetResource:
           Type: Api
           Properties:
             Path: /data
             Method: get
-
-  deleteData:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: lt.tokenmill.nlg.api.DataHandler::handleRequest
-      Runtime: java8
-      CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
-      Timeout: 60
-      Policies:
-        - AWSLambdaExecute
-        - AmazonDynamoDBFullAccess
-      Events:
-        GetResource:
-          Type: Api
-          Properties:
-            Path: /data/{id}
-            Method: delete
 
   getData:
     Type: AWS::Serverless::Function
@@ -286,12 +265,11 @@ Resources:
       Timeout: 60
       Policies:
         - AWSLambdaExecute
-        - AmazonDynamoDBReadOnlyAccess
       Events:
         GetResource:
           Type: Api
           Properties:
-            Path: /data/{id}
+            Path: /data/{user}/{file}
             Method: get
 
   searchLexicon:
@@ -399,118 +377,3 @@ Resources:
           Properties:
             Path: /lexicon/{id}
             Method: options
-
-Outputs:
-  GetDocumentsPlansAPI:
-    Description: URL for document plans
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}/variants'
-    Export:
-      Name: getDocumentPlans
-
-  GetWorkspaceAPI:
-    Description: URL to get Workspace
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
-    Export:
-      Name: getWorkspace
-
-  ListWorkspacesAPI:
-    Description: URL to list Workspaces
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans'
-    Export:
-      Name: listWorkspaces
-
-  AddWorkspaceAPI:
-    Description: URL to add Workspace
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/'
-    Export:
-      Name: addWorkspace
-
-  UpdateWorkspaceAPI:
-    Description: URL to update Workspace
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
-    Export:
-      Name: updateWorkspace
-
-  DeleteWorkspaceAPI:
-    Description: URL to delete Workspace
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
-    Export:
-      Name: deleteWorkspace
-
-  textGenerationAPI:
-    Description: URL to generate text
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/nlg'
-    Export:
-      Name: generateText
-
-  getNLGresultAPI:
-    Description: URL to get result
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/nlg/{id}'
-    Export:
-      Name: getNLGresult
-
-  deleteNLGresultAPI:
-    Description: URL to delete result
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/nlg/{id}'
-    Export:
-      Name: deleteNLGresult
-
-  NLGCorsAPI:
-    Description: setup CORS
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/nlg/{id}'
-    Export:
-      Name: NLGCors
-
-  TextGenCorsAPI:
-    Description: setup CORS
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/nlg/'
-    Export:
-      Name: TextGenCors
-
-  dpCorsAPI:
-    Description: setup CORS
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/document-plans/{id}'
-    Export:
-      Name: dpCors
-
-  addDataAPI:
-    Description: add data
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/data'
-    Export:
-      Name: addData
-
-  getDataAPI:
-    Description: get data
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/data/{id}'
-    Export:
-      Name: getData
-
-  deleteDataAPI:
-    Description: delete data
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/data/{id}'
-    Export:
-      Name: deleteData
-
-  lexiconSearchAPI:
-    Description: lexicon search API
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/lexicon'
-    Export:
-      Name: lexiconSearchAPI
-
-  lexiconCreateAPI:
-    Description: lexicon create API
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/lexicon'
-    Export:
-      Name: lexiconCreateAPI
-
-  lexiconUpdateAPI:
-    Description: lexicon update API
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/lexicon/{id}'
-    Export:
-      Name: lexiconUpdateAPI
-
-  lexiconDeleteAPI:
-    Description: lexicon delete API
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/lexicon/{id}'
-    Export:
-      Name: lexiconDeleteAPI

@@ -28,6 +28,10 @@
         children (flatten (map parse-node (node :children)))]
     (node-plus-children (ops/set-verb-static (ops/get-word rel-name)) (map ops/set-obj children))))
 
+(defn parse-lexicon
+  [node]
+  (fn [_] (format "<%s>" (node :text))))
+
 (defn parse-rhetorical [node]
   (let [rst-type (node :rstType)
         children (map parse-node (node :children))]
@@ -35,7 +39,7 @@
 
 (defn parse-cell
   [node]
-  (let [cell-name (node :name)]
+  (let [cell-name (keyword (node :name))]
     (fn [data]
       (let [result (get data cell-name)]
         (log/debugf "Searching for: '%s' in %s. Result: %s" cell-name, data, result)
@@ -79,6 +83,7 @@
           tail (rest conds)
           if-statement (head :if)
           then-statement (head :then)]
+      (log/debugf "Resolving condition. Head: %s\n" head)
       (ops/lazy-if if-statement then-statement (resolve-cond-seq tail)))))
   
 
@@ -107,5 +112,6 @@
       :Relationship (parse-relationship node)
       :Rhetorical (parse-rhetorical node)
       :If-then-else (parse-conditional node)
-      :One-of-synonyms (parse-list {:type :Any-of} node))))
+      :One-of-synonyms (parse-list {:type :Any-of} node)
+      :Lexicon (parse-lexicon node))))
 

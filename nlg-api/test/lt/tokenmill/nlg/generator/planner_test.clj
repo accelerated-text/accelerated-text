@@ -16,7 +16,7 @@
       (is (= 1 (count compiled)))
       (let [first-segment (first compiled)
             concrete-plan (first first-segment)
-            data {"product-name" "TestSubj"}
+            data {:product-name "TestSubj"}
             expected {:subj "TestSubj" :verb nil :objs [] :adverb nil}]
         (println "Concrete plan: " concrete-plan)
         (let [result (build-dp-instance concrete-plan data)]
@@ -39,9 +39,9 @@
       (is (= 1 (count compiled)))
       (let [first-segment (first compiled)
             concrete-plan (first first-segment)
-            data {"product-name" "Nike Air"
-                  "main-feature" "comfort"
-                  "secondary-feature" "support"}
+            data {:product-name "Nike Air"
+                  :main-feature "comfort"
+                  :secondary-feature "support"}
             expected {:subj "Nike Air"
                       :objs ["comfort", "support"]
                       :verb "provide"
@@ -77,12 +77,12 @@
                                                                :children [{:type "Quote"
                                                                            :text "a snug fit for everyday wear"}]}]}]}]}
 
-          data {"product-name" "Nike Air"
-                "main-feature" "comfort"
-                "secondary-feature" "support"
-                "other-feature" "style"
-                "lacing" "premium lacing"
-                "style" "with sleek update on a classic design"}
+          data {:product-name "Nike Air"
+                :main-feature "comfort"
+                :secondary-feature "support"
+                :other-feature "style"
+                :lacing "premium lacing"
+                :style "with sleek update on a classic design"}
           result (render-dp document-plan data)
           expected-any ["Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."
                         "Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a situation where laces never gets into a knot."]]
@@ -128,12 +128,12 @@
                                                                                   }}
                                                                 ]}]}]}
 
-          data {"product-name" "Nike Air"
-                "main-feature" "comfort"
-                "secondary-feature" "support"
-                "other-feature" "style"
-                "lacing" "premium lacing"
-                "style" "with sleek update on a classic design"}
+          data {:product-name "Nike Air"
+                :main-feature "comfort"
+                :secondary-feature "support"
+                :other-feature "style"
+                :lacing "premium lacing"
+                :style "with sleek update on a classic design"}
           result (render-dp document-plan data)
           expected "Nike Air provides comfort, support and style with sleek update on a classic design."]
       (println "Result: " result)
@@ -177,12 +177,12 @@
                                                                                   }}
                                                                 ]}]}]}
 
-          data {"product-name" "Nike Air"
-                "main-feature" "comfort"
-                "secondary-feature" "support"
-                "other-feature" "style"
-                "lacing" "premium lacing"
-                "style" "with sleek update on a classic design"}
+          data {:product-name "Nike Air"
+                :main-feature "comfort"
+                :secondary-feature "support"
+                :other-feature "style"
+                :lacing "premium lacing"
+                :style "with sleek update on a classic design"}
           result (render-dp document-plan data)
           expected "Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."]
       (println "Result: " result)

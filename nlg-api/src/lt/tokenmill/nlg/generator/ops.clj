@@ -3,10 +3,27 @@
             [lt.tokenmill.nlg.generator.simple-nlg :as nlg]))
 
 (defn set-subj [selector]  (fn [context data] (assoc context :subj (selector data))))
-(defn set-verb-w-selector [selector] (fn [context data] (assoc context :verb (selector data))))
+(defn set-verb-w-selector
+  [selector]
+  (fn
+    [context data]
+    (log/debugf "Selector: %s" selector)
+    (assoc context :verb (selector data))))
+
 (defn set-verb-static [verb] (fn [context _] (assoc context :verb verb)))
-(defn set-obj [selector] (fn [context data] (update context :objs (fn [vals] (conj vals (selector data))))))
-(defn set-complement [selector] (fn [context data] (assoc context :complement (selector data))))
+(defn set-obj
+  [selector]
+  (fn
+    [context data]
+    (log/debugf "Selector: %s" selector)
+    (update context :objs (fn [vals] (conj vals (selector data))))))
+
+(defn set-complement
+  [selector]
+  (fn
+    [context data]
+    (log/debugf "Selector: %s" selector)
+    (assoc context :complement (selector data))))
 
 (defn fnlist->map
   [initial fns & args]
