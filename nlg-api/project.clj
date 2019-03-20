@@ -16,7 +16,7 @@
   :resource-paths ["resources/"]
   :profiles {:uberjar {:aot :all}
              :test {:dependencies [[com.amazonaws/aws-java-sdk "1.10.49"]
-                                   [com.amazonaws/aws-java-sdk-core "1.10.49"]]}})
+                                   [com.amazonaws/aws-java-sdk-core "1.10.49"]]}
              :local-server {:main local-server
                             :dependencies [[http-kit "2.3.0"]]
                             :aot [local-server]}})
