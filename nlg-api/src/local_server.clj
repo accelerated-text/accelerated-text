@@ -38,11 +38,13 @@
 
 (defn http-result
   [raw-resp]
-  (let [resp (decode raw-resp)
+  (let [resp (decode raw-resp true)
         body (:body resp)]
-      {:status 200
-       :headers {"Content-Type" "application/json"}
-       :body (generate-string body)}))
+    (println resp)
+    (println body)
+    {:status 200
+     :headers {"Content-Type" "application/json"}
+     :body body}))
 
 (defn parse-path
   [uri]
