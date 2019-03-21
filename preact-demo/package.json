@@ -25,6 +25,7 @@
   "author": "Tokenmill.lt",
   "license": "UNLICENSED",
   "dependencies": {
+    "awesome-debounce-promise": "^2.1.0",
     "bw-color-blind-palette": "^1.0.0",
     "classnames": "^2.2.6",
     "debug": "^4.1.1",
