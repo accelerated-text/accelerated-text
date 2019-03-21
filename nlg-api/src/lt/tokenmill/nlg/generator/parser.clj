@@ -2,7 +2,9 @@
   (:require [clojure.tools.logging :as log]
             [clojure.java.io :as io]
             [cheshire.core :as ch]
-            [lt.tokenmill.nlg.generator.ops :as ops]))
+            [lt.tokenmill.nlg.generator.ops :as ops]
+            [clojure.string :as str]
+            [lt.tokenmill.nlg.api.lexicon :as lexicon]))
 
 (defn node-plus-children [node children]
   (cons node children))
@@ -30,7 +32,14 @@
 
 (defn parse-lexicon
   [node]
-  (fn [_] (format "<%s>" (node :text))))
+  (let [word (get node :text)
+        response (-> {:query (str/lower-case word)} (lexicon/search nil) (get-in [:body :items]))
+        synonyms (set (mapcat :synonyms response))]
+    (fn [_]
+      (let [synonym (first (shuffle synonyms))]
+        (if (nil? synonym)
+          (do (log/debugf "No entries for '%s' found in lexicon. Returning original word." word) word)
+          (do (log/debugf "Searching for: '%s'. Result: %s" word, synonym) synonym))))))
 
 (defn parse-rhetorical [node]
   (let [rst-type (node :rstType)
