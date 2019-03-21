@@ -1,26 +1,65 @@
-import { h }            from 'preact';
+import { h, Component } from 'preact';
 
-import EXAMPLE_DATA     from './lexicon-example.json';
+import {
+    Error,
+    Loading,
+}   from '../ui-messages/';
+import { useStores }    from '../vesa/';
+
 import S                from './Lexicon.sass';
 import WordLists        from './WordLists';
 
 
-export default () =>
-    <div className={ S.className }>
-        <div className={ S.top }>
-            <button className={ S.new }>
-                ➕ New list
-            </button>
-            <input
-                className={ S.search }
-                placeholder="search"
-                type="search"
-            />
-        </div>
-        <div className={ S.list }>
-            <WordLists lists={ EXAMPLE_DATA.items } />
-        </div>
-        <button className={ S.more }>
-            More results
-        </button>
-    </div>;
+export default useStores([
+    'lexicon',
+])( class Lexicon extends Component {
+
+    onChangeSearch = evt =>
+        this.props.E.lexicon.onChangeQuery( evt.target.value );
+
+    render({
+        E,
+        lexicon: {
+            items,
+            query,
+            resultsError,
+            resultsLoading,
+            totalCount,
+        },
+    }) {
+        const hasMore = totalCount > items.length;
+
+        return (
+            <div className={ S.className }>
+                <div className={ S.top }>
+                    <button className={ S.new }>
+                        ➕ New list
+                    </button>
+                    <input
+                        className={ S.search }
+                        onInput={ this.onChangeSearch }
+                        placeholder="search"
+                        type="search"
+                        value={ query }
+                    />
+                </div>
+                { resultsError &&
+                    <Error message={ resultsError } />
+                }
+                { resultsLoading &&
+                    <Loading message="Loading..." />
+                }
+                { items &&
+                    <div className={ S.list }>
+                        <WordLists items={ items } />
+                    </div>
+                }
+                { hasMore &&
+                    <button className={ S.more } onClick={ E.lexicon.onClickMore }>
+                        More results
+                    </button>
+                }
+            </div>
+        );
+    }
+});
