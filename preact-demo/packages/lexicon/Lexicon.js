@@ -22,12 +22,14 @@ export default useStores([
         lexicon: {
             items,
             query,
+            requestOffset,
             resultsError,
             resultsLoading,
             totalCount,
         },
     }) {
-        const hasMore = totalCount > items.length;
+        const hasMore =         totalCount > items.length;
+        const isMoreLoading =   hasMore && resultsLoading && requestOffset;
 
         return (
             <div className={ S.className }>
@@ -55,8 +57,15 @@ export default useStores([
                     </div>
                 }
                 { hasMore &&
-                    <button className={ S.more } onClick={ E.lexicon.onClickMore }>
-                        More results
+                    <button
+                        className={ S.more }
+                        disabled={ isMoreLoading }
+                        onClick={ E.lexicon.onClickMore }
+                    >
+                        { isMoreLoading
+                            ? <Loading message="Loading more..." />
+                            : 'More results'
+                        }
                     </button>
                 }
             </div>
