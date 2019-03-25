@@ -9,8 +9,28 @@
                  [uk.ac.abdn/SimpleNLG "4.4.8"] ;; SimpleNLG
                  [prismatic/schema "1.1.9"]
                  [org.clojure/data.csv "0.1.4"]
+                 [com.amazonaws/aws-java-sdk-s3 "1.10.49"] ;; S3 Access
 ]
   :plugins [[jonase/eastwood "0.3.3"]]
   :target-path "target/%s"
   :resource-paths ["resources/"]
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot [lt.tokenmill.nlg.api.blockly-workspace
+                             lt.tokenmill.nlg.api.data
+                             lt.tokenmill.nlg.api.document-plans
+                             lt.tokenmill.nlg.api.generate
+                             lt.tokenmill.nlg.api.lexicon
+                             lt.tokenmill.nlg.api.resource
+                             lt.tokenmill.nlg.api.utils
+
+                             lt.tokenmill.nlg.db.config
+                             lt.tokenmill.nlg.db.dynamo-ops
+
+                             lt.tokenmill.nlg.generator.ops
+                             lt.tokenmill.nlg.generator.parser
+                             lt.tokenmill.nlg.generator.planner
+                             lt.tokenmill.nlg.generator.simple-nlg]}
+             :test {:dependencies [[com.amazonaws/aws-java-sdk "1.10.49"]
+                                   [com.amazonaws/aws-java-sdk-core "1.10.49"]]}
+             :local-server {:main local-server
+                            :dependencies [[http-kit "2.3.0"]]
+                            :aot [local-server]}})

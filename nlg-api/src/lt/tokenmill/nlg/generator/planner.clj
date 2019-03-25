@@ -20,6 +20,7 @@
       context
       (let [head (log/spyf "Resolving %s function " (first fs))
             tail (rest fs)
+            _ (log/debugf "Fn: %s Context: %s Data: %s" head context data)
             result (log/spyf "Result after transform %s " (head context data))]
         (recur (merge context result) tail)))))
 
