@@ -1,49 +1,64 @@
-import classnames       from 'classnames';
-import { h, Component } from 'preact';
+import classnames           from 'classnames';
+import { h, Component }     from 'preact';
 
-import EditWords        from './EditWords';
-import S                from './ItemRow.sass';
+import { Error, Loading }   from '../ui-messages';
+import { mount, useStores } from '../vesa/';
+
+import EditWords            from './EditWords';
+import lexiconItem          from './item-store';
+import S                    from './ItemRow.sass';
 
 
-export default class LexiconItemRow extends Component {
-
-    state = {
-        isEdited:       false,
-    };
-
-    onClickCell = () => {
-
-        this.setState({
-            isEdited:   true,
-        });
-    };
+export default mount(
+    { lexiconItem },
+    [],
+)( useStores([
+    'lexiconItem',
+])( class LexiconItemRow extends Component {
 
     onClickCancel = evt => {
 
         evt.stopPropagation();
-        this.setState({
-            isEdited:   false,
-        });
+        this.props.E.lexiconItem.onCancelEdit();
     };
 
     onClickSave = evt => {
 
         evt.stopPropagation();
-        this.setState({
-            isEdited:   false,
-        });
+        this.props.E.lexiconItem.onSave();
     };
 
-    render({ className, item }, { isEdited }) {
+    render({
+        className,
+        E,
+        lexiconItem: {
+            editing,
+            editText,
+            error,
+            item,
+            loading,
+        },
+    }) {
+        const showEdit = editing || error || loading;
+
         return (
             <div className={ classnames( S.className, className ) }>
                 <div className={ S.key }>{ item.key }</div>
-                <div className={ S.words } onClick={ this.onClickCell }>
-                    { isEdited
+                <div className={ S.words } onClick={ E.lexiconItem.onClickEdit }>
+                    { showEdit
                         ? <EditWords
-                            words={ item.synonyms }
+                            loading={ loading }
                             onClickCancel={ this.onClickCancel }
                             onClickSave={ this.onClickSave }
+                            onChangeText={ E.lexiconItem.onChangeText }
+                            status={
+                                error
+                                    ? <Error message={ error } />
+                                : loading
+                                    ? <Loading message="Saving..." />
+                                : null
+                            }
+                            text={ editText }
                         />
                         : [
                             item.synonyms.join( ', ' ),
@@ -54,4 +69,4 @@ export default class LexiconItemRow extends Component {
             </div>
         );
     }
-}
+}));

@@ -3,21 +3,18 @@ import { h, Component } from 'preact';
 import S                from './EditWords.sass';
 
 
-export default class EditWords extends Component {
-
-    state = {
-        text:           this.props.words.join( '\n' ),
-    };
+export default class LexiconEditWords extends Component {
 
     onInput = evt =>
-        this.setState({ text: evt.target.value });
+        this.props.onChangeText( evt.target.value );
 
-    render( _, { text }) {
+    render({ loading, onClickCancel, onClickSave, status, text }) {
         return (
             <div className={ S.className }>
-                <textarea value={ text } onInput={ this.onInput } />
-                <button onClick={ this.props.onClickSave }>Save</button>
-                <button onClick={ this.props.onClickCancel }>Cancel</button>
+                <textarea disabled={ loading } onInput={ this.onInput } value={ text } />
+                <button disabled={ loading } onClick={ onClickSave }>Save</button>
+                <button disabled={ loading } onClick={ onClickCancel }>Cancel</button>
+                { status }
             </div>
         );
     }
