@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 
+import EditWords        from './EditWords';
 import S                from './WordsCell.sass';
 
 
@@ -40,11 +41,11 @@ export default class WordsCell extends Component {
         return (
             <dd className={ S.className } onClick={ this.onClickCell }>
                 { isEdited
-                    ? [
-                        <textarea value={ words.join( '\n' ) } />,
-                        <button onClick={ this.onClickSave }>Save</button>,
-                        <button onClick={ this.onClickCancel }>Cancel</button>,
-                    ]
+                    ? <EditWords
+                        words={ words }
+                        onClickCancel={ this.onClickCancel }
+                        onClickSave={ this.onClickSave }
+                    />
                     : [
                         words.join( ', ' ),
                         <span className={ S.edit }> 📝</span>,
