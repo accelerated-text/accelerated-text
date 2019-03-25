@@ -2,7 +2,9 @@
   (:require [clojure.tools.logging :as log]
             [clojure.java.io :as io]
             [cheshire.core :as ch]
-            [lt.tokenmill.nlg.generator.ops :as ops]))
+            [lt.tokenmill.nlg.generator.ops :as ops]
+            [clojure.string :as str]
+            [lt.tokenmill.nlg.api.lexicon :as lexicon]))
 
 (defn node-plus-children [node children]
   (cons node children))
@@ -28,6 +30,17 @@
         children (flatten (map parse-node (node :children)))]
     (node-plus-children (ops/set-verb-static (ops/get-word rel-name)) (map ops/set-obj children))))
 
+(defn parse-lexicon
+  [node]
+  (let [word (get node :text)
+        response (-> {:query (str/lower-case word)} (lexicon/search nil) (get-in [:body :items]))
+        synonyms (set (mapcat :synonyms response))]
+    (fn [_]
+      (let [synonym (first (shuffle synonyms))]
+        (if (nil? synonym)
+          (do (log/debugf "No entries for '%s' found in lexicon. Returning original word." word) word)
+          (do (log/debugf "Searching for: '%s'. Result: %s" word, synonym) synonym))))))
+
 (defn parse-rhetorical [node]
   (let [rst-type (node :rstType)
         children (map parse-node (node :children))]
@@ -35,7 +48,7 @@
 
 (defn parse-cell
   [node]
-  (let [cell-name (node :name)]
+  (let [cell-name (keyword (node :name))]
     (fn [data]
       (let [result (get data cell-name)]
         (log/debugf "Searching for: '%s' in %s. Result: %s" cell-name, data, result)
@@ -79,6 +92,7 @@
           tail (rest conds)
           if-statement (head :if)
           then-statement (head :then)]
+      (log/debugf "Resolving condition. Head: %s\n" head)
       (ops/lazy-if if-statement then-statement (resolve-cond-seq tail)))))
   
 
@@ -107,5 +121,6 @@
       :Relationship (parse-relationship node)
       :Rhetorical (parse-rhetorical node)
       :If-then-else (parse-conditional node)
-      :One-of-synonyms (parse-list {:type :Any-of} node))))
+      :One-of-synonyms (parse-list {:type :Any-of} node)
+      :Lexicon (parse-lexicon node))))
 

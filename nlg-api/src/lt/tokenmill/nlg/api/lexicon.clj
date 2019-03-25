@@ -54,7 +54,7 @@
         (create-single db key request-body))
       (utils/add-status (create-multiple db request-body)))))
 
-(defn update [path-params request-body]
+(defn modify [path-params request-body]
   (let [db (get-db)
         key (get path-params :id)
         word (first (get request-body :synonyms))
@@ -111,7 +111,7 @@
       (scan db query offset limit))))
 
 (def -handleRequest
-  (resource/build-resource {:put-handler    update
+  (resource/build-resource {:put-handler    modify
                             :post-handler   create
                             :get-handler    search
                             :delete-handler delete}

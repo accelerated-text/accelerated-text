@@ -3,6 +3,8 @@
             [clojure.java.io :as io]
             [lt.tokenmill.nlg.api.utils :as utils]
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
+            [lt.tokenmill.nlg.db.s3 :as s3]
+            [lt.tokenmill.nlg.db.config :as config]
             [lt.tokenmill.nlg.generator.planner :as planner]
             [lt.tokenmill.nlg.api.resource :as resource]
             [cheshire.core :as ch])
@@ -13,10 +15,16 @@
 
 (defn get-db [] (ops/db-access :results))
 
+(defn get-data
+  [data-id]
+  (let [raw (s3/read-file config/data-bucket data-id)
+        csv (doall (utils/csv-to-map raw))]
+    csv))
+
 (defn generation-process
-  [result-id dp-id data-id]
-  (let [data (utils/read-stub-csv)
-        db (get-db)
+  [dp-id data-id result-fn]
+  (let [db (get-db)
+        data (get-data data-id)
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
         results (utils/result-or-error (map #(planner/render-dp dp %) data))
@@ -26,7 +34,7 @@
                 :results (when (not (empty? results))
                            (vec results))})]
     (log/debugf "Body: %s" body)
-    (ops/update! db result-id body)))
+    (result-fn body)))
 
 
 (defn generate-request [request-body]
@@ -35,7 +43,8 @@
         data-id (request-body :dataId)
         result-id (utils/gen-uuid)
         init-results (ops/update! db result-id {:ready false})
-        job @(future (generation-process result-id document-plan-id data-id))]
+        result-fn (fn [body] (ops/update! db result-id body))
+        job @(future (generation-process document-plan-id data-id result-fn))]
     (utils/do-return (fn [] {:resultId result-id}))))
 
 (defn wrap-to-annotated-text

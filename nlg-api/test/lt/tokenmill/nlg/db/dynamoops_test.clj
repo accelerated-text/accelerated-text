@@ -1,4 +1,4 @@
-(ns lt.tokenmill.nlg.db.dynamoops_test
+(ns lt.tokenmill.nlg.db.dynamoops-test
   (:require [clojure.test :refer :all]
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
             [lt.tokenmill.nlg.api.utils :as utils]))
