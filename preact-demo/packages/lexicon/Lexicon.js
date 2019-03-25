@@ -7,7 +7,7 @@ import {
 import { useStores }    from '../vesa/';
 
 import S                from './Lexicon.sass';
-import WordLists        from './WordLists';
+import ItemList         from './ItemList';
 
 
 export default useStores([
@@ -52,9 +52,7 @@ export default useStores([
                     <Loading message="Loading..." />
                 }
                 { items &&
-                    <div className={ S.list }>
-                        <WordLists items={ items } />
-                    </div>
+                    <ItemList items={ items } />
                 }
                 { hasMore &&
                     <button
