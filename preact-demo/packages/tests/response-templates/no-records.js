@@ -2,6 +2,8 @@ const debugConsole =        require( '../../qa-utils/debug-console' );
 const nlgProvide =          require( '../../nlg-api/provide-response' );
 const requestInterceptor =  require( '../../qa-utils/request-interceptor' );
 
+const USER =                require( '../data/user' );
+
 
 module.exports = async page => {
 
@@ -20,7 +22,7 @@ module.exports = async page => {
     page.goto( TEST_URL );
 
     await Promise.all([
-        nlgProvideOnce( 'GET', '/data/', []),
+        nlgProvideOnce( 'GET', `/data/?user=${ USER.id }`, []),
         nlgProvideOnce( 'GET', '/document-plans/', []),
     ]);
 

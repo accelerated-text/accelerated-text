@@ -6,6 +6,7 @@ const DATA_FILE =           require( '../data/data-file' );
 const DOCUMENT_PLAN =       require( '../data/document-plan' );
 const NLG_JOB =             require( '../data/nlg-job' );
 const NLG_JOB_RESULT =      require( '../data/nlg-job-result' );
+const USER =                require( '../data/user' );
 
 
 module.exports = async page => {
@@ -25,7 +26,7 @@ module.exports = async page => {
     page.goto( TEST_URL );
 
     await Promise.all([
-        nlgProvideOnce( 'GET', '/data/', [ DATA_FILE ]),
+        nlgProvideOnce( 'GET', `/data/?user=${ USER.id }`, [ DATA_FILE ]),
         nlgProvideOnce( 'GET', '/document-plans/', [ DOCUMENT_PLAN ])
             .then(() => nlgProvideOnce( 'POST', '/nlg/', NLG_JOB ))
             .then(() => nlgProvideOnce( 'GET', `/nlg/${ NLG_JOB.resultId }`, NLG_JOB_RESULT )),

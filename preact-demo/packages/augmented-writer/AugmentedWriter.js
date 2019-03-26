@@ -15,6 +15,7 @@ import planListAdapter      from '../plan-list/adapter';
 import planListLsAdapter    from '../plan-list/local-storage-adapter';
 import { mount }            from '../vesa/';
 import PlanEditor           from '../plan-editor/PlanEditor';
+import user                 from '../user/store';
 import variantsApi          from '../variants-api/store';
 import variantsApiAdapter   from '../variants-api/adapter';
 
@@ -27,6 +28,7 @@ export default mount({
     documentPlans,
     lexicon,
     planList,
+    user,
     variantsApi,
 }, [
     contextsAdapter,
