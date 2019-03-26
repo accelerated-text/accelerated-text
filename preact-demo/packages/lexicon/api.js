@@ -22,7 +22,7 @@ export const PUT = ( path, params ) =>
     nlgApi.PUT( `${ PREFIX }${ path }`, params );
 
 export const search = ({ query, offset }) => {
-    
+
     const params =  new URLSearchParams();
     if( offset ) {
         params.append( 'offset', offset );

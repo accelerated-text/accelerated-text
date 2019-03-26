@@ -1,5 +1,5 @@
 export default {
-    
+
     getInitialState: () => ({
         items:              [],
         requestOffset:      0,
