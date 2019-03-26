@@ -1,4 +1,7 @@
+import classnames       from 'classnames';
 import { h }            from 'preact';
+
+import { QA }           from '../tests/constants';
 
 
 export default ({ className, justIcon, message = 'Unknown error' }) => {
@@ -6,7 +9,7 @@ export default ({ className, justIcon, message = 'Unknown error' }) => {
 
     return (
         <a
-            className={ className }
+            className={ classnames( className, QA.UI_ERROR ) }
             title={ text }
         >
             🛑

@@ -1,3 +1,4 @@
+import classnames       from 'classnames';
 import { h }            from 'preact';
 
 import AtjReview        from '../atj-review/AtjReview';
@@ -6,6 +7,7 @@ import {
     Info,
     Loading,
 }   from '../ui-messages/';
+import { QA }           from '../tests/constants';
 import { useStores }    from '../vesa/';
 
 import S                from './VariantReview.sass';
@@ -31,7 +33,7 @@ export default useStores([
             !( result.variants && result.variants.length )
                 ? <Info className={ S.item } message="No variants" />
                 : result.variants.map( element =>
-                    <div className={ S.item }>
+                    <div className={ classnames( S.item, QA.VARIANT ) }>
                         <AtjReview key={ element.id } element={ element } />
                     </div>
                 )

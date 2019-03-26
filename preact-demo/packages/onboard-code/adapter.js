@@ -1,4 +1,4 @@
-import { QA }               from '../plan-editor/qa.constants';
+import { QA }               from '../tests/constants';
 
 import jsonToBlockly        from './json-to-blockly';
 
