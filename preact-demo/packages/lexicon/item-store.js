@@ -23,7 +23,7 @@ export default {
             editing:    false,
         }),
 
-        onSave: ( _, { state }) => ({
+        onUpdate: ( _, { state }) => ({
             editing:    false,
             item: {
                 ...state.item,
@@ -32,12 +32,12 @@ export default {
             loading:    true,
         }),
 
-        onSaveError: error => ({
+        onUpdateError: error => ({
             error,
             loading:    false,
         }),
 
-        onSaveSuccess: item => ({
+        onUpdateSuccess: item => ({
             error:      null,
             item,
             loading:    false,

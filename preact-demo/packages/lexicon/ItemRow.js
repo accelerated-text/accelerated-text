@@ -26,7 +26,7 @@ export default mount(
     onClickSave = evt => {
 
         evt.stopPropagation();
-        this.props.E.lexiconItem.onSave();
+        this.props.E.lexiconItem.onUpdate();
     };
 
     render({
