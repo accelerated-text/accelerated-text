@@ -6,12 +6,13 @@ import { mount, useStores } from '../vesa/';
 
 import EditWords            from './EditWords';
 import lexiconItem          from './item-store';
+import lexiconItemAdapter   from './item-adapter';
 import S                    from './ItemRow.sass';
 
 
 export default mount(
     { lexiconItem },
-    [],
+    [ lexiconItemAdapter ],
 )( useStores([
     'lexiconItem',
 ])( class LexiconItemRow extends Component {

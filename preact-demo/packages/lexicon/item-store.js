@@ -38,7 +38,9 @@ export default {
         }),
 
         onSaveSuccess: item => ({
+            error:      null,
             item,
+            loading:    false,
         }),
     },
 };
