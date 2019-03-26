@@ -26,7 +26,7 @@ export default mount(
     onClickSave = evt => {
 
         evt.stopPropagation();
-        this.props.E.lexiconItem.onUpdate();
+        this.props.E.lexiconItem.onSave();
     };
 
     render({
@@ -37,10 +37,10 @@ export default mount(
             editText,
             error,
             item,
-            loading,
+            saving,
         },
     }) {
-        const showEdit = editing || error || loading;
+        const showEdit = editing || error || saving;
 
         return (
             <div className={ classnames( S.className, className ) }>
@@ -48,14 +48,14 @@ export default mount(
                 <div className={ S.words } onClick={ E.lexiconItem.onClickEdit }>
                     { showEdit
                         ? <EditWords
-                            loading={ loading }
+                            onChangeText={ E.lexiconItem.onChangeText }
                             onClickCancel={ this.onClickCancel }
                             onClickSave={ this.onClickSave }
-                            onChangeText={ E.lexiconItem.onChangeText }
+                            saving={ saving }
                             status={
                                 error
                                     ? <Error message={ error } />
-                                : loading
+                                : saving
                                     ? <Loading message="Saving..." />
                                 : null
                             }

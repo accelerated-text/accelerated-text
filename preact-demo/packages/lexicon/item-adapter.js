@@ -1,21 +1,29 @@
-import { PUT }          from './api';
+import { POST, PUT }        from './api';
 
 export default {
 
     lexiconItem: {
 
-        onUpdate: ( _, { E, getStoreState }) => {
+        onCancelEdit: ( _, { props }) =>
+            props.onCancel.async(),
+
+        onSave: ( _, { E, getStoreState, props }) => {
 
             const {
                 item: { key, synonyms },
             } = getStoreState( 'lexiconItem' );
 
             if( !key ) {
-                E.lexiconItem.onUpdateError( 'Can\'t update item until it is saved on server.' );
+                POST( '/', { synonyms })
+                    .then( item => {
+                        E.lexiconItem.onSaveSuccess( item );
+                        props.onSave && props.onSave( item );
+                    })
+                    .catch( E.lexiconItem.onSaveError );
             } else {
                 PUT( `/${ key }`, { synonyms })
-                    .then( E.lexiconItem.onUpdateSuccess )
-                    .catch( E.lexiconItem.onUpdateError );
+                    .then( E.lexiconItem.onSaveSuccess )
+                    .catch( E.lexiconItem.onSaveError );
             }
         },
     },

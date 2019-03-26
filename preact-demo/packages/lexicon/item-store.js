@@ -1,11 +1,11 @@
 export default {
 
-    getInitialState: props => ({
+    getInitialState: ({ editing = false, item }) => ({
         editText:   null,
-        editing:    false,
+        editing,
         error:      null,
-        item:       props.item,
-        loading:    false,
+        item,
+        saving:     false,
     }),
 
     lexiconItem: {
@@ -23,24 +23,24 @@ export default {
             editing:    false,
         }),
 
-        onUpdate: ( _, { state }) => ({
+        onSave: ( _, { state }) => ({
             editing:    false,
             item: {
                 ...state.item,
                 synonyms:   state.editText.trim().split( '\n' ),
             },
-            loading:    true,
+            saving:     true,
         }),
 
-        onUpdateError: error => ({
+        onSaveError: error => ({
             error,
-            loading:    false,
+            saving:     false,
         }),
 
-        onUpdateSuccess: item => ({
+        onSaveSuccess: item => ({
             error:      null,
             item,
-            loading:    false,
+            saving:     false,
         }),
     },
 };

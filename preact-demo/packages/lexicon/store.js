@@ -7,14 +7,28 @@ export default {
         resultsError:       null,
         resultsLoading:     false,
         totalCount:         0,
+
+        newItem:            null,
+        newItemSaved:       false,
     }),
 
     lexicon: {
 
-        onChangeQuery: query => ({
-            requestOffset:  0,
-            query,
-        }),
+        onChangeQuery: ( query, { state }) => {
+
+            const shouldHideNew = (
+                state.newItem
+                && state.newItemSaved
+                && query !== state.query
+            );
+
+            return {
+                newItem:        shouldHideNew ? null : state.newItem,
+                newItemSaved:   shouldHideNew ? false : state.newItemSaved,
+                requestOffset:  0,
+                query,
+            };
+        },
 
         onClickMore: ( _, { state }) => ({
             requestOffset:  state.items.length,
@@ -46,5 +60,27 @@ export default {
                 totalCount,
             });
         },
+
+        onClickNew: ( _, { state }) => (
+            ( state.newItem && !state.newItemSaved )
+                ? null
+                : {
+                    newItem: {
+                        key:        '',
+                        synonyms:   [],
+                    },
+                    newItemSaved:   false,
+                }
+        ),
+
+        onSaveNew: newItem => ({
+            newItem,
+            newItemSaved:       true,
+        }),
+
+        onCancelNew: () => ({
+            newItem:            null,
+            newItemSaved:       false,
+        }),
     },
 };

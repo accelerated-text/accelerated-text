@@ -21,6 +21,8 @@ export default useStores([
         E,
         lexicon: {
             items,
+            newItem,
+            newItemSaved,
             query,
             requestOffset,
             resultsError,
@@ -34,7 +36,7 @@ export default useStores([
         return (
             <div className={ S.className }>
                 <div className={ S.top }>
-                    <button className={ S.new }>
+                    <button className={ S.new } onClick={ E.lexicon.onClickNew }>
                         ➕ New list
                     </button>
                     <input
@@ -52,7 +54,13 @@ export default useStores([
                     <Loading message="Loading..." />
                 }
                 { items &&
-                    <ItemList items={ items } />
+                    <ItemList
+                        items={ items }
+                        newItem={ newItem }
+                        newItemSaved={ newItemSaved }
+                        onCancelNew={ E.lexicon.onCancelNew }
+                        onSaveNew={ E.lexicon.onSaveNew }
+                    />
                 }
                 { hasMore &&
                     <button
