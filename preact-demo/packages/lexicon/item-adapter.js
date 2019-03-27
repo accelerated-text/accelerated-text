@@ -5,7 +5,7 @@ export default {
     lexiconItem: {
 
         onCancelEdit: ( _, { props }) =>
-            props.onCancel.async(),
+            props.onCancel && props.onCancel.async(),
 
         onSave: ( _, { E, getStoreState, props }) => {
 

@@ -1,7 +1,6 @@
 export default {
 
     getInitialState: ({ editing = false, item }) => ({
-        editText:   null,
         editing,
         error:      null,
         item,
@@ -10,24 +9,19 @@ export default {
 
     lexiconItem: {
 
-        onChangeText: editText => ({
-            editText,
-        }),
-
         onClickEdit: ( _, { state }) => ({
             editing:    true,
-            editText:   state.item.synonyms.join( '\n' ),
         }),
 
         onCancelEdit: () => ({
             editing:    false,
         }),
 
-        onSave: ( _, { state }) => ({
+        onSave: ( synonyms, { state }) => ({
             editing:    false,
             item: {
                 ...state.item,
-                synonyms:   state.editText.trim().split( '\n' ),
+                synonyms,
             },
             saving:     true,
         }),
