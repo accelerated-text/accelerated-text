@@ -31,24 +31,22 @@ export default mount(
         <div className={ classnames( S.className, className ) }>
             <div className={ S.key }>{ item.key }</div>
             { showEdit
-                ? <div className={ S.words } key="edit">
-                    <EditLines
-                        lines={ item.synonyms }
-                        onClickCancel={ E.lexiconItem.onCancelEdit }
-                        onClickSave={ E.lexiconItem.onSave }
-                        saving={ saving }
-                        status={
-                            error
-                                ? <Error message={ error } />
-                            : saving
-                                ? <Loading message="Saving..." />
-                            : null
-                        }
-                    />
-                </div>
-                : <div className={ S.words } key="show" onClick={ E.lexiconItem.onClickEdit }>
+                ? <EditLines
+                    lines={ item.synonyms }
+                    onClickCancel={ E.lexiconItem.onCancelEdit }
+                    onClickSave={ E.lexiconItem.onSave }
+                    saving={ saving }
+                    status={
+                        error
+                            ? <Error message={ error } />
+                        : saving
+                            ? <Loading message="Saving..." />
+                        : null
+                    }
+                />
+                : <div className={ S.showWords } onClick={ E.lexiconItem.onClickEdit }>
                     { item.synonyms.join( ', ' ) }
-                    <span className={ S.edit }> 📝</span>
+                    <span className={ S.editIcon }> 📝</span>
                 </div>
             }
         </div>
