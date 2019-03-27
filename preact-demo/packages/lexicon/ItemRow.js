@@ -20,7 +20,6 @@ export default mount(
     E,
     lexiconItem: {
         editing,
-        editText,
         error,
         item,
         saving,
