@@ -4,6 +4,7 @@ const requestInterceptor =  require( '../../qa-utils/request-interceptor' );
 
 const DATA_FILE =           require( '../data/data-file' );
 const DOCUMENT_PLAN =       require( '../data/document-plan' );
+const LEXICON_LIST =        require( '../data/lexicon-list' );
 const NLG_JOB =             require( '../data/nlg-job' );
 const NLG_JOB_RESULT =      require( '../data/nlg-job-result' );
 const USER =                require( '../data/user' );
@@ -27,6 +28,7 @@ module.exports = async page => {
 
     await Promise.all([
         nlgProvideOnce( 'GET', `/data/?user=${ USER.id }`, [ DATA_FILE ]),
+        nlgProvideOnce( 'GET', '/lexicon?', LEXICON_LIST ),
         nlgProvideOnce( 'GET', '/document-plans/', [ DOCUMENT_PLAN ])
             .then(() => nlgProvideOnce( 'POST', '/nlg/', NLG_JOB ))
             .then(() => nlgProvideOnce( 'GET', `/nlg/${ NLG_JOB.resultId }`, NLG_JOB_RESULT )),
