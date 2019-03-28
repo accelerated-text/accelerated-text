@@ -7,6 +7,6 @@ describe( 'basic', () => {
 
     test( 'should render logo', async () => {
 
-        await expect( page ).toMatchElement( 'img[title="Augmented Writer"]' );
+        await expect( page ).toMatchElement( 'img[title="Accelerated Text"]' );
     });
 });

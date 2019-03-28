@@ -43,7 +43,7 @@ export default ({
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title:      'Augmented Writer',
+            title:      'Accelerated Text',
         }),
         ...( mode === 'production'
             ? [ new MiniCssExtractPlugin() ]

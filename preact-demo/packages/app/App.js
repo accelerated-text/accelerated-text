@@ -1,3 +1,3 @@
-import AugmentedWriter from '../augmented-writer/AugmentedWriter';
+import AcceleratedText from '../accelerated-text/AcceleratedText';
 
-export default AugmentedWriter;
+export default AcceleratedText;

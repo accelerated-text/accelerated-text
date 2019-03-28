@@ -10,13 +10,13 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="150.65814mm"
+   width="140.36826mm"
    height="21.377346mm"
-   viewBox="0 0 150.65814 21.377346"
+   viewBox="0 0 140.36825 21.377346"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="augmented-writer-logo.svg"
+   sodipodi:docname="accelerated-text-logo.svg"
    inkscape:export-filename="/home/emilis/work/augmented-writter/preact-demo/assets/augmented-writer-logo.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
@@ -469,8 +469,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="323.88039"
-     inkscape:cy="-45.177527"
+     inkscape:cx="211.13917"
+     inkscape:cy="107.19978"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -486,17 +486,17 @@
      fit-margin-right="0"
      fit-margin-bottom="0">
     <sodipodi:guide
-       position="180.94319,17.021243"
+       position="180.94319,17.02124"
        orientation="0,1"
        id="guide2040"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="102.76687,5.1945633"
+       position="102.76687,5.1945604"
        orientation="0,1"
        id="guide2089"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="96.675248,0.050084137"
+       position="96.675248,0.050081238"
        orientation="1,0"
        id="guide2250"
        inkscape:locked="false" />
@@ -529,24 +529,24 @@
        style="fill:#449981;fill-opacity:1;stroke:none;stroke-width:0.22770418;stroke-opacity:0.50196078"
        transform="scale(-1)" />
     <rect
-       style="fill:#447a99;fill-opacity:1;stroke:none;stroke-width:0.22770417;stroke-opacity:0.50196078"
+       style="fill:#447a99;fill-opacity:1;stroke:none;stroke-width:0.22770415;stroke-opacity:0.50196078"
        id="rect2236"
-       width="37.386883"
+       width="27.097006"
        height="21.327206"
-       x="-176.04701"
+       x="-165.75713"
        y="-135.88609"
        ry="1.7008928"
        rx="1.7008928"
        transform="scale(-1)" />
     <path
        style="fill:#447a99;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.35277778"
-       d="m 125.90947,114.55884 h -6.98183 v 6.93499 c 0.48145,-0.19982 0.99115,-0.30093 1.51687,-0.30059 2.1935,0 3.97823,1.78508 3.97857,3.97926 -3.4e-4,2.19366 -1.78507,3.97908 -3.97857,3.97943 -0.52572,0 -1.03542,-0.10094 -1.51687,-0.30058 v 7.03472 h 21.31997 v -21.32723 h -6.98183"
+       d="m 129.08446,114.55884 h -6.98183 v 6.93499 c 0.48145,-0.19982 0.99115,-0.30093 1.51687,-0.30059 2.1935,0 3.97823,1.78508 3.97857,3.97926 -3.4e-4,2.19366 -1.78507,3.97908 -3.97857,3.97943 -0.52572,0 -1.03542,-0.10094 -1.51687,-0.30058 v 7.03472 h 21.31997 v -21.32723 h -6.98183"
        id="path2238"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccccc" />
     <path
        style="fill:#449981;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.35277778"
-       d="m 117.6132,127.1033 v 8.73264 H 96.293052 v -21.2771 c 21.320148,0 0,0 21.320148,0 v 8.94399 l 0.12971,-0.0959 c 0.47318,-0.35002 0.64767,-0.47939 0.71227,-0.53761 l 0.005,0.007 c 0.98599,-0.7295 2.42741,-0.74052 3.42684,-0.0265 1.03542,0.74018 1.48277,2.1308 1.06264,3.30626 -0.33418,0.93672 -1.21078,1.67966 -2.23277,1.89274 -0.79771,0.16605 -1.62023,-0.009 -2.25671,-0.47956 l -0.84698,-0.62718 v 0.16157 z"
+       d="m 120.78819,127.1033 v 8.73264 H 99.468046 v -21.2771 c 21.320144,0 0,0 21.320144,0 v 8.94399 l 0.12971,-0.0959 c 0.47318,-0.35002 0.64767,-0.47939 0.71227,-0.53761 l 0.005,0.007 c 0.98599,-0.7295 2.42741,-0.74052 3.42684,-0.0265 1.03542,0.74018 1.48277,2.1308 1.06264,3.30626 -0.33418,0.93672 -1.21078,1.67966 -2.23277,1.89274 -0.79771,0.16605 -1.62023,-0.009 -2.25671,-0.47956 l -0.84698,-0.62718 v 0.16157 z"
        id="path2240"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccccccccccc" />
@@ -560,19 +560,17 @@
          y="130.3567"
          x="28.885057"
          id="tspan2242"
-         sodipodi:role="line"
-         dx="0"
-         dy="0">Augmented</tspan></text>
+         sodipodi:role="line">Accelerated</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="125.45794"
+       x="128.63297"
        y="130.43236"
        id="text2248"><tspan
          sodipodi:role="line"
          id="tspan2246"
-         x="125.45794"
+         x="128.63297"
          y="130.43236"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.93333244px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans Bold';letter-spacing:-0.18520834px;word-spacing:0px;fill:#ffffff;stroke-width:0.26458332">Writer</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.93333244px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans Bold';letter-spacing:-0.18520834px;word-spacing:0px;fill:#ffffff;stroke-width:0.26458332">Text</tspan></text>
   </g>
 </svg>

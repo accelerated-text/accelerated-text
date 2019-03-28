@@ -17,7 +17,7 @@ import user                 from '../user/store';
 import variantsApi          from '../variants-api/store';
 import variantsApiAdapter   from '../variants-api/adapter';
 
-import S                from './AugmentedWriter.sass';
+import S                    from './AcceleratedText.sass';
 
 
 export default mount({
