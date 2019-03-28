@@ -1,6 +1,6 @@
-# Augmented Writer
+# Accelerated Text
 
-Augmented Writter helps in building domain specific texts as well as constructing templates.
+Accelerated Text helps in building domain specific texts as well as constructing templates.
 
 ## Usage
 
