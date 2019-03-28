@@ -1,5 +1,5 @@
 PREACT_MAKE= cd preact-demo && make
-PYTEST_DOCKER="registry.gitlab.com/tokenmill/nlg/augmented-writter/pytest:latest"
+PYTEST_DOCKER="registry.gitlab.com/tokenmill/nlg/accelerated-text/pytest:latest"
 
 .PHONY: test
 test:
@@ -25,10 +25,10 @@ docker-repo-login:
 	docker login registry.gitlab.com
 
 build-demo-test-env:
-	(cd dockerfiles && docker build -f Dockerfile.test-env -t registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest .)
+	(cd dockerfiles && docker build -f Dockerfile.test-env -t registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest .)
 
 publish-demo-test-env: build-demo-test-env
-	docker push registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest
+	docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 
 
 build-pytest-docker:
