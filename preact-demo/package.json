@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:tokenmill/nlg/augmented-writter.git"
+    "url": "git@gitlab.com:tokenmill/nlg/accelerated-text.git"
   },
   "keywords": [
     "text generation",

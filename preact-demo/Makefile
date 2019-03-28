@@ -1,5 +1,5 @@
 BUILD_DIR=dist
-S3_BUCKET=augmented-writer-app
+S3_BUCKET=accelerated-text-app
 S3_BUCKET_URL=s3://${S3_BUCKET}
 
 .PHONY: test
