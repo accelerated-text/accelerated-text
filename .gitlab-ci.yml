@@ -3,7 +3,7 @@ stages:
     - build
     - deploy
 
-image: registry.gitlab.com/tokenmill/nlg/augmented-writter/demo-test-env:latest
+image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 
 test:preact_demo:
     script:
@@ -11,7 +11,7 @@ test:preact_demo:
     stage:  test
 
 lexical-analysis:code-linter:
-  image: registry.gitlab.com/tokenmill/nlg/augmented-writter/pytest:latest
+  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/pytest:latest
   stage: test
   when: on_success
   script:
