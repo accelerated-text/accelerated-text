@@ -4,7 +4,7 @@
 (def results-table "nlg-results")
 (def data-table "data")
 (def lexicon-table "lexicon")
-(def data-bucket "augmented-writer-data-files")
+(def data-bucket "accelerated-text-data-files")
 
 (def client-opts
   {:endpoint "http://dynamodb.eu-central-1.amazonaws.com"
