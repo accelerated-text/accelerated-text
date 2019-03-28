@@ -1,4 +1,4 @@
-# Augmented Writer (Preact version)
+# Accelerated Text (Preact part)
 
 ## Usage:
 

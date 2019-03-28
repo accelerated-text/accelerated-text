@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "preact-demo",
+  "name": "accelerated-text-preact-demo",
   "version": "1.0.0",
-  "description": "Augmented Writer (Preact version)",
+  "description": "Accelerated Text (Preact part)",
   "main": "index.js",
   "scripts": {
     "build": "node -r esm node_modules/.bin/webpack --config packages/webpack/build.config.js",
@@ -15,11 +15,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:tokenmill/nlg/augmented-writter.git"
+    "url": "git@gitlab.com:tokenmill/nlg/accelerated-text.git"
   },
   "keywords": [
-    "Augmented",
-    "writing",
+    "text generation",
     "NLG"
   ],
   "author": "Tokenmill.lt",

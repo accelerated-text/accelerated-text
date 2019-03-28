@@ -20,8 +20,8 @@ export default useStores([
             <div className={ S.left }>
                 <img
                     className={ S.logo }
-                    src="/augmented-writer-logo.png"
-                    title="Augmented Writer"
+                    src="/accelerated-text-logo.png"
+                    title="Accelerated Text"
                 />
             </div>
             <div className={ S.center }>
