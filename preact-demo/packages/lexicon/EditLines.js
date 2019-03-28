@@ -1,4 +1,7 @@
+import classnames       from 'classnames';
 import { h, Component } from 'preact';
+
+import { QA }           from '../tests/constants';
 
 import S                from './EditLines.sass';
 
@@ -23,10 +26,25 @@ export default class LexiconEditLines extends Component {
 
     render({ saving, status }, { text }) {
         return (
-            <div className={ S.className }>
-                <textarea disabled={ saving } onInput={ this.onInput } value={ text } />
-                <button disabled={ saving } onClick={ this.onClickSave }>Save</button>
-                <button disabled={ saving } onClick={ this.onClickCancel }>Cancel</button>
+            <div className={ classnames( S.className, QA.LEXICON_EDIT ) }>
+                <textarea
+                    className={ QA.LEXICON_EDIT_TEXT }
+                    disabled={ saving }
+                    onInput={ this.onInput }
+                    value={ text }
+                />
+                <button
+                    children="Save"
+                    className={ QA.LEXICON_EDIT_SAVE }
+                    disabled={ saving }
+                    onClick={ this.onClickSave }
+                />
+                <button
+                    children="Cancel"
+                    className={ QA.LEXICON_EDIT_CANCEL }
+                    disabled={ saving }
+                    onClick={ this.onClickCancel }
+                />
                 { status }
             </div>
         );

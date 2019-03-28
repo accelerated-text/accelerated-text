@@ -1,9 +1,11 @@
+import classnames       from 'classnames';
 import { h, Component } from 'preact';
 
 import {
     Error,
     Loading,
 }   from '../ui-messages/';
+import { QA }           from '../tests/constants';
 import { useStores }    from '../vesa/';
 
 import S                from './Lexicon.sass';
@@ -32,15 +34,18 @@ export default useStores([
     }) {
         const hasMore =         totalCount > items.length;
         const isMoreLoading =   hasMore && resultsLoading && requestOffset;
+        const showList =        newItem || items && items.length;
 
         return (
             <div className={ S.className }>
                 <div className={ S.top }>
-                    <button className={ S.new } onClick={ E.lexicon.onClickNew }>
-                        ➕ New list
-                    </button>
+                    <button
+                        children="➕ New list"
+                        className={ classnames( S.new, QA.LEXICON_NEW_BTN ) }
+                        onClick={ E.lexicon.onClickNew }
+                    />
                     <input
-                        className={ S.search }
+                        className={ classnames( S.search, QA.LEXICON_SEARCH ) }
                         onInput={ this.onChangeSearch }
                         placeholder="search"
                         type="search"
@@ -53,7 +58,7 @@ export default useStores([
                 { resultsLoading &&
                     <Loading message="Loading..." />
                 }
-                { items &&
+                { showList &&
                     <ItemList
                         items={ items }
                         newItem={ newItem }
@@ -64,7 +69,7 @@ export default useStores([
                 }
                 { hasMore &&
                     <button
-                        className={ S.more }
+                        className={ classnames( S.more, QA.LEXICON_MORE ) }
                         disabled={ isMoreLoading }
                         onClick={ E.lexicon.onClickMore }
                     >
