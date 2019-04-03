@@ -1,0 +1,28 @@
+@import '../styles/variables'
+
+
+.className
+
+    cursor:                 grab
+    opacity:                .6
+
+    > svg > g
+
+        > path
+
+            fill:           shade-1( $gray )
+
+        > text
+
+            cursor:         grab
+            fill:           $white
+            font-family:    $font-family
+            font-size:      90%
+
+    &:hover
+
+        opacity:            .8
+
+    &.isDragged
+
+        opacity:            1

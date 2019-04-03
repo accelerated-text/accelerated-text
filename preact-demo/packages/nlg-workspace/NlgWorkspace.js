@@ -3,6 +3,7 @@ import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
 import DocumentPlan         from '../nlg-blocks/Document-plan';
+import DropTarget           from '../drag-in-blocks/DropTarget';
 import { provideBlocks }    from '../nlg-blocks/';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 
@@ -113,17 +114,22 @@ export default class NlgWorkspace extends Component {
 
     render() {
         return (
-            <ResizableBlockly
-                assetUrl="/blockly"
-                className={ S.className }
-                onBlockly={ this.onBlockly }
-                onWorkspace={ this.onWorkspace }
-                options={{
-                    horizontalLayout:   true,
-                    toolbox,
-                    trashcan:           false,
-                }}
-            />
+            <DropTarget
+                Blockly={ this.Blockly }
+                workspace={ this.workspace }
+            >
+                <ResizableBlockly
+                    assetUrl="/blockly"
+                    className={ S.blocklyWorkspace }
+                    onBlockly={ this.onBlockly }
+                    onWorkspace={ this.onWorkspace }
+                    options={{
+                        horizontalLayout:   true,
+                        toolbox,
+                        trashcan:           false,
+                    }}
+                />
+            </DropTarget>
         );
     }
 }

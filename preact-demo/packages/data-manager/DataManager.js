@@ -1,5 +1,6 @@
 import { h, Component }     from 'preact';
 
+import DragInBlock          from '../drag-in-blocks/DragInBlock';
 import SelectDataSample     from '../document-plans/SelectDataSample';
 import UploadDataFile       from '../upload-data-file/UploadDataFile';
 import { useStores }        from '../vesa/';
@@ -47,9 +48,15 @@ export default useStores([
                     }</div>
                 </div>
                 { planFile && planFile.fieldNames &&
-                    <ul>{ planFile.fieldNames.map( name =>
-                        <li>{ name }</li>
-                    )}</ul>
+                    <div className={ S.fieldNames }>
+                        { planFile.fieldNames.map( name =>
+                            <DragInBlock
+                                fields={{ name }}
+                                text={ `${ name } cell` }
+                                type="Cell"
+                            />
+                        )}
+                    </div>
                 }
             </div>
         );

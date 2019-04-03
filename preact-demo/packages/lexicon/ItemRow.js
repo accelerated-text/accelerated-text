@@ -1,6 +1,7 @@
 import classnames           from 'classnames';
 import { h }                from 'preact';
 
+import DragInBlock          from '../drag-in-blocks/DragInBlock';
 import { Error, Loading }   from '../ui-messages';
 import { mount, useStores } from '../vesa/';
 
@@ -29,7 +30,14 @@ export default mount(
 
     return (
         <div className={ classnames( S.className, className ) }>
-            <div className={ S.key }>{ item.key }</div>
+            <div className={ S.key }>
+                <DragInBlock
+                    comment={ item.synonyms.join( '\n' ) }
+                    fields={{ text: item.key }}
+                    text={ `List: ${ item.key }` }
+                    type="Lexicon"
+                />
+            </div>
             { showEdit
                 ? <EditLines
                     lines={ item.synonyms }
