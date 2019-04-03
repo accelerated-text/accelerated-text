@@ -8,6 +8,8 @@ import documentPlans        from '../document-plans/store';
 import documentPlansAdapter from '../document-plans/adapter';
 import EditorSidebar        from '../plan-editor/Sidebar';
 import Header               from '../header/Header';
+import lexicon              from '../lexicon/store';
+import lexiconAdapter       from '../lexicon/adapter';
 import planList             from '../plan-list/store';
 import planListAdapter      from '../plan-list/adapter';
 import planListLsAdapter    from '../plan-list/local-storage-adapter';
@@ -24,6 +26,7 @@ export default mount({
     contexts,
     dataSamples,
     documentPlans,
+    lexicon,
     planList,
     user,
     variantsApi,
@@ -31,6 +34,7 @@ export default mount({
     contextsAdapter,
     dataSamplesAdapter,
     documentPlansAdapter,
+    lexiconAdapter,
     planListAdapter,
     variantsApiAdapter,
     planListLsAdapter,
