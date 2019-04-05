@@ -62,6 +62,7 @@ export default {
             }
 
             getVariants({
+                ccg:            !!plan.useCcg,
                 dataId:         plan.dataSampleId,
                 documentPlanId: plan.id,
             })
