@@ -9,7 +9,7 @@
     "start": "node -r esm node_modules/.bin/webpack-dev-server --config packages/webpack/run.config.js",
     "test": "npm run test:eslint && npm run test:sasslint && npm run test:ava && npm run test:audit",
     "test:audit": "npm audit",
-    "test:ava": "node -r esm packages/ava/run",
+    "test:ava": "node -r esm packages/tests/lib/run-ava",
     "test:eslint": "eslint packages",
     "test:sasslint": "sass-lint -vq"
   },
