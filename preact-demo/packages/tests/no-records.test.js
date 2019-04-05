@@ -1,20 +1,21 @@
-const noRecords =           require( './response-templates/no-records' );
+import test             from 'ava';
 
-const { SELECTORS } =       require( './constants' );
+import noRecords        from './response-templates/no-records';
+import { SELECTORS }    from './constants';
+import withPage         from './with-page';
 
 
-describe( 'no records', () => {
+test( 'should not have errors', withPage, async ( t, page ) => {
+    t.timeout( 5e3 );
 
-    beforeAll(() => noRecords( page ), 10e3 );
+    await noRecords( page );
+    await t.notFindElement( page, SELECTORS.UI_ERROR );
+});
 
-    test( 'should not have errors', async () => {
 
-        await expect( page ).not.toMatchElement( SELECTORS.UI_ERROR );
-    });
+test( 'should handle empty plan list', withPage, async ( t, page ) => {
+    t.timeout( 5e3 );
 
-    test( 'should handle empty plan list', async () => {
-
-        await expect( page ).toMatchElement( SELECTORS.BTN_NEW_PLAN );
-
-    }, 10e3 );
+    await noRecords( page );
+    await t.findElement( page, SELECTORS.BTN_NEW_PLAN );
 });

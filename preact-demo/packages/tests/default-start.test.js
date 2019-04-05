@@ -1,26 +1,31 @@
-const defaultResponses =    require( './response-templates/default' );
-const DOCUMENT_PLAN =       require( './data/document-plan' );
-const { SELECTORS } =       require( './constants' );
+import test             from 'ava';
+
+import defaultResponses from './response-templates/default';
+import DOCUMENT_PLAN    from './data/document-plan';
+import { SELECTORS }    from './constants';
+import withPage         from './with-page';
 
 
-describe( 'default start', () => {
+test( 'should not have errors', withPage, async ( t, page ) => {
+    t.timeout( 5e3 );
 
-    beforeAll(() => defaultResponses( page ), 10e3 );
+    await defaultResponses( page );
+    await t.notFindElement( page, SELECTORS.UI_ERROR );
+});
 
-    test( 'should not have errors', async () => {
 
-        await expect( page ).not.toMatchElement( SELECTORS.UI_ERROR );
-    });
+test( 'should load the document plan', withPage, async ( t, page ) => {
+    t.timeout( 5e3 );
 
-    test( 'should load the document plan', async () => {
+    await defaultResponses( page );
+    await t.findElement( page, `[data-id=${ DOCUMENT_PLAN.documentPlan.srcId }]` );
+    await t.findElement( page, `[data-id=${ DOCUMENT_PLAN.documentPlan.segments[0].srcId }]` );
+});
 
-        await expect( page ).toMatchElement( `[data-id=${ DOCUMENT_PLAN.documentPlan.srcId }]` );
-        await expect( page ).toMatchElement( `[data-id=${ DOCUMENT_PLAN.documentPlan.segments[0].srcId }]` );
-    }, 10e3 );
 
-    test( 'should load a variant', async () => {
+test( 'should load a variant', withPage, async ( t, page ) => {
+    t.timeout( 5e3 );
 
-        await expect( page ).toMatchElement( SELECTORS.VARIANT );
-
-    }, 10e3 );
+    await defaultResponses( page );
+    await t.findElement( page, SELECTORS.VARIANT );
 });

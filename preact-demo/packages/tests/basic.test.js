@@ -1,12 +1,12 @@
-const noRecords =           require( './response-templates/no-records' );
+import test             from 'ava';
+
+import noRecords        from './response-templates/no-records';
+import withPage         from './with-page';
 
 
-describe( 'basic', () => {
+test( 'should render logo', withPage, async ( t, page ) => {
+    t.timeout( 5e3 );
 
-    beforeEach(() => noRecords( page ), 10e3 );
-
-    test( 'should render logo', async () => {
-
-        await expect( page ).toMatchElement( 'img[title="Accelerated Text"]' );
-    });
+    await noRecords( page );
+    await t.findElement( page, 'img[title="Accelerated Text"]' );
 });
