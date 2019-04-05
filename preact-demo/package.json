@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node -r esm node_modules/.bin/webpack --config packages/webpack/build.config.js",
     "start": "node -r esm node_modules/.bin/webpack-dev-server --config packages/webpack/run.config.js",
-    "test": "npm run test:eslint && npm run test:sasslint && npm run test:jest && npm run test:audit",
+    "test": "npm run test:eslint && npm run test:sasslint && npm run test:ava && npm run test:audit",
     "test:audit": "npm audit",
     "test:ava": "node -r esm packages/ava/run",
     "test:eslint": "eslint packages",
