@@ -2,14 +2,13 @@ import { h, Component }     from 'preact';
 
 
 export default class CcgOption extends Component {
-    
-    onChange = evt => {
+
+    onChange = evt =>
         this.props.onChange({
             ...this.props.plan,
             useCcg:         evt.target.checked,
         });
-    }
-    
+
     render({ plan, onChange }) {
         return (
             <label>
