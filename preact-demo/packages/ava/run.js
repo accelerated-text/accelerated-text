@@ -3,7 +3,7 @@ import 'dotenv-extended/config';
 import { resolve }          from 'path';
 import { spawn }            from 'child_process';
 
-import devServer            from '../jest/webpack-dev-server';
+import devServer            from '../webpack/test-server';
 
 
 const cwd =                 resolve( __dirname, '../..' );
