@@ -1,5 +1,0 @@
-Click==7.0
-Flask==1.0.2
-Flask-Cors==3.0.7
-flask-restplus==0.12.1
-gunicorn==19.9.0
