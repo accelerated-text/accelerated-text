@@ -1,4 +1,6 @@
-import puppeteer        from 'puppeteer';
+import puppeteer            from 'puppeteer';
+
+import addPageAssertions    from './add-page-assertions';
 
 
 /// Copied from NPM package jest-environment-puppeteer/lib/readConfig.js:
@@ -9,10 +11,6 @@ const CHROME_CI_ARGS = [
     '--disable-setuid-sandbox',
     '--no-sandbox',
 ];
-
-const SELECTOR_WAIT_OPTIONS = {
-    timeout:            1e3,
-};
 
 
 export default async ( t, run ) => {
@@ -26,14 +24,8 @@ export default async ( t, run ) => {
     });
     const page =        await browser.newPage();
 
-    t.findElement = ( page, selector ) =>
-        t.notThrowsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS ));
-
-    t.notFindElement = ( page, selector ) =>
-        t.throwsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS ));
-
     try {
-        await run( t, page );
+        await run( addPageAssertions( t ), page );
     } finally {
         await page.close();
         await browser.close();
