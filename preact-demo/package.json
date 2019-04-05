@@ -9,6 +9,7 @@
     "start": "node -r esm node_modules/.bin/webpack-dev-server --config packages/webpack/run.config.js",
     "test": "npm run test:eslint && npm run test:sasslint && npm run test:jest && npm run test:audit",
     "test:audit": "npm audit",
+    "test:ava": "node -r esm packages/ava/run",
     "test:eslint": "eslint packages",
     "test:jest": "node -r esm node_modules/.bin/jest --runInBand",
     "test:sasslint": "sass-lint -vq"
@@ -48,6 +49,7 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-transform-react-jsx": "^7.1.6",
+    "ava": "^1.4.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^1.0.0",
@@ -72,6 +74,12 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14",
     "webpack-dotenv-extended-plugin": "^1.0.0"
+  },
+  "ava": {
+    "require": [
+        "esm"
+    ],
+    "verbose": true
   },
   "jest": {
     "preset": "jest-puppeteer",
