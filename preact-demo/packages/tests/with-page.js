@@ -11,7 +11,7 @@ const CHROME_CI_ARGS = [
 ];
 
 const SELECTOR_WAIT_OPTIONS = {
-    timeout:            500,
+    timeout:            1e3,
 };
 
 
