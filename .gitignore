@@ -1,7 +1,7 @@
 node_modules
 *.lock
-preact-demo/dist
-preact-demo/*.log
+perform/dist
+perform/*.log
 .idea/*
 nlg-api/.nrepl-port
 nlg-api/output-sam.yaml
