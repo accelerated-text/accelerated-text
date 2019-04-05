@@ -10,6 +10,9 @@ const NLG_JOB_RESULT =      require( '../data/nlg-job-result' );
 const USER =                require( '../data/user' );
 
 
+const { TEST_URL } =        process.env;
+
+
 module.exports = async page => {
 
     debugConsole( page );
