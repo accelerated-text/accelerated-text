@@ -1,9 +1,9 @@
 import test             from 'ava';
 
-import defaultResponses from './response-templates/default';
+import defaultResponses from './lib/default-responses';
 import DOCUMENT_PLAN    from './data/document-plan';
 import { SELECTORS }    from './constants';
-import withPage         from './with-page';
+import withPage         from './lib/with-page';
 
 
 test( 'should not have errors', withPage, async ( t, page ) => {

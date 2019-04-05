@@ -1,8 +1,8 @@
 import test             from 'ava';
 
-import noRecords        from './response-templates/no-records';
+import noRecords        from './lib/no-records';
 import { SELECTORS }    from './constants';
-import withPage         from './with-page';
+import withPage         from './lib/with-page';
 
 
 test( 'should not have errors', withPage, async ( t, page ) => {

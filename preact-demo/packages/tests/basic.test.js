@@ -1,7 +1,7 @@
 import test             from 'ava';
 
-import noRecords        from './response-templates/no-records';
-import withPage         from './with-page';
+import noRecords        from './lib/no-records';
+import withPage         from './lib/with-page';
 
 
 test( 'should render logo', withPage, async ( t, page ) => {
