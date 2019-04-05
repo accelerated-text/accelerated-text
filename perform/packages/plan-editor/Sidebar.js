@@ -1,5 +1,6 @@
 import { h }                from 'preact';
 
+import CcgOption            from '../ccg-option/CcgOption';
 import DataManager          from '../data-manager/DataManager';
 import getOpenedPlan        from '../plan-list/get-opened-plan';
 import Lexicon              from '../lexicon/Lexicon';
@@ -13,7 +14,7 @@ import { useStores }        from '../vesa/';
 export default useStores([
     'documentPlans',
     'planList',
-])(({ className, ...props }) => {
+])(({ className, E, ...props }) => {
 
     const openedPlan =      getOpenedPlan( props );
 
@@ -28,8 +29,11 @@ export default useStores([
             <SidebarItem isExpanded title="Word lists">
                 <Lexicon />
             </SidebarItem>
-            <SidebarItem title="Context">
-                Topic: <SelectContext plan={ openedPlan } />
+            <SidebarItem title="Options">
+                <div>
+                    Topic: <SelectContext plan={ openedPlan } />
+                </div>
+                <CcgOption plan={ openedPlan } onChange={ E.documentPlans.onUpdate } />
             </SidebarItem>
         </Sidebar>
     );
