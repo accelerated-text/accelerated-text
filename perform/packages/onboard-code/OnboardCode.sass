@@ -1,0 +1,31 @@
+@import '../styles/variables'
+
+
+.className
+
+    > .options
+
+        border-bottom:      $space-xxs dotted $gray
+        padding:            $space-m
+
+        > *
+
+            padding-bottom: $space-s
+
+        > .textForm
+
+            align-items:            stretch
+            display:                grid
+            grid-gap:               $space-s
+            grid-template-columns:  1fr 4em
+            justify-items:          stretch
+            width:                  100%
+
+            > .tokenizerError
+
+                color:              $red
+
+        > .or
+
+            font-weight:    bold
+            text-align:     center

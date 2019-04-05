@@ -1,0 +1,61 @@
+@import '../styles/variables'
+
+
+.className
+
+    box-shadow:             inset 0 1px 0 $white, inset 0 -1px 0 $subtle-border
+
+    &:last-child
+
+        box-shadow:         inset 0 1px 0 $white
+
+    > .header
+
+        cursor:                 pointer
+        display:                grid
+        font-size:              114%
+        grid-gap:               $space-m
+        grid-template-columns:  1fr 1em
+        padding:                $space-m $space-s $space-s
+
+        > .title
+
+            color:              shade-1-2( $primary-color )
+
+        > .expandIcon
+
+            opacity:            ( 1 / 3 )
+            transform:          rotate( 0deg )
+            transition:         transform $transition-quick
+
+        &:hover > .expandIcon
+
+            opacity:            1
+
+    > .body
+
+        display:            block
+        max-height:         0
+        opacity:            .01
+        overflow-y:         hidden
+        padding:            $space-s
+        transition:         $transition-quick
+
+    &.isExpanded
+
+        > .header
+            > .expandIcon
+
+                opacity:            ( 1 / 6 )
+                transform:          rotate( 90deg )
+
+            &:hover > .expandIcon
+
+                opacity:            1
+
+        > .body
+
+            max-height:         600em
+            opacity:            1
+            overflow-y:         auto
+            transition:         $transition
