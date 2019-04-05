@@ -11,7 +11,6 @@
     "test:audit": "npm audit",
     "test:ava": "node -r esm packages/ava/run",
     "test:eslint": "eslint packages",
-    "test:jest": "node -r esm node_modules/.bin/jest --runInBand",
     "test:sasslint": "sass-lint -vq"
   },
   "repository": {
@@ -77,15 +76,6 @@
     "require": [
       "esm"
     ],
-    "verbose": true
-  },
-  "jest": {
-    "preset": "jest-puppeteer",
-    "globals": {
-      "TEST_URL": "http://localhost:4444"
-    },
-    "globalSetup": "./packages/jest/global-setup.js",
-    "globalTeardown": "./packages/jest/global-teardown.js",
     "verbose": true
   }
 }
