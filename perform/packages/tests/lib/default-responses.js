@@ -1,23 +1,23 @@
-const debugConsole =        require( '../../qa-utils/debug-console' );
-const nlgProvide =          require( '../../nlg-api/provide-response' );
-const requestInterceptor =  require( '../../qa-utils/request-interceptor' );
+import debugConsole         from '../../qa-utils/debug-console';
+import nlgProvide           from '../../nlg-api/provide-response';
+import requestInterceptor   from '../../qa-utils/request-interceptor';
 
-const DATA_FILE =           require( '../data/data-file' );
-const DOCUMENT_PLAN =       require( '../data/document-plan' );
-const LEXICON_LIST =        require( '../data/lexicon-list' );
-const NLG_JOB =             require( '../data/nlg-job' );
-const NLG_JOB_RESULT =      require( '../data/nlg-job-result' );
-const USER =                require( '../data/user' );
+import DATA_FILE            from '../data/data-file';
+import DOCUMENT_PLAN        from '../data/document-plan';
+import LEXICON_LIST         from '../data/lexicon-list';
+import NLG_JOB              from '../data/nlg-job';
+import NLG_JOB_RESULT       from '../data/nlg-job-result';
+import USER                 from '../data/user';
 
 
 const { TEST_URL } =        process.env;
 
 
-module.exports = async page => {
+export default async ( t, run, ...args ) => {
 
-    debugConsole( page );
+    debugConsole( t.page );
 
-    const interceptor =     await requestInterceptor( page );
+    const interceptor =     await requestInterceptor( t.page );
     const {
         continueAll,
         provideOnce,
@@ -27,7 +27,7 @@ module.exports = async page => {
 
     continueAll( 'GET', new RegExp( `${ TEST_URL }/.*` ));
 
-    page.goto( TEST_URL );
+    t.page.goto( TEST_URL );
 
     await Promise.all([
         nlgProvideOnce( 'GET', `/data/?user=${ USER.id }`, [ DATA_FILE ]),
@@ -37,10 +37,9 @@ module.exports = async page => {
             .then(() => nlgProvideOnce( 'GET', `/nlg/${ NLG_JOB.resultId }`, NLG_JOB_RESULT )),
     ]);
 
-    await stopInterception( page );
+    if( run ) {
+        await run( Object.assign( t, { interceptor, nlgProvideOnce }), ...args );
+    }
 
-    return {
-        ...interceptor,
-        nlgProvideOnce,
-    };
+    await stopInterception( t.page );
 };

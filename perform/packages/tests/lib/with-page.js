@@ -1,7 +1,5 @@
 import puppeteer            from 'puppeteer';
 
-import addPageAssertions    from './add-page-assertions';
-
 
 /// Copied from NPM package jest-environment-puppeteer/lib/readConfig.js:
 const CHROME_CI_ARGS = [
@@ -13,7 +11,7 @@ const CHROME_CI_ARGS = [
 ];
 
 
-export default async ( t, run ) => {
+export default async ( t, run, ...args ) => {
 
     const browser =     await puppeteer.launch({
         args:           process.env.CI === 'true' ? CHROME_CI_ARGS : [],
@@ -25,7 +23,7 @@ export default async ( t, run ) => {
     const page =        await browser.newPage();
 
     try {
-        await run( addPageAssertions( t ), page );
+        await run( Object.assign( t, { browser, page }), ...args );
     } finally {
         await page.close();
         await browser.close();

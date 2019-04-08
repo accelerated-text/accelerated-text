@@ -1,21 +1,18 @@
 import test             from 'ava';
 
-import noRecords        from './lib/no-records';
+import noRecordsPage    from './lib/no-records-page';
 import { SELECTORS }    from './constants';
-import withPage         from './lib/with-page';
 
 
-test( 'should not have errors', withPage, async ( t, page ) => {
+test( 'should not have errors', noRecordsPage, async t => {
     t.timeout( 5e3 );
 
-    await noRecords( page );
-    await t.notFindElement( page, SELECTORS.UI_ERROR );
+    await t.notFindElement( SELECTORS.UI_ERROR );
 });
 
 
-test( 'should handle empty plan list', withPage, async ( t, page ) => {
+test( 'should handle empty plan list', noRecordsPage, async t => {
     t.timeout( 5e3 );
 
-    await noRecords( page );
-    await t.findElement( page, SELECTORS.BTN_NEW_PLAN );
+    await t.findElement( SELECTORS.BTN_NEW_PLAN );
 });

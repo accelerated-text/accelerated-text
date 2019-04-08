@@ -1,19 +1,19 @@
-const debugConsole =        require( '../../qa-utils/debug-console' );
-const nlgProvide =          require( '../../nlg-api/provide-response' );
-const requestInterceptor =  require( '../../qa-utils/request-interceptor' );
+import debugConsole         from '../../qa-utils/debug-console';
+import nlgProvide           from '../../nlg-api/provide-response';
+import requestInterceptor   from '../../qa-utils/request-interceptor';
 
-const EMPTY_LEXICON_LIST =  require( '../data/empty-lexicon-list' );
-const USER =                require( '../data/user' );
+import EMPTY_LEXICON_LIST   from '../data/empty-lexicon-list';
+import USER                 from '../data/user';
 
 
 const { TEST_URL } =        process.env;
 
 
-module.exports = async page => {
+export default async ( t, run, ...args ) => {
 
-    debugConsole( page );
+    debugConsole( t.page );
 
-    const interceptor =     await requestInterceptor( page );
+    const interceptor =     await requestInterceptor( t.page );
     const {
         continueAll,
         provideOnce,
@@ -23,7 +23,7 @@ module.exports = async page => {
 
     continueAll( 'GET', new RegExp( `${ TEST_URL }/.*` ));
 
-    page.goto( TEST_URL );
+    t.page.goto( TEST_URL );
 
     await Promise.all([
         nlgProvideOnce( 'GET', `/data/?user=${ USER.id }`, []),
@@ -31,10 +31,9 @@ module.exports = async page => {
         nlgProvideOnce( 'GET', '/lexicon?', EMPTY_LEXICON_LIST ),
     ]);
 
-    await stopInterception( page );
+    if( run ) {
+        await run( Object.assign( t, { interceptor, nlgProvideOnce }), ...args );
+    }
 
-    return {
-        ...interceptor,
-        nlgProvideOnce,
-    };
+    await stopInterception( t.page );
 };

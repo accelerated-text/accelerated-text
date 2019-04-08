@@ -1,45 +1,38 @@
-import test             from 'ava';
+import test                 from 'ava';
 
-import defaultResponses from './lib/default-responses';
-import noRecords        from './lib/no-records';
-import { SELECTORS }    from './constants';
-import withPage         from './lib/with-page';
+import defaultResponsesPage from './lib/default-responses-page';
+import noRecordsPage        from './lib/no-records-page';
+import { SELECTORS }        from './constants';
 
 
-test( 'no list when no records', withPage, async ( t, page ) => {
+test( 'no list when no records', noRecordsPage, async t => {
     t.timeout( 5e3 );
 
-    await noRecords( page );
-
-    await t.notFindElement( page, SELECTORS.LEXICON_LIST );
-    await t.notFindElement( page, SELECTORS.LEXICON_ITEM );
-    await t.notFindElement( page, SELECTORS.LEXICON_NEW_ITEM );
+    await t.notFindElement( SELECTORS.LEXICON_LIST );
+    await t.notFindElement( SELECTORS.LEXICON_ITEM );
+    await t.notFindElement( SELECTORS.LEXICON_NEW_ITEM );
 });
 
 
-test( 'default list', withPage, async ( t, page ) => {
+test( 'default list', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
-    await defaultResponses( page );
-
-    await t.findElement( page, SELECTORS.LEXICON_LIST );
-    await t.findElement( page, SELECTORS.LEXICON_ITEM );
-    await t.notFindElement( page, SELECTORS.LEXICON_NEW_ITEM );
+    await t.findElement( SELECTORS.LEXICON_LIST );
+    await t.findElement( SELECTORS.LEXICON_ITEM );
+    await t.notFindElement( SELECTORS.LEXICON_NEW_ITEM );
 });
 
 
-test( 'add new item form', withPage, async ( t, page ) => {
+test( 'add new item form', noRecordsPage, async t => {
     t.timeout( 5e3 );
 
-    await noRecords( page );
+    await t.page.click( SELECTORS.LEXICON_NEW_BTN );
 
-    await page.click( SELECTORS.LEXICON_NEW_BTN );
-
-    await t.findElement( page, SELECTORS.LEXICON_NEW_ITEM );
-    await t.findElement( page, SELECTORS.LEXICON_EDIT );
-    await t.findElement( page, SELECTORS.LEXICON_EDIT_TEXT );
-    await t.findElement( page, SELECTORS.LEXICON_EDIT_SAVE );
-    await t.findElement( page, SELECTORS.LEXICON_EDIT_CANCEL );
+    await t.findElement( SELECTORS.LEXICON_NEW_ITEM );
+    await t.findElement( SELECTORS.LEXICON_EDIT );
+    await t.findElement( SELECTORS.LEXICON_EDIT_TEXT );
+    await t.findElement( SELECTORS.LEXICON_EDIT_SAVE );
+    await t.findElement( SELECTORS.LEXICON_EDIT_CANCEL );
 });
 
 test.todo( 'search works' );
