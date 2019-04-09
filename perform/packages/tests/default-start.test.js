@@ -1,7 +1,7 @@
 import test                 from 'ava';
 
 import defaultResponsesPage from './lib/default-responses-page';
-import DOCUMENT_PLAN        from './data/document-plan';
+import DOCUMENT_PLAN_LIST   from './data/document-plan-list';
 import { SELECTORS }        from './constants';
 
 
@@ -15,8 +15,10 @@ test( 'should not have errors', defaultResponsesPage, async t => {
 test( 'should load the document plan', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
-    await t.findElement( `[data-id=${ DOCUMENT_PLAN.documentPlan.srcId }]` );
-    await t.findElement( `[data-id=${ DOCUMENT_PLAN.documentPlan.segments[0].srcId }]` );
+    const PLAN =            DOCUMENT_PLAN_LIST[0];
+
+    await t.findElement( `[data-id=${ PLAN.documentPlan.srcId }]` );
+    await t.findElement( `[data-id=${ PLAN.documentPlan.segments[0].srcId }]` );
 });
 
 
