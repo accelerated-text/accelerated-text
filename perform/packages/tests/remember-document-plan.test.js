@@ -1,10 +1,10 @@
 import sleep                from 'timeout-as-promise';
 import test                 from 'ava';
 
-import debugConsole         from '../qa-utils/debug-console';
 import { OPENED_PLAN_UID }  from '../plan-list/local-storage-adapter';
 
 import addPageAssertions    from './lib/add-page-assertions';
+import debugConsole         from './lib/debug-console';
 import defaultResponses     from './lib/default-responses';
 import DOCUMENT_PLAN_LIST   from './data/document-plan-list';
 import noRecords            from './lib/no-records';
