@@ -27,8 +27,12 @@ export default async ( t, run, ...args ) => {
 
     continueAll( 'GET', new RegExp( `${ TEST_URL }/.*` ));
 
-    t.page.goto( TEST_URL );
+    /// Start page load:
+    t.timeout( 8e3 );
+    const pageLoadResult =  t.page.goto( TEST_URL, { timeout: 8e3 })
+        .then( t.pass, t.fail );
 
+    /// Register these intercepts while the page is loading:
     await Promise.all([
         nlgProvideOnce( 'GET', `/data/?user=${ USER.id }`, [ DATA_FILE ]),
         nlgProvideOnce( 'GET', '/lexicon?', LEXICON_LIST ),
@@ -36,6 +40,8 @@ export default async ( t, run, ...args ) => {
             .then(() => nlgProvideOnce( 'POST', '/nlg/', NLG_JOB ))
             .then(() => nlgProvideOnce( 'GET', `/nlg/${ NLG_JOB.resultId }`, NLG_JOB_RESULT )),
     ]);
+
+    await pageLoadResult;
 
     if( run ) {
         await run( Object.assign( t, { interceptor, nlgProvideOnce }), ...args );
