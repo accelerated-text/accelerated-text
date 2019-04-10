@@ -1,3 +1,4 @@
+import sleep                from 'timeout-as-promise';
 import test                 from 'ava';
 
 import defaultResponsesPage from './lib/default-responses-page';
@@ -8,6 +9,14 @@ import { SELECTORS }        from './constants';
 test( 'should not have errors', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
+    await t.notFindElement( SELECTORS.UI_ERROR );
+});
+
+
+test( 'should not start unaccounted-for requests', defaultResponsesPage, async t => {
+    t.timeout( 10e3 );
+
+    await sleep( 8e3 );
     await t.notFindElement( SELECTORS.UI_ERROR );
 });
 
