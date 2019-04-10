@@ -1,18 +1,23 @@
-/*  eslint-disable no-console */
+export default async ( t, run, ...args ) => {
 
-module.exports = page => {
+    const onConsole = async message => {
 
-    page.on( 'console', async message => {
-        const text = message.text();
-        const handle = message.args()[0];
-        console.log( 'ON CONSOLE', message.type(), text );
-        if( handle ) {
-            const value =       await handle.jsonValue();
-            console.log( value );
-            const properties =  await handle.getProperties();
-            properties.forEach(( val, key ) => {
-                console.log( key, typeof val, val.toString());
-            });
+        const handle =      message.args()[0];
+
+        if( !handle ) {
+            const text =    message.text();
+            t.log( 'on console', message.type(), text );
+        } else {
+            const value =   await handle.jsonValue();
+            t.log( 'on console', message.type(), value );
         }
-    });
+    };
+
+    t.page.on( 'console', onConsole );
+
+    if( run ) {
+        await run( t, ...args );
+    }
+
+    t.page.off( 'console', onConsole );
 };
