@@ -4,7 +4,7 @@ S3_BUCKET_URL=s3://${S3_BUCKET}
 
 .PHONY: test
 test: setup
-	npm test
+	npm test --silent
 
 .PHONY: run
 run: setup

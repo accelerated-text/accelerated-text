@@ -1,31 +1,38 @@
-import test             from 'ava';
+import sleep                from 'timeout-as-promise';
+import test                 from 'ava';
 
-import defaultResponses from './lib/default-responses';
-import DOCUMENT_PLAN    from './data/document-plan';
-import { SELECTORS }    from './constants';
-import withPage         from './lib/with-page';
+import defaultResponsesPage from './lib/default-responses-page';
+import DOCUMENT_PLAN_LIST   from './data/document-plan-list';
+import { SELECTORS }        from './constants';
 
 
-test( 'should not have errors', withPage, async ( t, page ) => {
+test( 'should not have errors', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
-    await defaultResponses( page );
-    await t.notFindElement( page, SELECTORS.UI_ERROR );
+    await t.notFindElement( SELECTORS.UI_ERROR );
 });
 
 
-test( 'should load the document plan', withPage, async ( t, page ) => {
-    t.timeout( 5e3 );
+test( 'should not start unaccounted-for requests', defaultResponsesPage, async t => {
+    t.timeout( 10e3 );
 
-    await defaultResponses( page );
-    await t.findElement( page, `[data-id=${ DOCUMENT_PLAN.documentPlan.srcId }]` );
-    await t.findElement( page, `[data-id=${ DOCUMENT_PLAN.documentPlan.segments[0].srcId }]` );
+    await sleep( 8e3 );
+    await t.notFindElement( SELECTORS.UI_ERROR );
 });
 
 
-test( 'should load a variant', withPage, async ( t, page ) => {
+test( 'should load the document plan', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
-    await defaultResponses( page );
-    await t.findElement( page, SELECTORS.VARIANT );
+    const PLAN =            DOCUMENT_PLAN_LIST[0];
+
+    await t.findElement( `[data-id=${ PLAN.documentPlan.srcId }]` );
+    await t.findElement( `[data-id=${ PLAN.documentPlan.segments[0].srcId }]` );
+});
+
+
+test( 'should load a variant', defaultResponsesPage, async t => {
+    t.timeout( 5e3 );
+
+    await t.findElement( SELECTORS.VARIANT );
 });

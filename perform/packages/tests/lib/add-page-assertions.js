@@ -3,13 +3,13 @@ const SELECTOR_WAIT_OPTIONS = {
 };
 
 
-export default t => {
-
-    t.findElement = ( page, selector ) =>
-        t.notThrowsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS ));
-
-    t.notFindElement = ( page, selector ) =>
-        t.throwsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS ));
-
-    return t;
-};
+export default ( t, run, ...args ) =>
+    run(
+        Object.assign( t, {
+            findElement: ( selector, page = t.page ) =>
+                t.notThrowsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
+            notFindElement: ( selector, page = t.page ) =>
+                t.throwsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
+        }),
+        ...args,
+    );

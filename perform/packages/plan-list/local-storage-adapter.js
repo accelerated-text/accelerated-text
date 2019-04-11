@@ -1,4 +1,4 @@
-const OPENED_PLAN_UID =     'plan-list/local-storage-adapter#openedPlanUid';
+export const OPENED_PLAN_UID =  'plan-list/local-storage-adapter#openedPlanUid';
 
 const saveOpenedPlanUid = ( _, { getStoreState }) =>
     localStorage.setItem(

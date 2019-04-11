@@ -8,13 +8,14 @@ import { sortPlans }    from './functions';
 export default {
 
     getInitialState: () => ({
-        addCheckError:  null,
-        addedPlan:      null,
-        createdUid:     null,
-        getListError:   null,
-        getListLoading: false,
-        openedPlanUid:  null,
-        uids:           [],
+        addCheckError:          null,
+        addedPlan:              null,
+        createdUid:             null,
+        getListError:           null,
+        getListLoading:         false,
+        openedPlanUid:          null,
+        previousOpenedPlanUid:  null,
+        uids:                   [],
     }),
 
     documentPlans: {
@@ -34,8 +35,9 @@ export default {
 
     planList: {
 
-        onSelectPlan: openedPlanUid => ({
+        onSelectPlan: ( openedPlanUid, { state }) => ({
             openedPlanUid,
+            previousOpenedPlanUid:    state.openedPlanUid,
         }),
 
         onAddNew: ( fields, { state }) => (
@@ -78,14 +80,15 @@ export default {
             );
 
             return {
-                createdUid:         isCreatedSaved ? null : createdUid,
-                getListError:       null,
-                getListLoading:     false,
+                createdUid:             isCreatedSaved ? null : createdUid,
+                getListError:           null,
+                getListLoading:         false,
                 openedPlanUid: (
                     uids.includes( openedPlanUid )
                         ? openedPlanUid
                         : ( uids[0] || null )
                 ),
+                previousOpenedPlanUid:  state.openedPlanUid,
                 uids,
             };
         },

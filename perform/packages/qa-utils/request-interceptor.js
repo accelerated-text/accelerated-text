@@ -8,7 +8,7 @@ const INTERCEPT =       'INTERCEPT';
 const PROVIDE =         'PROVIDE';
 
 
-module.exports = async page => {
+module.exports = async ( page, options = {}) => {
 
     const handlers =    requestHandlers();
 
@@ -51,13 +51,23 @@ module.exports = async page => {
 
         const method =  request.method();
         const url =     request.url();
-        /// console.log( 'onRequest', method, url );
+
+        if( options.onRequest ) {
+            options.onRequest({ method, request, url });
+        }
 
         const handler = handlers.findMatch( method, url );
         if( !handler ) {
-            throw Error( `Got unexpected request for ${ method } ${ url }.` );
+            const err = Error( `Got unexpected request for ${ method } ${ url }.` );
+            if( options.onError ) {
+                options.onError( err );
+            } else {
+                throw err;
+            }
         }
-        /// console.log( `Handler: ${ handler.type } ${ handler.occurance }.` );
+        if( options.onRequestHandler ) {
+            options.onRequestHandler({ handler, method, request, url });
+        }
 
         switch( handler.type ) {
 
@@ -83,7 +93,12 @@ module.exports = async page => {
             break;
 
         default:
-            throw Error( `Unrecognized handler type ${ handler.type } for ${ method } ${ url }.` );
+            const err = Error( `Unrecognized handler type ${ handler.type } for ${ method } ${ url }.` );   // eslint-disable-line no-case-declarations
+            if( options.onError ) {
+                options.onError( err );
+            } else {
+                throw err;
+            }
         }
 
         if( handler.occurance === ONCE ) {

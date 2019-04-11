@@ -1,12 +1,10 @@
 import test             from 'ava';
 
-import noRecords        from './lib/no-records';
-import withPage         from './lib/with-page';
+import noRecordsPage    from './lib/no-records-page';
 
 
-test( 'should render logo', withPage, async ( t, page ) => {
+test( 'should render logo', noRecordsPage, async t => {
     t.timeout( 5e3 );
 
-    await noRecords( page );
-    await t.findElement( page, 'img[title="Accelerated Text"]' );
+    await t.findElement( 'img[title="Accelerated Text"]' );
 });

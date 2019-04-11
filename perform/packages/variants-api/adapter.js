@@ -16,6 +16,18 @@ const getPending = ( _, { E, getStoreState }) => (
         && E.variantsApi.onGetStart.async()
 );
 
+const updateOnNewOpened = ( _, { E, getStoreState }) => {
+    const {
+        openedPlanUid,
+        previousOpenedPlanUid,
+    } = getStoreState( 'planList' );
+
+    if( openedPlanUid !== previousOpenedPlanUid ) {
+        E.variantsApi.onGet.async();
+    }
+};
+
+
 export default {
 
     documentPlans: {
@@ -27,23 +39,8 @@ export default {
 
     planList: {
 
-        onSelectPlan: ( _, { E }) =>
-            E.variantsApi.onGet.async(),
-
-        onGetListResult: ( _, { E, getStoreState }) => {
-            const {
-                error,
-                loading,
-                pending,
-                result,
-            } = getStoreState( 'variantsApi' );
-
-            /// Load variants on first document plan load:
-            if( !result && !pending && !loading && !error ) {
-                debug( 'First document plan load' );
-                E.variantsApi.onGetStart.async();
-            }
-        },
+        onSelectPlan:               updateOnNewOpened,
+        onGetListResult:            updateOnNewOpened,
     },
 
     variantsApi: {
