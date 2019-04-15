@@ -33,7 +33,10 @@ export default class DragInBlock extends Component {
     onDragEnd = evt =>
         this.setState({ isDragged: false });
 
-    render({ className, text }, { isDragged, isOverDrop }) {
+    render(
+        { className, color = S.fillColor, text, width = 180 },
+        { isDragged, isOverDrop },
+    ) {
         return (
             <div
                 className={ classnames(
@@ -45,10 +48,15 @@ export default class DragInBlock extends Component {
                 onDragStart={ this.onDragStart }
                 onDragEnd={ this.onDragEnd }
             >
-                <svg height="28" width="180">
+                <svg height="28" width={ width }>
                     <g transform="translate( 8, 0 )">
-                        <path d="m 0,0 H 180 v 31 H 0 V 20 c 0,-10 -8,8 -8,-7.5 s 8,2.5 8,-7.5 z" />
-                        <text children={ text } transform="translate( 8, 18 )" />
+                        <path
+                            d={ `m 0,0 H ${ width } v 31 H 0 V 20 c 0,-10 -8,8 -8,-7.5 s 8,2.5 8,-7.5 z` }
+                            fill={ color }
+                        />
+                        { text &&
+                            <text children={ text } transform="translate( 8, 18 )" />
+                        }
                     </g>
                 </svg>
             </div>

@@ -1,16 +1,17 @@
 @import '../styles/variables'
 
 
+@at-root #{ ':export' }
+    // sass-lint:disable no-misspelled-properties
+    fillColor:              shade-1( $gray )
+
+
 .className
 
     cursor:                 grab
     opacity:                .6
 
     > svg > g
-
-        > path
-
-            fill:           shade-1( $gray )
 
         > text
 
