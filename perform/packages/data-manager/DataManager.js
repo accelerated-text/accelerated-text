@@ -1,8 +1,8 @@
 import { h }                from 'preact';
 
-import DragInBlock          from '../drag-in-blocks/DragInBlock';
 import { useStores }        from '../vesa/';
 
+import Cells                from './Cells';
 import Files                from './Files';
 import getPlanFile          from './get-plan-file';
 import S                    from './DataManager.sass';
@@ -11,11 +11,7 @@ import S                    from './DataManager.sass';
 export default useStores([
     'dataSamples',
 ])(({
-    dataSamples: {
-        files,
-        getListError,
-        getListLoading,
-    },
+    dataSamples: { files },
     plan,
 }) => {
     const planFile =        getPlanFile( files, plan );
@@ -24,15 +20,7 @@ export default useStores([
         <div className={ S.className }>
             <Files plan={ plan } />
             { planFile && planFile.fieldNames &&
-                <div className={ S.fieldNames }>
-                    { planFile.fieldNames.map( name =>
-                        <DragInBlock
-                            fields={{ name }}
-                            text={ `${ name } cell` }
-                            type="Cell"
-                        />
-                    )}
-                </div>
+                <Cells planFile={ planFile } />
             }
         </div>
     );

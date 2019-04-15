@@ -1,0 +1,30 @@
+@import '../styles/variables'
+
+
+#{ ':export' }
+    // sass-lint:disable no-misspelled-properties
+    dragInColor:    $blockly-lime
+
+
+.className
+
+    border-collapse:    collapse
+    width:              100%
+
+    td,
+    th
+
+        box-shadow:     0 1px 0 $subtle-border
+        padding:        $space-s
+        vertical-align: top
+
+    th
+
+        box-shadow:     0 1px 0 $subtle-border
+        text-align:     left
+
+    td
+        &.dragInBlock
+
+            padding:        $space-xs $space-xs 0
+            width:          2rem
