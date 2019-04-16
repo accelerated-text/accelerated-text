@@ -7,14 +7,26 @@
     grid-gap:               $space-m
     grid-template-columns:  auto 8rem
 
+    > .main
+
+        > .selectFile
+
+            margin-right:   $space-s
+
+        > .downloadFile
+
+            color:                  $text-active
+            text-decoration:        underline
+
+            &:hover
+
+                text-decoration:    none
+
     > .right
 
         text-align:         right
 
-        .add
-
-            cursor:             pointer
-
+        .add,
         .close
 
-            cursor:             pointer
+            cursor:         pointer

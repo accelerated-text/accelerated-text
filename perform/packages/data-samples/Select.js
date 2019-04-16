@@ -15,6 +15,7 @@ export default useStores([
         this.props.onChange( e.target.value );
 
     render({
+        className,
         dataSamples: {
             files,
             getListError,
@@ -29,6 +30,7 @@ export default useStores([
         } else {
             return (
                 <select
+                    className={ className }
                     onChange={ this.onChange }
                     value={ value }
                 >

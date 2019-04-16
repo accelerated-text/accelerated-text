@@ -13,9 +13,10 @@ export default useStores([])(
                 dataSampleId,
             });
 
-        render({ plan }) {
+        render({ className, plan }) {
             return (
                 <SelectDataSample
+                    className={ className }
                     onChange={ this.onChange }
                     value={ plan && plan.dataSampleId }
                 />

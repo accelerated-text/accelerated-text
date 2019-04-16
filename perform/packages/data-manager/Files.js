@@ -5,6 +5,7 @@ import SelectDataSample     from '../document-plans/SelectDataSample';
 import UploadDataFile       from '../upload-data-file/UploadDataFile';
 import { useStores }        from '../vesa/';
 
+import Download             from './Download';
 import S                    from './Files.sass';
 
 
@@ -30,21 +31,27 @@ export default useStores([
         },
         plan,
     }) {
-        const { uploadOpen } =  this.state;
+        const showUpload = (
+            this.state.uploadOpen
+            || !plan
+        );
 
         return (
             <div className={ S.className }>
                 <div className={ S.main }>{
                     getListLoading
                         ? <Loading message="Loading file list" />
-                    : uploadOpen
+                    : showUpload
                         ? <UploadDataFile />
-                        : <SelectDataSample plan={ plan } />
+                        : [
+                            <SelectDataSample className={ S.selectFile } plan={ plan } />,
+                            <Download className={ S.downloadFile } plan={ plan } />,
+                        ]
                 }</div>
                 <div className={ S.right }>{
                     getListLoading
                         ? null
-                    : uploadOpen
+                    : showUpload
                         ? <button className={ S.close } onClick={ this.onClickClose }>✖️</button>
                         : <button className={ S.add } onClick={ this.onClickAdd }>➕ Add</button>
                 }</div>
