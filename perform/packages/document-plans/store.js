@@ -1,34 +1,11 @@
 import {
     fixPlan,
     getStatus,
+    patchPlan,
+    patchStatus,
 }   from './functions';
 import statusTemplate   from './status-template';
 
-
-const patchPlan = ( state, plan ) => ({
-    plans: {
-        ...state.plans,
-        [plan.uid]: {
-            ...state.plans[plan.uid],
-            ...plan,
-            updateCount:        1 + (
-                state.plans[plan.uid]
-                    ? state.plans[plan.uid].updateCount
-                    : 0
-            ),
-        },
-    },
-});
-
-const patchStatus = ( state, plan, patch ) => ({
-    statuses: {
-        ...state.statuses,
-        [plan.uid]: {
-            ...state.statuses[plan.uid],
-            ...patch,
-        },
-    },
-});
 
 export default {
 
