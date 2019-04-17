@@ -1,3 +1,4 @@
+import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 
 import { Loading }          from '../ui-messages/';
@@ -24,6 +25,7 @@ export default useStores([
         this.setState({ uploadOpen: false });
 
     render({
+        className,
         dataSamples: {
             files,
             getListError,
@@ -37,7 +39,7 @@ export default useStores([
         );
 
         return (
-            <div className={ S.className }>
+            <div className={ classnames( S.className, className ) }>
                 <div className={ S.main }>{
                     getListLoading
                         ? <Loading message="Loading file list" />

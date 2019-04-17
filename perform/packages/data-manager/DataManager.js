@@ -18,9 +18,9 @@ export default useStores([
 
     return (
         <div className={ S.className }>
-            <Files plan={ plan } />
+            <Files className={ S.files } plan={ plan } />
             { planFile && planFile.fieldNames &&
-                <Cells planFile={ planFile } />
+                <Cells className={ S.cells } planFile={ planFile } />
             }
         </div>
     );

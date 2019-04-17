@@ -1,3 +1,4 @@
+import classnames           from 'classnames';
 import { h }                from 'preact';
 
 import DragInBlock          from '../drag-in-blocks/DragInBlock';
@@ -14,8 +15,8 @@ const ROWS = [
 ];
 
 
-export default ({ planFile }) =>
-    <table className={ S.className }>
+export default ({ className, planFile }) =>
+    <table className={ classnames( S.className, className ) }>
         <thead>
             <tr>
                 <th className={ S.dragInBlock } />
