@@ -1,16 +1,16 @@
-import classnames       from 'classnames';
-import { h, Component } from 'preact';
+import classnames           from 'classnames';
+import { h, Component }     from 'preact';
 
-import Error            from '../ui-messages/Error';
-import getOpenedPlan    from '../plan-list/get-opened-plan';
-import getPlanFile      from '../data-manager/get-plan-file';
-import Loading          from '../ui-messages/Loading';
-import OnboardCode      from '../onboard-code/OnboardCode';
-import planTemplate     from '../document-plans/plan-template';
-import { useStores }    from '../vesa/';
-import Workspace        from '../nlg-workspace/NlgWorkspace';
+import Error                from '../ui-messages/Error';
+import { findFileByPlan }   from '../data-samples/functions';
+import getOpenedPlan        from '../plan-list/get-opened-plan';
+import Loading              from '../ui-messages/Loading';
+import OnboardCode          from '../onboard-code/OnboardCode';
+import planTemplate         from '../document-plans/plan-template';
+import { useStores }        from '../vesa/';
+import Workspace            from '../nlg-workspace/NlgWorkspace';
 
-import S                from './PlanEditor.sass';
+import S                    from './PlanEditor.sass';
 
 
 export default useStores([
@@ -34,9 +34,7 @@ export default useStores([
 
     render({
         className,
-        dataSamples: {
-            files,
-        },
+        dataSamples,
         planList: {
             getListError,
             getListLoading,
@@ -45,7 +43,7 @@ export default useStores([
         },
     }) {
         const openedPlan =  getOpenedPlan( this.props );
-        const planFile =    getPlanFile( files, openedPlan );
+        const planFile =    findFileByPlan( dataSamples, openedPlan );
 
         return (
             <div className={ classnames( S.className, className ) }>{

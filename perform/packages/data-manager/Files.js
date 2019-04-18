@@ -27,7 +27,6 @@ export default useStores([
     render({
         className,
         dataSamples: {
-            files,
             getListError,
             getListLoading,
         },

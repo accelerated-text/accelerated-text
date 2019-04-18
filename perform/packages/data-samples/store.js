@@ -1,6 +1,9 @@
 export default {
 
     getInitialState: () => ({
+        fileItems:      {},
+        statuses:       {},
+        fileList:       null,
         files:          null,
         getListError:   null,
         getListLoading: false,

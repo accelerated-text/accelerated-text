@@ -1,6 +1,6 @@
 import { h }                from 'preact';
 
-import getFile              from '../data-samples/get-file';
+import { findFileById }     from '../data-samples/functions';
 import { useStores }        from '../vesa/';
 
 
@@ -9,11 +9,11 @@ export default useStores([
     'user',
 ])(({
     className,
-    dataSamples: { files },
+    dataSamples,
     plan,
     user,
 }) => {
-    const file =            getFile({ files, id: plan.dataSampleId });
+    const file =            findFileById( dataSamples, plan.dataSampleId );
     if( !file ) {
         return null;
     } else {
