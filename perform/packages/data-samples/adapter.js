@@ -74,7 +74,9 @@ export default {
     },
 
     documentPlans: {
+        onCreate:                   getDataIfNeeded,
         onCreateResult:             getDataIfNeeded,
+        onUpdate:                   getDataIfNeeded,
         onUpdateResult:             getDataIfNeeded,
         onMergeFromServerResult:    getDataIfNeeded,
     },

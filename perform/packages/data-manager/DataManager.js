@@ -1,6 +1,9 @@
-import { h }                from 'preact';
+import { h, Component }     from 'preact';
 
-import { findFileByPlan }   from '../data-samples/functions';
+import {
+    findFileByPlan,
+    getStatus,
+}   from '../data-samples/functions';
 import { useStores }        from '../vesa/';
 
 import Cells                from './Cells';
@@ -10,18 +13,32 @@ import S                    from './DataManager.sass';
 
 export default useStores([
     'dataSamples',
-])(({
-    dataSamples,
-    plan,
-}) => {
-    const planFile =        findFileByPlan( dataSamples, plan );
+])( class DataManager extends Component {
 
-    return (
-        <div className={ S.className }>
-            <Files className={ S.files } plan={ plan } />
-            { planFile && planFile.fieldNames &&
-                <Cells className={ S.cells } planFile={ planFile } />
-            }
-        </div>
-    );
+    onChangeRow = dataSampleRow =>
+        this.props.E.documentPlans.onUpdate({
+            ...this.props.plan,
+            dataSampleRow,
+        });
+
+    render({ dataSamples, plan }) {
+
+        const fileItem =        findFileByPlan( dataSamples, plan );
+        const fileStatus =      fileItem && getStatus( dataSamples, fileItem );
+
+        return (
+            <div className={ S.className }>
+                <Files className={ S.files } plan={ plan } />
+                { fileItem && fileItem.fieldNames &&
+                    <Cells
+                        className={ S.cells }
+                        fileItem={ fileItem }
+                        fileStatus={ fileStatus }
+                        onChangeRow={ this.onChangeRow }
+                        selectedRow={ plan.dataSampleRow }
+                    />
+                }
+            </div>
+        );
+    }
 });
