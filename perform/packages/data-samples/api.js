@@ -12,6 +12,9 @@ export const fetch = ( path, options = {}) =>
 export const GET = path =>
     nlgApi.GET( `${ PREFIX }${ path }` );
 
+export const getData = fileItem =>
+    GET( `/${ fileItem.key }` );
+
 export const getList = userId =>
     GET( `/?user=${ encodeURIComponent( userId )}` )
         .then( list => list.map( addItemFields ));

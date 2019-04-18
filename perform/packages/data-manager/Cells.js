@@ -6,15 +6,6 @@ import DragInBlock          from '../drag-in-blocks/DragInBlock';
 import S                    from './Cells.sass';
 
 
-const ROWS = [
-    'Nike1',
-    'comfort',
-    'support',
-    'and the list',
-    'goes on',
-];
-
-
 export default ({ className, planFile }) =>
     <table className={ classnames( S.className, className ) }>
         <thead>
@@ -43,7 +34,11 @@ export default ({ className, planFile }) =>
                     />
                 </td>
                 <td className={ S.cellName }>{ name }</td>
-                <td>{ ROWS[i] }</td>
+                <td>{
+                    planFile.data
+                    && planFile.data[0]
+                    && planFile.data[0][name]
+                }</td>
             </tr>
         )}</tbody>
     </table>;
