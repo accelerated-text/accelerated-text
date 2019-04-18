@@ -1,12 +1,18 @@
+import {
+    patchItem,
+    patchStatus,
+    statusTemplate,
+}   from './functions';
+
+
 export default {
 
     getInitialState: () => ({
+        fileIds:        null,
         fileItems:      {},
-        statuses:       {},
-        fileList:       null,
-        files:          null,
         getListError:   null,
         getListLoading: false,
+        statuses:       {},
     }),
 
     dataSamples: {
@@ -26,8 +32,18 @@ export default {
             getListLoading: false,
         }),
 
-        onGetListResult: files => ({
-            files,
+        onGetListResult: ( files, { state }) => ({
+            ...files.reduce(
+                ( state, file ) => ({
+                    ...patchItem( state, file ),
+                    ...patchStatus( state, file, {
+                        ...statusTemplate,
+                        ...state.statuses[file.id],
+                    }),
+                }),
+                state,
+            ),
+            fileIds:        files.map(({ id }) => id ),
             getListError:   null,
             getListLoading: false,
         }),

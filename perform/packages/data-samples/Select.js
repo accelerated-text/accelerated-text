@@ -17,7 +17,8 @@ export default useStores([
     render({
         className,
         dataSamples: {
-            files,
+            fileIds,
+            fileItems,
             getListError,
             getListLoading,
         },
@@ -25,7 +26,7 @@ export default useStores([
     }) {
         if( getListLoading ) {
             return <Loading message="Loading files" />;
-        } else if( !files || !files.length ) {
+        } else if( !fileIds || !fileIds.length ) {
             return <Info message="No files" />;
         } else {
             return (
@@ -35,8 +36,8 @@ export default useStores([
                     value={ value }
                 >
                     <option value="">select a file</option>
-                    { files.map(({ id, fileName }) =>
-                        <option key={ id } value={ id }>{ fileName }</option>
+                    { fileIds.map( id =>
+                        <option key={ id } value={ id }>{ fileItems[id].fileName }</option>
                     )}
                 </select>
             );
