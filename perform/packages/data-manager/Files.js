@@ -24,6 +24,10 @@ export default useStores([
     onClickClose = () =>
         this.setState({ uploadOpen: false });
 
+    onUploadDone = () => {
+        this.setState({ uploadOpen: false });
+    };
+
     render({
         className,
         dataSamples: {
@@ -43,7 +47,7 @@ export default useStores([
                     getListLoading
                         ? <Loading message="Loading file list" />
                     : showUpload
-                        ? <UploadDataFile />
+                        ? <UploadDataFile onUploadDone={ this.onUploadDone } />
                         : [
                             <SelectDataSample className={ S.selectFile } plan={ plan } />,
                             <Download className={ S.downloadFile } plan={ plan } />,

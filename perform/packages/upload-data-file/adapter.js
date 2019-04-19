@@ -48,6 +48,8 @@ export default {
                         throw Error( 'Document plan is gone.' );
                     } else if( planStatus.isDeleted ) {
                         throw Error( 'Document plan is deleted.' );
+                    } else if( plan.dataSampleId === uploadFileKey ) {
+                        E.variantsApi.onGet();
                     } else {
                         E.documentPlans.onUpdate({
                             ...plan,
@@ -56,8 +58,13 @@ export default {
                     }
                 })
                 .then( E.uploadDataFile.onUploadSyncSuccess )
+                .then(() => E.dataSamples.onGetData({ key: uploadFileKey }))
+                .then( E.uploadDataFile.onUploadDone )
                 .catch( debug.tapCatch( 'onUploadStart' ))
                 .catch( E.uploadDataFile.onUploadError );
         },
+
+        onUploadDone: ( _, { props }) =>
+            props.onUploadDone && props.onUploadDone(),
     },
 };
