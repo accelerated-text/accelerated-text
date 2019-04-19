@@ -20,6 +20,7 @@ export default useStores([
     planList,
     variantsApi,
 }) => {
+    const dataStatuses =    props( dataSamples.fileIds, dataSamples.statuses );
     const planStatuses =    props( planList.uids, documentPlans.statuses );
 
     const isError = (
@@ -35,6 +36,7 @@ export default useStores([
         || contexts.getListLoading
         || dataSamples.getListLoading
         || planList.getListLoading
+        || dataStatuses.find( status => status.getDataLoading )
         || planStatuses.find( status => (
             status.createLoading
             || status.readLoading

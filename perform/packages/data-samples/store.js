@@ -12,7 +12,7 @@ const REQUEST_NOT_FINISHED_ERROR =  'Will not start a new request while the prev
 export default {
 
     getInitialState: () => ({
-        fileIds:        null,
+        fileIds:        [],
         fileItems:      {},
         getListError:   null,
         getListLoading: false,
