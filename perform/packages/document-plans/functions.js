@@ -4,11 +4,13 @@ import itemsWithStatus  from '../store-utils/items-with-status';
 import planTemplate     from './plan-template';
 
 
-const storeFns =            itemsWithStatus( 'uid', 'plans', 'statuses' );
-export const getPlan =      storeFns.getItem;
-export const getStatus =    storeFns.getStatus;
-export const patchPlan =    storeFns.patchItem;
-export const patchStatus =  storeFns.patchStatus;
+const storeFns =                itemsWithStatus( 'uid', 'plans', 'statuses' );
+export const getPlan =          storeFns.getItem;
+export const getPlanByUid =     storeFns.getItemByKey;
+export const getStatus =        storeFns.getStatus;
+export const getStatusByUid =   storeFns.getStatusByKey;
+export const patchPlan =        storeFns.patchItem;
+export const patchStatus =      storeFns.patchStatus;
 
 export const createPlan = fields => ({
     ...planTemplate,

@@ -4,7 +4,7 @@ export default {
         uploadCounter:      0,
         uploadError:        null,
         uploadFileKey:      null,
-        uploadForPlan:      null,
+        uploadForPlanUid:   null,
         uploadLoading:      false,
     }),
 
@@ -17,27 +17,27 @@ export default {
         ),
 
         onUploadStart: ( inputFile, { getStoreState }) => ({
-            uploadFileKey:  `${ getStoreState( 'user' ).id }/${ inputFile.name }`,
-            uploadForPlan:  getStoreState( 'planList' ).openedPlanUid,
-            uploadLoading:  true,
+            uploadFileKey:      `${ getStoreState( 'user' ).id }/${ inputFile.name }`,
+            uploadForPlanUid:   getStoreState( 'planList' ).openedPlanUid,
+            uploadLoading:      true,
         }),
 
         onUploadError: uploadError => ({
             uploadError,
-            uploadFileKey:  null,
-            uploadForPlan:  null,
-            uploadLoading:  false,
+            uploadFileKey:      null,
+            uploadForPlanUid:   null,
+            uploadLoading:      false,
         }),
 
         onUploadFileSuccess: ( _, { state }) => ({
-            uploadCounter:  state.uploadCounter + 1,
-            uploadError:    null,
-            uploadLoading:  false,
+            uploadCounter:      state.uploadCounter + 1,
+            uploadError:        null,
+            uploadLoading:      false,
         }),
 
         onUploadSyncSuccess: () => ({
-            uploadFileKey:  null,
-            uploadForPlan:  null,
+            uploadFileKey:      null,
+            uploadForPlanUid:   null,
         }),
     },
 };
