@@ -4,7 +4,7 @@ import { h, Component }     from 'preact';
 export default class RowSelector extends Component {
 
     onChangeSelect = evt =>
-        this.props.onChange( evt.target.value );
+        this.props.onChange( parseInt( evt.target.value, 10 ));
 
     onClickNext = () =>
         this.props.onChange( this.props.selected + 1 );

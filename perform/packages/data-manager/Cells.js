@@ -46,8 +46,8 @@ export default ({ className, fileItem, fileStatus, onChangeRow, selectedRow }) =
                 <td className={ S.cellName }>{ name }</td>
                 <td>{
                     fileItem.data
-                    && fileItem.data[0]
-                    && fileItem.data[0][name]
+                    && fileItem.data[selectedRow]
+                    && fileItem.data[selectedRow][name]
                 }</td>
             </tr>
         )}</tbody>
