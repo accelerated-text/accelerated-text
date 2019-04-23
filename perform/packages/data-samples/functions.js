@@ -1,7 +1,7 @@
 import itemsWithStatus  from '../store-utils/items-with-status';
 
 
-const storeFns =            itemsWithStatus( 'key', 'fileItems', 'statuses' );
+const storeFns =            itemsWithStatus( 'id', 'fileItems', 'statuses' );
 export const getItem =      storeFns.getItem;
 export const getStatus =    storeFns.getStatus;
 export const patchItem =    storeFns.patchItem;
