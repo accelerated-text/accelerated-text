@@ -22,6 +22,10 @@ fix-s3-permissions:
 		| awk '{ print $$4 }' \
 		| xargs -n 1 aws s3api put-object-acl --acl public-read --bucket ${S3_BUCKET} --key
 
+.PHONY: npm-audit
+npm-audit:
+	npm audit
+
 .PHONY:	build
 build: setup
 	npm run build
