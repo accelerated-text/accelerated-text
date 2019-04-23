@@ -23,7 +23,7 @@ clean:
 	${PREACT_MAKE} clean
 
 .PHONY: npm-audit
-npm-audit
+npm-audit:
 	${PREACT_MAKE} npm-audit
 
 docker-repo-login:
