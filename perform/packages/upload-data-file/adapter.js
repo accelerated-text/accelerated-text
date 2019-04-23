@@ -44,7 +44,7 @@ export default {
 
                     if( !isInList ) {
                         throw Error( 'Failed to update the data file list.' );
-                    } else if( !plan || plan.isDeleted ) {
+                    } else if( !plan ) {
                         throw Error( 'Document plan is gone.' );
                     } else if( planStatus.isDeleted ) {
                         throw Error( 'Document plan is deleted.' );
