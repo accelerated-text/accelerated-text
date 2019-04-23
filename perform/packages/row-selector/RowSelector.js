@@ -1,7 +1,15 @@
 import { h, Component }     from 'preact';
+import PropTypes            from 'prop-types';
 
 
 export default class RowSelector extends Component {
+
+    static propTypes = {
+        className:          PropTypes.string,
+        onChange:           PropTypes.func.required,
+        rows:               PropTypes.array.required,
+        selected:           PropTypes.number,
+    };
 
     onChangeSelect = evt =>
         this.props.onChange( parseInt( evt.target.value, 10 ));
