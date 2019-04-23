@@ -10,6 +10,12 @@ test:preact_demo:
         - make test
     stage:  test
 
+job:npm_audit:
+    only:
+        - schedules
+    script:
+        - make npm-audit
+
 lexical-analysis:code-linter:
   image: registry.gitlab.com/tokenmill/nlg/accelerated-text/pytest:latest
   stage: test
