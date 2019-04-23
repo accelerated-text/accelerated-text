@@ -1,9 +1,7 @@
 import { h }                from 'preact';
 
-import {
-    getDownloadUrl,
-    findFileById,
-}   from '../data-samples/functions';
+import getFileUrl           from '../upload-data-file/get-file-url';
+import { findFileById }     from '../data-samples/functions';
 import { useStores }        from '../vesa/';
 
 
@@ -24,7 +22,7 @@ export default useStores([
             <a
                 children="Download file"
                 className={ className }
-                href={ getDownloadUrl( user, file ) }
+                href={ getFileUrl( user, file.fileName ) }
             />
         );
     }
