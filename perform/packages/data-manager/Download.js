@@ -1,6 +1,9 @@
 import { h }                from 'preact';
 
-import { findFileById }     from '../data-samples/functions';
+import {
+    getDownloadUrl,
+    findFileById,
+}   from '../data-samples/functions';
 import { useStores }        from '../vesa/';
 
 
@@ -21,7 +24,7 @@ export default useStores([
             <a
                 children="Download file"
                 className={ className }
-                href={ `${ process.env.DATA_FILES_BUCKET }/${ user.id }/${ file.fileName }` }
+                href={ getDownloadUrl( user, file ) }
             />
         );
     }

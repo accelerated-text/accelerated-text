@@ -25,3 +25,6 @@ export const statusTemplate = {
     getDataError:   null,
     getDataLoading: false,
 };
+
+export const getDownloadUrl = ( user, fileItem ) =>
+    `${ process.env.DATA_FILES_BUCKET }/${ user.id }/${ fileItem.fileName }`;
