@@ -3,7 +3,7 @@ import * as nlgApi          from '../nlg-api';
 import { addItemFields }    from './functions';
 
 
-const PREFIX =          '/data';
+const PREFIX =              '/data';
 
 
 export const fetch = ( path, options = {}) =>
