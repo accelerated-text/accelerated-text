@@ -22,5 +22,6 @@ export default config({
             ...analysisProxy,
         },
     },
+    devtool:    'eval-source-map',
 });
 

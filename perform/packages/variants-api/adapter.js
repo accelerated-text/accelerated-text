@@ -17,12 +17,25 @@ const getPending = ( _, { E, getStoreState }) => (
 );
 
 const updateOnNewOpened = ( _, { E, getStoreState }) => {
+
     const {
         openedPlanUid,
         previousOpenedPlanUid,
     } = getStoreState( 'planList' );
+    const {
+        loading,
+        result,
+    } = getStoreState( 'variantsApi' );
+    const plan =    getOpenedPlan( getStoreState );
 
-    if( openedPlanUid !== previousOpenedPlanUid ) {
+    const needsVariants = (
+        plan && (
+            openedPlanUid !== previousOpenedPlanUid
+            || ( !loading && !result )
+        )
+    );
+
+    if( needsVariants ) {
         E.variantsApi.onGet.async();
     }
 };
@@ -53,10 +66,6 @@ export default {
         onGetStart: ( _, { E, getStoreState }) => {
 
             const plan =    getOpenedPlan( getStoreState );
-            if( !plan || !plan.id ) {
-                E.variantsApi.onGetAbort.async();
-                return;
-            }
 
             getVariants({
                 ccg:            !!plan.useCcg,
