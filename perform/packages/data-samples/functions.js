@@ -7,8 +7,6 @@ export const getStatus =    storeFns.getStatus;
 export const patchItem =    storeFns.patchItem;
 export const patchStatus =  storeFns.patchStatus;
 
-export const findFileById = ( dataSamples, id ) => dataSamples.fileItems[id];
-
 export const addItemFields = item => ({
     ...item,
     contentType:    item.contentType || 'text/csv',
@@ -18,7 +16,7 @@ export const addItemFields = item => ({
 
 export const findFileByPlan  = ( dataSamples, plan ) => (
     plan && plan.dataSampleId
-    && findFileById( dataSamples, plan.dataSampleId )
+    && dataSamples.fileItems[plan.dataSampleId]
 );
 
 export const statusTemplate = {
