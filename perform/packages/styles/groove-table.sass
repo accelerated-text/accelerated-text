@@ -1,0 +1,12 @@
+@mixin groove-table( $darkness: .25 )
+
+    $shadow:            rgba( 0, 0, 0, $darkness )
+    $tint:              rgba( 255, 255, 255, 1 - $darkness )
+
+    border-collapse:    collapse
+    box-shadow:         1px 1px $tint, -1px -1px $shadow
+
+    th,
+    td
+
+        box-shadow:     inset 1px 1px $tint, inset -1px -1px $shadow

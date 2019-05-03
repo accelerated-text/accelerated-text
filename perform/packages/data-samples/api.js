@@ -1,16 +1,9 @@
-import * as nlgApi      from '../nlg-api';
+import * as nlgApi          from '../nlg-api';
+
+import { addItemFields }    from './functions';
 
 
-const PREFIX =          '/data';
-
-const fixListResult = list =>
-    list.filter( item => item.fieldNames && item.fieldNames.length > 1 )
-        .map(( item, i ) => ({
-            ...item,
-            contentType:    item.contentType || 'text/csv',
-            id:             item.key,
-            fileName:       item.key.split( '/' ).pop(),
-        }));
+const PREFIX =              '/data';
 
 
 export const fetch = ( path, options = {}) =>
@@ -19,6 +12,9 @@ export const fetch = ( path, options = {}) =>
 export const GET = path =>
     nlgApi.GET( `${ PREFIX }${ path }` );
 
+export const getData = fileItem =>
+    GET( `/${ fileItem.key }` );
+
 export const getList = userId =>
     GET( `/?user=${ encodeURIComponent( userId )}` )
-        .then( fixListResult );
+        .then( list => list.map( addItemFields ));

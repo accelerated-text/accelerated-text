@@ -1,7 +1,16 @@
 import uuid             from 'uuid';
 
+import itemsWithStatus  from '../store-utils/items-with-status';
 import planTemplate     from './plan-template';
 
+
+const storeFns =                itemsWithStatus( 'uid', 'plans', 'statuses' );
+export const getPlan =          storeFns.getItem;
+export const getPlanByUid =     storeFns.getItemByKey;
+export const getStatus =        storeFns.getStatus;
+export const getStatusByUid =   storeFns.getStatusByKey;
+export const patchPlan =        storeFns.patchItem;
+export const patchStatus =      storeFns.patchStatus;
 
 export const createPlan = fields => ({
     ...planTemplate,
@@ -17,13 +26,6 @@ export const fixPlan = fields => ({
     createdAt:          fields.createdAt || 0,
     uid:                fields.uid || fields.id || uuid.v4(),
 });
-
-export const getPlan = ( state, plan ) =>
-    state.plans[plan.uid];
-
-export const getStatus = ( state, plan ) =>
-    state.statuses[plan.uid];
-
 
 export const isSamePlan = ( p1, p2 ) => (
     p1.uid === p2.uid

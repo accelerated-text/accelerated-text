@@ -28,8 +28,9 @@ export default useStores([
             planTemplate.name,
         );
         name && E.planList.onAddNew({
-            contextId:      openedPlan.contextId || null,
-            dataSampleId:   openedPlan.dataSampleId || null,
+            contextId:      openedPlan.contextId        || planTemplate.contextId,
+            dataSampleId:   openedPlan.dataSampleId     || planTemplate.dataSampleId,
+            dataSampleRow:  openedPlan.dataSampleRow    || planTemplate.dataSampleRow,
             name,
         });
     }

@@ -1,11 +1,13 @@
 import { h, Component }     from 'preact';
 
-import DragInBlock          from '../drag-in-blocks/DragInBlock';
-import SelectDataSample     from '../document-plans/SelectDataSample';
-import UploadDataFile       from '../upload-data-file/UploadDataFile';
+import {
+    findFileByPlan,
+    getStatus,
+}   from '../data-samples/functions';
 import { useStores }        from '../vesa/';
 
-import getPlanFile          from './get-plan-file';
+import Cells                from './Cells';
+import Files                from './Files';
 import S                    from './DataManager.sass';
 
 
@@ -13,50 +15,28 @@ export default useStores([
     'dataSamples',
 ])( class DataManager extends Component {
 
-    state = {
-        uploadOpen:         false,
-    };
+    onChangeRow = dataSampleRow =>
+        this.props.E.documentPlans.onUpdate({
+            ...this.props.plan,
+            dataSampleRow,
+        });
 
-    onClickAdd = () =>
-        this.setState({ uploadOpen: true });
+    render({ dataSamples, plan }) {
 
-    onClickClose = () =>
-        this.setState({ uploadOpen: false });
-
-    render({
-        dataSamples: {
-            files,
-            getListError,
-            getListLoading,
-        },
-        plan,
-    }) {
-        const { uploadOpen } =  this.state;
-        const planFile =        getPlanFile( files, plan );
+        const fileItem =        findFileByPlan( dataSamples, plan );
+        const fileStatus =      fileItem && getStatus( dataSamples, fileItem );
 
         return (
             <div className={ S.className }>
-                <div className={ S.files }>
-                    <SelectDataSample plan={ plan } />
-                    <div className={ uploadOpen ? S.upload : '' }>{
-                        uploadOpen
-                            ? [
-                                <UploadDataFile />,
-                                <button className={ S.close } onClick={ this.onClickClose }>✖️</button>,
-                            ]
-                            : <button className={ S.add } onClick={ this.onClickAdd }>➕ Add</button>
-                    }</div>
-                </div>
-                { planFile && planFile.fieldNames &&
-                    <div className={ S.fieldNames }>
-                        { planFile.fieldNames.map( name =>
-                            <DragInBlock
-                                fields={{ name }}
-                                text={ `${ name } cell` }
-                                type="Cell"
-                            />
-                        )}
-                    </div>
+                <Files className={ S.files } plan={ plan } />
+                { fileItem && fileItem.fieldNames &&
+                    <Cells
+                        className={ S.cells }
+                        fileItem={ fileItem }
+                        fileStatus={ fileStatus }
+                        onChangeRow={ this.onChangeRow }
+                        selectedRow={ plan.dataSampleRow }
+                    />
                 }
             </div>
         );

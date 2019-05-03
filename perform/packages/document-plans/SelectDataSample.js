@@ -11,11 +11,13 @@ export default useStores([])(
             this.props.E.documentPlans.onUpdate({
                 ...this.props.plan,
                 dataSampleId,
+                dataSampleRow:  0,
             });
 
-        render({ plan }) {
+        render({ className, plan }) {
             return (
                 <SelectDataSample
+                    className={ className }
                     onChange={ this.onChange }
                     value={ plan && plan.dataSampleId }
                 />
