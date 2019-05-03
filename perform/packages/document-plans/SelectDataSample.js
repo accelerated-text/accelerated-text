@@ -11,6 +11,7 @@ export default useStores([])(
             this.props.E.documentPlans.onUpdate({
                 ...this.props.plan,
                 dataSampleId,
+                dataSampleRow:  0,
             });
 
         render({ className, plan }) {

@@ -54,6 +54,7 @@ export default {
                         E.documentPlans.onUpdate({
                             ...plan,
                             dataSampleId:   uploadFileKey,
+                            dataSampleRow:  0,
                         });
                     }
                 })
