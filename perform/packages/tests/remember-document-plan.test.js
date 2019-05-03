@@ -37,6 +37,7 @@ test(
         t.timeout( 8e3 );
         await t.findElement( `[data-id=${ PLAN.documentPlan.srcId }]` );
         await t.findElement( `[data-id=${ PLAN.documentPlan.segments[0].srcId }]` );
+        await t.findElement( SELECTORS.VARIANT );
 
         /// Wait to make sure no unnecessary requests sent:
         t.timeout( 10e3 );
