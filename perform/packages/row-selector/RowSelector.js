@@ -20,15 +20,25 @@ export default class RowSelector extends Component {
     onClickPrevious = () =>
         this.props.onChange( this.props.selected - 1 );
     
-    render({ className, onChange, rows, selected }) {
+    render({
+        className,
+        nextClassName,
+        previousClassName,
+        onChange,
+        rows,
+        selectClassName,
+        selected,
+    }) {
         return (
             <div className={ className }>
                 <button
                     children="◀️"
+                    className={ previousClassName }
                     disabled={ !selected }
                     onClick={ this.onClickPrevious }
                 />
                 <select
+                    className={ selectClassName }
                     disabled={ rows.length < 2 }
                     onChange={ this.onChangeSelect }
                     value={ selected }
@@ -39,6 +49,7 @@ export default class RowSelector extends Component {
                 </select>
                 <button
                     children="▶️"
+                    className={ nextClassName }
                     disabled={ selected >= rows.length - 1 }
                     onClick={ this.onClickNext }
                 />

@@ -2,6 +2,7 @@ import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 
 import { Loading }          from '../ui-messages/';
+import { QA }               from '../tests/constants';
 import SelectDataSample     from '../document-plans/SelectDataSample';
 import UploadDataFile       from '../upload-data-file/UploadDataFile';
 import { useStores }        from '../vesa/';
@@ -47,18 +48,36 @@ export default useStores([
                     getListLoading
                         ? <Loading message="Loading file list" />
                     : showUpload
-                        ? <UploadDataFile onUploadDone={ this.onUploadDone } />
+                        ? <UploadDataFile
+                            fileClassName={ QA.DATA_MANAGER_FILE_BROWSE }
+                            uploadClassName={ QA.DATA_MANAGER_FILE_UPLOAD }
+                            onUploadDone={ this.onUploadDone }
+                        />
                         : [
-                            <SelectDataSample className={ S.selectFile } plan={ plan } />,
-                            <Download className={ S.downloadFile } plan={ plan } />,
+                            <SelectDataSample
+                                className={ classnames( S.selectFile, QA.DATA_MANAGER_FILE_LIST ) }
+                                plan={ plan }
+                            />,
+                            <Download
+                                className={ classnames( S.downloadFile, QA.DATA_MANAGER_FILE_DOWNLOAD ) }
+                                plan={ plan }
+                            />,
                         ]
                 }</div>
                 <div className={ S.right }>{
                     getListLoading
                         ? null
                     : showUpload
-                        ? <button className={ S.close } onClick={ this.onClickClose }>✖️</button>
-                        : <button className={ S.add } onClick={ this.onClickAdd }>➕ Add</button>
+                        ? <button
+                            children="✖️"
+                            className={ classnames( S.close, QA.DATA_MANAGER_FILE_CLOSE ) }
+                            onClick={ this.onClickClose }
+                        />
+                        : <button
+                            children="➕ Add"
+                            className={ classnames( S.add, QA.DATA_MANAGER_FILE_ADD ) }
+                            onClick={ this.onClickAdd }
+                        />
                 }</div>
             </div>
         );
