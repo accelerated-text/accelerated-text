@@ -9,7 +9,7 @@ export default async ( t, run, ...args ) => {
 
     const {
         interceptor: { continueAll },
-        nlgProvideOnce,
+        nlgApi,
     } = t;
 
     continueAll( 'GET', new RegExp( `${ TEST_URL }/.*` ));
@@ -20,9 +20,9 @@ export default async ( t, run, ...args ) => {
         .then( t.pass, t.fail );
 
     await Promise.all([
-        nlgProvideOnce( 'GET', `/data/?user=${ USER.id }`, []),
-        nlgProvideOnce( 'GET', '/document-plans/', []),
-        nlgProvideOnce( 'GET', '/lexicon?', EMPTY_LEXICON_LIST ),
+        nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, []),
+        nlgApi.provideOnce( 'GET', '/document-plans/', []),
+        nlgApi.provideOnce( 'GET', '/lexicon?', EMPTY_LEXICON_LIST ),
     ]);
 
     await pageLoadResult;

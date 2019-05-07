@@ -14,7 +14,7 @@ export default async ( t, run, ...args ) => {
 
     const {
         interceptor: { continueAll },
-        nlgProvideOnce,
+        nlgApi,
     } = t;
 
     continueAll( 'GET', new RegExp( `${ TEST_URL }/.*` ));
@@ -26,13 +26,13 @@ export default async ( t, run, ...args ) => {
 
     /// Register these intercepts while the page is loading:
     await Promise.all([
-        nlgProvideOnce( 'GET', `/data/?user=${ USER.id }`, DATA_FILE_LIST ),
-        nlgProvideOnce( 'GET', '/lexicon?', LEXICON_LIST ),
-        nlgProvideOnce( 'GET', '/document-plans/', DOCUMENT_PLAN_LIST )
+        nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, DATA_FILE_LIST ),
+        nlgApi.provideOnce( 'GET', '/lexicon?', LEXICON_LIST ),
+        nlgApi.provideOnce( 'GET', '/document-plans/', DOCUMENT_PLAN_LIST )
             .then(() => Promise.all([
-                nlgProvideOnce( 'GET', `/data/${ DATA_FILE_LIST[0].key }`, DATA_FILE_DATA ),
-                nlgProvideOnce( 'POST', '/nlg/', NLG_JOB )
-                    .then(() => nlgProvideOnce( 'GET', `/nlg/${ NLG_JOB.resultId }`, NLG_JOB_RESULT )),
+                nlgApi.provideOnce( 'GET', `/data/${ DATA_FILE_LIST[0].key }`, DATA_FILE_DATA ),
+                nlgApi.provideOnce( 'POST', '/nlg/', NLG_JOB )
+                    .then(() => nlgApi.provideOnce( 'GET', `/nlg/${ NLG_JOB.resultId }`, NLG_JOB_RESULT )),
             ])),
     ]);
 
