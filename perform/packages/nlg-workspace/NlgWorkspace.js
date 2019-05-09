@@ -107,7 +107,7 @@ export default class NlgWorkspace extends Component {
     }
 
     componentWillReceiveProps( nextProps ) {
-        if( nextProps.cellNames !== this.props.cellNames ) {
+        if( this.workspace && nextProps.cellNames !== this.props.cellNames ) {
             setCellOptions( this.workspace, nextProps.cellNames );
         }
     }
