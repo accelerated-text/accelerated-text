@@ -9,14 +9,18 @@ const debug =               debugSan( 'data-samples/adapter' );
 
 const getDataIfNeeded = ( _, { E, getStoreState }) => {
 
-    const { fileItems } =   getStoreState( 'dataSamples' );
+    const {
+        fileItems,
+        statuses,
+    } = getStoreState( 'dataSamples' );
     const openedPlan =      getOpenedPlan( getStoreState );
 
     const needsData = (
         openedPlan
         && openedPlan.dataSampleId
         && fileItems[openedPlan.dataSampleId]
-        && !fileItems[openedPlan.dataSampleId].data
+        && ! fileItems[openedPlan.dataSampleId].data
+        && ! statuses[openedPlan.dataSampleId].getDataLoading
     );
 
     if( needsData ) {
