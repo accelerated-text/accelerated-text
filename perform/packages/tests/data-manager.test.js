@@ -1,9 +1,13 @@
+import R                    from 'ramda';
 import test                 from 'ava';
 
-import DATA_FILE_DATA       from './data/data-file-data';
+import {
+    createDataFileData,
+}   from './data/data-file-data';
 import DATA_FILE_LIST       from './data/data-file-list';
 import defaultResponsesPage from './lib/default-responses-page';
-import DOCUMENT_PLAN_LIST   from './data/document-plan-list';
+import noRecordsPage        from './lib/no-records-page';
+import selectFile           from './lib/select-file';
 import { SELECTORS }        from './constants';
 
 
@@ -29,37 +33,66 @@ test( 'default elements visible', defaultResponsesPage, async t => {
 });
 
 
-test.todo( 'correct elements when no files' );
+test( 'correct elements when no files', noRecordsPage, async t => {
+    t.timeout( 5e3 );
+
+    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_ADD );
+    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
+    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_LIST );
+
+    await t.findElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
+    await t.findElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
+    await t.findElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
+
+    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_BLOCK );
+    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_NAME );
+    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_TABLE );
+    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_VALUE );
+
+    await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
+    await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
+    await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
+});
 
 
 test( 'can change file', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
-    const DATA_FILE_ID =    DATA_FILE_LIST[2].key;
-    const PLAN_URL =        `/document-plans/${ DOCUMENT_PLAN_LIST[0].id }`;
+    const dataFileId =      DATA_FILE_LIST[2].key;
+    const dataFileData =    createDataFileData({ prefix: t.title });
 
-    const updateRequests = (
-        t.nlgApi.provideOnce( 'OPTIONS', PLAN_URL, null )
-            .then(() => Promise.all([
-                t.nlgApi.echoBodyOnce( 'PUT', PLAN_URL ),
-                t.nlgApi.provideOnce( 'GET', `/data/${ DATA_FILE_ID }`, DATA_FILE_DATA ),
-            ]))
-    );
+    await selectFile( t, dataFileId, dataFileData );
 
-    await t.page.select( SELECTORS.DATA_MANAGER_FILE_LIST, DATA_FILE_ID );
+    await t.waitUntilElementGone( SELECTORS.UI_INFO );
+    await t.waitUntilElementGone( SELECTORS.UI_LOADING );
+    await t.notFindElement( SELECTORS.UI_ERROR );
 
-    await updateRequests;
+    await t.findElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
+    await t.findElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
+    await t.findElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
 
-    const value = await t.page.evaluate(
-        selector => document.querySelector( selector ).value,
-        SELECTORS.DATA_MANAGER_FILE_LIST,
-    );
-    t.is( value, DATA_FILE_ID, 'Failed to change file in select.' );
+    const selectValue =     await t.getElementValue( SELECTORS.DATA_MANAGER_FILE_LIST );
+    t.is( selectValue, dataFileId );
+
+    const downloadUrl =     await t.getElementAttribute( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD, 'href' );
+    t.regex( downloadUrl, new RegExp( `${ dataFileId }$` ));
+
+    const isNextDisabled =  await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_NEXT, 'disabled' );
+    t.is( isNextDisabled, dataFileData.data.length < 2 );
+
+    const isPrevDisabled =  await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_PREVIOUS, 'disabled' );
+    t.is( isPrevDisabled, true );
+
+    const rowValue =        await t.getElementValue( SELECTORS.DATA_MANAGER_ROW_SELECT );
+    t.is( rowValue, '0' );
+
+    const firstCellName =   await t.getElementProperty( SELECTORS.DATA_MANAGER_CELL_NAME, 'innerText' );
+    t.is( firstCellName, Object.keys( dataFileData.data[0])[0]);
+
+    const firstCellValue =  await t.getElementProperty( SELECTORS.DATA_MANAGER_CELL_VALUE, 'innerText' );
+    t.is( firstCellValue, R.values( dataFileData.data[0])[0]);
 });
 
-
-test.todo( 'can download file' );
-test.todo( 'can upload file' );
 
 test.todo( 'correct number of cells visible' );
 test.todo( 'correct cell names visible' );
@@ -67,3 +100,7 @@ test.todo( 'correct cell values visible' );
 
 test.todo( 'can change cell value row' );
 test.todo( 'row buttons correctly disabled' );
+
+
+test.todo( 'can download file' );
+test.todo( 'can upload file' );
