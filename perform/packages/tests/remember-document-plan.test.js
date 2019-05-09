@@ -3,7 +3,7 @@ import test                 from 'ava';
 
 import { OPENED_PLAN_UID }  from '../plan-list/local-storage-adapter';
 
-import addPageAssertions    from './lib/add-page-assertions';
+import addPageUtils         from './lib/add-page-utils';
 import debugConsole         from './lib/debug-console';
 import defaultResponses     from './lib/default-responses';
 import DOCUMENT_PLAN_LIST   from './data/document-plan-list';
@@ -19,7 +19,7 @@ test(
     'should open the remembered document plan',
     withPage,
     debugConsole,
-    addPageAssertions,
+    addPageUtils,
     withInterceptor,
     withNlgApi,
     async t => {
