@@ -1,4 +1,7 @@
+import classnames       from 'classnames';
 import { h }            from 'preact';
+
+import { QA }           from '../tests/constants';
 
 
 export default ({ className, justIcon, message }) => {
@@ -6,7 +9,7 @@ export default ({ className, justIcon, message }) => {
 
     return (
         <a
-            className={ className }
+            className={ classnames( className, QA.UI_INFO ) }
             title={ text }
         >
             ℹ️
