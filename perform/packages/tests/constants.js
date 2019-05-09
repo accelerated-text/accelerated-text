@@ -32,5 +32,6 @@ module.exports = createConstants( 'tests', {
     LEXICON_SEARCH:         'lexicon-search',
 
     UI_ERROR:               'ui-error',
+    UI_LOADING:             'ui-loading',
     VARIANT:                'variant',
 });

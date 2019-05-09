@@ -1,6 +1,8 @@
+import classnames       from 'classnames';
 import { h }            from 'preact';
 
 import ClockSpinner     from '../clock-spinner/ClockSpinner';
+import { QA }           from '../tests/constants';
 
 
 export default ({ className, justIcon, message = 'Loading' }) => {
@@ -8,7 +10,7 @@ export default ({ className, justIcon, message = 'Loading' }) => {
 
     return (
         <a
-            className={ className }
+            className={ classnames( className, QA.UI_LOADING ) }
             title={ text }
         >
             <ClockSpinner />
