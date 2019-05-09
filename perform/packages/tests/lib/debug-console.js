@@ -13,7 +13,13 @@ export default async ( t, run, ...args ) => {
         }
     };
 
+    const onError = async error => {
+
+        t.log( 'Error:', error.message );
+    };
+
     t.page.on( 'console', onConsole );
+    t.page.on( 'pageerror', onError );
 
     if( run ) {
         await run( t, ...args );
