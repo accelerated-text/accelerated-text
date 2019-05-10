@@ -45,13 +45,19 @@ export default useStores([
         ))
     );
 
+    const isReady = !isError && !isLoading;
+
     return (
-        <div className={ className }>{
-            isError
-                ? <Error message="There are some errors." />
-            : isLoading
-                ? <Loading message="Syncing..." />
-                : <span>✅</span>
-        }</div>
+        <div className={ className }>
+            { isLoading &&
+                <Loading message="Syncing... " />
+            }
+            { isError &&
+                <Error justIcon message="There are some errors." />
+            }
+            { isReady &&
+                <span>✅</span>
+            }
+        </div>
     );
 });
