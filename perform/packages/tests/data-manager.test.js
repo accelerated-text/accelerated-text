@@ -58,8 +58,12 @@ test( 'correct elements when no files', noRecordsPage, async t => {
 test( 'can change file', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
-    const dataFileId =      DATA_FILE_LIST[2].key;
-    const dataFileData =    createDataFileData({ prefix: t.title });
+    const dataFile =        DATA_FILE_LIST[2];
+    const dataFileId =      dataFile.key;
+    const dataFileData =    createDataFileData({
+        fieldNames:         dataFile.fieldNames,
+        prefix:             t.title,
+    });
 
     await selectFile( t, dataFileId, dataFileData );
 
@@ -94,9 +98,41 @@ test( 'can change file', defaultResponsesPage, async t => {
 });
 
 
-test.todo( 'correct number of cells visible' );
-test.todo( 'correct cell names visible' );
-test.todo( 'correct cell values visible' );
+test( 'correct cell names and values visible', defaultResponsesPage, async t => {
+    t.timeout( 5e3 );
+
+    const dataFile =        DATA_FILE_LIST[2];
+    const dataFileData =    createDataFileData({
+        fieldNames:         dataFile.fieldNames,
+        prefix:             t.title,
+        rowCount:           5,
+    });
+
+    await selectFile( t, dataFile.key, dataFileData );
+
+    await t.waitUntilElementGone( SELECTORS.UI_INFO );
+    await t.waitUntilElementGone( SELECTORS.UI_LOADING );
+    await t.notFindElement( SELECTORS.UI_ERROR );
+
+    const row =             dataFileData.data[0];
+    const rowKeys =         Object.keys( row );
+
+    for( let i = 0; i < rowKeys.length; i += 1 ) {
+        const rowKey =      rowKeys[i];
+
+        const cellName = await t.getElementProperty(
+            `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_NAME }`,
+            'innerText',
+        );
+        t.is( cellName, rowKey );
+
+        const cellValue = await t.getElementProperty(
+            `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_VALUE }`,
+            'innerText',
+        );
+        t.is( cellValue, row[rowKey]);
+    }
+});
 
 test.todo( 'can change cell value row' );
 test.todo( 'row buttons correctly disabled' );

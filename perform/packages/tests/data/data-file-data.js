@@ -1,16 +1,17 @@
-import { range }        from 'ramda';
+import { range, zipObj }    from 'ramda';
 
 
 export const createDataFileData = ({
-    prefix =    'tests-data-data-file-data',
-    rowCount =  3,
+    fieldNames =    [ 'One', 'Two', 'Three' ],
+    prefix =        'tests-data-data-file-data',
+    rowCount =      3,
 }) => ({
     key:    `${ prefix }-key`,
-    data:   range( 0, rowCount ).map( row => ({
-        First:  `${ prefix } row ${ row } First`,
-        Second: `${ prefix } row ${ row } Second`,
-        Third:  `${ prefix } row ${ row } Third`,
-    })),
+    data:   range( 0, rowCount ).map( i =>
+        zipObj(
+            fieldNames,
+            fieldNames.map( fieldName => `${ prefix } ${ fieldName } value` ),
+        )),
 });
 
 
