@@ -75,26 +75,34 @@ test( 'can change file', defaultResponsesPage, async t => {
     await t.findElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
     await t.findElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
 
-    const selectValue =     await t.getElementValue( SELECTORS.DATA_MANAGER_FILE_LIST );
-    t.is( selectValue, dataFileId );
-
-    const downloadUrl =     await t.getElementAttribute( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD, 'href' );
-    t.regex( downloadUrl, new RegExp( `${ dataFileId }$` ));
-
-    const isNextDisabled =  await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_NEXT, 'disabled' );
-    t.is( isNextDisabled, dataFileData.data.length < 2 );
-
-    const isPrevDisabled =  await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_PREVIOUS, 'disabled' );
-    t.is( isPrevDisabled, true );
-
-    const rowValue =        await t.getElementValue( SELECTORS.DATA_MANAGER_ROW_SELECT );
-    t.is( rowValue, '0' );
-
-    const firstCellName =   await t.getElementProperty( SELECTORS.DATA_MANAGER_CELL_NAME, 'innerText' );
-    t.is( firstCellName, Object.keys( dataFileData.data[0])[0]);
-
-    const firstCellValue =  await t.getElementProperty( SELECTORS.DATA_MANAGER_CELL_VALUE, 'innerText' );
-    t.is( firstCellValue, R.values( dataFileData.data[0])[0]);
+    t.is(
+        await t.getElementValue( SELECTORS.DATA_MANAGER_FILE_LIST ),
+        dataFileId,
+    );
+    t.regex(
+        await t.getElementAttribute( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD, 'href' ),
+        new RegExp( `${ dataFileId }$` ),
+    );
+    t.is(
+        await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_NEXT, 'disabled' ),
+        dataFileData.data.length < 2,
+    );
+    t.is(
+        await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_PREVIOUS, 'disabled' ),
+        true,
+    );
+    t.is(
+        await t.getElementValue( SELECTORS.DATA_MANAGER_ROW_SELECT ),
+        '0',
+    );
+    t.is(
+        await t.getElementProperty( SELECTORS.DATA_MANAGER_CELL_NAME, 'innerText' ),
+        Object.keys( dataFileData.data[0])[0],
+    );
+    t.is(
+        await t.getElementProperty( SELECTORS.DATA_MANAGER_CELL_VALUE, 'innerText' ),
+        R.values( dataFileData.data[0])[0],
+    );
 });
 
 
@@ -120,17 +128,20 @@ test( 'correct cell names and values visible', defaultResponsesPage, async t => 
     for( let i = 0; i < rowKeys.length; i += 1 ) {
         const rowKey =      rowKeys[i];
 
-        const cellName = await t.getElementProperty(
-            `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_NAME }`,
-            'innerText',
+        t.is(
+            await t.getElementProperty(
+                `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_NAME }`,
+                'innerText',
+            ),
+            rowKey,
         );
-        t.is( cellName, rowKey );
-
-        const cellValue = await t.getElementProperty(
-            `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_VALUE }`,
-            'innerText',
+        t.is(
+            await t.getElementProperty(
+                `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_VALUE }`,
+                'innerText',
+            ),
+            row[rowKey],
         );
-        t.is( cellValue, row[rowKey]);
     }
 });
 
