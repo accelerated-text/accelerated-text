@@ -1,23 +1,23 @@
 @import '../styles/variables'
+@import '../styles/groove-table'
 
 
 .className
+    @include groove-table( 1 / 8 )
 
-    > .headerRow
+    width:                      100%
 
-        font-weight:            bold
+    td,
+    th
 
-    > .headerRow,
-    > .itemRow
+        padding:                $space-s
 
-        display:                grid
-        grid-gap:               $space-xs
-        grid-template-columns:  12rem auto
-        grid-template-rows:     auto
-        margin:                 $space-s 0
+    > thead > tr > th
 
-        > *
+        font-weight:    $bold
+        text-align:     left
+        vertical-align: bottom
 
-            box-shadow:         0 1px 0 $subtle-border
-            margin:             0
-            padding:            $space-s
+    .newItemRow > td
+
+        background-color:       rgba( tint-8( $blue ), .5 )

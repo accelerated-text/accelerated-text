@@ -14,26 +14,31 @@ export default ({
     onCancelNew,
     onSaveNew,
 }) =>
-    <div className={ classnames( S.className, QA.LEXICON_LIST ) } >
-        <div className={ S.headerRow }>
-            <div>ID</div>
-            <div>words</div>
-        </div>
-        { newItem &&
-            <ItemRow
-                className={ classnames( S.itemRow, QA.LEXICON_NEW_ITEM ) }
-                editing={ !newItemSaved }
-                item={ newItem }
-                key={ newItem.key || 'NEW ITEM' }
-                onCancel={ onCancelNew }
-                onSave={ onSaveNew }
-            />
-        }
-        { items.map( item =>
-            <ItemRow
-                className={ classnames( S.itemRow, QA.LEXICON_ITEM ) }
-                item={ item }
-                key={ item.key }
-            />
-        )}
-    </div>;
+    <table className={ classnames( S.className, QA.LEXICON_LIST ) }>
+        <thead>
+            <tr>
+                <th />
+                <th>ID</th>
+                <th>Phrases</th>
+            </tr>
+        </thead>
+        <tbody>
+            { newItem &&
+                <ItemRow
+                    className={ classnames( S.newItemRow, QA.LEXICON_NEW_ITEM ) }
+                    editing={ !newItemSaved }
+                    item={ newItem }
+                    key={ newItem.key || 'NEW ITEM' }
+                    onCancel={ onCancelNew }
+                    onSave={ onSaveNew }
+                />
+            }
+            { items.map( item =>
+                <ItemRow
+                    className={ QA.LEXICON_ITEM }
+                    item={ item }
+                    key={ item.key }
+                />
+            )}
+        </tbody>
+    </table>;

@@ -42,6 +42,7 @@ export default useStores([
                     <button
                         children="➕ New list"
                         className={ classnames( S.new, QA.LEXICON_NEW_BTN ) }
+                        disabled={ newItem && ! newItemSaved }
                         onClick={ E.lexicon.onClickNew }
                     />
                     <input
