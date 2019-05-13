@@ -86,6 +86,7 @@
         "semi":                     [ "error", "always" ],
         "space-in-parens":          [ "error", "always", {
             "exceptions":       [ "{}", "[]", "()", "empty" ]
-        }]
+        }],
+        "space-unary-ops":          "off"
     }
 }
