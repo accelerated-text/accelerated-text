@@ -1,10 +1,6 @@
 import classnames       from 'classnames';
 import { h, Component } from 'preact';
 
-import {
-    Error,
-    Loading,
-}   from '../ui-messages/';
 import { QA }           from '../tests/constants';
 import { useStores }    from '../vesa/';
 
@@ -22,20 +18,11 @@ export default useStores([
     render({
         E,
         lexicon: {
-            items,
             newItem,
             newItemSaved,
             query,
-            requestOffset,
-            resultsError,
-            resultsLoading,
-            totalCount,
         },
     }) {
-        const hasMore =         totalCount > items.length;
-        const isMoreLoading =   hasMore && resultsLoading && requestOffset;
-        const showList =        newItem || items && items.length;
-
         return (
             <div className={ S.className }>
                 <div className={ S.top }>
@@ -53,33 +40,10 @@ export default useStores([
                         value={ query }
                     />
                 </div>
-                { resultsError &&
-                    <Error message={ resultsError } />
-                }
-                { resultsLoading &&
-                    <Loading message="Loading..." />
-                }
-                { showList &&
-                    <ItemTable
-                        items={ items }
-                        newItem={ newItem }
-                        newItemSaved={ newItemSaved }
-                        onCancelNew={ E.lexicon.onCancelNew }
-                        onSaveNew={ E.lexicon.onSaveNew }
-                    />
-                }
-                { hasMore &&
-                    <button
-                        className={ classnames( S.more, QA.LEXICON_MORE ) }
-                        disabled={ isMoreLoading }
-                        onClick={ E.lexicon.onClickMore }
-                    >
-                        { isMoreLoading
-                            ? <Loading message="Loading more..." />
-                            : 'More results'
-                        }
-                    </button>
-                }
+                <ItemTable
+                    E={ E }
+                    lexicon={ this.props.lexicon }
+                />
             </div>
         );
     }

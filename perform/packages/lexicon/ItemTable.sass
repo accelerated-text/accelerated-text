@@ -5,6 +5,9 @@
 .className
     @include groove-table( 1 / 8 )
 
+    $new-background:            rgba( tint-8( $blue ), .5 )
+    $editable-background:       rgba( 255, 255, 255, 2 / 3 )
+
     width:                      100%
 
     td,
@@ -14,10 +17,50 @@
 
     > thead > tr > th
 
-        font-weight:    $bold
-        text-align:     left
-        vertical-align: bottom
+        font-weight:            $bold
+        text-align:             left
 
-    .newItemRow > td
+        &.phrases > div
 
-        background-color:       rgba( tint-8( $blue ), .5 )
+            display:            flex
+            justify-content:    space-between
+            width:              100%
+
+            > .status
+
+                font-weight:    normal
+
+    > .newItem > tr > td
+
+        background-color:       $new-background
+
+    > .items
+
+        > tr > td
+
+            background-color:   $editable-background
+
+        &.isLoadingNew > tr > td
+
+            background-color:   transparent
+
+    > .bottom > tr > td
+
+        padding:                0
+
+        > *
+
+            display:            block
+            padding:            $space-m
+            text-align:         center
+
+        > .more
+
+            background-color:   transparent
+            color:              $text-active
+            cursor:             pointer
+            text-decoration:    none
+
+            &:hover
+
+                background-color:   $editable-background
