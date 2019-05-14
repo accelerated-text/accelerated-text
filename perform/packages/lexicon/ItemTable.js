@@ -3,7 +3,7 @@ import { h }            from 'preact';
 
 import { QA }           from '../tests/constants';
 
-import S                from './ItemList.sass';
+import S                from './ItemTable.sass';
 import ItemRow          from './ItemRow';
 
 

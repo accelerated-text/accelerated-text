@@ -9,7 +9,7 @@ import { QA }           from '../tests/constants';
 import { useStores }    from '../vesa/';
 
 import S                from './Lexicon.sass';
-import ItemList         from './ItemList';
+import ItemTable        from './ItemTable';
 
 
 export default useStores([
@@ -60,7 +60,7 @@ export default useStores([
                     <Loading message="Loading..." />
                 }
                 { showList &&
-                    <ItemList
+                    <ItemTable
                         items={ items }
                         newItem={ newItem }
                         newItemSaved={ newItemSaved }
