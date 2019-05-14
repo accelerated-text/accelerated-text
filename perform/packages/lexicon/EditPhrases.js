@@ -1,15 +1,16 @@
-import classnames       from 'classnames';
-import { h, Component } from 'preact';
+import classnames           from 'classnames';
+import { h, Component }     from 'preact';
 
-import { QA }           from '../tests/constants';
+import { Error, Loading }   from '../ui-messages';
+import { QA }               from '../tests/constants';
 
-import S                from './EditLines.sass';
+import S                    from './EditPhrases.sass';
 
 
 export default class LexiconEditLines extends Component {
 
     state = {
-        text:   this.props.lines.join( '\n' ),
+        text:   this.props.phrases.join( '\n' ),
     };
 
     onClickCancel = () => {
@@ -24,28 +25,34 @@ export default class LexiconEditLines extends Component {
             text:       evt.target.value,
         });
 
-    render({ saving, status }, { text }) {
+    render({ status }, { text }) {
         return (
             <div className={ classnames( S.className, QA.LEXICON_EDIT ) }>
                 <textarea
                     className={ QA.LEXICON_EDIT_TEXT }
-                    disabled={ saving }
+                    disabled={ status.saving }
                     onInput={ this.onInput }
                     value={ text }
                 />
                 <button
                     children="Save"
                     className={ QA.LEXICON_EDIT_SAVE }
-                    disabled={ saving }
+                    disabled={ status.saving }
                     onClick={ this.onClickSave }
                 />
                 <button
                     children="Cancel"
                     className={ QA.LEXICON_EDIT_CANCEL }
-                    disabled={ saving }
+                    disabled={ status.saving }
                     onClick={ this.onClickCancel }
                 />
-                { status }
+                {
+                    status.error
+                        ? <Error message={ status.error } />
+                    : status.saving
+                        ? <Loading message="Saving..." />
+                    : null
+                }
             </div>
         );
     }

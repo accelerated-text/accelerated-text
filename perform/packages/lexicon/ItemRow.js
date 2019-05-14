@@ -2,13 +2,13 @@ import classnames           from 'classnames';
 import { h }                from 'preact';
 
 import DragInBlock          from '../drag-in-blocks/DragInBlock';
-import { Error, Loading }   from '../ui-messages';
 import { mount, useStores } from '../vesa/';
 
-import EditLines            from './EditLines';
+import EditPhrases          from './EditPhrases';
 import lexiconItem          from './item-store';
 import lexiconItemAdapter   from './item-adapter';
 import S                    from './ItemRow.sass';
+import ShowPhrases          from './ShowPhrases';
 
 
 export default mount(
@@ -31,7 +31,7 @@ export default mount(
     return (
         <tr className={ classnames( S.className, className ) }>
             <td className={ S.dragInBlock }>
-                { ! showEdit &&
+                { item.key &&
                     <DragInBlock
                         color={ S.dragInColor }
                         comment={ item.synonyms.join( '\n' ) }
@@ -46,25 +46,16 @@ export default mount(
             </td>
             <td className={ S.phrases }>
                 { showEdit
-                    ? <EditLines
-                        lines={ item.synonyms }
+                    ? <EditPhrases
+                        phrases={ item.synonyms }
                         onClickCancel={ E.lexiconItem.onCancelEdit }
                         onClickSave={ E.lexiconItem.onSave }
-                        saving={ saving }
-                        status={
-                            error
-                                ? <Error message={ error } />
-                            : saving
-                                ? <Loading message="Saving..." />
-                            : null
-                        }
+                        status={{ editing, error, saving }}
                     />
-                    : <div className={ S.showPhrases } onClick={ E.lexiconItem.onClickEdit }>
-                        { item.synonyms.map( phrase =>
-                            <span className={ S.phrase }>{ phrase }</span>
-                        )}
-                        <span className={ S.editIcon }> 📝</span>
-                    </div>
+                    : <ShowPhrases
+                        onClick={ E.lexiconItem.onClickEdit }
+                        phrases={ item.synonyms }
+                    />
                 }
             </td>
         </tr>
