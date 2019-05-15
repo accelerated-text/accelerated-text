@@ -4,13 +4,19 @@ import { h }                from 'preact';
 import S                    from './ShowPhrases.sass';
 
 
-export default ({ className, onClick, phrases }) =>
+export default ({ className, isEditable, onClick, phrases }) =>
     <div
-        className={ classnames( S.className, className ) }
+        className={ classnames(
+            S.className,
+            isEditable && S.isEditable,
+            className,
+        ) }
         onClick={ onClick }
     >
         { phrases.map( phrase =>
             <span className={ S.phrase }>{ phrase }</span>
         )}
-        <span className={ S.editIcon }> 📝</span>
+        { isEditable &&
+            <span className={ S.editIcon }> 📝</span>
+        }
     </div>;

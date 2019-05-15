@@ -3,19 +3,21 @@
 
 .className
 
-    cursor:         pointer
+    &.isEditable
+
+        cursor:         pointer
 
     > .phrase
 
-        box-shadow:     inset 1px 0 0 $white, 1px 0 0 tint-4( $gray )
+        box-shadow:     inset -1px 0 0 tint-4( $gray ), 1px 0 0 $white
         display:        inline-block
         margin-right:   $space-s
         padding-right:  $space-s
 
     > .editIcon
 
-        visibility: hidden
+        visibility:     hidden
 
     &:hover > .editIcon
 
-        visibility: visible
+        visibility:     visible

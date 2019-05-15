@@ -7,12 +7,15 @@ import {
     Loading,
 }   from '../ui-messages/';
 import { QA }           from '../tests/constants';
+import { useStores }    from '../vesa/';
 
 import S                from './ItemTable.sass';
 import ItemRow          from './ItemRow';
 
 
-export default ({
+export default useStores([
+    'lexicon',
+])(({
     E,
     lexicon: {
         items,
@@ -25,9 +28,9 @@ export default ({
     },
 }) => {
 
-    const isLoadingNew = (
-        resultsLoading
-        && ! requestOffset
+    const areItemsEditable = !! (
+        ! resultsLoading
+        || requestOffset
     );
     const showMoreButton = (
         ! resultsLoading
@@ -42,13 +45,7 @@ export default ({
     );
 
     return (
-        <table
-            className={ classnames(
-                S.className,
-                isLoadingNew && S.isLoadingNew,
-                QA.LEXICON_LIST,
-            ) }
-        >
+        <table className={ classnames( S.className, QA.LEXICON_LIST ) }>
             <thead>
                 <tr>
                     <th />
@@ -69,6 +66,7 @@ export default ({
                     <ItemRow
                         className={ classnames( S.newItemRow, QA.LEXICON_NEW_ITEM ) }
                         editing={ !newItemSaved }
+                        isEditable={ areItemsEditable }
                         item={ newItem }
                         key={ newItem.key || 'NEW ITEM' }
                         onCancel={ E.lexicon.onCancelNew }
@@ -79,11 +77,12 @@ export default ({
             { !! items.length &&
                 <tbody
                     key="items"
-                    className={ classnames( S.items, isLoadingNew && S.isLoadingNew ) }
+                    className={ classnames( S.items, areItemsEditable && S.areItemsEditable ) }
                 >
                     { items.map( item =>
                         <ItemRow
                             className={ QA.LEXICON_ITEM }
+                            isEditable={ areItemsEditable }
                             item={ item }
                             key={ item.key }
                         />
@@ -113,4 +112,4 @@ export default ({
             }
         </table>
     );
-};
+});

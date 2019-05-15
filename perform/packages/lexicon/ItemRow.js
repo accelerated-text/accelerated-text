@@ -19,6 +19,7 @@ export default mount(
 ])(({
     className,
     E,
+    isEditable,
     lexiconItem: {
         editing,
         error,
@@ -53,7 +54,8 @@ export default mount(
                         status={{ editing, error, saving }}
                     />
                     : <ShowPhrases
-                        onClick={ E.lexiconItem.onClickEdit }
+                        isEditable={ isEditable }
+                        onClick={ isEditable && E.lexiconItem.onClickEdit }
                         phrases={ item.synonyms }
                     />
                 }

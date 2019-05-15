@@ -40,10 +40,7 @@ export default useStores([
                         value={ query }
                     />
                 </div>
-                <ItemTable
-                    E={ E }
-                    lexicon={ this.props.lexicon }
-                />
+                <ItemTable />
             </div>
         );
     }
