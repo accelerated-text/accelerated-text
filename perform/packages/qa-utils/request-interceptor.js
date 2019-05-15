@@ -61,6 +61,7 @@ module.exports = async ( page, options = {}) => {
             const err = Error( `Got unexpected request for ${ method } ${ url }.` );
             if( options.onError ) {
                 options.onError( err );
+                return;
             } else {
                 throw err;
             }

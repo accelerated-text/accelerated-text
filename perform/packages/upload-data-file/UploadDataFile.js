@@ -1,3 +1,4 @@
+import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 
 import {
@@ -32,6 +33,9 @@ export default mount({
     }
 
     render({
+        className,
+        fileClassName,
+        uploadClassName,
         uploadDataFile: {
             uploadCounter,
             uploadError,
@@ -40,16 +44,19 @@ export default mount({
         },
     }) {
         return (
-            <form className={ S.className } onSubmit={ this.onSubmit }>
+            <form
+                className={ classnames( S.className, className ) }
+                onSubmit={ this.onSubmit }
+            >
                 <input
-                    className={ S.file }
+                    className={ classnames( S.file, fileClassName ) }
                     disabled={ uploadLoading }
                     key={ uploadCounter }
                     type="file"
                 />
                 <button
                     children={ uploadLoading ? 'Uploading...' : 'Upload' }
-                    className={ S.upload }
+                    className={ classnames( S.upload, uploadClassName ) }
                     disabled={ uploadLoading }
                     type="submit"
                 />

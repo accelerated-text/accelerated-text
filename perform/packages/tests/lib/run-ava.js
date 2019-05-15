@@ -12,7 +12,8 @@ const avaBin =              resolve( cwd, 'node_modules/.bin/ava' );
 devServer
     .then( server => {
 
-        const avaProcess =  spawn( 'node', [ avaBin ], {
+        const argv =        [ avaBin, ...process.argv.slice( 2 ) ];
+        const avaProcess =  spawn( 'node', argv, {
             cwd,
             stdio:          'inherit',
         });
