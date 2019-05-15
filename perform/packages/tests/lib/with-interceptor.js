@@ -1,4 +1,3 @@
-import nlgProvide           from '../../nlg-api/provide-response';
 import requestInterceptor   from '../../qa-utils/request-interceptor';
 
 
@@ -9,10 +8,8 @@ export default async ( t, run, ...args ) => {
         /// onRequest:  ({ method, url }) => t.log( `onRequest ${ method } ${ url }` ),
     });
 
-    const nlgProvideOnce =  nlgProvide( interceptor.provideOnce );
-
     if( run ) {
-        await run( Object.assign( t, { interceptor, nlgProvideOnce }), ...args );
+        await run( Object.assign( t, { interceptor }), ...args );
     }
 
     await interceptor.stopInterception( t.page );
