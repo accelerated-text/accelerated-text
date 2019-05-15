@@ -103,7 +103,10 @@ export default useStores([
                                     onClick={ E.lexicon.onClickMore }
                                 />
                             : !items.length
-                                ? <Info message="No results found" />
+                                ? <Info
+                                    className={ QA.LEXICON_NO_ITEMS }
+                                    message="No results found"
+                                />
                                 : null
                             }
                         </td>

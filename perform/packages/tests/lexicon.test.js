@@ -5,11 +5,17 @@ import noRecordsPage        from './lib/no-records-page';
 import { SELECTORS }        from './constants';
 
 
-test( 'no list when no records', noRecordsPage, async t => {
+test( 'no records', noRecordsPage, async t => {
     t.timeout( 5e3 );
 
-    await t.notFindElement( SELECTORS.LEXICON_LIST );
+    await t.findElement( SELECTORS.LEXICON_NEW_BTN );
+    await t.findElement( SELECTORS.LEXICON_SEARCH );
+
+    await t.findElement( SELECTORS.LEXICON_LIST );
+    await t.findElement( SELECTORS.LEXICON_NO_ITEMS );
+
     await t.notFindElement( SELECTORS.LEXICON_ITEM );
+    await t.notFindElement( SELECTORS.LEXICON_MORE );
     await t.notFindElement( SELECTORS.LEXICON_NEW_ITEM );
 });
 
@@ -17,8 +23,14 @@ test( 'no list when no records', noRecordsPage, async t => {
 test( 'default list', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
+    await t.findElement( SELECTORS.LEXICON_NEW_BTN );
+    await t.findElement( SELECTORS.LEXICON_SEARCH );
+
     await t.findElement( SELECTORS.LEXICON_LIST );
+    await t.notFindElement( SELECTORS.LEXICON_NO_ITEMS );
+
     await t.findElement( SELECTORS.LEXICON_ITEM );
+    await t.findElement( SELECTORS.LEXICON_MORE );
     await t.notFindElement( SELECTORS.LEXICON_NEW_ITEM );
 });
 
