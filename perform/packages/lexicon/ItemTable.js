@@ -98,7 +98,7 @@ export default useStores([
                                 ? <Loading />
                             : showMoreButton
                                 ? <a
-                                    children="🔽 Get more results"
+                                    children="🔽 Show more results"
                                     className={ classnames( S.more, QA.LEXICON_MORE ) }
                                     onClick={ E.lexicon.onClickMore }
                                 />
