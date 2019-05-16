@@ -7,7 +7,7 @@ import { QA }               from '../tests/constants';
 import S                    from './EditPhrases.sass';
 
 
-export default class LexiconEditLines extends Component {
+export default class LexiconEditPhrases extends Component {
 
     state = {
         text:   this.props.phrases.join( '\n' ),
