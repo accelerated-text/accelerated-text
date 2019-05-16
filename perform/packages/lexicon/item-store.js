@@ -15,6 +15,7 @@ export default {
 
         onCancelEdit: () => ({
             editing:    false,
+            error:      false,
         }),
 
         onSave: ( synonyms, { state }) => ({
