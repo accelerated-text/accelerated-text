@@ -1,16 +1,16 @@
-import classnames       from 'classnames';
-import { h }            from 'preact';
+import classnames           from 'classnames';
+import { h }                from 'preact';
 
 import {
     Error,
     Info,
     Loading,
 }   from '../ui-messages/';
-import { QA }           from '../tests/constants';
-import { useStores }    from '../vesa/';
+import { QA }               from '../tests/constants';
+import { useStores }        from '../vesa/';
 
-import S                from './ItemTable.sass';
-import ItemRow          from './ItemRow';
+import S                    from './ItemTable.sass';
+import ItemRow              from './ItemRow';
 
 
 export default useStores([
