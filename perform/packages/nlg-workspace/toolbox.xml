@@ -13,6 +13,7 @@
         <block type="Product-component" />
     </category>
     <category name="Rhetoric">
+        <block type="RST" />
         <block type="Rhetorical">
             <field name="rstType">summary</field>
         </block>

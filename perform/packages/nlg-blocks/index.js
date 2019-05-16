@@ -13,6 +13,7 @@ const blocks = [
     require( './Quote' ),
     require( './Relationship' ),
     require( './Rhetorical' ),
+    require( './RST' ),
     require( './Segment' ),
     require( './Sequence' ),
     require( './Shuffle' ),
