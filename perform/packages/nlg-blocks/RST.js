@@ -30,7 +30,7 @@ export default Block({
         message2:           'nucleus: %1',
         args2: [{
             type:           'input_value',
-            name:           'satellite',
+            name:           'nucleus',
             check:          T.TEXT,
         }],
         message3:           'satellite: %1',
