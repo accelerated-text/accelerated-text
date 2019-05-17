@@ -7,6 +7,14 @@ export default ( t, run, ...args ) =>
     run(
         Object.assign( t, {
 
+            clearInput: async ( selector, page = t.page ) => {
+                await t.page.$eval( selector, el => {
+                    el.focus();
+                    el.setSelectionRange( 0, el.value.length );
+                });
+                await t.page.keyboard.press( 'Backspace' );
+            },
+
             findElement: ( selector, page = t.page ) =>
                 t.notThrowsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
 

@@ -3,6 +3,7 @@ import { h }                from 'preact';
 
 import DragInBlock          from '../drag-in-blocks/DragInBlock';
 import { mount, useStores } from '../vesa/';
+import { QA }               from '../tests/constants';
 
 import EditPhrases          from './EditPhrases';
 import lexiconItem          from './item-store';
@@ -34,6 +35,7 @@ export default mount(
             <td className={ S.dragInBlock }>
                 { item.key &&
                     <DragInBlock
+                        className={ QA.LEXICON_ITEM_BLOCK }
                         color={ S.dragInColor }
                         comment={ item.synonyms.join( '\n' ) }
                         fields={{ text: item.key }}
@@ -42,7 +44,7 @@ export default mount(
                     />
                 }
             </td>
-            <td className={ S.itemId }>
+            <td className={ classnames( S.itemId, QA.LEXICON_ITEM_ID ) }>
                 { item.key }
             </td>
             <td className={ S.phrases }>
@@ -54,6 +56,7 @@ export default mount(
                         status={{ editing, error, saving }}
                     />
                     : <ShowPhrases
+                        className={ QA.LEXICON_ITEM_PHRASES }
                         isEditable={ isEditable }
                         onClick={ isEditable && E.lexiconItem.onClickEdit }
                         phrases={ item.synonyms }
