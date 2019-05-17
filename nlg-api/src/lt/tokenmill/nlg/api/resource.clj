@@ -3,7 +3,8 @@
             [clojure.java.io :as io]
             [lt.tokenmill.nlg.api.utils :as utils]
             [cheshire.core :as ch])
-  (:import (java.io BufferedWriter)))
+  (:import (java.io BufferedWriter)
+           (java.net URLDecoder)))
 
 
 (defn preflight
@@ -13,14 +14,21 @@
 (defn dummy [& args] {:status 200
                 :body {:text "I do nothing."}})
 
+(defn decode-vals [m]
+  (when m
+    (reduce-kv (fn [m k v]
+                 (assoc m k (URLDecoder/decode v)))
+               {}
+               m)))
+
 (defn build-resource
   [resources decode-body]
   (let [{:keys [get-handler post-handler delete-handler put-handler]} resources]
     (fn [_ is os _]
       (let [input (utils/decode-body is)
             method (input :httpMethod)
-            path-params (input :pathParameters)
-            query-params (input :queryStringParameters)
+            path-params (decode-vals (input :pathParameters))
+            query-params (decode-vals (input :queryStringParameters))
             request-body (if decode-body (ch/decode (input :body) true) (input :body))
             {:keys [status body]} (case (keyword method)
                                     :GET    (if get-handler (get-handler query-params path-params) (dummy))
