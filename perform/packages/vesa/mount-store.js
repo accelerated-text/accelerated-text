@@ -15,6 +15,7 @@ export default ( storeName, store ) => Child => {
 
     const {
         componentDidMount,
+        componentWillReceiveProps,
         componentWillUnmount,
         getInitialState,
         ...eventHandlers
@@ -123,6 +124,36 @@ export default ( storeName, store ) => Child => {
 
         componentDidMount() {
             this.callEventHandler( componentDidMount, this.props );
+        }
+
+        componentWillReceiveProps( nextProps ) {
+
+            if( !componentWillReceiveProps ) {
+                return;
+            }
+
+            const patch =   this.callEventHandler( componentWillReceiveProps, nextProps );
+
+            const shouldUpdate = (
+                patch
+                && this.storeState
+                && !R.whereEq( patch, this.storeState )
+            );
+
+            /// console.log( storeName, 'onDispatch', eventNamespace, eventName, arg, patch, shouldUpdate );
+
+            if( shouldUpdate ) {
+                this.storeState = R.mergeRight(
+                    this.storeState,
+                    patch,
+                );
+                this.debug.onEvent( '', 'componentWillReceiveProps', '', this.storeState );
+                if( storeName ) {
+                    this.changeDispatcher.dispatch( this.storeState );
+                }
+            } else {
+                this.debug.onEvent( '', 'componentWillReceiveProps', '', this.storeState );
+            }
         }
 
         shouldComponentUpdate( nextProps ) {

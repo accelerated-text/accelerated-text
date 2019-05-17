@@ -7,6 +7,11 @@ export default {
         saving:     false,
     }),
 
+    componentWillReceiveProps: ( nextProps, { props }) => (
+        ( nextProps.item !== props.item )
+            && { item: nextProps.item }
+    ),
+
     lexiconItem: {
 
         onClickEdit: ( _, { state }) => ({
