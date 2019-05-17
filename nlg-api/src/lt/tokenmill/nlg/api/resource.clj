@@ -15,10 +15,11 @@
                 :body {:text "I do nothing."}})
 
 (defn decode-vals [m]
-  (reduce-kv (fn [m k v]
-               (assoc m k (URLDecoder/decode v)))
-             {}
-             m))
+  (when m
+    (reduce-kv (fn [m k v]
+                 (assoc m k (URLDecoder/decode v)))
+               {}
+               m)))
 
 (defn build-resource
   [resources decode-body]
