@@ -16,7 +16,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.DocumentPlansHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -33,7 +33,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -51,7 +51,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -69,7 +69,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -87,7 +87,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -103,7 +103,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -120,7 +120,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -138,7 +138,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -155,7 +155,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -173,7 +173,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -191,7 +191,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -209,7 +209,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -227,7 +227,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -244,7 +244,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.DataHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -261,7 +261,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.DataHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -278,7 +278,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -296,7 +296,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -314,7 +314,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -331,7 +331,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -349,7 +349,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
@@ -367,7 +367,7 @@ Resources:
       Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
-      MemorySize: 512
+      MemorySize: 3008
       Timeout: 60
       Policies:
         - AWSLambdaExecute
