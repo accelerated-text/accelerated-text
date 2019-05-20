@@ -2,7 +2,7 @@
 
 let timestamp =     +new Date - 1e6;
 
-export const createPhrases = phrases => ({
+export const createLexiconItem = phrases => ({
     createdAt:      timestamp++,
     updatedAt:      timestamp++,
     key:            `example-${ phrases[0] }.1`,
@@ -14,16 +14,16 @@ export default {
     totalCount:     40,
     limit:          11,
     items: [
-        createPhrases([ 1, 'one' ]),
-        createPhrases([ 2, 'two' ]),
-        createPhrases([ 3, 'three' ]),
-        createPhrases([ 4, 'four' ]),
-        createPhrases([ 5, 'five' ]),
-        createPhrases([ 6, 'six' ]),
-        createPhrases([ 7, 'seven' ]),
-        createPhrases([ 8, 'eight' ]),
-        createPhrases([ 9, 'nine' ]),
-        createPhrases([ 10, 'ten' ]),
-        createPhrases([ 11, 'eleven' ]),
+        createLexiconItem([ 1, 'one' ]),
+        createLexiconItem([ 2, 'two' ]),
+        createLexiconItem([ 3, 'three' ]),
+        createLexiconItem([ 4, 'four' ]),
+        createLexiconItem([ 5, 'five' ]),
+        createLexiconItem([ 6, 'six' ]),
+        createLexiconItem([ 7, 'seven' ]),
+        createLexiconItem([ 8, 'eight' ]),
+        createLexiconItem([ 9, 'nine' ]),
+        createLexiconItem([ 10, 'ten' ]),
+        createLexiconItem([ 11, 'eleven' ]),
     ],
 };

@@ -4,10 +4,25 @@ import {
     areLexiconItemsVisible,
     getLexiconSearchUrl,
 }   from './lib/lexicon-utils';
-import { createPhrases }    from './data/lexicon-list';
+import {
+    createLexiconItem,
+}   from './data/lexicon-list';
 import defaultResponsesPage from './lib/default-responses-page';
 import noRecordsPage        from './lib/no-records-page';
 import { SELECTORS }        from './constants';
+
+
+const S_NEW_ITEM = {
+    EDIT:           `${ SELECTORS.LEXICON_NEW_ITEM } ${ SELECTORS.LEXICON_EDIT }`,
+    EDIT_CANCEL:    `${ SELECTORS.LEXICON_NEW_ITEM } ${ SELECTORS.LEXICON_EDIT_CANCEL }`,
+    EDIT_SAVE:      `${ SELECTORS.LEXICON_NEW_ITEM } ${ SELECTORS.LEXICON_EDIT_SAVE }`,
+    EDIT_TEXT:      `${ SELECTORS.LEXICON_NEW_ITEM } ${ SELECTORS.LEXICON_EDIT_TEXT }`,
+    EDIT_ERROR:     `${ SELECTORS.LEXICON_NEW_ITEM } ${ SELECTORS.UI_ERROR }`,
+    EDIT_LOADING:   `${ SELECTORS.LEXICON_NEW_ITEM } ${ SELECTORS.UI_LOADING }`,
+    ITEM_BLOCK:     `${ SELECTORS.LEXICON_NEW_ITEM } ${ SELECTORS.LEXICON_ITEM_BLOCK }`,
+    ITEM_ID:        `${ SELECTORS.LEXICON_NEW_ITEM } ${ SELECTORS.LEXICON_ITEM_ID }`,
+    ITEM_PHRASES:   `${ SELECTORS.LEXICON_NEW_ITEM } ${ SELECTORS.LEXICON_ITEM_PHRASES }`,
+};
 
 
 test( 'no records', noRecordsPage, async t => {
@@ -52,10 +67,10 @@ test( 'search works', noRecordsPage, async t => {
         offset:         0,
         totalCount:     5,
         items: [
-            createPhrases([ 1 ]),
-            createPhrases([ 2, 20 ]),
-            createPhrases([ 3, 30, 31 ]),
-            createPhrases([ 4, 40, 41, 42 ]),
+            createLexiconItem([ 1 ]),
+            createLexiconItem([ 2, 20 ]),
+            createLexiconItem([ 3, 30, 31 ]),
+            createLexiconItem([ 4, 40, 41, 42 ]),
         ],
     };
     await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({ query }), results );
@@ -71,8 +86,8 @@ test( 'search works', noRecordsPage, async t => {
         offset:         0,
         totalCount:     2,
         items: [
-            createPhrases([ 1, 2, 3, 4 ]),   /// same key (1) as above, but different synonyms
-            createPhrases([ 5 ]),            /// new key (5) and synonyms
+            createLexiconItem([ 1, 2, 3, 4 ]),   /// same key (1) as above, but different synonyms
+            createLexiconItem([ 5 ]),            /// new key (5) and synonyms
         ],
     };
     await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({}), results );
@@ -94,7 +109,7 @@ test( 'loading more items works', noRecordsPage, async t => {
         limit:          1,
         offset:         0,
         totalCount:     3,
-        items:          [ createPhrases([ 0, 1, 2 ]) ],
+        items:          [ createLexiconItem([ 0, 1, 2 ]) ],
     };
 
     await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({ query }), results0 );
@@ -108,7 +123,7 @@ test( 'loading more items works', noRecordsPage, async t => {
     const results1 = {
         ...results0,
         offset:         1,
-        items:          [ createPhrases([ 1, 2, 3 ]) ],
+        items:          [ createLexiconItem([ 1, 2, 3 ]) ],
     };
     await t.nlgApi.provideOnce(
         'GET',
@@ -124,7 +139,7 @@ test( 'loading more items works', noRecordsPage, async t => {
     const results2 = {
         ...results0,
         offset:         2,
-        items:          [ createPhrases([ 2, 3, 4 ]) ],
+        items:          [ createLexiconItem([ 2, 3, 4 ]) ],
     };
     await t.nlgApi.provideOnce(
         'GET',
@@ -143,19 +158,64 @@ test( 'loading more items works', noRecordsPage, async t => {
 test.todo( 'search debouncing works' );
 
 
-test.todo( 'adding item works' );
-
-
 test( 'add new item form', noRecordsPage, async t => {
     t.timeout( 5e3 );
 
     await t.page.click( SELECTORS.LEXICON_NEW_BTN );
 
     await t.findElement( SELECTORS.LEXICON_NEW_ITEM );
-    await t.findElement( SELECTORS.LEXICON_EDIT );
-    await t.findElement( SELECTORS.LEXICON_EDIT_TEXT );
-    await t.findElement( SELECTORS.LEXICON_EDIT_SAVE );
-    await t.findElement( SELECTORS.LEXICON_EDIT_CANCEL );
+    await t.findElement( S_NEW_ITEM.EDIT );
+    await t.findElement( S_NEW_ITEM.EDIT_TEXT );
+    await t.findElement( S_NEW_ITEM.EDIT_SAVE );
+    await t.findElement( S_NEW_ITEM.EDIT_CANCEL );
+});
+
+test( 'add item cancel works', noRecordsPage, async t => {
+    t.timeout( 5e3 );
+
+    await t.page.click( SELECTORS.LEXICON_NEW_BTN );
+    await t.page.click( S_NEW_ITEM.EDIT_CANCEL );
+
+    await t.notFindElement( SELECTORS.LEXICON_NEW_ITEM );
+    await t.notFindElement( S_NEW_ITEM.EDIT );
+    await t.notFindElement( S_NEW_ITEM.EDIT_TEXT );
+    await t.notFindElement( S_NEW_ITEM.EDIT_SAVE );
+    await t.notFindElement( S_NEW_ITEM.EDIT_CANCEL );
+});
+
+
+test( 'add item save works', noRecordsPage, async t => {
+    t.timeout( 5e3 );
+
+    const item =        createLexiconItem([ 'one', 'two', 'three' ]);
+
+    await t.page.click( SELECTORS.LEXICON_NEW_BTN );
+
+    t.is(
+        await t.getElementProperty( S_NEW_ITEM.ITEM_ID, 'innerText' ),
+        ''
+    );
+
+    await t.page.type( S_NEW_ITEM.EDIT_TEXT, item.synonyms.join( '\n' ));
+    t.page.click( S_NEW_ITEM.EDIT_SAVE );
+
+    await t.nlgApi.interceptOnce( 'POST', '/lexicon/', request => {
+        t.is(
+            request.postData(),
+            JSON.stringify({ synonyms: item.synonyms }),
+        );
+        return t.nlgApi.respond( request, item );
+    });
+    await t.waitUntilElementGone( SELECTORS.UI_LOADING );
+
+    t.is(
+        await t.getElementProperty( S_NEW_ITEM.ITEM_ID, 'innerText' ),
+        item.key,
+    );
+    t.is(
+        await t.getElementProperty( S_NEW_ITEM.ITEM_PHRASES, 'innerText' ),
+        item.synonyms.join( '' ),
+    );
 });
 
 
