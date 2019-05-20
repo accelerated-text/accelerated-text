@@ -1,7 +1,7 @@
 import test                 from 'ava';
 
 import {
-    areLexiconResultsVisible,
+    areLexiconItemsVisible,
     getLexiconSearchUrl,
 }   from './lib/lexicon-utils';
 import { createPhrase }     from './data/lexicon-list';
@@ -62,7 +62,7 @@ test( 'search works', noRecordsPage, async t => {
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
     await t.findElement( SELECTORS.LEXICON_MORE );
-    await areLexiconResultsVisible( t, results );
+    await areLexiconItemsVisible( t, results.items );
 
     t.clearInput( SELECTORS.LEXICON_SEARCH );
 
@@ -79,11 +79,66 @@ test( 'search works', noRecordsPage, async t => {
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
     await t.notFindElement( SELECTORS.LEXICON_MORE );
-    await areLexiconResultsVisible( t, results );
+    await areLexiconItemsVisible( t, results.items );
 });
 
 
-test.todo( 'loading more items works' );
+test( 'loading more items works', noRecordsPage, async t => {
+    t.timeout( 5e3 );
+
+    const query =       'test';
+
+    t.page.type( SELECTORS.LEXICON_SEARCH, query, { delay: 10 });
+
+    const results0 = {
+        limit:          1,
+        offset:         0,
+        totalCount:     3,
+        items:          [ createPhrase([ 0, 1, 2 ]) ],
+    };
+
+    await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({ query }), results0 );
+    await t.waitUntilElementGone( SELECTORS.UI_LOADING );
+
+    await areLexiconItemsVisible( t, results0.items );
+    await t.findElement( SELECTORS.LEXICON_MORE );
+
+    t.page.click( SELECTORS.LEXICON_MORE );
+
+    const results1 = {
+        ...results0,
+        offset:         1,
+        items:          [ createPhrase([ 1, 2, 3 ]) ],
+    };
+    await t.nlgApi.provideOnce(
+        'GET',
+        getLexiconSearchUrl({ query, offset: 1 }),
+        results1,
+    );
+
+    await areLexiconItemsVisible( t, [ ...results0.items, ...results1.items ]);
+    await t.findElement( SELECTORS.LEXICON_MORE );
+
+    t.page.click( SELECTORS.LEXICON_MORE );
+
+    const results2 = {
+        ...results0,
+        offset:         2,
+        items:          [ createPhrase([ 2, 3, 4 ]) ],
+    };
+    await t.nlgApi.provideOnce(
+        'GET',
+        getLexiconSearchUrl({ query, offset: 2 }),
+        results2,
+    );
+
+    await areLexiconItemsVisible( t, [
+        ...results0.items,
+        ...results1.items,
+        ...results2.items,
+    ]);
+    await t.notFindElement( SELECTORS.LEXICON_MORE );
+});
 
 test.todo( 'search debouncing works' );
 

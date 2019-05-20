@@ -15,11 +15,13 @@ export const getLexiconSearchUrl = ({ query = '', offset = 0 }) => {
 };
 
 
-export const areLexiconResultsVisible = async ( t, results ) => {
+export const areLexiconItemsVisible = async ( t, items ) => {
 
-    for( let i = 0; i < results.items.length; i += 1 ) {
+    await t.resetMouse();
 
-        const item =            results.items[i];
+    for( let i = 0; i < items.length; i += 1 ) {
+
+        const item =            items[i];
         const itemSelector =    `${ SELECTORS.LEXICON_ITEM }:nth-child(${ i + 1 })`;
 
         t.is(
