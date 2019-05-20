@@ -7,3 +7,4 @@ nlg-api/.nrepl-port
 nlg-api/output-sam.yaml
 nlg-api/nlg-api.iml
 nlg-api/target/*
+.lein-failures

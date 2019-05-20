@@ -5,32 +5,30 @@
                  [cheshire "5.8.1"]
                  [ch.qos.logback/logback-classic "1.2.3"]
                  [clj-time "0.5.1"]
-                 [com.taoensso/faraday "1.9.0"] ;; DynamoDB client
-                 [uk.ac.abdn/SimpleNLG "4.4.8"] ;; SimpleNLG
+                 [com.taoensso/faraday "1.9.0"]
+                 [uk.ac.abdn/SimpleNLG "4.4.8"]
                  [prismatic/schema "1.1.9"]
                  [org.clojure/data.csv "0.1.4"]
-                 [com.amazonaws/aws-java-sdk-s3 "1.10.49"] ;; S3 Access
-]
+                 [com.amazonaws/aws-java-sdk-s3 "1.10.49"]]
   :plugins [[jonase/eastwood "0.3.3"]]
   :target-path "target/%s"
   :resource-paths ["resources/"]
-  :profiles {:uberjar {:aot [lt.tokenmill.nlg.api.blockly-workspace
-                             lt.tokenmill.nlg.api.data
-                             lt.tokenmill.nlg.api.document-plans
-                             lt.tokenmill.nlg.api.generate
-                             lt.tokenmill.nlg.api.lexicon
-                             lt.tokenmill.nlg.api.resource
-                             lt.tokenmill.nlg.api.utils
-
-                             lt.tokenmill.nlg.db.config
-                             lt.tokenmill.nlg.db.dynamo-ops
-
-                             lt.tokenmill.nlg.generator.ops
-                             lt.tokenmill.nlg.generator.parser
-                             lt.tokenmill.nlg.generator.planner
-                             lt.tokenmill.nlg.generator.simple-nlg]}
-             :test {:dependencies [[com.amazonaws/aws-java-sdk "1.10.49"]
-                                   [com.amazonaws/aws-java-sdk-core "1.10.49"]]}
-             :local-server {:main local-server
+  :profiles {:uberjar      {:aot [lt.tokenmill.nlg.api.blockly-workspace
+                                  lt.tokenmill.nlg.api.data
+                                  lt.tokenmill.nlg.api.document-plans
+                                  lt.tokenmill.nlg.api.generate
+                                  lt.tokenmill.nlg.api.lexicon
+                                  lt.tokenmill.nlg.api.resource
+                                  lt.tokenmill.nlg.api.utils
+                                  lt.tokenmill.nlg.db.config
+                                  lt.tokenmill.nlg.db.dynamo-ops
+                                  lt.tokenmill.nlg.generator.ops
+                                  lt.tokenmill.nlg.generator.parser
+                                  lt.tokenmill.nlg.generator.planner
+                                  lt.tokenmill.nlg.generator.simple-nlg]}
+             :test         {:dependencies []}
+             :local-server {:main         local-server
                             :dependencies [[http-kit "2.3.0"]]
-                            :aot [local-server]}})
+                            :aot          [local-server]}}
+  :test-selectors {:default     (complement (fn [test] (or (:integration test))))
+                   :integration :integration})
