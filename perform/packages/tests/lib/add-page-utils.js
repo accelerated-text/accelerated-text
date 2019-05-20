@@ -8,18 +8,18 @@ export default ( t, run, ...args ) =>
         Object.assign( t, {
 
             clearInput: async ( selector, page = t.page ) => {
-                await t.page.$eval( selector, el => {
+                await page.$eval( selector, el => {
                     el.focus();
                     el.setSelectionRange( 0, el.value.length );
                 });
-                await t.page.keyboard.press( 'Backspace' );
+                await page.keyboard.press( 'Backspace' );
             },
 
             findElement: ( selector, page = t.page ) =>
                 t.notThrowsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
 
             getElementAttribute: ( selector, attributeName, page = t.page ) =>
-                t.page.evaluate(
+                page.evaluate(
                     ( selector, attributeName ) =>
                         document.querySelector( selector ).getAttribute( attributeName ),
                     selector,
@@ -27,7 +27,7 @@ export default ( t, run, ...args ) =>
                 ),
 
             getElementProperty: ( selector, propertyName, page = t.page ) =>
-                t.page.evaluate(
+                page.evaluate(
                     ( selector, propertyName ) =>
                         document.querySelector( selector )[propertyName],
                     selector,
@@ -35,13 +35,16 @@ export default ( t, run, ...args ) =>
                 ),
 
             getElementValue: ( selector, page = t.page ) =>
-                t.page.evaluate(
+                page.evaluate(
                     selector => document.querySelector( selector ).value,
                     selector,
                 ),
 
             notFindElement: ( selector, page = t.page ) =>
                 t.throwsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
+
+            resetMouse: ( page = t.page ) =>
+                page.mouse.move( 0, 0 ),
 
             waitUntilElementGone: async ( selector, timeout = 10e3, page = t.page ) => {
 
