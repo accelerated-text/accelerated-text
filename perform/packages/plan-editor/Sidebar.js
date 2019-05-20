@@ -26,7 +26,7 @@ export default useStores([
             <SidebarItem isExpanded title="Data">
                 <DataManager plan={ openedPlan } />
             </SidebarItem>
-            <SidebarItem title="Word lists">
+            <SidebarItem title="Lists">
                 <Lexicon />
             </SidebarItem>
             <SidebarItem title="Options">

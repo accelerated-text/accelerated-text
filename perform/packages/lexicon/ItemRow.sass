@@ -1,20 +1,22 @@
 @import '../styles/variables'
 
 
+#{ ':export' }
+    // sass-lint:disable no-misspelled-properties
+    dragInColor:        $blockly-blue
+
+
 .className
 
-    > .key
+    > td
 
-        padding:            0
+        vertical-align:     top
 
-    > .showWords
+        &.dragInBlock
 
-        cursor:             pointer
+            padding:        $space-xs $space-xs 0
+            width:          2rem
 
-        > .editIcon
+        &.itemId
 
-            visibility:     hidden
-
-        &:hover > .editIcon
-
-            visibility:     visible
+            color:          shade-2( $blue )

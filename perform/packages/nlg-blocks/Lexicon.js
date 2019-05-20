@@ -12,9 +12,9 @@ export default Block({
     json: {
         colour:             BLUER,
         output:             T.LIST,
-        message0:           'Word list %1',
+        message0:           'List: %1',
         args0: [{
-            type:           'field_input',
+            type:           'field_label',
             name:           'text',
             text:           'good',
         }],

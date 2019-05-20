@@ -11,7 +11,7 @@ const makeExample = synonyms => ({
 
 module.exports = {
     offset:         0,
-    totalCont:      40,
+    totalCount:     40,
     limit:          11,
     items: [
         makeExample([ 1, 'one' ]),

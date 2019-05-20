@@ -29,6 +29,7 @@ module.exports = createConstants( 'tests', {
     LEXICON_MORE:           'lexicon-more',
     LEXICON_NEW_BTN:        'lexicon-new-button',
     LEXICON_NEW_ITEM:       'lexicon-new-item',
+    LEXICON_NO_ITEMS:       'lexicon-no-items',
     LEXICON_SEARCH:         'lexicon-search',
 
     UI_ERROR:               'ui-error',
