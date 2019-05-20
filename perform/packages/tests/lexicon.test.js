@@ -4,7 +4,7 @@ import {
     areLexiconItemsVisible,
     getLexiconSearchUrl,
 }   from './lib/lexicon-utils';
-import { createPhrase }     from './data/lexicon-list';
+import { createPhrases }    from './data/lexicon-list';
 import defaultResponsesPage from './lib/default-responses-page';
 import noRecordsPage        from './lib/no-records-page';
 import { SELECTORS }        from './constants';
@@ -52,10 +52,10 @@ test( 'search works', noRecordsPage, async t => {
         offset:         0,
         totalCount:     5,
         items: [
-            createPhrase([ 1 ]),
-            createPhrase([ 2, 20 ]),
-            createPhrase([ 3, 30, 31 ]),
-            createPhrase([ 4, 40, 41, 42 ]),
+            createPhrases([ 1 ]),
+            createPhrases([ 2, 20 ]),
+            createPhrases([ 3, 30, 31 ]),
+            createPhrases([ 4, 40, 41, 42 ]),
         ],
     };
     await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({ query }), results );
@@ -71,8 +71,8 @@ test( 'search works', noRecordsPage, async t => {
         offset:         0,
         totalCount:     2,
         items: [
-            createPhrase([ 1, 2, 3, 4 ]),   /// same key (1) as above, but different synonyms
-            createPhrase([ 5 ]),            /// new key (5) and synonyms
+            createPhrases([ 1, 2, 3, 4 ]),   /// same key (1) as above, but different synonyms
+            createPhrases([ 5 ]),            /// new key (5) and synonyms
         ],
     };
     await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({}), results );
@@ -94,7 +94,7 @@ test( 'loading more items works', noRecordsPage, async t => {
         limit:          1,
         offset:         0,
         totalCount:     3,
-        items:          [ createPhrase([ 0, 1, 2 ]) ],
+        items:          [ createPhrases([ 0, 1, 2 ]) ],
     };
 
     await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({ query }), results0 );
@@ -108,7 +108,7 @@ test( 'loading more items works', noRecordsPage, async t => {
     const results1 = {
         ...results0,
         offset:         1,
-        items:          [ createPhrase([ 1, 2, 3 ]) ],
+        items:          [ createPhrases([ 1, 2, 3 ]) ],
     };
     await t.nlgApi.provideOnce(
         'GET',
@@ -124,7 +124,7 @@ test( 'loading more items works', noRecordsPage, async t => {
     const results2 = {
         ...results0,
         offset:         2,
-        items:          [ createPhrase([ 2, 3, 4 ]) ],
+        items:          [ createPhrases([ 2, 3, 4 ]) ],
     };
     await t.nlgApi.provideOnce(
         'GET',

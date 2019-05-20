@@ -2,11 +2,11 @@
 
 let timestamp =     +new Date - 1e6;
 
-export const createPhrase = synonyms => ({
+export const createPhrases = phrases => ({
     createdAt:      timestamp++,
     updatedAt:      timestamp++,
-    key:            `example-${ synonyms[0] }.1`,
-    synonyms:       synonyms.map( item => `example ${ item }` ),
+    key:            `example-${ phrases[0] }.1`,
+    synonyms:       phrases.map( item => `example ${ item }` ),
 });
 
 export default {
@@ -14,16 +14,16 @@ export default {
     totalCount:     40,
     limit:          11,
     items: [
-        createPhrase([ 1, 'one' ]),
-        createPhrase([ 2, 'two' ]),
-        createPhrase([ 3, 'three' ]),
-        createPhrase([ 4, 'four' ]),
-        createPhrase([ 5, 'five' ]),
-        createPhrase([ 6, 'six' ]),
-        createPhrase([ 7, 'seven' ]),
-        createPhrase([ 8, 'eight' ]),
-        createPhrase([ 9, 'nine' ]),
-        createPhrase([ 10, 'ten' ]),
-        createPhrase([ 11, 'eleven' ]),
+        createPhrases([ 1, 'one' ]),
+        createPhrases([ 2, 'two' ]),
+        createPhrases([ 3, 'three' ]),
+        createPhrases([ 4, 'four' ]),
+        createPhrases([ 5, 'five' ]),
+        createPhrases([ 6, 'six' ]),
+        createPhrases([ 7, 'seven' ]),
+        createPhrases([ 8, 'eight' ]),
+        createPhrases([ 9, 'nine' ]),
+        createPhrases([ 10, 'ten' ]),
+        createPhrases([ 11, 'eleven' ]),
     ],
 };
