@@ -34,6 +34,12 @@ export default ( t, run, ...args ) =>
                     propertyName,
                 ),
 
+            getElementText: ( selector, page = t.page ) =>
+                page.evaluate(
+                    selector => document.querySelector( selector ).innerText,
+                    selector,
+                ),
+
             getElementValue: ( selector, page = t.page ) =>
                 page.evaluate(
                     selector => document.querySelector( selector ).value,
