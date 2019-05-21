@@ -149,7 +149,9 @@ test( 'loading more items works', noRecordsPage, async t => {
     await t.notFindElement( SELECTORS.LEXICON_MORE );
 });
 
+
 test.todo( 'search debouncing works' );
+test.todo( 'search errors handled' );
 
 
 test( 'add new item form', noRecordsPage, async t => {
@@ -281,6 +283,7 @@ test( 'edit item save works', defaultResponsesPage, async t => {
         newItem.synonyms.join( '' ),
     );
 });
+
 
 test.todo( 'edit item errors handled' );
 
