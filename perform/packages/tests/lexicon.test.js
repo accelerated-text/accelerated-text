@@ -14,6 +14,8 @@ import noRecordsPage        from './lib/no-records-page';
 import { SELECTORS }        from './constants';
 
 
+const EDIT_SYN_SEPARATOR =  '\n';
+const SHOW_SYN_SEPARATOR =  '';
 const SEL_NEW_ITEM =        createItemSelectors( SELECTORS.LEXICON_NEW_ITEM );
 
 
@@ -192,7 +194,7 @@ test( 'add item save works', noRecordsPage, async t => {
         ''
     );
 
-    await t.page.type( SEL_NEW_ITEM.EDIT_TEXT, item.synonyms.join( '\n' ));
+    await t.page.type( SEL_NEW_ITEM.EDIT_TEXT, item.synonyms.join( EDIT_SYN_SEPARATOR ));
     t.page.click( SEL_NEW_ITEM.EDIT_SAVE );
 
     await t.nlgApi.interceptOnce( 'POST', '/lexicon/', request => {
@@ -210,7 +212,7 @@ test( 'add item save works', noRecordsPage, async t => {
     );
     t.is(
         await t.getElementText( SEL_NEW_ITEM.ITEM_PHRASES ),
-        item.synonyms.join( '' ),
+        item.synonyms.join( SHOW_SYN_SEPARATOR ),
     );
 });
 
@@ -233,7 +235,7 @@ test( 'edit item form', defaultResponsesPage, async t => {
 
     t.is(
         await t.getElementValue( SEL_ITEM.EDIT_TEXT ),
-        item.synonyms.join( '\n' ),
+        item.synonyms.join( EDIT_SYN_SEPARATOR ),
     );
 });
 
@@ -266,7 +268,7 @@ test( 'edit item save works', defaultResponsesPage, async t => {
 
     await t.page.click( SEL_ITEM.ITEM_PHRASES );
     await t.clearInput( SEL_ITEM.EDIT_TEXT );
-    await t.page.type( SEL_ITEM.EDIT_TEXT, newItem.synonyms.join( '\n' ));
+    await t.page.type( SEL_ITEM.EDIT_TEXT, newItem.synonyms.join( EDIT_SYN_SEPARATOR ));
 
     t.page.click( SEL_ITEM.EDIT_SAVE );
 
@@ -280,7 +282,7 @@ test( 'edit item save works', defaultResponsesPage, async t => {
     );
     t.is(
         await t.getElementText( SEL_ITEM.ITEM_PHRASES ),
-        newItem.synonyms.join( '' ),
+        newItem.synonyms.join( SHOW_SYN_SEPARATOR ),
     );
 });
 
