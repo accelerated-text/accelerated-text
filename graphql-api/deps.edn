@@ -2,7 +2,11 @@
              org.clojure/tools.logging {:mvn/version "0.4.1"}
              http-kit                  {:mvn/version "2.3.0"}
              metosin/jsonista          {:mvn/version "0.2.2"}
-             com.walmartlabs/lacinia   {:mvn/version "0.32.0"}}
+             com.walmartlabs/lacinia   {:mvn/version "0.32.0"}
+             cheshire                  {:mvn/version "5.8.1"}
+             clj-time                  {:mvn/version "0.5.1"}
+             com.taoensso/faraday      {:mvn/version "1.9.0"}
+             org.clojure/data.csv      {:mvn/version "0.1.4"}}
  :paths     ["src" "resources"]
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://repo.clojars.org/"}}
