@@ -14,7 +14,7 @@ export default Block({
         output:             T.LIST,
         message0:           'List: %1',
         args0: [{
-            type:           'field_label',
+            type:           'field_input',
             name:           'text',
             text:           'good',
         }],
