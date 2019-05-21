@@ -4,7 +4,7 @@
             [lt.tokenmill.nlg.db.config :as config]
             [lt.tokenmill.nlg.api.utils :as utils]))
 
-(deftest reading-from-s3
+(deftest ^:integration reading-from-s3
   (testing "Read test.txt"
     (let [result (s3/read-file config/data-bucket "test.txt")]
       (is (= "testas\n" result))))

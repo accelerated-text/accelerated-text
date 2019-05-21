@@ -3,7 +3,7 @@
             [lt.tokenmill.nlg.api.utils :refer :all]
             [lt.tokenmill.nlg.api.data :refer :all]))
 
-(deftest reading-csv-from-s3
+(deftest ^:integration reading-csv-from-s3
   (testing "Test listing files for user"
     (let [result (list-data {:limit 10 :user "example-user"})
           body (result :body)

@@ -1,20 +1,24 @@
 stages:
-    - test
-    - build
-    - deploy
+  - deps
+  - test
+  - build
+  - deploy
 
 image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 
 test:preact_demo:
-    script:
-        - make test
-    stage:  test
+  only:
+    changes:
+      - perform/
+  script:
+    - make test
+  stage: test
 
 job:npm_audit:
-    only:
-        - schedules
-    script:
-        - make npm-audit
+  only:
+    - schedules
+  script:
+    - make npm-audit
 
 lexical-analysis:code-linter:
   image: registry.gitlab.com/tokenmill/nlg/accelerated-text/pytest:latest
@@ -24,11 +28,90 @@ lexical-analysis:code-linter:
     - flake8 lexical-analyser/api
     - flake8 lexical-analyser/core
 
-
 deploy-app:
-    stage:  deploy
-    when:   on_success
-    only:
-       - master
-    script:
-        - make deploy-app
+  stage: deploy
+  when: on_success
+  only:
+    - master
+  script:
+    - make deploy-app
+
+unit-test-nlg-api:
+  stage: test
+  image: clojure:openjdk-8-lein-alpine
+  when: always
+  only:
+    changes:
+      - nlg-api/
+  script:
+    - cd nlg-api
+    - lein do clean, test
+
+integration-test-nlg-api:
+  stage: test
+  image: clojure:openjdk-8-lein-alpine
+  when: manual
+  script:
+    - cd nlg-api
+    - lein do clean, test :all
+
+build-nlg-api:
+  stage: build
+  image: clojure:openjdk-8-lein-alpine
+  when: on_success
+  script:
+    - cd nlg-api
+    - lein do clean, uberjar
+  artifacts:
+    paths:
+      - nlg-api/target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+    expire_in: 1 week
+
+deploy-nlg-api:
+  stage: deploy
+  image: registry.gitlab.com/tokenmill/commons/aws:1
+  when: on_success
+  only:
+    - master
+  dependencies:
+    - build-nlg-api
+  script:
+    - cd nlg-api
+    - export S3_BUCKET_NAME=nlg-api
+    - export STACK_NAME=nlg-api
+    - aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket $S3_BUCKET_NAME
+    - aws cloudformation deploy --template-file output-sam.yaml --stack-name $STACK_NAME --capabilities CAPABILITY_IAM
+
+update-graphql-api-deps:
+  stage: deps
+  image: docker:stable
+  only:
+    changes:
+      - graphql-api/deps.edn
+      - graphql-api/Dockerfile.deps
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+  script:
+    - cd graphql-api/
+    - docker build -f Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps .
+    - docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
+    - docker rmi registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
+
+deploy-graphql-api-lambda:
+  stage: deploy
+  image: docker:stable
+  when: manual
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+  script:
+    - cd graphql-api
+    - >
+      docker build
+      --target deployer
+      --build-arg AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+      --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      --build-arg S3_BUCKET="nlg-api"
+      --build-arg S3_FOLDER="graphql"
+      --build-arg STACK_NAME="lambda-custom-runtime-graphqlApi"
+      -t lambda-deployer .
