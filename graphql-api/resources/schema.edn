@@ -1,27 +1,24 @@
-{:objects
+{:scalars
+ {:BigInt
+  {:parse     :big-int-parser
+   :serialize :big-int-serializer}}
+
+ :objects
  {:item
-  {:fields {:createdAt {:type Int}
-            :updatedAt {:type Int}
-            :synonyms {:type (list String)}
-            :key {:type String}}}
+  {:fields {:createdAt {:type BigInt}
+            :updatedAt {:type BigInt}
+            :synonyms  {:type (list String)}
+            :key       {:type String}}}
 
   :lexicon
-  {:fields {:offset {:type Int}
+  {:fields {:offset     {:type Int}
             :totalCount {:type Int}
-            :limit {:type Int}
-            :items {:type (list :item)}}}}
+            :limit      {:type Int}
+            :items      {:type (list :item)}}}}
 
  :queries
- {:lexicon {:type :lexicon
-            :args {:episode {:type :episode}}
-            :resolve :get-lexicon}
-
-  :human {:type (non-null :human)
-          :args {:id {:type String
-                      :default-value "1001"}}
-          :resolve :get-human}
-
-  :droid {:type :droid
-          :args {:id {:type String
-                      :default-value "2001"}}
-          :resolve :get-droid}}}
+ {:lexicon {:type    :lexicon
+            :args    {:query  {:type String}
+                      :limit  {:type String}
+                      :offset {:type String}}
+            :resolve :get-lexicon}}}
