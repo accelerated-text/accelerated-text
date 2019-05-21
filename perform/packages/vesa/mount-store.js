@@ -61,7 +61,15 @@ export default ( storeName, store ) => Child => {
                 return;
             }
 
-            const patch =   this.callEventHandler( getPath( eventHandlers ), arg );
+            this.patchState({
+                eventId,
+                eventName,
+                eventNamespace,
+                patch:          this.callEventHandler( getPath( eventHandlers ), arg ),
+            });
+        };
+
+        patchState =    ({ patch, eventId, eventNamespace, eventName }) => {
 
             const shouldUpdate = (
                 patch
@@ -127,32 +135,13 @@ export default ( storeName, store ) => Child => {
         }
 
         componentWillReceiveProps( nextProps ) {
-
-            if( !componentWillReceiveProps ) {
-                return;
-            }
-
-            const patch =   this.callEventHandler( componentWillReceiveProps, nextProps );
-
-            const shouldUpdate = (
-                patch
-                && this.storeState
-                && !R.whereEq( patch, this.storeState )
-            );
-
-            /// console.log( storeName, 'onDispatch', eventNamespace, eventName, arg, patch, shouldUpdate );
-
-            if( shouldUpdate ) {
-                this.storeState = R.mergeRight(
-                    this.storeState,
-                    patch,
-                );
-                this.debug.onEvent( '', 'componentWillReceiveProps', '', this.storeState );
-                if( storeName ) {
-                    this.changeDispatcher.dispatch( this.storeState );
-                }
-            } else {
-                this.debug.onEvent( '', 'componentWillReceiveProps', '', this.storeState );
+            if( componentWillReceiveProps ) {
+                this.patchState({
+                    eventId:        'componentWillReceiveProps',
+                    eventName:      '',
+                    eventNamespace: '',
+                    patch:          this.callEventHandler( componentWillReceiveProps, nextProps ),
+                });
             }
         }
 
