@@ -7,10 +7,15 @@ export default {
         saving:     false,
     }),
 
-    componentWillReceiveProps: ( nextProps, { props }) => (
-        ( nextProps.item !== props.item )
-            && { item: nextProps.item }
-    ),
+    componentWillReceiveProps: ( nextProps, { props, state }) => {
+        const shouldUpdate = (
+            nextProps.item !== props.item
+             && state.item === props.item
+        );
+        if( shouldUpdate ) {
+            return { item: nextProps.item };
+        }
+    },
 
     lexiconItem: {
 
