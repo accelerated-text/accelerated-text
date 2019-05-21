@@ -2,28 +2,28 @@
 
 let timestamp =     +new Date - 1e6;
 
-const makeExample = synonyms => ({
+export const createLexiconItem = phrases => ({
     createdAt:      timestamp++,
     updatedAt:      timestamp++,
-    key:            `example-${ synonyms[0] }.1`,
-    synonyms:       synonyms.map( item => `example ${ item }` ),
+    key:            `example-${ phrases[0] }.1`,
+    synonyms:       phrases.map( item => `example ${ item }` ),
 });
 
-module.exports = {
+export default {
     offset:         0,
     totalCount:     40,
     limit:          11,
     items: [
-        makeExample([ 1, 'one' ]),
-        makeExample([ 2, 'two' ]),
-        makeExample([ 3, 'three' ]),
-        makeExample([ 4, 'four' ]),
-        makeExample([ 5, 'five' ]),
-        makeExample([ 6, 'six' ]),
-        makeExample([ 7, 'seven' ]),
-        makeExample([ 8, 'eight' ]),
-        makeExample([ 9, 'nine' ]),
-        makeExample([ 10, 'ten' ]),
-        makeExample([ 11, 'eleven' ]),
+        createLexiconItem([ 1, 'one' ]),
+        createLexiconItem([ 2, 'two' ]),
+        createLexiconItem([ 3, 'three' ]),
+        createLexiconItem([ 4, 'four' ]),
+        createLexiconItem([ 5, 'five' ]),
+        createLexiconItem([ 6, 'six' ]),
+        createLexiconItem([ 7, 'seven' ]),
+        createLexiconItem([ 8, 'eight' ]),
+        createLexiconItem([ 9, 'nine' ]),
+        createLexiconItem([ 10, 'ten' ]),
+        createLexiconItem([ 11, 'eleven' ]),
     ],
 };
