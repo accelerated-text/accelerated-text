@@ -56,7 +56,7 @@ test( 'search works', noRecordsPage, async t => {
 
     t.page.type( SELECTORS.LEXICON_SEARCH, query );
 
-    let results = {
+    const testQueryResults = {
         limit:          4,
         offset:         0,
         totalCount:     5,
@@ -67,15 +67,15 @@ test( 'search works', noRecordsPage, async t => {
             createLexiconItem([ 4, 40, 41, 42 ]),
         ],
     };
-    await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({ query }), results );
+    await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({ query }), testQueryResults );
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
     await t.findElement( SELECTORS.LEXICON_MORE );
-    await areLexiconItemsVisible( t, results.items );
+    await areLexiconItemsVisible( t, testQueryResults.items );
 
     t.clearInput( SELECTORS.LEXICON_SEARCH );
 
-    results = {
+    const emptyQueryResults = {
         limit:          2,
         offset:         0,
         totalCount:     2,
@@ -84,11 +84,11 @@ test( 'search works', noRecordsPage, async t => {
             createLexiconItem([ 5 ]),            /// new key (5) and synonyms
         ],
     };
-    await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({}), results );
+    await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({}), emptyQueryResults );
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
     await t.notFindElement( SELECTORS.LEXICON_MORE );
-    await areLexiconItemsVisible( t, results.items );
+    await areLexiconItemsVisible( t, emptyQueryResults.items );
 });
 
 
