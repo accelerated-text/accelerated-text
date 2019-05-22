@@ -10,6 +10,7 @@ import EditorSidebar        from '../plan-editor/Sidebar';
 import Header               from '../header/Header';
 import lexicon              from '../lexicon/store';
 import lexiconAdapter       from '../lexicon/adapter';
+import lexiconGraphQL       from '../lexicon/graphql-adapter';
 import planList             from '../plan-list/store';
 import planListAdapter      from '../plan-list/adapter';
 import planListLsAdapter    from '../plan-list/local-storage-adapter';
@@ -35,6 +36,7 @@ export default mount({
     dataSamplesAdapter,
     documentPlansAdapter,
     lexiconAdapter,
+    lexiconGraphQL,
     planListAdapter,
     variantsApiAdapter,
     planListLsAdapter,
