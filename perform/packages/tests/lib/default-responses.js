@@ -18,6 +18,8 @@ export default async ( t, run, ...args ) => {
     } = t;
 
     continueAll( 'GET', new RegExp( `${ TEST_URL }/.*` ));
+    continueAll( 'OPTIONS', process.env.GRAPHQL_URL );
+    continueAll( 'POST', process.env.GRAPHQL_URL );
 
     /// Start page load:
     t.timeout( 8e3 );
