@@ -4,8 +4,9 @@ import { h, Component } from 'preact';
 import { QA }           from '../tests/constants';
 import { useStores }    from '../vesa/';
 
-import S                from './Lexicon.sass';
+import GraphQLItems     from './GraphQLItems';
 import ItemTable        from './ItemTable';
+import S                from './Lexicon.sass';
 
 
 export default useStores([
@@ -40,6 +41,7 @@ export default useStores([
                         value={ query }
                     />
                 </div>
+                <GraphQLItems query={ query } />
                 <ItemTable />
             </div>
         );

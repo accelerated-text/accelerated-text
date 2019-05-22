@@ -7,6 +7,7 @@ import dataSamplesAdapter   from '../data-samples/adapter';
 import documentPlans        from '../document-plans/store';
 import documentPlansAdapter from '../document-plans/adapter';
 import EditorSidebar        from '../plan-editor/Sidebar';
+import { GqlProvider }      from '../graphql/';
 import Header               from '../header/Header';
 import lexicon              from '../lexicon/store';
 import lexiconAdapter       from '../lexicon/adapter';
@@ -36,14 +37,15 @@ export default mount({
     dataSamplesAdapter,
     documentPlansAdapter,
     lexiconAdapter,
-    lexiconGraphQL,
     planListAdapter,
     variantsApiAdapter,
     planListLsAdapter,
 ])(() =>
-    <div className={ S.className }>
-        <Header className={ S.header } />
-        <PlanEditor className={ S.main } />
-        <EditorSidebar className={ S.rightSidebar } />
-    </div>
+    <GqlProvider>
+        <div className={ S.className }>
+            <Header className={ S.header } />
+            <PlanEditor className={ S.main } />
+            <EditorSidebar className={ S.rightSidebar } />
+        </div>
+    </GqlProvider>
 );
