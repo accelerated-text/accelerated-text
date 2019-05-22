@@ -18,10 +18,8 @@ const lexiconSearchQuery = gql`
 `;
 
 export default ({ query }) =>
-    <GqlQuery
-        query={ lexiconSearchQuery }
-        variables={{ query }}
-        children={ ({ loading, error, data }) => (
+    <GqlQuery query={ lexiconSearchQuery } variables={{ query }}>
+        { ({ loading, error, data }) => (
             error
                 ? <Error message={ error } />
             : loading
@@ -29,5 +27,5 @@ export default ({ query }) =>
             : ( data.items && data.items.length )
                 ? <Info message="We have data!" />
                 : <Info message="No results." />
-        ) }
-    />;
+        )}
+    </GqlQuery>;
