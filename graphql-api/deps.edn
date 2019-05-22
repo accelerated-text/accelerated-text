@@ -1,18 +1,21 @@
-{:deps      {org.clojure/clojure       {:mvn/version "1.10.0"}
-             org.clojure/tools.logging {:mvn/version "0.4.1"}
-             http-kit                  {:mvn/version "2.3.0"}
-             metosin/jsonista          {:mvn/version "0.2.2"}
-             com.walmartlabs/lacinia   {:mvn/version "0.32.0"}
-             cheshire                  {:mvn/version "5.8.1"}
-             clj-time                  {:mvn/version "0.5.1"}
-             com.taoensso/faraday      {:mvn/version "1.9.0"}
-             org.clojure/data.csv      {:mvn/version "0.1.4"}}
+{:deps      {org.clojure/clojure                 {:mvn/version "1.10.0"}
+             org.clojure/tools.logging           {:mvn/version "0.4.1"}
+             ch.qos.logback/logback-classic      {:mvn/version "1.2.3"}
+             http-kit                            {:mvn/version "2.3.0"}
+             metosin/jsonista                    {:mvn/version "0.2.2"}
+             com.walmartlabs/lacinia             {:mvn/version "0.32.0"}
+             cheshire                            {:mvn/version "5.8.1"}
+             clj-time                            {:mvn/version "0.5.1"}
+             com.taoensso/faraday                {:mvn/version "1.9.0"}
+             org.clojure/data.csv                {:mvn/version "0.1.4"}
+             com.amazonaws/aws-java-sdk-dynamodb {:mvn/version "1.11.556"}}
  :paths     ["src" "resources"]
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://repo.clojars.org/"}}
  :aliases   {:native-image
-             {:extra-deps {luchiniatwork/cambada {:git/url "https://github.com/xfthhxk/cambada"
-                                                  :sha     "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"}}
+             {:extra-deps {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
+                                                  :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
+                                                  :exclusions [org.slf4j/slf4j-nop]}}
               :main-opts  ["-m" "cambada.native-image"
                            "-m" "lambda.core"
                            "-a" "lambda.core"

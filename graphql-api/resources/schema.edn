@@ -1,12 +1,7 @@
-{:scalars
- {:BigInt
-  {:parse     :big-int-parser
-   :serialize :big-int-serializer}}
-
- :objects
+{:objects
  {:item
-  {:fields {:createdAt {:type BigInt}
-            :updatedAt {:type BigInt}
+  {:fields {:createdAt {:type String}
+            :updatedAt {:type String}
             :synonyms  {:type (list String)}
             :key       {:type String}}}
 
