@@ -37,6 +37,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "p-tap": "^2.0.0",
     "preact": "^8.3.1",
+    "preact-compat": "^3.18.5",
     "preact-render-to-string": "^4.1.0",
     "preact-router": "^2.6.1",
     "prop-types": "^15.6.2",
