@@ -1,19 +1,19 @@
 {:objects
- {:item
+ {:LexiconItem
   {:fields {:createdAt {:type String}
             :updatedAt {:type String}
             :synonyms  {:type (list String)}
             :key       {:type String}}}
 
-  :lexicon
+  :Lexicon
   {:fields {:offset     {:type Int}
             :totalCount {:type Int}
             :limit      {:type Int}
-            :items      {:type (list :item)}}}}
+            :items      {:type (list :LexiconItem)}}}}
 
  :queries
- {:lexicon {:type    :lexicon
-            :args    {:query  {:type String}
-                      :limit  {:type String}
-                      :offset {:type String}}
-            :resolve :get-lexicon}}}
+ {:searchLexicon {:type    :Lexicon
+                  :args    {:query  {:type String}
+                            :limit  {:type String}
+                            :offset {:type String}}
+                  :resolve :get-lexicon}}}

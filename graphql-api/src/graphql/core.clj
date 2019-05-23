@@ -1,17 +1,14 @@
 (ns graphql.core
-  (:require [clojure.tools.logging :as log]
+  (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [clojure.edn :as edn]
+            [clojure.tools.logging :as log]
             [nlg.lexicon :as lexicon]
             [com.walmartlabs.lacinia.util :as util]
             [com.walmartlabs.lacinia.schema :as schema]
             [com.walmartlabs.lacinia :refer [execute]]))
 
 (defn get-lexicon [context arguments value]
-  (log/infof "'get-lexicon' arguments -> '%s'" arguments)
-  (let [result (lexicon/search arguments nil)]
-    (log/infof "Lexicon search results -> '%s'" result)
-    (:body result)))
+  (:body (lexicon/search arguments nil)))
 
 (def nlg-schema
   (-> "schema.edn"

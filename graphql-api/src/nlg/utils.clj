@@ -1,12 +1,8 @@
 (ns nlg.utils
-  (:require [cheshire.core :as cheshire]
-            [clojure.java.io :as io]
-            [clojure.tools.logging :as log]
+  (:require [clojure.tools.logging :as log]
             [clj-time.core :as time]
-            [clj-time.coerce :as tc]
-            [clojure.data.csv :as csv])
-  (:import (java.io InputStream)
-           (java.util UUID)))
+            [clj-time.coerce :as tc])
+  (:import (java.util UUID)))
 
 (defn gen-uuid [] (.toString (UUID/randomUUID)))
 
@@ -14,65 +10,6 @@
 
 (defn stack-trace [e]
   (reduce #(str %1 "\n" %2) (.getStackTrace ^Exception e)))
-
-(defn add-body [resp body]
-  (if resp
-    (assoc resp :body (cheshire/encode body))
-    (assoc resp :body "")))
-
-(defn add-headers [resp body]
-  (let [cors-headers {"Access-Control-Allow-Origin"  "*"
-                      "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"}
-        headers (if body
-                  (conj cors-headers {"Content-Type" "application/json"})
-                  cors-headers)]
-    (assoc resp :headers headers)))
-
-(defn resp [status-code body]
-  (let [resp {"statusCode"      status-code
-              "isBase64Encoded" false}]
-    (-> resp
-        (add-body body)
-        (add-headers body)
-        (cheshire/encode))))
-
-(defn decode-body [^InputStream is]
-  (try
-    (-> is
-        (io/reader)
-        (cheshire/decode-stream true))
-    (catch Exception e
-      (log/errorf "Failed to decode the body with exception '%s' \n %s" (.getMessage e) (stack-trace e)))))
-
-(defn read-stub-json []
-  (cheshire/decode (slurp (io/resource "stub.json"))))
-
-(defn result-or-error [results]
-  (try
-    (doall results)
-    (catch Exception e
-      (log/errorf "Failed to get result: %s \n %s" (.getMessage e) (stack-trace e))
-      {:error   true
-       :ready   true
-       :message (.getMessage e)})))
-
-(defn zip [coll1 coll2]
-  (interleave coll1 coll2))
-
-(defn csv-to-map [f]
-  (let [raw-csv (csv/read-csv f)]
-    (log/debug "Raw CSV: " raw-csv)
-    (let [header (vec (->> (first raw-csv)
-                           (map keyword)))
-          data (rest raw-csv)
-          pairs (map #(zip header %) data)]
-      (log/debugf "Header: %s" header)
-      (doall (map #(apply array-map %) pairs)))))
-
-(defn read-stub-csv []
-  (let [data (slurp (io/resource "data-example.csv"))]
-    (doall
-      (csv-to-map data))))
 
 (defn do-return [func & args]
   (try

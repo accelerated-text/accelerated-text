@@ -4,7 +4,6 @@
              http-kit                            {:mvn/version "2.3.0"}
              metosin/jsonista                    {:mvn/version "0.2.2"}
              com.walmartlabs/lacinia             {:mvn/version "0.32.0"}
-             cheshire                            {:mvn/version "5.8.1"}
              clj-time                            {:mvn/version "0.5.1"}
              com.taoensso/faraday                {:mvn/version "1.9.0"}
              org.clojure/data.csv                {:mvn/version "0.1.4"}

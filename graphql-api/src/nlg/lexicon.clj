@@ -1,5 +1,6 @@
 (ns nlg.lexicon
-  (:require [db.dynamo-ops :as ops]
+  (:require [clojure.string :as str]
+            [db.dynamo-ops :as ops]
             [nlg.utils :as utils]))
 
 (defn get-db [] (ops/db-access :lexicon))
@@ -102,6 +103,6 @@
         query (get query-params :query)
         offset (max 0 (Integer/parseInt (get query-params :offset "0")))
         limit (max 0 (Integer/parseInt (get query-params :limit "20")))]
-    (if (or (nil? query) (= "*" query))
+    (if (or (str/blank? query) (= "*" query))
       (list-entries db offset limit)
       (scan db query offset limit))))
