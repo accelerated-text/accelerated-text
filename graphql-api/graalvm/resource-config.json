@@ -1,10 +1,10 @@
 {
   "resources":[
-    {"pattern":"cheshire/core.clj"}, 
-    {"pattern":"cheshire/factory.clj"}, 
-    {"pattern":"cheshire/generate.clj"}, 
-    {"pattern":"cheshire/generate_seq.clj"}, 
-    {"pattern":"cheshire/parse.clj"}, 
+    {"pattern":"cheshire/core.clj"},
+    {"pattern":"cheshire/factory.clj"},
+    {"pattern":"cheshire/generate.clj"},
+    {"pattern":"cheshire/generate_seq.clj"},
+    {"pattern":"cheshire/parse.clj"},
     {"pattern":"clj_antlr/coerce.clj"}, 
     {"pattern":"clj_antlr/common.clj"}, 
     {"pattern":"clj_antlr/core.clj"}, 

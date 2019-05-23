@@ -6,12 +6,17 @@
              com.walmartlabs/lacinia             {:mvn/version "0.32.0"}
              clj-time                            {:mvn/version "0.5.1"}
              com.taoensso/faraday                {:mvn/version "1.9.0"}
-             org.clojure/data.csv                {:mvn/version "0.1.4"}
+             cheshire                            {:mvn/version "5.8.1"}
              com.amazonaws/aws-java-sdk-dynamodb {:mvn/version "1.11.556"}}
  :paths     ["src" "resources"]
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://repo.clojars.org/"}}
- :aliases   {:native-image
+ :aliases   {:test
+             {:extra-paths ["test"]
+              :extra-deps  {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
+                                                       :sha     "028a6d41ac9ac5d5c405dfc38e4da6b4cc1255d5"}}
+              :main-opts   ["-m" "cognitect.test-runner"]}
+             :native-image
              {:extra-deps {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
                                                   :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
                                                   :exclusions [org.slf4j/slf4j-nop]}}
