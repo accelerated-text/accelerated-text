@@ -41,8 +41,11 @@ export default useStores([
                         value={ query }
                     />
                 </div>
-                <GraphQLItems query={ query } />
-                <ItemTable />
+                <GraphQLItems
+                    E={ E }
+                    lexicon={ this.props.lexicon }
+                    query={ query }
+                />
             </div>
         );
     }

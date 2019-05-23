@@ -1,31 +1,32 @@
 import { h }                from 'preact';
+import { pathOr }           from 'ramda';
 
-import {
-    Error,
-    Info,
-    Loading,
-}   from '../ui-messages';
 import { gql, GqlQuery }    from '../graphql/';
 
+import ItemTable            from './ItemTable';
 
-const lexiconSearchQuery = gql`
+
+const searchLexicon = gql`
     query searchLexicon( $query: String ) {
         searchLexicon( query: $query ) {
-            totalCount
             items { key synonyms }
+            offset
+            totalCount
         }
     }
 `;
 
-export default ({ query }) =>
-    <GqlQuery query={ lexiconSearchQuery } variables={{ query }}>
-        { ({ loading, error, data }) => (
-            error
-                ? <Error message={ error } />
-            : loading
-                ? <Loading message={ loading } />
-            : ( data.searchLexicon && data.searchLexicon.items )
-                ? <Info message="We have data!" />
-                : <Info message="No results." />
-        )}
+export default ({ E, lexicon }) =>
+    <GqlQuery query={ searchLexicon } variables={{ query: `${ lexicon.query || '' }*` }}>
+        { ({ loading, error, data }) =>
+            <ItemTable
+                E={ E }
+                lexicon={ lexicon }
+                items={ pathOr([], [ 'searchLexicon', 'items' ], data ) }
+                requestOffset={ pathOr( 0, [ 'searchLexicon', 'offset' ], data ) }
+                resultsError={ error }
+                resultsLoading={ loading }
+                totalCount={ pathOr( 0, [ 'searchLexicon', 'totalCount' ], data ) }
+            />
+        }
     </GqlQuery>;

@@ -3,8 +3,10 @@ import { debouncedSearch }  from './api';
 
 export default {
 
+    /*
     componentDidMount: ( _, { E }) =>
         E.lexicon.onGet(),
+    */
 
     lexicon: {
 

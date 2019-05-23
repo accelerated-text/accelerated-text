@@ -7,25 +7,22 @@ import {
     Loading,
 }   from '../ui-messages/';
 import { QA }               from '../tests/constants';
-import { useStores }        from '../vesa/';
 
 import S                    from './ItemTable.sass';
 import ItemRow              from './ItemRow';
 
 
-export default useStores([
-    'lexicon',
-])(({
+export default ({
     E,
     lexicon: {
-        items,
         newItem,
         newItemSaved,
-        requestOffset,
-        resultsError,
-        resultsLoading,
-        totalCount,
     },
+    items,
+    requestOffset,
+    resultsError,
+    resultsLoading,
+    totalCount,
 }) => {
 
     const areItemsEditable = !! (
@@ -115,4 +112,4 @@ export default useStores([
             }
         </table>
     );
-});
+};
