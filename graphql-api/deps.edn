@@ -28,4 +28,11 @@
                            "-O" "-enable-all-security-services"
                            "-O" "H:ConfigurationFileDirectories=graalvm"
                            "-O" "-initialize-at-run-time=org.httpkit.client.SslContextFactory"
-                           "-O" "-initialize-at-run-time=org.httpkit.client.HttpClient"]}}}
+                           "-O" "-initialize-at-run-time=org.httpkit.client.HttpClient"]}
+             :rest-uberjar
+             {:extra-deps  {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
+                                                   :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
+                                                   :exclusions [org.slf4j/slf4j-nop]}}
+              :main-opts   ["-m" "cambada.uberjar"
+                            "-m" "graphql.server"
+                            "-a" "graphql.server"]}}}

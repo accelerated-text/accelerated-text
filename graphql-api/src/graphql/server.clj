@@ -1,4 +1,5 @@
 (ns graphql.server
+  (:gen-class)
   (:require [clojure.tools.logging :as log]
             [cheshire.core :as cheshire]
             [graphql.core :as graphql]
@@ -27,12 +28,13 @@
       (cheshire/decode true)))
 
 (defn app [{:keys [body uri]}]
-  (log/infof "URI ---->>>> %s" uri)
   (if (= "/_graphql" (str/lower-case uri))
     (http-result (graphql/nlg (normalize-body body)))
     {:status 404
      :body   (format "ERROR: unsupported URI '%s'" uri)}))
 
 (defn -main [& args]
-  (log/infof "Running server on: localhost:3001. Press Ctrl+C to stop")
-  (reset! server (server/run-server app {:port 3001})))
+  (let [host (or (System/getenv "HOST") "0.0.0.0")
+        port (Integer/valueOf ^String (or (System/getenv "PORT") "3001"))]
+    (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
+    (reset! server (server/run-server #'app {:port port :ip host}))))
