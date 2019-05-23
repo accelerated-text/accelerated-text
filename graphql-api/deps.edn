@@ -22,5 +22,6 @@
                            "-O" "-initialize-at-build-time"
                            "-O" "-static"
                            "-O" "-enable-all-security-services"
+                           "-O" "H:ConfigurationFileDirectories=graalvm"
                            "-O" "-initialize-at-run-time=org.httpkit.client.SslContextFactory"
                            "-O" "-initialize-at-run-time=org.httpkit.client.HttpClient"]}}}
