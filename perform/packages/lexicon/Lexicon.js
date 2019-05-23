@@ -5,7 +5,6 @@ import { QA }           from '../tests/constants';
 import { useStores }    from '../vesa/';
 
 import GraphQLItems     from './GraphQLItems';
-import ItemTable        from './ItemTable';
 import S                from './Lexicon.sass';
 
 
