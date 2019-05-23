@@ -19,6 +19,7 @@ export default ({
         newItemSaved,
     },
     items,
+    onClickMore,
     requestOffset,
     resultsError,
     resultsLoading,
@@ -97,7 +98,7 @@ export default ({
                                 ? <a
                                     children="🔽 Show more results"
                                     className={ classnames( S.more, QA.LEXICON_MORE ) }
-                                    onClick={ E.lexicon.onClickMore }
+                                    onClick={ onClickMore }
                                 />
                             : !items.length
                                 ? <Info
