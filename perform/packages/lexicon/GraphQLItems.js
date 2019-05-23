@@ -9,10 +9,10 @@ import { gql, GqlQuery }    from '../graphql/';
 
 
 const lexiconSearchQuery = gql`
-    query lexiconSearchQuery( $query: String ) {
-        lexicon( query: $query ) {
+    query searchLexicon( $query: String ) {
+        searchLexicon( query: $query ) {
             totalCount
-            items { key }
+            items { key synonyms }
         }
     }
 `;
@@ -24,7 +24,7 @@ export default ({ query }) =>
                 ? <Error message={ error } />
             : loading
                 ? <Loading message={ loading } />
-            : ( data.items && data.items.length )
+            : ( data.searchLexicon && data.searchLexicon.items )
                 ? <Info message="We have data!" />
                 : <Info message="No results." />
         )}
