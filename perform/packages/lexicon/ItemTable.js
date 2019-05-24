@@ -18,28 +18,28 @@ export default ({
         newItem,
         newItemSaved,
     },
-    items,
-    onClickMore,
-    requestOffset,
-    resultsError,
-    resultsLoading,
-    totalCount,
+    searchItems = [],
+    onFetchMore,
+    searchOffset = 0,
+    searchError,
+    searchLoading,
+    searchTotalCount = 0,
 }) => {
 
     const areItemsEditable = !! (
-        ! resultsLoading
-        || requestOffset
+        ! searchLoading
+        || searchOffset
     );
     const showMoreButton = (
-        ! resultsLoading
-        && items.length
-        && items.length < totalCount
+        ! searchLoading
+        && searchItems.length
+        && searchItems.length < searchTotalCount
     );
     const showBottom = (
         showMoreButton
-        || !items.length
-        || resultsError
-        || resultsLoading
+        || !searchItems.length
+        || searchError
+        || searchLoading
     );
 
     return (
@@ -52,8 +52,8 @@ export default ({
                         <div>
                             <span className={ S.label }>Phrases</span>
                             <span className={ S.status }>
-                                { resultsError && <Error justIcon message={ resultsError } /> }
-                                { resultsLoading && <Loading /> }
+                                { searchError && <Error justIcon message={ searchError } /> }
+                                { searchLoading && <Loading /> }
                             </span>
                         </div>
                     </th>
@@ -72,12 +72,12 @@ export default ({
                     />
                 </tbody>
             }
-            { !! items.length &&
+            { !! searchItems.length &&
                 <tbody
                     key="items"
                     className={ classnames( S.items, areItemsEditable && S.areItemsEditable ) }
                 >
-                    { items.map( item =>
+                    { searchItems.map( item =>
                         <ItemRow
                             className={ QA.LEXICON_ITEM }
                             isEditable={ areItemsEditable }
@@ -91,16 +91,16 @@ export default ({
                 <tbody key="bottom" className={ S.bottom }>
                     <tr>
                         <td colspan="3">
-                            { resultsError && <Error message={ resultsError } /> }
-                            { resultsLoading
+                            { searchError && <Error message={ searchError } /> }
+                            { searchLoading
                                 ? <Loading />
                             : showMoreButton
                                 ? <a
                                     children="🔽 Show more results"
                                     className={ classnames( S.more, QA.LEXICON_MORE ) }
-                                    onClick={ onClickMore }
+                                    onClick={ onFetchMore }
                                 />
-                            : !items.length
+                            : ! searchItems.length
                                 ? <Info
                                     className={ QA.LEXICON_NO_ITEMS }
                                     message="No results found"
