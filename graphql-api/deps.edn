@@ -35,4 +35,11 @@
                                                    :exclusions [org.slf4j/slf4j-nop]}}
               :main-opts   ["-m" "cambada.uberjar"
                             "-m" "graphql.server"
-                            "-a" "graphql.server"]}}}
+                            "-a" "graphql.server"]}
+             :import-uberjar
+             {:extra-deps  {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
+                                                   :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
+                                                   :exclusions [org.slf4j/slf4j-nop]}}
+              :main-opts   ["-m" "cambada.uberjar"
+                            "-m" "importer.core"
+                            "-a" "importer.core"]}}}

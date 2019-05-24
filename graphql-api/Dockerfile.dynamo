@@ -1,0 +1,22 @@
+FROM registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps as builder
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY deps.edn /usr/src/app/
+RUN clojure -Sresolve-tags
+RUN clojure -R:import-uberjar
+COPY . /usr/src/app
+RUN clojure -A:import-uberjar
+
+CMD ["java", "-jar" "target/app-1.0.0-SNAPSHOT-standalone.jar"]
+
+FROM amazon/dynamodb-local
+
+ARG AWS_ACCESS_KEY_ID
+ENV AWS_ACCESS_KEY_ID=placeholder
+
+ARG AWS_SECRET_ACCESS_KEY
+ENV AWS_SECRET_ACCESS_KEY=placeholder1
+
+COPY --from=builder /usr/src/app/target/app-1.0.0-SNAPSHOT-standalone.jar .
+RUN java -jar app-1.0.0-SNAPSHOT-standalone.jar
