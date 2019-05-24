@@ -8,13 +8,12 @@ const { TEST_URL } =        process.env;
 export default async ( t, run, ...args ) => {
 
     const {
+        graphQL,
         interceptor: { continueAll },
         nlgApi,
     } = t;
 
     continueAll( 'GET', new RegExp( `${ TEST_URL }/.*` ));
-    continueAll( 'OPTIONS', process.env.GRAPHQL_URL );
-    continueAll( 'POST', process.env.GRAPHQL_URL );
 
     /// Start page load:
     t.timeout( 8e3 );
@@ -24,7 +23,7 @@ export default async ( t, run, ...args ) => {
     await Promise.all([
         nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, []),
         nlgApi.provideOnce( 'GET', '/document-plans/', []),
-        nlgApi.provideOnce( 'GET', '/lexicon?', EMPTY_LEXICON_LIST ),
+        graphQL.provideOnce({ data: { results: EMPTY_LEXICON_LIST }}),
     ]);
 
     await pageLoadResult;
