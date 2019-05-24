@@ -1,0 +1,14 @@
+FROM axeclbr/leiningen as builder
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+RUN lein do clean, with-profile local-server uberjar
+
+CMD ["java", "-jar" "target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar"]
+
+FROM openjdk:8u171-jre-alpine3.8
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app/target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar /usr/src/app
+CMD ["java", "-jar", "nlg-api-0.1.0-SNAPSHOT-standalone.jar"]
