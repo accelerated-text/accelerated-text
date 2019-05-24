@@ -41,8 +41,6 @@ export default useStores([
                     />
                 </div>
                 <ItemTable
-                    E={ E }
-                    lexicon={ this.props.lexicon }
                     newItem={ newItem }
                     newItemSaved={ newItemSaved }
                     onCancelNew={ E.lexicon.onCancelNew }
