@@ -44,4 +44,4 @@ publish-pytest-docker: build-pytest-docker
 
 build-legacy-rest-api-image:
 	docker pull ardoq/leiningen:3.8-8u172-2.7.1
-	docker build -f Dockerfile.legacy-api -t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-rest-api:latest nlg-api/
+	docker build -f dockerfiles/Dockerfile.legacy-api -t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-rest-api:latest nlg-api/
