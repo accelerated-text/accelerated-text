@@ -4,7 +4,7 @@ import { h, Component } from 'preact';
 import { QA }           from '../tests/constants';
 import { useStores }    from '../vesa/';
 
-import GraphQLItems     from './GraphQLItems';
+import ItemTable        from './ItemTable';
 import S                from './Lexicon.sass';
 
 
@@ -40,9 +40,13 @@ export default useStores([
                         value={ query }
                     />
                 </div>
-                <GraphQLItems
+                <ItemTable
                     E={ E }
                     lexicon={ this.props.lexicon }
+                    newItem={ newItem }
+                    newItemSaved={ newItemSaved }
+                    onCancelNew={ E.lexicon.onCancelNew }
+                    onSaveNew={ E.lexicon.onSaveNew }
                     query={ query }
                 />
             </div>

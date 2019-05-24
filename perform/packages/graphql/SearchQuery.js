@@ -7,7 +7,7 @@ import concatResultsInPath  from './concat-results-in-path';
 
 /*  Example gqlQuery:
 
-    query exampleQuery( $searchQuery: String $offset: String! ) {
+    query exampleQuery( $searchQuery: String $offset: Int! ) {
         results: yourQuery( searchQuery: $searchQuery offset: $offset ) {
             items { id value }
             offset
@@ -18,19 +18,16 @@ import concatResultsInPath  from './concat-results-in-path';
     Example usage:
 
     <SearchQuery
-        ResultsComponent={ Results }
         gqlQuery={ exampleQuery }
         searchQuery={ userInputString }
-    />
-
-    Results example:
-
-    ({ searchError, searchItems, searchLoadint, onFetchMore }) =>
-        <div>
-            { searchItems && searchItems.map( item => <div>{ item.value }</div> ) }
-            <button onClick={ onFetchMore }>Load more</button>
-        </div>;
-
+    >
+        { ({ error, items, loading, offset, onFetchMore, totalCount }) =>
+            <div>
+                { items && items.map( item => <div key={ item.id }>{ item.value }</div> ) }
+                <button onClick={ onFetchMore }>Load more</button>
+            </div>
+        }
+    </SearchQuery>
 */
 
 const PATHS = {
@@ -40,30 +37,26 @@ const PATHS = {
 };
 
 
-export default ({ gqlQuery, searchQuery, ResultsComponent, ...props }) =>
+export default ({ children, gqlQuery, offset = 0, searchQuery }) =>
     <GqlQuery
         fetchPolicy="cache-and-network"
         notifyOnNetworkStatusChange
         query={ gqlQuery }
-        variables={{
-            offset:         0,
-            searchQuery,
-        }}
+        variables={{ offset, searchQuery }}
     >
         { ({ error, data, loading, fetchMore }) =>
-            <ResultsComponent
-                onFetchMore={ () => fetchMore({
+            children[0]({
+                error,
+                items:              path( PATHS.items, data ),
+                loading,
+                offset:             path( PATHS.offset, data ),
+                onFetchMore: () => fetchMore({
                     variables: {
                         offset:     data.results.items.length,
                     },
                     updateQuery:    concatResultsInPath( PATHS.items ),
-                }) }
-                searchError={ error }
-                searchItems={ path( PATHS.items, data ) }
-                searchLoading={ loading }
-                searchOffset={ path( PATHS.offset, data ) }
-                searchTotalCount={ path( PATHS.totalCount, data ) }
-                { ...props }
-            />
+                }),
+                totalCount:         path( PATHS.totalCount, data ),
+            })
         }
     </GqlQuery>;
