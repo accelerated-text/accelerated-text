@@ -3,7 +3,8 @@
   {:fields {:createdAt {:type String}
             :updatedAt {:type String}
             :synonyms  {:type (list String)}
-            :key       {:type String}}}
+            :key       {:type String}
+            :id        {:type String}}}
 
   :Lexicon
   {:fields {:offset     {:type Int}

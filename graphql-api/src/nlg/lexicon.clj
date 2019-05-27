@@ -31,6 +31,7 @@
                        (comp #(dissoc % :word)
                              (partial ops/write! db key))) (-> request-body
                                                                (assoc :word word)
+                                                               (assoc :id key)
                                                                (dissoc :key)))))
 
 (defn create-multiple [db request-body]

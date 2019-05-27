@@ -8,7 +8,8 @@
             [com.walmartlabs.lacinia :refer [execute]]))
 
 (defn get-lexicon [context arguments value]
-  (:body (lexicon/search arguments nil)))
+  (let [result (:body (lexicon/search arguments nil))]
+    (update result :items #(map (fn [{:keys [key] :as item}] (assoc item :id key)) %))))
 
 (def nlg-schema
   (-> "schema.edn"
