@@ -23,6 +23,7 @@ Resources:
         - AmazonDynamoDBFullAccess
       Environment:
         Variables:
+          DYNAMODB_ENDPOINT: "http://dynamodb.eu-central-1.amazonaws.com"
           ENABLE_XRAY: "true"
       Events:
         GetResource:
