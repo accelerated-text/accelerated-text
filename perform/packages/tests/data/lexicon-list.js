@@ -26,7 +26,7 @@ export const createLexiconList = ({
     totalCount =    100,
 }) => ({
     __typename:     T_LEXICON_ITEM,
-    limit:          items && items.length || limit,
+    limit:          items ? items.length : limit,
     offset,
     totalCount,
     items: (
