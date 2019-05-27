@@ -49,7 +49,7 @@
     (reify
       DBAccess
       (read-item [this key]
-        (far/get-item (config/client-opts) table-name {:key key}))
+        (far/get-item config/client-opts table-name {:key key}))
       (write-item [this key data]
         (log/debugf "Writing\n key: '%s' \n content: '%s'" key data)
         (let [body (-> data
@@ -57,35 +57,35 @@
                        (assoc :createdAt (utils/ts-now))
                        (assoc :updatedAt (utils/ts-now)))
               normalized (doall (normalize body))]
-          (far/put-item (config/client-opts) table-name normalized)
+          (far/put-item config/client-opts table-name normalized)
           body))
       (update-item [this key data]
         (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
-        (let [original (far/get-item (config/client-opts) table-name {:key key})
+        (let [original (far/get-item config/client-opts table-name {:key key})
               body (-> (merge original data)
                        (assoc :updatedAt (utils/ts-now))
                        (assoc :key key))]
-          (far/put-item (config/client-opts) table-name body)
+          (far/put-item config/client-opts table-name body)
           body))
       (delete-item [this key]
         (log/debugf "Deleting\n key: '%s'" key)
-        (far/delete-item (config/client-opts) table-name {:key key}))
+        (far/delete-item config/client-opts table-name {:key key}))
       (list-items [this limit]
-        (far/scan (config/client-opts) table-name {:limit limit}))
+        (far/scan config/client-opts table-name {:limit limit}))
       (scan-items [this opts]
-        (far/scan (config/client-opts) table-name opts)))))
+        (far/scan config/client-opts table-name opts)))))
 
 (defn get-workspace [key]
-  (far/get-item (config/client-opts) config/blockly-table {:id key}))
+  (far/get-item config/client-opts config/blockly-table {:id key}))
 
 (defn list-workspaces [limit]
-  (far/scan (config/client-opts) config/blockly-table {:limit limit}))
+  (far/scan config/client-opts config/blockly-table {:limit limit}))
 
 
 (defn write-workspace [key workspace]
   (let [body (assoc workspace :id key)]
     (far/put-item
-      (config/client-opts)
+      config/client-opts
       config/blockly-table
       body)
     body))
@@ -102,4 +102,4 @@
     (write-workspace key body)))
 
 (defn delete-workspace [key]
-  (far/delete-item (config/client-opts) config/blockly-table {:id key}))
+  (far/delete-item config/client-opts config/blockly-table {:id key}))

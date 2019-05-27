@@ -101,8 +101,8 @@
 (defn search [query-params _]
   (let [db (get-db)
         query (get query-params :query)
-        offset (max 0 (Integer/parseInt (get query-params :offset "0")))
-        limit (max 0 (Integer/parseInt (get query-params :limit "20")))]
+        offset (max 0 (get query-params :offset 0))
+        limit (max 0 (get query-params :limit 20))]
     (if (or (str/blank? query) (= "*" query))
       (list-entries db offset limit)
       (scan db query offset limit))))

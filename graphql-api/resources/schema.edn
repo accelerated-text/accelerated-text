@@ -14,6 +14,6 @@
  :queries
  {:searchLexicon {:type    :Lexicon
                   :args    {:query  {:type String}
-                            :limit  {:type String}
-                            :offset {:type String}}
+                            :limit  {:type Int}
+                            :offset {:type Int}}
                   :resolve :get-lexicon}}}

@@ -6,6 +6,6 @@
 (def lexicon-table "lexicon")
 (def data-bucket "accelerated-text-data-files")
 
-(defn client-opts []
-  {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://dynamodb.eu-central-1.amazonaws.com")
+(def client-opts
+  {:endpoint "http://dynamodb.eu-central-1.amazonaws.com"
    :profile "tm"})
