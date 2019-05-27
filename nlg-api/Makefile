@@ -37,3 +37,7 @@ list-log-groups:
 
 run-local-server:
 	lein with-profile local-server run
+
+build-legacy-rest-api-image:
+	docker pull ardoq/leiningen:3.8-8u172-2.7.1
+	docker build -f Dockerfile.legacy-rest-api -t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-rest-api:latest .

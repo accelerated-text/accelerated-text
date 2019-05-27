@@ -42,10 +42,6 @@ build-pytest-docker:
 publish-pytest-docker: build-pytest-docker
 	docker push ${PYTEST_DOCKER}
 
-build-legacy-rest-api-image:
-	docker pull ardoq/leiningen:3.8-8u172-2.7.1
-	docker build -f dockerfiles/Dockerfile.legacy-api -t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-rest-api:latest nlg-api/
-
 build-dynamodb-image:
 	docker pull amazon/dynamodb-local
 	docker run -d -p 8000:8000 --name dynamo-build amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
@@ -58,3 +54,8 @@ build-dynamodb-image:
 
 publish-dynamodb-image:
 	docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
+
+run-dev-env:
+	docker-compose -p dev -f docker-compose.yml down && \
+	docker-compose -p dev -f docker-compose.yml build && \
+	docker-compose -p dev -f docker-compose.yml up --remove-orphans
