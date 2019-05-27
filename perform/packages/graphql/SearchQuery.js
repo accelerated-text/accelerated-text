@@ -37,26 +37,36 @@ const PATHS = {
 };
 
 
-export default ({ children, gqlQuery, offset = 0, searchQuery }) =>
-    <GqlQuery
-        fetchPolicy="cache-and-network"
-        notifyOnNetworkStatusChange
-        query={ gqlQuery }
-        variables={{ offset, searchQuery }}
-    >
-        { ({ error, data, loading, fetchMore }) =>
-            children[0]({
-                error,
-                items:              path( PATHS.items, data ),
-                loading,
-                offset:             path( PATHS.offset, data ),
-                onFetchMore: () => fetchMore({
-                    variables: {
-                        offset:     data.results.items.length,
-                    },
-                    updateQuery:    concatResultsInPath( PATHS.items ),
-                }),
-                totalCount:         path( PATHS.totalCount, data ),
-            })
-        }
-    </GqlQuery>;
+export default ({ children, gqlQuery, offset = 0, searchQuery }) => {
+
+    const child = (
+        children instanceof Array
+            ? children[0]
+            : children
+    );
+
+    return (
+        <GqlQuery
+            fetchPolicy="cache-and-network"
+            notifyOnNetworkStatusChange
+            query={ gqlQuery }
+            variables={{ offset, searchQuery }}
+        >
+            { ({ error, data, loading, fetchMore }) =>
+                child({
+                    error,
+                    items:              path( PATHS.items, data ),
+                    loading,
+                    offset:             path( PATHS.offset, data ),
+                    onFetchMore: () => fetchMore({
+                        variables: {
+                            offset:     data.results.items.length,
+                        },
+                        updateQuery:    concatResultsInPath( PATHS.items ),
+                    }),
+                    totalCount:         path( PATHS.totalCount, data ),
+                })
+            }
+        </GqlQuery>
+    );
+};
