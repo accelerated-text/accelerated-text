@@ -28,25 +28,21 @@ export const graphQLRespond = ( request, body ) =>
 
 
 export const graphQLIntercept = ( interceptFn, provideFn ) =>
-    async onRequestFn => {
-
-        await provideFn( 'OPTIONS', URL, {});
-        return interceptFn( 'POST', URL, onRequestFn );
-    };
+    onRequestFn =>
+        interceptFn( 'POST', URL, onRequestFn );
 
 
 export const graphQLProvide = provideFn =>
-    async ( body, status, headers ) => {
-
-        const allHeaders =  graphQLHeaders( headers );
-
-        await provideFn( 'OPTIONS', URL, {}, status, allHeaders );
-        return provideFn( 'POST', URL, body, status, allHeaders );
-    };
+    ( body, status, headers ) =>
+        provideFn( 'POST', URL, body, status, graphQLHeaders( headers ));
 
 
-export default async ( t, run, ...args ) =>
-    run(
+export default async ( t, run, ...args ) => {
+
+    /// Ignore all OPTIONS requests:
+    t.interceptor.provideAll( 'OPTIONS', URL, {}, null, GRAPHQL_CORS_HEADERS );
+
+    return run(
         Object.assign( t, {
             graphQL: {
                 intercept:      graphQLIntercept( t.interceptor.intercept,      t.interceptor.provide ),
@@ -60,3 +56,4 @@ export default async ( t, run, ...args ) =>
         }),
         ...args,
     );
+};
