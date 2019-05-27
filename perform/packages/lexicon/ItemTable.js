@@ -1,6 +1,7 @@
 import classnames           from 'classnames';
 import { h }                from 'preact';
 
+import DebouncedSearchQuery from '../graphql/DebouncedSearchQuery';
 import {
     Error,
     Info,
@@ -8,14 +9,13 @@ import {
 }   from '../ui-messages/';
 import { gql }              from '../graphql/';
 import { QA }               from '../tests/constants';
-import SearchQuery          from '../graphql/SearchQuery';
 
 import S                    from './ItemTable.sass';
 import ItemRow              from './ItemRow';
 
 
 const searchLexicon = gql`
-    query searchLexicon( $searchQuery: String $offset: String! ) {
+    query searchLexicon( $searchQuery: String $offset: Int! ) {
         results: searchLexicon( query: $searchQuery offset: $offset ) {
             items { key synonyms }
             offset
@@ -34,7 +34,7 @@ export default ({
     onSaveNew,
     query,
 }) => (
-    <SearchQuery
+    <DebouncedSearchQuery
         gqlQuery={ searchLexicon }
         searchQuery={ wildcardQuery( query ) }
     >
@@ -118,5 +118,5 @@ export default ({
                 </table>
             );
         }}
-    </SearchQuery>
+    </DebouncedSearchQuery>
 );
