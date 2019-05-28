@@ -8,7 +8,7 @@ services:
     build:
       context: nlg-api/
       dockerfile: Dockerfile.legacy-rest-api
-    ports: ["8080:8080"]
+    ports: ["8081:8080"]
     environment:
       DYNAMODB_ENDPOINT: http://dynamodb:8000
       AWS_ACCESS_KEY_ID: $NLG_AWS_ACCESS_KEY_ID
@@ -22,3 +22,11 @@ services:
       DYNAMODB_ENDPOINT: http://dynamodb:8000
       AWS_ACCESS_KEY_ID: $NLG_AWS_ACCESS_KEY_ID
       AWS_SECRET_ACCESS_KEY: $NLG_AWS_SECRET_ACCESS_KEY
+  perform-ui:
+    build:
+      context: perform/
+      dockerfile: Dockerfile
+    ports: ["8080:8080"]
+    environment:
+      GRAPHQL_URL: http://0.0.0.0:3001/_graphql
+      NLG_API_URL: http://0.0.0.0:8081

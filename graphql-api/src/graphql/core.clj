@@ -20,5 +20,5 @@
       schema/compile))
 
 (defn nlg [{:keys [query variables context] :as request}]
-  (log/info "The request is: %s" request)
+  (log/infof "The request is: %s" request)
   (execute nlg-schema query variables context))

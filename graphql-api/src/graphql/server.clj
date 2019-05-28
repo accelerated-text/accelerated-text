@@ -11,7 +11,9 @@
 (defn http-result [body]
   {:status  200
    :headers {"Access-Control-Allow-Origin"  "*"
-             "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"}
+             "Access-Control-Allow-Headers" "content-type, *"
+             "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
+             "Content-Type"                 "application/json"}
    :body    (cheshire.core/encode body)})
 
 (defn stop-server []
@@ -27,11 +29,16 @@
       (String.)
       (cheshire/decode true)))
 
-(defn app [{:keys [body uri]}]
-  (if (= "/_graphql" (str/lower-case uri))
-    (http-result (graphql/nlg (normalize-body body)))
-    {:status 404
-     :body   (format "ERROR: unsupported URI '%s'" uri)}))
+(defn app [{:keys [body uri request-method] :as request}]
+  (if (= request-method :options)
+    {:status  200
+     :headers {"Access-Control-Allow-Origin"  "*"
+               "Access-Control-Allow-Headers" "content-type, *"
+               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"}}
+    (if (= "/_graphql" (str/lower-case uri))
+      (http-result (graphql/nlg (normalize-body body)))
+      {:status 404
+       :body   (format "ERROR: unsupported URI '%s'" uri)})))
 
 (defn -main [& args]
   (let [host (or (System/getenv "HOST") "0.0.0.0")
