@@ -20,7 +20,7 @@ export default useStores([
     onClickNew = evt => {
         const {
             E,
-            openedPlan,
+            openedPlan =    {},
         } = this.props;
 
         const name = window.prompt(         // eslint-disable-line no-alert
