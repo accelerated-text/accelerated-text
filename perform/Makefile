@@ -42,3 +42,6 @@ setup: node_modules
 node_modules: package.json
 	npm install
 	touch -m node_modules
+
+build-perform-api-docker:
+	docker build -f Dockerfile -t registry.gitlab.com/tokenmill/nlg/accelerated-text/perform-api:latest .

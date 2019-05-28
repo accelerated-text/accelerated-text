@@ -42,7 +42,7 @@ build-pytest-docker:
 publish-pytest-docker: build-pytest-docker
 	docker push ${PYTEST_DOCKER}
 
-build-dynamodb-image:
+build-dynamodb-docker:
 	docker pull amazon/dynamodb-local
 	docker run -d -p 8000:8000 --name dynamo-build amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
 	aws dynamodb create-table --table-name lexicon --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
@@ -52,7 +52,7 @@ build-dynamodb-image:
 	docker stop dynamo-build
 	docker rm dynamo-build
 
-publish-dynamodb-image:
+publish-dynamodb-docker:
 	docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
 
 run-dev-env:

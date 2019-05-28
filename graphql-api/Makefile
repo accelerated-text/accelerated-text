@@ -39,6 +39,6 @@ deploy-lambda-via-container:
 invoke-function:
 	aws lambda invoke --function-name graphqlApi --payload '{"text":"Hello"}' /dev/stdout
 
-build-rest-api-image:
+build-rest-api-docker:
 	docker pull registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
 	docker build -f Dockerfile.rest-api -t registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-rest-api:latest .
