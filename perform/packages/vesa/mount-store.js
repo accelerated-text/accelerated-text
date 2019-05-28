@@ -15,6 +15,7 @@ export default ( storeName, store ) => Child => {
 
     const {
         componentDidMount,
+        componentWillReceiveProps,
         componentWillUnmount,
         getInitialState,
         ...eventHandlers
@@ -60,7 +61,15 @@ export default ( storeName, store ) => Child => {
                 return;
             }
 
-            const patch =   this.callEventHandler( getPath( eventHandlers ), arg );
+            this.patchState({
+                eventId,
+                eventName,
+                eventNamespace,
+                patch:          this.callEventHandler( getPath( eventHandlers ), arg ),
+            });
+        };
+
+        patchState =    ({ patch, eventId, eventNamespace, eventName }) => {
 
             const shouldUpdate = (
                 patch
@@ -123,6 +132,17 @@ export default ( storeName, store ) => Child => {
 
         componentDidMount() {
             this.callEventHandler( componentDidMount, this.props );
+        }
+
+        componentWillReceiveProps( nextProps ) {
+            if( componentWillReceiveProps ) {
+                this.patchState({
+                    eventId:        'componentWillReceiveProps',
+                    eventName:      '',
+                    eventNamespace: '',
+                    patch:          this.callEventHandler( componentWillReceiveProps, nextProps ),
+                });
+            }
         }
 
         shouldComponentUpdate( nextProps ) {

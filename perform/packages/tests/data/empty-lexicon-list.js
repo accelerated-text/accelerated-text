@@ -1,6 +1,7 @@
-module.exports = {
-    offset:     0,
-    totalCount: 0,
-    limit:      0,
-    items:      [],
-};
+import { createLexiconList }    from './lexicon-list';
+
+
+export default createLexiconList({
+    items:          [],
+    totalCount:     0,
+});

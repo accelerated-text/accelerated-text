@@ -51,6 +51,12 @@ export default ({
         ),
         ...appendPlugins,
     ],
+    resolve: {
+        alias: {
+            react:          'preact-compat',
+            'react-dom':    'preact-compat',
+        },
+    },
     output: {
         filename:       '[name].bundle.js',
         path:           DIST,

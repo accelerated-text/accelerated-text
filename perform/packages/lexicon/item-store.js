@@ -7,6 +7,16 @@ export default {
         saving:     false,
     }),
 
+    componentWillReceiveProps: ( nextProps, { props, state }) => {
+        const shouldUpdate = (
+            nextProps.item !== props.item
+             && state.item === props.item
+        );
+        if( shouldUpdate ) {
+            return { item: nextProps.item };
+        }
+    },
+
     lexiconItem: {
 
         onClickEdit: ( _, { state }) => ({

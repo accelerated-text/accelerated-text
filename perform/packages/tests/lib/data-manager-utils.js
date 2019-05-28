@@ -21,16 +21,14 @@ export const isDataFileRowVisible = async ( t, row ) => {
         const rowKey =      rowKeys[i];
 
         t.is(
-            await t.getElementProperty(
-                `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_NAME }`,
-                'innerText',
+            await t.getElementText(
+                `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_NAME }`
             ),
             rowKey,
         );
         t.is(
-            await t.getElementProperty(
-                `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_VALUE }`,
-                'innerText',
+            await t.getElementText(
+                `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_VALUE }`
             ),
             row[rowKey],
         );
