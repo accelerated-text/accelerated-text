@@ -1,5 +1,7 @@
 import puppeteer            from 'puppeteer';
 
+import disableApolloAd      from './disable-apollo-devtools-ad';
+
 
 /// Copied from NPM package jest-environment-puppeteer/lib/readConfig.js:
 const CHROME_CI_ARGS = [
@@ -21,6 +23,8 @@ export default async ( t, run, ...args ) => {
         },
     });
     const page =        await browser.newPage();
+
+    disableApolloAd( page );
 
     try {
         await run( Object.assign( t, { browser, page }), ...args );
