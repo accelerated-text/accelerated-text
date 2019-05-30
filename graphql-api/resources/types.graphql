@@ -1,0 +1,98 @@
+### Enums
+
+enum Usage {
+    YES
+    NO
+    DONT_CARE
+}
+
+### User
+
+type Organization {
+    id:             ID!
+    name:           String!
+}
+
+type User {
+    id:             ID!
+    fullName:       String!
+    email:          String
+    organization:   Organization!
+}
+
+### Dictionary
+
+type Phrase {
+    id:             ID!
+    text:           String!
+}
+
+type Synonyms {
+    rootPhrase:     Phrase!
+    phrases:        [ Phrase! ]
+}
+
+type ReaderFlag {
+    id:             ID!
+    name:           String!
+}
+
+type ReaderModel {
+    flag:           ReaderFlag!
+    isActive:       Boolean!
+}
+
+type ReaderFlagUsageModel {
+    flag:           ReaderFlag!
+    usage:          [ Usage! ]!
+}
+
+type PhraseUsageModel {
+    phrase:         Phrase!
+    defaultUsage:   ReaderFlagUsageModel!
+    readerUsage:    [ ReaderFlagUsageModel! ]!
+}
+
+type OrgDictionaryItem {
+    id:             ID!
+    name:           String!
+    usageModels:    [ PhraseUsageModel! ]!
+}
+
+### Lexicon
+
+type LexiconItem {
+	id:				ID!
+	createdAt:	    String
+	key:			String!
+	synonyms:	    [ String! ]!
+	updatedAt:	    String
+}
+
+type Lexicon {
+	items:			[ LexiconItem! ]!
+	limit:			Int!
+	offset:			Int!
+	totalCount:	    Int!
+}
+
+### Queries
+
+type Query {
+
+    me:                         User!
+
+    orgDictionary:              [ OrgDictionaryItem! ]!
+
+    phrases( query: String ):   [ Phrase! ]!
+
+    readerFlags:                [ ReaderFlag! ]!
+
+    synonyms( phraseId: ID! ):  Synonyms!
+
+	searchLexicon(
+		query: 		String
+		limit:		Int
+		offset:		Int
+	): 	Lexicon!
+}
