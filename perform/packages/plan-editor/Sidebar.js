@@ -2,8 +2,8 @@ import { h }                from 'preact';
 
 import CcgOption            from '../ccg-option/CcgOption';
 import DataManager          from '../data-manager/DataManager';
+import Dictionary           from '../dictionary/Dictionary';
 import getOpenedPlan        from '../plan-list/get-opened-plan';
-import Lexicon              from '../lexicon/Lexicon';
 import SelectContext        from '../document-plans/SelectContext';
 import Sidebar              from '../sidebar/Sidebar';
 import SidebarItem          from '../sidebar/Item';
@@ -20,14 +20,14 @@ export default useStores([
 
     return (
         <Sidebar className={ className }>
-            <SidebarItem isExpanded title="Preview">
+            <SidebarItem title="Preview">
                 <VariantReview />
             </SidebarItem>
-            <SidebarItem isExpanded title="Data">
+            <SidebarItem title="Data">
                 <DataManager plan={ openedPlan } />
             </SidebarItem>
-            <SidebarItem title="Lists">
-                <Lexicon />
+            <SidebarItem isExpanded title="Dictionary">
+                <Dictionary />
             </SidebarItem>
             <SidebarItem title="Options">
                 <div>

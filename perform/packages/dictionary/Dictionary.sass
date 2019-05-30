@@ -1,0 +1,18 @@
+@import '../styles/variables'
+@import '../styles/groove-table'
+
+
+.className
+    @include groove-table( 1 / 8 )
+
+    width:                      100%
+
+    td,
+    th
+
+        padding:                $space-s
+
+    > thead > tr > th
+
+        font-weight:            $bold
+        text-align:             left
