@@ -37,14 +37,9 @@ type ReaderFlag {
     name:           String!
 }
 
-type ReaderModel {
+type ReaderFlagUsage {
     flag:           ReaderFlag!
-    isActive:       Boolean!
-}
-
-type ReaderFlagUsageModel {
-    flag:           ReaderFlag!
-    usage:          [ Usage! ]!
+    usage:          Usage!
 }
 
 type PhraseUsageModel {
