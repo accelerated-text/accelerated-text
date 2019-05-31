@@ -1,7 +1,7 @@
 {:paths ["src"]
  :deps {org.clojure/clojure {:mvn/version "1.10.0"}
         lt.tokenmill.nlg/ccg-kit {:git/url "git@gitlab.com:tokenmill/nlg/ccg-kit.git"
-                                  :sha "b932769986e3ffc7c4c0bd5ef79615c316019076"}
+                                  :sha "88f0a8563355f16e5c3d5a765ef599bbadceb818"}
         org.clojure/tools.logging {:mvn/version "0.4.0"}
         cheshire {:mvn/version "5.8.1"}
         com.amazonaws/aws-lambda-java-core {:mvn/version "1.0.0"}

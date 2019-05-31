@@ -7,6 +7,9 @@ PROFILE=tm
 unit-tests:
 	clj -Atest -e :integration
 
+integration-tests:
+	clj -Atest
+
 upload-sam:
 	aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket ${S3_BUCKET_NAME} --profile ${PROFILE}
 
