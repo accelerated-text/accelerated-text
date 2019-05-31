@@ -3,10 +3,10 @@ import test                 from 'ava';
 import {
     areLexiconItemsVisible,
     createItemSelectors,
-    getLexiconSearchUrl,
 }   from './lib/lexicon-utils';
 import {
     createLexiconItem,
+    createLexiconList,
     default as LEXICON_LIST,
 }   from './data/lexicon-list';
 import defaultResponsesPage from './lib/default-responses-page';
@@ -54,13 +54,9 @@ test( 'default list', defaultResponsesPage, async t => {
 test( 'search works', noRecordsPage, async t => {
     t.timeout( 5e3 );
 
-    const query =       'test';
+    t.page.type( SELECTORS.LEXICON_SEARCH, 'test' );
 
-    t.page.type( SELECTORS.LEXICON_SEARCH, query );
-
-    const testQueryResults = {
-        limit:          4,
-        offset:         0,
+    const testQueryResults = createLexiconList({
         totalCount:     5,
         items: [
             createLexiconItem([ 1 ]),
@@ -68,25 +64,22 @@ test( 'search works', noRecordsPage, async t => {
             createLexiconItem([ 3, 30, 31 ]),
             createLexiconItem([ 4, 40, 41, 42 ]),
         ],
-    };
-    await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({ query }), testQueryResults );
+    });
+    await t.graphQL.provideOnce({ data: { results: testQueryResults }});
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
-
     await t.findElement( SELECTORS.LEXICON_MORE );
     await areLexiconItemsVisible( t, testQueryResults.items );
 
     t.clearInput( SELECTORS.LEXICON_SEARCH );
 
-    const emptyQueryResults = {
-        limit:          2,
-        offset:         0,
+    const emptyQueryResults = createLexiconList({
         totalCount:     2,
         items: [
             createLexiconItem([ 1, 2, 3, 4 ]),   /// same key (1) as above, but different synonyms
             createLexiconItem([ 5 ]),            /// new key (5) and synonyms
         ],
-    };
-    await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({}), emptyQueryResults );
+    });
+    await t.graphQL.provideOnce({ data: { results: emptyQueryResults }});
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
     await t.notFindElement( SELECTORS.LEXICON_MORE );
@@ -101,14 +94,14 @@ test( 'loading more items works', noRecordsPage, async t => {
 
     t.page.type( SELECTORS.LEXICON_SEARCH, query );
 
-    const results0 = {
+    const results0 = createLexiconList({
         limit:          1,
         offset:         0,
         totalCount:     3,
         items:          [ createLexiconItem([ 0, 1, 2 ]) ],
-    };
+    });
 
-    await t.nlgApi.provideOnce( 'GET', getLexiconSearchUrl({ query }), results0 );
+    await t.graphQL.provideOnce({ data: { results: results0 }});
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
     await areLexiconItemsVisible( t, results0.items );
@@ -116,32 +109,26 @@ test( 'loading more items works', noRecordsPage, async t => {
 
     t.page.click( SELECTORS.LEXICON_MORE );
 
-    const results1 = {
-        ...results0,
+    const results1 = createLexiconList({
+        limit:          1,
         offset:         1,
+        totalCount:     3,
         items:          [ createLexiconItem([ 1, 2, 3 ]) ],
-    };
-    await t.nlgApi.provideOnce(
-        'GET',
-        getLexiconSearchUrl({ query, offset: 1 }),
-        results1,
-    );
+    });
+    await t.graphQL.provideOnce({ data: { results: results1 }});
 
     await areLexiconItemsVisible( t, [ ...results0.items, ...results1.items ]);
     await t.findElement( SELECTORS.LEXICON_MORE );
 
     t.page.click( SELECTORS.LEXICON_MORE );
 
-    const results2 = {
-        ...results0,
+    const results2 = createLexiconList({
+        limit:          1,
         offset:         2,
+        totalCount:     3,
         items:          [ createLexiconItem([ 2, 3, 4 ]) ],
-    };
-    await t.nlgApi.provideOnce(
-        'GET',
-        getLexiconSearchUrl({ query, offset: 2 }),
-        results2,
-    );
+    });
+    await t.graphQL.provideOnce({ data: { results: results2 }});
 
     await areLexiconItemsVisible( t, [
         ...results0.items,

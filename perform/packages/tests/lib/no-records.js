@@ -8,6 +8,7 @@ const { TEST_URL } =        process.env;
 export default async ( t, run, ...args ) => {
 
     const {
+        graphQL,
         interceptor: { continueAll },
         nlgApi,
     } = t;
@@ -22,7 +23,7 @@ export default async ( t, run, ...args ) => {
     await Promise.all([
         nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, []),
         nlgApi.provideOnce( 'GET', '/document-plans/', []),
-        nlgApi.provideOnce( 'GET', '/lexicon?', EMPTY_LEXICON_LIST ),
+        graphQL.provideOnce({ data: { results: EMPTY_LEXICON_LIST }}),
     ]);
 
     await pageLoadResult;

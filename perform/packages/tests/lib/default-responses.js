@@ -13,6 +13,7 @@ const { TEST_URL } =            process.env;
 export default async ( t, run, ...args ) => {
 
     const {
+        graphQL,
         interceptor: { continueAll },
         nlgApi,
     } = t;
@@ -26,8 +27,8 @@ export default async ( t, run, ...args ) => {
 
     /// Register these intercepts while the page is loading:
     await Promise.all([
+        graphQL.provideOnce({ data: { results: LEXICON_LIST }}),
         nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, DATA_FILE_LIST ),
-        nlgApi.provideOnce( 'GET', '/lexicon?', LEXICON_LIST ),
         nlgApi.provideOnce( 'GET', '/document-plans/', DOCUMENT_PLAN_LIST )
             .then(() => Promise.all([
                 nlgApi.provideOnce( 'GET', `/data/${ DATA_FILE_LIST[0].key }`, createDataFileData({

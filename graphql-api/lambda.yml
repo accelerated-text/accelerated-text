@@ -5,7 +5,7 @@ Globals:
   Api:
     Cors:
       AllowMethods: "'*'"
-      AllowHeaders: "'*'"
+      AllowHeaders: "'content-type, *'"
       AllowOrigin: "'*'"
 
 Resources:
@@ -20,8 +20,10 @@ Resources:
       CodeUri: function.zip
       Policies:
         - AWSLambdaExecute
+        - AmazonDynamoDBFullAccess
       Environment:
         Variables:
+          DYNAMODB_ENDPOINT: "http://dynamodb.eu-central-1.amazonaws.com"
           ENABLE_XRAY: "true"
       Events:
         GetResource:

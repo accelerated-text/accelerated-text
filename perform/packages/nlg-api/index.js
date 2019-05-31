@@ -39,10 +39,16 @@ export const POST = ( path, params ) =>
     fetch( path, {
         method:         'POST',
         body:           JSON.stringify( params ),
+        headers: {
+            'Content-Type': 'application/json',
+        },
     });
 
 export const PUT = ( path, params ) =>
     fetch( path, {
         method:         'PUT',
         body:           JSON.stringify( params ),
+        headers: {
+            'Content-Type': 'application/json',
+        },
     });

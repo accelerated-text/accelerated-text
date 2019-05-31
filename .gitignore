@@ -12,3 +12,5 @@ nlg-api/nlg-api.iml
 **/*.env
 **/.cpcache/
 graphql-api/server
+graphql-api/libsunec.so
+graphql-api/pom.xml

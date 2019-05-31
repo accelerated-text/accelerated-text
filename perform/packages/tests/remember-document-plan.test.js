@@ -8,6 +8,7 @@ import debugConsole         from './lib/debug-console';
 import defaultResponses     from './lib/default-responses';
 import DOCUMENT_PLAN_LIST   from './data/document-plan-list';
 import noRecords            from './lib/no-records';
+import withGraphQL          from './lib/with-graphql';
 import withInterceptor      from './lib/with-interceptor';
 import withNlgApi           from './lib/with-nlg-api';
 import withPage             from './lib/with-page';
@@ -21,6 +22,7 @@ test(
     debugConsole,
     addPageUtils,
     withInterceptor,
+    withGraphQL,
     withNlgApi,
     async t => {
 
@@ -28,6 +30,8 @@ test(
 
         /// Need to open the page before accessing localStorage:
         await noRecords( t );
+        await t.waitUntilElementGone( SELECTORS.UI_LOADING );
+
         await t.page.evaluate(
             ( key, value ) => localStorage.setItem( key, value ),
             OPENED_PLAN_UID,
@@ -35,8 +39,8 @@ test(
         );
 
         await defaultResponses( t );
+        await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
-        t.timeout( 8e3 );
         await t.findElement( `[data-id=${ PLAN.documentPlan.srcId }]` );
         await t.findElement( `[data-id=${ PLAN.documentPlan.segments[0].srcId }]` );
         await t.findElement( SELECTORS.VARIANT );
