@@ -4,8 +4,8 @@ import { h, Component } from 'preact';
 import { QA }           from '../tests/constants';
 import { useStores }    from '../vesa/';
 
-import S                from './Lexicon.sass';
 import ItemTable        from './ItemTable';
+import S                from './Lexicon.sass';
 
 
 export default useStores([
@@ -40,7 +40,13 @@ export default useStores([
                         value={ query }
                     />
                 </div>
-                <ItemTable />
+                <ItemTable
+                    newItem={ newItem }
+                    newItemSaved={ newItemSaved }
+                    onCancelNew={ E.lexicon.onCancelNew }
+                    onSaveNew={ E.lexicon.onSaveNew }
+                    query={ query }
+                />
             </div>
         );
     }

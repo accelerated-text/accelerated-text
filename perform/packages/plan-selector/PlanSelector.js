@@ -18,16 +18,13 @@ export default useStores([
 ])( class PlanSelector extends Component {
 
     onClickNew = evt => {
-        const {
-            E,
-            openedPlan,
-        } = this.props;
+        const openedPlan =  this.props.openedPlan || {};
 
         const name = window.prompt(         // eslint-disable-line no-alert
             'Add a new Document Plan:',
             planTemplate.name,
         );
-        name && E.planList.onAddNew({
+        name && this.props.E.planList.onAddNew({
             contextId:      openedPlan.contextId        || planTemplate.contextId,
             dataSampleId:   openedPlan.dataSampleId     || planTemplate.dataSampleId,
             dataSampleRow:  openedPlan.dataSampleRow    || planTemplate.dataSampleRow,

@@ -1,0 +1,287 @@
+[ {
+  "name" : "com.amazonaws.ClientConfiguration",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.auth.AWS4Signer",
+  "methods" : [ {
+    "name" : "<init>",
+    "parameterTypes" : [ ]
+  } ]
+}, {
+  "name" : "com.amazonaws.auth.AWSCredentials"
+}, {
+  "name" : "com.amazonaws.auth.AWSCredentialsProvider"
+}, {
+  "name" : "com.amazonaws.auth.BasicAWSCredentials",
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.auth.DefaultAWSCredentialsProviderChain",
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.internal.config.Builder",
+  "allDeclaredMethods" : true
+}, {
+  "name" : "com.amazonaws.internal.config.HostRegexToRegionMappingJsonHelper",
+  "allDeclaredFields" : true,
+  "allDeclaredMethods" : true,
+  "allDeclaredConstructors" : true
+}, {
+  "name" : "com.amazonaws.internal.config.HttpClientConfigJsonHelper",
+  "allDeclaredFields" : true,
+  "allDeclaredMethods" : true,
+  "allDeclaredConstructors" : true
+}, {
+  "name" : "com.amazonaws.internal.config.InternalConfigJsonHelper",
+  "allDeclaredFields" : true,
+  "allDeclaredMethods" : true,
+  "allDeclaredConstructors" : true
+}, {
+  "name" : "com.amazonaws.internal.config.JsonIndex",
+  "allDeclaredFields" : true,
+  "allDeclaredMethods" : true,
+  "allDeclaredConstructors" : true
+}, {
+  "name" : "com.amazonaws.internal.config.SignerConfigJsonHelper",
+  "allDeclaredFields" : true,
+  "allDeclaredMethods" : true,
+  "allDeclaredConstructors" : true
+}, {
+  "name" : "com.amazonaws.jmx.SdkMBeanRegistrySupport",
+  "methods" : [ {
+    "name" : "<init>",
+    "parameterTypes" : [ ]
+  } ]
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.AmazonDynamoDB",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.AttributeAction"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.AttributeDefinition",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.AttributeValue",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate",
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.BatchGetItemRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.BatchGetItemResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.BatchWriteItemRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.BatchWriteItemResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ComparisonOperator",
+  "allPublicFields" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.Condition",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ConsumedCapacity",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.CreateGlobalSecondaryIndexAction",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.CreateTableRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.CreateTableResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.DeleteGlobalSecondaryIndexAction",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.DeleteItemRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.DeleteItemResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.DeleteRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.DeleteTableRequest",
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.DeleteTableResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.DescribeTableRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.DescribeTableResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.GetItemRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.GetItemResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.GlobalSecondaryIndex",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.GlobalSecondaryIndexDescription",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.GlobalSecondaryIndexUpdate",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.InternalServerErrorException"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ItemCollectionMetrics"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ItemCollectionSizeLimitExceededException"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.KeySchemaElement",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.KeyType"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.KeysAndAttributes",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.LimitExceededException"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ListTablesRequest"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ListTablesResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.LocalSecondaryIndex",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.LocalSecondaryIndexDescription",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.Projection",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ProjectionType"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ProvisionedThroughputDescription",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ProvisionedThroughputExceededException"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.PutItemRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.PutItemResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.PutRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.QueryRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.QueryResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ResourceInUseException"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ReturnValue"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ScanRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.ScanResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.Select"
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.TableDescription",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.UpdateGlobalSecondaryIndexAction",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.UpdateItemRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.UpdateItemResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.UpdateTableRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.UpdateTableResult",
+  "allPublicMethods" : true
+}, {
+  "name" : "com.amazonaws.services.dynamodbv2.model.WriteRequest",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name" : "com.amazonaws.services.s3.internal.AWSS3V4Signer"
+}, {
+  "name" : "org.apache.commons.logging.LogFactory"
+}, {
+  "name" : "org.apache.commons.logging.impl.Jdk14Logger",
+  "methods" : [ {
+    "name" : "<init>",
+    "parameterTypes" : [ "java.lang.String" ]
+  } ]
+}, {
+  "name" : "org.apache.commons.logging.impl.LogFactoryImpl",
+  "methods" : [ {
+    "name" : "<init>",
+    "parameterTypes" : [ ]
+  } ]
+}, {
+  "name" : "org.apache.commons.logging.impl.WeakHashtable",
+  "methods" : [ {
+    "name" : "<init>",
+    "parameterTypes" : [ ]
+  } ]
+} ]

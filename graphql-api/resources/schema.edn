@@ -1,25 +1,20 @@
-{:enums
- {:episode
-  {:description "The episodes of the original Star Wars trilogy."
-   :values [:NEWHOPE :EMPIRE :JEDI]}}
+{:objects
+ {:LexiconItem
+  {:fields {:createdAt {:type String}
+            :updatedAt {:type String}
+            :synonyms  {:type (list String)}
+            :key       {:type String}
+            :id        {:type String}}}
 
- :objects
- {:droid
-  {:fields {:primary_functions {:type (list String)}
-            :id {:type Int}
-            :name {:type String}
-            :appears_in {:type (list :episode)}}}
-
-  :human
-  {:fields {:id {:type Int}
-            :name {:type String}
-            :home_planet {:type String}
-            :appears_in {:type (list :episode)}}}}
+  :Lexicon
+  {:fields {:offset     {:type Int}
+            :totalCount {:type Int}
+            :limit      {:type Int}
+            :items      {:type (list :LexiconItem)}}}}
 
  :queries
- {:hero {:type (non-null :human)
-         :args {:episode {:type :episode}}
-         :resolve :get-hero}
-  :droid {:type :droid
-          :args {:id {:type String :default-value "2001"}}
-          :resolve :get-droid}}}
+ {:searchLexicon {:type    :Lexicon
+                  :args    {:query  {:type String}
+                            :limit  {:type Int}
+                            :offset {:type Int}}
+                  :resolve :get-lexicon}}}

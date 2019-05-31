@@ -57,14 +57,14 @@ integration-test-nlg-api:
 
 build-nlg-api:
   stage: build
-  image: clojure:openjdk-8-lein-alpine
+  image: registry.gitlab.com/tokenmill/clojure:1
   when: on_success
   script:
     - cd nlg-api
-    - lein do clean, uberjar
+    - clojure -Auberjar
   artifacts:
     paths:
-      - nlg-api/target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      - nlg-api/target/nlg-api-0.0.1-standalone.jar
     expire_in: 1 week
 
 deploy-nlg-api:

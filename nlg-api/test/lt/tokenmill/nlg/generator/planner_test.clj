@@ -83,7 +83,7 @@
                 :other-feature "style"
                 :lacing "premium lacing"
                 :style "with sleek update on a classic design"}
-          result (render-dp document-plan data)
+          result (render-dp document-plan data false)
           expected-any ["Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."
                         "Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a situation where laces never gets into a knot."]]
       (println "Result: " result)
@@ -134,7 +134,7 @@
                 :other-feature "style"
                 :lacing "premium lacing"
                 :style "with sleek update on a classic design"}
-          result (render-dp document-plan data)
+          result (render-dp document-plan data false)
           expected "Nike Air provides comfort, support and style with sleek update on a classic design."]
       (println "Result: " result)
       (is (= result expected))))
@@ -183,7 +183,7 @@
                 :other-feature "style"
                 :lacing "premium lacing"
                 :style "with sleek update on a classic design"}
-          result (render-dp document-plan data)
+          result (render-dp document-plan data false)
           expected "Nike Air provides comfort, support and style with sleek update on a classic design. Premium lacing results in a snug fit for everyday wear."]
       (println "Result: " result)
       (is (= result expected))))
@@ -231,10 +231,11 @@
                 :secondary-feature "support"
                 :lacing "premium lacing"
                 :style "with sleek update on a classic design"}
-          result (render-dp document-plan data)
+          result (render-dp document-plan data false)
           expected #{"Nike Air provides comfort, support and style with sleek update on a classic design."
                      "Nike Air provides comfort, support and elegance with sleek update on a classic design."
                      "Nike Air provides comfort, support and grace with sleek update on a classic design."
-                     "Nike Air provides comfort, support and flair with sleek update on a classic design."}]
+                     "Nike Air provides comfort, support and flair with sleek update on a classic design."
+                     "Nike Air provides comfort, support and title with sleek update on a classic design."}]
       (println "Result: " result)
       (is (contains? expected result)))))

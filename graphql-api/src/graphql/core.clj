@@ -1,32 +1,24 @@
 (ns graphql.core
-  (:require [clojure.tools.logging :as log]
+  (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [clojure.edn :as edn]
-            [com.walmartlabs.lacinia.util :refer [attach-resolvers]]
+            [clojure.tools.logging :as log]
+            [nlg.lexicon :as lexicon]
+            [com.walmartlabs.lacinia.util :as util]
             [com.walmartlabs.lacinia.schema :as schema]
             [com.walmartlabs.lacinia :refer [execute]]))
 
-(defn get-hero [context arguments value]
-  (let [{:keys [episode]} arguments]
-    (if (= episode :NEWHOPE)
-      {:id 1000
-       :name "Luke"
-       :home_planet "Tatooine"
-       :appears_in ["NEWHOPE" "EMPIRE" "JEDI"]}
-      {:id 2000
-       :name "Lando Calrissian"
-       :home_planet "Socorro"
-       :appears_in ["EMPIRE" "JEDI"]})))
+(defn get-lexicon [context arguments value]
+  (let [result (:body (lexicon/search arguments nil))]
+    (update result :items #(map (fn [{:keys [key] :as item}] (assoc item :id key)) %))))
 
-(def star-wars-schema
+(def nlg-schema
   (-> "schema.edn"
       (io/resource)
       slurp
       edn/read-string
-      (attach-resolvers {:get-hero get-hero
-                         :get-droid (constantly {})})
+      (util/attach-resolvers {:get-lexicon get-lexicon})
       schema/compile))
 
-(defn nlg [request]
-  (log/info "The request is: %s" request)
-  (execute star-wars-schema "{\n  hero {\n    id\n    name\n  }\n}" nil nil))
+(defn nlg [{:keys [query variables context] :as request}]
+  (log/infof "The request is: %s" request)
+  (execute nlg-schema query variables context))

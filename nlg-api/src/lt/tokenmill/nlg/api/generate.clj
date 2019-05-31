@@ -5,7 +5,7 @@
             [lt.tokenmill.nlg.db.dynamo-ops :as ops]
             [lt.tokenmill.nlg.db.s3 :as s3]
             [lt.tokenmill.nlg.db.config :as config]
-            [lt.tokenmill.nlg.generator.planner :as planner]
+            [lt.tokenmill.nlg.generator.planner-ng :as planner]
             [lt.tokenmill.nlg.api.resource :as resource]
             [cheshire.core :as ch])
   (:import (java.io BufferedWriter))
@@ -22,12 +22,12 @@
     csv))
 
 (defn generation-process
-  [dp-id data-id result-fn]
+  [dp-id data-id result-fn ccg?]
   (let [db (get-db)
         data (get-data data-id)
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
-        results (utils/result-or-error (map #(planner/render-dp dp %) data))
+        results (utils/result-or-error (planner/render-dp dp data))
         body (if (map? results)
                results
                {:ready true
@@ -41,10 +41,11 @@
   (let [db (get-db)
         document-plan-id (request-body :documentPlanId)
         data-id (request-body :dataId)
+        ccg? (get request-body :ccg false)
         result-id (utils/gen-uuid)
         init-results (ops/update! db result-id {:ready false})
         result-fn (fn [body] (ops/update! db result-id body))
-        job @(future (generation-process document-plan-id data-id result-fn))]
+        job @(future (generation-process document-plan-id data-id result-fn ccg?))]
     (utils/do-return (fn [] {:resultId result-id}))))
 
 (defn wrap-to-annotated-text

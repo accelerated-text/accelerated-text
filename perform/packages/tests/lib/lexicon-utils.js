@@ -34,17 +34,3 @@ export const createItemSelectors = itemSelector => ({
     ITEM_ID:        `${ itemSelector } ${ SELECTORS.LEXICON_ITEM_ID }`,
     ITEM_PHRASES:   `${ itemSelector } ${ SELECTORS.LEXICON_ITEM_PHRASES }`,
 });
-
-
-export const getLexiconSearchUrl = ({ query = '', offset = 0 }) => {
-
-    const params =  new URLSearchParams();
-    if( offset ) {
-        params.append( 'offset', offset );
-    }
-    if( query ) {
-        params.append( 'query', `*${ query }*` );
-    }
-
-    return '/lexicon?' + params.toString();
-};
