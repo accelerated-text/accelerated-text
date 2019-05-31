@@ -82,7 +82,8 @@
   [node]
   (let [t (keyword (node :type))]
     (case t
-      :If-condition {:if (parse-if-statement (node :condition)) :then (parse-node (node :thenExpression))}
+      :If-condition {:if (parse-if-statement (node :condition)) :then (parse-node (node :thenExpression
+                                                                                        ))}
       :Default-condition {:if (fn [_] true) :then (parse-node (node :thenExpression))})))
 
 (defn resolve-cond-seq

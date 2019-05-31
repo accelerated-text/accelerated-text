@@ -1,4 +1,5 @@
 (ns lt.tokenmill.nlg.db.s3
+  (:require [clojure.tools.logging :as log])
   (:import (com.amazonaws.services.s3 AmazonS3Client)
            (com.amazonaws ClientConfiguration)))
 
@@ -36,3 +37,14 @@
         summary (.getObjectSummaries resp)
         results (map summary->map summary)]
     results))
+
+(defn download-dir
+  [bucket path output]
+  (let [file-list (list-files bucket path 1000)
+        files (map #(:key %) file-list)]
+    (doseq [f files]
+      (log/debugf "Working with: %s" f)
+      (let [out-path (clojure.string/join "/" [output f])
+            content (read-file bucket f)]
+        (println out-path)
+        (spit out-path content)))))
