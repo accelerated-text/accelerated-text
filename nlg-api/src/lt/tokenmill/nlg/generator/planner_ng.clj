@@ -2,15 +2,15 @@
   (:require [clojure.string :as string]
             [clojure.tools.logging :as log]
             [lt.tokenmill.nlg.generator.parser-ng :as parser]
-            [lt.tokenmill.nlg.ccg-kit :as ccg]
-            [lt.tokenmill.nlg.grammar-generation.morphology :as ccg-morphology]
-            [lt.tokenmill.nlg.grammar-generation.lexicon :as ccg-lexicon]
-            [lt.tokenmill.nlg.grammar-generation.xml-utils :as ccg-xml]
+            [ccg-kit.grammar :as ccg]
+            [ccg-kit.grammar-generation.morphology :as ccg-morphology]
+            [ccg-kit.grammar-generation.lexicon :as ccg-lexicon]
+            [ccg-kit.grammar-generation.xml-utils :as ccg-xml]
+            [ccg-kit.spec.ccg :as ccg-spec]
             [lt.tokenmill.nlg.db.s3 :as s3]
             [lt.tokenmill.nlg.db.config :as config]
             [lt.tokenmill.nlg.generator.ops :as ops]
-            [lt.tokenmill.nlg.generator.realizer :as realizer]
-            [lt.tokenmill.nlg.spec.ccg :as ccg-spec]))
+            [lt.tokenmill.nlg.generator.realizer :as realizer]))
 
 (defn build-dp-instance
   "dp - a hashmap compiled with `compile-dp`
