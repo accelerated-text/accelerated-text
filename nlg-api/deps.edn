@@ -1,21 +1,26 @@
 {:paths ["src"]
  :deps {org.clojure/clojure {:mvn/version "1.10.0"}
-        lt.tokenmill.nlg/ccg-kit {:git/url "git@gitlab.com:tokenmill/nlg/ccg-kit.git"
-                                  :sha "88f0a8563355f16e5c3d5a765ef599bbadceb818"}
+        ccg-kit {:git/url "git@gitlab.com:tokenmill/nlg/ccg-kit.git"
+                 :sha "cb90b4adcadc5ce99de31ea71331b5a2ad265b37"}
         org.clojure/tools.logging {:mvn/version "0.4.0"}
         cheshire {:mvn/version "5.8.1"}
         com.amazonaws/aws-lambda-java-core {:mvn/version "1.0.0"}
         ch.qos.logback/logback-classic {:mvn/version "1.2.3"}
         clj-time {:mvn/version "0.5.1"}
-        com.taoensso/faraday {:mvn/version "1.9.0"}
+        com.taoensso/faraday {:git/url "https://github.com/tokenmill/faraday.git"
+                              :sha "23e71e7ac8cf6c68efe9446da13ddd913c91accf"}
+        ;; com.taoensso/faraday {:mvn/version "1.9.0"}
         uk.ac.abdn/SimpleNLG {:mvn/version "4.4.8"}
         prismatic/schema {:mvn/version "1.1.9"}
         org.clojure/data.csv {:mvn/version "0.1.4"}
-        com.amazonaws/aws-java-sdk-s3 {:mvn/version "1.10.49"}
+        ;; com.amazonaws/aws-java-sdk-s3 {:mvn/version "1.10.49"}
+        com.amazonaws/aws-java-sdk-s3 {:mvn/version "1.11.337"}
+        opennlp/ccg {:mvn/version "0.10.0"}
         http-kit {:mvn/version "2.3.0"}}
  :mvn/repos
  {"central" {:url "https://repo1.maven.org/maven2/"}
-  "clojars" {:url "https://clojars.org/repo"}}
+  "clojars" {:url "https://clojars.org/repo"}
+  "tokenmill-s3" {:url "s3://nlg-repo/maven/releases"}}
  :aliases {
            :test {:extra-paths ["test"]
                   :extra-deps {com.cognitect/test-runner
