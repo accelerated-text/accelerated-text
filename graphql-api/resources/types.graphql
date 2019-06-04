@@ -79,6 +79,10 @@ type Query {
 
     orgDictionary:              [ OrgDictionaryItem! ]!
 
+    orgDictionaryItem(
+        id:         ID!
+    ):  OrgDictionaryItem
+
     phrases( query: String ):   [ Phrase! ]!
 
     readerFlags:                [ ReaderFlag! ]!
