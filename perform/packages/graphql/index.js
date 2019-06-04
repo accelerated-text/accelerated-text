@@ -5,19 +5,12 @@ import { h }                from 'preact';
 import { InMemoryCache }    from 'apollo-cache-inmemory';
 import { mergeDeepRight }   from 'ramda';
 
-import dictionaryResolvers  from '../dictionary/resolvers';
-import dictionaryTypes      from '../dictionary/types.graphql';
-
+import acceleratedTextResolvers from '../accelerated-text/graphql';
 import resolvers            from './resolvers';
 import typeDefs             from './types.graphql';
 
 
 export { default as composeQueries }    from './compose-queries';
-export { default as gql }               from 'graphql-tag';
-export {
-    Mutation as GqlMutation,
-    Query as GqlQuery,
-}   from 'react-apollo';
 
 
 export const cache =        new InMemoryCache();
@@ -27,14 +20,14 @@ export const client = new ApolloClient({
     credentials:            'omit',
     resolvers: mergeDeepRight(
         resolvers,
-        dictionaryResolvers,
+        acceleratedTextResolvers,
+        /// dictionaryResolvers,
     ),
     typeDefs: gql`
         ${ typeDefs }
-        ${ dictionaryTypes }
     `,
     uri:                    process.env.GRAPHQL_URL,
 });
 
-export const GqlProvider = props =>
+export const GraphQLProvider = props =>
     <ApolloProvider client={ client } { ...props } />;

@@ -1,24 +1,44 @@
-import { h }                from 'preact';
+import { h }                    from 'preact';
 
-import DragInBlock          from '../drag-in-blocks/DragInBlock';
-import ShowPhrases          from '../lexicon/ShowPhrases';
+import DragInBlock              from '../drag-in-blocks/DragInBlock';
+import { composeQueries }       from '../graphql/';
 
-import S                    from './DictionaryItemRow.sass';
+import { openDictionaryItem }   from '../accelerated-text/graphql';
+import { orgDictionaryItem }    from '../graphql/queries.graphql';
+import ShowPhrases              from '../lexicon/ShowPhrases';
+
+import S                        from './DictionaryItemRow.sass';
 
 
-export default ({ item }) =>
-    <tr className={ S.className } key={ item.id }>
-        <td className={ S.dragInBlock }>
-            <DragInBlock
-                fields={{ name: item.name }}
-                type="DictionaryItem"
-                width={ 36 }
-            />
-        </td>
-        <td className={ S.name }>{ item.name }</td>
-        <td>
-            <ShowPhrases
-                phrases={ item.usageModels.map( m => m.phrase.text ) }
-            />
-        </td>
-    </tr>;
+export default composeQueries({
+    orgDictionaryItem:      [ orgDictionaryItem, {
+        id:                 'id',
+    }],
+    openDictionaryItem:     [ openDictionaryItem, {
+        itemId:             [ 'orgDictionaryItem', 'orgDictionaryItem', 'id' ],
+    }],
+})(({
+    openDictionaryItem,
+    orgDictionaryItem: { orgDictionaryItem },
+}) =>
+    orgDictionaryItem &&
+        <tr className={ S.className }>
+            <td className={ S.dragInBlock }>
+                <DragInBlock
+                    fields={{ name: orgDictionaryItem.name }}
+                    type="DictionaryItem"
+                    width={ 36 }
+                />
+            </td>
+            <td className={ S.name }>{ orgDictionaryItem.name }</td>
+            <td>
+                <ShowPhrases
+                    isEditable
+                    onClick={ openDictionaryItem }
+                    phrases={ orgDictionaryItem.usageModels.map(
+                        m => m.phrase.text
+                    ) }
+                />
+            </td>
+        </tr>
+);

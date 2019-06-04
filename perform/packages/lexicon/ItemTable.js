@@ -1,4 +1,5 @@
 import classnames           from 'classnames';
+import gql                  from 'graphql-tag';
 import { h }                from 'preact';
 
 import DebouncedSearchQuery from '../graphql/DebouncedSearchQuery';
@@ -7,7 +8,6 @@ import {
     Info,
     Loading,
 }   from '../ui-messages/';
-import { gql }              from '../graphql/';
 import { QA }               from '../tests/constants';
 
 import S                    from './ItemTable.sass';

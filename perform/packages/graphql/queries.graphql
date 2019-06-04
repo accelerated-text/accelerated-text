@@ -1,0 +1,30 @@
+query orgDictionaryIds {
+  orgDictionary @client {
+    id
+  }
+}
+
+query orgDictionaryItem( $id: ID! ) {
+    orgDictionaryItem( id: $id ) @client {
+        id
+        name
+        usageModels {
+            phrase { id text }
+            defaultUsage {
+                flag { id name }
+                usage
+            }
+            readerUsage {
+                flag { id name }
+                usage
+            }
+        }
+    }
+}
+
+query readerFlags {
+  readerFlags @client {
+    id
+    name
+  }
+}

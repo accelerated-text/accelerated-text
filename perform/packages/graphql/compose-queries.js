@@ -16,7 +16,7 @@ export default queries => {
             ),
         }),
     });
-    
+
     return compose(
         ...Object.keys( queries )
             .map( name =>
@@ -32,4 +32,3 @@ export default queries => {
             )
     );
 };
-

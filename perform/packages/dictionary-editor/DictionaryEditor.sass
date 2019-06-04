@@ -1,0 +1,54 @@
+@import '../styles/variables'
+@import '../styles/groove-table'
+
+
+.className
+
+    display:                grid
+    grid-template-columns:  $space-m 1fr
+
+    > .synonymSearch
+
+        background-color:   $subtle-gray
+
+    > .main
+
+        background-color:       $white
+        display:                grid
+        grid-gap:               $space-m
+        grid-template-areas:    'title close' 'main main'
+        grid-template-columns:  auto 6em
+        grid-template-rows:     ( 2 * $space-m ) auto
+        padding:                $space-m $space-m 0
+
+        > .title
+
+            grid-area:          title
+            margin:             0
+            padding:            0
+
+        > .close
+
+            grid-area:          close
+            text-align:         right
+
+            > button
+
+                cursor:         pointer
+
+        > .usageModels
+            > table
+
+                @include groove-table( 1 / 8 )
+
+                grid-area:          main
+
+                td,
+                th
+
+                    padding:                $space-s
+
+                > thead > tr > th
+
+                    font-weight:            $bold
+                    text-align:             left
