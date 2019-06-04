@@ -7,7 +7,7 @@ import { openDictionaryItem }   from '../accelerated-text/graphql';
 import { orgDictionaryItem }    from '../graphql/queries.graphql';
 import ShowPhrases              from '../lexicon/ShowPhrases';
 
-import S                        from './DictionaryItemRow.sass';
+import S                        from './ItemRow.sass';
 
 
 export default composeQueries({

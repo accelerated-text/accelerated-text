@@ -4,7 +4,7 @@ import { composeQueries  }  from '../graphql';
 import LabelWithStatus      from '../label-with-status/LabelWithStatus';
 import { orgDictionaryIds } from '../graphql/queries.graphql';
 
-import DictionaryItemRow    from './DictionaryItemRow';
+import ItemRow              from './ItemRow';
 import S                    from './Dictionary.sass';
 
 
@@ -34,7 +34,7 @@ export default composeQueries({
         <tbody>
             { orgDictionary &&
                 orgDictionary.map(({ id }) =>
-                    <DictionaryItemRow key={ id } id={ id } />
+                    <ItemRow key={ id } id={ id } />
                 )
             }
         </tbody>
