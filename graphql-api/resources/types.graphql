@@ -44,8 +44,8 @@ type ReaderFlagUsage {
 
 type PhraseUsageModel {
     phrase:         Phrase!
-    defaultUsage:   ReaderFlagUsageModel!
-    readerUsage:    [ ReaderFlagUsageModel! ]!
+    defaultUsage:   ReaderFlagUsage!
+    readerUsage:    [ ReaderFlagUsage! ]!
 }
 
 type OrgDictionaryItem {
@@ -57,18 +57,18 @@ type OrgDictionaryItem {
 ### Lexicon
 
 type LexiconItem {
-	id:				ID!
-	createdAt:	    String
-	key:			String!
-	synonyms:	    [ String! ]!
-	updatedAt:	    String
+    id:             ID!
+    createdAt:      String
+    key:            String!
+    synonyms:       [ String! ]!
+    updatedAt:      String
 }
 
 type Lexicon {
-	items:			[ LexiconItem! ]!
-	limit:			Int!
-	offset:			Int!
-	totalCount:	    Int!
+    items:          [ LexiconItem! ]!
+    limit:          Int!
+    offset:         Int!
+    totalCount:     Int!
 }
 
 ### Queries
@@ -89,9 +89,13 @@ type Query {
 
     synonyms( phraseId: ID! ):  Synonyms!
 
-	searchLexicon(
-		query: 		String
-		limit:		Int
-		offset:		Int
-	): 	Lexicon!
+    searchLexicon(
+        query:                  String
+        limit:                  Int
+        offset:                 Int
+    ):  Lexicon!
+}
+
+schema {
+  query:          Query
 }
