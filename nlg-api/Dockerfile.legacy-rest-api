@@ -1,14 +1,23 @@
-FROM registry.gitlab.com/tokenmill/clojure:1 as builder
+FROM registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps as builder
+
+ARG AWS_DEFAULT_REGION
+ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+
+ARG AWS_ACCESS_KEY_ID
+ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+
+ARG AWS_SECRET_ACCESS_KEY
+ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-
+COPY deps.edn /usr/src/app
+RUN clojure -R:rest-uberjar
 COPY . /usr/src/app
-RUN clojure -Auberjar
+RUN clojure -A:rest-uberjar
 
 FROM openjdk:8u171-jre-alpine3.8
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/target/nlg-api-0.0.1-standalone.jar /usr/src/app
-COPY --from=builder /usr/src/app/lib /usr/src/app/lib
 CMD ["java", "-cp", "nlg-api-0.0.1-standalone.jar:lib/*", "local_server"]

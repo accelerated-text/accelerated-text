@@ -1,40 +1,34 @@
-{:paths ["src"]
- :deps {org.clojure/clojure {:mvn/version "1.10.0"}
-        ccg-kit {:git/url "git@gitlab.com:tokenmill/nlg/ccg-kit.git"
-                 :sha "cb90b4adcadc5ce99de31ea71331b5a2ad265b37"}
-        org.clojure/tools.logging {:mvn/version "0.4.0"}
-        cheshire {:mvn/version "5.8.1"}
-        com.amazonaws/aws-lambda-java-core {:mvn/version "1.0.0"}
-        ch.qos.logback/logback-classic {:mvn/version "1.2.3"}
-        clj-time {:mvn/version "0.5.1"}
-        com.taoensso/faraday {:git/url "https://github.com/tokenmill/faraday.git"
-                              :sha "23e71e7ac8cf6c68efe9446da13ddd913c91accf"}
-        ;; com.taoensso/faraday {:mvn/version "1.9.0"}
-        uk.ac.abdn/SimpleNLG {:mvn/version "4.4.8"}
-        prismatic/schema {:mvn/version "1.1.9"}
-        org.clojure/data.csv {:mvn/version "0.1.4"}
-        ;; com.amazonaws/aws-java-sdk-s3 {:mvn/version "1.10.49"}
-        com.amazonaws/aws-java-sdk-s3 {:mvn/version "1.11.337"}
-        opennlp/ccg {:mvn/version "0.10.0"}
-        http-kit {:mvn/version "2.3.0"}}
- :mvn/repos
- {"central" {:url "https://repo1.maven.org/maven2/"}
-  "clojars" {:url "https://clojars.org/repo"}
-  "tokenmill-s3" {:url "s3://nlg-repo/maven/releases"}}
- :aliases {
-           :test {:extra-paths ["test"]
-                  :extra-deps {com.cognitect/test-runner
-                               {:git/url "https://github.com/cognitect-labs/test-runner"
-                                :sha "76568540e7f40268ad2b646110f237a60295fa3c"}}
-                  :main-opts ["-m" "cognitect.test-runner"]}
-           :uberjar
-           {:extra-deps  {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
-                                                   :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
-                                                   :exclusions [org.slf4j/slf4j-nop]}
-                          }
-            :main-opts   ["-m" "cambada.uberjar"
-                          "-m" "local_server"
-                          "--app-group-id" "lt.tokenmill.nlg"
-                          "--app-artifact-id" "nlg-api"
-                          "--app-version" "0.0.1"]}
-           }}
+{:deps      {org.clojure/clojure                {:mvn/version "1.10.0"}
+             ccg-kit                            {:git/url "git@gitlab.com:tokenmill/nlg/ccg-kit.git"
+                                                 :sha     "cb90b4adcadc5ce99de31ea71331b5a2ad265b37"}
+             org.clojure/tools.logging          {:mvn/version "0.4.0"}
+             cheshire                           {:mvn/version "5.8.1"}
+             com.amazonaws/aws-lambda-java-core {:mvn/version "1.0.0"}
+             ch.qos.logback/logback-classic     {:mvn/version "1.2.3"}
+             clj-time                           {:mvn/version "0.5.1"}
+             com.taoensso/faraday               {:git/url "https://github.com/tokenmill/faraday.git"
+                                                 :sha     "23e71e7ac8cf6c68efe9446da13ddd913c91accf"}
+             uk.ac.abdn/SimpleNLG               {:mvn/version "4.4.8"}
+             prismatic/schema                   {:mvn/version "1.1.9"}
+             org.clojure/data.csv               {:mvn/version "0.1.4"}
+             com.amazonaws/aws-java-sdk-s3      {:mvn/version "1.11.337"}
+             opennlp/ccg                        {:mvn/version "0.10.0"}
+             http-kit                           {:mvn/version "2.3.0"}}
+ :paths     ["src"]
+ :mvn/repos {"central"      {:url "https://repo1.maven.org/maven2/"}
+             "clojars"      {:url "https://clojars.org/repo"}
+             "tokenmill-s3" {:url "s3://nlg-repo/maven/releases"}}
+ :aliases   {:test
+             {:extra-paths ["test"]
+              :extra-deps  {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner"
+                                                       :sha     "76568540e7f40268ad2b646110f237a60295fa3c"}}
+              :main-opts   ["-m" "cognitect.test-runner"]}
+             :rest-uberjar
+             {:extra-deps {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
+                                                  :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
+                                                  :exclusions [org.slf4j/slf4j-nop]}}
+              :main-opts  ["-m" "cambada.uberjar"
+                           "-m" "local_server"
+                           "--app-group-id" "lt.tokenmill.nlg"
+                           "--app-artifact-id" "nlg-api"
+                           "--app-version" "0.0.1"]}}}
