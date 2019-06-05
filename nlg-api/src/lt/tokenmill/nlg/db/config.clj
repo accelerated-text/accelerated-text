@@ -5,6 +5,7 @@
 (def data-table "data")
 (def lexicon-table "lexicon")
 (def data-bucket "accelerated-text-data-files")
+(def grammar-bucket "ccg-grammar")
 
 (defn client-opts []
   {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://localhost:8000")

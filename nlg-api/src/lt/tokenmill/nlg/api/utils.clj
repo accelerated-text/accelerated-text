@@ -6,8 +6,8 @@
             [clj-time.coerce :as tc]
             [clojure.string :as string]
             [clojure.data.csv :as csv])
-  (:import (java.io InputStream))
-  (:import (java.util.UUID)))
+  (:import (java.io InputStream)
+           (java.util UUID)))
 
 (defn gen-uuid [] (.toString (java.util.UUID/randomUUID)))
 

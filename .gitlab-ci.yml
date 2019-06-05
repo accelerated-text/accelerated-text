@@ -20,14 +20,6 @@ job:npm_audit:
   script:
     - make npm-audit
 
-lexical-analysis:code-linter:
-  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/pytest:latest
-  stage: test
-  when: on_success
-  script:
-    - flake8 lexical-analyser/api
-    - flake8 lexical-analyser/core
-
 deploy-app:
   stage: deploy
   when: on_success
@@ -38,33 +30,33 @@ deploy-app:
 
 unit-test-nlg-api:
   stage: test
-  image: clojure:openjdk-8-lein-alpine
+  image: registry.gitlab.com/tokenmill/clojure:1
   when: always
   only:
     changes:
       - nlg-api/
   script:
     - cd nlg-api
-    - lein do clean, test
+    - clojure -Atest -e :integration
 
 integration-test-nlg-api:
   stage: test
-  image: clojure:openjdk-8-lein-alpine
+  image: registry.gitlab.com/tokenmill/clojure:1
   when: manual
   script:
     - cd nlg-api
-    - lein do clean, test :all
+    - clojure -Atest
 
 build-nlg-api:
   stage: build
-  image: clojure:openjdk-8-lein-alpine
+  image: registry.gitlab.com/tokenmill/clojure:1
   when: on_success
   script:
     - cd nlg-api
-    - lein do clean, uberjar
+    - clojure -Auberjar
   artifacts:
     paths:
-      - nlg-api/target/uberjar/nlg-api-0.1.0-SNAPSHOT-standalone.jar
+      - nlg-api/target/nlg-api-0.0.1-standalone.jar
     expire_in: 1 week
 
 deploy-nlg-api:

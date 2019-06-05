@@ -2,9 +2,10 @@
   (:require [clojure.string :as string]
             [clojure.tools.logging :as log]
             [lt.tokenmill.nlg.generator.parser :as parser]
-            [lt.tokenmill.nlg.generator.simple-nlg :as nlg]))
-
-
+            [lt.tokenmill.nlg.generator.simple-nlg :as nlg]
+            [ccg-kit.grammar :as ccg]
+            [lt.tokenmill.nlg.db.s3 :as s3]
+            [lt.tokenmill.nlg.db.config :as config]))
 
 (defn build-dp-instance
   "dp - a hashmap compiled with `compile-dp`
@@ -42,11 +43,35 @@
                                (context :objs))))
          (nlg/add-complement clause (context :complement)))))))
 
+(defn download-grammar
+  "Downloads latest version of Grammar and returns it's path"
+  []
+  (do
+    (.mkdir (java.io.File. "/tmp/ccg"))
+    (.mkdir (java.io.File. "/tmp/ccg/grammar/"))
+    (let []
+      (s3/download-dir config/grammar-bucket "grammar" "/tmp/ccg/")
+      "/tmp/ccg/grammar/grammar.xml")))
+  
+
+(defn generate-sentence-ccg
+  "Takes context and generates numerous sentences. Picks random one"
+  [context]
+  (let [values (flatten (vals context))
+        _ (log/debugf "Context: %s" context)
+        _ (log/debugf "CCG generation using: %s" (list values))
+        
+        results (apply (partial ccg/generate (ccg/load-grammar (download-grammar))) values)]
+    (if (seq results)
+      (rand-nth results)
+      "")))
+
 
 (defn render-segment
-  [segment data]
+  [segment data ccg?]
   (let [instances (map #(build-dp-instance % data) segment)
-        sentences (map generate-sentence instances)]
+        sent-fn (if ccg? generate-sentence-ccg generate-sentence)
+        sentences (map sent-fn instances)]
     (log/debug "Plans for building string: " segment)
     (string/join " " sentences)))
 
@@ -54,6 +79,6 @@
   "document-plan - a hash map with document plan
    data - a flat hashmap (represents CSV)
    returns: generated text"
-  [document-plan data]
-  (let [segments (map #(render-segment % data) (parser/parse-document-plan document-plan))]
+  [document-plan data ccg?]
+  (let [segments (map #(render-segment % data ccg?) (parser/parse-document-plan document-plan))]
     (string/trim (string/join "" segments))))
