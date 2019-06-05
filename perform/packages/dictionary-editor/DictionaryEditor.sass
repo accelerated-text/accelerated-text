@@ -1,5 +1,4 @@
 @import '../styles/variables'
-@import '../styles/groove-table'
 
 
 .className
@@ -37,18 +36,5 @@
                 cursor:         pointer
 
         > .usageModels
-            > table
 
-                @include groove-table( 1 / 8 )
-
-                grid-area:          main
-
-                td,
-                th
-
-                    padding:                $space-s
-
-                > thead > tr > th
-
-                    font-weight:            $bold
-                    text-align:             left
+            grid-area:          main
