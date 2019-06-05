@@ -4,7 +4,7 @@
             :updatedAt {:type String}
             :synonyms  {:type (list String)}
             :key       {:type String}
-            :id        {:type String}}}
+            :id        {:type ID}}}
 
   :Lexicon
   {:fields {:offset     {:type Int}
