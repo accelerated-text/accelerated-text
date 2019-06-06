@@ -6,7 +6,7 @@ Globals:
   Api:
     Cors:
       AllowMethods: "'*'"
-      AllowHeaders: "'*'"
+      AllowHeaders: "'content-type, *'"
       AllowOrigin: "'*'"
 
 Resources:

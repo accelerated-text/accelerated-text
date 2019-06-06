@@ -5,13 +5,13 @@ DEV_API_URL=https://9u87u8ycfk.execute-api.eu-central-1.amazonaws.com/Prod
 PROFILE=tm
 
 unit-tests:
-	clj -Atest -e :integration
+	clj -A:test -e :integration
 
 integration-tests:
-	clj -Atest
+	clj -A:test
 
 build:
-	clj -Auberjar
+	clj -A:rest-uberjar
 
 upload-sam:
 	aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket ${S3_BUCKET_NAME} --profile ${PROFILE}
