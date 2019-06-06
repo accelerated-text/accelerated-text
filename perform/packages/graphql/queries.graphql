@@ -1,11 +1,11 @@
-query orgDictionaryIds {
-  orgDictionary @client {
+query dictionaryIds {
+  dictionary @client {
     id
   }
 }
 
-query orgDictionaryItem( $id: ID! ) {
-    orgDictionaryItem( id: $id ) @client {
+query dictionaryItem( $id: ID! ) {
+    dictionaryItem( id: $id ) @client {
         id
         name
         usageModels {

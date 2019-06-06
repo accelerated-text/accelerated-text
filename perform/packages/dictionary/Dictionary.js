@@ -2,19 +2,19 @@ import { h }                from 'preact';
 
 import { composeQueries  }  from '../graphql';
 import LabelWithStatus      from '../label-with-status/LabelWithStatus';
-import { orgDictionaryIds } from '../graphql/queries.graphql';
+import { dictionaryIds } from '../graphql/queries.graphql';
 
 import ItemRow              from './ItemRow';
 import S                    from './Dictionary.sass';
 
 
 export default composeQueries({
-    orgDictionaryIds,
+    dictionaryIds,
 })(({
-    orgDictionaryIds: {
+    dictionaryIds: {
         error,
         loading,
-        orgDictionary,
+        dictionary,
     },
 }) =>
     <table className={ S.className }>
@@ -32,8 +32,8 @@ export default composeQueries({
             </tr>
         </thead>
         <tbody>
-            { orgDictionary &&
-                orgDictionary.map(({ id }) =>
+            { dictionary &&
+                dictionary.map(({ id }) =>
                     <ItemRow key={ id } id={ id } />
                 )
             }

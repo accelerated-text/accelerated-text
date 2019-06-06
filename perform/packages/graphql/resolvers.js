@@ -58,8 +58,8 @@ export const User = () => ({
     organization:   Organization,
 });
 
-export const OrgDictionaryItem = ( name, usageModels = []) => ({
-    __typename:     'OrgDictionaryItem',
+export const DictionaryItem = ( name, usageModels = []) => ({
+    __typename:     'DictionaryItem',
     id:             name,
     name,
     usageModels,
@@ -79,9 +79,9 @@ export const ReaderFlagUsage = ( flag, usage ) => ({
 });
 
 
-export const orgDictionaryItem = ( _, { id }) => (
+export const dictionaryItem = ( _, { id }) => (
     DICTIONARY[id]
-        ?  OrgDictionaryItem(
+        ?  DictionaryItem(
             id,
             DICTIONARY[id].map( row =>
                 PhraseUsageModel(
@@ -96,9 +96,9 @@ export const orgDictionaryItem = ( _, { id }) => (
         : null
 );
 
-export const orgDictionary = _root =>
+export const dictionary = _root =>
     Object.keys( DICTIONARY )
-        .map( id => orgDictionaryItem( _root, { id }));
+        .map( id => dictionaryItem( _root, { id }));
 
 
 export default {
@@ -106,8 +106,8 @@ export default {
     User,
     Query: {
         me:             User,
-        orgDictionary,
-        orgDictionaryItem,
+        dictionary,
+        dictionaryItem,
         phrases:        ( _, { query }) => {
 
             const regexp =  new RegExp( `${ query }.*`, 'i' );

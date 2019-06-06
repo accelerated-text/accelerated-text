@@ -3,7 +3,7 @@ import { h }                    from 'preact';
 import { composeQueries }       from '../graphql/';
 
 import { closeDictionaryItem }  from '../accelerated-text/graphql';
-import { orgDictionaryItem }    from '../graphql/queries.graphql';
+import { dictionaryItem }       from '../graphql/queries.graphql';
 
 import S                        from './DictionaryEditor.sass';
 import UsageModels              from './UsageModels';
@@ -11,10 +11,10 @@ import UsageModels              from './UsageModels';
 
 export default composeQueries({
     closeDictionaryItem,
-    orgDictionaryItem:          [ orgDictionaryItem, { id: 'openedPhrase' }],
+    dictionaryItem:          [ dictionaryItem, { id: 'openedPhrase' }],
 })(({
     closeDictionaryItem,
-    orgDictionaryItem: { orgDictionaryItem: item },
+    dictionaryItem: { dictionaryItem: item },
 }) =>
     <div className={ S.className }>
         <div className={ S.synonymSearch } />
