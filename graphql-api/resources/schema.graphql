@@ -48,7 +48,7 @@ type PhraseUsageModel {
     readerUsage:    [ ReaderFlagUsage! ]!
 }
 
-type OrgDictionaryItem {
+type DictionaryItem {
     id:             ID!
     name:           String!
     usageModels:    [ PhraseUsageModel! ]!
@@ -77,11 +77,11 @@ type Query {
 
     me:                         User!
 
-    orgDictionary:              [ OrgDictionaryItem! ]!
+    dictionary:              [ DictionaryItem! ]!
 
-    orgDictionaryItem(
+    dictionaryItem(
         id:         ID!
-    ):  OrgDictionaryItem
+    ):  DictionaryItem
 
     phrases( query: String ):   [ Phrase! ]!
 
