@@ -56,7 +56,7 @@
   (let [db (get-db)
         key (get path-params :id)
         word (first (get request-body :synonyms))
-        response (utils/do-return ops/read! db key)]
+        response (utils/do-return ops/read! db {:key key})]
     (if (not= 200 (get response :status))
       response
       (utils/do-update (comp #(dissoc % :word) (partial ops/update! db))
@@ -71,7 +71,7 @@
   (let [db (get-db)
         id (get path-params :id)]
     (utils/do-delete (comp #(dissoc % :word) (partial ops/read! db))
-                     (partial ops/delete! db) id)))
+                     (partial ops/delete! db) {:key id})))
 
 (defn process-search-response [resp offset limit]
   (let [count (count resp)]

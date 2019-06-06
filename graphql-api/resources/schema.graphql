@@ -38,13 +38,15 @@ type ReaderFlag {
 }
 
 type ReaderFlagUsage {
+    id:             ID!
     flag:           ReaderFlag!
     usage:          Usage!
 }
 
 type PhraseUsageModel {
-    phrase:         Phrase!
-    defaultUsage:   ReaderFlagUsage!
+    id:             ID!
+    phrase:         String!
+    defaultUsage:   Usage!
     readerUsage:    [ ReaderFlagUsage! ]!
 }
 
