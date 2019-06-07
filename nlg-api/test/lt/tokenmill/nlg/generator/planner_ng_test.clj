@@ -67,7 +67,7 @@
           (let [result (build-dp-instance concrete-plan)]
             (compare-result expected result))))))
 
-(deftest plan-with-conditional
+(deftest plan-with-conditional-if
     (testing "Create plan with conditional"
       (let [document-plan (load-test-data "subj-w-if")
             compiled (parser/parse-document-plan document-plan {} {})]
@@ -78,11 +78,7 @@
         (let [concrete-plan (first (first compiled))
               expected {:dynamic [{:name {:cell :product-name :dyn-name "$1"} :attrs {:type :product :source :cell}}
                                   {:name {:cell :main-feature :dyn-name "$3"} :attrs {:type :benefit :source :cell}}
-                                  {:name {:cell :secondary-feature :dyn-name "$4"} :attrs {:type :benefit :source :cell}}
-                                  {:name "style", :attrs {:type :wordlist, :class "style"}}
-                                  {:name "vogue", :attrs {:type :wordlist, :class "style"}}
-                                  {:name "title", :attrs {:type :wordlist, :class "style"}}
-                                  {:name "trend", :attrs {:type :wordlist, :class "style"}}]
+                                  {:name {:cell :secondary-feature :dyn-name "$4"} :attrs {:type :benefit :source :cell}}]
                         :static ["provide"]}
               result (build-dp-instance concrete-plan)]
           (compare-result expected result))
@@ -95,6 +91,24 @@
           (let [gated-var (first (result :dynamic))]
             (is (= {:cell :lacing, :dyn-name "$2"} (gated-var :name)))
             (is (contains? (gated-var :attrs) :gate )))))))
+
+(deftest plan-with-conditional-if-else
+  (testing "Create plan with if-else"
+    (let [document-plan (load-test-data "subj-w-if-else")
+          compiled (parser/parse-document-plan document-plan {} {})]
+      (is (not (empty? compiled)))
+      (is (= 1 (count compiled)))
+      (is (= 2 (count (first compiled))))
+      ;; First sentence - Not interesting
+      ;; Second sentence
+      (let [concrete-plan (nth (first compiled) 1)
+            expected {:dynamic []
+                      :static ["provide"]}
+            result (build-dp-instance concrete-plan)]
+        (is (= ["results in" "results in"] (result :static)))
+        (let [gated-var (first (result :dynamic))]
+          (is (= {:cell :lacing, :dyn-name "$3"} (gated-var :name)))
+          (is (contains? (gated-var :attrs) :gate )))))))
 
 (deftest generate-actual-text
   (testing "Create text with product and two features"
@@ -135,4 +149,27 @@
                  :lacing "premium lacing"}] 
           result (first (render-dp document-plan data))
           expected "a snug fit for everyday wear"]
+      (is (string/includes? result expected)))))
+
+
+(deftest generate-complex-examples
+  (testing "Create text with if"
+    (let [document-plan (load-test-data "subj-w-if-else")
+          data [{:product-name "Nike Air"
+                 :main-feature "comfort"
+                 :secondary-feature "support"
+                 :lacing "premium lacing"
+                 :style "wonderful"}] 
+          result (first (render-dp document-plan data))
+          expected "snug fit for everyday wear"]
+      (is (string/includes? result expected))))
+  (testing "Create text with else"
+    (let [document-plan (load-test-data "subj-w-if-else")
+          data [{:product-name "Nike Air"
+                 :main-feature "comfort"
+                 :secondary-feature "support"
+                 :lacing "nylon lacing"
+                 :style "wonderful"}] 
+          result (first (render-dp document-plan data))
+          expected "cool looking fit"]
       (is (string/includes? result expected)))))
