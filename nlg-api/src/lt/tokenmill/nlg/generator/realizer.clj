@@ -32,7 +32,7 @@
          replaces placeholders]
     (if (empty? replaces)
       result
-      (let [[head tail] replaces
+      (let [[head & tail] replaces
             placeholder (get-in head [:name :dyn-name])
             value (get-value head data)]
         (if value
