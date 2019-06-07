@@ -22,8 +22,8 @@
          fs dp]
     (if (empty? fs)
       context
-      (let [head (first fs)
-            tail (rest fs)]
+      (let [[head & tail] fs]
+        (log/debugf "Head: %s" head)
         (recur (ops/merge-context context (into {} head)) tail)))))
 
 (defn download-grammar
@@ -107,7 +107,7 @@
   "Takes context and generates numerous sentences. Picks random one"
   [grammar-path context]
   (let [dyn-values (map get-placeholder (:dynamic context))
-        values (concat (:static context) dyn-values)
+        values (concat (distinct (:static context)) dyn-values)
         _ (log/debugf "Context: %s" context)
         generated (apply (partial ccg/generate (ccg/load-grammar (format "%s/grammar.xml" grammar-path))) values)]
     {:context context
@@ -122,6 +122,7 @@
 (defn render-segment
   [templates data]
   (let [realized (map (partial realizer/realize data) templates)
+        _ (log/debugf "Realized: %s" (pr-str realized))
         sentences (map #(if (empty? %) "" (rand-nth %)) realized)]
     (string/join ". " sentences)))
 
@@ -137,8 +138,8 @@
         _ (compile-custom-grammar grammar-path (:dynamic context))
         templates (map (partial build-segment grammar-path) dp)
         _ (log/debugf "Templates: %s" (pr-str templates))]
+
     (map (fn
            [row]
            (let [segments (map #(render-segment % row) templates)]
-             (string/trim (string/join "" segments))))
-         data)))
+             (string/trim (string/join "" segments)))) data)))

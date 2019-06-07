@@ -4,7 +4,8 @@
             [cheshire.core :as ch]
             [lt.tokenmill.nlg.generator.ops :as ops]
             [clojure.string :as str]
-            [lt.tokenmill.nlg.api.lexicon :as lexicon]))
+            [lt.tokenmill.nlg.api.lexicon :as lexicon]
+            [lt.tokenmill.nlg.generator.realizer :as realizer]))
 
 (def parse-cnt (atom 0))
 (defn reset-parse-cnt [] (reset! parse-cnt 0))
@@ -78,13 +79,6 @@
     (log/debug "Parsed statements: " children)
     children))
 
-(defn get-value
-  [item data]
-  (let [t ((item :attrs) :source)]
-    (case t
-      :cell (get data ((item :name) :cell))
-      :quote ((item :name) :quote))))
-
 (defn parse-if-statement
   [node attrs ctx]
   (log/debugf "Node: %s" node)
@@ -95,24 +89,34 @@
                   := (partial =))]
     (case t
       :Value-comparison (fn [data]
-                          (let [v1 (get-value (parse-node (node :value1) attrs ctx) data)
-                                v2 (get-value (parse-node (node :value2) attrs ctx) data)]
+                          (let [v1 (realizer/get-value (-> (parse-node (node :value1) attrs ctx)
+                                                           (:dynamic)
+                                                           (first)) data)
+                                v2 (realizer/get-value (-> (parse-node (node :value2) attrs ctx)
+                                                           (:dynamic)
+                                                           (first)) data)]
                             (log/debugf "Comparing: '%s' vs '%s'" v1 v2)
-                            (cond-fn (v1 data) (v2 data)))))))
+                            (cond-fn v1 v2))))))
 
-(defn parse-condition
+(defn build-default-cond
+  [node attrs ctx gate]
+  (parse-node (node :thenExpression) (assoc attrs :gate gate) ctx))
+
+(defn build-if-cond
   [node attrs ctx]
-  (let [t (keyword (node :type))
-        if-fn (fn [_] true)]
-    (case t
-      :If-condition (parse-node (node :thenExpression) (assoc attrs :gate (parse-if-statement (node :condition) attrs ctx)) ctx)
-      :Default-condition (parse-node (node :thenExpression) (assoc attrs :gate (fn [_] true)) ctx)
-      )))
+  (parse-node (node :thenExpression) (assoc attrs :gate (parse-if-statement (node :condition) attrs ctx)) ctx))
 
 (defn parse-conditional
   [node attrs ctx]
-  (let [conditions (node :conditions)]
-    (flatten (map #(parse-condition % attrs ctx) conditions))))
+  (let [conditions (node :conditions)
+        usual-conds (filter #(= :If-condition (keyword (% :type))) conditions) ;; All of the If Statements
+        group-negation (fn [data] (not-any? #(% data) (map #(parse-if-statement (% :condition) attrs ctx) usual-conds))) ;; All of the previous IFs must be false in order for else to be true
+        default-conds (filter #(= :Default-condition (keyword (% :type))) conditions) ;; Else statement
+
+        block (flatten (map #(build-if-cond % attrs ctx) usual-conds))]
+    (if (empty? default-conds)
+      block
+      (flatten (conj block (build-default-cond (first default-conds) attrs ctx group-negation))))))
 
 (defn parse-list
   [opts node attrs ctx]

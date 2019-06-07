@@ -32,16 +32,25 @@
          replaces placeholders]
     (if (empty? replaces)
       result
-      (let [head (first replaces)
-            tail (rest replaces)
+      (let [[head tail] replaces
             placeholder (get-in head [:name :dyn-name])
             value (get-value head data)]
-        (recur (str/replace result placeholder value) tail)))))
-    
+        (if value
+          (recur (str/replace result placeholder value) tail)
+          (recur result tail))))))
+
+(defn str-realized?
+  [s]
+  (let [results (re-find #"\$\d+" s)]
+    (= 0 (count results))))
+
 
 (defn realize
   "Takes sentence, context and replaces all placeholders with actual value"
   [data {context :context
          templates :templates}]
-  (let [placeholders (filter placeholder? (context :dynamic))]
-    (map (partial realize-template placeholders data) templates)))
+  (let [placeholders (filter placeholder? (context :dynamic))
+        realize-fn (partial realize-template placeholders data)]
+    (->> templates
+         (map realize-fn)
+         (filter str-realized?))))

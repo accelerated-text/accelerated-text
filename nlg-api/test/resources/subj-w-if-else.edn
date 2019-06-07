@@ -31,4 +31,15 @@
                                                                     :children [{:type "Quote"
                                                                                 :text "a snug fit for everyday wear"}]
                                                                     }]
-                                                        }}]}]}]}
+                                                        }}
+                                      {:type "Default-condition"
+                                       :thenExpression {:type "Product-component"
+                                                        :name {:type "Cell"
+                                                               :name "lacing"}
+                                                        :children [{:type "Relationship"
+                                                                    :relationshipType "consequence"
+                                                                    :children [{:type "Quote"
+                                                                                :text "a cool looking fit"}]
+                                                                    }]
+                                                        }}
+                                      ]}]}]}
