@@ -9,7 +9,12 @@
     :results config/results-table
     :data config/data-table
     :blockly config/blockly-table
-    :lexicon config/lexicon-table))
+    :lexicon config/lexicon-table
+    :dictionary config/dictionary-table
+    :phrase-usage config/phrase-usage-model-table
+    :phrase config/phrase-table
+    :reader-flag-usage config/reader-flag-usage-table
+    :reader-flag config/reader-flag-table))
 
 (defprotocol DBAccess
   (read-item [this key])
@@ -17,7 +22,8 @@
   (update-item [this key data])
   (delete-item [this key])
   (list-items [this limit])
-  (scan-items [this opts]))
+  (scan-items [this opts])
+  (batch-read-items [this opts]))
 
 (defn read! [this key] (read-item this key))
 
@@ -37,6 +43,8 @@
 
 (defn freeze! [coll] (far/freeze coll))
 
+(defn batch-read! [this opts] (batch-read-items this opts))
+
 (defn normalize [data]
   (into {} (map (fn [[k v]]
                   (if (coll? v)
@@ -49,7 +57,7 @@
     (reify
       DBAccess
       (read-item [this key]
-        (far/get-item (config/client-opts) table-name {:key key}))
+        (far/get-item (config/client-opts) table-name key))
       (write-item [this key data]
         (log/debugf "Writing\n key: '%s' \n content: '%s'" key data)
         (let [body (-> data
@@ -73,7 +81,9 @@
       (list-items [this limit]
         (far/scan (config/client-opts) table-name {:limit limit}))
       (scan-items [this opts]
-        (far/scan (config/client-opts) table-name opts)))))
+        (far/scan (config/client-opts) table-name opts))
+      (batch-read-items [this opts]
+        (far/batch-get-item (config/client-opts) {table-name opts})))))
 
 (defn get-workspace [key]
   (far/get-item (config/client-opts) config/blockly-table {:id key}))
