@@ -3,8 +3,8 @@ import { h }                from 'preact';
 
 import { composeQueries }   from '../graphql/';
 import { readerFlags }      from '../graphql/queries.graphql';
-import UsageTd              from '../usage/UsageTd';
 
+import Row                  from './UsageModelRow';
 import S                    from './UsageModels.sass';
 
 
@@ -21,21 +21,14 @@ export default composeQueries({
                 <tr>
                     <th className={ S.phrases }>Phrases</th>
                     <th>Default</th>
-                    { readerFlags && readerFlags.map(
-                        flag => <th>{ flag.name }</th>
+                    { readerFlags && readerFlags.map( flag =>
+                        <th key={ flag.id }>{ flag.name }</th>
                     )}
                 </tr>
             </thead>
             <tbody>
-                { usageModels && usageModels.map(
-                    model =>
-                        <tr key={ model.id }>
-                            <td>{ model.phrase }</td>
-                            <UsageTd usage={ model.defaultUsage } />
-                            { model.readerUsage.map(
-                                flagUsage => <UsageTd usage={ flagUsage.usage } />
-                            )}
-                        </tr>
+                { usageModels && usageModels.map( model =>
+                    <Row key={ model.id } model={ model } />
                 )}
             </tbody>
         </table>

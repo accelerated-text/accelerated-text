@@ -1,15 +1,38 @@
 import classnames           from 'classnames';
-import { h }                from 'preact';
+import { h, Component }     from 'preact';
 
 import S                    from './UsageTd.sass';
 
 
-export default ({
-    className,
-    usage,
-}) =>
-    <td className={ classnames( S.className, S[usage], className ) }>
-        <span children="✔️" className={ S.YES } />
-        <span children="⚪️" className={ S.DONT_CARE } />
-        <span children="❌" className={ S.NO } />
-    </td>;
+export default class UsageTd extends Component {
+
+    onClickDontCare =       () => this.props.onChange( 'DONT_CARE' );
+    onClickNo =             () => this.props.onChange( 'NO' );
+    onClickYes =            () => this.props.onChange( 'YES' );
+
+    render({
+        className,
+        onChange,
+        usage,
+    }) {
+        return (
+            <td className={ classnames( S.className, S[usage], className ) }>
+                <span
+                    children="✔️"
+                    className={ S.YES }
+                    onClick={ this.onClickYes }
+                />
+                <span
+                    children="⚪️"
+                    className={ S.DONT_CARE }
+                    onClick={ this.onClickDontCare }
+                />
+                <span
+                    children="❌"
+                    className={ S.NO }
+                    onClick={ this.onClickNo }
+                />
+            </td>
+        );
+    }
+}

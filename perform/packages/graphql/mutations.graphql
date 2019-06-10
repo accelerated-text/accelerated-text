@@ -1,0 +1,25 @@
+mutation updatePhraseUsageModelDefault(
+  $id:              ID!
+  $defaultUsage:    Usage!
+) {
+  updatePhraseUsageModelDefault(
+    id:             $id
+    defaultUsage:   $defaultUsage
+  ) @client {
+    id
+    defaultUsage
+  }
+}
+
+mutation updateReaderFlagUsage(
+  $id:              ID!
+  $usage:           Usage!
+) {
+  updateReaderFlagUsage(
+    id:             $id
+    usage:          $usage
+  ) @client {
+    id
+    usage
+  }
+}
