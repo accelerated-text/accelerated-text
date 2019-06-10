@@ -12,4 +12,4 @@ export default ({ error, loading, label }) =>
             { error && <Error justIcon message={ error } /> }
             { loading && <Loading /> }
         </span>
-    </div>
+    </div>;
