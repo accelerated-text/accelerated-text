@@ -13,7 +13,7 @@ export default class DragInBlock extends Component {
         className:          PropTypes.string,
         comment:            PropTypes.string,
         fields:             PropTypes.object,
-        text:               PropTypes.string.isRequired,
+        text:               PropTypes.string,
         type:               PropTypes.string.isRequired,
     };
 
