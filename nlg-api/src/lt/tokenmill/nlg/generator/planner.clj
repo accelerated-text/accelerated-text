@@ -3,7 +3,7 @@
             [clojure.tools.logging :as log]
             [lt.tokenmill.nlg.generator.parser :as parser]
             [lt.tokenmill.nlg.generator.simple-nlg :as nlg]
-            [lt.tokenmill.nlg.ccg-kit :as ccg]
+            [ccg-kit.grammar :as ccg]
             [lt.tokenmill.nlg.db.s3 :as s3]
             [lt.tokenmill.nlg.db.config :as config]))
 

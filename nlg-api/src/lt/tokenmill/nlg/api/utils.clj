@@ -25,7 +25,8 @@
     (defn add-headers
       [r]
       (let [cors-headers {"Access-Control-Allow-Origin" "*"
-                          "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"}
+                          "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
+                          "Access-Control-Allow-Headers" "*, Content-Type"}
             headers (if body
                       (conj cors-headers ["Content-Type" "application/json"])
                       cors-headers)]

@@ -1,4 +1,5 @@
 export const NLG_API_CORS_HEADERS = {
+    'access-control-allow-headers': 'content-type, *',
     'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'access-control-allow-origin':  '*',
 };

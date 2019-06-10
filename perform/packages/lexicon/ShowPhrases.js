@@ -11,7 +11,7 @@ export default ({ className, isEditable, onClick, phrases }) =>
             isEditable && S.isEditable,
             className,
         ) }
-        onClick={ onClick }
+        onClick={ onClick || null }
     >
         { phrases.map( phrase =>
             <span className={ S.phrase }>{ phrase }</span>

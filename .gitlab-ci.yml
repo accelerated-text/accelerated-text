@@ -20,14 +20,6 @@ job:npm_audit:
   script:
     - make npm-audit
 
-lexical-analysis:code-linter:
-  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/pytest:latest
-  stage: test
-  when: on_success
-  script:
-    - flake8 lexical-analyser/api
-    - flake8 lexical-analyser/core
-
 deploy-app:
   stage: deploy
   when: on_success
@@ -36,24 +28,39 @@ deploy-app:
   script:
     - make deploy-app
 
+update-nlg-api-deps:
+  stage: deps
+  image: docker:stable
+  only:
+    changes:
+      - nlg-api/deps.edn
+      - nlg-api/Dockerfile.deps
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+  script:
+    - cd nlg-api/
+    - docker build -f Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps .
+    - docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
+    - docker rmi registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
+
 unit-test-nlg-api:
   stage: test
-  image: clojure:openjdk-8-lein-alpine
+  image: registry.gitlab.com/tokenmill/clojure:1
   when: always
   only:
     changes:
       - nlg-api/
   script:
     - cd nlg-api
-    - lein do clean, test
+    - clojure -Atest -e :integration
 
 integration-test-nlg-api:
   stage: test
-  image: clojure:openjdk-8-lein-alpine
+  image: registry.gitlab.com/tokenmill/clojure:1
   when: manual
   script:
     - cd nlg-api
-    - lein do clean, test :all
+    - clojure -Atest
 
 build-nlg-api:
   stage: build
@@ -61,7 +68,7 @@ build-nlg-api:
   when: on_success
   script:
     - cd nlg-api
-    - clojure -Auberjar
+    - clojure -A:rest-uberjar
   artifacts:
     paths:
       - nlg-api/target/nlg-api-0.0.1-standalone.jar

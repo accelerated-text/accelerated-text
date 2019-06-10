@@ -1,0 +1,6 @@
+FROM registry.gitlab.com/tokenmill/clojure:1
+
+COPY deps.edn deps.edn
+
+RUN mkdir /root/.gitlibs
+RUN clojure -A:test || true

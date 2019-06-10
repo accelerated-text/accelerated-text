@@ -6,8 +6,8 @@ export default class RowSelector extends Component {
 
     static propTypes = {
         className:          PropTypes.string,
-        onChange:           PropTypes.func.required,
-        rows:               PropTypes.array.required,
+        onChange:           PropTypes.func.isRequired,
+        rows:               PropTypes.array.isRequired,
         selected:           PropTypes.number,
     };
 

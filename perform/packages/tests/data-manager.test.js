@@ -68,7 +68,6 @@ test( 'can change file', defaultResponsesPage, async t => {
 
     await selectDataFile( t, dataFileId, dataFileData );
 
-    await t.waitUntilElementGone( SELECTORS.UI_INFO );
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
     await t.notFindElement( SELECTORS.UI_ERROR );
 
@@ -111,7 +110,6 @@ test( 'correct cell names and values visible', defaultResponsesPage, async t => 
 
     await selectDataFile( t, dataFile.key, dataFileData );
 
-    await t.waitUntilElementGone( SELECTORS.UI_INFO );
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
     await t.notFindElement( SELECTORS.UI_ERROR );
 
@@ -131,7 +129,6 @@ test( 'can change cell value row', defaultResponsesPage, async t => {
 
     await selectDataFile( t, dataFile.key, dataFileData );
 
-    await t.waitUntilElementGone( SELECTORS.UI_INFO );
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
     await t.notFindElement( SELECTORS.UI_ERROR );
 
@@ -164,7 +161,6 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     await selectDataFile( t, dataFile1.key, dataFileData1 );
 
-    await t.waitUntilElementGone( SELECTORS.UI_INFO );
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
     await t.notFindElement( SELECTORS.UI_ERROR );
 
@@ -189,7 +185,6 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     await selectDataFile( t, dataFile4.key, dataFileData4 );
 
-    await t.waitUntilElementGone( SELECTORS.UI_INFO );
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
     await t.notFindElement( SELECTORS.UI_ERROR );
 

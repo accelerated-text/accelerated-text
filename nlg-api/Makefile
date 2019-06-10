@@ -5,7 +5,13 @@ DEV_API_URL=https://9u87u8ycfk.execute-api.eu-central-1.amazonaws.com/Prod
 PROFILE=tm
 
 unit-tests:
-	clj -Atest -e :integration
+	clj -A:test -e :integration
+
+integration-tests:
+	clj -A:test
+
+build:
+	clj -A:rest-uberjar
 
 upload-sam:
 	aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket ${S3_BUCKET_NAME} --profile ${PROFILE}
@@ -42,4 +48,8 @@ deploy-grammar:
 	aws s3 sync grammar/ s3://ccg-grammar/grammar --profile=${PROFILE}
 
 build-legacy-rest-api-image:
-	docker build -f Dockerfile.legacy-rest-api -t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-rest-api:latest .
+	docker build -f Dockerfile.legacy-rest-api \
+	--build-arg AWS_DEFAULT_REGION=${NLG_AWS_DEFAULT_REGION} \
+	--build-arg AWS_ACCESS_KEY_ID=${NLG_AWS_ACCESS_KEY_ID} \
+	--build-arg AWS_SECRET_ACCESS_KEY=${NLG_AWS_SECRET_ACCESS_KEY} \
+	-t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-rest-api:latest .
