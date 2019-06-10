@@ -6,6 +6,12 @@ enum Usage {
     DONT_CARE
 }
 
+enum PartOfSpeech {
+    ADJECTIVE
+    NOUN
+    VERB
+}
+
 ### User
 
 type Organization {
@@ -29,7 +35,7 @@ type Phrase {
 
 type Synonyms {
     rootPhrase:     Phrase!
-    phrases:        [ Phrase! ]
+    phrases:        [ Phrase! ]!
 }
 
 type ReaderFlag {
@@ -38,12 +44,14 @@ type ReaderFlag {
 }
 
 type ReaderFlagUsage {
+    id:             ID!
     flag:           ReaderFlag!
     usage:          Usage!
 }
 
 type PhraseUsageModel {
-    phrase:         Phrase!
+    id:             ID!
+    phrase:         String!
     defaultUsage:   Usage!
     readerUsage:    [ ReaderFlagUsage! ]!
 }
@@ -51,6 +59,7 @@ type PhraseUsageModel {
 type DictionaryItem {
     id:             ID!
     name:           String!
+    partOfSpeech:   PartOfSpeech
     usageModels:    [ PhraseUsageModel! ]!
 }
 
@@ -75,25 +84,36 @@ type Lexicon {
 
 type Query {
 
-    me:                         User!
+    me:               User!
 
-    dictionary:              [ DictionaryItem! ]!
+    dictionary:       [ DictionaryItem! ]!
 
     dictionaryItem(
-        id:         ID!
+        id:           ID!
     ):  DictionaryItem
 
-    phrases( query: String ):   [ Phrase! ]!
+    readerFlags:      [ ReaderFlag! ]!
 
-    readerFlags:                [ ReaderFlag! ]!
+    searchPhrases(
+        query:        String,
+        partOfSpeech: PartOfSpeech,
+    ):  [ Phrase! ]!
 
-    synonyms( phraseId: ID! ):  Synonyms!
+    searchSynonyms(
+        query:        String,
+        partOfSpeech: PartOfSpeech,
+    ):  [ Synonyms! ]!
 
     searchLexicon(
-        query:                  String
-        limit:                  Int
-        offset:                 Int
+        query:        String
+        limit:        Int
+        offset:       Int
     ):  Lexicon!
+
+    synonyms(
+        phraseId:     ID!
+    ):  Synonyms!
+
 }
 
 schema {

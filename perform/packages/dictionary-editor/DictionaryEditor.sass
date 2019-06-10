@@ -3,14 +3,21 @@
 
 .className
 
-    display:                grid
-    grid-template-columns:  $space-m 1fr
+    background-color:           $subtle-gray
+    height:                     100%
 
-    > .synonymSearch
+    .thesaurus
 
-        background-color:   $subtle-gray
+        height:                 100%
+        overflow-y:             auto
 
-    > .main
+    .separator
+
+        box-shadow:             -1px 0 0 $subtle-border, inset 1px 0 0 $white, inset -1px 0 0 $subtle-border
+        color:                  $gray
+        width:                  $space-l
+
+    .main
 
         background-color:       $white
         display:                grid

@@ -117,7 +117,14 @@ export default {
                 .map( Phrase );
         },
         readerFlags:    () => READER_FLAGS.map( ReaderFlag ),
+        searchPhrases:  ( _, { query }) => {
+            const re =  new RegExp( `^${ query }`, 'i' );
+            return Object.keys( SYNONYMS )
+                .filter( re.exec.bind( re ))
+                .map( Phrase );
+        },
         synonyms:       ( _, { phraseId }) => ({
+            __typename: 'Synonyms',
             rootPhrase: Phrase( phraseId ),
             phrases:    ( SYNONYMS[phraseId] || []).map( Phrase ),
         }),

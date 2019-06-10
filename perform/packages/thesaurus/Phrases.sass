@@ -1,0 +1,24 @@
+@import '../styles/variables'
+
+
+.className
+
+    $hover-back:        rgba( 0, 0, 0, .15 )
+
+    &,
+    > li
+
+        display:        block
+        list-style:     none
+        margin:         0
+        padding:        0
+
+    > li
+
+        box-shadow:     inset 1px 1px 0 $white, 1px 1px 0 $white, inset -1px -1px 0 $subtle-border, -1px -1px 0 $subtle-border
+        cursor:         grab
+        padding:        $space-s
+
+        &:hover
+
+            background-color:   $hover-back
