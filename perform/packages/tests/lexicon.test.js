@@ -184,6 +184,7 @@ test( 'add item save works', noRecordsPage, async t => {
     await t.page.type( SEL_NEW_ITEM.EDIT_TEXT, item.synonyms.join( EDIT_SYN_SEPARATOR ));
     t.page.click( SEL_NEW_ITEM.EDIT_SAVE );
 
+    await t.nlgApi.provideOnce( 'OPTIONS', '/lexicon/', '' );
     await t.nlgApi.interceptOnce( 'POST', '/lexicon/', request => {
         t.is(
             request.postData(),
