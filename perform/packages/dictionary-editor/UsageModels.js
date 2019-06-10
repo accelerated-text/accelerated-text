@@ -29,9 +29,9 @@ export default composeQueries({
             <tbody>
                 { usageModels && usageModels.map(
                     model =>
-                        <tr key={ model.phrase.id }>
-                            <td>{ model.phrase.text }</td>
-                            <UsageTd usage={ model.defaultUsage.usage } />
+                        <tr key={ model.id }>
+                            <td>{ model.phrase }</td>
+                            <UsageTd usage={ model.defaultUsage } />
                             { model.readerUsage.map(
                                 flagUsage => <UsageTd usage={ flagUsage.usage } />
                             )}

@@ -1,20 +1,19 @@
 query dictionaryIds {
-  dictionary @client {
+  dictionary {
     id
   }
 }
 
 query dictionaryItem( $id: ID! ) {
-    dictionaryItem( id: $id ) @client {
+    dictionaryItem( id: $id ) {
         id
         name
         usageModels {
-            phrase { id text }
-            defaultUsage {
-                flag { id name }
-                usage
-            }
+            id
+            phrase
+            defaultUsage
             readerUsage {
+                id
                 flag { id name }
                 usage
             }

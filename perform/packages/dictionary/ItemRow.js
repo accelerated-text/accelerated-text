@@ -36,7 +36,7 @@ export default composeQueries({
                     isEditable
                     onClick={ openDictionaryItem }
                     phrases={ dictionaryItem.usageModels.map(
-                        m => m.phrase.text
+                        m => m.phrase
                     ) }
                 />
             </td>
