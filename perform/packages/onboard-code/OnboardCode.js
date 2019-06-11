@@ -24,7 +24,7 @@ export default mount({
 ])( class OnboardCode extends Component {
 
     static propTypes = {
-        hasCode:            PropTypes.boolean,
+        hasCode:            PropTypes.bool,
     };
 
     onChangeInput = e =>

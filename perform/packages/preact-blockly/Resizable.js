@@ -14,7 +14,7 @@ export default class ResizableBlockly extends Component {
     };
 
     static propTypes = {
-        assetUrl:       PropTypes.string.required,
+        assetUrl:       PropTypes.string.isRequired,
         className:      PropTypes.string,
         language:       PropTypes.string,
         onBlockly:      PropTypes.func,

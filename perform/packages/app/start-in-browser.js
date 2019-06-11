@@ -1,7 +1,10 @@
-import { h, render } from 'preact';
-import 'preact/devtools';
+const { h, render } =       require( 'preact' );
 
-import App from './App';
-import './global-styles.sass';
+const App =                 require( './App' ).default;
+require( './global-styles.sass' );
+
+if( module.hot ) {
+    require( 'preact/debug' );
+}
 
 render( <App />, document.body );

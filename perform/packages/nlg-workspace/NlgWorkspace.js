@@ -21,7 +21,7 @@ export default class NlgWorkspace extends Component {
     static propTypes = {
         cellNames:          PropTypes.array,
         onChangeWorkspace:  PropTypes.func,
-        workspaceXml:       PropTypes.object,
+        workspaceXml:       PropTypes.string,
     };
 
     Blockly =               null;

@@ -34,7 +34,8 @@ export default async ( t, run, ...args ) => {
                 nlgApi.provideOnce( 'GET', `/data/${ DATA_FILE_LIST[0].key }`, createDataFileData({
                     fieldNames: DATA_FILE_LIST[0].fieldNames,
                 })),
-                nlgApi.provideOnce( 'POST', '/nlg/', NLG_JOB )
+                nlgApi.provideOnce( 'OPTIONS', '/nlg/', '' )
+                    .then(() => nlgApi.provideOnce( 'POST', '/nlg/', NLG_JOB ))
                     .then(() => nlgApi.provideOnce( 'GET', `/nlg/${ NLG_JOB.resultId }`, NLG_JOB_RESULT )),
             ])),
     ]);
