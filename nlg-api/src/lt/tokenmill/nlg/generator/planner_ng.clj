@@ -109,7 +109,7 @@
   (let [dyn-values (map get-placeholder (:dynamic context))
         values (concat (distinct (:static context)) dyn-values)
         _ (log/debugf "Context: %s" context)
-        generated (apply (partial ccg/generate (ccg/load-grammar (format "%s/grammar.xml" grammar-path))) values)]
+        generated (apply (partial ccg/generate (ccg/load-grammar (format "%s/grammar.xml" grammar-path))) (ops/distinct-wordlist values))]
     {:context context
      :templates generated}))
 

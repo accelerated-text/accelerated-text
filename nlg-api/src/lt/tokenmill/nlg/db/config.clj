@@ -10,3 +10,5 @@
 (defn client-opts []
   {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://localhost:8000")
    :profile "tm"})
+
+(defn s3-endpoint [] (System/getenv "S3_ENDPOINT"))

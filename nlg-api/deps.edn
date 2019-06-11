@@ -14,7 +14,7 @@
              com.amazonaws/aws-java-sdk-s3      {:mvn/version "1.11.337"}
              opennlp/ccg                        {:mvn/version "0.10.0"}
              http-kit                           {:mvn/version "2.3.0"}}
- :paths     ["src"]
+ :paths     ["src" "resources"]
  :mvn/repos {"central"      {:url "https://repo1.maven.org/maven2/"}
              "clojars"      {:url "https://clojars.org/repo"}
              "tokenmill-s3" {:url "s3://nlg-repo/maven/releases"}}

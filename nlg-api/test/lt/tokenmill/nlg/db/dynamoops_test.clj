@@ -16,13 +16,13 @@
     (delete-item [this key] ())
     (list-items [this limit] ())))
 
-(deftest test-write-wo-key
+(deftest ^:integration test-write-wo-key
   (let [db mock-db
         result (ops/write! db {:something "somedata"})]
     (is (not (empty? result)))
     (is (:something result))))
 
-(deftest test-write-w-key
+(deftest ^:integration test-write-w-key
   (let [db mock-db
         result (ops/write! db "testKey" {:something "somedata"})]
     (is (not (empty? result)))
