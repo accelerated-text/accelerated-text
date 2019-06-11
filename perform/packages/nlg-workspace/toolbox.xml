@@ -39,7 +39,7 @@
         <block type="Cell" />
         <block type="Quote" />
         <block type="Get-var" />
-        <block type="DictionaryItem" />
+        <block type="Dictionary-item" />
     </category>
     <category name="Logic">
         <block type="If-then-else" />

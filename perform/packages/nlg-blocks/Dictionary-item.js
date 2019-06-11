@@ -7,7 +7,7 @@ import * as T           from './types';
 
 export default Block({
 
-    type:                   'DictionaryItem',
+    type:                   'Dictionary-item',
 
     json: {
         colour:             BLUER,

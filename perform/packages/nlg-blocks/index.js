@@ -2,7 +2,7 @@ const blocks = [
     require( './And-or' ),
     require( './Cell' ),
     require( './Define-var' ),
-    require( './DictionaryItem' ),
+    require( './Dictionary-item' ),
     require( './Document-plan' ),
     require( './Get-var' ),
     require( './If-then-else' ),
