@@ -29,6 +29,10 @@ export const getVariants = async ({ ccg, dataId, documentPlanId }) => {
         ccg,
         dataId,
         documentPlanId,
+        readerFlagValues: {
+            junior:         true,
+            senior:         false,
+        },
     });
 
     return new Promise(( resolve, reject ) =>
