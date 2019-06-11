@@ -151,7 +151,6 @@
           expected "a snug fit for everyday wear"]
       (is (string/includes? result expected)))))
 
-
 (deftest generate-complex-examples
   (testing "Create text with if"
     (let [document-plan (load-test-data "subj-w-if-else")
@@ -173,3 +172,12 @@
           result (first (render-dp document-plan data))
           expected "cool looking fit"]
       (is (string/includes? result expected)))))
+
+(deftest ^:integration plan-with-dictionary
+  (testing "Create text with dictionary"
+    (let [document-plan (load-test-data "subj-w-dictionary")
+          data {:product-name "Nike Air"
+                 :main-feature "comfort"
+                 :secondary-feature "support"}
+          result (render-dp document-plan data)]
+      (is (not (empty? result))))))

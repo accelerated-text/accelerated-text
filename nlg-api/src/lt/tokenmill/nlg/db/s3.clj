@@ -1,11 +1,17 @@
 (ns lt.tokenmill.nlg.db.s3
-  (:require [clojure.tools.logging :as log])
+  (:require [clojure.tools.logging :as log]
+            [lt.tokenmill.nlg.db.config :as config])
   (:import (com.amazonaws.services.s3 AmazonS3Client)
            (com.amazonaws ClientConfiguration)))
 
-(def client
-  (let [configuration (-> (ClientConfiguration.))]
-    (AmazonS3Client. configuration)))
+(defn build-client
+  []
+  (let [endpoint (config/s3-endpoint)
+        configuration (ClientConfiguration.)
+        client (AmazonS3Client. configuration)]
+    (when endpoint
+      (.setEndpoint client endpoint))
+    client))
 
 (defn grant->map
   [grant]
@@ -21,19 +27,19 @@
 
 (defn get-acl
   [bucket path]
-  (let [acl (.getObjectAcl client bucket path)
+  (let [acl (.getObjectAcl (build-client) bucket path)
         grants (.getGrantsAsList acl)]
     (map grant->map grants)))
 
 (defn read-file
   [bucket path]
-  (let [s3-object (.getObject client bucket path)
+  (let [s3-object (.getObject (build-client) bucket path)
         content (.getObjectContent s3-object)]
     (slurp content)))
 
 (defn list-files
   [bucket path limit]
-  (let [resp (.listObjects client bucket path)
+  (let [resp (.listObjects (build-client) bucket path)
         summary (.getObjectSummaries resp)
         results (map summary->map summary)]
     results))

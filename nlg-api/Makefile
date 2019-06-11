@@ -8,7 +8,9 @@ unit-tests:
 	clj -A:test -e :integration
 
 integration-tests:
-	clj -A:test
+	docker-compose -p test -f docker-compose.test.yml down && \
+	docker-compose -p test -f docker-compose.test.yml build && \
+	docker-compose -p test -f docker-compose.test.yml up --remove-orphans --abort-on-container-exit --exit-code-from legacy-api
 
 build:
 	clj -A:rest-uberjar

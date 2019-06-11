@@ -98,3 +98,11 @@
     (let [head (string/join ", " (butlast words))
           tail (last words)]
       (string/join " " [head "and" tail]))))
+
+
+(defn distinct-wordlist
+  [values]
+  (let [wordlists (filter (fn [v] (= :wordlist (get-in v [:attrs :type]))) values)
+        other (filter (fn [v] (not (= :wordlist (get-in v [:attrs :type])))) values)
+        wordlists-grouped (group-by (fn [v] (get-in v [:attrs :class])) wordlists)]
+    (concat other (map (fn [[k v]] (rand-nth v)) wordlists-grouped))))

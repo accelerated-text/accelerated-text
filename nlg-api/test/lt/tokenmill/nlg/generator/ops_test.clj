@@ -34,3 +34,11 @@
     (let [data ["apple" "orange" "pear" "mango"]
           expected "apple, orange, pear and mango"]
       (is (= expected (ops/join-words data))))))
+
+(deftest test-wordlist-filter
+  (testing "Filter simple wordlist"
+    (let [data (list {:name "w1", :attrs {:type :wordlist :class :test}}
+                     {:name "w2", :attrs {:type :wordlist :class :test}}
+                     {:name "w3", :attrs {:type :wordlist :class :test}})
+          result (ops/distinct-wordlist data)]
+      (is (= 1 (count result))))))
