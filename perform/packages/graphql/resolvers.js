@@ -105,22 +105,6 @@ export default {
     Organization,
     User,
     Mutation: {
-        updatePhraseUsageModelDefault: ( _, { id, defaultUsage }, { cache, getCacheKey }) => {
-            const __typename =  'PhraseUsageModel';
-
-            cache.writeData({
-                id:     getCacheKey({ __typename, id }),
-                data:   { defaultUsage },
-            });
-        },
-        updateReaderFlagUsage: ( _, { id, usage }, { cache, getCacheKey }) => {
-            const __typename =  'ReaderFlagUsage';
-
-            cache.writeData({
-                id:     getCacheKey({ __typename, id }),
-                data:   { usage },
-            });
-        },
     },
     Query: {
         me:             User,

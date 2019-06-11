@@ -1,5 +1,10 @@
 ### Enums
 
+enum DefaultUsage {
+    YES
+    NO
+}
+
 enum Usage {
     YES
     NO
@@ -52,7 +57,7 @@ type ReaderFlagUsage {
 type PhraseUsageModel {
     id:             ID!
     phrase:         String!
-    defaultUsage:   Usage!
+    defaultUsage:   DefaultUsage!
     readerUsage:    [ ReaderFlagUsage! ]!
 }
 
@@ -84,9 +89,27 @@ type Lexicon {
 
 type Mutation {
 
+    createDictionaryItem(
+        name:         String!
+    ):  DictionaryItem!
+
+    createPhraseUsageModel(
+        dictionaryItemId: ID!
+        phrase:           String!
+        defaultUsage:     DefaultUsage
+    ):  DictionaryItem!
+
+    deleteDictionaryItem(
+        id:           ID!
+    ):  ID!
+
+    deletePhraseUsageModel(
+        id:           ID!
+    ):  DictionaryItem!
+
     updatePhraseUsageModelDefault(
         id:           ID!
-        defaultUsage: Usage!
+        defaultUsage: DefaultUsage!
     ):  PhraseUsageModel!
 
     updateReaderFlagUsage(
@@ -130,5 +153,6 @@ type Query {
 }
 
 schema {
+  mutation:       Mutation
   query:          Query
 }

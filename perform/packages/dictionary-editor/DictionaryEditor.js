@@ -36,6 +36,7 @@ export default composeQueries({
             </div>
             <UsageModels
                 className={ S.usageModels }
+                itemId={ item && item.id }
                 usageModels={ item && item.usageModels }
             />
         </Section>

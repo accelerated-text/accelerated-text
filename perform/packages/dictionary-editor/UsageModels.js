@@ -3,7 +3,9 @@ import { h }                from 'preact';
 
 import { composeQueries }   from '../graphql/';
 import { readerFlags }      from '../graphql/queries.graphql';
+import UsageTd              from '../usage/UsageTd';
 
+import AddPhrase            from './AddPhrase';
 import Row                  from './UsageModelRow';
 import S                    from './UsageModels.sass';
 
@@ -12,6 +14,7 @@ export default composeQueries({
     readerFlags,
 })(({
     className,
+    itemId,
     usageModels,
     readerFlags: { readerFlags },
 }) =>
@@ -31,6 +34,10 @@ export default composeQueries({
                     <Row key={ model.id } model={ model } />
                 )}
             </tbody>
+            <AddPhrase
+                className={ S.newPhrase }
+                itemId={ itemId }
+            />
         </table>
     </div>
 );
