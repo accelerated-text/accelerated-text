@@ -2,6 +2,9 @@ PREACT_MAKE= cd perform && make
 PROJECT_NAME=accelerated-text
 PYTEST_DOCKER="registry.gitlab.com/tokenmill/nlg/${PROJECT_NAME}/pytest:latest"
 
+include .env
+export
+
 .PHONY: test
 test:
 	${PREACT_MAKE} test
@@ -54,6 +57,18 @@ build-dynamodb-docker:
 	docker commit dynamo-build registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
 	docker stop dynamo-build
 	docker rm dynamo-build
+
+build-s3-docker:
+	docker pull scality/s3server
+	docker run -d -p 8000:8000 --name s3-build -e SCALITY_ACCESS_KEY_ID=${NLG_AWS_ACCESS_KEY_ID} -e SCALITY_SECRET_ACCESS_KEY=${NLG_AWS_SECRET_ACCESS_KEY} -e S3BACKEND="mem" scality/s3server
+	aws s3 mb s3://accelerated-text-data-files/example-user/ --endpoint-url http://localhost:8000 
+	aws s3 cp nlg-api/resources/data-example.csv s3://accelerated-text-data-files/example-user/ --endpoint-url http://localhost:8000 
+	docker commit s3-build registry.gitlab.com/tokenmill/nlg/accelerated-text/s3-local:latest
+	docker stop s3-build
+	docker rm s3-build
+
+publish-s3-docker:
+	docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/s3-local:latest
 
 publish-dynamodb-docker:
 	docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
