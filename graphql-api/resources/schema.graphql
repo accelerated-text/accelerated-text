@@ -98,6 +98,20 @@ type Query {
 	): 	Lexicon!
 }
 
+type Mutation {
+
+    updatePhraseUsageModelDefault(
+        id:           ID!
+        defaultUsage: Usage!
+    ):  PhraseUsageModel!
+
+    updateReaderFlagUsage(
+        id:           ID!
+        usage:        Usage!
+    ):  ReaderFlagUsage!
+}
+
 schema {
     query: Query
+    mutation: Mutation
 }

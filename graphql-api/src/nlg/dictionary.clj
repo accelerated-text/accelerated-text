@@ -33,3 +33,13 @@
   (-> (partial ops/read! (ops/db-access :reader-flag))
       (utils/do-return {:id id})
       (process-search-response {})))
+
+(defn update-reader-flag-usage [{:keys [id usage]}]
+  (-> (partial ops/update! (ops/db-access :reader-flag-usage))
+      (utils/do-update {:id id} {:usage usage})
+      (process-search-response {})))
+
+(defn update-phrase-usage [{:keys [id defaultUsage]}]
+  (-> (partial ops/update! (ops/db-access :phrase-usage))
+      (utils/do-update {:id id} {:defaultUsage defaultUsage})
+      (process-search-response {})))

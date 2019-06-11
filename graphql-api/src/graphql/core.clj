@@ -27,6 +27,12 @@
 (defn get-reader-flag [_ _ value]
   (dictionary/reader-flag {:id (:readerFlag value)}))
 
+(defn update-reader-flag-usage [_ arguments _]
+  (dictionary/update-reader-flag-usage arguments))
+
+(defn update-phrase-usage-model [_ arguments _]
+  (dictionary/update-phrase-usage arguments))
+
 (def nlg-schema
   (-> "schema.graphql"
       (io/resource)
@@ -34,6 +40,8 @@
       (parser/parse-schema {:resolvers {:Query            {:searchLexicon  :get-lexicon
                                                            :dictionary     :dictionary
                                                            :dictionaryItem :dictionary-item}
+                                        :Mutation         {:updateReaderFlagUsage :update-reader-flag-usage
+                                                           :updatePhraseUsageModelDefault :update-phrase-usage-model}
                                         :DictionaryItem   {:usageModels :phrase-usage}
                                         :PhraseUsageModel {:readerUsage :get-reader-usage}
                                         :ReaderFlagUsage  {:flag :get-reader-flag}}})
@@ -42,7 +50,9 @@
                               :dictionary-item  get-dictionary-item
                               :phrase-usage     get-phrase-usage-models
                               :get-reader-usage get-reader-usage
-                              :get-reader-flag  get-reader-flag})
+                              :get-reader-flag  get-reader-flag
+                              :update-reader-flag-usage update-reader-flag-usage
+                              :update-phrase-usage-model update-phrase-usage-model})
       schema/compile))
 
 (defn nlg [{:keys [query variables context] :as request}]

@@ -69,10 +69,10 @@
           body))
       (update-item [this key data]
         (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
-        (let [original (far/get-item (config/client-opts) table-name {:key key})
+        (let [original (far/get-item (config/client-opts) table-name key)
               body (-> (merge original data)
                        (assoc :updatedAt (utils/ts-now))
-                       (assoc :key key))]
+                       (conj key))]
           (far/put-item (config/client-opts) table-name body)
           body))
       (delete-item [this key]
