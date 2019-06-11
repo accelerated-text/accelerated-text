@@ -56,6 +56,12 @@ export default {
         onGetListResult:            updateOnNewOpened,
     },
 
+    reader: {
+
+        onToggleFlag: ( _, { E }) =>
+            E.variantsApi.onGet.async(),
+    },
+
     variantsApi: {
 
         onGet: ( _,  { E, getStoreState }) => (
@@ -66,11 +72,13 @@ export default {
         onGetStart: ( _, { E, getStoreState }) => {
 
             const plan =    getOpenedPlan( getStoreState );
+            const reader =  getStoreState( 'reader' );
 
             getVariants({
-                ccg:            !!plan.useCcg,
-                dataId:         plan.dataSampleId,
-                documentPlanId: plan.id,
+                ccg:                !!plan.useCcg,
+                dataId:             plan.dataSampleId,
+                documentPlanId:     plan.id,
+                readerFlagValues:   reader.flagValues,
             })
                 .then( debug.tapThen( 'getVariants result' ))
                 .then( result => {

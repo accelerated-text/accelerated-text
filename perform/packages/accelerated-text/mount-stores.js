@@ -7,6 +7,7 @@ module.exports = mount({
     documentPlans:          require( '../document-plans/store' ).default,
     lexicon:                require( '../lexicon/store' ).default,
     planList:               require( '../plan-list/store' ).default,
+    reader:                 require( '../reader/store' ).default,
     user:                   require( '../user/store' ).default,
     variantsApi:            require( '../variants-api/store' ).default,
 }, [
