@@ -25,10 +25,12 @@ mutation createDictionaryItem(
 mutation createPhraseUsageModel(
   $dictionaryItemId:  ID!
   $phrase:            String!
+  $defaultUsage:      DefaultUsage
 ) {
   createPhraseUsageModel(
     dictionaryItemId: $dictionaryItemId
     phrase:           $phrase
+    defaultUsage:     $defaultUsage
   ) {
     id
     name
