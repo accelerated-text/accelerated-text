@@ -33,7 +33,7 @@
 (defn update-phrase-usage-model [_ arguments _]
   (dictionary/update-phrase-usage arguments))
 
-(defn create-phrase-usage-model [_ {:keys [dictionaryItemId phrase defaultUsage]} _]
+(defn create-phrase-usage-model [_ {:keys [dictionaryItemId phrase defaultUsage] :or {defaultUsage :YES}} _]
   (dictionary/update-dictionary-item-usage-models {:id dictionaryItemId :phrase phrase :defaultUsage defaultUsage}))
 
 (def nlg-schema
