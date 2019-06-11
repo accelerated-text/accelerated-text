@@ -18,7 +18,7 @@
 
 (defprotocol DBAccess
   (read-item [this key])
-  (write-item [this key data])
+  (write-item [this data])
   (update-item [this key data])
   (delete-item [this key])
   (list-items [this limit])
@@ -27,11 +27,7 @@
 
 (defn read! [this key] (read-item this key))
 
-(defn write!
-  ([this data]
-   (write-item this (utils/gen-uuid) data))
-  ([this key data]
-   (write-item this key data)))
+(defn write! [this data] (write-item this data))
 
 (defn update! [this key data] (update-item this key data))
 
@@ -58,14 +54,12 @@
       DBAccess
       (read-item [this key]
         (far/get-item (config/client-opts) table-name key))
-      (write-item [this key data]
-        (log/debugf "Writing\n key: '%s' \n content: '%s'" key data)
+      (write-item [this data]
+        (log/debugf "Writing\n content: '%s'" data)
         (let [body (-> data
-                       (assoc :key key)
                        (assoc :createdAt (utils/ts-now))
-                       (assoc :updatedAt (utils/ts-now)))
-              normalized (doall (normalize body))]
-          (far/put-item (config/client-opts) table-name normalized)
+                       (assoc :updatedAt (utils/ts-now)))]
+          (far/put-item (config/client-opts) table-name body)
           body))
       (update-item [this key data]
         (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)

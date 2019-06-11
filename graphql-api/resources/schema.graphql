@@ -6,6 +6,11 @@ enum Usage {
     DONT_CARE
 }
 
+enum DefaultUsage {
+    YES
+    NO
+}
+
 ### User
 
 type Organization {
@@ -46,7 +51,7 @@ type ReaderFlagUsage {
 type PhraseUsageModel {
     id:             ID!
     phrase:         String!
-    defaultUsage:   Usage!
+    defaultUsage:   DefaultUsage!
     readerUsage:    [ ReaderFlagUsage! ]!
 }
 
@@ -100,9 +105,15 @@ type Query {
 
 type Mutation {
 
+    createPhraseUsageModel(
+        dictionaryItemId: ID!
+        phrase:           String!
+        defaultUsage:     DefaultUsage
+    ):  DictionaryItem!
+
     updatePhraseUsageModelDefault(
         id:           ID!
-        defaultUsage: Usage!
+        defaultUsage: DefaultUsage!
     ):  PhraseUsageModel!
 
     updateReaderFlagUsage(
@@ -112,6 +123,6 @@ type Mutation {
 }
 
 schema {
-    query: Query
+    query:    Query
     mutation: Mutation
 }

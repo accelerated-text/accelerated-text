@@ -33,6 +33,9 @@
 (defn update-phrase-usage-model [_ arguments _]
   (dictionary/update-phrase-usage arguments))
 
+(defn create-phrase-usage-model [_ {:keys [dictionaryItemId phrase defaultUsage]} _]
+  (dictionary/update-dictionary-item-usage-models {:id dictionaryItemId :phrase phrase :defaultUsage defaultUsage}))
+
 (def nlg-schema
   (-> "schema.graphql"
       (io/resource)
@@ -41,7 +44,8 @@
                                                            :dictionary     :dictionary
                                                            :dictionaryItem :dictionary-item}
                                         :Mutation         {:updateReaderFlagUsage :update-reader-flag-usage
-                                                           :updatePhraseUsageModelDefault :update-phrase-usage-model}
+                                                           :updatePhraseUsageModelDefault :update-phrase-usage-model
+                                                           :createPhraseUsageModel :create-phrase-usage-model}
                                         :DictionaryItem   {:usageModels :phrase-usage}
                                         :PhraseUsageModel {:readerUsage :get-reader-usage}
                                         :ReaderFlagUsage  {:flag :get-reader-flag}}})
@@ -52,7 +56,8 @@
                               :get-reader-usage get-reader-usage
                               :get-reader-flag  get-reader-flag
                               :update-reader-flag-usage update-reader-flag-usage
-                              :update-phrase-usage-model update-phrase-usage-model})
+                              :update-phrase-usage-model update-phrase-usage-model
+                              :create-phrase-usage-model create-phrase-usage-model})
       schema/compile))
 
 (defn nlg [{:keys [query variables context] :as request}]
