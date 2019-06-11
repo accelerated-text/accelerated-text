@@ -2,7 +2,7 @@ PREACT_MAKE= cd perform && make
 PROJECT_NAME=accelerated-text
 PYTEST_DOCKER="registry.gitlab.com/tokenmill/nlg/${PROJECT_NAME}/pytest:latest"
 
-include .env
+-include .env
 export
 
 .PHONY: test
