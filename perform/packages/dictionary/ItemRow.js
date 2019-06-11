@@ -31,11 +31,13 @@ export default composeQueries({
                     width={ 36 }
                 />
             </td>
-            <td className={ S.name }>{ dictionaryItem.name }</td>
-            <td>
+            <td
+                children={ dictionaryItem.name }
+                className={ S.name }
+                onClick={ openDictionaryItem }
+            />
+            <td onClick={ openDictionaryItem }>
                 <ShowPhrases
-                    isEditable
-                    onClick={ openDictionaryItem }
                     phrases={ dictionaryItem.usageModels.map(
                         m => m.phrase
                     ) }

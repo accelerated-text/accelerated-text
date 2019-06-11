@@ -5,6 +5,8 @@
 .className
     @include groove-table( 1 / 8 )
 
+    $td-background:       rgba( 255, 255, 255, 2 / 3 )
+
     width:                      100%
 
     td,
@@ -16,3 +18,8 @@
 
         font-weight:            $bold
         text-align:             left
+
+    > tbody > tr > td
+
+        background-color:       $td-background
+        cursor:                 pointer
