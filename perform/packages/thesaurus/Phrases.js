@@ -1,6 +1,7 @@
 import classnames               from 'classnames';
 import { h }                    from 'preact';
 
+import Phrase                   from './Phrase';
 import S                        from './Phrases.sass';
 
 
@@ -9,13 +10,8 @@ export default ({
     onClickPhrase,
     phrases,
 }) =>
-    <ol className={ classnames( S.className, className ) }>{
-        phrases && phrases.map(
-            phrase =>
-                <li
-                    key={ phrase.id }
-                    children={ phrase.text }
-                    onClick={ () => onClickPhrase( phrase ) }
-                />
-        )
-    }</ol>;
+    <ol className={ classnames( S.className, className ) }>
+        { phrases && phrases.map( phrase =>
+            <Phrase key={ phrase.id } onClick={ onClickPhrase } phrase={ phrase } />
+        )}
+    </ol>;
