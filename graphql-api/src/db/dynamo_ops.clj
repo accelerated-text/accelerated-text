@@ -66,12 +66,13 @@
         (let [original (far/get-item (config/client-opts) table-name key)
               body (-> (merge original data)
                        (assoc :updatedAt (utils/ts-now))
-                       (conj key))]
-          (far/put-item (config/client-opts) table-name body)
+                       (conj key))
+              normalized (doall (normalize body))]
+          (far/put-item (config/client-opts) table-name normalized)
           body))
       (delete-item [this key]
         (log/debugf "Deleting\n key: '%s'" key)
-        (far/delete-item (config/client-opts) table-name {:key key}))
+        (far/delete-item (config/client-opts) table-name key))
       (list-items [this limit]
         (far/scan (config/client-opts) table-name {:limit limit}))
       (scan-items [this opts]

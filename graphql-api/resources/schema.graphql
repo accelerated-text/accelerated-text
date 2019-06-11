@@ -111,6 +111,10 @@ type Mutation {
         defaultUsage:     DefaultUsage
     ):  DictionaryItem!
 
+    deletePhraseUsageModel(
+        id:           ID!
+    ):  DictionaryItem!
+
     updatePhraseUsageModelDefault(
         id:           ID!
         defaultUsage: DefaultUsage!

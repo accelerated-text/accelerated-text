@@ -22,6 +22,11 @@
       (utils/do-return {:id id})
       (process-response {})))
 
+(defn phrase-usage-model [{:keys [id]}]
+  (-> (partial ops/read! (ops/db-access :phrase-usage))
+      (utils/do-return {:id id})
+      (process-response {})))
+
 (defn phrase-usage-models [{:keys [ids]}]
   (-> (partial ops/batch-read! (ops/db-access :phrase-usage))
       (utils/do-return {:prim-kvs {:id ids}})
@@ -73,9 +78,30 @@
                           :readerUsage  reader-usage-model-ids})
         (process-response {}))))
 
-(defn update-dictionary-item-usage-models [{:keys [id phrase defaultUsage]}]
-  (let [usage-model-ids (:usageModels (dictionary-item {:id id}))
-        new-phrase-model-id (:id (create-phrase-usage-model {:phrase phrase :defaultUsage defaultUsage}))]
-    (-> (partial ops/update! (ops/db-access :dictionary))
-        (utils/do-update {:id id} {:usageModels (conj usage-model-ids new-phrase-model-id)})
-        (process-response {}))))
+(defn update-dictionary-item-usage-models [{:keys [id usageModels]}]
+  (-> (partial ops/update! (ops/db-access :dictionary))
+      (utils/do-update {:id id} {:usageModels usageModels})
+      (process-response {})))
+
+(defn delete-reader-flag-usage-model [{:keys [id]}]
+  (process-response (utils/do-delete (partial ops/read! (ops/db-access :reader-flag-usage))
+                                     (partial ops/delete! (ops/db-access :reader-flag-usage))
+                                     {:id id})
+                    {}))
+
+(defn delete-phrase-usage-model [{:keys [id]}]
+  (doseq [reader-usage-id (:readerUsage (phrase-usage-model {:id id}))]
+    (delete-reader-flag-usage-model {:id reader-usage-id}))
+  (process-response (utils/do-delete (partial ops/read! (ops/db-access :phrase-usage))
+                                     (partial ops/delete! (ops/db-access :phrase-usage))
+                                     {:id id})
+                    {}))
+
+(defn dictionary-item-id-that-contains-phrase-model [{:keys [id]}]
+  (let [dict-items (list-dictionary-items)]
+    (loop [dictionary-item (first dict-items) remaining (rest dict-items)]
+     (if dictionary-item
+       (if (some #(= id %) (:usageModels dictionary-item))
+         (:id dictionary-item)
+         (recur (first remaining) (rest remaining)))
+       (throw (Exception. (format "No 'dictionary-item' found that contains 'phrase-usage-model' with id: `%s`" id)))))))
