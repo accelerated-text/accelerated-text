@@ -25,6 +25,7 @@ export default composeQueries({
         <tr className={ S.className }>
             <td className={ S.dragInBlock }>
                 <DragInBlock
+                    color={ S.dragInColor }
                     fields={{ name: dictionaryItem.name }}
                     type="DictionaryItem"
                     width={ 36 }
