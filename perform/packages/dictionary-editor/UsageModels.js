@@ -1,13 +1,16 @@
 import classnames           from 'classnames';
 import { h }                from 'preact';
+import { sortBy, prop }     from 'ramda';
 
 import { composeQueries }   from '../graphql/';
 import { readerFlags }      from '../graphql/queries.graphql';
-import UsageTd              from '../usage/UsageTd';
 
 import AddPhrase            from './AddPhrase';
 import Row                  from './UsageModelRow';
 import S                    from './UsageModels.sass';
+
+
+const sortByPhrase =        sortBy( prop( 'phrase' ));
 
 
 export default composeQueries({
@@ -30,7 +33,7 @@ export default composeQueries({
                 </tr>
             </thead>
             <tbody>
-                { usageModels && usageModels.map( model =>
+                { usageModels && sortByPhrase( usageModels ).map( model =>
                     <Row key={ model.id } model={ model } />
                 )}
             </tbody>
