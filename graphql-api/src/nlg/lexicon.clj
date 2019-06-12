@@ -60,7 +60,7 @@
     (if (not= 200 (get response :status))
       response
       (utils/do-update (comp #(dissoc % :word) (partial ops/update! db))
-                       key
+                       {:key key}
                        (merge
                          (get response :body)
                          (dissoc request-body :key)
