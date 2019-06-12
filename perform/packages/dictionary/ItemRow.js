@@ -3,7 +3,7 @@ import { h }                    from 'preact';
 import DragInBlock              from '../drag-in-blocks/DragInBlock';
 import { composeQueries }       from '../graphql/';
 
-import { openDictionaryItem }   from '../accelerated-text/graphql';
+import { openDictionaryItem }   from '../accelerated-text/local-state';
 import { dictionaryItem }       from '../graphql/queries.graphql';
 import ShowPhrases              from '../lexicon/ShowPhrases';
 

@@ -9,7 +9,7 @@ import EditorSidebar        from '../plan-editor/Sidebar';
 import Header               from '../header/Header';
 import PlanEditor           from '../plan-editor/PlanEditor';
 
-import { acceleratedText }  from './graphql';
+import { acceleratedText }  from './local-state';
 import mountStores          from './mount-stores';
 import S                    from './AcceleratedText.sass';
 

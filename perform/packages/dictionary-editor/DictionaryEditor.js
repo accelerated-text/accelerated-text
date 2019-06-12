@@ -7,7 +7,7 @@ import {
 
 import { composeQueries }       from '../graphql/';
 
-import { closeDictionaryItem }  from '../accelerated-text/graphql';
+import { closeDictionaryItem }  from '../accelerated-text/local-state';
 import { dictionaryItem }       from '../graphql/queries.graphql';
 import Thesaurus                from '../thesaurus/Thesaurus';
 
