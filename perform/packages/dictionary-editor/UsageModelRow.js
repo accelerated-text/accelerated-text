@@ -64,6 +64,7 @@ export default composeQueries({
             <tr className={ className }>
                 <td>{ model.phrase }</td>
                 <UsageTd
+                    defaultUsage
                     onChange={ this.onChangeDefaultUsage }
                     usage={ model.defaultUsage }
                 />

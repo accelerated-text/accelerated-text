@@ -67,6 +67,7 @@ export default composeQueries({
                         </form>
                     </td>
                     <UsageTd
+                        defaultUsage
                         onChange={ this.onChangeUsage }
                         usage={ this.state.defaultUsage }
                     />

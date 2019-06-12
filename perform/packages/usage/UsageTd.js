@@ -12,6 +12,7 @@ export default class UsageTd extends Component {
 
     render({
         className,
+        defaultUsage,
         onChange,
         usage,
     }) {
@@ -22,11 +23,15 @@ export default class UsageTd extends Component {
                     className={ S.YES }
                     onClick={ this.onClickYes }
                 />
-                <span
-                    children="⚪️"
-                    className={ S.DONT_CARE }
-                    onClick={ this.onClickDontCare }
-                />
+                {
+                    defaultUsage
+                        ? null
+                        : <span
+                            children="⚪️"
+                            className={ S.DONT_CARE }
+                            onClick={ this.onClickDontCare }
+                        />
+                }
                 <span
                     children="❌"
                     className={ S.NO }
