@@ -22,12 +22,12 @@
     csv))
 
 (defn generation-process
-  [dp-id data-id result-fn ccg?]
+  [dp-id data-id result-fn reader-model]
   (let [db (get-db)
         data (get-data data-id)
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
-        results (utils/result-or-error (planner/render-dp dp data))
+        results (utils/result-or-error (planner/render-dp dp data reader-model))
         body (if (map? results)
                results
                {:ready true
@@ -36,16 +36,20 @@
     (log/debugf "Body: %s" body)
     (result-fn body)))
 
+(def default-reader-model
+  {:junior false
+   :senior false})
+
 
 (defn generate-request [request-body]
   (let [db (get-db)
         document-plan-id (request-body :documentPlanId)
         data-id (request-body :dataId)
-        ccg? (get request-body :ccg false)
+        reader-model (get request-body :readerFlagValues default-reader-model)
         result-id (utils/gen-uuid)
         init-results (ops/update! db result-id {:ready false})
         result-fn (fn [body] (ops/update! db result-id body))
-        job @(future (generation-process document-plan-id data-id result-fn ccg?))]
+        job @(future (generation-process document-plan-id data-id result-fn reader-model))]
     (utils/do-return (fn [] {:resultId result-id}))))
 
 (defn wrap-to-annotated-text
