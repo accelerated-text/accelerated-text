@@ -1,10 +1,3 @@
-import {
-    flatten,
-    keys,
-    values,
-}   from 'ramda';
-
-
 const READER_FLAGS = [ 'junior', 'senior' ];
 
 const SYNONYMS = {
@@ -15,23 +8,6 @@ const SYNONYMS = {
     see:            [ 'detect examine', 'identify', 'look', 'look at', 'notice', 'observe', 'recognize', 'regard', 'spot', 'view', 'watch', 'witness', 'beam', 'behold', 'clock', 'contemplate', 'descry', 'discern', 'distinguish', 'espy', 'eye', 'flash', 'gape', 'gawk', 'gaze', 'glare', 'glimpse', 'heed', 'inspect', 'mark', 'mind', 'note', 'peek', 'peep', 'peer', 'peg', 'penetrate', 'pierce', 'remark', 'scan', 'scope', 'scrutinize', 'sight', 'spy', 'stare', 'survey', 'be apprised of', 'catch a glimpse of', 'catch sight of', 'get a load of', 'lay eyes on', 'make out', 'pay attention to', 'take notice' ],
     view:           [ 'consider', 'examine', 'explore', 'notice', 'observe', 'perceive', 'read', 'regard', 'scrutinize', 'see', 'watch', 'witness', 'beam', 'behold', 'canvass', 'contemplate', 'descry', 'dig', 'discern', 'distinguish', 'espy', 'eye', 'flash', 'gaze', 'inspect', 'mark', 'pipe', 'rubberneck', 'scan', 'scope', 'spot', 'spy', 'stare', 'survey', 'check out', 'check over', 'eagle eye', 'feast eyes on', 'get a load of', 'lay eyes on', 'set eyes on', 'take in' ],
     watch:          [ 'attend', 'check out', 'examine', 'follow', 'keep an eye on', 'listen', 'look', 'observe', 'regard', 'scan', 'scrutinize', 'see', 'stare', 'view', 'wait', 'case', 'concentrate', 'contemplate', 'eye', 'eyeball', 'focus', 'gaze', 'inspect', 'mark', 'mind', 'note', 'peer', 'pipe', 'rubberneck', 'scope', 'spy', 'eagle-eye', 'get a load of', 'give the once over', 'have a look-see', 'keep tabs on', 'pay attention', 'take in', 'take notice' ],
-};
-
-const USAGE = {
-    YES:            'YES',
-    NO:             'NO',
-    DONT_CARE:      'DONT_CARE',
-};
-
-const DICTIONARY = {
-    see:    [
-        [ 'see',            USAGE.YES,          USAGE.DONT_CARE,    USAGE.DONT_CARE ],
-        [ 'examine',        USAGE.YES,          USAGE.NO,           USAGE.DONT_CARE ],
-        [ 'look',           USAGE.YES,          USAGE.DONT_CARE,    USAGE.DONT_CARE ],
-        [ 'watch',          USAGE.YES,          USAGE.DONT_CARE,    USAGE.DONT_CARE ],
-        [ 'check out',      USAGE.NO,           USAGE.YES,          USAGE.DONT_CARE ],
-        [ 'contemplate',    USAGE.DONT_CARE,    USAGE.DONT_CARE,    USAGE.YES ],
-    ],
 };
 
 
@@ -58,48 +34,6 @@ export const User = () => ({
     organization:   Organization,
 });
 
-export const DictionaryItem = ( name, usageModels = []) => ({
-    __typename:     'DictionaryItem',
-    id:             name,
-    name,
-    usageModels,
-});
-
-export const PhraseUsageModel = ( phrase, defaultUsage, readerUsage = []) => ({
-    __typename:     'PhraseUsageModel',
-    phrase,
-    defaultUsage,
-    readerUsage,
-});
-
-export const ReaderFlagUsage = ( flag, usage ) => ({
-    __typename:     'ReaderFlagUsage',
-    flag,
-    usage,
-});
-
-
-export const dictionaryItem = ( _, { id }) => (
-    DICTIONARY[id]
-        ?  DictionaryItem(
-            id,
-            DICTIONARY[id].map( row =>
-                PhraseUsageModel(
-                    Phrase( row[0]),
-                    ReaderFlagUsage( ReaderFlag( 'default' ), row[1]),
-                    row.slice( 2 ).map(( usage, i ) =>
-                        ReaderFlagUsage( ReaderFlag( READER_FLAGS[i]), usage )
-                    ),
-                )
-            ),
-        )
-        : null
-);
-
-export const dictionary = _root =>
-    Object.keys( DICTIONARY )
-        .map( id => dictionaryItem( _root, { id }));
-
 
 export default {
     Organization,
@@ -108,16 +42,6 @@ export default {
     },
     Query: {
         me:             User,
-        dictionary,
-        dictionaryItem,
-        phrases:        ( _, { query }) => {
-
-            const regexp =  new RegExp( `${ query }.*`, 'i' );
-
-            return flatten([ keys( SYNONYMS ), values( SYNONYMS ) ])
-                .find( regexp.test.bind( regexp ))
-                .map( Phrase );
-        },
         readerFlags:    () => READER_FLAGS.map( ReaderFlag ),
         searchPhrases:  ( _, { query }) => {
             const re =  new RegExp( `^${ query }`, 'i' );
