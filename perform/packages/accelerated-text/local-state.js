@@ -31,13 +31,13 @@ export default {
         closeDictionaryItem:    ( _, __, { cache, getCacheKey }) => {
             cache.writeData({
                 id:     getCacheKey({ __typename, id }),
-                data:   { __typename, openedDictionaryItem: null },
+                data:   { openedDictionaryItem: null },
             });
         },
         openDictionaryItem:     ( _, { itemId }, { cache, getCacheKey }) => {
             cache.writeData({
                 id:     getCacheKey({ __typename, id }),
-                data:   { __typename, openedDictionaryItem: itemId },
+                data:   { openedDictionaryItem: itemId },
             });
         },
     },
