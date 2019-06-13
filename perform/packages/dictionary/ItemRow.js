@@ -3,8 +3,9 @@ import { h }                    from 'preact';
 import DragInBlock              from '../drag-in-blocks/DragInBlock';
 import { composeQueries }       from '../graphql/';
 
-import { openDictionaryItem }   from '../accelerated-text/local-state';
+import DictionaryItemBlock      from '../nlg-blocks/Dictionary-item';
 import { dictionaryItem }       from '../graphql/queries.graphql';
+import { openDictionaryItem }   from '../accelerated-text/local-state';
 import ShowPhrases              from '../lexicon/ShowPhrases';
 
 import S                        from './ItemRow.sass';
@@ -27,7 +28,7 @@ export default composeQueries({
                 <DragInBlock
                     color={ S.dragInColor }
                     fields={{ name: dictionaryItem.name }}
-                    type="Dictionary-item"
+                    type={ DictionaryItemBlock.type }
                     width={ 36 }
                 />
             </td>
