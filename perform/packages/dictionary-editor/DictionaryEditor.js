@@ -17,10 +17,10 @@ import UsageModels              from './UsageModels';
 
 export default composeQueries({
     closeDictionaryItem,
-    dictionaryItem:          [ dictionaryItem, { id: 'openedPhrase' }],
+    dictionaryItem:             [ dictionaryItem, { id: 'openedPhrase' }],
 })(({
     closeDictionaryItem,
-    dictionaryItem: { dictionaryItem: item },
+    dictionaryItem:             { dictionaryItem: item },
 }) =>
     <Container className={ S.className }>
         <Section defaultSize={ 100 }>
