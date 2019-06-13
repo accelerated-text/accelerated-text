@@ -76,7 +76,7 @@ mutation deletePhraseUsageModel(
 
 mutation updatePhraseUsageModelDefault(
   $id:              ID!
-  $defaultUsage:    Usage!
+  $defaultUsage:    DefaultUsage!
 ) {
   updatePhraseUsageModelDefault(
     id:             $id
