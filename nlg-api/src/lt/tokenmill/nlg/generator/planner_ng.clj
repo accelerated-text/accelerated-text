@@ -1,6 +1,5 @@
 (ns lt.tokenmill.nlg.generator.planner-ng
-  (:require [clojure.string :as string]
-            [clojure.tools.logging :as log]
+  (:require [clojure.tools.logging :as log]
             [lt.tokenmill.nlg.generator.parser-ng :as parser]
             [ccg-kit.grammar :as ccg]
             [ccg-kit.grammar-generation.morphology :as ccg-morphology]
@@ -125,7 +124,7 @@
   (let [realized (map (partial realizer/realize data) templates)
         _ (log/debugf "Realized: %s" (pr-str realized))
         sentences (map #(if (empty? %) "" (rand-nth %)) realized)]
-    (string/join ". " sentences)))
+    (realizer/join-sentences sentences)))
 
 (defn render-dp
   "document-plan - a hash map with document plan
@@ -143,5 +142,6 @@
 
     (map (fn
            [row]
-           (let [segments (map #(render-segment % row) templates)]
-             (string/trim (string/join "" segments)))) data)))
+           (-> (map #(render-segment % row) templates)
+               (realizer/join-segments)))
+         data)))

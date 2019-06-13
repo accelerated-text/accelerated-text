@@ -123,29 +123,29 @@
                  :main-feature "comfort"
                  :secondary-feature "support"}] 
           result (first (render-dp document-plan data :default))
-          expected #{"Nike Air gives comfort and support"
-                     "Nike Air offers comfort and support"
-                     "Nike Air provides comfort and support"
+          expected #{"Nike Air gives comfort and support."
+                     "Nike Air offers comfort and support."
+                     "Nike Air provides comfort and support."
 
-                     "Nike Air gives comfort, support"
-                     "Nike Air offers comfort, support"
-                     "Nike Air provides comfort, support"
+                     "Nike Air gives comfort, support."
+                     "Nike Air offers comfort, support."
+                     "Nike Air provides comfort, support."
 
-                     "Nike Air gives support and comfort"
-                     "Nike Air offers support and comfort"
-                     "Nike Air provides support and comfort"
+                     "Nike Air gives support and comfort."
+                     "Nike Air offers support and comfort."
+                     "Nike Air provides support and comfort."
 
-                     "Nike Air gives support, comfort"
-                     "Nike Air offers support, comfort"
-                     "Nike Air provides support, comfort"
+                     "Nike Air gives support, comfort."
+                     "Nike Air offers support, comfort."
+                     "Nike Air provides support, comfort."
 
-                     "Nike Air gives comfort"
-                     "Nike Air offers comfort"
-                     "Nike Air provides comfort"
+                     "Nike Air gives comfort."
+                     "Nike Air offers comfort."
+                     "Nike Air provides comfort."
 
-                     "Nike Air gives support"
-                     "Nike Air offers support"
-                     "Nike Air provides support"}]
+                     "Nike Air gives support."
+                     "Nike Air offers support."
+                     "Nike Air provides support."}]
       (is (contains? expected result))))
   (testing "Create text with product, two features and component with quote"
     (let [document-plan (load-test-data "subj-w-2-features-and-component")
