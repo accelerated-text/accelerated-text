@@ -11,11 +11,11 @@ import S                        from './ItemRow.sass';
 
 
 export default composeQueries({
-    dictionaryItem:      [ dictionaryItem, {
-        id:                 'id',
+    dictionaryItem: [ dictionaryItem, {
+        id:                     'id',
     }],
-    openDictionaryItem:     [ openDictionaryItem, {
-        itemId:             [ 'dictionaryItem', 'dictionaryItem', 'id' ],
+    openDictionaryItem: [ openDictionaryItem, {
+        itemId:                 [ 'dictionaryItem', 'dictionaryItem', 'id' ],
     }],
 })(({
     openDictionaryItem,
