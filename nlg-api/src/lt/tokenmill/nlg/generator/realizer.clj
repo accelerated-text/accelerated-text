@@ -1,5 +1,5 @@
 (ns lt.tokenmill.nlg.generator.realizer
-  (:require [clojure.string :as str]
+  (:require [clojure.string :as string]
             [clojure.tools.logging :as log]))
 
 (defn placeholder?
@@ -36,7 +36,7 @@
             placeholder (get-in head [:name :dyn-name])
             value (get-value head data)]
         (if value
-          (recur (str/replace result placeholder value) tail)
+          (recur (string/replace result placeholder value) tail)
           (recur result tail))))))
 
 (defn str-realized?
@@ -44,6 +44,27 @@
   (let [results (re-find #"\$\d+" s)]
     (= 0 (count results))))
 
+(defn end-with
+  "End text with token if it doesn't end with it already"
+  [token text]
+  (if (not (string/ends-with? token text))
+    (str text token)
+    text))
+
+(defn capitalize
+  "Similar to `clojure.string/capitalize`. However, clojure util modifies following characters, we don't want that"
+  [[first-letter & other]]
+  (str (string/upper-case first-letter) (string/join "" other)))
+
+(defn join-sentences
+  [sentences]
+  (->> (map capitalize sentences)
+       (string/join ". ")
+       (end-with ".")))
+
+(defn join-segments
+  [segments]
+  (string/trim (string/join "" segments)))
 
 (defn realize
   "Takes sentence, context and replaces all placeholders with actual value"
