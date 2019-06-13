@@ -46,7 +46,6 @@
                          (:phrase-usage-model))]
     (map
      (fn [model]
-       (reader-flag-usages {:ids (:readerUsage model)})
        (let [initial {:text (:phrase model)}
              parse-fn (fn [item]
                         {(keyword (:readerFlag item)) (keyword (:usage item))})
@@ -74,11 +73,10 @@
 (defn filter-by-profile
   [phrases reader-profile]
   (map
-   #(:text %)
+   :text
    (filter #(use-phrase? % reader-profile) phrases)))
 
 
 (defn search
   [key reader-profile]
-  (let [phrases (get-phrases key)]
-    (filter-by-profile phrases reader-profile)))
+  (filter-by-profile (get-phrases key) reader-profile))
