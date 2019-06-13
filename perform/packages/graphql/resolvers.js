@@ -16,8 +16,8 @@ export const Organization = () => ({
     id:             'example-org',
     name:           'The Organization',
 });
-export const Phrase = text => ({
-    __typename:     'Phrase',
+export const Word = text => ({
+    __typename:     'Word',
     id:             text,
     text,
 });
@@ -42,17 +42,20 @@ export default {
     },
     Query: {
         me:             User,
+
         readerFlags:    () => READER_FLAGS.map( ReaderFlag ),
-        searchPhrases:  ( _, { query }) => {
+
+        searchWords: ( _, { query }) => {
             const re =  new RegExp( `^${ query }`, 'i' );
             return Object.keys( SYNONYMS )
                 .filter( re.exec.bind( re ))
-                .map( Phrase );
+                .map( Word );
         },
-        synonyms:       ( _, { phraseId }) => ({
+
+        synonyms: ( _, { wordId }) => ({
             __typename: 'Synonyms',
-            rootPhrase: Phrase( phraseId ),
-            phrases:    ( SYNONYMS[phraseId] || []).map( Phrase ),
+            rootWord: Word( wordId ),
+            synonyms:    ( SYNONYMS[wordId] || []).map( Word ),
         }),
     },
 };

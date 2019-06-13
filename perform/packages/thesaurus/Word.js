@@ -1,23 +1,30 @@
 import classnames               from 'classnames';
 import { h, Component }         from 'preact';
+import PropTypes                from 'prop-types';
 
-import S                        from './Phrase.sass';
+import S                        from './Word.sass';
 
 
-export default class ThesaurusPhrase extends Component {
+export default class ThesaurusWord extends Component {
+
+    static propTypes = {
+        className:              PropTypes.string,
+        onClick:                PropTypes.func.isRequired,
+        word:                   PropTypes.object.isRequired,
+    };
     
     state = {
         isDragged:              false,
     };
 
     onClick = () =>
-        this.props.onClick( this.props.phrase );
+        this.props.onClick( this.props.word );
 
     onDragStart = evt => {
 
         const dt =          evt.dataTransfer;
         dt.setData( 'type', 'text/plain' );
-        dt.setData( 'text',  this.props.phrase.text );
+        dt.setData( 'text',  this.props.word.text );
 
         this.setState({ isDragged: true });
     }
@@ -25,7 +32,7 @@ export default class ThesaurusPhrase extends Component {
     onDragEnd = evt =>
         this.setState({ isDragged: false });
 
-    render({ className, phrase }, { isDragged }) {
+    render({ className, word }, { isDragged }) {
         return (
             <li
                 className={ classnames(
@@ -37,7 +44,7 @@ export default class ThesaurusPhrase extends Component {
                 onDragStart={ this.onDragStart }
                 onDragEnd={ this.onDragEnd }
             >
-                <div onClick={ this.onClick }>{ phrase.text }</div>
+                <div onClick={ this.onClick }>{ word.text }</div>
             </li>
         );
     }

@@ -9,7 +9,7 @@ import Synonyms                 from './Synonyms';
 export default class Thesaurus extends Component {
 
     state = {
-        phrase:                 null,
+        word:                   null,
         query:                  '',
     };
 
@@ -20,26 +20,26 @@ export default class Thesaurus extends Component {
 
     onClickBack = () =>
         this.setState({
-            phrase:             null,
+            word:               null,
         });
     
-    onClickPhrase = phrase =>
-        this.setState({ phrase });
+    onClickWord = word =>
+        this.setState({ word });
 
-    render({ className }, { phrase, query }) {
+    render({ className }, { word, query }) {
         return (
 
             <div className={ classnames( S.className, className ) }>
                 <h3 className={ S.title }>Thesaurus</h3>
-                { phrase
+                { word
                     ? <Synonyms
                         onClickBack={ this.onClickBack }
-                        onClickPhrase={ this.onClickPhrase }
-                        phrase={ phrase }
+                        onClickWord={ this.onClickWord }
+                        word={ word }
                     />
                     : <Search
                         onChangeQuery={ this.onChangeQuery }
-                        onClickPhrase={ this.onClickPhrase }
+                        onClickWord={ this.onClickWord }
                         query={ query }
                     />
                 }

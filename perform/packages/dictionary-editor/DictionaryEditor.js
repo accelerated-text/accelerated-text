@@ -17,7 +17,7 @@ import UsageModels              from './UsageModels';
 
 export default composeQueries({
     closeDictionaryItem,
-    dictionaryItem:             [ dictionaryItem, { id: 'openedPhrase' }],
+    dictionaryItem:             [ dictionaryItem, { id: 'itemId' }],
 })(({
     closeDictionaryItem,
     dictionaryItem:             { dictionaryItem: item },

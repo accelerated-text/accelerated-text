@@ -26,7 +26,7 @@ const AcceleratedText = mountStores(
                 ( acceleratedText && acceleratedText.openedDictionaryItem )
                     ? <DictionaryEditor
                         className={ S.main }
-                        openedPhrase={ acceleratedText.openedDictionaryItem }
+                        itemId={ acceleratedText.openedDictionaryItem }
                     />
                     : <PlanEditor className={ S.main } />
             }

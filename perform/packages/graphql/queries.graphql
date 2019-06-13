@@ -28,16 +28,16 @@ query readerFlags {
   }
 }
 
-query searchPhrases( $query: String ) {
-  searchPhrases( query: $query ) @client {
+query searchWords( $query: String ) {
+  searchWords( query: $query ) @client {
     id
     text
   }
 }
 
-query synonyms( $phraseId: ID! ) {
-  synonyms( phraseId: $phraseId ) @client {
-    phrases {
+query synonyms( $wordId: ID! ) {
+  synonyms( wordId: $wordId ) @client {
+    synonyms {
       id
       text
     }

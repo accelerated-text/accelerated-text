@@ -65,17 +65,19 @@ type User {
     organization:   Organization!
 }
 
-### Dictionary
+### Thesaurus
 
-type Phrase {
+type Word {
     id:             ID!
     text:           String!
 }
 
 type Synonyms {
-    rootPhrase:     Phrase!
-    phrases:        [ Phrase! ]!
+    rootWord:       Word!
+    synonyms:       [ Word! ]!
 }
+
+### Dictionary
 
 type ReaderFlag {
     id:             ID!
@@ -164,15 +166,10 @@ type Query {
 
     readerFlags:      [ ReaderFlag! ]!
 
-    searchPhrases(
+    searchWords(
         query:        String,
         partOfSpeech: PartOfSpeech,
-    ):  [ Phrase! ]!
-
-    searchSynonyms(
-        query:        String,
-        partOfSpeech: PartOfSpeech,
-    ):  [ Synonyms! ]!
+    ):  [ Word! ]!
 
     searchLexicon(
         query:        String
@@ -181,7 +178,7 @@ type Query {
     ):  Lexicon!
 
     synonyms(
-        phraseId:     ID!
+        wordId:     ID!
     ):  Synonyms!
 
 }
