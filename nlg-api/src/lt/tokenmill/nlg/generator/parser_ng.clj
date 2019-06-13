@@ -5,6 +5,7 @@
             [lt.tokenmill.nlg.generator.ops :as ops]
             [clojure.string :as str]
             [lt.tokenmill.nlg.api.lexicon :as lexicon]
+            [lt.tokenmill.nlg.api.dictionary :as dictionary-api]
             [lt.tokenmill.nlg.generator.realizer :as realizer]))
 
 (def parse-cnt (atom 0))
@@ -42,11 +43,19 @@
     (cons main children)))
 
 (defn parse-lexicon
+  ;; TODO: deprecate
   [node attrs ctx]
   (let [word (get node :text)
-        response (-> {:query (str/lower-case word)} (lexicon/search nil) (get-in [:body :items]))
+        response (-> {:query (str/lower-case word) :profile (ctx :reader-profile)} (lexicon/search nil) (get-in [:body :items]))
         synonyms (set (mapcat :synonyms response))]
     (map #(ops/append-dynamic % (merge attrs {:type :wordlist :class word}) ctx) synonyms)))
+
+(defn parse-dictionary
+  [node attrs ctx]
+  (let [key (get node :name)
+        reader-profile (ctx :reader-profile)
+        words (dictionary-api/search (str/lower-case key) reader-profile)]
+    (map #(ops/append-dynamic % (merge attrs {:type :wordlist :class key}) ctx) words)))
 
 (defn parse-rhetorical [node attrs ctx]
   (let [rst-type (node :rstType)
@@ -81,7 +90,7 @@
 
 (defn parse-if-statement
   [node attrs ctx]
-  (log/debugf "Node: %s" node)
+  (log/tracef "Node: %s" node)
   (let [op (keyword (node :operator))
         t (keyword (node :type))
         cond-fn (case op
@@ -95,7 +104,7 @@
                                 v2 (realizer/get-value (-> (parse-node (node :value2) attrs ctx)
                                                            (:dynamic)
                                                            (first)) data)]
-                            (log/debugf "Comparing: '%s' vs '%s'" v1 v2)
+                            (log/tracef "Comparing: '%s' vs '%s'" v1 v2)
                             (cond-fn v1 v2))))))
 
 (defn build-default-cond
@@ -144,6 +153,9 @@
       :If-then-else (parse-conditional node attrs ctx)
       :One-of-synonyms (parse-list {:type :Any-of} node attrs ctx)
       :Lexicon (parse-lexicon node attrs ctx)
+      :Dictionary-item (parse-dictionary node attrs ctx)
       :RST (parse-rst node attrs ctx)
       (parse-unknown node))))
+
+
 

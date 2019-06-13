@@ -5,7 +5,8 @@
             [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.data :as data]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [clojure.tools.logging :as log]))
 
 (defn load-test-data
   [filename]
@@ -22,21 +23,22 @@
 (deftest test-compile-single-node-plan
   (testing "Create a single subject plan"
     (let [document-plan (load-test-data "single-subj")
-          compiled (parser/parse-document-plan document-plan {} {})]
+          compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
       (is (not (empty? compiled)))
       (is (= 1 (count compiled)))
       (let [first-segment (first compiled)
             concrete-plan (first first-segment)
             expected {:dynamic [{:name {:cell :product-name :dyn-name "$1"} :attrs {:type :product :source :cell}}]
-                      :static []}]
-        (println "Concrete plan: " concrete-plan)
+                      :static []
+                      :reader-profile :default}]
+        (log/debugf "Concrete plan: %s" (pr-str concrete-plan))
         (let [result (build-dp-instance concrete-plan)]
-          (is (= expected result)))))))
+          (is (compare-result expected result)))))))
 
 (deftest plan-with-two-features
     (testing "Create subject with two features"
       (let [document-plan (load-test-data "subj-w-2-features")
-            compiled (parser/parse-document-plan document-plan {} {})]
+            compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
         (is (not (empty? compiled)))
         (is (= 1 (count compiled)))
         (let [first-segment (first compiled)
@@ -44,15 +46,17 @@
               expected {:dynamic [{:name {:cell :product-name :dyn-name "$1"} :attrs {:type :product :source :cell}}
                                   {:name {:cell :main-feature :dyn-name "$2"} :attrs {:type :benefit :source :cell}}
                                   {:name {:cell :secondary-feature :dyn-name "$3"} :attrs {:type :benefit :source :cell}}]
-                        :static ["provide"]}]
-          (println "Concrete plan: " concrete-plan)
+                        :static ["provide"]
+                        :reader-profile :default}]
+          (log/debugf "Concrete plan: %s" (pr-str concrete-plan))
           (let [result (build-dp-instance concrete-plan)]
+            (log/debugf "Result: %s" (pr-str result))
             (compare-result expected result))))))
 
 (deftest plan-with-two-features-and-quote
     (testing "Create subject with two features and quote"
       (let [document-plan (load-test-data "subj-w-2-features-and-quote")
-            compiled (parser/parse-document-plan document-plan {} {})]
+            compiled (parser/parse-document-plan document-plan {}  {:reader-profile :default})]
         (is (not (empty? compiled)))
         (is (= 1 (count compiled)))
         (println compiled)
@@ -62,15 +66,16 @@
                                   {:name {:cell :main-feature :dyn-name "$2"} :attrs {:type :benefit :source :cell}}
                                   {:name {:cell :secondary-feature :dyn-name "$3"} :attrs {:type :benefit :source :cell}}
                                   {:name {:quote "special for you" :dyn-name "$4"} :attrs {:type :benefit :source :quote}}]
-                        :static ["provide"]}]
-          (println "Concrete plan: " concrete-plan)
+                        :static ["provide"]
+                        :reader-profile :default}]
+          (log/debugf "Concrete plan: %s" (pr-str concrete-plan))
           (let [result (build-dp-instance concrete-plan)]
             (compare-result expected result))))))
 
 (deftest plan-with-conditional-if
     (testing "Create plan with conditional"
       (let [document-plan (load-test-data "subj-w-if")
-            compiled (parser/parse-document-plan document-plan {} {})]
+            compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
         (is (not (empty? compiled)))
         (is (= 1 (count compiled)))
         (is (= 2 (count (first compiled))))
@@ -79,7 +84,8 @@
               expected {:dynamic [{:name {:cell :product-name :dyn-name "$1"} :attrs {:type :product :source :cell}}
                                   {:name {:cell :main-feature :dyn-name "$3"} :attrs {:type :benefit :source :cell}}
                                   {:name {:cell :secondary-feature :dyn-name "$4"} :attrs {:type :benefit :source :cell}}]
-                        :static ["provide"]}
+                        :static ["provide"]
+                        :reader-profile :default}
               result (build-dp-instance concrete-plan)]
           (compare-result expected result))
         ;; Second sentence
@@ -95,7 +101,7 @@
 (deftest plan-with-conditional-if-else
   (testing "Create plan with if-else"
     (let [document-plan (load-test-data "subj-w-if-else")
-          compiled (parser/parse-document-plan document-plan {} {})]
+          compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
       (is (not (empty? compiled)))
       (is (= 1 (count compiled)))
       (is (= 2 (count (first compiled))))
@@ -116,7 +122,7 @@
           data [{:product-name "Nike Air"
                  :main-feature "comfort"
                  :secondary-feature "support"}] 
-          result (first (render-dp document-plan data))
+          result (first (render-dp document-plan data :default))
           expected #{"Nike Air gives comfort and support"
                      "Nike Air offers comfort and support"
                      "Nike Air provides comfort and support"
@@ -147,7 +153,7 @@
                  :main-feature "comfort"
                  :secondary-feature "support"
                  :lacing "premium lacing"}] 
-          result (first (render-dp document-plan data))
+          result (first (render-dp document-plan data :default))
           expected "a snug fit for everyday wear"]
       (is (string/includes? result expected)))))
 
@@ -159,7 +165,7 @@
                  :secondary-feature "support"
                  :lacing "premium lacing"
                  :style "wonderful"}] 
-          result (first (render-dp document-plan data))
+          result (first (render-dp document-plan data :default))
           expected "snug fit for everyday wear"]
       (is (string/includes? result expected))))
   (testing "Create text with else"
@@ -169,7 +175,7 @@
                  :secondary-feature "support"
                  :lacing "nylon lacing"
                  :style "wonderful"}] 
-          result (first (render-dp document-plan data))
+          result (first (render-dp document-plan data :default))
           expected "cool looking fit"]
       (is (string/includes? result expected)))))
 

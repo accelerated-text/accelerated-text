@@ -18,12 +18,13 @@
    returns: hashmap (context) which will be used to generate text"
   [dp]
   (loop [context {:dynamic []
-                  :static []}
+                  :static []
+                  :reader-profile :default}
          fs dp]
     (if (empty? fs)
       context
       (let [[head & tail] fs]
-        (log/debugf "Head: %s" head)
+        (log/tracef "Head: %s" head)
         (recur (ops/merge-context context (into {} head)) tail)))))
 
 (defn download-grammar
@@ -129,9 +130,10 @@
 (defn render-dp
   "document-plan - a hash map with document plan
    data - list of rows of hashmap (represents CSV)
+   reader-profile - key defining reader (user)
    returns: generated text"
-  [document-plan data]
-  (let [dp (parser/parse-document-plan document-plan {} {})
+  [document-plan data reader-profile]
+  (let [dp (parser/parse-document-plan document-plan {} {:reader-profile reader-profile})
         grammar-path (download-grammar)
         instances (map #(map build-dp-instance %) dp)
         context (ops/merge-contexts {:static [] :dynamic []} (flatten instances))

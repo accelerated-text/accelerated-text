@@ -12,9 +12,7 @@
       (is (= (:fieldNames first-item) (list
                                        (keyword "Product name")
                                        (keyword "Main Feature")
-                                       (keyword "Secondary feature")
-                                       :Style
-                                       :Lacing)))))
+                                       (keyword "Secondary feature"))))))
   (testing "Test get concrete csv"
     (let [result (read-data {:user "example-user" :file "example.csv"})
           body (result :body)]

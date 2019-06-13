@@ -5,17 +5,17 @@
 
 (deftest test-merge-contexts
   (testing "merge two simple contexts"
-    (let [left {:static ["A"] :dynamic []}
+    (let [left {:static ["A"] :dynamic [] :reader-profile :default}
           right {:static ["B", "C"] :dynamic []}
-          expected {:static ["A" "B" "C"] :dynamic []}
+          expected {:static ["A" "B" "C"] :dynamic [] :reader-profile :default}
           result (ops/merge-context left right)]
       (is (= expected result))))
   (testing "merge multiple contexts"
-    (let [main {:static [] :dynamic []}
+    (let [main {:static [] :dynamic [] :reader-profile :default}
           children [{:static ["A"]}
                     {:static ["B"]}
                     {:static ["C"]}]
-          expected {:static ["A" "B" "C"] :dynamic []}
+          expected {:static ["A" "B" "C"] :dynamic [] :reader-profile :default}
           result (ops/merge-contexts main children)]
       (is (= expected result)))))
 

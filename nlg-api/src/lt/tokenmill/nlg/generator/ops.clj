@@ -33,17 +33,17 @@
 
 (defn merge-context
   [left right]
-  (log/debugf "Trying to merge: \n%s\nand\n%s" left right)
+  (log/tracef "Trying to merge: \n%s\nand\n%s" left right)
   (let [new-ctx {:static (concat (left :static) (right :static))
-                 :dynamic (concat (left :dynamic) (right :dynamic))}]
-    (merge left new-ctx)))
+                 :dynamic (concat (left :dynamic) (right :dynamic))
+                 :reader-profile (or (left :reader-profile) (right :reader-profile))}]
+    (log/spyf :trace "Merge result: %s"(merge left new-ctx))))
 
 (defn merge-contexts
   [root other]
   (loop [ctx root
          children other]
-    (let [head (first children)
-          tail (rest children)]
+    (let [[head & tail] children]
       (if (empty? children)
         ctx
         (recur (merge-context ctx (into {} head)) tail)))))
