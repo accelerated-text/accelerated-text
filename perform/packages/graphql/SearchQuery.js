@@ -1,7 +1,7 @@
 import { h }                from 'preact';
 import { path }             from 'ramda';
+import { Query }            from 'react-apollo';
 
-import { GqlQuery }         from './index';
 import concatResultsInPath  from './concat-results-in-path';
 
 
@@ -46,7 +46,7 @@ export default ({ children, gqlQuery, offset = 0, searchQuery }) => {
     );
 
     return (
-        <GqlQuery
+        <Query
             fetchPolicy="cache-and-network"
             notifyOnNetworkStatusChange
             query={ gqlQuery }
@@ -67,6 +67,6 @@ export default ({ children, gqlQuery, offset = 0, searchQuery }) => {
                     totalCount:         path( PATHS.totalCount, data ),
                 })
             }
-        </GqlQuery>
+        </Query>
     );
 };

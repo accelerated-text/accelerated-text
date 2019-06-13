@@ -18,6 +18,10 @@ export default ({
     mode,
     module: {
         rules: [{
+            test:       /\.(graphql|gql)$/,
+            exclude:    /node_modules/,
+            loader:     'graphql-tag/loader',
+        }, {
             test:       /\.jsx?$/,
             exclude:    /node_modules/,
             loader:     'babel-loader',

@@ -1,0 +1,47 @@
+@import '../styles/variables'
+
+
+.className
+
+    background-color:           $subtle-gray
+    height:                     100%
+
+    .thesaurus
+
+        height:                 100%
+        overflow-y:             auto
+
+    .separator
+
+        box-shadow:             -1px 0 0 $subtle-border, inset 1px 0 0 $white, inset -1px 0 0 $subtle-border
+        color:                  $gray
+        width:                  $space-l
+
+    .main
+
+        background-color:       $white
+        display:                grid
+        grid-gap:               $space-m
+        grid-template-areas:    'title close' 'main main'
+        grid-template-columns:  auto 6em
+        grid-template-rows:     ( 2 * $space-m ) auto
+        padding:                $space-m $space-m 0
+
+        > .title
+
+            grid-area:          title
+            margin:             0
+            padding:            0
+
+        > .close
+
+            grid-area:          close
+            text-align:         right
+
+            > button
+
+                cursor:         pointer
+
+        > .usageModels
+
+            grid-area:          main

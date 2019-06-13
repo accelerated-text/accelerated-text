@@ -1,4 +1,4 @@
-import EMPTY_LEXICON_LIST   from '../data/empty-lexicon-list';
+import { EMPTY_DICTIONARY } from '../data/dictionary';
 import USER                 from '../data/user';
 
 
@@ -23,7 +23,7 @@ export default async ( t, run, ...args ) => {
     await Promise.all([
         nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, []),
         nlgApi.provideOnce( 'GET', '/document-plans/', []),
-        graphQL.provideOnce({ data: { results: EMPTY_LEXICON_LIST }}),
+        graphQL.provideOnce({ data: EMPTY_DICTIONARY }),
     ]);
 
     await pageLoadResult;

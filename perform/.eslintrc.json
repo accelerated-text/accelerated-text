@@ -62,7 +62,11 @@
         }],
         "new-parens":               "off",
         "no-else-return":           "off",
-        "no-underscore-dangle":     "warn",
+        "no-underscore-dangle":     [ "warn", {
+            "allow": [
+                "__typename"
+            ]
+        }],
         "no-use-before-define":     [ "error", {
             "functions": false
         }],

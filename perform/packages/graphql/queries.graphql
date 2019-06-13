@@ -1,0 +1,45 @@
+query dictionaryIds {
+  dictionary {
+    id
+  }
+}
+
+query dictionaryItem( $id: ID! ) {
+    dictionaryItem( id: $id ) {
+        id
+        name
+        usageModels {
+            id
+            phrase
+            defaultUsage
+            readerUsage {
+                id
+                flag { id name }
+                usage
+            }
+        }
+    }
+}
+
+query readerFlags {
+  readerFlags @client {
+    id
+    name
+  }
+}
+
+query searchWords( $query: String ) {
+  searchWords( query: $query ) @client {
+    id
+    text
+  }
+}
+
+query synonyms( $wordId: ID! ) {
+  synonyms( wordId: $wordId ) @client {
+    synonyms {
+      id
+      text
+    }
+  }
+}

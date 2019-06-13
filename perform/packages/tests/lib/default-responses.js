@@ -1,7 +1,7 @@
 import { createDataFileData }   from '../data/data-file-data';
 import DATA_FILE_LIST           from '../data/data-file-list';
 import DOCUMENT_PLAN_LIST       from '../data/document-plan-list';
-import LEXICON_LIST             from '../data/lexicon-list';
+import { EMPTY_DICTIONARY }     from '../data/dictionary';
 import NLG_JOB                  from '../data/nlg-job';
 import NLG_JOB_RESULT           from '../data/nlg-job-result';
 import USER                     from '../data/user';
@@ -27,7 +27,7 @@ export default async ( t, run, ...args ) => {
 
     /// Register these intercepts while the page is loading:
     await Promise.all([
-        graphQL.provideOnce({ data: { results: LEXICON_LIST }}),
+        graphQL.provideOnce({ data: EMPTY_DICTIONARY }),
         nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, DATA_FILE_LIST ),
         nlgApi.provideOnce( 'GET', '/document-plans/', DOCUMENT_PLAN_LIST )
             .then(() => Promise.all([

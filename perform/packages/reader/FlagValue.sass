@@ -1,0 +1,21 @@
+@import '../styles/variables'
+
+
+.className
+
+    border-radius:          $border-radius
+    box-shadow:             -1px -1px 0 $white, 1px 1px 0 $subtle-border
+    cursor:                 pointer
+    display:                block
+    margin:                 0
+    padding:                $space-s
+
+    &:hover
+
+        background-color:   $white
+        box-shadow:         none
+
+    &.isChecked
+
+        background-color:   $white
+        box-shadow:         inset 1px 1px 0 $subtle-border, inset -1px -1px 0 $white

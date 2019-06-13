@@ -1,0 +1,101 @@
+mutation createDictionaryItem(
+  $name:            String!
+) {
+  createDictionaryItem(
+    name:           $name
+  ) {
+    id
+    name
+    usageModels {
+      id
+      phrase
+      defaultUsage
+      readerUsage {
+        id
+        flag {
+          id
+          name
+        }
+        usage
+      }
+    }
+  }
+}
+
+mutation createPhraseUsageModel(
+  $dictionaryItemId:  ID!
+  $phrase:            String!
+  $defaultUsage:      DefaultUsage
+) {
+  createPhraseUsageModel(
+    dictionaryItemId: $dictionaryItemId
+    phrase:           $phrase
+    defaultUsage:     $defaultUsage
+  ) {
+    id
+    name
+    usageModels {
+      id
+      phrase
+      defaultUsage
+      readerUsage {
+        id
+        flag {
+          id
+          name
+        }
+        usage
+      }
+    }
+  }
+}
+
+mutation deleteDictionaryItem(
+  $id:              ID!
+) {
+  deleteDictionaryItem(
+    id:             $id
+  ) {
+    id
+  }
+}
+
+mutation deletePhraseUsageModel(
+  $id:              ID!
+) {
+  deletePhraseUsageModel(
+    id:             $id
+  ) {
+    id
+    name
+    usageModels {
+      id
+    }
+  }
+}
+
+mutation updatePhraseUsageModelDefault(
+  $id:              ID!
+  $defaultUsage:    DefaultUsage!
+) {
+  updatePhraseUsageModelDefault(
+    id:             $id
+    defaultUsage:   $defaultUsage
+  ) {
+    id
+    defaultUsage
+  }
+}
+
+mutation updateReaderFlagUsage(
+  $id:              ID!
+  $usage:           Usage!
+) {
+  updateReaderFlagUsage(
+    id:             $id
+    usage:          $usage
+  ) {
+    id
+    usage
+  }
+}

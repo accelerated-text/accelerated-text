@@ -1,0 +1,23 @@
+@import '../styles/variables'
+
+
+.className
+
+    padding:            0
+    text-align:         center
+
+    > span
+
+        cursor:         pointer
+        opacity:        .1
+        padding:        $space-s
+
+        &:hover
+
+            opacity:    .75
+
+    &.DONT_CARE > .DONT_CARE,
+    &.NO > .NO,
+    &.YES > .YES
+
+        opacity:        1

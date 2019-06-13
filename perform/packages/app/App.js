@@ -1,3 +1,1 @@
-import AcceleratedText from '../accelerated-text/AcceleratedText';
-
-export default AcceleratedText;
+export { default }          from '../accelerated-text/AcceleratedText';

@@ -1,20 +1,33 @@
 import ApolloClient         from 'apollo-boost';
-import {
-    ApolloProvider,
-    Query,
-}   from 'react-apollo';
-import gqlTag               from 'graphql-tag';
+import { ApolloProvider }   from 'react-apollo';
+import gql                  from 'graphql-tag';
 import { h }                from 'preact';
+import { InMemoryCache }    from 'apollo-cache-inmemory';
+import { mergeDeepRight }   from 'ramda';
+
+import acceleratedTextResolvers from '../accelerated-text/local-state';
+import resolvers            from './resolvers';
+import typeDefs             from './types.graphql';
 
 
-export const gql =          gqlTag;
+export { default as composeQueries }    from './compose-queries';
 
-export const gqlClient = new ApolloClient({
-    credentials:    'omit',
-    uri:            process.env.GRAPHQL_URL,
+
+export const cache =        new InMemoryCache();
+
+export const client = new ApolloClient({
+    cache,
+    credentials:            'omit',
+    resolvers: mergeDeepRight(
+        resolvers,
+        acceleratedTextResolvers,
+        /// dictionaryResolvers,
+    ),
+    typeDefs: gql`
+        ${ typeDefs }
+    `,
+    uri:                    process.env.GRAPHQL_URL,
 });
 
-export const GqlProvider = props =>
-    <ApolloProvider client={ gqlClient } { ...props } />;
-
-export const GqlQuery =     Query;
+export const GraphQLProvider = props =>
+    <ApolloProvider client={ client } { ...props } />;
