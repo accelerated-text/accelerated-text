@@ -19,6 +19,7 @@ export const Organization = () => ({
 export const Word = text => ({
     __typename:     'Word',
     id:             text,
+    partOfSpeech:   'WB',
     text,
 });
 export const ReaderFlag = name => ({
