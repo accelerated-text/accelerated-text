@@ -1,10 +1,10 @@
 (ns local-server
   (:require [org.httpkit.server :as server]
             [clojure.tools.logging :as log]
-            [lt.tokenmill.nlg.api.data :as data]
-            [lt.tokenmill.nlg.api.lexicon :as lexicon]
-            [lt.tokenmill.nlg.api.generate :as generate]
-            [lt.tokenmill.nlg.api.blockly-workspace :as workspace]
+            [nlg.api.data :as data]
+            [nlg.api.lexicon :as lexicon]
+            [nlg.api.generate :as generate]
+            [nlg.api.blockly-workspace :as workspace]
             [cheshire.core :refer :all]
             [clojure.java.io :as io]
             [clojure.string :as string])
