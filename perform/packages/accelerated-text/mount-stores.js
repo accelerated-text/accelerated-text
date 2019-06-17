@@ -5,7 +5,6 @@ module.exports = mount({
     contexts:               require( '../contexts/store' ).default,
     dataSamples:            require( '../data-samples/store' ).default,
     documentPlans:          require( '../document-plans/store' ).default,
-    lexicon:                require( '../lexicon/store' ).default,
     planList:               require( '../plan-list/store' ).default,
     reader:                 require( '../reader/store' ).default,
     user:                   require( '../user/store' ).default,

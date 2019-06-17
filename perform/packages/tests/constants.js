@@ -20,21 +20,6 @@ module.exports = createConstants( 'tests', {
 
     EXAMPLE_XML:            'example-xml',
 
-    LEXICON_EDIT:           'lexicon-edit',
-    LEXICON_EDIT_CANCEL:    'lexicon-edit-cancel',
-    LEXICON_EDIT_SAVE:      'lexicon-edit-save',
-    LEXICON_EDIT_TEXT:      'lexicon-edit-text',
-    LEXICON_ITEM:           'lexicon-item',
-    LEXICON_ITEM_BLOCK:     'lexicon-item-block',
-    LEXICON_ITEM_ID:        'lexicon-item-id',
-    LEXICON_ITEM_PHRASES:   'lexicon-item-phrases',
-    LEXICON_LIST:           'lexicon-list',
-    LEXICON_MORE:           'lexicon-more',
-    LEXICON_NEW_BTN:        'lexicon-new-button',
-    LEXICON_NEW_ITEM:       'lexicon-new-item',
-    LEXICON_NO_ITEMS:       'lexicon-no-items',
-    LEXICON_SEARCH:         'lexicon-search',
-
     UI_ERROR:               'ui-error',
     UI_INFO:                'ui-info',
     UI_LOADING:             'ui-loading',
