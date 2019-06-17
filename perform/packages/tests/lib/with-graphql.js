@@ -32,9 +32,14 @@ export const graphQLIntercept = ( interceptFn, provideFn ) =>
         interceptFn( 'POST', URL, onRequestFn );
 
 
-export const graphQLProvide = provideFn =>
-    ( body, status, headers ) =>
-        provideFn( 'POST', URL, body, status, graphQLHeaders( headers ));
+export const graphQLProvide = ( t, interceptFn ) =>
+    ( operationName, variables, body ) =>
+        interceptFn( 'POST', URL, request => {
+            const postData =    JSON.parse( request.postData());
+            t.deepEqual( postData.operationName, operationName );
+            t.deepEqual( postData.variables, variables );
+            return graphQLRespond( request, body );
+        });
 
 
 export default async ( t, run, ...args ) => {
@@ -48,9 +53,9 @@ export default async ( t, run, ...args ) => {
                 intercept:      graphQLIntercept( t.interceptor.intercept,      t.interceptor.provide ),
                 interceptAll:   graphQLIntercept( t.interceptor.interceptAll,   t.interceptor.provideAll ),
                 interceptOnce:  graphQLIntercept( t.interceptor.interceptOnce,  t.interceptor.provideOnce ),
-                provide:        graphQLProvide( t.interceptor.provide ),
-                provideAll:     graphQLProvide( t.interceptor.provideAll ),
-                provideOnce:    graphQLProvide( t.interceptor.provideOnce ),
+                provide:        graphQLProvide( t, t.interceptor.intercept ),
+                provideAll:     graphQLProvide( t, t.interceptor.interceptAll ),
+                provideOnce:    graphQLProvide( t, t.interceptor.interceptOnce ),
                 respond:        graphQLRespond,
             },
         }),

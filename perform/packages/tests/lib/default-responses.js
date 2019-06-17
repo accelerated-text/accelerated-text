@@ -27,7 +27,7 @@ export default async ( t, run, ...args ) => {
 
     /// Register these intercepts while the page is loading:
     await Promise.all([
-        graphQL.provideOnce({ data: EMPTY_DICTIONARY }),
+        graphQL.provideOnce( 'dictionaryIds', {}, { data: EMPTY_DICTIONARY }),
         nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, DATA_FILE_LIST ),
         nlgApi.provideOnce( 'GET', '/document-plans/', DOCUMENT_PLAN_LIST )
             .then(() => Promise.all([
