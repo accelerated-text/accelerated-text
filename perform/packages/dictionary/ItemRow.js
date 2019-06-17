@@ -6,9 +6,9 @@ import { composeQueries }       from '../graphql/';
 import DictionaryItemBlock      from '../nlg-blocks/Dictionary-item';
 import { dictionaryItem }       from '../graphql/queries.graphql';
 import { openDictionaryItem }   from '../accelerated-text/local-state';
-import ShowPhrases              from '../lexicon/ShowPhrases';
 
 import S                        from './ItemRow.sass';
+import ShowPhrases              from './ShowPhrases';
 
 
 export default composeQueries({
