@@ -1,8 +1,8 @@
 (ns graphql.core
   (:require [clojure.java.io :as io]
             [clojure.tools.logging :as log]
-            [nlg.lexicon :as lexicon]
             [nlg.dictionary :as dictionary]
+            [translate.dictionary :as translate-dict]
             [com.walmartlabs.lacinia.util :as util]
             [com.walmartlabs.lacinia.schema :as schema]
             [com.walmartlabs.lacinia.parser.schema :as parser]
@@ -12,7 +12,14 @@
   (dictionary/list-dictionary-items))
 
 (defn dictionary-item [_ arguments _]
-  (dictionary/dictionary-item arguments))
+  (-> (dictionary/dictionary-item arguments)
+      (translate-dict/dictionary-item-out)))
+
+(defn dictionary-results [_ arguments _]
+  {:items (list (dictionary-item arguments))
+   :offset 0
+   :limit 0
+   :totalCount 0})
 
 (defn phrase-usage-models [_ _ value]
   (:phrase-usage-model (dictionary/phrase-usage-models {:ids (:usageModels value)})))
@@ -44,17 +51,20 @@
   (-> "schema.graphql"
       (io/resource)
       slurp
-      (parser/parse-schema {:resolvers {:Query            {:dictionary     :dictionary
-                                                           :dictionaryResults :dictionary-results}
-                                        :Mutation         {:updateReaderFlagUsage :update-reader-flag-usage
-                                                           :updatePhraseUsageDefault :update-phrase-usage-model
-                                                           :createPhraseUsage :create-phrase-usage-model
-                                                           :deletePhraseUsage :delete-phrase-usage-model}
-                                        :DictionaryItem   {:phraseUsage :phrase-usage}
-                                        :PhraseUsage      {:readerUsage :reader-usage}
-                                        :ReaderFlagUsage  {:flag :reader-flag}}})
+      (parser/parse-schema {:resolvers { :Query            {:dictionary     :dictionary
+                                                            ;; :dictionary-item :dictionary-item
+                                                            }
+                                        ;; :Mutation         {:updateReaderFlagUsage :update-reader-flag-usage
+                                        ;;                    :updatePhraseUsageDefault :update-phrase-usage-model
+                                        ;;                    :createPhraseUsage :create-phrase-usage-model
+                                        ;;                    :deletePhraseUsage :delete-phrase-usage-model}
+                                        ;; :DictionaryItem   {:phraseUsage :phrase-usage}
+                                        ;; :PhraseUsage      {:readerUsage :reader-usage}
+                                        ;; :ReaderFlagUsage  {:flag :reader-flag}
+                                        }})
       (util/attach-resolvers {:dictionary                dictionary
                               :dictionary-item           dictionary-item
+                              :dictionary-results        dictionary-results
                               :phrase-usage              phrase-usage-models
                               :reader-usage              reader-usage
                               :reader-flag               reader-flag
