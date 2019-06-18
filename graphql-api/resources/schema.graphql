@@ -87,7 +87,7 @@ type Editor {
 type Organization {
     id:                 ID!
     name:               String!
-    dictionary:         Dictionary!
+    dictionary:         DictionaryResults!
     readerFlags:        ReaderFlags!
 }
 
@@ -107,7 +107,7 @@ type ReaderFlag {
 
 ### Dictionary -----------------------------------------------------------------
 
-type DicionaryResults {
+type DictionaryResults {
     items:              [ DictionaryItem! ]!
     offset:             Int!
     limit:              Int
