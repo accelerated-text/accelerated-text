@@ -1,14 +1,14 @@
-### Enums
+### Enums ----------------------------------------------------------------------
+
+enum DefaultUsage {
+    YES
+    NO
+}
 
 enum Usage {
     YES
     NO
     DONT_CARE
-}
-
-enum DefaultUsage {
-    YES
-    NO
 }
 
 #   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
@@ -52,163 +52,173 @@ enum PartOfSpeech {
 }
 
 
-### Editor
+### Thesaurus ------------------------------------------------------------------
 
-type Organization {
-    id:             ID!
-    name:           String!
-    dictionary:     Dictionary!
-    readerFlags:    ReaderFlags!
-}
-
-type Editor {
-    id:             ID!
-    fullName:       String!
-    email:          String
-    organization:   Organization!
-}
-
-
-### Thesaurus
-
-type Word {
-    id:             ID!
-    partOfSpeech:   PartOfSpeech!
-    text:           String!
-    # Predicate
-    # Stem
+type ThesaurusResults {
+    words:              [ Word! ]!
+    offset:             Int!
+    limit:              Int
+    totalCount:         Int!
 }
 
 type Synonyms {
-    rootWord:       Word!
-    synonyms:       [ Word! ]!
+    rootWord:           Word!
+    synonyms:           [ Word! ]!
 }
 
-type ThesaurusResults {
-    words:          [ Word! ]!
-    offset:         Int!
-    limit:          Int
-    totalCount:     Int!
+type Word {
+    id:                 ID!
+    partOfSpeech:       PartOfSpeech!
+    text:               String!
+    # predicate
+    # stem
 }
 
 
-### Reader
+### Editor & Organization ------------------------------------------------------
 
-type ReaderFlag {
-    id:             ID!
-    name:           String!
+type Editor {
+    id:                 ID!
+    fullName:           String!
+    email:              String
+    organization:       Organization!
 }
+
+type Organization {
+    id:                 ID!
+    name:               String!
+    dictionary:         Dictionary!
+    readerFlags:        ReaderFlags!
+}
+
+
+### Reader ---------------------------------------------------------------------
 
 type ReaderFlags {
-     id:            ID!
-     flags:         [ ReaderFlag! ]!
+     id:                ID!
+     flags:             [ ReaderFlag! ]!
+}
+
+type ReaderFlag {
+    id:                 ID!
+    name:               String!
 }
 
 
-### Dictionary
+### Dictionary -----------------------------------------------------------------
 
-
-type ReaderFlagUsage {
-    id:             ID!
-    flag:           ReaderFlag!
-    usage:          Usage!
-}
-
-type PhraseUsage {
-    id:             ID!
-    phrase:         String!
-    defaultUsage:   DefaultUsage!
-    readerUsage:    [ ReaderFlagUsage! ]!
+type DicionaryResults {
+    items:              [ DictionaryItem! ]!
+    offset:             Int!
+    limit:              Int
+    totalCount:         Int!  
 }
 
 type DictionaryItem {
-    id:             ID!
-    name:           String!
-    partOfSpeech:   PartOfSpeech
-    phraseUsage:    [ PhraseUsage! ]!
+    id:                 ID!
+    name:               String!
+    partOfSpeech:       PartOfSpeech
+    phraseUsage:        [ PhraseUsage! ]!
 }
 
-type DicionaryResults {
-     items:         [ DictionaryItem! ]!
-     offset:         Int!
-     limit:          Int
-     totalCount:     Int!  
+type PhraseUsage {
+    id:                 ID!
+    phrase:             String!
+    defaultUsage:       DefaultUsage!
+    readerUsage:        [ ReaderFlagUsage! ]!
+}
+
+type ReaderFlagUsage {
+    id:                 ID!
+    flag:               ReaderFlag!
+    usage:              Usage!
 }
 
 
-### Queries
+### Queries --------------------------------------------------------------------
 
 type Query {
 
-    me:                         Editor!
-
-
-    dictionary:                 DictionaryResults!
-
-    dictionaryItem(
-        id:         ID!
-    ):  DictionaryItem
-
-
-    readerFlags:                ReaderFlags!
-
+    ### Thesaurus
 
     searchThesaurus(
-        query:        String,
-        partOfSpeech: PartOfSpeech,
+        query:              String,
+        partOfSpeech:       PartOfSpeech,
     ):  ThesaurusResults!
 
     synonyms(
-        wordId:     ID!
+        wordId:             ID!
     ):  Synonyms!
+
+    ### Editor & Organization
+
+    me:                     Editor!
+
+    ### Reader
+
+    readerFlags:            ReaderFlags!
+
+    ### Dictionary
+
+    dictionary:             DictionaryResults!
+
+    dictionaryItem(
+        id:                 ID!
+    ):  DictionaryItem
 }
+
+
+### Mutations ------------------------------------------------------------------
 
 type Mutation {
 
-     createDictionaryItem(
-        name:             String!
-        partOfSpeech:     PartOfSpeech
-     ): DictionaryItem!
+    ### Dictionary
 
-     updateDictionaryItem(
-        id:               ID!
-        name:             String
-        partOfSpeech:     PartOfSpeech
-     ): DictionaryItem!
-
-     deleteDictionaryItem(
-        id:               ID!
-     ): Boolean!
-
-    createPhraseUsage(
-        dictionaryItemId: ID!
-        phrase:           String!
-        defaultUsage:     DefaultUsage
+    createDictionaryItem(
+        name:               String!
+        partOfSpeech:       PartOfSpeech
     ):  DictionaryItem!
 
-    deletePhraseUsage(
-        id:           ID!
+    updateDictionaryItem(
+        id:                 ID!
+        name:               String
+        partOfSpeech:       PartOfSpeech
+    ):  DictionaryItem!
+
+    deleteDictionaryItem(
+        id:                 ID!
+    ): Boolean!
+
+    createPhraseUsage(
+        dictionaryItemId:   ID!
+        phrase:             String!
+        defaultUsage:       DefaultUsage
     ):  DictionaryItem!
 
     updatePhraseUsage(
-        id:           ID!
-        phrase:       String!
+        id:                 ID!
+        phrase:             String!
     ):  PhraseUsage!
 
     updatePhraseUsageDefault(
-        id:           ID!
-        defaultUsage: DefaultUsage!
+        id:                 ID!
+        defaultUsage:       DefaultUsage!
     ):  PhraseUsage!
 
-    updateReaderFlagUsage(
-        id:           ID!
-        usage:        Usage!
-    ):  ReaderFlagUsage!
+    deletePhraseUsage(
+        id:                 ID!
+    ):  DictionaryItem!
 
-    
+    updateReaderFlagUsage(
+        id:                 ID!
+        usage:              Usage!
+    ):  ReaderFlagUsage!
 }
 
+
+### Schema ---------------------------------------------------------------------
+
 schema {
-    query:    Query
-    mutation: Mutation
+    query:              Query
+    mutation:           Mutation
 }

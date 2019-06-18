@@ -7,7 +7,7 @@ import { mergeDeepRight }   from 'ramda';
 
 import acceleratedTextResolvers from '../accelerated-text/local-state';
 import resolvers            from './resolvers';
-import typeDefs             from './types.graphql';
+import typeDefs             from './schema.graphql';
 
 
 export { default as composeQueries }    from './compose-queries';
