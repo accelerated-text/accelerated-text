@@ -1,45 +1,77 @@
-query dictionaryIds {
-  dictionary {
-    id
-  }
-}
+### Thesaurus ------------------------------------------------------------------
 
-query dictionaryItem( $id: ID! ) {
-    dictionaryItem( id: $id ) {
-        id
-        name
-        usageModels {
-            id
-            phrase
-            defaultUsage
-            readerUsage {
-                id
-                flag { id name }
-                usage
-            }
-        }
-    }
-}
-
-query readerFlags {
-  readerFlags @client {
-    id
-    name
-  }
+fragment wordFields on Word {
+  id
+  text
 }
 
 query searchThesaurus( $query: String ) {
   searchThesaurus( query: $query ) @client {
-    id
-    text
+    offset
+    totalCount
+    words {
+      ...wordFields
+    }
   }
 }
 
 query synonyms( $wordId: ID! ) {
   synonyms( wordId: $wordId ) @client {
     synonyms {
-      id
-      text
+      ...wordFields
     }
+  }
+}
+
+
+### Reader ---------------------------------------------------------------------
+
+fragment readerFlagFields on ReaderFlag {
+  id
+  name
+}
+
+query readerFlags {
+  readerFlags @client {
+    id
+    flags {
+      id
+      name
+    }
+  }
+}
+
+### Dictionary -----------------------------------------------------------------
+
+fragment dictionaryItemFields on DictionaryItem {
+  id
+  name
+  phrases {
+    id
+    text
+    defaultUsage
+    readerFlagUsage {
+      id
+      flag {
+        ...readerFlagFields
+      }
+      usage
+    }
+  }
+}
+
+query dictionary {
+  dictionary {
+    offset
+    totalCount
+    items {
+      ...dictionaryItemFields
+    }
+  }
+}
+
+query dictionaryItem( $id: ID! ) {
+  dictionaryItem( id: $id ) {
+    ...dictionaryItemFields
   }
 }

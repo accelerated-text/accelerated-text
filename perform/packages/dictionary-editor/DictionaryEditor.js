@@ -11,8 +11,8 @@ import { closeDictionaryItem }  from '../accelerated-text/local-state';
 import { dictionaryItem }       from '../graphql/queries.graphql';
 import Thesaurus                from '../thesaurus/Thesaurus';
 
+import Phrases                  from './Phrases';
 import S                        from './DictionaryEditor.sass';
-import UsageModels              from './UsageModels';
 
 
 export default composeQueries({
@@ -34,10 +34,10 @@ export default composeQueries({
                     ✖️ close
                 </button>
             </div>
-            <UsageModels
-                className={ S.usageModels }
+            <Phrases
+                className={ S.phrases }
                 itemId={ item && item.id }
-                usageModels={ item && item.usageModels }
+                phrases={ item && item.phrases }
             />
         </Section>
     </Container>
