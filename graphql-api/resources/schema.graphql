@@ -118,12 +118,12 @@ type DictionaryItem {
     id:                 ID!
     name:               String!
     partOfSpeech:       PartOfSpeech
-    phraseUsage:        [ PhraseUsage! ]!
+    phrases:            [ Phrase! ]!
 }
 
-type PhraseUsage {
+type Phrase {
     id:                 ID!
-    phrase:             String!
+    text:               String!
     defaultUsage:       DefaultUsage!
     readerFlagUsage:    [ ReaderFlagUsage! ]!
 }
@@ -176,7 +176,7 @@ type Mutation {
 
     createDictionaryItem(
         name:               String!
-        partOfSpeech:       PartOfSpeech
+        partOfSpeech:       PartOfSpeech  # default = VB
     ):  DictionaryItem!
 
     updateDictionaryItem(
@@ -189,23 +189,23 @@ type Mutation {
         id:                 ID!
     ): Boolean!
 
-    createPhraseUsage(
+    createPhrase(
         dictionaryItemId:   ID!
-        phrase:             String!
-        defaultUsage:       DefaultUsage
+        text:               String!
+        defaultUsage:       DefaultUsage  # default = YES
     ):  DictionaryItem!
 
-    updatePhraseUsage(
+    updatePhrase(
         id:                 ID!
-        phrase:             String!
-    ):  PhraseUsage!
+        text:               String!
+    ):  Phrase!
 
     updatePhraseUsageDefault(
         id:                 ID!
         defaultUsage:       DefaultUsage!
-    ):  PhraseUsage!
+    ):  Phrase!
 
-    deletePhraseUsage(
+    deletePhrase(
         id:                 ID!
     ):  DictionaryItem!
 
