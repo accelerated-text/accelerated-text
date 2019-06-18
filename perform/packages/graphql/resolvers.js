@@ -46,7 +46,7 @@ export default {
 
         readerFlags:    () => READER_FLAGS.map( ReaderFlag ),
 
-        searchWords: ( _, { query }) => {
+        searchThesaurus: ( _, { query }) => {
             const re =  new RegExp( `^${ query }`, 'i' );
             return Object.keys( SYNONYMS )
                 .filter( re.exec.bind( re ))

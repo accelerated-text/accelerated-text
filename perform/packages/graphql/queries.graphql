@@ -28,8 +28,8 @@ query readerFlags {
   }
 }
 
-query searchWords( $query: String ) {
-  searchWords( query: $query ) @client {
+query searchThesaurus( $query: String ) {
+  searchThesaurus( query: $query ) @client {
     id
     text
   }
