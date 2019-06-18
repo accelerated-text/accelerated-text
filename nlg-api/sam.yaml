@@ -13,7 +13,7 @@ Resources:
   getDocumentPlans:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.DocumentPlansHandler::handleRequest
+      Handler: nlg.api.DocumentPlansHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -30,7 +30,7 @@ Resources:
   generateText:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
+      Handler: nlg.api.NLGHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -51,7 +51,7 @@ Resources:
   deleteNLGresult:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
+      Handler: nlg.api.NLGHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -72,7 +72,7 @@ Resources:
   getNLGresult:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
+      Handler: nlg.api.NLGHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -93,7 +93,7 @@ Resources:
   NLGIdCors:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
+      Handler: nlg.api.NLGHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -109,7 +109,7 @@ Resources:
   NLGCors:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.NLGHandler::handleRequest
+      Handler: nlg.api.NLGHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -126,7 +126,7 @@ Resources:
   getWorkspace:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Handler: nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -147,7 +147,7 @@ Resources:
   dpCors:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Handler: nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -164,7 +164,7 @@ Resources:
   listWorkspaces:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Handler: nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -185,7 +185,7 @@ Resources:
   addWorkspace:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Handler: nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -206,7 +206,7 @@ Resources:
   updateWorkspace:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Handler: nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -227,7 +227,7 @@ Resources:
   deleteWorkspace:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Handler: nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -248,7 +248,7 @@ Resources:
   dataCors:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.WorkspaceHandler::handleRequest
+      Handler: nlg.api.WorkspaceHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -265,7 +265,7 @@ Resources:
   listData:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.DataHandler::handleRequest
+      Handler: nlg.api.DataHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -282,7 +282,7 @@ Resources:
   getData:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.DataHandler::handleRequest
+      Handler: nlg.api.DataHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -299,7 +299,7 @@ Resources:
   searchLexicon:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
+      Handler: nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -320,7 +320,7 @@ Resources:
   createLexicon:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
+      Handler: nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -341,7 +341,7 @@ Resources:
   lexiconCors:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
+      Handler: nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -358,7 +358,7 @@ Resources:
   updateIdLexicon:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
+      Handler: api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -379,7 +379,7 @@ Resources:
   deleteIdLexicon:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
+      Handler: nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
@@ -400,7 +400,7 @@ Resources:
   lexiconIdCors:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lt.tokenmill.nlg.api.LexiconHandler::handleRequest
+      Handler: nlg.api.LexiconHandler::handleRequest
       Runtime: java8
       CodeUri: target/nlg-api-0.0.1-standalone.jar
       MemorySize: 3008
