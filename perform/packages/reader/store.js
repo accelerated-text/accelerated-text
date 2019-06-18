@@ -3,11 +3,11 @@ import resolvers from       '../graphql/resolvers';
 export default {
 
     getInitialState: () => ({
-        flags:              resolvers.Query.readerFlags(),
         flagValues: {
             junior:         true,
             senior:         false,
         },
+        readerFlags:        resolvers.Query.readerFlags(),
     }),
 
     reader: {

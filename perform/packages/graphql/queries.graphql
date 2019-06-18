@@ -35,8 +35,7 @@ query readerFlags {
   readerFlags @client {
     id
     flags {
-      id
-      name
+      ...readerFlagFields
     }
   }
 }

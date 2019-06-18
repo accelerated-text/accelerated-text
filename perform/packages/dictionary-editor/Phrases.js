@@ -10,7 +10,7 @@ import Phrase               from './Phrase';
 import S                    from './Phrases.sass';
 
 
-const sortByText =          sortBy( prop( 'tex' ));
+const sortByText =          sortBy( prop( 'text' ));
 
 
 export default composeQueries({
@@ -27,7 +27,7 @@ export default composeQueries({
                 <tr>
                     <th className={ S.phrases }>Phrases</th>
                     <th>Default</th>
-                    { readerFlags && readerFlags.map( flag =>
+                    { readerFlags && readerFlags.flags.map( flag =>
                         <th key={ flag.id }>{ flag.name }</th>
                     )}
                 </tr>

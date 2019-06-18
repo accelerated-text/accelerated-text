@@ -78,7 +78,7 @@ export default composeQueries({
                         onChange={ this.onChangeDefaultUsage }
                         usage={ this.state.defaultUsage }
                     />
-                    <td colspan={ ( readerFlags ? readerFlags.length : 0 ) }>
+                    <td colspan={ ( readerFlags ? readerFlags.flags.length : 0 ) }>
                         <button
                             children="➕ Add new phrase"
                             disabled={ !this.state.text }

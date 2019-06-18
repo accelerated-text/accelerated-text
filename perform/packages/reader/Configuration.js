@@ -10,10 +10,10 @@ export default useStores([
     'reader',
 ])(({
     E,
-    reader: { flags, flagValues },
+    reader: { flagValues, readerFlags },
 }) =>
     <div className={ S.className }>
-        { flags.map( flag =>
+        { readerFlags.flags.map( flag =>
             <FlagValue
                 key={ flag.id }
                 flag={ flag }
