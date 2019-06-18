@@ -45,17 +45,15 @@ export const graphQLProvide = ( t, interceptFn ) =>
 export default async ( t, run, ...args ) => {
 
     /// Ignore all OPTIONS requests:
-    t.interceptor.provideAll( 'OPTIONS', URL, {}, null, GRAPHQL_CORS_HEADERS );
+    t.onRequest.provideAll( 'OPTIONS', URL, {}, null, GRAPHQL_CORS_HEADERS );
 
     return run(
         Object.assign( t, {
             graphQL: {
-                intercept:      graphQLIntercept( t.interceptor.intercept,      t.interceptor.provide ),
-                interceptAll:   graphQLIntercept( t.interceptor.interceptAll,   t.interceptor.provideAll ),
-                interceptOnce:  graphQLIntercept( t.interceptor.interceptOnce,  t.interceptor.provideOnce ),
-                provide:        graphQLProvide( t, t.interceptor.intercept ),
-                provideAll:     graphQLProvide( t, t.interceptor.interceptAll ),
-                provideOnce:    graphQLProvide( t, t.interceptor.interceptOnce ),
+                interceptAll:   graphQLIntercept( t.onRequest.interceptAll,   t.onRequest.provideAll ),
+                interceptOnce:  graphQLIntercept( t.onRequest.interceptOnce,  t.onRequest.provideOnce ),
+                provideAll:     graphQLProvide( t, t.onRequest.interceptAll ),
+                provideOnce:    graphQLProvide( t, t.onRequest.interceptOnce ),
                 respond:        graphQLRespond,
             },
         }),

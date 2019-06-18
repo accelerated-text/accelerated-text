@@ -14,7 +14,7 @@ export default async ( t, run, ...args ) => {
 
     const {
         graphQL,
-        interceptor: { continueAll },
+        onRequest: { continueAll },
         nlgApi,
     } = t;
 

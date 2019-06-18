@@ -123,13 +123,10 @@ module.exports = async ( page, options = {}) => {
 
     return {
         clear:          handlers.reset,
-        continue:       continueOnce,
         continueAll,
         continueOnce,
-        intercept:      interceptOnce,
         interceptAll,
         interceptOnce,
-        provide:        provideOnce,
         provideAll,
         provideOnce,
         startInterception,

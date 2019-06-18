@@ -9,7 +9,7 @@ import defaultResponses     from './lib/default-responses';
 import DOCUMENT_PLAN_LIST   from './data/document-plan-list';
 import noRecords            from './lib/no-records';
 import withGraphQL          from './lib/with-graphql';
-import withInterceptor      from './lib/with-interceptor';
+import withOnRequest        from './lib/with-on-request';
 import withNlgApi           from './lib/with-nlg-api';
 import withPage             from './lib/with-page';
 
@@ -21,7 +21,7 @@ test(
     withPage,
     debugConsole,
     addPageUtils,
-    withInterceptor,
+    withOnRequest,
     withGraphQL,
     withNlgApi,
     async t => {
