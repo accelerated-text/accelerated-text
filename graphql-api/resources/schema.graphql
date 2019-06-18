@@ -111,7 +111,7 @@ type DicionaryResults {
     items:              [ DictionaryItem! ]!
     offset:             Int!
     limit:              Int
-    totalCount:         Int!  
+    totalCount:         Int!
 }
 
 type DictionaryItem {
@@ -125,7 +125,7 @@ type PhraseUsage {
     id:                 ID!
     phrase:             String!
     defaultUsage:       DefaultUsage!
-    readerUsage:        [ ReaderFlagUsage! ]!
+    readerFlagUsage:    [ ReaderFlagUsage! ]!
 }
 
 type ReaderFlagUsage {
