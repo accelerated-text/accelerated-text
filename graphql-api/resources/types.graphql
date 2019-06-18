@@ -105,6 +105,7 @@ type DictionaryItem {
     usageModels:    [ PhraseUsageModel! ]!
 }
 
+
 ### Lexicon
 
 type LexiconItem {
