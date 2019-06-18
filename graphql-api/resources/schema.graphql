@@ -200,7 +200,7 @@ type Mutation {
         text:               String!
     ):  Phrase!
 
-    updatePhraseUsageDefault(
+    updatePhraseDefaultUsage(
         id:                 ID!
         defaultUsage:       DefaultUsage!
     ):  Phrase!
