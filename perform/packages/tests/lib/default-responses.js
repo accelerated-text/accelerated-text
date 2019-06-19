@@ -28,11 +28,13 @@ export default async ( t, run, ...args ) => {
     /// Register these intercepts while the page is loading:
     await Promise.all([
         graphQL.provideOnce( 'dictionaryIds', {}, { data: DICTIONARY })
-            .then(() => graphQL.provideOnce(
-                'dictionaryItem',
-                { id: DICTIONARY.dictionary[0].id },
-                { data: { dictionaryItem: DICTIONARY.dictionary[0] }},
-            )),
+            .then(() => Promise.all( DICTIONARY.dictionary.map( dictionaryItem =>
+                graphQL.provideOnce(
+                    'dictionaryItem',
+                    { id: dictionaryItem.id },
+                    { data: { dictionaryItem }},
+                ),
+            ))),
         nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, DATA_FILE_LIST ),
         nlgApi.provideOnce( 'GET', '/document-plans/', DOCUMENT_PLAN_LIST )
             .then(() => Promise.all([

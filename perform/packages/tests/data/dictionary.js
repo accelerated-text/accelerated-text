@@ -79,5 +79,11 @@ export default {
                 [READER_FLAGS[1]]:  YES,
             }],
         ],
+        two: [
+            [ 'two', YES, {
+                [READER_FLAGS[0]]:  DONT_CARE,
+                [READER_FLAGS[1]]:  YES,
+            }],
+        ],
     }),
 };

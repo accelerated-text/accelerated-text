@@ -1,4 +1,7 @@
-const URL =             process.env.GRAPHQL_URL;
+import { applyTo, equals }  from 'ramda';
+
+
+const URL =                 process.env.GRAPHQL_URL;
 
 
 export const GRAPHQL_CORS_HEADERS = {
@@ -6,6 +9,19 @@ export const GRAPHQL_CORS_HEADERS = {
     'access-control-allow-methods': 'POST, OPTIONS',
     'access-control-allow-origin':  '*',
 };
+
+
+const matchRequest = ( operationName, variables ) => request => (
+    request.method() === 'POST'
+    && request.url() === URL
+    && applyTo(
+        JSON.parse( request.postData()),
+        postData => (
+            postData.operationName === operationName
+            && equals( postData.variables, variables )
+        ),
+    )
+);
 
 
 export const graphQLHeaders = headers => ({
@@ -27,19 +43,22 @@ export const graphQLRespond = ( request, body ) =>
     });
 
 
-export const graphQLIntercept = ( interceptFn, provideFn ) =>
-    onRequestFn =>
-        interceptFn( 'POST', URL, onRequestFn );
+export const graphQLIntercept = ( interceptFn ) =>
+    ( operationName, variables, onRequestFn ) =>
+        interceptFn(
+            matchRequest( operationName, variables ),
+            onRequestFn,
+        );
 
 
-export const graphQLProvide = ( t, interceptFn ) =>
+export const graphQLProvide = ( provideFn ) =>
     ( operationName, variables, body ) =>
-        interceptFn( 'POST', URL, request => {
-            const postData =    JSON.parse( request.postData());
-            t.deepEqual( postData.operationName, operationName );
-            t.deepEqual( postData.variables, variables );
-            return graphQLRespond( request, body );
-        });
+        provideFn(
+            matchRequest( operationName, variables ),
+            body,
+            200,
+            GRAPHQL_CORS_HEADERS,
+        );
 
 
 export default async ( t, run, ...args ) => {
@@ -50,10 +69,10 @@ export default async ( t, run, ...args ) => {
     return run(
         Object.assign( t, {
             graphQL: {
-                interceptAll:   graphQLIntercept( t.onRequest.interceptAll,   t.onRequest.provideAll ),
-                interceptOnce:  graphQLIntercept( t.onRequest.interceptOnce,  t.onRequest.provideOnce ),
-                provideAll:     graphQLProvide( t, t.onRequest.interceptAll ),
-                provideOnce:    graphQLProvide( t, t.onRequest.interceptOnce ),
+                interceptAll:   graphQLIntercept(   t.onRequest.interceptAll ),
+                interceptOnce:  graphQLIntercept(   t.onRequest.interceptOnce ),
+                provideAll:     graphQLProvide(     t.onRequest.provideAll ),
+                provideOnce:    graphQLProvide(     t.onRequest.provideOnce ),
                 respond:        graphQLRespond,
             },
         }),
