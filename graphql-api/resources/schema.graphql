@@ -134,6 +134,26 @@ type ReaderFlagUsage {
     usage:              Usage!
 }
 
+### DocumentPlan --------------------------------------------------------------
+
+type DocumentPlan {
+     id:                ID!
+     uid:               ID!
+     name:              String!
+     contextId:         String!
+     blocklyXml:        String!
+     documentPlan:      String!
+     dataId:            String
+     dataSampleId:      String
+     dataSampleRow:     Int
+}
+
+type DocumentPlanResults {
+     items:           [ DocumentPlan! ]
+     offset:             Int!
+     limit:              Int
+     totalCount:         Int!
+}
 
 ### Queries --------------------------------------------------------------------
 
@@ -165,6 +185,16 @@ type Query {
     dictionaryItem(
         id:                 ID!
     ):  DictionaryItem
+
+
+    ### DocumentPlan
+
+    documentPlans:           DocumentPlanResults!
+    documentPlan(
+        id:                 ID!
+    ): DocumentPlan
+
+   
 }
 
 
