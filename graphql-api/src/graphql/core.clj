@@ -52,14 +52,14 @@
       (io/resource)
       slurp
       (parser/parse-schema {:resolvers { :Query            {:dictionary     :dictionary
-                                                            ;; :dictionary-item :dictionary-item
+                                                            :dictionaryItem :dictionary-item
                                                             }
                                         :Mutation {:updateReaderFlagUsage :update-reader-flag-usage
                                                    :updatePhraseDefaultUsage :update-phrase-usage-model
                                                    :createPhrase :create-phrase-usage-model
                                                    :deletePhrase :delete-phrase-usage-model
                                                    }
-                                        :DictionaryItem   {:phrases :pphrase-usage}
+                                        :DictionaryItem   {:phrases :phrase-usage}
                                         :Phrase      {:readerFlagUsage :reader-usage}
                                         :ReaderFlagUsage  {:flag :reader-flag}
                                         }})
