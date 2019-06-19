@@ -13,7 +13,7 @@ const { TEST_URL } =            process.env;
 export default async ( t, run, ...args ) => {
 
     const {
-        graphQL,
+        graphqlApi,
         onRequest: { continueAll },
         nlgApi,
     } = t;
@@ -27,9 +27,9 @@ export default async ( t, run, ...args ) => {
 
     /// Register these intercepts while the page is loading:
     await Promise.all([
-        graphQL.provideOnce( 'dictionaryIds', {}, { data: DICTIONARY })
+        graphqlApi.provideOnce( 'dictionaryIds', {}, { data: DICTIONARY })
             .then(() => Promise.all( DICTIONARY.dictionary.map( dictionaryItem =>
-                graphQL.provideOnce(
+                graphqlApi.provideOnce(
                     'dictionaryItem',
                     { id: dictionaryItem.id },
                     { data: { dictionaryItem }},

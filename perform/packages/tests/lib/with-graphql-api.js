@@ -24,13 +24,13 @@ const matchRequest = ( operationName, variables ) => request => (
 );
 
 
-export const graphQLHeaders = headers => ({
+export const graphqlApiHeaders = headers => ({
     ...GRAPHQL_CORS_HEADERS,
     ...headers,
 });
 
 
-export const graphQLRespond = ( request, body ) =>
+export const graphqlApiRespond = ( request, body ) =>
     request.respond({
         status:         200,
         headers:        GRAPHQL_CORS_HEADERS,
@@ -43,7 +43,7 @@ export const graphQLRespond = ( request, body ) =>
     });
 
 
-export const graphQLIntercept = ( interceptFn ) =>
+export const graphqlApiIntercept = ( interceptFn ) =>
     ( operationName, variables, onRequestFn ) =>
         interceptFn(
             matchRequest( operationName, variables ),
@@ -51,7 +51,7 @@ export const graphQLIntercept = ( interceptFn ) =>
         );
 
 
-export const graphQLProvide = ( provideFn ) =>
+export const graphqlApiProvide = ( provideFn ) =>
     ( operationName, variables, body ) =>
         provideFn(
             matchRequest( operationName, variables ),
@@ -68,12 +68,12 @@ export default async ( t, run, ...args ) => {
 
     return run(
         Object.assign( t, {
-            graphQL: {
-                interceptAll:   graphQLIntercept(   t.onRequest.interceptAll ),
-                interceptOnce:  graphQLIntercept(   t.onRequest.interceptOnce ),
-                provideAll:     graphQLProvide(     t.onRequest.provideAll ),
-                provideOnce:    graphQLProvide(     t.onRequest.provideOnce ),
-                respond:        graphQLRespond,
+            graphqlApi: {
+                interceptAll:   graphqlApiIntercept(   t.onRequest.interceptAll ),
+                interceptOnce:  graphqlApiIntercept(   t.onRequest.interceptOnce ),
+                provideAll:     graphqlApiProvide(     t.onRequest.provideAll ),
+                provideOnce:    graphqlApiProvide(     t.onRequest.provideOnce ),
+                respond:        graphqlApiRespond,
             },
         }),
         ...args,
