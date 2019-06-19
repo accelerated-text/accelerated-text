@@ -55,6 +55,7 @@
                                                             ;; :dictionary-item :dictionary-item
                                                             }
                                         :Mutation {:updateReaderFlagUsage :update-reader-flag-usage
+                                                   :updatePhraseDefaultUsage :update-phrase-usage-model
                                                    }
                                         ;; :Mutation         {:updateReaderFlagUsage :update-reader-flag-usage
                                         ;;                    :updatePhraseUsageDefault :update-phrase-usage-model
