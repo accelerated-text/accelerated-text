@@ -18,6 +18,9 @@ module.exports = createConstants( 'tests', {
     DATA_MANAGER_ROW_PREVIOUS:  'data-manager-row-previous',
     DATA_MANAGER_ROW_SELECT:    'data-manager-row-select',
 
+    DICTIONARY_ITEM_NAME:       'dictionary-item-name',
+    DICTIONARY_ITEM_PHRASES:    'dictionary-item-phrases',
+
     EXAMPLE_XML:            'example-xml',
 
     UI_ERROR:               'ui-error',

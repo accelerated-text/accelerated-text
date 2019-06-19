@@ -1,3 +1,4 @@
+import classnames               from 'classnames';
 import { h }                    from 'preact';
 
 import DragInBlock              from '../drag-in-blocks/DragInBlock';
@@ -6,6 +7,7 @@ import { composeQueries }       from '../graphql/';
 import DictionaryItemBlock      from '../nlg-blocks/Dictionary-item';
 import { dictionaryItem }       from '../graphql/queries.graphql';
 import { openDictionaryItem }   from '../accelerated-text/local-state';
+import { QA }                   from '../tests/constants';
 
 import S                        from './ItemRow.sass';
 import ShowPhrases              from './ShowPhrases';
@@ -34,10 +36,10 @@ export default composeQueries({
             </td>
             <td
                 children={ dictionaryItem.name }
-                className={ S.name }
+                className={ classnames( S.name, QA.DICTIONARY_ITEM_NAME ) }
                 onClick={ openDictionaryItem }
             />
-            <td onClick={ openDictionaryItem }>
+            <td className={ QA.DICTIONARY_ITEM_PHRASES } onClick={ openDictionaryItem }>
                 <ShowPhrases
                     phrases={ dictionaryItem.usageModels.map(
                         m => m.phrase
