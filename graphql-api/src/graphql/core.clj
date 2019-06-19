@@ -56,9 +56,10 @@
                                                             }
                                         :Mutation {:updateReaderFlagUsage :update-reader-flag-usage
                                                    :updatePhraseDefaultUsage :update-phrase-usage-model
+                                                   :createPhrase :create-phrase-usage-model
+                                                   :deletePhrase :delete-phrase-usage-model
                                                    }
-                                        ;; :Mutation         {:updateReaderFlagUsage :update-reader-flag-usage
-                                        ;;                    :updatePhraseUsageDefault :update-phrase-usage-model
+                                        ;; :Mutation         {
                                         ;;                    :createPhraseUsage :create-phrase-usage-model
                                         ;;                    :deletePhraseUsage :delete-phrase-usage-model}
                                         ;; :DictionaryItem   {:phraseUsage :phrase-usage}
