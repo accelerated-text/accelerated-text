@@ -54,13 +54,15 @@
       (parser/parse-schema {:resolvers { :Query            {:dictionary     :dictionary
                                                             ;; :dictionary-item :dictionary-item
                                                             }
+                                        :Mutation {:updateReaderFlagUsage :update-reader-flag-usage
+                                                   }
                                         ;; :Mutation         {:updateReaderFlagUsage :update-reader-flag-usage
                                         ;;                    :updatePhraseUsageDefault :update-phrase-usage-model
                                         ;;                    :createPhraseUsage :create-phrase-usage-model
                                         ;;                    :deletePhraseUsage :delete-phrase-usage-model}
                                         ;; :DictionaryItem   {:phraseUsage :phrase-usage}
                                         ;; :PhraseUsage      {:readerUsage :reader-usage}
-                                        ;; :ReaderFlagUsage  {:flag :reader-flag}
+                                        :ReaderFlagUsage  {:flag :reader-flag}
                                         }})
       (util/attach-resolvers {:dictionary                dictionary
                               :dictionary-item           dictionary-item
