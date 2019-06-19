@@ -59,11 +59,8 @@
                                                    :createPhrase :create-phrase-usage-model
                                                    :deletePhrase :delete-phrase-usage-model
                                                    }
-                                        ;; :Mutation         {
-                                        ;;                    :createPhraseUsage :create-phrase-usage-model
-                                        ;;                    :deletePhraseUsage :delete-phrase-usage-model}
-                                        ;; :DictionaryItem   {:phraseUsage :phrase-usage}
-                                        ;; :PhraseUsage      {:readerUsage :reader-usage}
+                                        :DictionaryItem   {:phrases :phrase-usage}
+                                        :Phrase      {:readerFlagUsage :reader-usage}
                                         :ReaderFlagUsage  {:flag :reader-flag}
                                         }})
       (util/attach-resolvers {:dictionary                dictionary
