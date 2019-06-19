@@ -1,4 +1,7 @@
-const requestHandlers = require( './request-handlers' );
+const { zipObj } =      require( 'ramda' );
+
+const requestMatchers = require( './request-matchers' );
+
 
 const ONCE =            'ONCE';
 const ALWAYS =          'ALWAYS';
@@ -8,44 +11,60 @@ const INTERCEPT =       'INTERCEPT';
 const PROVIDE =         'PROVIDE';
 
 
+const matchUrl = ( method, url ) => request => {
+
+    const reqMethod =   request.method();
+    const reqUrl =      request.url();
+
+    return (
+        ( method === reqMethod
+            || ( method.test && method.test( reqMethod )))
+        && ( url === reqUrl
+            || ( url.test && url.test( reqUrl )))
+    );
+};
+
+const matchFn = ( methodOrFn, urlOrOther ) => (
+    methodOrFn instanceof Function
+        ? methodOrFn
+        : matchUrl( methodOrFn, urlOrOther )
+);
+
+const matchArgs = ( argNames, args ) => (
+    args[0] instanceof Function
+        ? zipObj( argNames, args.slice( 1 ))
+        : zipObj( argNames, args.slice( 2 ))
+);
+
+
 module.exports = async ( page, options = {}) => {
 
-    const handlers =    requestHandlers();
+    const matchers =    requestMatchers();
 
-    const addHandler = ( occurance, type, method, url, fields ) =>
-        ( occurance === ONCE )
-            ? new Promise(( resolve, reject ) =>
-                handlers.add( method, url, {
-                    ...fields,
+    const addMatcher = ( occurance, type, ...argNames ) =>
+        ( ...args ) =>
+            ( occurance === ONCE )
+                ? new Promise(( resolve, reject ) =>
+                    matchers.add( matchFn( ...args ), {
+                        ...matchArgs( argNames, args ),
+                        occurance,
+                        type,
+                        resolve,
+                        reject,
+                    })
+                )
+                : matchers.add( matchFn( ...args ), {
+                    ...matchArgs( argNames, args ),
                     occurance,
                     type,
-                    resolve,
-                    reject,
-                })
-            )
-            : handlers.add( method, url, {
-                ...fields,
-                occurance,
-                type,
-            });
+                });
 
-    const continueAll = ( method, url ) =>
-        addHandler( ALWAYS, CONTINUE, method, url );
-
-    const continueOnce = ( method, url ) =>
-        addHandler( ONCE, CONTINUE, method, url );
-
-    const interceptAll = ( method, url, onRequestFn ) =>
-        addHandler( ALWAYS, INTERCEPT, method, url, { onRequestFn });
-
-    const interceptOnce = ( method, url, onRequestFn ) =>
-        addHandler( ONCE, INTERCEPT, method, url, { onRequestFn });
-
-    const provideAll = ( method, url, body, status = 200, headers = {}) =>
-        addHandler( ALWAYS, PROVIDE, method, url, { body, status, headers });
-
-    const provideOnce = ( method, url, body, status = 200, headers = {}) =>
-        addHandler( ONCE, PROVIDE, method, url, { body, status, headers });
+    const continueAll =     addMatcher( ALWAYS, CONTINUE );
+    const continueOnce =    addMatcher( ONCE,   CONTINUE );
+    const interceptAll =    addMatcher( ALWAYS, INTERCEPT,  'onRequestFn' );
+    const interceptOnce =   addMatcher( ONCE,   INTERCEPT,  'onRequestFn' );
+    const provideAll =      addMatcher( ALWAYS, PROVIDE,    'body', 'status', 'headers' );
+    const provideOnce =     addMatcher( ONCE,   PROVIDE,    'body', 'status', 'headers' );
 
     const onRequest = async request => {
 
@@ -56,8 +75,8 @@ module.exports = async ( page, options = {}) => {
             options.onRequest({ method, request, url });
         }
 
-        const handler = handlers.findMatch( method, url );
-        if( !handler ) {
+        const matcher = matchers.findMatch( request );
+        if( !matcher ) {
             const err = Error( `Got unexpected request for ${ method } ${ url }.` );
             if( options.onError ) {
                 options.onError( err );
@@ -66,35 +85,38 @@ module.exports = async ( page, options = {}) => {
                 throw err;
             }
         }
-        if( options.onRequestHandler ) {
-            options.onRequestHandler({ handler, method, request, url });
-        }
 
-        switch( handler.type ) {
+        const {
+            status =        200,
+            headers =       {},
+        } = matcher;
+
+        switch( matcher.type ) {
 
         case CONTINUE:
             request.continue();
             break;
 
         case INTERCEPT:
-            handler.onRequestFn( request, method, url );
+            matcher.onRequestFn( request, method, url );
             break;
 
         case PROVIDE:
             request.respond({
-                status:         handler.status,
-                headers:        handler.headers,
-                contentType:    handler.headers.contentType || 'application/json',
+                status,
+                headers,
+                contentType:    headers.contentType || 'application/json',
                 body: (
-                    handler.headers.contentType
-                        ? handler.body
-                        : JSON.stringify( handler.body )
+                    headers.contentType
+                        ? matcher.body
+                        : JSON.stringify( matcher.body )
                 ),
             });
             break;
 
         default:
-            const err = Error( `Unrecognized handler type ${ handler.type } for ${ method } ${ url }.` );   // eslint-disable-line no-case-declarations
+            const err = Error( `Unrecognized matcher type ${ matcher.type } for ${ method } ${ url }.` );   // eslint-disable-line no-case-declarations
+
             if( options.onError ) {
                 options.onError( err );
             } else {
@@ -102,9 +124,9 @@ module.exports = async ( page, options = {}) => {
             }
         }
 
-        if( handler.occurance === ONCE ) {
-            handler.resolve({ request });
-            handlers.remove( handler );
+        if( matcher.occurance === ONCE ) {
+            matcher.resolve({ request });
+            matchers.remove( matcher );
         }
     };
 
@@ -122,7 +144,7 @@ module.exports = async ( page, options = {}) => {
     await startInterception( page );
 
     return {
-        clear:          handlers.reset,
+        clear:              matchers.reset,
         continueAll,
         continueOnce,
         interceptAll,
