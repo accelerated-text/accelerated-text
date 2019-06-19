@@ -12,13 +12,15 @@
   (-> "schema.graphql"
       (io/resource)
       slurp
-      (parser/parse-schema {:resolvers { :Query            {:dictionary     :dictionary
-                                                            :dictionaryItem :dictionary-item
-                                                            }
+      (parser/parse-schema {:resolvers {:Query            {:dictionary     :dictionary
+                                                           :dictionaryItem :dictionary-item
+                                                           }
                                         :Mutation {:updateReaderFlagUsage :update-reader-flag-usage
                                                    :updatePhraseDefaultUsage :update-phrase-usage-model
                                                    :createPhrase :create-phrase-usage-model
                                                    :deletePhrase :delete-phrase-usage-model
+                                                   :createDictionaryItem :create-dictionary-item
+                                                   :deleteDictionaryItem :delete-dictionary-item
                                                    }
                                         :DictionaryItem   {:phrases :phrase-usage}
                                         :Phrase      {:readerFlagUsage :reader-usage}
@@ -26,7 +28,8 @@
                                         }})
       (util/attach-resolvers {:dictionary                dictionary-domain/dictionary
                               :dictionary-item           dictionary-domain/dictionary-item
-                              :dictionary-results        dictionary-domain/dictionary-results
+                              :create-dictionary-item    dictionary-domain/create-dictionary-item
+                              :delete-dictionary-item    dictionary-domain/delete-dictionary-item
                               :phrase-usage              dictionary-domain/phrase-usage-models
                               :reader-usage              dictionary-domain/reader-usage
                               :reader-flag               dictionary-domain/reader-flag
