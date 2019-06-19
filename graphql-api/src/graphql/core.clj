@@ -22,7 +22,7 @@
    :totalCount 0})
 
 (defn phrase-usage-models [_ _ value]
-  (:phrase-usage-model (dictionary/phrase-usage-models {:ids (:usageModels value)})))
+  (:phrase-usage-model (dictionary/phrase-usage-models {:ids (:phrases value)})))
 
 (defn reader-usage [_ _ value]
   (:reader-flag-usage (dictionary/reader-flag-usages {:ids (:readerUsage value)})))
@@ -37,15 +37,15 @@
   (dictionary/update-phrase-usage arguments))
 
 (defn create-phrase-usage-model [_ {:keys [dictionaryItemId phrase defaultUsage] :or {defaultUsage :YES}} _]
-  (let [usage-models (:usageModels (dictionary/dictionary-item {:id dictionaryItemId}))
+  (let [usage-models (:phrases (dictionary/dictionary-item {:id dictionaryItemId}))
         new-phrase-model-id (:id (dictionary/create-phrase-usage-model {:phrase phrase :defaultUsage defaultUsage}))]
-    (dictionary/update-dictionary-item-usage-models {:id dictionaryItemId :phraseUsage (conj usage-models new-phrase-model-id)})))
+    (dictionary/update-dictionary-item-usage-models {:id dictionaryItemId :phrases (conj usage-models new-phrase-model-id)})))
 
 (defn delete-phrase-usage-model [_ {:keys [id]} _]
   (let [dictionary-id (dictionary/dictionary-item-id-that-contains-phrase-model {:id id})
-        usage-models (:phraseUsage (dictionary/dictionary-item {:id dictionary-id}))]
+        usage-models (:phrases (dictionary/dictionary-item {:id dictionary-id}))]
     (dictionary/delete-phrase-usage-model {:id id})
-    (dictionary/update-dictionary-item-usage-models {:id dictionary-id :phraseUsage (remove #(= id %) usage-models)})))
+    (dictionary/update-dictionary-item-usage-models {:id dictionary-id :phrases (remove #(= id %) usage-models)})))
 
 (def nlg-schema
   (-> "schema.graphql"
@@ -59,7 +59,7 @@
                                                    :createPhrase :create-phrase-usage-model
                                                    :deletePhrase :delete-phrase-usage-model
                                                    }
-                                        :DictionaryItem   {:phrases :phrase-usage}
+                                        :DictionaryItem   {:phrases :pphrase-usage}
                                         :Phrase      {:readerFlagUsage :reader-usage}
                                         :ReaderFlagUsage  {:flag :reader-flag}
                                         }})
