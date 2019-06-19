@@ -10,11 +10,11 @@
   (-> (dictionary-api/dictionary-item arguments)
       (translate-dict/dictionary-item-out)))
 
-(defn dictionary-results [_ arguments _]
-  {:items (list (dictionary-item arguments))
-   :offset 0
-   :limit 0
-   :totalCount 0})
+(defn create-dictionary-item [_ arguments _]
+  )
+
+(defn delete-dictionary-item [_ arguments _]
+  )
 
 (defn phrase-usage-models [_ _ value]
   (:phrase-usage-model (dictionary-api/phrase-usage-models {:ids (:phrases value)})))

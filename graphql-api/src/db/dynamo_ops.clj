@@ -79,32 +79,3 @@
         (far/scan (config/client-opts) table-name opts))
       (batch-read-items [this opts]
         (far/batch-get-item (config/client-opts) {table-name opts})))))
-
-(defn get-workspace [key]
-  (far/get-item (config/client-opts) config/blockly-table {:id key}))
-
-(defn list-workspaces [limit]
-  (far/scan (config/client-opts) config/blockly-table {:limit limit}))
-
-
-(defn write-workspace [key workspace]
-  (let [body (assoc workspace :id key)]
-    (far/put-item
-      (config/client-opts)
-      config/blockly-table
-      body)
-    body))
-
-(defn add-workspace [key workspace]
-  (let [body (assoc workspace :createdAt (utils/ts-now))]
-    (write-workspace key body)))
-
-(defn update-workspace [key workspace]
-  (let [original (get-workspace key)
-        body (merge
-               original
-               (assoc workspace :updatedAt (utils/ts-now)))]
-    (write-workspace key body)))
-
-(defn delete-workspace [key]
-  (far/delete-item (config/client-opts) config/blockly-table {:id key}))
