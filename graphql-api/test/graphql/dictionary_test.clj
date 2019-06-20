@@ -30,3 +30,17 @@
     (log/tracef "Expected:\t %s\n" expected)
     (log/tracef "Result:\t %s\n" result)
     (is (= expected result))))
+
+(deftest ^:integration get-dictionary-item
+  (let [resp (graph/nlg {:query "{dictionaryItem(id: \"see\"){name phrases{text}}}"})
+        result (->> (:data resp)
+                    :dictionaryItem)]
+    (is (= "see" (:name result)))
+    (is (= #{{:text "look"}
+             {:text "contemplate"}
+             {:text "examine"}
+             {:text "gaze"}
+             {:text "watch"}
+             {:text "check out"}
+             {:text "see"}}
+           (set (:phrases result))))))
