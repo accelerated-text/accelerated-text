@@ -10,3 +10,8 @@
   (let [result (normalize-resp (graph/nlg {:query "{dictionary{items{name} totalCount}}"}))
         expected {"data" {"dictionary" {"totalCount" 3 "items" [{"name" "provides"} {"name" "see"} {"name" "redesigned"}]}}}]
     (is (= expected result))))
+
+(deftest ^:integration list-dictionary-w-phrases
+  (let [result (normalize-resp (graph/nlg {:query "{dictionary{items{name phrases{id}}}}"}))
+        expected {"data" {"dictionary" {"items" [{"name" "provides"} {"name" "see"} {"name" "redesigned"}]}}}]
+    (is (= expected result))))

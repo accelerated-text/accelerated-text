@@ -16,7 +16,7 @@
   )
 
 (defn phrase-usage-models [_ _ value]
-  (:phrase-usage-model (dictionary-api/phrase-usage-models {:ids (:phrases value)})))
+  (:phrase-usage-model (dictionary-api/phrase-usage-models {:ids (:usageModels value)})))
 
 (defn reader-usage [_ _ value]
   (:reader-flag-usage (dictionary-api/reader-flag-usages {:ids (:readerUsage value)})))
