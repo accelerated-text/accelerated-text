@@ -32,10 +32,12 @@
     (is (= expected result))))
 
 (deftest ^:integration get-dictionary-item
-  (let [resp (graph/nlg {:query "{dictionaryItem(id: \"see\"){name phrases{text}}}"})
+  (let [resp (graph/nlg {:query "{dictionaryItem(id: \"see\"){name partOfSpeech phrases{text}}}"})
         result (->> (:data resp)
                     :dictionaryItem)]
+    (log/debugf "Response: %s" resp)
     (is (= "see" (:name result)))
+    (is (= :VB  (:partOfSpeech result)))
     (is (= #{{:text "look"}
              {:text "contemplate"}
              {:text "examine"}

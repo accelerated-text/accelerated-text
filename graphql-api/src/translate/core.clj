@@ -33,3 +33,10 @@
 (defn translate-output
   [resp]
   (into (sorted-map) (map translate-output-node resp)))
+
+(defn paginated-response
+  [result]
+  {:items result
+   :offset 0
+   :limit 100
+   :totalCount (count result)})

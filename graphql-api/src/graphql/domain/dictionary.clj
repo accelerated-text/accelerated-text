@@ -1,14 +1,19 @@
 (ns graphql.domain.dictionary
   (:require [clojure.tools.logging :as log]
             [nlg.dictionary :as dictionary-api]
-            [translate.dictionary :as translate-dict]))
+            [translate.dictionary :as translate-dict]
+            [translate.core :as translate-core]))
 
 
 (defn dictionary [_ _ _]
-  (dictionary-api/list-dictionary-items))
+  (->> (dictionary-api/list-dictionary-items)
+      (map translate-dict/dictionary-item->schema)
+      (translate-core/paginated-response)))
+  
 
 (defn dictionary-item [_ arguments _]
-  (dictionary-api/dictionary-item arguments))
+  (-> (dictionary-api/dictionary-item arguments)
+      (translate-dict/dictionary-item->schema)))
 
 (defn create-dictionary-item [_ arguments _]
   )
@@ -17,7 +22,7 @@
   )
 
 (defn phrase-usage-models [_ _ value]
-  (->> (dictionary-api/phrase-usage-models {:ids (:usageModels value)})
+  (->> (dictionary-api/phrase-usage-models {:ids (:phrases value)})
        :phrase-usage-model
        (map translate-dict/phrase->schema)))
 

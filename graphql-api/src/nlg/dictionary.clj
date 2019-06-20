@@ -12,18 +12,11 @@
     (do (log/errorf "Failed to process `DictionaryItem` or its components response '%s'" resp)
         error-return-value)))
 
-(defn paginated-response
-  [result]
-  {:items result
-   :offset 0
-   :limit 100
-   :totalCount (count result)})
 
 (defn list-dictionary-items []
   (-> (partial ops/list! (ops/db-access :dictionary))
       (utils/do-return nil)
-      (process-response {})
-      (paginated-response)))
+      (process-response {})))
 
 (defn dictionary-item [{:keys [id]}]
   (-> (partial ops/read! (ops/db-access :dictionary))
