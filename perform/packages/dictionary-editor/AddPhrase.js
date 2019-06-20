@@ -3,6 +3,7 @@ import { h, Component }             from 'preact';
 
 import { composeQueries }           from '../graphql/';
 import { createPhraseUsageModel }   from '../graphql/mutations.graphql';
+import { QA }                       from '../tests/constants';
 import { readerFlags }              from '../graphql/queries.graphql';
 import UsageTd                      from '../usage/UsageTd';
 
@@ -56,11 +57,12 @@ export default composeQueries({
         readerFlags: { readerFlags },
     }) {
         return (
-            <tbody className={ classnames( S.className, className ) }>
+            <tbody className={ classnames( S.className, className, QA.DICT_ITEM_EDITOR_ADD_PHRASE ) }>
                 <tr>
                     <td>
                         <form onSubmit={ this.onSubmit }>
                             <input
+                                className={ QA.DICT_ITEM_EDITOR_ADD_PHRASE_TEXT }
                                 onChange={ this.onChangePhrase }
                                 value={ this.state.phrase }
                             />
@@ -74,6 +76,7 @@ export default composeQueries({
                     <td colspan={ ( readerFlags ? readerFlags.length : 0 ) }>
                         <button
                             children="➕ Add new phrase"
+                            className={ QA.DICT_ITEM_EDITOR_ADD_PHRASE_ADD }
                             disabled={ !this.state.phrase }
                             onClick={ this.onSubmit }
                         />

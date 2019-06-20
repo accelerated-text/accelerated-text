@@ -20,3 +20,6 @@ export const areDictionaryItemsVisible = async ( t, items ) => {
     }
 };
 
+
+export const getItemSelector = n =>
+    `${ SELECTORS.DICTIONARY_ITEM }:nth-child( ${ n + 1 } )`;

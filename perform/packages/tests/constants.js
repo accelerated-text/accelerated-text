@@ -18,9 +18,14 @@ module.exports = createConstants( 'tests', {
     DATA_MANAGER_ROW_PREVIOUS:  'data-manager-row-previous',
     DATA_MANAGER_ROW_SELECT:    'data-manager-row-select',
 
-    DICT_ITEM_EDITOR:           'dictionary-item-editor',
-    DICT_ITEM_EDITOR_CLOSE:     'dictionary-item-editor-close',
-    DICT_ITEM_EDITOR_NAME:      'dictionary-item-editor-name',
+    DICT_ITEM_EDITOR:                   'dictionary-item-editor',
+    DICT_ITEM_EDITOR_ADD_PHRASE:        'dictionary-item-editor-add-phrase',
+    DICT_ITEM_EDITOR_ADD_PHRASE_ADD:    'dictionary-item-editor-add-phrase-add',
+    DICT_ITEM_EDITOR_ADD_PHRASE_TEXT:   'dictionary-item-editor-add-phrase-text',
+    DICT_ITEM_EDITOR_CLOSE:             'dictionary-item-editor-close',
+    DICT_ITEM_EDITOR_NAME:              'dictionary-item-editor-name',
+    DICT_ITEM_EDITOR_PHRASE:            'dictionary-item-editor-phrase',
+    DICT_ITEM_EDITOR_PHRASE_TEXT:       'dictionary-item-editor-phrase-text',
 
     DICTIONARY_ITEM:            'dictionary-item',
     DICTIONARY_ITEM_NAME:       'dictionary-item-name',

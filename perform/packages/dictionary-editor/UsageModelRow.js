@@ -1,7 +1,9 @@
+import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
 import { composeQueries }   from '../graphql/';
+import { QA }               from '../tests/constants';
 import {
     updatePhraseUsageModelDefault,
     updateReaderFlagUsage,
@@ -61,8 +63,10 @@ export default composeQueries({
         model,
     }) {
         return (
-            <tr className={ className }>
-                <td>{ model.phrase }</td>
+            <tr className={ classnames( QA.DICT_ITEM_EDITOR_PHRASE, className ) }>
+                <td className={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT }>
+                    { model.phrase }
+                </td>
                 <UsageTd
                     defaultUsage
                     onChange={ this.onChangeDefaultUsage }
