@@ -17,7 +17,8 @@
       (parser/parse-schema {:resolvers {:Query    {:dictionary     :dictionary
                                                    :dictionaryItem :dictionary-item
                                                    :documentPlan   :document-plan
-                                                   :documentPlans  :document-plans}
+                                                   :documentPlans  :document-plans
+                                                   :readerFlags    :reader-flags}
                                         :Mutation {:updateReaderFlagUsage :update-reader-flag-usage
                                                    :updatePhraseDefaultUsage :update-phrase-usage-model
                                                    :createPhrase :create-phrase-usage-model
@@ -36,6 +37,7 @@
                               :phrase-usage              dictionary-domain/phrase-usage-models
                               :reader-usage              dictionary-domain/reader-usage
                               :reader-flag               dictionary-domain/reader-flag
+                              :reader-flags              dictionary-domain/reader-flags
                               :update-reader-flag-usage  dictionary-domain/update-reader-flag-usage
                               :update-phrase-usage-model dictionary-domain/update-phrase-usage-model
                               :create-phrase-usage-model dictionary-domain/create-phrase-usage-model

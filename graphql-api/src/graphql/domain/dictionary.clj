@@ -32,6 +32,10 @@
 (defn reader-flag [_ _ value]
   (dictionary-api/reader-flag {:id (:readerFlag value)}))
 
+(defn reader-flags [_ _ _]
+  (-> (dictionary-api/list-reader-flags)
+      (translate-dict/reader-flags->schema)))
+
 (defn update-reader-flag-usage [_ arguments _]
   (dictionary-api/update-reader-flag-usage arguments))
 

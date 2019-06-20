@@ -1,6 +1,13 @@
 (ns translate.dictionary
   (:require [clojure.tools.logging :as log]))
 
+(defn reader-flag->schema [flag] flag)
+
+(defn reader-flags->schema
+  [flags]
+  {:flags flags
+   :id "???"})
+
 (defn phrase->schema
   [phrase]
   (log/tracef "Phrase: %s" phrase)
