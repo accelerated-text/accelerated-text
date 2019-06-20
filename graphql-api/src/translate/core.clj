@@ -25,11 +25,11 @@
   (log/tracef "Key: %s Val: %s" k v)
   (case k
     (cond
-      (map? v) {k (into {} (map translate-output-node v))}
+      (map? v) {k (into (sorted-map) (map translate-output-node v))}
       (seq? v) {k (flatten (map translate-output-array v))}
       :else {k v})))
 
 
 (defn translate-output
   [resp]
-  (into {} (map translate-output-node resp)))
+  (into (sorted-map) (map translate-output-node resp)))
