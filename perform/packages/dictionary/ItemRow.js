@@ -24,27 +24,30 @@ export default composeQueries({
     openDictionaryItem,
     dictionaryItem: { dictionaryItem },
 }) =>
-    dictionaryItem &&
-        <tr className={ S.className }>
-            <td className={ S.dragInBlock }>
+    <tr className={ classnames( S.className, QA.DICTIONARY_ITEM ) }>
+        <td className={ S.dragInBlock }>
+            { dictionaryItem &&
                 <DragInBlock
                     color={ S.dragInColor }
                     fields={{ name: dictionaryItem.name }}
                     type={ DictionaryItemBlock.type }
                     width={ 36 }
                 />
-            </td>
-            <td
-                children={ dictionaryItem.name }
-                className={ classnames( S.name, QA.DICTIONARY_ITEM_NAME ) }
-                onClick={ openDictionaryItem }
-            />
-            <td className={ QA.DICTIONARY_ITEM_PHRASES } onClick={ openDictionaryItem }>
+            }
+        </td>
+        <td
+            children={ dictionaryItem ? dictionaryItem.name : '' }
+            className={ classnames( S.name, QA.DICTIONARY_ITEM_NAME ) }
+            onClick={ openDictionaryItem }
+        />
+        <td className={ QA.DICTIONARY_ITEM_PHRASES } onClick={ openDictionaryItem }>
+            { dictionaryItem &&
                 <ShowPhrases
                     phrases={ dictionaryItem.usageModels.map(
                         m => m.phrase
                     ) }
                 />
-            </td>
-        </tr>
+            }
+        </td>
+    </tr>
 );
