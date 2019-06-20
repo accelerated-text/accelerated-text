@@ -8,10 +8,6 @@
 (defn normalize-resp [resp]
   (-> resp (json/write-value-as-string) (json/read-value)))
 
-(defn dict-item-name
-  [[item phrases]]
-  (:name item))
-
 (defn exists-pair?
   [col [name-part phrases-part]]
   (-> (filter (fn [[n p]] (and (= n name-part)
@@ -29,8 +25,7 @@
         result (->> (:data resp)
                     :dictionary
                     :items
-                    (partition 2)
-                    (sort-by dict-item-name))]
+                    (partition 2))]
     (log/tracef "Result:\t %s\n" result)
     (is (exists-pair? result '({:name "provides"} {:phrases '({:text"gives"} {:text "offers"} {:text "provides"})})))
     (is (exists-pair? result '({:name "redesigned"} {:phrases '({:text "revamped"} {:text "new"} {:text "redesigned"})})))
@@ -51,3 +46,10 @@
              {:text "check out"}
              {:text "see"}}
            (set (:phrases result))))))
+
+(deftest ^:integration get-reader-flags
+  (let [resp (graph/nlg {:query "{readerFlags{flags{name}}}"})
+        result (->> (:data resp)
+                    :readerFlags
+                    :flags)]
+    (is (= "" result))))
