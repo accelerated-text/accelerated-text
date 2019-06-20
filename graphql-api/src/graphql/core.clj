@@ -49,5 +49,4 @@
   (log/infof "The request is: %s" request)
   (->> (translate/translate-input query variables context)
        (cons nlg-schema)
-       (apply execute)
-       (translate/translate-output)))
+       (apply execute)))
