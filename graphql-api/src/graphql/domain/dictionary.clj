@@ -1,5 +1,6 @@
 (ns graphql.domain.dictionary
-  (:require [nlg.dictionary :as dictionary-api]
+  (:require [clojure.tools.logging :as log]
+            [nlg.dictionary :as dictionary-api]
             [translate.dictionary :as translate-dict]))
 
 
@@ -16,7 +17,9 @@
   )
 
 (defn phrase-usage-models [_ _ value]
-  (:phrase-usage-model (dictionary-api/phrase-usage-models {:ids (:usageModels value)})))
+  (->> (dictionary-api/phrase-usage-models {:ids (:usageModels value)})
+       :phrase-usage-model
+       (map translate-dict/phrase->schema)))
 
 (defn reader-usage [_ _ value]
   (:reader-flag-usage (dictionary-api/reader-flag-usages {:ids (:readerUsage value)})))

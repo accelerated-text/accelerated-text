@@ -12,6 +12,8 @@
     (is (= expected result))))
 
 (deftest ^:integration list-dictionary-w-phrases
-  (let [result (normalize-resp (graph/nlg {:query "{dictionary{items{name phrases{id}}}}"}))
-        expected {"data" {"dictionary" {"items" [{"name" "provides"} {"name" "see"} {"name" "redesigned"}]}}}]
+  (let [result (normalize-resp (graph/nlg {:query "{dictionary{items{name phrases{text}}}}"}))
+        expected {"data" {"dictionary" {"items" [{"name" "provides"} {"phrases" [{"text" "gives"} {"text" "offers"} {"text" "provides"}]}
+                                                 {"name" "see"} {"phrases" [{"text" "gaze"} {"text" "contemplate"} {"text" "check out"} {"text" "watch"} {"text" "see"} {"text" "examine"} {"text" "look"}]}
+                                                 {"name" "redesigned"} {"phrases" [{"text" "revamped"} {"text" "new"} {"text" "redesigned"}]}]}}}]
     (is (= expected result))))

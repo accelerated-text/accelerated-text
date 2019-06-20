@@ -1,14 +1,10 @@
-(ns translate.dictionary)
+(ns translate.dictionary
+  (:require [clojure.tools.logging :as log]))
 
-(defn dictionary-item-in
-  "From GraphQL"
-  [item]
-  item)
-
-(defn dictionary-item-out
-  "To GraphQL"
-  [item]
-  {:id (:id item)
-   :name (:name item)
-   :partOfSpeech nil
-   :phrases (:usageModels item)})
+(defn phrase->schema
+  [phrase]
+  (log/tracef "Phrase: %s" phrase)
+  {:id (:id phrase)
+   :text (:phrase phrase)
+   :defaultUsage (:defaultUsage phrase)
+   :readerFlagUsage (:readerFlagUsage phrase)})

@@ -1,5 +1,10 @@
 (ns translate.core
-  (:require [clojure.tools.logging :as log]))
+  (:require [clojure.tools.logging :as log]
+            [translate.dictionary :as dictionary]))
+
+(defn cleanup
+  [d]
+  (into {} (remove (fn [[k v]] (nil? v)) d)))
 
 (defn translate-input
   [query variables context]
@@ -9,7 +14,7 @@
 
 (defn translate-output-array
   [item]
-  (log/debugf "Handling array: %s" (pr-str item))
+  (log/tracef "Handling array: %s" (pr-str item))
   (cond
     (map? item) (map translate-output-node item)
     (seq? item) (map translate-output-array item)
@@ -17,9 +22,8 @@
 
 (defn translate-output-node
   [[k v]]
-  (log/debugf "Key: %s Val: %s" k v)
+  (log/tracef "Key: %s Val: %s" k v)
   (case k
-    :phrases (log/spyf "Handling phrases" {k v})
     (cond
       (map? v) {k (into {} (map translate-output-node v))}
       (seq? v) {k (flatten (map translate-output-array v))}
