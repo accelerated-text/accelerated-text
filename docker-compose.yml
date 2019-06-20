@@ -1,4 +1,4 @@
-version: '2'
+version: '3.3'
 
 services:
   dynamodb:
@@ -38,3 +38,5 @@ services:
     environment:
       GRAPHQL_URL: http://0.0.0.0:3001/_graphql
       NLG_API_URL: http://0.0.0.0:8081
+    volumes:
+        - ./graphql-api/resources:/usr/src/graphql-api/resources
