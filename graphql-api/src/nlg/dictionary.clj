@@ -88,7 +88,7 @@
 
 (defn update-dictionary-item-usage-models [{:keys [id usageModels]}]
   (-> (partial ops/update! (ops/db-access :dictionary))
-      (utils/do-update {:id id} {:usageModels usageModels})
+      (utils/do-update {:id id} {:phrases usageModels})
       (process-response {})))
 
 (defn delete-reader-flag-usage-model [{:keys [id]}]
@@ -109,7 +109,7 @@
   (let [dict-items (list-dictionary-items)]
     (loop [dictionary-item (first dict-items) remaining (rest dict-items)]
      (if dictionary-item
-       (if (some #(= id %) (:usageModels dictionary-item))
+       (if (some #(= id %) (:phrases dictionary-item))
          (:id dictionary-item)
          (recur (first remaining) (rest remaining)))
        (throw (Exception. (format "No 'dictionary-item' found that contains 'phrase-usage-model' with id: `%s`" id)))))))

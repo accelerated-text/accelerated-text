@@ -12,5 +12,5 @@
 (def phrase-table "phrase")
 
 (defn client-opts []
-  {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://localhost:8000")
+  {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://dynamodb.eu-central-1.amazonaws.com/")
    :profile "tm"})
