@@ -3,6 +3,7 @@
             [clojure.tools.logging :as log]
             [graphql.domain.dictionary :as dictionary-domain]
             [graphql.domain.document-plan :as dp-domain]
+            [translate.core :as translate]
             [com.walmartlabs.lacinia.util :as util]
             [com.walmartlabs.lacinia.schema :as schema]
             [com.walmartlabs.lacinia.parser.schema :as parser]
@@ -46,4 +47,7 @@
 
 (defn nlg [{:keys [query variables context] :as request}]
   (log/infof "The request is: %s" request)
-  (execute nlg-schema query variables context))
+  (->> (translate/translate-input query variables context)
+       (cons nlg-schema)
+       (apply execute)
+       (translate/translate-output)))

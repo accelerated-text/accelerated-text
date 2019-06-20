@@ -7,8 +7,7 @@
   (dictionary-api/list-dictionary-items))
 
 (defn dictionary-item [_ arguments _]
-  (-> (dictionary-api/dictionary-item arguments)
-      (translate-dict/dictionary-item-out)))
+  (dictionary-api/dictionary-item arguments))
 
 (defn create-dictionary-item [_ arguments _]
   )
