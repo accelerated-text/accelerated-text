@@ -11,8 +11,9 @@ ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY deps.edn /usr/src/app
-COPY src /usr/src/app/src
-COPY test /usr/src/app/test
-COPY resources /usr/src/app/resources
+COPY nlg-api/deps.edn /usr/src/app
+COPY nlg-api/src /usr/src/app/src
+COPY nlg-api/test /usr/src/app/test
+COPY nlg-api/resources /usr/src/app/resources
+COPY data-access/ /usr/src/data-access
 CMD ["clojure", "-A:test"]

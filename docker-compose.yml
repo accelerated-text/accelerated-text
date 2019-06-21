@@ -9,8 +9,8 @@ services:
     ports: ["8002:8000"]
   legacy-api:
     build:
-      context: nlg-api/
-      dockerfile: Dockerfile.legacy-rest-api
+      context: .
+      dockerfile: nlg-api/Dockerfile.legacy-rest-api
       args:
         S3_ENDPOINT: http://localhost:8002
         AWS_DEFAULT_REGION: $NLG_AWS_DEFAULT_REGION
