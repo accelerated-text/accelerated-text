@@ -1,6 +1,7 @@
 {:deps      {org.clojure/clojure                {:mvn/version "1.10.0"}
              ccg-kit                            {:git/url "git@gitlab.com:tokenmill/nlg/ccg-kit.git"
                                                  :sha     "cb90b4adcadc5ce99de31ea71331b5a2ad265b37"}
+             data-access                        {:local/root "../data-access/"}
              org.clojure/tools.logging          {:mvn/version "0.4.0"}
              cheshire                           {:mvn/version "5.8.1"}
              com.amazonaws/aws-lambda-java-core {:mvn/version "1.0.0"}

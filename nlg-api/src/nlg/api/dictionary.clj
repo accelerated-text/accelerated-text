@@ -1,6 +1,6 @@
 (ns nlg.api.dictionary
   (:require [nlg.api.utils :as utils]
-            [nlg.db.dynamo-ops :as ops]
+            [data-access.db.dynamo-ops :as ops]
             [nlg.api.resource :as resource]
             [clojure.tools.logging :as log]))
 
