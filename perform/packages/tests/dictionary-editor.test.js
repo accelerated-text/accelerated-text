@@ -104,4 +104,50 @@ test( 'changing defaultUsage works', defaultResponsesPage, async t => {
         },
         { data: { updatePhraseUsageModelDefault: updatedPhrase }}
     );
+
+    await arePhrasesVisible( t, [
+        updatedPhrase,
+        ...item.usageModels.slice( 1 ),
+    ]);
+});
+
+
+test( 'changing readerUsage works', defaultResponsesPage, async t => {
+    t.timeout( 5e3 );
+
+    const item =            await openItem( t, 1 );
+    const phrase =          item.usageModels[0];
+    const readerUsage =     phrase.readerUsage[0];
+    const usage =           readerUsage.usage === 'NO' ? 'YES' : 'NO';
+    const updatedReaderUsage = {
+        ...readerUsage,
+        usage,
+    };
+    const updatedPhrase = {
+        ...phrase,
+        readerUsage: [
+            updatedReaderUsage,
+            ...phrase.readerUsage.slice( 1 ),
+        ],
+    };
+    const updatedItem = {
+        ...item,
+        usageModels: [
+            updatedPhrase,
+            ...item.usageModels.slice( 1 ),
+        ],
+    };
+
+    t.page.click( `${ SELECTORS.DICT_ITEM_EDITOR_PHRASE }:nth-child( 1 ) > td:nth-child( 3 ) > ${ SELECTORS.USAGE_TD_NO }` );
+
+    await t.graphqlApi.provideOnce(
+        'updateReaderFlagUsage',
+        {
+            id:             readerUsage.id,
+            usage,
+        },
+        { data: { updateReaderFlagUsage: updatedReaderUsage }},
+    );
+
+    await arePhrasesVisible( t, updatedItem.usageModels );
 });
