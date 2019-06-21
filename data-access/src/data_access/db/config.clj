@@ -30,3 +30,6 @@
    :profile "tm"})
 
 (defn s3-endpoint [] (System/getenv "S3_ENDPOINT"))
+
+(defn datomic-endpoint [table]
+  (format "datomic:ddb://eu-central-1/datomic/%s" table))
