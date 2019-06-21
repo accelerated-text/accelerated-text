@@ -28,6 +28,8 @@ export default async ( t, run, ...args ) => {
 
     try {
         await run( Object.assign( t, { browser, page }), ...args );
+    } catch( err ) {
+        t.log( 'Error:', err );
     } finally {
         await page.close();
         await browser.close();

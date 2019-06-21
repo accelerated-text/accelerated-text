@@ -4,21 +4,22 @@ import { SELECTORS }        from '../constants';
 import { getItemSelector }  from './dictionary-utils';
 
 
-export const isPhraseVisible = async ( t, selPhrase, phrase ) => {
+export const isPhraseVisible = async ( t, $phrase, phrase ) => {
 
+    t.findElement( $phrase );
     t.is(
-        await t.getElementText( `${ selPhrase } ${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT }` ),
+        await t.getElementText( `${ $phrase } ${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT }` ),
         phrase.phrase,
     );
 
-    const selDefaultUsage = `${ selPhrase } ${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_DEFAULT_USAGE }`;
-    const selReaderUsage =  `${ selPhrase } ${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_READER_USAGE }`;
+    const $defaultUsage =   `${ $phrase } ${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_DEFAULT_USAGE }`;
+    const $readerUsage =    `${ $phrase } ${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_READER_USAGE }`;
 
-    await t.findElement( `${ selDefaultUsage }${ SELECTORS[phrase.defaultUsage] }` );
+    await t.findElement( `${ $defaultUsage }${ SELECTORS[phrase.defaultUsage] }` );
 
     await Promise.all( phrase.readerUsage.map(
         ({ usage }, i ) =>
-            t.findElement( `${ selReaderUsage }:nth-child(${ i + 1 + 2 })${ SELECTORS[usage] }` )
+            t.findElement( `${ $readerUsage }:nth-child(${ i + 1 + 2 })${ SELECTORS[usage] }` )
     ));
 };
 

@@ -17,7 +17,7 @@ test( 'editor opens and closes', defaultResponsesPage, async t => {
     const item =            await openItem( t, 0 );
 
     await t.findElement( SELECTORS.DICT_ITEM_EDITOR );
-    await t.is(
+    t.is(
         await t.getElementText( SELECTORS.DICT_ITEM_EDITOR_NAME ),
         item.name,
     );
@@ -49,11 +49,6 @@ test( 'add phrase works', defaultResponsesPage, async t => {
     const phrase =          'zzzzzzz';
 
     const item =            await openItem( t, 2 );
-
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_ADD_PHRASE );
-
-    await t.page.type( SELECTORS.DICT_ITEM_EDITOR_ADD_PHRASE_TEXT, phrase );
-
     const updatedItem = {
         ...item,
         usageModels: [
@@ -70,7 +65,12 @@ test( 'add phrase works', defaultResponsesPage, async t => {
         ],
     };
 
-    const response = t.graphqlApi.provideOnce(
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_ADD_PHRASE );
+
+    await t.page.type( SELECTORS.DICT_ITEM_EDITOR_ADD_PHRASE_TEXT, phrase );
+
+    t.page.click( SELECTORS.DICT_ITEM_EDITOR_ADD_PHRASE_ADD );
+    await t.graphqlApi.provideOnce(
         'createPhraseUsageModel',
         {
             dictionaryItemId:   item.id,
@@ -80,8 +80,6 @@ test( 'add phrase works', defaultResponsesPage, async t => {
         { data: { createPhraseUsageModel: updatedItem }},
     );
 
-    await t.page.click( SELECTORS.DICT_ITEM_EDITOR_ADD_PHRASE_ADD );
-    await response;
     await arePhrasesVisible( t, updatedItem.usageModels );
 });
 
