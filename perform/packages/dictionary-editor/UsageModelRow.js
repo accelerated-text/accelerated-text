@@ -68,12 +68,14 @@ export default composeQueries({
                     { model.phrase }
                 </td>
                 <UsageTd
+                    className={ QA.DICT_ITEM_EDITOR_PHRASE_DEFAULT_USAGE }
                     defaultUsage
                     onChange={ this.onChangeDefaultUsage }
                     usage={ model.defaultUsage }
                 />
                 { model.readerUsage.map( flagUsage =>
                     <UsageTd
+                        className={ QA.DICT_ITEM_EDITOR_PHRASE_READER_USAGE }
                         key={ flagUsage.id }
                         onChange={ this.onChangeFlagUsage( flagUsage.id ) }
                         usage={ flagUsage.usage }

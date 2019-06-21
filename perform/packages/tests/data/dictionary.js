@@ -78,11 +78,25 @@ export default {
                 [READER_FLAGS[0]]:  DONT_CARE,
                 [READER_FLAGS[1]]:  YES,
             }],
+            [ 'viens', YES, {
+                [READER_FLAGS[0]]:  DONT_CARE,
+                [READER_FLAGS[1]]:  DONT_CARE,
+            }],
         ],
         two: [
-            [ 'two', YES, {
+            [ 'two', NO, {
                 [READER_FLAGS[0]]:  DONT_CARE,
                 [READER_FLAGS[1]]:  YES,
+            }],
+            [ 'zwei', YES, {
+                [READER_FLAGS[0]]:  DONT_CARE,
+                [READER_FLAGS[1]]:  NO,
+            }],
+        ],
+        three: [
+            [ 'dry', YES, {
+                [READER_FLAGS[0]]:  DONT_CARE,
+                [READER_FLAGS[1]]:  NO,
             }],
         ],
     }),

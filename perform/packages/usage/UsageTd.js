@@ -1,6 +1,8 @@
 import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 
+import { QA }               from '../tests/constants';
+
 import S                    from './UsageTd.sass';
 
 
@@ -17,10 +19,10 @@ export default class UsageTd extends Component {
         usage,
     }) {
         return (
-            <td className={ classnames( S.className, S[usage], className ) }>
+            <td className={ classnames( S.className, S[usage], className, QA.USAGE_TD, QA[usage]) }>
                 <span
                     children="✔️"
-                    className={ S.YES }
+                    className={ classnames( S.YES, QA.USAGE_TD_YES ) }
                     onClick={ this.onClickYes }
                 />
                 {
@@ -28,13 +30,13 @@ export default class UsageTd extends Component {
                         ? null
                         : <span
                             children="⚪️"
-                            className={ S.DONT_CARE }
+                            className={ classnames( S.DONT_CARE, QA.USAGE_TD_DONT_CARE ) }
                             onClick={ this.onClickDontCare }
                         />
                 }
                 <span
                     children="❌"
-                    className={ S.NO }
+                    className={ classnames( S.NO, QA.USAGE_TD_NO ) }
                     onClick={ this.onClickNo }
                 />
             </td>
