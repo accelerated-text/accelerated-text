@@ -1,5 +1,5 @@
 (ns data-access.db.datomic-ops
-  (:require [datomic.api :as datomic]
+  (:require [datomic.client.api :as datomic]
             [data-access.db.config :as config]
             [data-access.utils :as utils]
             [clojure.tools.logging :as log]))
