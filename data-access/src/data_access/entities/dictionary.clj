@@ -21,4 +21,9 @@
                                        :flags (assoc default-flags :default :YES)}) phrases)}]
     (ops/write! db key result)))
 
+(defn update-dictionary-item
+  [{:keys [key phrases]}]
+  (let [db (ops/db-access :dictionary-combined)]
+    (ops/update! db key {:phrases phrases})))
+
 
