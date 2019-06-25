@@ -16,7 +16,6 @@
       (translate-dict/dictionary-item->schema)))
 
 (defn create-dictionary-item [_ {:keys [name partOfSpeech]} _]
-  (log/debugf "Creating dictionary item: %s %s %s" name phrases partOfSpeech)
   (dict-entity/create-dictionary-item {:key name
                                        :phrases []
                                        :partOfSpeech partOfSpeech})
