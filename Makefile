@@ -77,3 +77,16 @@ run-dev-env:
 	docker-compose -p dev -f docker-compose.yml down && \
 	docker-compose -p dev -f docker-compose.yml build && \
 	docker-compose -p dev -f docker-compose.yml up --remove-orphans
+
+.PHONY: run-perform-ui-dev-deps
+run-perform-ui-dev-deps:
+	docker-compose -p dev -f docker-compose.perform-ui-deps.yml down && \
+	docker-compose -p dev -f docker-compose.perform-ui-deps.yml build && \
+	docker-compose -p dev -f docker-compose.perform-ui-deps.yml up --remove-orphans
+
+.PHONY: run-perform-ui-dev
+run-perform-ui-dev:
+	cd perform && \
+		GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
+		NLG_API_URL=http://0.0.0.0:8081 \
+		make run
