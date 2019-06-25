@@ -187,3 +187,4 @@
                  :secondary-feature "support"}
           result (render-dp document-plan data {})]
       (is (not (empty? result))))))
+

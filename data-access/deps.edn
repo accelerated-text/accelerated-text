@@ -1,0 +1,18 @@
+{:deps       {org.clojure/clojure                {:mvn/version "1.10.0"}
+              org.clojure/tools.logging          {:mvn/version "0.4.0"}
+              cheshire                           {:mvn/version "5.8.1"}
+              com.amazonaws/aws-lambda-java-core {:mvn/version "1.0.0"}
+              ch.qos.logback/logback-classic     {:mvn/version "1.2.3"}
+              clj-time                           {:mvn/version "0.5.1"}
+              com.taoensso/faraday               {:git/url "https://github.com/tokenmill/faraday.git"
+                                                  :sha     "23e71e7ac8cf6c68efe9446da13ddd913c91accf"}
+              org.clojure/data.csv               {:mvn/version "0.1.4"}
+              com.amazonaws/aws-java-sdk-s3      {:mvn/version "1.11.337"}}
+ :paths     ["src"]
+ :mvn/repos {"central"      {:url "https://repo1.maven.org/maven2/"}
+             "clojars"      {:url "https://clojars.org/repo"}}
+ :aliases   {:test
+             {:extra-paths ["test"]
+              :extra-deps  {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner"
+                                                       :sha     "76568540e7f40268ad2b646110f237a60295fa3c"}}
+              :main-opts   ["-m" "cognitect.test-runner"]}}}

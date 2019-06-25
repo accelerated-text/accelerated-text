@@ -1,7 +1,7 @@
-(ns nlg.db.dynamo-ops
+(ns data-access.db.dynamo-ops
   (:require [taoensso.faraday :as far]
-            [nlg.db.config :as config]
-            [nlg.api.utils :as utils]
+            [data-access.db.config :as config]
+            [data-access.utils :as utils]
             [clojure.tools.logging :as log]))
 
 

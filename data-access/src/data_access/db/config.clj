@@ -1,4 +1,4 @@
-(ns nlg.db.config)
+(ns data-access.db.config)
 
 (def blockly-table "blockly-workspace")
 (def results-table {:table-name "nlg-results"
@@ -30,3 +30,6 @@
    :profile "tm"})
 
 (defn s3-endpoint [] (System/getenv "S3_ENDPOINT"))
+
+(defn datomic-endpoint [table]
+  (format "datomic:ddb://eu-central-1/datomic/%s" table))

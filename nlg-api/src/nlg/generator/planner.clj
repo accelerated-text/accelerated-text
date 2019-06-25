@@ -4,8 +4,8 @@
             [nlg.generator.parser :as parser]
             [nlg.generator.simple-nlg :as nlg]
             [ccg-kit.grammar :as ccg]
-            [nlg.db.s3 :as s3]
-            [nlg.db.config :as config]))
+            [data-access.db.s3 :as s3]
+            [data-access.db.config :as config]))
 
 (defn build-dp-instance
   "dp - a hashmap compiled with `compile-dp`

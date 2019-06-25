@@ -1,8 +1,7 @@
-(ns nlg.db.s3-test
+(ns data-access.db.s3-test
   (:require [clojure.test :refer :all]
-            [nlg.db.s3 :as s3]
-            [nlg.db.config :as config]
-            [nlg.api.utils :as utils]))
+            [data-access.db.s3 :as s3]
+            [data-access.db.config :as config]))
 
 
 (deftest ^:integration reading-from-s3
