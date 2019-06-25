@@ -45,19 +45,14 @@
     ))
 
 (deftest ^:integration get-dictionary-item
-  (let [resp (graph/nlg {:query "{dictionaryItem(id: \"see\"){name partOfSpeech phrases{text}}}"})
+  (let [resp (graph/nlg {:query "{dictionaryItem(id: \"provide\"){name partOfSpeech phrases{text}}}"})
         result (->> (:data resp)
                     :dictionaryItem)]
-    (log/debugf "Response: %s" resp)
-    (is (= "see" (:name result)))
+    (is (= "provide" (:name result)))
     (is (= :VB  (:partOfSpeech result)))
-    (is (= #{{:text "look"}
-             {:text "contemplate"}
-             {:text "examine"}
-             {:text "gaze"}
-             {:text "watch"}
-             {:text "check out"}
-             {:text "see"}}
+    (is (= #{{:text "offers"}
+             {:text "gives"}
+             {:text "provides"}}
            (set (:phrases result))))))
 
 (deftest ^:integration get-reader-flags
