@@ -39,27 +39,35 @@ export const User = () => ({
 export default {
     Organization,
     User,
-    Mutation: {
-    },
+    Mutation:               {},
     Query: {
-        me:             User,
+        me:                 User,
 
-        readerFlags:    () => ({
-            id:         'reader-flags',
-            flags:      READER_FLAGS.map( ReaderFlag ),
+        readerFlags: () => ({
+            __typename:     'ReaderFlags',
+            id:             'reader-flags',
+            flags:          READER_FLAGS.map( ReaderFlag ),
         }),
 
         searchThesaurus: ( _, { query }) => {
-            const re =  new RegExp( `^${ query }`, 'i' );
-            return Object.keys( SYNONYMS )
-                .filter( re.exec.bind( re ))
-                .map( Word );
+            const re =      new RegExp( `^${ query }`, 'i' );
+            const words = (
+                Object.keys( SYNONYMS )
+                    .filter( re.exec.bind( re ))
+                    .map( Word )
+            );
+            return {
+                __typename: 'ThesaurusResults',
+                offset:     0,
+                totalCount: words.length,
+                words,
+            };
         },
 
         synonyms: ( _, { wordId }) => ({
-            __typename: 'Synonyms',
-            rootWord: Word( wordId ),
-            synonyms:    ( SYNONYMS[wordId] || []).map( Word ),
+            __typename:     'Synonyms',
+            rootWord:       Word( wordId ),
+            synonyms:       ( SYNONYMS[wordId] || []).map( Word ),
         }),
     },
 };

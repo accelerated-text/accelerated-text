@@ -36,7 +36,7 @@ export default composeQueries({
         : searchThesaurus
             ?  <Words
                 onClickWord={ onClickWord }
-                words={ searchThesaurus }
+                words={ searchThesaurus.words }
             />
             : <Info message="no results found" />
         }
