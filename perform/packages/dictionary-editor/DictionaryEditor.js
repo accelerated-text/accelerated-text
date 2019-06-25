@@ -28,17 +28,19 @@ export default composeQueries({
         </Section>
         <Bar children="⋮" className={ S.separator } />
         <Section className={ S.main } defaultSize={ 300 } minSize="25%">
-            <h2 className={ S.title }>{ item.name }</h2>
+            <h2 className={ S.title }>{ item && item.name }</h2>
             <div className={ S.close }>
                 <button onClick={ closeDictionaryItem }>
                     ✖️ close
                 </button>
             </div>
-            <Phrases
-                className={ S.phrases }
-                itemId={ item && item.id }
-                phrases={ item && item.phrases }
-            />
+            { item &&
+                <Phrases
+                    className={ S.phrases }
+                    itemId={ item.id }
+                    phrases={ item.phrases }
+                />
+            }
         </Section>
     </Container>
 );
