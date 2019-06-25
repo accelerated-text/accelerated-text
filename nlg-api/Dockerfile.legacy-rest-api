@@ -12,9 +12,10 @@ ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY nlg-api/deps.edn /usr/src/app
+COPY data-access/ /usr/src/data-access
 RUN clojure -R:rest-uberjar
 COPY nlg-api /usr/src/app
-COPY data-access/ /usr/src/data-access
+
 RUN clojure -A:rest-uberjar
 
 FROM openjdk:8u171-jre-alpine3.8

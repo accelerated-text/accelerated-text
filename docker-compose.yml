@@ -23,7 +23,7 @@ services:
       AWS_SECRET_ACCESS_KEY: $NLG_AWS_SECRET_ACCESS_KEY
   graphql-api:
     build:
-      context: graphql-api/
+      context: .
       dockerfile: Dockerfile.rest-api
     ports: ["3001:3001"]
     environment:
