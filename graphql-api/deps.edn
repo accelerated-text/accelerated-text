@@ -1,4 +1,5 @@
 {:deps      {org.clojure/clojure                 {:mvn/version "1.10.0"}
+             data-access                        {:local/root "../data-access/"}
              org.clojure/tools.logging           {:mvn/version "0.4.1"}
              ch.qos.logback/logback-classic      {:mvn/version "1.2.3"}
              http-kit                            {:mvn/version "2.3.0"}
