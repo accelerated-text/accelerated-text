@@ -39,9 +39,7 @@
                     :items
                     (partition 2))]
     (log/debugf "Result:\t %s\n" (pr-str result))
-    ;; (is (exists-pair? result (list {:name "provides"} {:phrases '({:text"gives"} {:text "offers"} {:text "provides"})})))
-    ;; ;; (is (exists-pair? result (list {:name "redesigned"} {:phrases '({:text "revamped"} {:text "new"} {:text "redesigned"})})))
-    ;; (is (exists-pair? result (list {:name "see"} {:phrases '({:text "gaze"} {:text "contemplate"} {:text "check out"} {:text "watch"} {:text "see"} {:text "examine"} {:text "look"})})))
+    (is (exists-pair? result (list {:name "provide"} {:phrases '({:text"gives"} {:text "offers"} {:text "provides"})})))
     ))
 
 (deftest ^:integration get-dictionary-item
