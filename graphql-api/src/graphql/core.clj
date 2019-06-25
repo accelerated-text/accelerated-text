@@ -19,12 +19,7 @@
                                                    :documentPlan   :document-plan
                                                    :documentPlans  :document-plans
                                                    :readerFlags    :reader-flags}
-                                        :Mutation {:updateReaderFlagUsage :update-reader-flag-usage
-                                                   :updatePhraseDefaultUsage :update-phrase-usage-model
-                                                   :createPhrase :create-phrase-usage-model
-                                                   :deletePhrase :delete-phrase-usage-model
-                                                   :createDictionaryItem :create-dictionary-item
-                                                   :deleteDictionaryItem :delete-dictionary-item
+                                        :Mutation {
                                                    }
                                         :ReaderFlagUsage  {:flag :reader-flag}
                                         }})
@@ -34,11 +29,6 @@
                               :delete-dictionary-item    dictionary-domain/delete-dictionary-item
                               :reader-flag               dictionary-domain/reader-flag
                               :reader-flags              dictionary-domain/reader-flags
-                              :update-reader-flag-usage  dictionary-domain/update-reader-flag-usage
-                              :update-phrase-usage-model dictionary-domain/update-phrase-usage-model
-                              :create-phrase-usage-model dictionary-domain/create-phrase-usage-model
-                              :delete-phrase-usage-model dictionary-domain/delete-phrase-usage-model
-
                               :document-plan             dp-domain/document-plan
                               :document-plans            dp-domain/document-plans})
       schema/compile))

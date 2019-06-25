@@ -7,6 +7,11 @@
   (let [db (ops/db-access :reader-flag)]
     (ops/list! db 100)))
 
+(defn get-reader
+  [k]
+  (let [db (ops/db-access :reader-flag)]
+    (ops/read! db k)))
+
 (defn list-dictionary
   []
   (let [db (ops/db-access :dictionary-combined)]
