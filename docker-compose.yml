@@ -24,7 +24,7 @@ services:
   graphql-api:
     build:
       context: .
-      dockerfile: Dockerfile.rest-api
+      dockerfile: graphql-api/Dockerfile.rest-api
     ports: ["3001:3001"]
     environment:
       DYNAMODB_ENDPOINT: http://dynamodb:8000
