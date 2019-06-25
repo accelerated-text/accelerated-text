@@ -12,7 +12,7 @@
   [phrase]
   (log/tracef "Phrase: %s" phrase)
   {:id (:id phrase)
-   :text (:phrase phrase)
+   :text (:text phrase)
    :defaultUsage (-> (:flags phrase)
                      :default)
    :readerFlagUsage (map (fn [[k v]] {:usage v

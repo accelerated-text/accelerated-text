@@ -15,10 +15,10 @@
   (-> (dict-entity/get-dictionary-item (:id arguments))
       (translate-dict/dictionary-item->schema)))
 
-(defn create-dictionary-item [_ {:keys [name partOfSpeech phrases]} _]
+(defn create-dictionary-item [_ {:keys [name partOfSpeech]} _]
   (log/debugf "Creating dictionary item: %s %s %s" name phrases partOfSpeech)
   (dict-entity/create-dictionary-item {:key name
-                                       :phrases phrases
+                                       :phrases []
                                        :partOfSpeech partOfSpeech})
   (dict-entity/get-dictionary-item name))
 
