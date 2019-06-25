@@ -20,6 +20,7 @@
                                                    :documentPlans  :document-plans
                                                    :readerFlags    :reader-flags}
                                         :Mutation {:createDictionaryItem :create-dictionary-item
+                                                   :createPhrase :create-phrase
                                                    }
                                         :ReaderFlagUsage  {:flag :reader-flag}
                                         }})
@@ -27,6 +28,7 @@
                               :dictionary-item           dictionary-domain/dictionary-item
                               :create-dictionary-item    dictionary-domain/create-dictionary-item
                               :delete-dictionary-item    dictionary-domain/delete-dictionary-item
+                              :create-phrase             dictionary-domain/create-phrase
                               :reader-flag               dictionary-domain/reader-flag
                               :reader-flags              dictionary-domain/reader-flags
                               :document-plan             dp-domain/document-plan
