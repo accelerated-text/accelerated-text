@@ -28,7 +28,6 @@
    :text
    (filter #(use-phrase? % reader-profile) phrases)))
 
-
 (defn search
   [key reader-profile]
   (filter-by-profile (get-phrases key) reader-profile))

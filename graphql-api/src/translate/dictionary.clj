@@ -18,8 +18,8 @@
 
 (defn dictionary-item->schema
   [dict-item]
-  (log/tracef "DictionaryItem: %s" dict-item)
-  {:id (:id dict-item)
-   :name (:name dict-item)
-   :phrases (:usageModels dict-item)
+  (log/debugf "DictionaryItem: %s" dict-item)
+  {:id (:key dict-item)
+   :name (:key dict-item)
+   :phrases (:phrases dict-item)
    :partOfSpeech (get dict-item :partOfSpeech "VB")})

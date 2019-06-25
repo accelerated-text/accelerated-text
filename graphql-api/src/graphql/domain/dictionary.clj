@@ -2,17 +2,18 @@
   (:require [clojure.tools.logging :as log]
             [nlg.dictionary :as dictionary-api]
             [translate.dictionary :as translate-dict]
-            [translate.core :as translate-core]))
+            [translate.core :as translate-core]
+            [data-access.entities.dictionary :as dict-entity]))
 
 
 (defn dictionary [_ _ _]
-  (->> (dictionary-api/list-dictionary-items)
+  (->> (dict-entity/list-dictionary)
       (map translate-dict/dictionary-item->schema)
       (translate-core/paginated-response)))
   
 
 (defn dictionary-item [_ arguments _]
-  (-> (dictionary-api/dictionary-item arguments)
+  (-> (dict-entity/get-dictionary-item (:id arguments))
       (translate-dict/dictionary-item->schema)))
 
 (defn create-dictionary-item [_ arguments _]
