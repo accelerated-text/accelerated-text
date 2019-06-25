@@ -23,11 +23,13 @@
     (ops/read! db k)))
 
 (defn create-dictionary-item
-  [{:keys [key phrases]}]
+  [{:keys [key phrases partOfSpeech]}]
   (let [db (ops/db-access :dictionary-combined)
         readers (list-readers)
         default-flags (into {} (map (fn [r]  {(keyword (r :id)) :DONT_CARE}) readers))
-        result {:phrases (map (fn [p] {:text p
+        result {:name key
+                :partOfSpeech partOfSpeech
+                :phrases (map (fn [p] {:text p
                                        :flags (assoc default-flags :default :YES)}) phrases)}]
     (ops/write! db key result)))
 

@@ -60,3 +60,13 @@
                     :flags)]
     (is (exists-item? result {:name "junior"}))
     (is (exists-item? result {:name "senior"}))))
+
+(deftest ^:integration get-default-usage
+  (let [resp (graph/nlg {:query "{dictionary{items{phrases{defaultUsage}}}}"})
+        result (->> (:data resp)
+                    :dictionary
+                    :items)]
+    (is (= :YES (-> (first result)
+                    :phrases
+                    (first)
+                    :defaultUsage)))))
