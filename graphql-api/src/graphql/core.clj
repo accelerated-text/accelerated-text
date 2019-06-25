@@ -19,7 +19,7 @@
                                                    :documentPlan   :document-plan
                                                    :documentPlans  :document-plans
                                                    :readerFlags    :reader-flags}
-                                        :Mutation {
+                                        :Mutation {:createDictionaryItem :create-dictionary-item
                                                    }
                                         :ReaderFlagUsage  {:flag :reader-flag}
                                         }})

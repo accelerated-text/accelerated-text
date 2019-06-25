@@ -207,6 +207,7 @@ type Mutation {
     createDictionaryItem(
         name:               String!
         partOfSpeech:       PartOfSpeech  # default = VB
+        phrases:            [ String! ]
     ):  DictionaryItem!
 
     updateDictionaryItem(
