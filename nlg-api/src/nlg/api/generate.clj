@@ -2,9 +2,9 @@
   (:require [clojure.tools.logging :as log]
             [clojure.java.io :as io]
             [nlg.api.utils :as utils]
-            [nlg.db.dynamo-ops :as ops]
-            [nlg.db.s3 :as s3]
-            [nlg.db.config :as config]
+            [data-access.db.dynamo-ops :as ops]
+            [data-access.db.s3 :as s3]
+            [data-access.db.config :as config]
             [nlg.generator.planner-ng :as planner]
             [nlg.api.resource :as resource]
             [cheshire.core :as ch])

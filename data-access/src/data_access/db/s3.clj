@@ -1,6 +1,6 @@
-(ns nlg.db.s3
+(ns data-access.db.s3
   (:require [clojure.tools.logging :as log]
-            [nlg.db.config :as config])
+            [data-access.db.config :as config])
   (:import (com.amazonaws.services.s3 AmazonS3Client)
            (com.amazonaws ClientConfiguration)))
 

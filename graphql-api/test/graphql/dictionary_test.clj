@@ -29,7 +29,7 @@
 
 (deftest ^:integration list-dictionary
   (let [result (normalize-resp (graph/nlg {:query "{dictionary{items{name} totalCount}}"}))
-        expected {"data" {"dictionary" {"totalCount" 3 "items" [{"name" "provides"} {"name" "see"} {"name" "redesigned"}]}}}]
+        expected {"data" {"dictionary" {"totalCount" 2 "items" [{"name" "provide"} {"name" "see"}]}}}]
     (is (= expected result))))
 
 (deftest ^:integration list-dictionary-phrases
@@ -39,24 +39,18 @@
                     :items
                     (partition 2))]
     (log/debugf "Result:\t %s\n" (pr-str result))
-    (is (exists-pair? result (list {:name "provides"} {:phrases '({:text"gives"} {:text "offers"} {:text "provides"})})))
-    ;; (is (exists-pair? result (list {:name "redesigned"} {:phrases '({:text "revamped"} {:text "new"} {:text "redesigned"})})))
-    (is (exists-pair? result (list {:name "see"} {:phrases '({:text "gaze"} {:text "contemplate"} {:text "check out"} {:text "watch"} {:text "see"} {:text "examine"} {:text "look"})})))))
+    (is (exists-pair? result (list {:name "provide"} {:phrases '({:text"gives"} {:text "offers"} {:text "provides"})})))
+    ))
 
 (deftest ^:integration get-dictionary-item
-  (let [resp (graph/nlg {:query "{dictionaryItem(id: \"see\"){name partOfSpeech phrases{text}}}"})
+  (let [resp (graph/nlg {:query "{dictionaryItem(id: \"provide\"){name partOfSpeech phrases{text}}}"})
         result (->> (:data resp)
                     :dictionaryItem)]
-    (log/debugf "Response: %s" resp)
-    (is (= "see" (:name result)))
+    (is (= "provide" (:name result)))
     (is (= :VB  (:partOfSpeech result)))
-    (is (= #{{:text "look"}
-             {:text "contemplate"}
-             {:text "examine"}
-             {:text "gaze"}
-             {:text "watch"}
-             {:text "check out"}
-             {:text "see"}}
+    (is (= #{{:text "offers"}
+             {:text "gives"}
+             {:text "provides"}}
            (set (:phrases result))))))
 
 (deftest ^:integration get-reader-flags

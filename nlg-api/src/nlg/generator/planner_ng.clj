@@ -6,8 +6,8 @@
             [ccg-kit.grammar-generation.lexicon :as ccg-lexicon]
             [ccg-kit.grammar-generation.xml-utils :as ccg-xml]
             [ccg-kit.spec.ccg :as ccg-spec]
-            [nlg.db.s3 :as s3]
-            [nlg.db.config :as config]
+            [data-access.db.s3 :as s3]
+            [data-access.db.config :as config]
             [nlg.generator.ops :as ops]
             [nlg.generator.realizer :as realizer]))
 

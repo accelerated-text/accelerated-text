@@ -2,7 +2,7 @@
   (:require [clojure.tools.logging :as log]
             [clojure.java.io :as io]
             [nlg.api.utils :as utils]
-            [nlg.db.dynamo-ops :as ops]
+            [data-access.db.dynamo-ops :as ops]
             [nlg.api.resource :as resource]
             [cheshire.core :as ch])
   (:import (java.io BufferedWriter))
