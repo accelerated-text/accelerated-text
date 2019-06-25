@@ -12,6 +12,11 @@
   (let [db (ops/db-access :dictionary-combined)]
     (ops/list! db 100)))
 
+(defn get-dictionary-item
+  [k]
+  (let [db (ops/db-access :dictionary-combined)]
+    (ops/read! db k)))
+
 (defn create-dictionary-item
   [{:keys [key phrases]}]
   (let [db (ops/db-access :dictionary-combined)

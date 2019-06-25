@@ -8,5 +8,5 @@
                                      :relationshipType "provides"
                                      :children [{:type "Cell"
                                                  :name "main-feature"}
-                                                {:type "Lexicon"
-                                                 :name "good"}]}]}]}]}
+                                                {:type "Dictionary-item"
+                                                 :name "see"}]}]}]}]}
