@@ -26,16 +26,12 @@
                                                    :createDictionaryItem :create-dictionary-item
                                                    :deleteDictionaryItem :delete-dictionary-item
                                                    }
-                                        :DictionaryItem   {:phrases :phrase-usage}
-                                        :Phrase      {:readerFlagUsage :reader-usage}
                                         :ReaderFlagUsage  {:flag :reader-flag}
                                         }})
       (util/attach-resolvers {:dictionary                dictionary-domain/dictionary
                               :dictionary-item           dictionary-domain/dictionary-item
                               :create-dictionary-item    dictionary-domain/create-dictionary-item
                               :delete-dictionary-item    dictionary-domain/delete-dictionary-item
-                              :phrase-usage              dictionary-domain/phrase-usage-models
-                              :reader-usage              dictionary-domain/reader-usage
                               :reader-flag               dictionary-domain/reader-flag
                               :reader-flags              dictionary-domain/reader-flags
                               :update-reader-flag-usage  dictionary-domain/update-reader-flag-usage

@@ -13,6 +13,7 @@
   
 
 (defn dictionary-item [_ arguments _]
+  (log/debugf "Fetching dictionary item with args: %s" arguments)
   (-> (dict-entity/get-dictionary-item (:id arguments))
       (translate-dict/dictionary-item->schema)))
 
