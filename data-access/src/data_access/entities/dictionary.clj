@@ -42,6 +42,11 @@
                 :phrases (doall (map #(text->phrase % :YES default-flags) phrases))}]
     (ops/write! db key result)))
 
+(defn delete-dictionary-item
+  [k]
+  (let [db (ops/db-access :dictionary-combined)]
+    (ops/delete! db k)))
+
 (defn update-dictionary-item
   [{:keys [key phrases partOfSpeech]}]
   (let [db (ops/db-access :dictionary-combined)]
