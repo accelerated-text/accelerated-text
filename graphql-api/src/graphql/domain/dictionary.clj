@@ -48,33 +48,37 @@
         (translate-dict/dictionary-item->schema))))
 
 
-(defn update-phrase [id mut-fn]
+(defn update-phrase [id mut-fn translate?]
   (let [[parent-id & _] (str/split id #"/")
         current-item (dict-entity/get-dictionary-item parent-id)
         updated-phrases (map
-                         mut-fn
-                         (:phrases current-item))]
+                         (fn [item]
+                           (if (= id (:id item))
+                             (mut-fn item)
+                             item))
+                         (:phrases current-item))
+        translate-fn (if translate?
+                       translate-dict/phrase->schema
+                       (fn [item] item))]
     (dict-entity/update-dictionary-item {:key parent-id
                                          :partOfSpeech (:partOfSpeech current-item)
                                          :phrases updated-phrases})
     (-> (filter #(= id (:id %)) updated-phrases)
         (first)
-        (translate-dict/phrase->schema))))
+        (translate-fn))))
 
 (defn update-phrase-text [_ {:keys [id text]} _]
   (update-phrase
    id
-   (fn [item] (if (= id (:id item))
-                (assoc item :text text)
-                item))))
+   (fn [item] (assoc item :text text))
+   true))
 
 
 (defn update-phrase-default-usage [_ {:keys [id defaultUsage]} _]
   (update-phrase
    id
-   (fn [item] (if (= id (:id item))
-                (assoc-in item [:flags :default] (keyword defaultUsage))
-                item))))
+   (fn [item] (assoc-in item [:flags :default] (keyword defaultUsage)))
+   true))
 
 
 (defn delete-phrase [_ {:keys [id]} _]
@@ -95,3 +99,19 @@
 (defn reader-flag [_ arguments _]
   (-> (dict-entity/get-reader (:id arguments))
       (translate-dict/reader-flag->schema)))
+
+(defn update-reader-flag-usage [_ {:keys [id usage]} _]
+  (let [[parent-part phrase-part flag-id] (str/split id #"/")
+        phrase-id                         (format "%s/%s" parent-part phrase-part)
+        build-usage-fn                    (fn [usage] {:id    phrase-id
+                                                       :usage usage
+                                                       :flag  {:id id
+                                                               :name flag-id}})]
+    (-> (update-phrase
+          phrase-id
+          (fn [item] (assoc-in item [:flags (keyword flag-id)] (keyword usage)))
+          false)
+         :flags
+         (get (keyword flag-id))
+         (build-usage-fn)
+         (translate-dict/reader-flag->schema))))
