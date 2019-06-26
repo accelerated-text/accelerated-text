@@ -51,15 +51,12 @@ export default async ( t, run, ...args ) =>
     run(
         Object.assign( t,  {
             nlgApi: {
-                echoBody:       nlgApiEchoBody( t.interceptor.intercept ),
-                echoBodyAll:    nlgApiEchoBody( t.interceptor.interceptAll ),
-                echoBodyOnce:   nlgApiEchoBody( t.interceptor.interceptOnce ),
-                intercept:      nlgApiIntercept( t.interceptor.intercept ),
-                interceptAll:   nlgApiIntercept( t.interceptor.interceptAll ),
-                interceptOnce:  nlgApiIntercept( t.interceptor.interceptOnce ),
-                provide:        nlgApiProvide( t.interceptor.provide ),
-                provideAll:     nlgApiProvide( t.interceptor.provideAll ),
-                provideOnce:    nlgApiProvide( t.interceptor.provideOnce ),
+                echoBodyAll:    nlgApiEchoBody( t.onRequest.interceptAll ),
+                echoBodyOnce:   nlgApiEchoBody( t.onRequest.interceptOnce ),
+                interceptAll:   nlgApiIntercept( t.onRequest.interceptAll ),
+                interceptOnce:  nlgApiIntercept( t.onRequest.interceptOnce ),
+                provideAll:     nlgApiProvide( t.onRequest.provideAll ),
+                provideOnce:    nlgApiProvide( t.onRequest.provideOnce ),
                 respond:        nlgApiRespond,
             },
         }),

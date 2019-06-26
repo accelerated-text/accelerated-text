@@ -1,0 +1,81 @@
+import { applyTo, equals }  from 'ramda';
+
+
+const URL =                 process.env.GRAPHQL_URL;
+
+
+export const GRAPHQL_CORS_HEADERS = {
+    'access-control-allow-headers': 'content-type, *',
+    'access-control-allow-methods': 'POST, OPTIONS',
+    'access-control-allow-origin':  '*',
+};
+
+
+const matchRequest = ( operationName, variables ) => request => (
+    request.method() === 'POST'
+    && request.url() === URL
+    && applyTo(
+        JSON.parse( request.postData()),
+        postData => (
+            postData.operationName === operationName
+            && equals( postData.variables, variables )
+        ),
+    )
+);
+
+
+export const graphqlApiHeaders = headers => ({
+    ...GRAPHQL_CORS_HEADERS,
+    ...headers,
+});
+
+
+export const graphqlApiRespond = ( request, body ) =>
+    request.respond({
+        status:         200,
+        headers:        GRAPHQL_CORS_HEADERS,
+        contentType:    'application/json',
+        body: (
+            typeof( body ) === 'string'
+                ? body
+                : JSON.stringify( body )
+        ),
+    });
+
+
+export const graphqlApiIntercept = ( interceptFn ) =>
+    ( operationName, variables, onRequestFn ) =>
+        interceptFn(
+            matchRequest( operationName, variables ),
+            onRequestFn,
+        );
+
+
+export const graphqlApiProvide = ( provideFn ) =>
+    ( operationName, variables, body ) =>
+        provideFn(
+            matchRequest( operationName, variables ),
+            body,
+            200,
+            GRAPHQL_CORS_HEADERS,
+        );
+
+
+export default async ( t, run, ...args ) => {
+
+    /// Ignore all OPTIONS requests:
+    t.onRequest.provideAll( 'OPTIONS', URL, {}, null, GRAPHQL_CORS_HEADERS );
+
+    return run(
+        Object.assign( t, {
+            graphqlApi: {
+                interceptAll:   graphqlApiIntercept(   t.onRequest.interceptAll ),
+                interceptOnce:  graphqlApiIntercept(   t.onRequest.interceptOnce ),
+                provideAll:     graphqlApiProvide(     t.onRequest.provideAll ),
+                provideOnce:    graphqlApiProvide(     t.onRequest.provideOnce ),
+                respond:        graphqlApiRespond,
+            },
+        }),
+        ...args,
+    );
+};
