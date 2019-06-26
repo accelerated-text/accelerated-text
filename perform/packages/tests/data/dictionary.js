@@ -22,31 +22,32 @@ export const ReaderFlagUsage = ({ prefix, flag, usage }) => ({
     usage,
 });
 
-export const PhraseUsage = ({ prefix, phrase, defaultUsage, readerUsage }) => ({
-    __typename:         'PhraseUsageModel',
-    id:                 `${ prefix }-phrase-${ phrase }-usage-id`,
-    phrase,
+export const Phrase = ({ prefix, text, defaultUsage, readerFlagUsage }) => ({
+    __typename:         'Phrase',
+    id:                 `${ prefix }-phrase-${ text }-usage-id`,
+    text,
     defaultUsage,
-    readerUsage: Object.keys( readerUsage ).map(
+    readerFlagUsage: Object.keys( readerFlagUsage ).map(
         flag => ReaderFlagUsage({
-            prefix:     `${ prefix }-phrase-${ phrase }`,
+            prefix:     `${ prefix }-phrase-${ text }`,
             flag,
-            usage:      readerUsage[flag],
+            usage:      readerFlagUsage[flag],
         })
     ),
 });
 
 
-export const DictionaryItem = ({ prefix, name, phraseUsage }) => ({
+export const DictionaryItem = ({ prefix, name, phrases }) => ({
     __typename:         'DictionaryItem',
     id:                 `${ prefix }-${ name }-id`,
     name,
-    usageModels: phraseUsage.map(
-        item => PhraseUsage({
-            prefix:         `${ prefix }-${ name }`,
-            phrase:         item[0],
-            defaultUsage:   item[1],
-            readerUsage:    item[2],
+    partOfSpeech:       'VB',
+    phrases: phrases.map(
+        phrase => Phrase({
+            prefix:             `${ prefix }-${ name }`,
+            text:               phrase[0],
+            defaultUsage:       phrase[1],
+            readerFlagUsage:    phrase[2],
         })
     ),
 });
@@ -65,7 +66,7 @@ export const DictionaryResults = ( prefix, items ) => {
             name => DictionaryItem({
                 prefix,
                 name,
-                phraseUsage:    items[name],
+                phrases:    items[name],
             })
         ),
     };

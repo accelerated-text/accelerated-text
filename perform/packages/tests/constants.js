@@ -30,7 +30,7 @@ module.exports = createConstants( 'tests', {
     DICT_ITEM_EDITOR_NAME:              'dictionary-item-editor-name',
     DICT_ITEM_EDITOR_PHRASE:                'dictionary-item-editor-phrase',
     DICT_ITEM_EDITOR_PHRASE_DEFAULT_USAGE:  'dictionary-item-editor-phrase-default-usage',
-    DICT_ITEM_EDITOR_PHRASE_READER_USAGE:   'dictionary-item-editor-phrase-reader-usage',
+    DICT_ITEM_EDITOR_PHRASE_RFLAG_USAGE:    'dictionary-item-editor-phrase-reader-flag-usage',
     DICT_ITEM_EDITOR_PHRASE_TEXT:           'dictionary-item-editor-phrase-text',
 
     DICTIONARY_ITEM:            'dictionary-item',

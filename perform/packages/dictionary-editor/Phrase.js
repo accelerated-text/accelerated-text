@@ -75,7 +75,7 @@ export default composeQueries({
                 />
                 { phrase.readerFlagUsage.map( flagUsage =>
                     <UsageTd
-                        className={ QA.DICT_ITEM_EDITOR_PHRASE_READER_USAGE }
+                        className={ QA.DICT_ITEM_EDITOR_PHRASE_RFLAG_USAGE }
                         key={ flagUsage.id }
                         onChange={ this.onChangeFlagUsage( flagUsage.id ) }
                         usage={ flagUsage.usage }
