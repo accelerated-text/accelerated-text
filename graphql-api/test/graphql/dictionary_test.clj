@@ -27,6 +27,10 @@
       (empty?)
       (not)))
 
+(deftest ^:integration full-query-test
+  (let [result (graph/nlg {:query "{dictionary{items{name partOfSpeech phrases{id text defaultUsage readerFlagUsage{id usage flag{id name}}}}}}"})]
+    (is (nil? (:errors result)))))
+
 (deftest ^:integration list-dictionary
   (let [result (normalize-resp (graph/nlg {:query "{dictionary{items{name} totalCount}}"}))
         expected {"data" {"dictionary" {"totalCount" 2 "items" [{"name" "provide"} {"name" "see"}]}}}]
