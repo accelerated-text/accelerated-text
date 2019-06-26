@@ -2,7 +2,8 @@
   (:require [clojure.tools.logging :as log]
             [translate.dictionary :as translate-dict]
             [translate.core :as translate-core]
-            [data-access.entities.dictionary :as dict-entity]))
+            [data-access.entities.dictionary :as dict-entity]
+            [clojure.string :as str]))
 
 
 (defn dictionary [_ _ _]
@@ -44,9 +45,27 @@
                                          :partOfSpeech (:partOfSpeech current-item)})))
 
 
-(defn update-phrase [_ _ _])
+(defn update-phrase [_ {:keys [id text]} _]
+    (let [[parent-id & _] (str/split id #"/")
+          current-item (dict-entity/get-dictionary-item parent-id)
+          updated-phrases (map
+                           (fn [item] (if (= id (:id item))
+                                        (assoc item :text text)
+                                        item))
+                           (:phrases current-item))]
+      (dict-entity/update-dictionary-item {:key parent-id
+                                           :partOfSpeech (:partOfSpeech current-item)
+                                           :phrases updated-phrases})
+      (first (filter #(= id (:id %)) updated-phrases))))
 
-(defn delete-phrase [_ _ _])
+(defn delete-phrase [_ {:keys [id]} _]
+  (let [[parent-id & _] (str/split id #"/")
+        current-item (dict-entity/get-dictionary-item parent-id)]
+    (dict-entity/update-dictionary-item {:key parent-id
+                                         :partOfSpeech (:partOfSpeech current-item)
+                                         :phrases (filter
+                                                   (fn [item] (not (= id (:id item))))
+                                                   (:phrases current-item))})))
 
 (defn reader-flags [_ _ _]
   (-> (dict-entity/list-readers)
