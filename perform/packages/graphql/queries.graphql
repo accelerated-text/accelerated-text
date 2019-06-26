@@ -1,9 +1,6 @@
-### Thesaurus ------------------------------------------------------------------
+#import "./fragments.graphql"
 
-fragment wordFields on Word {
-  id
-  text
-}
+### Thesaurus ------------------------------------------------------------------
 
 query searchThesaurus( $query: String ) {
   searchThesaurus( query: $query ) @client {
@@ -26,11 +23,6 @@ query synonyms( $wordId: ID! ) {
 
 ### Reader ---------------------------------------------------------------------
 
-fragment readerFlagFields on ReaderFlag {
-  id
-  name
-}
-
 query readerFlags {
   readerFlags @client {
     id
@@ -41,23 +33,6 @@ query readerFlags {
 }
 
 ### Dictionary -----------------------------------------------------------------
-
-fragment dictionaryItemFields on DictionaryItem {
-  id
-  name
-  phrases {
-    id
-    text
-    defaultUsage
-    readerFlagUsage {
-      id
-      flag {
-        ...readerFlagFields
-      }
-      usage
-    }
-  }
-}
 
 query dictionary {
   dictionary {

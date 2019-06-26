@@ -1,22 +1,6 @@
-### DictionaryItem -------------------------------------------------------------
+#import "./fragments.graphql"
 
-fragment dictionaryItemFields on DictionaryItem {
-  id
-  name
-  phrases {
-    id
-    text
-    defaultUsage
-    readerFlagUsage {
-      id
-      flag {
-        id
-        name
-      }
-      usage
-    }
-  }
-}
+### DictionaryItem -------------------------------------------------------------
 
 mutation createDictionaryItem(
   $name:            String!
