@@ -9,10 +9,13 @@
    :id "???"})
 
 (defn reader-flag-usage->schema
-  [flags]
-  (map (fn [[k v]] {:usage v
-                    :flag {:name k}})
-       flags))
+  [parent-id flags]
+  (->> (map (fn [[k v]] {:usage v
+                         :id parent-id
+                         :flag {:name (name k)
+                               :id (format "%s/%s" parent-id (name k))}})
+            flags)
+       (map reader-flag->schema)))
 
 (defn phrase->schema
   [phrase]
@@ -21,7 +24,7 @@
    :text (:text phrase)
    :defaultUsage (-> (:flags phrase)
                      :default)
-   :readerFlagUsage (reader-flag-usage->schema (:flags phrase))})
+   :readerFlagUsage (reader-flag-usage->schema (:id phrase) (:flags phrase))})
 
 (defn dictionary-item->schema
   [dict-item]

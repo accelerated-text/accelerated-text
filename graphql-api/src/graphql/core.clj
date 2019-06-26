@@ -26,6 +26,7 @@
                                                    :updatePhrase             :update-phrase
                                                    :deletePhrase             :delete-phrase
                                                    :updatePhraseDefaultUsage :update-phrase-default-usage
+                                                   :updateReaderFlagUsage    :update-reader-flag-usage
                                                    }
                                         }})
       (util/attach-resolvers {:dictionary                  dictionary-domain/dictionary
@@ -37,6 +38,7 @@
                               :update-phrase               dictionary-domain/update-phrase-text
                               :delete-phrase               dictionary-domain/delete-phrase
                               :update-phrase-default-usage dictionary-domain/update-phrase-default-usage
+                              :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
                               :reader-flags                dictionary-domain/reader-flags
                               :document-plan               dp-domain/document-plan
                               :document-plans              dp-domain/document-plans})
