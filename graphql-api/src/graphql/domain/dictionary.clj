@@ -35,12 +35,18 @@
         default-flags (dict-entity/get-default-flags)
         phrases (cons (dict-entity/text->phrase
                        text
+                       dictionaryItemId
                        (keyword defaultUsage)
                        default-flags)
                       (:phrases current-item))]
     (dict-entity/update-dictionary-item {:key dictionaryItemId
                                          :phrases phrases
                                          :partOfSpeech (:partOfSpeech current-item)})))
+
+
+(defn update-phrase [_ _ _])
+
+(defn delete-phrase [_ _ _])
 
 (defn reader-flags [_ _ _]
   (-> (dict-entity/list-readers)

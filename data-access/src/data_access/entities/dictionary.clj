@@ -28,8 +28,8 @@
     (ops/read! db k)))
 
 (defn text->phrase
-  [text default-usage default-flags]
-  {:id (utils/gen-uuid)
+  [text parent-id default-usage default-flags]
+  {:id (format "%s/%s" parent-id (utils/gen-uuid))
    :text text
    :flags (assoc default-flags :default default-usage)})
 
@@ -39,7 +39,7 @@
         default-flags (get-default-flags)
         result {:name key
                 :partOfSpeech partOfSpeech
-                :phrases (doall (map #(text->phrase % :YES default-flags) phrases))}]
+                :phrases (doall (map #(text->phrase % key :YES default-flags) phrases))}]
     (ops/write! db key result)))
 
 (defn delete-dictionary-item

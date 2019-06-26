@@ -20,9 +20,11 @@
                                                    :documentPlans  :document-plans
                                                    :readerFlags    :reader-flags}
                                         :Mutation {:createDictionaryItem :create-dictionary-item
-                                                   :createPhrase :create-phrase
                                                    :deleteDictionaryItem :delete-dictionary-item
                                                    :updateDictionaryItem :update-dictionary-item
+                                                   :createPhrase :create-phrase
+                                                   :updatePhrase :update-phrase
+                                                   :deletePhrase :delete-phrase
                                                    }
                                         }})
       (util/attach-resolvers {:dictionary                dictionary-domain/dictionary
@@ -31,6 +33,8 @@
                               :delete-dictionary-item    dictionary-domain/delete-dictionary-item
                               :update-dictionary-item    dictionary-domain/update-dictionary-item
                               :create-phrase             dictionary-domain/create-phrase
+                              :update-phrase             dictionary-domain/update-phrase
+                              :delete-phrase             dictionary-domain/delete-phrase
                               :reader-flags              dictionary-domain/reader-flags
                               :document-plan             dp-domain/document-plan
                               :document-plans            dp-domain/document-plans})
