@@ -39,7 +39,7 @@
         default-flags (get-default-flags)
         result {:name key
                 :partOfSpeech partOfSpeech
-                :phrases (map #(text->phrase % :YES default-flags))}]
+                :phrases (doall (map #(text->phrase % :YES default-flags) phrases))}]
     (ops/write! db key result)))
 
 (defn update-dictionary-item
