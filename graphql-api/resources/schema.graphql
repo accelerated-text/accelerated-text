@@ -118,6 +118,7 @@ type DictionaryItem {
     id:                 ID!
     name:               String!
     partOfSpeech:       PartOfSpeech
+    phrases:            [ Phrase! ]
 }
 
 type Phrase {
