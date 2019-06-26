@@ -24,7 +24,7 @@
    :text (:text phrase)
    :defaultUsage (-> (:flags phrase)
                      :default)
-   :readerFlagUsage (reader-flag-usage->schema (:id phrase) (:flags phrase))})
+   :readerFlagUsage (reader-flag-usage->schema (:id phrase) (dissoc (:flags phrase) :default))})
 
 (defn dictionary-item->schema
   [dict-item]
