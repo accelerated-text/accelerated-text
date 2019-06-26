@@ -1,0 +1,36 @@
+### Thesaurus ------------------------------------------------------------------
+
+fragment wordFields on Word {
+  id
+  text
+}
+
+
+### Reader ---------------------------------------------------------------------
+
+fragment readerFlagFields on ReaderFlag {
+  id
+  name
+}
+
+### Dictionary -----------------------------------------------------------------
+
+fragment dictionaryItemFields on DictionaryItem {
+  id
+  name
+  phrases {
+    id
+    text
+    defaultUsage
+    readerFlagUsage {
+      id
+      flag {
+        id
+        name
+      }
+      usage
+    }
+  }
+}
+
+
