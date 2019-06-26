@@ -4,6 +4,7 @@ import { composeQueries  }  from '../graphql';
 import LabelWithStatus      from '../label-with-status/LabelWithStatus';
 import { dictionary }       from '../graphql/queries.graphql';
 
+import AddItem              from './AddItem';
 import ItemRow              from './ItemRow';
 import S                    from './Dictionary.sass';
 
@@ -12,9 +13,9 @@ export default composeQueries({
     dictionary,
 })(({
     dictionary: {
+        dictionary,
         error,
         loading,
-        dictionary,
     },
 }) =>
     <table className={ S.className }>
@@ -35,6 +36,13 @@ export default composeQueries({
             { dictionary && dictionary.items.map( item =>
                 <ItemRow key={ item.id } item={ item } />
             )}
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="3">
+                    <AddItem refetchQueries={ [ 'dictionary' ] } />
+                </td>
+            </tr>
         </tbody>
     </table>
 );
