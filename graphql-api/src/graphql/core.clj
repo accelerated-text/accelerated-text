@@ -23,14 +23,12 @@
                                                    :createPhrase :create-phrase
                                                    :deleteDictionaryItem :delete-dictionary-item
                                                    }
-                                        :ReaderFlagUsage  {:flag :reader-flag}
                                         }})
       (util/attach-resolvers {:dictionary                dictionary-domain/dictionary
                               :dictionary-item           dictionary-domain/dictionary-item
                               :create-dictionary-item    dictionary-domain/create-dictionary-item
                               :delete-dictionary-item    dictionary-domain/delete-dictionary-item
                               :create-phrase             dictionary-domain/create-phrase
-                              :reader-flag               dictionary-domain/reader-flag
                               :reader-flags              dictionary-domain/reader-flags
                               :document-plan             dp-domain/document-plan
                               :document-plans            dp-domain/document-plans})
