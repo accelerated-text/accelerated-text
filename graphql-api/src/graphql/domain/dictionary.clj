@@ -73,7 +73,7 @@
   (update-phrase
    id
    (fn [item] (if (= id (:id item))
-                (assoc item :defaultUsage defaultUsage)
+                (assoc-in item [:flags :default] (keyword defaultUsage))
                 item))))
 
 
