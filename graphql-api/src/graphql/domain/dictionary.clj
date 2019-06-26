@@ -35,7 +35,8 @@
                                          :partOfSpeech (:partOfSpeech current-item)})))
 
 (defn delete-dictionary-item [_ {:keys [id]} _]
-  (dict-entity/delete-dictionary-item id))
+  (dict-entity/delete-dictionary-item id)
+  true)
 
 (defn reader-flags [_ _ _]
   (-> (dict-entity/list-readers)

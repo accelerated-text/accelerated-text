@@ -21,6 +21,7 @@
                                                    :readerFlags    :reader-flags}
                                         :Mutation {:createDictionaryItem :create-dictionary-item
                                                    :createPhrase :create-phrase
+                                                   :deleteDictionaryItem :delete-dictionary-item
                                                    }
                                         :ReaderFlagUsage  {:flag :reader-flag}
                                         }})
