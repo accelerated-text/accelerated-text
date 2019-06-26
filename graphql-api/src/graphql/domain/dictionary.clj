@@ -21,6 +21,14 @@
                                        :partOfSpeech partOfSpeech})
   (dict-entity/get-dictionary-item name))
 
+(defn delete-dictionary-item [_ {:keys [id]} _]
+  (dict-entity/delete-dictionary-item id)
+  true)
+
+(defn update-dictionary-item [_ {:keys [id partOfSpeech]} _]
+  (dict-entity/update-dictionary-item {:key id
+                                       :partOfSpeech partOfSpeech}))
+
 (defn create-phrase [_ {:keys [dictionaryItemId text defaultUsage]} _]
   (log/debugf "Creating phrase: %s %s %s" dictionaryItemId text defaultUsage)
   (let [current-item (dict-entity/get-dictionary-item dictionaryItemId)
@@ -33,10 +41,6 @@
     (dict-entity/update-dictionary-item {:key dictionaryItemId
                                          :phrases phrases
                                          :partOfSpeech (:partOfSpeech current-item)})))
-
-(defn delete-dictionary-item [_ {:keys [id]} _]
-  (dict-entity/delete-dictionary-item id)
-  true)
 
 (defn reader-flags [_ _ _]
   (-> (dict-entity/list-readers)

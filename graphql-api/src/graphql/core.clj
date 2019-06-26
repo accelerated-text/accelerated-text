@@ -22,12 +22,14 @@
                                         :Mutation {:createDictionaryItem :create-dictionary-item
                                                    :createPhrase :create-phrase
                                                    :deleteDictionaryItem :delete-dictionary-item
+                                                   :updateDictionaryItem :update-dictionary-item
                                                    }
                                         }})
       (util/attach-resolvers {:dictionary                dictionary-domain/dictionary
                               :dictionary-item           dictionary-domain/dictionary-item
                               :create-dictionary-item    dictionary-domain/create-dictionary-item
                               :delete-dictionary-item    dictionary-domain/delete-dictionary-item
+                              :update-dictionary-item    dictionary-domain/update-dictionary-item
                               :create-phrase             dictionary-domain/create-phrase
                               :reader-flags              dictionary-domain/reader-flags
                               :document-plan             dp-domain/document-plan
