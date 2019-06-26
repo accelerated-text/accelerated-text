@@ -20,15 +20,17 @@
   (dict-entity/create-dictionary-item {:key name
                                        :phrases phrases
                                        :partOfSpeech partOfSpeech})
-  (dict-entity/get-dictionary-item name))
+  (-> (dict-entity/get-dictionary-item name)
+      (translate-dict/dictionary-item->schema)))
 
 (defn delete-dictionary-item [_ {:keys [id]} _]
   (dict-entity/delete-dictionary-item id)
   true)
 
 (defn update-dictionary-item [_ {:keys [id partOfSpeech]} _]
-  (dict-entity/update-dictionary-item {:key id
-                                       :partOfSpeech partOfSpeech}))
+  (->(dict-entity/update-dictionary-item {:key id
+                                          :partOfSpeech partOfSpeech})
+     (translate-dict/dictionary-item->schema)))
 
 (defn create-phrase [_ {:keys [dictionaryItemId text defaultUsage]} _]
   (log/debugf "Creating phrase: %s %s %s" dictionaryItemId text defaultUsage)
@@ -40,9 +42,10 @@
                        (keyword defaultUsage)
                        default-flags)
                       (:phrases current-item))]
-    (dict-entity/update-dictionary-item {:key dictionaryItemId
+    (-> (dict-entity/update-dictionary-item {:key dictionaryItemId
                                          :phrases phrases
-                                         :partOfSpeech (:partOfSpeech current-item)})))
+                                         :partOfSpeech (:partOfSpeech current-item)})
+        (translate-dict/dictionary-item->schema))))
 
 
 (defn update-phrase [_ {:keys [id text]} _]
@@ -56,16 +59,19 @@
       (dict-entity/update-dictionary-item {:key parent-id
                                            :partOfSpeech (:partOfSpeech current-item)
                                            :phrases updated-phrases})
-      (first (filter #(= id (:id %)) updated-phrases))))
+      (-> (filter #(= id (:id %)) updated-phrases)
+          (first)
+          (translate-dict/phrase->schema))))
 
 (defn delete-phrase [_ {:keys [id]} _]
   (let [[parent-id & _] (str/split id #"/")
         current-item (dict-entity/get-dictionary-item parent-id)]
-    (dict-entity/update-dictionary-item {:key parent-id
+    (-> (dict-entity/update-dictionary-item {:key parent-id
                                          :partOfSpeech (:partOfSpeech current-item)
                                          :phrases (filter
                                                    (fn [item] (not (= id (:id item))))
-                                                   (:phrases current-item))})))
+                                                   (:phrases current-item))})
+        (translate-dict/dictionary-item->schema))))
 
 (defn reader-flags [_ _ _]
   (-> (dict-entity/list-readers)

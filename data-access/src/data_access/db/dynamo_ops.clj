@@ -78,7 +78,7 @@
           (do
             (log/debugf "Saving updated content: %s" (pr-str body))
             (far/put-item (config/client-opts) table-name body)
-            body)))
+            (far/get-item (config/client-opts) table-name {table-key key}))))
       (delete-item [this key]
         (log/debugf "Deleting\n key: '%s'" key)
         (far/delete-item (config/client-opts) table-name {table-key key}))
