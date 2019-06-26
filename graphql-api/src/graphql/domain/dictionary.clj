@@ -25,10 +25,11 @@
   (log/debugf "Creating phrase: %s %s %s" dictionaryItemId text defaultUsage)
   (let [current-item (dict-entity/get-dictionary-item dictionaryItemId)
         default-flags (dict-entity/get-default-flags)
-        phrases (conj (:phrases current-item) (dict-entity/text->phrase
-                                               text
-                                               (keyword defaultUsage)
-                                               default-flags))]
+        phrases (cons (dict-entity/text->phrase
+                       text
+                       (keyword defaultUsage)
+                       default-flags)
+                      (:phrases current-item))]
     (dict-entity/update-dictionary-item {:key dictionaryItemId
                                          :phrases phrases
                                          :partOfSpeech (:partOfSpeech current-item)})))

@@ -45,7 +45,7 @@
 (defn update-dictionary-item
   [{:keys [key phrases partOfSpeech]}]
   (let [db (ops/db-access :dictionary-combined)]
-    (ops/update! db key {:phrases phrases
+    (ops/update! db key {:phrases (ops/freeze! phrases)
                          :partOfSpeech partOfSpeech})))
 
 

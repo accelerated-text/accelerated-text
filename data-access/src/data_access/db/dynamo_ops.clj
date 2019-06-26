@@ -76,6 +76,7 @@
                        (assoc :updatedAt (utils/ts-now))
                        (assoc :key key))]
           (do
+            (log/debugf "Saving updated content: %s" (pr-str body))
             (far/put-item (config/client-opts) table-name body)
             body)))
       (delete-item [this key]
