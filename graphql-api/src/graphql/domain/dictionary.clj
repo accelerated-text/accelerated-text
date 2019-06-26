@@ -48,30 +48,45 @@
         (translate-dict/dictionary-item->schema))))
 
 
-(defn update-phrase [_ {:keys [id text]} _]
-    (let [[parent-id & _] (str/split id #"/")
-          current-item (dict-entity/get-dictionary-item parent-id)
-          updated-phrases (map
-                           (fn [item] (if (= id (:id item))
-                                        (assoc item :text text)
-                                        item))
-                           (:phrases current-item))]
-      (dict-entity/update-dictionary-item {:key parent-id
-                                           :partOfSpeech (:partOfSpeech current-item)
-                                           :phrases updated-phrases})
-      (-> (filter #(= id (:id %)) updated-phrases)
-          (first)
-          (translate-dict/phrase->schema))))
+(defn update-phrase [id mut-fn]
+  (let [[parent-id & _] (str/split id #"/")
+        current-item (dict-entity/get-dictionary-item parent-id)
+        updated-phrases (map
+                         mut-fn
+                         (:phrases current-item))]
+    (dict-entity/update-dictionary-item {:key parent-id
+                                         :partOfSpeech (:partOfSpeech current-item)
+                                         :phrases updated-phrases})
+    (-> (filter #(= id (:id %)) updated-phrases)
+        (first)
+        (translate-dict/phrase->schema))))
+
+(defn update-phrase-text [_ {:keys [id text]} _]
+  (update-phrase
+   id
+   (fn [item] (if (= id (:id item))
+                (assoc item :text text)
+                item))))
+
+
+(defn update-phrase-default-usage [_ {:keys [id defaultUsage]} _]
+  (update-phrase
+   id
+   (fn [item] (if (= id (:id item))
+                (assoc item :defaultUsage defaultUsage)
+                item))))
+
 
 (defn delete-phrase [_ {:keys [id]} _]
   (let [[parent-id & _] (str/split id #"/")
         current-item (dict-entity/get-dictionary-item parent-id)]
     (-> (dict-entity/update-dictionary-item {:key parent-id
-                                         :partOfSpeech (:partOfSpeech current-item)
-                                         :phrases (filter
-                                                   (fn [item] (not (= id (:id item))))
-                                                   (:phrases current-item))})
+                                             :partOfSpeech (:partOfSpeech current-item)
+                                             :phrases (filter
+                                                       (fn [item] (not (= id (:id item))))
+                                                       (:phrases current-item))})
         (translate-dict/dictionary-item->schema))))
+
 
 (defn reader-flags [_ _ _]
   (-> (dict-entity/list-readers)
