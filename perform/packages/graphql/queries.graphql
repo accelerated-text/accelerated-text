@@ -24,7 +24,7 @@ query synonyms( $wordId: ID! ) {
 ### Reader ---------------------------------------------------------------------
 
 query readerFlags {
-  readerFlags @client {
+  readerFlags {
     id
     flags {
       ...readerFlagFields

@@ -1,5 +1,3 @@
-import resolvers from       '../graphql/resolvers';
-
 export default {
 
     getInitialState: () => ({
@@ -7,7 +5,6 @@ export default {
             junior:         true,
             senior:         false,
         },
-        readerFlags:        resolvers.Query.readerFlags(),
     }),
 
     reader: {

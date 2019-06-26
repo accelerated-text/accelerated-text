@@ -43,12 +43,6 @@ export default {
     Query: {
         me:                 User,
 
-        readerFlags: () => ({
-            __typename:     'ReaderFlags',
-            id:             'reader-flags',
-            flags:          READER_FLAGS.map( ReaderFlag ),
-        }),
-
         searchThesaurus: ( _, { query }) => {
             const re =      new RegExp( `^${ query }`, 'i' );
             const words = (

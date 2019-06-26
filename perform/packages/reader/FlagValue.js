@@ -12,11 +12,9 @@ export default class ReaderFlagValue extends Component {
     render({
         className,
         flag,
-        flagValues,
+        isChecked,
         onChange,
     }) {
-        const isChecked =   flagValues[flag.id];
-
         return (
             <label className={ classnames( S.className, className, isChecked && S.isChecked ) }>
                 <input
