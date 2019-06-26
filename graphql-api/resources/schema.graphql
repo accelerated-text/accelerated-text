@@ -230,14 +230,14 @@ type Mutation {
         text:               String!
     ):  Phrase!
 
+    deletePhrase(
+        id:                 ID!
+    ):  DictionaryItem!
+
     updatePhraseDefaultUsage(
         id:                 ID!
         defaultUsage:       DefaultUsage!
     ):  Phrase!
-
-    deletePhrase(
-        id:                 ID!
-    ):  DictionaryItem!
 
     updateReaderFlagUsage(
         id:                 ID!
