@@ -1,9 +1,9 @@
 import addPageUtils         from './add-page-utils';
 import debugConsole         from './debug-console';
 import noRecords            from './no-records';
-import withGraphQL          from './with-graphql';
-import withInterceptor      from './with-interceptor';
+import withGraphqlApi       from './with-graphql-api';
 import withNlgApi           from './with-nlg-api';
+import withOnRequest        from './with-on-request';
 import withPage             from './with-page';
 
 
@@ -12,8 +12,8 @@ export default ( t, run, ...args ) =>
         t,
         debugConsole,
         addPageUtils,
-        withInterceptor,
-        withGraphQL,
+        withOnRequest,
+        withGraphqlApi,
         withNlgApi,
         noRecords,
         run,

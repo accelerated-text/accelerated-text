@@ -1,3 +1,4 @@
+import classnames               from 'classnames';
 import { h }                    from 'preact';
 import {
     Bar,
@@ -9,6 +10,7 @@ import { composeQueries }       from '../graphql/';
 
 import { closeDictionaryItem }  from '../accelerated-text/local-state';
 import { dictionaryItem }       from '../graphql/queries.graphql';
+import { QA }                   from '../tests/constants';
 import Thesaurus                from '../thesaurus/Thesaurus';
 
 import Phrases                  from './Phrases';
@@ -22,17 +24,21 @@ export default composeQueries({
     closeDictionaryItem,
     dictionaryItem:             { dictionaryItem: item },
 }) =>
-    <Container className={ S.className }>
+    <Container className={ classnames( S.className, QA.DICT_ITEM_EDITOR ) }>
         <Section defaultSize={ 100 }>
             <Thesaurus className={ S.thesaurus } />
         </Section>
         <Bar children="⋮" className={ S.separator } />
         <Section className={ S.main } defaultSize={ 300 } minSize="25%">
-            <h2 className={ S.title }>{ item && item.name }</h2>
+            <h2 className={ classnames( S.title, QA.DICT_ITEM_EDITOR_NAME ) }>
+                { item && item.name }
+            </h2>
             <div className={ S.close }>
-                <button onClick={ closeDictionaryItem }>
-                    ✖️ close
-                </button>
+                <button
+                    children="✖️ close"
+                    className={ QA.DICT_ITEM_EDITOR_CLOSE }
+                    onClick={ closeDictionaryItem }
+                />
             </div>
             { item &&
                 <Phrases
