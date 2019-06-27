@@ -1,0 +1,19 @@
+FROM registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
+
+ARG AWS_DEFAULT_REGION
+ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+
+ARG AWS_ACCESS_KEY_ID
+ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+
+ARG AWS_SECRET_ACCESS_KEY
+ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY graphql-api/deps.edn /usr/src/app/
+COPY data-access/ /usr/src/data-access
+RUN clojure -Sresolve-tags
+COPY graphql-api/ /usr/src/app
+RUN clojure -A:test

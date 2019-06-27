@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  dynamodb:
+    image: registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
+    ports: ["8000:8000"]
+  graphql-api:
+    build:
+      context: ../
+      dockerfile: graphql-api/Dockerfile.test
+      args:
+        AWS_ACCESS_KEY_ID: $NLG_AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY: $NLG_AWS_SECRET_ACCESS_KEY
+    ports: ["3001:3001"]
+    environment:
+      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      AWS_ACCESS_KEY_ID: $NLG_AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $NLG_AWS_SECRET_ACCESS_KEY

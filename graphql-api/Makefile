@@ -42,3 +42,11 @@ invoke-function:
 build-rest-api-docker:
 	docker pull registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
 	docker build -f Dockerfile.rest-api -t registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-rest-api:latest .
+
+unit-tests:
+	clojure -A:test -e:integration
+
+integration-tests:
+	docker-compose -p test -f docker-compose.test.yml down && \
+	docker-compose -p test -f docker-compose.test.yml build && \
+	docker-compose -p test -f docker-compose.test.yml up --remove-orphans --abort-on-container-exit --exit-code-from graphql-api
