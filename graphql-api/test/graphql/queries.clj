@@ -1,4 +1,10 @@
-(ns graphql.queries)
+(ns graphql.queries
+  (:require [clojure.test :refer :all]))
+
+(defn validate-resp
+  [resp]
+  (is (nil? (get resp "errors")))
+  resp)
 
 (defn create-dict-item
   [k pos]

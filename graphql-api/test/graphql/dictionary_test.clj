@@ -59,7 +59,7 @@
 
 (deftest ^:integration ^:mutation mutation-scenario
   (testing "create dict item"
-      (graph/nlg (queries/create-dict-item "test-phrase2" "VB"))
+      (queries/validate-resp (graph/nlg (queries/create-dict-item "test-phrase2" "VB")))
       (let [resp (graph/nlg (queries/get-dict-item "test-phrase2"))
             result (->> (:data resp)
                         :dictionaryItem)]
@@ -78,11 +78,11 @@
       (log/debugf "Resp: %s" resp)
       (log/debugf "We've created phrase with ID: %s" target-id)
       (is (not (nil? target-id)))
-      (graph/nlg (queries/update-phrase target-id "t2"))
-      (graph/nlg (queries/update-phrase-default-usage target-id "NO"))
-      (graph/nlg (queries/update-reader-flag-usage (format "%s/%s" target-id "senior") "YES"))))
+      (queries/validate-resp (graph/nlg (queries/update-phrase target-id "t2")))
+      (queries/validate-resp (graph/nlg (queries/update-phrase-default-usage target-id "NO")))
+      (queries/validate-resp (graph/nlg (queries/update-reader-flag-usage (format "%s/%s" target-id "senior") "YES")))))
 
   (testing "cleanup"
-    (graph/nlg (queries/delete-dict-item "test-phrase2"))))
+    (queries/validate-resp (graph/nlg (queries/delete-dict-item "test-phrase2")))))
 
 (use-fixtures :once prepare-environment)
