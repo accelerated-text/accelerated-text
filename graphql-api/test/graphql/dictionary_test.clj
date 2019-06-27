@@ -79,7 +79,8 @@
       (log/debugf "We've created phrase with ID: %s" target-id)
       (is (not (nil? target-id)))
       (graph/nlg (queries/update-phrase target-id "t2"))
-      (graph/nlg (queries/update-phrase-default-usage target-id "NO"))))
+      (graph/nlg (queries/update-phrase-default-usage target-id "NO"))
+      (graph/nlg (queries/update-reader-flag-usage (format "%s/%s" target-id "senior") "YES"))))
 
   (testing "cleanup"
     (graph/nlg (queries/delete-dict-item "test-phrase2"))))

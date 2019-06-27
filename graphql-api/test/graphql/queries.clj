@@ -32,3 +32,9 @@
   {:query "mutation UpdatePhrase($id: ID!, $text: String!){\n  updatePhrase(id: $id, text: $text){text defaultUsage}\n}mutation UpdatePhraseDefaultUsage($id: ID!, $defaultUsage: DefaultUsage!){\n  updatePhraseDefaultUsage(id: $id, defaultUsage: $defaultUsage){text defaultUsage}\n}"
    :variables {:id id
                :defaultUsage default-usage}})
+
+(defn update-reader-flag-usage
+  [id usage]
+  {:query "mutation UpdateReaderFlagUsage($id: ID!, $usage: Usage!){\n  updateReaderFlagUsage(id: $id, usage: $usage){id flag{id name} usage}\n}"
+   :variables {:id id
+               :usage usage}})
