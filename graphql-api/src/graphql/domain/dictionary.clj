@@ -103,7 +103,7 @@
 (defn update-reader-flag-usage [_ {:keys [id usage]} _]
   (let [[parent-part phrase-part flag-id] (str/split id #"/")
         phrase-id                         (format "%s/%s" parent-part phrase-part)
-        build-usage-fn                    (fn [usage] {:id    phrase-id
+        build-usage-fn                    (fn [usage] {:id    (format "%s/-/%s" phrase-id flag-id)
                                                        :usage usage
                                                        :flag  {:id id
                                                                :name flag-id}})]
