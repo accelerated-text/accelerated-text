@@ -1,10 +1,7 @@
 export default {
 
     getInitialState: () => ({
-        flagValues: {
-            junior:         true,
-            senior:         false,
-        },
+        flagValues:         {},
     }),
 
     reader: {
