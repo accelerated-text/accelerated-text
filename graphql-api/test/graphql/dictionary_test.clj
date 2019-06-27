@@ -57,13 +57,31 @@
              {:text "t3"}}
            (set (:phrases result))))))
 
-(deftest ^:integration ^:mutation create-dict-item
-  (graph/nlg (queries/create-dict-item "test-phrase2" "VB"))
-  (let [resp (graph/nlg (queries/get-dict-item "test-phrase2"))
-        result (->> (:data resp)
-                    :dictionaryItem)]
-    (log/debugf "Resp: %s" resp)
-    (is (= "test-phrase2" (:name result))))
-  (graph/nlg (queries/delete-dict-item "test-phrase2")))
+(deftest ^:integration ^:mutation mutation-scenario
+  (testing "create dict item"
+      (graph/nlg (queries/create-dict-item "test-phrase2" "VB"))
+      (let [resp (graph/nlg (queries/get-dict-item "test-phrase2"))
+            result (->> (:data resp)
+                        :dictionaryItem)]
+        (log/debugf "Resp: %s" resp)
+        (is (= "test-phrase2" (:name result)))))
+  
+  (testing "add phrase"
+    (let [resp (graph/nlg (queries/create-phrase "test-phrase2" "t1" "YES"))
+          phrases (-> (:data resp)
+                      :createPhrase
+                      :phrases)
+
+          target-id (-> (filter #(= "t1" (:text %)) phrases)
+                        (first)
+                        :id)]
+      (log/debugf "Resp: %s" resp)
+      (log/debugf "We've create phrase with ID: %s" target-id)
+      (is (not (nil? target-id)))
+      (graph/nlg (queries/update-phrase target-id "t2"))
+      (graph/nlg (queries/update-phrase-default-usage target-id "NO"))))
+
+  (testing "cleanup"
+    (graph/nlg (queries/delete-dict-item "test-phrase2"))))
 
 (use-fixtures :once prepare-environment)
