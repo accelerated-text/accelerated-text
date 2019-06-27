@@ -102,16 +102,13 @@
 
 (defn update-reader-flag-usage [_ {:keys [id usage]} _]
   (let [[parent-part phrase-part flag-id] (str/split id #"/")
+        flag-key                          (keyword flag-id)
         phrase-id                         (format "%s/%s" parent-part phrase-part)
-        build-usage-fn                    (fn [usage] {:id    (format "%s/-/%s" phrase-id flag-id)
-                                                       :usage usage
-                                                       :flag  {:id id
-                                                               :name flag-id}})]
-    (-> (update-phrase
+        select-pair                       (fn [flags] (list flag-key (get flags flag-key)))]
+    (->> (update-phrase
           phrase-id
-          (fn [item] (assoc-in item [:flags (keyword flag-id)] (keyword usage)))
+          (fn [item] (assoc-in item [:flags flag-key] (keyword usage)))
           false)
          :flags
-         (get (keyword flag-id))
-         (build-usage-fn)
-         (translate-dict/reader-flag->schema))))
+         (select-pair)
+         (translate-dict/reader-flag-usage->schema phrase-id))))

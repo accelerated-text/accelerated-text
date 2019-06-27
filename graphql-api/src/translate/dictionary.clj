@@ -8,14 +8,20 @@
   {:flags flags
    :id "???"})
 
+
 (defn reader-flag-usage->schema
+  [parent-id [k v]]
+  (log/debugf "Got: k=%s v=%s" k v)
+  (->> {:usage v
+        :id (format "%s/%s" parent-id (name k))
+        :flag {:name (name k)
+               :id (name k)}}
+       (reader-flag->schema)))
+
+(defn reader-flags-usage->schema
   [parent-id flags]
-  (->> (map (fn [[k v]] {:usage v
-                         :id (format "%s/-/%s" parent-id (name k))
-                         :flag {:name (name k)
-                               :id (format "%s/%s" parent-id (name k))}})
-            flags)
-       (map reader-flag->schema)))
+  (let [translate-fn (partial reader-flag-usage->schema parent-id)]
+    (map translate-fn flags)))
 
 (defn phrase->schema
   [phrase]
@@ -24,7 +30,7 @@
    :text (:text phrase)
    :defaultUsage (-> (:flags phrase)
                      :default)
-   :readerFlagUsage (reader-flag-usage->schema (:id phrase) (dissoc (:flags phrase) :default))})
+   :readerFlagUsage (reader-flags-usage->schema (:id phrase) (dissoc (:flags phrase) :default))})
 
 (defn dictionary-item->schema
   [dict-item]
