@@ -16,4 +16,5 @@ COPY graphql-api/deps.edn /usr/src/app/
 COPY data-access/ /usr/src/data-access
 RUN clojure -Sresolve-tags
 COPY graphql-api/ /usr/src/app
-RUN clojure -A:test
+RUN clojure -R:rest-uberjar
+CMD ["clojure", "-A:test"]
