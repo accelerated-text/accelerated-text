@@ -11,7 +11,7 @@
                                        :partOfSpeech "VB"
                                        :phrases ["t1" "t2" "t3"]})
   (f)
-  (dict-entity/delete-dictionary-item "test-phrase"))
+  (dict-entity/delete-dictionary-item "test-phrqase"))
 
 (defn normalize-resp [resp]
   (-> resp (json/write-value-as-string) (json/read-value)))
