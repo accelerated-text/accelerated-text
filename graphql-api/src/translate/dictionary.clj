@@ -11,7 +11,7 @@
 (defn reader-flag-usage->schema
   [parent-id flags]
   (->> (map (fn [[k v]] {:usage v
-                         :id parent-id
+                         :id (format "%s/-/%s" parent-id (name k))
                          :flag {:name (name k)
                                :id (format "%s/%s" parent-id (name k))}})
             flags)
