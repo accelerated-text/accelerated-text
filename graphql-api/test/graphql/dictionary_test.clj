@@ -76,7 +76,7 @@
                         (first)
                         :id)]
       (log/debugf "Resp: %s" resp)
-      (log/debugf "We've create phrase with ID: %s" target-id)
+      (log/debugf "We've created phrase with ID: %s" target-id)
       (is (not (nil? target-id)))
       (graph/nlg (queries/update-phrase target-id "t2"))
       (graph/nlg (queries/update-phrase-default-usage target-id "NO"))))
