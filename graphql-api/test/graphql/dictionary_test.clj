@@ -21,9 +21,8 @@
   (-> (filter (fn [pair] ;; We cannot deconstruct OrderedMap
                 (let [[k1 p1] (first pair)
                       [k2 p2] (second pair)]
-                  (log/debugf "%s vs %s" (pr-str p2) phrases-part)
-                  (log/spyf "Matching result: %s" (and (= p1 (get name-part k1))
-                                                       (= (set p2) (set (get phrases-part k2)))))))
+                  (and (= p1 (get name-part k1))
+                       (= (set p2) (set (get phrases-part k2))))))
               (flatten col))
       (empty?)
       (not)))
@@ -42,8 +41,7 @@
   (let [resp (graph/nlg {:query "{dictionary{items{name phrases{text}}}}"})
         result (->> (:data resp)
                     :dictionary
-                    :items
-                    (partition 2))]
+                    :items)]
     (log/debugf "Result:\t %s\n" (pr-str result))
     (is (exists-pair? result (list {:name "test-phrase"} {:phrases '({:text "t1"} {:text "t2"} {:text "t3"})})))))
 
