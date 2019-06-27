@@ -4,14 +4,15 @@
             [jsonista.core :as json]
             [clojure.tools.logging :as log]
             [clojure.set :as set]
-            [data-access.entities.dictionary :as dict-entity]))
+            [data-access.entities.dictionary :as dict-entity]
+            [graphql.queries :as queries]))
 
 (defn prepare-environment [f]
   (dict-entity/create-dictionary-item {:key "test-phrase"
                                        :partOfSpeech "VB"
                                        :phrases ["t1" "t2" "t3"]})
   (f)
-  (dict-entity/delete-dictionary-item "test-phrqase"))
+  (dict-entity/delete-dictionary-item "test-phrase"))
 
 (defn normalize-resp [resp]
   (-> resp (json/write-value-as-string) (json/read-value)))
@@ -55,5 +56,14 @@
              {:text "t2"}
              {:text "t3"}}
            (set (:phrases result))))))
+
+(deftest ^:integration ^:mutation create-dict-item
+  (graph/nlg (queries/create-dict-item "test-phrase2" "VB"))
+  (let [resp (graph/nlg (queries/get-dict-item "test-phrase2"))
+        result (->> (:data resp)
+                    :dictionaryItem)]
+    (log/debugf "Resp: %s" resp)
+    (is (= "test-phrase2" (:name result))))
+  (graph/nlg (queries/delete-dict-item "test-phrase2")))
 
 (use-fixtures :once prepare-environment)
