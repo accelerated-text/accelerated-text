@@ -66,19 +66,17 @@
                        (assoc :createdAt (utils/ts-now))
                        (assoc :updatedAt (utils/ts-now)))
               normalized (doall (normalize body))]
-          (do
-            (far/put-item (config/client-opts) table-name normalized)
-            body)))
+          (far/put-item (config/client-opts) table-name normalized)
+          body))
       (update-item [this key data]
         (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
         (let [original (far/get-item (config/client-opts) table-name {table-key key})
               body (-> (merge original data)
                        (assoc :updatedAt (utils/ts-now))
                        (assoc :key key))]
-          (do
-            (log/debugf "Saving updated content: %s" (pr-str body))
-            (far/put-item (config/client-opts) table-name body)
-            (far/get-item (config/client-opts) table-name {table-key key}))))
+          (log/debugf "Saving updated content: %s" (pr-str body))
+          (far/put-item (config/client-opts) table-name body)
+          (far/get-item (config/client-opts) table-name {table-key key})))
       (delete-item [this key]
         (log/debugf "Deleting\n key: '%s'" key)
         (far/delete-item (config/client-opts) table-name {table-key key}))
@@ -101,12 +99,11 @@
 (defn write-workspace
   [key workspace]
   (let [body (assoc workspace :id key)]
-    (do
-      (far/put-item
-       (config/client-opts)
-       config/blockly-table
-       body)
-      body)))
+    (far/put-item
+     (config/client-opts)
+     config/blockly-table
+     body)
+    body))
 
 (defn add-workspace
   [key workspace]
@@ -120,7 +117,7 @@
               original
               (assoc workspace :updatedAt (utils/ts-now)))]
     (write-workspace key body)))
-  
+
 
 (defn delete-workspace
   [key]
