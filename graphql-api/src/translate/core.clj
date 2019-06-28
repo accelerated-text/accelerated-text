@@ -1,9 +1,8 @@
-(ns translate.core
-  (:require [clojure.tools.logging :as log]))
+(ns translate.core)
 
 (defn cleanup
   [d]
-  (into {} (remove (fn [[k v]] (nil? v)) d)))
+  (into {} (remove (fn [[_ v]] (nil? v)) d)))
 
 (defn translate-input
   [query variables context]
