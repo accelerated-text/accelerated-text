@@ -34,10 +34,10 @@
    :flags (assoc default-flags :default default-usage)})
 
 (defn create-dictionary-item
-  [{:keys [key phrases partOfSpeech]}]
+  [{:keys [key name phrases partOfSpeech]}]
   (let [db (ops/db-access :dictionary-combined)
         default-flags (get-default-flags)
-        result {:name key
+        result {:name name
                 :partOfSpeech partOfSpeech
                 :phrases (doall (map #(text->phrase % key :YES default-flags) phrases))}]
     (ops/write! db key result)))
@@ -48,9 +48,10 @@
     (ops/delete! db k)))
 
 (defn update-dictionary-item
-  [{:keys [key phrases partOfSpeech]}]
+  [{:keys [key name phrases partOfSpeech]}]
   (let [db (ops/db-access :dictionary-combined)]
-    (ops/update! db key {:phrases (when (not (nil? phrases))
+    (ops/update! db key {:name name
+                         :phrases (when (not (nil? phrases))
                                     (ops/freeze! phrases))
                          :partOfSpeech partOfSpeech})))
 
