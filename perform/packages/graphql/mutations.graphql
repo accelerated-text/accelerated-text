@@ -29,9 +29,7 @@ mutation deleteDictionaryItem(
 ) {
   deleteDictionaryItem(
     id:             $id
-  ) {
-    id
-  }
+  )
 }
 
 

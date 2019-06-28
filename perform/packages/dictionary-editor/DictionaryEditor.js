@@ -7,21 +7,19 @@ import {
 }   from 'react-simple-resizer';
 
 import { composeQueries }       from '../graphql/';
-
-import { closeDictionaryItem }  from '../accelerated-text/local-state';
 import { dictionaryItem }       from '../graphql/queries.graphql';
 import { QA }                   from '../tests/constants';
 import Thesaurus                from '../thesaurus/Thesaurus';
 
+import DeleteItem               from './DeleteItem';
 import Phrases                  from './Phrases';
 import S                        from './DictionaryEditor.sass';
 
 
 export default composeQueries({
-    closeDictionaryItem,
     dictionaryItem:             [ dictionaryItem, { id: 'itemId' }],
 })(({
-    closeDictionaryItem,
+    closeEditor,
     dictionaryItem:             { dictionaryItem: item },
 }) =>
     <Container className={ classnames( S.className, QA.DICT_ITEM_EDITOR ) }>
@@ -29,7 +27,7 @@ export default composeQueries({
             <Thesaurus className={ S.thesaurus } />
         </Section>
         <Bar children="⋮" className={ S.separator } />
-        <Section className={ S.main } defaultSize={ 300 } minSize="25%">
+        <Section className={ S.editor } defaultSize={ 300 } minSize="25%">
             <h2 className={ classnames( S.title, QA.DICT_ITEM_EDITOR_NAME ) }>
                 { item && item.name }
             </h2>
@@ -37,16 +35,22 @@ export default composeQueries({
                 <button
                     children="✖️ close"
                     className={ QA.DICT_ITEM_EDITOR_CLOSE }
-                    onClick={ closeDictionaryItem }
+                    onClick={ closeEditor }
                 />
             </div>
-            { item &&
-                <Phrases
-                    className={ S.phrases }
+            <div className={ S.main }>
+                { item &&
+                    <Phrases
+                        itemId={ item.id }
+                        phrases={ item.phrases }
+                    />
+                }
+                <DeleteItem
+                    className={ S.deleteItem }
                     itemId={ item.id }
-                    phrases={ item.phrases }
+                    onDelete={ closeEditor }
                 />
-            }
+            </div>
         </Section>
     </Container>
 );
