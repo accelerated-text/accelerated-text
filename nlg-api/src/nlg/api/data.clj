@@ -1,11 +1,9 @@
 (ns nlg.api.data
-  (:require [clojure.tools.logging :as log]
-            [clojure.java.io :as io]
-            [nlg.api.utils :as utils]
-            [nlg.db.dynamo-ops :as ops]
-            [nlg.db.config :as config]
+  (:require [nlg.api.utils :as utils]
+            [data-access.db.dynamo-ops :as ops]
+            [data-access.db.config :as config]
             [nlg.api.resource :as resource]
-            [nlg.db.s3 :as s3])
+            [data-access.db.s3 :as s3])
   (:import (java.io BufferedWriter))
   (:gen-class
     :name nlg.api.DataHandler

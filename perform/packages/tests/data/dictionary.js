@@ -1,12 +1,5 @@
-const DONT_CARE =       'DONT_CARE';
-const NO =              'NO';
-const YES =             'YES';
-
-
-export const READER_FLAGS = [
-    'test-flag-1',
-    'test-flag-2',
-];
+import { DONT_CARE, NO, YES }   from './usage';
+import { READER_FLAGS }         from './reader-flags';
 
 
 export const ReaderFlag = name => ({
@@ -22,53 +15,64 @@ export const ReaderFlagUsage = ({ prefix, flag, usage }) => ({
     usage,
 });
 
-export const PhraseUsage = ({ prefix, phrase, defaultUsage, readerUsage }) => ({
-    __typename:         'PhraseUsageModel',
-    id:                 `${ prefix }-phrase-${ phrase }-usage-id`,
-    phrase,
+export const Phrase = ({ prefix, text, defaultUsage, readerFlagUsage }) => ({
+    __typename:         'Phrase',
+    id:                 `${ prefix }-phrase-${ text }-usage-id`,
+    text,
     defaultUsage,
-    readerUsage: Object.keys( readerUsage ).map(
+    readerFlagUsage: Object.keys( readerFlagUsage ).map(
         flag => ReaderFlagUsage({
-            prefix:     `${ prefix }-phrase-${ phrase }`,
+            prefix:     `${ prefix }-phrase-${ text }`,
             flag,
-            usage:      readerUsage[flag],
+            usage:      readerFlagUsage[flag],
         })
     ),
 });
 
 
-export const DictionaryItem = ({ prefix, name, phraseUsage }) => ({
+export const DictionaryItem = ({ prefix, name, phrases }) => ({
     __typename:         'DictionaryItem',
     id:                 `${ prefix }-${ name }-id`,
     name,
-    usageModels: phraseUsage.map(
-        item => PhraseUsage({
-            prefix:         `${ prefix }-${ name }`,
-            phrase:         item[0],
-            defaultUsage:   item[1],
-            readerUsage:    item[2],
+    partOfSpeech:       'VB',
+    phrases: phrases.map(
+        phrase => Phrase({
+            prefix:             `${ prefix }-${ name }`,
+            text:               phrase[0],
+            defaultUsage:       phrase[1],
+            readerFlagUsage:    phrase[2],
         })
     ),
 });
 
 
-export const Dictionary = ( prefix, items ) =>
-    Object.keys( items ).map(
-        name => DictionaryItem({
-            prefix,
-            name,
-            phraseUsage:    items[name],
-        })
-    );
+export const DictionaryResults = ( prefix, items ) => {
+
+    const names =           Object.keys( items );
+
+    return {
+        __typename:         'DictionaryResults',
+        limit:              names.length,
+        offset:             0,
+        totalCount:         names.length,
+        items: names.map(
+            name => DictionaryItem({
+                prefix,
+                name,
+                phrases:    items[name],
+            })
+        ),
+    };
+};
 
 
 export const EMPTY_DICTIONARY = {
-    dictionary:             Dictionary( 'empty', {}),
+    dictionary:             DictionaryResults( 'empty', {}),
 };
 
 
 export default {
-    dictionary: Dictionary( 'default', {
+    dictionary: DictionaryResults( 'default', {
         one: [
             [ 'one', YES, {
                 [READER_FLAGS[0]]:  DONT_CARE,

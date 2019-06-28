@@ -1,11 +1,9 @@
 (ns nlg.generator.realizer
-  (:require [clojure.string :as string]
-            [clojure.tools.logging :as log]))
+  (:require [clojure.string :as string]))
 
 (defn placeholder?
   "Checks if item is placeholder inside sentence"
-  [{attrs :attrs
-    name :name}]
+  [{attrs :attrs}]
   (case (attrs :source)
     :cell true
     :quote true
@@ -42,12 +40,12 @@
 (defn str-realized?
   [s]
   (let [results (re-find #"\$\d+" s)]
-    (= 0 (count results))))
+    (zero? (count results))))
 
 (defn end-with
   "End text with token if it doesn't end with it already"
   [token text]
-  (if (not (string/ends-with? token text))
+  (if-not (string/ends-with? token text)
     (str text token)
     text))
 

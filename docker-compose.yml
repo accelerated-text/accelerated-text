@@ -1,4 +1,4 @@
-version: '2'
+version: '3.3'
 
 services:
   dynamodb:
@@ -9,8 +9,8 @@ services:
     ports: ["8002:8000"]
   legacy-api:
     build:
-      context: nlg-api/
-      dockerfile: Dockerfile.legacy-rest-api
+      context: .
+      dockerfile: nlg-api/Dockerfile.legacy-rest-api
       args:
         S3_ENDPOINT: http://localhost:8002
         AWS_DEFAULT_REGION: $NLG_AWS_DEFAULT_REGION
@@ -23,8 +23,8 @@ services:
       AWS_SECRET_ACCESS_KEY: $NLG_AWS_SECRET_ACCESS_KEY
   graphql-api:
     build:
-      context: graphql-api/
-      dockerfile: Dockerfile.rest-api
+      context: .
+      dockerfile: graphql-api/Dockerfile.rest-api
     ports: ["3001:3001"]
     environment:
       DYNAMODB_ENDPOINT: http://dynamodb:8000
@@ -38,3 +38,5 @@ services:
     environment:
       GRAPHQL_URL: http://0.0.0.0:3001/_graphql
       NLG_API_URL: http://0.0.0.0:8081
+    volumes:
+        - ./graphql-api/resources:/usr/src/graphql-api/resources

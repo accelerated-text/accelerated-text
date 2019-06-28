@@ -1,4 +1,9 @@
-### Enums
+### Enums ----------------------------------------------------------------------
+
+enum DefaultUsage {
+    YES
+    NO
+}
 
 enum Usage {
     YES
@@ -6,127 +11,244 @@ enum Usage {
     DONT_CARE
 }
 
-enum DefaultUsage {
-    YES
-    NO
+#   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
+enum PartOfSpeech {
+    CC      # conjunction, coordinating  and, or, but
+    CD      # cardinal number  five, three, 13%
+    DT      # determiner  the, a, these
+    EX      # existential there  there were six boys
+    FW      # foreign word  mais
+    IN      # conjunction, subordinating or preposition  of, on, before, unless
+    JJ      # adjective  nice, easy
+    JJR     # adjective, comparative  nicer, easier
+    JJS     # adjective, superlative  nicest, easiest
+    LS      # list item marker
+    MD      # verb, modal auxillary  may, should
+    NN      # noun, singular or mass  tiger, chair, laughter
+    NNS     # noun, plural  tigers, chairs, insects
+    NNP     # noun, proper singular  Germany, God, Alice
+    NNPS    # noun, proper plural  we met two Christmases ago
+    PDT     # predeterminer  both his children
+    POS     # possessive ending  's
+    PRP     # pronoun, personal  me, you, it
+    "PRP$"  # pronoun, possessive  my, your, our
+    RB      # adverb  extremely, loudly, hard
+    RBR     # adverb, comparative  better
+    RBS     # adverb, superlative  best
+    RP      # adverb, particle  about, off, up
+    SYM     # symbol  %
+    TO      # infinitival to  what to do?
+    UH      # interjection  oh, oops, gosh
+    VB      # verb, base form  think
+    VBZ     # verb, 3rd person singular present  she thinks
+    VBP     # verb, non-3rd person singular present  I think
+    VBD     # verb, past tense  they thought
+    VBN     # verb, past participle  a sunken ship
+    VBG     # verb, gerund or present participle  thinking is fun
+    WDT     # wh-determiner  which, whatever, whichever
+    WP      # wh-pronoun, personal  what, who, whom
+    "WP$"   # wh-pronoun, possessive  whose, whosever
+    WRB     # wh-adverb  where, when
 }
 
-### User
 
-type Organization {
-    id:             ID!
-    name:           String!
-}
+### Thesaurus ------------------------------------------------------------------
 
-type User {
-    id:             ID!
-    fullName:       String!
-    email:          String
-    organization:   Organization!
-}
-
-### Dictionary
-
-type Phrase {
-    id:             ID!
-    text:           String!
+type ThesaurusResults {
+    words:              [ Word! ]!
+    offset:             Int!
+    limit:              Int
+    totalCount:         Int!
 }
 
 type Synonyms {
-    rootPhrase:     Phrase!
-    phrases:        [ Phrase! ]
+    rootWord:           Word!
+    synonyms:           [ Word! ]!
+}
+
+type Word {
+    id:                 ID!
+    partOfSpeech:       PartOfSpeech!
+    text:               String!
+    # predicate
+    # stem
+}
+
+
+### Editor & Organization ------------------------------------------------------
+
+type Editor {
+    id:                 ID!
+    fullName:           String!
+    email:              String
+    organization:       Organization!
+}
+
+type Organization {
+    id:                 ID!
+    name:               String!
+    dictionary:         DictionaryResults!
+    readerFlags:        ReaderFlags!
+}
+
+
+### Reader ---------------------------------------------------------------------
+
+type ReaderFlags {
+     id:                ID!
+     flags:             [ ReaderFlag! ]!
 }
 
 type ReaderFlag {
-    id:             ID!
-    name:           String!
+    id:                 ID!
+    name:               String!
 }
 
-type ReaderFlagUsage {
-    id:             ID!
-    flag:           ReaderFlag!
-    usage:          Usage!
-}
 
-type PhraseUsageModel {
-    id:             ID!
-    phrase:         String!
-    defaultUsage:   DefaultUsage!
-    readerUsage:    [ ReaderFlagUsage! ]!
+### Dictionary -----------------------------------------------------------------
+
+type DictionaryResults {
+    items:              [ DictionaryItem! ]!
+    offset:             Int!
+    limit:              Int
+    totalCount:         Int!
 }
 
 type DictionaryItem {
-    id:             ID!
-    name:           String!
-    usageModels:    [ PhraseUsageModel! ]!
+    id:                 ID!
+    name:               String!
+    partOfSpeech:       PartOfSpeech
+    phrases:            [ Phrase! ]
 }
 
-### Lexicon
-
-type LexiconItem {
-	id:				ID!
-	createdAt:	    String
-	key:			String!
-	synonyms:	    [ String! ]!
-	updatedAt:	    String
+type Phrase {
+    id:                 ID!
+    text:               String!
+    defaultUsage:       DefaultUsage!
+    readerFlagUsage:    [ ReaderFlagUsage! ]!
 }
 
-type Lexicon {
-	items:			[ LexiconItem! ]!
-	limit:			Int!
-	offset:			Int!
-	totalCount:	    Int!
+type ReaderFlagUsage {
+    id:                 ID!
+    flag:               ReaderFlag!
+    usage:              Usage!
 }
 
-### Queries
+### DocumentPlan --------------------------------------------------------------
+
+type DocumentPlan {
+     id:                ID!
+     uid:               ID!
+     name:              String!
+     contextId:         String!
+     blocklyXml:        String!
+     documentPlan:      String!
+     dataId:            String
+     dataSampleId:      String
+     dataSampleRow:     Int
+}
+
+type DocumentPlanResults {
+     items:           [ DocumentPlan! ]
+     offset:             Int!
+     limit:              Int
+     totalCount:         Int!
+}
+
+### Queries --------------------------------------------------------------------
 
 type Query {
 
-    me:                         User!
+    ### Thesaurus
 
-    dictionary:              [ DictionaryItem! ]!
+    searchThesaurus(
+        query:              String,
+        partOfSpeech:       PartOfSpeech,
+    ):  ThesaurusResults!
+
+    synonyms(
+        wordId:             ID!
+    ):  Synonyms!
+
+    ### Editor & Organization
+
+    me:                     Editor!
+
+    ### Reader
+
+    readerFlags:            ReaderFlags!
+
+    ### Dictionary
+
+    dictionary:             DictionaryResults!
 
     dictionaryItem(
-        id:         ID!
+        id:                 ID!
     ):  DictionaryItem
 
-    phrases( query: String ):   [ Phrase! ]!
 
-    readerFlags:                [ ReaderFlag! ]!
+    ### DocumentPlan
 
-    synonyms( phraseId: ID! ):  Synonyms!
+    documentPlans:           DocumentPlanResults!
+    documentPlan(
+        id:                 ID!
+    ): DocumentPlan
 
-	searchLexicon(
-		query: 		String
-		limit:		Int
-		offset:		Int
-	): 	Lexicon!
+   
 }
+
+
+### Mutations ------------------------------------------------------------------
 
 type Mutation {
 
-    createPhraseUsageModel(
-        dictionaryItemId: ID!
-        phrase:           String!
-        defaultUsage:     DefaultUsage
+    ### Dictionary
+
+    createDictionaryItem(
+        name:               String!
+        partOfSpeech:       PartOfSpeech  # default = VB
     ):  DictionaryItem!
 
-    deletePhraseUsageModel(
-        id:           ID!
+    updateDictionaryItem(
+        id:                 ID!
+        name:               String
+        partOfSpeech:       PartOfSpeech
     ):  DictionaryItem!
 
-    updatePhraseUsageModelDefault(
-        id:           ID!
-        defaultUsage: DefaultUsage!
-    ):  PhraseUsageModel!
+    deleteDictionaryItem(
+        id:                 ID!
+    ): Boolean!
+
+    createPhrase(
+        dictionaryItemId:   ID!
+        text:               String!
+        defaultUsage:       DefaultUsage  # default = YES
+    ):  DictionaryItem!
+
+    updatePhrase(
+        id:                 ID!
+        text:               String!
+    ):  Phrase!
+
+    deletePhrase(
+        id:                 ID!
+    ):  DictionaryItem!
+
+    updatePhraseDefaultUsage(
+        id:                 ID!
+        defaultUsage:       DefaultUsage!
+    ):  Phrase!
 
     updateReaderFlagUsage(
-        id:           ID!
-        usage:        Usage!
+        id:                 ID!
+        usage:              Usage!
     ):  ReaderFlagUsage!
 }
 
+
+### Schema ---------------------------------------------------------------------
+
 schema {
-    query:    Query
-    mutation: Mutation
+    query:              Query
+    mutation:           Mutation
 }

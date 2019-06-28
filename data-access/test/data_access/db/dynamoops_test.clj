@@ -1,7 +1,8 @@
-(ns nlg.db.dynamoops-test
+
+(ns data-access.db.dynamoops-test
   (:require [clojure.test :refer :all]
-            [nlg.db.dynamo-ops :as ops]
-            [nlg.api.utils :as utils]))
+            [data-access.db.dynamo-ops :as ops]
+            [data-access.utils :as utils]))
 
 (def mock-db
   (reify ops/DBAccess

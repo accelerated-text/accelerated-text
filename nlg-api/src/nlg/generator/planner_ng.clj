@@ -6,8 +6,8 @@
             [ccg-kit.grammar-generation.lexicon :as ccg-lexicon]
             [ccg-kit.grammar-generation.xml-utils :as ccg-xml]
             [ccg-kit.spec.ccg :as ccg-spec]
-            [nlg.db.s3 :as s3]
-            [nlg.db.config :as config]
+            [data-access.db.s3 :as s3]
+            [data-access.db.config :as config]
             [nlg.generator.ops :as ops]
             [nlg.generator.realizer :as realizer]))
 
@@ -32,9 +32,8 @@
   (do
     (.mkdir (java.io.File. "/tmp/ccg"))
     (.mkdir (java.io.File. "/tmp/ccg/grammar/"))
-    (let []
-      (s3/download-dir config/grammar-bucket "grammar" "/tmp/ccg/")
-      "/tmp/ccg/grammar")))
+    (s3/download-dir config/grammar-bucket "grammar" "/tmp/ccg/")
+    "/tmp/ccg/grammar"))
 
 
 (defn resolve-item-context
@@ -73,11 +72,10 @@
         category #::ccg-spec{:syntactic-type :NP
                              :feature-set [idx []]}
         lf #::ccg-spec{:nomvar "X"}
-        entries (list (let [item (first items)]
-                       #::ccg-spec {:predicate predicate
-                                    :category category
-                                    :pos (context :pos)
-                                    :logical-form lf}))]
+        entries (list #::ccg-spec {:predicate predicate
+                                   :category category
+                                   :pos (context :pos)
+                                   :logical-form lf})]
     #::ccg-spec{:pos (context :pos)
                 :name (context :pos)
                 :lexical-entries entries}))

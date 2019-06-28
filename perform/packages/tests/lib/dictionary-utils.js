@@ -15,7 +15,7 @@ export const areDictionaryItemsVisible = async ( t, items ) => {
 
         t.is(
             await t.getElementText( `${ itemSelector } ${ SELECTORS.DICTIONARY_ITEM_PHRASES }` ),
-            item.usageModels.map( phrase => phrase.phrase ).join( '' ),
+            item.phrases.map( phrase => phrase.text ).join( '' ),
         );
     }
 };

@@ -6,14 +6,18 @@ import { InMemoryCache }    from 'apollo-cache-inmemory';
 import { mergeDeepRight }   from 'ramda';
 
 import acceleratedTextResolvers from '../accelerated-text/local-state';
+
+import cacheRedirects       from './cache-redirects';
 import resolvers            from './resolvers';
-import typeDefs             from './types.graphql';
+import typeDefs             from './schema.graphql';
 
 
 export { default as composeQueries }    from './compose-queries';
 
 
-export const cache =        new InMemoryCache();
+export const cache =        new InMemoryCache({
+    cacheRedirects,
+});
 
 export const client = new ApolloClient({
     cache,

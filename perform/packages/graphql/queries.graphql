@@ -1,45 +1,51 @@
-query dictionaryIds {
-  dictionary {
-    id
-  }
-}
+#import "./fragments.graphql"
 
-query dictionaryItem( $id: ID! ) {
-    dictionaryItem( id: $id ) {
-        id
-        name
-        usageModels {
-            id
-            phrase
-            defaultUsage
-            readerUsage {
-                id
-                flag { id name }
-                usage
-            }
-        }
+### Thesaurus ------------------------------------------------------------------
+
+query searchThesaurus( $query: String ) {
+  searchThesaurus( query: $query ) @client {
+    offset
+    totalCount
+    words {
+      ...wordFields
     }
-}
-
-query readerFlags {
-  readerFlags @client {
-    id
-    name
-  }
-}
-
-query searchWords( $query: String ) {
-  searchWords( query: $query ) @client {
-    id
-    text
   }
 }
 
 query synonyms( $wordId: ID! ) {
   synonyms( wordId: $wordId ) @client {
     synonyms {
-      id
-      text
+      ...wordFields
     }
+  }
+}
+
+
+### Reader ---------------------------------------------------------------------
+
+query readerFlags {
+  readerFlags {
+    id
+    flags {
+      ...readerFlagFields
+    }
+  }
+}
+
+### Dictionary -----------------------------------------------------------------
+
+query dictionary {
+  dictionary {
+    offset
+    totalCount
+    items {
+      ...dictionaryItemFields
+    }
+  }
+}
+
+query dictionaryItem( $id: ID! ) {
+  dictionaryItem( id: $id ) {
+    ...dictionaryItemFields
   }
 }

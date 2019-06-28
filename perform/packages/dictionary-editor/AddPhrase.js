@@ -1,54 +1,61 @@
-import classnames                   from 'classnames';
-import { h, Component }             from 'preact';
+import classnames           from 'classnames';
+import { h, Component }     from 'preact';
+import PropTypes            from 'prop-types';
 
-import { composeQueries }           from '../graphql/';
-import { createPhraseUsageModel }   from '../graphql/mutations.graphql';
-import { QA }                       from '../tests/constants';
-import { readerFlags }              from '../graphql/queries.graphql';
-import UsageTd                      from '../usage/UsageTd';
+import { composeQueries }   from '../graphql/';
+import { createPhrase }     from '../graphql/mutations.graphql';
+import { QA }               from '../tests/constants';
+import { readerFlags }      from '../graphql/queries.graphql';
+import UsageTd              from '../usage/UsageTd';
 
-import S                            from './AddPhrase.sass';
+import S                    from './AddPhrase.sass';
 
 
 export default composeQueries({
-    createPhraseUsageModel,
+    createPhrase,
     readerFlags,
 })( class DictionaryEditorAddPhrase extends Component {
 
-    state = {
-        phrase:                     '',
-        defaultUsage:               'YES',
+    static propTypes = {
+        itemId:             PropTypes.string.isRequired,
+        createPhrase:       PropTypes.func.isRequired,
+        readerFlags:        PropTypes.object,
     };
 
-    onChangePhrase = evt =>
+    state = {
+        text:               '',
+        defaultUsage:       'YES',
+    };
+
+    onChangeText = evt =>
         this.setState({
-            phrase:                 evt.target.value,
+            text:           evt.target.value,
         });
 
-    onChangeUsage = defaultUsage =>
+    onChangeDefaultUsage = defaultUsage =>
         this.setState({ defaultUsage });
 
     onSubmit = evt => {
         evt.preventDefault();
 
         const canProceed = (
-            this.state.phrase
+            this.state.text
             && this.props.itemId
         );
 
         if( !canProceed ) {
             return;
         }
-        this.props.createPhraseUsageModel({
+        this.props.createPhrase({
             variables: {
-                dictionaryItemId:       this.props.itemId,
-                phrase:                 this.state.phrase,
-                defaultUsage:           this.state.defaultUsage,
+                dictionaryItemId:   this.props.itemId,
+                text:               this.state.text,
+                defaultUsage:       this.state.defaultUsage,
             },
         });
         this.setState({
-            phrase:                 '',
-            defaultUsage:           'YES',
+            text:           '',
+            defaultUsage:   'YES',
         });
     };
     
@@ -63,21 +70,21 @@ export default composeQueries({
                         <form onSubmit={ this.onSubmit }>
                             <input
                                 className={ QA.DICT_ITEM_EDITOR_ADD_PHRASE_TEXT }
-                                onChange={ this.onChangePhrase }
-                                value={ this.state.phrase }
+                                onChange={ this.onChangeText }
+                                value={ this.state.text }
                             />
                         </form>
                     </td>
                     <UsageTd
                         defaultUsage
-                        onChange={ this.onChangeUsage }
+                        onChange={ this.onChangeDefaultUsage }
                         usage={ this.state.defaultUsage }
                     />
-                    <td colspan={ ( readerFlags ? readerFlags.length : 0 ) }>
+                    <td colspan={ ( readerFlags ? readerFlags.flags.length : 0 ) }>
                         <button
                             children="➕ Add new phrase"
                             className={ QA.DICT_ITEM_EDITOR_ADD_PHRASE_ADD }
-                            disabled={ !this.state.phrase }
+                            disabled={ !this.state.text }
                             onClick={ this.onSubmit }
                         />
                     </td>

@@ -49,7 +49,27 @@ unit-test-nlg-api:
       - nlg-api/
   script:
     - cd nlg-api
-    - clojure -Atest -e :integration
+    - clojure -A:test -e :integration
+
+unit-test-graphql-api:
+  stage: test
+  image: registry.gitlab.com/tokenmill/clojure:1
+  when: always
+  only:
+    changes:
+      - graphql-api/
+  script:
+    - cd graphql-api
+    - clojure -A:test -e :integration
+  
+
+integration-test-graphql-api:
+  stage: test
+  image: registry.gitlab.com/tokenmill/clojure:1
+  when: manual
+  script:
+    - cd graphql-api
+    - clojure -A:test
 
 integration-test-nlg-api:
   stage: test
@@ -57,7 +77,7 @@ integration-test-nlg-api:
   when: manual
   script:
     - cd nlg-api
-    - clojure -Atest
+    - clojure -A:test
 
 build-nlg-api:
   stage: build

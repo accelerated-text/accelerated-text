@@ -5,36 +5,36 @@ import PropTypes            from 'prop-types';
 import { composeQueries }   from '../graphql/';
 import { QA }               from '../tests/constants';
 import {
-    updatePhraseUsageModelDefault,
+    updatePhraseDefaultUsage,
     updateReaderFlagUsage,
 }   from '../graphql/mutations.graphql';
 import UsageTd              from '../usage/UsageTd';
 
 
 export default composeQueries({
-    updatePhraseUsageModelDefault,
+    updatePhraseDefaultUsage,
     updateReaderFlagUsage,
-})( class DictionaryEditorUsageModelRow extends Component {
+})( class DictionaryEditorPhrase extends Component {
 
     static propTypes = {
-        className:                      PropTypes.string,
-        model:                          PropTypes.object,
-        updatePhraseUsageModelDefault:  PropTypes.func,
-        updateReaderFlagUsage:          PropTypes.func,
+        className:                  PropTypes.string,
+        phrase:                     PropTypes.object,
+        updatePhraseDefaultUsage:   PropTypes.func,
+        updateReaderFlagUsage:      PropTypes.func,
     };
 
     onChangeDefaultUsage = defaultUsage => {
-        const { id } =      this.props.model;
+        const { id } =      this.props.phrase;
 
-        this.props.updatePhraseUsageModelDefault({
+        this.props.updatePhraseDefaultUsage({
             variables: {
                 id,
                 defaultUsage,
             },
             optimisticResponse: {
                 __typename:         'Mutation',
-                updatePhraseUsageModelDefault: {
-                    __typename:     'PhraseUsageModel',
+                updatePhraseDefaultUsage: {
+                    __typename:     'Phrase',
                     id,
                     defaultUsage,
                 },
@@ -60,22 +60,22 @@ export default composeQueries({
 
     render({
         className,
-        model,
+        phrase,
     }) {
         return (
             <tr className={ classnames( QA.DICT_ITEM_EDITOR_PHRASE, className ) }>
                 <td className={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT }>
-                    { model.phrase }
+                    { phrase.text }
                 </td>
                 <UsageTd
                     className={ QA.DICT_ITEM_EDITOR_PHRASE_DEFAULT_USAGE }
                     defaultUsage
                     onChange={ this.onChangeDefaultUsage }
-                    usage={ model.defaultUsage }
+                    usage={ phrase.defaultUsage }
                 />
-                { model.readerUsage.map( flagUsage =>
+                { phrase.readerFlagUsage.map( flagUsage =>
                     <UsageTd
-                        className={ QA.DICT_ITEM_EDITOR_PHRASE_READER_USAGE }
+                        className={ QA.DICT_ITEM_EDITOR_PHRASE_RFLAG_USAGE }
                         key={ flagUsage.id }
                         onChange={ this.onChangeFlagUsage( flagUsage.id ) }
                         usage={ flagUsage.usage }

@@ -1,4 +1,4 @@
-(ns nlg.db.config)
+(ns data-access.db.config)
 
 (def blockly-table "blockly-workspace")
 (def results-table {:table-name "nlg-results"

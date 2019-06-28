@@ -5,7 +5,6 @@ import DragInBlock              from '../drag-in-blocks/DragInBlock';
 import { composeQueries }       from '../graphql/';
 
 import DictionaryItemBlock      from '../nlg-blocks/Dictionary-item';
-import { dictionaryItem }       from '../graphql/queries.graphql';
 import { openDictionaryItem }   from '../accelerated-text/local-state';
 import { QA }                   from '../tests/constants';
 
@@ -14,37 +13,34 @@ import ShowPhrases              from './ShowPhrases';
 
 
 export default composeQueries({
-    dictionaryItem: [ dictionaryItem, {
-        id:                     'id',
-    }],
     openDictionaryItem: [ openDictionaryItem, {
-        itemId:                 [ 'dictionaryItem', 'dictionaryItem', 'id' ],
+        itemId:                 [ 'item', 'id' ],
     }],
 })(({
+    item,
     openDictionaryItem,
-    dictionaryItem: { dictionaryItem },
 }) =>
     <tr className={ classnames( S.className, QA.DICTIONARY_ITEM ) }>
         <td className={ S.dragInBlock }>
-            { dictionaryItem &&
+            { item &&
                 <DragInBlock
                     color={ S.dragInColor }
-                    fields={{ name: dictionaryItem.name }}
+                    fields={{ name: item.name }}
                     type={ DictionaryItemBlock.type }
                     width={ 36 }
                 />
             }
         </td>
         <td
-            children={ dictionaryItem ? dictionaryItem.name : '' }
+            children={ item ? item.name : '' }
             className={ classnames( S.name, QA.DICTIONARY_ITEM_NAME ) }
             onClick={ openDictionaryItem }
         />
         <td className={ QA.DICTIONARY_ITEM_PHRASES } onClick={ openDictionaryItem }>
-            { dictionaryItem &&
+            { item &&
                 <ShowPhrases
-                    phrases={ dictionaryItem.usageModels.map(
-                        m => m.phrase
+                    phrases={ item.phrases.map(
+                        phrase => phrase.text
                     ) }
                 />
             }

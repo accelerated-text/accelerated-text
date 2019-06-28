@@ -16,7 +16,7 @@ test( 'default elements visible', defaultResponsesPage, async t => {
     await t.findElement( SELECTORS.DICTIONARY_ITEM_NAME );
     await t.findElement( SELECTORS.DICTIONARY_ITEM_PHRASES );
 
-    await areDictionaryItemsVisible( t, DICTIONARY.dictionary );
+    await areDictionaryItemsVisible( t, DICTIONARY.dictionary.items );
 });
 
 

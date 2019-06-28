@@ -7,20 +7,20 @@ import {
     Info,
     Loading,
 }   from '../ui-messages/';
-import { searchWords }          from '../graphql/queries.graphql';
+import { searchThesaurus }      from '../graphql/queries.graphql';
 
 import Words                    from './Words';
 import S                        from './Search.sass';
 
 
 export default composeQueries({
-    searchWords:              [ searchWords, { query: 'query' }],
+    searchThesaurus:            [ searchThesaurus, { query: 'query' }],
 })(({
     className,
     onChangeQuery,
     onClickWord,
     query,
-    searchWords: { error, loading, searchWords },
+    searchThesaurus: { error, loading, searchThesaurus },
 }) =>
     <div className={ classnames( S.className, className ) }>
         <input
@@ -33,10 +33,10 @@ export default composeQueries({
             ? <Error message={ error } />
         : loading
             ? <Loading />
-        : searchWords
+        : searchThesaurus
             ?  <Words
                 onClickWord={ onClickWord }
-                words={ searchWords }
+                words={ searchThesaurus.words }
             />
             : <Info message="no results found" />
         }

@@ -1,5 +1,3 @@
-const READER_FLAGS = [ 'junior', 'senior' ];
-
 const SYNONYMS = {
     examine:       [ 'audit', 'check', 'check out', 'consider', 'criticize', 'delve into', 'explore', 'inspect', 'investigate', 'ponder', 'pore over', 'probe', 'read', 'research', 'review', 'scan', 'screen', 'scrutinize', 'study', 'survey', 'try', 'vet', 'view', 'appraise', 'assay', 'canvass', 'case', 'eye', 'finger', 'frisk', 'gun', 'inquire', 'parse', 'peruse', 'prospect', 'prove', 'reconnoiter', 'sift', 'sweep', 'weigh', 'winnow', 'chew over', 'dig into', 'go into', 'go over', 'go through', 'look over', 'look see', 'pat down', 'pick at', 'scope', 'scrutinate', 'search into', 'size up', 'take stock of', 'turn over' ],
     look:           [ 'consider', 'glance', 'notice', 'peer', 'read', 'see', 'stare', 'study', 'view', 'watch', 'admire', 'attend', 'behold', 'beware', 'contemplate', 'eye', 'flash', 'focus', 'gape', 'gawk', 'gaze', 'glower', 'goggle', 'heed', 'inspect', 'mark', 'mind', 'note', 'observe', 'ogle', 'peep', 'regard', 'rubberneck', 'scan', 'scout', 'scrutinize', 'spot', 'spy', 'survey', 'tend', 'feast one\'s eyes', 'get a load of', 'pore over', 'take a gander', 'take in the sights' ],
@@ -16,17 +14,14 @@ export const Organization = () => ({
     id:             'example-org',
     name:           'The Organization',
 });
+
 export const Word = text => ({
     __typename:     'Word',
     id:             text,
-    partOfSpeech:   'WB',
+    partOfSpeech:   'VB',
     text,
 });
-export const ReaderFlag = name => ({
-    __typename:     'ReaderFlag',
-    id:             name,
-    name,
-});
+
 export const User = () => ({
     __typename:     'User',
     id:             'example-user',
@@ -39,24 +34,29 @@ export const User = () => ({
 export default {
     Organization,
     User,
-    Mutation: {
-    },
+    Mutation:               {},
     Query: {
-        me:             User,
+        me:                 User,
 
-        readerFlags:    () => READER_FLAGS.map( ReaderFlag ),
-
-        searchWords: ( _, { query }) => {
-            const re =  new RegExp( `^${ query }`, 'i' );
-            return Object.keys( SYNONYMS )
-                .filter( re.exec.bind( re ))
-                .map( Word );
+        searchThesaurus: ( _, { query }) => {
+            const re =      new RegExp( `^${ query }`, 'i' );
+            const words = (
+                Object.keys( SYNONYMS )
+                    .filter( re.exec.bind( re ))
+                    .map( Word )
+            );
+            return {
+                __typename: 'ThesaurusResults',
+                offset:     0,
+                totalCount: words.length,
+                words,
+            };
         },
 
         synonyms: ( _, { wordId }) => ({
-            __typename: 'Synonyms',
-            rootWord: Word( wordId ),
-            synonyms:    ( SYNONYMS[wordId] || []).map( Word ),
+            __typename:     'Synonyms',
+            rootWord:       Word( wordId ),
+            synonyms:       ( SYNONYMS[wordId] || []).map( Word ),
         }),
     },
 };

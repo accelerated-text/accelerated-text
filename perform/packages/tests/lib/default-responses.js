@@ -4,6 +4,7 @@ import DOCUMENT_PLAN_LIST       from '../data/document-plan-list';
 import DICTIONARY               from '../data/dictionary';
 import NLG_JOB                  from '../data/nlg-job';
 import NLG_JOB_RESULT           from '../data/nlg-job-result';
+import READER_FLAGS             from '../data/reader-flags';
 import USER                     from '../data/user';
 
 
@@ -27,14 +28,8 @@ export default async ( t, run, ...args ) => {
 
     /// Register these intercepts while the page is loading:
     await Promise.all([
-        graphqlApi.provideOnce( 'dictionaryIds', {}, { data: DICTIONARY })
-            .then(() => Promise.all( DICTIONARY.dictionary.map( dictionaryItem =>
-                graphqlApi.provideOnce(
-                    'dictionaryItem',
-                    { id: dictionaryItem.id },
-                    { data: { dictionaryItem }},
-                ),
-            ))),
+        graphqlApi.provideOnce( 'dictionary', {}, { data: DICTIONARY }),
+        graphqlApi.provideOnce( 'readerFlags', {}, { data: READER_FLAGS }),
         nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, DATA_FILE_LIST ),
         nlgApi.provideOnce( 'GET', '/document-plans/', DOCUMENT_PLAN_LIST )
             .then(() => Promise.all([

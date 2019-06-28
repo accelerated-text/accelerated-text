@@ -1,52 +1,26 @@
+#import "./fragments.graphql"
+
+### DictionaryItem -------------------------------------------------------------
+
 mutation createDictionaryItem(
   $name:            String!
 ) {
   createDictionaryItem(
     name:           $name
   ) {
-    id
-    name
-    usageModels {
-      id
-      phrase
-      defaultUsage
-      readerUsage {
-        id
-        flag {
-          id
-          name
-        }
-        usage
-      }
-    }
+    ...dictionaryItemFields
   }
 }
 
-mutation createPhraseUsageModel(
-  $dictionaryItemId:  ID!
-  $phrase:            String!
-  $defaultUsage:      DefaultUsage
+mutation updateDictionaryItem(
+  $id:              ID!
+  $name:            String!
 ) {
-  createPhraseUsageModel(
-    dictionaryItemId: $dictionaryItemId
-    phrase:           $phrase
-    defaultUsage:     $defaultUsage
+  updateDictionaryItem(
+    id:             $id
+    name:           $name
   ) {
-    id
-    name
-    usageModels {
-      id
-      phrase
-      defaultUsage
-      readerUsage {
-        id
-        flag {
-          id
-          name
-        }
-        usage
-      }
-    }
+    ...dictionaryItemFields
   }
 }
 
@@ -60,25 +34,41 @@ mutation deleteDictionaryItem(
   }
 }
 
-mutation deletePhraseUsageModel(
-  $id:              ID!
+
+### Phrase ---------------------------------------------------------------------
+
+mutation createPhrase(
+  $dictionaryItemId:  ID!
+  $text:              String!
+  $defaultUsage:      DefaultUsage
 ) {
-  deletePhraseUsageModel(
-    id:             $id
+  createPhrase(
+    dictionaryItemId: $dictionaryItemId
+    text:             $text
+    defaultUsage:     $defaultUsage
   ) {
-    id
-    name
-    usageModels {
-      id
-    }
+    ...dictionaryItemFields
   }
 }
 
-mutation updatePhraseUsageModelDefault(
+mutation updatePhrase(
+  $id:              ID!
+  $text:            String!
+) {
+  updatePhrase(
+    id:             $id
+    text:           $text
+  ) {
+    id
+    text
+  }
+}
+
+mutation updatePhraseDefaultUsage(
   $id:              ID!
   $defaultUsage:    DefaultUsage!
 ) {
-  updatePhraseUsageModelDefault(
+  updatePhraseDefaultUsage(
     id:             $id
     defaultUsage:   $defaultUsage
   ) {
@@ -86,6 +76,19 @@ mutation updatePhraseUsageModelDefault(
     defaultUsage
   }
 }
+
+mutation deletePhrase(
+  $id:              ID!
+) {
+  deletePhrase(
+    id:             $id
+  ) {
+    ...dictionaryItemFields
+  }
+}
+
+
+### ReaderFlagUsage ------------------------------------------------------------
 
 mutation updateReaderFlagUsage(
   $id:              ID!

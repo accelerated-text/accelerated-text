@@ -5,9 +5,10 @@
             [nlg.api.lexicon :as lexicon]
             [nlg.api.generate :as generate]
             [nlg.api.blockly-workspace :as workspace]
-            [cheshire.core :refer :all]
+            [cheshire.core :as ch]
             [clojure.java.io :as io]
-            [clojure.string :as string])
+            [clojure.string :as string]
+            [clojure.walk :as walk])
   (:gen-class)
   (:import (java.net URLDecoder)
            (java.nio.charset Charset)))
@@ -37,7 +38,7 @@
              (mapcat split-param)
              (map url-decode)
              (apply hash-map)
-             (clojure.walk/keywordize-keys))))
+             (walk/keywordize-keys))))
 
 (defn normalize-req [req path]
   (let [headers (:headers req)
@@ -49,10 +50,10 @@
                     :queryStringParameters query-string
                     :headers               headers
                     :body                  (if (= org.httpkit.BytesInputStream (type body))
-                                             (-> body (.bytes) (String.) (decode) (encode))
+                                             (-> body (.bytes) (String.) (ch/decode) (ch/encode))
                                              body)
                     :pathParameters        path-params}
-        json-str (generate-string normalized)]
+        json-str (ch/generate-string normalized)]
     json-str))
 
 (defonce server (atom nil))
@@ -61,7 +62,7 @@
   (String. (.toByteArray os) (Charset/defaultCharset)))
 
 (defn http-result [raw-resp]
-  (let [resp (decode raw-resp true)
+  (let [resp (ch/decode raw-resp true)
         body (:body resp)]
     (println resp)
     (println body)

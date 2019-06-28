@@ -1,5 +1,4 @@
 (ns nlg.generator.simple-nlg
-  (:require [clojure.tools.logging :as log])
   (:import (simplenlg.lexicon Lexicon)
            (simplenlg.framework NLGFactory CoordinatedPhraseElement)
            (simplenlg.realiser.english Realiser)
@@ -14,9 +13,8 @@
 
 (defn add-adverb
   [^NPPhraseSpec noun adverb]
-  (do
-    (.addPreModifier noun adverb)
-    noun)) 
+  (.addPreModifier noun adverb)
+  noun)
 
 (defn create-noun
   ([^NLGFactory factory noun]
@@ -30,16 +28,14 @@
         head (if adverb (add-adverb (first nouns) adverb) (first nouns))
         tail (rest nouns)]
     (cons head tail)))
-  
+
 (defn create-verb [^NLGFactory factory verb] (.createVerbPhrase factory verb))
 (defn create-adverb [^NLGFactory factory adverb] (.createAdverbPhrase factory adverb))
 
 (defn concat-multi [^NLGFactory factory elements]
   (let [coordinated (.createCoordinatedPhrase factory)]
-    (do
-      (doseq [e elements] (.addCoordinate coordinated e))
-      coordinated)))
-    
+    (doseq [e elements] (.addCoordinate coordinated e))
+    coordinated))
 
 (defn generator
   []

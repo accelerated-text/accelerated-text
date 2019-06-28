@@ -13,8 +13,8 @@ import { dictionaryItem }       from '../graphql/queries.graphql';
 import { QA }                   from '../tests/constants';
 import Thesaurus                from '../thesaurus/Thesaurus';
 
+import Phrases                  from './Phrases';
 import S                        from './DictionaryEditor.sass';
-import UsageModels              from './UsageModels';
 
 
 export default composeQueries({
@@ -31,7 +31,7 @@ export default composeQueries({
         <Bar children="⋮" className={ S.separator } />
         <Section className={ S.main } defaultSize={ 300 } minSize="25%">
             <h2 className={ classnames( S.title, QA.DICT_ITEM_EDITOR_NAME ) }>
-                { item.name }
+                { item && item.name }
             </h2>
             <div className={ S.close }>
                 <button
@@ -40,11 +40,13 @@ export default composeQueries({
                     onClick={ closeDictionaryItem }
                 />
             </div>
-            <UsageModels
-                className={ S.usageModels }
-                itemId={ item && item.id }
-                usageModels={ item && item.usageModels }
-            />
+            { item &&
+                <Phrases
+                    className={ S.phrases }
+                    itemId={ item.id }
+                    phrases={ item.phrases }
+                />
+            }
         </Section>
     </Container>
 );

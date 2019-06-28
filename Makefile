@@ -52,8 +52,10 @@ build-dynamodb-docker:
 	aws dynamodb create-table --table-name data --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
 	aws dynamodb create-table --table-name blockly-workspace --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
 	aws dynamodb create-table --table-name nlg-results --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb put-item --table-name lexicon --item '{"key": {"S": "good.1"}, "word": {"S": "good"}, "synonyms": {"L": [{"S":"good"}, {"S": "amazing"}, {"S": "superb"}, {"S": "peachy"}]}, "createdAt": {"N": "1558959895059"},"updatedAt": {"N": "1558959895059"}}' --endpoint-url http://localhost:8000
-	aws dynamodb put-item --table-name lexicon --item '{"key": {"S": "good.2"}, "word": {"S": "good"}, "synonyms": {"L": [{"S":"good"}, {"S": "complete"}]}, "createdAt": {"N": "1558959895059"},"updatedAt": {"N": "1558959895059"}}' --endpoint-url http://localhost:8000
+	aws dynamodb create-table --table-name dictionary-combined --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
+	aws dynamodb create-table --table-name reader-flag --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
+	aws dynamodb put-item --table-name reader-flag --item '{"id": {"S": "junior"}, "name": {"S": "junior"}}' --endpoint-url http://localhost:8000
+	aws dynamodb put-item --table-name reader-flag --item '{"id": {"S": "senior"}, "name": {"S": "senior"}}' --endpoint-url http://localhost:8000
 	docker commit dynamo-build registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
 	docker stop dynamo-build
 	docker rm dynamo-build
@@ -77,3 +79,19 @@ run-dev-env:
 	docker-compose -p dev -f docker-compose.yml down && \
 	docker-compose -p dev -f docker-compose.yml build && \
 	docker-compose -p dev -f docker-compose.yml up --remove-orphans
+
+.PHONY: run-perform-ui-dev-deps
+run-perform-ui-dev-deps:
+	docker-compose -p dev -f docker-compose.perform-ui-deps.yml down && \
+	docker-compose -p dev -f docker-compose.perform-ui-deps.yml build && \
+	docker-compose -p dev -f docker-compose.perform-ui-deps.yml up --remove-orphans
+
+.PHONY: run-perform-ui-dev
+run-perform-ui-dev:
+	cd perform && \
+		GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
+		NLG_API_URL=http://0.0.0.0:8081 \
+		make run
+
+clojure-code-analysis:
+	clojure -Sdeps "{:deps {jonase/kibit {:mvn/version \"0.1.6\"}}}" -e "(require '[kibit.driver :as k]) (k/external-run [\"data-access/src\" \"graphql-api/src\" \"nlg-api/src\"] nil)"

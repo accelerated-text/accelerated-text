@@ -1,4 +1,5 @@
 import { EMPTY_DICTIONARY } from '../data/dictionary';
+import { EMPTY_RFLAGS }     from '../data/reader-flags';
 import USER                 from '../data/user';
 
 
@@ -23,7 +24,8 @@ export default async ( t, run, ...args ) => {
     await Promise.all([
         nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, []),
         nlgApi.provideOnce( 'GET', '/document-plans/', []),
-        graphqlApi.provideOnce( 'dictionaryIds', {}, { data: EMPTY_DICTIONARY }),
+        graphqlApi.provideOnce( 'dictionary', {}, { data: EMPTY_DICTIONARY }),
+        graphqlApi.provideOnce( 'readerFlags', {}, { data: EMPTY_RFLAGS }),
     ]);
 
     await pageLoadResult;

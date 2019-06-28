@@ -6,11 +6,11 @@ import { composeQueries }   from '../graphql/';
 import { readerFlags }      from '../graphql/queries.graphql';
 
 import AddPhrase            from './AddPhrase';
-import Row                  from './UsageModelRow';
-import S                    from './UsageModels.sass';
+import Phrase               from './Phrase';
+import S                    from './Phrases.sass';
 
 
-const sortByPhrase =        sortBy( prop( 'phrase' ));
+const sortByText =          sortBy( prop( 'text' ));
 
 
 export default composeQueries({
@@ -18,7 +18,7 @@ export default composeQueries({
 })(({
     className,
     itemId,
-    usageModels,
+    phrases,
     readerFlags: { readerFlags },
 }) =>
     <div className={ classnames( S.className, className ) }>
@@ -27,20 +27,17 @@ export default composeQueries({
                 <tr>
                     <th className={ S.phrases }>Phrases</th>
                     <th>Default</th>
-                    { readerFlags && readerFlags.map( flag =>
+                    { readerFlags && readerFlags.flags.map( flag =>
                         <th key={ flag.id }>{ flag.name }</th>
                     )}
                 </tr>
             </thead>
             <tbody>
-                { usageModels && sortByPhrase( usageModels ).map( model =>
-                    <Row key={ model.id } model={ model } />
+                { phrases && sortByText( phrases ).map( phrase =>
+                    <Phrase key={ phrase.id } phrase={ phrase } />
                 )}
             </tbody>
-            <AddPhrase
-                className={ S.newPhrase }
-                itemId={ itemId }
-            />
+            <AddPhrase itemId={ itemId } />
         </table>
     </div>
 );
