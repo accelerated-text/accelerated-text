@@ -18,6 +18,7 @@
 
 (defn create-dictionary-item [_ {:keys [name partOfSpeech phrases]} _]
   (dict-entity/create-dictionary-item {:key name
+                                       :name name
                                        :phrases phrases
                                        :partOfSpeech partOfSpeech})
   (-> (dict-entity/get-dictionary-item name)
@@ -27,8 +28,9 @@
   (dict-entity/delete-dictionary-item id)
   true)
 
-(defn update-dictionary-item [_ {:keys [id partOfSpeech]} _]
+(defn update-dictionary-item [_ {:keys [id name partOfSpeech]} _]
   (->(dict-entity/update-dictionary-item {:key id
+                                          :name name
                                           :partOfSpeech partOfSpeech})
      (translate-dict/dictionary-item->schema)))
 
