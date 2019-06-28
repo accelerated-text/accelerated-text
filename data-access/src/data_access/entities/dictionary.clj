@@ -1,6 +1,5 @@
 (ns data-access.entities.dictionary
   (:require [data-access.db.dynamo-ops :as ops]
-            [data-access.db.config :as config]
             [data-access.utils :as utils]))
 
 (defn list-readers

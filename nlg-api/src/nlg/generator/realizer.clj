@@ -1,11 +1,9 @@
 (ns nlg.generator.realizer
-  (:require [clojure.string :as string]
-            [clojure.tools.logging :as log]))
+  (:require [clojure.string :as string]))
 
 (defn placeholder?
   "Checks if item is placeholder inside sentence"
-  [{attrs :attrs
-    name :name}]
+  [{attrs :attrs}]
   (case (attrs :source)
     :cell true
     :quote true

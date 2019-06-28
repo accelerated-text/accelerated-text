@@ -1,5 +1,4 @@
 (ns nlg.generator.simple-nlg
-  (:require [clojure.tools.logging :as log])
   (:import (simplenlg.lexicon Lexicon)
            (simplenlg.framework NLGFactory CoordinatedPhraseElement)
            (simplenlg.realiser.english Realiser)

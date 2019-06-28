@@ -1,8 +1,5 @@
 (ns nlg.api.dictionary
-  (:require [nlg.api.utils :as utils]
-            [data-access.db.dynamo-ops :as ops]
-            [data-access.entities.dictionary :as dict-entity]
-            [nlg.api.resource :as resource]
+  (:require [data-access.entities.dictionary :as dict-entity]
             [clojure.tools.logging :as log]))
 
 (defn get-phrases
