@@ -14,6 +14,7 @@ import Thesaurus                from '../thesaurus/Thesaurus';
 import DeleteItem               from './DeleteItem';
 import Phrases                  from './Phrases';
 import S                        from './DictionaryEditor.sass';
+import Title                    from './Title';
 
 
 export default composeQueries({
@@ -28,9 +29,7 @@ export default composeQueries({
         </Section>
         <Bar children="⋮" className={ S.separator } />
         <Section className={ S.editor } defaultSize={ 300 } minSize="25%">
-            <h2 className={ classnames( S.title, QA.DICT_ITEM_EDITOR_NAME ) }>
-                { item && item.name }
-            </h2>
+            <Title className={ S.title } item={ item || {} } />
             <div className={ S.close }>
                 <button
                     children="✖️ close"

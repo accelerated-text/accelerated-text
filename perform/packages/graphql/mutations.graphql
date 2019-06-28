@@ -49,6 +49,7 @@ mutation createPhrase(
   }
 }
 
+# TODO: request up-to-date phrase from server
 mutation updatePhrase(
   $id:              ID!
   $text:            String!
@@ -62,6 +63,7 @@ mutation updatePhrase(
   }
 }
 
+# TODO: request up-to-date phrase from server
 mutation updatePhraseDefaultUsage(
   $id:              ID!
   $defaultUsage:    DefaultUsage!
