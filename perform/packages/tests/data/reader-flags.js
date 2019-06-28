@@ -1,9 +1,19 @@
-export const EMPTY_RFLAGS = {
+export const READER_FLAGS = [
+    'test-flag-1',
+    'test-flag-2',
+];
+
+
+export const ReaderFlags = flags => ({
     readerFlags: {
         __typename: 'ReaderFlags',
-        id:         'empty-reader-flags-id',
+        id:         'reader-flags-id',
         flags:      [],
     },
-};
+});
 
-export default EMPTY_RFLAGS;
+
+export const EMPTY_RFLAGS = ReaderFlags([]);
+
+
+export default ReaderFlags( READER_FLAGS );
