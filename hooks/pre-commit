@@ -5,7 +5,7 @@ if ! [ -x "$(command -v joker)" ]; then
   exit 0
 fi
 
-for f in $(find . -type f -name "*.clj")
+for f in $(find . -type f -name "*.clj" -not -path "*/test/*")
 do
   echo "Linting: $f"
   joker --lint $f
