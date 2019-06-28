@@ -50,7 +50,7 @@
   [{:keys [key name phrases partOfSpeech]}]
   (let [db (ops/db-access :dictionary-combined)]
     (ops/update! db key {:name name
-                         :phrases (when (not (nil? phrases))
+                         :phrases (when-not (nil? phrases)
                                     (ops/freeze! phrases))
                          :partOfSpeech partOfSpeech})))
 
