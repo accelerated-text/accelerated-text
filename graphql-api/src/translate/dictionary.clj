@@ -38,6 +38,6 @@
   (log/spyf
    "Translation result %s"
    {:id (:key dict-item)
-    :name (:key dict-item)
+    :name (:name dict-item)
     :phrases (map phrase->schema (:phrases dict-item))
     :partOfSpeech (get dict-item :partOfSpeech "VB")}))
