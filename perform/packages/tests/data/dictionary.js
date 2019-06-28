@@ -1,12 +1,5 @@
-const DONT_CARE =       'DONT_CARE';
-const NO =              'NO';
-const YES =             'YES';
-
-
-export const READER_FLAGS = [
-    'test-flag-1',
-    'test-flag-2',
-];
+import { DONT_CARE, NO, YES }   from './usage';
+import { READER_FLAGS }         from './reader-flags';
 
 
 export const ReaderFlag = name => ({
