@@ -92,3 +92,6 @@ run-perform-ui-dev:
 		GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
 		NLG_API_URL=http://0.0.0.0:8081 \
 		make run
+
+clojure-code-analysis:
+	clojure -Sdeps "{:deps {jonase/kibit {:mvn/version \"0.1.6\"}}}" -e "(require '[kibit.driver :as k]) (k/external-run [\"data-access/src\" \"graphql-api/src\" \"nlg-api/src\"] nil)"

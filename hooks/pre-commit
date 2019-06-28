@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if ! [ -x "$(command -v joker)" ]; then
+  echo 'No `joker` binary, skipping initial lint.' >&2
+  exit 0
+fi
+
+for f in $(find . -type f -name "*.clj" -not -path "*/test/*")
+do
+  echo "Linting: $f"
+  joker --lint $f
+  if [ $? -ne 0 ]
+  then
+    echo "Lint failed"
+    exit 1
+  fi
+done

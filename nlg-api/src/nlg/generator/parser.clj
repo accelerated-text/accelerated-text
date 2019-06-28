@@ -1,7 +1,5 @@
 (ns nlg.generator.parser
   (:require [clojure.tools.logging :as log]
-            [clojure.java.io :as io]
-            [cheshire.core :as ch]
             [nlg.generator.ops :as ops]
             [clojure.string :as str]
             [nlg.api.lexicon :as lexicon]))
@@ -42,8 +40,7 @@
           (do (log/debugf "Searching for: '%s'. Result: %s" word, synonym) synonym))))))
 
 (defn parse-rhetorical [node]
-  (let [rst-type (node :rstType)
-        children (map parse-node (node :children))]
+  (let [children (map parse-node (node :children))]
     (map ops/set-complement children)))
 
 (defn parse-cell
@@ -95,7 +92,6 @@
           then-statement (head :then)]
       (log/debugf "Resolving condition. Head: %s\n" head)
       (ops/lazy-if if-statement then-statement (resolve-cond-seq tail)))))
-  
 
 (defn parse-conditional
   [node]

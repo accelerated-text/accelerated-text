@@ -1,7 +1,5 @@
 (ns nlg.generator.parser-ng
   (:require [clojure.tools.logging :as log]
-            [clojure.java.io :as io]
-            [cheshire.core :as ch]
             [nlg.generator.ops :as ops]
             [clojure.string :as str]
             [nlg.api.lexicon :as lexicon]
@@ -58,16 +56,12 @@
     (map #(ops/append-dynamic % (merge attrs {:type :wordlist :class key}) ctx) words)))
 
 (defn parse-rhetorical [node attrs ctx]
-  (let [rst-type (node :rstType)
-        children (map parse-node (node :children) attrs ctx)]
+  (let [children (map parse-node (node :children) attrs ctx)]
     (map ops/set-complement children)))
 
 (defn parse-rst
   [node attrs ctx]
-  (let [rst-type (node :rstType)
-        nucleus (node :nucleus)
-        satellite (node :satellite)]
-    ))
+  ())
 
 (defn parse-cell
   [node attrs ctx]

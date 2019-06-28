@@ -2,7 +2,6 @@
   (:require [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [graphql.domain.dictionary :as dictionary-domain]
-            [graphql.domain.document-plan :as dp-domain]
             [translate.core :as translate]
             [com.walmartlabs.lacinia.util :as util]
             [com.walmartlabs.lacinia.schema :as schema]
@@ -16,8 +15,6 @@
       slurp
       (parser/parse-schema {:resolvers {:Query    {:dictionary     :dictionary
                                                    :dictionaryItem :dictionary-item
-                                                   :documentPlan   :document-plan
-                                                   :documentPlans  :document-plans
                                                    :readerFlags    :reader-flags}
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
@@ -39,9 +36,7 @@
                               :delete-phrase               dictionary-domain/delete-phrase
                               :update-phrase-default-usage dictionary-domain/update-phrase-default-usage
                               :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
-                              :reader-flags                dictionary-domain/reader-flags
-                              :document-plan               dp-domain/document-plan
-                              :document-plans              dp-domain/document-plans})
+                              :reader-flags                dictionary-domain/reader-flags})
       schema/compile))
 
 (defn nlg [{:keys [query variables context] :as request}]

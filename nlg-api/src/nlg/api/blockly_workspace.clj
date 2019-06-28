@@ -1,10 +1,7 @@
 (ns nlg.api.blockly-workspace
-  (:require [clojure.tools.logging :as log]
-            [clojure.java.io :as io]
-            [nlg.api.utils :as utils]
+  (:require [nlg.api.utils :as utils]
             [data-access.db.dynamo-ops :as ops]
-            [nlg.api.resource :as resource]
-            [cheshire.core :as ch])
+            [nlg.api.resource :as resource])
   (:import (java.io BufferedWriter))
   (:gen-class
     :name nlg.api.WorkspaceHandler

@@ -1,7 +1,5 @@
 (ns nlg.api.data
-  (:require [clojure.tools.logging :as log]
-            [clojure.java.io :as io]
-            [nlg.api.utils :as utils]
+  (:require [nlg.api.utils :as utils]
             [data-access.db.dynamo-ops :as ops]
             [data-access.db.config :as config]
             [nlg.api.resource :as resource]

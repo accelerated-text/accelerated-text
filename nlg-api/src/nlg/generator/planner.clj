@@ -49,10 +49,8 @@
   (do
     (.mkdir (java.io.File. "/tmp/ccg"))
     (.mkdir (java.io.File. "/tmp/ccg/grammar/"))
-    (let []
-      (s3/download-dir config/grammar-bucket "grammar" "/tmp/ccg/")
-      "/tmp/ccg/grammar/grammar.xml")))
-  
+    (s3/download-dir config/grammar-bucket "grammar" "/tmp/ccg/")
+    "/tmp/ccg/grammar/grammar.xml")) 
 
 (defn generate-sentence-ccg
   "Takes context and generates numerous sentences. Picks random one"
@@ -60,7 +58,6 @@
   (let [values (flatten (vals context))
         _ (log/debugf "Context: %s" context)
         _ (log/debugf "CCG generation using: %s" (list values))
-        
         results (apply (partial ccg/generate (ccg/load-grammar (download-grammar))) values)]
     (if (seq results)
       (rand-nth results)

@@ -47,7 +47,7 @@
 (defn download-dir
   [bucket path output]
   (let [file-list (list-files bucket path 1000)
-        files (map #(:key %) file-list)]
+        files (map :key file-list)]
     (doseq [f files]
       (log/debugf "Working with: %s" f)
       (let [out-path (clojure.string/join "/" [output f])

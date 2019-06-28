@@ -1,13 +1,11 @@
 (ns nlg.api.generate
   (:require [clojure.tools.logging :as log]
-            [clojure.java.io :as io]
             [nlg.api.utils :as utils]
             [data-access.db.dynamo-ops :as ops]
             [data-access.db.s3 :as s3]
             [data-access.db.config :as config]
             [nlg.generator.planner-ng :as planner]
-            [nlg.api.resource :as resource]
-            [cheshire.core :as ch])
+            [nlg.api.resource :as resource])
   (:import (java.io BufferedWriter))
   (:gen-class
     :name nlg.api.NLGHandler
@@ -23,8 +21,7 @@
 
 (defn generation-process
   [dp-id data-id result-fn reader-model]
-  (let [db (get-db)
-        data (get-data data-id)
+  (let [data (get-data data-id)
         dp (-> (ops/get-workspace dp-id)
                :documentPlan)
         results (utils/result-or-error (planner/render-dp dp data reader-model))
@@ -42,14 +39,14 @@
 
 
 (defn generate-request [request-body]
-  (let [db (get-db)
+  (let [db               (get-db)
         document-plan-id (request-body :documentPlanId)
-        data-id (request-body :dataId)
-        reader-model (get request-body :readerFlagValues default-reader-model)
-        result-id (utils/gen-uuid)
-        init-results (ops/update! db result-id {:ready false})
-        result-fn (fn [body] (ops/update! db result-id body))
-        job @(future (generation-process document-plan-id data-id result-fn reader-model))]
+        data-id          (request-body :dataId)
+        reader-model     (get request-body :readerFlagValues default-reader-model)
+        result-id        (utils/gen-uuid)
+        _                (ops/update! db result-id {:ready false})
+        result-fn        (fn [body] (ops/update! db result-id body))
+        _                @(future (generation-process document-plan-id data-id result-fn reader-model))]
     (utils/do-return (fn [] {:resultId result-id}))))
 
 (defn wrap-to-annotated-text

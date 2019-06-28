@@ -1,7 +1,5 @@
 (ns nlg.generator.ops
   (:require [clojure.tools.logging :as log]
-            [nlg.generator.simple-nlg :as nlg]
-            [clojure.repl :as repl]
             [clojure.string :as string]))
 
 (defn set-subj [selector]  (fn [context data] (assoc context :subj (selector data))))
@@ -105,4 +103,4 @@
   (let [wordlists (filter (fn [v] (= :wordlist (get-in v [:attrs :type]))) values)
         other (filter (fn [v] (not (= :wordlist (get-in v [:attrs :type])))) values)
         wordlists-grouped (group-by (fn [v] (get-in v [:attrs :class])) wordlists)]
-    (concat other (map (fn [[k v]] (rand-nth v)) wordlists-grouped))))
+    (concat other (map (fn [[_ v]] (rand-nth v)) wordlists-grouped))))

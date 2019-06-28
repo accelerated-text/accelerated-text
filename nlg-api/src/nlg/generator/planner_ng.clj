@@ -32,9 +32,8 @@
   (do
     (.mkdir (java.io.File. "/tmp/ccg"))
     (.mkdir (java.io.File. "/tmp/ccg/grammar/"))
-    (let []
-      (s3/download-dir config/grammar-bucket "grammar" "/tmp/ccg/")
-      "/tmp/ccg/grammar")))
+    (s3/download-dir config/grammar-bucket "grammar" "/tmp/ccg/")
+    "/tmp/ccg/grammar"))
 
 
 (defn resolve-item-context
@@ -73,11 +72,10 @@
         category #::ccg-spec{:syntactic-type :NP
                              :feature-set [idx []]}
         lf #::ccg-spec{:nomvar "X"}
-        entries (list (let [item (first items)]
-                       #::ccg-spec {:predicate predicate
-                                    :category category
-                                    :pos (context :pos)
-                                    :logical-form lf}))]
+        entries (list #::ccg-spec {:predicate predicate
+                                   :category category
+                                   :pos (context :pos)
+                                   :logical-form lf})]
     #::ccg-spec{:pos (context :pos)
                 :name (context :pos)
                 :lexical-entries entries}))
