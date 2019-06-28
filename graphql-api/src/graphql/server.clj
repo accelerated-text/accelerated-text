@@ -29,7 +29,7 @@
       (String.)
       (cheshire/decode true)))
 
-(defn app [{:keys [body uri request-method] :as request}]
+(defn app [{:keys [body uri request-method]}]
   (if (= request-method :options)
     {:status  200
      :headers {"Access-Control-Allow-Origin"  "*"
