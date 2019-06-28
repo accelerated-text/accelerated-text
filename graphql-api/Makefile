@@ -50,6 +50,3 @@ integration-tests:
 	docker-compose -p test -f docker-compose.test.yml down && \
 	docker-compose -p test -f docker-compose.test.yml build && \
 	docker-compose -p test -f docker-compose.test.yml up --remove-orphans --abort-on-container-exit --exit-code-from graphql-api
-
-code-analysis:
-	clojure -Sdeps "{:deps {jonase/kibit {:mvn/version \"0.1.6\"}}}" -e "(require '[kibit.driver :as k]) (k/external-run [\"src\"] nil)"
