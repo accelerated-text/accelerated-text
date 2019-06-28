@@ -92,7 +92,6 @@
           then-statement (head :then)]
       (log/debugf "Resolving condition. Head: %s\n" head)
       (ops/lazy-if if-statement then-statement (resolve-cond-seq tail)))))
-  
 
 (defn parse-conditional
   [node]

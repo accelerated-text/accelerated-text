@@ -12,11 +12,10 @@
 (defn reader-flag-usage->schema
   [parent-id [k v]]
   (log/debugf "Got: k=%s v=%s" k v)
-  (->> {:usage v
-        :id (format "%s/%s" parent-id (name k))
-        :flag {:name (name k)
-               :id (name k)}}
-       (reader-flag->schema)))
+  (reader-flag->schema {:usage v
+                        :id (format "%s/%s" parent-id (name k))
+                        :flag {:name (name k)
+                               :id (name k)}}))
 
 (defn reader-flags-usage->schema
   [parent-id flags]

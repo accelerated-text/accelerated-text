@@ -13,26 +13,26 @@
 
 (defn dictionary-item [_ arguments _]
   (log/debugf "Fetching dictionary item with args: %s" arguments)
-  (-> (dict-entity/get-dictionary-item (:id arguments))
-      (translate-dict/dictionary-item->schema)))
+  (translate-dict/dictionary-item->schema
+   (dict-entity/get-dictionary-item (:id arguments))))
 
 (defn create-dictionary-item [_ {:keys [name partOfSpeech phrases]} _]
   (dict-entity/create-dictionary-item {:key name
                                        :name name
                                        :phrases phrases
                                        :partOfSpeech partOfSpeech})
-  (-> (dict-entity/get-dictionary-item name)
-      (translate-dict/dictionary-item->schema)))
+  (translate-dict/dictionary-item->schema
+   (dict-entity/get-dictionary-item name)))
 
 (defn delete-dictionary-item [_ {:keys [id]} _]
   (dict-entity/delete-dictionary-item id)
   true)
 
 (defn update-dictionary-item [_ {:keys [id name partOfSpeech]} _]
-  (->(dict-entity/update-dictionary-item {:key id
-                                          :name name
-                                          :partOfSpeech partOfSpeech})
-     (translate-dict/dictionary-item->schema)))
+  (translate-dict/dictionary-item->schema
+   (dict-entity/update-dictionary-item {:key id
+                                        :name name
+                                        :partOfSpeech partOfSpeech})))
 
 (defn create-phrase [_ {:keys [dictionaryItemId text defaultUsage]} _]
   (log/debugf "Creating phrase: %s %s %s" dictionaryItemId text defaultUsage)
@@ -44,10 +44,10 @@
                        (keyword defaultUsage)
                        default-flags)
                       (:phrases current-item))]
-    (-> (dict-entity/update-dictionary-item {:key dictionaryItemId
-                                         :phrases phrases
-                                         :partOfSpeech (:partOfSpeech current-item)})
-        (translate-dict/dictionary-item->schema))))
+    (translate-dict/dictionary-item->schema
+     (dict-entity/update-dictionary-item {:key dictionaryItemId
+                                          :phrases phrases
+                                          :partOfSpeech (:partOfSpeech current-item)}))))
 
 
 (defn update-phrase [id mut-fn translate?]
@@ -86,21 +86,21 @@
 (defn delete-phrase [_ {:keys [id]} _]
   (let [[parent-id & _] (str/split id #"/")
         current-item (dict-entity/get-dictionary-item parent-id)]
-    (-> (dict-entity/update-dictionary-item {:key parent-id
-                                             :partOfSpeech (:partOfSpeech current-item)
-                                             :phrases (filter
-                                                       (fn [item] (not (= id (:id item))))
-                                                       (:phrases current-item))})
-        (translate-dict/dictionary-item->schema))))
+    (translate-dict/dictionary-item->schema
+     (dict-entity/update-dictionary-item {:key parent-id
+                                          :partOfSpeech (:partOfSpeech current-item)
+                                          :phrases (filter
+                                                    (fn [item] (not (= id (:id item))))
+                                                    (:phrases current-item))}))))
 
 
 (defn reader-flags [_ _ _]
-  (-> (dict-entity/list-readers)
-      (translate-dict/reader-flags->schema)))
+  (translate-dict/reader-flags->schema
+   (dict-entity/list-readers)))
 
 (defn reader-flag [_ arguments _]
-  (-> (dict-entity/get-reader (:id arguments))
-      (translate-dict/reader-flag->schema)))
+  (translate-dict/reader-flag->schema
+   (dict-entity/get-reader (:id arguments))))
 
 (defn update-reader-flag-usage [_ {:keys [id usage]} _]
   (let [[parent-part phrase-part flag-id] (str/split id #"/")

@@ -40,12 +40,12 @@
 (defn str-realized?
   [s]
   (let [results (re-find #"\$\d+" s)]
-    (= 0 (count results))))
+    (zero? (count results))))
 
 (defn end-with
   "End text with token if it doesn't end with it already"
   [token text]
-  (if (not (string/ends-with? token text))
+  (if-not (string/ends-with? token text)
     (str text token)
     text))
 
