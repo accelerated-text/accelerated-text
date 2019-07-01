@@ -9,6 +9,7 @@
 
 (defn prepare-environment [f]
   (dict-entity/create-dictionary-item {:key "test-phrase"
+                                       :name "test-phrase"
                                        :partOfSpeech "VB"
                                        :phrases ["t1" "t2" "t3"]})
   (f)
@@ -35,8 +36,7 @@
       (not)))
 
 (deftest ^:integration full-query-test
-  (let [result (graph/nlg {:query "{dictionary{items{name partOfSpeech phrases{id text defaultUsage readerFlagUsage{id usage flag{id name}}}}}}"})]
-    (is (nil? (:errors result)))))
+  (queries/validate-resp (graph/nlg {:query "{dictionary{items{name partOfSpeech phrases{id text defaultUsage readerFlagUsage{id usage flag{id name}}}}}}"})))
 
 (deftest ^:integration list-dictionary-phrases
   (let [resp (graph/nlg {:query "{dictionary{items{name phrases{text}}}}"})
@@ -50,6 +50,8 @@
   (let [resp (graph/nlg {:query "{dictionaryItem(id: \"test-phrase\"){name partOfSpeech phrases{text}}}"})
         result (->> (:data resp)
                     :dictionaryItem)]
+    (queries/validate-resp resp)
+    (log/debugf "Resp: %s" resp)
     (is (= "test-phrase" (:name result)))
     (is (= :VB  (:partOfSpeech result)))
     (is (= #{{:text "t1"}
