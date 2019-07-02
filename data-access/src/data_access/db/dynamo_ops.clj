@@ -17,7 +17,9 @@
     :phrase-usage config/phrase-usage-model-table
     :phrase config/phrase-table
     :reader-flag-usage config/reader-flag-usage-table
-    :reader-flag config/reader-flag-table))
+    :reader-flag config/reader-flag-table
+    :members config/amr-member-table
+    :verbclass config/amr-verbclass-table))
 
 (defprotocol DBAccess
   (read-item [this key])
