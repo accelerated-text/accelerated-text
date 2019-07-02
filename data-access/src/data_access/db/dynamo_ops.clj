@@ -75,7 +75,7 @@
         (let [original (far/get-item (config/client-opts) table-name {table-key key})
               body (-> (merge original data)
                        (assoc :updatedAt (utils/ts-now))
-                       (assoc :key key))]
+                       (assoc table-key key))]
           (log/debugf "Saving updated content: %s" (pr-str body))
           (far/put-item (config/client-opts) table-name body)
           (far/get-item (config/client-opts) table-name {table-key key})))

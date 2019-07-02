@@ -4,7 +4,8 @@
 
 (defn import-member
   [member]
-  (amr-entity/create-member {:name (:name member)
+  (amr-entity/update-member {:id (:wn member)
+                             :name (:name member)
                              :grouping (when (not= "" (:grouping member))
                                          (:grouping member))}))
 

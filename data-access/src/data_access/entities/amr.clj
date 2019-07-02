@@ -25,4 +25,4 @@
 
 (defn create-verbclass
   [{:keys [id members thematic-roles frames] :as req}]
-  (ops/write! (ops/db-access :verbclass) req))
+  (ops/write! (ops/db-access :verbclass) id req))
