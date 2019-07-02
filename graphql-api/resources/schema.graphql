@@ -70,6 +70,13 @@ type VerbClass {
      roles:             [ ThematicRole! ]
 }
 
+type VerbClassResults {
+     items:           [ VerbClass! ]
+     offset:          Int!
+     limit:           Int
+     totalCount:      Int!
+}
+
 
 ### Thesaurus ------------------------------------------------------------------
 
@@ -213,7 +220,11 @@ type Query {
         id:                 ID!
     ): DocumentPlan
 
-   
+   ### AMR
+   verbClasses:              VerbClassResults!
+   verbClass(
+        id:                 ID!
+   ): VerbClass
 }
 
 
