@@ -51,6 +51,25 @@ enum PartOfSpeech {
     WRB     # wh-adverb  where, when
 }
 
+### AMR ------------------------------------------------------------------------
+
+type Member {
+     id:                ID!
+     name:              String!
+     grouping:          String!
+}
+
+type ThematicRole {
+     id:                ID!
+     type:              String!
+}
+
+type VerbClass {
+     id:                ID!
+     defaultMembers:           [ Member! ]
+     roles:             [ ThematicRole! ]
+}
+
 
 ### Thesaurus ------------------------------------------------------------------
 
