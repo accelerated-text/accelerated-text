@@ -18,3 +18,7 @@
                                            :grouping grouping}))
 
 (defn delete-member [k] (ops/delete! (ops/db-access :members) k))
+
+(defn list-verbclasses [] (ops/list! (ops/db-access :verbclass) 100))
+
+(defn get-verbclass [k] (ops/read! (ops/db-access :verbclass) k))

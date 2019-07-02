@@ -77,6 +77,13 @@ type VerbClassResults {
      totalCount:      Int!
 }
 
+type MemberResults {
+     items:           [ Member! ]
+     offset:          Int!
+     limit:           Int
+     totalCount:      Int!
+}
+
 
 ### Thesaurus ------------------------------------------------------------------
 
@@ -217,14 +224,19 @@ type Query {
 
     documentPlans:           DocumentPlanResults!
     documentPlan(
-        id:                 ID!
+        id:                  ID!
     ): DocumentPlan
 
    ### AMR
    verbClasses:              VerbClassResults!
    verbClass(
-        id:                 ID!
+        id:                  ID!
    ): VerbClass
+
+   members:                  MemberResults!
+   member(
+        id:                  ID!
+   ): Member
 }
 
 
