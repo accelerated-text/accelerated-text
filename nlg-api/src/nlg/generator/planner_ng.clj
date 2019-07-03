@@ -5,7 +5,8 @@
             [ccg-kit.grammar-generation.morphology :as ccg-morphology]
             [ccg-kit.grammar-generation.lexicon :as ccg-lexicon]
             [ccg-kit.grammar-generation.xml-utils :as ccg-xml]
-            [ccg-kit.spec.ccg :as ccg-spec]
+            [ccg-kit.spec.lexicon :as lexicon-spec]
+            [ccg-kit.spec.morphology :as morphology-spec]
             [data-access.db.s3 :as s3]
             [data-access.db.config :as config]
             [nlg.generator.ops :as ops]
@@ -57,7 +58,7 @@
                       true (item :name)
                       false ((item :name) :dyn-name))
                context (resolve-item-context item)]
-           #::ccg-spec{:syntactic-type (context :pos)
+           #::morphology-spec{:syntactic-type (context :pos)
                        :pos (context :pos)
                        :word name
                        :class (context :class)}))
@@ -69,14 +70,14 @@
   [idx items]
   (let [predicate "[*DEFAULT*]"
         context (resolve-item-context (first items))
-        category #::ccg-spec{:syntactic-type :NP
+        category #::lexicon-spec{:syntactic-type :NP
                              :feature-set [idx []]}
-        lf #::ccg-spec{:nomvar "X"}
-        entries (list #::ccg-spec {:predicate predicate
+        lf #::lexicon-spec{:nomvar "X"}
+        entries (list #::lexicon-spec {:predicate predicate
                                    :category category
                                    :pos (context :pos)
                                    :logical-form lf})]
-    #::ccg-spec{:pos (context :pos)
+    #::lexicon-spec{:pos (context :pos)
                 :name (context :pos)
                 :lexical-entries entries}))
 

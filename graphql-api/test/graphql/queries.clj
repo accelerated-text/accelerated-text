@@ -44,3 +44,7 @@
   {:query "mutation UpdateReaderFlagUsage($id: ID!, $usage: Usage!){\n  updateReaderFlagUsage(id: $id, usage: $usage){id flag{id name} usage}\n}"
    :variables {:id id
                :usage usage}})
+
+(defn list-verbclasses
+  []
+  {:query "{verbClasses{items{id roles{type} defaultMembers{id name grouping}}}}"})
