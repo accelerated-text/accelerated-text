@@ -2,6 +2,7 @@
   (:require [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [graphql.domain.dictionary :as dictionary-domain]
+            [graphql.domain.amr :as amr-domain]
             [translate.core :as translate]
             [com.walmartlabs.lacinia.util :as util]
             [com.walmartlabs.lacinia.schema :as schema]
@@ -15,7 +16,11 @@
       slurp
       (parser/parse-schema {:resolvers {:Query    {:dictionary     :dictionary
                                                    :dictionaryItem :dictionary-item
-                                                   :readerFlags    :reader-flags}
+                                                   :readerFlags    :reader-flags
+                                                   :verbClasses    :verb-classes
+                                                   :verbClass      :verb-class
+                                                   :members        :members
+                                                   :member         :member}
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
                                                    :updateDictionaryItem     :update-dictionary-item
@@ -36,7 +41,12 @@
                               :delete-phrase               dictionary-domain/delete-phrase
                               :update-phrase-default-usage dictionary-domain/update-phrase-default-usage
                               :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
-                              :reader-flags                dictionary-domain/reader-flags})
+                              :reader-flags                dictionary-domain/reader-flags
+
+                              :verb-classes                amr-domain/list-verbclass
+                              :verb-class                  amr-domain/get-verbclass
+                              :members                     amr-domain/list-members
+                              :member                      amr-domain/get-member})
       schema/compile))
 
 (defn nlg [{:keys [query variables context] :as request}]
