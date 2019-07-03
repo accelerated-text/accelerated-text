@@ -86,8 +86,9 @@
         (far/scan (config/client-opts) table-name {:limit limit}))
       (scan-items [this opts]
         (far/scan (config/client-opts) table-name opts))
-      (batch-read-items [this opts]
-        (far/batch-get-item (config/client-opts) {table-name opts})))))
+      (batch-read-items [this ids]
+        (log/debugf "Batch reading keys: %s" (pr-str ids))
+        (far/batch-get-item (config/client-opts) {table-name {:prim-kvs {table-key ids}}})))))
 
 (defn get-workspace
   [key]

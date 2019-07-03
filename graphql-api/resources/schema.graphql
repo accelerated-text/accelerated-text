@@ -56,7 +56,7 @@ enum PartOfSpeech {
 type Member {
      id:                ID!
      name:              String!
-     grouping:          String!
+     grouping:          String
 }
 
 type ThematicRole {

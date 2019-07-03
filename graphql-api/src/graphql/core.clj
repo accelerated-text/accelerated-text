@@ -30,6 +30,7 @@
                                                    :updatePhraseDefaultUsage :update-phrase-default-usage
                                                    :updateReaderFlagUsage    :update-reader-flag-usage
                                                    }
+                                        :VerbClass {:defaultMembers :ref-members}
                                         }})
       (util/attach-resolvers {:dictionary                  dictionary-domain/dictionary
                               :dictionary-item             dictionary-domain/dictionary-item
@@ -43,10 +44,11 @@
                               :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
                               :reader-flags                dictionary-domain/reader-flags
 
-                              :verb-classes                amr-domain/list-verbclass
+                              :verb-classes                amr-domain/list-verbclasses
                               :verb-class                  amr-domain/get-verbclass
                               :members                     amr-domain/list-members
-                              :member                      amr-domain/get-member})
+                              :member                      amr-domain/get-member
+                              :ref-members                 amr-domain/get-members})
       schema/compile))
 
 (defn nlg [{:keys [query variables context] :as request}]

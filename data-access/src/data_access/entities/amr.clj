@@ -6,6 +6,8 @@
 
 (defn get-member [k] (ops/read! (ops/db-access :members) k))
 
+(defn get-members [ids] (ops/batch-read! (ops/db-access :members) ids))
+
 (defn create-member
   [{:keys [name grouping]}]
   (ops/write! (ops/db-access :members) {:name name
