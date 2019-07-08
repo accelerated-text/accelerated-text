@@ -128,6 +128,12 @@
                   :Any-of (parse-node (rand-nth children) attrs ctx))]
     results))
 
+(defn parse-amr
+  [node attrs ctx]
+  (let [idx (swap! parse-cnt inc)
+        template ""]
+    (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx))))
+
 (defn parse-unknown
   [node]
   (log/debugf "Unknown node: %s" node))
@@ -149,6 +155,7 @@
       :Lexicon (parse-lexicon node attrs ctx)
       :Dictionary-item (parse-dictionary node attrs ctx)
       :RST (parse-rst node attrs ctx)
+      :AMR (parse-amr node attrs ctx)
       (parse-unknown node))))
 
 
