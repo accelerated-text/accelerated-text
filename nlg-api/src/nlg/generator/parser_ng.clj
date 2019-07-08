@@ -134,6 +134,7 @@
   (let [idx (swap! parse-cnt inc)
         vc (amr-entity/get-verbclass (node :id))
         template "<AMR GOES HERE>"]
+    (log/debugf "Vc: %s" vc)
     (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)))
 
 (defn parse-unknown
