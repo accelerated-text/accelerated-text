@@ -1,5 +1,6 @@
 (ns nlg.generator.realizer
-  (:require [clojure.string :as string]))
+  (:require [clojure.string :as string]
+            [clojure.tools.logging :as log]))
 
 (defn placeholder?
   "Checks if item is placeholder inside sentence"
@@ -26,6 +27,7 @@
 (defn realize-template
   "Realizes single template"
   [placeholders data template]
+  (log/debugf "Placeholders: %s data: %s template: %s" (pr-str placeholders) data template)
   (loop [result template
          replaces placeholders]
     (if (empty? replaces)

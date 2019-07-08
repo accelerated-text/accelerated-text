@@ -182,9 +182,16 @@
 (deftest ^:integration plan-with-dictionary
   (testing "Create text with dictionary"
     (let [document-plan (load-test-data "subj-w-dictionary")
-          data {:product-name "Nike Air"
-                 :main-feature "comfort"
-                 :secondary-feature "support"}
+          data [{:product-name "Nike Air"
+                :main-feature "comfort"}]
+          result (render-dp document-plan data {})]
+      (is (not (empty? result))))))
+
+(deftest ^:integration plan-with-amr
+  (testing "Create text with amr"
+    (let [document-plan (load-test-data "subj-w-amr")
+          data [{:product-name "Nike Air"
+                :main-feature "comfort"}]
           result (render-dp document-plan data {})]
       (is (not (empty? result))))))
 
