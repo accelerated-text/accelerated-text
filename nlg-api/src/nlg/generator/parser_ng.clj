@@ -131,7 +131,7 @@
 (defn parse-amr
   [node attrs ctx]
   (let [idx (swap! parse-cnt inc)
-        template ""]
+        template "<AMR GOES HERE>"]
     (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx))))
 
 (defn parse-unknown
