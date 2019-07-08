@@ -4,7 +4,8 @@
             [clojure.string :as str]
             [nlg.api.lexicon :as lexicon]
             [nlg.api.dictionary :as dictionary-api]
-            [nlg.generator.realizer :as realizer]))
+            [nlg.generator.realizer :as realizer]
+            [data-access.entities.amr :as amr-entity]))
 
 (def parse-cnt (atom 0))
 (defn reset-parse-cnt [] (reset! parse-cnt 0))
@@ -131,8 +132,9 @@
 (defn parse-amr
   [node attrs ctx]
   (let [idx (swap! parse-cnt inc)
+        vc (amr-entity/get-verbclass (node :id))
         template "<AMR GOES HERE>"]
-    (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx))))
+    (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)))
 
 (defn parse-unknown
   [node]
