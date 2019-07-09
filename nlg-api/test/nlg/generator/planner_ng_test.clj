@@ -191,7 +191,8 @@
   (testing "Create text with amr"
     (let [document-plan (load-test-data "subj-w-amr")
           data [{:product-name "Nike Air"
-                :main-feature "comfort"}]
+                 :main-feature "comfort"
+                 :secondary-feature "support"}]
           result (render-dp document-plan data {})]
       (is (not (empty? result))))))
 

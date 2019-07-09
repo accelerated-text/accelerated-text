@@ -27,9 +27,10 @@
 (defn realize-template
   "Realizes single template"
   [placeholders data template]
-  (log/debugf "Placeholders: %s data: %s template: %s" (pr-str placeholders) data template)
+  (log/tracef "Placeholders: %s data: %s template: %s" (pr-str placeholders) data template)
   (loop [result template
          replaces placeholders]
+    (log/debugf "Template: %s realizing with data: %s" result replaces)
     (if (empty? replaces)
       result
       (let [[head & tail] replaces

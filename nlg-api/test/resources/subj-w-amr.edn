@@ -9,4 +9,8 @@
                                      :children [{:type "Cell"
                                                  :name "main-feature"}
                                                 {:type "AMR"
-                                                 :id "battle"}]}]}]}]}
+                                                 :id "battle"
+                                                 :children [{:type "Thematic-role"
+                                                             :title "Agent"
+                                                             :children [{:type "Cell"
+                                                                         :name "secondary-feature"}]}]}]}]}]}]}
