@@ -1,6 +1,7 @@
 (ns nlg.generator.ops
   (:require [clojure.tools.logging :as log]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [ccg-kit.verbnet.ccg :refer :all]))
 
 (defn set-subj [selector]  (fn [context data] (assoc context :subj (selector data))))
 (defn set-verb-w-selector
@@ -104,3 +105,10 @@
         other (filter (fn [v] (not (= :wordlist (get-in v [:attrs :type])))) values)
         wordlists-grouped (group-by (fn [v] (get-in v [:attrs :class])) wordlists)]
     (concat other (map (fn [[_ v]] (rand-nth v)) wordlists-grouped))))
+
+(defn render-amr
+  [{:keys [vc members]}]
+  (let [morph (vclass->morph {:id (:id vc)
+                              :members members
+                              :thematic-roles (:thematic-roles vc)})]
+    morph))

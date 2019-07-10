@@ -133,7 +133,10 @@
   [node attrs ctx]
   (let [idx (swap! parse-cnt inc)
         vc (amr-entity/get-verbclass (node :id))
+        members (amr-entity/get-members (vc :members))
         children (map #(parse-node % (assoc attrs :amr true) ctx) (node :children))
+        _ (log/spyf "AMR result: %s" (:amr-members (ops/render-amr {:vc vc
+                                                                    :members members})))
         template "<AMR GOES HERE, $4>"
         main (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)]
     (cons main children)))

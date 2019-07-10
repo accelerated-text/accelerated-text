@@ -196,8 +196,3 @@
                  :secondary-feature "support"}]
           result (render-dp document-plan data {})]
       (is (not (empty? result))))))
-
-(defn get-test-vc
-  []
-  (amr-entity/get-verbclass "battle-36.4"))
-

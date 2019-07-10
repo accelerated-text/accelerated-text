@@ -1,6 +1,7 @@
 (ns nlg.generator.ops-test
   (:require [clojure.test :refer :all]
-            [nlg.generator.ops :as ops]))
+            [nlg.generator.ops :as ops]
+            [data-access.entities.amr :as amr-entity]))
 
 
 (deftest test-merge-contexts
@@ -42,3 +43,11 @@
                      {:name "w3", :attrs {:type :wordlist :class :test}})
           result (ops/distinct-wordlist data)]
       (is (= 1 (count result))))))
+
+(deftest test-render-amr
+  (let [vc (amr-entity/get-verbclass "battle-36.4")
+        members (:amr-members (amr-entity/get-members (:members vc)))
+        result (ops/render-amr {:id (:id vc)
+                                  :members members
+                                  :thematic-roles (:thematic-roles vc)})]
+    (println result)))
