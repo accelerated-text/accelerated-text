@@ -133,10 +133,9 @@
   [node attrs ctx]
   (let [idx (swap! parse-cnt inc)
         vc (amr-entity/get-verbclass (node :id))
-
+        children (map #(parse-node % attrs ctx) (node :children))
         template "<AMR GOES HERE, $4>"
-        main (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)
-        children (map #(parse-node % attrs ctx) (node :children))]
+        main (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)]
     (cons main children)))
 
 (defn parse-themrole
