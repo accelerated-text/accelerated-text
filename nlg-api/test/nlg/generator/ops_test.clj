@@ -44,10 +44,14 @@
           result (ops/distinct-wordlist data)]
       (is (= 1 (count result))))))
 
+(def battle (vnet/xml->vclass "resources/verbnet/battle.xml"))
 (deftest test-render-amr
   (let [vc (amr-entity/get-verbclass "battle-36.4")
-        members (:amr-members (amr-entity/get-members (:members vc)))
+        members (-> (:members vc)
+                    (amr-entity/get-members)
+                    :amr-members)
         result (ops/render-amr {:id (:id vc)
-                                  :members members
-                                  :thematic-roles (:thematic-roles vc)})]
+                                :members members
+                                :thematic-roles (:thematic-roles vc)})
+        ]
     (println result)))

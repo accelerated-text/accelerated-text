@@ -1,7 +1,13 @@
 (ns nlg.generator.ops
   (:require [clojure.tools.logging :as log]
             [clojure.string :as string]
-            [ccg-kit.verbnet.ccg :refer :all]))
+            [ccg-kit.verbnet.ccg :refer :all]
+            [ccg-kit.spec.morphology :as morph-spec]
+            [ccg-kit.spec.lexicon :as lex-spec]
+            [ccg-kit.grammar-generation.xml-utils :as u]
+            [ccg-kit.grammar-generation.morphology :as m]
+            [ccg-kit.grammar-generation.lexicon :as l]
+            [clojure.data.xml :as xml]))
 
 (defn set-subj [selector]  (fn [context data] (assoc context :subj (selector data))))
 (defn set-verb-w-selector
@@ -107,8 +113,10 @@
     (concat other (map (fn [[_ v]] (rand-nth v)) wordlists-grouped))))
 
 (defn render-amr
-  [{:keys [vc members]}]
-  (let [morph (vclass->morph {:id (:id vc)
+  [{:keys [id vc members]}]
+  (let [morph (vclass->morph {:id id
                               :members members
-                              :thematic-roles (:thematic-roles vc)})]
-    morph))
+                              :thematic-roles (:thematic-roles vc)})
+        lexicon (thematic-roles->atomic-categories morph)]
+    (u/pprint-xml (xml/element :morph {} (m/generate-morphology-xml morph)))
+    (u/pprint-xml (xml/element :ccg-lexicon {} (l/generate-lexicon-xml lexicon morph)))))
