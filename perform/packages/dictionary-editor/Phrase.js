@@ -6,6 +6,7 @@ import { composeQueries }   from '../graphql/';
 import InlineEditor         from '../inline-editor/InlineEditor';
 import { QA }               from '../tests/constants';
 import {
+    deletePhrase,
     updatePhrase,
     updatePhraseDefaultUsage,
     updateReaderFlagUsage,
@@ -14,6 +15,7 @@ import UsageTd              from '../usage/UsageTd';
 
 
 export default composeQueries({
+    deletePhrase,
     updatePhrase,
     updatePhraseDefaultUsage,
     updateReaderFlagUsage,
@@ -21,6 +23,7 @@ export default composeQueries({
 
     static propTypes = {
         className:                  PropTypes.string,
+        deletePhrase:               PropTypes.func,
         phrase:                     PropTypes.object,
         updatePhrase:               PropTypes.func,
         updatePhraseDefaultUsage:   PropTypes.func,
@@ -81,6 +84,14 @@ export default composeQueries({
         });
     };
 
+    onDeletePhrase = () => {
+        const { id } =      this.props.phrase;
+
+        this.props.deletePhrase({
+            variables:              { id },
+        });
+    };
+
     render({
         className,
         phrase,
@@ -90,6 +101,7 @@ export default composeQueries({
                 <td className={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT }>
                     <InlineEditor
                         compact
+                        onDelete={ this.onDeletePhrase }
                         onSubmit={ this.onChangePhraseText }
                         text={ phrase.text }
                     />

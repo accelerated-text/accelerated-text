@@ -3,7 +3,23 @@
 
 .className
 
-    display:                block
+    display:                grid
+    grid-gap:               $space-xs
+    grid-template-columns:  1fr
+    margin:                 0
+    padding:                0
+
+    &.hasDelete
+
+        grid-template-columns:      auto 1em
+
+    &.isEditing
+
+        grid-template-columns:      auto 6em 6em
+
+        &.compact
+
+            grid-template-columns:  auto 3em 3em
 
     > .text
 
@@ -19,13 +35,16 @@
                 display:    inline
                 font-size:  100% / $size-factor
 
-    > form
+    > .delete
 
-        background-color:       tint-4( $yellow )
-        display:                grid
-        grid-gap:               $space-xs
-        grid-template-columns:  auto 6em 6em
+        background-color:   transparent
+        border:             0 none transparent
+        cursor:             pointer
+        display:            inline-block
+        margin:             0
+        opacity:            .2
+        padding:            0
 
-        &.compact
+        &:hover
 
-            grid-template-columns:  auto 3em 3em
+            opacity:        1

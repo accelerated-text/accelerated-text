@@ -16,6 +16,7 @@ export default class InlineEditor extends Component {
         className:          PropTypes.string,
         compact:            PropTypes.bool,
         inputClassName:     PropTypes.string,
+        onDelete:           PropTypes.func,
         onSubmit:           PropTypes.func.isRequired,
         saveClassName:      PropTypes.string,
         text:               PropTypes.string.isRequired,
@@ -33,6 +34,13 @@ export default class InlineEditor extends Component {
         this.setState({
             isEditing:      false,
         });
+
+    onClickDelete = evt => {
+        evt.preventDefault();
+        evt.stopPropagation();
+
+        this.props.onDelete();
+    };
 
     onClickText = () => {
         this.setState({
@@ -54,7 +62,9 @@ export default class InlineEditor extends Component {
                 }
         );
 
-    onSubmit = () => {
+    onSubmit = evt => {
+        evt.preventDefault();
+
         this.setState({
             isEditing:      false,
         });
@@ -66,6 +76,7 @@ export default class InlineEditor extends Component {
         className,
         compact,
         inputClassName,
+        onDelete,
         saveClassName,
         text,
         textClassName,
@@ -74,36 +85,51 @@ export default class InlineEditor extends Component {
         isEditing,
     }) {
         return (
-            <div className={ classnames( S.className, className ) }>{
-                isEditing
-                    ? <form
-                        className={ classnames( compact && S.compact ) }
-                        onSubmit={ this.onSubmit }
-                    >
+            <form
+                className={ classnames(
+                    S.className,
+                    className,
+                    compact && S.compact,
+                    isEditing && S.isEditing,
+                    onDelete && S.hasDelete,
+                ) }
+                onSubmit={ this.onSubmit }
+            >
+                { isEditing
+                    ? [
                         <input
                             className={ inputClassName }
                             onKeyDown={ this.onKeyDown }
                             ref={ this.inputRef }
                             value={ editText }
-                        />
+                        />,
                         <button
                             children={ compact ? '✔️' : '✔️ Save' }
                             className={ saveClassName }
                             type="submit"
-                        />
+                        />,
                         <button
                             children={ compact ? '✖️' : '✖️ Cancel' }
                             className={ cancelClassName }
                             onClick={ this.onClickCancel }
                             type="reset"
-                        />
-                    </form>
-                    : <div
-                        children={ text }
-                        className={ classnames( S.text, textClassName ) }
-                        onClick={ this.onClickText }
-                    />
-            }</div>
+                        />,
+                    ]
+                    : [
+                        <div
+                            children={ text }
+                            className={ classnames( S.text, textClassName ) }
+                            onClick={ this.onClickText }
+                        />,
+                        onDelete &&
+                            <button
+                                children="🗑️"
+                                className={ S.delete }
+                                onClick={ this.onClickDelete }
+                            />,
+                    ]
+                }
+            </form>
         );
     }
 }
