@@ -45,9 +45,7 @@
                        default-flags)
                       (:phrases current-item))]
     (translate-dict/dictionary-item->schema
-     (dict-entity/update-dictionary-item {:key dictionaryItemId
-                                          :phrases phrases
-                                          :partOfSpeech (:partOfSpeech current-item)}))))
+     (dict-entity/update-dictionary-item (assoc current-item :phrases phrases)))))
 
 
 (defn update-phrase [id mut-fn translate?]
@@ -62,9 +60,7 @@
         translate-fn (if translate?
                        translate-dict/phrase->schema
                        (fn [item] item))]
-    (dict-entity/update-dictionary-item {:key parent-id
-                                         :partOfSpeech (:partOfSpeech current-item)
-                                         :phrases updated-phrases})
+    (dict-entity/update-dictionary-item (assoc current-item :phrases updated-phrases))
     (-> (filter #(= id (:id %)) updated-phrases)
         (first)
         (translate-fn))))
@@ -87,11 +83,9 @@
   (let [[parent-id & _] (str/split id #"/")
         current-item (dict-entity/get-dictionary-item parent-id)]
     (translate-dict/dictionary-item->schema
-     (dict-entity/update-dictionary-item {:key parent-id
-                                          :partOfSpeech (:partOfSpeech current-item)
-                                          :phrases (filter
-                                                    (fn [item] (not (= id (:id item))))
-                                                    (:phrases current-item))}))))
+     (dict-entity/update-dictionary-item (assoc current-item :phrases (filter
+                                                                       (fn [item] (not= id (:id item)))
+                                                                       (:phrases current-item)))))))
 
 
 (defn reader-flags [_ _ _]
