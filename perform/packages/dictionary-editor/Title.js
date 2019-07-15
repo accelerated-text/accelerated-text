@@ -13,7 +13,7 @@ export default composeQueries({
     updateDictionaryItem,
 })( class DictionaryEditorTitle extends Component {
 
-    onSubmit = name => {
+    onSubmit = name =>
         this.props.updateDictionaryItem({
             optimisticResponse: {
                 __typename:     'Mutation',
@@ -27,7 +27,6 @@ export default composeQueries({
                 name,
             },
         });
-    };
 
     render({ className, item }) {
         return (
