@@ -1,0 +1,27 @@
+@import '../styles/variables'
+
+
+.className
+
+    display:                block
+
+    > .text
+
+        cursor:             pointer
+        display:            block
+        margin:             0
+        padding:            0
+
+        &:hover
+            &::after
+
+                content:    ' 📝'
+                display:    inline
+                font-size:  100% / $size-factor
+
+    > form
+
+        background-color:       tint-4( $yellow )
+        display:                grid
+        grid-gap:               $space-xs
+        grid-template-columns:  auto 6em 6em
