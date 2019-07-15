@@ -14,6 +14,7 @@ export default class InlineEditor extends Component {
     static propTypes = {
         cancelClassName:    PropTypes.string,
         className:          PropTypes.string,
+        compact:            PropTypes.bool,
         inputClassName:     PropTypes.string,
         onSubmit:           PropTypes.func.isRequired,
         saveClassName:      PropTypes.string,
@@ -63,6 +64,7 @@ export default class InlineEditor extends Component {
     render({
         cancelClassName,
         className,
+        compact,
         inputClassName,
         saveClassName,
         text,
@@ -74,7 +76,10 @@ export default class InlineEditor extends Component {
         return (
             <div className={ classnames( S.className, className ) }>{
                 isEditing
-                    ? <form onSubmit={ this.onSubmit }>
+                    ? <form
+                        className={ classnames( compact && S.compact ) }
+                        onSubmit={ this.onSubmit }
+                    >
                         <input
                             className={ inputClassName }
                             onKeyDown={ this.onKeyDown }
@@ -82,12 +87,12 @@ export default class InlineEditor extends Component {
                             value={ editText }
                         />
                         <button
-                            children="✔️ Save"
+                            children={ compact ? '✔️' : '✔️ Save' }
                             className={ saveClassName }
                             type="submit"
                         />
                         <button
-                            children="✖️ Cancel"
+                            children={ compact ? '✖️' : '✖️ Cancel' }
                             className={ cancelClassName }
                             onClick={ this.onClickCancel }
                             type="reset"
