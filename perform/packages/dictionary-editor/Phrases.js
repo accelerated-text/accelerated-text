@@ -23,22 +23,30 @@ export default composeQueries({
     readerFlags: { readerFlags },
 }) =>
     <div className={ classnames( S.className, className ) }>
-        <table>
-            <thead>
-                <tr>
-                    <th className={ S.phrases }>Phrases</th>
-                    <th>Default</th>
-                    { sortFlags( readerFlags ).map( flag =>
-                        <th key={ flag.id }>{ flag.name }</th>
+        <div className={ S.inner }>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phrases</th>
+                        <th>Default</th>
+                        { sortFlags( readerFlags ).map( flag =>
+                            <th key={ flag.id }>{ flag.name }</th>
+                        )}
+                        <th>some</th>
+                        <th>more</th>
+                        <th>columns</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    { phrases && sortByText( phrases ).map( phrase =>
+                        <Phrase
+                            key={ phrase.id }
+                            phrase={ phrase }
+                        />
                     )}
-                </tr>
-            </thead>
-            <tbody>
-                { phrases && sortByText( phrases ).map( phrase =>
-                    <Phrase key={ phrase.id } phrase={ phrase } />
-                )}
-            </tbody>
-            <AddPhrase itemId={ itemId } />
-        </table>
+                </tbody>
+                <AddPhrase className={ S.addPhrase } itemId={ itemId } />
+            </table>
+        </div>
     </div>
 );

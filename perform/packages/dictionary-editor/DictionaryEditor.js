@@ -29,13 +29,15 @@ export default composeQueries({
         </Section>
         <Bar className={ S.separator } />
         <Section className={ S.editor } defaultSize={ 300 } minSize="25%">
-            <Title className={ S.title } item={ item || {} } />
-            <div className={ S.close }>
-                <button
-                    children="✖️ close"
-                    className={ QA.DICT_ITEM_EDITOR_CLOSE }
-                    onClick={ closeEditor }
-                />
+            <div className={ S.header }>
+                <Title className={ S.title } item={ item || {} } />
+                <div className={ S.close }>
+                    <button
+                        children="✖️ close"
+                        className={ QA.DICT_ITEM_EDITOR_CLOSE }
+                        onClick={ closeEditor }
+                    />
+                </div>
             </div>
             <div className={ S.main }>
                 { item &&

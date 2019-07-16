@@ -11,7 +11,7 @@ rules:
         - { size: 4 }
 
     nesting-depth:
-        - 2
+        - 4
         - { max-depth: 3 }
 
     space-between-parens:

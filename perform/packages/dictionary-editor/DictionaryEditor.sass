@@ -33,29 +33,27 @@
     .editor
 
         background-color:       $white
-        display:                grid
-        grid-gap:               $space-m
-        grid-template-areas:    'title close' 'main main'
-        grid-template-columns:  auto 6em
-        grid-template-rows:     ( 2 * $space-m ) auto
-        padding:                $space-m $space-m 0
 
-        > .title
+        > .header
 
-            grid-area:          title
+            display:                grid
+            grid-gap:               $space-m
+            grid-template-columns:  auto 6em
+            padding:                $space-m $space-m 0
 
-        > .close
+            > .close
 
-            grid-area:          close
-            text-align:         right
+                text-align:         right
 
-            > button
+                > button
 
-                cursor:         pointer
+                    cursor:         pointer
 
         > .main
 
-            grid-area:          main
+            margin-top:             $space-s
+            padding:                $space-s
+
 
             > .deleteItem
 
