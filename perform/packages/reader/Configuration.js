@@ -6,6 +6,7 @@ import {
     Loading,
 }   from '../ui-messages/';
 import { readerFlags }      from '../graphql/queries.graphql';
+import sortFlags            from '../reader-flags/sort';
 import { useStores }        from '../vesa/';
 
 import FlagValue            from './FlagValue';
@@ -30,15 +31,13 @@ export default composeQueries({
             ? <Error message={ error } />
         : loading
             ? <Loading />
-        : readerFlags
-            ? readerFlags.flags.map( flag =>
-                <FlagValue
-                    key={ flag.id }
-                    flag={ flag }
-                    isChecked={ flagValues[flag.id] }
-                    onChange={ E.reader.onToggleFlag }
-                />
-            )
-            : null
+        : sortFlags( readerFlags ).map( flag =>
+            <FlagValue
+                key={ flag.id }
+                flag={ flag }
+                isChecked={ flagValues[flag.id] }
+                onChange={ E.reader.onToggleFlag }
+            />
+        )
     }</div>
 ));

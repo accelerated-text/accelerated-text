@@ -4,6 +4,7 @@ import { sortBy, prop }     from 'ramda';
 
 import { composeQueries }   from '../graphql/';
 import { readerFlags }      from '../graphql/queries.graphql';
+import sortFlags            from '../reader-flags/sort';
 
 import AddPhrase            from './AddPhrase';
 import Phrase               from './Phrase';
@@ -27,7 +28,7 @@ export default composeQueries({
                 <tr>
                     <th className={ S.phrases }>Phrases</th>
                     <th>Default</th>
-                    { readerFlags && readerFlags.flags.map( flag =>
+                    { sortFlags( readerFlags ).map( flag =>
                         <th key={ flag.id }>{ flag.name }</th>
                     )}
                 </tr>
