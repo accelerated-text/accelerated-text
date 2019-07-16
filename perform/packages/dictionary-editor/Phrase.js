@@ -5,6 +5,7 @@ import PropTypes            from 'prop-types';
 import { composeQueries }   from '../graphql/';
 import InlineEditor         from '../inline-editor/InlineEditor';
 import { QA }               from '../tests/constants';
+import sortFlagUsage        from '../dictionary/sort-reader-flag-usage';
 import {
     deletePhrase,
     updatePhrase,
@@ -112,7 +113,7 @@ export default composeQueries({
                     onChange={ this.onChangeDefaultUsage }
                     usage={ phrase.defaultUsage }
                 />
-                { phrase.readerFlagUsage.map( flagUsage =>
+                { sortFlagUsage( phrase.readerFlagUsage ).map( flagUsage =>
                     <UsageTd
                         className={ QA.DICT_ITEM_EDITOR_PHRASE_RFLAG_USAGE }
                         key={ flagUsage.id }
