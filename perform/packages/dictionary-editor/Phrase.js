@@ -41,15 +41,16 @@ export default composeQueries({
             optimisticResponse: {
                 __typename:         'Mutation',
                 updatePhraseDefaultUsage: {
-                    __typename:     'Phrase',
-                    id,
+                    ...this.props.phrase,
                     defaultUsage,
                 },
             },
         });
     };
 
-    onChangeFlagUsage = id => usage =>
+    onChangeFlagUsage = flagUsage => usage => {
+        const { id } =      flagUsage;
+
         this.props.updateReaderFlagUsage({
             variables: {
                 id,
@@ -58,12 +59,12 @@ export default composeQueries({
             optimisticResponse: {
                 __typename:         'Mutation',
                 updateReaderFlagUsage: {
-                    __typename:     'ReaderFlagUsage',
-                    id,
+                    ...flagUsage,
                     usage,
                 },
             },
         });
+    };
 
     onChangePhraseText = text => {
         const { id } =      this.props.phrase;
@@ -76,8 +77,7 @@ export default composeQueries({
             optimisticResponse: {
                 __typename:         'Mutation',
                 updatePhrase: {
-                    __typename:     'Phrase',
-                    id,
+                    ...this.props.phrase,
                     text,
                 },
             },
@@ -116,7 +116,7 @@ export default composeQueries({
                     <UsageTd
                         className={ QA.DICT_ITEM_EDITOR_PHRASE_RFLAG_USAGE }
                         key={ flagUsage.id }
-                        onChange={ this.onChangeFlagUsage( flagUsage.id ) }
+                        onChange={ this.onChangeFlagUsage( flagUsage ) }
                         usage={ flagUsage.usage }
                     />
                 )}
