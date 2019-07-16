@@ -15,7 +15,20 @@
 
         box-shadow:             -1px 0 0 $subtle-border, inset 1px 0 0 $white, inset -1px 0 0 $subtle-border
         color:                  $gray
-        width:                  $space-l
+        flex:                   0 0 $space-m
+        position:               relative
+
+        ::after
+
+            content:            '⋮'
+            display:            block
+            height:             1rem
+            margin:             0
+            padding:            0
+            position:           absolute
+            text-align:         center
+            top:                calc( 50% - 1rem )
+            width:              100%
 
     .editor
 

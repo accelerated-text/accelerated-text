@@ -27,7 +27,7 @@ export default composeQueries({
         <Section defaultSize={ 100 }>
             <Thesaurus className={ S.thesaurus } />
         </Section>
-        <Bar children="⋮" className={ S.separator } />
+        <Bar className={ S.separator } />
         <Section className={ S.editor } defaultSize={ 300 } minSize="25%">
             <Title className={ S.title } item={ item || {} } />
             <div className={ S.close }>
