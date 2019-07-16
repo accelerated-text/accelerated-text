@@ -1,16 +1,9 @@
-import {
-    compose,
-    path,
-    sortBy,
-    toLower,
-}                           from 'ramda';
+import { indexBy, path }    from 'ramda';
 
 
-export const sortByFlagName =
-    sortBy( compose( toLower, path([ 'flag', 'name' ])));
+export default ( readerFlags, readerFlagUsage ) => {
 
+    const usageMap =        indexBy( path([ 'flag', 'id' ]), readerFlagUsage );
 
-export default readerFlagUsage =>
-    ( ! readerFlagUsage )
-        ? []
-        : sortByFlagName( readerFlagUsage );
+    return readerFlags.map( flag => usageMap[ flag.id ]);
+};

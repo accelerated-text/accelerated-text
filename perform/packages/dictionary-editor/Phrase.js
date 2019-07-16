@@ -3,6 +3,7 @@ import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
 import { composeQueries }   from '../graphql/';
+import { Error }            from '../ui-messages/';
 import InlineEditor         from '../inline-editor/InlineEditor';
 import { QA }               from '../tests/constants';
 import sortFlagUsage        from '../dictionary/sort-reader-flag-usage';
@@ -96,6 +97,7 @@ export default composeQueries({
     render({
         className,
         phrase,
+        readerFlags,
     }) {
         return (
             <tr className={ classnames( QA.DICT_ITEM_EDITOR_PHRASE, className ) }>
@@ -113,14 +115,23 @@ export default composeQueries({
                     onChange={ this.onChangeDefaultUsage }
                     usage={ phrase.defaultUsage }
                 />
-                { sortFlagUsage( phrase.readerFlagUsage ).map( flagUsage =>
-                    <UsageTd
-                        className={ QA.DICT_ITEM_EDITOR_PHRASE_RFLAG_USAGE }
-                        key={ flagUsage.id }
-                        onChange={ this.onChangeFlagUsage( flagUsage ) }
-                        usage={ flagUsage.usage }
-                    />
-                )}
+                { sortFlagUsage( readerFlags, phrase.readerFlagUsage )
+                    .map( flagUsage =>
+                        flagUsage
+                            ? <UsageTd
+                                className={ QA.DICT_ITEM_EDITOR_PHRASE_RFLAG_USAGE }
+                                key={ flagUsage.id }
+                                onChange={ this.onChangeFlagUsage( flagUsage ) }
+                                usage={ flagUsage.usage }
+                            />
+                            : <td>
+                                <Error
+                                    justIcon
+                                    message="No usage data found for the flag. Try reloading the app."
+                                />
+                            </td>
+                    )
+                }
             </tr>
         );
     }

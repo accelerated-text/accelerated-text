@@ -21,32 +21,37 @@ export default composeQueries({
     itemId,
     phrases,
     readerFlags: { readerFlags },
-}) =>
-    <div className={ classnames( S.className, className ) }>
-        <div className={ S.inner }>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Phrases</th>
-                        <th>Default</th>
-                        { sortFlags( readerFlags ).map( flag =>
-                            <th key={ flag.id }>{ flag.name }</th>
+}) => {
+    const sortedFlags =     sortFlags( readerFlags );
+
+    return (
+        <div className={ classnames( S.className, className ) }>
+            <div className={ S.inner }>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phrases</th>
+                            <th>Default</th>
+                            { sortedFlags.map( flag =>
+                                <th key={ flag.id }>{ flag.name }</th>
+                            )}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { phrases && sortByText( phrases ).map( phrase =>
+                            <Phrase
+                                key={ phrase.id }
+                                phrase={ phrase }
+                                readerFlags={ sortedFlags }
+                            />
                         )}
-                        <th>some</th>
-                        <th>more</th>
-                        <th>columns</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    { phrases && sortByText( phrases ).map( phrase =>
-                        <Phrase
-                            key={ phrase.id }
-                            phrase={ phrase }
-                        />
-                    )}
-                </tbody>
-                <AddPhrase className={ S.addPhrase } itemId={ itemId } />
-            </table>
+                    </tbody>
+                    <AddPhrase
+                        className={ S.addPhrase }
+                        itemId={ itemId }
+                    />
+                </table>
+            </div>
         </div>
-    </div>
-);
+    );
+});
