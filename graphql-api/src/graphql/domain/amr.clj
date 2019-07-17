@@ -13,8 +13,3 @@
   (amr-translate/verbclass->schema
    (amr-entity/get-verbclass id)))
 
-(defn list-members [_ _ _]
-  (->> (amr-entity/list-members)
-       (map amr-translate/member->schema)
-       (translate-core/paginated-response)))
-

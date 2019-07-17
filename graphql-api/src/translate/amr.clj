@@ -10,8 +10,13 @@
    :id (string/lower-case (:type role))
    :label (:type role)})
 
+(defn frame->examples
+  [frame]
+  (:examples frame))
+
 (defn verbclass->schema
   [verbclass]
   {:id (:id verbclass)
    :members (map member->schema (:members verbclass))
-   :roles (map role->schema (:thematic-roles verbclass))})
+   :roles (map role->schema (:thematic-roles verbclass))
+   :examples (flatten (map frame->examples (:frames verbclass)))})
