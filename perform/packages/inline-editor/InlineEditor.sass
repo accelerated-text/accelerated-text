@@ -3,11 +3,13 @@
 
 .className
 
+    align-items:            start
     display:                grid
-    grid-gap:               $space-xs
+    grid-gap:               $space-s
     grid-template-columns:  1fr
     margin:                 0
     padding:                0
+    width:                  100%
 
     &.hasDelete
 
@@ -15,11 +17,26 @@
 
     &.isEditing
 
-        grid-template-columns:      auto 6em 6em
+        align-items:                center
+        grid-gap:                   $space-xs
+        grid-template-columns:      1fr 6em 6em
 
         &.compact
 
-            grid-template-columns:  auto 3em 3em
+            grid-template-columns:  1fr 2em 2em
+
+        > button,
+        > input
+
+            box-sizing:             border-box
+            font-size:              $size-s
+            margin:                 0
+            padding:                $space-xxs
+            width:                  100%
+
+        > button
+
+            text-align:             center
 
     > .text
 
