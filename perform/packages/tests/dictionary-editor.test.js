@@ -6,6 +6,7 @@ import {
 }   from './lib/dictionary-editor-utils';
 import defaultResponsesPage     from './lib/default-responses-page';
 import { Phrase }               from './data/dictionary';
+import { READER_FLAGS }         from './data/reader-flags';
 import { SELECTORS }            from './constants';
 
 
@@ -58,8 +59,8 @@ test( 'add phrase works', defaultResponsesPage, async t => {
                 text,
                 defaultUsage,
                 readerFlagUsage: {
-                    junior:     'DONT_CARE',
-                    senior:     'DONT_CARE',
+                    [READER_FLAGS[0]]:  'DONT_CARE',
+                    [READER_FLAGS[1]]:  'DONT_CARE',
                 },
             }),
         ],
