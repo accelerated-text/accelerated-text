@@ -101,12 +101,13 @@ export default composeQueries({
     }) {
         return (
             <tr className={ classnames( QA.DICT_ITEM_EDITOR_PHRASE, className ) }>
-                <td className={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT }>
+                <td>
                     <InlineEditor
                         compact
                         onDelete={ this.onDeletePhrase }
                         onSubmit={ this.onChangePhraseText }
                         text={ phrase.text }
+                        textClassName={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT }
                     />
                 </td>
                 <UsageTd
