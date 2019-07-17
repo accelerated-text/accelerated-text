@@ -27,6 +27,8 @@ test( 'editor opens and closes', defaultResponsesPage, async t => {
     await t.notFindElement( SELECTORS.DICT_ITEM_EDITOR );
 });
 
+test.todo( 'can rename item' );
+test.todo( 'can delete item' );
 
 test( 'phrases visible', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
@@ -41,6 +43,9 @@ test( 'phrases visible', defaultResponsesPage, async t => {
     await arePhrasesVisible( t, item1.phrases );
     await t.notFindElement( `${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_DEFAULT_USAGE } ${ SELECTORS.USAGE_TD_DONT_CARE }` );
 });
+
+test.todo( 'can rename phrase' );
+test.todo( 'dan delete phrase' );
 
 
 test( 'add phrase works', defaultResponsesPage, async t => {
