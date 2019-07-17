@@ -64,26 +64,18 @@ type ThematicRole {
      type:              String!
 }
 
-type VerbClass {
+type Concept {
      id:                ID!
-     defaultMembers:    [ Member! ]
+     dictionaryItem:    [ DictionaryItem! ]
      roles:             [ ThematicRole! ]
 }
 
-type VerbClassResults {
-     items:           [ VerbClass! ]
+type ConceptResults {
+     items:           [ Concept! ]
      offset:          Int!
      limit:           Int
      totalCount:      Int!
 }
-
-type MemberResults {
-     items:           [ Member! ]
-     offset:          Int!
-     limit:           Int
-     totalCount:      Int!
-}
-
 
 ### Thesaurus ------------------------------------------------------------------
 
@@ -228,15 +220,10 @@ type Query {
     ): DocumentPlan
 
    ### AMR
-   verbClasses:              VerbClassResults!
-   verbClass(
+   concepts:              ConceptResults!
+   concept(
         id:                  ID!
-   ): VerbClass
-
-   members:                  MemberResults!
-   member(
-        id:                  ID!
-   ): Member
+   ): Concept
 }
 
 

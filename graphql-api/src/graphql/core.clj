@@ -17,10 +17,8 @@
       (parser/parse-schema {:resolvers {:Query    {:dictionary     :dictionary
                                                    :dictionaryItem :dictionary-item
                                                    :readerFlags    :reader-flags
-                                                   :verbClasses    :verb-classes
-                                                   :verbClass      :verb-class
-                                                   :members        :members
-                                                   :member         :member}
+                                                   :concepts       :concepts
+                                                   :concept        :concept}
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
                                                    :updateDictionaryItem     :update-dictionary-item
@@ -30,7 +28,7 @@
                                                    :updatePhraseDefaultUsage :update-phrase-default-usage
                                                    :updateReaderFlagUsage    :update-reader-flag-usage
                                                    }
-                                        :VerbClass {:defaultMembers :ref-members}
+                                        :Concept {:dictionaryItem :dictionary-item}
                                         }})
       (util/attach-resolvers {:dictionary                  dictionary-domain/dictionary
                               :dictionary-item             dictionary-domain/dictionary-item
@@ -44,11 +42,8 @@
                               :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
                               :reader-flags                dictionary-domain/reader-flags
 
-                              :verb-classes                amr-domain/list-verbclasses
-                              :verb-class                  amr-domain/get-verbclass
-                              :members                     amr-domain/list-members
-                              :member                      amr-domain/get-member
-                              :ref-members                 amr-domain/get-members})
+                              :concepts                    amr-domain/list-verbclasses
+                              :concept                     amr-domain/get-verbclass})
       schema/compile))
 
 (defn nlg [{:keys [query variables context] :as request}]
