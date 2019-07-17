@@ -18,12 +18,3 @@
        (map amr-translate/member->schema)
        (translate-core/paginated-response)))
 
-(defn get-member [_ {:keys [id]} _]
-  (amr-translate/member->schema
-   (amr-entity/get-member id)))
-
-(defn get-members [_ _ value]
-  (->> (amr-entity/get-members (:members value))
-       :amr-members
-       (map amr-translate/member->schema)))
-

@@ -1,11 +1,14 @@
 (ns translate.amr
-  (:require [clojure.tools.logging :as log]))
+  (:require [clojure.tools.logging :as log]
+            [clojure.string :as string]))
 
 (defn member->schema [member] member)
 
 (defn role->schema
   [role]
-  {:type (:type role)})
+  {:type "TEXT"
+   :id (string/lower-case (:type role))
+   :label (:type role)})
 
 (defn verbclass->schema
   [verbclass]

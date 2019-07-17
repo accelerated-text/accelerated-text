@@ -11,6 +11,11 @@ enum Usage {
     DONT_CARE
 }
 
+enum BlocklyElementType {
+     TEXT
+     ARRAY
+}
+
 #   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
 enum PartOfSpeech {
     CC      # conjunction, coordinating  and, or, but
@@ -61,13 +66,15 @@ type Member {
 
 type ThematicRole {
      id:                ID!
-     type:              String!
+     type:              BlocklyElementType!
+     label:             String!
 }
 
 type Concept {
      id:                ID!
      dictionaryItem:    [ DictionaryItem! ]
      roles:             [ ThematicRole! ]
+     examples:          [ String! ]
 }
 
 type ConceptResults {
