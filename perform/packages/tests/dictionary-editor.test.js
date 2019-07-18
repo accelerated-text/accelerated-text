@@ -63,7 +63,6 @@ test( 'can rename item', defaultResponsesPage, async t => {
         { data: { updateDictionaryItem: updatedItem }},
     );
 
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME );
     t.is(
         await t.getElementText( SELECTORS.DICT_ITEM_EDITOR_NAME ),
         updatedItem.name,
@@ -141,7 +140,44 @@ test( 'phrases visible', defaultResponsesPage, async t => {
 });
 
 
-test.todo( 'can rename phrase' );
+test( 'can rename phrase', defaultResponsesPage, async t => {
+    t.timeout( 5e3 );
+
+    const num =             0;
+    const item =            await openItem( t, num );
+    const phrase =          item.phrases[ num ];
+    const $phraseText =     `${ SELECTORS.DICT_ITEM_EDITOR_PHRASE }:nth-child( ${ num + 1 } ) ${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT }`;
+    const newText =         t.title;
+    const updatedPhrase = {
+        ...phrase,
+        text:               newText,
+    };
+
+    await arePhrasesVisible( t, item.phrases );
+
+    await t.page.click( $phraseText );
+
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT_CANCEL );
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT_INPUT );
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT_SAVE );
+
+    await t.retypeElementText( SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT_INPUT, newText );
+    t.page.click( SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT_SAVE );
+    await t.graphqlApi.provideOnce(
+        'updatePhrase',
+        {
+            id:             phrase.id,
+            text:           newText,
+        },
+        { data: { updatePhrase: updatedPhrase }},
+    );
+    t.is(
+        await t.getElementText( $phraseText ),
+        updatedPhrase.text,
+    );
+});
+
+
 test.todo( 'can delete phrase' );
 
 
