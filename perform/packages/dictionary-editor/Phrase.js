@@ -4,32 +4,27 @@ import PropTypes            from 'prop-types';
 
 import { composeQueries }   from '../graphql/';
 import { Error }            from '../ui-messages/';
-import InlineEditor         from '../inline-editor/InlineEditor';
 import { QA }               from '../tests/constants';
 import sortFlagUsage        from '../dictionary/sort-reader-flag-usage';
 import {
-    deletePhrase,
-    updatePhrase,
     updatePhraseDefaultUsage,
     updateReaderFlagUsage,
 }   from '../graphql/mutations.graphql';
 import UsageTd              from '../usage/UsageTd';
 
+import PhraseText           from './PhraseText';
+
 
 export default composeQueries({
-    deletePhrase,
-    updatePhrase,
     updatePhraseDefaultUsage,
     updateReaderFlagUsage,
 })( class DictionaryEditorPhrase extends Component {
 
     static propTypes = {
         className:                  PropTypes.string,
-        deletePhrase:               PropTypes.func,
-        phrase:                     PropTypes.object,
-        updatePhrase:               PropTypes.func,
-        updatePhraseDefaultUsage:   PropTypes.func,
-        updateReaderFlagUsage:      PropTypes.func,
+        phrase:                     PropTypes.object.isRequired,
+        updatePhraseDefaultUsage:   PropTypes.func.isRequired,
+        updateReaderFlagUsage:      PropTypes.func.isRequired,
     };
 
     onChangeDefaultUsage = defaultUsage => {
@@ -68,32 +63,6 @@ export default composeQueries({
         });
     };
 
-    onChangePhraseText = text => {
-        const { id } =      this.props.phrase;
-
-        this.props.updatePhrase({
-            variables: {
-                id,
-                text,
-            },
-            optimisticResponse: {
-                __typename:         'Mutation',
-                updatePhrase: {
-                    ...this.props.phrase,
-                    text,
-                },
-            },
-        });
-    };
-
-    onDeletePhrase = () => {
-        const { id } =      this.props.phrase;
-
-        this.props.deletePhrase({
-            variables:              { id },
-        });
-    };
-
     render({
         className,
         phrase,
@@ -102,17 +71,7 @@ export default composeQueries({
         return (
             <tr className={ classnames( QA.DICT_ITEM_EDITOR_PHRASE, className ) }>
                 <td>
-                    <InlineEditor
-                        cancelClassName={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT_CANCEL }
-                        compact
-                        deleteClassName={ QA.DICT_ITEM_EDITOR_PHRASE_DELETE }
-                        inputClassName={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT_INPUT }
-                        onDelete={ this.onDeletePhrase }
-                        onSubmit={ this.onChangePhraseText }
-                        saveClassName={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT_SAVE }
-                        text={ phrase.text }
-                        textClassName={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT }
-                    />
+                    <PhraseText phrase={ phrase } />
                 </td>
                 <UsageTd
                     className={ QA.DICT_ITEM_EDITOR_PHRASE_DEFAULT_USAGE }
