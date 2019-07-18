@@ -14,7 +14,8 @@
 
 (defn verbclass->schema
   [verbclass]
+  (log/debugf "Verbclass: %s" verbclass)
   {:id (:id verbclass)
-   :dictionaryItem (:dictionaryItem verbclass)
+   :dictionaryItem (:dictionary-item-id verbclass)
    :roles (map role->schema (:thematic-roles verbclass))
    :examples (flatten (map frame->examples (:frames verbclass)))})

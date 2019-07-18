@@ -28,9 +28,10 @@
                                                    :updatePhraseDefaultUsage :update-phrase-default-usage
                                                    :updateReaderFlagUsage    :update-reader-flag-usage
                                                    }
-                                        :Concept {:dictionaryItem :dictionary-item}
+                                        :Concept {:dictionaryItem :ref-dictionary-item}
                                         }})
       (util/attach-resolvers {:dictionary                  dictionary-domain/dictionary
+                              :ref-dictionary-item         dictionary-domain/ref-dictionary-item
                               :dictionary-item             dictionary-domain/dictionary-item
                               :create-dictionary-item      dictionary-domain/create-dictionary-item
                               :delete-dictionary-item      dictionary-domain/delete-dictionary-item

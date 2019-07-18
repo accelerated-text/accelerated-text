@@ -72,7 +72,7 @@ type ThematicRole {
 
 type Concept {
      id:                ID!
-     dictionaryItem:    [ DictionaryItem! ]
+     dictionaryItem:    DictionaryItem!
      roles:             [ ThematicRole! ]
      examples:          [ String! ]
 }
