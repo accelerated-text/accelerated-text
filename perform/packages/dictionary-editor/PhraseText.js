@@ -87,7 +87,7 @@ export default composeQueries({
                 compact
                 deleteClassName={ QA.DICT_ITEM_EDITOR_PHRASE_DELETE }
                 inputClassName={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT_INPUT }
-                onDelete={ this.onDeletePhrase }
+                onDelete={ !deleteLoading ? this.onDeletePhrase : null }
                 onSubmit={ this.onChangePhraseText }
                 saveClassName={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT_SAVE }
                 text={ phrase.text }
