@@ -34,6 +34,7 @@ module.exports = createConstants( 'tests', {
     DICT_ITEM_EDITOR_NAME_SAVE:         'dictionary-item-editor-name-save',
     DICT_ITEM_EDITOR_PHRASE:                'dictionary-item-editor-phrase',
     DICT_ITEM_EDITOR_PHRASE_DEFAULT_USAGE:  'dictionary-item-editor-phrase-default-usage',
+    DICT_ITEM_EDITOR_PHRASE_DELETE:         'dictionary-item-editor-phrase-delete',
     DICT_ITEM_EDITOR_PHRASE_RFLAG_USAGE:    'dictionary-item-editor-phrase-reader-flag-usage',
     DICT_ITEM_EDITOR_PHRASE_TEXT:           'dictionary-item-editor-phrase-text',
     DICT_ITEM_EDITOR_PHRASE_TEXT_CANCEL:    'dictionary-item-editor-phrase-text-cancel',

@@ -105,6 +105,7 @@ export default composeQueries({
                     <InlineEditor
                         cancelClassName={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT_CANCEL }
                         compact
+                        deleteClassName={ QA.DICT_ITEM_EDITOR_PHRASE_DELETE }
                         inputClassName={ QA.DICT_ITEM_EDITOR_PHRASE_TEXT_INPUT }
                         onDelete={ this.onDeletePhrase }
                         onSubmit={ this.onChangePhraseText }

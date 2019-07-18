@@ -178,7 +178,31 @@ test( 'can rename phrase', defaultResponsesPage, async t => {
 });
 
 
-test.todo( 'can delete phrase' );
+test( 'can delete phrase', defaultResponsesPage, async t => {
+    t.timeout( 5e3 );
+
+    const itemNum =         0;
+    const phraseNum =       1;
+    const item =            await openItem( t, itemNum );
+    const phrase =          item.phrases[ phraseNum ];
+    const updatedItem = {
+        ...item,
+        phrases:            [ ...item.phrases ].splice( phraseNum, 1 ),
+    };
+
+    await arePhrasesVisible( t, item.phrases );
+
+    t.page.click(
+        `${ SELECTORS.DICT_ITEM_EDITOR_PHRASE }:nth-child(${ phraseNum + 1 }) ${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_DELETE }`
+    );
+    await t.graphqlApi.provideOnce(
+        'deletePhrase',
+        { id:               phrase.id },
+        { data: { deletePhrase: updatedItem }},
+    );
+
+    await arePhrasesVisible( t, updatedItem.phrases );
+});
 
 
 test( 'add phrase works', defaultResponsesPage, async t => {

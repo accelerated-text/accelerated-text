@@ -75,6 +75,7 @@ export default class InlineEditor extends Component {
         cancelClassName,
         className,
         compact,
+        deleteClassName,
         inputClassName,
         onDelete,
         saveClassName,
@@ -124,7 +125,7 @@ export default class InlineEditor extends Component {
                         onDelete &&
                             <button
                                 children="🗑️"
-                                className={ S.delete }
+                                className={ classnames( S.delete, deleteClassName ) }
                                 onClick={ this.onClickDelete }
                             />,
                     ]
