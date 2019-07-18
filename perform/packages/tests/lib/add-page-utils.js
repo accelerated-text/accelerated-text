@@ -1,5 +1,5 @@
 const SELECTOR_WAIT_OPTIONS = {
-    timeout:            1e3,
+    timeout:            2e3,
 };
 
 
