@@ -1,11 +1,17 @@
 import test                     from 'ava';
 
 import {
+    areDictionaryItemsVisible,
+}                               from './lib/dictionary-utils';
+import {
     arePhrasesVisible,
     openItem,
-}   from './lib/dictionary-editor-utils';
+}                               from './lib/dictionary-editor-utils';
 import defaultResponsesPage     from './lib/default-responses-page';
-import { Phrase }               from './data/dictionary';
+import {
+    default as DICTIONARY,
+    Phrase,
+}                               from './data/dictionary';
 import { READER_FLAGS }         from './data/reader-flags';
 import { SELECTORS }            from './constants';
 
@@ -27,8 +33,92 @@ test( 'editor opens and closes', defaultResponsesPage, async t => {
     await t.notFindElement( SELECTORS.DICT_ITEM_EDITOR );
 });
 
-test.todo( 'can rename item' );
-test.todo( 'can delete item' );
+test( 'can rename item', defaultResponsesPage, async t => {
+    t.timeout( 5e3 );
+
+    const item =            await openItem( t, 0 );
+    const newName =         t.title;
+    const updatedItem = {
+        ...item,
+        name:               newName,
+    };
+
+    await t.page.click( SELECTORS.DICT_ITEM_EDITOR_NAME );
+
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_INPUT );
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_SAVE );
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_CANCEL );
+
+    await t.retypeElementText( SELECTORS.DICT_ITEM_EDITOR_NAME_INPUT, newName );
+    t.page.click( SELECTORS.DICT_ITEM_EDITOR_NAME_SAVE );
+    await t.graphqlApi.provideOnce(
+        'updateDictionaryItem',
+        {
+            id:             item.id,
+            name:           newName,
+        },
+        { data: { updateDictionaryItem: updatedItem }},
+    );
+
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME );
+    t.is(
+        await t.getElementText( SELECTORS.DICT_ITEM_EDITOR_NAME ),
+        updatedItem.name,
+    );
+});
+
+/*
+test( 'can cancel rename item', defaultResponsesPage, async t => {
+    t.timeout( 5e3 );
+
+    const item =            await openItem( t, 1 );
+    const newName =         t.title;
+
+    await t.page.click( SELECTORS.DICT_ITEM_EDITOR_NAME );
+
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_INPUT );
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_SAVE );
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_CANCEL );
+
+    await t.retypeElementText( SELECTORS.DICT_ITEM_EDITOR_NAME_INPUT, newName );
+    t.page.click( SELECTORS.DICT_ITEM_EDITOR_NAME_CANCEL );
+
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME );
+    t.is(
+        await t.getElementText( SELECTORS.DICT_ITEM_EDITOR_NAME ),
+        item.name,
+    );
+});
+
+test( 'can delete item', defaultResponsesPage, async t => {
+    t.timeout( 5e3 );
+
+    const num =             0;
+    const item =            await openItem( t, num );
+    const updatedDictionary = {
+        ...DICTIONARY,
+        dictionary: {
+            ...DICTIONARY.dictionary,
+            items:          DICTIONARY.dictionary.items.splice( num, 1 ),
+        },
+    };
+
+    t.page.click( SELECTORS.DICT_ITEM_EDITOR_DELETE );
+    await t.graphqlApi.provideOnce(
+        'deleteDictionaryItem',
+        { id:   item.id },
+        { data: { deleteDictionaryItem: true }},
+    );
+    await t.graphqlApi.provideOnce(
+        'dictionary',
+        {},
+        { data: updatedDictionary },
+    );
+
+    await t.notFindElement( SELECTORS.DICT_ITEM_EDITOR_NAME );
+    await areDictionaryItemsVisible( t, updatedDictionary.dictionary.items );
+});
+*/
 
 test( 'phrases visible', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
@@ -45,7 +135,7 @@ test( 'phrases visible', defaultResponsesPage, async t => {
 });
 
 test.todo( 'can rename phrase' );
-test.todo( 'dan delete phrase' );
+test.todo( 'can delete phrase' );
 
 
 test( 'add phrase works', defaultResponsesPage, async t => {
