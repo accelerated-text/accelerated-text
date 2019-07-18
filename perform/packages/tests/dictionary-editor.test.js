@@ -1,5 +1,7 @@
 import test                     from 'ava';
 
+import { DELETE_CONFIRM }       from '../ui-messages/';
+
 import addDialogUtils           from './lib/add-dialog-utils';
 import {
     areDictionaryItemsVisible,
@@ -108,7 +110,7 @@ test( 'can delete item', defaultResponsesPage, addDialogUtils, async t => {
 
     await t.findElement( SELECTORS.DICT_ITEM_EDITOR_DELETE );
     t.page.click( SELECTORS.DICT_ITEM_EDITOR_DELETE );
-    await t.acceptDialog( 'confirm', 'Are you sure you want to delete this item?' );
+    await t.acceptDialog( 'confirm', DELETE_CONFIRM );
     await t.graphqlApi.provideOnce(
         'deleteDictionaryItem',
         { id:   item.id },

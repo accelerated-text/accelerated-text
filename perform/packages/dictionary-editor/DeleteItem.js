@@ -4,6 +4,7 @@ import PropTypes                from 'prop-types';
 
 import { composeQueries }       from '../graphql/';
 import { deleteDictionaryItem } from '../graphql/mutations.graphql';
+import { onConfirmDelete }      from '../ui-messages/';
 import { QA }                   from '../tests/constants';
 
 import S                        from './DeleteItem.sass';
@@ -19,16 +20,15 @@ export default composeQueries({
         onDelete:               PropTypes.func,
     };
 
-    onClick = () => {
-        if( confirm( 'Are you sure you want to delete this item?' )) {  // eslint-disable-line no-alert
+    onClick = () =>
+        onConfirmDelete(() =>
             this.props.deleteDictionaryItem({
                 refetchQueries:     [ 'dictionary' ],
                 variables: {
                     id:             this.props.itemId,
                 },
-            }).then( this.props.onDelete );
-        }
-    };
+            }).then( this.props.onDelete )
+        );
 
     render({ className }) {
         return (
