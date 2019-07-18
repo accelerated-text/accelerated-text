@@ -49,7 +49,6 @@ mutation createPhrase(
   }
 }
 
-# TODO: request up-to-date phrase from server
 mutation updatePhrase(
   $id:              ID!
   $text:            String!
@@ -58,12 +57,10 @@ mutation updatePhrase(
     id:             $id
     text:           $text
   ) {
-    id
-    text
+    ...phraseFields
   }
 }
 
-# TODO: request up-to-date phrase from server
 mutation updatePhraseDefaultUsage(
   $id:              ID!
   $defaultUsage:    DefaultUsage!
@@ -72,8 +69,7 @@ mutation updatePhraseDefaultUsage(
     id:             $id
     defaultUsage:   $defaultUsage
   ) {
-    id
-    defaultUsage
+    ...phraseFields
   }
 }
 
@@ -98,7 +94,6 @@ mutation updateReaderFlagUsage(
     id:             $id
     usage:          $usage
   ) {
-    id
-    usage
+    ...readerFlagUsageFields
   }
 }
