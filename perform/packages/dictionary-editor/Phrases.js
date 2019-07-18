@@ -3,6 +3,7 @@ import { h }                from 'preact';
 import { sortBy, prop }     from 'ramda';
 
 import { composeQueries }   from '../graphql/';
+import { Error, Loading }   from '../ui-messages/';
 import { readerFlags }      from '../graphql/queries.graphql';
 import sortFlags            from '../reader-flags/sort';
 
@@ -20,7 +21,11 @@ export default composeQueries({
     className,
     itemId,
     phrases,
-    readerFlags: { readerFlags },
+    readerFlags: {
+        error:              readerFlagsError,
+        loading:            readerFlagsLoading,
+        readerFlags,
+    },
 }) => {
     const sortedFlags =     sortFlags( readerFlags );
 
@@ -30,7 +35,15 @@ export default composeQueries({
                 <table>
                     <thead>
                         <tr>
-                            <th>Phrases</th>
+                            <th>
+                                Phrases
+                                { readerFlagsError
+                                    ? <Error justIcon message={ readerFlagsError } />
+                                : readerFlagsLoading
+                                    ? <Loading justIcon />
+                                    : null
+                                }
+                            </th>
                             <th>Default</th>
                             { sortedFlags.map( flag =>
                                 <th key={ flag.id }>{ flag.name }</th>

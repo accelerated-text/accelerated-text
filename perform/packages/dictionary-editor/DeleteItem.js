@@ -4,7 +4,11 @@ import PropTypes                from 'prop-types';
 
 import { composeQueries }       from '../graphql/';
 import { deleteDictionaryItem } from '../graphql/mutations.graphql';
-import { onConfirmDelete }      from '../ui-messages/';
+import {
+    Error,
+    Loading,
+    onConfirmDelete,
+}                               from '../ui-messages/';
 import { QA }                   from '../tests/constants';
 
 import S                        from './DeleteItem.sass';
@@ -20,23 +24,48 @@ export default composeQueries({
         onDelete:               PropTypes.func,
     };
 
-    onClick = () =>
+    state = {
+        deleteError:            null,
+        deleteLoading:          false,
+    };
+
+    onClick = () => {
+        this.setState({
+            deleteLoading:      true,
+        });
+
         onConfirmDelete(() =>
             this.props.deleteDictionaryItem({
                 refetchQueries:     [ 'dictionary' ],
                 variables: {
                     id:             this.props.itemId,
                 },
-            }).then( this.props.onDelete )
+            }).then( mutationResult => {
+                this.setState({
+                    deleteError:    mutationResult.error,
+                    deleteLoading:  false,
+                });
+                this.props.onDelete();
+            })
         );
+    };
 
-    render({ className }) {
+    render({ className }, { deleteError, deleteLoading }) {
         return (
             <button
                 children="🗑️ Delete this item"
                 className={ classnames( S.className, className, QA.DICT_ITEM_EDITOR_DELETE ) }
+                disabled={ deleteLoading }
                 onClick={ this.onClick }
-            />
+            >
+                { deleteLoading
+                    ? <Loading message="Deleting item..." />
+                    : '🗑️ Delete this item'
+                }
+                { deleteError
+                    && <Error message={ deleteError } />
+                }
+            </button>
         );
     }
 });

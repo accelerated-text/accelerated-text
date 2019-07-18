@@ -8,6 +8,10 @@ import {
 
 import { composeQueries }       from '../graphql/';
 import { dictionaryItem }       from '../graphql/queries.graphql';
+import {
+    Error,
+    Loading,
+}                               from '../ui-messages/';
 import { QA }                   from '../tests/constants';
 import Thesaurus                from '../thesaurus/Thesaurus';
 
@@ -21,7 +25,11 @@ export default composeQueries({
     dictionaryItem:             [ dictionaryItem, { id: 'itemId' }],
 })(({
     closeEditor,
-    dictionaryItem:             { dictionaryItem: item },
+    dictionaryItem:             {
+        dictionaryItem:         item,
+        error:                  itemError,
+        loading:                itemLoading,
+    },
 }) =>
     <Container className={ classnames( S.className, QA.DICT_ITEM_EDITOR ) }>
         <Section defaultSize={ 100 }>
@@ -40,11 +48,17 @@ export default composeQueries({
                 </div>
             </div>
             <div className={ S.main }>
-                { item &&
-                    <Phrases
+                { itemError
+                    ? <Error message={ itemError } />
+                : item
+                    ? <Phrases
                         itemId={ item.id }
                         phrases={ item.phrases }
                     />
+                    : null
+                }
+                { itemLoading
+                    && <Loading />
                 }
                 <DeleteItem
                     className={ S.deleteItem }

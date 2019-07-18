@@ -2,6 +2,7 @@ import classnames               from 'classnames';
 import { h, Component }         from 'preact';
 
 import { composeQueries }       from '../graphql/';
+import { Error, Loading }       from '../ui-messages/';
 import InlineEditor             from '../inline-editor/InlineEditor';
 import { QA }                   from '../tests/constants';
 import { updateDictionaryItem } from '../graphql/mutations.graphql';
@@ -13,7 +14,16 @@ export default composeQueries({
     updateDictionaryItem,
 })( class DictionaryEditorTitle extends Component {
 
-    onSubmit = name =>
+    state = {
+        updateError:            null,
+        updateLoading:          false,
+    };
+
+    onSubmit = name => {
+        this.setState({
+            updateLoading:      true,
+        });
+
         this.props.updateDictionaryItem({
             optimisticResponse: {
                 __typename:     'Mutation',
@@ -26,9 +36,15 @@ export default composeQueries({
                 id:             this.props.item.id,
                 name,
             },
-        });
+        }).then( mutationResult =>
+            this.setState({
+                updateError:    mutationResult.error,
+                updateLoading:  false,
+            })
+        );
+    };
 
-    render({ className, item }) {
+    render({ className, item }, { updateError, updateLoading }) {
         return (
             <InlineEditor
                 cancelClassName={ QA.DICT_ITEM_EDITOR_NAME_CANCEL }
@@ -38,7 +54,14 @@ export default composeQueries({
                 saveClassName={ QA.DICT_ITEM_EDITOR_NAME_SAVE }
                 text={ item.name }
                 textClassName={ classnames( S.text, QA.DICT_ITEM_EDITOR_NAME ) }
-            />
+            >
+                { updateError
+                    ? <Error message={ updateError } />
+                : updateLoading
+                    ? <Loading justIcon />
+                    : null
+                }
+            </InlineEditor>
         );
     }
 });

@@ -75,6 +75,7 @@ export default class InlineEditor extends Component {
 
     render({
         cancelClassName,
+        children,
         className,
         compact,
         deleteClassName,
@@ -120,7 +121,7 @@ export default class InlineEditor extends Component {
                     ]
                     : [
                         <div
-                            children={ text }
+                            children={ [ text, children ] }
                             className={ classnames( S.text, textClassName ) }
                             onClick={ this.onClickText }
                         />,
