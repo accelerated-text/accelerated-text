@@ -1,6 +1,6 @@
 import test                     from 'ava';
 
-import { DELETE_CONFIRM }       from '../ui-messages/';
+import { DELETE_CONFIRM }       from '../ui-messages/on-confirm-delete';
 
 import addDialogUtils           from './lib/add-dialog-utils';
 import {
@@ -180,7 +180,7 @@ test( 'can rename phrase', defaultResponsesPage, async t => {
 });
 
 
-test( 'can delete phrase', defaultResponsesPage, async t => {
+test( 'can delete phrase', defaultResponsesPage, addDialogUtils, async t => {
     t.timeout( 5e3 );
 
     const itemNum =         0;
@@ -197,6 +197,7 @@ test( 'can delete phrase', defaultResponsesPage, async t => {
     t.page.click(
         `${ SELECTORS.DICT_ITEM_EDITOR_PHRASE }:nth-child(${ phraseNum + 1 }) ${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_DELETE }`
     );
+    await t.acceptDialog( 'confirm', DELETE_CONFIRM );
     await t.graphqlApi.provideOnce(
         'deletePhrase',
         { id:               phrase.id },

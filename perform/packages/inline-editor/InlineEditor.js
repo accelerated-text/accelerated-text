@@ -6,6 +6,8 @@ import {
 }                           from 'preact';
 import PropTypes            from 'prop-types';
 
+import { onConfirmDelete }  from '../ui-messages/';
+
 import S                    from './InlineEditor.sass';
 
 
@@ -39,7 +41,7 @@ export default class InlineEditor extends Component {
         evt.preventDefault();
         evt.stopPropagation();
 
-        this.props.onDelete();
+        onConfirmDelete( this.props.onDelete );
     };
 
     onClickText = () => {
