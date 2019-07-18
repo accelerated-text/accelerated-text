@@ -24,6 +24,7 @@ test( 'editor opens and closes', defaultResponsesPage, async t => {
     const item =            await openItem( t, 0 );
 
     await t.findElement( SELECTORS.DICT_ITEM_EDITOR );
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_DELETE );
     t.is(
         await t.getElementText( SELECTORS.DICT_ITEM_EDITOR_NAME ),
         item.name,
@@ -32,6 +33,7 @@ test( 'editor opens and closes', defaultResponsesPage, async t => {
     await t.page.click( SELECTORS.DICT_ITEM_EDITOR_CLOSE );
     await t.notFindElement( SELECTORS.DICT_ITEM_EDITOR );
 });
+
 
 test( 'can rename item', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
@@ -67,7 +69,7 @@ test( 'can rename item', defaultResponsesPage, async t => {
     );
 });
 
-/*
+
 test( 'can cancel rename item', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
@@ -90,6 +92,7 @@ test( 'can cancel rename item', defaultResponsesPage, async t => {
     );
 });
 
+
 test( 'can delete item', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
@@ -99,11 +102,13 @@ test( 'can delete item', defaultResponsesPage, async t => {
         ...DICTIONARY,
         dictionary: {
             ...DICTIONARY.dictionary,
-            items:          DICTIONARY.dictionary.items.splice( num, 1 ),
+            items:          [ ...DICTIONARY.dictionary.items ].splice( num, 1 ),
         },
     };
 
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_DELETE );
     t.page.click( SELECTORS.DICT_ITEM_EDITOR_DELETE );
+    await t.acceptDialog( 'confirm', 'Are you sure you want to delete this item?' );
     await t.graphqlApi.provideOnce(
         'deleteDictionaryItem',
         { id:   item.id },
@@ -115,10 +120,10 @@ test( 'can delete item', defaultResponsesPage, async t => {
         { data: updatedDictionary },
     );
 
-    await t.notFindElement( SELECTORS.DICT_ITEM_EDITOR_NAME );
     await areDictionaryItemsVisible( t, updatedDictionary.dictionary.items );
+    await t.notFindElement( SELECTORS.DICT_ITEM_EDITOR_NAME );
 });
-*/
+
 
 test( 'phrases visible', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
@@ -133,6 +138,7 @@ test( 'phrases visible', defaultResponsesPage, async t => {
     await arePhrasesVisible( t, item1.phrases );
     await t.notFindElement( `${ SELECTORS.DICT_ITEM_EDITOR_PHRASE_DEFAULT_USAGE } ${ SELECTORS.USAGE_TD_DONT_CARE }` );
 });
+
 
 test.todo( 'can rename phrase' );
 test.todo( 'can delete phrase' );
