@@ -15,15 +15,28 @@ export default class UsageTd extends Component {
     render({
         className,
         defaultUsage,
+        error,
+        loading,
         onChange,
         usage,
     }) {
         return (
-            <td className={ classnames( S.className, S[usage], className, QA.USAGE_TD, QA[usage]) }>
+            <td
+                className={ classnames(
+                    S.className,
+                    S[usage],
+                    error && S.error,
+                    loading && S.loading,
+                    className,
+                    QA.USAGE_TD,
+                    QA[usage],
+                ) }
+                title={ error || ( loading && 'Saving...' ) }
+            >
                 <span
                     children="✔️"
                     className={ classnames( S.YES, QA.USAGE_TD_YES ) }
-                    onClick={ this.onClickYes }
+                    onClick={ !loading ? this.onClickYes : null }
                 />
                 {
                     defaultUsage
@@ -31,13 +44,13 @@ export default class UsageTd extends Component {
                         : <span
                             children="⚪️"
                             className={ classnames( S.DONT_CARE, QA.USAGE_TD_DONT_CARE ) }
-                            onClick={ this.onClickDontCare }
+                            onClick={ !loading ? this.onClickDontCare : null }
                         />
                 }
                 <span
                     children="❌"
                     className={ classnames( S.NO, QA.USAGE_TD_NO ) }
-                    onClick={ this.onClickNo }
+                    onClick={ !loading ? this.onClickNo : null }
                 />
             </td>
         );

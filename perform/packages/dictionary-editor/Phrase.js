@@ -8,27 +8,34 @@ import { QA }               from '../tests/constants';
 import sortFlagUsage        from '../dictionary/sort-reader-flag-usage';
 import {
     updatePhraseDefaultUsage,
-    updateReaderFlagUsage,
 }   from '../graphql/mutations.graphql';
 import UsageTd              from '../usage/UsageTd';
 
+import FlagUsage            from './PhraseReaderFlagUsage';
 import PhraseText           from './PhraseText';
 
 
 export default composeQueries({
     updatePhraseDefaultUsage,
-    updateReaderFlagUsage,
 })( class DictionaryEditorPhrase extends Component {
 
     static propTypes = {
         className:                  PropTypes.string,
         phrase:                     PropTypes.object.isRequired,
         updatePhraseDefaultUsage:   PropTypes.func.isRequired,
-        updateReaderFlagUsage:      PropTypes.func.isRequired,
+    };
+
+    state = {
+        upDefaultError:             null,
+        upDefaultLoading:           false,
     };
 
     onChangeDefaultUsage = defaultUsage => {
         const { id } =      this.props.phrase;
+
+        this.setState({
+            upDefaultLoading:       true,
+        });
 
         this.props.updatePhraseDefaultUsage({
             variables: {
@@ -42,31 +49,21 @@ export default composeQueries({
                     defaultUsage,
                 },
             },
-        });
-    };
-
-    onChangeFlagUsage = flagUsage => usage => {
-        const { id } =      flagUsage;
-
-        this.props.updateReaderFlagUsage({
-            variables: {
-                id,
-                usage,
-            },
-            optimisticResponse: {
-                __typename:         'Mutation',
-                updateReaderFlagUsage: {
-                    ...flagUsage,
-                    usage,
-                },
-            },
-        });
+        }).then( mutationResult =>
+            this.setState({
+                upDefaultError:     mutationResult.error,
+                upDefaultLoading:   false,
+            })
+        );
     };
 
     render({
         className,
         phrase,
         readerFlags,
+    }, {
+        upDefaultError,
+        upDefaultLoading,
     }) {
         return (
             <tr className={ classnames( QA.DICT_ITEM_EDITOR_PHRASE, className ) }>
@@ -76,19 +73,16 @@ export default composeQueries({
                 <UsageTd
                     className={ QA.DICT_ITEM_EDITOR_PHRASE_DEFAULT_USAGE }
                     defaultUsage
+                    error={ upDefaultError }
+                    loading={ upDefaultLoading }
                     onChange={ this.onChangeDefaultUsage }
                     usage={ phrase.defaultUsage }
                 />
                 { sortFlagUsage( readerFlags, phrase.readerFlagUsage )
                     .map( flagUsage =>
                         flagUsage
-                            ? <UsageTd
-                                className={ QA.DICT_ITEM_EDITOR_PHRASE_RFLAG_USAGE }
-                                key={ flagUsage.id }
-                                onChange={ this.onChangeFlagUsage( flagUsage ) }
-                                usage={ flagUsage.usage }
-                            />
-                            : <td>
+                            ? <FlagUsage key={ flagUsage.id } flagUsage={ flagUsage } />
+                            : <td key={ flagUsage.id }>
                                 <Error
                                     justIcon
                                     message="No usage data found for the flag. Try reloading the app."
