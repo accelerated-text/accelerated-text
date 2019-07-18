@@ -127,6 +127,26 @@ test( 'can delete item', defaultResponsesPage, addDialogUtils, async t => {
 });
 
 
+test( 'can cancel item delete', defaultResponsesPage, addDialogUtils, async t => {
+    t.timeout( 5e3 );
+
+    const item =            await openItem( t, 0 );
+
+    t.is(
+        await t.getElementText( SELECTORS.DICT_ITEM_EDITOR_NAME ),
+        item.name,
+    );
+    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_DELETE );
+    t.page.click( SELECTORS.DICT_ITEM_EDITOR_DELETE );
+    await t.dismissDialog( 'confirm', DELETE_CONFIRM );
+
+    t.is(
+        await t.getElementText( SELECTORS.DICT_ITEM_EDITOR_NAME ),
+        item.name,
+    );
+});
+
+
 test( 'phrases visible', defaultResponsesPage, async t => {
     t.timeout( 5e3 );
 
@@ -205,6 +225,20 @@ test( 'can delete phrase', defaultResponsesPage, addDialogUtils, async t => {
     );
 
     await arePhrasesVisible( t, updatedItem.phrases );
+});
+
+
+test( 'can cancel phrase delete', defaultResponsesPage, addDialogUtils, async t => {
+    t.timeout( 5e3 );
+
+    const item =            await openItem( t, 0 );
+
+    await arePhrasesVisible( t, item.phrases );
+
+    t.page.click( SELECTORS.DICT_ITEM_EDITOR_PHRASE_DELETE );
+    await t.dismissDialog( 'confirm', DELETE_CONFIRM );
+
+    await arePhrasesVisible( t, item.phrases );
 });
 
 
