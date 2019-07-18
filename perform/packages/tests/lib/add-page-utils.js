@@ -1,7 +1,5 @@
-const DEFAULT_TIMEOUT = 1e3;
-
 const SELECTOR_WAIT_OPTIONS = {
-    timeout:            DEFAULT_TIMEOUT,
+    timeout:            1e3,
 };
 
 
@@ -16,36 +14,6 @@ export default ( t, run, ...args ) =>
                 });
                 await page.keyboard.press( 'Backspace' );
             },
-
-            acceptDialog: ( type, message, acceptText, page = t.page ) =>
-                Promise.race([
-                    new Promise(( resolve, reject ) =>
-                        setTimeout(
-                            () => reject( Error( `Timeout while waiting for dialog ${ type }(${ message }).` )),
-                            DEFAULT_TIMEOUT
-                        )
-                    ),
-                    new Promise(( resolve, reject ) =>
-                        page.once( 'dialog', dialog => {
-                            const dialogType =      dialog.type();
-                            const dialogMessage =   dialog.message();
-                            const isExpected = (
-                                dialogType === type
-                                && (
-                                    typeof message !== 'string'
-                                    || dialogMessage === message
-                                )
-                            );
-                            if( isExpected ) {
-                                resolve( dialog.accept( acceptText ));
-                            } else {
-                                reject( Error(
-                                    `Unexpected dialog. Expected: ${ type }("${ message }"). Got: ${ dialogType }("${ dialogMessage }").`,
-                                ));
-                            }
-                        })
-                    ),
-                ]),
 
             findElement: ( selector, page = t.page ) =>
                 t.notThrowsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),

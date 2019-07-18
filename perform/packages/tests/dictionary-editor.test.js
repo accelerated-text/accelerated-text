@@ -1,5 +1,6 @@
 import test                     from 'ava';
 
+import addDialogUtils           from './lib/add-dialog-utils';
 import {
     areDictionaryItemsVisible,
 }                               from './lib/dictionary-utils';
@@ -93,7 +94,7 @@ test( 'can cancel rename item', defaultResponsesPage, async t => {
 });
 
 
-test( 'can delete item', defaultResponsesPage, async t => {
+test( 'can delete item', defaultResponsesPage, addDialogUtils, async t => {
     t.timeout( 5e3 );
 
     const num =             0;
