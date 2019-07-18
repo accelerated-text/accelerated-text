@@ -2,8 +2,6 @@
   (:require [clojure.tools.logging :as log]
             [clojure.string :as string]))
 
-(defn member->schema [member] member)
-
 (defn role->schema
   [role]
   {:type "TEXT"
@@ -17,6 +15,6 @@
 (defn verbclass->schema
   [verbclass]
   {:id (:id verbclass)
-   :members (map member->schema (:members verbclass))
+   :dictionaryItem (:dictionaryItem verbclass)
    :roles (map role->schema (:thematic-roles verbclass))
    :examples (flatten (map frame->examples (:frames verbclass)))})
