@@ -51,32 +51,34 @@ export default ( t, run, ...args ) =>
                 t.notThrowsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
 
             getElementAttribute: ( selector, attributeName, page = t.page ) =>
-                page.evaluate(
-                    ( selector, attributeName ) =>
-                        document.querySelector( selector ).getAttribute( attributeName ),
-                    selector,
-                    attributeName,
-                ),
+                t.findElement( selector, page )
+                    .then(() => page.$eval(
+                        selector,
+                        ( el, attributeName ) => el.getAttribute( attributeName ),
+                        attributeName,
+                    )),
 
             getElementProperty: ( selector, propertyName, page = t.page ) =>
-                page.evaluate(
-                    ( selector, propertyName ) =>
-                        document.querySelector( selector )[propertyName],
-                    selector,
-                    propertyName,
-                ),
+                t.findElement( selector, page )
+                    .then(() => page.$eval(
+                        selector,
+                        ( el, propertyName ) => el[propertyName],
+                        propertyName,
+                    )),
 
             getElementText: ( selector, page = t.page ) =>
-                page.evaluate(
-                    selector => document.querySelector( selector ).innerText,
-                    selector,
-                ),
+                t.findElement( selector, page )
+                    .then(() => page.$eval(
+                        selector,
+                        el => el.innerText,
+                    )),
 
             getElementValue: ( selector, page = t.page ) =>
-                page.evaluate(
-                    selector => document.querySelector( selector ).value,
-                    selector,
-                ),
+                t.findElement( selector, page )
+                    .then(() => page.$eval(
+                        selector,
+                        el => el.value,
+                    )),
 
             notFindElement: ( selector, page = t.page ) =>
                 t.throwsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
