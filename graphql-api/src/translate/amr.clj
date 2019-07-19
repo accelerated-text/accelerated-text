@@ -22,4 +22,5 @@
   {:id (:id verbclass)
    :dictionaryItem (:dictionary-item-id verbclass)
    :roles (map role->schema (:thematic-roles verbclass))
-   :helpText (examples->helpText (flatten (map frame->examples (:frames verbclass))))})
+   :helpText (examples->helpText (flatten (map frame->examples (:frames verbclass))))
+   :label (or (:label verbclass) (:id verbclass))})
