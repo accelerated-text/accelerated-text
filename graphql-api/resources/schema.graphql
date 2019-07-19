@@ -77,11 +77,9 @@ type Concept {
      examples:          [ String! ]
 }
 
-type ConceptResults {
-     items:           [ Concept! ]
-     offset:          Int!
-     limit:           Int
-     totalCount:      Int!
+type Concepts {
+     id:                ID!
+     concepts:          [ Concept! ]
 }
 
 ### Thesaurus ------------------------------------------------------------------
@@ -227,7 +225,7 @@ type Query {
     ): DocumentPlan
 
    ### AMR
-   concepts:              ConceptResults!
+   concepts:              Concepts!
    concept(
         id:                  ID!
    ): Concept

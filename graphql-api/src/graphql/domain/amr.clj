@@ -5,9 +5,9 @@
             [clojure.tools.logging :as log]))
 
 (defn list-verbclasses [_ _ _]
-  (->> (amr-entity/list-verbclasses)
-       (map amr-translate/verbclass->schema)
-       (translate-core/paginated-response)))
+  {:id "concepts"
+   :concepts (map amr-translate/verbclass->schema
+                  (amr-entity/list-verbclasses))})
 
 (defn get-verbclass [_ {:keys [id]} _]
   (amr-translate/verbclass->schema
