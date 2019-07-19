@@ -5,7 +5,8 @@
             [nlg.api.lexicon :as lexicon]
             [nlg.api.dictionary :as dictionary-api]
             [nlg.generator.realizer :as realizer]
-            [data-access.entities.amr :as amr-entity]))
+            [data-access.entities.amr :as amr-entity]
+            [data-access.entities.dictionary :as dictionary-entity]))
 
 (def parse-cnt (atom 0))
 (defn reset-parse-cnt [] (reset! parse-cnt 0))
@@ -133,7 +134,7 @@
   [node attrs ctx]
   (let [idx (swap! parse-cnt inc)
         vc (amr-entity/get-verbclass (node :id))
-        members (amr-entity/get-members (vc :members))
+        members (dictionary-entity/get-dictionary-item (vc :dictionary-item-id))
         children (map #(parse-node % (assoc attrs :amr true) ctx) (node :children))
         _ (log/spyf "AMR result: %s" (:amr-members (ops/render-amr {:vc vc
                                                                     :members members})))
