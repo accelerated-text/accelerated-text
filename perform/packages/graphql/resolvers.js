@@ -31,11 +31,52 @@ export const User = () => ({
 });
 
 
+export const ThematicRole = ( fieldLabel, fieldType ) => ({
+    __typename:     'ThematicRole',
+    id:             fieldLabel,
+    fieldLabel,
+    fieldType,
+});
+
+
+export const Concept = ( label, dictItemName, roles ) => ({
+    __typename:     'Concept',
+    id:             label,
+    label,
+    helpText:       'Some *help* here.',
+    dictionaryItem: {
+        __typename: 'DictionaryItem',
+        id:         dictItemName,
+        name:       dictItemName,
+    },
+    roles: Object
+        .keys( roles )
+        .map( fieldLabel => ThematicRole( fieldLabel, roles[fieldLabel])),
+});
+
+
 export default {
     Organization,
     User,
     Mutation:               {},
     Query: {
+
+        concepts: () => ({
+            __typename:     'Concepts',
+            id:             'Concepts-id',
+            concepts: [
+                Concept( 'See', 'sees', {
+                    agent:      'TEXT',
+                    coAgent:    'TEXT',
+                }),
+                Concept( 'Arrive', 'arrived', {
+                    agent:      'TEXT',
+                    atPlace:    'TEXT',
+                    onTime:     'TEXT',
+                }),
+            ],
+        }),
+
         me:                 User,
 
         searchThesaurus: ( _, { query }) => {

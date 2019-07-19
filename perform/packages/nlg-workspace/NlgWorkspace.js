@@ -4,6 +4,7 @@ import PropTypes            from 'prop-types';
 
 import DocumentPlan         from '../nlg-blocks/Document-plan';
 import DropTarget           from '../drag-in-blocks/DropTarget';
+import provideAmrBlocks     from '../amr-concepts/provide-amr-blocks';
 import { provideBlocks }    from '../nlg-blocks/';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 
@@ -19,6 +20,7 @@ const log =                 debug( 'NlgWorkspace' );
 export default class NlgWorkspace extends Component {
 
     static propTypes = {
+        amrConcepts:        PropTypes.array,
         cellNames:          PropTypes.array,
         onChangeWorkspace:  PropTypes.func,
         workspaceXml:       PropTypes.string,
@@ -72,6 +74,7 @@ export default class NlgWorkspace extends Component {
 
         blockSvgOverride( Blockly );
         provideBlocks( Blockly );
+        provideAmrBlocks( Blockly, this.props.amrConcepts );
     };
 
     onWorkspace = workspace => {
