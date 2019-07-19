@@ -39,3 +39,24 @@ fragment dictionaryItemFields on DictionaryItem {
     ...phraseFields
   }
 }
+
+### AMR ------------------------------------------------------------------------
+
+fragment thematicRoleFields on ThematicRole {
+  id
+  fieldLabel
+  fieldType
+}
+
+fragment conceptFields on Concept {
+  id
+  label
+  helpText
+  dictionaryItem {
+    id
+    name
+  }
+  roles {
+    ...thematicRoleFields
+  }
+}
