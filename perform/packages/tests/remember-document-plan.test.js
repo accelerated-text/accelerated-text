@@ -8,6 +8,7 @@ import debugConsole         from './lib/debug-console';
 import defaultResponses     from './lib/default-responses';
 import DOCUMENT_PLAN_LIST   from './data/document-plan-list';
 import noRecords            from './lib/no-records';
+import withBrowser          from './lib/with-browser';
 import withGraphqlApi       from './lib/with-graphql-api';
 import withOnRequest        from './lib/with-on-request';
 import withNlgApi           from './lib/with-nlg-api';
@@ -18,6 +19,7 @@ import { SELECTORS }        from './constants';
 
 test(
     'should open the remembered document plan',
+    withBrowser,
     withPage,
     debugConsole,
     addPageUtils,
