@@ -20,7 +20,6 @@ import { SELECTORS }            from './constants';
 
 
 test( 'editor opens and closes', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     await t.notFindElement( SELECTORS.DICT_ITEM_EDITOR );
 
@@ -148,7 +147,6 @@ test( 'can cancel item delete', defaultResponsesPage, addDialogUtils, async t =>
 
 
 test( 'phrases visible', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     const item0 =           await openItem( t, 0 );
 
@@ -243,7 +241,6 @@ test( 'can cancel phrase delete', defaultResponsesPage, addDialogUtils, async t 
 
 
 test( 'add phrase works', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     const defaultUsage =    'YES';
     const text =            'zzzzzzz';
@@ -285,7 +282,6 @@ test( 'add phrase works', defaultResponsesPage, async t => {
 
 
 test( 'changing defaultUsage works', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     const item =            await openItem( t, 0 );
     const phrase =          item.phrases[0];
@@ -313,7 +309,6 @@ test( 'changing defaultUsage works', defaultResponsesPage, async t => {
 
 
 test( 'changing readerFlagUsage works', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     const item =            await openItem( t, 1 );
     const phrase =          item.phrases[0];
