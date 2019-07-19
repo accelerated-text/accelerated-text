@@ -60,12 +60,6 @@ enum PartOfSpeech {
 
 ### AMR ------------------------------------------------------------------------
 
-type Member {
-     id:                ID!
-     name:              String!
-     grouping:          String
-}
-
 type ThematicRole {
      id:                ID!
      type:              BlocklyFieldType!
