@@ -9,7 +9,7 @@ import S                        from './ConceptRow.sass';
 
 
 export default ({ concept }) =>
-    <tr className={ classnames( S.className, QA.DICTIONARY_ITEM ) }>
+    <tr className={ classnames( S.className, QA.CONCEPT ) }>
         <td className={ S.dragInBlock }>
             { concept &&
                 <DragInBlock
