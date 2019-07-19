@@ -16,7 +16,7 @@ const CHROME_CI_ARGS = [
 export default async ( t, run, ...args ) => {
 
     const browser =     await puppeteer.launch({
-        args:           process.env.CI === 'true' ? CHROME_CI_ARGS : [],
+        args:           CHROME_CI_ARGS,
         defaultViewport: {
             width:      1024,
             height:     768,
