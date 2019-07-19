@@ -2,7 +2,7 @@ import test                     from 'ava';
 
 import { DELETE_CONFIRM }       from '../ui-messages/on-confirm-delete';
 
-import addDialogUtils           from './lib/add-dialog-utils';
+import withPageDialogs          from './lib/with-page-dialogs';
 import {
     areDictionaryItemsVisible,
 }                               from './lib/dictionary-utils';
@@ -94,7 +94,7 @@ test( 'can cancel rename item', defaultResponsesPage, async t => {
 });
 
 
-test( 'can delete item', defaultResponsesPage, addDialogUtils, async t => {
+test( 'can delete item', defaultResponsesPage, withPageDialogs, async t => {
     t.timeout( 5e3 );
 
     const num =             0;
@@ -126,7 +126,7 @@ test( 'can delete item', defaultResponsesPage, addDialogUtils, async t => {
 });
 
 
-test( 'can cancel item delete', defaultResponsesPage, addDialogUtils, async t => {
+test( 'can cancel item delete', defaultResponsesPage, withPageDialogs, async t => {
     t.timeout( 5e3 );
 
     const item =            await openItem( t, 0 );
@@ -198,7 +198,7 @@ test( 'can rename phrase', defaultResponsesPage, async t => {
 });
 
 
-test( 'can delete phrase', defaultResponsesPage, addDialogUtils, async t => {
+test( 'can delete phrase', defaultResponsesPage, withPageDialogs, async t => {
     t.timeout( 5e3 );
 
     const itemNum =         0;
@@ -226,7 +226,7 @@ test( 'can delete phrase', defaultResponsesPage, addDialogUtils, async t => {
 });
 
 
-test( 'can cancel phrase delete', defaultResponsesPage, addDialogUtils, async t => {
+test( 'can cancel phrase delete', defaultResponsesPage, withPageDialogs, async t => {
     t.timeout( 5e3 );
 
     const item =            await openItem( t, 0 );
