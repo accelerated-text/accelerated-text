@@ -4,7 +4,7 @@
 
 (defn role->schema
   [role]
-  {:type "TEXT"
+  {:type "STRING"
    :id (string/lower-case (:type role))
    :label (:type role)})
 

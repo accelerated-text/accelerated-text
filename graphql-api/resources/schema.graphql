@@ -11,9 +11,11 @@ enum Usage {
     DONT_CARE
 }
 
-enum BlocklyElementType {
-     TEXT
-     ARRAY
+enum BlocklyFieldType {
+    BOOLEAN
+    DEFINITION
+    LIST
+    STRING
 }
 
 #   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
@@ -66,7 +68,7 @@ type Member {
 
 type ThematicRole {
      id:                ID!
-     type:              BlocklyElementType!
+     type:              BlocklyFieldType!
      label:             String!
 }
 
