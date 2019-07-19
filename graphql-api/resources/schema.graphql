@@ -74,7 +74,7 @@ type Concept {
      id:                ID!
      dictionaryItem:    DictionaryItem!
      roles:             [ ThematicRole! ]
-     examples:          [ String! ]
+     helpText:          String!
 }
 
 type Concepts {

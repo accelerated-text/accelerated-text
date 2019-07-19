@@ -12,10 +12,14 @@
   [frame]
   (:examples frame))
 
+(defn examples->helpText
+  [examples]
+  (string/join "\n" examples))
+
 (defn verbclass->schema
   [verbclass]
   (log/debugf "Verbclass: %s" verbclass)
   {:id (:id verbclass)
    :dictionaryItem (:dictionary-item-id verbclass)
    :roles (map role->schema (:thematic-roles verbclass))
-   :examples (flatten (map frame->examples (:frames verbclass)))})
+   :helpText (examples->helpText (flatten (map frame->examples (:frames verbclass))))})
