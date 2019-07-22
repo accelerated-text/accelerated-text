@@ -1,3 +1,6 @@
+import * as NlgTypes        from '../nlg-blocks/types';
+
+
 const SYNONYMS = {
     examine:       [ 'audit', 'check', 'check out', 'consider', 'criticize', 'delve into', 'explore', 'inspect', 'investigate', 'ponder', 'pore over', 'probe', 'read', 'research', 'review', 'scan', 'screen', 'scrutinize', 'study', 'survey', 'try', 'vet', 'view', 'appraise', 'assay', 'canvass', 'case', 'eye', 'finger', 'frisk', 'gun', 'inquire', 'parse', 'peruse', 'prospect', 'prove', 'reconnoiter', 'sift', 'sweep', 'weigh', 'winnow', 'chew over', 'dig into', 'go into', 'go over', 'go through', 'look over', 'look see', 'pat down', 'pick at', 'scope', 'scrutinate', 'search into', 'size up', 'take stock of', 'turn over' ],
     look:           [ 'consider', 'glance', 'notice', 'peer', 'read', 'see', 'stare', 'study', 'view', 'watch', 'admire', 'attend', 'behold', 'beware', 'contemplate', 'eye', 'flash', 'focus', 'gape', 'gawk', 'gaze', 'glower', 'goggle', 'heed', 'inspect', 'mark', 'mind', 'note', 'observe', 'ogle', 'peep', 'regard', 'rubberneck', 'scan', 'scout', 'scrutinize', 'spot', 'spy', 'survey', 'tend', 'feast one\'s eyes', 'get a load of', 'pore over', 'take a gander', 'take in the sights' ],
@@ -66,13 +69,13 @@ export default {
             id:             'Concepts-id',
             concepts: [
                 Concept( 'See', 'sees', {
-                    agent:      'TEXT',
-                    coAgent:    'TEXT',
+                    agent:      NlgTypes.TEXT,
+                    coAgent:    NlgTypes.TEXT,
                 }),
                 Concept( 'Arrive', 'arrived', {
-                    agent:      'TEXT',
-                    atPlace:    'TEXT',
-                    onTime:     'TEXT',
+                    agent:      NlgTypes.TEXT,
+                    atPlace:    NlgTypes.TEXT,
+                    onTime:     NlgTypes.TEXT,
                 }),
             ],
         }),

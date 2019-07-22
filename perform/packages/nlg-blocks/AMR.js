@@ -27,10 +27,10 @@ export default Block({
         this.appendDummyInput( 'concept_label' )
             .insertFieldAt( 0, this.concept_label );
 
-        appendLabeledValue( this, 'dictionaryItem', 'lexicon' );
+        appendLabeledValue( this, 'dictionaryItem', 'lexicon', T.TEXT );
 
         this.roles.forEach( role =>
-            appendLabeledValue( this, role.id, role.fieldLabel )
+            appendLabeledValue( this, role.id, role.fieldLabel, role.fieldType )
         );
     },
 
