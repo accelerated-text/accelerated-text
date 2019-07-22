@@ -16,6 +16,17 @@ export default Block({
     json: {
         colour:             RED,
         output:             T.STRING,
+        message0:           '%1',
+        args0: [{
+            type:           'input_dummy',
+            name:           'concept_label',
+        }],
+        message1:           'lexicon %1',
+        args1: [{
+            type:           'input_value',
+            name:           'dictionaryItem',
+            check:          T.TEXT,
+        }],
     },
 
     domToMutation( xmlElement ) {
@@ -24,10 +35,8 @@ export default Block({
         this.concept_label =    xmlElement.getAttribute( 'concept_label' );
         this.roles =            JSON.parse( xmlElement.getAttribute( 'roles' ));
 
-        this.appendDummyInput( 'concept_label' )
+        this.getInput( 'concept_label' )
             .insertFieldAt( 0, this.concept_label );
-
-        appendLabeledValue( this, 'dictionaryItem', 'lexicon', T.TEXT );
 
         this.roles.forEach( role =>
             appendLabeledValue( this, role.id, role.fieldLabel, role.fieldType )
@@ -47,16 +56,16 @@ export default Block({
 
     toNlgJson() {
 
-        const json =        toNlgJson( this );
+        const json =            toNlgJson( this );
 
         return {
-            type:           json.type,
-            srcId:          json.srcId,
-            conceptId:      this.concept_id,
-            dictionaryItem: json.dictionaryItem,
+            type:               json.type,
+            srcId:              json.srcId,
+            conceptId:          this.concept_id,
+            dictionaryItem:     json.dictionaryItem,
             roles: this.roles.map( role => ({
-                name:       role.id,
-                children:   [ json[role.id] ],
+                name:           role.id,
+                children:       [ json[role.id] ],
             })),
         };
     },

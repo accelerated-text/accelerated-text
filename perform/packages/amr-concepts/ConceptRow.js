@@ -1,9 +1,9 @@
 import classnames               from 'classnames';
 import { h }                    from 'preact';
 
-import DragInBlock              from '../drag-in-blocks/DragInBlock';
 import { QA }                   from '../tests/constants';
 
+import ConceptDragIn            from './ConceptDragInBlock';
 import S                        from './ConceptRow.sass';
 
 
@@ -11,16 +11,7 @@ export default ({ concept }) =>
     <tr className={ classnames( S.className, QA.CONCEPT ) }>
         <td className={ S.dragInBlock }>
             { concept &&
-                <DragInBlock
-                    color={ S.dragInColor }
-                    mutation={{
-                        concept_id:     concept.id,
-                        concept_label:  concept.label,
-                        roles:          JSON.stringify( concept.roles ),
-                    }}
-                    type="AMR"
-                    width={ 36 }
-                />
+                <ConceptDragIn concept={ concept } />
             }
         </td>
         <td
