@@ -7,7 +7,7 @@ import getBlockType         from './get-block-type';
 
 const defineArg = argsOffset => ( fields, role, i ) =>
     Object.assign( fields, {
-        [`message${ i + argsOffset }`]:  `${ role.fieldLabel } %1`,
+        [`message${ i + argsOffset }`]: `${ role.fieldLabel } %1`,
         [`args${ i + argsOffset }`]: [{
             type:           'input_value',
             name:           role.id,
