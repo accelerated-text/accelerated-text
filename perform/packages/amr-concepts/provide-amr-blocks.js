@@ -5,13 +5,10 @@ import * as T               from '../nlg-blocks/types';
 import getBlockType         from './get-block-type';
 
 
-const FIELDS_OFFSET =       2;
-
-
-const defineArg = ( fields, role, i ) =>
+const defineArg = argsOffset => ( fields, role, i ) =>
     Object.assign( fields, {
-        [`message${ i + FIELDS_OFFSET }`]:  `${ role.fieldLabel } %1`,
-        [`args${ i + FIELDS_OFFSET }`]: [{
+        [`message${ i + argsOffset }`]:  `${ role.fieldLabel } %1`,
+        [`args${ i + argsOffset }`]: [{
             type:           'input_value',
             name:           role.id,
             check:          T.TEXT,     /// TODO: implement type check
@@ -31,7 +28,7 @@ const defineBlock = concept =>
                 name:       'dictionaryItem',
                 check:      T.TEXT,
             }],
-            ...concept.roles.reduce( defineArg, {}),
+            ...concept.roles.reduce( defineArg( 2 ), {}),
         },
     });
 
