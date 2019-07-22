@@ -20,7 +20,8 @@ export default ({ concept }) =>
         type={ AmrBlock.type }
         values={{
             dictionaryItem: BlockComponent({
-                fields: {
+                mutation: {
+                    id:     concept.dictionaryItem.id,
                     name:   concept.dictionaryItem.name,
                 },
                 type:       DictionaryItemBlock.type,
