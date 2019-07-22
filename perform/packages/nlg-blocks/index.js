@@ -1,4 +1,5 @@
 const blocks = [
+    require( './AMR' ),
     require( './And-or' ),
     require( './Cell' ),
     require( './Define-var' ),

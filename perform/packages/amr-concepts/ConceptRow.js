@@ -4,7 +4,6 @@ import { h }                    from 'preact';
 import DragInBlock              from '../drag-in-blocks/DragInBlock';
 import { QA }                   from '../tests/constants';
 
-import getBlockType             from './get-block-type';
 import S                        from './ConceptRow.sass';
 
 
@@ -14,7 +13,11 @@ export default ({ concept }) =>
             { concept &&
                 <DragInBlock
                     color={ S.dragInColor }
-                    type={ getBlockType( concept ) }
+                    mutation={{
+                        concept_label:  concept.label,
+                        roles:          JSON.stringify( concept.roles ),
+                    }}
+                    type="AMR"
                     width={ 36 }
                 />
             }

@@ -4,7 +4,6 @@ import PropTypes            from 'prop-types';
 
 import DocumentPlan         from '../nlg-blocks/Document-plan';
 import DropTarget           from '../drag-in-blocks/DropTarget';
-import provideAmrBlocks     from '../amr-concepts/provide-amr-blocks';
 import { provideBlocks }    from '../nlg-blocks/';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 
@@ -20,10 +19,13 @@ const log =                 debug( 'NlgWorkspace' );
 export default class NlgWorkspace extends Component {
 
     static propTypes = {
-        amrConcepts:        PropTypes.array,
         cellNames:          PropTypes.array,
         onChangeWorkspace:  PropTypes.func,
         workspaceXml:       PropTypes.string,
+    };
+
+    state = {
+        blocklyLoaded:      false,  /// This is needed to trigger a render()
     };
 
     Blockly =               null;
@@ -31,6 +33,7 @@ export default class NlgWorkspace extends Component {
 
     onChangeWorkspace = evt => {
         log( 'onChangeWorkspace', evt && evt.type, evt );
+
         if( this.props.onChangeWorkspace ) {
 
             const {
@@ -65,8 +68,12 @@ export default class NlgWorkspace extends Component {
     }
 
     onBlockly = Blockly => {
+        log( 'onBlockly', Blockly );
 
         this.Blockly =      Blockly;
+        this.setState({
+            blocklyLoaded:  true,
+        });
 
         /// Set Style for the workspace
         Blockly.HSV_SATURATION =    0.55;
@@ -74,10 +81,11 @@ export default class NlgWorkspace extends Component {
 
         blockSvgOverride( Blockly );
         provideBlocks( Blockly );
-        provideAmrBlocks( Blockly, this.props.amrConcepts );
     };
 
     onWorkspace = workspace => {
+        log( 'onWorkspace', workspace );
+
         const {
             Blockly:    { Events, Xml },
             props:      { workspaceXml },
@@ -110,6 +118,8 @@ export default class NlgWorkspace extends Component {
     }
 
     componentWillReceiveProps( nextProps ) {
+        log( 'componentWillReceiveProps', nextProps, this.props );
+
         if( this.workspace && nextProps.cellNames !== this.props.cellNames ) {
             setCellOptions( this.workspace, nextProps.cellNames );
         }

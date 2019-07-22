@@ -8,7 +8,7 @@ import {
     getInputsByPrefix,
     getValueInputs,
     orderInputs,
-} from '../blockly-helpers';
+} from '../blockly-helpers/';
 import { CYAN }             from '../styles/blockly-colors';
 
 import Block                from './Block';

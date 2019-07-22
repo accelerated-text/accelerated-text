@@ -2,8 +2,6 @@ import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
-import { composeQueries }   from '../graphql/';
-import { concepts }         from '../graphql/queries.graphql';
 import Error                from '../ui-messages/Error';
 import { findFileByPlan }   from '../data-samples/functions';
 import getOpenedPlan        from '../plan-list/get-opened-plan';
@@ -16,16 +14,13 @@ import Workspace            from '../nlg-workspace/NlgWorkspace';
 import S                    from './PlanEditor.sass';
 
 
-export default composeQueries({
-    concepts,
-})( useStores([
+export default useStores([
     'dataSamples',
     'documentPlans',
     'planList',
 ])( class PlanEditor extends Component {
 
     static propTypes = {
-        concepts:           PropTypes.object.isRequired,
         dataSamples:        PropTypes.object.isRequired,
         documentPlans:      PropTypes.object.isRequired,
         planList:           PropTypes.object.isRequired,
@@ -47,11 +42,6 @@ export default composeQueries({
 
     render({
         className,
-        concepts: {
-            concepts:       conceptsResult,
-            error:          conceptsError,
-            loading:        conceptsLoading,
-        },
         dataSamples,
         planList: {
             getListError,
@@ -63,23 +53,18 @@ export default composeQueries({
         const openedPlan =  getOpenedPlan( this.props );
         const planFile =    findFileByPlan( dataSamples, openedPlan );
 
-        const hasData =     openedPlan && conceptsResult;
-        const hasError =    getListError || conceptsError;
-        const isLoading =   getListLoading || conceptsLoading;
-
         return (
             <div className={ classnames( S.className, className ) }>{
-                hasData
+                openedPlan
                     ? <Workspace
-                        amrConcepts={ conceptsResult.concepts }
                         cellNames={ planFile && planFile.fieldNames }
                         key={ openedPlanUid }
                         onChangeWorkspace={ this.onChangeWorkspace }
                         workspaceXml={ openedPlan.blocklyXml }
                     />
-                : isLoading
+                : getListLoading
                     ? <Loading className={ S.item } message="Loading data." />
-                : hasError
+                : getListError
                     ?  <Error className={ S.item } message="Error loading data." />
                     : (
                         <OnboardCode
@@ -90,4 +75,4 @@ export default composeQueries({
             }</div>
         );
     }
-}));
+});
