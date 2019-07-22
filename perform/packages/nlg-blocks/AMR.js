@@ -6,8 +6,8 @@ import {
 import { RED }              from '../styles/blockly-colors';
 
 import Block                from './Block';
-import * as T               from './types';
 import toNlgJson            from './to-nlg-json';
+import * as T               from './types';
 
 
 export default Block({
@@ -20,14 +20,15 @@ export default Block({
 
     domToMutation( xmlElement ) {
 
-        this.conceptLabel =     xmlElement.getAttribute( 'concept_label' );
+        this.concept_id =       xmlElement.getAttribute( 'concept_id' );
+        this.concept_label =    xmlElement.getAttribute( 'concept_label' );
+        this.roles =            JSON.parse( xmlElement.getAttribute( 'roles' ));
 
         this.appendDummyInput( 'concept_label' )
-            .insertFieldAt( 0, this.conceptLabel );
+            .insertFieldAt( 0, this.concept_label );
 
         appendLabeledValue( this, 'dictionaryItem', 'lexicon' );
 
-        this.roles =        JSON.parse( xmlElement.getAttribute( 'roles' ));
         this.roles.forEach( role =>
             appendLabeledValue( this, role.id, role.fieldLabel )
         );
@@ -37,7 +38,8 @@ export default Block({
 
         return mount(
             <mutation
-                concept_label={ this.conceptLabel }
+                concept_id={ this.concept_id }
+                concept_label={ this.concept_label }
                 roles={ JSON.stringify( this.roles ) }
             />
         );
@@ -45,6 +47,17 @@ export default Block({
 
     toNlgJson() {
 
-        return toNlgJson( this );
+        const json =        toNlgJson( this );
+
+        return {
+            type:           json.type,
+            srcId:          json.srcId,
+            conceptId:      this.concept_id,
+            dictionaryItem: json.dictionaryItem,
+            roles: this.roles.map( role => ({
+                name:       role.id,
+                children:   [ json[role.id] ],
+            })),
+        };
     },
 });

@@ -14,6 +14,7 @@ export default ({ concept }) =>
                 <DragInBlock
                     color={ S.dragInColor }
                     mutation={{
+                        concept_id:     concept.id,
                         concept_label:  concept.label,
                         roles:          JSON.stringify( concept.roles ),
                     }}
