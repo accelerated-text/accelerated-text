@@ -25,7 +25,7 @@ export default class NlgWorkspace extends Component {
     };
 
     state = {
-        blocklyLoaded:      false,  /// This is needed to trigger a render()
+        blocklyLoaded:      false,  /// This is used to trigger a render()
     };
 
     Blockly =               null;
