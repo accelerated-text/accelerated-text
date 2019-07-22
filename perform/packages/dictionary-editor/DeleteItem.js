@@ -53,7 +53,6 @@ export default composeQueries({
     render({ className }, { deleteError, deleteLoading }) {
         return (
             <button
-                children="🗑️ Delete this item"
                 className={ classnames( S.className, className, QA.DICT_ITEM_EDITOR_DELETE ) }
                 disabled={ deleteLoading }
                 onClick={ this.onClick }

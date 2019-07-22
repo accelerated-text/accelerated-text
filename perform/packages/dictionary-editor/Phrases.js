@@ -3,7 +3,7 @@ import { h }                from 'preact';
 import { sortBy, prop }     from 'ramda';
 
 import { composeQueries }   from '../graphql/';
-import { Error, Loading }   from '../ui-messages/';
+import LabelWithStatus      from '../label-with-status/LabelWithStatus';
 import { readerFlags }      from '../graphql/queries.graphql';
 import sortFlags            from '../reader-flags/sort';
 
@@ -36,13 +36,11 @@ export default composeQueries({
                     <thead>
                         <tr>
                             <th>
-                                Phrases
-                                { readerFlagsError
-                                    ? <Error justIcon message={ readerFlagsError } />
-                                : readerFlagsLoading
-                                    ? <Loading justIcon />
-                                    : null
-                                }
+                                <LabelWithStatus
+                                    error={ readerFlagsError }
+                                    label="Phrases"
+                                    loading={ readerFlagsLoading }
+                                />
                             </th>
                             <th>Default</th>
                             { sortedFlags.map( flag =>

@@ -10,7 +10,6 @@ import { SELECTORS }            from './constants';
 
 
 test( 'default elements visible', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     await t.findElement( SELECTORS.DICTIONARY_ITEM );
     await t.findElement( SELECTORS.DICTIONARY_ITEM_NAME );
@@ -21,7 +20,6 @@ test( 'default elements visible', defaultResponsesPage, async t => {
 
 
 test( 'correct elements when no files', noRecordsPage, async t => {
-    t.timeout( 5e3 );
 
     await t.notFindElement( SELECTORS.DICTIONARY_ITEM );
     await t.notFindElement( SELECTORS.DICTIONARY_ITEM_NAME );
