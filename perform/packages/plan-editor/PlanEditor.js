@@ -63,9 +63,9 @@ export default useStores([
                         workspaceXml={ openedPlan.blocklyXml }
                     />
                 : getListLoading
-                    ? <Loading className={ S.item } message="Loading data." />
+                    ? <Loading className={ S.item } message="Loading document plans." />
                 : getListError
-                    ?  <Error className={ S.item } message="Error loading data." />
+                    ?  <Error className={ S.item } message="Error loading document plans." />
                     : (
                         <OnboardCode
                             hasCode={ !!openedPlan }
