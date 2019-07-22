@@ -7,7 +7,6 @@ import { SELECTORS }        from './constants';
 
 
 test( 'should not have errors', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     await t.notFindElement( SELECTORS.UI_ERROR );
 });
@@ -22,7 +21,6 @@ test( 'should not start unaccounted-for requests', defaultResponsesPage, async t
 
 
 test( 'should load the document plan', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     const PLAN =            DOCUMENT_PLAN_LIST[0];
 
@@ -32,7 +30,6 @@ test( 'should load the document plan', defaultResponsesPage, async t => {
 
 
 test( 'should load a variant', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     await t.findElement( SELECTORS.VARIANT );
 });

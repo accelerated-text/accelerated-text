@@ -13,7 +13,6 @@ import { SELECTORS }            from './constants';
 
 
 test( 'default elements visible', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     await t.findElement( SELECTORS.DATA_MANAGER_FILE_ADD );
     await t.findElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
@@ -35,7 +34,6 @@ test( 'default elements visible', defaultResponsesPage, async t => {
 
 
 test( 'correct elements when no files', noRecordsPage, async t => {
-    t.timeout( 5e3 );
 
     await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_ADD );
     await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
@@ -57,7 +55,6 @@ test( 'correct elements when no files', noRecordsPage, async t => {
 
 
 test( 'can change file', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     const dataFile =        DATA_FILE_LIST[1];
     const dataFileId =      dataFile.key;
@@ -99,7 +96,6 @@ test( 'can change file', defaultResponsesPage, async t => {
 
 
 test( 'correct cell names and values visible', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     const dataFile =        DATA_FILE_LIST[2];
     const dataFileData =    createDataFileData({
@@ -118,7 +114,6 @@ test( 'correct cell names and values visible', defaultResponsesPage, async t => 
 
 
 test( 'can change cell value row', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     const dataFile =        DATA_FILE_LIST[3];
     const dataFileData =    createDataFileData({
@@ -149,7 +144,6 @@ test( 'can change cell value row', defaultResponsesPage, async t => {
 
 
 test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     /// data file with one row:
     const dataFile1 =       DATA_FILE_LIST[2];

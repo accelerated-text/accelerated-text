@@ -77,7 +77,10 @@ module.exports = async ( page, options = {}) => {
 
         const matcher = matchers.findMatch( request );
         if( !matcher ) {
-            const err = Error( `Got unexpected request for ${ method } ${ url }.` );
+            const err = Object.assign(
+                Error( `Got unexpected request for ${ method } ${ url }.` ),
+                { method, request, url },
+            );
             if( options.onError ) {
                 options.onError( err );
                 return;
@@ -115,8 +118,10 @@ module.exports = async ( page, options = {}) => {
             break;
 
         default:
-            const err = Error( `Unrecognized matcher type ${ matcher.type } for ${ method } ${ url }.` );   // eslint-disable-line no-case-declarations
-
+            const err = Object.assign(      // eslint-disable-line no-case-declarations
+                Error( `Unrecognized matcher type ${ matcher.type } for ${ method } ${ url }.` ),
+                { method, request, url },
+            );
             if( options.onError ) {
                 options.onError( err );
             } else {

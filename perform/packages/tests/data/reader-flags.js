@@ -4,11 +4,18 @@ export const READER_FLAGS = [
 ];
 
 
+export const ReaderFlag = name => ({
+    __typename:         'ReaderFlag',
+    id:                 `${ name }-id`,
+    name,
+});
+
+
 export const ReaderFlags = flags => ({
     readerFlags: {
         __typename: 'ReaderFlags',
         id:         'reader-flags-id',
-        flags:      [],
+        flags:      flags.map( ReaderFlag ),
     },
 });
 
