@@ -14,7 +14,6 @@ import withPageDialogs          from './lib/with-page-dialogs';
 
 
 test( 'can rename phrase', defaultResponsesPage, async t => {
-    t.timeout( 5e3 );
 
     const num =             0;
     const item =            await openItem( t, num );
@@ -52,7 +51,6 @@ test( 'can rename phrase', defaultResponsesPage, async t => {
 
 
 test( 'can delete phrase', defaultResponsesPage, withPageDialogs, async t => {
-    t.timeout( 5e3 );
 
     const itemNum =         0;
     const phraseNum =       1;
@@ -80,7 +78,6 @@ test( 'can delete phrase', defaultResponsesPage, withPageDialogs, async t => {
 
 
 test( 'can cancel phrase delete', defaultResponsesPage, withPageDialogs, async t => {
-    t.timeout( 5e3 );
 
     const item =            await openItem( t, 0 );
 
