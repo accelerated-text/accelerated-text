@@ -3,6 +3,7 @@
 
 .className
 
+    box-sizing:             border-box
     display:                block
     margin:                 0
     max-height:             1000rem
@@ -14,6 +15,7 @@
         cursor:             pointer
         float:              right
         margin:             -$space-s
+        margin-left:        0
         opacity:            ( 1 / 3 )
         padding:            $space-s
         transform:          rotate( 90deg )
@@ -25,6 +27,7 @@
 
     &.isCollapsed
 
+        cursor:             pointer
         max-height:         2rem
         overflow:           hidden
         text-overflow:      ellipsis
@@ -33,7 +36,6 @@
 
         > .expandIcon
 
-            margin-right:   $space-s
             transform:      rotate( 0deg )
 
         &:hover > .expandIcon
