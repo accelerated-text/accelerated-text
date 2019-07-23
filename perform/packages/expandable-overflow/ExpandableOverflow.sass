@@ -1,0 +1,41 @@
+@import '../styles/variables'
+
+
+.className
+
+    display:                block
+    margin:                 0
+    max-height:             1000rem
+    padding:                $space-s
+    transition:             $transition
+
+    > .expandIcon
+
+        cursor:             pointer
+        float:              right
+        margin:             -$space-s
+        opacity:            ( 1 / 3 )
+        padding:            $space-s
+        transform:          rotate( 90deg )
+        transition:         transform $transition-quick
+
+        &:hover
+
+            opacity:        1
+
+    &.isCollapsed
+
+        max-height:         2rem
+        overflow:           hidden
+        text-overflow:      ellipsis
+        white-space:        nowrap
+        width:              100%
+
+        > .expandIcon
+
+            margin-right:   $space-s
+            transform:      rotate( 0deg )
+
+        &:hover > .expandIcon
+
+            opacity:        1

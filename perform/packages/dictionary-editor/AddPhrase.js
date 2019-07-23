@@ -4,6 +4,7 @@ import PropTypes            from 'prop-types';
 
 import { composeQueries }   from '../graphql/';
 import { createPhrase }     from '../graphql/mutations.graphql';
+import { Error, Loading }   from '../ui-messages/';
 import { QA }               from '../tests/constants';
 import { readerFlags }      from '../graphql/queries.graphql';
 import UsageTd              from '../usage/UsageTd';
@@ -23,8 +24,10 @@ export default composeQueries({
     };
 
     state = {
-        text:               '',
+        createError:        null,
+        createLoading:      false,
         defaultUsage:       'YES',
+        text:               '',
     };
 
     onChangeText = evt =>
@@ -41,27 +44,41 @@ export default composeQueries({
         const canProceed = (
             this.state.text
             && this.props.itemId
+            && !this.state.createLoading
         );
 
         if( !canProceed ) {
             return;
         }
+
+        this.setState({
+            createLoading:  true,
+            defaultUsage:   'YES',
+            text:           '',
+        });
+
         this.props.createPhrase({
             variables: {
                 dictionaryItemId:   this.props.itemId,
                 text:               this.state.text,
                 defaultUsage:       this.state.defaultUsage,
             },
-        });
-        this.setState({
-            text:           '',
-            defaultUsage:   'YES',
-        });
+        }).then( mutationResult =>
+            this.setState({
+                createError:        mutationResult.error,
+                createLoading:      false,
+            })
+        );
     };
     
     render({
         className,
         readerFlags: { readerFlags },
+    }, {
+        createError,
+        createLoading,
+        defaultUsage,
+        text,
     }) {
         return (
             <tbody className={ classnames( S.className, className, QA.DICT_ITEM_EDITOR_ADD_PHRASE ) }>
@@ -70,23 +87,30 @@ export default composeQueries({
                         <form onSubmit={ this.onSubmit }>
                             <input
                                 className={ QA.DICT_ITEM_EDITOR_ADD_PHRASE_TEXT }
+                                disabled={ createLoading }
                                 onChange={ this.onChangeText }
-                                value={ this.state.text }
+                                value={ text }
                             />
                         </form>
                     </td>
                     <UsageTd
                         defaultUsage
                         onChange={ this.onChangeDefaultUsage }
-                        usage={ this.state.defaultUsage }
+                        usage={ defaultUsage }
                     />
                     <td colspan={ ( readerFlags ? readerFlags.flags.length : 0 ) }>
                         <button
                             children="➕ Add new phrase"
                             className={ QA.DICT_ITEM_EDITOR_ADD_PHRASE_ADD }
-                            disabled={ !this.state.text }
+                            disabled={ !text || createLoading }
                             onClick={ this.onSubmit }
                         />
+                        { createLoading
+                            && <p><Loading message="Saving phrase..." /></p>
+                        }
+                        { createError
+                            && <p><Error message={ createError } /></p>
+                        }
                     </td>
                 </tr>
             </tbody>

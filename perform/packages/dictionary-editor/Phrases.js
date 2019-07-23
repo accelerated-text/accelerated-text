@@ -3,7 +3,9 @@ import { h }                from 'preact';
 import { sortBy, prop }     from 'ramda';
 
 import { composeQueries }   from '../graphql/';
+import LabelWithStatus      from '../label-with-status/LabelWithStatus';
 import { readerFlags }      from '../graphql/queries.graphql';
+import sortFlags            from '../reader-flags/sort';
 
 import AddPhrase            from './AddPhrase';
 import Phrase               from './Phrase';
@@ -19,25 +21,48 @@ export default composeQueries({
     className,
     itemId,
     phrases,
-    readerFlags: { readerFlags },
-}) =>
-    <div className={ classnames( S.className, className ) }>
-        <table>
-            <thead>
-                <tr>
-                    <th className={ S.phrases }>Phrases</th>
-                    <th>Default</th>
-                    { readerFlags && readerFlags.flags.map( flag =>
-                        <th key={ flag.id }>{ flag.name }</th>
-                    )}
-                </tr>
-            </thead>
-            <tbody>
-                { phrases && sortByText( phrases ).map( phrase =>
-                    <Phrase key={ phrase.id } phrase={ phrase } />
-                )}
-            </tbody>
-            <AddPhrase itemId={ itemId } />
-        </table>
-    </div>
-);
+    readerFlags: {
+        error:              readerFlagsError,
+        loading:            readerFlagsLoading,
+        readerFlags,
+    },
+}) => {
+    const sortedFlags =     sortFlags( readerFlags );
+
+    return (
+        <div className={ classnames( S.className, className ) }>
+            <div className={ S.inner }>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <LabelWithStatus
+                                    error={ readerFlagsError }
+                                    label="Phrases"
+                                    loading={ readerFlagsLoading }
+                                />
+                            </th>
+                            <th>Default</th>
+                            { sortedFlags.map( flag =>
+                                <th key={ flag.id }>{ flag.name }</th>
+                            )}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { phrases && sortByText( phrases ).map( phrase =>
+                            <Phrase
+                                key={ phrase.id }
+                                phrase={ phrase }
+                                readerFlags={ sortedFlags }
+                            />
+                        )}
+                    </tbody>
+                    <AddPhrase
+                        className={ S.addPhrase }
+                        itemId={ itemId }
+                    />
+                </table>
+            </div>
+        </div>
+    );
+});

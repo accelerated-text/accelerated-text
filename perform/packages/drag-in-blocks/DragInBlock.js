@@ -1,9 +1,11 @@
 import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
+import renderToString       from 'preact-render-to-string';
+
+import Block                from '../block-component/BlockComponent';
 
 import { DT_TYPE }          from './constants';
-import getBlockXml          from './get-block-xml';
 import S                    from './DragInBlock.sass';
 
 
@@ -25,7 +27,10 @@ export default class DragInBlock extends Component {
 
         const dt =          evt.dataTransfer;
         dt.setData( 'type', DT_TYPE );
-        dt.setData( 'xml',  getBlockXml( this.props )); /// uses { comment, fields, type }
+        dt.setData(
+            'xml',
+            renderToString( <xml><Block { ...this.props } /></xml> ),
+        );
 
         this.setState({ isDragged: true });
     }
