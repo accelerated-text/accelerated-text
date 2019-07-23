@@ -11,6 +11,11 @@ const SYNONYMS = {
     watch:          [ 'attend', 'check out', 'examine', 'follow', 'keep an eye on', 'listen', 'look', 'observe', 'regard', 'scan', 'scrutinize', 'see', 'stare', 'view', 'wait', 'case', 'concentrate', 'contemplate', 'eye', 'eyeball', 'focus', 'gaze', 'inspect', 'mark', 'mind', 'note', 'peer', 'pipe', 'rubberneck', 'scope', 'spy', 'eagle-eye', 'get a load of', 'give the once over', 'have a look-see', 'keep tabs on', 'pay attention', 'take in', 'take notice' ],
 };
 
+const HELP_TEXT = Object.values( SYNONYMS )
+    .map( words =>
+         `*${ words[0] }* ${ words.join( ' ' ) }`
+    ).join( '\n\n' );
+
 
 export const Organization = () => ({
     __typename:     'Organization',
@@ -46,7 +51,7 @@ export const Concept = ( label, dictItemName, roles ) => ({
     __typename:     'Concept',
     id:             label,
     label,
-    helpText:       'Some *help* here.',
+    helpText:       HELP_TEXT,
     dictionaryItem: {
         __typename: 'DictionaryItem',
         id:         dictItemName,

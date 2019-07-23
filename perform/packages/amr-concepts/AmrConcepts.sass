@@ -7,6 +7,7 @@
 
     $td-background:         rgba( 255, 255, 255, 2 / 3 )
 
+    table-layout:           fixed
     width:                  100%
 
     td,
@@ -18,6 +19,15 @@
 
         font-weight:        $bold
         text-align:         left
+
+        &.block
+
+            padding-right:  $space-xs
+            width:          2rem
+
+        &.name
+
+            width:          10rem
 
     > tbody > tr > td
 
