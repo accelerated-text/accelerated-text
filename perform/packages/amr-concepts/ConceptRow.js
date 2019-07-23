@@ -9,17 +9,20 @@ import S                        from './ConceptRow.sass';
 
 
 export default ({ concept }) =>
-    <tr className={ classnames( S.className, QA.CONCEPT ) }>
+    <tr className={ classnames( S.className, QA.AMR_CONCEPT ) }>
         <td className={ S.dragInBlock }>
             { concept &&
-                <ConceptDragIn concept={ concept } />
+                <ConceptDragIn
+                    className={ QA.AMR_CONCEPT_DRAG_BLOCK }
+                    concept={ concept }
+                />
             }
         </td>
         <td
             children={ concept ? concept.label : '' }
-            className={ classnames( S.label, QA.CONCEPT_LABEL ) }
+            className={ classnames( S.label, QA.AMR_CONCEPT_LABEL ) }
         />
-        <td className={ S.helpText }>
+        <td className={ classnames( S.helpText, QA.AMR_CONCEPT_HELP ) }>
             <ExpandableOverflow
                 children={ concept.helpText }
                 className={ S.helpTextContainer }
