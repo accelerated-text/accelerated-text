@@ -1,6 +1,7 @@
 import test                     from 'ava';
 
 import { DELETE_CONFIRM }       from '../ui-messages/on-confirm-delete';
+import { DONT_CARE, NO, YES }   from '../usage/constants';
 
 import {
     arePhrasesVisible,
@@ -92,7 +93,7 @@ test( 'can cancel phrase delete', defaultResponsesPage, withPageDialogs, async t
 
 test( 'add phrase works', defaultResponsesPage, async t => {
 
-    const defaultUsage =    'YES';
+    const defaultUsage =    YES;
     const text =            'zzzzzzz';
 
     const item =            await openItem( t, 2 );
@@ -105,8 +106,8 @@ test( 'add phrase works', defaultResponsesPage, async t => {
                 text,
                 defaultUsage,
                 readerFlagUsage: {
-                    [READER_FLAGS[0]]:  'DONT_CARE',
-                    [READER_FLAGS[1]]:  'DONT_CARE',
+                    [READER_FLAGS[0]]:  DONT_CARE,
+                    [READER_FLAGS[1]]:  DONT_CARE,
                 },
             }),
         ],
@@ -137,7 +138,7 @@ test( 'changing defaultUsage works', defaultResponsesPage, async t => {
     const phrase =          item.phrases[0];
     const updatedPhrase = {
         ...phrase,
-        defaultUsage:       'NO',
+        defaultUsage:       NO,
     };
 
     t.page.click( `${ SELECTORS.DICT_ITEM_EDITOR_PHRASE } > td:nth-child( 2 ) > ${ SELECTORS.USAGE_TD_NO }` );
@@ -163,7 +164,7 @@ test( 'changing readerFlagUsage works', defaultResponsesPage, async t => {
     const item =            await openItem( t, 1 );
     const phrase =          item.phrases[0];
     const readerFlagUsage = phrase.readerFlagUsage[0];
-    const usage =           readerFlagUsage.usage === 'NO' ? 'YES' : 'NO';
+    const usage =           readerFlagUsage.usage === NO ? YES : NO;
     const updatedReaderFlagUsage = {
         ...readerFlagUsage,
         usage,

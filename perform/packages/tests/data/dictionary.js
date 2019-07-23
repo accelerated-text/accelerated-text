@@ -1,4 +1,5 @@
-import { DONT_CARE, NO, YES }   from './usage';
+import { DONT_CARE, NO, YES }   from '../../usage/constants';
+
 import {
     READER_FLAGS,
     ReaderFlag,

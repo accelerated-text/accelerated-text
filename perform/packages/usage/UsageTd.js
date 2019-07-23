@@ -3,14 +3,19 @@ import { h, Component }     from 'preact';
 
 import { QA }               from '../tests/constants';
 
+import {
+    DONT_CARE,
+    YES,
+    NO,
+}                           from './constants';
 import S                    from './UsageTd.sass';
 
 
 export default class UsageTd extends Component {
 
-    onClickDontCare =       () => this.props.onChange( 'DONT_CARE' );
-    onClickNo =             () => this.props.onChange( 'NO' );
-    onClickYes =            () => this.props.onChange( 'YES' );
+    onClickDontCare =       () => this.props.onChange( DONT_CARE );
+    onClickNo =             () => this.props.onChange( NO );
+    onClickYes =            () => this.props.onChange( YES );
 
     render({
         className,
