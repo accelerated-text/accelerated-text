@@ -130,6 +130,19 @@
                   :Any-of (parse-node (rand-nth children) attrs ctx))]
     results))
 
+(defn stub-amr
+  "Just temporary measure. Will drop it later"
+  [children]
+  (format
+   "<AMR GOES HERE, %s>"
+   (clojure.string/join " " (map (fn [item]
+                                   (let [placeholder (case (:source (:attrs item))
+                                                       :quote (-> item :name :dyn-name)
+                                                       :cell (-> item :name :dyn-name)
+                                                       (:name item))]
+                                     (format "%s: %s" (-> item :attrs :title) placeholder)))
+                                 (-> children (first) :dynamic)))))
+
 (defn parse-amr
   [node attrs ctx]
   (let [amr-attrs (assoc attrs :amr true)
@@ -137,16 +150,19 @@
         vc (amr-entity/get-verbclass (node :conceptId))
         dict (parse-node (node :dictionaryItem) amr-attrs ctx)
         children (flatten (map (fn [r]
-                                 (map #(parse-node % (assoc amr-attrs :title (r :name)) ctx) (r :children)))
+                                 (let [updated-attrs (assoc amr-attrs :title (r :name))]
+                                   (map (fn [node]
+                                          (parse-node node updated-attrs ctx))
+                                        (r :children))))
                                (node :roles)))
-        template "<AMR GOES HERE, $4>"
+        template (stub-amr children)
         main (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)]
     (cons main children)))
 
 (defn parse-themrole
   [node attrs ctx]
   (let [title (:title node)]
-    (map #(parse-node % (assoc attrs :title title) ctx) (:children node))))
+    (map #(parse-node % attrs ctx) (:children node))))
 
 (defn parse-unknown
   [node]

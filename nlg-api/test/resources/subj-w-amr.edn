@@ -15,7 +15,7 @@
                                                                   :type "Dictionary-item"}
                                                  :roles [{:name "Agent" :children [{:type "Thematic-role"
                                                                                     :children [{:type "Cell"
-                                                                                                :name "secondary-feature"}]}] }
+                                                                                                :name "secondary-feature"}]}]}
                                                          {:name "coAgent" :children [{:type "Thematic-role"
                                                                                       :children [{:type "Quote"
                                                                                                   :text "TestQuote"}]}]}]}]}]}]}]}
