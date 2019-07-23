@@ -9,8 +9,13 @@
                                      :children [{:type "Cell"
                                                  :name "main-feature"}
                                                 {:type "AMR"
-                                                 :id "battle-36.4"
-                                                 :children [{:type "Thematic-role"
-                                                             :title "Agent"
-                                                             :children [{:type "Cell"
-                                                                         :name "secondary-feature"}]}]}]}]}]}]}
+                                                 :conceptId "battle-36.4"
+                                                 :dictionaryItem {:itemId "see"
+                                                                  :name "see"
+                                                                  :type "Dictionary-item"}
+                                                 :roles [{:name "Agent" :children [{:type "Thematic-role"
+                                                                                    :children [{:type "Cell"
+                                                                                                :name "secondary-feature"}]}] }
+                                                         {:name "coAgent" :children [{:type "Thematic-role"
+                                                                                      :children [{:type "Quote"
+                                                                                                  :text "TestQuote"}]}]}]}]}]}]}]}

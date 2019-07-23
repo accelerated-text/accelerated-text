@@ -41,6 +41,7 @@
   (log/tracef "Trying to merge: \n%s\nand\n%s" left right)
   (let [new-ctx {:static (concat (left :static) (right :static))
                  :dynamic (concat (left :dynamic) (right :dynamic))
+
                  :reader-profile (or (left :reader-profile) (right :reader-profile))}]
     (log/spyf :trace "Merge result: %s"(merge left new-ctx))))
 

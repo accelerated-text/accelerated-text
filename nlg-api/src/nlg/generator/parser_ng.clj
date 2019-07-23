@@ -132,12 +132,13 @@
 
 (defn parse-amr
   [node attrs ctx]
-  (let [idx (swap! parse-cnt inc)
-        vc (amr-entity/get-verbclass (node :id))
-        members (dictionary-entity/get-dictionary-item (vc :dictionary-item-id))
-        children (map #(parse-node % (assoc attrs :amr true) ctx) (node :children))
-        _ (log/spyf "AMR result: %s" (:amr-members (ops/render-amr {:vc vc
-                                                                    :members members})))
+  (let [amr-attrs (assoc attrs :amr true)
+        idx (swap! parse-cnt inc)
+        vc (amr-entity/get-verbclass (node :conceptId))
+        dict (parse-node (node :dictionaryItem) amr-attrs ctx)
+        children (flatten (map (fn [r]
+                                 (map #(parse-node % (assoc amr-attrs :title (r :name)) ctx) (r :children)))
+                               (node :roles)))
         template "<AMR GOES HERE, $4>"
         main (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)]
     (cons main children)))
