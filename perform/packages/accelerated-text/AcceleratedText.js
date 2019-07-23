@@ -9,7 +9,10 @@ import EditorSidebar        from '../plan-editor/Sidebar';
 import Header               from '../header/Header';
 import PlanEditor           from '../plan-editor/PlanEditor';
 
-import { acceleratedText }  from './local-state';
+import {
+    acceleratedText,
+    closeDictionaryItem,
+}   from './local-state';
 import mountStores          from './mount-stores';
 import S                    from './AcceleratedText.sass';
 
@@ -17,8 +20,10 @@ import S                    from './AcceleratedText.sass';
 const AcceleratedText = mountStores(
     composeQueries({
         acceleratedText,
+        closeDictionaryItem,
     })(({
         acceleratedText: { acceleratedText },
+        closeDictionaryItem,
     }) =>
         <div className={ S.className }>
             <Header className={ S.header } />
@@ -26,6 +31,7 @@ const AcceleratedText = mountStores(
                 ( acceleratedText && acceleratedText.openedDictionaryItem )
                     ? <DictionaryEditor
                         className={ S.main }
+                        closeEditor={ closeDictionaryItem }
                         itemId={ acceleratedText.openedDictionaryItem }
                     />
                     : <PlanEditor className={ S.main } />

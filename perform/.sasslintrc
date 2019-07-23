@@ -10,6 +10,10 @@ rules:
         - 4
         - { size: 4 }
 
+    nesting-depth:
+        - 4
+        - { max-depth: 3 }
+
     space-between-parens:
         - 4
         - { include: true }

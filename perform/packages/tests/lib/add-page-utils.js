@@ -54,6 +54,12 @@ export default ( t, run, ...args ) =>
             resetMouse: ( page = t.page ) =>
                 page.mouse.move( 0, 0 ),
 
+            retypeElementText: async ( selector, value, options ) => {
+                await t.clearInput( selector );
+                await t.page.type( selector, value, options );
+                await t.page.keyboard.press( 'Control' );
+            },
+
             waitUntilElementGone: async ( selector, timeout = 10e3, page = t.page ) => {
 
                 const timeoutTimestamp =    +new Date + timeout;
