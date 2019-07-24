@@ -9,8 +9,9 @@ import S                        from './ConceptRow.sass';
 
 /// TODO: may need optimization
 
-export default ({ concept }) =>
+export default ({ className, concept }) =>
     <DragInBlock
+        className={ className }
         color={ S.dragInColor }
         mutation={{
             concept_id:     concept.id,
