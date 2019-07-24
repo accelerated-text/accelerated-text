@@ -4,9 +4,9 @@
 
 (defn role->schema
   [role]
-  {:type "STRING"
+  {:fieldType "STRING"
    :id (string/lower-case (:type role))
-   :label (:type role)})
+   :fieldLabel (:type role)})
 
 (defn frame->examples
   [frame]
