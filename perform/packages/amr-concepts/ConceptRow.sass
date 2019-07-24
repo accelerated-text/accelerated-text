@@ -1,0 +1,33 @@
+@import '../styles/variables'
+
+
+#{ ':export' }
+    // sass-lint:disable no-misspelled-properties
+    dragInColor:            $blockly-red
+
+
+.className
+    > td
+
+        vertical-align:     top
+
+        &.dragInBlock
+
+            padding:        $space-xs $space-xs 0
+            width:          2rem
+
+        &.label
+
+            width:          10rem
+
+        &.helpText
+
+            padding:        0
+
+            > .helpTextContainer
+
+                padding:    $space-s
+
+                &.expandedHelp
+
+                    white-space:    pre-wrap

@@ -1,5 +1,6 @@
 import classnames           from 'classnames';
 import { h, Component }     from 'preact';
+import PropTypes            from 'prop-types';
 
 import Error                from '../ui-messages/Error';
 import { findFileByPlan }   from '../data-samples/functions';
@@ -18,6 +19,13 @@ export default useStores([
     'documentPlans',
     'planList',
 ])( class PlanEditor extends Component {
+
+    static propTypes = {
+        dataSamples:        PropTypes.object.isRequired,
+        documentPlans:      PropTypes.object.isRequired,
+        planList:           PropTypes.object.isRequired,
+        className:          PropTypes.string,
+    };
 
     onChangeWorkspace = ({ documentPlan, workspaceXml }) =>
         this.props.E.documentPlans.onUpdate({

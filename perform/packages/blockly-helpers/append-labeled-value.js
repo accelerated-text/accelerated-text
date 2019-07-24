@@ -1,5 +1,6 @@
-export default ( block, name, label ) => {
+export default ( block, name, label = '', check = null ) => {
     const input =   block.appendValueInput( name );
-    input.insertFieldAt( 0, label );
+    label && input.insertFieldAt( 0, label );
+    check && input.setCheck( check );
     return input;
 };

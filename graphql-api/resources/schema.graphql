@@ -11,6 +11,13 @@ enum Usage {
     DONT_CARE
 }
 
+enum BlocklyFieldType {
+    BOOLEAN
+    DEFINITION
+    LIST
+    STRING
+}
+
 #   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
 enum PartOfSpeech {
     CC      # conjunction, coordinating  and, or, but
@@ -87,6 +94,7 @@ type Editor {
 type Organization {
     id:                 ID!
     name:               String!
+    concepts:           Concepts!
     dictionary:         DictionaryResults!
     readerFlags:        ReaderFlags!
 }
@@ -133,6 +141,29 @@ type ReaderFlagUsage {
     flag:               ReaderFlag!
     usage:              Usage!
 }
+
+
+### AMR ------------------------------------------------------------------------
+
+type ThematicRole {
+     id:                ID!
+     fieldType:         BlocklyFieldType!
+     fieldLabel:        String!
+}
+
+type Concept {
+     id:                ID!
+     label:             String!
+     dictionaryItem:    DictionaryItem!
+     roles:             [ ThematicRole! ]
+     helpText:          String!
+}
+
+type Concepts {
+     id:                ID!
+     concepts:          [ Concept! ]
+}
+
 
 ### DocumentPlan --------------------------------------------------------------
 
@@ -189,12 +220,16 @@ type Query {
 
     ### DocumentPlan
 
-    documentPlans:           DocumentPlanResults!
+    documentPlans:          DocumentPlanResults!
     documentPlan(
         id:                 ID!
-    ): DocumentPlan
+    ):  DocumentPlan
 
-   
+   ### AMR
+   concepts:                Concepts!
+   concept(
+        id:                 ID!
+   ):   Concept
 }
 
 
