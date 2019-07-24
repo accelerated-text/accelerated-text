@@ -2,9 +2,9 @@ import sleep                    from 'timeout-as-promise';
 import test                     from 'ava';
 
 import defaultResponsesPage     from './lib/default-responses-page';
+import DOCUMENT_PLAN_LIST       from './data/document-plan-list';
 import noRecordsPage            from './lib/no-records-page';
 import { SELECTORS }            from './constants';
-
 
 test( 'default elements visible', defaultResponsesPage, async t => {
 
@@ -52,4 +52,30 @@ test( 'can expand help text', defaultResponsesPage, async t => {
 });
 
 
-test.todo( 'can drag-in blocks' );
+/// Unskip this test when drag-n-drop becomes stable in Puppeteer
+/// See: https://github.com/GoogleChrome/puppeteer/issues/1366
+test.skip( 'can drag-in blocks', defaultResponsesPage, async t => {
+
+    const $blockly =        SELECTORS.BLOCKLY;
+    const $dragBlock =      SELECTORS.AMR_CONCEPT_DRAG_BLOCK;
+    const PLAN =            DOCUMENT_PLAN_LIST[0];
+
+    const blockCenter =     await t.getElementCenter( $dragBlock );
+    t.log( blockCenter );
+    await t.page.mouse.move( blockCenter.x, blockCenter.y );
+    await t.page.mouse.down();
+
+    const blocklyCenter =   await t.getElementCenter( $blockly );
+    t.log( blocklyCenter );
+    await t.page.mouse.move( blocklyCenter.x, blocklyCenter.y );
+    await t.page.mouse.up();
+
+    await sleep( 2e3 );
+
+    await t.nlgApi.interceptOnce( 'PUT', `/document-plans/${ PLAN.id }`, request => {
+
+        const body =        request.postData();
+        t.log( body );
+        return t.nlgApi.respond( request, body );
+    });
+});

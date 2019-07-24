@@ -14,6 +14,8 @@ module.exports = createConstants( 'tests', {
     AMR_CONCEPT_HELP:           'amr-concept-help',
     AMR_CONCEPT_HELP_ICON:      'amr-concept-help-icon',
 
+    BLOCKLY:                    'blockly',
+
     DATA_MANAGER_CELL_BLOCK:    'data-manager-cell-block',
     DATA_MANAGER_CELL_NAME:     'data-manager-cell-name',
     DATA_MANAGER_CELL_TABLE:    'data-manager-cell-table',
