@@ -47,4 +47,4 @@
 
 (defn list-verbclasses
   []
-  {:query "{concepts{id concepts{id label roles{id type label} dictionaryItem{name phrases{text}} helpText}}}"})
+  {:query "{concepts{id concepts{id label roles{id fieldType fieldLabel} dictionaryItem{name phrases{text}} helpText}}}"})
