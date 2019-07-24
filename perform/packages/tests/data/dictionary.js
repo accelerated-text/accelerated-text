@@ -1,12 +1,10 @@
-import { DONT_CARE, NO, YES }   from './usage';
-import { READER_FLAGS }         from './reader-flags';
+import { DONT_CARE, NO, YES }   from '../../usage/constants';
 
+import {
+    READER_FLAGS,
+    ReaderFlag,
+}                               from './reader-flags';
 
-export const ReaderFlag = name => ({
-    __typename:         'ReaderFlag',
-    id:                 `${ name }-id`,
-    name,
-});
 
 export const ReaderFlagUsage = ({ prefix, flag, usage }) => ({
     __typename:         'ReaderFlagUsage',
@@ -14,6 +12,7 @@ export const ReaderFlagUsage = ({ prefix, flag, usage }) => ({
     flag:               ReaderFlag( flag ),
     usage,
 });
+
 
 export const Phrase = ({ prefix, text, defaultUsage, readerFlagUsage }) => ({
     __typename:         'Phrase',

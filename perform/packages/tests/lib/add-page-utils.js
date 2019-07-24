@@ -1,5 +1,5 @@
 const SELECTOR_WAIT_OPTIONS = {
-    timeout:            1e3,
+    timeout:            2e3,
 };
 
 
@@ -19,38 +19,46 @@ export default ( t, run, ...args ) =>
                 t.notThrowsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
 
             getElementAttribute: ( selector, attributeName, page = t.page ) =>
-                page.evaluate(
-                    ( selector, attributeName ) =>
-                        document.querySelector( selector ).getAttribute( attributeName ),
-                    selector,
-                    attributeName,
-                ),
+                t.findElement( selector, page )
+                    .then(() => page.$eval(
+                        selector,
+                        ( el, attributeName ) => el.getAttribute( attributeName ),
+                        attributeName,
+                    )),
 
             getElementProperty: ( selector, propertyName, page = t.page ) =>
-                page.evaluate(
-                    ( selector, propertyName ) =>
-                        document.querySelector( selector )[propertyName],
-                    selector,
-                    propertyName,
-                ),
+                t.findElement( selector, page )
+                    .then(() => page.$eval(
+                        selector,
+                        ( el, propertyName ) => el[propertyName],
+                        propertyName,
+                    )),
 
             getElementText: ( selector, page = t.page ) =>
-                page.evaluate(
-                    selector => document.querySelector( selector ).innerText,
-                    selector,
-                ),
+                t.findElement( selector, page )
+                    .then(() => page.$eval(
+                        selector,
+                        el => el.innerText,
+                    )),
 
             getElementValue: ( selector, page = t.page ) =>
-                page.evaluate(
-                    selector => document.querySelector( selector ).value,
-                    selector,
-                ),
+                t.findElement( selector, page )
+                    .then(() => page.$eval(
+                        selector,
+                        el => el.value,
+                    )),
 
             notFindElement: ( selector, page = t.page ) =>
                 t.throwsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
 
             resetMouse: ( page = t.page ) =>
                 page.mouse.move( 0, 0 ),
+
+            retypeElementText: async ( selector, value, options ) => {
+                await t.clearInput( selector );
+                await t.page.type( selector, value, options );
+                await t.page.keyboard.press( 'Control' );
+            },
 
             waitUntilElementGone: async ( selector, timeout = 10e3, page = t.page ) => {
 

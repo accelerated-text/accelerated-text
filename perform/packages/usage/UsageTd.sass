@@ -3,8 +3,19 @@
 
 .className
 
+    $error-back:        change-color( $red,     $alpha: .1 )
+    $loading-back:      change-color( $gray,    $alpha: .1 )
+
     padding:            0
     text-align:         center
+
+    &.error
+
+        background-color:   $error-back
+
+    &.loading
+
+        background-color:   $loading-back
 
     > span
 

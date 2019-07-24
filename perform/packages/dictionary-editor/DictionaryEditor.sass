@@ -15,33 +15,46 @@
 
         box-shadow:             -1px 0 0 $subtle-border, inset 1px 0 0 $white, inset -1px 0 0 $subtle-border
         color:                  $gray
-        width:                  $space-l
+        flex:                   0 0 $space-m
+        position:               relative
 
-    .main
+        ::after
 
-        background-color:       $white
-        display:                grid
-        grid-gap:               $space-m
-        grid-template-areas:    'title close' 'main main'
-        grid-template-columns:  auto 6em
-        grid-template-rows:     ( 2 * $space-m ) auto
-        padding:                $space-m $space-m 0
-
-        > .title
-
-            grid-area:          title
+            content:            '⋮'
+            display:            block
+            height:             1rem
             margin:             0
             padding:            0
+            position:           absolute
+            text-align:         center
+            top:                calc( 50% - 1rem )
+            width:              100%
 
-        > .close
+    .editor
 
-            grid-area:          close
-            text-align:         right
+        background-color:       $white
 
-            > button
+        > .header
 
-                cursor:         pointer
+            display:                grid
+            grid-gap:               $space-m
+            grid-template-columns:  auto 6em
+            padding:                $space-m $space-m 0
 
-        > .phrases
+            > .close
 
-            grid-area:          main
+                text-align:         right
+
+                > button
+
+                    cursor:         pointer
+
+        > .main
+
+            margin-top:             $space-s
+            padding:                $space-s
+
+
+            > .deleteItem
+
+                margin-top:     $space-s
