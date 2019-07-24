@@ -22,11 +22,12 @@ export default ({ concept }) =>
             children={ concept ? concept.label : '' }
             className={ classnames( S.label, QA.AMR_CONCEPT_LABEL ) }
         />
-        <td className={ classnames( S.helpText, QA.AMR_CONCEPT_HELP ) }>
+        <td className={ S.helpText }>
             <ExpandableOverflow
                 children={ concept.helpText }
-                className={ S.helpTextContainer }
+                className={ classnames( S.helpTextContainer, QA.AMR_CONCEPT_HELP ) }
                 expandedClassName={ S.expandedHelp }
+                iconClassName={ QA.AMR_CONCEPT_HELP_ICON }
             />
         </td>
     </tr>;

@@ -5,6 +5,12 @@ export const HELP_TEXT = `
 # Please help me!
 
 I am drowning in code
+
+Help! I need somebody.
+
+Help! Not just anybody.
+
+Won't you please please help me?
 `;
 
 

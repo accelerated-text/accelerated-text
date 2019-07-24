@@ -1,3 +1,4 @@
+import sleep                    from 'timeout-as-promise';
 import test                     from 'ava';
 
 import defaultResponsesPage     from './lib/default-responses-page';
@@ -23,5 +24,32 @@ test( 'correct elements when no items', noRecordsPage, async t => {
 });
 
 
-test.todo( 'can expand help text' );
+test( 'can expand help text', defaultResponsesPage, async t => {
+
+    const $help =           SELECTORS.AMR_CONCEPT_HELP;
+    const $helpIcon =       SELECTORS.AMR_CONCEPT_HELP_ICON;
+
+    const getHeight = selector =>
+        t.page.$eval( selector, el => el.clientHeight );
+
+    const heightCollapsed = await getHeight( $help );
+    await t.page.click( $help );
+    await sleep( 2e3 );
+    const heightExpanded =  await getHeight( $help );
+
+    t.true(
+        heightExpanded > heightCollapsed,
+        `Failed to expand help text (${ heightExpanded } ! > ${ heightCollapsed }).`,
+    );
+
+    await t.page.click( $helpIcon );
+    await sleep( 2e3 );
+    t.is( await getHeight( $help ), heightCollapsed );
+
+    await t.page.click( $helpIcon );
+    await sleep( 2e3 );
+    t.is( await getHeight( $help ), heightExpanded );
+});
+
+
 test.todo( 'can drag-in blocks' );

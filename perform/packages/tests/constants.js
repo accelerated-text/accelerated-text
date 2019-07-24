@@ -12,6 +12,7 @@ module.exports = createConstants( 'tests', {
     AMR_CONCEPT_DRAG_BLOCK:     'amr-concept-drag-in-block',
     AMR_CONCEPT_LABEL:          'amr-concept-label',
     AMR_CONCEPT_HELP:           'amr-concept-help',
+    AMR_CONCEPT_HELP_ICON:      'amr-concept-help-icon',
 
     DATA_MANAGER_CELL_BLOCK:    'data-manager-cell-block',
     DATA_MANAGER_CELL_NAME:     'data-manager-cell-name',
