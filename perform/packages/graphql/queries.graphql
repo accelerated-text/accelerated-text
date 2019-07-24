@@ -32,6 +32,7 @@ query readerFlags {
   }
 }
 
+
 ### Dictionary -----------------------------------------------------------------
 
 query dictionary {
@@ -47,5 +48,17 @@ query dictionary {
 query dictionaryItem( $id: ID! ) {
   dictionaryItem( id: $id ) {
     ...dictionaryItemFields
+  }
+}
+
+
+### AMR ------------------------------------------------------------------------
+
+query concepts {
+  concepts @client {
+    id
+    concepts {
+      ...conceptFields
+    }
   }
 }

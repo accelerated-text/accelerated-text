@@ -24,11 +24,16 @@ export default class NlgWorkspace extends Component {
         workspaceXml:       PropTypes.string,
     };
 
+    state = {
+        blocklyLoaded:      false,  /// This is used to trigger a render()
+    };
+
     Blockly =               null;
     workspace =             null;
 
     onChangeWorkspace = evt => {
         log( 'onChangeWorkspace', evt && evt.type, evt );
+
         if( this.props.onChangeWorkspace ) {
 
             const {
@@ -63,8 +68,12 @@ export default class NlgWorkspace extends Component {
     }
 
     onBlockly = Blockly => {
+        log( 'onBlockly', Blockly );
 
         this.Blockly =      Blockly;
+        this.setState({
+            blocklyLoaded:  true,
+        });
 
         /// Set Style for the workspace
         Blockly.HSV_SATURATION =    0.55;
@@ -75,6 +84,8 @@ export default class NlgWorkspace extends Component {
     };
 
     onWorkspace = workspace => {
+        log( 'onWorkspace', workspace );
+
         const {
             Blockly:    { Events, Xml },
             props:      { workspaceXml },
@@ -107,6 +118,8 @@ export default class NlgWorkspace extends Component {
     }
 
     componentWillReceiveProps( nextProps ) {
+        log( 'componentWillReceiveProps', nextProps, this.props );
+
         if( this.workspace && nextProps.cellNames !== this.props.cellNames ) {
             setCellOptions( this.workspace, nextProps.cellNames );
         }

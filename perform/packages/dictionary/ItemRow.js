@@ -25,7 +25,10 @@ export default composeQueries({
             { item &&
                 <DragInBlock
                     color={ S.dragInColor }
-                    fields={{ name: item.name }}
+                    mutation={{
+                        id:     item.id,
+                        name:   item.name,
+                    }}
                     type={ DictionaryItemBlock.type }
                     width={ 36 }
                 />

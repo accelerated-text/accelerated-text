@@ -1,5 +1,6 @@
 import { h }                from 'preact';
 
+import AmrConcepts          from '../amr-concepts/AmrConcepts';
 import CcgOption            from '../ccg-option/CcgOption';
 import DataManager          from '../data-manager/DataManager';
 import Dictionary           from '../dictionary/Dictionary';
@@ -29,6 +30,9 @@ export default useStores([
             </SidebarItem>
             <SidebarItem isExpanded title="Data">
                 <DataManager plan={ openedPlan } />
+            </SidebarItem>
+            <SidebarItem isExpanded title="AMR">
+                <AmrConcepts />
             </SidebarItem>
             <SidebarItem isExpanded title="Dictionary">
                 <Dictionary />
