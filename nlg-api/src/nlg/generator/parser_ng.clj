@@ -141,7 +141,7 @@
                                                        :cell (-> item :name :dyn-name)
                                                        (:name item))]
                                      (format "%s: %s" (-> item :attrs :title) placeholder)))
-                                 (-> children (first) :dynamic)))))
+                                 (->> children (map :dynamic) (flatten))))))
 
 (defn parse-amr
   [node attrs ctx]
