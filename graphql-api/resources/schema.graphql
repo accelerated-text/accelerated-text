@@ -58,27 +58,6 @@ enum PartOfSpeech {
     WRB     # wh-adverb  where, when
 }
 
-### AMR ------------------------------------------------------------------------
-
-type ThematicRole {
-     id:                ID!
-     type:              BlocklyFieldType!
-     label:             String!
-}
-
-type Concept {
-     id:                ID!
-     label:             String!
-     dictionaryItem:    DictionaryItem!
-     roles:             [ ThematicRole! ]
-     helpText:          String!
-}
-
-type Concepts {
-     id:                ID!
-     concepts:          [ Concept! ]
-}
-
 ### Thesaurus ------------------------------------------------------------------
 
 type ThesaurusResults {
