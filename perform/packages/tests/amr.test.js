@@ -56,9 +56,12 @@ test( 'can expand help text', defaultResponsesPage, async t => {
 /// See: https://github.com/GoogleChrome/puppeteer/issues/1366
 test.skip( 'can drag-in blocks', defaultResponsesPage, async t => {
 
+    const HAS_AMR =         /type="AMR"/;
+    const PLAN =            DOCUMENT_PLAN_LIST[0];
     const $blockly =        SELECTORS.BLOCKLY;
     const $dragBlock =      SELECTORS.AMR_CONCEPT_DRAG_BLOCK;
-    const PLAN =            DOCUMENT_PLAN_LIST[0];
+
+    t.notRegex( PLAN.blocklyXml, HAS_AMR, 'Cannot run test, because there are AMR blocks in the document plan.' );
 
     const blockCenter =     await t.getElementCenter( $dragBlock );
     t.log( blockCenter );
@@ -75,7 +78,9 @@ test.skip( 'can drag-in blocks', defaultResponsesPage, async t => {
     await t.nlgApi.interceptOnce( 'PUT', `/document-plans/${ PLAN.id }`, request => {
 
         const body =        request.postData();
-        t.log( body );
+        const bodyJson =    JSON.parse( body );
+
+        t.regex( bodyJson.blocklyXml, HAS_AMR );
         return t.nlgApi.respond( request, body );
     });
 });
