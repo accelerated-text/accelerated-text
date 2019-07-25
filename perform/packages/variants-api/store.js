@@ -1,3 +1,26 @@
+const clearResult = () => ({
+    result:             null,
+});
+
+
+const clearIfNewPlan = ( _, { getStoreState }) => {
+
+    const {
+        openedPlanUid,
+        previousOpenedPlanUid,
+    } = getStoreState( 'planList' );
+
+    return (
+        openedPlanUid !== previousOpenedPlanUid
+            ? {
+                error:  false,
+                result: null,
+            }
+            : null
+    );
+};
+
+
 export default {
 
     getInitialState: () => ({
@@ -6,6 +29,17 @@ export default {
         pending:        false,
         result:         null,
     }),
+
+    documentPlans: {
+
+        onCreate:           clearResult,
+        onDelete:           clearResult,
+    },
+
+    planList: {
+        onSelectPlan:       clearIfNewPlan,
+        onGetListResult:    clearIfNewPlan,
+    },
 
     variantsApi: {
 
