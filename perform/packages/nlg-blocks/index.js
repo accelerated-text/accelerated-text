@@ -2,6 +2,7 @@ const blocks = [
     require( './AMR' ),
     require( './And-or' ),
     require( './Cell' ),
+    require( './Cell-modifier' ),
     require( './Define-var' ),
     require( './Dictionary-item' ),
     require( './Dictionary-item-modifier' ),
