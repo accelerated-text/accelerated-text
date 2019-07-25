@@ -22,6 +22,7 @@ export default composeQueries({
         <thead>
             <tr>
                 <th />
+                <th />
                 <th>name</th>
                 <th>
                     <LabelWithStatus
@@ -39,7 +40,7 @@ export default composeQueries({
         </tbody>
         <tbody>
             <tr>
-                <td colspan="3">
+                <td colspan="4">
                     <AddItem refetchQueries={ [ 'dictionary' ] } />
                 </td>
             </tr>

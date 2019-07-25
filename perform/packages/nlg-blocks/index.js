@@ -4,6 +4,7 @@ const blocks = [
     require( './Cell' ),
     require( './Define-var' ),
     require( './Dictionary-item' ),
+    require( './Dictionary-item-modifier' ),
     require( './Document-plan' ),
     require( './Get-var' ),
     require( './If-then-else' ),
