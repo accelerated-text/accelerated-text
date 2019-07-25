@@ -14,12 +14,12 @@ export default Block({
     json: {
         ...DictionaryItem.json,
         colour:             MAGENTA,
-        message0:           'Dict.: %1, %2',
+        message0:           'Dict.: %1%2',
         args0: [
             ...DictionaryItem.json.args0,
             {
                 type:       'input_value',
-                name:       'value',
+                name:       'input',
                 check:      T.TEXT,
             },
         ],
