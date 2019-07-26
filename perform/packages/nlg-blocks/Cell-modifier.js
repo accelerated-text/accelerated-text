@@ -1,5 +1,5 @@
 import { getCellOptions }   from '../nlg-workspace/cell-options';
-import { YELLOW }           from '../styles/blockly-colors';
+import { RED }              from '../styles/blockly-colors';
 
 import Block                from './Block';
 import Cell                 from './Cell';
@@ -14,7 +14,7 @@ export default Block({
 
     json: {
         ...Cell.json,
-        colour:             YELLOW,
+        colour:             RED,
         output:             T.LIST,
     },
 

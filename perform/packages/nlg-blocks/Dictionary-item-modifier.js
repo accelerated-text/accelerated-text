@@ -1,4 +1,4 @@
-import { MAGENTA }          from '../styles/blockly-colors';
+import { RED }              from '../styles/blockly-colors';
 
 import Block                from './Block';
 import DictionaryItem       from './Dictionary-item';
@@ -13,7 +13,7 @@ export default Block({
 
     json: {
         ...DictionaryItem.json,
-        colour:             MAGENTA,
+        colour:             RED,
         message0:           'Dict.: %1%2',
         args0: [
             ...DictionaryItem.json.args0,
