@@ -1,4 +1,4 @@
-import { h }                from 'preact';
+import { h, Component }     from 'preact';
 
 import {
     composeQueries,
@@ -26,36 +26,47 @@ const AcceleratedText = mountStores(
         closeDictionaryItem,
         closeQuickSearch,
         openQuickSearch,
-    })(({
-        acceleratedText: { acceleratedText },
-        closeDictionaryItem,
-        closeQuickSearch,
-        openQuickSearch,
-    }) =>
-        <div className={ S.className }>
-            <div className={ S.grid }>
-                <Header
-                    className={ S.header }
-                    openQuickSearch={ openQuickSearch }
-                />
-                {
-                    ( acceleratedText && acceleratedText.openedDictionaryItem )
-                        ? <DictionaryEditor
-                            className={ S.main }
-                            closeEditor={ closeDictionaryItem }
-                            itemId={ acceleratedText.openedDictionaryItem }
-                        />
-                        : <PlanEditor className={ S.main } />
-                }
-                <EditorSidebar className={ S.rightSidebar } />
-            </div>
-            {
-                ( acceleratedText && acceleratedText.openedQuickSearch )
-                    ? <QuickSearch onClose={ closeQuickSearch } />
-                    : null
+    })( class AcceleratedText extends Component {
+
+        onKeyDown = evt => {
+            if( evt.ctrlKey && evt.key === '/' ) {
+                this.props.openQuickSearch();
             }
-        </div>
-    )
+        }
+
+        render({
+            acceleratedText: { acceleratedText },
+            closeDictionaryItem,
+            closeQuickSearch,
+            openQuickSearch,
+        }) {
+            return (
+                <div className={ S.className } onKeyDown={ this.onKeyDown } tabindex="0">
+                    <div className={ S.grid }>
+                        <Header
+                            className={ S.header }
+                            openQuickSearch={ openQuickSearch }
+                        />
+                        {
+                            ( acceleratedText && acceleratedText.openedDictionaryItem )
+                                ? <DictionaryEditor
+                                    className={ S.main }
+                                    closeEditor={ closeDictionaryItem }
+                                    itemId={ acceleratedText.openedDictionaryItem }
+                                />
+                                : <PlanEditor className={ S.main } />
+                        }
+                        <EditorSidebar className={ S.rightSidebar } />
+                    </div>
+                    {
+                        ( acceleratedText && acceleratedText.openedQuickSearch )
+                            ? <QuickSearch onClose={ closeQuickSearch } />
+                            : null
+                    }
+                </div>
+            );
+        }
+    })
 );
 
 

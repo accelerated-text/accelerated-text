@@ -62,3 +62,14 @@ query concepts {
     }
   }
 }
+
+
+### QuickSearch ----------------------------------------------------------------
+
+query quickSearch( $query: String ) {
+  quickSearch( query: $query ) {
+    items {
+      ...wordFields
+    }
+  }
+}
