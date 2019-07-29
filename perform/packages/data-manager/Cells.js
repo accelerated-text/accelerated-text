@@ -1,6 +1,8 @@
 import classnames           from 'classnames';
 import { h }                from 'preact';
 
+import CellBlock            from '../nlg-blocks/Cell';
+import CellModifier         from '../nlg-blocks/Cell-modifier';
 import DragInBlock          from '../drag-in-blocks/DragInBlock';
 import {
     Error,
@@ -17,6 +19,7 @@ export default ({ className, fileItem, fileStatus, onChangeRow, selectedRow }) =
     <table className={ classnames( S.className, className, QA.DATA_MANAGER_CELL_TABLE ) }>
         <thead>
             <tr>
+                <th className={ S.dragInBlock } />
                 <th className={ S.dragInBlock } />
                 <th className={ S.cellName }>Cell</th>
                 <th>{
@@ -42,9 +45,18 @@ export default ({ className, fileItem, fileStatus, onChangeRow, selectedRow }) =
                 <td className={ S.dragInBlock }>
                     <DragInBlock
                         className={ QA.DATA_MANAGER_CELL_BLOCK }
-                        color={ S.dragInColor }
+                        color={ S.blockColor }
                         fields={{ name }}
-                        type="Cell"
+                        type={ CellBlock.type }
+                        width={ 36 }
+                    />
+                </td>
+                <td className={ S.dragInBlock }>
+                    <DragInBlock
+                        className={ QA.DATA_MANAGER_CELL_BLOCK }
+                        color={ S.modifierColor }
+                        fields={{ name }}
+                        type={ CellModifier.type }
                         width={ 36 }
                     />
                 </td>
