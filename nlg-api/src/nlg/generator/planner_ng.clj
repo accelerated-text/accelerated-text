@@ -102,10 +102,15 @@
     (get-in item [:name :dyn-name])
     (item :name)))
 
+(defn amr?
+  [item]
+  (-> (:attrs item)
+      (get :amr false)))
+
 (defn generate-templates
   "Takes context and generates numerous sentences. Picks random one"
   [grammar-path context]
-  (let [dyn-values (map get-placeholder (:dynamic context))
+  (let [dyn-values (map get-placeholder (remove amr? (:dynamic context)))
         values (concat (distinct (:static context)) dyn-values)
         _ (log/debugf "Context: %s" context)
         generated (apply (partial ccg/generate (ccg/load-grammar (format "%s/grammar.xml" grammar-path))) (ops/distinct-wordlist values))]

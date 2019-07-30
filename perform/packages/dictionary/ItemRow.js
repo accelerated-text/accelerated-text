@@ -25,7 +25,10 @@ export default composeQueries({
             { item &&
                 <DragInBlock
                     color={ S.dragInColor }
-                    fields={{ name: item.name }}
+                    mutation={{
+                        id:     item.id,
+                        name:   item.name,
+                    }}
                     type={ DictionaryItemBlock.type }
                     width={ 36 }
                 />
@@ -39,9 +42,11 @@ export default composeQueries({
         <td className={ QA.DICTIONARY_ITEM_PHRASES } onClick={ openDictionaryItem }>
             { item &&
                 <ShowPhrases
-                    phrases={ item.phrases.map(
-                        phrase => phrase.text
-                    ) }
+                    phrases={
+                        item.phrases
+                            .map( phrase => phrase.text )
+                            .sort()
+                    }
                 />
             }
         </td>

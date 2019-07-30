@@ -15,22 +15,48 @@ fragment readerFlagFields on ReaderFlag {
 
 ### Dictionary -----------------------------------------------------------------
 
+fragment readerFlagUsageFields on ReaderFlagUsage {
+  id
+  flag {
+    ...readerFlagFields
+  }
+  usage
+}
+
+fragment phraseFields on Phrase {
+  id
+  text
+  defaultUsage
+  readerFlagUsage {
+    ...readerFlagUsageFields
+  }
+}
+
 fragment dictionaryItemFields on DictionaryItem {
   id
   name
   phrases {
-    id
-    text
-    defaultUsage
-    readerFlagUsage {
-      id
-      flag {
-        id
-        name
-      }
-      usage
-    }
+    ...phraseFields
   }
 }
 
+### AMR ------------------------------------------------------------------------
 
+fragment thematicRoleFields on ThematicRole {
+  id
+  fieldLabel
+  fieldType
+}
+
+fragment conceptFields on Concept {
+  id
+  label
+  helpText
+  dictionaryItem {
+    id
+    name
+  }
+  roles {
+    ...thematicRoleFields
+  }
+}

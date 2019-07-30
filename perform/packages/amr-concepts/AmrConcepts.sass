@@ -1,0 +1,34 @@
+@import '../styles/variables'
+@import '../styles/groove-table'
+
+
+.className
+    @include groove-table( 1 / 8 )
+
+    $td-background:         rgba( 255, 255, 255, 2 / 3 )
+
+    table-layout:           fixed
+    width:                  100%
+
+    td,
+    th
+
+        padding:            $space-s
+
+    > thead > tr > th
+
+        font-weight:        $bold
+        text-align:         left
+
+        &.block
+
+            padding-right:  $space-xs
+            width:          2rem
+
+        &.name
+
+            width:          10rem
+
+    > tbody > tr > td
+
+        background-color:   $td-background

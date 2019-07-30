@@ -58,27 +58,6 @@ enum PartOfSpeech {
     WRB     # wh-adverb  where, when
 }
 
-### AMR ------------------------------------------------------------------------
-
-type ThematicRole {
-     id:                ID!
-     type:              BlocklyFieldType!
-     label:             String!
-}
-
-type Concept {
-     id:                ID!
-     label:             String!
-     dictionaryItem:    DictionaryItem!
-     roles:             [ ThematicRole! ]
-     helpText:          String!
-}
-
-type Concepts {
-     id:                ID!
-     concepts:          [ Concept! ]
-}
-
 ### Thesaurus ------------------------------------------------------------------
 
 type ThesaurusResults {
@@ -114,6 +93,7 @@ type Editor {
 type Organization {
     id:                 ID!
     name:               String!
+    concepts:           Concepts!
     dictionary:         DictionaryResults!
     readerFlags:        ReaderFlags!
 }
@@ -160,6 +140,29 @@ type ReaderFlagUsage {
     flag:               ReaderFlag!
     usage:              Usage!
 }
+
+
+### AMR ------------------------------------------------------------------------
+
+type ThematicRole {
+     id:                ID!
+     fieldType:         BlocklyFieldType!
+     fieldLabel:        String!
+}
+
+type Concept {
+     id:                ID!
+     label:             String!
+     dictionaryItem:    DictionaryItem!
+     roles:             [ ThematicRole! ]
+     helpText:          String!
+}
+
+type Concepts {
+     id:                ID!
+     concepts:          [ Concept! ]
+}
+
 
 ### DocumentPlan --------------------------------------------------------------
 
@@ -216,16 +219,16 @@ type Query {
 
     ### DocumentPlan
 
-    documentPlans:           DocumentPlanResults!
+    documentPlans:          DocumentPlanResults!
     documentPlan(
-        id:                  ID!
-    ): DocumentPlan
+        id:                 ID!
+    ):  DocumentPlan
 
    ### AMR
-   concepts:              Concepts!
+   concepts:                Concepts!
    concept(
-        id:                  ID!
-   ): Concept
+        id:                 ID!
+   ):   Concept
 }
 
 

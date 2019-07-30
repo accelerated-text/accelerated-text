@@ -1,0 +1,67 @@
+@import '../styles/variables'
+
+
+.className
+
+    align-items:            start
+    display:                grid
+    grid-gap:               $space-s
+    grid-template-columns:  1fr
+    margin:                 0
+    padding:                0
+    width:                  100%
+
+    &.hasDelete
+
+        grid-template-columns:      auto 1em
+
+    &.isEditing
+
+        align-items:                center
+        grid-gap:                   $space-xs
+        grid-template-columns:      1fr 6em 6em
+
+        &.compact
+
+            grid-template-columns:  1fr 2em 2em
+
+        > button,
+        > input
+
+            box-sizing:             border-box
+            font-size:              $size-s
+            margin:                 0
+            padding:                $space-xxs
+            width:                  100%
+
+        > button
+
+            text-align:             center
+
+    > .text
+
+        cursor:             pointer
+        display:            block
+        margin:             0
+        padding:            0
+
+        &:hover
+            &::after
+
+                content:    ' 📝'
+                display:    inline
+                font-size:  100% / $size-factor
+
+    > .delete
+
+        background-color:   transparent
+        border:             0 none transparent
+        cursor:             pointer
+        display:            inline-block
+        margin:             0
+        opacity:            .2
+        padding:            0
+
+        &:hover
+
+            opacity:        1
