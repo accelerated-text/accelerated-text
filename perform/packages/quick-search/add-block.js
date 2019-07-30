@@ -50,7 +50,8 @@ export default item => ( workspace, Blockly ) => {
         if( target ) {
             /// connect to selected block or its parent:
             const firstInput = target.inputList.find( input => (
-                ! input.connection.isConnected()
+                input.connection
+                && ! input.connection.isConnected()
                 && input.connection.isConnectionAllowed( block.outputConnection )
             ));
             if( firstInput ) {
