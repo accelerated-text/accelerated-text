@@ -6,7 +6,8 @@
             [nlg.api.dictionary :as dictionary-api]
             [nlg.generator.realizer :as realizer]
             [data-access.entities.amr :as amr-entity]
-            [data-access.entities.dictionary :as dictionary-entity]))
+            [data-access.entities.dictionary :as dictionary-entity]
+            [ccg-kit.verbnet.ccg :as vnet-ccg]))
 
 (def parse-cnt (atom 0))
 (defn reset-parse-cnt [] (reset! parse-cnt 0))
@@ -156,6 +157,7 @@
                                         (r :children))))
                                (node :roles)))
         template (stub-amr children)
+        amr-grammar (vn-ccg/vn->grammar vc)
         main (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)]
     (cons main children)))
 
