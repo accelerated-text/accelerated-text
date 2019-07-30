@@ -225,11 +225,17 @@ type Query {
         id:                 ID!
     ):  DocumentPlan
 
-   ### AMR
-   concepts:                Concepts!
-   concept(
-        id:                 ID!
-   ):   Concept
+    ### AMR
+    concepts:                Concepts!
+    concept(
+      id:                 ID!
+    ):   Concept
+
+    ### quickSearch
+
+    quickSearch(
+        query:              String
+    ):  ThesaurusResults!
 }
 
 

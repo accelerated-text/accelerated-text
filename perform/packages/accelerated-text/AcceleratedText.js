@@ -1,4 +1,4 @@
-import { h, Component }     from 'preact';
+import { h }                from 'preact';
 
 import {
     composeQueries,
@@ -9,6 +9,8 @@ import EditorSidebar        from '../plan-editor/Sidebar';
 import Header               from '../header/Header';
 import PlanEditor           from '../plan-editor/PlanEditor';
 import QuickSearch          from '../quick-search/Modal';
+import QuickSearchShortcuts from '../quick-search/KeyboardProvider';
+import WorkspaceContextProvider from '../workspace-context/Provider';
 
 import {
     acceleratedText,
@@ -26,51 +28,45 @@ const AcceleratedText = mountStores(
         closeDictionaryItem,
         closeQuickSearch,
         openQuickSearch,
-    })( class AcceleratedText extends Component {
-
-        onKeyDown = evt => {
-            if( evt.ctrlKey && evt.key === '/' ) {
-                this.props.openQuickSearch();
-            }
-        }
-
-        render({
-            acceleratedText: { acceleratedText },
-            closeDictionaryItem,
-            closeQuickSearch,
-            openQuickSearch,
-        }) {
-            return (
-                <div className={ S.className } onKeyDown={ this.onKeyDown } tabindex="0">
-                    <div className={ S.grid }>
-                        <Header
-                            className={ S.header }
-                            openQuickSearch={ openQuickSearch }
+    })(({
+        acceleratedText: { acceleratedText },
+        closeDictionaryItem,
+        closeQuickSearch,
+        openQuickSearch,
+    }) =>
+        <QuickSearchShortcuts
+            className={ S.className }
+            openQuickSearch={ openQuickSearch }
+        >
+            <div className={ S.grid }>
+                <Header
+                    className={ S.header }
+                    openQuickSearch={ openQuickSearch }
+                />
+                {
+                    ( acceleratedText && acceleratedText.openedDictionaryItem )
+                        ? <DictionaryEditor
+                            className={ S.main }
+                            closeEditor={ closeDictionaryItem }
+                            itemId={ acceleratedText.openedDictionaryItem }
                         />
-                        {
-                            ( acceleratedText && acceleratedText.openedDictionaryItem )
-                                ? <DictionaryEditor
-                                    className={ S.main }
-                                    closeEditor={ closeDictionaryItem }
-                                    itemId={ acceleratedText.openedDictionaryItem }
-                                />
-                                : <PlanEditor className={ S.main } />
-                        }
-                        <EditorSidebar className={ S.rightSidebar } />
-                    </div>
-                    {
-                        ( acceleratedText && acceleratedText.openedQuickSearch )
-                            ? <QuickSearch onClose={ closeQuickSearch } />
-                            : null
-                    }
-                </div>
-            );
-        }
-    })
+                        : <PlanEditor className={ S.main } />
+                }
+                <EditorSidebar className={ S.rightSidebar } />
+            </div>
+            {
+                ( acceleratedText && acceleratedText.openedQuickSearch )
+                    ? <QuickSearch onClose={ closeQuickSearch } />
+                    : null
+            }
+        </QuickSearchShortcuts>
+    )
 );
 
 
 export default () =>
     <GraphQLProvider>
-        <AcceleratedText />
+        <WorkspaceContextProvider>
+            <AcceleratedText />
+        </WorkspaceContextProvider>
     </GraphQLProvider>;

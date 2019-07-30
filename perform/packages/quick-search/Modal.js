@@ -1,18 +1,23 @@
-import {
-    h,
-    Component,
-    createRef,
-}                           from 'preact';
+import { h, Component }     from 'preact';
 
+import Query                from './Query';
+import Results              from './Results';
 import S                    from './Modal.sass';
 
 
 export default class QuickSearchModal extends Component {
 
-    inputRef =              createRef();
+    state = {
+        query:              '',
+    };
 
-    onClickBackground = evt =>
+    onChangeQuery = query => {
+        this.setState({ query });
+    };
+
+    onClickBackground = evt => {
         this.props.onClose();
+    };
 
     onClickModal = evt => {
         evt.stopPropagation();
@@ -24,12 +29,7 @@ export default class QuickSearchModal extends Component {
         }
     };
 
-    componentDidMount() {
-
-        this.inputRef.current.focus();
-    }
-    
-    render() {
+    render( props, { query }) {
         return (
             <div
                 className={ S.className }
@@ -39,12 +39,15 @@ export default class QuickSearchModal extends Component {
             >
                 <div className={ S.modal } onClick={ this.onClickModal }>
                     <h1>Search</h1>
-                    <form>
-                        <input ref={ this.inputRef } type="search" />
-                    </form>
-                    <div className={ S.results }>
-                        ...results
-                    </div>
+                    <Query
+                        autofocus
+                        onChange={ this.onChangeQuery }
+                        value={ query }
+                    />
+                    <Results
+                        onSelect={ this.props.onClose }
+                        query={ query }
+                    />
                 </div>
             </div>
         );

@@ -67,8 +67,10 @@ query concepts {
 ### QuickSearch ----------------------------------------------------------------
 
 query quickSearch( $query: String ) {
-  quickSearch( query: $query ) {
-    items {
+  quickSearch( query: $query ) @client {
+    offset
+    totalCount
+    words {
       ...wordFields
     }
   }
