@@ -20,9 +20,10 @@ export default class QuickSearchKeyboardHandler extends Component {
 
     componentDidMount() {
         this.context.onWorkspace( workspace => {
+            const svg =     workspace.getParentSvg();
 
-            /// Fix keyboard issues with workspace:
-            workspace.getParentSvg().tabIndex = '0';
+            svg.tabIndex = '0'; /// Fix keyboard issues with workspace:
+            svg.focus();
         });
     }
 

@@ -1,11 +1,15 @@
 import { h, Component }     from 'preact';
 
+import WorkspaceContext     from '../workspace-context/WorkspaceContext';
+
 import Query                from './Query';
 import Results              from './Results';
 import S                    from './Modal.sass';
 
 
 export default class QuickSearchModal extends Component {
+
+    static contextType =    WorkspaceContext;
 
     state = {
         query:              '',
@@ -15,8 +19,11 @@ export default class QuickSearchModal extends Component {
         this.setState({ query });
     };
 
-    onClickBackground = evt => {
+    onClose = () => {
         this.props.onClose();
+        this.context.withWorkspace( workspace => {
+            workspace.getParentSvg().focus();
+        });
     };
 
     onClickModal = evt => {
@@ -25,7 +32,7 @@ export default class QuickSearchModal extends Component {
 
     onKeyDown = evt => {
         if( evt.key === 'Escape' ) {
-            this.props.onClose();
+            this.onClose();
         }
     };
 
@@ -33,7 +40,7 @@ export default class QuickSearchModal extends Component {
         return (
             <div
                 className={ S.className }
-                onClick={ this.onClickBackground }
+                onClick={ this.onClose }
                 onKeyDown={ this.onKeyDown }
                 tabindex="0"
             >
