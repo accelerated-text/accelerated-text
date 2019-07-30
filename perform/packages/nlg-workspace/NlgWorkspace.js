@@ -4,6 +4,7 @@ import PropTypes            from 'prop-types';
 
 import DocumentPlan         from '../nlg-blocks/Document-plan';
 import DropTarget           from '../drag-in-blocks/DropTarget';
+import keyboardNav          from '../blockly-keyboard-navigation';
 import { provideBlocks }    from '../nlg-blocks/';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 import WorkspaceContext     from '../workspace-context/WorkspaceContext';
@@ -120,6 +121,8 @@ export default class NlgWorkspace extends Component {
                 this.onChangeWorkspace( evt );
             }
         });
+
+        keyboardNav( workspace, this.Blockly );
 
         this.context.setWorkspace( workspace );
     }

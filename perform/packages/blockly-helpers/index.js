@@ -5,6 +5,7 @@ export { default as getAllNextBlocks }      from './get-all-next-blocks';
 export { default as getFieldMap }           from './get-field-map';
 export { default as getFields }             from './get-fields';
 export { default as getInputsByPrefix }     from './get-inputs-by-prefix';
+export { default as getSiblings }           from './get-siblings';
 export { default as getStatementMap }       from './get-statement-map';
 export { default as getStatements }         from './get-statements';
 export { default as getThisAndNextBlocks }  from './get-this-and-next-blocks';
