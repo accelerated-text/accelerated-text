@@ -67,6 +67,7 @@ export default item => ( workspace, Blockly ) => {
 
         block.select();
         workspace.centerOnBlock( block.id );
+        workspace.getParentSvg().focus();
     }
 };
 
