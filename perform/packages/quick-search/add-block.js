@@ -17,6 +17,17 @@ export const getBlock = {
 };
 
 
+export const findAllowedInput = ( block, target ) => (
+    target
+    && ! target.allInputsFilled()
+    && target.inputList.find( input => (
+        input.connection
+        && ! input.connection.isConnected()
+        && input.connection.isConnectionAllowed( block.outputConnection )
+    ))
+);
+
+
 export default item => ( workspace, Blockly ) => {
     const { Xml } =         Blockly;
     const createBlock =     getBlock[ item.__typename ];
@@ -42,21 +53,14 @@ export default item => ( workspace, Blockly ) => {
         );
         const selectedParent =  selected && selected.getParent();
 
-        const target = (
-            ( selected && ! selected.allInputsFilled() && selected )
-            || ( selectedParent && ! selectedParent.allInputsFilled() && selectedParent )
+        const targetInput = (
+            findAllowedInput( block, selected )
+            || ( selectedParent && findAllowedInput( block, selectedParent ))
         );
 
-        if( target ) {
-            /// connect to selected block or its parent:
-            const firstInput = target.inputList.find( input => (
-                input.connection
-                && ! input.connection.isConnected()
-                && input.connection.isConnectionAllowed( block.outputConnection )
-            ));
-            if( firstInput ) {
-                firstInput.connection.connect( block.outputConnection );
-            }
+        if( targetInput ) {
+            targetInput.connection.connect( block.outputConnection );
+            block.select();
         } else {
             /// move to center bottom:
             const { x, y } =    block.getRelativeToSurfaceXY();
@@ -64,10 +68,10 @@ export default item => ( workspace, Blockly ) => {
                 ( box.x + box.width / 2 - x - block.width )     || 0,
                 ( box.y + box.height    - y - block.height )    || 0,
             );
+            block.select();
+            workspace.centerOnBlock( block.id );
         }
 
-        block.select();
-        workspace.centerOnBlock( block.id );
         workspace.getParentSvg().focus();
     }
 };
