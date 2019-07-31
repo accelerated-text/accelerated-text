@@ -7,6 +7,7 @@
             [nlg.generator.realizer :as realizer]
             [data-access.entities.amr :as amr-entity]
             [data-access.entities.dictionary :as dictionary-entity]
+            [ccg-kit.grammar :as ccg]
             [ccg-kit.verbnet.ccg :as vn-ccg]))
 
 (def parse-cnt (atom 0))
@@ -149,7 +150,10 @@
   (let [amr-attrs (assoc attrs :amr true)
         idx (swap! parse-cnt inc)
         vc (amr-entity/get-verbclass (node :conceptId))
-        dict (parse-node (node :dictionaryItem) amr-attrs ctx)
+        reader-profile (ctx :reader-profile)
+        members (-> (node :dictionaryItem)
+                    :itemId
+                    (dictionary-api/search reader-profile))
         children (flatten (map (fn [r]
                                  (let [updated-attrs (assoc amr-attrs :title (r :name))]
                                    (map (fn [node]
@@ -157,8 +161,11 @@
                                         (r :children))))
                                (node :roles)))
         template (stub-amr children)
-        amr-grammar (vn-ccg/vn->grammar vc)
-        main (ops/append-dynamic {:quote template :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)]
+        amr-grammar (vn-ccg/vn->grammar (assoc vc :members (map (fn [m] {:name m}) members)))
+        amr-result (ccg/generate amr-grammar "{{AGENT}}" "{{CO-AGENT}}" "with" (first members))
+        _ (log/debugf "VC: %s Dict: %s" vc (pr-str members))
+        _ (log/debugf "AMR results count: %d" (count amr-result))
+        main (ops/append-dynamic {:quote (first amr-result) :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)]
     (cons main children)))
 
 (defn parse-themrole
