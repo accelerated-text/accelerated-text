@@ -13,7 +13,7 @@ export default class QuickSearchKeyboardHandler extends Component {
     };
 
     onKeyDown = evt => {
-        if( evt.ctrlKey && evt.key === '/' ) {
+        if( evt.ctrlKey && evt.altKey && evt.key === 'a' ) {
             this.props.openQuickSearch();
         }
     };
