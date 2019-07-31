@@ -29,7 +29,6 @@ export default composeQueries({
             ? quickSearch.words.map( item =>
                 <Item
                     children={ item.text }
-                    className={ S.item }
                     item={ item }
                     key={ item.id }
                     onSelect={ onSelect }

@@ -1,0 +1,24 @@
+@import '../styles/variables'
+@import '../styles/no-list'
+
+
+#{ ':export' }
+    // sass-lint:disable no-misspelled-properties
+    dictionaryItemColor:    $blockly-blue
+    modifierColor:          $blockly-red
+
+
+
+.className
+
+    @include no-list
+
+    box-shadow:             inset 0 1px $lighten, inset 0 -1px $darken
+    display:                grid
+    grid-template-columns:  2rem 1rem auto
+    margin:                 0
+    padding:                0
+
+    > div
+
+        padding:            $space-s 0
