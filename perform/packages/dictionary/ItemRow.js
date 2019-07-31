@@ -31,7 +31,6 @@ export default composeQueries({
                         name:   item.name,
                     }}
                     type={ DictionaryItemBlock.type }
-                    width={ 36 }
                 />
             }
         </td>
@@ -44,7 +43,6 @@ export default composeQueries({
                         name:   item.name,
                     }}
                     type={ DictionaryItemModifier.type }
-                    width={ 36 }
                 />
             }
         </td>

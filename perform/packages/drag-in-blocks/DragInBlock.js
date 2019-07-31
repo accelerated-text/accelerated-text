@@ -4,6 +4,7 @@ import PropTypes            from 'prop-types';
 import renderToString       from 'preact-render-to-string';
 
 import Block                from '../block-component/BlockComponent';
+import ValueIcon            from '../block-icons/Value';
 
 import { DT_TYPE }          from './constants';
 import S                    from './DragInBlock.sass';
@@ -15,7 +16,6 @@ export default class DragInBlock extends Component {
         className:          PropTypes.string,
         comment:            PropTypes.string,
         fields:             PropTypes.object,
-        text:               PropTypes.string,
         type:               PropTypes.string.isRequired,
     };
 
@@ -39,7 +39,7 @@ export default class DragInBlock extends Component {
         this.setState({ isDragged: false });
 
     render(
-        { className, color = S.fillColor, text, width = 180 },
+        { className, color = S.fillColor },
         { isDragged, isOverDrop },
     ) {
         return (
@@ -53,17 +53,7 @@ export default class DragInBlock extends Component {
                 onDragStart={ this.onDragStart }
                 onDragEnd={ this.onDragEnd }
             >
-                <svg height="28" width={ width }>
-                    <g transform="translate( 8, 0 )">
-                        <path
-                            d={ `m 0,0 H ${ width } v 31 H 0 V 20 c 0,-10 -8,8 -8,-7.5 s 8,2.5 8,-7.5 z` }
-                            fill={ color }
-                        />
-                        { text &&
-                            <text children={ text } transform="translate( 8, 18 )" />
-                        }
-                    </g>
-                </svg>
+                <ValueIcon color={ color } />
             </div>
         );
     }

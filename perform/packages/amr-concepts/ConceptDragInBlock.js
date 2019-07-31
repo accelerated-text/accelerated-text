@@ -27,5 +27,4 @@ export default ({ concept }) =>
                 type:       DictionaryItemBlock.type,
             }),
         }}
-        width={ 36 }
     />;

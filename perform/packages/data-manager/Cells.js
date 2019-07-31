@@ -48,7 +48,6 @@ export default ({ className, fileItem, fileStatus, onChangeRow, selectedRow }) =
                         color={ S.blockColor }
                         fields={{ name }}
                         type={ CellBlock.type }
-                        width={ 36 }
                     />
                 </td>
                 <td className={ S.dragInBlock }>
@@ -57,7 +56,6 @@ export default ({ className, fileItem, fileStatus, onChangeRow, selectedRow }) =
                         color={ S.modifierColor }
                         fields={{ name }}
                         type={ CellModifier.type }
-                        width={ 36 }
                     />
                 </td>
                 <td className={ classnames( S.cellName, QA.DATA_MANAGER_CELL_NAME ) }>
