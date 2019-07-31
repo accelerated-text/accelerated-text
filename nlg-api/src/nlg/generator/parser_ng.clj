@@ -5,10 +5,10 @@
             [nlg.api.lexicon :as lexicon]
             [nlg.api.dictionary :as dictionary-api]
             [nlg.generator.realizer :as realizer]
-            [data-access.entities.amr :as amr-entity]
             [data-access.entities.dictionary :as dictionary-entity]
             [ccg-kit.grammar :as ccg]
-            [ccg-kit.verbnet.ccg :as vn-ccg]))
+            [ccg-kit.verbnet.ccg :as vn-ccg]
+            [amr.core :as amr]))
 
 (def parse-cnt (atom 0))
 (defn reset-parse-cnt [] (reset! parse-cnt 0))
@@ -136,7 +136,7 @@
   [node attrs ctx]
   (let [amr-attrs (assoc attrs :amr true)
         idx (swap! parse-cnt inc)
-        vc (amr-entity/get-verbclass (node :conceptId))
+        vc (amr/get-rule (node :conceptId))
         reader-profile (ctx :reader-profile)
         members (-> (node :dictionaryItem)
                     :itemId
