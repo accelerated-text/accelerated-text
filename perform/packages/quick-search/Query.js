@@ -4,6 +4,8 @@ import {
     createRef,
 }                           from 'preact';
 
+import S                    from './Query.sass';
+
 
 export default class QuickSearchQuery extends Component {
 
@@ -25,9 +27,10 @@ export default class QuickSearchQuery extends Component {
 
     render({ value }) {
         return (
-            <form onSubmit={ this.onSubmit }>
+            <form className={ S.className } onSubmit={ this.onSubmit }>
                 <input
                     onInput={ this.onInput }
+                    placeholder="Search blocks"
                     ref={ this.inputRef }
                     type="search"
                     value={ value }

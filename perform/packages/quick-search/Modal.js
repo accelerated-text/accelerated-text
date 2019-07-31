@@ -45,7 +45,6 @@ export default class QuickSearchModal extends Component {
                 tabindex="0"
             >
                 <div className={ S.modal } onClick={ this.onClickModal }>
-                    <h1>Search</h1>
                     <Query
                         autofocus
                         onChange={ this.onChangeQuery }
