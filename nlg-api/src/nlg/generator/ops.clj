@@ -121,3 +121,15 @@
         lexicon (thematic-roles->atomic-categories morph)]
     (u/pprint-xml (xml/element :morph {} (m/generate-morphology-xml morph)))
     (u/pprint-xml (xml/element :ccg-lexicon {} (l/generate-lexicon-xml lexicon morph)))))
+
+
+(defn replace-multi
+  [original replaces]
+  (loop [text original
+         r replaces]
+    (if (empty? r)
+      text
+      (let [[head & tail] r
+            result (try (string/replace text (:original head) (:replace head))
+                        (catch Exception ex (log/errorf "Problem with: %s" (pr-str head))))]
+        (recur result tail)))))

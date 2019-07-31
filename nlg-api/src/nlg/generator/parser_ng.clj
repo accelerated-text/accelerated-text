@@ -163,9 +163,23 @@
         template (stub-amr children)
         amr-grammar (vn-ccg/vn->grammar (assoc vc :members (map (fn [m] {:name m}) members)))
         amr-result (ccg/generate amr-grammar "{{AGENT}}" "{{CO-AGENT}}" "with" (first members))
-        _ (log/debugf "VC: %s Dict: %s" vc (pr-str members))
+        _ (log/debugf "VC: %s Dict: %s Children: %s Dynamic: %s" vc (pr-str members) (pr-str children) (pr-str (:dynamic (first children))))
         _ (log/debugf "AMR results count: %d" (count amr-result))
-        main (ops/append-dynamic {:quote (first amr-result) :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)]
+
+        replaces (map (fn [c]
+                        (let [title (:title (:attrs c))
+                              dyn-name (get-in c [:name :dyn-name])]
+                          (case title
+                            "Agent" {:original "{{AGENT}}" :replace dyn-name}
+                            "coAgent" {:original "{{CO-AGENT}}" :replace dyn-name}
+                            {:original (format "{{%s}}" (str/upper-case title)) :replace dyn-name})))
+                      (map #(first (:dynamic %)) children))
+
+        _ (log/debugf "Replaces: %s" (pr-str replaces))
+        final-result (-> (first amr-result)
+                         (ops/replace-multi replaces))
+
+        main (ops/append-dynamic {:quote final-result :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)]
     (cons main children)))
 
 (defn parse-themrole
