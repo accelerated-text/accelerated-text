@@ -195,4 +195,5 @@
                  :main-feature "comfort"
                  :secondary-feature "support"}]
           result (render-dp document-plan data {})]
-      (is (not (empty? result))))))
+      (is (not (empty? result)))
+      (log/debugf "Final AMR results: %s" (pr-str result)))))
