@@ -132,19 +132,6 @@
                   :Any-of (parse-node (rand-nth children) attrs ctx))]
     results))
 
-(defn stub-amr
-  "Just temporary measure. Will drop it later"
-  [children]
-  (format
-   "<AMR GOES HERE, %s>"
-   (clojure.string/join " " (map (fn [item]
-                                   (let [placeholder (case (:source (:attrs item))
-                                                       :quote (-> item :name :dyn-name)
-                                                       :cell (-> item :name :dyn-name)
-                                                       (:name item))]
-                                     (format "%s: %s" (-> item :attrs :title) placeholder)))
-                                 (->> children (map :dynamic) (flatten))))))
-
 (defn parse-amr
   [node attrs ctx]
   (let [amr-attrs (assoc attrs :amr true)
@@ -160,12 +147,6 @@
                                           (parse-node node updated-attrs ctx))
                                         (r :children))))
                                (node :roles)))
-        template (stub-amr children)
-        amr-grammar (vn-ccg/vn->grammar (assoc vc :members (map (fn [m] {:name m}) members)))
-        amr-result (ccg/generate amr-grammar "{{AGENT}}" "{{CO-AGENT}}" "with" (first members))
-        _ (log/debugf "VC: %s Dict: %s Children: %s Dynamic: %s" vc (pr-str members) (pr-str children) (pr-str (:dynamic (first children))))
-        _ (log/debugf "AMR results count: %d" (count amr-result))
-
         replaces (map (fn [c]
                         (let [title (:title (:attrs c))
                               dyn-name (get-in c [:name :dyn-name])]
@@ -174,13 +155,21 @@
                             "coAgent" {:original "{{CO-AGENT}}" :replace dyn-name}
                             {:original (format "{{%s}}" (str/upper-case title)) :replace dyn-name})))
                       (map #(first (:dynamic %)) children))
-
-        _ (log/debugf "Replaces: %s" (pr-str replaces))
-        final-result (-> (first amr-result)
-                         (ops/replace-multi replaces))
-
-        main (ops/append-dynamic {:quote final-result :dyn-name (format "$%d" idx) } (assoc attrs :source :quote) ctx)]
-    (cons main children)))
+        words (concat
+               (map (fn [r] (:original r)) replaces)
+               (list
+                (first members)
+                "with"))
+        amr-grammar (vn-ccg/vn->grammar (assoc vc :members (map (fn [m] {:name m}) members)))
+        amr-results (apply (partial ccg/generate amr-grammar) words)]
+    (when (seq? amr-results)
+      (cons
+       (ops/append-dynamic
+        {:quote (-> (rand-nth amr-results) (ops/replace-multi replaces))
+         :dyn-name (format "$%d" idx) }
+        (assoc attrs :source :quote)
+        ctx)
+       children))))
 
 (defn parse-themrole
   [node attrs ctx]
