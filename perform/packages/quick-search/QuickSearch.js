@@ -2,7 +2,7 @@ import { h, Component }     from 'preact';
 
 import WorkspaceContext     from '../workspace-context/WorkspaceContext';
 
-import Query                from './Query';
+import Form                 from './Form';
 import Results              from './Results';
 
 
@@ -26,7 +26,7 @@ export default class QuickSearchModal extends Component {
 
     render = ({ onClose }, { query }) =>
         <div>
-            <Query
+            <Form
                 autofocus
                 onChange={ this.onChangeQuery }
                 value={ query }

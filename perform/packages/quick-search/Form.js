@@ -4,7 +4,7 @@ import {
     createRef,
 }                           from 'preact';
 
-import S                    from './Query.sass';
+import S                    from './Form.sass';
 
 
 export default class QuickSearchQuery extends Component {
