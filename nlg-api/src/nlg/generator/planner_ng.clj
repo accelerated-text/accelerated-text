@@ -6,7 +6,8 @@
             [data-access.db.s3 :as s3]
             [data-access.db.config :as config]
             [nlg.generator.ops :as ops]
-            [nlg.generator.realizer :as realizer]))
+            [nlg.generator.realizer :as realizer]
+            [ccg-kit.grammar-generation.translate :as translate]))
 
 (defn build-dp-instance
   "dp - a hashmap compiled with `compile-dp`
@@ -48,19 +49,18 @@
                 :pos :S}
       default)))
 
-;; (defn resolve-morph-context
-;;   [group]
-;;   (map (fn
-;;          [item]
-;;          (let [name (case (string? (item :name))
-;;                       true (item :name)
-;;                       false ((item :name) :dyn-name))
-;;                context (resolve-item-context item)]
-;;            #::morphology-spec{:syntactic-type (context :pos)
-;;                        :pos (context :pos)
-;;                        :word name
-;;                        :class (context :class)}))
-;;        group))
+(defn resolve-morph-context
+  [group]
+  (map (fn
+         [item]
+         (let [name (case (string? (item :name))
+                      true (item :name)
+                      false ((item :name) :dyn-name))
+               context (resolve-item-context item)]
+           (dsl/morph-entry
+            name (:pos context)
+            {:class (:class context)})))
+       group))
 
 (defn zipWith [left right] (map vector left right))
 
@@ -114,15 +114,15 @@
         generated-families (list)
         
         grouped (group-by (fn [item] (get-in item [:attrs :type])) values)
-        ;; morphology-context (map resolve-morph-context (vals grouped))
+        morphology-context (map resolve-morph-context (vals grouped))
         ;; morphology (map ccg-morphology/generate-morphology-xml morphology-context)
         ;; lexicon (map (fn [[l m]]
         ;;                (ccg-lexicon/generate-lexicon-xml (list l) m))
         ;;              (zipWith (map-indexed resolve-lex-context (vals grouped)) morphology-context))
 
         lexicon (ccg/build-lexicon
-                 {:families (concat initial-families generated-families)
-                  :morph (list)
+                 {:families (map translate/family->entry (concat initial-families generated-families))
+                  :morph (map translate/morph->entry morphology-context)
                   :macros (list)})]
     (grammar-builder lexicon)))
 
