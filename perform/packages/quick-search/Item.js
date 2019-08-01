@@ -16,7 +16,10 @@ const COLORS = [
 const getColor = ( isActive, subtype, n ) =>
     COLORS[
         isActive
-            ? (( subtype + n ) % COLORS.length )
+            ? ((
+                ( COLORS.length + subtype % COLORS.length )
+                + n
+            ) % COLORS.length )
             : n
     ];
 

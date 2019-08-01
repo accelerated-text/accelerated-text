@@ -41,6 +41,11 @@ export default class QuickSearchQuery extends Component {
                 itemSubtype:    0,
             }));
         },
+        onArrowLeft: () => {
+            this.setState(({ itemSubtype }) => ({
+                itemSubtype:    itemSubtype - 1,
+            }));
+        },
         onArrowRight: () => {
             this.setState(({ itemSubtype }) => ({
                 itemSubtype:    itemSubtype + 1,
