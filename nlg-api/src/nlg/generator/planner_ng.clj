@@ -112,15 +112,32 @@
                                                       (dsl/fs-feat "num" "pl")
                                                       (dsl/fs-nomvar "index" "X0"))
                                          (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X1")))
-                                        (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X2"))))))
+                                        (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X2")))))
+                          ;; PROVIDES rule. Example: <word1> provides <word2>
+                          (dsl/family "v.provide" :V false
+                                      (dsl/entry
+                                       "Primary"
+                                       (dsl/lf "E" "[*DEFAULT*]"
+                                               (dsl/diamond "Thing" {:nomvar "X"})
+                                               (dsl/diamond "Benefit" {:nomvar "Y"}))
+                                       (dsl/>F
+                                        \>
+                                        (dsl/<B
+                                         (dsl/atomcat :S {} (dsl/fs-nomvar "index" "E"))
+                                         (dsl/atomcat :NNP {} (dsl/fs-nomvar "index" "X")))
+                                        (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "Y"))))))
         
         
         grouped (group-by (fn [item] (get-in item [:attrs :type])) values)
+        initial-morph (list
+                       (dsl/morph-entry "provides" :V {:stem "benefit" :class "purpose"})
+                       (dsl/morph-entry "offers" :V {:stem "benefit" :class "purpose"})
+                       (dsl/morph-entry "gives" :V {:stem "benefit" :class "purpose"}))
         morphology-context (map resolve-morph-context (vals grouped))
         generated-families (map-indexed resolve-lex-context grouped)
         lexicon (ccg/build-lexicon
                  {:families (map translate/family->entry (concat initial-families generated-families))
-                  :morph (map translate/morph->entry (flatten morphology-context))
+                  :morph (map translate/morph->entry (concat initial-morph (flatten morphology-context)))
                   :macros (list)})]
     (grammar-builder lexicon)))
 
