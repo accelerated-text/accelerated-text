@@ -1,25 +1,26 @@
 import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 
+import ModifierIcon         from '../block-icons/Modifier';
+import MultiInputIcon       from '../block-icons/Multi-input';
 import ValueIcon            from '../block-icons/Value';
 
 import S                    from './Item.sass';
 
 
-const COLORS = [
-    S.dictionaryItemColor,
-    S.modifierColor,
-    S.amrColor,
+const TYPES = [
+    <ValueIcon color={ S.dictionaryItemColor } />,
+    <ModifierIcon color={ S.modifierColor } />,
+    <MultiInputIcon color={ S.amrColor } />,
 ];
 
-
-const getColor = ( isActive, subtype, n ) =>
-    COLORS[
+const getType = ( isActive, subtype, n ) =>
+    TYPES[
         isActive
             ? ((
-                ( COLORS.length + subtype % COLORS.length )
+                ( TYPES.length + subtype % TYPES.length )
                 + n
-            ) % COLORS.length )
+            ) % TYPES.length )
             : n
     ];
 
@@ -41,14 +42,10 @@ export default class QuickSearchItem extends Component {
                 onClick={ this.onClick }
             >
                 <div className={ S.icon }>
-                    <ValueIcon
-                        color={ getColor( isActive, subtype, 0 ) }
-                    />
+                    { getType( isActive, subtype, 0 ) }
                 </div>
                 <div className={ S.nextIcon }>
-                    <ValueIcon
-                        color={ getColor( isActive, subtype, 1 ) }
-                    />
+                    { getType( isActive, subtype, 1 ) }
                 </div>
                 <div className={ S.text }>{ text }</div>
             </button>

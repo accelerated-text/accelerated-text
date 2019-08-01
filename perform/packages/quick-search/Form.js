@@ -75,17 +75,6 @@ export default class QuickSearchQuery extends Component {
                 itemSubtype:    0,
             });
         }
-        /*
-        this.setState(({ activeItem }) => ({
-            activeItem: (
-                ( ! items || ! items.length )
-                    ? 0
-                : ( activeItem >= items.length )
-                    ? items.length - 1
-                    : activeItem
-            ),
-        }));
-        */
     }
 
     render(
