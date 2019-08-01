@@ -58,26 +58,28 @@
                       false ((item :name) :dyn-name))
                context (resolve-item-context item)]
            (dsl/morph-entry
-            name (:pos context)
+            name
+            (:pos context)
             {:class (:class context)})))
        group))
 
-(defn zipWith [left right] (map vector left right))
-
-;; (defn resolve-lex-context
-;;   [idx items]
-;;   (let [predicate "[*DEFAULT*]"
-;;         context (resolve-item-context (first items))
-;;         category #::lexicon-spec{:syntactic-type :NP
-;;                              :feature-set [idx []]}
-;;         lf #::lexicon-spec{:nomvar "X"}
-;;         entries (list #::lexicon-spec {:predicate predicate
-;;                                    :category category
-;;                                    :pos (context :pos)
-;;                                    :logical-form lf})]
-;;     #::lexicon-spec{:pos (context :pos)
-;;                 :name (context :pos)
-;;                 :lexical-entries entries}))
+(defn resolve-lex-context
+  [idx [k members]]
+  (let [{:keys [pos class]} (resolve-item-context (first members))
+        family-part (partial
+                     dsl/family
+                     (name k) pos true
+                     (dsl/entry "Primary"
+                                (dsl/lf "X")
+                                (dsl/atomcat pos {:index (+ idx 10)}
+                                             (dsl/fs-nomvar "index" "X"))))]
+    (apply family-part
+           (map (fn [m]
+                  (let [name (case (string? (m :name))
+                               true (m :name)
+                               false ((m :name) :dyn-name))]
+                    (dsl/member name)))
+                members))))
 
 (defn compile-custom-grammar
   [values]
@@ -111,18 +113,14 @@
                                                       (dsl/fs-nomvar "index" "X0"))
                                          (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X1")))
                                         (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X2"))))))
-        generated-families (list)
+        
         
         grouped (group-by (fn [item] (get-in item [:attrs :type])) values)
         morphology-context (map resolve-morph-context (vals grouped))
-        ;; morphology (map ccg-morphology/generate-morphology-xml morphology-context)
-        ;; lexicon (map (fn [[l m]]
-        ;;                (ccg-lexicon/generate-lexicon-xml (list l) m))
-        ;;              (zipWith (map-indexed resolve-lex-context (vals grouped)) morphology-context))
-
+        generated-families (map-indexed resolve-lex-context grouped)
         lexicon (ccg/build-lexicon
                  {:families (map translate/family->entry (concat initial-families generated-families))
-                  :morph (map translate/morph->entry morphology-context)
+                  :morph (map translate/morph->entry (flatten morphology-context))
                   :macros (list)})]
     (grammar-builder lexicon)))
 
