@@ -48,6 +48,8 @@
                 :pos :NP}
       :component {:class "component"
                   :pos :NNP}
+      :amr     {:class "amr"
+                :pos :S}
       default)))
 
 (defn resolve-morph-context
@@ -140,7 +142,7 @@
         grammar-path (download-grammar)
         instances (map #(map build-dp-instance %) dp)
         context (ops/merge-contexts {:static [] :dynamic []} (flatten instances))
-        _ (compile-custom-grammar grammar-path (remove :amr (:dynamic context)))
+        _ (compile-custom-grammar grammar-path (remove (fn [item] (get-in item [:attrs :amr])) (:dynamic context)))
         templates (map (partial build-segment grammar-path) dp)
         _ (log/debugf "Templates: %s" (pr-str templates))]
 
