@@ -9,7 +9,7 @@ import EditorSidebar        from '../plan-editor/Sidebar';
 import Header               from '../header/Header';
 import Modal                from '../modal/Modal';
 import PlanEditor           from '../plan-editor/PlanEditor';
-import QuickSearch          from '../quick-search/Modal';
+import QuickSearch          from '../quick-search/QuickSearch';
 import QuickSearchShortcuts from '../quick-search/KeyboardProvider';
 import WorkspaceContextProvider from '../workspace-context/Provider';
 
