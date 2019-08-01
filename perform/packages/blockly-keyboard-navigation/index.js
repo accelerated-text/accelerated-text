@@ -1,11 +1,5 @@
 import { getSiblings }      from '../blockly-helpers/';
-
-
-const isSpecialKey = evt => (
-    evt.altKey
-    || evt.ctrlKey
-    || evt.metaKey
-);
+import isModifierKey        from '../is-modifier-key/';
 
 
 const onPressDown = selected => {
@@ -56,7 +50,7 @@ export const onKeyDown = ( workspace, Blockly ) => evt => {
 
     const shouldHandle = (
         keyHandlers[ evt.key ]
-        && ! isSpecialKey( evt )
+        && ! isModifierKey( evt )
     );
 
     if( ! shouldHandle ) {
