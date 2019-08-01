@@ -6,13 +6,28 @@ import ValueIcon            from '../block-icons/Value';
 import S                    from './Item.sass';
 
 
+const COLORS = [
+    S.dictionaryItemColor,
+    S.modifierColor,
+    S.amrColor,
+];
+
+
+const getColor = ( isActive, subtype, n ) =>
+    COLORS[
+        isActive
+            ? (( subtype + n ) % COLORS.length )
+            : n
+    ];
+
+
 export default class QuickSearchItem extends Component {
 
     onClick = () => {
         this.props.onSelect && this.props.onSelect( this.props.item );
     };
 
-    render({ className, isActive, item: { text }}) {
+    render({ className, isActive, item: { text }, subtype }) {
         return (
             <button
                 className={ classnames(
@@ -23,10 +38,14 @@ export default class QuickSearchItem extends Component {
                 onClick={ this.onClick }
             >
                 <div className={ S.icon }>
-                    <ValueIcon color={ S.dictionaryItemColor } />
+                    <ValueIcon
+                        color={ getColor( isActive, subtype, 0 ) }
+                    />
                 </div>
                 <div className={ S.nextIcon }>
-                    <ValueIcon color={ S.modifierColor } />
+                    <ValueIcon
+                        color={ getColor( isActive, subtype, 1 ) }
+                    />
                 </div>
                 <div className={ S.text }>{ text }</div>
             </button>

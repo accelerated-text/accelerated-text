@@ -21,6 +21,7 @@ export default class QuickSearchQuery extends Component {
 
     state = {
         activeItem:         0,
+        itemSubtype:        0,
     };
 
     onInput = evt => {
@@ -30,12 +31,19 @@ export default class QuickSearchQuery extends Component {
     onKeyDown = shortkey({
         onArrowDown: () => {
             this.setState(({ activeItem }) => ({
-                activeItem: ( activeItem + 1 ) % this.props.items.length,
+                activeItem:     ( activeItem + 1 ) % this.props.items.length,
+                itemSubtype:    0,
             }));
         },
         onArrowUp: () => {
             this.setState(({ activeItem }) => ({
-                activeItem: activeItem ? activeItem - 1 : 0,
+                activeItem:     activeItem ? activeItem - 1 : 0,
+                itemSubtype:    0,
+            }));
+        },
+        onArrowRight: () => {
+            this.setState(({ itemSubtype }) => ({
+                itemSubtype:    itemSubtype + 1,
             }));
         },
         onEnter: evt => {
@@ -56,6 +64,13 @@ export default class QuickSearchQuery extends Component {
     }
 
     componentWillReceiveProps({ items }) {
+        if( items !== this.props.items ) {
+            this.setState({
+                activeItem:     0,
+                itemSubtype:    0,
+            });
+        }
+        /*
         this.setState(({ activeItem }) => ({
             activeItem: (
                 ( ! items || ! items.length )
@@ -65,11 +80,12 @@ export default class QuickSearchQuery extends Component {
                     : activeItem
             ),
         }));
+        */
     }
 
     render(
         { error, items, loading, onChooseResult, query },
-        { activeItem }
+        { activeItem, itemSubtype }
     ) {
         return (
             <div
@@ -94,6 +110,7 @@ export default class QuickSearchQuery extends Component {
                             <Item
                                 isActive={ i === activeItem }
                                 item={ item }
+                                subtype={ itemSubtype }
                                 key={ item.id }
                                 onSelect={ onChooseResult }
                             />
