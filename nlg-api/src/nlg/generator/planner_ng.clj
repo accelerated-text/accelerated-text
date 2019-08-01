@@ -2,11 +2,7 @@
   (:require [clojure.tools.logging :as log]
             [nlg.generator.parser-ng :as parser]
             [ccg-kit.grammar :as ccg]
-            [ccg-kit.grammar-generation.morphology :as ccg-morphology]
-            [ccg-kit.grammar-generation.lexicon :as ccg-lexicon]
-            [ccg-kit.grammar-generation.xml-utils :as ccg-xml]
-            [ccg-kit.spec.lexicon :as lexicon-spec]
-            [ccg-kit.spec.morphology :as morphology-spec]
+            [ccg-kit.dsl.core :as dsl]
             [data-access.db.s3 :as s3]
             [data-access.db.config :as config]
             [nlg.generator.ops :as ops]
@@ -52,36 +48,36 @@
                 :pos :S}
       default)))
 
-(defn resolve-morph-context
-  [group]
-  (map (fn
-         [item]
-         (let [name (case (string? (item :name))
-                      true (item :name)
-                      false ((item :name) :dyn-name))
-               context (resolve-item-context item)]
-           #::morphology-spec{:syntactic-type (context :pos)
-                       :pos (context :pos)
-                       :word name
-                       :class (context :class)}))
-       group))
+;; (defn resolve-morph-context
+;;   [group]
+;;   (map (fn
+;;          [item]
+;;          (let [name (case (string? (item :name))
+;;                       true (item :name)
+;;                       false ((item :name) :dyn-name))
+;;                context (resolve-item-context item)]
+;;            #::morphology-spec{:syntactic-type (context :pos)
+;;                        :pos (context :pos)
+;;                        :word name
+;;                        :class (context :class)}))
+;;        group))
 
 (defn zipWith [left right] (map vector left right))
 
-(defn resolve-lex-context
-  [idx items]
-  (let [predicate "[*DEFAULT*]"
-        context (resolve-item-context (first items))
-        category #::lexicon-spec{:syntactic-type :NP
-                             :feature-set [idx []]}
-        lf #::lexicon-spec{:nomvar "X"}
-        entries (list #::lexicon-spec {:predicate predicate
-                                   :category category
-                                   :pos (context :pos)
-                                   :logical-form lf})]
-    #::lexicon-spec{:pos (context :pos)
-                :name (context :pos)
-                :lexical-entries entries}))
+;; (defn resolve-lex-context
+;;   [idx items]
+;;   (let [predicate "[*DEFAULT*]"
+;;         context (resolve-item-context (first items))
+;;         category #::lexicon-spec{:syntactic-type :NP
+;;                              :feature-set [idx []]}
+;;         lf #::lexicon-spec{:nomvar "X"}
+;;         entries (list #::lexicon-spec {:predicate predicate
+;;                                    :category category
+;;                                    :pos (context :pos)
+;;                                    :logical-form lf})]
+;;     #::lexicon-spec{:pos (context :pos)
+;;                 :name (context :pos)
+;;                 :lexical-entries entries}))
 
 (defn compile-custom-grammar
   [values]
@@ -92,7 +88,29 @@
                                                    {:name "sem-obj"}
                                                    {:name "phys-obj" :parents "sem-obj"}))
                           :rules (ccg/build-default-rules)})
-        initial-families (list)
+        initial-families (list
+                          ;; AND rule. Example: <word1> and <word2>
+                          (dsl/family "coord.objects" :Conj true
+                                      (dsl/entry
+                                       "NP-Collective"
+                                       "and"
+                                       (dsl/lf "X0" "and"
+                                               (dsl/diamond "First"
+                                                            {:nomvar "L1"
+                                                             :prop "elem"
+                                                             :diamonds (list
+                                                                        (dsl/diamond "Item" {:nomvar "X1"})
+                                                                        (dsl/diamond "Next" {:nomvar "L2"
+                                                                                             :prop "elem"
+                                                                                             :diamond (dsl/diamond "Item" {:nomvar "X2"})}))}))
+                                       (dsl/>F
+                                        \.
+                                        (dsl/<B
+                                         (dsl/atomcat :NP {}
+                                                      (dsl/fs-feat "num" "pl")
+                                                      (dsl/fs-nomvar "index" "X0"))
+                                         (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X1")))
+                                        (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X2"))))))
         generated-families (list)
         
         grouped (group-by (fn [item] (get-in item [:attrs :type])) values)
