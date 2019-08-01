@@ -84,18 +84,29 @@
                 :lexical-entries entries}))
 
 (defn compile-custom-grammar
-  "TODO: some magic should happen here"
-  [root-path values]
+  [values]
   (log/debug "\n--------------------\nCompiling Grammar\n--------------------")
   (log/debugf "Dynamic values: %s" (pr-str values))
-  (let [grouped (group-by (fn [item] (get-in item [:attrs :type])) values)
-        morphology-context (map resolve-morph-context (vals grouped))
-        morphology (map ccg-morphology/generate-morphology-xml morphology-context)
-        lexicon (map (fn [[l m]]
-                       (ccg-lexicon/generate-lexicon-xml (list l) m))
-                     (zipWith (map-indexed resolve-lex-context (vals grouped)) morphology-context))]
-    (ccg-xml/write-xml (format "%s/gen-morph.xml" root-path) (flatten morphology))
-    (ccg-xml/write-xml (format "%s/gen-lexicon.xml" root-path) (flatten lexicon))))
+  (let [grammar-builder (ccg/build-grammar
+                         {:types (ccg/build-types (list
+                                                   {:name "sem-obj"}
+                                                   {:name "phys-obj" :parents "sem-obj"}))
+                          :rules (ccg/build-default-rules)})
+        initial-families (list)
+        generated-families (list)
+        
+        grouped (group-by (fn [item] (get-in item [:attrs :type])) values)
+        ;; morphology-context (map resolve-morph-context (vals grouped))
+        ;; morphology (map ccg-morphology/generate-morphology-xml morphology-context)
+        ;; lexicon (map (fn [[l m]]
+        ;;                (ccg-lexicon/generate-lexicon-xml (list l) m))
+        ;;              (zipWith (map-indexed resolve-lex-context (vals grouped)) morphology-context))
+
+        lexicon (ccg/build-lexicon
+                 {:families (concat initial-families generated-families)
+                  :morph (list)
+                  :macros (list)})]
+    (grammar-builder lexicon)))
 
 
 (defn get-placeholder
@@ -111,18 +122,18 @@
 
 (defn generate-templates
   "Takes context and generates numerous sentences. Picks random one"
-  [grammar-path context]
+  [grammar context]
   (let [dyn-values (map get-placeholder (remove amr? (:dynamic context)))
         values (concat (distinct (:static context)) dyn-values)
         _ (log/debugf "Context: %s" context)
-        generated (apply (partial ccg/generate (ccg/load-grammar (format "%s/grammar.xml" grammar-path))) (ops/distinct-wordlist values))]
+        generated (apply (partial ccg/generate grammar) (ops/distinct-wordlist values))]
     {:context context
      :templates generated}))
 
 (defn build-segment
-  [grammar-path segment]
+  [grammar segment]
   (let [instances (map build-dp-instance segment)
-        templates (map (partial generate-templates grammar-path) instances)]
+        templates (map (partial generate-templates grammar) instances)]
     templates))
 
 (defn render-segment
@@ -139,11 +150,13 @@
    returns: generated text"
   [document-plan data reader-profile]
   (let [dp (parser/parse-document-plan document-plan {} {:reader-profile reader-profile})
-        grammar-path (download-grammar)
         instances (map #(map build-dp-instance %) dp)
         context (ops/merge-contexts {:static [] :dynamic []} (flatten instances))
-        _ (compile-custom-grammar grammar-path (remove (fn [item] (get-in item [:attrs :amr])) (:dynamic context)))
-        templates (map (partial build-segment grammar-path) dp)
+        g (compile-custom-grammar
+           (remove
+            (fn [item] (get-in item [:attrs :amr]))
+            (:dynamic context)))
+        templates (map (partial build-segment g) dp)
         _ (log/debugf "Templates: %s" (pr-str templates))]
 
     (map (fn
