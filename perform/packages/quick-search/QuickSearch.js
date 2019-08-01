@@ -1,14 +1,13 @@
 import { h, Component }     from 'preact';
 
-import WorkspaceContext     from '../workspace-context/WorkspaceContext';
+import { Query }            from '../graphql/';
+import { quickSearch }      from '../graphql/queries.graphql';
 
 import Form                 from './Form';
-import Results              from './Results';
+/// import Results              from './Results';
 
 
-export default class QuickSearchModal extends Component {
-
-    static contextType =    WorkspaceContext;
+export default class QuickSearch extends Component {
 
     state = {
         query:              '',
@@ -18,22 +17,20 @@ export default class QuickSearchModal extends Component {
         this.setState({ query });
     };
 
-    componentWillUnmount() {
-        this.context.withWorkspace( workspace => {
-            workspace.getParentSvg().focus();
-        });
-    }
-
-    render = ({ onClose }, { query }) =>
-        <div>
-            <Form
-                autofocus
-                onChange={ this.onChangeQuery }
-                value={ query }
-            />
-            <Results
-                onSelect={ onClose }
-                query={ query }
-            />
-        </div>;
+    render = ({ onChooseResult }, { query }) =>
+        <Query query={ quickSearch } variables={{ query }}>
+            { ({
+                error,
+                data: { quickSearch },
+                loading,
+            }) =>
+                <Form
+                    autofocus
+                    items={ quickSearch && quickSearch.words }
+                    onChangeQuery={ this.onChangeQuery }
+                    onChooseResult={ onChooseResult }
+                    query={ query }
+                />
+            }
+        </Query>;
 }

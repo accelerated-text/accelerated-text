@@ -14,13 +14,23 @@
     @include no-list
 
     align-items:            center
+    background-color:       transparent
+    border:                 0 none transparent
     box-shadow:             inset 0 1px $lighten, inset 0 -1px $darken
+    box-sizing:             border-box
     display:                grid
+    font-size:              $size-m
     grid-gap:               $space-xs
     grid-template-columns:  2rem 1rem auto
+    justify-items:          start
     margin:                 0
     padding:                0
+    width:                  100%
 
     > div
 
         padding:            $space-s 0
+
+    &.isActive
+
+        background-color:   $darken

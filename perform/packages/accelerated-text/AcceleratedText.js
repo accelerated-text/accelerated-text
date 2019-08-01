@@ -7,9 +7,8 @@ import {
 import DictionaryEditor     from '../dictionary-editor/DictionaryEditor';
 import EditorSidebar        from '../plan-editor/Sidebar';
 import Header               from '../header/Header';
-import Modal                from '../modal/Modal';
 import PlanEditor           from '../plan-editor/PlanEditor';
-import QuickSearch          from '../quick-search/QuickSearch';
+import QuickSearchModal     from '../quick-search/WorkspaceModal';
 import QuickSearchShortcuts from '../quick-search/KeyboardProvider';
 import WorkspaceContextProvider from '../workspace-context/Provider';
 
@@ -57,9 +56,7 @@ const AcceleratedText = mountStores(
             </div>
             {
                 ( acceleratedText && acceleratedText.openedQuickSearch )
-                    ? <Modal onClose={ closeQuickSearch }>
-                        <QuickSearch onClose={ closeQuickSearch } />
-                    </Modal>
+                    ? <QuickSearchModal onClose={ closeQuickSearch } />
                     : null
             }
         </QuickSearchShortcuts>

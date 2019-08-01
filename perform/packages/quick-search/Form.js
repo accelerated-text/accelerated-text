@@ -3,7 +3,15 @@ import {
     Component,
     createRef,
 }                           from 'preact';
+import shortkey             from 'shortkey';
 
+import {
+    Error,
+    Info,
+    Loading,
+}   from '../ui-messages/';
+
+import Item                 from './Item';
 import S                    from './Form.sass';
 
 
@@ -11,13 +19,35 @@ export default class QuickSearchQuery extends Component {
 
     inputRef =              createRef();
 
-    onInput = evt => {
-        this.props.onChange( evt.target.value );
+    state = {
+        activeItem:         0,
     };
 
-    onSubmit = evt => {
-        evt.preventDefault();
+    onInput = evt => {
+        this.props.onChangeQuery( evt.target.value );
     };
+
+    onKeyDown = shortkey({
+        onArrowDown: () => {
+            this.setState(({ activeItem }) => ({
+                activeItem: ( activeItem + 1 ) % this.props.items.length,
+            }));
+        },
+        onArrowUp: () => {
+            this.setState(({ activeItem }) => ({
+                activeItem: activeItem ? activeItem - 1 : 0,
+            }));
+        },
+        onEnter: evt => {
+            evt.preventDefault();
+            this.props.onChooseResult(
+                this.props.items[ this.state.activeItem ]
+            );
+        },
+        onTab: evt => {
+            evt.preventDefault();
+        },
+    });
 
     componentDidMount() {
         if( this.props.autofocus ) {
@@ -25,17 +55,53 @@ export default class QuickSearchQuery extends Component {
         }
     }
 
-    render({ value }) {
+    componentWillReceiveProps({ items }) {
+        this.setState(({ activeItem }) => ({
+            activeItem: (
+                ( ! items || ! items.length )
+                    ? 0
+                : ( activeItem >= items.length )
+                    ? items.length - 1
+                    : activeItem
+            ),
+        }));
+    }
+
+    render(
+        { error, items, loading, onChooseResult, query },
+        { activeItem }
+    ) {
         return (
-            <form className={ S.className } onSubmit={ this.onSubmit }>
+            <div
+                className={ S.className }
+                onKeyDown={ this.onKeyDown }
+                tabIndex="0"
+            >
                 <input
                     onInput={ this.onInput }
                     placeholder="Search blocks"
                     ref={ this.inputRef }
                     type="search"
-                    value={ value }
+                    value={ query }
                 />
-            </form>
+                { error
+                    ? <Error message={ error } />
+                : loading
+                    ? <Loading />
+                : items
+                    ? <div className={ S.results }>{
+                        items.map(( item, i ) =>
+                            <Item
+                                isActive={ i === activeItem }
+                                item={ item }
+                                key={ item.id }
+                                onSelect={ onChooseResult }
+                            />
+                        )
+                    }</div>
+                    : <Info message="no results found" />
+                }
+            </div>
         );
     }
 }
