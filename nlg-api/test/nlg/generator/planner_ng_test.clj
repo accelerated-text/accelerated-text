@@ -7,7 +7,10 @@
             [clojure.data :as data]
             [clojure.string :as string]
             [clojure.tools.logging :as log]
-            [data-access.entities.amr :as amr-entity]))
+            [data-access.entities.amr :as amr-entity]
+            [ccg-kit.grammar :as ccg]
+            [ccg-kit.verbnet.ccg :as vn-ccg]
+            [amr.core :as amr]))
 
 (defn load-test-data
   [filename]
@@ -197,3 +200,17 @@
           result (render-dp document-plan data {})]
       (is (not (empty? result)))
       (log/debugf "Final AMR results: %s" (pr-str result)))))
+
+(deftest plain-plan-with-amr
+  ;; (testing "We can build hardcoded AMR rule"
+  ;;   (let [g (vn-ccg/vn->grammar (assoc amr/see-amr :members (list {:name "sees"})))
+  ;;         result (ccg/generate "{{AGENT}}" "{{CO-AGENT}}" "with" "see")]
+  ;;     (is (not (empty? result)))))
+  (testing "Handle plan with it"
+    (let [document-plan (load-test-data "plain-amr")
+        data [{:actor "Harry"
+               :co-actor "Sally"}]
+        result (render-dp document-plan data {})]
+    (is (not (empty? result)))
+    (log/debugf "Final AMR results: %s" (pr-str result))))
+  )

@@ -167,7 +167,9 @@
        (ops/append-dynamic
         {:quote (-> (rand-nth amr-results) (ops/replace-multi replaces))
          :dyn-name (format "$%d" idx) }
-        (assoc attrs :source :quote)
+        (-> attrs
+            (assoc :source :quote)
+            (assoc :type :amr))
         ctx)
        children))))
 
