@@ -1,11 +1,20 @@
 import { h }                from 'preact';
-import renderToString       from 'preact-render-to-string';
 
+import {
+    addPreactBlock,
+    findAllowedInput,
+}                           from '../blockly-helpers/';
 import Block                from '../block-component/BlockComponent';
 import DictionaryItem       from '../nlg-blocks/Dictionary-item';
+import Quote                from '../nlg-blocks/Quote';
 
 
 export const getBlock = {
+    Quote:  ({ text }) =>
+        <Block
+            type={ Quote.type }
+            fields={{ text }}
+        />,
     Word:   word =>
         <Block
             type={ DictionaryItem.type }
@@ -17,33 +26,16 @@ export const getBlock = {
 };
 
 
-export const findAllowedInput = ( block, target ) => (
-    target
-    && ! target.allInputsFilled()
-    && target.inputList.find( input => (
-        input.connection
-        && ! input.connection.isConnected()
-        && input.connection.isConnectionAllowed( block.outputConnection )
-    ))
-);
-
-
 export default item => ( workspace, Blockly ) => {
-    const { Xml } =         Blockly;
     const createBlock =     getBlock[ item.__typename ];
 
     if( createBlock ) {
         const box =         workspace.getBlocksBoundingBox();
 
-        const block = workspace.getBlockById(
-            Xml.domToWorkspace(
-                Xml.textToDom(
-                    renderToString(
-                        <xml>{ createBlock( item ) }</xml>
-                    ),
-                ),
-                workspace,
-            )[ 0 ]
+        const block = addPreactBlock(
+            workspace,
+            createBlock( item ),
+            Blockly,
         );
 
         const selected = (
