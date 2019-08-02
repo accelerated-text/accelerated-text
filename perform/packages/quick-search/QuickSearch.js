@@ -4,8 +4,15 @@ import { Query }            from '../graphql/';
 import { quickSearch }      from '../graphql/queries.graphql';
 
 import Form                 from './Form';
-/// import Results              from './Results';
 
+
+const prependQuote = ( quickSearch, text ) => ([
+    {
+        __typename:     'Quote',
+        text,
+    },
+    ...( quickSearch && quickSearch.words || []),
+]);
 
 export default class QuickSearch extends Component {
 
@@ -26,7 +33,7 @@ export default class QuickSearch extends Component {
             }) =>
                 <Form
                     autofocus
-                    items={ quickSearch && quickSearch.words }
+                    items={ prependQuote( quickSearch, query ) }
                     onChangeQuery={ this.onChangeQuery }
                     onChooseResult={ onChooseResult }
                     query={ query }
