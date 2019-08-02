@@ -1,15 +1,17 @@
-import { RED }              from '../styles/blockly-colors';
-
 import Block                from './Block';
+import ModifierIcon         from './icons/Modifier';
+import { red as color }     from './colors.sass';
 import * as T               from './types';
 
 
 export default Block({
 
     type:                   'Modifier',
+    color,
+    icon:                   ModifierIcon({ color }),
 
     json: {
-        colour:             RED,
+        colour:             color,
         output:             T.LIST,
         message0:           'a.%1',
         args0: [{

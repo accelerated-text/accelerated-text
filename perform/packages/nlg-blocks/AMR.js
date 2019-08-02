@@ -3,18 +3,22 @@ import { h, mount }         from 'dom-dom';
 import {
     appendLabeledValue,
 }                           from '../blockly-helpers/';
-import { MAGENTA }          from '../styles/blockly-colors';
 
 import Block                from './Block';
-import toNlgJson            from './to-nlg-json';
+import { magenta as color } from './colors.sass';
 import * as T               from './types';
+import toNlgJson            from './to-nlg-json';
+import TwoInputs            from './icons/TwoInputs';
 
 
 export default Block({
+
     type:                   'AMR',
+    color,
+    icon:                   TwoInputs({ color }),
 
     json: {
-        colour:             MAGENTA,
+        colour:             color,
         output:             T.STRING,
         message0:           '%1',
         args0: [{

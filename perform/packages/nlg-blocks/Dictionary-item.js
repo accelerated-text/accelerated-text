@@ -1,18 +1,20 @@
 import { h, mount }         from 'dom-dom';
 
-import { BLUER }            from '../styles/blockly-colors';
-
 import Block                from './Block';
+import { bluer as color }   from './colors.sass';
 import * as T               from './types';
 import toNlgJson            from './to-nlg-json';
+import ValueIcon            from './icons/Value';
 
 
 export default Block({
 
     type:                   'Dictionary-item',
+    color,
+    icon:                   ValueIcon({ color }),
 
     json: {
-        colour:             BLUER,
+        colour:             color,
         output:             T.LIST,
         message0:           'Dict.: %1',
         args0: [{
