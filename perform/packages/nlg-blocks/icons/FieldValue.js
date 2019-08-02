@@ -10,13 +10,13 @@ export default ({ color }) =>
             />
         </g>
         <rect
-            ry="3"
-            rx="3"
-            y="7"
-            x="12"
-            height="16"
-            width="21"
             fill="#ffffff"
-            style="fill-opacity:0.51396652;stroke:none;stroke-width:1;stroke-opacity:0.50196078"
+            fill-opacity=".5"
+            height="16"
+            rx="3"
+            ry="3"
+            width="21"
+            x="12"
+            y="7"
         />
     </svg>;
