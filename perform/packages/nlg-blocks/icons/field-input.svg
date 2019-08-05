@@ -1,0 +1,14 @@
+<svg version="1.1" viewBox="0 0 36 30" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(8)">
+        <path
+            d="m0 0h28v30h-28v-7.5c0-10-8 8-8-7.5s8 2.5 8-7.5z"
+            fill="#447a99"
+        />
+    </g>
+    <g transform="matrix(.62 0 0 .62 18 5.9)">
+        <path
+            d="m0 0 15-0.02v30l-15-0.099v-7.5c0-10-8 8-8-7.5s8 2.5 8-7.5z"
+            fill="#fff"
+        />
+    </g>
+</svg>
