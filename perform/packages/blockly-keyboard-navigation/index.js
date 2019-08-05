@@ -1,68 +1,62 @@
+import shortkey             from 'shortkey';
+
 import { getSiblings }      from '../blockly-helpers/';
-import isModifierKey        from '../is-modifier-key/';
 
 
-const onPressDown = selected => {
-    const siblings =        getSiblings( selected );
-    const nextSibling =     siblings[ 1 + siblings.indexOf( selected )];
+export const onKeyDown = ( workspace, Blockly ) => shortkey({
+    onArrowDown: () => {
+        const { selected } =    Blockly;
 
-    if( nextSibling ) {
-        nextSibling.select();
-    }
-};
+        if( ! selected ) {
+            workspace.getTopBlocks()[0].select();
+        } else {
+            const siblings =        selected ? getSiblings( selected ) : workspace.getTopBlocks();
+            const nextSibling =     siblings[ 1 + siblings.indexOf( selected )];
 
-const onPressUp = selected => {
-    const siblings =        getSiblings( selected );
-    const previousSibling = siblings[ -1 + siblings.indexOf( selected )];
+            if( nextSibling ) {
+                nextSibling.select();
+            }
+        }
+    },
+    onArrowUp: () => {
+        const { selected } =    Blockly;
 
-    if( previousSibling ) {
-        previousSibling.select();
-    }
-};
+        if( ! selected ) {
+            workspace.getTopBlocks()[0].select();
+        } else {
+            const siblings =        getSiblings( selected );
+            const previousSibling = siblings[ -1 + siblings.indexOf( selected )];
 
-const onPressLeft = selected => {
-    const parent =          selected.getParent();
+            if( previousSibling ) {
+                previousSibling.select();
+            }
+        }
+    },
+    onArrowLeft: () => {
+        const { selected } =    Blockly;
 
-    if( parent ) {
-        parent.select();
-    }
-};
+        if( ! selected ) {
+            workspace.getTopBlocks()[0].select();
+        } else {
+            const parent =      selected.getParent();
+            if( parent ) {
+                parent.select();
+            }
+        }
+    },
+    onArrowRight: () => {
+        const { selected } =    Blockly;
 
-const onPressRight = selected => {
-    const firstChild =      selected.getChildren( true )[ 0 ];
-
-    if( firstChild ) {
-        firstChild.select();
-    }
-};
-
-
-const keyHandlers = {
-    ArrowLeft:              onPressLeft,
-    ArrowDown:              onPressDown,
-    ArrowRight:             onPressRight,
-    ArrowUp:                onPressUp,
-};
-
-
-export const onKeyDown = ( workspace, Blockly ) => evt => {
-    const { selected } =    Blockly;
-
-    const shouldHandle = (
-        keyHandlers[ evt.key ]
-        && ! isModifierKey( evt )
-    );
-
-    if( ! shouldHandle ) {
-        return;
-    }
-
-    if( ! selected ) {
-        workspace.getTopBlocks()[0].select();
-    } else {
-        keyHandlers[ evt.key ]( selected, workspace );
-    }
-};
+        if( ! selected ) {
+            workspace.getTopBlocks()[0].select();
+        } else {
+            const firstChild =  selected.getChildren( true )[ 0 ];
+            if( firstChild ) {
+                firstChild.select();
+            }
+        }
+    },
+});
 
 
 export default ( workspace, Blockly = window.Blockly ) => {
