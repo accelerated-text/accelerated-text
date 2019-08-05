@@ -5,7 +5,7 @@ import isModifierKey        from '../is-modifier-key/';
 const onPressDown = selected => {
     const siblings =        getSiblings( selected );
     const nextSibling =     siblings[ 1 + siblings.indexOf( selected )];
-    
+
     if( nextSibling ) {
         nextSibling.select();
     }
@@ -14,7 +14,7 @@ const onPressDown = selected => {
 const onPressUp = selected => {
     const siblings =        getSiblings( selected );
     const previousSibling = siblings[ -1 + siblings.indexOf( selected )];
-    
+
     if( previousSibling ) {
         previousSibling.select();
     }
