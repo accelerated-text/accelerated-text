@@ -64,4 +64,5 @@ export default ( workspace, Blockly = window.Blockly ) => {
 
     svg.tabIndex =          '0';
     svg.addEventListener( 'keydown', onKeyDown( workspace, Blockly ));
+    svg.focus();
 };
