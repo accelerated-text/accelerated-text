@@ -4,19 +4,34 @@ import PropTypes            from 'prop-types';
 import renderToString       from 'preact-render-to-string';
 
 import Block                from '../block-component/BlockComponent';
-import ValueIcon            from '../nlg-blocks/icons/Value';
 
 import { DT_TYPE }          from './constants';
 import S                    from './DragInBlock.sass';
 
 
+const BlockType = ( props, propName, componentName ) =>
+    PropTypes.checkPropTypes({
+        block:              PropTypes.func.isRequired,
+        icon:               PropTypes.element.isRequired,
+        type:               PropTypes.string.isRequired,
+    }, {
+        ...props[propName],
+        block:              props[propName],
+    },
+    propName,
+    componentName,
+    );
+
+
 export default class DragInBlock extends Component {
 
     static propTypes = {
+        block:              BlockType,
         className:          PropTypes.string,
         comment:            PropTypes.string,
         fields:             PropTypes.object,
-        type:               PropTypes.string.isRequired,
+        mutation:           PropTypes.object,
+        values:             PropTypes.object,
     };
 
     state = {
@@ -29,7 +44,14 @@ export default class DragInBlock extends Component {
         dt.setData( 'type', DT_TYPE );
         dt.setData(
             'xml',
-            renderToString( <xml><Block { ...this.props } /></xml> ),
+            renderToString(
+                <xml>
+                    <Block
+                        type={ this.props.block.type }
+                        { ...this.props }
+                    />
+                </xml>,
+            ),
         );
 
         this.setState({ isDragged: true });
@@ -39,7 +61,7 @@ export default class DragInBlock extends Component {
         this.setState({ isDragged: false });
 
     render(
-        { className, color = S.fillColor },
+        { block: { icon }, className },
         { isDragged, isOverDrop },
     ) {
         return (
@@ -53,7 +75,7 @@ export default class DragInBlock extends Component {
                 onDragStart={ this.onDragStart }
                 onDragEnd={ this.onDragEnd }
             >
-                <ValueIcon color={ color } />
+                { icon }
             </div>
         );
     }

@@ -25,24 +25,22 @@ export default composeQueries({
         <td className={ S.dragInBlock }>
             { item &&
                 <DragInBlock
-                    color={ S.itemBlockColor }
+                    block={ DictionaryItemBlock }
                     mutation={{
                         id:     item.id,
                         name:   item.name,
                     }}
-                    type={ DictionaryItemBlock.type }
                 />
             }
         </td>
         <td className={ S.dragInBlock }>
             { item &&
                 <DragInBlock
-                    color={ S.itemModifierColor }
+                    block={ DictionaryItemModifier }
                     mutation={{
                         id:     item.id,
                         name:   item.name,
                     }}
-                    type={ DictionaryItemModifier.type }
                 />
             }
         </td>

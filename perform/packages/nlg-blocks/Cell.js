@@ -1,16 +1,19 @@
 import { getCellOptions }   from '../nlg-workspace/cell-options';
-import { LIME }             from '../styles/blockly-colors';
 
 import Block                from './Block';
+import { lime as color }    from './colors.sass';
 import * as T               from './types';
+import ValueIcon            from './icons/Value';
 
 
 export default Block({
 
     type:                   'Cell',
+    color,
+    icon:                   ValueIcon({ color }),
 
     json: {
-        colour:             LIME,
+        colour:             color,
         output:             T.STRING,
     },
 
