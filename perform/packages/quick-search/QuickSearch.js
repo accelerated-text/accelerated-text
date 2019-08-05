@@ -11,7 +11,7 @@ const prependQuote = ( quickSearch, text ) => ([
         __typename:     'Quote',
         text,
     },
-    ...( quickSearch && quickSearch.words || []),
+    ...( quickSearch && quickSearch.items || []),
 ]);
 
 export default class QuickSearch extends Component {

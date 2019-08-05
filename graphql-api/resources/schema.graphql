@@ -186,6 +186,18 @@ type DocumentPlanResults {
      totalCount:         Int!
 }
 
+
+### QuickSearch ----------------------------------------------------------------
+
+union QuickSearchItem = Concept | DictionaryItem | Word
+
+type QuickSearchResults {
+    items:              [ QuickSearchItem! ]!
+    offset:             Int!
+    limit:              Int
+    totalCount:         Int!
+}
+
 ### Queries --------------------------------------------------------------------
 
 type Query {
@@ -235,7 +247,7 @@ type Query {
 
     quickSearch(
         query:              String
-    ):  ThesaurusResults!
+    ):  QuickSearchResults!
 }
 
 

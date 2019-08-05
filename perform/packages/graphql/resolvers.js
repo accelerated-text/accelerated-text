@@ -1,3 +1,9 @@
+import {
+    flatten,
+    sort,
+    uniq,
+}                           from 'ramda';
+
 import * as NlgTypes        from '../nlg-blocks/types';
 
 
@@ -89,16 +95,16 @@ export default {
 
         quickSearch: ( _, { query }, { cache }) => {
             const re =      new RegExp( `^${ query }`, 'i' );
-            const words = (
-                Object.keys( SYNONYMS )
+            const words =   uniq( flatten( Object.values( SYNONYMS )).sort());
+            const items =
+                words
                     .filter( re.exec.bind( re ))
-                    .map( Word )
-            );
+                    .map( Word );
             return {
-                __typename: 'ThesaurusResults',
+                __typename: 'QuickSearchResults',
                 offset:     0,
-                totalCount: words.length,
-                words,
+                totalCount: items.length,
+                items:      items.slice( 0, 20 ),
             };
         },
 
