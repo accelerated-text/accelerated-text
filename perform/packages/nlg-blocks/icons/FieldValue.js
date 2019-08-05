@@ -1,7 +1,7 @@
 import { h }                from 'preact';
 
 
-export default ({ color, text = '"' }) =>
+export default ({ color, text }) =>
     <svg viewBox="0 0 36 30">
         <g transform="translate(8)">
             <path
@@ -19,10 +19,12 @@ export default ({ color, text = '"' }) =>
             x="12"
             y="7"
         />
-        <text
-            children={ text }
-            fill="#000000"
-            font-weight="bold"
-            transform="translate( 8, 18 )"
-        />
+        { text &&
+            <text
+                children={ text }
+                fill="#000000"
+                font-weight="bold"
+                transform="translate( 8, 18 )"
+            />
+        }
     </svg>;
