@@ -1,16 +1,18 @@
-import { RED }              from '../styles/blockly-colors';
-
 import Block                from './Block';
+import { red as color }     from './colors.sass';
 import * as T               from './types';
+import TwoInputs            from './icons/TwoInputs';
 
 
 export default Block({
 
     type:                   'RST',
+    color,
+    icon:                   TwoInputs({ color }),
 
     json: {
 
-        colour:             RED,
+        colour:             color,
         output:             T.STRING,
         message0:           '%1',
         args0: [{

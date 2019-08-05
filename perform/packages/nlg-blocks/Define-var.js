@@ -1,16 +1,18 @@
-import { MAGENTA }          from '../styles/blockly-colors';
-
 import Block                from './Block';
+import { magenta as color } from './colors.sass';
+import StatementIcon        from './icons/Statement';
 import * as T               from './types';
 
 
 export default Block({
 
     type:                   'Define-var',
+    color,
+    icon:                   StatementIcon({ color }),
 
     json: {
 
-        colour:             MAGENTA,
+        colour:             color,
         nextStatement:      [ T.DEFINITION, T.STRING ],
         previousStatement:  T.DEFINITION,
 

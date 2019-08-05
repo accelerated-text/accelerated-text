@@ -1,7 +1,7 @@
-import { RED }              from '../styles/blockly-colors';
-
 import Block                from './Block';
+import { red as color }     from './colors.sass';
 import * as T               from './types';
+import TwoInputs            from './icons/TwoInputs';
 import valueSequence        from './value-sequence';
 
 
@@ -9,11 +9,13 @@ export default Block({
     ...valueSequence,
 
     type:                   'Relationship',
+    color,
+    icon:                   TwoInputs({ color }),
 
     json: {
         ...valueSequence.json,
 
-        colour:             RED,
+        colour:             color,
         output:             T.STRING,
         message0:           '%1',
         args0: [{
