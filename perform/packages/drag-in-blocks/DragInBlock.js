@@ -4,7 +4,7 @@ import PropTypes            from 'prop-types';
 import renderToString       from 'preact-render-to-string';
 
 import Block                from '../block-component/BlockComponent';
-import ValueIcon            from '../block-icons/Value';
+import ValueIcon            from '../nlg-blocks/icons/Value';
 
 import { DT_TYPE }          from './constants';
 import S                    from './DragInBlock.sass';
