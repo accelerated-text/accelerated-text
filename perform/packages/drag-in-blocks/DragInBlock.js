@@ -9,14 +9,29 @@ import { DT_TYPE }          from './constants';
 import S                    from './DragInBlock.sass';
 
 
+const BlockType = ( props, propName, componentName ) =>
+    PropTypes.checkPropTypes({
+        block:              PropTypes.func.isRequired,
+        icon:               PropTypes.element.isRequired,
+        type:               PropTypes.string.isRequired,
+    }, {
+        ...props[propName],
+        block:              props[propName],
+    },
+    propName,
+    componentName,
+    );
+
+
 export default class DragInBlock extends Component {
 
     static propTypes = {
+        block:              BlockType,
         className:          PropTypes.string,
         comment:            PropTypes.string,
         fields:             PropTypes.object,
-        text:               PropTypes.string,
-        type:               PropTypes.string.isRequired,
+        mutation:           PropTypes.object,
+        values:             PropTypes.object,
     };
 
     state = {
@@ -29,7 +44,14 @@ export default class DragInBlock extends Component {
         dt.setData( 'type', DT_TYPE );
         dt.setData(
             'xml',
-            renderToString( <xml><Block { ...this.props } /></xml> ),
+            renderToString(
+                <xml>
+                    <Block
+                        type={ this.props.block.type }
+                        { ...this.props }
+                    />
+                </xml>,
+            ),
         );
 
         this.setState({ isDragged: true });
@@ -39,7 +61,7 @@ export default class DragInBlock extends Component {
         this.setState({ isDragged: false });
 
     render(
-        { className, color = S.fillColor, text, width = 180 },
+        { block: { icon }, className },
         { isDragged, isOverDrop },
     ) {
         return (
@@ -53,17 +75,7 @@ export default class DragInBlock extends Component {
                 onDragStart={ this.onDragStart }
                 onDragEnd={ this.onDragEnd }
             >
-                <svg height="28" width={ width }>
-                    <g transform="translate( 8, 0 )">
-                        <path
-                            d={ `m 0,0 H ${ width } v 31 H 0 V 20 c 0,-10 -8,8 -8,-7.5 s 8,2.5 8,-7.5 z` }
-                            fill={ color }
-                        />
-                        { text &&
-                            <text children={ text } transform="translate( 8, 18 )" />
-                        }
-                    </g>
-                </svg>
+                { icon }
             </div>
         );
     }
