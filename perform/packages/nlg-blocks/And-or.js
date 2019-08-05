@@ -1,7 +1,7 @@
-import { CYAN }             from '../styles/blockly-colors';
-
 import Block                from './Block';
+import { cyan as color }    from './colors.sass';
 import * as T               from './types';
+import TwoInputs            from './icons/TwoInputs';
 import valueSequence        from './value-sequence';
 
 
@@ -10,11 +10,13 @@ export default Block({
     ...valueSequence,
 
     type:                   'And-or',
+    color,
+    icon:                   TwoInputs({ color }),
 
     json: {
         ...valueSequence.json,
 
-        colour:             CYAN,
+        colour:             color,
         output:             T.BOOLEAN,
         message0:           '%1',
         args0: [{

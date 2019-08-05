@@ -1,15 +1,17 @@
-import { BLUE }             from '../styles/blockly-colors';
-
 import Block                from './Block';
+import { blue as color }    from './colors.sass';
+import FieldInputIcon       from './icons/FieldInput';
 import * as T               from './types';
 
 
 export default Block({
 
     type:                   'Value-in',
+    color,
+    icon:                   FieldInputIcon({ color }),
 
     json: {
-        colour:             BLUE,
+        colour:             color,
         output:             T.BOOLEAN,
         inputsInline:       true,
         message0:           '%2 %1 %3',
