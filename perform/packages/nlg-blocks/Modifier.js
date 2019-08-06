@@ -16,13 +16,13 @@ export default Block({
         message0:           'a.%1',
         args0: [{
             type:           'input_value',
-            name:           'lexicon',
+            name:           'modifier',
             check:          T.TEXT,
         }],
         message1:           'n.%1',
         args1: [{
             type:           'input_value',
-            name:           'input',
+            name:           'child',
             check:          T.TEXT,
         }],
     },
