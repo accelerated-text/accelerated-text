@@ -142,9 +142,9 @@
                     :itemId
                     (dictionary-api/search reader-profile))
         children (flatten
-                  (map (fn [r]
-                         (let [updated-attrs (assoc amr-attrs :title (r :name))]
-                           (map #(parse-node % updated-attrs ctx) (r :children))))
+                  (map (fn [{:keys [name children]}]
+                         (let [updated-attrs (assoc amr-attrs :title name)]
+                           (map #(parse-node % updated-attrs ctx) children)))
                        (node :roles)))
         replaces (map (fn [c]
                         (let [title (:title (:attrs c))
