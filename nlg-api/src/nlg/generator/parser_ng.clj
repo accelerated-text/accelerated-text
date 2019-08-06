@@ -141,12 +141,11 @@
         members (-> (node :dictionaryItem)
                     :itemId
                     (dictionary-api/search reader-profile))
-        children (flatten (map (fn [r]
-                                 (let [updated-attrs (assoc amr-attrs :title (r :name))]
-                                   (map (fn [node]
-                                          (parse-node node updated-attrs ctx))
-                                        (r :children))))
-                               (node :roles)))
+        children (flatten
+                  (map (fn [r]
+                         (let [updated-attrs (assoc amr-attrs :title (r :name))]
+                           (map #(parse-node % updated-attrs ctx) (r :children))))
+                       (node :roles)))
         replaces (map (fn [c]
                         (let [title (:title (:attrs c))
                               dyn-name (get-in c [:name :dyn-name])]
