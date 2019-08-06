@@ -3,57 +3,38 @@ import shortkey             from 'shortkey';
 import { getSiblings }      from '../blockly-helpers/';
 
 
-export const onKeyDown = ( workspace, Blockly ) => shortkey({
+export const onKeyDown = selected => shortkey({
+
     onArrowDown: () => {
-        const { selected } =    Blockly;
 
-        if( ! selected ) {
-            workspace.getTopBlocks()[0].select();
-        } else {
-            const siblings =        selected ? getSiblings( selected ) : workspace.getTopBlocks();
-            const nextSibling =     siblings[ 1 + siblings.indexOf( selected )];
+        const siblings =    getSiblings( selected );
+        const nextSibling = siblings[ 1 + siblings.indexOf( selected )];
 
-            if( nextSibling ) {
-                nextSibling.select();
-            }
+        if( nextSibling ) {
+            nextSibling.select();
         }
     },
     onArrowUp: () => {
-        const { selected } =    Blockly;
 
-        if( ! selected ) {
-            workspace.getTopBlocks()[0].select();
-        } else {
-            const siblings =        getSiblings( selected );
-            const previousSibling = siblings[ -1 + siblings.indexOf( selected )];
+        const siblings =    getSiblings( selected );
+        const prevSibling = siblings[ -1 + siblings.indexOf( selected )];
 
-            if( previousSibling ) {
-                previousSibling.select();
-            }
+        if( prevSibling ) {
+            prevSibling.select();
         }
     },
     onArrowLeft: () => {
-        const { selected } =    Blockly;
 
-        if( ! selected ) {
-            workspace.getTopBlocks()[0].select();
-        } else {
-            const parent =      selected.getParent();
-            if( parent ) {
-                parent.select();
-            }
+        const parent =      selected.getParent();
+        if( parent ) {
+            parent.select();
         }
     },
     onArrowRight: () => {
-        const { selected } =    Blockly;
 
-        if( ! selected ) {
-            workspace.getTopBlocks()[0].select();
-        } else {
-            const firstChild =  selected.getChildren( true )[ 0 ];
-            if( firstChild ) {
-                firstChild.select();
-            }
+        const firstChild =  selected.getChildren( true )[ 0 ];
+        if( firstChild ) {
+            firstChild.select();
         }
     },
 });
@@ -63,6 +44,14 @@ export default ( workspace, Blockly = window.Blockly ) => {
     const svg =             workspace.getParentSvg();
 
     svg.tabIndex =          '0';
-    svg.addEventListener( 'keydown', onKeyDown( workspace, Blockly ));
     svg.focus();
+
+    svg.addEventListener( 'keydown', evt => {
+
+        if( ! Blockly.selected ) {
+            workspace.getTopBlocks()[0].select();
+        } else {
+            onKeyDown( Blockly.selected )( evt );
+        }
+    });
 };
