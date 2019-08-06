@@ -150,11 +150,10 @@
         replaces (map (fn [c]
                         (let [title (:title (:attrs c))
                               dyn-name (get-in c [:name :dyn-name])]
-                          (case title
-                            "Agent" {:original "{{AGENT}}" :replace dyn-name}
-                            "coAgent" {:original "{{CO-AGENT}}" :replace dyn-name}
-                            {:original (format "{{%s}}" (str/upper-case title)) :replace dyn-name})))
-                      (map #(first (:dynamic %)) children))
+                          {:original (format "{{%s}}" (str/upper-case title)) :replace dyn-name}))
+                      (->> children
+                           (map :dynamic)
+                           (map first)))
         words (concat
                (map (fn [r] (:original r)) replaces)
                (list

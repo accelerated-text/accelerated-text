@@ -5,7 +5,7 @@
   {:id "see",
  :thematic-roles
  (list {:type "Agent"}
-  {:type "Co-Agent"}),
+  {:type "coAgent"}),
  :frames
  (list
   {:examples (list "Harry sees Sally."),
@@ -14,7 +14,7 @@
     {:pos :NP, :value "Agent"}
     {:pos :VERB}
     {:pos :PREP}
-    {:pos :NP, :value "Co-Agent"})})})
+    {:pos :NP, :value "coAgent"})})})
 
 (defn get-rule
   [id]
