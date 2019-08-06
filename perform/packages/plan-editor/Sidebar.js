@@ -31,10 +31,10 @@ export default useStores([
             <SidebarItem isExpanded title="Data">
                 <DataManager plan={ openedPlan } />
             </SidebarItem>
-            <SidebarItem isExpanded title="AMR">
+            <SidebarItem title="AMR">
                 <AmrConcepts />
             </SidebarItem>
-            <SidebarItem isExpanded title="Dictionary">
+            <SidebarItem title="Dictionary">
                 <Dictionary />
             </SidebarItem>
             <SidebarItem title="Options">
