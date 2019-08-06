@@ -14,7 +14,7 @@
 
 (defn examples->helpText
   [examples]
-  (string/join "\n" examples))
+  (string/join "\n\n" examples))
 
 (defn verbclass->schema
   [verbclass]
