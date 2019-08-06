@@ -21,7 +21,7 @@ export default Block({
             ...DictionaryItem.json.args0,
             {
                 type:       'input_value',
-                name:       'input',
+                name:       'child',
                 check:      T.TEXT,
             },
         ],
