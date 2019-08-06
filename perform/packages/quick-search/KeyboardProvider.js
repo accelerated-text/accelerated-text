@@ -4,7 +4,7 @@ import PropTypes            from 'prop-types';
 import WorkspaceContext     from '../workspace-context/WorkspaceContext';
 
 
-export default class QuickSearchKeyboardHandler extends Component {
+export default class QuickSearchKeyboardProvider extends Component {
 
     static contextType =    WorkspaceContext;
 

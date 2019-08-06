@@ -15,7 +15,7 @@ import Item                 from './Item';
 import S                    from './Form.sass';
 
 
-export default class QuickSearchQuery extends Component {
+export default class QuickSearchForm extends Component {
 
     inputRef =              createRef();
 
