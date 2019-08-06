@@ -3,43 +3,22 @@
         <block type="Segment">
             <field name="text_type">description</field>
         </block>
-        <block type="Segment">
-            <field name="text_type">pitch</field>
-        </block>
         <block type="Define-var" />
     </category>
     <category name="Topics">
         <block type="Product" />
         <block type="Product-component" />
     </category>
-    <category name="Rhetoric">
-        <block type="RST" />
-        <block type="Rhetorical">
-            <field name="rstType">summary</field>
-        </block>
-        <block type="Rhetorical">
-            <field name="rstType">explanation</field>
-        </block>
-        <block type="Rhetorical">
-            <field name="rstType">elaboration</field>
-        </block>
-        <block type="Relationship">
-            <field name="relationshipType">provides</field>
-        </block>
-        <block type="Relationship">
-            <field name="relationshipType">consequence</field>
-        </block>
+    <category name="Values">
+        <block type="Cell" />
+        <block type="Quote" />
+        <block type="Get-var" />
+        <block type="Modifier" />
     </category>
     <category name="Lists">
         <block type="Sequence" />
         <block type="Shuffle" />
         <block type="One-of-synonyms" />
-    </category>
-    <category name="Values">
-        <block type="Cell" />
-        <block type="Quote" />
-        <block type="Get-var" />
-        <block type="Dictionary-item" />
     </category>
     <category name="Logic">
         <block type="If-then-else" />
@@ -60,5 +39,23 @@
             <field name="operator">&gt;</field>
         </block>
         <block type="Value-in" />
+    </category>
+    <category name="Deprecated">
+        <block type="RST" />
+        <block type="Rhetorical">
+            <field name="rstType">summary</field>
+        </block>
+        <block type="Rhetorical">
+            <field name="rstType">explanation</field>
+        </block>
+        <block type="Rhetorical">
+            <field name="rstType">elaboration</field>
+        </block>
+        <block type="Relationship">
+            <field name="relationshipType">provides</field>
+        </block>
+        <block type="Relationship">
+            <field name="relationshipType">consequence</field>
+        </block>
     </category>
 </xml>

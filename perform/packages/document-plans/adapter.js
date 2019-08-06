@@ -121,6 +121,9 @@ export default {
 
             PUT( `/${ plan.id }`, plan )
                 .then( serverPlan => {
+                    if( ! serverPlan.id || serverPlan.error ) {
+                        throw serverPlan;
+                    }
                     const status =  getStoreStatus( getStoreState, plan );
                     debug( 'onUpdateStart then', plan, serverPlan, { status });
 

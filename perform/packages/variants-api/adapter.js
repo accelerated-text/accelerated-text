@@ -8,12 +8,8 @@ const debug =               debugSan( 'variants-api/adapter' );
 
 const updateVariants = ( plan, { E, getStoreState }) => (
     ( getStoreState( 'planList' ).openedPlanUid === plan.uid )
+        && plan.dataSampleId
         && E.variantsApi.onGet.async()
-);
-
-const getPending = ( _, { E, getStoreState }) => (
-    getStoreState( 'variantsApi' ).pending
-        && E.variantsApi.onGetStart.async()
 );
 
 const updateOnNewOpened = ( _, { E, getStoreState }) => {
@@ -29,9 +25,11 @@ const updateOnNewOpened = ( _, { E, getStoreState }) => {
     const plan =    getOpenedPlan( getStoreState );
 
     const needsVariants = (
-        plan && (
+        plan
+        && plan.dataSampleId
+        && (
             openedPlanUid !== previousOpenedPlanUid
-            || ( !loading && !result )
+            || ( ! loading && ! result )
         )
     );
 
@@ -39,6 +37,11 @@ const updateOnNewOpened = ( _, { E, getStoreState }) => {
         E.variantsApi.onGet.async();
     }
 };
+
+const getPending = ( _, { E, getStoreState }) => (
+    getStoreState( 'variantsApi' ).pending
+        && E.variantsApi.onGetStart.async()
+);
 
 
 export default {

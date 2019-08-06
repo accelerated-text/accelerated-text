@@ -1,15 +1,17 @@
-import { BLACK }        from '../styles/blockly-colors';
-
-import Block            from './Block';
-import * as T           from './types';
+import Block                from './Block';
+import { black as color }   from './colors.sass';
+import DocumentPlanIcon     from './icons/DocumentPlan';
+import * as T               from './types';
 
 
 export default Block({
 
     type:                   'Document-plan',
+    color,
+    icon:                   DocumentPlanIcon({ color }),
 
     json: {
-        colour:             BLACK,
+        colour:             color,
         message0:           'Document plan:',
         message1:           '%1',
         args1: [{

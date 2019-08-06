@@ -5,6 +5,7 @@ import DragInBlock              from '../drag-in-blocks/DragInBlock';
 import { composeQueries }       from '../graphql/';
 
 import DictionaryItemBlock      from '../nlg-blocks/Dictionary-item';
+import DictionaryItemModifier   from '../nlg-blocks/Dictionary-item-modifier';
 import { openDictionaryItem }   from '../accelerated-text/local-state';
 import { QA }                   from '../tests/constants';
 
@@ -24,13 +25,22 @@ export default composeQueries({
         <td className={ S.dragInBlock }>
             { item &&
                 <DragInBlock
-                    color={ S.dragInColor }
+                    block={ DictionaryItemBlock }
                     mutation={{
                         id:     item.id,
                         name:   item.name,
                     }}
-                    type={ DictionaryItemBlock.type }
-                    width={ 36 }
+                />
+            }
+        </td>
+        <td className={ S.dragInBlock }>
+            { item &&
+                <DragInBlock
+                    block={ DictionaryItemModifier }
+                    mutation={{
+                        id:     item.id,
+                        name:   item.name,
+                    }}
                 />
             }
         </td>

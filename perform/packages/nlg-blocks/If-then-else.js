@@ -9,15 +9,16 @@ import {
     getValueInputs,
     orderInputs,
 } from '../blockly-helpers/';
-import { CYAN }             from '../styles/blockly-colors';
 
 import Block                from './Block';
+import { cyan as color }    from './colors.sass';
 import * as T               from './types';
 import {
     blockToJson,
     fieldsToJson,
     statementsToJson,
 }   from './to-nlg-json';
+import TwoInputs            from './icons/TwoInputs';
 
 
 const ELSE_IF_LABEL =       'else if';
@@ -46,9 +47,11 @@ const getThenName = condName => (
 export default Block({
 
     type:                   'If-then-else',
+    color,
+    icon:                   TwoInputs({ color }),
 
     json: {
-        colour:             CYAN,
+        colour:             color,
         output:             T.ANY,
         message0:           'if %1',
         args0: [{
