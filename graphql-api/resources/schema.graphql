@@ -238,10 +238,10 @@ type Query {
     ):  DocumentPlan
 
     ### AMR
-    concepts:                Concepts!
+    concepts:               Concepts!
     concept(
-      id:                 ID!
-    ):   Concept
+        id:                 ID!
+    ):  Concept
 
     ### quickSearch
 
