@@ -46,6 +46,8 @@ export default ( workspace, Blockly = window.Blockly ) => {
     svg.tabIndex =          '0';
     svg.focus();
 
+    workspace.getTopBlocks()[0].select();
+
     svg.addEventListener( 'keydown', evt => {
 
         if( ! Blockly.selected ) {
