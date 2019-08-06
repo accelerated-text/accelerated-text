@@ -1,0 +1,27 @@
+import { RED }              from '../styles/blockly-colors';
+
+import Block                from './Block';
+import DictionaryItem       from './Dictionary-item';
+import * as T               from './types';
+
+
+export default Block({
+
+    ...DictionaryItem,
+
+    type:                   'Dictionary-item-modifier',
+
+    json: {
+        ...DictionaryItem.json,
+        colour:             RED,
+        message0:           'Dict.: %1%2',
+        args0: [
+            ...DictionaryItem.json.args0,
+            {
+                type:       'input_value',
+                name:       'child',
+                check:      T.TEXT,
+            },
+        ],
+    },
+});

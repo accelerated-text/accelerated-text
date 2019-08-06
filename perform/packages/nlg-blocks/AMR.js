@@ -3,7 +3,7 @@ import { h, mount }         from 'dom-dom';
 import {
     appendLabeledValue,
 }                           from '../blockly-helpers/';
-import { RED }              from '../styles/blockly-colors';
+import { MAGENTA }          from '../styles/blockly-colors';
 
 import Block                from './Block';
 import toNlgJson            from './to-nlg-json';
@@ -14,7 +14,7 @@ export default Block({
     type:                   'AMR',
 
     json: {
-        colour:             RED,
+        colour:             MAGENTA,
         output:             T.STRING,
         message0:           '%1',
         args0: [{
