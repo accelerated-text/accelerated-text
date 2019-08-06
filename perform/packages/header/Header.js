@@ -1,19 +1,18 @@
-import  classnames          from 'classnames';
-import { h }                from 'preact';
+import  classnames      from 'classnames';
+import { h }            from 'preact';
 
-import getOpenedPlan        from '../plan-list/get-opened-plan';
-import PlanSelector         from '../plan-selector/PlanSelector';
-import QuickSearchLauncer   from '../quick-search/Launcher';
-import Status               from '../status/Status';
-import { useStores }        from '../vesa/';
+import getOpenedPlan    from '../plan-list/get-opened-plan';
+import PlanSelector     from '../plan-selector/PlanSelector';
+import Status           from '../status/Status';
+import { useStores }    from '../vesa/';
 
-import S                    from './Header.sass';
+import S                from './Header.sass';
 
 
 export default useStores([
     'documentPlans',
     'planList',
-])(({ className, openQuickSearch, ...props }) => {
+])(({ className, ...props }) => {
     const openedPlan =  getOpenedPlan( props );
 
     return (
@@ -29,8 +28,7 @@ export default useStores([
                 <PlanSelector openedPlan={ openedPlan } />
             </div>
             <div className={ S.right }>
-                <QuickSearchLauncer onClick={ openQuickSearch } />
-                <Status className={ S.status } openedPlan={ openedPlan } />
+                <Status openedPlan={ openedPlan } />
             </div>
         </div>
     );
