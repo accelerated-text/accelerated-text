@@ -1,8 +1,4 @@
-import {
-    flatten,
-    sort,
-    uniq,
-}                           from 'ramda';
+import { flatten, uniq }    from 'ramda';
 
 import * as NlgTypes        from '../nlg-blocks/types';
 
