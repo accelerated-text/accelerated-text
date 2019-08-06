@@ -5,8 +5,8 @@
 
 /// Main colors ----------------------------------------------------------------
 
-$black:             #000
-$white:             #fff
+$black:             #000000
+$white:             #ffffff
 
 $red:               map-get( $bw-color-blind-palette, 'vermillion' )
 $orange:            map-get( $bw-color-blind-palette, 'orange' )
@@ -28,6 +28,7 @@ $lime-hue:          hue( $lime )
 $green-hue:         hue( $green )
 $cyan-hue:          hue( $cyan ) /// Note: Same as blue!!!
 $blue-hue:          hue( $blue )
+$bluer-hue:         $blue-hue + 12deg
 $magenta-hue:       hue( $magenta )
 
 $blockly-saturation:    38.46%
@@ -40,6 +41,7 @@ $blockly-lime:      hsl( $lime-hue, $blockly-saturation, $blockly-lightness )
 $blockly-green:     hsl( $green-hue, $blockly-saturation, $blockly-lightness )
 $blockly-cyan:      hsl( $cyan-hue, $blockly-saturation, $blockly-lightness )
 $blockly-blue:      hsl( $blue-hue, $blockly-saturation, $blockly-lightness )
+$blockly-bluer:     hsl( $bluer-hue, $blockly-saturation, $blockly-lightness )
 $blockly-magenta:   hsl( $magenta-hue, $blockly-saturation, $blockly-lightness )
 
 /// Additional colors ----------------------------------------------------------

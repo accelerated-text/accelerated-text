@@ -1,15 +1,17 @@
-import { CYAN }             from '../styles/blockly-colors';
-
 import Block                from './Block';
+import { cyan as color }    from './colors.sass';
 import * as T               from './types';
+import TwoInputs            from './icons/TwoInputs';
 
 
 export default Block({
 
     type:                   'Xor',
+    color,
+    icon:                   TwoInputs({ color }),
 
     json: {
-        colour:             CYAN,
+        colour:             color,
         inputsInline:       false,
         output:             T.BOOLEAN,
         message0:           'either: %1 or: %2 ...but not both',

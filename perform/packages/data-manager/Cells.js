@@ -44,20 +44,16 @@ export default ({ className, fileItem, fileStatus, onChangeRow, selectedRow }) =
             <tr key={ i }>
                 <td className={ S.dragInBlock }>
                     <DragInBlock
+                        block={ CellBlock }
                         className={ QA.DATA_MANAGER_CELL_BLOCK }
-                        color={ S.blockColor }
                         fields={{ name }}
-                        type={ CellBlock.type }
-                        width={ 36 }
                     />
                 </td>
                 <td className={ S.dragInBlock }>
                     <DragInBlock
+                        block={ CellModifier }
                         className={ QA.DATA_MANAGER_CELL_BLOCK }
-                        color={ S.modifierColor }
                         fields={{ name }}
-                        type={ CellModifier.type }
-                        width={ 36 }
                     />
                 </td>
                 <td className={ classnames( S.cellName, QA.DATA_MANAGER_CELL_NAME ) }>
