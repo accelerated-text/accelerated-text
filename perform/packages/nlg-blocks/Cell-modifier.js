@@ -20,7 +20,7 @@ export default Block({
 
     init() {
 
-        this.appendValueInput( 'input' )
+        this.appendValueInput( 'child' )
             .appendField(
                 new Blockly.FieldDropdown(
                     () => getCellOptions( this.workspace )
