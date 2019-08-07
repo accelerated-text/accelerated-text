@@ -1,0 +1,30 @@
+@import '../styles/variables'
+
+
+.className
+
+    $label-column:              12rem
+
+    > .title
+
+        font-size:              $size-l
+        margin:                 0 0 $space-m
+        padding:                0
+
+    > label
+
+        display:                grid
+        grid-gap:               $space-s
+        grid-template-columns:  $label-column auto
+        margin:                 0
+        padding:                $space-xs 0
+
+        > input
+
+            font-size:          $size-m
+            padding:            calc( $space-s - 1px )
+
+    > button
+
+        margin:                 $space-s
+        margin-left:            $label-column + $space-s

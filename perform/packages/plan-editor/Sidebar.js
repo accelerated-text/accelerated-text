@@ -5,6 +5,7 @@ import CcgOption            from '../ccg-option/CcgOption';
 import DataManager          from '../data-manager/DataManager';
 import Dictionary           from '../dictionary/Dictionary';
 import getOpenedPlan        from '../plan-list/get-opened-plan';
+import Publish              from '../publish/Publish';
 import ReaderConfiguration  from '../reader/Configuration';
 import SelectContext        from '../document-plans/SelectContext';
 import Sidebar              from '../sidebar/Sidebar';
@@ -24,6 +25,9 @@ export default useStores([
         <Sidebar className={ className }>
             <SidebarItem isExpanded title="Preview">
                 <VariantReview />
+            </SidebarItem>
+            <SidebarItem title="Publish">
+                <Publish />
             </SidebarItem>
             <SidebarItem title="Reader">
                 <ReaderConfiguration />
