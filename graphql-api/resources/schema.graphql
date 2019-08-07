@@ -58,7 +58,6 @@ enum PartOfSpeech {
     WRB     # wh-adverb  where, when
 }
 
-
 ### Thesaurus ------------------------------------------------------------------
 
 type ThesaurusResults {

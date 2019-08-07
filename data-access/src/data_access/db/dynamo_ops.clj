@@ -17,7 +17,9 @@
     :phrase-usage config/phrase-usage-model-table
     :phrase config/phrase-table
     :reader-flag-usage config/reader-flag-usage-table
-    :reader-flag config/reader-flag-table))
+    :reader-flag config/reader-flag-table
+    :members config/amr-member-table
+    :verbclass config/amr-verbclass-table))
 
 (defprotocol DBAccess
   (read-item [this key])
@@ -73,7 +75,7 @@
         (let [original (far/get-item (config/client-opts) table-name {table-key key})
               body (-> (merge original data)
                        (assoc :updatedAt (utils/ts-now))
-                       (assoc :key key))]
+                       (assoc table-key key))]
           (log/debugf "Saving updated content: %s" (pr-str body))
           (far/put-item (config/client-opts) table-name body)
           (far/get-item (config/client-opts) table-name {table-key key})))
@@ -84,8 +86,9 @@
         (far/scan (config/client-opts) table-name {:limit limit}))
       (scan-items [this opts]
         (far/scan (config/client-opts) table-name opts))
-      (batch-read-items [this opts]
-        (far/batch-get-item (config/client-opts) {table-name opts})))))
+      (batch-read-items [this ids]
+        (log/debugf "Batch reading keys: %s" (pr-str ids))
+        (far/batch-get-item (config/client-opts) {table-name {:prim-kvs {table-key ids}}})))))
 
 (defn get-workspace
   [key]
