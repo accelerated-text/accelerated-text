@@ -2,13 +2,13 @@
  :segments [{:type "Segment"
              :textType "description"
              :children [{:type "AMR"
-                         :conceptId "battle-36.4"
+                         :conceptId "See"
                          :dictionaryItem {:itemId "behave"
                                           :name "behave"
                                           :type "Dictionary-item"}
                          :roles [{:name "Agent" :children [{:type "Thematic-role"
                                                             :children [{:type "Cell"
                                                                         :name "actor"}]}]}
-                                 {:name "coAgent" :children [{:type "Thematic-role"
+                                 {:name "co-Agent" :children [{:type "Thematic-role"
                                                               :children [{:type "Cell"
                                                                           :name "co-actor"}]}]}]}]}]}

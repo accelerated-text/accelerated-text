@@ -153,11 +153,9 @@
                       (->> children
                            (map :dynamic)
                            (map first)))
-        words (concat
+        words (conj
                (map (fn [r] (:original r)) replaces)
-               (list
-                (first members)
-                "with"))
+               (first members))
         amr-grammar (vn-ccg/vn->grammar (assoc vc :members (map (fn [m] {:name m}) members)))
         amr-results (apply (partial ccg/generate amr-grammar) words)]
     (when (seq? amr-results)
