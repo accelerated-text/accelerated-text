@@ -26,6 +26,15 @@ export default ( t, run, ...args ) =>
                         attributeName,
                     )),
 
+            getElementCenter: ( selector, page = t.page ) =>
+                t.findElement( selector, page )
+                    .then(() => page.$( selector ))
+                    .then( elHandle => elHandle.boundingBox())
+                    .then( box => ({
+                        x:      box.x + box.width / 2,
+                        y:      box.y + box.height / 2,
+                    })),
+
             getElementProperty: ( selector, propertyName, page = t.page ) =>
                 t.findElement( selector, page )
                     .then(() => page.$eval(

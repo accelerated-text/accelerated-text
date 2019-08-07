@@ -1,3 +1,4 @@
+import CONCEPTS                 from '../data/concepts';
 import { createDataFileData }   from '../data/data-file-data';
 import DATA_FILE_LIST           from '../data/data-file-list';
 import DOCUMENT_PLAN_LIST       from '../data/document-plan-list';
@@ -28,6 +29,7 @@ export default async ( t, run, ...args ) => {
 
     /// Register these intercepts while the page is loading:
     await Promise.all([
+        graphqlApi.provideOnce( 'concepts', {}, { data: CONCEPTS }),
         graphqlApi.provideOnce( 'dictionary', {}, { data: DICTIONARY }),
         graphqlApi.provideOnce( 'readerFlags', {}, { data: READER_FLAGS }),
         nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, DATA_FILE_LIST ),
