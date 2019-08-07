@@ -1,3 +1,4 @@
+import classnames           from 'classnames';
 import debug                from 'debug';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
@@ -6,6 +7,7 @@ import DocumentPlan         from '../nlg-blocks/Document-plan';
 import DropTarget           from '../drag-in-blocks/DropTarget';
 import keyboardNav          from '../blockly-keyboard-navigation';
 import { provideBlocks }    from '../nlg-blocks/';
+import { QA }               from '../tests/constants';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 import WorkspaceContext     from '../workspace-context/WorkspaceContext';
 
@@ -143,7 +145,7 @@ export default class NlgWorkspace extends Component {
             >
                 <ResizableBlockly
                     assetUrl="/blockly"
-                    className={ S.blocklyWorkspace }
+                    className={ classnames( S.blocklyWorkspace, QA.BLOCKLY ) }
                     onBlockly={ this.onBlockly }
                     onWorkspace={ this.onWorkspace }
                     options={{

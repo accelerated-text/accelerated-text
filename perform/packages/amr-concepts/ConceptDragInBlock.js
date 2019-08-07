@@ -7,8 +7,9 @@ import DragInBlock              from '../drag-in-blocks/DragInBlock';
 
 /// TODO: may need optimization
 
-export default ({ concept }) =>
+export default ({ className, concept }) =>
     <DragInBlock
+        className={ className }
         block={ AmrBlock }
         mutation={{
             concept_id:     concept.id,

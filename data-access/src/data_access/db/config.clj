@@ -25,6 +25,12 @@
 (def phrase-table {:table-name "phrase"
                    :table-key :id})
 
+(def amr-member-table {:table-name "amr-members"
+                       :table-key :id})
+
+(def amr-verbclass-table {:table-name "amr-verbclass"
+                          :table-key :id})
+
 (defn client-opts []
   {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://dynamodb.eu-central-1.amazonaws.com/")
    :profile "tm"})

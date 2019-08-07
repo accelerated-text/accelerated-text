@@ -12,6 +12,7 @@ export default class ExpandableOverflow extends Component {
         children:           PropTypes.node,
         collapsedClassName: PropTypes.string,
         expandedClassName:  PropTypes.string,
+        iconClassName:      PropTypes.string,
         isExpanded:         PropTypes.bool,
     };
 
@@ -40,6 +41,7 @@ export default class ExpandableOverflow extends Component {
         className,
         collapsedClassName,
         expandedClassName,
+        iconClassName,
     }, {
         isCollapsed,
     }) {
@@ -56,7 +58,7 @@ export default class ExpandableOverflow extends Component {
             >
                 <div
                     children="▶️"
-                    className={ S.expandIcon }
+                    className={ classnames( S.expandIcon, iconClassName ) }
                     onclick={ this.onClickIcon }
                 />
                 { children }
