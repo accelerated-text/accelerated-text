@@ -2,14 +2,12 @@
   (:require [clojure.tools.logging :as log]
             [nlg.generator.parser-ng :as parser]
             [ccg-kit.grammar :as ccg]
-            [ccg-kit.grammar-generation.morphology :as ccg-morphology]
-            [ccg-kit.grammar-generation.lexicon :as ccg-lexicon]
-            [ccg-kit.grammar-generation.xml-utils :as ccg-xml]
-            [ccg-kit.spec.ccg :as ccg-spec]
+            [ccg-kit.dsl.core :as dsl]
             [data-access.db.s3 :as s3]
             [data-access.db.config :as config]
             [nlg.generator.ops :as ops]
-            [nlg.generator.realizer :as realizer]))
+            [nlg.generator.realizer :as realizer]
+            [ccg-kit.grammar-generation.translate :as translate]))
 
 (defn build-dp-instance
   "dp - a hashmap compiled with `compile-dp`
@@ -47,6 +45,8 @@
                 :pos :NP}
       :component {:class "component"
                   :pos :NNP}
+      :amr     {:class "amr"
+                :pos :S}
       default)))
 
 (defn resolve-morph-context
@@ -57,42 +57,89 @@
                       true (item :name)
                       false ((item :name) :dyn-name))
                context (resolve-item-context item)]
-           #::ccg-spec{:syntactic-type (context :pos)
-                       :pos (context :pos)
-                       :word name
-                       :class (context :class)}))
+           (dsl/morph-entry
+            name
+            (:pos context)
+            {:class (:class context)})))
        group))
 
-(defn zipWith [left right] (map vector left right))
-
 (defn resolve-lex-context
-  [idx items]
-  (let [predicate "[*DEFAULT*]"
-        context (resolve-item-context (first items))
-        category #::ccg-spec{:syntactic-type :NP
-                             :feature-set [idx []]}
-        lf #::ccg-spec{:nomvar "X"}
-        entries (list #::ccg-spec {:predicate predicate
-                                   :category category
-                                   :pos (context :pos)
-                                   :logical-form lf})]
-    #::ccg-spec{:pos (context :pos)
-                :name (context :pos)
-                :lexical-entries entries}))
+  [idx [k members]]
+  (let [{:keys [pos class]} (resolve-item-context (first members))
+        family-part (partial
+                     dsl/family
+                     (name k) pos true
+                     (dsl/entry "Primary"
+                                (dsl/lf "X")
+                                (dsl/atomcat pos {:index (+ idx 10)}
+                                             (dsl/fs-nomvar "index" "X"))))]
+    (apply family-part
+           (map (fn [m]
+                  (let [name (case (string? (m :name))
+                               true (m :name)
+                               false ((m :name) :dyn-name))]
+                    (dsl/member name)))
+                members))))
 
 (defn compile-custom-grammar
-  "TODO: some magic should happen here"
-  [root-path values]
+  [values]
   (log/debug "\n--------------------\nCompiling Grammar\n--------------------")
   (log/debugf "Dynamic values: %s" (pr-str values))
-  (let [grouped (group-by (fn [item] (get-in item [:attrs :type])) values)
+  (let [grammar-builder (ccg/build-grammar
+                         {:types (ccg/build-types (list
+                                                   {:name "sem-obj"}
+                                                   {:name "phys-obj" :parents "sem-obj"}))
+                          :rules (ccg/build-default-rules)})
+        initial-families (list
+                          ;; AND rule. Example: <word1> and <word2>
+                          (dsl/family "coord.objects" :Conj true
+                                      (dsl/entry
+                                       "NP-Collective"
+                                       "and"
+                                       (dsl/lf "X0" "and"
+                                               (dsl/diamond "First"
+                                                            {:nomvar "L1"
+                                                             :prop "elem"
+                                                             :diamonds (list
+                                                                        (dsl/diamond "Item" {:nomvar "X1"})
+                                                                        (dsl/diamond "Next" {:nomvar "L2"
+                                                                                             :prop "elem"
+                                                                                             :diamond (dsl/diamond "Item" {:nomvar "X2"})}))}))
+                                       (dsl/>F
+                                        \.
+                                        (dsl/<B
+                                         (dsl/atomcat :NP {}
+                                                      (dsl/fs-feat "num" "pl")
+                                                      (dsl/fs-nomvar "index" "X0"))
+                                         (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X1")))
+                                        (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X2")))))
+                          ;; PROVIDES rule. Example: <word1> provides <word2>
+                          (dsl/family "v.provide" :V false
+                                      (dsl/entry
+                                       "Primary"
+                                       (dsl/lf "E" "[*DEFAULT*]"
+                                               (dsl/diamond "Thing" {:nomvar "X"})
+                                               (dsl/diamond "Benefit" {:nomvar "Y"}))
+                                       (dsl/>F
+                                        \>
+                                        (dsl/<B
+                                         (dsl/atomcat :S {} (dsl/fs-nomvar "index" "E"))
+                                         (dsl/atomcat :NNP {} (dsl/fs-nomvar "index" "X")))
+                                        (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "Y"))))))
+        
+        
+        grouped (group-by (fn [item] (get-in item [:attrs :type])) values)
+        initial-morph (list
+                       (dsl/morph-entry "provides" :V {:stem "benefit" :class "purpose"})
+                       (dsl/morph-entry "offers" :V {:stem "benefit" :class "purpose"})
+                       (dsl/morph-entry "gives" :V {:stem "benefit" :class "purpose"}))
         morphology-context (map resolve-morph-context (vals grouped))
-        morphology (map ccg-morphology/generate-morphology-xml morphology-context)
-        lexicon (map (fn [[l m]]
-                       (ccg-lexicon/generate-lexicon-xml (list l) m))
-                     (zipWith (map-indexed resolve-lex-context (vals grouped)) morphology-context))]
-    (ccg-xml/write-xml (format "%s/gen-morph.xml" root-path) (flatten morphology))
-    (ccg-xml/write-xml (format "%s/gen-lexicon.xml" root-path) (flatten lexicon))))
+        generated-families (map-indexed resolve-lex-context grouped)
+        lexicon (ccg/build-lexicon
+                 {:families (map translate/family->entry (concat initial-families generated-families))
+                  :morph (map translate/morph->entry (concat initial-morph (flatten morphology-context)))
+                  :macros (list)})]
+    (grammar-builder lexicon)))
 
 
 (defn get-placeholder
@@ -101,20 +148,25 @@
     (get-in item [:name :dyn-name])
     (item :name)))
 
+(defn amr?
+  [item]
+  (-> (:attrs item)
+      (get :amr false)))
+
 (defn generate-templates
   "Takes context and generates numerous sentences. Picks random one"
-  [grammar-path context]
-  (let [dyn-values (map get-placeholder (:dynamic context))
+  [grammar context]
+  (let [dyn-values (map get-placeholder (remove amr? (:dynamic context)))
         values (concat (distinct (:static context)) dyn-values)
         _ (log/debugf "Context: %s" context)
-        generated (apply (partial ccg/generate (ccg/load-grammar (format "%s/grammar.xml" grammar-path))) (ops/distinct-wordlist values))]
+        generated (apply (partial ccg/generate grammar) (ops/distinct-wordlist values))]
     {:context context
      :templates generated}))
 
 (defn build-segment
-  [grammar-path segment]
+  [grammar segment]
   (let [instances (map build-dp-instance segment)
-        templates (map (partial generate-templates grammar-path) instances)]
+        templates (map (partial generate-templates grammar) instances)]
     templates))
 
 (defn render-segment
@@ -131,11 +183,13 @@
    returns: generated text"
   [document-plan data reader-profile]
   (let [dp (parser/parse-document-plan document-plan {} {:reader-profile reader-profile})
-        grammar-path (download-grammar)
         instances (map #(map build-dp-instance %) dp)
         context (ops/merge-contexts {:static [] :dynamic []} (flatten instances))
-        _ (compile-custom-grammar grammar-path (:dynamic context))
-        templates (map (partial build-segment grammar-path) dp)
+        g (compile-custom-grammar
+           (remove
+            (fn [item] (get-in item [:attrs :amr]))
+            (:dynamic context)))
+        templates (map (partial build-segment g) dp)
         _ (log/debugf "Templates: %s" (pr-str templates))]
 
     (map (fn

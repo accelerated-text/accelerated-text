@@ -50,3 +50,6 @@ integration-tests:
 	docker-compose -p test -f docker-compose.test.yml down && \
 	docker-compose -p test -f docker-compose.test.yml build && \
 	docker-compose -p test -f docker-compose.test.yml up --remove-orphans --abort-on-container-exit --exit-code-from graphql-api
+
+run-local:
+	clj -A:rest-uberjar && java -jar target/graphql-api-1.0.0-SNAPSHOT-standalone.jar
