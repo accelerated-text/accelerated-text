@@ -1,6 +1,13 @@
 (ns nlg.generator.ops
   (:require [clojure.tools.logging :as log]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [ccg-kit.verbnet.ccg :refer :all]
+            [ccg-kit.spec.morphology :as morph-spec]
+            [ccg-kit.spec.lexicon :as lex-spec]
+            [ccg-kit.grammar-generation.xml-utils :as u]
+            [ccg-kit.grammar-generation.morphology :as m]
+            [ccg-kit.grammar-generation.lexicon :as l]
+            [clojure.data.xml :as xml]))
 
 (defn set-subj [selector]  (fn [context data] (assoc context :subj (selector data))))
 (defn set-verb-w-selector
@@ -34,6 +41,7 @@
   (log/tracef "Trying to merge: \n%s\nand\n%s" left right)
   (let [new-ctx {:static (concat (left :static) (right :static))
                  :dynamic (concat (left :dynamic) (right :dynamic))
+
                  :reader-profile (or (left :reader-profile) (right :reader-profile))}]
     (log/spyf :trace "Merge result: %s"(merge left new-ctx))))
 
@@ -104,3 +112,24 @@
         other (filter (fn [v] (not (= :wordlist (get-in v [:attrs :type])))) values)
         wordlists-grouped (group-by (fn [v] (get-in v [:attrs :class])) wordlists)]
     (concat other (map (fn [[_ v]] (rand-nth v)) wordlists-grouped))))
+
+(defn render-amr
+  [{:keys [id vc members]}]
+  (let [morph (vclass->morph {:id id
+                              :members members
+                              :thematic-roles (:thematic-roles vc)})
+        lexicon (thematic-roles->atomic-categories morph)]
+    (u/pprint-xml (xml/element :morph {} (m/generate-morphology-xml morph)))
+    (u/pprint-xml (xml/element :ccg-lexicon {} (l/generate-lexicon-xml lexicon morph)))))
+
+
+(defn replace-multi
+  [original replaces]
+  (loop [text original
+         r replaces]
+    (if (empty? r)
+      text
+      (let [[head & tail] r
+            result (try (string/replace text (:original head) (:replace head))
+                        (catch Exception ex (log/errorf "Problem with: %s" (pr-str head))))]
+        (recur result tail)))))

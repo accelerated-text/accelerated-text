@@ -4,7 +4,11 @@
             [clojure.string :as str]
             [nlg.api.lexicon :as lexicon]
             [nlg.api.dictionary :as dictionary-api]
-            [nlg.generator.realizer :as realizer]))
+            [nlg.generator.realizer :as realizer]
+            [data-access.entities.dictionary :as dictionary-entity]
+            [ccg-kit.grammar :as ccg]
+            [ccg-kit.verbnet.ccg :as vn-ccg]
+            [amr.core :as amr]))
 
 (def parse-cnt (atom 0))
 (defn reset-parse-cnt [] (reset! parse-cnt 0))
@@ -128,6 +132,48 @@
                   :Any-of (parse-node (rand-nth children) attrs ctx))]
     results))
 
+(defn parse-amr
+  [node attrs ctx]
+  (let [amr-attrs (assoc attrs :amr true)
+        idx (swap! parse-cnt inc)
+        vc (amr/get-rule (node :conceptId))
+        reader-profile (ctx :reader-profile)
+        members (-> (node :dictionaryItem)
+                    :itemId
+                    (dictionary-api/search reader-profile))
+        children (flatten
+                  (map (fn [{:keys [name children]}]
+                         (let [updated-attrs (assoc amr-attrs :title name)]
+                           (map #(parse-node % updated-attrs ctx) children)))
+                       (node :roles)))
+        replaces (map (fn [c]
+                        (let [title (:title (:attrs c))
+                              dyn-name (get-in c [:name :dyn-name])]
+                          {:original (format "{{%s}}" (str/upper-case title)) :replace dyn-name}))
+                      (->> children
+                           (map :dynamic)
+                           (map first)))
+        words (conj
+               (map (fn [r] (:original r)) replaces)
+               (first members))
+        amr-grammar (vn-ccg/vn->grammar (assoc vc :members (map (fn [m] {:name m}) members)))
+        amr-results (apply (partial ccg/generate amr-grammar) words)]
+    (when (seq? amr-results)
+      (cons
+       (ops/append-dynamic
+        {:quote (-> (rand-nth amr-results) (ops/replace-multi replaces))
+         :dyn-name (format "$%d" idx) }
+        (-> attrs
+            (assoc :source :quote)
+            (assoc :type :amr))
+        ctx)
+       children))))
+
+(defn parse-themrole
+  [node attrs ctx]
+  (let [title (:title node)]
+    (map #(parse-node % attrs ctx) (:children node))))
+
 (defn parse-unknown
   [node]
   (log/debugf "Unknown node: %s" node))
@@ -149,6 +195,8 @@
       :Lexicon (parse-lexicon node attrs ctx)
       :Dictionary-item (parse-dictionary node attrs ctx)
       :RST (parse-rst node attrs ctx)
+      :AMR (parse-amr node attrs ctx)
+      :Thematic-role (parse-themrole node attrs ctx)
       (parse-unknown node))))
 
 

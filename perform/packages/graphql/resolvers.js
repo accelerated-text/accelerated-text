@@ -1,7 +1,5 @@
 import { flatten, uniq }    from 'ramda';
 
-import * as NlgTypes        from '../nlg-blocks/types';
-
 
 const SYNONYMS = {
     examine:       [ 'audit', 'check', 'check out', 'consider', 'criticize', 'delve into', 'explore', 'inspect', 'investigate', 'ponder', 'pore over', 'probe', 'read', 'research', 'review', 'scan', 'screen', 'scrutinize', 'study', 'survey', 'try', 'vet', 'view', 'appraise', 'assay', 'canvass', 'case', 'eye', 'finger', 'frisk', 'gun', 'inquire', 'parse', 'peruse', 'prospect', 'prove', 'reconnoiter', 'sift', 'sweep', 'weigh', 'winnow', 'chew over', 'dig into', 'go into', 'go over', 'go through', 'look over', 'look see', 'pat down', 'pick at', 'scope', 'scrutinate', 'search into', 'size up', 'take stock of', 'turn over' ],
@@ -12,11 +10,6 @@ const SYNONYMS = {
     view:           [ 'consider', 'examine', 'explore', 'notice', 'observe', 'perceive', 'read', 'regard', 'scrutinize', 'see', 'watch', 'witness', 'beam', 'behold', 'canvass', 'contemplate', 'descry', 'dig', 'discern', 'distinguish', 'espy', 'eye', 'flash', 'gaze', 'inspect', 'mark', 'pipe', 'rubberneck', 'scan', 'scope', 'spot', 'spy', 'stare', 'survey', 'check out', 'check over', 'eagle eye', 'feast eyes on', 'get a load of', 'lay eyes on', 'set eyes on', 'take in' ],
     watch:          [ 'attend', 'check out', 'examine', 'follow', 'keep an eye on', 'listen', 'look', 'observe', 'regard', 'scan', 'scrutinize', 'see', 'stare', 'view', 'wait', 'case', 'concentrate', 'contemplate', 'eye', 'eyeball', 'focus', 'gaze', 'inspect', 'mark', 'mind', 'note', 'peer', 'pipe', 'rubberneck', 'scope', 'spy', 'eagle-eye', 'get a load of', 'give the once over', 'have a look-see', 'keep tabs on', 'pay attention', 'take in', 'take notice' ],
 };
-
-const HELP_TEXT = Object.values( SYNONYMS )
-    .map( words =>
-         `*${ words[0] }* ${ words.join( ' ' ) }`
-    ).join( '\n\n' );
 
 
 export const Organization = () => ({
@@ -41,51 +34,11 @@ export const User = () => ({
 });
 
 
-export const ThematicRole = ( fieldLabel, fieldType ) => ({
-    __typename:     'ThematicRole',
-    id:             fieldLabel,
-    fieldLabel,
-    fieldType,
-});
-
-
-export const Concept = ( label, dictItemName, roles ) => ({
-    __typename:     'Concept',
-    id:             label,
-    label,
-    helpText:       HELP_TEXT,
-    dictionaryItem: {
-        __typename: 'DictionaryItem',
-        id:         dictItemName,
-        name:       dictItemName,
-    },
-    roles: Object
-        .keys( roles )
-        .map( fieldLabel => ThematicRole( fieldLabel, roles[fieldLabel])),
-});
-
-
 export default {
     Organization,
     User,
     Mutation:               {},
     Query: {
-
-        concepts: () => ({
-            __typename:     'Concepts',
-            id:             'Concepts-id',
-            concepts: [
-                Concept( 'See', 'sees', {
-                    agent:      NlgTypes.TEXT,
-                    coAgent:    NlgTypes.TEXT,
-                }),
-                Concept( 'Arrive', 'arrived', {
-                    agent:      NlgTypes.TEXT,
-                    atPlace:    NlgTypes.TEXT,
-                    onTime:     NlgTypes.TEXT,
-                }),
-            ],
-        }),
 
         me:                 User,
 

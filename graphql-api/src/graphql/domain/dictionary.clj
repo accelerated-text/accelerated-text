@@ -16,6 +16,12 @@
   (translate-dict/dictionary-item->schema
    (dict-entity/get-dictionary-item (:id arguments))))
 
+(defn ref-dictionary-item [_ _ {:keys [dictionaryItem]}]
+  (log/debugf "Fetching ref dictionary item: %s" dictionaryItem)
+  (translate-dict/dictionary-item->schema
+   (dict-entity/get-dictionary-item dictionaryItem)))
+
+
 (defn create-dictionary-item [_ {:keys [name partOfSpeech phrases]} _]
   (dict-entity/create-dictionary-item {:key name
                                        :name name

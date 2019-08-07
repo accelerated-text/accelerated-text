@@ -39,6 +39,7 @@
                 "TemplateLiteral *"
             ]
         }],
+        "jest/no-disabled-tests":   "off",
         "key-spacing":              [ "error", {
             "beforeColon":      false,
             "afterColon":       true,

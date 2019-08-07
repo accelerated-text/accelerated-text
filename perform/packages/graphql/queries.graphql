@@ -55,7 +55,7 @@ query dictionaryItem( $id: ID! ) {
 ### AMR ------------------------------------------------------------------------
 
 query concepts {
-  concepts @client {
+  concepts {
     id
     concepts {
       ...conceptFields
