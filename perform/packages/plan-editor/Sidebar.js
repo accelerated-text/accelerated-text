@@ -6,7 +6,7 @@ import DataManager          from '../data-manager/DataManager';
 import Dictionary           from '../dictionary/Dictionary';
 import { findFileByPlan }   from '../data-samples/functions';
 import getOpenedPlan        from '../plan-list/get-opened-plan';
-import Publish              from '../publish/Publish';
+import Publisher            from '../fake-shop/Publisher';
 import ReaderConfiguration  from '../reader/Configuration';
 import SelectContext        from '../document-plans/SelectContext';
 import Sidebar              from '../sidebar/Sidebar';
@@ -39,7 +39,7 @@ export default useStores([
                 <VariantReview />
             </SidebarItem>
             <SidebarItem title="Publish">
-                <Publish />
+                <Publisher />
             </SidebarItem>
             <SidebarItem isExpanded title="AMR">
                 <AmrConcepts />

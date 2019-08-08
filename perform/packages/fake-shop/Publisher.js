@@ -1,6 +1,6 @@
 import { h }                from 'preact';
 
-import S                    from './Publish.sass';
+import S                    from './Publisher.sass';
 
 
 export default () =>
