@@ -4,9 +4,9 @@ import AmrConcepts          from '../amr-concepts/AmrConcepts';
 import CcgOption            from '../ccg-option/CcgOption';
 import DataManager          from '../data-manager/DataManager';
 import Dictionary           from '../dictionary/Dictionary';
+import FakeShop             from '../fake-shop/SidebarItem';
 import { findFileByPlan }   from '../data-samples/functions';
 import getOpenedPlan        from '../plan-list/get-opened-plan';
-import Publisher            from '../fake-shop/Publisher';
 import ReaderConfiguration  from '../reader/Configuration';
 import SelectContext        from '../document-plans/SelectContext';
 import Sidebar              from '../sidebar/Sidebar';
@@ -35,16 +35,19 @@ export default useStores([
             <SidebarItem title="Reader">
                 <ReaderConfiguration />
             </SidebarItem>
-            <SidebarItem isExpanded title="Preview">
+            <SidebarItem isExpanded title="Publish to the shop">
+                <FakeShop
+                    fileItem={ fileItem }
+                    plan={ openedPlan }
+                />
+            </SidebarItem>
+            <SidebarItem title="Text Analysis">
                 <VariantReview />
             </SidebarItem>
-            <SidebarItem title="Publish to the shop">
-                <Publisher />
-            </SidebarItem>
-            <SidebarItem isExpanded title="AMR">
+            <SidebarItem title="AMR">
                 <AmrConcepts />
             </SidebarItem>
-            <SidebarItem isExpanded title="Dictionary">
+            <SidebarItem title="Dictionary">
                 <Dictionary />
             </SidebarItem>
             <SidebarItem title="Options">

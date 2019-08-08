@@ -5,26 +5,15 @@
 
     $label-column:              12rem
 
+    > .thumbnail
+
+        box-shadow:             1px 1px $space-xs $gray
+        float:                  left
+        margin:                 0 $space-m $space-m 0
+
     > .title
 
-        font-size:              $size-l
+        font-size:              $size-m
+        font-weight:            $bold
         margin:                 0 0 $space-m
         padding:                0
-
-    > label
-
-        display:                grid
-        grid-gap:               $space-s
-        grid-template-columns:  $label-column auto
-        margin:                 0
-        padding:                $space-xs 0
-
-        > input
-
-            font-size:          $size-m
-            padding:            calc( $space-s - 1px )
-
-    > button
-
-        margin:                 $space-s
-        margin-left:            $label-column + $space-s

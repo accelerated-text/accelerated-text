@@ -3,20 +3,13 @@ import { h }                from 'preact';
 import S                    from './Publisher.sass';
 
 
-export default () =>
+export default ({ descriptionText, record }) =>
     <div className={ S.className }>
-        <h3 className={ S.title }>Publish a book to Shopify</h3>
-        <label>
-            Shop URL:
-            <input />
-        </label>
-        <label>
-            Shopify API key:
-            <input />
-        </label>
-        <label>
-            ISBN:
-            <input />
-        </label>
-        <button children="Publish" />
+        { record && [
+            <img className={ S.thumbnail } src={ record.thumbnail } />,
+            <h3 children={ record.title } className={ S.title } />,
+            <p>ISBN: { record['isbn-13'] }</p>,
+            <p>{ descriptionText }</p>,
+            <button children="Create product" />,
+        ]}
     </div>;
