@@ -122,7 +122,7 @@ update-graphql-api-deps:
     - docker rmi registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
 
 deploy-graphql-api-lambda:
-  stage: deploy
+  stage: deps
   image: docker:stable
   when: manual
   before_script:
