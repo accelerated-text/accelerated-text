@@ -128,7 +128,6 @@ deploy-graphql-api-lambda:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
   script:
-    - cd graphql-api
     - >
       docker build
       --target deployer
@@ -138,4 +137,22 @@ deploy-graphql-api-lambda:
       --build-arg S3_BUCKET="nlg-api"
       --build-arg S3_FOLDER="graphql"
       --build-arg STACK_NAME="lambda-custom-runtime-graphqlApi"
-      -t lambda-deployer .
+      -t lambda-deployer -f graphql-api/Dockerfile .
+
+deploy-graphql-api-dev-lambda:
+  stage: deploy
+  image: docker:stable
+  when: manual
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+  script:
+    - >
+      docker build
+      --target deployer
+      --build-arg AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+      --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      --build-arg S3_BUCKET="nlg-api"
+      --build-arg S3_FOLDER="graphql"
+      --build-arg STACK_NAME="lambda-custom-runtime-graphqlApi-dev"
+      -t lambda-deployer -f graphql-api/Dockerfile .

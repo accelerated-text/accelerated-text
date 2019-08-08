@@ -1,6 +1,6 @@
 FROM registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps as deps
 
-FROM oracle/graalvm-ce:19.0.0 as builder
+FROM oracle/graalvm-ce:19.1.1 as builder
 RUN gu install native-image
 
 COPY --from=deps /root/.m2 /root/.m2
@@ -17,10 +17,11 @@ RUN ./linux-install-1.10.0.442.sh
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
+COPY data-access/ /usr/src/data-access
 
-COPY deps.edn /usr/src/app/
+COPY graphql-api/deps.edn /usr/src/app/
 RUN clojure -R:native-image
-COPY . /usr/src/app
+COPY graphql-api/ /usr/src/app
 RUN clojure -A:native-image
 RUN cp $JAVA_HOME/jre/lib/amd64/libsunec.so .
 RUN cp target/app server
@@ -61,7 +62,7 @@ ARG STACK_NAME=lambda-custom-runtime-graphqlApi
 ENV STACK_NAME=$STACK_NAME
 
 COPY --from=archiver /usr/src/app/function.zip function.zip
-COPY lambda.yml lambda.yml
+COPY graphql-api/lambda.yml lambda.yml
 
 RUN aws cloudformation package --template-file lambda.yml --s3-bucket ${S3_BUCKET} --s3-prefix ${S3_FOLDER} --output-template-file /tmp/lambda-packaged.yml
 RUN aws cloudformation deploy --template-file /tmp/lambda-packaged.yml --stack-name ${STACK_NAME} --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset
