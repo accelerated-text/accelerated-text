@@ -38,7 +38,7 @@ export default useStores([
             <SidebarItem isExpanded title="Preview">
                 <VariantReview />
             </SidebarItem>
-            <SidebarItem title="Publish">
+            <SidebarItem title="Publish to the shop">
                 <Publisher />
             </SidebarItem>
             <SidebarItem isExpanded title="AMR">
