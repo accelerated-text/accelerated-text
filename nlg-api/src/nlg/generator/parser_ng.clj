@@ -144,7 +144,7 @@
         children (flatten
                   (map (fn [{:keys [name children]}]
                          (let [updated-attrs (assoc amr-attrs :title name)]
-                           (map #(parse-node % updated-attrs ctx) children)))
+                           (map #(parse-node % updated-attrs ctx) (remove nil? children))))
                        (node :roles)))
         replaces (map (fn [c]
                         (let [title (:title (:attrs c))

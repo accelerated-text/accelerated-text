@@ -113,16 +113,6 @@
         wordlists-grouped (group-by (fn [v] (get-in v [:attrs :class])) wordlists)]
     (concat other (map (fn [[_ v]] (rand-nth v)) wordlists-grouped))))
 
-(defn render-amr
-  [{:keys [id vc members]}]
-  (let [morph (vclass->morph {:id id
-                              :members members
-                              :thematic-roles (:thematic-roles vc)})
-        lexicon (thematic-roles->atomic-categories morph)]
-    (u/pprint-xml (xml/element :morph {} (m/generate-morphology-xml morph)))
-    (u/pprint-xml (xml/element :ccg-lexicon {} (l/generate-lexicon-xml lexicon morph)))))
-
-
 (defn replace-multi
   [original replaces]
   (loop [text original

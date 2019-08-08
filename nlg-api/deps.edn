@@ -1,6 +1,6 @@
 {:deps      {org.clojure/clojure                {:mvn/version "1.10.0"}
              ccg-kit                            {:git/url "git@gitlab.com:tokenmill/nlg/ccg-kit.git"
-                                                 :sha     "45b84937ce86457cfb4554c84588098a056cfc2a"}
+                                                 :sha     "a3bee1965f19f0ebbe9ded3091b7abfa9c9bb7f9"}
              data-access                        {:local/root "../data-access/"}
              org.clojure/tools.logging          {:mvn/version "0.4.0"}
              cheshire                           {:mvn/version "5.8.1"}
