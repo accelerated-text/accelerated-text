@@ -4,6 +4,7 @@ import AmrConcepts          from '../amr-concepts/AmrConcepts';
 import CcgOption            from '../ccg-option/CcgOption';
 import DataManager          from '../data-manager/DataManager';
 import Dictionary           from '../dictionary/Dictionary';
+import { findFileByPlan }   from '../data-samples/functions';
 import getOpenedPlan        from '../plan-list/get-opened-plan';
 import Publish              from '../publish/Publish';
 import ReaderConfiguration  from '../reader/Configuration';
@@ -15,25 +16,30 @@ import { useStores }        from '../vesa/';
 
 
 export default useStores([
+    'dataSamples',
     'documentPlans',
     'planList',
-])(({ className, E, ...props }) => {
+])(({ className, dataSamples, E, ...props }) => {
 
     const openedPlan =      getOpenedPlan( props );
+    const fileItem =        findFileByPlan( dataSamples, openedPlan );
 
     return (
         <Sidebar className={ className }>
+            <SidebarItem
+                isExpanded={ !! fileItem }
+                title={ fileItem ? `Data (${ fileItem.fileName })` : 'Data' }
+            >
+                <DataManager plan={ openedPlan } />
+            </SidebarItem>
+            <SidebarItem title="Reader">
+                <ReaderConfiguration />
+            </SidebarItem>
             <SidebarItem isExpanded title="Preview">
                 <VariantReview />
             </SidebarItem>
             <SidebarItem title="Publish">
                 <Publish />
-            </SidebarItem>
-            <SidebarItem title="Reader">
-                <ReaderConfiguration />
-            </SidebarItem>
-            <SidebarItem isExpanded title="Data">
-                <DataManager plan={ openedPlan } />
             </SidebarItem>
             <SidebarItem isExpanded title="AMR">
                 <AmrConcepts />
