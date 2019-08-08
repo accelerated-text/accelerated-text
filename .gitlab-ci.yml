@@ -140,7 +140,7 @@ deploy-graphql-api-lambda:
       -t lambda-deployer -f graphql-api/Dockerfile .
 
 deploy-graphql-api-dev-lambda:
-  stage: deps
+  stage: deploy
   image: docker:stable
   when: manual
   before_script:
