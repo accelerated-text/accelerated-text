@@ -1,0 +1,11 @@
+query searchProducts( $query: String ) {
+  products( query: $query ) {
+    edges {
+      node {
+        id
+        title
+        description
+      }
+    }
+  }
+}

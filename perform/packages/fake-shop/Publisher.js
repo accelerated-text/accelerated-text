@@ -1,9 +1,21 @@
 import { h }                from 'preact';
 
+import { composeQueries }   from '../graphql/';
+
 import S                    from './Publisher.sass';
+import { searchProducts }   from './queries.graphql';
 
 
-export default ({ descriptionText, record }) =>
+export default composeQueries({
+    searchProducts: [
+        searchProducts,
+        { query:            'query' },
+    ],
+})(({
+    descriptionText,
+    record,
+    searchProducts: { error, loading, searchProducts },
+}) =>
     <div className={ S.className }>
         { record && [
             <img className={ S.thumbnail } src={ record.thumbnail } />,
@@ -12,4 +24,8 @@ export default ({ descriptionText, record }) =>
             <p>{ descriptionText }</p>,
             <button children="Create product" />,
         ]}
-    </div>;
+        <p>Error: { JSON.stringify( error ) }</p>
+        <p>Loading: { JSON.stringify( loading ) }</p>
+        <p>Result: { JSON.stringify( searchProducts ) }</p>
+    </div>
+);
