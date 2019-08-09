@@ -1,11 +1,75 @@
+fragment productFields on Product {
+  id
+  descriptionHtml
+  title
+}
+
+
 query searchProducts( $query: String ) {
-  products( query: $query ) {
+  products(query: $query, first: 10) {
     edges {
+      cursor
       node {
-        id
-        title
-        description
+        ...productFields
       }
+    }
+  }
+}
+
+
+mutation createProduct(
+  $descriptionHtml:   String!
+  $imageSrc:          String
+  $sku:               String!
+  $title:             String!
+) {
+  productCreate(
+    input: {
+      descriptionHtml:  $descriptionHtml
+      title:            $title
+      images: {
+        src:            $imageSrc
+        altText:        $title
+      }
+      variants: {
+        sku:            $sku
+      }
+    }
+  ) {
+    product {
+      ...productFields
+    }
+  }
+}
+
+mutation updateProduct(
+  $id:                  ID!
+  $imageId:             ID
+  $variantId:           ID
+
+  $descriptionHtml:     String
+  $imageSrc:            String
+  $title:               String
+  $sku:                 String
+) {
+  productUpdate(
+    input: {
+      id:               $id
+      descriptionHtml:  $descriptionHtml
+      title:            $title
+      images: {
+        src:            $imageSrc
+        id:             $imageId,
+        altText:        $title
+      }
+      variants: {
+        id:             $variantId
+        sku:            $sku
+      }
+    }
+  ) {
+    product {
+      ...productFields
     }
   }
 }

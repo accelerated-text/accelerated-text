@@ -23,7 +23,7 @@ export default useStores([
     const query = (
         record
             ? `sku:${ record['isbn-13'] }`
-            : 'sku:non-existant'
+            : '*'
     );
 
     return (
@@ -43,6 +43,7 @@ export default useStores([
                 query={ query }
                 record={ record }
             />
+            { JSON.stringify( record ) }
         </GraphQLProvider>
     );
 });

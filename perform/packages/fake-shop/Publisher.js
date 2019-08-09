@@ -1,9 +1,14 @@
 import { h }                from 'preact';
+import { path }             from 'ramda';
 
 import { composeQueries }   from '../graphql/';
 
+import AddProduct           from './AddProduct';
 import S                    from './Publisher.sass';
 import { searchProducts }   from './queries.graphql';
+
+
+const firstProduct =        path([ 'edges', 0, 'node' ]);
 
 
 export default composeQueries({
@@ -14,18 +19,28 @@ export default composeQueries({
 })(({
     descriptionText,
     record,
-    searchProducts: { error, loading, searchProducts },
-}) =>
-    <div className={ S.className }>
-        { record && [
-            <img className={ S.thumbnail } src={ record.thumbnail } />,
-            <h3 children={ record.title } className={ S.title } />,
-            <p>ISBN: { record['isbn-13'] }</p>,
-            <p>{ descriptionText }</p>,
-            <button children="Create product" />,
-        ]}
-        <p>Error: { JSON.stringify( error ) }</p>
-        <p>Loading: { JSON.stringify( loading ) }</p>
-        <p>Result: { JSON.stringify( searchProducts ) }</p>
-    </div>
-);
+    searchProducts: { error, loading, products },
+}) => {
+    const product =         firstProduct( products );
+
+    return (
+        <div className={ S.className }>
+            { record && [
+                <img className={ S.thumbnail } src={ record.thumbnail } />,
+                <h3 children={ record.title } className={ S.title } />,
+                <p>ISBN: { record['isbn-13'] }</p>,
+                <p>{ descriptionText }</p>,
+                product
+                    ?  <button
+                        children={ product ? 'Update product' : 'Add new product' }
+                        disabled={ loading || ( error && ! product ) }
+                    />
+                    : <AddProduct
+                        description={ descriptionText || '' }
+                        disabled={ loading }
+                        record={ record }
+                    />,
+            ]}
+        </div>
+    );
+});
