@@ -28,7 +28,11 @@ export default useStores([
         <Sidebar className={ className }>
             <SidebarItem
                 isExpanded={ !! fileItem }
-                title={ fileItem ? `Data (${ fileItem.fileName })` : 'Data' }
+                title={
+                    fileItem
+                        ? `Data (${ fileItem.fileName }: ${ openedPlan.dataSampleRow + 1 })`
+                        : 'Data'
+                }
             >
                 <DataManager plan={ openedPlan } />
             </SidebarItem>
