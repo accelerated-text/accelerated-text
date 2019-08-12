@@ -1,7 +1,36 @@
+fragment imageFields on Image {
+  id
+  altText
+  src
+}
+
+fragment variantFields on ProductVariant {
+  id
+  sku
+}
+
 fragment productFields on Product {
   id
   descriptionHtml
   title
+}
+
+fragment productNode on Product {
+  ...productFields
+  images( first: 10 ) {
+    edges {
+      node {
+        ...imageFields
+      }
+    }
+  }
+  variants( first: 10 ) {
+    edges {
+      node {
+        ...variantFields
+      }
+    }
+  }
 }
 
 
@@ -10,7 +39,7 @@ query searchProducts( $query: String ) {
     edges {
       cursor
       node {
-        ...productFields
+        ...productNode
       }
     }
   }
@@ -37,39 +66,23 @@ mutation createProduct(
     }
   ) {
     product {
-      ...productFields
+      ...productNode
     }
   }
 }
 
 mutation updateProduct(
   $id:                  ID!
-  $imageId:             ID
-  $variantId:           ID
-
   $descriptionHtml:     String
-  $imageSrc:            String
-  $title:               String
-  $sku:                 String
 ) {
   productUpdate(
     input: {
       id:               $id
       descriptionHtml:  $descriptionHtml
-      title:            $title
-      images: {
-        src:            $imageSrc
-        id:             $imageId,
-        altText:        $title
-      }
-      variants: {
-        id:             $variantId
-        sku:            $sku
-      }
     }
   ) {
     product {
-      ...productFields
+      ...productNode
     }
   }
 }
