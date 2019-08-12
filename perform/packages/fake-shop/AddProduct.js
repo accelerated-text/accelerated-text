@@ -4,7 +4,7 @@ import PropTypes            from 'prop-types';
 import { composeQueries }   from '../graphql/';
 
 import { createProduct }    from './queries.graphql';
-import RecordType           from './Record.type';
+import BookRecord           from './BookRecord.type';
 
 
 export default composeQueries({
@@ -16,7 +16,7 @@ export default composeQueries({
         description:        PropTypes.string.isRequired,
         disabled:           PropTypes.any,
         createProduct:      PropTypes.func.isRequired,
-        record:             RecordType.isRequired,
+        record:             BookRecord.isRequired,
     };
 
     state = {
