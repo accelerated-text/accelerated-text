@@ -46,6 +46,7 @@ export default composeQueries({
         <div className={ S.className }>
             <img className={ S.thumbnail } src={ record.thumbnail } />
             <h3 children={ record.title } className={ S.title } />
+            <p>by <i>{ record.authors }</i></p>
             <p>ISBN: { record['isbn-13'] }</p>
             <div className={ S.description }>{
                 descriptionError
