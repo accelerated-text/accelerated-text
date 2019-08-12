@@ -1,0 +1,24 @@
+@import './variables'
+
+
+@mixin primary-button
+
+    background-color:   $primary-color
+    border:             0 none transparent
+    border-radius:      $border-radius
+    box-shadow:         1px 1px 0 $gray
+    color:              $white
+    cursor:             pointer
+    font-family:        $font-family
+    font-size:          $size-m
+    font-weight:        $bold
+    padding:            $space-s
+
+    &:active
+
+        background-color:   $active-color
+
+    &:hover
+
+        box-shadow:         inset 1px 1px 1px $gray
+
