@@ -1,6 +1,7 @@
 import { h }                from 'preact';
-import { path }             from 'ramda';
 
+import { getPlanDataRow }   from '../data-samples/functions';
+import getResultForRow      from '../variants-api/get-result-for-row';
 import { GraphQLProvider }  from './apollo-client';
 import { useStores }        from '../vesa/';
 
@@ -12,28 +13,20 @@ export default useStores([
 ])(({
     fileItem,
     plan,
-    variantsApi: { result },
+    variantsApi: { error, loading, result },
 }) => {
-    const descriptionText = path(
-        [
-            'variants', 0,
-            'children', 0,
-            'children', plan ? plan.dataSampleRow : 0,
-            'text',
-        ],
+    const descriptionText = getResultForRow(
         result,
+        plan && plan.dataSampleRow,
     );
-    const record = (
-        fileItem
-        && fileItem.data
-        && plan
-        && fileItem.data[ plan.dataSampleRow || 0 ]
-    );
+    const record =          getPlanDataRow( fileItem, plan );
 
     return (
         <GraphQLProvider>
             { record
                 ? <Publisher
+                    descriptionError={ error }
+                    descriptionLoading={ loading }
                     descriptionText={ descriptionText }
                     query={ `sku:${ record['isbn-13'] }` }
                     record={ record }
