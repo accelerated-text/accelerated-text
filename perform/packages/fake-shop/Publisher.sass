@@ -1,4 +1,5 @@
 @import '../styles/variables'
+@import '../styles/primary-button'
 
 
 .className
@@ -6,10 +7,10 @@
     > .thumbnail
 
         box-shadow:             1px 1px $space-xs $gray
-        float:                  left
-        margin:                 0 $space-m $space-m 0
-        max-height:             18rem
-        max-width:              12rem
+        float:                  right
+        margin:                 0 0 $space-m $space-m
+        max-height:             6rem
+        max-width:              6rem
 
     > .title
 
@@ -17,3 +18,18 @@
         font-weight:            $bold
         margin:                 0 0 $space-m
         padding:                0
+
+    > .description
+
+        background-color:       $white
+        border-radius:          $border-radius
+        box-shadow:             inset 1px 1px 1px $gray
+        clear:                  both
+        color:                  $text-color
+        line-height:            $line-height
+        margin-bottom:          $space-m
+        padding:                $space-s
+
+    > .addProduct
+
+        @include primary-button

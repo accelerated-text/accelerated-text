@@ -1,8 +1,10 @@
+import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
 import { composeQueries }   from '../graphql/';
 
+import S                    from './UpdateProduct.sass';
 import { updateProduct }    from './queries.graphql';
 
 
@@ -20,6 +22,7 @@ export default composeQueries({
 
     state = {
         error:              null,
+        isExpanded:         false,
         loading:            false,
     };
 
@@ -45,14 +48,38 @@ export default composeQueries({
         });
     };
 
+    onClickExpand = () => {
+        this.setState(({ isExpanded }) => ({
+            isExpanded:     ! isExpanded,
+        }));
+    };
+
     render = (
         { className, description, disabled, product },
-        { error, loading },
+        { error, isExpanded, loading },
     ) =>
-        <button
-            children="Update the product"
-            className={ className }
-            disabled={ disabled || loading || ! description }
-            onClick={ this.onClick }
-        />;
+        <div className={ classnames( S.className, className ) }>
+            <div className={ S.controls }>
+                <button
+                    children="Update product"
+                    disabled={ disabled || loading || ! description }
+                    onClick={ this.onClick }
+                />
+                <a
+                    children={
+                        isExpanded
+                            ? 'hide current description'
+                            : 'show current description'
+                    }
+                    className={ isExpanded ? S.isExpanded : '' }
+                    onClick={ this.onClickExpand }
+                />
+            </div>
+            { isExpanded &&
+                <div
+                    children={ product.descriptionHtml }
+                    className={ S.productDescription }
+                />
+            }
+        </div>;
 });
