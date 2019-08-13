@@ -26,7 +26,7 @@ export default composeQueries({
         loading:            false,
     };
 
-    onClick = () => {
+    onSubmit = () => {
         this.setState({
             loading:        true,
         });
@@ -63,7 +63,7 @@ export default composeQueries({
                 <button
                     children="Update product"
                     disabled={ disabled || loading || ! description }
-                    onClick={ this.onClick }
+                    onClick={ this.onSubmit }
                 />
                 <a
                     children={
