@@ -1,7 +1,7 @@
 import { h }                from 'preact';
 
 import { getPlanDataRow }   from '../data-samples/functions';
-import getResultForRow      from '../variants-api/get-result-for-row';
+import getResultForRow      from '../variants/get-result-for-row';
 import { GraphQLProvider }  from './apollo-client';
 import { useStores }        from '../vesa/';
 
