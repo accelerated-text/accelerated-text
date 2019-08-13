@@ -62,3 +62,17 @@ query concepts {
     }
   }
 }
+
+
+### QuickSearch ----------------------------------------------------------------
+
+query quickSearch( $query: String ) {
+  quickSearch( query: $query ) @client {
+    offset
+    totalCount
+    items {
+        __typename
+        ... on Word           { ...wordFields }
+    }
+  }
+}

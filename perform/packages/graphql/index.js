@@ -13,6 +13,7 @@ import typeDefs             from './schema.graphql';
 
 
 export { default as composeQueries }    from './compose-queries';
+export { Query }            from 'react-apollo';
 
 
 export const cache =        new InMemoryCache({

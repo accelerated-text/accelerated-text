@@ -3,23 +3,27 @@
 
 .className
 
-    display:                grid
-    grid-gap:               0
-    grid-template-areas:    'header header' 'main right-sidebar'
-    grid-template-columns:  auto 40rem
-    grid-template-rows:     ( 3 * $space-m ) auto
-    height:                 100%
+    height:                     100%
 
-    > .header
+    > .grid
 
-        grid-area:          header
+        display:                grid
+        grid-gap:               0
+        grid-template-areas:    'header header' 'main right-sidebar'
+        grid-template-columns:  auto 40rem
+        grid-template-rows:     ( 3 * $space-m ) auto
+        height:                 100%
 
-    > .main
+        > .header
 
-        grid-area:          main
+            grid-area:          header
 
-    > .rightSidebar
+        > .main
 
-        grid-area:          right-sidebar
-        height:             100%
-        overflow-y:         auto
+            grid-area:          main
+
+        > .rightSidebar
+
+            grid-area:          right-sidebar
+            height:             100%
+            overflow-y:         auto

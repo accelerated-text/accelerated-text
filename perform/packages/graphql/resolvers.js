@@ -1,3 +1,6 @@
+import { flatten, uniq }    from 'ramda';
+
+
 const SYNONYMS = {
     examine:       [ 'audit', 'check', 'check out', 'consider', 'criticize', 'delve into', 'explore', 'inspect', 'investigate', 'ponder', 'pore over', 'probe', 'read', 'research', 'review', 'scan', 'screen', 'scrutinize', 'study', 'survey', 'try', 'vet', 'view', 'appraise', 'assay', 'canvass', 'case', 'eye', 'finger', 'frisk', 'gun', 'inquire', 'parse', 'peruse', 'prospect', 'prove', 'reconnoiter', 'sift', 'sweep', 'weigh', 'winnow', 'chew over', 'dig into', 'go into', 'go over', 'go through', 'look over', 'look see', 'pat down', 'pick at', 'scope', 'scrutinate', 'search into', 'size up', 'take stock of', 'turn over' ],
     look:           [ 'consider', 'glance', 'notice', 'peer', 'read', 'see', 'stare', 'study', 'view', 'watch', 'admire', 'attend', 'behold', 'beware', 'contemplate', 'eye', 'flash', 'focus', 'gape', 'gawk', 'gaze', 'glower', 'goggle', 'heed', 'inspect', 'mark', 'mind', 'note', 'observe', 'ogle', 'peep', 'regard', 'rubberneck', 'scan', 'scout', 'scrutinize', 'spot', 'spy', 'survey', 'tend', 'feast one\'s eyes', 'get a load of', 'pore over', 'take a gander', 'take in the sights' ],
@@ -38,6 +41,21 @@ export default {
     Query: {
 
         me:                 User,
+
+        quickSearch: ( _, { query }, { cache }) => {
+            const re =      new RegExp( `^${ query }`, 'i' );
+            const words =   uniq( flatten( Object.values( SYNONYMS )).sort());
+            const items =
+                words
+                    .filter( re.exec.bind( re ))
+                    .map( Word );
+            return {
+                __typename: 'QuickSearchResults',
+                offset:     0,
+                totalCount: items.length,
+                items:      items.slice( 0, 20 ),
+            };
+        },
 
         searchThesaurus: ( _, { query }) => {
             const re =      new RegExp( `^${ query }`, 'i' );
