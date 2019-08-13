@@ -4,9 +4,9 @@ import { h }                from 'preact';
 import { getPlanDataRow }   from '../data-samples/functions';
 import getResultForRow      from '../variants/get-result-for-row';
 import {
-    Error,
     Info,
     Loading,
+    Warning,
 }                           from '../ui-messages/';
 import { useStores }        from '../vesa/';
 
@@ -42,7 +42,7 @@ export default useStores([
             : ! record
                 ? <Loading message="Loading file data." />
             : ! isValidRecord
-                ? <Error message="Unsupported data from data file." />
+                ? <Warning message="Unsupported data from data file." />
                 : <Publisher
                     descriptionText={ descriptionText }
                     query={ `sku:${ record['isbn-13'] }` }
