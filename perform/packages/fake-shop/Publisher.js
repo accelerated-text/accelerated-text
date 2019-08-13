@@ -3,7 +3,9 @@ import { path }             from 'ramda';
 
 import { composeQueries }   from '../graphql/';
 import {
+    Error,
     Info,
+    Loading,
 }                           from '../ui-messages/';
 import VariantsView         from '../variants/ViewWithStatus';
 
@@ -22,19 +24,12 @@ export default composeQueries({
         { query:            'query' },
     ],
 })(({
-    descriptionError,
-    descriptionLoading,
     descriptionText,
     record,
     searchProducts: { error, loading, products },
 }) => {
     const product =         firstProduct( products );
-    const description = (
-        ! descriptionError
-        && ! descriptionLoading
-        && descriptionText
-        || ''
-    );
+    const description =     descriptionText || '';
     const isUpToDate = (
         product
         && description
@@ -54,7 +49,11 @@ export default composeQueries({
                 { () => [
                     <div className={ S.description }>{ description }</div>,
                     isUpToDate
-                        ? <p><Info message="The product is up-to-date" /></p>
+                        ? <Info message="The product is up-to-date" />
+                    : error
+                        ? <Error message="Error getting product from shop." />
+                    : loading
+                        ? <Loading message="Getting product from shop" />
                     : product
                         ? <UpdateProduct
                             description={ description }

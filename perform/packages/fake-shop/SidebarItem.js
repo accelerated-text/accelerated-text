@@ -2,9 +2,13 @@ import { h }                from 'preact';
 
 import { getPlanDataRow }   from '../data-samples/functions';
 import getResultForRow      from '../variants/get-result-for-row';
-import { GraphQLProvider }  from './apollo-client';
+import {
+    Info,
+    Loading,
+}                           from '../ui-messages/';
 import { useStores }        from '../vesa/';
 
+import { GraphQLProvider }  from './apollo-client';
 import Publisher            from './Publisher';
 
 
@@ -23,15 +27,17 @@ export default useStores([
 
     return (
         <GraphQLProvider>
-            { record
+            { ! plan
+                ? <Loading message="Waiting for document plan." />
+            : ! plan.dataSampleId
+                ? <Info message="No data file selected." />
+            : record
                 ? <Publisher
-                    descriptionError={ error }
-                    descriptionLoading={ loading }
                     descriptionText={ descriptionText }
                     query={ `sku:${ record['isbn-13'] }` }
                     record={ record }
                 />
-                : <div />
+                : <Loading message="Loading file data." />
             }
         </GraphQLProvider>
     );
