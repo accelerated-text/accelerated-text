@@ -1,0 +1,41 @@
+@import '../styles/variables'
+@import '../styles/no-list'
+
+
+.className
+
+    @include no-list
+
+    align-items:            center
+    background-color:       transparent
+    border:                 0 none transparent
+    box-sizing:             border-box
+    color:                  $gray
+    cursor:                 pointer
+    display:                grid
+    font-size:              $size-m
+    grid-gap:               $space-xs
+    grid-template-columns:  2rem 1rem auto
+    justify-items:          start
+    margin:                 0
+    padding:                0 0 0 $space-xs
+    width:                  100%
+
+    > div
+
+        padding:            $space-xs 0
+
+        &.icon,
+        &.nextIcon
+
+            opacity:        .2
+
+    &:hover,
+    &.isActive
+
+        box-shadow:         1px 1px 3px $gray
+        color:              $text-color
+
+        > .icon
+
+            opacity:        1

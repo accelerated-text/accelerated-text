@@ -9,6 +9,7 @@ import keyboardNav          from '../blockly-keyboard-navigation';
 import { provideBlocks }    from '../nlg-blocks/';
 import { QA }               from '../tests/constants';
 import ResizableBlockly     from '../preact-blockly/Resizable';
+import WorkspaceContext     from '../workspace-context/WorkspaceContext';
 
 import blockSvgOverride     from './block-svg-override';
 import S                    from './NlgWorkspace.sass';
@@ -26,6 +27,8 @@ export default class NlgWorkspace extends Component {
         onChangeWorkspace:  PropTypes.func,
         workspaceXml:       PropTypes.string,
     };
+
+    static contextType =    WorkspaceContext;
 
     state = {
         blocklyLoaded:      false,  /// This is used to trigger a render()
@@ -84,6 +87,8 @@ export default class NlgWorkspace extends Component {
 
         blockSvgOverride( Blockly );
         provideBlocks( Blockly );
+
+        this.context.setBlockly( Blockly );
     };
 
     onWorkspace = workspace => {
@@ -120,6 +125,8 @@ export default class NlgWorkspace extends Component {
         });
 
         keyboardNav( workspace, this.Blockly );
+
+        this.context.setWorkspace( workspace );
     }
 
     componentWillReceiveProps( nextProps ) {
