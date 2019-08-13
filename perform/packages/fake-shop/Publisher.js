@@ -25,6 +25,7 @@ export default composeQueries({
     ],
 })(({
     descriptionText,
+    query,
     record,
     searchProducts: { error, loading, products },
 }) => {
@@ -63,6 +64,10 @@ export default composeQueries({
                             className={ S.addProduct }
                             description={ description }
                             record={ record }
+                            refetchQueries={ [{
+                                query:      searchProducts,
+                                variables:  { query },
+                            }] }
                         />,
                 ] }
             </VariantsView>

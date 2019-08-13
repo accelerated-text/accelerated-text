@@ -16,6 +16,7 @@ export default composeQueries({
         description:        PropTypes.string.isRequired,
         createProduct:      PropTypes.func.isRequired,
         record:             BookRecord.isRequired,
+        refetchQueries:     PropTypes.array,
     };
 
     state = {
@@ -28,6 +29,8 @@ export default composeQueries({
             loading:        true,
         });
         this.props.createProduct({
+            awaitRefetchQueries:    !! this.props.refetchQueries,
+            refetchQueries: () => ( this.props.refetchQueries || []),
             variables: {
                 descriptionHtml:    this.props.description,
                 imageSrc:           this.props.record.thumbnail,
