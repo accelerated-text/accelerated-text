@@ -57,13 +57,11 @@ export default composeQueries({
                     : product
                         ? <UpdateProduct
                             description={ description }
-                            disabled={ loading }
                             product={ product }
                         />
                         : <AddProduct
                             className={ S.addProduct }
                             description={ description }
-                            disabled={ loading }
                             record={ record }
                         />,
                 ] }

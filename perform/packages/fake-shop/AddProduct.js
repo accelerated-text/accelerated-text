@@ -14,7 +14,6 @@ export default composeQueries({
     static propTypes = {
         className:          PropTypes.string,
         description:        PropTypes.string.isRequired,
-        disabled:           PropTypes.any,
         createProduct:      PropTypes.func.isRequired,
         record:             BookRecord.isRequired,
     };
@@ -49,13 +48,13 @@ export default composeQueries({
     };
 
     render = (
-        { className, description, disabled },
+        { className, description },
         { error, loading },
     ) =>
         <button
             children="Add new product"
             className={ className }
-            disabled={ disabled || loading || ! description }
+            disabled={ loading || ! description }
             onClick={ this.onClick }
         />;
 });

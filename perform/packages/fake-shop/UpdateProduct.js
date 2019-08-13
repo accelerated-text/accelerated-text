@@ -15,7 +15,6 @@ export default composeQueries({
     static propTypes = {
         className:          PropTypes.string,
         description:        PropTypes.string.isRequired,
-        disabled:           PropTypes.any,
         product:            PropTypes.object.isRequired,
         updateProduct:      PropTypes.func.isRequired,
     };
@@ -55,14 +54,14 @@ export default composeQueries({
     };
 
     render = (
-        { className, description, disabled, product },
+        { className, description, product },
         { error, isExpanded, loading },
     ) =>
         <div className={ classnames( S.className, className ) }>
             <div className={ S.controls }>
                 <button
                     children="Update product"
-                    disabled={ disabled || loading || ! description }
+                    disabled={ loading || ! description }
                     onClick={ this.onSubmit }
                 />
                 <a
