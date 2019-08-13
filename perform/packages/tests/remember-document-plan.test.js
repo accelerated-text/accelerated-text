@@ -34,6 +34,7 @@ test(
 
         /// Need to open the page before accessing localStorage:
         await noRecords( t );
+        t.timeout( 16e3 );
         await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
         await t.page.evaluate(
