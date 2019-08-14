@@ -9,7 +9,8 @@
     "check:audit": "npm audit || echo 'Fix the issues above.'",
     "start": "node -r esm node_modules/.bin/webpack-dev-server --host 0.0.0.0 --config packages/webpack/run.config.js",
     "test": "npm run test:eslint && npm run test:sasslint && npm run test:ava && npm run check:audit",
-    "test:ava": "node -r esm packages/tests/lib/run-ava --runInBand",
+    "test:ava": "node -r esm packages/tests/lib/run-ava",
+    "test:ava:serial": "node -r esm packages/tests/lib/run-ava --serial",
     "test:eslint": "eslint packages",
     "test:sasslint": "sass-lint -vq"
   },
