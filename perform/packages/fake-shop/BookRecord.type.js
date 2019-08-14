@@ -3,10 +3,10 @@ import { shape, string }    from 'prop-types';
 
 export default shape({
     id:                     string.isRequired,
-    title:                  string.isRequired,
+    'isbn-13':              string.isRequired,
     thumbnail:              string.isRequired,
+    title:                  string.isRequired,
 
-    'isbn-13':              string,
     authors:                string,
     averageRating:          string,
     categories:             string,
