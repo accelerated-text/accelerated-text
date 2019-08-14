@@ -17,7 +17,6 @@ export default composeQueries({
         description:        PropTypes.string.isRequired,
         createProduct:      PropTypes.func.isRequired,
         record:             BookRecord.isRequired,
-        refetchQueries:     PropTypes.array,
     };
 
     state = {
