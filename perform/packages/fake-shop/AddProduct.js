@@ -3,8 +3,9 @@ import PropTypes            from 'prop-types';
 
 import { composeQueries }   from '../graphql/';
 
-import { createProduct }    from './queries.graphql';
 import BookRecord           from './BookRecord.type';
+import { createProduct }    from './queries.graphql';
+import updateSku            from './update-sku-after-product-create';
 
 
 export default composeQueries({
@@ -29,8 +30,7 @@ export default composeQueries({
             loading:        true,
         });
         this.props.createProduct({
-            awaitRefetchQueries:    !! this.props.refetchQueries,
-            refetchQueries: () => ( this.props.refetchQueries || []),
+            update:         updateSku,
             variables: {
                 descriptionHtml:    this.props.description,
                 imageSrc:           this.props.record.thumbnail,
