@@ -9,6 +9,7 @@ import defaultResponses     from './lib/default-responses';
 import DOCUMENT_PLAN_LIST   from './data/document-plan-list';
 import noRecords            from './lib/no-records';
 import withBrowser          from './lib/with-browser';
+import withFakeShopApi      from './lib/with-fake-shop-api';
 import withGraphqlApi       from './lib/with-graphql-api';
 import withOnRequest        from './lib/with-on-request';
 import withNlgApi           from './lib/with-nlg-api';
@@ -24,6 +25,7 @@ test(
     debugConsole,
     addPageUtils,
     withOnRequest,
+    withFakeShopApi,
     withGraphqlApi,
     withNlgApi,
     async t => {
@@ -32,6 +34,7 @@ test(
 
         /// Need to open the page before accessing localStorage:
         await noRecords( t );
+        t.timeout( 16e3 );
         await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
         await t.page.evaluate(

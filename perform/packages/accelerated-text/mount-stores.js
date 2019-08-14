@@ -8,13 +8,13 @@ module.exports = mount({
     planList:               require( '../plan-list/store' ).default,
     reader:                 require( '../reader/store' ).default,
     user:                   require( '../user/store' ).default,
-    variantsApi:            require( '../variants-api/store' ).default,
+    variantsApi:            require( '../variants/store' ).default,
 }, [
     require( '../contexts/adapter' ).default,
     require( '../data-samples/adapter' ).default,
     require( '../document-plans/adapter' ).default,
     require( '../plan-list/adapter' ).default,
-    require( '../variants-api/adapter' ).default,
+    require( '../variants/adapter' ).default,
 
     require( '../plan-list/local-storage-adapter' ).default,
 ]);

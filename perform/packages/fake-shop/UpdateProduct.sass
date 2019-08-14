@@ -1,0 +1,49 @@
+@import '../styles/variables'
+@import '../styles/primary-button'
+
+
+.className
+
+    > .controls
+
+        margin-top:             $space-m
+
+        > button
+
+            @include primary-button
+
+        > a
+            color:              $gray
+            cursor:             pointer
+            font-family:        $font-family
+            font-size:          $size-s
+            margin-left:        $space-s
+            text-decoration:    underline
+
+            &:active
+
+                color:              $active-color
+
+            &:hover
+
+                text-decoration:    none
+
+            &::after
+
+                content:        '▶️'
+                display:        inline-block
+                margin-left:    $space-s
+                transform:      rotate( 0deg )
+                transition:     transform $transition-quick
+
+            &.isExpanded::after
+
+                transform:          rotate( 90deg )
+
+    > .productDescription
+
+        background-color:       $white
+        border-radius:          $border-radius
+        line-height:            $line-height
+        margin-top:             $space-m
+        padding:                $space-s

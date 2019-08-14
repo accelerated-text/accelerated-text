@@ -8,3 +8,4 @@ export { default as Info }              from './Info';
 export { default as Loading }           from './Loading';
 export { default as Success }           from './Success';
 export { default as UnexpectedWarning } from './UnexpectedWarning';
+export { default as Warning }           from './Warning';

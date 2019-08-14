@@ -4,7 +4,7 @@ import { getOpenedPlan }    from '../plan-list/functions';
 import { getVariants }      from './api';
 
 
-const debug =               debugSan( 'variants-api/adapter' );
+const debug =               debugSan( 'variants/adapter' );
 
 const updateVariants = ( plan, { E, getStoreState }) => (
     ( getStoreState( 'planList' ).openedPlanUid === plan.uid )

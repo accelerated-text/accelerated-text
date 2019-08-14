@@ -58,6 +58,7 @@ module.exports = createConstants( 'tests', {
     UI_ERROR:               'ui-error',
     UI_INFO:                'ui-info',
     UI_LOADING:             'ui-loading',
+    UI_WARNING:             'ui-warning',
 
     USAGE_TD:               'usage-td',
     USAGE_TD_YES:           'usage-td-yes',
