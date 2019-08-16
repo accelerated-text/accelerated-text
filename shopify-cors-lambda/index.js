@@ -37,7 +37,7 @@ const keepOnlyStringValues = obj =>
 
 const fixGraphqlErrors = body => {
     let fixed =             body;
-  
+
     try {
         fixed =             JSON.parse( body );
         if( fixed.errors
