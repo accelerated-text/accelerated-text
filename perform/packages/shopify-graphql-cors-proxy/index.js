@@ -21,16 +21,19 @@ const RESPONSE_HEADERS = {
 
 /// Functions ------------------------------------------------------------------
 
-const removeMultipleHeaders = obj =>
-    Object.entries( obj )
-        .filter(([ k, v ]) =>
-            !( v instanceof Array )
-        )
-        .reduce(( acc, [ k, v ]) => {
-            acc[k] =        v;
-            return acc;
-        }, {});
-        
+const objFilterValues = filterFn => obj => {
+    const result =          {};
+    const entries =         Object.entries( obj );
+    for( const [ k, v ] of entries ) {
+        if( filterFn( v )) {
+            result[k] =     v;
+        }
+    }
+    return result;
+};
+
+const keepOnlyStringValues = obj =>
+    objFilterValues( v => typeof v === 'string' );
 
 const fixGraphqlErrors = body => {
     let fixed =             body;
@@ -86,7 +89,7 @@ const onResponseEnd = ( res, body, callback ) => {
         statusCode:         res.statusCode,
         body:               fixGraphqlErrors( body ),
         headers: {
-            ...removeMultipleHeaders( res.headers ),
+            ...keepOnlyStringValues( res.headers ),
             ...RESPONSE_HEADERS,
         },
     });
