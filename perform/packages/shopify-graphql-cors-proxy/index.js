@@ -47,13 +47,14 @@ const fixGraphqlErrors = body => {
 
 
 const onError = callback => err => {
+    console.log( 'onError', err );
 
     let body =          err.toString();
     let isJson =        false;
     try {
         body =          JSON.stringify( err );
         isJson =        true;
-    } catch{}
+    } catch( e ) {}
     callback( null, {
         isBase64Encoded:    false,
         statusCode:         501,
@@ -66,19 +67,16 @@ const onError = callback => err => {
     });
 };
 
-const onResponseEnd = res => {
-
-    res.on( 'end', ( res, body, callback ) => {
-        console.log( 'body', body );
-        callback( null, {
-            isBase64Encoded:    false,
-            statusCode:         res.statusCode,
-            body:               fixGraphqlErrors( body ),
-            headers: {
-                ...filterHeaders( res.headers ),
-                ...CORS_HEADERS,
-            },
-        });
+const onResponseEnd = ( res, body, callback ) => {
+    console.log( 'onResponseEnd', typeof res, body && body.length, typeof callback );
+    callback( null, {
+        isBase64Encoded:    false,
+        statusCode:         res.statusCode,
+        body:               fixGraphqlErrors( body ),
+        headers: {
+            ...filterHeaders( res.headers ),
+            ...CORS_HEADERS,
+        },
     });
 };
 
