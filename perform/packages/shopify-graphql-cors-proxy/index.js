@@ -1,37 +1,45 @@
-const https =               require( 'https' );
+/* eslint-disable no-console */
 
-const CORS_HEADERS = {
+/// Imports --------------------------------------------------------------------
+
+const https =                       require( 'https' );
+
+
+/// Constants ------------------------------------------------------------------
+
+const API_URL =                     process.env.API_URL;
+const ACCESS_TOKEN =                process.env.ACCESS_TOKEN;
+const REQUEST_HEADERS = {
+    'X-Shopify-Access-Token':       ACCESS_TOKEN,
+};
+const RESPONSE_HEADERS = {
     'access-control-allow-headers':	'content-type, *',
     'access-control-allow-methods':	'*',
     'access-control-allow-origin':	'*',
 };
 
-const objectAdd = ( obj, k, v ) => {
-    obj[k] = v;
-    return obj;
-};
 
-const filterHeaders = obj =>
+/// Functions ------------------------------------------------------------------
+
+const removeMultipleHeaders = obj =>
     Object.entries( obj )
-        .reduce(
-            ( acc, [ k, v ]) => (
-                v instanceof Array
-                    ? acc
-                    : objectAdd( acc, k, v )
-            ),
-            {}
-        );
+        .filter(([ k, v ]) =>
+            !( v instanceof Array )
+        )
+        .reduce(( acc, [ k, v ]) => {
+            acc[k] =        v;
+            return acc;
+        }, {});
         
+
 const fixGraphqlErrors = body => {
     let fixed =             body;
   
     try {
         fixed =             JSON.parse( body );
-        const shouldFixErrors = (
-            fixed.errors
+        if( fixed.errors
             && !( fixed.errors instanceof Array )
-        );
-        if( shouldFixErrors ) {
+        ) {
             fixed.errors =
                 Object.entries( fixed.errors )
                     .map(([ k, v ]) => ({
@@ -46,21 +54,24 @@ const fixGraphqlErrors = body => {
 };
 
 
-const onError = callback => err => {
-    console.log( 'onError', err );
+/// Event handlers -------------------------------------------------------------
 
-    let body =          err.toString();
-    let isJson =        false;
+const onRequestError = callback => err => {
+    console.log( 'onRequestError', err );
+
+    let body =              err.toString();
+    let isJson =            false;
     try {
-        body =          JSON.stringify( err );
-        isJson =        true;
+        body =              JSON.stringify( err );
+        isJson =            true;
     } catch( e ) {}
+
     callback( null, {
         isBase64Encoded:    false,
         statusCode:         501,
         headers: {
             'Content-Type': isJson ? 'application/json' : 'text/plain',
-            ...CORS_HEADERS,
+            ...RESPONSE_HEADERS,
         },
         body,
 
@@ -69,40 +80,49 @@ const onError = callback => err => {
 
 const onResponseEnd = ( res, body, callback ) => {
     console.log( 'onResponseEnd', typeof res, body && body.length, typeof callback );
+
     callback( null, {
         isBase64Encoded:    false,
         statusCode:         res.statusCode,
         body:               fixGraphqlErrors( body ),
         headers: {
-            ...filterHeaders( res.headers ),
-            ...CORS_HEADERS,
+            ...removeMultipleHeaders( res.headers ),
+            ...RESPONSE_HEADERS,
         },
     });
 };
 
-exports.handler = ( event, context, callback ) => {
-    console.log( 'API_URL', process.env.API_URL );
-    console.log( 'ACCESS_TOKEN', typeof process.env.ACCESS_TOKEN );
+
+/// Main -----------------------------------------------------------------------
+
+exports.handler = ( event, _, callback ) => {
+    console.log( 'API_URL', API_URL );
+    console.log( 'ACCESS_TOKEN', ACCESS_TOKEN && ACCESS_TOKEN.length );
     console.log( 'headers', JSON.stringify( event.headers ));
     console.log( 'body', event.body );
+
     const req = https.request(
-        process.env.API_URL,
+        API_URL,
         {
-            method:         'POST',
+            method:             'POST',
             headers: {
-                'Content-type':             event.headers['content-type'] || 'application/json',
-                'X-Shopify-Access-Token':   process.env.ACCESS_TOKEN,
+                ...REQUEST_HEADERS,
+                'Content-type': event.headers['content-type'] || 'application/json',
             },
         },
         res => {
-            let body =      '';
+            let body =          '';
             console.log( 'Status:', res.statusCode );
             res.setEncoding( 'utf8' );
-            res.on( 'data', chunk => body += chunk );
-            res.on( 'end', () => onResponseEnd( res, body, callback ));
+            res.on( 'data', chunk => {
+                body += chunk;
+            });
+            res.on( 'end', () =>
+                onResponseEnd( res, body, callback )
+            );
         }
     );
-    req.on( 'error', onError( callback ));
+    req.on( 'error', onRequestError( callback ));
     req.write( event.body );
     req.end();
 };
