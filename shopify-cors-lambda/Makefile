@@ -8,9 +8,15 @@ ZIP_FILE=lambda.zip
 default:
 	Usage: make task
 
+
+.PHONY: run
+run:
+	node server.js
+
 .PHONY: clean
 clean:
 	rm -f "${ZIP_FILE}"
+
 
 .PHONY: zip
 zip: ${ZIP_FILE}
