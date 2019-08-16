@@ -3,6 +3,8 @@
              org.clojure/tools.logging           {:mvn/version "0.4.1"}
              ch.qos.logback/logback-classic      {:mvn/version "1.2.3"}
              http-kit                            {:mvn/version "2.3.0"}
+             net.sf.extjwnl/extjwnl {:mvn/version "2.0.2"}
+             net.sf.extjwnl/extjwnl-data-wn31 {:mvn/version "1.2"}
              metosin/jsonista                    {:mvn/version "0.2.2"}
              com.walmartlabs/lacinia             {:mvn/version "0.32.0"}
              clj-time                            {:mvn/version "0.5.1"}
