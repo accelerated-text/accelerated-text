@@ -43,13 +43,21 @@ const fixGraphqlErrors = body => {
         if( fixed.errors
             && !( fixed.errors instanceof Array )
         ) {
-            fixed.errors =
-                Object.entries( fixed.errors )
-                    .map(([ k, v ]) => ({
-                        message:    v,
-                        locations:  k,
-                        path:       k,
-                    }));
+            if( typeof fixed.errors === 'string' ) {
+                fixed.errors = [{
+                    message:        fixed.errors,
+                    locations:      0,
+                    path:           null,
+                }];
+            } else {
+                fixed.errors =
+                    Object.entries( fixed.errors )
+                        .map(([ k, v ]) => ({
+                            message:    v,
+                            locations:  k,
+                            path:       k,
+                        }));
+            }
         }
         fixed =             JSON.stringify( fixed );
     } catch( e ) {}
