@@ -3,6 +3,7 @@
             [clojure.tools.logging :as log]
             [graphql.domain.dictionary :as dictionary-domain]
             [graphql.domain.amr :as amr-domain]
+            [graphql.domain.thesaurus :as thesaurus-domain]
             [translate.core :as translate]
             [com.walmartlabs.lacinia.util :as util]
             [com.walmartlabs.lacinia.schema :as schema]
@@ -14,11 +15,12 @@
   (-> "schema.graphql"
       (io/resource)
       slurp
-      (parser/parse-schema {:resolvers {:Query    {:dictionary     :dictionary
-                                                   :dictionaryItem :dictionary-item
-                                                   :readerFlags    :reader-flags
-                                                   :concepts       :concepts
-                                                   :concept        :concept}
+      (parser/parse-schema {:resolvers {:Query    {:dictionary       :dictionary
+                                                   :dictionaryItem   :dictionary-item
+                                                   :readerFlags      :reader-flags
+                                                   :concepts         :concepts
+                                                   :concept          :concept
+                                                   :search-thesaurus :search-thesaurus}
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
                                                    :updateDictionaryItem     :update-dictionary-item
@@ -28,7 +30,7 @@
                                                    :updatePhraseDefaultUsage :update-phrase-default-usage
                                                    :updateReaderFlagUsage    :update-reader-flag-usage
                                                    }
-                                        :Concept {:dictionaryItem :ref-dictionary-item}
+                                        :Concept  {:dictionaryItem :ref-dictionary-item}
                                         }})
       (util/attach-resolvers {:dictionary                  dictionary-domain/dictionary
                               :ref-dictionary-item         dictionary-domain/ref-dictionary-item
@@ -42,9 +44,10 @@
                               :update-phrase-default-usage dictionary-domain/update-phrase-default-usage
                               :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
                               :reader-flags                dictionary-domain/reader-flags
+                              :search-thesaurus            thesaurus-domain/search-thesaurus
 
-                              :concepts                    amr-domain/list-verbclasses
-                              :concept                     amr-domain/get-verbclass})
+                              :concepts amr-domain/list-verbclasses
+                              :concept  amr-domain/get-verbclass})
       schema/compile))
 
 (defn nlg [{:keys [query variables context] :as request}]
