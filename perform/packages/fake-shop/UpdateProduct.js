@@ -54,13 +54,14 @@ export default composeQueries({
     };
 
     render = (
-        { className, description, product },
+        { buttonClassName, className, description, product },
         { error, isExpanded, loading },
     ) =>
         <div className={ classnames( S.className, className ) }>
             <div className={ S.controls }>
                 <button
                     children="Update product"
+                    className={ buttonClassName }
                     disabled={ loading || ! description }
                     onClick={ this.onSubmit }
                 />
