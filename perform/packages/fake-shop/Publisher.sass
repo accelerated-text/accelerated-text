@@ -1,5 +1,6 @@
 @import '../styles/variables'
 @import '../styles/buttons'
+@import '../styles/inputs'
 
 
 .className
@@ -21,14 +22,10 @@
 
     .description
 
-        background-color:       $white
-        border-radius:          $border-radius
-        box-shadow:             inset 1px 1px 1px $gray
+        @include text-input-multiline
+
         clear:                  both
-        color:                  $text-color
-        line-height:            $line-height
         margin-bottom:          $space-m
-        padding:                $space-s
 
     .addProduct,
     .updateProduct

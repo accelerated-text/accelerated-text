@@ -1,37 +1,84 @@
 @import './variables'
 
 
+@mixin button-gradient( $bottom: $soft-darken )
+
+    background-image:       linear-gradient( $lighten, transparent 20%, transparent 80%, $bottom )
+
+
+@mixin button-shadow( $shade: $darken )
+
+    box-shadow:             0 0 1px $black, 1px 1px 0 $shade
+
+
+@mixin button-base
+
+    border:                 0 none transparent
+    border-radius:          $border-radius
+    box-sizing:             border-box
+    color:                  $text-color
+    cursor:                 pointer
+    display:                inline-block
+    font-family:            $font-family
+    font-size:              $size-m
+    font-weight:            $normal-weight
+    line-height:            $line-height
+    padding:                $space-xxs $space-s
+    text-align:             center
+
+
 @mixin button
 
-    border:             0 none transparent
-    border-radius:      $border-radius
-    box-shadow:         1px 1px 0 $gray
-    cursor:             pointer
-    font-family:        $font-family
-    font-size:          $size-m
-    font-weight:        $bold
-    padding:            $space-s
+    @include button-base
+    @include button-gradient( $soft-darken )
+    @include button-shadow( $hard-darken )
 
-    &:disabled
-
-        cursor:             not-allowed
-
-    &:hover
-
-        box-shadow:         inset 1px 1px 1px $gray
-
-
-@mixin primary-button
-
-    @include button
-
-    background-color:   $primary-color
-    color:              $white
+    background-color:       $subtle-gray
 
     &:active
 
         background-color:   $active-color
 
-    &:disabled
+    &:hover
 
-        background-color:   tint-2( $gray )
+        @include button-gradient( $darken )
+        @include button-shadow( $x-hard-darken )
+        background-color:   shade-1-16( $subtle-gray )
+
+    &[disabled]
+
+        @include button-gradient( $soft-darken )
+        @include button-shadow( $hard-darken )
+
+        background-color:   $subtle-gray
+        color:              $darken
+        cursor:             not-allowed
+
+
+@mixin no-button
+
+    @include button-base
+
+    background-color:       transparent
+    background-image:       none
+    box-shadow:             none
+
+    &:active,
+    &:focus,
+    &:hover
+
+        background-color:       transparent
+        background-image:       none
+        box-shadow:             none
+
+@mixin primary-button
+
+    @include button
+
+    background-color:       $primary-color
+    color:                  $white
+    font-weight:            $bold
+
+    &:hover
+
+        background-color:   shade-1-4( $primary-color )

@@ -5,6 +5,8 @@ import { composeQueries }       from '../graphql';
 
 import { createDictionaryItem } from '../graphql/mutations.graphql';
 
+import S                        from './AddItem.sass';
+
 
 export default composeQueries({
     createDictionaryItem,
@@ -40,13 +42,15 @@ export default composeQueries({
     
     render() {
         return (
-            <form onSubmit={ this.onSubmit }>
+            <form className={ S.className } onSubmit={ this.onSubmit }>
                 <input
                     onChange={ this.onChangeName }
+                    type="text"
                     value={ this.state.name }
                 />
                 <button
                     children="➕ Add"
+                    className={ S.add }
                     type="submit"
                 />
             </form>

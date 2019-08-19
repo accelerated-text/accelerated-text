@@ -1,15 +1,13 @@
 @import '../styles/variables'
+@import '../styles/buttons'
 
 
 .className
 
-    background:             transparent
-    border:                 0 none transparent
+    @include no-button
+
     color:                  $gray
-    cursor:                 pointer
     display:                block
-    font-family:            $font-family
-    font-size:              100%
     padding:                $space-s
     text-decoration:        none
 

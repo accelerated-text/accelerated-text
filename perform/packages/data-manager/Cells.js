@@ -33,7 +33,7 @@ export default ({ className, fileItem, fileStatus, onChangeRow, selectedRow }) =
                             previousClassName={ QA.DATA_MANAGER_ROW_PREVIOUS }
                             onChange={ onChangeRow }
                             rows={ fileItem.data }
-                            selectClassName={ QA.DATA_MANAGER_ROW_SELECT }
+                            selectClassName={ classnames( S.selectRow, QA.DATA_MANAGER_ROW_SELECT ) }
                             selected={ selectedRow }
                         />
                         : <Info message="Waiting for cell values" />

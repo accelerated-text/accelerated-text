@@ -1,4 +1,6 @@
 @import '../styles/variables'
+@import '../styles/buttons'
+@import '../styles/inputs'
 
 
 .className
@@ -13,7 +15,7 @@
 
     &.hasDelete
 
-        grid-template-columns:      auto 1em
+        grid-template-columns:      auto $space-l
 
     &.isEditing
 
@@ -25,18 +27,24 @@
 
             grid-template-columns:  1fr 2em 2em
 
+        > button
+
+            @include button
+
+            font-size:              $size-xs
+
+        > input
+
+            @include text-input
+
+            font-size:              $size-s
+
         > button,
         > input
 
-            box-sizing:             border-box
-            font-size:              $size-s
             margin:                 0
             padding:                $space-xxs
             width:                  100%
-
-        > button
-
-            text-align:             center
 
     > .text
 
@@ -54,13 +62,11 @@
 
     > .delete
 
-        background-color:   transparent
-        border:             0 none transparent
-        cursor:             pointer
-        display:            inline-block
-        margin:             0
+        @include no-button
+
+        font-size:          $size-s
+
         opacity:            .2
-        padding:            0
 
         &:hover
 

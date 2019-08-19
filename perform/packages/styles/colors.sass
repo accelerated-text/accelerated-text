@@ -55,5 +55,15 @@ $gray:              mix-ratio( mix( $black, $white ), $yellow, 32 );
 $subtle-gray:       tint-8( $gray )
 $subtle-border:     shade-1-8( $subtle-gray )
 
-$darken:            rgba( 0, 0, 0, .25 )
-$lighten:           rgba( 255, 255, 255, .25 )
+
+$x-soft-darken:     rgba( 0, 0, 0, 1 / 16 )
+$soft-darken:       rgba( 0, 0, 0, 1 / 8 )
+$darken:            rgba( 0, 0, 0, 1 / 4 )
+$hard-darken:       rgba( 0, 0, 0, 1 / 2 )
+$x-hard-darken:     rgba( 0, 0, 0, 3 / 4 )
+
+$x-soft-lighten:    rgba( 255, 255, 255, 1 / 16 )
+$soft-lighten:      rgba( 255, 255, 255, 1 / 8 )
+$lighten:           rgba( 255, 255, 255, 1 / 4 )
+$hard-lighten:      rgba( 255, 255, 255, 1 / 2 )
+$x-hard-lighten:    rgba( 255, 255, 255, 3 / 4 )

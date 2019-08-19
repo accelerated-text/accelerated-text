@@ -89,6 +89,7 @@ export default composeQueries({
                                 className={ QA.DICT_ITEM_EDITOR_ADD_PHRASE_TEXT }
                                 disabled={ createLoading }
                                 onChange={ this.onChangeText }
+                                type="text"
                                 value={ text }
                             />
                         </form>
@@ -98,7 +99,10 @@ export default composeQueries({
                         onChange={ this.onChangeDefaultUsage }
                         usage={ defaultUsage }
                     />
-                    <td colspan={ ( readerFlags ? readerFlags.flags.length : 0 ) }>
+                    <td
+                        className={ S.buttonCell }
+                        colspan={ ( readerFlags ? readerFlags.flags.length : 0 ) }
+                    >
                         <button
                             children="➕ Add new phrase"
                             className={ QA.DICT_ITEM_EDITOR_ADD_PHRASE_ADD }
