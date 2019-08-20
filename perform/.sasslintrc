@@ -6,6 +6,10 @@ rules:
         -
             allow-leading-underscore:   false
             convention:                 camelcase
+
+    force-element-nesting:
+        - 0
+
     indentation:
         - 4
         - { size: 4 }
@@ -13,6 +17,9 @@ rules:
     nesting-depth:
         - 4
         - { max-depth: 3 }
+
+    no-qualifying-elements:
+        - 0
 
     space-between-parens:
         - 4
