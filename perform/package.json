@@ -79,11 +79,5 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14",
     "webpack-dotenv-extended-plugin": "^1.0.0"
-  },
-  "ava": {
-    "require": [
-      "esm"
-    ],
-    "verbose": true
   }
 }
