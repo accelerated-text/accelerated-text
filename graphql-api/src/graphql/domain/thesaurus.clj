@@ -1,9 +1,8 @@
-(ns graphql.domain.thesaurus)
+(ns graphql.domain.thesaurus
+  (:require [translate.thesaurus :as translate]))
 
-(defn create-dictionary-item [_ {:keys [query partOfSpeech]} _]
-  {:words [{:id "X"
-            :partOfSpeech "VB"
-            :text "run"}]
-   :offset 0
-   :limit 11
-   :totalCount 4})
+(defn search-thesaurus [_ {:keys [query partOfSpeech]} _]
+  (translate/search-thesaurus query partOfSpeech))
+
+(defn synonyms [_ {:keys [wordId]} _]
+  (translate/synonyms wordId))

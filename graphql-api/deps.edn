@@ -1,10 +1,8 @@
 {:deps      {org.clojure/clojure                 {:mvn/version "1.10.0"}
-             data-access                        {:local/root "../data-access/"}
+             data-access                         {:local/root "../data-access/"}
              org.clojure/tools.logging           {:mvn/version "0.4.1"}
              ch.qos.logback/logback-classic      {:mvn/version "1.2.3"}
              http-kit                            {:mvn/version "2.3.0"}
-             net.sf.extjwnl/extjwnl {:mvn/version "2.0.2"}
-             net.sf.extjwnl/extjwnl-data-wn31 {:mvn/version "1.2"}
              metosin/jsonista                    {:mvn/version "0.2.2"}
              com.walmartlabs/lacinia             {:mvn/version "0.32.0"}
              clj-time                            {:mvn/version "0.5.1"}
@@ -14,7 +12,10 @@
  :paths     ["src" "resources"]
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://repo.clojars.org/"}}
- :aliases   {:test
+ :aliases   {:dev
+             {:extra-paths ["spec" "test" "test/resources"]
+              :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-RC1"}}}
+             :test
              {:extra-paths ["test"]
               :extra-deps  {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
                                                        :sha     "028a6d41ac9ac5d5c405dfc38e4da6b4cc1255d5"}}
@@ -33,16 +34,16 @@
                            "-O" "-initialize-at-run-time=org.httpkit.client.SslContextFactory"
                            "-O" "-initialize-at-run-time=org.httpkit.client.HttpClient"]}
              :rest-uberjar
-             {:extra-deps  {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
-                                                   :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
-                                                   :exclusions [org.slf4j/slf4j-nop]}}
-              :main-opts   ["-m" "cambada.uberjar"
-                            "-m" "graphql.server"
-                            "-a" "graphql.server"]}
+             {:extra-deps {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
+                                                  :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
+                                                  :exclusions [org.slf4j/slf4j-nop]}}
+              :main-opts  ["-m" "cambada.uberjar"
+                           "-m" "graphql.server"
+                           "-a" "graphql.server"]}
              :import-uberjar
-             {:extra-deps  {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
-                                                   :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
-                                                   :exclusions [org.slf4j/slf4j-nop]}}
-              :main-opts   ["-m" "cambada.uberjar"
-                            "-m" "importer.core"
-                            "-a" "importer.core"]}}}
+             {:extra-deps {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
+                                                  :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
+                                                  :exclusions [org.slf4j/slf4j-nop]}}
+              :main-opts  ["-m" "cambada.uberjar"
+                           "-m" "importer.core"
+                           "-a" "importer.core"]}}}

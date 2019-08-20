@@ -1,43 +1,26 @@
 (ns translate.thesaurus
-  (:import [net.sf.extjwnl.data PointerUtils POS]
-           net.sf.extjwnl.dictionary.Dictionary))
+  (:require [data-access.wordnet.core :as wn]
+            [clojure.string :as string]))
 
-(def dictionary (Dictionary/getDefaultResourceInstance))
+(defn search-thesaurus [query part-of-sepeech]
+  (let [words (wn/synonyms (wn/lookup-word (keyword part-of-sepeech) query))]
+    {:words (map (fn [{:keys [pos lemma]}]
+                   (assoc {}
+                          :id (format "%s-%s"
+                                      (name pos)
+                                      (string/replace lemma #" " "-"))
+                          :partOfSpeech (name pos)
+                          :text lemma))
+                 words)
+     :offset 0
+     :limit (count words)
+     :totalCount (count words)}))
 
-(def wn-pos->kw-pos {POS/VERB :VB
-                     POS/NOUN :NN
-                     POS/ADJECTIVE :JJ
-                     POS/ADVERB :RB})
-
-(def kw-pos->wn-pos (reduce-kv (fn[m k v] (assoc m v k)) {} wn-pos->kw-pos))
-
-(defn word->map [word]
-  {:lemma (.getLemma word)
-   :pos (.getPOS word)})
-
-(defn sense->map [sense]
-  {:gloss (.getGloss sense)
-   :index (.getIndex sense)
-   :key (.getKey sense)
-   :pos (-> sense .getPOS wn-pos->kw-pos)
-   :words (map word->map (.getWords sense))})
-
-(defn index-word->map [iw]
-  {:lemma (.getLemma iw)
-   :pos (.getPOS iw)
-   :synset-offsets (.getSynsetOffsets iw)
-   :senses (map sense->map (.getSenses iw))})
-
-(defn synonyms [word] (->> word :senses (mapcat :words) (map :lemma) (set)))
-
-(defn lookup-word [pos word] (index-word->map (.lookupIndexWord dictionary (get kw-pos->wn-pos pos) word)))
-
-(defn lookup-words [word] (-> dictionary (.lookupAllIndexWords word) (.getIndexWordCollection) (map index-word->map)))
-
-(defn hyp-list-op [iw]
-  (let [hypernyms (-> iw .getSenses (.get 0) (PointerUtils/getDirectHypernyms))]
-    (.print hypernyms)))
-
-(defn hyp-tree-op [iw]
-  (let [hypernyms (-> iw .getSenses (.get 0) (PointerUtils/getHyponymTree))]
-    (.print hypernyms)))
+(defn synonyms [word-id]
+  (let [[pos & tokens] (string/split word-id #"-")
+        root-word      (string/join " " tokens)
+        words          (search-thesaurus root-word pos)]
+    {:rootWord {:id           word-id
+                :partOfSpeech pos
+                :text         root-word}
+     :synonyms (:words words)}))

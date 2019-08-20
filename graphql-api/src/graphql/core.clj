@@ -15,12 +15,13 @@
   (-> "schema.graphql"
       (io/resource)
       slurp
-      (parser/parse-schema {:resolvers {:Query    {:dictionary       :dictionary
-                                                   :dictionaryItem   :dictionary-item
-                                                   :readerFlags      :reader-flags
-                                                   :concepts         :concepts
-                                                   :concept          :concept
-                                                   :search-thesaurus :search-thesaurus}
+      (parser/parse-schema {:resolvers {:Query    {:dictionary      :dictionary
+                                                   :dictionaryItem  :dictionary-item
+                                                   :readerFlags     :reader-flags
+                                                   :concepts        :concepts
+                                                   :concept         :concept
+                                                   :searchThesaurus :search-thesaurus
+                                                   :synonyms        :synonyms}
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
                                                    :updateDictionaryItem     :update-dictionary-item
@@ -45,6 +46,7 @@
                               :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
                               :reader-flags                dictionary-domain/reader-flags
                               :search-thesaurus            thesaurus-domain/search-thesaurus
+                              :synonyms                    thesaurus-domain/synonyms
 
                               :concepts amr-domain/list-verbclasses
                               :concept  amr-domain/get-verbclass})
