@@ -1,38 +1,35 @@
 @import '../styles/variables'
-@import '../styles/groove-table'
+@import '../styles/sidebar-table'
 
 
 .className
-    @include groove-table( 1 / 8 )
 
-    $value-background:  rgba( 255, 255, 255, 2 / 3 )
+    @include sidebar-table
 
-    width:              100%
+    > thead > tr > th
 
-    td,
-    th
+        &.dragInBlock
 
-        padding:        $space-s
+            @include sidebar-table-block-cell
 
-    th
+        &.cellName
 
-        font-weight:    $bold
-        text-align:     left
-        vertical-align: bottom
+            @include sidebar-table-name-cell( 2 )
 
         .selectRow
 
             margin:     0 $space-s
 
-    td
-        background-color:   $value-background
-        vertical-align:     top
+    > tbody > tr > td
 
         &.dragInBlock
 
-            padding:        $space-xs $space-xs 0
-            width:          2rem
+            @include sidebar-table-block-cell
 
         &.cellName
 
             font-weight:    $bold
+
+        &.cellValue
+
+            word-wrap:      break-word
