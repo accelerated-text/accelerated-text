@@ -86,7 +86,7 @@ export default composeQueries({
                     <td>
                         <form onSubmit={ this.onSubmit }>
                             <input
-                                className={ QA.DICT_ITEM_EDITOR_ADD_PHRASE_TEXT }
+                                className={ classnames( S.textInput, QA.DICT_ITEM_EDITOR_ADD_PHRASE_TEXT ) }
                                 disabled={ createLoading }
                                 onChange={ this.onChangeText }
                                 type="text"
