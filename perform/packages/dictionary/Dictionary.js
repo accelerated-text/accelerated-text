@@ -40,7 +40,7 @@ export default composeQueries({
         </tbody>
         <tbody>
             <tr>
-                <td className={ S.addItem } colspan="4">
+                <td colspan="4">
                     <AddItem refetchQueries={ [ 'dictionary' ] } />
                 </td>
             </tr>
