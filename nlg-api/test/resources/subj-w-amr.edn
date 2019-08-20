@@ -10,8 +10,8 @@
                                                  :name "main-feature"}
                                                 {:type "AMR"
                                                  :conceptId "battle-36.4"
-                                                 :dictionaryItem {:itemId "behave"
-                                                                  :name "behave"
+                                                 :dictionaryItem {:itemId "battled"
+                                                                  :name "battled"
                                                                   :type "Dictionary-item"}
                                                  :roles [{:name "Agent" :children [{:type "Thematic-role"
                                                                                     :children [{:type "Cell"

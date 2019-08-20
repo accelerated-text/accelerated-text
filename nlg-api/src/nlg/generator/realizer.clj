@@ -55,11 +55,14 @@
 (defn capitalize
   "Similar to `clojure.string/capitalize`. However, clojure util modifies following characters, we don't want that"
   [[first-letter & other]]
-  (str (string/upper-case first-letter) (string/join "" other)))
+  (if-not (empty? other)
+    (str (string/upper-case first-letter) (string/join "" other))
+    first-letter))
 
 (defn join-sentences
   [sentences]
-  (->> (map capitalize sentences)
+  (->> (remove nil? sentences)
+       (map capitalize)
        (string/join ". ")
        (end-with ".")))
 
