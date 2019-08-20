@@ -9,8 +9,7 @@
             [clojure.tools.logging :as log]
             [data-access.entities.amr :as amr-entity]
             [ccg-kit.grammar :as ccg]
-            [ccg-kit.verbnet.ccg :as vn-ccg]
-            [amr.core :as amr]))
+            [ccg-kit.verbnet.ccg :as vn-ccg]))
 
 (defn load-test-data
   [filename]
@@ -50,7 +49,7 @@
               expected {:dynamic [{:name {:cell :product-name :dyn-name "$1"} :attrs {:type :product :source :cell}}
                                   {:name {:cell :main-feature :dyn-name "$2"} :attrs {:type :benefit :source :cell}}
                                   {:name {:cell :secondary-feature :dyn-name "$3"} :attrs {:type :benefit :source :cell}}]
-                        :static ["provide"]
+                        :static ["provides"]
                         :reader-profile :default}]
           (log/debugf "Concrete plan: %s" (pr-str concrete-plan))
           (let [result (build-dp-instance concrete-plan)]
@@ -70,7 +69,7 @@
                                   {:name {:cell :main-feature :dyn-name "$2"} :attrs {:type :benefit :source :cell}}
                                   {:name {:cell :secondary-feature :dyn-name "$3"} :attrs {:type :benefit :source :cell}}
                                   {:name {:quote "special for you" :dyn-name "$4"} :attrs {:type :benefit :source :quote}}]
-                        :static ["provide"]
+                        :static ["provides"]
                         :reader-profile :default}]
           (log/debugf "Concrete plan: %s" (pr-str concrete-plan))
           (let [result (build-dp-instance concrete-plan)]
@@ -88,16 +87,16 @@
               expected {:dynamic [{:name {:cell :product-name :dyn-name "$1"} :attrs {:type :product :source :cell}}
                                   {:name {:cell :main-feature :dyn-name "$3"} :attrs {:type :benefit :source :cell}}
                                   {:name {:cell :secondary-feature :dyn-name "$4"} :attrs {:type :benefit :source :cell}}]
-                        :static ["provide"]
+                        :static ["provides"]
                         :reader-profile :default}
               result (build-dp-instance concrete-plan)]
           (compare-result expected result))
         ;; Second sentence
         (let [concrete-plan (nth (first compiled) 1)
               expected {:dynamic []
-                        :static ["provide"]}
+                        :static ["provides"]}
               result (build-dp-instance concrete-plan)]
-          (is (= ["results in"] (result :static)))
+          (is (= ["results"] (result :static)))
           (let [gated-var (first (result :dynamic))]
             (is (= {:cell :lacing, :dyn-name "$2"} (gated-var :name)))
             (is (contains? (gated-var :attrs) :gate )))))))
@@ -113,9 +112,9 @@
       ;; Second sentence
       (let [concrete-plan (nth (first compiled) 1)
             expected {:dynamic []
-                      :static ["provide"]}
+                      :static ["provides"]}
             result (build-dp-instance concrete-plan)]
-        (is (= ["results in" "results in"] (result :static)))
+        (is (= ["results" "results"] (result :static)))
         (let [gated-var (first (result :dynamic))]
           (is (= {:cell :lacing, :dyn-name "$3"} (gated-var :name)))
           (is (contains? (gated-var :attrs) :gate )))))))
@@ -202,10 +201,6 @@
       (log/debugf "Final AMR results: %s" (pr-str result)))))
 
 (deftest plain-plan-with-amr
-  ;; (testing "We can build hardcoded AMR rule"
-  ;;   (let [g (vn-ccg/vn->grammar (assoc amr/see-amr :members (list {:name "sees"})))
-  ;;         result (ccg/generate "{{AGENT}}" "{{CO-AGENT}}" "with" "see")]
-  ;;     (is (not (empty? result)))))
   (testing "Handle plan with it"
     (let [document-plan (load-test-data "plain-amr")
         data [{:actor "Harry"

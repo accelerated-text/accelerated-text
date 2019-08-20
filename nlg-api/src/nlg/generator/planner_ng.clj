@@ -125,14 +125,34 @@
                                         (dsl/<B
                                          (dsl/atomcat :S {} (dsl/fs-nomvar "index" "E"))
                                          (dsl/atomcat :NNP {} (dsl/fs-nomvar "index" "X")))
-                                        (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "Y"))))))
+                                        (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "Y")))))
+                          ;; Full consequence rule. <word1> results in <word2>
+                          (dsl/family "cons2full" :Vp false
+                                      (dsl/entry
+                                       "Primary"
+                                       (dsl/lf "H")
+                                       (dsl/>F
+                                        (dsl/<B
+                                         (dsl/atomcat :S {:index "12"} (dsl/fs-nomvar "index" "X0"))
+                                         (dsl/>F
+                                          (dsl/atomcat :NNP {} (dsl/fs-nomvar "index" "X1"))
+                                          (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X3"))))
+                                        (dsl/atomcat :IN {} (dsl/fs-nomvar "index" "X2")))))
+                          (dsl/family "IN" :IN true
+                                      (dsl/entry
+                                       "IN"
+                                       "in"
+                                       (dsl/lf "I")
+                                       (dsl/atomcat :IN {} (dsl/fs-nomvar "index" "I")))))
         
         
         grouped (group-by (fn [item] (get-in item [:attrs :type])) values)
         initial-morph (list
                        (dsl/morph-entry "provides" :V {:stem "benefit" :class "purpose"})
                        (dsl/morph-entry "offers" :V {:stem "benefit" :class "purpose"})
-                       (dsl/morph-entry "gives" :V {:stem "benefit" :class "purpose"}))
+                       (dsl/morph-entry "gives" :V {:stem "benefit" :class "purpose"})
+                       (dsl/morph-entry "results" :Vp {:stem "consequence" :class "consequence"})
+                       (dsl/morph-entry "in" :IN {:stem "in"}))
         morphology-context (map resolve-morph-context (vals grouped))
         generated-families (map-indexed resolve-lex-context grouped)
         lexicon (ccg/build-lexicon

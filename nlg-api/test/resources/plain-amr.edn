@@ -2,9 +2,9 @@
  :segments [{:type "Segment"
              :textType "description"
              :children [{:type "AMR"
-                         :conceptId "See"
-                         :dictionaryItem {:itemId "behave"
-                                          :name "behave"
+                         :conceptId "see"
+                         :dictionaryItem {:itemId "sees"
+                                          :name "sees"
                                           :type "Dictionary-item"}
                          :roles [{:name "Agent" :children [{:type "Thematic-role"
                                                             :children [{:type "Cell"
