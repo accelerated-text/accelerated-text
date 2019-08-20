@@ -10,6 +10,7 @@
     "start": "node -r esm node_modules/.bin/webpack-dev-server --host 0.0.0.0 --config packages/webpack/run.config.js",
     "test": "npm run test:eslint && npm run test:sasslint && npm run test:ava && npm run check:audit",
     "test:ava": "node -r esm packages/tests/lib/run-ava",
+    "test:ava:serial": "node -r esm packages/tests/lib/run-ava --serial",
     "test:eslint": "eslint packages",
     "test:sasslint": "sass-lint -vq"
   },
@@ -24,8 +25,9 @@
   "author": "Tokenmill.lt",
   "license": "UNLICENSED",
   "dependencies": {
-    "apollo-boost": "^0.4.0",
+    "apollo-boost": "^0.4.3",
     "bw-color-blind-palette": "^1.0.0",
+    "check-prop-types": "^1.1.2",
     "classnames": "^2.2.6",
     "debug": "^4.1.1",
     "dom-dom": "^1.2.3",
@@ -41,7 +43,7 @@
     "preact-render-to-string": "^5.0.3",
     "prop-types": "^15.6.2",
     "ramda": "^0.26.1",
-    "react-apollo": "^2.5.5",
+    "react-apollo": "^2.5.8",
     "react-debounced-props": "^0.1.0",
     "react-simple-resizer": "^1.3.1",
     "sass-mix-ratio": "^0.0.1",
@@ -77,11 +79,5 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14",
     "webpack-dotenv-extended-plugin": "^1.0.0"
-  },
-  "ava": {
-    "require": [
-      "esm"
-    ],
-    "verbose": true
   }
 }

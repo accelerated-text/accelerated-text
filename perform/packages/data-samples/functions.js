@@ -23,3 +23,10 @@ export const statusTemplate = {
     getDataError:   null,
     getDataLoading: false,
 };
+
+export const getPlanDataRow = ( fileItem, plan ) => (
+    fileItem
+    && fileItem.data
+    && plan
+    && fileItem.data[ plan.dataSampleRow || 0 ]
+);

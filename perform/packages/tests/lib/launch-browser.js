@@ -5,9 +5,14 @@ import puppeteer            from 'puppeteer';
 const CHROME_CI_ARGS = [
     '--disable-background-timer-throttling',
     '--disable-backgrounding-occluded-windows',
+    '--disable-dev-shm-usage',
+    '--disable-gpu',
     '--disable-renderer-backgrounding',
     '--disable-setuid-sandbox',
+    '--no-first-run',
     '--no-sandbox',
+    '--no-zygote',
+    '--single-process',
 ];
 
 
@@ -18,4 +23,5 @@ export default () =>
             width:      1024,
             height:     768,
         },
+        timeout:        0,
     });

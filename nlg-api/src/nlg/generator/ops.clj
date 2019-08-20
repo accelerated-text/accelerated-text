@@ -85,8 +85,8 @@
         ((log/spyf "Else: %s" else-branch) ctx data)))))
 
 (def synset
-  {:provides ["provide"]
-   :consequence ["results in"]})
+  {:provides ["provides"]
+   :consequence ["results"]})
 
 (defn get-random [key col]
   (let [words (get col key [])]
@@ -110,18 +110,9 @@
   [values]
   (let [wordlists (filter (fn [v] (= :wordlist (get-in v [:attrs :type]))) values)
         other (filter (fn [v] (not (= :wordlist (get-in v [:attrs :type])))) values)
-        wordlists-grouped (group-by (fn [v] (get-in v [:attrs :class])) wordlists)]
+        wordlists-grouped (group-by (fn [v] (get-in v [:attrs :class])) wordlists)
+        _ (log/debugf "Other: %s WordlistGrouped: %s" (pr-str other) (pr-str wordlists-grouped))]
     (concat other (map (fn [[_ v]] (rand-nth v)) wordlists-grouped))))
-
-(defn render-amr
-  [{:keys [id vc members]}]
-  (let [morph (vclass->morph {:id id
-                              :members members
-                              :thematic-roles (:thematic-roles vc)})
-        lexicon (thematic-roles->atomic-categories morph)]
-    (u/pprint-xml (xml/element :morph {} (m/generate-morphology-xml morph)))
-    (u/pprint-xml (xml/element :ccg-lexicon {} (l/generate-lexicon-xml lexicon morph)))))
-
 
 (defn replace-multi
   [original replaces]

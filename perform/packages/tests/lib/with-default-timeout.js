@@ -1,5 +1,5 @@
 export default ( t, run, ...args ) => {
-    t.timeout( 8e3 );
+    t.timeout( 16e3 );
 
     return run( t, ...args );
 };

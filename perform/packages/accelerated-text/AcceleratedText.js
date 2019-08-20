@@ -39,10 +39,7 @@ const AcceleratedText = mountStores(
             openQuickSearch={ openQuickSearch }
         >
             <div className={ S.grid }>
-                <Header
-                    className={ S.header }
-                    openQuickSearch={ openQuickSearch }
-                />
+                <Header className={ S.header } />
                 {
                     ( acceleratedText && acceleratedText.openedDictionaryItem )
                         ? <DictionaryEditor
