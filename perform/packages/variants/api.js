@@ -26,7 +26,6 @@ const checkResult = async ( resultId, resolve, reject ) => {
 export const getVariants = async ({ dataId, documentPlanId, readerFlagValues }) => {
 
     const { resultId } = await nlgApi.POST( `${ PREFIX }/`, {
-        ccg:                false,
         dataId,
         documentPlanId,
         readerFlagValues,
