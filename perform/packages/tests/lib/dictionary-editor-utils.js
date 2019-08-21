@@ -1,6 +1,9 @@
 import DICTIONARY           from '../data/dictionary';
 import { SELECTORS }        from '../constants';
 
+import {
+    emptyThesaurusQuery,
+}                           from './thesaurus-utils';
 import { getItemSelector }  from './dictionary-utils';
 
 
@@ -36,6 +39,9 @@ export const arePhrasesVisible = ( t, phrases ) =>
 
 export const openItem = async ( t, num, dictionary = DICTIONARY.dictionary ) => {
 
-    await t.page.click( `${ getItemSelector( num )} ${ SELECTORS.DICTIONARY_ITEM_NAME }` );
+    await Promise.all([
+        emptyThesaurusQuery( t ),
+        t.page.click( `${ getItemSelector( num )} ${ SELECTORS.DICTIONARY_ITEM_NAME }` ),
+    ]);
     return dictionary.items[num];
 };
