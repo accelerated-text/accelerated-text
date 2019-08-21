@@ -204,8 +204,8 @@ type Query {
     ### Thesaurus
 
     searchThesaurus(
-        query:              String!,
-        partOfSpeech:       PartOfSpeech,
+        query:              String!
+        partOfSpeech:       PartOfSpeech
     ):  ThesaurusResults!
 
     synonyms(
