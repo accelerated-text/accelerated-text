@@ -58,6 +58,16 @@ enum PartOfSpeech {
     WRB     # wh-adverb  where, when
 }
 
+### Data -----------------------------------------------------------------------
+
+type getDataResult {
+
+}
+
+type listDataResult {
+
+}
+
 ### Thesaurus ------------------------------------------------------------------
 
 type ThesaurusResults {
@@ -200,6 +210,18 @@ type QuickSearchResults {
 ### Queries --------------------------------------------------------------------
 
 type Query {
+
+    ### Data
+
+    getData(
+        user: String!
+        file: String!
+    ): getDataResult!
+
+    listData(
+        user: String!
+        limit: Int
+    ): listDataResult!
 
     ### Thesaurus
 
