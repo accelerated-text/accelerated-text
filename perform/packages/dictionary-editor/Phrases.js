@@ -48,7 +48,7 @@ export default composeQueries({
                             )}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={ S.phrases }>
                         { phrases && sortByText( phrases ).map( phrase =>
                             <Phrase
                                 key={ phrase.id }

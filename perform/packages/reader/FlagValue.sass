@@ -1,21 +1,13 @@
 @import '../styles/variables'
+@import '../styles/buttons'
 
 
 .className
 
-    border-radius:          $border-radius
-    box-shadow:             -1px -1px 0 $white, 1px 1px 0 $subtle-border
-    cursor:                 pointer
-    display:                block
-    margin:                 0
-    padding:                $space-s
+    @include button
 
-    &:hover
-
-        background-color:   $white
-        box-shadow:         none
+    text-align:             left
 
     &.isChecked
 
         background-color:   $white
-        box-shadow:         inset 1px 1px 0 $subtle-border, inset -1px -1px 0 $white

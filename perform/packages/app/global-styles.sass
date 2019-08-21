@@ -1,4 +1,6 @@
 @import '../styles/variables'
+@import '../styles/buttons'
+@import '../styles/inputs'
 
 
 html,
@@ -10,3 +12,20 @@ body
     height:             100%
     margin:             0
     padding:            0
+
+button
+
+    @include button
+
+input[type='text'],
+input[type='search']
+
+    @include text-input
+
+select
+
+    @include select
+
+textarea
+
+    @include text-input-multiline

@@ -26,7 +26,7 @@ export default composeQueries({
 }) =>
     <div className={ classnames( S.className, className ) }>
         <button className={ S.back } onClick={ onClickBack }>
-            ⬅️ to search 🔎
+            « to search 🔎
         </button>
         <h4 className={ S.word }>
             { word.text }
