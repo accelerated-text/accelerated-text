@@ -1,6 +1,7 @@
 (ns data-access.db.s3
   (:require [clojure.tools.logging :as log]
-            [data-access.db.config :as config])
+            [data-access.db.config :as config]
+            [data-access.utils :as utils])
   (:import (com.amazonaws.services.s3 AmazonS3Client)
            (com.amazonaws ClientConfiguration)))
 
@@ -54,3 +55,11 @@
             content (read-file bucket f)]
         (println out-path)
         (spit out-path content)))))
+
+(defn read-csv [s3-bucket s3-key]
+  (let [raw (read-file config/data-bucket s3-key)]
+    (utils/csv-to-map raw)))
+
+(defn get-csv-header [s3-bucket s3-key]
+  (let [data (read-csv s3-bucket s3-key)]
+    (keys (first data))))
