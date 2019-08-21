@@ -1,0 +1,37 @@
+@import './variables'
+@import './buttons'
+
+
+@mixin text-input
+
+    background-color:   $white
+    border:             0 none transparent
+    border-radius:      $border-radius
+    box-shadow:         inset 1px 1px 1px $hard-darken, 1px 1px 0 $soft-darken
+    box-sizing:         border-box
+    font-family:        $font-family
+    font-size:          $size-m
+    font-weight:        $normal-weight
+    line-height:        $line-height
+    padding:            $space-xxs $space-s
+
+
+@mixin text-input-multiline
+
+    @include text-input
+
+    padding:            $space-xs $space-s
+
+
+@mixin select
+
+    @include button
+
+    background-color:   $white
+    min-width:          3rem
+    padding:            (( $line-height-rem - 1.05rem ) / 2 ) $space-xs
+    text-align:         left
+
+    &:hover
+
+        background-color:   $white

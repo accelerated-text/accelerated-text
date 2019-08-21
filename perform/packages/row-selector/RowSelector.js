@@ -32,7 +32,7 @@ export default class RowSelector extends Component {
         return (
             <div className={ className }>
                 <button
-                    children="◀️"
+                    children="◀"
                     className={ previousClassName }
                     disabled={ !selected }
                     onClick={ this.onClickPrevious }
@@ -48,7 +48,7 @@ export default class RowSelector extends Component {
                     )}
                 </select>
                 <button
-                    children="▶️"
+                    children="▶"
                     className={ nextClassName }
                     disabled={ selected >= rows.length - 1 }
                     onClick={ this.onClickNext }

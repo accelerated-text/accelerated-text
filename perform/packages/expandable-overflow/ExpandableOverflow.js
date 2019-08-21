@@ -57,7 +57,7 @@ export default class ExpandableOverflow extends Component {
                 onClick={ this.onClickAll }
             >
                 <div
-                    children="▶️"
+                    children="▶"
                     className={ classnames( S.expandIcon, iconClassName ) }
                     onclick={ this.onClickIcon }
                 />

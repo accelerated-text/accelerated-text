@@ -24,7 +24,7 @@ export default class SidebarItem extends Component {
             ) }>
                 <div className={ S.header } onClick={ this.onClickHeader }>
                     <div className={ S.title }>{ title }</div>
-                    <div className={ S.expandIcon }>▶️</div>
+                    <div className={ S.expandIcon }>▶</div>
                 </div>
                 <div className={ S.body }>
                     { children }

@@ -1,19 +1,13 @@
 @import '../styles/variables'
+@import '../styles/sidebar-table'
 
 
 .className
     > td
 
-        vertical-align:     top
-
         &.dragInBlock
 
-            padding:        $space-xs $space-xs 0
-            width:          2rem
-
-        &.label
-
-            width:          10rem
+            @include sidebar-table-block-cell
 
         &.helpText
 
