@@ -1,6 +1,10 @@
-ARN=arn:aws:lambda:eu-central-1:372973017485:function:shopify-fake-store-proxy
-FUNCTION_NAME=${ARN}
 ZIP_FILE=lambda.zip
+
+### Setup ----------------------------------------------------------------------
+
+-include .env.defaults
+-include .env
+export
 
 ### Tasks ----------------------------------------------------------------------
 
@@ -25,7 +29,7 @@ zip: ${ZIP_FILE}
 .PHONY: publish
 publish: ${ZIP_FILE}
 	aws lambda update-function-code \
-		--function-name "${FUNCTION_NAME}" \
+		--function-name "${LAMBDA_ARN}" \
 		--zip-file "fileb://${ZIP_FILE}" \
 		--publish
 
