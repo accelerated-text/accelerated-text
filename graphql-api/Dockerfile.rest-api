@@ -10,7 +10,7 @@ RUN clojure -R:rest-uberjar
 COPY graphql-api/ /usr/src/app
 RUN clojure -A:rest-uberjar
 
-CMD ["java", "-jar" "target/app-1.0.0-SNAPSHOT-standalone.jar"]
+CMD ["java", "-jar", "target/app-1.0.0-SNAPSHOT-standalone.jar"]
 
 FROM openjdk:8u171-jre-alpine3.8
 RUN mkdir -p /usr/src/app

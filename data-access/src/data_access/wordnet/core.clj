@@ -1,6 +1,6 @@
 (ns data-access.wordnet.core
-  (:import [net.sf.extjwnl.data PointerUtils POS]
-           net.sf.extjwnl.dictionary.Dictionary))
+  (:import (net.sf.extjwnl.data IndexWord PointerUtils POS Synset Word)
+           (net.sf.extjwnl.dictionary Dictionary)))
 
 (def dictionary (Dictionary/getDefaultResourceInstance))
 
@@ -11,34 +11,35 @@
 
 (def kw-pos->wn-pos (reduce-kv (fn[m k v] (assoc m v k)) {} wn-pos->kw-pos))
 
-(defn word->map [word]
-  {:lemma (.getLemma word)
-   :pos (get wn-pos->kw-pos (.getPOS word))})
+(defn word->map [^Word w]
+  {:lemma (.getLemma w)
+   :pos (get wn-pos->kw-pos (.getPOS w))})
 
-(defn sense->map [sense]
-  {:gloss (.getGloss sense)
-   :index (.getIndex sense)
-   :key (.getKey sense)
-   :pos (-> sense .getPOS wn-pos->kw-pos)
-   :words (map word->map (.getWords sense))})
+(defn sense->map [^Synset s]
+  {:gloss (.getGloss s)
+   :index (.getIndex s)
+   :key (.getKey s)
+   :pos (-> s .getPOS wn-pos->kw-pos)
+   :words (map word->map (.getWords s))})
 
-(defn index-word->map [iw]
+(defn index-word->map [^IndexWord iw]
   {:lemma (.getLemma iw)
-   :pos (.getPOS iw)
-   :synset-offsets (.getSynsetOffsets iw)
+   :pos (-> iw .getPOS wn-pos->kw-pos)
    :senses (map sense->map (.getSenses iw))})
 
 (defn synonyms [word] (->> word :senses (mapcat :words) (set)))
 
-(defn lookup-word [pos word] (index-word->map (.lookupIndexWord dictionary (get kw-pos->wn-pos pos) word)))
+(defn lookup-words
+  ([word]
+   (map index-word->map (-> dictionary (.lookupAllIndexWords word) (.getIndexWordCollection))))
+  ([word pos]
+   (-> dictionary (.lookupIndexWord (get kw-pos->wn-pos pos) word) (index-word->map) (vector))))
 
-(defn lookup-words [word] (-> dictionary (.lookupAllIndexWords word) (.getIndexWordCollection) (map index-word->map)))
-
-(defn hyp-list-op [iw]
+(defn hyp-list-op [^IndexWord iw]
   (let [hypernyms (-> iw .getSenses (.get 0) (PointerUtils/getDirectHypernyms))]
     (.print hypernyms)))
 
-(defn hyp-tree-op [iw]
+(defn hyp-tree-op [^IndexWord iw]
   (let [hypernyms (-> iw .getSenses (.get 0) (PointerUtils/getHyponymTree))]
     (.print hypernyms)))
 
