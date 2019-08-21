@@ -79,7 +79,7 @@ const onRequestError = callback => err => {
 
     callback( null, {
         isBase64Encoded:    false,
-        statusCode:         501,
+        statusCode:         502,
         headers: {
             'Content-Type': isJson ? 'application/json' : 'text/plain',
             ...RESPONSE_HEADERS,
