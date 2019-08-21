@@ -7,11 +7,12 @@ const cors =                require( 'cors' );
 const express =             require( 'express' );
 
 const { handler } =         require( './index' );
+const mockShop =            require( './mock-shop' );
 
 
 /// Constants ------------------------------------------------------------------
 
-const PATH =                '/';
+const LAMBDA_PATH =         '/';
 const PORT =                process.env.LOCAL_PORT || 8090;
 
 /// Main -----------------------------------------------------------------------
@@ -19,18 +20,18 @@ const PORT =                process.env.LOCAL_PORT || 8090;
 const app =                 express();
 
 app.options(
-    PATH,
+    LAMBDA_PATH,
     cors(),
     ( req, res ) => {
-        console.log( 'OPTIONS', PATH, req.headers );
+        console.log( 'OPTIONS', LAMBDA_PATH, req.headers );
         res.send( '' );
     });
 
 app.post(
-    PATH,
+    LAMBDA_PATH,
     bodyParser.text({ type: '*/*' }),
     ( req, res ) => {
-        console.log( 'POST', PATH, req.headers, req.body );
+        console.log( 'POST', LAMBDA_PATH, req.headers, req.body );
         handler( req, null, ( err, result ) => {
             console.log( 'RESULT', err, result );
             if( err ) {
@@ -41,6 +42,11 @@ app.post(
             }
         });
     });
+
+
+if( process.argv[2] === '--mock-shop' ) {
+    mockShop( app );
+}
 
 app.listen( PORT, () =>{
     console.log(

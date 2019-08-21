@@ -2,6 +2,7 @@
 
 /// Imports --------------------------------------------------------------------
 
+const http =                        require( 'http' );
 const https =                       require( 'https' );
 
 
@@ -64,6 +65,11 @@ const fixGraphqlErrors = body => {
     return fixed;
 };
 
+const request = ( ...args ) =>
+    API_URL.indexOf( 'https://' ) === 0
+        ? https.request( ...args )
+        : http.request( ...args );
+
 
 /// Event handlers -------------------------------------------------------------
 
@@ -112,7 +118,7 @@ exports.handler = ( event, _, callback ) => {
     console.log( 'headers', JSON.stringify( event.headers ));
     console.log( 'body', event.body );
 
-    const req = https.request(
+    const req = request(
         API_URL,
         {
             method:             'POST',

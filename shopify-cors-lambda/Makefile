@@ -1,8 +1,8 @@
-ZIP_FILE=lambda.zip
+LOCAL_PORT ?=	8090
+ZIP_FILE =		lambda.zip
 
 ### Setup ----------------------------------------------------------------------
 
--include .env.defaults
 -include .env
 export
 
@@ -16,6 +16,10 @@ default:
 .PHONY: run
 run: setup
 	node server.js
+
+.PHONY: run-local
+run-local: setup
+	API_URL="http://localhost:${LOCAL_PORT}/mock-shop" node server.js --mock-shop
 
 
 .PHONY: clean
