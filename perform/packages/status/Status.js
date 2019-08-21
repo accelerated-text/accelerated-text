@@ -7,14 +7,12 @@ import { useStores }    from '../vesa/';
 
 
 export default useStores([
-    'contexts',
     'dataSamples',
     'documentPlans',
     'planList',
     'variantsApi',
 ])(({
     className,
-    contexts,
     dataSamples,
     documentPlans,
     planList,
@@ -25,7 +23,6 @@ export default useStores([
 
     const isError = (
         variantsApi.error
-        || contexts.getListError
         || dataSamples.getListError
         || planList.addCheckError
         || planList.getListError
@@ -33,7 +30,6 @@ export default useStores([
 
     const isLoading = (
         variantsApi.loading
-        || contexts.getListLoading
         || dataSamples.getListLoading
         || planList.getListLoading
         || dataStatuses.find( status => status.getDataLoading )

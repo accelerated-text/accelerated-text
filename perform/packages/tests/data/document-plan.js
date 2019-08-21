@@ -14,7 +14,6 @@ export const createDocumentPlan = ({
     contextId:      'tests-context-id',
     dataSampleId:   DATA_FILE_LIST[0].key,
     dataSampleRow:  0,
-    useCcg:         false,
     name:           'Test plan',
     blocklyXml:     `<xml xmlns="http://www.w3.org/1999/xhtml"><block id="${ srcId }" type="Document-plan" deletable="false"><statement name="segments"><block id="${ segmentId }" type="Segment"><mutation value_count="2" value_sequence="value_"></mutation><field name="text_type">description</field></block></statement></block></xml>`,
     documentPlan: {

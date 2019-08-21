@@ -78,7 +78,6 @@ export default {
             const reader =  getStoreState( 'reader' );
 
             getVariants({
-                ccg:                !!plan.useCcg,
                 dataId:             plan.dataSampleId,
                 documentPlanId:     plan.id,
                 readerFlagValues:   reader.flagValues,
