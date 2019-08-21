@@ -284,4 +284,20 @@
     "name" : "<init>",
     "parameterTypes" : [ ]
   } ]
+}, {
+  "name": "net.sf.extjwnl.dictionary.FileBackedDictionary",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name": "net.sf.extjwnl.data.IndexWord",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name": "net.sf.extjwnl.data.VerbSynset",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
+}, {
+  "name": "net.sf.extjwnl.data.Verb",
+  "allPublicMethods" : true,
+  "allPublicConstructors" : true
 } ]
