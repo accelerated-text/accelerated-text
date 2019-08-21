@@ -14,12 +14,17 @@ default:
 
 
 .PHONY: run
-run:
+run: setup
 	node server.js
+
 
 .PHONY: clean
 clean:
 	rm -f "${ZIP_FILE}"
+
+
+.PHONY: setup
+setup: node_modules
 
 
 .PHONY: zip
@@ -35,6 +40,10 @@ publish: ${ZIP_FILE}
 
 
 ### Targets --------------------------------------------------------------------
+
+node_modules: package.json
+	npm install
+	touch -m node_modules
 
 ${ZIP_FILE}: index.js
 	zip "${ZIP_FILE}" index.js
