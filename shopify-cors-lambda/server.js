@@ -12,7 +12,7 @@ const { handler } =         require( './index' );
 /// Constants ------------------------------------------------------------------
 
 const PATH =                '/';
-const PORT =                process.env.PORT || 8090;
+const PORT =                process.env.LOCAL_PORT || 8090;
 
 /// Main -----------------------------------------------------------------------
 
