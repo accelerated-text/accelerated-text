@@ -2,6 +2,7 @@
   (:require [clj-time.core :as time]
             [clj-time.coerce :as tc]
             [clojure.data.csv :as csv]
+            [clojure.string :as str]
             [clojure.tools.logging :as log])
   (:import (java.util UUID)))
 
@@ -14,6 +15,7 @@
   (let [raw-csv (csv/read-csv f)]
     (log/debug "Raw CSV: " raw-csv)
     (let [header (vec  (->> (first raw-csv)
+                            (map str/trim)
                             (map keyword)))
           data (rest raw-csv)
           pairs (map #(interleave header %) data)]
