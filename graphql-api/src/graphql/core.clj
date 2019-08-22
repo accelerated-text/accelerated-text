@@ -3,6 +3,7 @@
             [clojure.tools.logging :as log]
             [graphql.domain.dictionary :as dictionary-domain]
             [graphql.domain.amr :as amr-domain]
+            [graphql.domain.document-plans :as document-plan-domain]
             [translate.core :as translate]
             [com.walmartlabs.lacinia.util :as util]
             [com.walmartlabs.lacinia.schema :as schema]
@@ -15,6 +16,8 @@
       (io/resource)
       slurp
       (parser/parse-schema {:resolvers {:Query    {:dictionary     :dictionary
+                                                   :documentPlan   :document-plan
+                                                   :DocumentPlans  :document-plans
                                                    :dictionaryItem :dictionary-item
                                                    :readerFlags    :reader-flags
                                                    :concepts       :concepts
@@ -26,10 +29,8 @@
                                                    :updatePhrase             :update-phrase
                                                    :deletePhrase             :delete-phrase
                                                    :updatePhraseDefaultUsage :update-phrase-default-usage
-                                                   :updateReaderFlagUsage    :update-reader-flag-usage
-                                                   }
-                                        :Concept {:dictionaryItem :ref-dictionary-item}
-                                        }})
+                                                   :updateReaderFlagUsage    :update-reader-flag-usage}
+                                        :Concept  {:dictionaryItem :ref-dictionary-item}}})
       (util/attach-resolvers {:dictionary                  dictionary-domain/dictionary
                               :ref-dictionary-item         dictionary-domain/ref-dictionary-item
                               :dictionary-item             dictionary-domain/dictionary-item
@@ -42,7 +43,8 @@
                               :update-phrase-default-usage dictionary-domain/update-phrase-default-usage
                               :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
                               :reader-flags                dictionary-domain/reader-flags
-
+                              :document-plan               document-plan-domain/get-workspace
+                              :document-plans              document-plan-domain/list-workspaces
                               :concepts                    amr-domain/list-verbclasses
                               :concept                     amr-domain/get-verbclass})
       schema/compile))
