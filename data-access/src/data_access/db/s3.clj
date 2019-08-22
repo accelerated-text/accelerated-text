@@ -57,9 +57,7 @@
         (spit out-path content)))))
 
 (defn read-csv [s3-bucket s3-key]
-  (let [raw (read-file config/data-bucket s3-key)]
-    (utils/csv-to-map raw)))
+  (utils/raw-csv->maps (read-file config/data-bucket s3-key)))
 
 (defn get-csv-header [s3-bucket s3-key]
-  (let [data (read-csv s3-bucket s3-key)]
-    (keys (first data))))
+  (-> (read-csv s3-bucket s3-key) (first) (keys) (vec)))

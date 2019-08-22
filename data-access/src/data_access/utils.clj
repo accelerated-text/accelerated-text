@@ -10,14 +10,6 @@
 
 (defn ts-now [] (tc/to-long (time/now)))
 
-(defn csv-to-map
-  [f]
-  (let [raw-csv (csv/read-csv f)]
-    (log/debug "Raw CSV: " raw-csv)
-    (let [header (vec  (->> (first raw-csv)
-                            (map str/trim)
-                            (map keyword)))
-          data (rest raw-csv)
-          pairs (map #(interleave header %) data)]
-      (log/debugf "Header: %s" header)
-      (doall (map #(apply array-map %) pairs)))))
+(defn raw-csv->maps [input]
+  (let [[header & data] (csv/read-csv input)]
+    (mapv zipmap (repeat header) data)))
