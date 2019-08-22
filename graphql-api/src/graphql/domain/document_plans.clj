@@ -11,7 +11,11 @@
   (document-plans/write-workspace key workspace))
 
 (defn list-workspaces [_ {:keys [limit]} _]
-  (document-plans/list-workspaces limit))
+  (let [workspaces (document-plans/list-workspaces limit)]
+    {:items      workspaces
+     :limit      limit
+     :offset     0
+     :totalCount (count workspaces)}))
 
 (defn add-workspace [_ {:keys [key workspace]} _]
   (document-plans/add-workspace key workspace))
