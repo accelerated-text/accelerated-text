@@ -60,12 +60,18 @@ enum PartOfSpeech {
 
 ### Data -----------------------------------------------------------------------
 
-type getDataResult {
-
+type dataInstance {
+    key: String!
+    fieldNames: [ String! ]
 }
 
 type listDataResult {
+    data: [ dataInstance ]
+}
 
+type getDataResult {
+    key: String!
+    data: String!
 }
 
 ### Thesaurus ------------------------------------------------------------------
@@ -219,7 +225,7 @@ type Query {
     ): getDataResult!
 
     listData(
-        user: String!
+        user: String
         limit: Int
     ): listDataResult!
 
