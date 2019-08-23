@@ -6,7 +6,7 @@ const bodyParser =          require( 'body-parser' );
 const cors =                require( 'cors' );
 const express =             require( 'express' );
 
-const { handler } =         require( './index' );
+const corsLambda =          require( './cors-lambda/' );
 const mockShop =            require( './mock-shop' );
 
 
@@ -32,7 +32,7 @@ app.post(
     bodyParser.text({ type: '*/*' }),
     ( req, res ) => {
         console.log( 'POST', LAMBDA_PATH, req.headers, req.body );
-        handler( req, null, ( err, result ) => {
+        corsLambda.handler( req, null, ( err, result ) => {
             console.log( 'RESULT', err, result );
             if( err ) {
                 res.status( 501 ).send( err );

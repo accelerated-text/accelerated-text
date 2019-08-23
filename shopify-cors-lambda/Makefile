@@ -1,5 +1,5 @@
 LOCAL_PORT ?=	8090
-ZIP_FILE =		lambda.zip
+ZIP_FILE =		cors-lambda.zip
 
 ### Setup ----------------------------------------------------------------------
 
@@ -49,5 +49,5 @@ node_modules: package.json
 	npm install
 	touch -m node_modules
 
-${ZIP_FILE}: index.js
-	zip "${ZIP_FILE}" index.js
+${ZIP_FILE}: cors-lambda/index.js
+	cd cors-lambda && zip "../${ZIP_FILE}" index.js
