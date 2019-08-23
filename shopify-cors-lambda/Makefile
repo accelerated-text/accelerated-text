@@ -1,5 +1,6 @@
-LOCAL_PORT ?=	8090
-ZIP_FILE =		cors-lambda.zip
+LOCAL_PORT ?=		8090
+CORS_ZIP_FILE =		cors-lambda.zip
+MOCK_ZIP_FILE =		mock-lambda.zip
 
 ### Setup ----------------------------------------------------------------------
 
@@ -19,12 +20,15 @@ run: setup
 
 .PHONY: run-local
 run-local: setup
-	API_URL="http://localhost:${LOCAL_PORT}/mock-shop" node server.js
+	API_URL="http://localhost:${LOCAL_PORT}/mock-shop" \
+		node server.js
 
 
 .PHONY: clean
 clean:
-	rm -f "${ZIP_FILE}"
+	rm -f \
+		"${CORS_ZIP_FILE}" \
+		"${MOCK_ZIP_FILE}"
 
 
 .PHONY: setup
@@ -32,14 +36,24 @@ setup: node_modules
 
 
 .PHONY: zip
-zip: ${ZIP_FILE}
+zip: ${CORS_ZIP_FILE} ${MOCK_ZIP_FILE}
 
 
 .PHONY: publish
-publish: ${ZIP_FILE}
+publish: publish-cors-lambda
+
+.PHONY: publish-cors-lambda
+publish-cors-lambda: ${CORS_ZIP_FILE}
 	aws lambda update-function-code \
-		--function-name "${LAMBDA_ARN}" \
-		--zip-file "fileb://${ZIP_FILE}" \
+		--function-name "${CORS_LAMBDA_ARN}" \
+		--zip-file "fileb://${CORS_ZIP_FILE}" \
+		--publish
+
+.PHONY: publish-mock-lambda
+publish-mock-lambda: ${MOCK_ZIP_FILE}
+	aws lambda update-function-code \
+		--function-name "${MOCK_LAMBDA_ARN}" \
+		--zip-file "fileb://${MOCK_ZIP_FILE}" \
 		--publish
 
 
@@ -49,5 +63,10 @@ node_modules: package.json
 	npm install
 	touch -m node_modules
 
-${ZIP_FILE}: cors-lambda/index.js
-	cd cors-lambda && zip "../${ZIP_FILE}" index.js
+${CORS_ZIP_FILE}: cors-lambda/index.js
+	cd cors-lambda && \
+		zip "../${CORS_ZIP_FILE}" index.js
+
+${MOCK_ZIP_FILE}: mock-shop-lambda/index.js
+	cd mock-shop-lambda && \
+		zip "../${MOCK_ZIP_FILE}" index.js
