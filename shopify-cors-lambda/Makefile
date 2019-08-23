@@ -19,7 +19,7 @@ run: setup
 
 .PHONY: run-local
 run-local: setup
-	API_URL="http://localhost:${LOCAL_PORT}/mock-shop" node server.js --mock-shop
+	API_URL="http://localhost:${LOCAL_PORT}/mock-shop" node server.js
 
 
 .PHONY: clean

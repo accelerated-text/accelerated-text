@@ -7,12 +7,13 @@ const cors =                require( 'cors' );
 const express =             require( 'express' );
 
 const corsLambda =          require( './cors-lambda/' );
-const mockShop =            require( './mock-shop' );
+const mockShopLambda =      require( './mock-shop-lambda/' );
 
 
 /// Constants ------------------------------------------------------------------
 
-const LAMBDA_PATH =         '/';
+const CORS_LAMBDA_PATH =    '/';
+const MOCK_LAMBDA_PATH =    '/mock-shop';
 const PORT =                process.env.LOCAL_PORT || 8090;
 
 /// Main -----------------------------------------------------------------------
@@ -20,18 +21,18 @@ const PORT =                process.env.LOCAL_PORT || 8090;
 const app =                 express();
 
 app.options(
-    LAMBDA_PATH,
+    CORS_LAMBDA_PATH,
     cors(),
     ( req, res ) => {
-        console.log( 'OPTIONS', LAMBDA_PATH, req.headers );
+        console.log( 'OPTIONS', CORS_LAMBDA_PATH, req.headers );
         res.send( '' );
     });
 
 app.post(
-    LAMBDA_PATH,
+    CORS_LAMBDA_PATH,
     bodyParser.text({ type: '*/*' }),
     ( req, res ) => {
-        console.log( 'POST', LAMBDA_PATH, req.headers, req.body );
+        console.log( 'POST', CORS_LAMBDA_PATH, req.headers, req.body );
         corsLambda.handler( req, null, ( err, result ) => {
             console.log( 'RESULT', err, result );
             if( err ) {
@@ -43,10 +44,30 @@ app.post(
         });
     });
 
+app.options(
+    MOCK_LAMBDA_PATH,
+    cors(),
+    ( req, res ) => {
+        console.log( 'OPTIONS', MOCK_LAMBDA_PATH, req.headers );
+        res.send( '' );
+    });
 
-if( process.argv[2] === '--mock-shop' ) {
-    mockShop( app );
-}
+app.post(
+    MOCK_LAMBDA_PATH,
+    bodyParser.text({ type: '*/*' }),
+    ( req, res ) => {
+        console.log( 'POST', MOCK_LAMBDA_PATH, req.headers, req.body );
+        mockShopLambda.handler( req, null, ( err, result ) => {
+            console.log( 'RESULT', err, result );
+            if( err ) {
+                res.status( 501 ).send( err );
+            } else {
+                res.writeHead( result.statusCode, result.headers )
+                    .end( result.body );
+            }
+        });
+    });
+
 
 app.listen( PORT, () =>{
     console.log(
