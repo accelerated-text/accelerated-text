@@ -90,6 +90,7 @@ run-perform-ui-dev-deps:
 .PHONY: run-perform-ui-dev
 run-perform-ui-dev:
 	cd perform && \
+		FAKE_SHOP_API_URL=http://0.0.0.0:8090/ \
 		GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
 		NLG_API_URL=http://0.0.0.0:8081 \
 		make run
