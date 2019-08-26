@@ -55,4 +55,4 @@
 
 (defn get-data-file
   [id record-offset record-limit]
-  {:query (format "{getDataFile(id: \"%s\" recordOffset: %s recordLimit: %s){ id records { record { value }}}" id record-offset record-limit)})
+  {:query (format "{getDataFile(id: \"%s\" recordOffset: %s recordLimit: %s){ id records { fields { value }}}" id record-offset record-limit)})

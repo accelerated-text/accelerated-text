@@ -73,10 +73,15 @@ type listDataFilesResult {
     totalCount: Int!
 }
 
-type Record {
+type Field {
     id: String!
     fieldName: String!
     value: String!
+}
+
+type Record {
+    id: String!
+    fields: [ Field ]
 }
 
 type getDataFileResult {
@@ -85,7 +90,7 @@ type getDataFileResult {
     records: [ Record ]
     recordOffset: Int!
     recordLimit: Int!
-    totalCount: Int!
+    recordCount: Int!
 }
 
 ### Thesaurus ------------------------------------------------------------------

@@ -15,11 +15,12 @@
   (let [{:keys [key records field-names]} (data/read-csv-file id)]
     {:id           key
      :fieldNames   field-names
-     :records      (for [[row record] (->> records (interleave (range)) (partition 2) (drop recordOffset) (take recordLimit))
-                         [column field-name value] (partition 3 (interleave (range) field-names record))]
-                     {:id        (str key ":" (inc row) ":" (inc column))
-                      :fieldName field-name
-                      :value     value})
+     :records      (for [[row record] (->> records (interleave (range)) (partition 2) (drop recordOffset) (take recordLimit))]
+                     {:id     (str key ":" (inc row))
+                      :fields (for [[column field-name value] (partition 3 (interleave (range) field-names record))]
+                                {:id        (str key ":" (inc row) ":" (inc column))
+                                 :fieldName field-name
+                                 :value     value})})
      :recordOffset recordOffset
      :recordLimit  recordLimit
-     :totalCount   (count records)}))
+     :recordCount  (count records)}))
