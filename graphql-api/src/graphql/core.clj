@@ -15,8 +15,8 @@
   (-> "schema.graphql"
       (io/resource)
       slurp
-      (parser/parse-schema {:resolvers {:Query    {:listData       :list-data
-                                                   :getData        :get-data
+      (parser/parse-schema {:resolvers {:Query    {:listDataFiles  :list-data-files
+                                                   :getDataFile    :get-data-file
                                                    :dictionary     :dictionary
                                                    :dictionaryItem :dictionary-item
                                                    :readerFlags    :reader-flags
@@ -45,8 +45,8 @@
                               :reader-flags                dictionary-domain/reader-flags
                               :concepts                    amr-domain/list-verbclasses
                               :concept                     amr-domain/get-verbclass
-                              :list-data                   data-domain/list-data
-                              :get-data                    data-domain/get-data})
+                              :list-data-files             data-domain/list-data-files
+                              :get-data-file               data-domain/get-data-file})
       schema/compile))
 
 (defn nlg [{:keys [query variables context] :as request}]
