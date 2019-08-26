@@ -48,3 +48,11 @@
 (defn list-verbclasses
   []
   {:query "{concepts{id concepts{id label roles{id fieldType fieldLabel} dictionaryItem{name phrases{text}} helpText}}}"})
+
+(defn list-data
+  [user limit]
+  {:query (format "{listData(user: \"%s\" limit: %s) {data{key fieldNames}}}" user limit)})
+
+(defn get-data
+  [user file]
+  {:query (format "{getData(user: \"%s\" file: \"%s\"){key data}}" user file)})
