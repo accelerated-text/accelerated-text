@@ -60,18 +60,32 @@ enum PartOfSpeech {
 
 ### Data -----------------------------------------------------------------------
 
-type dataInstance {
-    key: String!
-    fieldNames: [ String! ]
+type dataFile {
+    id: String!
+    fileName: String!
+    fieldNames: [ String ]
 }
 
-type listDataResult {
-    data: [ dataInstance ]
+type listDataFilesResult {
+    dataFiles: [ dataFile ]
+    offset: Int!
+    limit: Int!
+    totalCount: Int!
 }
 
-type getDataResult {
-    key: String!
-    data: String!
+type Record {
+    id: String!
+    fieldName: String!
+    value: String!
+}
+
+type getDataFileResult {
+    id: String!
+    fieldNames: [ String ]
+    records: [ Record ]
+    offset: Int!
+    limit: Int!
+    totalCount: Int!
 }
 
 ### Thesaurus ------------------------------------------------------------------
@@ -219,15 +233,18 @@ type Query {
 
     ### Data
 
-    getData(
-        user: String!
-        file: String!
-    ): getDataResult!
-
-    listData(
+    getDataFile(
         user: String
+        file: String!
+        recordOffset: Int
+        recordLimit: Int
+    ): getDataFileResult!
+
+    listDataFiles(
+        user: String
+        offset: Int
         limit: Int
-    ): listDataResult!
+    ): listDataFilesResult!
 
     ### Thesaurus
 
