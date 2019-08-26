@@ -1,18 +1,27 @@
-import { h }            from 'preact';
-import { props }        from 'ramda';
+import { h }                from 'preact';
+import { props }            from 'ramda';
 
-import Error            from '../ui-messages/Error';
-import Loading          from '../ui-messages/Loading';
-import { useStores }    from '../vesa/';
+import { composeQueries  }  from '../graphql';
+import { concepts }         from '../graphql/queries.graphql';
+import Error                from '../ui-messages/Error';
+import Loading              from '../ui-messages/Loading';
+import { useStores }        from '../vesa/';
 
 
-export default useStores([
+export default composeQueries({
+    concepts,
+})( useStores([
     'dataSamples',
     'documentPlans',
     'planList',
     'variantsApi',
 ])(({
     className,
+    concepts: {
+        concepts:           conceptsData,
+        error:              conceptsError,
+        loading:            conceptsLoading,
+    },
     dataSamples,
     documentPlans,
     planList,
@@ -22,14 +31,17 @@ export default useStores([
     const planStatuses =    props( planList.uids, documentPlans.statuses );
 
     const isError = (
-        variantsApi.error
+        conceptsError
+        || ( ! conceptsData && ! conceptsLoading )
         || dataSamples.getListError
         || planList.addCheckError
         || planList.getListError
+        || variantsApi.error
     );
 
     const isLoading = (
-        variantsApi.loading
+        conceptsLoading
+        || variantsApi.loading
         || dataSamples.getListLoading
         || planList.getListLoading
         || dataStatuses.find( status => status.getDataLoading )
@@ -46,7 +58,7 @@ export default useStores([
     return (
         <div className={ className }>
             { isLoading &&
-                <Loading message="Syncing... " />
+                <Loading justIcon message="Syncing... " />
             }
             { isError &&
                 <Error justIcon message="There are some errors." />
@@ -56,4 +68,4 @@ export default useStores([
             }
         </div>
     );
-});
+}));
