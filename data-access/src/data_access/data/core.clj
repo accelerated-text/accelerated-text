@@ -12,4 +12,5 @@
      :key         s3-key}))
 
 (defn list-data-files [user]
-  (s3/list-objects config/data-bucket user))
+  (map #(assoc % :field-names (->> (get % :key) (s3/read-file config/data-bucket) (csv/read-csv) (first)))
+       (s3/list-objects config/data-bucket user)))

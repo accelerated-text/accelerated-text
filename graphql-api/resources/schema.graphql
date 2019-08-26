@@ -63,6 +63,7 @@ enum PartOfSpeech {
 type dataFile {
     id: String!
     fileName: String!
+    fieldNames: [ String ]
 }
 
 type listDataFilesResult {
@@ -72,14 +73,10 @@ type listDataFilesResult {
     totalCount: Int!
 }
 
-type Field {
+type Record {
     id: String!
     fieldName: String!
     value: String!
-}
-
-type Record {
-    record: [ Field ]
 }
 
 type getDataFileResult {
@@ -237,8 +234,7 @@ type Query {
     ### Data
 
     getDataFile(
-        user: String
-        file: String!
+        id: String!
         recordOffset: Int
         recordLimit: Int
     ): getDataFileResult!
