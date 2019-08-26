@@ -240,7 +240,6 @@ type Query {
     ): getDataFileResult!
 
     listDataFiles(
-        user: String
         offset: Int
         limit: Int
     ): listDataFilesResult!
