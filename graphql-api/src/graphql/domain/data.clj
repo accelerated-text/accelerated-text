@@ -4,10 +4,8 @@
 
 (defn list-data-files [_ {:keys [user offset limit] :or {user "example-user" offset 0 limit 20}} _]
   (let [data-files (->> (data/list-data-files user)
-                        (map #(select-keys % [:key :file-name :field-names]))
-                        (map #(set/rename-keys % {:key         :id
-                                                  :file-name   :fileName
-                                                  :field-names :fieldNames})))]
+                        (map #(select-keys % [:key :file-name]))
+                        (map #(set/rename-keys % {:key :id :file-name :fileName})))]
     {:dataFiles  (->> data-files (drop offset) (take limit))
      :offset     offset
      :limit      limit
@@ -18,10 +16,10 @@
     {:id           key
      :fieldNames   field-names
      :records      (for [[row record] (->> records (interleave (range)) (partition 2) (drop recordOffset) (take recordLimit))]
-                     (for [[column field-name value] (partition 3 (interleave (range) field-names record))]
-                       {:id        (str key "-" (inc row) "-" (inc column))
-                        :fieldName field-name
-                        :value     value}))
+                     {:record (for [[column field-name value] (partition 3 (interleave (range) field-names record))]
+                                {:id        (str key "-" (inc row) "-" (inc column))
+                                 :fieldName field-name
+                                 :value     value})})
      :recordOffset recordOffset
      :recordLimit  recordLimit
      :totalCount   (count records)}))
