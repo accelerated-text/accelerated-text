@@ -35,7 +35,7 @@ export default class QuickSearchItem extends Component {
 
     render({ className, isActive, item: { text }, subtype }) {
         return (
-            <button
+            <div
                 className={ classnames(
                     S.className,
                     isActive && S.isActive,
@@ -50,7 +50,7 @@ export default class QuickSearchItem extends Component {
                     { getType( isActive, subtype, 1 ).icon }
                 </div>
                 <div className={ S.text }>{ text }</div>
-            </button>
+            </div>
         );
     }
 }

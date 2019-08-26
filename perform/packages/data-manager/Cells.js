@@ -22,7 +22,7 @@ export default ({ className, fileItem, fileStatus, onChangeRow, selectedRow }) =
                 <th className={ S.dragInBlock } />
                 <th className={ S.dragInBlock } />
                 <th className={ S.cellName }>Cell</th>
-                <th>{
+                <th className={ S.cellValue }>{
                     fileStatus.getDataError
                         ? <Error message={ fileStatus.getDataError } />
                     : fileStatus.getDataLoading
@@ -33,7 +33,7 @@ export default ({ className, fileItem, fileStatus, onChangeRow, selectedRow }) =
                             previousClassName={ QA.DATA_MANAGER_ROW_PREVIOUS }
                             onChange={ onChangeRow }
                             rows={ fileItem.data }
-                            selectClassName={ QA.DATA_MANAGER_ROW_SELECT }
+                            selectClassName={ classnames( S.selectRow, QA.DATA_MANAGER_ROW_SELECT ) }
                             selected={ selectedRow }
                         />
                         : <Info message="Waiting for cell values" />
@@ -59,7 +59,7 @@ export default ({ className, fileItem, fileStatus, onChangeRow, selectedRow }) =
                 <td className={ classnames( S.cellName, QA.DATA_MANAGER_CELL_NAME ) }>
                     { name }
                 </td>
-                <td className={ QA.DATA_MANAGER_CELL_VALUE }>{
+                <td className={ classnames( S.cellValue, QA.DATA_MANAGER_CELL_VALUE ) }>{
                     fileItem.data
                     && fileItem.data[selectedRow]
                     && fileItem.data[selectedRow][name]

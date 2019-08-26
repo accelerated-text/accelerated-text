@@ -57,6 +57,7 @@ export default composeQueries({
                         ? <Loading message="Getting product from shop" />
                     : product
                         ? <UpdateProduct
+                            buttonClassName={ S.updateProduct }
                             description={ description }
                             product={ product }
                         />

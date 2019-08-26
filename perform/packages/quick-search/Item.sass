@@ -15,7 +15,7 @@
     display:                grid
     font-size:              $size-m
     grid-gap:               $space-xs
-    grid-template-columns:  2rem 1rem auto
+    grid-template-columns:  $space-l $space-m auto
     justify-items:          start
     margin:                 0
     padding:                0 0 0 $space-xs
@@ -29,6 +29,14 @@
         &.nextIcon
 
             opacity:        .2
+
+        &.icon
+
+            width:          $space-l
+
+        &.nextIcon
+
+            width:          $space-m
 
     &:hover,
     &.isActive

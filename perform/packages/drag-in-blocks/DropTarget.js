@@ -4,10 +4,6 @@ import { DT_TYPE }          from './constants';
 import S                    from './DropTarget.sass';
 
 
-export const isDragInType = evt =>
-    evt.dataTransfer.getData( 'type' ) === DT_TYPE;
-
-
 export default class DragInDropTarget extends Component {
 
     state = {
@@ -15,32 +11,26 @@ export default class DragInDropTarget extends Component {
     };
 
     onDragEnter = evt => {
-        if( isDragInType( evt )) {
-            evt.preventDefault();
-            this.setState({ isDraggedOver: true });
-        }
+        evt.preventDefault();
+        this.setState({ isDraggedOver: true });
     }
 
     onDragLeave = evt => {
-        if( isDragInType( evt )) {
-            this.setState({ isDraggedOver: false });
-        }
+        this.setState({ isDraggedOver: false });
     }
 
     onDragOver = evt => {
-        if( isDragInType( evt )) {
-            evt.preventDefault();
-        }
+        evt.preventDefault();
     }
 
     onDrop = evt => {
 
-        if( !isDragInType( evt )) {
+        this.setState({ isDraggedOver:  false });
+
+        if( evt.dataTransfer.getData( 'type' ) !== DT_TYPE ) {
             return;
         }
         evt.preventDefault();
-
-        this.setState({ isDraggedOver:  false });
 
         const {
             Blockly: { Xml },
