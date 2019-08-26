@@ -46,9 +46,3 @@
           content (read-file bucket file)]
       (log/debugf "Writing file: %s" output-path)
       (spit output-path content))))
-
-(defn read-csv [s3-bucket s3-key]
-  (utils/raw-csv->maps (read-file config/data-bucket s3-key)))
-
-(defn get-csv-header [s3-bucket s3-key]
-  (-> (read-csv s3-bucket s3-key) (first) (keys) (vec)))
