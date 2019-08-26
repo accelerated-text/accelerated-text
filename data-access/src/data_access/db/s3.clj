@@ -4,7 +4,8 @@
             [data-access.utils :as utils])
   (:import (com.amazonaws.services.s3 AmazonS3Client)
            (com.amazonaws ClientConfiguration)
-           (com.amazonaws.services.s3.model S3ObjectSummary AccessControlList ObjectListing)))
+           (com.amazonaws.services.s3.model S3ObjectSummary AccessControlList ObjectListing)
+           (java.io File)))
 
 (defn build-client
   []
@@ -27,6 +28,7 @@
   {:bucket-name   (.getBucketName s)
    :etag          (.getETag s)
    :key           (.getKey s)
+   :file-name     (.getName (File. (.getKey s)))
    :last-modified (str (.toInstant (.getLastModified s)))
    :size          (.getSize s)})
 
