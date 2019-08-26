@@ -32,6 +32,7 @@ export default useStores([
     render({
         className,
         dataSamples: {
+            fileIds,
             getListError,
             getListLoading,
         },
@@ -39,12 +40,16 @@ export default useStores([
     }, {
         uploadOpen,
     }) {
+        const showUpload = (
+            uploadOpen
+            || ( plan && ! fileIds.length )
+        );
         return (
             <div className={ classnames( S.className, className ) }>
                 <div className={ S.main }>{
                     getListLoading
                         ? <Loading message="Loading file list" />
-                    : uploadOpen
+                    : showUpload
                         ? <UploadDataFile
                             fileClassName={ QA.DATA_MANAGER_FILE_BROWSE }
                             uploadClassName={ QA.DATA_MANAGER_FILE_UPLOAD }
@@ -61,12 +66,15 @@ export default useStores([
                                 plan={ plan }
                             />,
                         ]
-                        : <Info message="Please open a document plan to see data files." />
+                        : <Info
+                            className={ QA.DATA_MANAGER_NO_PLAN }
+                            message="Please open a document plan to see data files."
+                        />
                 }</div>
                 <div className={ S.right }>{
                     getListLoading
                         ? null
-                    : uploadOpen
+                    : showUpload
                         ? <button
                             children="✖️"
                             className={ classnames( S.close, QA.DATA_MANAGER_FILE_CLOSE ) }
