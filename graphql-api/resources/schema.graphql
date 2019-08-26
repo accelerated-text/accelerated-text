@@ -83,8 +83,8 @@ type getDataFileResult {
     id: String!
     fieldNames: [ String ]
     records: [ Record ]
-    offset: Int!
-    limit: Int!
+    recordOffset: Int!
+    recordLimit: Int!
     totalCount: Int!
 }
 
