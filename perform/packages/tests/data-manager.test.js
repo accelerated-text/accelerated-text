@@ -72,7 +72,7 @@ test(
         await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_LIST );
 
         await t.findElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
-        await t.findElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
+        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
         await t.findElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
 
         await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_BLOCK );

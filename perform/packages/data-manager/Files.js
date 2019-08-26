@@ -75,11 +75,14 @@ export default useStores([
                     getListLoading
                         ? null
                     : showUpload
-                        ? <button
-                            children="✖️"
-                            className={ classnames( S.close, QA.DATA_MANAGER_FILE_CLOSE ) }
-                            onClick={ this.onClickClose }
-                        />
+                        ? ( fileIds.length
+                            ? <button
+                                children="✖️"
+                                className={ classnames( S.close, QA.DATA_MANAGER_FILE_CLOSE ) }
+                                onClick={ this.onClickClose }
+                            />
+                            : null
+                        )
                     : plan
                         ? <button
                             children="➕ Add"
