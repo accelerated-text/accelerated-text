@@ -3,7 +3,8 @@
             [data-access.db.config :as config]
             [data-access.utils :as utils])
   (:import (com.amazonaws.services.s3 AmazonS3Client)
-           (com.amazonaws ClientConfiguration)))
+           (com.amazonaws ClientConfiguration)
+           (com.amazonaws.services.s3.model S3ObjectSummary AccessControlList ObjectListing)))
 
 (defn build-client
   []
@@ -19,12 +20,15 @@
   (let [grantee (.getGrantee grant)
         permission (.getPermission grant)]
     {:permission (.toString permission)
-     :grantee (.getIdentifier grantee)}))
+     :grantee    (.getIdentifier grantee)}))
 
 (defn summary->map
-  [summary]
-  (let [key (.getKey summary)]
-    {:key key}))
+  [^S3ObjectSummary s]
+  {:bucket-name   (.getBucketName s)
+   :etag          (.getETag s)
+   :key           (.getKey s)
+   :last-modified (str (.toInstant (.getLastModified s)))
+   :size          (.getSize s)})
 
 (defn get-acl
   [bucket path]
@@ -38,16 +42,14 @@
         content (.getObjectContent s3-object)]
     (slurp content)))
 
-(defn list-files
-  [bucket path limit]
-  (let [resp (.listObjects (build-client) bucket path)
-        summary (.getObjectSummaries resp)
-        results (map summary->map summary)]
-    results))
+(defn list-objects
+  [bucket path]
+  (let [^ObjectListing s3-object-list (.listObjects (build-client) bucket path)]
+    (map summary->map (.getObjectSummaries s3-object-list))))
 
 (defn download-dir
   [bucket path output]
-  (let [file-list (list-files bucket path 1000)
+  (let [file-list (list-objects bucket path)
         files (map :key file-list)]
     (doseq [f files]
       (log/debugf "Working with: %s" f)
