@@ -50,9 +50,9 @@
   {:query "{concepts{id concepts{id label roles{id fieldType fieldLabel} dictionaryItem{name phrases{text}} helpText}}}"})
 
 (defn list-data-files
-  [user offset limit]
-  {:query (format "{listDataFiles(user: \"%s\" offset: %s limit: %s) {dataFiles{id fileName}}}" user offset limit)})
+  [offset limit]
+  {:query (format "{listDataFiles(offset: %s limit: %s) {dataFiles{id fileName}}}" offset limit)})
 
 (defn get-data-file
-  [user file record-offset record-limit]
-  {:query (format "{getDataFile(user: \"%s\" file: \"%s\" recordOffset: %s recordLimit: %s){ id records { record { value }}}" user file record-offset record-limit)})
+  [id record-offset record-limit]
+  {:query (format "{getDataFile(id: \"%s\" recordOffset: %s recordLimit: %s){ id records { record { value }}}" id record-offset record-limit)})

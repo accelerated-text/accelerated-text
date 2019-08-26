@@ -4,7 +4,7 @@
             [graphql.core :as graph]))
 
 (deftest ^:integration get-data-test
-  (queries/validate-resp (graph/nlg (queries/get-data-file "example-user" "shoes.csv" 0 20))))
+  (queries/validate-resp (graph/nlg (queries/get-data-file "example-user/shoes.csv" 0 20))))
 
 (deftest ^:integration list-data-test
-  (queries/validate-resp (graph/nlg (queries/list-data-files "example-user" 0 20))))
+  (queries/validate-resp (graph/nlg (queries/list-data-files 0 20))))
