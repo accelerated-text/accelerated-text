@@ -31,8 +31,17 @@
 (def amr-verbclass-table {:table-name "amr-verbclass"
                           :table-key :id})
 
+(defn dynamodb-endpoint []
+  (or (System/getenv "DYNAMODB_ENDPOINT") "http://dynamodb.eu-central-1.amazonaws.com/"))
+
 (defn client-opts []
-  {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://dynamodb.eu-central-1.amazonaws.com/")
-   :profile "tm"})
+  (let [access-key-id (System/getenv "AWS_ACCESS_KEY_ID")
+        secret-key (System/getenv "AWS_SECRET_ACCESS_KEY")]
+    (if (and (some? access-key-id) (some? secret-key))
+      {:endpoint (dynamodb-endpoint)
+       :access-key access-key-id
+       :secret-key secret-key}
+      {:endpoint (dynamodb-endpoint)
+       :profile "tm"})))
 
 (defn s3-endpoint [] (System/getenv "S3_ENDPOINT"))
