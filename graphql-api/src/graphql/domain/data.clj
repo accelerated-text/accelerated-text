@@ -7,9 +7,9 @@
     {:id           key
      :fileName     (.getName (File. ^String key))
      :fieldNames   field-names
-     :records      (for [[row record] (->> records (interleave (range)) (partition 2) (drop recordOffset) (take recordLimit))]
+     :records      (for [[row record] (->> (map vector (range) records) (drop recordOffset) (take recordLimit))]
                      {:id     (str key ":" row)
-                      :fields (for [[column field-name value] (partition 3 (interleave (range) field-names record))]
+                      :fields (for [[column field-name value] (map vector (range) field-names record)]
                                 {:id        (str key ":" row ":" column)
                                  :fieldName field-name
                                  :value     value})})
