@@ -1,4 +1,3 @@
-
 (ns data-access.db.dynamoops-test
   (:require [clojure.test :refer :all]
             [data-access.db.dynamo-ops :as ops]
@@ -29,5 +28,3 @@
     (is (not (empty? result)))
     (is (= "testKey" (:key result)))
     (is (:something result))))
-
-
