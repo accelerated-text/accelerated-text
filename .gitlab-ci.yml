@@ -7,6 +7,7 @@ stages:
 image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 
 test:preact_demo:
+  retry: 2
   script:
     - make test
   stage: test
