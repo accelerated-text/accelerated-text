@@ -1,25 +1,21 @@
 @import '../styles/variables'
-@import '../styles/groove-table'
+@import '../styles/sidebar-table'
 
 
 .className
-    @include groove-table( 1 / 8 )
 
-    $td-background:         rgba( 255, 255, 255, 2 / 3 )
-
-    width:                  100%
-
-    td,
-    th
-
-        padding:            $space-s
+    @include sidebar-table
 
     > thead > tr > th
 
-        font-weight:        $bold
-        text-align:         left
+        &.block
 
-    > tbody > tr > td
+            @include sidebar-table-block-cell
 
-        background-color:   $td-background
+        &.name
+
+            @include sidebar-table-name-cell( 2 )
+
+    > tbody.items > tr > td
+
         cursor:             pointer

@@ -6,9 +6,9 @@
             [nlg.api.dictionary :as dictionary-api]
             [nlg.generator.realizer :as realizer]
             [data-access.entities.dictionary :as dictionary-entity]
+            [data-access.entities.amr :as amr-entity]
             [ccg-kit.grammar :as ccg]
-            [ccg-kit.verbnet.ccg :as vn-ccg]
-            [amr.core :as amr]))
+            [ccg-kit.verbnet.ccg :as vn-ccg]))
 
 (def parse-cnt (atom 0))
 (defn reset-parse-cnt [] (reset! parse-cnt 0))
@@ -62,10 +62,6 @@
 (defn parse-rhetorical [node attrs ctx]
   (let [children (map parse-node (node :children) attrs ctx)]
     (map ops/set-complement children)))
-
-(defn parse-rst
-  [node attrs ctx]
-  ())
 
 (defn parse-cell
   [node attrs ctx]
@@ -136,7 +132,8 @@
   [node attrs ctx]
   (let [amr-attrs (assoc attrs :amr true)
         idx (swap! parse-cnt inc)
-        vc (amr/get-rule (node :conceptId))
+        vc (amr-entity/get-verbclass (node :conceptId))
+        _ (log/debugf "Got VC: %s" vc)
         reader-profile (ctx :reader-profile)
         members (-> (node :dictionaryItem)
                     :itemId
@@ -194,7 +191,6 @@
       :One-of-synonyms (parse-list {:type :Any-of} node attrs ctx)
       :Lexicon (parse-lexicon node attrs ctx)
       :Dictionary-item (parse-dictionary node attrs ctx)
-      :RST (parse-rst node attrs ctx)
       :AMR (parse-amr node attrs ctx)
       :Thematic-role (parse-themrole node attrs ctx)
       (parse-unknown node))))

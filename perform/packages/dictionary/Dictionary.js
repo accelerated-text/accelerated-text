@@ -21,9 +21,9 @@ export default composeQueries({
     <table className={ S.className }>
         <thead>
             <tr>
-                <th />
-                <th />
-                <th>name</th>
+                <th className={ S.block } />
+                <th className={ S.block } />
+                <th className={ S.name }>name</th>
                 <th>
                     <LabelWithStatus
                         error={ error }
@@ -33,7 +33,7 @@ export default composeQueries({
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody className={ S.items }>
             { dictionary && dictionary.items.map( item =>
                 <ItemRow key={ item.id } item={ item } />
             )}

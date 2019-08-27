@@ -1,0 +1,27 @@
+(ns graphql.domain.data
+  (:require [data-access.data.core :as data])
+  (:import (java.io File)))
+
+(defn get-data-file [_ {:keys [id recordOffset recordLimit] :or {recordOffset 0 recordLimit 20}} _]
+  (let [{:keys [key records field-names]} (data/read-csv-file id)]
+    {:id           key
+     :fileName     (.getName (File. ^String key))
+     :fieldNames   field-names
+     :records      (for [[row record] (->> (map vector (range) records) (drop recordOffset) (take recordLimit))]
+                     {:id     (str key ":" row)
+                      :fields (for [[column field-name value] (map vector (range) field-names record)]
+                                {:id        (str key ":" row ":" column)
+                                 :fieldName field-name
+                                 :value     value})})
+     :recordOffset recordOffset
+     :recordLimit  recordLimit
+     :recordCount  (count records)}))
+
+(defn list-data-files [_ {:keys [offset limit] :as args :or {offset 0 limit 20}} _]
+  (let [data-files (data/list-data-files "example-user")]
+    {:dataFiles  (map (fn [{id :key}]
+                        (get-data-file nil (assoc args :id id) nil))
+                      (->> data-files (drop offset) (take limit)))
+     :offset     offset
+     :limit      limit
+     :totalCount (count data-files)}))

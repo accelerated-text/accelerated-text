@@ -105,6 +105,7 @@ export default class InlineEditor extends Component {
                             className={ inputClassName }
                             onKeyDown={ this.onKeyDown }
                             ref={ this.inputRef }
+                            type="text"
                             value={ editText }
                         />,
                         <button

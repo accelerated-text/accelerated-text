@@ -85,8 +85,8 @@
         ((log/spyf "Else: %s" else-branch) ctx data)))))
 
 (def synset
-  {:provides ["provide"]
-   :consequence ["results in"]})
+  {:provides ["provides"]
+   :consequence ["results"]})
 
 (defn get-random [key col]
   (let [words (get col key [])]
@@ -110,7 +110,8 @@
   [values]
   (let [wordlists (filter (fn [v] (= :wordlist (get-in v [:attrs :type]))) values)
         other (filter (fn [v] (not (= :wordlist (get-in v [:attrs :type])))) values)
-        wordlists-grouped (group-by (fn [v] (get-in v [:attrs :class])) wordlists)]
+        wordlists-grouped (group-by (fn [v] (get-in v [:attrs :class])) wordlists)
+        _ (log/debugf "Other: %s WordlistGrouped: %s" (pr-str other) (pr-str wordlists-grouped))]
     (concat other (map (fn [[_ v]] (rand-nth v)) wordlists-grouped))))
 
 (defn replace-multi
