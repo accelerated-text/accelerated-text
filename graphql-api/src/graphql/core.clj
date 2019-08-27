@@ -3,6 +3,7 @@
             [clojure.tools.logging :as log]
             [graphql.domain.dictionary :as dictionary-domain]
             [graphql.domain.amr :as amr-domain]
+            [graphql.domain.thesaurus :as thesaurus-domain]
             [graphql.domain.data :as data-domain]
             [translate.core :as translate]
             [com.walmartlabs.lacinia.util :as util]
@@ -15,13 +16,15 @@
   (-> "schema.graphql"
       (io/resource)
       slurp
-      (parser/parse-schema {:resolvers {:Query    {:listDataFiles  :list-data-files
-                                                   :getDataFile    :get-data-file
-                                                   :dictionary     :dictionary
-                                                   :dictionaryItem :dictionary-item
-                                                   :readerFlags    :reader-flags
-                                                   :concepts       :concepts
-                                                   :concept        :concept}
+      (parser/parse-schema {:resolvers {:Query    {:listDataFiles   :list-data-files
+                                                   :getDataFile     :get-data-file
+                                                   :dictionary      :dictionary
+                                                   :dictionaryItem  :dictionary-item
+                                                   :readerFlags     :reader-flags
+                                                   :concepts        :concepts
+                                                   :concept         :concept
+                                                   :searchThesaurus :search-thesaurus
+                                                   :synonyms        :synonyms}
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
                                                    :updateDictionaryItem     :update-dictionary-item
@@ -43,6 +46,8 @@
                               :update-phrase-default-usage dictionary-domain/update-phrase-default-usage
                               :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
                               :reader-flags                dictionary-domain/reader-flags
+                              :search-thesaurus            thesaurus-domain/search-thesaurus
+                              :synonyms                    thesaurus-domain/synonyms
                               :concepts                    amr-domain/list-verbclasses
                               :concept                     amr-domain/get-verbclass
                               :list-data-files             data-domain/list-data-files

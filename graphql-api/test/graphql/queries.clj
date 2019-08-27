@@ -57,3 +57,11 @@
 (defn get-data-file
   [id record-offset record-limit]
   {:query (format "{getDataFile(id: \"%s\" recordOffset: %s recordLimit: %s) { id fileName fieldNames records { id fields { id fieldName value } } recordOffset recordLimit recordCount }}" id record-offset record-limit)})
+
+(defn search-thesaurus
+  [query part-of-speech]
+  {:query (format "{searchThesaurus(query: \"%s\" partOfSpeech: %s){ words{ id partOfSpeech text } offset limit totalCount }}" query part-of-speech)})
+
+(defn synonyms
+  [word-id]
+  {:query (format "{synonyms(wordId: \"%s\"){ rootWord { id partOfSpeech text } synonyms{ id partOfSpeech text }}}" word-id)})

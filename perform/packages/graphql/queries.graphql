@@ -2,8 +2,8 @@
 
 ### Thesaurus ------------------------------------------------------------------
 
-query searchThesaurus( $query: String ) {
-  searchThesaurus( query: $query ) @client {
+query searchThesaurus( $query: String! ) {
+  searchThesaurus( query: $query ) {
     offset
     totalCount
     words {
@@ -13,7 +13,7 @@ query searchThesaurus( $query: String ) {
 }
 
 query synonyms( $wordId: ID! ) {
-  synonyms( wordId: $wordId ) @client {
+  synonyms( wordId: $wordId ) {
     synonyms {
       ...wordFields
     }
