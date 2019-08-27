@@ -1,10 +1,13 @@
 (ns graphql.queries
-  (:require [clojure.test :refer :all]))
+  (:require [clojure.test :refer :all]
+            [clojure.tools.logging :as log]))
 
 (defn validate-resp
   [resp]
-  (is (and (nil? (get resp :errors))
-           (nil? (get resp "errors"))))
+  (let [errors (or (get resp :errors) (get resp "errors"))]
+    (when (some? errors)
+      (log/error errors))
+    (is (nil? errors)))
   resp)
 
 (defn create-dict-item
