@@ -33,7 +33,7 @@
   ([word]
    (map index-word->map (-> dictionary (.lookupAllIndexWords word) (.getIndexWordCollection))))
   ([word pos]
-   (-> dictionary (.lookupIndexWord (get kw-pos->wn-pos pos) word) (index-word->map) (vector))))
+   (some-> dictionary (.lookupIndexWord (get kw-pos->wn-pos pos) word) (index-word->map) (vector))))
 
 (defn hyp-list-op [^IndexWord iw]
   (let [hypernyms (-> iw .getSenses (.get 0) (PointerUtils/getDirectHypernyms))]
