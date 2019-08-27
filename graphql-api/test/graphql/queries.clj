@@ -3,7 +3,8 @@
 
 (defn validate-resp
   [resp]
-  (is (nil? (get resp "errors")))
+  (is (and (nil? (get resp :errors))
+           (nil? (get resp "errors"))))
   resp)
 
 (defn create-dict-item
