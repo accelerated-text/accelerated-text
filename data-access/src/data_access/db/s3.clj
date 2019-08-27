@@ -12,32 +12,32 @@
     (cond-> (AmazonS3Client. (ClientConfiguration.))
             (some? endpoint) (.setEndpoint endpoint))))
 
-(defn grant->map [^Grant g]
+(defn- grant->map [^Grant g]
   {:permission (str (.getPermission g))
    :grantee    (.getIdentifier (.getGrantee g))})
-
-(defn summary->map [^S3ObjectSummary s]
-  {:bucket-name   (.getBucketName s)
-   :etag          (.getETag s)
-   :key           (.getKey s)
-   :last-modified (inst-ms (.getLastModified s))
-   :size          (.getSize s)})
 
 (defn get-acl [bucket path]
   (map grant->map (-> (build-client)
                       (.getObjectAcl bucket path)
                       (.getGrantsAsList))))
 
-(defn read-file [bucket path]
-  (-> (build-client)
-      (.getObject bucket path)
-      (.getObjectContent)
-      (slurp)))
+(defn- summary->map [^S3ObjectSummary s]
+  {:bucket-name   (.getBucketName s)
+   :etag          (.getETag s)
+   :key           (.getKey s)
+   :last-modified (inst-ms (.getLastModified s))
+   :size          (.getSize s)})
 
 (defn list-objects [bucket path]
   (map summary->map (-> (build-client)
                         (.listObjects bucket path)
                         (.getObjectSummaries))))
+
+(defn read-file [bucket path]
+  (-> (build-client)
+      (.getObject bucket path)
+      (.getObjectContent)
+      (slurp)))
 
 (defn download-dir [bucket path output-dir]
   (doseq [{file :key} (list-objects bucket path)]
