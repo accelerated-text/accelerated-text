@@ -39,8 +39,8 @@
   [query-params]
   (let [limit (get query-params :limit 20)
         user (get query-params :user "default")
-        files (s3/list-files config/data-bucket user limit)
-        data (map file->data files)]
+        files (s3/list-objects config/data-bucket user)
+        data (map file->data (take limit files))]
     {:body (map data->listing data)
      :status 200}))
 

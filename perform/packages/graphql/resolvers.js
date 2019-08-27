@@ -56,26 +56,5 @@ export default {
                 items:      items.slice( 0, 20 ),
             };
         },
-
-        searchThesaurus: ( _, { query }) => {
-            const re =      new RegExp( `^${ query }`, 'i' );
-            const words = (
-                Object.keys( SYNONYMS )
-                    .filter( re.exec.bind( re ))
-                    .map( Word )
-            );
-            return {
-                __typename: 'ThesaurusResults',
-                offset:     0,
-                totalCount: words.length,
-                words,
-            };
-        },
-
-        synonyms: ( _, { wordId }) => ({
-            __typename:     'Synonyms',
-            rootWord:       Word( wordId ),
-            synonyms:       ( SYNONYMS[wordId] || []).map( Word ),
-        }),
     },
 };

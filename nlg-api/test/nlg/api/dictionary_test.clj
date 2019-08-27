@@ -14,4 +14,4 @@
 
 (deftest ^:integration query-database
   (let [result (search "see" {:junior true :senior true})]
-    (is (= #{"see" "contemplate" "check out" "look" "watch"} (set result)))))
+    (is (= #{"see" "watch"} (set result)))))

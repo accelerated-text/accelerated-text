@@ -4,6 +4,8 @@
             [graphql.domain.dictionary :as dictionary-domain]
             [graphql.domain.amr :as amr-domain]
             [graphql.domain.document-plans :as document-plan-domain]
+            [graphql.domain.thesaurus :as thesaurus-domain]
+            [graphql.domain.data :as data-domain]
             [translate.core :as translate]
             [com.walmartlabs.lacinia.util :as util]
             [com.walmartlabs.lacinia.schema :as schema]
@@ -15,13 +17,17 @@
   (-> "schema.graphql"
       (io/resource)
       slurp
-      (parser/parse-schema {:resolvers {:Query    {:dictionary     :dictionary
-                                                   :documentPlan   :document-plan
-                                                   :DocumentPlans  :document-plans
-                                                   :dictionaryItem :dictionary-item
-                                                   :readerFlags    :reader-flags
-                                                   :concepts       :concepts
-                                                   :concept        :concept}
+      (parser/parse-schema {:resolvers {:Query    {:listDataFiles   :list-data-files
+                                                   :documentPlan    :document-plan
+                                                   :documentPlans   :document-plans
+                                                   :getDataFile     :get-data-file
+                                                   :dictionary      :dictionary
+                                                   :dictionaryItem  :dictionary-item
+                                                   :readerFlags     :reader-flags
+                                                   :concepts        :concepts
+                                                   :concept         :concept
+                                                   :searchThesaurus :search-thesaurus
+                                                   :synonyms        :synonyms}
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
                                                    :updateDictionaryItem     :update-dictionary-item
@@ -45,8 +51,12 @@
                               :reader-flags                dictionary-domain/reader-flags
                               :document-plan               document-plan-domain/get-workspace
                               :document-plans              document-plan-domain/list-workspaces
+                              :search-thesaurus            thesaurus-domain/search-thesaurus
+                              :synonyms                    thesaurus-domain/synonyms
                               :concepts                    amr-domain/list-verbclasses
-                              :concept                     amr-domain/get-verbclass})
+                              :concept                     amr-domain/get-verbclass
+                              :list-data-files             data-domain/list-data-files
+                              :get-data-file               data-domain/get-data-file})
       schema/compile))
 
 (defn nlg [{:keys [query variables context] :as request}]

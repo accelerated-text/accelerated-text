@@ -27,7 +27,8 @@ deploy-custom-runtime-lambda: build-lambda-zip
 	rm function.zip
 
 deploy-lambda-via-container:
-	docker build --target deployer \
+	cd ../ && \
+	docker build -f graphql-api/Dockerfile --target deployer \
 	--build-arg AWS_DEFAULT_REGION=${NLG_AWS_DEFAULT_REGION} \
 	--build-arg AWS_ACCESS_KEY_ID=${NLG_AWS_ACCESS_KEY_ID} \
 	--build-arg AWS_SECRET_ACCESS_KEY=${NLG_AWS_SECRET_ACCESS_KEY} \
