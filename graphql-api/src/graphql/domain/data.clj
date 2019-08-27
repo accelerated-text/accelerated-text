@@ -19,7 +19,8 @@
 
 (defn list-data-files [_ {:keys [offset limit] :as args :or {offset 0 limit 20}} _]
   (let [data-files (data/list-data-files "example-user")]
-    {:dataFiles  (map #(get-data-file _ (-> args (select-keys [:recordOffset :recordLimit]) (assoc :id (get % :key))) _)
+    {:dataFiles  (map (fn [{id :key}]
+                        (get-data-file nil (assoc args :id id) nil))
                       (->> data-files (drop offset) (take limit)))
      :offset     offset
      :limit      limit
