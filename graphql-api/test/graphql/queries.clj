@@ -3,7 +3,8 @@
 
 (defn validate-resp
   [resp]
-  (is (nil? (get resp "errors")))
+  (let [errors (or (get resp :errors) (get resp "errors"))]
+    (is (nil? errors)))
   resp)
 
 (defn create-dict-item
@@ -35,7 +36,7 @@
 
 (defn update-phrase-default-usage
   [id default-usage]
-  {:query "mutation UpdatePhrase($id: ID!, $text: String!){\n  updatePhrase(id: $id, text: $text){text defaultUsage}\n}mutation UpdatePhraseDefaultUsage($id: ID!, $defaultUsage: DefaultUsage!){\n  updatePhraseDefaultUsage(id: $id, defaultUsage: $defaultUsage){text defaultUsage}\n}"
+  {:query "mutation UpdatePhraseDefaultUsage($id: ID!, $defaultUsage: DefaultUsage!){\n  updatePhraseDefaultUsage(id: $id, defaultUsage: $defaultUsage){text defaultUsage}\n}"
    :variables {:id id
                :defaultUsage default-usage}})
 
@@ -48,3 +49,11 @@
 (defn list-verbclasses
   []
   {:query "{concepts{id concepts{id label roles{id fieldType fieldLabel} dictionaryItem{name phrases{text}} helpText}}}"})
+
+(defn list-data-files
+  [offset limit record-offset record-limit]
+  {:query (format "{listDataFiles(offset: %s limit: %s recordOffset: %s recordLimit: %s) { offset limit totalCount dataFiles { id fileName fieldNames }}}" offset limit record-offset record-limit)})
+
+(defn get-data-file
+  [id record-offset record-limit]
+  {:query (format "{getDataFile(id: \"%s\" recordOffset: %s recordLimit: %s) { id fileName fieldNames records { id fields { id fieldName value } } recordOffset recordLimit recordCount }}" id record-offset record-limit)})

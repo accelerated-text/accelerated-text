@@ -58,6 +58,36 @@ enum PartOfSpeech {
     WRB     # wh-adverb  where, when
 }
 
+### Data -----------------------------------------------------------------------
+
+type Field {
+    id: String!
+    fieldName: String!
+    value: String!
+}
+
+type Record {
+    id: String!
+    fields: [ Field ]
+}
+
+type DataFile {
+    id: String!
+    fileName: String!
+    fieldNames: [ String ]
+    records: [ Record ]
+    recordOffset: Int!
+    recordLimit: Int!
+    recordCount: Int!
+}
+
+type DataFiles {
+    dataFiles: [ DataFile ]
+    offset: Int!
+    limit: Int!
+    totalCount: Int!
+}
+
 ### Thesaurus ------------------------------------------------------------------
 
 type ThesaurusResults {
@@ -102,8 +132,8 @@ type Organization {
 ### Reader ---------------------------------------------------------------------
 
 type ReaderFlags {
-     id:                ID!
-     flags:             [ ReaderFlag! ]!
+    id:                ID!
+    flags:             [ ReaderFlag! ]!
 }
 
 type ReaderFlag {
@@ -145,44 +175,44 @@ type ReaderFlagUsage {
 ### AMR ------------------------------------------------------------------------
 
 type ThematicRole {
-     id:                ID!
-     fieldType:         BlocklyFieldType!
-     fieldLabel:        String!
+    id:                ID!
+    fieldType:         BlocklyFieldType!
+    fieldLabel:        String!
 }
 
 type Concept {
-     id:                ID!
-     label:             String!
-     dictionaryItem:    DictionaryItem!
-     roles:             [ ThematicRole! ]
-     helpText:          String!
+    id:                ID!
+    label:             String!
+    dictionaryItem:    DictionaryItem!
+    roles:             [ ThematicRole! ]
+    helpText:          String!
 }
 
 type Concepts {
-     id:                ID!
-     concepts:          [ Concept! ]
+    id:                ID!
+    concepts:          [ Concept! ]
 }
 
 
 ### DocumentPlan --------------------------------------------------------------
 
 type DocumentPlan {
-     id:                ID!
-     uid:               ID!
-     name:              String!
-     contextId:         String!
-     blocklyXml:        String!
-     documentPlan:      String!
-     dataId:            String
-     dataSampleId:      String
-     dataSampleRow:     Int
+    id:                ID!
+    uid:               ID!
+    name:              String!
+    contextId:         String!
+    blocklyXml:        String!
+    documentPlan:      String!
+    dataId:            String
+    dataSampleId:      String
+    dataSampleRow:     Int
 }
 
 type DocumentPlanResults {
-     items:           [ DocumentPlan! ]
-     offset:             Int!
-     limit:              Int
-     totalCount:         Int!
+    items:           [ DocumentPlan! ]
+    offset:             Int!
+    limit:              Int
+    totalCount:         Int!
 }
 
 
@@ -200,6 +230,21 @@ type QuickSearchResults {
 ### Queries --------------------------------------------------------------------
 
 type Query {
+
+    ### Data
+
+    getDataFile(
+        id: String!
+        recordOffset: Int
+        recordLimit: Int
+    ): DataFile!
+
+    listDataFiles(
+        offset: Int
+        limit: Int
+        recordOffset: Int
+        recordLimit: Int
+    ): DataFiles!
 
     ### Thesaurus
 

@@ -3,10 +3,9 @@
             [data-access.db.s3 :as s3]
             [data-access.db.config :as config]))
 
-
 (deftest ^:integration reading-from-s3
   (testing "List files in bucket"
-    (let [result (s3/list-files config/data-bucket "example-user" 20)]
+    (let [result (s3/list-objects config/data-bucket "example-user")]
       (is (> (count result) 0))))
   (testing "Read data-example.csv"
     (let [result (s3/read-file config/data-bucket  "example-user/data-example.csv")]

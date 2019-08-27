@@ -3,7 +3,7 @@
             [nlg.generator.planner :refer :all]
             [nlg.generator.parser :as parser]))
 
-(deftest ^:integration test-compile-single-node-plan
+(deftest ^:integration ^:ignore test-compile-single-node-plan
   (testing "Create a single subject plan"
     (let [document-plan {:type "Document-plan"
                          :segments [{:type "Segment"
