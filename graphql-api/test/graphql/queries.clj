@@ -51,9 +51,9 @@
   {:query "{concepts{id concepts{id label roles{id fieldType fieldLabel} dictionaryItem{name phrases{text}} helpText}}}"})
 
 (defn list-data-files
-  [offset limit]
-  {:query (format "{listDataFiles(offset: %s limit: %s) {dataFiles{id fileName}}}" offset limit)})
+  [offset limit record-offset record-limit]
+  {:query (format "{listDataFiles(offset: %s limit: %s recordOffset: %s recordLimit: %s) { offset limit totalCount dataFiles { id fileName fieldNames }}}" offset limit record-offset record-limit)})
 
 (defn get-data-file
   [id record-offset record-limit]
-  {:query (format "{getDataFile(id: \"%s\" recordOffset: %s recordLimit: %s){ id records { fields { value }}}" id record-offset record-limit)})
+  {:query (format "{getDataFile(id: \"%s\" recordOffset: %s recordLimit: %s) { id fileName fieldNames records { id fields { id fieldName value } } recordOffset recordLimit recordCount }}" id record-offset record-limit)})
