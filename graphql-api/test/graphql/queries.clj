@@ -39,7 +39,7 @@
 
 (defn update-phrase-default-usage
   [id default-usage]
-  {:query "mutation UpdatePhrase($id: ID!, $text: String!){\n  updatePhrase(id: $id, text: $text){text defaultUsage}\n}mutation UpdatePhraseDefaultUsage($id: ID!, $defaultUsage: DefaultUsage!){\n  updatePhraseDefaultUsage(id: $id, defaultUsage: $defaultUsage){text defaultUsage}\n}"
+  {:query "mutation UpdatePhraseDefaultUsage($id: ID!, $defaultUsage: DefaultUsage!){\n  updatePhraseDefaultUsage(id: $id, defaultUsage: $defaultUsage){text defaultUsage}\n}"
    :variables {:id id
                :defaultUsage default-usage}})
 
