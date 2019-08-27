@@ -27,7 +27,7 @@
    :pos (-> iw .getPOS wn-pos->kw-pos)
    :senses (map sense->map (.getSenses iw))})
 
-(defn synonyms [word] (->> word :senses (mapcat :words) (set)))
+(defn synonyms [word] (->> word :senses (mapcat :words) (distinct)))
 
 (defn lookup-words
   ([word]
