@@ -20,8 +20,7 @@
   {:bucket-name   (.getBucketName s)
    :etag          (.getETag s)
    :key           (.getKey s)
-   :file-name     (.getName (File. (.getKey s)))
-   :last-modified (str (.toInstant (.getLastModified s)))
+   :last-modified (inst-ms (.getLastModified s))
    :size          (.getSize s)})
 
 (defn get-acl [bucket path]
