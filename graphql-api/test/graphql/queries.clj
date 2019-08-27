@@ -1,12 +1,9 @@
 (ns graphql.queries
-  (:require [clojure.test :refer :all]
-            [clojure.tools.logging :as log]))
+  (:require [clojure.test :refer :all]))
 
 (defn validate-resp
   [resp]
   (let [errors (or (get resp :errors) (get resp "errors"))]
-    (when (some? errors)
-      (log/error errors))
     (is (nil? errors)))
   resp)
 
