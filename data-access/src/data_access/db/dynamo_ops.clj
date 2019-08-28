@@ -23,7 +23,7 @@
 
 (defprotocol DBAccess
   (read-item [this key])
-  (write-item [this key data])
+  (write-item [this key data update-count?])
   (update-item [this key data])
   (delete-item [this key])
   (list-items [this limit])
@@ -33,9 +33,11 @@
 (defn read! [this key] (read-item this key))
 (defn write!
   ([this data]
-   (write-item this (utils/gen-uuid) data))
+   (write-item this (utils/gen-uuid) data false))
   ([this key data]
-   (write-item this key data)))
+   (write-item this key data false))
+  ([this key data update-count?]
+   (write-item this key data update-count?)))
 (defn update! [this key data] (update-item this key data))
 (defn delete! [this key] (delete-item this key))
 (defn list! [this limit] (list-items this limit))
@@ -61,21 +63,20 @@
       DBAccess
       (read-item [this key]
         (far/get-item (config/client-opts) table-name {table-key key}))
-      (write-item [this key data]
+      (write-item [this key data update-count?]
         (log/debugf "Writing\n key: '%s' \n content: '%s'" key data)
-        (let [body (-> data
-                       (assoc table-key key)
-                       (assoc :createdAt (utils/ts-now))
-                       (assoc :updatedAt (utils/ts-now)))
+        (let [body (cond-> (assoc data table-key key
+                                       :createdAt (utils/ts-now)
+                                       :updatedAt (utils/ts-now))
+                           update-count? (assoc :updateCount 0))
               normalized (doall (normalize body))]
           (far/put-item (config/client-opts) table-name normalized)
           body))
       (update-item [this key data]
         (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
         (let [original (far/get-item (config/client-opts) table-name {table-key key})
-              body (-> (merge original data)
-                       (assoc :updatedAt (utils/ts-now))
-                       (assoc table-key key))]
+              body (cond-> (merge original data {:updatedAt (utils/ts-now) table-key key})
+                           (get original :updateCount) (update :updateCount inc))]
           (log/debugf "Saving updated content: %s" (pr-str body))
           (far/put-item (config/client-opts) table-name body)
           (far/get-item (config/client-opts) table-name {table-key key})))
