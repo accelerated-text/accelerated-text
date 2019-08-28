@@ -1,24 +1,19 @@
-(ns data-access.entities.document-plans
+(ns data-access.entities.document-plan
   (:require [data-access.db.config :as config]
-            [taoensso.faraday :as far]
-            [data-access.utils :as utils]))
+            [data-access.db.dynamo-ops :as ops]
+            [taoensso.faraday :as far]))
 
-(defn get-workspace [id]
-  (far/get-item (config/client-opts) config/blockly-table {:id id}))
-
-(defn delete-workspace [id]
-  (far/delete-item (config/client-opts) config/blockly-table {:id id}))
-
-(defn write-workspace [ws]
-  (far/put-item (config/client-opts) config/blockly-table ws))
-
-(defn list-workspaces []
+(defn list []
   (far/scan (config/client-opts) config/blockly-table))
 
-(defn add-workspace [ws]
-  (write-workspace (assoc ws :createdAt (utils/ts-now))))
+(defn get [document-plan-id]
+  (ops/read! (ops/db-access config/blockly-table) document-plan-id))
 
-(defn update-workspace [ws]
-  (->> (assoc ws :updatedAt (utils/ts-now))
-       (merge (get-workspace (:id ws)))
-       (write-workspace)))
+(defn delete [document-plan-id]
+  (ops/delete! (ops/db-access config/blockly-table) document-plan-id))
+
+(defn add [document-plan-id document-plan]
+  (ops/write! (ops/db-access config/blockly-table) document-plan-id document-plan true))
+
+(defn update [document-plan-id document-plan]
+  (ops/update! (ops/db-access config/blockly-table) document-plan-id document-plan))
