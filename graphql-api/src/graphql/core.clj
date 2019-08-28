@@ -3,7 +3,7 @@
             [clojure.tools.logging :as log]
             [graphql.domain.dictionary :as dictionary-domain]
             [graphql.domain.amr :as amr-domain]
-            [graphql.domain.document-plans :as document-plan-domain]
+            [graphql.domain.document-plan :as document-plan-domain]
             [graphql.domain.thesaurus :as thesaurus-domain]
             [graphql.domain.data :as data-domain]
             [translate.core :as translate]
@@ -11,7 +11,6 @@
             [com.walmartlabs.lacinia.schema :as schema]
             [com.walmartlabs.lacinia.parser.schema :as parser]
             [com.walmartlabs.lacinia :refer [execute]]))
-
 
 (def nlg-schema
   (-> "schema.graphql"
@@ -31,6 +30,9 @@
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
                                                    :updateDictionaryItem     :update-dictionary-item
+                                                   :createDocumentPlan       :create-document-plan
+                                                   :deleteDocumentPlan       :delete-document-plan
+                                                   :updateDocumentPlan       :update-document-plan
                                                    :createPhrase             :create-phrase
                                                    :updatePhrase             :update-phrase
                                                    :deletePhrase             :delete-phrase
@@ -49,8 +51,11 @@
                               :update-phrase-default-usage dictionary-domain/update-phrase-default-usage
                               :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
                               :reader-flags                dictionary-domain/reader-flags
-                              :document-plan               document-plan-domain/get-workspace
-                              :document-plans              document-plan-domain/list-workspaces
+                              :document-plan               document-plan-domain/get-document-plan
+                              :document-plans              document-plan-domain/list-document-plans
+                              :create-document-plan        document-plan-domain/add-document-plan
+                              :delete-document-plan        document-plan-domain/delete-document-plan
+                              :update-document-plan        document-plan-domain/update-document-plan
                               :search-thesaurus            thesaurus-domain/search-thesaurus
                               :synonyms                    thesaurus-domain/synonyms
                               :concepts                    amr-domain/list-verbclasses
