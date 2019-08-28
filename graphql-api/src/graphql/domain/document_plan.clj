@@ -1,25 +1,21 @@
-(ns graphql.domain.document-plans
-  (:require [data-access.entities.document-plans :as document-plans]))
+(ns graphql.domain.document-plan
+  (:require [data-access.entities.document-plan :as document-plan]))
 
-(defn get-workspace [_ {:keys [id]} _]
-  (document-plans/get-workspace id))
+(defn get-document-plan [_ {:keys [id]} _]
+  (document-plan/get id))
 
-(defn delete-workspace [_ {:keys [id]} _]
-  (document-plans/delete-workspace id))
+(defn delete-document-plan [_ {:keys [id]} _]
+  (document-plan/delete id))
 
-(defn write-workspace [_ workspace _]
-  (document-plans/write-workspace workspace))
-
-(defn list-workspaces [_ {:keys [limit offset]} _]
-  (let [workspaces (document-plans/list-workspaces)]
-    {:items      workspaces
+(defn list-document-plans [_ {:keys [offset limit] :or {offset 0 limit 20}} _]
+  (let [items (document-plan/list)]
+    {:items      (->> items (drop offset) (take limit))
      :limit      limit
-     :offset     0
-     :totalCount (count workspaces)}))
+     :offset     offset
+     :totalCount (count items)}))
 
-(defn add-workspace [_ workspace _]
-  (document-plans/add-workspace workspace))
+(defn add-document-plan [_ {:keys [id] :as args} _]
+  (document-plan/add id args))
 
-(defn update-workspace [_ workspace _]
-  (document-plans/update-workspace workspace))
-
+(defn update-document-plan [_ {:keys [id] :as args} _]
+  (document-plan/update id args))
