@@ -5,15 +5,12 @@ import { Loading }          from '../ui-messages/';
 import { QA }               from '../tests/constants';
 import SelectDataSample     from '../document-plans/SelectDataSample';
 import UploadDataFile       from '../upload-data-file/UploadDataFile';
-import { useStores }        from '../vesa/';
 
 import Download             from './Download';
 import S                    from './Files.sass';
 
 
-export default useStores([
-    'dataSamples',
-])( class DataManagerFiles extends Component {
+export default class DataManagerFiles extends Component {
 
     state = {
         uploadOpen:         false,
@@ -31,10 +28,8 @@ export default useStores([
 
     render({
         className,
-        dataSamples: {
-            getListError,
-            getListLoading,
-        },
+        error,
+        loading,
         plan,
     }) {
         const showUpload = (
@@ -45,7 +40,7 @@ export default useStores([
         return (
             <div className={ classnames( S.className, className ) }>
                 <div className={ S.main }>{
-                    getListLoading
+                    loading
                         ? <Loading message="Loading file list" />
                     : showUpload
                         ? <UploadDataFile
@@ -65,7 +60,7 @@ export default useStores([
                         ]
                 }</div>
                 <div className={ S.right }>{
-                    getListLoading
+                    loading
                         ? null
                     : showUpload
                         ? <button
@@ -82,4 +77,4 @@ export default useStores([
             </div>
         );
     }
-});
+}

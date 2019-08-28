@@ -1,39 +1,43 @@
 import { h, Component }     from 'preact';
 
-import {
-    findFileByPlan,
-    getStatus,
-}   from '../data-samples/functions';
-import { useStores }        from '../vesa/';
+import { composeQueries }   from '../graphql/';
+import { listDataFiles }    from '../graphql/queries.graphql';
 
 import Cells                from './Cells';
 import Files                from './Files';
 import S                    from './DataManager.sass';
 
 
-export default useStores([
-    'dataSamples',
-])( class DataManager extends Component {
+export default composeQueries({
+    listDataFiles,
+})( class DataManager extends Component {
 
     onChangeRow = dataSampleRow =>
-        this.props.E.documentPlans.onUpdate({
+        this.context.E.documentPlans.onUpdate({
             ...this.props.plan,
             dataSampleRow,
         });
 
-    render({ dataSamples, plan }) {
-
-        const fileItem =        findFileByPlan( dataSamples, plan );
-        const fileStatus =      fileItem && getStatus( dataSamples, fileItem );
-
+    render({
+        listDataFiles: {
+            error,
+            listDataFiles,
+            loading,
+        },
+        plan,
+    }) {
         return (
             <div className={ S.className }>
-                <Files className={ S.files } plan={ plan } />
-                { fileItem && fileItem.fieldNames &&
+                <Files
+                    className={ S.files }
+                    error={ error }
+                    loading={ loading }
+                    plan={ plan }
+                />
+                { plan && plan.dataSampleId &&
                     <Cells
                         className={ S.cells }
-                        fileItem={ fileItem }
-                        fileStatus={ fileStatus }
+                        id={ plan.dataSampleId }
                         onChangeRow={ this.onChangeRow }
                         selectedRow={ plan.dataSampleRow }
                     />
