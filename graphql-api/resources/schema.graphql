@@ -234,16 +234,16 @@ type Query {
     ### Data
 
     getDataFile(
-        id: String!
-        recordOffset: Int
-        recordLimit: Int
+        id:                 ID!
+        recordOffset:       Int
+        recordLimit:        Int
     ): DataFile!
 
     listDataFiles(
-        offset: Int
-        limit: Int
-        recordOffset: Int
-        recordLimit: Int
+        offset:             Int
+        limit:              Int
+        recordOffset:       Int
+        recordLimit:        Int
     ): DataFiles!
 
     ### Thesaurus
