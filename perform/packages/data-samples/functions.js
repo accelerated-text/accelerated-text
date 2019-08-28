@@ -24,9 +24,15 @@ export const statusTemplate = {
     getDataLoading: false,
 };
 
-export const getPlanDataRow = ( fileItem, plan ) => (
-    fileItem
-    && fileItem.data
+export const dataFieldsToObj = ( record = []) =>
+    Object.fromEntries(
+        record.map( field => [ field.fieldName, field.value ])
+    );
+
+export const getPlanDataRow = ( dataFile, plan ) => (
+    dataFile
+    && dataFile.records
     && plan
-    && fileItem.data[ plan.dataSampleRow || 0 ]
+    && plan.dataSampleId
+    && dataFieldsToObj( dataFile.records[plan.dataSampleRow].fields )
 );

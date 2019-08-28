@@ -5,6 +5,7 @@ import { pathOr }           from 'ramda';
 import CellBlock            from '../nlg-blocks/Cell';
 import CellModifier         from '../nlg-blocks/Cell-modifier';
 import { composeQueries }   from '../graphql/';
+import { dataFieldsToObj }  from '../data-samples/functions';
 import DragInBlock          from '../drag-in-blocks/DragInBlock';
 import {
     Error,
@@ -31,11 +32,9 @@ export default composeQueries({
     selectedRow,
 }) => {
 
-    const valueDict =
-        Object.fromEntries(
-            pathOr([], [ 'records', selectedRow, 'fields' ], getDataFile )
-                .map( field => [ field.fieldName, field.value ])
-        );
+    const valueDict = dataFieldsToObj(
+        pathOr([], [ 'records', selectedRow, 'fields' ], getDataFile ),
+    );
 
     return (
         <table className={ classnames( S.className, className, QA.DATA_MANAGER_CELL_TABLE ) }>

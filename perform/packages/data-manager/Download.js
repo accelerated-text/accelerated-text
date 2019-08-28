@@ -1,29 +1,25 @@
-import { h }                from 'preact';
+import { h, Component }     from 'preact';
 
+import DocumentPlansContext from '../document-plans/Context';
 import getFileUrl           from '../upload-data-file/get-file-url';
-import { findFileByPlan }   from '../data-samples/functions';
 import { useStores }        from '../vesa/';
 
 
 export default useStores([
-    'dataSamples',
     'user',
-])(({
-    className,
-    dataSamples,
-    plan,
-    user,
-}) => {
-    const file =            findFileByPlan( dataSamples, plan );
-    if( !file ) {
-        return null;
-    } else {
+])( class DataManagerDownload extends Component {
+
+    static contextType =    DocumentPlansContext;
+
+    render({ className, user }, _, { openedDataFile }) {
         return (
-            <a
-                children="Download file"
-                className={ className }
-                href={ getFileUrl( user, file.fileName ) }
-            />
+            ( ! openedDataFile )
+                ? null
+                : <a
+                    children="Download file"
+                    className={ className }
+                    href={ getFileUrl( user, openedDataFile.fileName ) }
+                />
         );
     }
 });

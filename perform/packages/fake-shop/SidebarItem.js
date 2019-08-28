@@ -18,7 +18,7 @@ import Publisher            from './Publisher';
 export default useStores([
     'variantsApi',
 ])(({
-    fileItem,
+    dataFile,
     plan,
     variantsApi: { error, loading, result },
 }) => {
@@ -26,7 +26,7 @@ export default useStores([
         result,
         plan && plan.dataSampleRow,
     );
-    const record =          getPlanDataRow( fileItem, plan );
+    const record =          getPlanDataRow( dataFile, plan );
 
     const isValidRecord = (
         record
