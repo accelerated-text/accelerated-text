@@ -200,19 +200,24 @@ type DocumentPlan {
     id:                ID!
     uid:               ID!
     name:              String!
-    contextId:         String!
+    contextId:         String
     blocklyXml:        String!
     documentPlan:      String!
     dataId:            String
     dataSampleId:      String
     dataSampleRow:     Int
+    createdAt:         Int!
+    updatedAt:         Int!
+    updateCount:       Int!
+    useCcg:            Boolean
+    blocks:            String
 }
 
 type DocumentPlanResults {
-    items:           [ DocumentPlan! ]
-    offset:             Int!
-    limit:              Int
-    totalCount:         Int!
+    items:             [ DocumentPlan! ]
+    offset:            Int!
+    limit:             Int
+    totalCount:        Int!
 }
 
 
@@ -315,6 +320,38 @@ type Mutation {
     deleteDictionaryItem(
         id:                 ID!
     ): Boolean!
+
+    createDocumentPlan(
+        id:                 ID!
+        uid:                ID!
+        name:               String!
+        contextId:          String
+        blocklyXml:         String!
+        documentPlan:       String!
+        dataId:             String
+        dataSampleId:       String
+        dataSampleRow:      Int
+        useCcg:             Boolean
+        blocks:             String
+    ): DocumentPlan!
+    
+    deleteDocumentPlan(
+        id:                 ID!
+    ): Boolean!
+
+    updateDocumentPlan(
+        id:                 ID!
+        uid:                ID
+        name:               String
+        contextId:          String
+        blocklyXml:         String
+        documentPlan:       String
+        dataId:             String
+        dataSampleId:       String
+        dataSampleRow:      Int
+        useCcg:             Boolean
+        blocks:             String
+    ): DocumentPlan!
 
     createPhrase(
         dictionaryItemId:   ID!
