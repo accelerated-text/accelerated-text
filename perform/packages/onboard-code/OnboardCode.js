@@ -1,9 +1,9 @@
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
+import planTemplate         from '../document-plans/plan-template';
 import { QA }               from '../tests/constants';
 
-import EXAMPLE_XML          from './example.xml';
 import S                    from './OnboardCode.sass';
 
 
@@ -14,7 +14,7 @@ export default class OnboardCode extends Component {
     };
 
     onClick = () => {
-        this.props.onCreateXml( EXAMPLE_XML );
+        this.props.onCreateXml( planTemplate.blocklyXml );
     };
 
     render = () =>
