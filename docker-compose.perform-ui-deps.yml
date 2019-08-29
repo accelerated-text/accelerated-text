@@ -30,3 +30,11 @@ services:
       DYNAMODB_ENDPOINT: http://dynamodb:8000
       AWS_ACCESS_KEY_ID: $NLG_AWS_ACCESS_KEY_ID
       AWS_SECRET_ACCESS_KEY: $NLG_AWS_SECRET_ACCESS_KEY
+  fake-shop:
+    build:
+      context: fake-shop-lambdas
+      dockerfile: Dockerfile
+    ports: ["8090:8090"]
+    environment:
+      API_URL: http://localhost:8090/mock-shop
+      PORT: 8090
