@@ -130,13 +130,16 @@
   (into [] (mapcat (fn [[k v]] [k (get v :data-type)])
                    (:prim-keys (far/describe-table (config/client-opts) name)))))
 
-(defn fetch-dynamodb-tables-to-local-db [local-endpoint-url]
-  (doseq [table (far/list-tables (config/client-opts))]
-    (when-not (contains? (set (far/list-tables {:endpoint local-endpoint-url})) table)
-      (log/debugf "Creating local DynamoDB table `%s`" (name table))
-      (far/create-table {:endpoint local-endpoint-url} table (get-table-keys table) {:block? true}))
-    (log/debugf "Fetching DynamoDB table `%s` from %s" (name table) (:endpoint (config/client-opts)))
-    (doseq [item-batch (partition-all 25 (far/scan (config/client-opts) table {:limit 100}))]
-      (if (> (count item-batch) 1)
-        (far/batch-write-item {:endpoint local-endpoint-url} {table {:put (map normalize item-batch)}})
-        (far/put-item {:endpoint local-endpoint-url} table (normalize (first item-batch)))))))
+(defn fetch-dynamodb-tables-to-local-db
+  ([local-endpoint-url]
+   (fetch-dynamodb-tables-to-local-db 100))
+  ([local-endpoint-url limit]
+   (doseq [table (far/list-tables (config/client-opts))]
+     (when-not (contains? (set (far/list-tables {:endpoint local-endpoint-url})) table)
+       (log/debugf "Creating local DynamoDB table `%s`" (name table))
+       (far/create-table {:endpoint local-endpoint-url} table (get-table-keys table) {:block? true}))
+     (log/debugf "Fetching DynamoDB table `%s` from %s" (name table) (:endpoint (config/client-opts)))
+     (doseq [item-batch (partition-all 25 (far/scan (config/client-opts) table {:limit limit}))]
+       (if (> (count item-batch) 1)
+         (far/batch-write-item {:endpoint local-endpoint-url} {table {:put (map normalize item-batch)}})
+         (far/put-item {:endpoint local-endpoint-url} table (normalize (first item-batch))))))))
