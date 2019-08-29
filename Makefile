@@ -45,44 +45,13 @@ build-pytest-docker:
 publish-pytest-docker: build-pytest-docker
 	docker push ${PYTEST_DOCKER}
 
-fetch-dynamodb-tables:
-	mkdir -p resources/dynamodb/tables && \
-    for x in lexicon data blockly-workspace nlg-results dictionary-combined reader-flag amr-verbclass; do \
-    	aws dynamodb --endpoint-url http://dynamodb.eu-central-1.amazonaws.com scan --table-name $$x --output json --limit 25 > resources/dynamodb/tables/$$x.json; \
-    done
-
-prepare-dynamodb-table-data-write-requests:
-	mkdir -p resources/dynamodb/requests && \
-    for x in $$(ls resources/dynamodb/tables | sed -e 's/\..*$$//'); do \
-    	cat resources/dynamodb/tables/$$x.json | jq -c '[{Item: .Items[]} | {PutRequest: .}]' | jq -c "{\"$$x\": .}" > resources/dynamodb/requests/$$x.json; \
-    done
-
-create-dynamodb-tables:
-	aws dynamodb create-table --table-name lexicon --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name data --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name blockly-workspace --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name nlg-results --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name dictionary-combined --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name reader-flag --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name amr-verbclass --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-
-write-dynamodb-table-data: prepare-dynamodb-table-data-write-requests
-	for x in $$(ls resources/dynamodb/requests | sed -e 's/\..*$$//'); do \
-		aws dynamodb batch-write-item --request-items "file://$$(pwd)/resources/dynamodb/requests/$$x.json" --endpoint-url http://localhost:8000; \
-    done && \
-    rm -r resources/dynamodb/requests
-
-run-dynamodb-build-docker:
+build-dynamodb-docker:
 	docker pull amazon/dynamodb-local
 	docker run -d -p 8000:8000 --name dynamo-build amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
-
-build-dynamodb-docker: fetch-dynamodb-tables run-dynamodb-build-docker create-dynamodb-tables write-dynamodb-table-data
+	cd data-access && clj -e "(require '[data-access.db.dynamo-ops :refer [fetch-dynamodb-tables-to-local-db]]) (fetch-dynamodb-tables-to-local-db \"http://localhost:8000\") (System/exit 0)"
 	docker commit dynamo-build registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
 	docker stop dynamo-build
 	docker rm dynamo-build
-
-deploy-dynamodb-docker: build-dynamodb-docker
-	docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
 
 build-s3-docker:
 	docker pull scality/s3server
