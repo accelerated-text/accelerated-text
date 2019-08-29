@@ -7,6 +7,7 @@ import {
 }                           from 'ramda';
 
 import { composeQueries  }  from '../graphql';
+import { Error, Loading }   from '../ui-messages/';
 import LabelWithStatus      from '../label-with-status/LabelWithStatus';
 import { concepts }         from '../graphql/queries.graphql';
 
@@ -15,6 +16,9 @@ import S                    from './AmrConcepts.sass';
 
 
 const sortByLabel =         sortBy( compose( toLower, prop( 'label' )));
+
+const MessageTr = ({ children }) =>
+    <tr><td colspan="3">{ children }</td></tr>;
 
 
 export default composeQueries({
@@ -41,9 +45,22 @@ export default composeQueries({
             </tr>
         </thead>
         <tbody>
-            { concepts && sortByLabel( concepts.concepts ).map( concept =>
-                <ConceptRow key={ concept.id } concept={ concept } />
-            )}
+            { error
+                ? <MessageTr>
+                    <Error message={ error } />
+                </MessageTr>
+            : loading
+                ? <MessageTr>
+                    <Loading />
+                </MessageTr>
+            : concepts
+                ? sortByLabel( concepts.concepts ).map( concept =>
+                    <ConceptRow key={ concept.id } concept={ concept } />
+                )
+                : <MessageTr>
+                    <Error message="No AMR Concepts found. Please contact your system administrator." />
+                </MessageTr>
+            }
         </tbody>
     </table>
 );

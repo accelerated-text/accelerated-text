@@ -1,7 +1,7 @@
 import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 
-import { Loading }          from '../ui-messages/';
+import { Info, Loading }    from '../ui-messages/';
 import { QA }               from '../tests/constants';
 import SelectDataSample     from '../document-plans/SelectDataSample';
 import UploadDataFile       from '../upload-data-file/UploadDataFile';
@@ -32,16 +32,18 @@ export default useStores([
     render({
         className,
         dataSamples: {
+            fileIds,
             getListError,
             getListLoading,
         },
         plan,
+    }, {
+        uploadOpen,
     }) {
         const showUpload = (
-            this.state.uploadOpen
-            || !plan
+            uploadOpen
+            || ( plan && ! fileIds.length )
         );
-
         return (
             <div className={ classnames( S.className, className ) }>
                 <div className={ S.main }>{
@@ -53,7 +55,8 @@ export default useStores([
                             uploadClassName={ QA.DATA_MANAGER_FILE_UPLOAD }
                             onUploadDone={ this.onUploadDone }
                         />
-                        : [
+                    : plan
+                        ? [
                             <SelectDataSample
                                 className={ classnames( S.selectFile, QA.DATA_MANAGER_FILE_LIST ) }
                                 plan={ plan }
@@ -63,21 +66,30 @@ export default useStores([
                                 plan={ plan }
                             />,
                         ]
+                        : <Info
+                            className={ QA.DATA_MANAGER_NO_PLAN }
+                            message="Please open a document plan to see data files."
+                        />
                 }</div>
                 <div className={ S.right }>{
                     getListLoading
                         ? null
                     : showUpload
+                        ? ( fileIds.length
+                            ? <button
+                                children="✖️"
+                                className={ classnames( S.close, QA.DATA_MANAGER_FILE_CLOSE ) }
+                                onClick={ this.onClickClose }
+                            />
+                            : null
+                        )
+                    : plan
                         ? <button
-                            children="✖️"
-                            className={ classnames( S.close, QA.DATA_MANAGER_FILE_CLOSE ) }
-                            onClick={ this.onClickClose }
-                        />
-                        : <button
                             children="➕ Add"
                             className={ classnames( S.add, QA.DATA_MANAGER_FILE_ADD ) }
                             onClick={ this.onClickAdd }
                         />
+                        : null
                 }</div>
             </div>
         );

@@ -35,7 +35,7 @@ export default useStores([
         });
 
     onCreateXml = blocklyXml =>
-        this.props.E.planList.onCreate({
+        this.props.E.documentPlans.onCreate.async({
             name:           planTemplate.name,
             blocklyXml,
         })
@@ -65,13 +65,8 @@ export default useStores([
                 : getListLoading
                     ? <Loading className={ S.item } message="Loading document plans." />
                 : getListError
-                    ?  <Error className={ S.item } message="Error loading document plans." />
-                    : (
-                        <OnboardCode
-                            hasCode={ !!openedPlan }
-                            onCreateXml={ this.onCreateXml }
-                        />
-                    )
+                    ? <Error className={ S.item } message="Error loading document plans." />
+                    : <OnboardCode onCreateXml={ this.onCreateXml } />
             }</div>
         );
     }
