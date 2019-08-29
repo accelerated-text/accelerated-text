@@ -3,7 +3,6 @@ node_modules
 perform/dist
 perform/*.log
 **/.idea/*
-resources/*
 nlg-api/.nrepl-port
 nlg-api/output-sam.yaml
 nlg-api/nlg-api.iml
