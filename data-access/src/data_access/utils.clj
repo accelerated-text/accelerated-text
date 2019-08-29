@@ -4,7 +4,8 @@
             [clojure.data.csv :as csv]
             [clojure.string :as str]
             [clojure.tools.logging :as log])
-  (:import (java.util UUID)))
+  (:import (java.util UUID)
+           (java.time Instant)))
 
 (defn gen-uuid [] (str (java.util.UUID/randomUUID)))
 
@@ -13,3 +14,6 @@
 (defn raw-csv->maps [input]
   (let [[header & data] (csv/read-csv input)]
     (mapv zipmap (repeat header) data)))
+
+(defn ts-to-string [ts]
+  (when ts (str (Instant/ofEpochMilli ts))))

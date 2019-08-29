@@ -3,17 +3,17 @@
             [data-access.db.dynamo-ops :as ops]
             [taoensso.faraday :as far]))
 
-(defn list []
-  (far/scan (config/client-opts) config/blockly-table))
+(defn list-document-plans []
+  (far/scan (config/client-opts) (:table-name config/blockly-table)))
 
-(defn get [document-plan-id]
-  (ops/read! (ops/db-access config/blockly-table) document-plan-id))
+(defn get-document-plan [document-plan-id]
+  (ops/read! (ops/db-access :blockly) document-plan-id))
 
-(defn delete [document-plan-id]
-  (ops/delete! (ops/db-access config/blockly-table) document-plan-id))
+(defn delete-document-plan [document-plan-id]
+  (ops/delete! (ops/db-access :blockly) document-plan-id))
 
-(defn add [document-plan-id document-plan]
-  (ops/write! (ops/db-access config/blockly-table) document-plan-id document-plan true))
+(defn add-document-plan [document-plan-id document-plan]
+  (ops/write! (ops/db-access :blockly) document-plan-id document-plan true))
 
-(defn update [document-plan-id document-plan]
-  (ops/update! (ops/db-access config/blockly-table) document-plan-id document-plan))
+(defn update-document-plan [document-plan-id document-plan]
+  (ops/update! (ops/db-access :blockly) document-plan-id document-plan))
