@@ -14,11 +14,6 @@ export const addItemFields = item => ({
     id:             item.key,
 });
 
-export const findFileByPlan  = ( dataSamples, plan ) => (
-    plan && plan.dataSampleId
-    && dataSamples.fileItems[plan.dataSampleId]
-);
-
 export const statusTemplate = {
     getDataError:   null,
     getDataLoading: false,
