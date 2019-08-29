@@ -31,6 +31,7 @@ export default composeQueries({
                 <Files
                     className={ S.files }
                     error={ error }
+                    fileCount={ listDataFiles && listDataFiles.dataFiles && listDataFiles.dataFiles.length || 0 }
                     loading={ loading }
                     plan={ plan }
                 />

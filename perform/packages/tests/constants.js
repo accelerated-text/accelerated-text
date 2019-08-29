@@ -26,6 +26,7 @@ module.exports = createConstants( 'tests', {
     DATA_MANAGER_FILE_DOWNLOAD: 'data-manager-download',
     DATA_MANAGER_FILE_LIST:     'data-manager-file-list',
     DATA_MANAGER_FILE_UPLOAD:   'data-manager-upload',
+    DATA_MANAGER_NO_PLAN:       'data-manager-no-document-plan',
     DATA_MANAGER_ROW_NEXT:      'data-manager-row-next',
     DATA_MANAGER_ROW_PREVIOUS:  'data-manager-row-previous',
     DATA_MANAGER_ROW_SELECT:    'data-manager-row-select',

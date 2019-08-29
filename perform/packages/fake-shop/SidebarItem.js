@@ -16,10 +16,12 @@ import Publisher            from './Publisher';
 
 
 export default useStores([
+    'planList',
     'variantsApi',
 ])(({
     dataFile,
     plan,
+    planList,
     variantsApi: { error, loading, result },
 }) => {
     const descriptionText = getResultForRow(
@@ -36,7 +38,10 @@ export default useStores([
     return (
         <GraphQLProvider>
             { ! plan
-                ? <Loading message="Waiting for document plan." />
+                ? ( planList.getListLoading
+                    ? <Loading message="Waiting for document plan." />
+                    : <Info message="Missing document plan." />
+                )
             : ! plan.dataSampleId
                 ? <Info message="No data file selected." />
             : ! record
