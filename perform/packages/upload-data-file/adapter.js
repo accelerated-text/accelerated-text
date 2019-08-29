@@ -1,14 +1,17 @@
-import * as dataSamplesApi  from '../data-samples/api';
-import debugSan         from '../debug-san/';
+import debugSan             from '../debug-san/';
 import {
     getPlanByUid,
     getStatusByUid,
-}   from '../document-plans/functions';
+}                           from '../document-plans/functions';
+import {
+    getDataFile,
+    listDataFiles,
+}                           from '../graphql/queries.graphql';
 
-import uploadToS3       from './upload-to-s3';
+import uploadToS3           from './upload-to-s3';
 
 
-const debug =           debugSan( 'upload-data-file/adapter' );
+const debug =               debugSan( 'upload-data-file/adapter' );
 
 
 export default {
@@ -22,7 +25,7 @@ export default {
             }
         },
 
-        onUploadStart: ( inputFile, { E, getStoreState }) => {
+        onUploadStart: ( inputFile, { E, getStoreState, props }) => {
 
             const {
                 uploadFileKey,
@@ -32,11 +35,22 @@ export default {
             uploadToS3( uploadFileKey, inputFile )
                 .then( debug.tapThen( 'onUploadStart' ))
                 .then( E.uploadDataFile.onUploadFileSuccess )
-                .then(() => dataSamplesApi.getList( getStoreState( 'user' ).id ))
-                .then( files => {
-                    E.dataSamples.onGetListResult( files );
+                .then(() => props.client.query({
+                    fetchPolicy:            'network-only',
+                    query:                  listDataFiles,
+                }))
+                .then(({ error, data, loading }) => {
 
-                    const isInList =        files.find(({ id }) => id === uploadFileKey );
+                    if( error ) {
+                        throw Error( error );
+                    }
+
+                    const isInList = (
+                        data
+                            .listDataFiles
+                            .dataFiles
+                            .find(({ id }) => id === uploadFileKey )
+                    );
 
                     const documentPlans =   getStoreState( 'documentPlans' );
                     const plan =            getPlanByUid( documentPlans, uploadForPlanUid );
@@ -59,7 +73,11 @@ export default {
                     }
                 })
                 .then( E.uploadDataFile.onUploadSyncSuccess )
-                .then(() => E.dataSamples.onGetData({ key: uploadFileKey }))
+                .then(() => props.client.query({
+                    fetchPolicy:            'network-only',
+                    query:                  getDataFile,
+                    variables: { id:        uploadFileKey },
+                }))
                 .then( E.uploadDataFile.onUploadDone )
                 .catch( debug.tapCatch( 'onUploadStart' ))
                 .catch( E.uploadDataFile.onUploadError );

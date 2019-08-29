@@ -1,5 +1,8 @@
 import ApolloClient         from 'apollo-boost';
-import { ApolloProvider }   from 'react-apollo';
+import {
+    ApolloProvider,
+    withApollo,
+}                           from 'react-apollo';
 import gql                  from 'graphql-tag';
 import { h }                from 'preact';
 import { InMemoryCache }    from 'apollo-cache-inmemory';
@@ -36,3 +39,6 @@ export const client = new ApolloClient({
 
 export const GraphQLProvider = props =>
     <ApolloProvider client={ client } { ...props } />;
+
+
+export const withClient =   withApollo;
