@@ -1,13 +1,13 @@
-import { createDataFileData }   from '../data/data-file-data';
-import USER                     from '../data/user';
+import { path }             from 'ramda';
 
 
 export default ({ graphqlApi, nlgApi }, responses ) => {
 
-    const dataFile = (
-        responses.dataFiles
-        && responses.dataFiles[0]
+    const dataFile = path(
+        [ 'dataFiles', 'listDataFiles', 'dataFiles', 0 ],
+        responses,
     );
+
     const planHasDataFile = (
         responses.documentPlans
         && responses.documentPlans[0]
@@ -18,13 +18,15 @@ export default ({ graphqlApi, nlgApi }, responses ) => {
         graphqlApi.provideOnce( 'concepts', {}, { data: responses.concepts }),
         graphqlApi.provideOnce( 'dictionary', {}, { data: responses.dictionary }),
         graphqlApi.provideOnce( 'readerFlags', {}, { data: responses.readerFlags }),
-        nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, responses.dataFiles ),
+        graphqlApi.provideOnce( 'listDataFiles', {}, { data: responses.dataFiles }),
         nlgApi.provideOnce( 'GET', '/document-plans/', responses.documentPlans )
             .then(() => Promise.all([
                 dataFile &&
-                    nlgApi.provideOnce( 'GET', `/data/${ dataFile.key }`, createDataFileData({
-                        fieldNames: dataFile.fieldNames,
-                    })),
+                    graphqlApi.provideOnce(
+                        'getDataFile',
+                        { id: dataFile.id },
+                        { data: { getDataFile: dataFile }},
+                    ),
                 planHasDataFile &&
                     nlgApi.provideOnce( 'OPTIONS', '/nlg/', '' )
                         .then(() => nlgApi.provideOnce( 'POST', '/nlg/', responses.nlgJob ))

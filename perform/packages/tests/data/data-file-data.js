@@ -6,7 +6,7 @@ export const createDataFileData = ({
     prefix =        'tests-data-data-file-data',
     rowCount =      3,
 }) => ({
-    key:    `${ prefix }-key`,
+    id:    `${ prefix }-key`,
     data:   range( 0, rowCount ).map( i =>
         zipObj(
             fieldNames,
