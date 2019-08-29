@@ -1,10 +1,10 @@
-import { h, Component } from 'preact';
+import { h, Component }     from 'preact';
 
 import { composeQueries }   from '../graphql/';
 import {
     Info,
     Loading,
-}   from '../ui-messages/';
+}                           from '../ui-messages/';
 import { listDataFiles }    from '../graphql/queries.graphql';
 
 
