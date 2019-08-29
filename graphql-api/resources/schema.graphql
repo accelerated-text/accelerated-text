@@ -196,6 +196,11 @@ type Concepts {
 
 ### DocumentPlan --------------------------------------------------------------
 
+type Block {
+    id:                ID!
+    type:              String!
+}
+
 type DocumentPlan {
     id:                ID!
     uid:               ID!
@@ -206,11 +211,11 @@ type DocumentPlan {
     dataId:            String
     dataSampleId:      String
     dataSampleRow:     Int
-    createdAt:         Int!
-    updatedAt:         Int!
+    createdAt:         String!
+    updatedAt:         String!
     updateCount:       Int!
     useCcg:            Boolean
-    blocks:            String
+    blocks:            [ Block ]
 }
 
 type DocumentPlanResults {
@@ -281,10 +286,13 @@ type Query {
 
     ### DocumentPlan
 
-    documentPlans:          DocumentPlanResults!
+    documentPlans(
+        offset:             Int
+        limit:              Int
+    ):  DocumentPlanResults!
     documentPlan(
         id:                 ID!
-    ):  DocumentPlan
+    ):  DocumentPlan!
 
     ### AMR
     concepts:               Concepts!
