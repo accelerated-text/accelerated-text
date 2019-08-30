@@ -204,15 +204,15 @@ type DocumentPlan {
     documentPlan:      String!
     dataSampleId:      String
     dataSampleRow:     Int
-    createdAt:         String!
-    updatedAt:         String!
+    createdAt:         Int!
+    updatedAt:         Int!
     updateCount:       Int!
 }
 
 type DocumentPlanResults {
     items:             [ DocumentPlan! ]
     offset:            Int!
-    limit:             Int
+    limit:             Int!
     totalCount:        Int!
 }
 
@@ -329,7 +329,7 @@ type Mutation {
         dataSampleId:       String
         dataSampleRow:      Int
     ): DocumentPlan!
-    
+
     deleteDocumentPlan(
         id:                 ID!
     ): Boolean!
