@@ -38,9 +38,11 @@
 
                     .blocklyTreeLabel
 
-                        cursor:     pointer
-                        display:    inline-block
-                        padding:    $space-s $space-m
+                        cursor:             pointer
+                        display:            inline-block
+                        font-family:        $font-family
+                        font-size:          $size-m
+                        padding:            $space-s $space-m
 
         .blocklyFlyout
 
@@ -64,3 +66,32 @@
         .blocklyScrollbarBackground:hover + .blocklyScrollbarHandle
 
             fill:               tint-1( $gray )
+
+        .blocklyText
+
+            font-family:        $font-family
+            font-size:          $size-s
+
+\:global body > .blocklyWidgetDiv
+
+        .blocklyDropdownMenu
+
+            padding:            $space-xs 0 !important
+
+        input.blocklyHtmlInput
+
+            font-family:        $font-family
+            font-size:          $size-s !important
+
+        .goog-menuitem
+
+            padding:            $space-xs $space-xl $space-xs 28px
+
+            &.goog-menuitem-highlight
+
+                border:         0 none transparent
+
+        .goog-menuitem-content
+
+            font-family:        $font-family
+            font-size:          $size-xxs
