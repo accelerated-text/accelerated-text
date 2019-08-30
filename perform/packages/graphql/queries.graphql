@@ -28,7 +28,6 @@ query listDataFiles {
       id
       fileName
       fieldNames
-      # records { id fields { id fieldName value }}
     }
   }
 }
