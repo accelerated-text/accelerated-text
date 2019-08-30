@@ -18,6 +18,15 @@ export default ( t, run, ...args ) =>
             findElement: ( selector, page = t.page ) =>
                 t.notThrowsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
 
+            findElements: ( selectors, presence, page = t.page ) =>
+                Promise.all( Object.entries( presence )
+                    .map(([ sel, shouldFind ]) =>
+                         shouldFind
+                            ? t.findElement( selectors[sel], page )
+                            : t.notFindElement( selectors[sel], page )
+                    )
+                ),
+
             getElementAttribute: ( selector, attributeName, page = t.page ) =>
                 t.findElement( selector, page )
                     .then(() => page.$eval(

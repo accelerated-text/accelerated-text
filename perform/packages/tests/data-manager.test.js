@@ -12,7 +12,7 @@ import defaultResponsesPage     from './lib/default-responses-page';
 import {
     isDataFileRecordVisible,
     selectDataFile,
-}   from './lib/data-manager-utils';
+}                               from './lib/data-manager-utils';
 import noRecordsPage            from './lib/no-records-page';
 import { respondOnPlanChange }  from './lib/responses';
 import { SELECTORS }            from './constants';
@@ -21,50 +21,44 @@ import { SELECTORS }            from './constants';
 const DATA_FILES =              DATA_FILE_LIST.listDataFiles.dataFiles;
 
 
-test( 'default elements visible', defaultResponsesPage, async t => {
-
-    await t.findElement( SELECTORS.DATA_MANAGER_FILE_ADD );
-    await t.findElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
-    await t.findElement( SELECTORS.DATA_MANAGER_FILE_LIST );
-
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
-
-    await t.findElement( SELECTORS.DATA_MANAGER_CELL_BLOCK );
-    await t.findElement( SELECTORS.DATA_MANAGER_CELL_NAME );
-    await t.findElement( SELECTORS.DATA_MANAGER_CELL_TABLE );
-    await t.findElement( SELECTORS.DATA_MANAGER_CELL_VALUE );
-
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
-
-    await t.notFindElement( SELECTORS.DATA_MANAGER_NO_PLAN );
-});
+test( 'default elements visible', defaultResponsesPage, t =>
+    t.findElements( SELECTORS, {
+        DATA_MANAGER_NO_PLAN:       false,
+        DATA_MANAGER_FILE_LIST:     true,
+        DATA_MANAGER_FILE_DOWNLOAD: true,
+        DATA_MANAGER_FILE_ADD:      true,
+        DATA_MANAGER_FILE_BROWSE:   false,
+        DATA_MANAGER_FILE_UPLOAD:   false,
+        DATA_MANAGER_FILE_CLOSE:    false,
+        DATA_MANAGER_CELL_TABLE:    true,
+        DATA_MANAGER_CELL_BLOCK:    true,
+        DATA_MANAGER_CELL_NAME:     true,
+        DATA_MANAGER_CELL_VALUE:    true,
+        DATA_MANAGER_ROW_PREVIOUS:  true,
+        DATA_MANAGER_ROW_SELECT:    true,
+        DATA_MANAGER_ROW_NEXT:      true,
+    })
+);
 
 
-test( 'correct elements when no plans & no files', noRecordsPage, async t => {
-
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_ADD );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_LIST );
-
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
-
-    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_BLOCK );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_NAME );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_TABLE );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_VALUE );
-
-    await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
-
-    await t.findElement( SELECTORS.DATA_MANAGER_NO_PLAN );
-});
+test( 'correct elements when no plans & no files', noRecordsPage, t =>
+    t.findElements( SELECTORS, {
+        DATA_MANAGER_NO_PLAN:       true,
+        DATA_MANAGER_FILE_LIST:     false,
+        DATA_MANAGER_FILE_DOWNLOAD: false,
+        DATA_MANAGER_FILE_ADD:      false,
+        DATA_MANAGER_FILE_BROWSE:   false,
+        DATA_MANAGER_FILE_UPLOAD:   false,
+        DATA_MANAGER_FILE_CLOSE:    false,
+        DATA_MANAGER_CELL_TABLE:    false,
+        DATA_MANAGER_CELL_BLOCK:    false,
+        DATA_MANAGER_CELL_NAME:     false,
+        DATA_MANAGER_CELL_VALUE:    false,
+        DATA_MANAGER_ROW_PREVIOUS:  false,
+        DATA_MANAGER_ROW_SELECT:    false,
+        DATA_MANAGER_ROW_NEXT:      false,
+    }),
+);
 
 
 test(
@@ -76,27 +70,22 @@ test(
             dataSampleId:       null,
         })),
     }),
-    async t => {
-
-        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_ADD );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_LIST );
-
-        await t.findElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
-        await t.findElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
-
-        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_BLOCK );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_NAME );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_TABLE );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_VALUE );
-
-        await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
-
-        await t.notFindElement( SELECTORS.DATA_MANAGER_NO_PLAN );
-    },
+    t => t.findElements( SELECTORS, {
+        DATA_MANAGER_NO_PLAN:       false,
+        DATA_MANAGER_FILE_LIST:     false,
+        DATA_MANAGER_FILE_DOWNLOAD: false,
+        DATA_MANAGER_FILE_ADD:      false,
+        DATA_MANAGER_FILE_BROWSE:   true,
+        DATA_MANAGER_FILE_UPLOAD:   true,
+        DATA_MANAGER_FILE_CLOSE:    false,
+        DATA_MANAGER_CELL_TABLE:    false,
+        DATA_MANAGER_CELL_BLOCK:    false,
+        DATA_MANAGER_CELL_NAME:     false,
+        DATA_MANAGER_CELL_VALUE:    false,
+        DATA_MANAGER_ROW_PREVIOUS:  false,
+        DATA_MANAGER_ROW_SELECT:    false,
+        DATA_MANAGER_ROW_NEXT:      false,
+    }),
 );
 
 
@@ -107,13 +96,14 @@ test( 'can change file', defaultResponsesPage, async t => {
     });
 
     await selectDataFile( t, dataFile );
-
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
-    await t.notFindElement( SELECTORS.UI_ERROR );
 
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
+    await t.findElements( SELECTORS, {
+        UI_ERROR:                   false,
+        DATA_MANAGER_ROW_PREVIOUS:  true,
+        DATA_MANAGER_ROW_SELECT:    true,
+        DATA_MANAGER_ROW_NEXT:      true,
+    });
 
     t.is(
         await t.getElementValue( SELECTORS.DATA_MANAGER_FILE_LIST ),
