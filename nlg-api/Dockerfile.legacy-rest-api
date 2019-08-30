@@ -1,5 +1,15 @@
 FROM registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps as builder
 
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY data-access/ /usr/src/data-access
+COPY nlg-api /usr/src/app
+
+RUN clojure -A:rest-uberjar
+
+
+FROM openjdk:8u171-jre-alpine3.8
+
 ARG AWS_DEFAULT_REGION
 ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
@@ -11,15 +21,7 @@ ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY nlg-api/deps.edn /usr/src/app
-COPY data-access/ /usr/src/data-access
-RUN clojure -R:rest-uberjar
-COPY nlg-api /usr/src/app
 
-RUN clojure -A:rest-uberjar
-
-FROM openjdk:8u171-jre-alpine3.8
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/target/nlg-api-0.0.1-standalone.jar /usr/src/app
+
 CMD ["java", "-cp", "nlg-api-0.0.1-standalone.jar:lib/*", "local_server"]

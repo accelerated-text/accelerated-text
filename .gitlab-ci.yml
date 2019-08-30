@@ -31,13 +31,13 @@ update-nlg-api-deps:
   image: docker:stable
   only:
     changes:
+      - data-access/deps.edn
       - nlg-api/deps.edn
       - nlg-api/Dockerfile.deps
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
   script:
-    - cd nlg-api/
-    - docker build -f Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps .
+    - docker build -f nlg-api/Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps .
     - docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
     - docker rmi registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
 
@@ -62,7 +62,6 @@ unit-test-graphql-api:
   script:
     - cd graphql-api
     - clojure -A:test -e :integration
-  
 
 integration-test-graphql-api:
   stage: test
@@ -112,13 +111,13 @@ update-graphql-api-deps:
   image: docker:stable
   only:
     changes:
+      - data-access/deps.edn
       - graphql-api/deps.edn
       - graphql-api/Dockerfile.deps
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
   script:
-    - cd graphql-api/
-    - docker build -f Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps .
+    - docker build -f graphql-api/Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps .
     - docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
     - docker rmi registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
 

@@ -2,17 +2,17 @@ FROM registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps as buil
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY graphql-api/deps.edn /usr/src/app/
+COPY graphql-api/ /usr/src/app
 COPY data-access/ /usr/src/data-access
 
 RUN clojure -Sresolve-tags
-RUN clojure -R:rest-uberjar
-COPY graphql-api/ /usr/src/app
 RUN clojure -A:rest-uberjar
 
 CMD ["java", "-jar", "target/app-1.0.0-SNAPSHOT-standalone.jar"]
 
+
 FROM openjdk:8u171-jre-alpine3.8
+
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/target/app-1.0.0-SNAPSHOT-standalone.jar /usr/src/app
