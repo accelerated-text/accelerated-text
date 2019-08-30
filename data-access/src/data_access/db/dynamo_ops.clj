@@ -132,7 +132,7 @@
 
 (defn fetch-dynamodb-tables-to-local-db
   ([local-endpoint-url]
-   (fetch-dynamodb-tables-to-local-db 100))
+   (fetch-dynamodb-tables-to-local-db local-endpoint-url 100))
   ([local-endpoint-url limit]
    (doseq [table (far/list-tables (config/client-opts))]
      (when-not (contains? (set (far/list-tables {:endpoint local-endpoint-url})) table)
