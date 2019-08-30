@@ -1,6 +1,8 @@
 import { range }            from 'ramda';
 
-import { createDataFile }   from './data-file';
+import {
+    createDataFilePartial,
+}                           from './data-file';
 
 
 export const createDataFileList = totalCount => ({
@@ -10,10 +12,9 @@ export const createDataFileList = totalCount => ({
         limit:          totalCount,
         totalCount,
         dataFiles: range( 0, totalCount ).map( i =>
-            createDataFile({
+            createDataFilePartial({
                 fieldCount:     i + 3,
-                fileName:       `tests-data-data-file-list-fileName-${ i }.csv`,
-                recordCount:    i + 1,
+                fileName:       `tests-data-data-file-list-dataFile-${ i }.csv`,
             })
         ),
     },

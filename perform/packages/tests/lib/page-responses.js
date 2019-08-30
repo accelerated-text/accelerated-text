@@ -1,17 +1,20 @@
 import { path }             from 'ramda';
 
+import {
+    createDataFileFull,
+}                           from '../data/data-file';
 
-export default ({ graphqlApi, nlgApi }, responses ) => {
+
+export default ({ log, graphqlApi, nlgApi }, responses ) => {
 
     const dataFile = path(
         [ 'dataFiles', 'listDataFiles', 'dataFiles', 0 ],
         responses,
     );
 
-    const planHasDataFile = (
-        responses.documentPlans
-        && responses.documentPlans[0]
-        && responses.documentPlans[0].dataSampleId
+    const dataSampleId = path(
+        [ 'documentPlans', 0, 'dataSampleId' ],
+        responses,
     );
 
     return Promise.all([
@@ -20,17 +23,23 @@ export default ({ graphqlApi, nlgApi }, responses ) => {
         graphqlApi.provideOnce( 'readerFlags', {}, { data: responses.readerFlags }),
         graphqlApi.provideOnce( 'listDataFiles', {}, { data: responses.dataFiles }),
         nlgApi.provideOnce( 'GET', '/document-plans/', responses.documentPlans )
-            .then(() => Promise.all([
-                dataFile &&
-                    graphqlApi.provideOnce(
-                        'getDataFile',
-                        { id: dataFile.id },
-                        { data: { getDataFile: dataFile }},
-                    ),
-                planHasDataFile &&
-                    nlgApi.provideOnce( 'OPTIONS', '/nlg/', '' )
-                        .then(() => nlgApi.provideOnce( 'POST', '/nlg/', responses.nlgJob ))
-                        .then(() => nlgApi.provideOnce( 'GET', `/nlg/${ responses.nlgJob.resultId }`, responses.nlgJobResult )),
+            .then(() => dataSampleId && Promise.all([
+                graphqlApi.provideOnce(
+                    'getDataFile',
+                    { id: dataSampleId },
+                    { data: (
+                        dataFile
+                            ? { getDataFile: createDataFileFull( dataFile ) }
+                            : { getDataFile: null,
+                                errors: [{
+                                    message:    `No data file found for ${ dataSampleId }`,
+                                }],
+                            }
+                    ) },
+                ),
+                nlgApi.provideOnce( 'OPTIONS', '/nlg/', '' )
+                    .then(() => nlgApi.provideOnce( 'POST', '/nlg/', responses.nlgJob ))
+                    .then(() => nlgApi.provideOnce( 'GET', `/nlg/${ responses.nlgJob.resultId }`, responses.nlgJobResult )),
             ])),
     ]);
 };
