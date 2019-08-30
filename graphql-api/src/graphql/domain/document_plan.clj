@@ -17,8 +17,8 @@
      :offset     offset
      :totalCount (count items)}))
 
-(defn add-document-plan [_ {:keys [id] :as args} _]
-  (dp/add-document-plan id (update args :blocks #(json/parse-string % true))))
+(defn add-document-plan [_ args _]
+  (dp/add-document-plan args))
 
 (defn update-document-plan [_ {:keys [id] :as args} _]
-  (dp/update-document-plan id (update args :blocks #(json/parse-string % true))))
+  (dp/update-document-plan id args))

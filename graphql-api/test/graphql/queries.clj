@@ -73,7 +73,7 @@
   {:query (format "{documentPlan(id: \"%s\") { id uid name blocklyXml documentPlan dataId dataSampleId dataSampleRow createdAt updatedAt updateCount useCcg blocks { id type }}}" id)})
 
 (defn create-document-plan [document-plan]
-  {:query "mutation createDocumentPlan($id: ID! $uid: ID! $name: String! $blocklyXml: String! $documentPlan: String!){createDocumentPlan(id: $id uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan){ id uid name blocklyXml documentPlan }}"
+  {:query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String!){createDocumentPlan(id: $id uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan){ id uid name blocklyXml documentPlan }}"
    :variables document-plan})
 
 (defn update-document-plan [document-plan]
