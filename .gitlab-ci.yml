@@ -37,7 +37,12 @@ update-nlg-api-deps:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
   script:
-    - docker build -f nlg-api/Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps .
+    - >
+      docker build
+      --build-arg AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+      --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      -f nlg-api/Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps .
     - docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
     - docker rmi registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
 
