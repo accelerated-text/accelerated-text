@@ -196,26 +196,17 @@ type Concepts {
 
 ### DocumentPlan --------------------------------------------------------------
 
-type Block {
-    id:                ID!
-    type:              String!
-}
-
 type DocumentPlan {
     id:                ID!
     uid:               ID!
     name:              String!
-    contextId:         String
     blocklyXml:        String!
     documentPlan:      String!
-    dataId:            String
     dataSampleId:      String
     dataSampleRow:     Int
     createdAt:         String!
     updatedAt:         String!
     updateCount:       Int!
-    useCcg:            Boolean
-    blocks:            [ Block ]
 }
 
 type DocumentPlanResults {
@@ -333,14 +324,10 @@ type Mutation {
         id:                 ID!
         uid:                ID!
         name:               String!
-        contextId:          String
         blocklyXml:         String!
         documentPlan:       String!
-        dataId:             String
         dataSampleId:       String
         dataSampleRow:      Int
-        useCcg:             Boolean
-        blocks:             String
     ): DocumentPlan!
     
     deleteDocumentPlan(
@@ -351,14 +338,10 @@ type Mutation {
         id:                 ID!
         uid:                ID
         name:               String
-        contextId:          String
         blocklyXml:         String
         documentPlan:       String
-        dataId:             String
         dataSampleId:       String
         dataSampleRow:      Int
-        useCcg:             Boolean
-        blocks:             String
     ): DocumentPlan!
 
     createPhrase(
