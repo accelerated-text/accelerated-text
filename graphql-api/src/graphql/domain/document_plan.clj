@@ -1,7 +1,5 @@
 (ns graphql.domain.document-plan
-  (:require [cheshire.core :as json]
-            [data-access.entities.document-plan :as dp]
-            [data-access.utils :refer [ts-to-string]]))
+  (:require [data-access.entities.document-plan :as dp]))
 
 (defn get-document-plan [_ {:keys [id]} _]
   (dp/get-document-plan id))
