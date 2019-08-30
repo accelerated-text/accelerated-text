@@ -67,13 +67,13 @@
   {:query (format "{synonyms(wordId: \"%s\"){ rootWord { id partOfSpeech text } synonyms{ id partOfSpeech text }}}" word-id)})
 
 (defn document-plans [offset limit]
-  {:query (format "{documentPlans(offset: %s limit: %s) { items { id uid name blocklyXml documentPlan dataId dataSampleId dataSampleRow createdAt updatedAt updateCount useCcg blocks { id type }} offset limit totalCount}}" offset limit)})
+  {:query (format "{documentPlans(offset: %s limit: %s) { items { id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount } offset limit totalCount}}" offset limit)})
 
 (defn document-plan [id]
-  {:query (format "{documentPlan(id: \"%s\") { id uid name blocklyXml documentPlan dataId dataSampleId dataSampleRow createdAt updatedAt updateCount useCcg blocks { id type }}}" id)})
+  {:query (format "{documentPlan(id: \"%s\") { id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount }}" id)})
 
 (defn create-document-plan [document-plan]
-  {:query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String!){createDocumentPlan(id: $id uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan){ id uid name blocklyXml documentPlan }}"
+  {:query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String!){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan){ id uid name blocklyXml documentPlan }}"
    :variables document-plan})
 
 (defn update-document-plan [document-plan]
