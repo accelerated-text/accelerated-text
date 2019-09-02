@@ -1,6 +1,8 @@
 PREACT_MAKE= cd perform && make
 PROJECT_NAME=accelerated-text
 PYTEST_DOCKER="registry.gitlab.com/tokenmill/nlg/${PROJECT_NAME}/pytest:latest"
+DYNAMODB_ENDPOINT="http://dynamodb.eu-central-1.amazonaws.com"
+DYNAMODB_LOCAL_ENDPOINT="http://localhost:8000"
 
 -include .env
 export
@@ -48,7 +50,7 @@ publish-pytest-docker: build-pytest-docker
 build-dynamodb-docker:
 	docker pull amazon/dynamodb-local
 	docker run -d -p 8000:8000 --name dynamo-build amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
-	cd data-access && clj -e "(require '[data-access.db.dynamo-ops :refer [fetch-dynamodb-tables-to-local-db]]) (fetch-dynamodb-tables-to-local-db \"http://localhost:8000\") (System/exit 0)"
+	cd data-access && clj -e "(require '[data-access.db.dynamo-ops :refer [clone-tables-to-local-db]]) (clone-tables-to-local-db \"${DYNAMODB_ENDPOINT}\" \"${DYNAMODB_LOCAL_ENDPOINT}\" 100) (System/exit 0)"
 	docker commit dynamo-build registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
 	docker stop dynamo-build
 	docker rm dynamo-build
