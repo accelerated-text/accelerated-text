@@ -43,13 +43,10 @@
 (defn scan! [this opts] (scan-items this opts))
 (defn batch-read! [this opts] (batch-read-items this opts))
 
-(defn freeze! [coll] (far/freeze coll))
-
-(defn normalize
-  [data]
+(defn- freeze [data]
   (into {} (map (fn [[k v]]
                   (if (coll? v)
-                    {k (freeze! v)}
+                    {k (far/freeze v)}
                     {k v}))
                 data)))
 
@@ -66,18 +63,17 @@
         (let [body (cond-> (assoc data table-key key
                                        :createdAt (utils/ts-now)
                                        :updatedAt (utils/ts-now))
-                           update-count? (assoc :updateCount 0))
-              normalized (doall (normalize body))]
-          (far/put-item (config/client-opts) table-name normalized)
+                           update-count? (assoc :updateCount 0))]
+          (far/put-item (config/client-opts) table-name (freeze body))
           body))
       (update-item [this key data]
         (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
         (let [original (far/get-item (config/client-opts) table-name {table-key key})
               body (cond-> (merge original data {:updatedAt (utils/ts-now) table-key key})
-                           (get original :updateCount) (update :updateCount inc))]
+                           (contains? original :updateCount) (update :updateCount inc))]
           (log/debugf "Saving updated content: %s" (pr-str body))
-          (far/put-item (config/client-opts) table-name body)
-          (far/get-item (config/client-opts) table-name {table-key key})))
+          (far/put-item (config/client-opts) table-name (freeze body))
+          body))
       (delete-item [this key]
         (log/debugf "Deleting\n key: '%s'" key)
         (far/delete-item (config/client-opts) table-name {table-key key}))

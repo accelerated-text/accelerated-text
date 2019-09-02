@@ -37,8 +37,7 @@
 (defn update-dictionary-item
   [{:keys [key name phrases partOfSpeech]}]
   (ops/update! (ops/db-access :dictionary-combined) key {:name name
-                                                         :phrases (when-not (nil? phrases)
-                                                                    (ops/freeze! phrases))
+                                                         :phrases phrases
                                                          :partOfSpeech partOfSpeech}))
 
 
