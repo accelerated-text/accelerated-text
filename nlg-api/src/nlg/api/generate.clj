@@ -4,9 +4,9 @@
             [data-access.db.dynamo-ops :as ops]
             [data-access.db.s3 :as s3]
             [data-access.db.config :as config]
+            [data-access.entities.document-plan :as document-plan]
             [nlg.generator.planner-ng :as planner]
             [nlg.api.resource :as resource])
-  (:import (java.io BufferedWriter))
   (:gen-class
     :name nlg.api.NLGHandler
     :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
@@ -22,8 +22,7 @@
 (defn generation-process
   [dp-id data-id result-fn reader-model]
   (let [data (get-data data-id)
-        dp (-> (ops/get-workspace dp-id)
-               :documentPlan)
+        dp (:documentPlan (document-plan/get-document-plan dp-id))
         results (utils/result-or-error (planner/render-dp dp data reader-model))
         body (if (map? results)
                results
