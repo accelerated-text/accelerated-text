@@ -32,7 +32,7 @@
                           :table-key :id})
 
 (defn dynamodb-endpoint []
-  (or (System/getenv "DYNAMODB_ENDPOINT") "http://dynamodb.eu-central-1.amazonaws.com/"))
+  (or (System/getenv "DYNAMODB_ENDPOINT") "http://localhost:8000"))
 
 (defn client-opts []
   (let [access-key-id (System/getenv "AWS_ACCESS_KEY_ID")
