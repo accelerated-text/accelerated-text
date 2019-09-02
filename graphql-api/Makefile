@@ -1,17 +1,18 @@
+stack=lambda-custom-runtime-graphqlApi-dev
+
 build-native-image:
-	docker build --target builder -t graalvm-compiler .
+	cd ../ && docker build -f graphql-api/Dockerfile --target builder -t graalvm-compiler .
 	docker rm build || true
 	docker create --name build graalvm-compiler
-	docker cp build:/usr/src/app/target/app server
-	docker cp build:/usr/src/app/libsunec.so libsunec.so
+	mkdir -p target
+	docker cp build:/usr/src/app/target/app target/server
+	docker cp build:/usr/src/app/libsunec.so target/libsunec.so
 
 build-lambda-zip:
-	docker build --target archiver -t lambda-runtime-archiver .
+	cd ../ && docker build -f graphql-api/Dockerfile --target archiver -t lambda-runtime-archiver .
 	docker rm build || true
 	docker create --name build lambda-runtime-archiver
-	docker cp build:/usr/src/app/function.zip function.zip
-
-stack=lambda-custom-runtime-graphqlApi-dev
+	docker cp build:/usr/src/app/function.zip target/function.zip
 
 deploy-custom-runtime-lambda: build-lambda-zip
 	aws cloudformation package \
@@ -42,7 +43,7 @@ invoke-function:
 
 build-rest-api-docker:
 	docker pull registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
-	docker build -f Dockerfile.rest-api -t registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-rest-api:latest .
+	cd ../ && docker build -f graphql-api/Dockerfile.rest-api -t registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-rest-api:latest .
 
 unit-tests:
 	clojure -A:test -e:integration

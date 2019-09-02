@@ -20,6 +20,8 @@ export default useStores([
     documentPlans,
     emptyMessage =          'No variants.',
     loadingMessage =        'Loading variants...',
+    noDataMessage =         'No data file selected.',
+    noPlanMessage =         'Missing document plan.',
     planList,
     variantsApi,
 }) => {
@@ -42,11 +44,13 @@ export default useStores([
     );
 
     const loading = (
-        ! planStatus
-        || variantsApi.loading
-        || planStatus.createLoading
-        || planStatus.readLoading
-        || planStatus.updateLoading
+        openedPlan && (
+            ! planStatus
+            || variantsApi.loading
+            || planStatus.createLoading
+            || planStatus.readLoading
+            || planStatus.updateLoading
+        )
     );
 
     return (
@@ -59,7 +63,14 @@ export default useStores([
                 ? children({
                     variants:   result.variants,
                 })
-                : <Info message={ emptyMessage } />
+                : <Info message={
+                    openedPlan
+                        ? ( openedPlan.dataSampleId
+                            ? emptyMessage
+                            : noDataMessage
+                        )
+                        : noPlanMessage
+                } />
             }
         </div>
     );

@@ -18,10 +18,8 @@ RUN ./linux-install-1.10.0.442.sh
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY data-access/ /usr/src/data-access
-
-COPY graphql-api/deps.edn /usr/src/app/
-RUN clojure -R:native-image
 COPY graphql-api/ /usr/src/app
+
 RUN clojure -A:native-image
 RUN cp $JAVA_HOME/jre/lib/amd64/libsunec.so .
 RUN cp target/app server

@@ -2,7 +2,6 @@ const { mount } =           require( '../vesa/' );
 
 
 module.exports = mount({
-    contexts:               require( '../contexts/store' ).default,
     dataSamples:            require( '../data-samples/store' ).default,
     documentPlans:          require( '../document-plans/store' ).default,
     planList:               require( '../plan-list/store' ).default,
@@ -10,7 +9,6 @@ module.exports = mount({
     user:                   require( '../user/store' ).default,
     variantsApi:            require( '../variants/store' ).default,
 }, [
-    require( '../contexts/adapter' ).default,
     require( '../data-samples/adapter' ).default,
     require( '../document-plans/adapter' ).default,
     require( '../plan-list/adapter' ).default,

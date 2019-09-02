@@ -2,6 +2,8 @@ import test                     from 'ava';
 
 import { createDataFileData }   from './data/data-file-data';
 import DATA_FILE_LIST           from './data/data-file-list';
+
+import customResponsesPage      from './lib/custom-responses-page';
 import defaultResponsesPage     from './lib/default-responses-page';
 import {
     isDataFileRowVisible,
@@ -30,18 +32,20 @@ test( 'default elements visible', defaultResponsesPage, async t => {
     await t.findElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
     await t.findElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
     await t.findElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
+
+    await t.notFindElement( SELECTORS.DATA_MANAGER_NO_PLAN );
 });
 
 
-test( 'correct elements when no files', noRecordsPage, async t => {
+test( 'correct elements when no plans & no files', noRecordsPage, async t => {
 
     await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_ADD );
     await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
     await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_LIST );
 
-    await t.findElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
-    await t.findElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
-    await t.findElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
+    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
+    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
+    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
 
     await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_BLOCK );
     await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_NAME );
@@ -51,7 +55,38 @@ test( 'correct elements when no files', noRecordsPage, async t => {
     await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
     await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
     await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
+
+    await t.findElement( SELECTORS.DATA_MANAGER_NO_PLAN );
 });
+
+
+test(
+    'correct elements when some plans & no files',
+    customResponsesPage({
+        dataFiles:              [],
+    }),
+    async t => {
+
+        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_ADD );
+        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
+        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_LIST );
+
+        await t.findElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
+        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
+        await t.findElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
+
+        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_BLOCK );
+        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_NAME );
+        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_TABLE );
+        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_VALUE );
+
+        await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
+        await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
+        await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
+
+        await t.notFindElement( SELECTORS.DATA_MANAGER_NO_PLAN );
+    },
+);
 
 
 test( 'can change file', defaultResponsesPage, async t => {

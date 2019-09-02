@@ -1,6 +1,8 @@
 PREACT_MAKE= cd perform && make
 PROJECT_NAME=accelerated-text
 PYTEST_DOCKER="registry.gitlab.com/tokenmill/nlg/${PROJECT_NAME}/pytest:latest"
+DYNAMODB_ENDPOINT="http://dynamodb.eu-central-1.amazonaws.com"
+DYNAMODB_LOCAL_ENDPOINT="http://localhost:8000"
 
 -include .env
 export
@@ -48,15 +50,7 @@ publish-pytest-docker: build-pytest-docker
 build-dynamodb-docker:
 	docker pull amazon/dynamodb-local
 	docker run -d -p 8000:8000 --name dynamo-build amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
-	aws dynamodb create-table --table-name lexicon --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name data --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name blockly-workspace --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name nlg-results --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name dictionary-combined --attribute-definitions AttributeName=key,AttributeType=S --key-schema AttributeName=key,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name reader-flag --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb create-table --table-name amr-verbclass --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --billing-mode=PAY_PER_REQUEST  --endpoint-url http://localhost:8000
-	aws dynamodb put-item --table-name reader-flag --item '{"id": {"S": "junior"}, "name": {"S": "junior"}}' --endpoint-url http://localhost:8000
-	aws dynamodb put-item --table-name reader-flag --item '{"id": {"S": "senior"}, "name": {"S": "senior"}}' --endpoint-url http://localhost:8000
+	cd data-access && clj -e "(require '[data-access.db.dynamo-ops :refer [clone-tables-to-local-db]]) (clone-tables-to-local-db \"${DYNAMODB_ENDPOINT}\" \"${DYNAMODB_LOCAL_ENDPOINT}\" 100) (System/exit 0)"
 	docker commit dynamo-build registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
 	docker stop dynamo-build
 	docker rm dynamo-build
@@ -90,6 +84,7 @@ run-perform-ui-dev-deps:
 .PHONY: run-perform-ui-dev
 run-perform-ui-dev:
 	cd perform && \
+		FAKE_SHOP_API_URL=http://0.0.0.0:8090/ \
 		GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
 		NLG_API_URL=http://0.0.0.0:8081 \
 		make run

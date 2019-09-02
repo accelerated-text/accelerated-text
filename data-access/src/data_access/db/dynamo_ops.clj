@@ -84,3 +84,23 @@
       (batch-read-items [this ids]
         (log/debugf "Batch reading keys: %s" (pr-str ids))
         (far/batch-get-item (config/client-opts) {table-name {:prim-kvs {table-key ids}}})))))
+
+(defn- get-table-keys
+  [client-opts table-name]
+  (mapcat (fn [[k v]]
+            (vector k (get v :data-type)))
+          (:prim-keys (far/describe-table client-opts table-name))))
+
+(defn clone-tables-to-local-db
+  [endpoint-url local-endpoint-url limit]
+  (let [client-opts (assoc (config/client-opts) :endpoint endpoint-url)
+        local-client-opts {:endpoint local-endpoint-url}]
+    (doseq [table (far/list-tables client-opts)]
+      (when-not (contains? (set (far/list-tables local-client-opts)) table)
+        (log/debugf "Creating local DynamoDB table `%s`" (name table))
+        (far/create-table local-client-opts table (get-table-keys client-opts table) {:block? true}))
+      (log/debugf "Fetching DynamoDB table `%s` from %s" (name table) (:endpoint client-opts))
+      (doseq [item-batch (partition-all 25 (far/scan client-opts table {:limit limit}))]
+        (if (> (count item-batch) 1)
+          (far/batch-write-item local-client-opts {table {:put (map normalize item-batch)}})
+          (far/put-item local-client-opts table (normalize (first item-batch))))))))
