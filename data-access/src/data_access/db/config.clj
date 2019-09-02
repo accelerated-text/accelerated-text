@@ -1,6 +1,7 @@
 (ns data-access.db.config)
 
-(def blockly-table "blockly-workspace")
+(def blockly-table {:table-name "blockly-workspace"
+                    :table-key :id})
 (def results-table {:table-name "nlg-results"
                     :table-key :key})
 (def data-table {:table-name "data"

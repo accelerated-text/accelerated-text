@@ -65,3 +65,21 @@
 (defn synonyms
   [word-id]
   {:query (format "{synonyms(wordId: \"%s\"){ rootWord { id partOfSpeech text } synonyms{ id partOfSpeech text }}}" word-id)})
+
+(defn document-plans [offset limit]
+  {:query (format "{documentPlans(offset: %s limit: %s) { items { id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount } offset limit totalCount}}" offset limit)})
+
+(defn document-plan [id]
+  {:query (format "{documentPlan(id: \"%s\") { id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount }}" id)})
+
+(defn create-document-plan [document-plan]
+  {:query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String!){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan){ id uid name blocklyXml documentPlan }}"
+   :variables document-plan})
+
+(defn update-document-plan [document-plan]
+  {:query "mutation updateDocumentPlan($id: ID! $uid: ID! $name: String! $blocklyXml: String! $documentPlan: String!){updateDocumentPlan(id: $id uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan){ id uid name blocklyXml documentPlan }}"
+   :variables document-plan})
+
+(defn delete-document-plan [id]
+  {:query "mutation deleteDocumentPlan($id: ID!){deleteDocumentPlan(id: $id)}"
+   :variables {:id id}})

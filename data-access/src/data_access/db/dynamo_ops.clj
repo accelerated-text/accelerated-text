@@ -4,7 +4,6 @@
             [data-access.utils :as utils]
             [clojure.tools.logging :as log]))
 
-
 (defn resolve-table
   [type]
   (case type
@@ -23,7 +22,7 @@
 
 (defprotocol DBAccess
   (read-item [this key])
-  (write-item [this key data])
+  (write-item [this key data update-count?])
   (update-item [this key data])
   (delete-item [this key])
   (list-items [this limit])
@@ -33,52 +32,48 @@
 (defn read! [this key] (read-item this key))
 (defn write!
   ([this data]
-   (write-item this (utils/gen-uuid) data))
+   (write-item this (utils/gen-uuid) data false))
   ([this key data]
-   (write-item this key data)))
+   (write-item this key data false))
+  ([this key data update-count?]
+   (write-item this key data update-count?)))
 (defn update! [this key data] (update-item this key data))
 (defn delete! [this key] (delete-item this key))
 (defn list! [this limit] (list-items this limit))
 (defn scan! [this opts] (scan-items this opts))
 (defn batch-read! [this opts] (batch-read-items this opts))
 
-(defn freeze! [coll] (far/freeze coll))
-
-(defn normalize
-  [data]
-  (into {}  (map (fn
-                    [[k v]]
-                    (if (coll? v)
-                      {k (freeze! v)}
-                      {k v}))
-                  data)))
+(defn- freeze [data]
+  (into {} (map (fn [[k v]]
+                  (if (coll? v)
+                    {k (far/freeze v)}
+                    {k v}))
+                data)))
 
 (defn db-access
   [resource-type]
   (let [{table-name :table-name
-         table-key :table-key} (resolve-table resource-type)]
+         table-key  :table-key} (resolve-table resource-type)]
     (reify
       DBAccess
       (read-item [this key]
         (far/get-item (config/client-opts) table-name {table-key key}))
-      (write-item [this key data]
+      (write-item [this key data update-count?]
         (log/debugf "Writing\n key: '%s' \n content: '%s'" key data)
-        (let [body (-> data
-                       (assoc table-key key)
-                       (assoc :createdAt (utils/ts-now))
-                       (assoc :updatedAt (utils/ts-now)))
-              normalized (doall (normalize body))]
-          (far/put-item (config/client-opts) table-name normalized)
+        (let [body (cond-> (assoc data table-key key
+                                       :createdAt (utils/ts-now)
+                                       :updatedAt (utils/ts-now))
+                           update-count? (assoc :updateCount 0))]
+          (far/put-item (config/client-opts) table-name (freeze body))
           body))
       (update-item [this key data]
         (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
         (let [original (far/get-item (config/client-opts) table-name {table-key key})
-              body (-> (merge original data)
-                       (assoc :updatedAt (utils/ts-now))
-                       (assoc table-key key))]
+              body (cond-> (merge original data {:updatedAt (utils/ts-now) table-key key})
+                           (contains? original :updateCount) (update :updateCount inc))]
           (log/debugf "Saving updated content: %s" (pr-str body))
-          (far/put-item (config/client-opts) table-name body)
-          (far/get-item (config/client-opts) table-name {table-key key})))
+          (far/put-item (config/client-opts) table-name (freeze body))
+          body))
       (delete-item [this key]
         (log/debugf "Deleting\n key: '%s'" key)
         (far/delete-item (config/client-opts) table-name {table-key key}))
@@ -89,42 +84,6 @@
       (batch-read-items [this ids]
         (log/debugf "Batch reading keys: %s" (pr-str ids))
         (far/batch-get-item (config/client-opts) {table-name {:prim-kvs {table-key ids}}})))))
-
-(defn get-workspace
-  [key]
-  (far/get-item (config/client-opts) config/blockly-table {:id key}))
-
-(defn list-workspaces
-  [limit]
-  (far/scan (config/client-opts) config/blockly-table {:limit limit}))
-
-
-(defn write-workspace
-  [key workspace]
-  (let [body (assoc workspace :id key)]
-    (far/put-item
-     (config/client-opts)
-     config/blockly-table
-     body)
-    body))
-
-(defn add-workspace
-  [key workspace]
-  (let [body (assoc workspace :createdAt (utils/ts-now))]
-    (write-workspace key body)))
-
-(defn update-workspace
-  [key workspace]
-  (let [original (get-workspace key)
-        body (merge
-              original
-              (assoc workspace :updatedAt (utils/ts-now)))]
-    (write-workspace key body)))
-
-
-(defn delete-workspace
-  [key]
-  (far/delete-item (config/client-opts) config/blockly-table {:id key}))
 
 (defn- get-table-keys
   [client-opts table-name]
@@ -143,5 +102,5 @@
       (log/debugf "Fetching DynamoDB table `%s` from %s" (name table) (:endpoint client-opts))
       (doseq [item-batch (partition-all 25 (far/scan client-opts table {:limit limit}))]
         (if (> (count item-batch) 1)
-          (far/batch-write-item local-client-opts {table {:put (map normalize item-batch)}})
-          (far/put-item local-client-opts table (normalize (first item-batch))))))))
+          (far/batch-write-item local-client-opts {table {:put (map freeze item-batch)}})
+          (far/put-item local-client-opts table (freeze (first item-batch))))))))
