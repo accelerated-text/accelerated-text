@@ -1,7 +1,11 @@
 FROM registry.gitlab.com/tokenmill/clojure:1
 
-COPY deps.edn deps.edn
-
 RUN mkdir /root/.gitlibs
-RUN clojure -A:test || true
-RUN clojure -R:native-image || true
+
+COPY data-access/deps.edn /usr/src/data-access/
+WORKDIR /usr/src/data-access
+RUN clojure -R:test || true
+
+COPY graphql-api/deps.edn /usr/src/app/
+WORKDIR /usr/src/app
+RUN clojure -R:test:native-image:rest-uberjar || true
