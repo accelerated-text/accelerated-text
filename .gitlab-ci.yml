@@ -46,47 +46,62 @@ update-nlg-api-deps:
     - docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
     - docker rmi registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
 
+update-graphql-api-deps:
+  stage: deps
+  image: docker:stable
+  only:
+    changes:
+      - data-access/deps.edn
+      - graphql-api/deps.edn
+      - graphql-api/Dockerfile.deps
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+  script:
+    - docker build -f graphql-api/Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps .
+    - docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
+    - docker rmi registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
+
 unit-test-nlg-api:
   stage: test
-  image: registry.gitlab.com/tokenmill/clojure:1
+  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
   when: always
   only:
     changes:
       - nlg-api/
   script:
     - cd nlg-api
-    - clojure -A:test -e :integration
+    - clojure -A:test -e integration
 
 unit-test-graphql-api:
   stage: test
-  image: registry.gitlab.com/tokenmill/clojure:1
+  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
   when: always
   only:
     changes:
       - graphql-api/
   script:
     - cd graphql-api
-    - clojure -A:test -e :integration
-
-integration-test-graphql-api:
-  stage: test
-  image: registry.gitlab.com/tokenmill/clojure:1
-  when: manual
-  script:
-    - cd graphql-api
-    - clojure -A:test
+    - clojure -A:test -e integration
 
 integration-test-nlg-api:
   stage: test
-  image: registry.gitlab.com/tokenmill/clojure:1
+  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
   when: manual
   script:
     - cd nlg-api
-    - clojure -A:test
+    - clojure -A:test -i integration
+
+integration-test-graphql-api:
+  stage: test
+  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
+  when: manual
+  script:
+    - cd graphql-api
+    - clojure -A:test -i integration
 
 build-nlg-api:
   stage: build
-  image: registry.gitlab.com/tokenmill/clojure:1
+  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
   when: on_success
   script:
     - cd nlg-api
@@ -110,21 +125,6 @@ deploy-nlg-api:
     - export STACK_NAME=nlg-api
     - aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket $S3_BUCKET_NAME
     - aws cloudformation deploy --template-file output-sam.yaml --stack-name $STACK_NAME --capabilities CAPABILITY_IAM
-
-update-graphql-api-deps:
-  stage: deps
-  image: docker:stable
-  only:
-    changes:
-      - data-access/deps.edn
-      - graphql-api/deps.edn
-      - graphql-api/Dockerfile.deps
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-  script:
-    - docker build -f graphql-api/Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps .
-    - docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
-    - docker rmi registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
 
 deploy-graphql-api-lambda:
   stage: deploy
