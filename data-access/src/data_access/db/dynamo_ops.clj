@@ -4,7 +4,6 @@
             [data-access.utils :as utils]
             [clojure.tools.logging :as log]))
 
-
 (defn resolve-table
   [type]
   (case type
@@ -48,17 +47,16 @@
 
 (defn normalize
   [data]
-  (into {}  (map (fn
-                    [[k v]]
-                    (if (coll? v)
-                      {k (freeze! v)}
-                      {k v}))
-                  data)))
+  (into {} (map (fn [[k v]]
+                  (if (coll? v)
+                    {k (freeze! v)}
+                    {k v}))
+                data)))
 
 (defn db-access
   [resource-type]
   (let [{table-name :table-name
-         table-key :table-key} (resolve-table resource-type)]
+         table-key  :table-key} (resolve-table resource-type)]
     (reify
       DBAccess
       (read-item [this key]
@@ -90,39 +88,3 @@
       (batch-read-items [this ids]
         (log/debugf "Batch reading keys: %s" (pr-str ids))
         (far/batch-get-item (config/client-opts) {table-name {:prim-kvs {table-key ids}}})))))
-
-(defn get-workspace
-  [key]
-  (far/get-item (config/client-opts) (:table-name config/blockly-table) {:id key}))
-
-(defn list-workspaces
-  [limit]
-  (far/scan (config/client-opts) (:table-name config/blockly-table) {:limit limit}))
-
-
-(defn write-workspace
-  [key workspace]
-  (let [body (assoc workspace :id key)]
-    (far/put-item
-     (config/client-opts)
-     (:table-name config/blockly-table)
-     body)
-    body))
-
-(defn add-workspace
-  [key workspace]
-  (let [body (assoc workspace :createdAt (utils/ts-now))]
-    (write-workspace key body)))
-
-(defn update-workspace
-  [key workspace]
-  (let [original (get-workspace key)
-        body (merge
-              original
-              (assoc workspace :updatedAt (utils/ts-now)))]
-    (write-workspace key body)))
-
-
-(defn delete-workspace
-  [key]
-  (far/delete-item (config/client-opts) (:table-name config/blockly-table) {:id key}))
