@@ -238,7 +238,7 @@ type Query {
         id: String!
         recordOffset: Int
         recordLimit: Int
-    ): DataFile!
+    ): DataFile
 
     listDataFiles(
         offset: Int
@@ -281,9 +281,10 @@ type Query {
         offset:             Int
         limit:              Int
     ):  DocumentPlanResults!
+
     documentPlan(
         id:                 ID!
-    ):  DocumentPlan!
+    ):  DocumentPlan
 
     ### AMR
     concepts:               Concepts!
