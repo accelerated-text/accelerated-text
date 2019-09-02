@@ -102,5 +102,5 @@
       (log/debugf "Fetching DynamoDB table `%s` from %s" (name table) (:endpoint client-opts))
       (doseq [item-batch (partition-all 25 (far/scan client-opts table {:limit limit}))]
         (if (> (count item-batch) 1)
-          (far/batch-write-item local-client-opts {table {:put (map normalize item-batch)}})
-          (far/put-item local-client-opts table (normalize (first item-batch))))))))
+          (far/batch-write-item local-client-opts {table {:put (map freeze item-batch)}})
+          (far/put-item local-client-opts table (freeze (first item-batch))))))))
