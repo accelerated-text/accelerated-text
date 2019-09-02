@@ -36,7 +36,7 @@
 
 (defn client-opts []
   {:endpoint   (dynamodb-endpoint)
-   :access-key (System/getenv "AWS_ACCESS_KEY_ID")
-   :secret-key (System/getenv "AWS_SECRET_ACCESS_KEY")})
+   :access-key (or (System/getenv "AWS_ACCESS_KEY_ID") (System/getenv "NLG_AWS_ACCESS_KEY_ID"))
+   :secret-key (or (System/getenv "AWS_SECRET_ACCESS_KEY") (System/getenv "NLG_AWS_SECRET_ACCESS_KEY"))})
 
 (defn s3-endpoint [] (System/getenv "S3_ENDPOINT"))
