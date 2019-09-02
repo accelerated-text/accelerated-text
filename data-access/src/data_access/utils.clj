@@ -1,6 +1,5 @@
 (ns data-access.utils
-  (:require [clojure.data.csv :as csv]
-            [clojure.string :as str])
+  (:require [clojure.string :as str])
   (:import (java.util UUID)
            (java.time Instant)))
 
