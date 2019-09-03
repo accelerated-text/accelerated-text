@@ -1,123 +1,121 @@
 import test                     from 'ava';
 
-import { createDataFileData }   from './data/data-file-data';
-import DATA_FILE_LIST           from './data/data-file-list';
+import { createDataFileFull }   from './data/data-file';
+import {
+    default as DATA_FILE_LIST,
+    EMPTY_DATA_FILE_LIST,
+}                               from './data/data-file-list';
+import DOCUMENT_PLAN_LIST       from './data/document-plan-list';
 
 import customResponsesPage      from './lib/custom-responses-page';
 import defaultResponsesPage     from './lib/default-responses-page';
 import {
-    isDataFileRowVisible,
+    isDataFileRecordVisible,
     selectDataFile,
-}   from './lib/data-manager-utils';
+}                               from './lib/data-manager-utils';
 import noRecordsPage            from './lib/no-records-page';
 import { respondOnPlanChange }  from './lib/responses';
 import { SELECTORS }            from './constants';
 
 
-test( 'default elements visible', defaultResponsesPage, async t => {
-
-    await t.findElement( SELECTORS.DATA_MANAGER_FILE_ADD );
-    await t.findElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
-    await t.findElement( SELECTORS.DATA_MANAGER_FILE_LIST );
-
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
-
-    await t.findElement( SELECTORS.DATA_MANAGER_CELL_BLOCK );
-    await t.findElement( SELECTORS.DATA_MANAGER_CELL_NAME );
-    await t.findElement( SELECTORS.DATA_MANAGER_CELL_TABLE );
-    await t.findElement( SELECTORS.DATA_MANAGER_CELL_VALUE );
-
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
-
-    await t.notFindElement( SELECTORS.DATA_MANAGER_NO_PLAN );
-});
+const DATA_FILES =              DATA_FILE_LIST.listDataFiles.dataFiles;
 
 
-test( 'correct elements when no plans & no files', noRecordsPage, async t => {
+test( 'default elements visible', defaultResponsesPage, t =>
+    t.findElements( SELECTORS, {
+        DATA_MANAGER_NO_PLAN:       false,
+        DATA_MANAGER_FILE_LIST:     true,
+        DATA_MANAGER_FILE_DOWNLOAD: true,
+        DATA_MANAGER_FILE_ADD:      true,
+        DATA_MANAGER_FILE_BROWSE:   false,
+        DATA_MANAGER_FILE_UPLOAD:   false,
+        DATA_MANAGER_FILE_CLOSE:    false,
+        DATA_MANAGER_CELL_TABLE:    true,
+        DATA_MANAGER_CELL_BLOCK:    true,
+        DATA_MANAGER_CELL_NAME:     true,
+        DATA_MANAGER_CELL_VALUE:    true,
+        DATA_MANAGER_ROW_PREVIOUS:  true,
+        DATA_MANAGER_ROW_SELECT:    true,
+        DATA_MANAGER_ROW_NEXT:      true,
+    })
+);
 
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_ADD );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_LIST );
 
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
-
-    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_BLOCK );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_NAME );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_TABLE );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_VALUE );
-
-    await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
-    await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
-
-    await t.findElement( SELECTORS.DATA_MANAGER_NO_PLAN );
-});
+test( 'correct elements when no plans & no files', noRecordsPage, t =>
+    t.findElements( SELECTORS, {
+        DATA_MANAGER_NO_PLAN:       true,
+        DATA_MANAGER_FILE_LIST:     false,
+        DATA_MANAGER_FILE_DOWNLOAD: false,
+        DATA_MANAGER_FILE_ADD:      false,
+        DATA_MANAGER_FILE_BROWSE:   false,
+        DATA_MANAGER_FILE_UPLOAD:   false,
+        DATA_MANAGER_FILE_CLOSE:    false,
+        DATA_MANAGER_CELL_TABLE:    false,
+        DATA_MANAGER_CELL_BLOCK:    false,
+        DATA_MANAGER_CELL_NAME:     false,
+        DATA_MANAGER_CELL_VALUE:    false,
+        DATA_MANAGER_ROW_PREVIOUS:  false,
+        DATA_MANAGER_ROW_SELECT:    false,
+        DATA_MANAGER_ROW_NEXT:      false,
+    }),
+);
 
 
 test(
     'correct elements when some plans & no files',
     customResponsesPage({
-        dataFiles:              [],
+        dataFiles:              EMPTY_DATA_FILE_LIST,
+        documentPlans: DOCUMENT_PLAN_LIST.map( plan => ({
+            ...plan,
+            dataSampleId:       null,
+        })),
     }),
-    async t => {
-
-        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_ADD );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_LIST );
-
-        await t.findElement( SELECTORS.DATA_MANAGER_FILE_BROWSE );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_FILE_CLOSE );
-        await t.findElement( SELECTORS.DATA_MANAGER_FILE_UPLOAD );
-
-        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_BLOCK );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_NAME );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_TABLE );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_CELL_VALUE );
-
-        await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
-        await t.notFindElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
-
-        await t.notFindElement( SELECTORS.DATA_MANAGER_NO_PLAN );
-    },
+    t => t.findElements( SELECTORS, {
+        DATA_MANAGER_NO_PLAN:       false,
+        DATA_MANAGER_FILE_LIST:     false,
+        DATA_MANAGER_FILE_DOWNLOAD: false,
+        DATA_MANAGER_FILE_ADD:      false,
+        DATA_MANAGER_FILE_BROWSE:   true,
+        DATA_MANAGER_FILE_UPLOAD:   true,
+        DATA_MANAGER_FILE_CLOSE:    false,
+        DATA_MANAGER_CELL_TABLE:    false,
+        DATA_MANAGER_CELL_BLOCK:    false,
+        DATA_MANAGER_CELL_NAME:     false,
+        DATA_MANAGER_CELL_VALUE:    false,
+        DATA_MANAGER_ROW_PREVIOUS:  false,
+        DATA_MANAGER_ROW_SELECT:    false,
+        DATA_MANAGER_ROW_NEXT:      false,
+    }),
 );
 
 
 test( 'can change file', defaultResponsesPage, async t => {
 
-    const dataFile =        DATA_FILE_LIST[1];
-    const dataFileId =      dataFile.key;
-    const dataFileData =    createDataFileData({
-        fieldNames:         dataFile.fieldNames,
+    const dataFile = createDataFileFull( DATA_FILES[1], {
         prefix:             t.title,
     });
 
-    await selectDataFile( t, dataFileId, dataFileData );
-
+    await selectDataFile( t, dataFile );
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
-    await t.notFindElement( SELECTORS.UI_ERROR );
 
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_NEXT );
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
-    await t.findElement( SELECTORS.DATA_MANAGER_ROW_SELECT );
+    await t.findElements( SELECTORS, {
+        UI_ERROR:                   false,
+        DATA_MANAGER_ROW_PREVIOUS:  true,
+        DATA_MANAGER_ROW_SELECT:    true,
+        DATA_MANAGER_ROW_NEXT:      true,
+    });
 
     t.is(
         await t.getElementValue( SELECTORS.DATA_MANAGER_FILE_LIST ),
-        dataFileId,
+        dataFile.id,
     );
     t.regex(
         await t.getElementAttribute( SELECTORS.DATA_MANAGER_FILE_DOWNLOAD, 'href' ),
-        new RegExp( `${ dataFileId }$` ),
+        new RegExp( `${ dataFile.id }$` ),
     );
     t.is(
         await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_NEXT, 'disabled' ),
-        dataFileData.data.length < 2,
+        dataFile.records.length < 2,
     );
     t.is(
         await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_PREVIOUS, 'disabled' ),
@@ -132,68 +130,62 @@ test( 'can change file', defaultResponsesPage, async t => {
 
 test( 'correct cell names and values visible', defaultResponsesPage, async t => {
 
-    const dataFile =        DATA_FILE_LIST[2];
-    const dataFileData =    createDataFileData({
-        fieldNames:         dataFile.fieldNames,
+    const dataFile = createDataFileFull( DATA_FILES[2], {
         prefix:             t.title,
-        rowCount:           5,
+        recordCount:        5,
     });
 
-    await selectDataFile( t, dataFile.key, dataFileData );
+    await selectDataFile( t, dataFile );
 
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
     await t.notFindElement( SELECTORS.UI_ERROR );
 
-    await isDataFileRowVisible( t, dataFileData.data[0]);
+    await isDataFileRecordVisible( t, dataFile.records[0]);
 });
 
 
 test( 'can change cell value row', defaultResponsesPage, async t => {
 
-    const dataFile =        DATA_FILE_LIST[3];
-    const dataFileData =    createDataFileData({
-        fieldNames:         dataFile.fieldNames,
+    const dataFile = createDataFileFull( DATA_FILES[3], {
         prefix:             t.title,
-        rowCount:           8,
+        recordCount:        8,
     });
 
-    await selectDataFile( t, dataFile.key, dataFileData );
+    await selectDataFile( t, dataFile );
 
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
     await t.notFindElement( SELECTORS.UI_ERROR );
 
-    await isDataFileRowVisible( t, dataFileData.data[0]);
+    await isDataFileRecordVisible( t, dataFile.records[0]);
 
     t.page.select( SELECTORS.DATA_MANAGER_ROW_SELECT, '5' );
     await respondOnPlanChange( t );
-    await isDataFileRowVisible( t, dataFileData.data[5]);
+    await isDataFileRecordVisible( t, dataFile.records[5]);
 
     t.page.click( SELECTORS.DATA_MANAGER_ROW_NEXT );
     await respondOnPlanChange( t );
-    await isDataFileRowVisible( t, dataFileData.data[6]);
+    await isDataFileRecordVisible( t, dataFile.records[6]);
 
     t.page.click( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
     await respondOnPlanChange( t );
-    await isDataFileRowVisible( t, dataFileData.data[5]);
+    await isDataFileRecordVisible( t, dataFile.records[5]);
 });
 
 
 test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     /// data file with one row:
-    const dataFile1 =       DATA_FILE_LIST[2];
-    const dataFileData1 =   createDataFileData({
-        fieldNames:         dataFile1.fieldNames,
-        prefix:             t.title,
-        rowCount:           1,
+    const dataFile1 = createDataFileFull( DATA_FILES[2], {
+        prefix:             `${ t.title }-1-record`,
+        recordCount:        1,
     });
 
-    await selectDataFile( t, dataFile1.key, dataFileData1 );
+    await selectDataFile( t, dataFile1 );
 
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
     await t.notFindElement( SELECTORS.UI_ERROR );
 
-    await isDataFileRowVisible( t, dataFileData1.data[0]);
+    await isDataFileRecordVisible( t, dataFile1.records[0]);
 
     t.is(
         await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_NEXT, 'disabled' ),
@@ -205,19 +197,17 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
     );
 
     /// data file with four rows:
-    const dataFile4 =       DATA_FILE_LIST[3];
-    const dataFileData4 =   createDataFileData({
-        fieldNames:         dataFile4.fieldNames,
-        prefix:             t.title,
-        rowCount:           4,
+    const dataFile4 = createDataFileFull( DATA_FILES[3], {
+        prefix:             `${ t.title }-4-records`,
+        recordCount:        4,
     });
 
-    await selectDataFile( t, dataFile4.key, dataFileData4 );
+    await selectDataFile( t, dataFile4 );
 
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
     await t.notFindElement( SELECTORS.UI_ERROR );
 
-    await isDataFileRowVisible( t, dataFileData4.data[0]);
+    await isDataFileRecordVisible( t, dataFile4.records[0]);
     t.is(
         await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_NEXT, 'disabled' ),
         false,
@@ -229,7 +219,7 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     t.page.select( SELECTORS.DATA_MANAGER_ROW_SELECT, '2' );
     await respondOnPlanChange( t );
-    await isDataFileRowVisible( t, dataFileData4.data[2]);
+    await isDataFileRecordVisible( t, dataFile4.records[2]);
     t.is(
         await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_NEXT, 'disabled' ),
         false,
@@ -241,7 +231,7 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     t.page.click( SELECTORS.DATA_MANAGER_ROW_NEXT );
     await respondOnPlanChange( t );
-    await isDataFileRowVisible( t, dataFileData4.data[3]);
+    await isDataFileRecordVisible( t, dataFile4.records[3]);
     t.is(
         await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_NEXT, 'disabled' ),
         true,
@@ -253,7 +243,7 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     t.page.select( SELECTORS.DATA_MANAGER_ROW_SELECT, '1' );
     await respondOnPlanChange( t );
-    await isDataFileRowVisible( t, dataFileData4.data[1]);
+    await isDataFileRecordVisible( t, dataFile4.records[1]);
     t.is(
         await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_NEXT, 'disabled' ),
         false,
@@ -265,7 +255,7 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     t.page.click( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
     await respondOnPlanChange( t );
-    await isDataFileRowVisible( t, dataFileData4.data[0]);
+    await isDataFileRecordVisible( t, dataFile4.records[0]);
     t.is(
         await t.getElementProperty( SELECTORS.DATA_MANAGER_ROW_NEXT, 'disabled' ),
         false,

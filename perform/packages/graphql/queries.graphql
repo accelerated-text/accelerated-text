@@ -1,5 +1,37 @@
 #import "./fragments.graphql"
 
+
+### Data files -----------------------------------------------------------------
+
+query getDataFile( $id: ID! ) {
+  getDataFile( id: $id ) {
+    id
+    fileName
+    fieldNames
+    records {
+      id
+      fields {
+        id
+        fieldName
+        value
+      }
+    }
+  }
+}
+
+query listDataFiles {
+  listDataFiles {
+    offset
+    totalCount
+    limit
+    dataFiles {
+      id
+      fileName
+      fieldNames
+    }
+  }
+}
+
 ### Thesaurus ------------------------------------------------------------------
 
 query searchThesaurus( $query: String! ) {

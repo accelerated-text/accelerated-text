@@ -23,9 +23,11 @@ test( 'can rename item', defaultResponsesPage, async t => {
 
     await t.page.click( SELECTORS.DICT_ITEM_EDITOR_NAME );
 
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_INPUT );
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_SAVE );
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_CANCEL );
+    await t.findElements( SELECTORS, {
+        DICT_ITEM_EDITOR_NAME_INPUT:    true,
+        DICT_ITEM_EDITOR_NAME_SAVE:     true,
+        DICT_ITEM_EDITOR_NAME_CANCEL:   true,
+    });
 
     await t.retypeElementText( SELECTORS.DICT_ITEM_EDITOR_NAME_INPUT, newName );
     t.page.click( SELECTORS.DICT_ITEM_EDITOR_NAME_SAVE );
@@ -52,9 +54,11 @@ test( 'can cancel rename item', defaultResponsesPage, async t => {
 
     await t.page.click( SELECTORS.DICT_ITEM_EDITOR_NAME );
 
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_INPUT );
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_SAVE );
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_NAME_CANCEL );
+    await t.findElements( SELECTORS, {
+        DICT_ITEM_EDITOR_NAME_INPUT:    true,
+        DICT_ITEM_EDITOR_NAME_SAVE:     true,
+        DICT_ITEM_EDITOR_NAME_CANCEL:   true,
+    });
 
     await t.retypeElementText( SELECTORS.DICT_ITEM_EDITOR_NAME_INPUT, newName );
     t.page.click( SELECTORS.DICT_ITEM_EDITOR_NAME_CANCEL );

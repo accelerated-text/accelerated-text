@@ -2,9 +2,8 @@ import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
+import DocumentPlansContext from '../document-plans/Context';
 import Error                from '../ui-messages/Error';
-import { findFileByPlan }   from '../data-samples/functions';
-import getOpenedPlan        from '../plan-list/get-opened-plan';
 import Loading              from '../ui-messages/Loading';
 import OnboardCode          from '../onboard-code/OnboardCode';
 import planTemplate         from '../document-plans/plan-template';
@@ -15,21 +14,19 @@ import S                    from './PlanEditor.sass';
 
 
 export default useStores([
-    'dataSamples',
-    'documentPlans',
     'planList',
 ])( class PlanEditor extends Component {
 
+    static contextType =    DocumentPlansContext;
+
     static propTypes = {
-        dataSamples:        PropTypes.object.isRequired,
-        documentPlans:      PropTypes.object.isRequired,
-        planList:           PropTypes.object.isRequired,
         className:          PropTypes.string,
+        planList:           PropTypes.object.isRequired,
     };
 
     onChangeWorkspace = ({ documentPlan, workspaceXml }) =>
         this.props.E.documentPlans.onUpdate({
-            ...getOpenedPlan( this.props ),
+            ...this.context.openedPlan,
             documentPlan,
             blocklyXml:     workspaceXml,
         });
@@ -42,23 +39,20 @@ export default useStores([
 
     render({
         className,
-        dataSamples,
         planList: {
             getListError,
             getListLoading,
-            openedPlanUid,
-            uids,
         },
+    }, _, {
+        openedDataFile,
+        openedPlan,
     }) {
-        const openedPlan =  getOpenedPlan( this.props );
-        const planFile =    findFileByPlan( dataSamples, openedPlan );
-
         return (
             <div className={ classnames( S.className, className ) }>{
                 openedPlan
                     ? <Workspace
-                        cellNames={ planFile && planFile.fieldNames }
-                        key={ openedPlanUid }
+                        cellNames={ openedDataFile && openedDataFile.fieldNames }
+                        key={ openedPlan.uid }
                         onChangeWorkspace={ this.onChangeWorkspace }
                         workspaceXml={ openedPlan.blocklyXml }
                     />
