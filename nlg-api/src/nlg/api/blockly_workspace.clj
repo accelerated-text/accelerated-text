@@ -2,41 +2,41 @@
   (:require [nlg.api.resource :as resource]
             [nlg.api.utils :as utils]
             [data-access.db.config :as config]
+            [data-access.db.dynamo-ops :as ops]
             [taoensso.faraday :as far])
   (:gen-class
     :name nlg.api.WorkspaceHandler
     :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
 
 (defn write-workspace [body]
-  (far/put-item (config/client-opts) (:table-name config/blockly-table) body)
-  body)
+  (ops/write! (ops/db-access :blockly) (utils/gen-uuid) body true))
 
 (defn get-workspace
   [path-params]
   (let [key (path-params :id)]
     {:status 200
-     :body   (far/get-item (config/client-opts) (:table-name config/blockly-table) {:id key})}))
+     :body   (ops/read! (ops/db-access :blockly) key)}))
 
 (defn delete-workspace
   [path-params]
   (let [key (path-params :id)]
     (utils/do-delete (fn [key]
-                       (far/get-item (config/client-opts) (:table-name config/blockly-table) {:id key}))
+                       (ops/read! (ops/db-access :blockly) key))
                      (fn [key]
-                       (far/delete-item (config/client-opts) (:table-name config/blockly-table) {:id key}))
+                       (ops/delete! (ops/db-access :blockly) key))
                      key)))
 
 (defn add-workspace
   [request-body]
-  (utils/do-insert (fn [key workspace]
-                     (write-workspace (assoc workspace :id key :createdAt (utils/ts-now))))
+  (utils/do-insert (fn [_ workspace]
+                     (write-workspace workspace))
                    request-body))
 
 (defn update-workspace
   [path-params request-body]
   (let [key (path-params :id)]
     (utils/do-update (fn [key workspace]
-                       (write-workspace (merge (get-workspace key) (assoc workspace :updatedAt (utils/ts-now)))))
+                       (ops/update! (ops/db-access :blockly) key workspace))
                      key
                      request-body)))
 
