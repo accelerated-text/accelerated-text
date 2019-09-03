@@ -32,6 +32,21 @@ query listDataFiles {
   }
 }
 
+
+### Document plans -------------------------------------------------------------
+
+query documentPlans {
+  documentPlans {
+    offset
+    totalCount
+    limit
+    items {
+      ...documentPlanFields
+    }
+  }
+}
+
+
 ### Thesaurus ------------------------------------------------------------------
 
 query searchThesaurus( $query: String! ) {
