@@ -202,10 +202,10 @@ type DocumentPlan {
     name:              String!
     blocklyXml:        String!
     documentPlan:      String!
-    dataSampleId:      String
+    dataSampleId:      ID
     dataSampleRow:     Int
     createdAt:         Int!
-    updatedAt:         Int!
+    updatedAt:         Int
     updateCount:       Int!
 }
 
