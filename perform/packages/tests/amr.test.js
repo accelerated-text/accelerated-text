@@ -6,22 +6,25 @@ import DOCUMENT_PLAN_LIST       from './data/document-plan-list';
 import noRecordsPage            from './lib/no-records-page';
 import { SELECTORS }            from './constants';
 
-test( 'default elements visible', defaultResponsesPage, async t => {
 
-    await t.findElement( SELECTORS.AMR_CONCEPT );
-    await t.findElement( SELECTORS.AMR_CONCEPT_DRAG_BLOCK );
-    await t.findElement( SELECTORS.AMR_CONCEPT_LABEL );
-    await t.findElement( SELECTORS.AMR_CONCEPT_HELP );
-});
+test( 'default elements visible', defaultResponsesPage, t =>
+    t.findElements( SELECTORS, {
+        AMR_CONCEPT:            true,
+        AMR_CONCEPT_DRAG_BLOCK: true,
+        AMR_CONCEPT_LABEL:      true,
+        AMR_CONCEPT_HELP:       true,
+    }),
+);
 
 
-test( 'correct elements when no items', noRecordsPage, async t => {
-
-    await t.notFindElement( SELECTORS.AMR_CONCEPT );
-    await t.notFindElement( SELECTORS.AMR_CONCEPT_DRAG_BLOCK );
-    await t.notFindElement( SELECTORS.AMR_CONCEPT_LABEL );
-    await t.notFindElement( SELECTORS.AMR_CONCEPT_HELP );
-});
+test( 'correct elements when no items', noRecordsPage, t =>
+    t.findElements( SELECTORS, {
+        AMR_CONCEPT:            false,
+        AMR_CONCEPT_DRAG_BLOCK: false,
+        AMR_CONCEPT_LABEL:      false,
+        AMR_CONCEPT_HELP:       false,
+    }),
+);
 
 
 test( 'can expand help text', defaultResponsesPage, async t => {

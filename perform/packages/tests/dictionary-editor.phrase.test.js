@@ -30,9 +30,11 @@ test( 'can rename phrase', defaultResponsesPage, async t => {
 
     await t.page.click( $phraseText );
 
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT_CANCEL );
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT_INPUT );
-    await t.findElement( SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT_SAVE );
+    await t.findElements( SELECTORS, {
+        DICT_ITEM_EDITOR_PHRASE_TEXT_CANCEL:    true,
+        DICT_ITEM_EDITOR_PHRASE_TEXT_INPUT:     true,
+        DICT_ITEM_EDITOR_PHRASE_TEXT_SAVE:      true,
+    });
 
     await t.retypeElementText( SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT_INPUT, newText );
     t.page.click( SELECTORS.DICT_ITEM_EDITOR_PHRASE_TEXT_SAVE );

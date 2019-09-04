@@ -11,17 +11,19 @@ import { SELECTORS }            from './constants';
 
 test( 'default elements visible', defaultResponsesPage, async t => {
 
-    await t.findElement( SELECTORS.DICTIONARY_ITEM );
-    await t.findElement( SELECTORS.DICTIONARY_ITEM_NAME );
-    await t.findElement( SELECTORS.DICTIONARY_ITEM_PHRASES );
-
+    await t.findElements( SELECTORS, {
+        DICTIONARY_ITEM:            true,
+        DICTIONARY_ITEM_NAME:       true,
+        DICTIONARY_ITEM_PHRASES:    true,
+    });
     await areDictionaryItemsVisible( t, DICTIONARY.dictionary.items );
 });
 
 
-test( 'correct elements when no files', noRecordsPage, async t => {
-
-    await t.notFindElement( SELECTORS.DICTIONARY_ITEM );
-    await t.notFindElement( SELECTORS.DICTIONARY_ITEM_NAME );
-    await t.notFindElement( SELECTORS.DICTIONARY_ITEM_PHRASES );
-});
+test( 'correct elements when no files', noRecordsPage, t =>
+    t.findElements( SELECTORS, {
+        DICTIONARY_ITEM:            false,
+        DICTIONARY_ITEM_NAME:       false,
+        DICTIONARY_ITEM_PHRASES:    false,
+    }),
+);
