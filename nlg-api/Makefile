@@ -49,8 +49,17 @@ list-log-groups:
 deploy-grammar:
 	aws s3 sync grammar/ s3://ccg-grammar/grammar --profile=${PROFILE}
 
+build-deps-image:
+	cd ../ && \
+	docker build -f nlg-api/Dockerfile.deps \
+	--build-arg AWS_DEFAULT_REGION=${NLG_AWS_DEFAULT_REGION} \
+   	--build-arg AWS_ACCESS_KEY_ID=${NLG_AWS_ACCESS_KEY_ID} \
+   	--build-arg AWS_SECRET_ACCESS_KEY=${NLG_AWS_SECRET_ACCESS_KEY} \
+	-t registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps .
+
 build-legacy-rest-api-image:
-	docker build -f Dockerfile.legacy-rest-api \
+	cd ../ && \
+	docker build -f nlg-api/Dockerfile.legacy-rest-api \
 	--build-arg AWS_DEFAULT_REGION=${NLG_AWS_DEFAULT_REGION} \
 	--build-arg AWS_ACCESS_KEY_ID=${NLG_AWS_ACCESS_KEY_ID} \
 	--build-arg AWS_SECRET_ACCESS_KEY=${NLG_AWS_SECRET_ACCESS_KEY} \
