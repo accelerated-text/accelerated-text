@@ -12,7 +12,7 @@ import S                from './Header.sass';
 export default useStores([
     'documentPlans',
     'planList',
-])(({ className, ...props }) => {
+])(({ className, onClickLogo, ...props }) => {
     const openedPlan =  getOpenedPlan( props );
 
     return (
@@ -20,6 +20,7 @@ export default useStores([
             <div className={ S.left }>
                 <img
                     className={ S.logo }
+                    onClick={ onClickLogo }
                     src="/accelerated-text-logo.png"
                     title="Accelerated Text"
                 />
