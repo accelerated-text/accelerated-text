@@ -61,31 +61,31 @@ enum PartOfSpeech {
 ### Data -----------------------------------------------------------------------
 
 type Field {
-    id: String!
-    fieldName: String!
-    value: String!
+    id:                 ID!
+    fieldName:          String!
+    value:              String!
 }
 
 type Record {
-    id: String!
-    fields: [ Field ]
+    id:                 ID!
+    fields:             [ Field ]
 }
 
 type DataFile {
-    id: String!
-    fileName: String!
-    fieldNames: [ String ]
-    records: [ Record ]
-    recordOffset: Int!
-    recordLimit: Int!
-    recordCount: Int!
+    id:                 ID!
+    fileName:           String!
+    fieldNames:         [ String ]
+    records:            [ Record ]
+    recordOffset:       Int!
+    recordLimit:        Int!
+    recordCount:        Int!
 }
 
 type DataFiles {
-    dataFiles: [ DataFile ]
-    offset: Int!
-    limit: Int!
-    totalCount: Int!
+    dataFiles:          [ DataFile ]
+    offset:             Int!
+    limit:              Int!
+    totalCount:         Int!
 }
 
 ### Thesaurus ------------------------------------------------------------------
@@ -235,16 +235,16 @@ type Query {
     ### Data
 
     getDataFile(
-        id: String!
-        recordOffset: Int
-        recordLimit: Int
+        id:                 ID!
+        recordOffset:       Int
+        recordLimit:        Int
     ): DataFile
 
     listDataFiles(
-        offset: Int
-        limit: Int
-        recordOffset: Int
-        recordLimit: Int
+        offset:             Int
+        limit:              Int
+        recordOffset:       Int
+        recordLimit:        Int
     ): DataFiles!
 
     ### Thesaurus

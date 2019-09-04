@@ -7,13 +7,14 @@ import {
     Success,
 }   from '../ui-messages/';
 import { mount, useStores } from '../vesa/';
+import { withClient }       from '../graphql/';
 
 import adapter              from './adapter';
 import S                    from './UploadDataFile.sass';
 import uploadDataFile       from './store';
 
 
-export default mount({
+export default withClient( mount({
     uploadDataFile,
 }, [
     adapter,
@@ -74,4 +75,4 @@ export default mount({
             </form>
         );
     }
-}));
+})));

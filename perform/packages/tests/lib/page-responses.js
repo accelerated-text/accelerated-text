@@ -1,34 +1,45 @@
-import { createDataFileData }   from '../data/data-file-data';
-import USER                     from '../data/user';
+import { path }             from 'ramda';
+
+import {
+    createDataFileFull,
+}                           from '../data/data-file';
 
 
-export default ({ graphqlApi, nlgApi }, responses ) => {
+export default ({ log, graphqlApi, nlgApi }, responses ) => {
 
-    const dataFile = (
-        responses.dataFiles
-        && responses.dataFiles[0]
+    const dataFile = path(
+        [ 'dataFiles', 'listDataFiles', 'dataFiles', 0 ],
+        responses,
     );
-    const planHasDataFile = (
-        responses.documentPlans
-        && responses.documentPlans[0]
-        && responses.documentPlans[0].dataSampleId
+
+    const dataSampleId = path(
+        [ 'documentPlans', 0, 'dataSampleId' ],
+        responses,
     );
 
     return Promise.all([
         graphqlApi.provideOnce( 'concepts', {}, { data: responses.concepts }),
         graphqlApi.provideOnce( 'dictionary', {}, { data: responses.dictionary }),
         graphqlApi.provideOnce( 'readerFlags', {}, { data: responses.readerFlags }),
-        nlgApi.provideOnce( 'GET', `/data/?user=${ USER.id }`, responses.dataFiles ),
+        graphqlApi.provideOnce( 'listDataFiles', {}, { data: responses.dataFiles }),
         nlgApi.provideOnce( 'GET', '/document-plans/', responses.documentPlans )
-            .then(() => Promise.all([
-                dataFile &&
-                    nlgApi.provideOnce( 'GET', `/data/${ dataFile.key }`, createDataFileData({
-                        fieldNames: dataFile.fieldNames,
-                    })),
-                planHasDataFile &&
-                    nlgApi.provideOnce( 'OPTIONS', '/nlg/', '' )
-                        .then(() => nlgApi.provideOnce( 'POST', '/nlg/', responses.nlgJob ))
-                        .then(() => nlgApi.provideOnce( 'GET', `/nlg/${ responses.nlgJob.resultId }`, responses.nlgJobResult )),
+            .then(() => dataSampleId && Promise.all([
+                graphqlApi.provideOnce(
+                    'getDataFile',
+                    { id: dataSampleId },
+                    { data: (
+                        dataFile
+                            ? { getDataFile: createDataFileFull( dataFile ) }
+                            : { getDataFile: null,
+                                errors: [{
+                                    message:    `No data file found for ${ dataSampleId }`,
+                                }],
+                            }
+                    ) },
+                ),
+                nlgApi.provideOnce( 'OPTIONS', '/nlg/', '' )
+                    .then(() => nlgApi.provideOnce( 'POST', '/nlg/', responses.nlgJob ))
+                    .then(() => nlgApi.provideOnce( 'GET', `/nlg/${ responses.nlgJob.resultId }`, responses.nlgJobResult )),
             ])),
     ]);
 };

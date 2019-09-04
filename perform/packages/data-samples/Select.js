@@ -1,46 +1,48 @@
-import { h, Component } from 'preact';
+import { h, Component }     from 'preact';
 
+import { composeQueries }   from '../graphql/';
 import {
     Info,
     Loading,
-}   from '../ui-messages/';
-import { useStores }    from '../vesa/';
+}                           from '../ui-messages/';
+import { listDataFiles }    from '../graphql/queries.graphql';
 
 
-export default useStores([
-    'dataSamples',
-])( class SelectDataSample extends Component {
+export default composeQueries({
+    listDataFiles,
+})( class SelectDataSample extends Component {
 
     onChange = e =>
         this.props.onChange( e.target.value );
 
     render({
         className,
-        dataSamples: {
-            fileIds,
-            fileItems,
-            getListError,
-            getListLoading,
+        listDataFiles: {
+            error,
+            listDataFiles,
+            loading,
         },
         value,
     }) {
-        if( getListLoading ) {
-            return <Loading message="Loading files" />;
-        } else if( !fileIds || !fileIds.length ) {
-            return <Info message="No files" />;
-        } else {
-            return (
-                <select
+        return (
+            loading
+                ? <Loading message="Loading files" />
+            : ( ! listDataFiles || ! listDataFiles.dataFiles )
+                ? <Info message="No files" />
+                : <select
                     className={ className }
                     onChange={ this.onChange }
                     value={ value }
                 >
                     <option value="">select a file</option>
-                    { fileIds.map( id =>
-                        <option key={ id } value={ id }>{ fileItems[id].fileName }</option>
+                    { listDataFiles.dataFiles.map(({ id, fileName }) =>
+                        <option
+                            children={ fileName }
+                            key={ id }
+                            value={ id }
+                        />
                     )}
                 </select>
-            );
-        }
+        );
     }
 });

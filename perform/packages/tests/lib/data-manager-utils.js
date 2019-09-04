@@ -2,35 +2,37 @@ import { respondOnPlanChange }  from './responses';
 import { SELECTORS }            from '../constants';
 
 
-export const selectDataFile = ( t, fileId, fileData ) => {
+export const selectDataFile = ( t, dataFile ) => {
 
-    t.page.select( SELECTORS.DATA_MANAGER_FILE_LIST, fileId );
+    t.page.select( SELECTORS.DATA_MANAGER_FILE_LIST, dataFile.id );
 
     return Promise.all([
-        t.nlgApi.provideOnce( 'GET', `/data/${ fileId }`, fileData ),
+        t.graphqlApi.provideOnce(
+            'getDataFile',
+            { id: dataFile.id },
+            { data: { getDataFile: dataFile }},
+        ),
         respondOnPlanChange( t ),
     ]);
 };
 
 
-export const isDataFileRowVisible = async ( t, row ) => {
+export const isDataFileRecordVisible = async ( t, record ) => {
 
-    const rowKeys =         Object.keys( row );
-
-    for( let i = 0; i < rowKeys.length; i += 1 ) {
-        const rowKey =      rowKeys[i];
+    for( let i = 0; i < record.fields.length; i += 1 ) {
+        const field =       record.fields[i];
 
         t.is(
             await t.getElementText(
                 `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_NAME }`
             ),
-            rowKey,
+            field.fieldName,
         );
         t.is(
             await t.getElementText(
                 `tr:nth-child(${ i + 1 }) > ${ SELECTORS.DATA_MANAGER_CELL_VALUE }`
             ),
-            row[rowKey],
+            field.value,
         );
     }
 };

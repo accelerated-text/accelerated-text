@@ -19,7 +19,7 @@ export default useStores([
     'planList',
     'variantsApi',
 ])(({
-    fileItem,
+    dataFile,
     plan,
     planList,
     variantsApi: { error, loading, result },
@@ -28,7 +28,7 @@ export default useStores([
         result,
         plan && plan.dataSampleRow,
     );
-    const record =          getPlanDataRow( fileItem, plan );
+    const record =          getPlanDataRow( dataFile, plan );
 
     const isValidRecord = (
         record
