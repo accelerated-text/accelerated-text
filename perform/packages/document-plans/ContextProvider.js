@@ -16,7 +16,7 @@ export default useStores([
 
     value =                 {};
 
-    render({ children, ...props }) {
+    render({ children, E, ...props }) {
 
         const openedPlan =  getOpenedPlan( props );
         const openedPlanStatus =
@@ -39,6 +39,7 @@ export default useStores([
                     <Context.Provider
                         children={ children }
                         value={ Object.assign( this.value, {
+                            E,
                             openedDataFile:         data ? data.getDataFile : null,
                             openedDataFileError:    error,
                             openedDataFileLoading:  loading,
