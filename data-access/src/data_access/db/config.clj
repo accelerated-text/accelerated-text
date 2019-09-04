@@ -1,6 +1,7 @@
 (ns data-access.db.config)
 
-(def blockly-table "blockly-workspace")
+(def blockly-table {:table-name "blockly-workspace"
+                    :table-key :id})
 (def results-table {:table-name "nlg-results"
                     :table-key :key})
 (def data-table {:table-name "data"
@@ -31,8 +32,12 @@
 (def amr-verbclass-table {:table-name "amr-verbclass"
                           :table-key :id})
 
+(defn dynamodb-endpoint []
+  (or (System/getenv "DYNAMODB_ENDPOINT") "http://localhost:8000"))
+
 (defn client-opts []
-  {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://dynamodb.eu-central-1.amazonaws.com/")
-   :profile "tm"})
+  {:endpoint   (dynamodb-endpoint)
+   :access-key (or (System/getenv "AWS_ACCESS_KEY_ID") (System/getenv "NLG_AWS_ACCESS_KEY_ID"))
+   :secret-key (or (System/getenv "AWS_SECRET_ACCESS_KEY") (System/getenv "NLG_AWS_SECRET_ACCESS_KEY"))})
 
 (defn s3-endpoint [] (System/getenv "S3_ENDPOINT"))
