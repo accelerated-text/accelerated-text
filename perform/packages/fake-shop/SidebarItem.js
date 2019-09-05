@@ -1,6 +1,8 @@
 import checkPropTypes       from 'check-prop-types';
 import { h }                from 'preact';
 
+import { composeQueries }   from '../graphql/';
+import { documentPlans }    from '../graphql/queries.graphql';
 import { getPlanDataRow }   from '../data-samples/functions';
 import getResultForRow      from '../variants/get-result-for-row';
 import {
@@ -15,17 +17,18 @@ import { GraphQLProvider }  from './apollo-client';
 import Publisher            from './Publisher';
 
 
-export default useStores([
-    'planList',
+export default composeQueries({
+    documentPlans,
+})( useStores([
     'variantsApi',
 ])(({
     dataFile,
+    documentPlans: { loading },
     plan,
-    planList,
-    variantsApi: { error, loading, result },
+    variantsApi,
 }) => {
     const descriptionText = getResultForRow(
-        result,
+        variantsApi.result,
         plan && plan.dataSampleRow,
     );
     const record =          getPlanDataRow( dataFile, plan );
@@ -38,7 +41,7 @@ export default useStores([
     return (
         <GraphQLProvider>
             { ! plan
-                ? ( planList.getListLoading
+                ? ( loading
                     ? <Loading message="Waiting for document plan." />
                     : <Info message="Missing document plan." />
                 )
@@ -56,4 +59,4 @@ export default useStores([
             }
         </GraphQLProvider>
     );
-});
+}));
