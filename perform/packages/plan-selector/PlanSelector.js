@@ -1,30 +1,39 @@
 import { h, Component }     from 'preact';
+import PropTypes            from 'prop-types';
 
+import { composeQueries }   from '../graphql/';
+import { documentPlans }    from '../graphql/queries.graphql';
+import DocumentPlansContext from '../document-plans/Context';
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
 import planTemplate         from '../document-plans/plan-template';
 import { QA }               from '../tests/constants';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
-import { useStores }        from '../vesa/';
 
 import ItemControls         from './ItemControls';
 import List                 from './List';
 import S                    from './PlanSelector.sass';
 
 
-export default useStores([
-    'documentPlans',
-    'planList',
-])( class PlanSelector extends Component {
+export default composeQueries({
+    documentPlans,
+})( class PlanSelector extends Component {
+
+    static contextType =    DocumentPlansContext;
+
+    static propTypes = {
+        documentPlans:      PropTypes.object.isRequired,
+    };
 
     onClickNew = evt => {
-        const openedPlan =  this.props.openedPlan || {};
+
+        const openedPlan =  this.context.openedPlan || {};
 
         const name = window.prompt(         // eslint-disable-line no-alert
             'Add a new Document Plan:',
             planTemplate.name,
         );
-        name && this.props.E.planList.onAddNew({
+        name && this.context.E.planList.onAddNew({
             contextId:      openedPlan.contextId        || planTemplate.contextId,
             dataSampleId:   openedPlan.dataSampleId     || planTemplate.dataSampleId,
             dataSampleRow:  openedPlan.dataSampleRow    || planTemplate.dataSampleRow,
@@ -36,7 +45,7 @@ export default useStores([
         const {
             E,
             openedPlan,
-        } = this.props;
+        } = this.context;
 
         const name = window.prompt(         // eslint-disable-line no-alert
             'Enter name for the new plan:',
@@ -49,23 +58,19 @@ export default useStores([
     }
 
     render({
-        E,
         documentPlans: {
-            plans,
-            statuses,
+            documentPlans,
+            error,
+            loading,
         },
+    }, _, {
+        E,
         openedPlan,
-        planList: {
-            getListError,
-            getListLoading,
-            openedPlanUid,
-            uids,
-        },
     }) {
-        const hasPlans =    uids && uids.length;
-        const noPlans =     !hasPlans;
-        const isLoading =   noPlans && getListLoading;
-        const isLoadError = noPlans && getListError;
+        const hasPlans =    documentPlans && documentPlans.totalCount;
+        const noPlans =     ! hasPlans;
+        const isLoading =   noPlans && loading;
+        const isLoadError = noPlans && error;
 
         return (
             <div className={ S.className }>{
@@ -79,22 +84,21 @@ export default useStores([
                         className={ QA.BTN_NEW_PLAN }
                         onClick={ this.onClickNew }
                     />
-                : !openedPlan
+                : ! openedPlan
                     ? <UnexpectedWarning />
                     : [
                         <List
                             onClickNew={ this.onClickNew }
                             onClickSaveAs={ this.onClickSaveAs }
                             onChangeSelected={ E.planList.onSelectPlan }
-                            plans={ plans }
-                            selectedUid={ openedPlanUid }
-                            uids={ uids }
+                            plans={ documentPlans.items }
+                            selectedUid={ openedPlan && openedPlan.uid }
                         />,
                         <ItemControls
                             onDelete={ E.documentPlans.onDelete }
                             onUpdate={ E.documentPlans.onUpdate }
                             plan={ openedPlan }
-                            status={ statuses[openedPlanUid] }
+                            status={{}}
                         />,
                     ]
             }</div>
