@@ -2,46 +2,46 @@ import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
+import { composeQueries }   from '../graphql/';
+import { documentPlans }    from '../graphql/queries.graphql';
 import DocumentPlansContext from '../document-plans/Context';
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
 import OnboardCode          from '../onboard-code/OnboardCode';
 import planTemplate         from '../document-plans/plan-template';
-import { useStores }        from '../vesa/';
 import Workspace            from '../nlg-workspace/NlgWorkspace';
 
 import S                    from './PlanEditor.sass';
 
 
-export default useStores([
-    'planList',
-])( class PlanEditor extends Component {
+export default composeQueries({
+    documentPlans,
+})( class PlanEditor extends Component {
 
     static contextType =    DocumentPlansContext;
 
     static propTypes = {
         className:          PropTypes.string,
-        planList:           PropTypes.object.isRequired,
     };
 
     onChangeWorkspace = ({ documentPlan, workspaceXml }) =>
-        this.props.E.documentPlans.onUpdate({
+        this.context.E.documentPlans.onUpdate({
             ...this.context.openedPlan,
             documentPlan,
             blocklyXml:     workspaceXml,
         });
 
     onCreateXml = blocklyXml =>
-        this.props.E.documentPlans.onCreate.async({
+        this.context.E.documentPlans.onCreate.async({
             name:           planTemplate.name,
             blocklyXml,
         })
 
     render({
         className,
-        planList: {
-            getListError,
-            getListLoading,
+        documentPlans: {
+            error:          getListError,
+            loading:        getListLoading,
         },
     }, _, {
         openedDataFile,
