@@ -1,77 +1,82 @@
-import { h }                from 'preact';
+import { h, Component }     from 'preact';
 
+import { composeQueries }   from '../graphql/';
+import { documentPlans }    from '../graphql/queries.graphql';
+import DocumentPlansContext from '../document-plans/Context';
 import {
     Error,
     Info,
     Loading,
 }                           from '../ui-messages/';
-import getOpenedPlan        from '../plan-list/get-opened-plan';
-import { getStatus }        from '../document-plans/functions';
 import { useStores }        from '../vesa/';
 
 
 export default useStores([
-    'documentPlans',
-    'planList',
     'variantsApi',
-])(({
-    children,
-    className,
+])( composeQueries({
     documentPlans,
-    emptyMessage =          'No variants.',
-    loadingMessage =        'Loading variants...',
-    noDataMessage =         'No data file selected.',
-    noPlanMessage =         'Missing document plan.',
-    planList,
-    variantsApi,
-}) => {
-    const { result } =      variantsApi;
-    const openedPlan =      getOpenedPlan({ documentPlans, planList });
-    const planStatus =
-        openedPlan
-            ? getStatus( documentPlans, openedPlan )
-            : null;
+})( class VariantsViewWithStatus extends Component {
 
-    const error = (
-        variantsApi.error
-        || ( planStatus
-            ? ( planStatus.createError
-               || planStatus.readError
-               || planStatus.updateError
+    static contextType =    DocumentPlansContext;
+
+    render({
+        children,
+        className,
+        documentPlans: {
+            error:              documentPlansError,
+        },
+        emptyMessage =          'No variants.',
+        loadingMessage =        'Loading variants...',
+        noDataMessage =         'No data file selected.',
+        noPlanMessage =         'Missing document plan.',
+        variantsApi,
+    }, _, {
+        openedPlan,
+        openedPlanStatus,
+    }) {
+        const { result } =      variantsApi;
+
+        const error = (
+            variantsApi.error
+            || ( openedPlanStatus
+                ? ( openedPlanStatus.createError
+                   || openedPlanStatus.readError
+                   || openedPlanStatus.updateError
+                )
+                : documentPlansError
             )
-            : planList.getListError
-        )
-    );
+        );
 
-    const loading = (
-        openedPlan && (
-            ! planStatus
-            || variantsApi.loading
-            || planStatus.createLoading
-            || planStatus.readLoading
-            || planStatus.updateLoading
-        )
-    );
+        const loading = (
+            openedPlan && (
+                ! openedPlanStatus
+                || variantsApi.loading
+                || openedPlanStatus.createLoading
+                || openedPlanStatus.readLoading
+                || openedPlanStatus.updateLoading
+            )
+        );
 
-    return (
-        <div className={ className }>
-            { error
-                ? <Error message={ error } />
-            : loading
-                ? <Loading message={ loadingMessage } />
-            : ( result && result.variants && result.variants.length )
-                ? children({
-                    variants:   result.variants,
-                })
-                : <Info message={
-                    openedPlan
-                        ? ( openedPlan.dataSampleId
-                            ? emptyMessage
-                            : noDataMessage
-                        )
-                        : noPlanMessage
-                } />
-            }
-        </div>
-    );
-});
+        return (
+            <div className={ className }>
+                { error
+                    ? <Error message={ error } />
+                : loading
+                    ? <Loading message={ loadingMessage } />
+                : ( result && result.variants && result.variants.length )
+                    ? children({
+                        variants:   result.variants,
+                    })
+                    : <Info message={
+                        openedPlan
+                            ? ( openedPlan.dataSampleId
+                                ? emptyMessage
+                                : noDataMessage
+                            )
+                            : noPlanMessage
+                    } />
+                }
+            </div>
+        );
+    }
+}));
