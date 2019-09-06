@@ -34,13 +34,15 @@ export default composeQueries({
             || ! documentPlans
             || (
                 openedPlan
-                && findByUid( documentPlans, openedPlan.uid )
+                && openedPlan === findByUid( documentPlans, openedPlan.uid )
             )
         );
         if( ! skip ) {
             return {
                 openedPlan: (
-                    findByUid( documentPlans, localStorage.getItem( OPENED_PLAN_UID ))
+                    findByUid( documentPlans, openedPlan && openedPlan.uid )
+                    || ( openedPlan && ! openedPlan.id && openedPlan )
+                    || findByUid( documentPlans, localStorage.getItem( OPENED_PLAN_UID ))
                     || path([ 'items', 0 ], documentPlans )
                 ),
             };

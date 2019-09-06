@@ -1,4 +1,5 @@
 export default {
+    __typename:     'DocumentPlan',
     id:             undefined,
     createdAt:      undefined,
     uid:            null,

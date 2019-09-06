@@ -36,3 +36,12 @@ export const isSamePlan = ( p1, p2 ) => (
     && JSON.stringify( p1.documentPlan ) === JSON.stringify( p2.documentPlan )
 );
 
+
+export const preparePlanJson = plan => ({
+    ...plan,
+    documentPlan: (
+        typeof plan.documentPlan === 'string'
+            ? plan.documentPlan
+            : JSON.stringify( plan.documentPlan )
+    ),
+});

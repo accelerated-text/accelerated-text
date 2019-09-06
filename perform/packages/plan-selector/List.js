@@ -14,8 +14,8 @@ export default class PlanSelectorList extends Component {
         onChangeSelected:   PropTypes.func.isRequired,
         onClickNew:         PropTypes.func.isRequired,
         onClickSaveAs:      PropTypes.func.isRequired,
+        openedPlan:         PropTypes.object,
         plans:              PropTypes.array,
-        selectedUid:        PropTypes.string,
     };
 
     onChangeSelect = evt =>
@@ -25,16 +25,21 @@ export default class PlanSelectorList extends Component {
             ? this.props.onClickSaveAs()
             : this.props.onChangeSelected( evt.target.value )
 
-    render({ plans, selectedUid }) {
+    render({ plans, openedPlan }) {
         return (
             <select
                 className={ S.className }
                 onChange={ this.onChangeSelect }
-                value={ selectedUid }
+                value={ openedPlan.uid }
             >
                 <option value={ ADD_NEW }>➕ New...</option>
                 <option value={ SAVE_AS }>💾 Save as...</option>
                 <optgroup label=" 📂 Open">
+                    { openedPlan && ! openedPlan.id &&
+                        <option key={ openedPlan.uid } value={ openedPlan.uid }>
+                            📑 { openedPlan.name }
+                        </option>
+                    }
                     { plans && plans.map( plan =>
                         <option key={ plan.uid } value={ plan.uid }>
                             📄 { plan.name }
