@@ -1,54 +1,40 @@
 import { h, Component }     from 'preact';
+import { path }             from 'ramda';
 
-import getOpenedPlan        from '../plan-list/get-opened-plan';
+import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 import { getDataFile }      from '../graphql/queries.graphql';
-import { getStatus }        from '../document-plans/functions';
 import { Query }            from '../graphql/';
-import { useStores }        from '../vesa/';
 
 import Context              from './Context';
 
 
-export default useStores([
-    'documentPlans',
-    'planList',
-])( class DocumentPlansContextProvider extends Component {
+const getDataSampleId =     path([ 'openedPlan', 'dataSampleId' ]);
+
+
+export default class DocumentPlansContextProvider extends Component {
+
+    static contextType =    OpenedPlanContext;
 
     value =                 {};
 
-    render({ children, E, ...props }) {
-
-        const openedPlan =  getOpenedPlan( props );
-        const openedPlanStatus =
-            openedPlan
-                ? getStatus( props.documentPlans, openedPlan )
-                : null;
-
-        const queryVariables =
-            ( openedPlan && openedPlan.dataSampleId )
-                ? { id:     openedPlan.dataSampleId }
-                : null;
-
-        return (
-            <Query
-                query={ getDataFile }
-                skip={ ! queryVariables }
-                variables={ queryVariables }
-            >
-                { ({ error, data, loading }) =>
-                    <Context.Provider
-                        children={ children }
-                        value={ Object.assign( this.value, {
-                            E,
-                            openedDataFile:         data ? data.getDataFile : null,
-                            openedDataFileError:    error,
-                            openedDataFileLoading:  loading,
-                            openedPlan,
-                            openedPlanStatus,
-                        }) }
-                    />
-                }
-            </Query>
-        );
-    }
-});
+    render = ({ children }, _, context ) =>
+        <Query
+            query={ getDataFile }
+            skip={ ! getDataSampleId( context ) }
+            variables={{
+                id:         getDataSampleId( context ),
+            }}
+        >
+            { ({ error, data, loading }) =>
+                <Context.Provider
+                    children={ children }
+                    value={ Object.assign( this.value, {
+                        ...context,
+                        openedDataFile:         data && data.getDataFile,
+                        openedDataFileError:    error,
+                        openedDataFileLoading:  loading,
+                    }) }
+                />
+            }
+        </Query>;
+}

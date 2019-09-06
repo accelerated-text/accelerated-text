@@ -20,6 +20,7 @@ import {
     openQuickSearch,
 }   from './local-state';
 import mountStores          from './mount-stores';
+import OpenedPlanProvider   from './OpenedPlanContextProvider';
 import S                    from './AcceleratedText.sass';
 
 
@@ -66,10 +67,12 @@ const AcceleratedText = composeQueries({
 export default mountStores(
     () =>
         <GraphQLProvider>
-            <DocumentPlansContextProvider>
-                <WorkspaceContextProvider>
-                    <AcceleratedText />
-                </WorkspaceContextProvider>
-            </DocumentPlansContextProvider>
+            <OpenedPlanProvider>
+                <DocumentPlansContextProvider>
+                    <WorkspaceContextProvider>
+                        <AcceleratedText />
+                    </WorkspaceContextProvider>
+                </DocumentPlansContextProvider>
+            </OpenedPlanProvider>
         </GraphQLProvider>
 );

@@ -2,8 +2,6 @@ import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
-import { composeQueries }   from '../graphql/';
-import { documentPlans }    from '../graphql/queries.graphql';
 import DocumentPlansContext from '../document-plans/Context';
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
@@ -14,9 +12,7 @@ import Workspace            from '../nlg-workspace/NlgWorkspace';
 import S                    from './PlanEditor.sass';
 
 
-export default composeQueries({
-    documentPlans,
-})( class PlanEditor extends Component {
+export default class PlanEditor extends Component {
 
     static contextType =    DocumentPlansContext;
 
@@ -39,13 +35,11 @@ export default composeQueries({
 
     render({
         className,
-        documentPlans: {
-            error:          getListError,
-            loading:        getListLoading,
-        },
     }, _, {
         openedDataFile,
         openedPlan,
+        openedPlanError,
+        openedPlanLoading,
     }) {
         return (
             <div className={ classnames( S.className, className ) }>{
@@ -56,12 +50,12 @@ export default composeQueries({
                         onChangeWorkspace={ this.onChangeWorkspace }
                         workspaceXml={ openedPlan.blocklyXml }
                     />
-                : getListLoading
+                : openedPlanLoading
                     ? <Loading className={ S.item } message="Loading document plans." />
-                : getListError
+                : openedPlanError
                     ? <Error className={ S.item } message="Error loading document plans." />
                     : <OnboardCode onCreateXml={ this.onCreateXml } />
             }</div>
         );
     }
-});
+}

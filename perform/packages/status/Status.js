@@ -1,5 +1,5 @@
 import { h, Component }     from 'preact';
-import { props }            from 'ramda';
+/// import { props }            from 'ramda';
 
 import { composeQueries  }  from '../graphql';
 import { concepts }         from '../graphql/queries.graphql';
@@ -12,8 +12,6 @@ import { useStores }        from '../vesa/';
 export default composeQueries({
     concepts,
 })( useStores([
-    'documentPlans',
-    'planList',
     'variantsApi',
 ])( class Status extends Component {
 
@@ -22,17 +20,37 @@ export default composeQueries({
     render({
         className,
         concepts: {
-            concepts:           conceptsData,
-            error:              conceptsError,
-            loading:            conceptsLoading,
+            concepts:       conceptsData,
+            error:          conceptsError,
+            loading:        conceptsLoading,
         },
-        documentPlans,
-        planList,
         variantsApi,
     }, _, {
+        documentPlansError,
+        documentPlansLoading,
         openedDataFileError,
         openedDataFileLoading,
+        openedPlanError,
+        openedPlanLoading,
     }) {
+        const isError = (
+            conceptsError
+            || ( ! conceptsData && ! conceptsLoading )
+            || documentPlansError
+            || openedDataFileError
+            || openedPlanError
+            || variantsApi.error
+        );
+
+        const isLoading = (
+            conceptsLoading
+            || documentPlansLoading
+            || openedDataFileLoading
+            || openedPlanLoading
+            || variantsApi.loading
+        );
+
+        /* TODO: get full statuses
         const planStatuses =    props( planList.uids, documentPlans.statuses );
 
         const isError = (
@@ -56,6 +74,7 @@ export default composeQueries({
                 || status.deleteLoading
             ))
         );
+        */
 
         const isReady = !isError && !isLoading;
 

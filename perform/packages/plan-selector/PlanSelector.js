@@ -1,11 +1,8 @@
 import { h, Component }     from 'preact';
-import PropTypes            from 'prop-types';
 
-import { composeQueries }   from '../graphql/';
-import { documentPlans }    from '../graphql/queries.graphql';
-import DocumentPlansContext from '../document-plans/Context';
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
+import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 import planTemplate         from '../document-plans/plan-template';
 import { QA }               from '../tests/constants';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
@@ -15,15 +12,9 @@ import List                 from './List';
 import S                    from './PlanSelector.sass';
 
 
-export default composeQueries({
-    documentPlans,
-})( class PlanSelector extends Component {
+export default class PlanSelector extends Component {
 
-    static contextType =    DocumentPlansContext;
-
-    static propTypes = {
-        documentPlans:      PropTypes.object.isRequired,
-    };
+    static contextType =    OpenedPlanContext;
 
     onClickNew = evt => {
 
@@ -57,26 +48,23 @@ export default composeQueries({
         });
     }
 
-    render({
-        documentPlans: {
-            documentPlans,
-            error,
-            loading,
-        },
-    }, _, {
+    render( _, __, {
         E,
+        documentPlans,
+        documentPlansError,
+        documentPlansLoading,
+        openPlanUid,
         openedPlan,
+        openedPlanError,
+        openedPlanLoading,
     }) {
-        const hasPlans =    documentPlans && documentPlans.totalCount;
-        const noPlans =     ! hasPlans;
-        const isLoading =   noPlans && loading;
-        const isLoadError = noPlans && error;
+        const noPlans =     ! documentPlans || ! documentPlans.totalCount;
 
         return (
             <div className={ S.className }>{
-                isLoading
+                openedPlanLoading
                     ? <Loading message="Loading plans." />
-                : isLoadError
+                : openedPlanError
                     ? <Error message="Loading error! Please refresh the page." />
                 : noPlans
                     ? <button
@@ -90,7 +78,7 @@ export default composeQueries({
                         <List
                             onClickNew={ this.onClickNew }
                             onClickSaveAs={ this.onClickSaveAs }
-                            onChangeSelected={ E.planList.onSelectPlan }
+                            onChangeSelected={ openPlanUid }
                             plans={ documentPlans.items }
                             selectedUid={ openedPlan && openedPlan.uid }
                         />,
@@ -104,4 +92,4 @@ export default composeQueries({
             }</div>
         );
     }
-});
+}

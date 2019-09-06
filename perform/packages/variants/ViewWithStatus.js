@@ -1,7 +1,5 @@
 import { h, Component }     from 'preact';
 
-import { composeQueries }   from '../graphql/';
-import { documentPlans }    from '../graphql/queries.graphql';
 import DocumentPlansContext from '../document-plans/Context';
 import {
     Error,
@@ -13,29 +11,29 @@ import { useStores }        from '../vesa/';
 
 export default useStores([
     'variantsApi',
-])( composeQueries({
-    documentPlans,
-})( class VariantsViewWithStatus extends Component {
+])( class VariantsViewWithStatus extends Component {
 
     static contextType =    DocumentPlansContext;
 
     render({
         children,
         className,
-        documentPlans: {
-            error:              documentPlansError,
-        },
-        emptyMessage =          'No variants.',
-        loadingMessage =        'Loading variants...',
-        noDataMessage =         'No data file selected.',
-        noPlanMessage =         'Missing document plan.',
+        emptyMessage =      'No variants.',
+        loadingMessage =    'Loading variants...',
+        noDataMessage =     'No data file selected.',
+        noPlanMessage =     'Missing document plan.',
         variantsApi,
     }, _, {
         openedPlan,
-        openedPlanStatus,
+        openedPlanError,
+        openedPlanLoading,
     }) {
-        const { result } =      variantsApi;
+        const { result } =  variantsApi;
 
+        const error =       variantsApi.error || openedPlanError;
+        const loading =      variantsApi.loading || openedPlanLoading;
+
+        /* TODO: get full openedPlan status
         const error = (
             variantsApi.error
             || ( openedPlanStatus
@@ -46,7 +44,6 @@ export default useStores([
                 : documentPlansError
             )
         );
-
         const loading = (
             openedPlan && (
                 ! openedPlanStatus
@@ -56,6 +53,7 @@ export default useStores([
                 || openedPlanStatus.updateLoading
             )
         );
+        */
 
         return (
             <div className={ className }>
@@ -79,4 +77,4 @@ export default useStores([
             </div>
         );
     }
-}));
+});
