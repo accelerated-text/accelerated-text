@@ -13,7 +13,6 @@ export default class ReaderFlagValue extends Component {
         className,
         flag,
         isChecked,
-        onChange,
     }) {
         return (
             <label className={ classnames( S.className, className, isChecked && S.isChecked ) }>

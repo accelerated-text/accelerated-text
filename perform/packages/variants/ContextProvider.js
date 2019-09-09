@@ -1,7 +1,9 @@
 import { h, Component }     from 'preact';
 
+import composeContexts      from '../compose-contexts/';
 import DocumentPlansContext from '../document-plans/Context';
 import { getPlanDataRecord }    from '../data-samples/functions';
+import ReaderContext        from '../reader/Context';
 
 import Context              from './Context';
 import { getVariants }      from './api';
@@ -14,17 +16,18 @@ const canGetResult = ({ openedPlan, openedDataFile }) => (
 );
 
 
-const getResultKey = ({ openedPlan = {}, openedDataFile }) =>
+const getResultKey = ( openedPlan, openedDataFile, flagValues ) =>
     JSON.stringify({
+        flagValues,
         planId:             openedPlan.id,
         planUpdatedAt:      openedPlan.updatedAt,
-        /// TODO: reader-flags
     });
 
 
-export default class VariantsContextProvider extends Component {
-
-    static contextType =    DocumentPlansContext;
+export default composeContexts({
+    documentPlans:          DocumentPlansContext,
+    reader:                 ReaderContext,
+})( class VariantsContextProvider extends Component {
 
     state = {
         error:              null,
@@ -34,17 +37,26 @@ export default class VariantsContextProvider extends Component {
     };
 
     onUpdates = () => {
-        if( canGetResult( this.context )) {
-            const resultKey =   getResultKey( this.context );
+        const {
+            documentPlans,
+            reader,
+        } = this.props;
+
+        if( canGetResult( documentPlans )) {
+            const resultKey = getResultKey(
+                documentPlans.openedPlan,
+                documentPlans.openedDataFile,
+                reader.flagValues,
+            );
             if( this.state.resultKey !== resultKey ) {
                 this.setState({
                     loading:                true,
                     resultKey,
                 }, () => {
                     getVariants({
-                        dataId:             this.context.openedPlan.dataSampleId,
-                        documentPlanId:     this.context.openedPlan.id,
-                        readerFlagValues:   {},
+                        dataId:             documentPlans.openedPlan.dataSampleId,
+                        documentPlanId:     documentPlans.openedPlan.id,
+                        readerFlagValues:   reader.flagValues,
                     }).then( result => this.setState( state =>
                         ( state.resultKey === resultKey ) && {
                             error:          false,
@@ -76,4 +88,4 @@ export default class VariantsContextProvider extends Component {
             children={ children }
             value={ state }
         />;
-}
+});
