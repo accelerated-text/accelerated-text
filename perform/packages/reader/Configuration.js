@@ -29,7 +29,6 @@ export default composeQueries({
         flagValues,
         onToggleFlag,
     }) {
-        console.log( 'Configuration', flagValues );
         return (
             <div className={ S.className }>{
                 error
