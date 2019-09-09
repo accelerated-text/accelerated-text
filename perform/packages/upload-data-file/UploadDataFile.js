@@ -6,21 +6,12 @@ import {
     Loading,
     Success,
 }   from '../ui-messages/';
-import { mount, useStores } from '../vesa/';
-import { withClient }       from '../graphql/';
 
-import adapter              from './adapter';
 import S                    from './UploadDataFile.sass';
-import uploadDataFile       from './store';
+import withUploader         from './withUploader';
 
 
-export default withClient( mount({
-    uploadDataFile,
-}, [
-    adapter,
-])( useStores([
-    'uploadDataFile',
-])( class UploadDataFile extends Component {
+export default withUploader( class UploadDataFile extends Component {
 
     onSubmit = evt => {
         evt.preventDefault();
@@ -29,7 +20,7 @@ export default withClient( mount({
         const file =        form[0].files[0];
 
         if( file ) {
-            this.props.E.uploadDataFile.onUpload( file );
+            this.props.onUpload( file );
         }
     }
 
@@ -37,11 +28,11 @@ export default withClient( mount({
         className,
         fileClassName,
         uploadClassName,
-        uploadDataFile: {
-            uploadCounter,
-            uploadError,
-            uploadFileKey,
-            uploadLoading,
+        uploader: {
+            counter,
+            error,
+            fileKey,
+            loading,
         },
     }) {
         return (
@@ -51,28 +42,28 @@ export default withClient( mount({
             >
                 <input
                     className={ classnames( S.file, fileClassName ) }
-                    disabled={ uploadLoading }
-                    key={ uploadCounter }
+                    disabled={ loading }
+                    key={ counter }
                     type="file"
                 />
                 <button
-                    children={ uploadLoading ? 'Uploading...' : 'Upload' }
+                    children={ loading ? 'Uploading...' : 'Upload' }
                     className={ classnames( S.upload, uploadClassName ) }
-                    disabled={ uploadLoading }
+                    disabled={ loading }
                     type="submit"
                 />
                 {
-                    uploadError
-                        ? <Error justIcon message={ uploadError } />
-                    : uploadLoading
+                    error
+                        ? <Error justIcon message={ error } />
+                    : loading
                         ? <Loading justIcon message="Uploading..." />
-                    : uploadFileKey
+                    : fileKey
                         ? <Loading justIcon message="Syncing..." />
-                    : uploadCounter
+                    : counter
                         ? <Success message="Done" />
                         : null
                 }
             </form>
         );
     }
-})));
+});

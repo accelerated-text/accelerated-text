@@ -19,3 +19,13 @@ export const getPlanDataRecord = ( dataFile, plan ) => (
     && plan.dataSampleId
     && dataFile.records[plan.dataSampleRow]
 );
+
+
+export const getFileById = ( listDataFiles, id ) => (
+    id
+    && listDataFiles
+    && listDataFiles.dataFiles
+    && listDataFiles.dataFiles.find(
+        file => file.id === id
+    )
+);

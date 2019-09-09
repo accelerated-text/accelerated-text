@@ -1,2 +1,5 @@
-export default ( user, fileName ) =>
-    `${ process.env.DATA_FILES_BUCKET }/${ user.id }/${ fileName }`;
+import USER                 from '../user/';
+
+
+export default fileName =>
+    `${ process.env.DATA_FILES_BUCKET }/${ USER.id }/${ fileName }`;
