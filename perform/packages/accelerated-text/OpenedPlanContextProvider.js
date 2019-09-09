@@ -81,8 +81,6 @@ export default composeQueries({
         },
     }, {
         openedPlan,
-    }, {
-        E,
     }) {
         return <Context.Provider
             children={ children }
@@ -90,7 +88,6 @@ export default composeQueries({
                 documentPlans,
                 documentPlansError,
                 documentPlansLoading,
-                E,
                 openPlan:               this.openPlan,
                 openPlanUid:            this.openPlanUid,
                 openedPlan,
