@@ -38,14 +38,16 @@ export default composeQueries({
             )
         );
         if( ! skip ) {
-            return {
-                openedPlan: (
-                    findByUid( documentPlans, openedPlan && openedPlan.uid )
-                    || ( openedPlan && ! openedPlan.id && openedPlan )
-                    || findByUid( documentPlans, localStorage.getItem( OPENED_PLAN_UID ))
-                    || path([ 'items', 0 ], documentPlans )
-                ),
-            };
+            const newOpenedPlan = (
+                findByUid( documentPlans, openedPlan && openedPlan.uid )
+                || ( openedPlan && ! openedPlan.id && openedPlan )
+                || findByUid( documentPlans, localStorage.getItem( OPENED_PLAN_UID ))
+                || path([ 'items', 0 ], documentPlans )
+            );
+            if( newOpenedPlan ) {
+                localStorage.setItem( OPENED_PLAN_UID, newOpenedPlan.uid );
+            }
+            return { openedPlan: newOpenedPlan };
         }
     }
 
