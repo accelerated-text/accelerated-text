@@ -10,3 +10,12 @@ export const getPlanDataRow = ( dataFile, plan ) => (
     && plan.dataSampleId
     && dataFieldsToObj( dataFile.records[plan.dataSampleRow].fields )
 );
+
+
+export const getPlanDataRecord = ( dataFile, plan ) => (
+    dataFile
+    && dataFile.records
+    && plan
+    && plan.dataSampleId
+    && dataFile.records[plan.dataSampleRow]
+);

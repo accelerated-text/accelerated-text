@@ -11,6 +11,7 @@ import Header               from '../header/Header';
 import PlanEditor           from '../plan-editor/PlanEditor';
 import QuickSearchModal     from '../quick-search/WorkspaceModal';
 import QuickSearchShortcuts from '../quick-search/KeyboardProvider';
+import VariantsContextProvider  from '../variants/ContextProvider';
 import WorkspaceContextProvider from '../workspace-context/Provider';
 
 import {
@@ -69,9 +70,11 @@ export default mountStores(
         <GraphQLProvider>
             <OpenedPlanProvider>
                 <DocumentPlansContextProvider>
-                    <WorkspaceContextProvider>
-                        <AcceleratedText />
-                    </WorkspaceContextProvider>
+                    <VariantsContextProvider>
+                        <WorkspaceContextProvider>
+                            <AcceleratedText />
+                        </WorkspaceContextProvider>
+                    </VariantsContextProvider>
                 </DocumentPlansContextProvider>
             </OpenedPlanProvider>
         </GraphQLProvider>

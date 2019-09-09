@@ -15,7 +15,7 @@ export default class PlanEditorSidebar extends Component {
 
     static contextType =    DocumentPlansContext;
 
-    render({ className }, _, { openedPlan, openedDataFile }) {
+    render({ className }, _, { openedPlan, openedPlanLoading, openedDataFile }) {
         return (
             <Sidebar className={ className }>
                 <SidebarItem
@@ -35,6 +35,7 @@ export default class PlanEditorSidebar extends Component {
                     <FakeShop
                         dataFile={ openedDataFile }
                         plan={ openedPlan }
+                        planLoading={ openedPlanLoading }
                     />
                 </SidebarItem>
                 <SidebarItem title="Text Analysis">

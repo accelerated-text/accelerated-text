@@ -46,8 +46,8 @@ export default ChildComponent =>
                     createDocumentPlan: {
                         ...createdPlan,
                         id:             Math.random().toString( 36 ),
-                        createdAt:      +new Date,
-                        updatedAt:      +new Date,
+                        createdAt:      null,
+                        updatedAt:      null,
                     },
                 },
             }).then( mutationResult => {
