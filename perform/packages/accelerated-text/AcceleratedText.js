@@ -65,17 +65,15 @@ const AcceleratedText = composeQueries({
 );
 
 
-export default () =>
-    <GraphQLProvider>
-        <OpenedPlanProvider>
-            <DocumentPlansContextProvider>
-                <ReaderContextProvider>
-                    <VariantsContextProvider>
-                        <WorkspaceContextProvider>
-                            <AcceleratedText />
-                        </WorkspaceContextProvider>
-                    </VariantsContextProvider>
-                </ReaderContextProvider>
-            </DocumentPlansContextProvider>
-        </OpenedPlanProvider>
-    </GraphQLProvider>;
+export default () => [
+    GraphQLProvider,
+    OpenedPlanProvider,
+    DocumentPlansContextProvider,
+    ReaderContextProvider,
+    VariantsContextProvider,
+    WorkspaceContextProvider,
+    AcceleratedText,
+    null,
+].reverse().reduce(
+    ( children, Parent ) => h( Parent, { children })
+);
