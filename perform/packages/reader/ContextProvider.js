@@ -9,21 +9,20 @@ export default class ReaderContextProvider extends Component {
         flagValues:         {},
     };
 
-    onToggleFlag = flagId => {
-        this.setState( state => ({
-            flagValues: {
-                ...state.flagValues,
-                [flagId]:   ! state.flagValues[flagId],
-            },
-        }));
+    value = {
+        onToggleFlag: flagId => {
+            this.setState( state => ({
+                flagValues: {
+                    ...state.flagValues,
+                    [flagId]:   ! state.flagValues[flagId],
+                },
+            }));
+        },
     };
 
     render = ({ children }, state ) =>
         <Context.Provider
             children={ children }
-            value={{
-                ...this.state,
-                onToggleFlag:   this.onToggleFlag,
-            }}
+            value={ Object.assign( this.value, state ) }
         />;
 }
