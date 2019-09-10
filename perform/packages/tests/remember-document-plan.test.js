@@ -1,7 +1,7 @@
 import sleep                from 'timeout-as-promise';
 import test                 from 'ava';
 
-import { OPENED_PLAN_UID }  from '../plan-list/local-storage-adapter';
+import { OPENED_PLAN_UID }  from '../accelerated-text/constants';
 
 import addPageUtils         from './lib/add-page-utils';
 import debugConsole         from './lib/debug-console';
@@ -30,7 +30,8 @@ test(
     withNlgApi,
     async t => {
 
-        const PLAN =            DOCUMENT_PLAN_LIST[1];
+        const PLAN =            DOCUMENT_PLAN_LIST.documentPlans.items[1];
+        const documentPlan =    JSON.parse( PLAN.documentPlan );
 
         /// Need to open the page before accessing localStorage:
         await noRecords( t );
@@ -46,8 +47,8 @@ test(
         await defaultResponses( t );
         await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
-        await t.findElement( `[data-id=${ PLAN.documentPlan.srcId }]` );
-        await t.findElement( `[data-id=${ PLAN.documentPlan.segments[0].srcId }]` );
+        await t.findElement( `[data-id=${ documentPlan.srcId }]` );
+        await t.findElement( `[data-id=${ documentPlan.segments[0].srcId }]` );
         await t.findElement( SELECTORS.VARIANT );
 
         /// Wait to make sure no unnecessary requests sent:

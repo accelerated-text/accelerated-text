@@ -5,6 +5,7 @@ import { composeQueries }   from '../graphql/';
 import { documentPlans }    from '../graphql/queries.graphql';
 
 import Context              from './OpenedPlanContext';
+import { OPENED_PLAN_UID }  from './constants';
 
 
 const findByUid = ( documentPlans, uid ) => (
@@ -15,9 +16,6 @@ const findByUid = ( documentPlans, uid ) => (
         plan.uid === uid
     )
 );
-
-
-export const OPENED_PLAN_UID =  'accelerated-text/OpenedPlanContext#openedPlanUid';
 
 
 export default composeQueries({

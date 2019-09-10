@@ -12,7 +12,10 @@ export const selectDataFile = ( t, dataFile ) => {
             { id: dataFile.id },
             { data: { getDataFile: dataFile }},
         ),
-        respondOnPlanChange( t ),
+        respondOnPlanChange( t, {
+            dataSampleId:       dataFile.id,
+            dataSampleRow:      0,
+        }),
     ]);
 };
 

@@ -22,10 +22,11 @@ test( 'should not start unaccounted-for requests', defaultResponsesPage, async t
 
 test( 'should load the document plan', defaultResponsesPage, async t => {
 
-    const PLAN =            DOCUMENT_PLAN_LIST[0];
+    const PLAN =            DOCUMENT_PLAN_LIST.documentPlans.items[0];
+    const documentPlan =    JSON.parse( PLAN.documentPlan );
 
-    await t.findElement( `[data-id=${ PLAN.documentPlan.srcId }]` );
-    await t.findElement( `[data-id=${ PLAN.documentPlan.segments[0].srcId }]` );
+    await t.findElement( `[data-id=${ documentPlan.srcId }]` );
+    await t.findElement( `[data-id=${ documentPlan.segments[0].srcId }]` );
 });
 
 

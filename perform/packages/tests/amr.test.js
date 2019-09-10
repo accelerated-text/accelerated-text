@@ -60,7 +60,7 @@ test( 'can expand help text', defaultResponsesPage, async t => {
 test.skip( 'can drag-in blocks', defaultResponsesPage, async t => {
 
     const HAS_AMR =         /type="AMR"/;
-    const PLAN =            DOCUMENT_PLAN_LIST[0];
+    const PLAN =            DOCUMENT_PLAN_LIST.documentPlans.items[0];
     const $blockly =        SELECTORS.BLOCKLY;
     const $dragBlock =      SELECTORS.AMR_CONCEPT_DRAG_BLOCK;
 
