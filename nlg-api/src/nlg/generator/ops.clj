@@ -4,9 +4,6 @@
             [ccg-kit.verbnet.ccg :refer :all]
             [ccg-kit.spec.morphology :as morph-spec]
             [ccg-kit.spec.lexicon :as lex-spec]
-            [ccg-kit.grammar-generation.xml-utils :as u]
-            [ccg-kit.grammar-generation.morphology :as m]
-            [ccg-kit.grammar-generation.lexicon :as l]
             [clojure.data.xml :as xml]))
 
 (defn set-subj [selector]  (fn [context data] (assoc context :subj (selector data))))
@@ -124,3 +121,6 @@
             result (try (string/replace text (:original head) (:replace head))
                         (catch Exception ex (log/errorf "Problem with: %s" (pr-str head))))]
         (recur result tail)))))
+
+(defn zip [coll1 coll2]
+  (map vector coll1 coll2))

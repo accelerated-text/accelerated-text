@@ -2,7 +2,8 @@
   (:require [nlg.api.resource :as resource]
             [nlg.api.utils :as utils]
             [data-access.db.config :as config]
-            [taoensso.faraday :as far])
+            [taoensso.faraday :as far]
+            [data-access.entities.document-plan :as document-plan])
   (:gen-class
     :name nlg.api.WorkspaceHandler
     :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
@@ -12,39 +13,30 @@
   body)
 
 (defn get-workspace
-  [path-params]
-  (let [key (path-params :id)]
-    {:status 200
-     :body   (far/get-item (config/client-opts) (:table-name config/blockly-table) {:id key})}))
+  [{:keys [id]}]
+  {:status 200
+   :body (document-plan/get-document-plan id)})
 
 (defn delete-workspace
-  [path-params]
-  (let [key (path-params :id)]
-    (utils/do-delete (fn [key]
-                       (far/get-item (config/client-opts) (:table-name config/blockly-table) {:id key}))
-                     (fn [key]
-                       (far/delete-item (config/client-opts) (:table-name config/blockly-table) {:id key}))
-                     key)))
+  [{:keys [id]}]
+  (let [original (document-plan/get-document-plan id)]
+    (document-plan/delete-document-plan id)
+    {:status 200
+     :body original}))
 
 (defn add-workspace
-  [request-body]
-  (utils/do-insert (fn [key workspace]
-                     (write-workspace (assoc workspace :id key :createdAt (utils/ts-now))))
-                   request-body))
+  [dp]
+  (document-plan/add-document-plan dp))
 
 (defn update-workspace
-  [path-params request-body]
-  (let [key (path-params :id)]
-    (utils/do-update (fn [key workspace]
-                       (write-workspace (merge (get-workspace key) (assoc workspace :updatedAt (utils/ts-now)))))
-                     key
-                     request-body)))
+  [{:keys [id]} dp]
+  (document-plan/update-document-plan id dp)
+  (get-workspace id))
 
 (defn list-workspaces
   [query-params]
-  (let [limit (get query-params :limit 20)]
-    {:body   (far/scan (config/client-opts) (:table-name config/blockly-table) {:limit limit})
-     :status 200}))
+  {:body (document-plan/list-document-plans)
+   :status 200})
 
 (def -handleRequest
   (resource/build-resource {:get-handler    (fn [query-params path-params] (if (empty? path-params)

@@ -8,7 +8,13 @@
   (case (attrs :source)
     :cell true
     :quote true
+    :quotes true
     false))
+
+(defn data-filter
+  [data {:keys [value gate]}]
+  (log/debugf "Value: '%s' Data: %s. Passes? %b" value data (gate data))
+  (gate data))
 
 (defn get-value
   "Pulls concrete value for item"
@@ -18,6 +24,10 @@
   (let [result (case (attrs :source)
                  :cell (get data (name :cell))
                  :quote (name :quote)
+                 :quotes (->> (name :quotes)
+                              (filter (partial data-filter data))
+                              (rand-nth)
+                              :value)
                  name)]
     (if (contains? attrs :gate)
       (when ((attrs :gate) data)
