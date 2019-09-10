@@ -66,6 +66,7 @@ test(
     customResponsesPage({
         dataFiles:              EMPTY_DATA_FILE_LIST,
         documentPlans: {
+            ...DOCUMENT_PLAN_LIST,
             documentPlans: {
                 ...DOCUMENT_PLAN_LIST.documentPlans,
                 items: DOCUMENT_PLAN_LIST.documentPlans.items.map( plan => ({
