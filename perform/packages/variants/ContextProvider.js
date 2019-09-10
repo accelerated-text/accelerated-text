@@ -21,7 +21,7 @@ const getResultKey = ( plan, file, flagValues ) =>
     JSON.stringify({
         flagValues,
         planId:             plan.id,
-        planUpdatedAt:      plan.updatedAt,
+        planUpdateCount:    plan.updateCount,
         /// TODO: use the data file
     });
 

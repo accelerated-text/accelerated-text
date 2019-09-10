@@ -21,7 +21,6 @@ export const respondOnPlanChange = (
                 updateDocumentPlan: {
                     ...plan,
                     updateCount:    plan.updateCount + 1,
-                    updatedAt:      +new Date,
                 },
             },
         },

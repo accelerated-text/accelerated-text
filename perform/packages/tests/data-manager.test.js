@@ -169,19 +169,25 @@ test( 'can change cell value row', defaultResponsesPage, async t => {
 
     t.page.select( SELECTORS.DATA_MANAGER_ROW_SELECT, '5' );
     await respondOnPlanChange( t, {
+        dataSampleId:       dataFile.id,
         dataSampleRow:      5,
+        updateCount:        2,
     });
     await isDataFileRecordVisible( t, dataFile.records[5]);
 
     t.page.click( SELECTORS.DATA_MANAGER_ROW_NEXT );
     await respondOnPlanChange( t, {
+        dataSampleId:       dataFile.id,
         dataSampleRow:      6,
+        updateCount:        3,
     });
     await isDataFileRecordVisible( t, dataFile.records[6]);
 
     t.page.click( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
     await respondOnPlanChange( t, {
+        dataSampleId:       dataFile.id,
         dataSampleRow:      5,
+        updateCount:        4,
     });
     await isDataFileRecordVisible( t, dataFile.records[5]);
 });
@@ -217,7 +223,9 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
         recordCount:        4,
     });
 
-    await selectDataFile( t, dataFile4 );
+    await selectDataFile( t, dataFile4, {
+        updateCount:        2,
+    });
 
     await t.waitUntilElementGone( SELECTORS.UI_LOADING );
     await t.notFindElement( SELECTORS.UI_ERROR );
@@ -234,7 +242,9 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     t.page.select( SELECTORS.DATA_MANAGER_ROW_SELECT, '2' );
     await respondOnPlanChange( t, {
+        dataSampleId:       dataFile4.id,
         dataSampleRow:      2,
+        updateCount:        3,
     });
     await isDataFileRecordVisible( t, dataFile4.records[2]);
     t.is(
@@ -248,7 +258,9 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     t.page.click( SELECTORS.DATA_MANAGER_ROW_NEXT );
     await respondOnPlanChange( t, {
+        dataSampleId:       dataFile4.id,
         dataSampleRow:      3,
+        updateCount:        4,
     });
     await isDataFileRecordVisible( t, dataFile4.records[3]);
     t.is(
@@ -262,7 +274,9 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     t.page.select( SELECTORS.DATA_MANAGER_ROW_SELECT, '1' );
     await respondOnPlanChange( t, {
+        dataSampleId:       dataFile4.id,
         dataSampleRow:      1,
+        updateCount:        5,
     });
     await isDataFileRecordVisible( t, dataFile4.records[1]);
     t.is(
@@ -276,7 +290,9 @@ test( 'row buttons correctly disabled', defaultResponsesPage, async t => {
 
     t.page.click( SELECTORS.DATA_MANAGER_ROW_PREVIOUS );
     await respondOnPlanChange( t, {
+        dataSampleId:       dataFile4.id,
         dataSampleRow:      0,
+        updateCount:        6,
     });
     await isDataFileRecordVisible( t, dataFile4.records[0]);
     t.is(

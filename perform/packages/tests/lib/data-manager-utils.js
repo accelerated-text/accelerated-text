@@ -2,7 +2,7 @@ import { respondOnPlanChange }  from './responses';
 import { SELECTORS }            from '../constants';
 
 
-export const selectDataFile = ( t, dataFile ) =>
+export const selectDataFile = ( t, dataFile, documentPlan = null ) =>
     Promise.all([
         t.graphqlApi.provideOnce(
             'getDataFile',
@@ -10,6 +10,7 @@ export const selectDataFile = ( t, dataFile ) =>
             { data: { getDataFile: dataFile }},
         ),
         respondOnPlanChange( t, {
+            ...documentPlan,
             dataSampleId:       dataFile.id,
             dataSampleRow:      0,
         }),
