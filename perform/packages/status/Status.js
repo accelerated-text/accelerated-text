@@ -28,7 +28,7 @@ export default composeContexts({
 }) => {
     const isError = (
         concepts.error
-        || ( ! concepts.data && ! concepts.loading )
+        || ( ! concepts.concepts && ! concepts.loading )
         || documentPlans.error
         || openedDataFile.error
         || openedPlan.error
