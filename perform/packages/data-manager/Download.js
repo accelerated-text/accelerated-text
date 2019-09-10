@@ -1,21 +1,21 @@
 import { h, Component }     from 'preact';
 
-import DocumentPlansContext from '../document-plans/Context';
 import getFileUrl           from '../upload-data-file/get-file-url';
+import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
 
 
 export default class DataManagerDownload extends Component {
 
-    static contextType =    DocumentPlansContext;
+    static contextType =    OpenedFileContext;
 
-    render({ className, user }, _, { openedDataFile }) {
+    render({ className, user }, _, { file }) {
         return (
-            ( ! openedDataFile )
+            ( ! file )
                 ? null
                 : <a
                     children="Download file"
                     className={ className }
-                    href={ getFileUrl( openedDataFile.fileName ) }
+                    href={ getFileUrl( file.fileName ) }
                 />
         );
     }

@@ -1,31 +1,34 @@
 import { h, Component }     from 'preact';
 
 import composeContexts      from '../compose-contexts/';
-import DocumentPlansContext from '../document-plans/Context';
 import { getPlanDataRecord }    from '../data-samples/functions';
+import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
+import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 import ReaderContext        from '../reader/Context';
 
 import Context              from './Context';
 import { getVariants }      from './api';
 
 
-const canGetResult = ({ openedPlan, openedDataFile }) => (
-    getPlanDataRecord( openedDataFile, openedPlan )
-    && openedPlan.id
-    && openedPlan.updatedAt
+const canGetResult = ( plan, file ) => (
+    getPlanDataRecord( file, plan )
+    && plan.id
+    && plan.updatedAt
 );
 
 
-const getResultKey = ( openedPlan, openedDataFile, flagValues ) =>
+const getResultKey = ( plan, file, flagValues ) =>
     JSON.stringify({
         flagValues,
-        planId:             openedPlan.id,
-        planUpdatedAt:      openedPlan.updatedAt,
+        planId:             plan.id,
+        planUpdatedAt:      plan.updatedAt,
+        /// TODO: use the data file
     });
 
 
 export default composeContexts({
-    documentPlans:          DocumentPlansContext,
+    openedDataFile:         OpenedFileContext,
+    openedPlan:             OpenedPlanContext,
     reader:                 ReaderContext,
 })( class VariantsContextProvider extends Component {
 
@@ -38,24 +41,21 @@ export default composeContexts({
 
     onUpdates = () => {
         const {
-            documentPlans,
+            openedDataFile: { file },
+            openedPlan: { plan },
             reader,
         } = this.props;
 
-        if( canGetResult( documentPlans )) {
-            const resultKey = getResultKey(
-                documentPlans.openedPlan,
-                documentPlans.openedDataFile,
-                reader.flagValues,
-            );
+        if( canGetResult( plan, file )) {
+            const resultKey = getResultKey( plan, file, reader.flagValues );
             if( this.state.resultKey !== resultKey ) {
                 this.setState({
                     loading:                true,
                     resultKey,
                 }, () => {
                     getVariants({
-                        dataId:             documentPlans.openedPlan.dataSampleId,
-                        documentPlanId:     documentPlans.openedPlan.id,
+                        dataId:             plan.dataSampleId,
+                        documentPlanId:     plan.id,
                         readerFlagValues:   reader.flagValues,
                     }).then( result => this.setState( state =>
                         ( state.resultKey === resultKey ) && {

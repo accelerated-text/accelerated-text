@@ -2,12 +2,9 @@ import { createContext }    from 'preact';
 
 
 export default createContext({
-    documentPlans:          null,
-    documentPlansError:     null,
-    documentPlansLoading:   true,
-    E:                      null,
+    error:                  null,
+    loading:                true,
     openPlan:               null,
     openPlanUid:            null,
-    openedPlan:             null,
-    openedPlanLoading:      true,
+    plan:                   null,
 });

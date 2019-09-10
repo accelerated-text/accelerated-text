@@ -26,75 +26,63 @@ export default composeQueries({
 
     static getDerivedStateFromProps(
         { documentPlans: { documentPlans, error, loading }},
-        { openedPlan },
+        { plan },
     ) {
         const skip = (
             loading
             || error
             || ! documentPlans
             || (
-                openedPlan
-                && openedPlan === findByUid( documentPlans, openedPlan.uid )
+                plan
+                && plan === findByUid( documentPlans, plan.uid )
             )
         );
         if( ! skip ) {
             const newOpenedPlan = (
-                findByUid( documentPlans, openedPlan && openedPlan.uid )
-                || ( openedPlan && ! openedPlan.id && openedPlan )
+                findByUid( documentPlans, plan && plan.uid )
+                || ( plan && ! plan.id && plan )
                 || findByUid( documentPlans, localStorage.getItem( OPENED_PLAN_UID ))
                 || path([ 'items', 0 ], documentPlans )
             );
             if( newOpenedPlan ) {
                 localStorage.setItem( OPENED_PLAN_UID, newOpenedPlan.uid );
             }
-            return { openedPlan: newOpenedPlan };
+            return { plan: newOpenedPlan };
         }
     }
 
     value =                 {};
 
     state = {
-        openedPlan:         null,
+        plan:               null,
     };
 
-    openPlan = openedPlan => {
-        this.setState({ openedPlan });
+    openPlan = plan => {
+        this.setState({ plan });
         localStorage.setItem(
             OPENED_PLAN_UID,
-            openedPlan && openedPlan.uid || null,
+            plan && plan.uid || null,
         );
     };
 
     openPlanUid = uid => {
-        const openedPlan =  findByUid( this.props.documentPlans.documentPlans, uid );
-        if( openedPlan ) {
-            this.openPlan( openedPlan );
+        const plan =        findByUid( this.props.documentPlans.documentPlans, uid );
+        if( plan ) {
+            this.openPlan( plan );
         } else {
             throw Error( `Tried to select a non-existent document plan ${ uid }.` );
         }
     }
 
-    render({
-        children,
-        documentPlans: {
-            documentPlans,
-            error:          documentPlansError,
-            loading:        documentPlansLoading,
-        },
-    }, {
-        openedPlan,
-    }) {
+    render({ children, documentPlans }, { plan }) {
         return <Context.Provider
             children={ children }
             value={ Object.assign( this.value, {
-                documentPlans,
-                documentPlansError,
-                documentPlansLoading,
-                openPlan:               this.openPlan,
-                openPlanUid:            this.openPlanUid,
-                openedPlan,
-                openedPlanError:        ! openedPlan && documentPlansError,
-                openedPlanLoading:      ! openedPlan && documentPlansLoading,
+                error:          ! plan && documentPlans.error,
+                loading:        ! plan && documentPlans.loading,
+                openPlan:       this.openPlan,
+                openPlanUid:    this.openPlanUid,
+                plan,
             }) }
         />;
     }

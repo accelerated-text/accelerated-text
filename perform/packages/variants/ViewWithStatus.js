@@ -7,21 +7,20 @@ import {
     Info,
     Loading,
 }                           from '../ui-messages/';
+import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 
 import VariantsContext      from './Context';
 
 
 export default composeContexts({
     documentPlans:          DocumentPlansContext,
+    openedPlan:             OpenedPlanContext,
     variants:               VariantsContext,
 })(({
     children,
     className,
-    documentPlans: {
-        openedPlan,
-        openedPlanError,
-        openedPlanLoading,
-    },
+    documentPlans,
+    openedPlan,
     emptyMessage =          'No variants.',
     loadingMessage =        'Loading variants...',
     noDataMessage =         'No data file selected.',
@@ -29,30 +28,8 @@ export default composeContexts({
     variants,
 }) => {
     const { result } =      variants;
-    const error =           variants.error || openedPlanError;
-    const loading =         variants.loading || openedPlanLoading;
-
-    /* TODO: get full openedPlan status
-    const error = (
-        variantsApi.error
-        || ( openedPlanStatus
-            ? ( openedPlanStatus.createError
-               || openedPlanStatus.readError
-               || openedPlanStatus.updateError
-            )
-            : documentPlansError
-        )
-    );
-    const loading = (
-        openedPlan && (
-            ! openedPlanStatus
-            || variantsApi.loading
-            || openedPlanStatus.createLoading
-            || openedPlanStatus.readLoading
-            || openedPlanStatus.updateLoading
-        )
-    );
-    */
+    const error =           variants.error || openedPlan.error || documentPlans.error;
+    const loading =         variants.loading || openedPlan.loading;
 
     return (
         <div className={ className }>
@@ -65,8 +42,8 @@ export default composeContexts({
                     variants:   result.variants,
                 })
                 : <Info message={
-                    openedPlan
-                        ? ( openedPlan.dataSampleId
+                    openedPlan.plan
+                        ? ( openedPlan.plan.dataSampleId
                             ? emptyMessage
                             : noDataMessage
                         )

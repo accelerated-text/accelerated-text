@@ -21,6 +21,7 @@ import {
     closeQuickSearch,
     openQuickSearch,
 }   from './local-state';
+import OpenedFileProvider   from './OpenedDataFileContextProvider';
 import OpenedPlanProvider   from './OpenedPlanContextProvider';
 import S                    from './AcceleratedText.sass';
 
@@ -67,8 +68,9 @@ const AcceleratedText = composeQueries({
 
 export default () => [
     GraphQLProvider,
-    OpenedPlanProvider,
     DocumentPlansContextProvider,
+    OpenedPlanProvider,
+    OpenedFileProvider,
     ReaderContextProvider,
     VariantsContextProvider,
     WorkspaceContextProvider,

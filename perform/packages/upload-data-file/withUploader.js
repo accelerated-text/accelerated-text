@@ -1,5 +1,7 @@
 import { h, Component }     from 'preact';
 
+import composeContexts      from '../compose-contexts';
+import DocumentPlansContext from '../document-plans/Context';
 import { getFileById }      from '../data-samples/functions';
 import { getPlanByUid }     from '../document-plans/functions';
 import {
@@ -18,39 +20,40 @@ const BLOCKED_ERROR =       'Will not start a new request while the previous one
 
 
 export default ChildComponent =>
-    PlanActions( withClient( class UploadDataFileWithUploader extends Component {
-
-        static contextType =    OpenedPlanContext;
+    PlanActions( withClient( composeContexts({
+        documentPlans:      DocumentPlansContext,
+        openedPlan:         OpenedPlanContext,
+    })( class UploadDataFileWithUploader extends Component {
 
         state = {
-            counter:            0,
-            error:              null,
-            fileKey:            null,
-            forPlanUid:         null,
-            loading:            false,
+            counter:        0,
+            error:          null,
+            fileKey:        null,
+            forPlanUid:     null,
+            loading:        false,
         };
 
         onUploadError = error => {
             this.setState({
                 error,
-                fileKey:        null,
-                forPlanUid:     null,
-                loading:        false,
+                fileKey:    null,
+                forPlanUid: null,
+                loading:    false,
             });
         };
 
         onUploadFileSuccess = () => {
             this.setState( state => ({
-                counter:        state.counter + 1,
-                error:          null,
-                loading:        false,
+                counter:    state.counter + 1,
+                error:      null,
+                loading:    false,
             }));
         };
 
         onUploadSyncSuccess = () => {
             this.setState({
-                fileKey:        null,
-                forPlanUid:     null,
+                fileKey:    null,
+                forPlanUid: null,
             });
         };
 
@@ -60,10 +63,10 @@ export default ChildComponent =>
             } else {
                 const { client } =          this.props;
                 const fileKey =             `${ USER.id }/${ inputFile.name }`;
-                const { openedPlan } =      this.context;
+                const { plan } =            this.props.openedPlan;
                 this.setState({
                     fileKey,
-                    forPlanUid:             openedPlan.uid,
+                    forPlanUid:             plan.uid,
                     loading:                true,
                 });
 
@@ -83,18 +86,18 @@ export default ChildComponent =>
                         data.listDataFiles,
                         fileKey,
                     );
-                    const plan = getPlanByUid(
-                        this.context.documentPlans,
-                        openedPlan.uid,
+                    const currentPlan = getPlanByUid(
+                        this.props.documentPlans.plans,
+                        plan.uid,
                     );
 
                     if( ! isInList ) {
                         throw Error( 'Failed to update the data file list.' );
-                    } else if( ! plan ) {
+                    } else if( ! currentPlan ) {
                         throw Error( 'Document plan is gone' );
-                    } else if( plan.dataSampleId !== fileKey ) {
+                    } else if( currentPlan.dataSampleId !== fileKey ) {
                         this.props.onUpdatePlan({
-                            ...plan,
+                            ...currentPlan,
                             dataSampleId:   fileKey,
                             dataSampleRow:  0,
                         });
@@ -125,4 +128,4 @@ export default ChildComponent =>
                 />
             );
         }
-    }));
+    })));

@@ -1,5 +1,4 @@
 import { h }                from 'preact';
-/// import { props }            from 'ramda';
 
 import composeContexts      from '../compose-contexts/';
 import { composeQueries  }  from '../graphql';
@@ -7,73 +6,44 @@ import { concepts }         from '../graphql/queries.graphql';
 import DocumentPlansContext from '../document-plans/Context';
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
+import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
+import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 import VariantsContext      from '../variants/Context';
 
 
 export default composeContexts({
     documentPlans:          DocumentPlansContext,
+    openedDataFile:         OpenedFileContext,
+    openedPlan:             OpenedPlanContext,
     variants:               VariantsContext,
 })( composeQueries({
     concepts,
 })(({
     className,
-    concepts: {
-        concepts:       conceptsData,
-        error:          conceptsError,
-        loading:        conceptsLoading,
-    },
-    documentPlans: {
-        documentPlansError,
-        documentPlansLoading,
-        openedDataFileError,
-        openedDataFileLoading,
-        openedPlanError,
-        openedPlanLoading,
-    },
+    concepts,
+    documentPlans,
+    openedDataFile,
+    openedPlan,
     variants,
 }) => {
     const isError = (
-        conceptsError
-        || ( ! conceptsData && ! conceptsLoading )
-        || documentPlansError
-        || openedDataFileError
-        || openedPlanError
+        concepts.error
+        || ( ! concepts.data && ! concepts.loading )
+        || documentPlans.error
+        || openedDataFile.error
+        || openedPlan.error
         || variants.error
     );
 
     const isLoading = (
-        conceptsLoading
-        || documentPlansLoading
-        || openedDataFileLoading
-        || openedPlanLoading
+        concepts.loading
+        || documentPlans.loading
+        || openedDataFile.loading
+        || openedPlan.loading
         || variants.loading
     );
-
-    /* TODO: get full statuses
-    const planStatuses =    props( planList.uids, documentPlans.statuses );
-
-    const isError = (
-        conceptsError
-        || ( ! conceptsData && ! conceptsLoading )
-        || openedDataFileError
-        || planList.addCheckError
-        || planList.getListError
-        || variantsApi.error
-    );
-
-    const isLoading = (
-        conceptsLoading
-        || variantsApi.loading
-        || openedDataFileLoading
-        || planList.getListLoading
-        || planStatuses.find( status => (
-            status.createLoading
-            || status.readLoading
-            || status.updateLoading
-            || status.deleteLoading
-        ))
-    );
-    */
+    /// TODO: add upload status
+    /// TODO: add all plans statuses
 
     const isReady = ! isError && ! isLoading;
 
