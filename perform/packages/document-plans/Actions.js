@@ -83,7 +83,6 @@ export default ChildComponent =>
             });
             return this.props.updateDocumentPlan({
                 variables:              preparePlanJson( plan ),
-                refetchQueries:         [ 'documentPlans' ],
                 optimisticResponse: {
                     __typename:         'Mutation',
                     updateDocumentPlan: plan,
