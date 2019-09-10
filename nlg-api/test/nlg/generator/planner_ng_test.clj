@@ -200,11 +200,20 @@
       (is (not (empty? result)))
       (log/debugf "Final AMR results: %s" (pr-str result)))))
 
-(deftest plain-plan-with-amr
+(deftest ^:integration plain-plan-with-amr
   (testing "Handle plan with it"
     (let [document-plan (load-test-data "plain-amr")
         data [{:actor "Harry"
                :co-actor "Sally"}]
+        result (render-dp document-plan data {})]
+    (is (not (empty? result)))
+    (log/debugf "Final AMR results: %s" (pr-str result)))))
+
+(deftest ^:integration plain-plan-with-author-amr
+  (testing "Handle plan with it"
+    (let [document-plan (load-test-data "plain-author-amr")
+        data [{:actor "Paul Vigna, Michael J. Casey"
+               :co-actor "The Age of Cryptocurrency"}]
         result (render-dp document-plan data {})]
     (is (not (empty? result)))
     (log/debugf "Final AMR results: %s" (pr-str result)))))
