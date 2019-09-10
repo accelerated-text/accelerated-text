@@ -1,5 +1,7 @@
+const DEFAULT_TIMEOUT =     8e3;
+
 const SELECTOR_WAIT_OPTIONS = {
-    timeout:            2e3,
+    timeout:                2e3,
 };
 
 
@@ -87,14 +89,16 @@ export default ( t, run, ...args ) =>
                 await t.page.keyboard.press( 'Control' );
             },
 
-            waitUntilElementGone: async ( selector, timeout = 10e3, page = t.page ) => {
+            waitUntilElementGone: async ( selector, timeout = DEFAULT_TIMEOUT, page = t.page ) => {
 
                 const timeoutTimestamp =    +new Date + timeout;
 
+                t.timeout( timeout + 2e3 );
                 while( +new Date < timeoutTimestamp ) {
                     try {
                         await page.waitForSelector( selector, { timeout: 500 });
                     } catch( _ ) {
+                        t.timeout( DEFAULT_TIMEOUT );
                         return;
                     }
                 }

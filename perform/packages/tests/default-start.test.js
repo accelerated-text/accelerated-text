@@ -13,9 +13,11 @@ test( 'should not have errors', defaultResponsesPage, async t => {
 
 
 test( 'should not start unaccounted-for requests', defaultResponsesPage, async t => {
-    t.timeout( 10e3 );
 
+    await t.waitUntilElementGone( SELECTORS.UI_LOADING );
+    t.timeout( 10e3 );
     await sleep( 8e3 );
+    t.timeout( 8e3 );
     await t.notFindElement( SELECTORS.UI_ERROR );
 });
 

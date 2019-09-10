@@ -76,22 +76,25 @@ test(
             },
         },
     }),
-    t => t.findElements( SELECTORS, {
-        DATA_MANAGER_NO_PLAN:       false,
-        DATA_MANAGER_FILE_LIST:     false,
-        DATA_MANAGER_FILE_DOWNLOAD: false,
-        DATA_MANAGER_FILE_ADD:      false,
-        DATA_MANAGER_FILE_BROWSE:   true,
-        DATA_MANAGER_FILE_UPLOAD:   true,
-        DATA_MANAGER_FILE_CLOSE:    false,
-        DATA_MANAGER_CELL_TABLE:    false,
-        DATA_MANAGER_CELL_BLOCK:    false,
-        DATA_MANAGER_CELL_NAME:     false,
-        DATA_MANAGER_CELL_VALUE:    false,
-        DATA_MANAGER_ROW_PREVIOUS:  false,
-        DATA_MANAGER_ROW_SELECT:    false,
-        DATA_MANAGER_ROW_NEXT:      false,
-    }),
+    async t => {
+        await t.waitUntilElementGone( SELECTORS.UI_LOADING );
+        await t.findElements( SELECTORS, {
+            DATA_MANAGER_NO_PLAN:       false,
+            DATA_MANAGER_FILE_LIST:     false,
+            DATA_MANAGER_FILE_DOWNLOAD: false,
+            DATA_MANAGER_FILE_ADD:      false,
+            DATA_MANAGER_FILE_BROWSE:   true,
+            DATA_MANAGER_FILE_UPLOAD:   true,
+            DATA_MANAGER_FILE_CLOSE:    false,
+            DATA_MANAGER_CELL_TABLE:    false,
+            DATA_MANAGER_CELL_BLOCK:    false,
+            DATA_MANAGER_CELL_NAME:     false,
+            DATA_MANAGER_CELL_VALUE:    false,
+            DATA_MANAGER_ROW_PREVIOUS:  false,
+            DATA_MANAGER_ROW_SELECT:    false,
+            DATA_MANAGER_ROW_NEXT:      false,
+        });
+    },
 );
 
 

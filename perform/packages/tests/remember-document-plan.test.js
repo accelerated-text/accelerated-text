@@ -35,7 +35,6 @@ test(
 
         /// Need to open the page before accessing localStorage:
         await noRecords( t );
-        t.timeout( 16e3 );
         await t.waitUntilElementGone( SELECTORS.UI_LOADING );
 
         await t.page.evaluate(
@@ -54,6 +53,7 @@ test(
         /// Wait to make sure no unnecessary requests sent:
         t.timeout( 10e3 );
         await sleep( 8e3 );
+        t.timeout( 8e3 );
         await t.notFindElement( SELECTORS.UI_ERROR );
     }
 );
