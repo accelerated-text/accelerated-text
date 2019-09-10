@@ -66,8 +66,17 @@ export default ( t, run, ...args ) =>
                         el => el.value,
                     )),
 
-            notFindElement: ( selector, page = t.page ) =>
-                t.throwsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
+            notFindElement: async ( selector, page = t.page ) => {
+                try {
+                    const el =          await page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS );
+                    const html =        await el.getProperty( 'outerHTML' );
+                    const htmlString =  await html.jsonValue();
+                    t.fail( `Found unexpected element for ${ selector }:\n${ htmlString }` );
+                    await html.dispose();
+                } catch( err ) {
+                    t.pass( `Element not found ${ selector }.` );
+                }
+            },
 
             resetMouse: ( page = t.page ) =>
                 page.mouse.move( 0, 0 ),
