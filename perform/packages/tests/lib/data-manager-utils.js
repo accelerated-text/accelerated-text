@@ -2,11 +2,8 @@ import { respondOnPlanChange }  from './responses';
 import { SELECTORS }            from '../constants';
 
 
-export const selectDataFile = ( t, dataFile ) => {
-
-    t.page.select( SELECTORS.DATA_MANAGER_FILE_LIST, dataFile.id );
-
-    return Promise.all([
+export const selectDataFile = ( t, dataFile ) =>
+    Promise.all([
         t.graphqlApi.provideOnce(
             'getDataFile',
             { id: dataFile.id },
@@ -16,8 +13,8 @@ export const selectDataFile = ( t, dataFile ) => {
             dataSampleId:       dataFile.id,
             dataSampleRow:      0,
         }),
+        t.page.select( SELECTORS.DATA_MANAGER_FILE_LIST, dataFile.id ),
     ]);
-};
 
 
 export const isDataFileRecordVisible = async ( t, record ) => {
