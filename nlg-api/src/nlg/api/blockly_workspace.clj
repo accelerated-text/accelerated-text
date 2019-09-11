@@ -3,7 +3,8 @@
             [nlg.api.utils :as utils]
             [data-access.db.config :as config]
             [data-access.db.dynamo-ops :as ops]
-            [taoensso.faraday :as far])
+            [taoensso.faraday :as far]
+            [data-access.entities.document-plan :as document-plan])
   (:gen-class
     :name nlg.api.WorkspaceHandler
     :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
