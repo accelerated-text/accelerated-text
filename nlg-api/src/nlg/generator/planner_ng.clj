@@ -24,16 +24,6 @@
         (log/tracef "Head: %s" head)
         (recur (ops/merge-context context (into {} head)) tail)))))
 
-(defn download-grammar
-  "Downloads latest version of Grammar and returns it's path"
-  []
-  (do
-    (.mkdir (java.io.File. "/tmp/ccg"))
-    (.mkdir (java.io.File. "/tmp/ccg/grammar/"))
-    (s3/download-dir config/grammar-bucket "grammar" "/tmp/ccg/")
-    "/tmp/ccg/grammar"))
-
-
 (defn resolve-item-context
   [item]
   (let [type-name (get-in item [:attrs :type])

@@ -42,9 +42,8 @@
 
 (defn list-workspaces
   [query-params]
-  (let [limit (get query-params :limit 20)]
-    {:body   (far/scan (config/client-opts) (:table-name config/blockly-table) {:limit limit})
-     :status 200}))
+  {:body (document-plan/list-document-plans)
+   :status 200})
 
 (def -handleRequest
   (resource/build-resource {:get-handler    (fn [query-params path-params] (if (empty? path-params)

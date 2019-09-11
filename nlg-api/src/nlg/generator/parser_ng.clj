@@ -143,7 +143,16 @@
                          (let [updated-attrs (assoc amr-attrs :title name)]
                            (map #(parse-node % updated-attrs ctx) (remove nil? children))))
                        (node :roles)))
+        ;; AMR-Key is key used inside, eg. "Agent". Data-key is our linked CSV column, eg. ":actor"
+        amr-key->data-key (into {}
+                                (map (fn [{:keys [name attrs]}]
+                                       (case (:source attrs)
+                                         :cell [(str/upper-case (:title attrs)) (:cell name)]
+                                         name))
+                                     (flatten (map :dynamic children))))
+        _ (log/debugf "AMR Children: %s" (pr-str children))
         replaces (map (fn [c]
+                        (log/debugf "Parsing AMR children from: %s" c)
                         (let [title (:title (:attrs c))
                               dyn-name (get-in c [:name :dyn-name])]
                           {:original (format "{{%s}}" (str/upper-case title)) :replace dyn-name}))
@@ -153,16 +162,40 @@
         words (conj
                (map (fn [r] (:original r)) replaces)
                (first members))
-        amr-grammar (vn-ccg/vn->grammar (assoc vc :members (map (fn [m] {:name m}) members)))
-        amr-results (apply (partial ccg/generate amr-grammar) words)]
+        amr-grammars (vn-ccg/vn->grammar (assoc vc :members (map (fn [m] {:name m}) members)))
+        amr-results (-> (map (fn [g] (apply (partial ccg/generate g) words)) amr-grammars)
+                        (flatten))
+        ;; TODO: should do some better mechanism for this in the future
+        amr-restrictors (map (fn [f]
+                               (let [restrict (filter #(contains? % :restrictors) (:syntax f))]
+                                 (if (seq restrict)
+                                   (fn [data]
+                                     (every? (fn [[restrictors v]] ;; If for every part in rule ...
+                                               (every? (fn [r] ;; ... every restrictor passes
+                                                         (log/debugf "v: %s data: %s full-data: %s" v (get data v) data)
+                                                         (case (:type r)
+                                                           :count (case (:value r)
+                                                                    :singular (not (str/includes? (get data v "") ","))
+                                                                    :plural (str/includes? (get data v "") ","))
+                                                           true)) ;; Ignore all other types for now
+                                                       restrictors))
+                                             (map
+                                              (fn [pattern]
+                                                [(:restrictors pattern) (get amr-key->data-key (str/upper-case (:value pattern)))])
+                                              restrict)))
+                                   (fn [_] true)))) ;; If no restrictors, just always return true)
+
+                             (:frames vc)) ;; Hardcoded single case for now.
+        _ (log/debugf "AMR Results: %s" (pr-str amr-results))
+        _ (log/debugf "AMR Restrictors: %s" (pr-str amr-restrictors))]
     (when (seq? amr-results)
       (cons
        (ops/append-dynamic
-        {:quote (-> (rand-nth amr-results) (ops/replace-multi replaces))
+        {:quotes (map (fn [[rule restrict]] {:value (ops/replace-multi rule replaces)
+                                             :gate restrict})
+                      (ops/zip amr-results amr-restrictors)) ;; All of the AMR variations are saved as array of quotes
          :dyn-name (format "$%d" idx) }
-        (-> attrs
-            (assoc :source :quote)
-            (assoc :type :amr))
+        (assoc attrs :source :quotes :type :amr)
         ctx)
        children))))
 
