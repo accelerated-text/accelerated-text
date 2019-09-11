@@ -87,4 +87,4 @@
   (testing "cleanup"
     (queries/validate-resp (graph/nlg (queries/delete-dict-item "test-phrase2")))))
 
-(use-fixtures :once prepare-environment)
+(use-fixtures :each prepare-environment)
