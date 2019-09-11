@@ -15,9 +15,7 @@
 
 (defn get-data
   [data-id]
-  (let [raw (s3/read-file config/data-bucket data-id)
-        csv (doall (utils/csv-to-map raw))]
-    csv))
+  (doall (utils/csv-to-map (s3/read-file config/data-bucket data-id))))
 
 (defn generation-process
   [dp-id data-id result-fn reader-model]
@@ -27,8 +25,7 @@
         body (if (map? results)
                results
                {:ready true
-                :results (when (not (empty? results))
-                           (vec results))})]
+                :results (when (seq results) (vec results))})]
     (log/debugf "Body: %s" body)
     (result-fn body)))
 
@@ -36,34 +33,30 @@
   {:junior false
    :senior false})
 
-
-(defn generate-request [request-body]
+(defn generate-request [{document-plan-id :documentPlanId data-id :dataId
+                         reader-model :readerFlagValues
+                         :or {reader-model default-reader-model}}]
   (let [db               (get-db)
-        document-plan-id (request-body :documentPlanId)
-        data-id          (request-body :dataId)
-        reader-model     (get request-body :readerFlagValues default-reader-model)
         result-id        (utils/gen-uuid)
-        _                (ops/update! db result-id {:ready false})
-        result-fn        (fn [body] (ops/update! db result-id body))
-        _                @(future (generation-process document-plan-id data-id result-fn reader-model))]
+        result-fn        (fn [body] (ops/update! db result-id body))]
+    (ops/update! db result-id {:ready false})
+    (generation-process document-plan-id data-id result-fn reader-model)
     (utils/do-return (fn [] {:resultId result-id}))))
 
 (defn wrap-to-annotated-text
   [results]
-  {:type "ANNOTATED_TEXT"
-   :id (utils/gen-uuid)
+  {:type        "ANNOTATED_TEXT"
+   :id          (utils/gen-uuid)
    :annotations []
-   :references []
-   :children [{:type "PARAGRAPH"
-               :id (utils/gen-uuid)
-               :children (map (fn [r]
-                                {:type "OUTPUT_TEXT"
-                                 :id (utils/gen-uuid)
-                                 :text r}) results)}]
-   }
-)
+   :references  []
+   :children    [{:type     "PARAGRAPH"
+                  :id       (utils/gen-uuid)
+                  :children (map (fn [r]
+                                   {:type "OUTPUT_TEXT"
+                                    :id   (utils/gen-uuid)
+                                    :text r}) results)}]})
 
-(defn read-result [query-params path-params]
+(defn read-result [_ path-params]
   (let [db (get-db)
         request-id (path-params :id)
         gen-result (ops/read! db request-id)
@@ -75,12 +68,11 @@
     (utils/do-return (fn [] body))))
 
 (defn delete-result [path-params]
-  (let [db (get-db)
-        request-id (path-params :id)]
-    (utils/do-delete (partial ops/read! db) (partial ops/delete! db) request-id)))
+  (let [db (get-db)]
+    (utils/do-delete (partial ops/read! db) (partial ops/delete! db) (path-params :id))))
 
 (def -handleRequest
-  (resource/build-resource {:get-handler read-result
-                            :post-handler generate-request
+  (resource/build-resource {:get-handler    read-result
+                            :post-handler   generate-request
                             :delete-handler delete-result}
                            true))
