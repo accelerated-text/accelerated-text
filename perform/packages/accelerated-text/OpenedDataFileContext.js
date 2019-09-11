@@ -2,7 +2,7 @@ import { createContext }    from 'preact';
 
 
 export default createContext({
-    plans:                  null,
+    file:                   null,
     error:                  null,
-    loading:                true,
+    loading:                false,
 });

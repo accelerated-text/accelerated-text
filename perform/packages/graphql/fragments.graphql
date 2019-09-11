@@ -40,6 +40,22 @@ fragment dictionaryItemFields on DictionaryItem {
   }
 }
 
+
+### Document plans -------------------------------------------------------------
+
+fragment documentPlanFields on DocumentPlan {
+  id
+  uid
+  name
+  blocklyXml
+  documentPlan
+  dataSampleId
+  dataSampleRow
+  createdAt
+  updatedAt
+  updateCount
+}
+
 ### AMR ------------------------------------------------------------------------
 
 fragment thematicRoleFields on ThematicRole {

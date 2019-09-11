@@ -11,6 +11,8 @@ import Header               from '../header/Header';
 import PlanEditor           from '../plan-editor/PlanEditor';
 import QuickSearchModal     from '../quick-search/WorkspaceModal';
 import QuickSearchShortcuts from '../quick-search/KeyboardProvider';
+import ReaderContextProvider    from '../reader/ContextProvider';
+import VariantsContextProvider  from '../variants/ContextProvider';
 import WorkspaceContextProvider from '../workspace-context/Provider';
 
 import {
@@ -19,7 +21,8 @@ import {
     closeQuickSearch,
     openQuickSearch,
 }   from './local-state';
-import mountStores          from './mount-stores';
+import OpenedFileProvider   from './OpenedDataFileContextProvider';
+import OpenedPlanProvider   from './OpenedPlanContextProvider';
 import S                    from './AcceleratedText.sass';
 
 
@@ -63,13 +66,16 @@ const AcceleratedText = composeQueries({
 );
 
 
-export default mountStores(
-    () =>
-        <GraphQLProvider>
-            <DocumentPlansContextProvider>
-                <WorkspaceContextProvider>
-                    <AcceleratedText />
-                </WorkspaceContextProvider>
-            </DocumentPlansContextProvider>
-        </GraphQLProvider>
+export default () => [
+    GraphQLProvider,
+    DocumentPlansContextProvider,
+    OpenedPlanProvider,
+    OpenedFileProvider,
+    ReaderContextProvider,
+    VariantsContextProvider,
+    WorkspaceContextProvider,
+    AcceleratedText,
+    null,
+].reverse().reduce(
+    ( children, Parent ) => h( Parent, { children })
 );

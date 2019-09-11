@@ -1,5 +1,7 @@
+const DEFAULT_TIMEOUT =     8e3;
+
 const SELECTOR_WAIT_OPTIONS = {
-    timeout:            2e3,
+    timeout:                2e3,
 };
 
 
@@ -66,8 +68,17 @@ export default ( t, run, ...args ) =>
                         el => el.value,
                     )),
 
-            notFindElement: ( selector, page = t.page ) =>
-                t.throwsAsync( page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS )),
+            notFindElement: async ( selector, page = t.page ) => {
+                try {
+                    const el =          await page.waitForSelector( selector, SELECTOR_WAIT_OPTIONS );
+                    const html =        await el.getProperty( 'outerHTML' );
+                    const htmlString =  await html.jsonValue();
+                    t.fail( `Found unexpected element for ${ selector }:\n${ htmlString }` );
+                    await html.dispose();
+                } catch( err ) {
+                    t.pass( `Element not found ${ selector }.` );
+                }
+            },
 
             resetMouse: ( page = t.page ) =>
                 page.mouse.move( 0, 0 ),
@@ -78,14 +89,16 @@ export default ( t, run, ...args ) =>
                 await t.page.keyboard.press( 'Control' );
             },
 
-            waitUntilElementGone: async ( selector, timeout = 10e3, page = t.page ) => {
+            waitUntilElementGone: async ( selector, timeout = DEFAULT_TIMEOUT, page = t.page ) => {
 
                 const timeoutTimestamp =    +new Date + timeout;
 
+                t.timeout( timeout + 2e3 );
                 while( +new Date < timeoutTimestamp ) {
                     try {
                         await page.waitForSelector( selector, { timeout: 500 });
                     } catch( _ ) {
+                        t.timeout( DEFAULT_TIMEOUT );
                         return;
                     }
                 }

@@ -33,6 +33,58 @@ mutation deleteDictionaryItem(
 }
 
 
+### Document plans -------------------------------------------------------------
+
+mutation createDocumentPlan(
+  $uid:             ID!
+  $name:            String!
+  $blocklyXml:      String!
+  $documentPlan:    String!
+  $dataSampleId:    ID
+  $dataSampleRow:   Int
+) {
+  createDocumentPlan(
+    uid:            $uid
+    name:           $name
+    blocklyXml:     $blocklyXml
+    documentPlan:   $documentPlan
+    dataSampleId:   $dataSampleId
+    dataSampleRow:  $dataSampleRow
+  ) {
+    ...documentPlanFields
+  }
+}
+
+mutation deleteDocumentPlan(
+  $id:              ID!
+) {
+  deleteDocumentPlan(
+    id:             $id
+  )
+}
+
+mutation updateDocumentPlan(
+  $id:              ID!
+  $uid:             ID
+  $name:            String
+  $blocklyXml:      String
+  $documentPlan:    String
+  $dataSampleId:    ID
+  $dataSampleRow:   Int
+) {
+  updateDocumentPlan(
+    id:             $id
+    uid:            $uid
+    name:           $name
+    blocklyXml:     $blocklyXml
+    documentPlan:   $documentPlan
+    dataSampleId:   $dataSampleId
+    dataSampleRow:  $dataSampleRow
+  ) {
+    ...documentPlanFields
+  }
+}
+
 ### Phrase ---------------------------------------------------------------------
 
 mutation createPhrase(

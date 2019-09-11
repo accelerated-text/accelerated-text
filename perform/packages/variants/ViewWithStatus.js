@@ -1,57 +1,35 @@
 import { h }                from 'preact';
 
+import composeContexts      from '../compose-contexts/';
+import DocumentPlansContext from '../document-plans/Context';
 import {
     Error,
     Info,
     Loading,
 }                           from '../ui-messages/';
-import getOpenedPlan        from '../plan-list/get-opened-plan';
-import { getStatus }        from '../document-plans/functions';
-import { useStores }        from '../vesa/';
+import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
+
+import VariantsContext      from './Context';
 
 
-export default useStores([
-    'documentPlans',
-    'planList',
-    'variantsApi',
-])(({
+export default composeContexts({
+    documentPlans:          DocumentPlansContext,
+    openedPlan:             OpenedPlanContext,
+    variants:               VariantsContext,
+})(({
     children,
     className,
     documentPlans,
+    openedPlan,
     emptyMessage =          'No variants.',
     loadingMessage =        'Loading variants...',
     noDataMessage =         'No data file selected.',
     noPlanMessage =         'Missing document plan.',
-    planList,
-    variantsApi,
+    variants,
 }) => {
-    const { result } =      variantsApi;
-    const openedPlan =      getOpenedPlan({ documentPlans, planList });
-    const planStatus =
-        openedPlan
-            ? getStatus( documentPlans, openedPlan )
-            : null;
-
-    const error = (
-        variantsApi.error
-        || ( planStatus
-            ? ( planStatus.createError
-               || planStatus.readError
-               || planStatus.updateError
-            )
-            : planList.getListError
-        )
-    );
-
-    const loading = (
-        openedPlan && (
-            ! planStatus
-            || variantsApi.loading
-            || planStatus.createLoading
-            || planStatus.readLoading
-            || planStatus.updateLoading
-        )
-    );
+    const { result } =      variants;
+    const error =           variants.error || openedPlan.error || documentPlans.error;
+    const loading =         variants.loading || openedPlan.loading;
 
     return (
         <div className={ className }>
@@ -64,8 +42,8 @@ export default useStores([
                     variants:   result.variants,
                 })
                 : <Info message={
-                    openedPlan
-                        ? ( openedPlan.dataSampleId
+                    openedPlan.plan
+                        ? ( openedPlan.plan.dataSampleId
                             ? emptyMessage
                             : noDataMessage
                         )

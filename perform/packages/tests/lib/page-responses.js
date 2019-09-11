@@ -13,7 +13,7 @@ export default ({ log, graphqlApi, nlgApi }, responses ) => {
     );
 
     const dataSampleId = path(
-        [ 'documentPlans', 0, 'dataSampleId' ],
+        [ 'documentPlans', 'documentPlans', 'items', 0, 'dataSampleId' ],
         responses,
     );
 
@@ -22,7 +22,7 @@ export default ({ log, graphqlApi, nlgApi }, responses ) => {
         graphqlApi.provideOnce( 'dictionary', {}, { data: responses.dictionary }),
         graphqlApi.provideOnce( 'readerFlags', {}, { data: responses.readerFlags }),
         graphqlApi.provideOnce( 'listDataFiles', {}, { data: responses.dataFiles }),
-        nlgApi.provideOnce( 'GET', '/document-plans/', responses.documentPlans )
+        graphqlApi.provideOnce( 'documentPlans', {}, { data: responses.documentPlans })
             .then(() => dataSampleId && Promise.all([
                 graphqlApi.provideOnce(
                     'getDataFile',

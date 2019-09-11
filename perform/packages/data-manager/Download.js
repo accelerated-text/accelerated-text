@@ -1,25 +1,22 @@
 import { h, Component }     from 'preact';
 
-import DocumentPlansContext from '../document-plans/Context';
 import getFileUrl           from '../upload-data-file/get-file-url';
-import { useStores }        from '../vesa/';
+import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
 
 
-export default useStores([
-    'user',
-])( class DataManagerDownload extends Component {
+export default class DataManagerDownload extends Component {
 
-    static contextType =    DocumentPlansContext;
+    static contextType =    OpenedFileContext;
 
-    render({ className, user }, _, { openedDataFile }) {
+    render({ className, user }, _, { file }) {
         return (
-            ( ! openedDataFile )
+            ( ! file )
                 ? null
                 : <a
                     children="Download file"
                     className={ className }
-                    href={ getFileUrl( user, openedDataFile.fileName ) }
+                    href={ getFileUrl( file.fileName ) }
                 />
         );
     }
-});
+}

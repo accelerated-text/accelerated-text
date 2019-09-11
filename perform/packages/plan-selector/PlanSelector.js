@@ -1,77 +1,80 @@
 import { h, Component }     from 'preact';
+import PropTypes            from 'prop-types';
 
-import Error                from '../ui-messages/Error';
-import Loading              from '../ui-messages/Loading';
+import composeContexts      from '../compose-contexts/';
+import DocumentPlansContext from '../document-plans/Context';
+import { Error, Loading }   from '../ui-messages/';
+import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
+import PlanActions          from '../document-plans/Actions';
 import planTemplate         from '../document-plans/plan-template';
 import { QA }               from '../tests/constants';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
-import { useStores }        from '../vesa/';
 
 import ItemControls         from './ItemControls';
 import List                 from './List';
 import S                    from './PlanSelector.sass';
 
 
-export default useStores([
-    'documentPlans',
-    'planList',
-])( class PlanSelector extends Component {
+export default PlanActions( composeContexts({
+    documentPlans:          DocumentPlansContext,
+    openedPlan:             OpenedPlanContext,
+})( class PlanSelector extends Component {
+
+    static propTypes = {
+        documentPlans:      PropTypes.object.isRequired,
+        onCreatePlan:       PropTypes.func.isRequired,
+        onDeletePlan:       PropTypes.func.isRequired,
+        onUpdatePlan:       PropTypes.func.isRequired,
+        openedPlan:         PropTypes.object.isRequired,
+        planStatus:         PropTypes.object.isRequired,
+    };
 
     onClickNew = evt => {
-        const openedPlan =  this.props.openedPlan || {};
+        const {
+            onCreatePlan,
+            openedPlan: {
+                plan =      {},
+            },
+        } = this.props;
 
         const name = window.prompt(         // eslint-disable-line no-alert
             'Add a new Document Plan:',
             planTemplate.name,
         );
-        name && this.props.E.planList.onAddNew({
-            contextId:      openedPlan.contextId        || planTemplate.contextId,
-            dataSampleId:   openedPlan.dataSampleId     || planTemplate.dataSampleId,
-            dataSampleRow:  openedPlan.dataSampleRow    || planTemplate.dataSampleRow,
+        name && onCreatePlan({
+            dataSampleId:   plan.dataSampleId   || planTemplate.dataSampleId,
+            dataSampleRow:  plan.dataSampleRow  || planTemplate.dataSampleRow,
             name,
         });
     }
 
     onClickSaveAs = evt => {
         const {
-            E,
-            openedPlan,
+            onCreatePlan,
+            openedPlan: { plan },
         } = this.props;
 
         const name = window.prompt(         // eslint-disable-line no-alert
             'Enter name for the new plan:',
-            openedPlan.name,
+            plan.name,
         );
-        name && E.planList.onAddNew({
-            ...openedPlan,
-            name,
-        });
+        name && onCreatePlan({ ...plan, name });
     }
 
     render({
-        E,
-        documentPlans: {
-            plans,
-            statuses,
-        },
+        documentPlans,
+        onDeletePlan,
+        onUpdatePlan,
         openedPlan,
-        planList: {
-            getListError,
-            getListLoading,
-            openedPlanUid,
-            uids,
-        },
+        planStatus,
     }) {
-        const hasPlans =    uids && uids.length;
-        const noPlans =     !hasPlans;
-        const isLoading =   noPlans && getListLoading;
-        const isLoadError = noPlans && getListError;
+        const noPlans =     ! documentPlans.plans || ! documentPlans.plans.totalCount;
 
         return (
             <div className={ S.className }>{
-                isLoading
+                openedPlan.loading
                     ? <Loading message="Loading plans." />
-                : isLoadError
+                : openedPlan.error
                     ? <Error message="Loading error! Please refresh the page." />
                 : noPlans
                     ? <button
@@ -79,25 +82,24 @@ export default useStores([
                         className={ QA.BTN_NEW_PLAN }
                         onClick={ this.onClickNew }
                     />
-                : !openedPlan
+                : ! openedPlan.plan
                     ? <UnexpectedWarning />
                     : [
                         <List
                             onClickNew={ this.onClickNew }
                             onClickSaveAs={ this.onClickSaveAs }
-                            onChangeSelected={ E.planList.onSelectPlan }
-                            plans={ plans }
-                            selectedUid={ openedPlanUid }
-                            uids={ uids }
+                            onChangeSelected={ openedPlan.openPlanUid }
+                            selectedPlan={ openedPlan.plan }
+                            plans={ documentPlans.plans.items }
                         />,
                         <ItemControls
-                            onDelete={ E.documentPlans.onDelete }
-                            onUpdate={ E.documentPlans.onUpdate }
-                            plan={ openedPlan }
-                            status={ statuses[openedPlanUid] }
+                            onDelete={ onDeletePlan }
+                            onUpdate={ onUpdatePlan }
+                            plan={ openedPlan.plan }
+                            status={ planStatus }
                         />,
                     ]
             }</div>
         );
     }
-});
+}));

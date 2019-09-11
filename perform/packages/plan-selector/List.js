@@ -1,4 +1,5 @@
 import { h, Component }     from 'preact';
+import PropTypes            from 'prop-types';
 
 import S                    from './List.sass';
 
@@ -9,6 +10,14 @@ const SAVE_AS =             `SAVE-AS-${ Math.random() }`;
 
 export default class PlanSelectorList extends Component {
 
+    static propTypes = {
+        onChangeSelected:   PropTypes.func.isRequired,
+        onClickNew:         PropTypes.func.isRequired,
+        onClickSaveAs:      PropTypes.func.isRequired,
+        selectedPlan:       PropTypes.object,
+        plans:              PropTypes.array,
+    };
+
     onChangeSelect = evt =>
         ( evt.target.value === ADD_NEW )
             ? this.props.onClickNew()
@@ -16,19 +25,24 @@ export default class PlanSelectorList extends Component {
             ? this.props.onClickSaveAs()
             : this.props.onChangeSelected( evt.target.value )
 
-    render({ plans, selectedUid, uids }) {
+    render({ plans, selectedPlan }) {
         return (
             <select
                 className={ S.className }
                 onChange={ this.onChangeSelect }
-                value={ selectedUid }
+                value={ selectedPlan.uid }
             >
                 <option value={ ADD_NEW }>➕ New...</option>
                 <option value={ SAVE_AS }>💾 Save as...</option>
                 <optgroup label=" 📂 Open">
-                    { uids.map( uid =>
-                        <option key={ uid } value={ uid }>
-                            📄 { plans[uid].name }
+                    { selectedPlan && ! selectedPlan.id &&
+                        <option key={ selectedPlan.uid } value={ selectedPlan.uid }>
+                            📑 { selectedPlan.name }
+                        </option>
+                    }
+                    { plans && plans.map( plan =>
+                        <option key={ plan.uid } value={ plan.uid }>
+                            📄 { plan.name }
                         </option>
                     )}
                 </optgroup>
