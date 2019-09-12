@@ -22,11 +22,4 @@
                                        :ratingsCount
                                        :maturityRating
                                        :thumbnail
-                                       :language]))))
-  (testing "Test get concrete csv"
-    (let [result (read-data {:user "example-user" :file "example.csv"})
-          body (result :body)]
-      (is (= body {:data (list {:first  "one"
-                                :second "two"
-                                :third  "three"})
-                   :key  "example-user/example.csv"})))))
+                                       :language])))))

@@ -86,7 +86,14 @@ unit-test-graphql-api:
 integration-test-nlg-api:
   stage: test
   image: registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps
-  when: manual
+  when: always
+  only:
+    changes:
+      - graphql-api/
+      - nlg-api/
+      - data-access/
+  variables:
+    DYNAMODB_ENDPOINT: https://dynamodb.eu-central-1.amazonaws.com
   script:
     - cd nlg-api
     - clojure -A:test -i integration
@@ -94,7 +101,14 @@ integration-test-nlg-api:
 integration-test-graphql-api:
   stage: test
   image: registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps
-  when: manual
+  when: always
+  only:
+    changes:
+      - graphql-api/
+      - nlg-api/
+      - data-access/
+  variables:
+    DYNAMODB_ENDPOINT: https://dynamodb.eu-central-1.amazonaws.com
   script:
     - cd graphql-api
     - clojure -A:test -i integration

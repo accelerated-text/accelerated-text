@@ -71,20 +71,17 @@ publish-dynamodb-docker:
 	docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
 
 run-dev-env:
+	docker-compose -p dev -f docker-compose.yml pull && \
 	docker-compose -p dev -f docker-compose.yml down && \
 	docker-compose -p dev -f docker-compose.yml build && \
 	docker-compose -p dev -f docker-compose.yml up --remove-orphans
 
 .PHONY: run-perform-ui-dev-deps
-run-perform-ui-dev-deps: fix-perform-ui-dev-deps
+run-perform-ui-dev-deps:
+	docker-compose -p dev -f docker-compose.perform-ui-deps.yml pull && \
 	docker-compose -p dev -f docker-compose.perform-ui-deps.yml down && \
 	docker-compose -p dev -f docker-compose.perform-ui-deps.yml build && \
 	docker-compose -p dev -f docker-compose.perform-ui-deps.yml up --remove-orphans
-
-.PHONY: fix-perform-ui-dev-deps
-fix-perform-ui-dev-deps:
-	docker pull "registry.gitlab.com/tokenmill/nlg/accelerated-text/nlg-api:deps"
-	docker pull "registry.gitlab.com/tokenmill/nlg/accelerated-text/graphql-api:deps"
 
 .PHONY: run-perform-ui-dev
 run-perform-ui-dev:
