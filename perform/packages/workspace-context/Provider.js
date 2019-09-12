@@ -35,13 +35,18 @@ export default class WorkspaceContextProvider extends Component {
 
         setWorkspace: workspace => {
             this.setState({ workspace });
-            this.onWorkspaceFns.forEach( fn =>
-                fn( workspace, this.state.Blockly )
-            );
+            if( workspace ) {
+                this.onWorkspaceFns.forEach( fn =>
+                    fn( workspace, this.state.Blockly )
+                );
+            }
         },
 
         withWorkspace: fn => {
-            fn( this.state.workspace, this.state.Blockly );
+            const { Blockly, workspace } =  this.state;
+            if( workspace ) {
+                fn( workspace, Blockly );
+            }
         },
     };
 

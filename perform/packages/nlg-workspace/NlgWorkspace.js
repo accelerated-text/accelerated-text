@@ -5,11 +5,11 @@ import PropTypes            from 'prop-types';
 
 import DocumentPlan         from '../nlg-blocks/Document-plan';
 import DropTarget           from '../drag-in-blocks/DropTarget';
-import keyboardNav          from '../blockly-keyboard-navigation';
 import { provideBlocks }    from '../nlg-blocks/';
 import { QA }               from '../tests/constants';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 import WorkspaceContext     from '../workspace-context/WorkspaceContext';
+import workspaceShortcuts   from '../shortcuts/workspace-shortcuts';
 
 import blockSvgOverride     from './block-svg-override';
 import S                    from './NlgWorkspace.sass';
@@ -124,7 +124,11 @@ export default class NlgWorkspace extends Component {
             }
         });
 
-        keyboardNav( workspace, this.Blockly );
+        workspaceShortcuts({
+            Blockly:            this.Blockly,
+            workspace,
+            workspaceView:      this,
+        });
 
         this.context.setWorkspace( workspace );
     }
@@ -135,6 +139,10 @@ export default class NlgWorkspace extends Component {
         if( this.workspace && nextProps.cellNames !== this.props.cellNames ) {
             setCellOptions( this.workspace, nextProps.cellNames );
         }
+    }
+
+    componentWillUnmount() {
+        this.context.setWorkspace( null );
     }
 
     render() {

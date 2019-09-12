@@ -1,11 +1,21 @@
-import shortkey             from 'shortkey';
-
 import { getSiblings }      from '../blockly-helpers/';
 
 
-export const onKeyDown = selected => shortkey({
+export default {
 
-    onArrowDown: () => {
+    moveUp: selected =>
+        console.log( 'moveUp', selected ),
+
+    moveDown: selected =>
+        console.log( 'moveDown', selected ),
+
+    moveAfterParent: selected =>
+        console.log( 'moveAfterParent', selected ),
+
+    moveIntoSibling: selected =>
+        console.log( 'moveIntoSibling', selected ),
+
+    selectNextSibling: selected => {
 
         const siblings =    getSiblings( selected );
         const nextSibling = siblings[ 1 + siblings.indexOf( selected )];
@@ -14,7 +24,8 @@ export const onKeyDown = selected => shortkey({
             nextSibling.select();
         }
     },
-    onArrowUp: () => {
+
+    selectPreviousSibling: selected => {
 
         const siblings =    getSiblings( selected );
         const prevSibling = siblings[ -1 + siblings.indexOf( selected )];
@@ -23,37 +34,20 @@ export const onKeyDown = selected => shortkey({
             prevSibling.select();
         }
     },
-    onArrowLeft: () => {
+
+    selectParent: selected => {
 
         const parent =      selected.getParent();
         if( parent ) {
             parent.select();
         }
     },
-    onArrowRight: () => {
+
+    selectFirstChild: selected => {
 
         const firstChild =  selected.getChildren( true )[ 0 ];
         if( firstChild ) {
             firstChild.select();
         }
     },
-});
-
-
-export default ( workspace, Blockly = window.Blockly ) => {
-    const svg =             workspace.getParentSvg();
-
-    svg.tabIndex =          '0';
-    svg.focus();
-
-    workspace.getTopBlocks()[0].select();
-
-    svg.addEventListener( 'keydown', evt => {
-
-        if( ! Blockly.selected ) {
-            workspace.getTopBlocks()[0].select();
-        } else {
-            onKeyDown( Blockly.selected )( evt );
-        }
-    });
 };

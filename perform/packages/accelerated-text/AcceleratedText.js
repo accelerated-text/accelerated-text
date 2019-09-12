@@ -3,14 +3,15 @@ import { h }                from 'preact';
 import {
     composeQueries,
     GraphQLProvider,
-}   from '../graphql/';
+}                           from '../graphql/';
 import DictionaryEditor     from '../dictionary-editor/DictionaryEditor';
-import DocumentPlansContextProvider from '../document-plans/ContextProvider';
+import DocumentPlansProvider    from '../document-plans/ContextProvider';
 import EditorSidebar        from '../plan-editor/Sidebar';
+import GlobalShortcuts      from '../shortcuts/GlobalShortcuts';
 import Header               from '../header/Header';
+import Modal                from '../modal/Modal';
+import ModalProvider        from '../modal/ContextProvider';
 import PlanEditor           from '../plan-editor/PlanEditor';
-import QuickSearchModal     from '../quick-search/WorkspaceModal';
-import QuickSearchShortcuts from '../quick-search/KeyboardProvider';
 import ReaderContextProvider    from '../reader/ContextProvider';
 import VariantsContextProvider  from '../variants/ContextProvider';
 import WorkspaceContextProvider from '../workspace-context/Provider';
@@ -18,8 +19,6 @@ import WorkspaceContextProvider from '../workspace-context/Provider';
 import {
     acceleratedText,
     closeDictionaryItem,
-    closeQuickSearch,
-    openQuickSearch,
 }   from './local-state';
 import OpenedFileProvider   from './OpenedDataFileContextProvider';
 import OpenedPlanProvider   from './OpenedPlanContextProvider';
@@ -29,18 +28,11 @@ import S                    from './AcceleratedText.sass';
 const AcceleratedText = composeQueries({
     acceleratedText,
     closeDictionaryItem,
-    closeQuickSearch,
-    openQuickSearch,
 })(({
     acceleratedText: { acceleratedText },
     closeDictionaryItem,
-    closeQuickSearch,
-    openQuickSearch,
 }) =>
-    <QuickSearchShortcuts
-        className={ S.className }
-        openQuickSearch={ openQuickSearch }
-    >
+    <GlobalShortcuts className={ S.className }>
         <div className={ S.grid }>
             <Header
                 className={ S.header }
@@ -57,18 +49,15 @@ const AcceleratedText = composeQueries({
             }
             <EditorSidebar className={ S.rightSidebar } />
         </div>
-        {
-            ( acceleratedText && acceleratedText.openedQuickSearch )
-                ? <QuickSearchModal onClose={ closeQuickSearch } />
-                : null
-        }
-    </QuickSearchShortcuts>
+        <Modal />
+    </GlobalShortcuts>
 );
 
 
 export default () => [
+    ModalProvider,
     GraphQLProvider,
-    DocumentPlansContextProvider,
+    DocumentPlansProvider,
     OpenedPlanProvider,
     OpenedFileProvider,
     ReaderContextProvider,

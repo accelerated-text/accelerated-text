@@ -1,12 +1,16 @@
 import { h, Component }     from 'preact';
 
+import Context              from './Context';
 import S                    from './Modal.sass';
 
 
 export default class Modal extends Component {
 
+    static contextType =    Context;
+
     onClose = () => {
-        this.props.onClose();
+        this.context.closeModal();
+        this.props.onClose && this.props.onClose();
     };
 
     onClickModal = evt => {
@@ -19,17 +23,30 @@ export default class Modal extends Component {
         }
     };
 
-    render = ({ className, children }) =>
-        <div
-            className={ S.className }
-            onClick={ this.onClose }
-            onKeyDown={ this.onKeyDown }
-            tabIndex="0"
-        >
-            <div
-                children={ children }
-                className={ S.modal }
-                onClick={ this.onClickModal }
-            />
-        </div>;
+    render(
+        { className, children },
+        _,
+        { ChildComponent, childElement, childProps },
+    ) {
+        if( children || ChildComponent || childElement ) {
+            return (
+                <div
+                    className={ S.className }
+                    onClick={ this.onClose }
+                    onKeyDown={ this.onKeyDown }
+                    tabIndex="0"
+                >
+                    <div className={ S.modal } onClick={ this.onClickModal }>{
+                        children
+                            ? children
+                        : childElement
+                            ? childElement
+                        : ChildComponent
+                            ? <ChildComponent { ...childProps } />
+                            : null
+                    }</div>
+                </div>
+            );
+        }
+    }
 }
