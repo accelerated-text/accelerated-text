@@ -38,12 +38,8 @@ export default class Modal extends Component {
                 >
                     <div className={ S.modal } onClick={ this.onClickModal }>{
                         children
-                            ? children
-                        : childElement
-                            ? childElement
-                        : ChildComponent
-                            ? <ChildComponent { ...childProps } />
-                            : null
+                        || childElement
+                        || <ChildComponent { ...childProps } />
                     }</div>
                 </div>
             );
