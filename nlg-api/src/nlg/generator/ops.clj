@@ -117,10 +117,13 @@
          r replaces]
     (if (empty? r)
       text
-      (let [[head & tail] r
-            result (try (string/replace text (:original head) (:replace head))
-                        (catch Exception ex (log/errorf "Problem with: %s" (pr-str head))))]
+      (let [[[original replace] & tail] r
+            result (try (string/replace text original replace)
+                        (catch Exception ex (log/errorf "Problem with: %s -> %s" original replace)))]
         (recur result tail)))))
 
 (defn zip [coll1 coll2]
   (map vector coll1 coll2))
+
+(defn wrap-to [col key]
+  (map (fn [item] {key item}) col))

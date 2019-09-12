@@ -46,5 +46,5 @@
 (deftest test-multi-replace
   (is (= "Sparta battled with Athens"
          (ops/replace-multi "{{AGENT}} battled with {{CO-AGENT}}" (list
-                                                                   {:original "{{AGENT}}" :replace "Sparta"}
-                                                                   {:original "{{CO-AGENT}}" :replace "Athens"})))))
+                                                                   ["{{AGENT}}" "Sparta"]
+                                                                   ["{{CO-AGENT}}" "Athens"])))))
