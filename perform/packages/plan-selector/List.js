@@ -40,11 +40,16 @@ export default class PlanSelectorList extends Component {
                             📑 { selectedPlan.name }
                         </option>
                     }
-                    { plans && plans.map( plan =>
-                        <option key={ plan.uid } value={ plan.uid }>
-                            📄 { plan.name }
-                        </option>
-                    )}
+                    { plans && plans
+                        .filter( plan => plan.uid && plan.uid !== '0' )
+                        .map(( plan, i ) =>
+                            <option
+                                children={ `📄 ${ plan.name }` }
+                                key={ plan.uid === '0' ? i : plan.uid }
+                                value={ plan.uid }
+                            />
+                        )
+                    }
                 </optgroup>
             </select>
         );
