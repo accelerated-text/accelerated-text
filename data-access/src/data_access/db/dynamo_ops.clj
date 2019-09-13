@@ -67,13 +67,13 @@
           (far/put-item (config/client-opts) table-name (freeze body))
           body))
       (update-item [this key data]
-        (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
-        (let [original (far/get-item (config/client-opts) table-name {table-key key})
-              body (cond-> (merge original data {:updatedAt (utils/ts-now) table-key key})
-                           (contains? original :updateCount) (update :updateCount inc))]
-          (log/debugf "Saving updated content: %s" (pr-str body))
-          (far/put-item (config/client-opts) table-name (freeze body))
-          body))
+        (when-let [original (far/get-item (config/client-opts) table-name {table-key key})]
+          (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
+          (let [body (cond-> (merge original data {:updatedAt (utils/ts-now) table-key key})
+                             (contains? original :updateCount) (update :updateCount inc))]
+            (log/debugf "Saving updated content: %s" (pr-str body))
+            (far/put-item (config/client-opts) table-name (freeze body))
+            body)))
       (delete-item [this key]
         (log/debugf "Deleting\n key: '%s'" key)
         (far/delete-item (config/client-opts) table-name {table-key key}))
