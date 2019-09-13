@@ -1,5 +1,6 @@
 import { h }                from 'preact';
 
+import BottomBarProvider    from '../bottom-bar/ContextProvider';
 import {
     composeQueries,
     GraphQLProvider,
@@ -56,6 +57,7 @@ const AcceleratedText = composeQueries({
 
 export default () => [
     ModalProvider,
+    BottomBarProvider,
     GraphQLProvider,
     DocumentPlansProvider,
     OpenedPlanProvider,

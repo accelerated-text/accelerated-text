@@ -3,6 +3,7 @@ import debug                from 'debug';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
+import BottomBar            from '../bottom-bar/BottomBar';
 import DocumentPlan         from '../nlg-blocks/Document-plan';
 import DropTarget           from '../drag-in-blocks/DropTarget';
 import { provideBlocks }    from '../nlg-blocks/';
@@ -162,6 +163,9 @@ export default class NlgWorkspace extends Component {
                         trashcan:           false,
                     }}
                 />
+                <BottomBar>
+                    test
+                </BottomBar>
             </DropTarget>
         );
     }
