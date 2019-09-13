@@ -2,6 +2,7 @@ import { h }                from 'preact';
 
 import addBlock             from '../quick-search/add-block';
 import { focusWorkspace }   from '../blockly-helpers/';
+import QuickJump            from '../quick-jump/QuickJump';
 import QuickSearch          from '../quick-search/QuickSearch';
 
 
@@ -24,8 +25,14 @@ export default {
         focusWorkspace( workspace );
     },
 
-    quickJump: workspace => {
-        console.log( 'quickJump', workspace );
-        focusWorkspace( workspace );
+    quickJump: ( workspace, { Blockly, closeBar, onCloseBar, openComponentBar }) => {
+
+        openComponentBar( QuickJump, {
+            Blockly,
+            workspace,
+        });
+        onCloseBar(() =>
+            focusWorkspace( workspace )
+        );
     },
 };

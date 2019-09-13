@@ -1,6 +1,7 @@
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
+import bottomBarContext     from '../bottom-bar/Context';
 import composeContexts      from '../compose-contexts/';
 import { focusWorkspace }   from '../blockly-helpers/';
 import getKeyName           from '../get-key-name/';
@@ -11,11 +12,13 @@ import { globalKeys }       from './key-map';
 
 
 export default composeContexts({
+    bottomBarContext,
     modalContext,
     workspaceContext,
 })( class GlobalShortcuts extends Component {
 
     static propTypes = {
+        bottomBarContext:   PropTypes.object.isRequired,
         modalContext:       PropTypes.object.isRequired,
         workspaceContext:   PropTypes.object.isRequired,
     };
@@ -24,24 +27,36 @@ export default composeContexts({
         const fn =          globalKeys[ getKeyName( evt )];
         if( fn ) {
             const {
-                workspaceContext: {
-                    withWorkspace,
+                bottomBarContext: {
+                    closeBar,
+                    onCloseBar,
+                    openComponentBar,
+                    openElementBar,
                 },
                 modalContext: {
                     closeModal,
                     onCloseModal,
-                    openModal,
                     openComponentModal,
+                    openElementModal,
+                },
+                workspaceContext: {
+                    withWorkspace,
                 },
             } = this.props;
             withWorkspace(( workspace, Blockly ) =>
                 fn( workspace, {
+                    workspace,
                     Blockly,
+
+                    closeBar,
+                    onCloseBar,
+                    openComponentBar,
+                    openElementBar,
+
                     closeModal,
                     onCloseModal,
                     openComponentModal,
-                    openModal,
-                    workspace,
+                    openElementModal,
                 })
             );
         }

@@ -163,9 +163,7 @@ export default class NlgWorkspace extends Component {
                         trashcan:           false,
                     }}
                 />
-                <BottomBar>
-                    test
-                </BottomBar>
+                <BottomBar />
             </DropTarget>
         );
     }

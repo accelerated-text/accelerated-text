@@ -37,11 +37,13 @@ export default class BottomBar extends Component {
                     tabIndex="0"
                 >
                     <div className={ S.bar } onClick={ this.onClickBar }>
-                        <button
-                            children="✖️ close"
-                            className={ S.close }
-                            onClick={ this.onClose }
-                        />
+                        { ( childElement || ChildComponent ) &&
+                            <button
+                                children="✖️ close"
+                                className={ S.close }
+                                onClick={ this.onClose }
+                            />
+                        }
                         { children
                             || childElement
                             || <ChildComponent { ...childProps } />
