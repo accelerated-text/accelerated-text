@@ -8,5 +8,6 @@ export default createContext({
     closeModal:             null,
     onCloseModal:           null,
     onCloseFn:              null,
-    openModal:              null,
+    openComponentModal:     null,
+    openElementModal:       null,
 });
