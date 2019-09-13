@@ -15,7 +15,7 @@
     {:items      (->> items
                       (drop offset)
                       (take limit)
-                      (translate-dp/dp->schema))
+                      (map translate-dp/dp->schema))
      :limit      limit
      :offset     offset
      :totalCount (count items)}))
