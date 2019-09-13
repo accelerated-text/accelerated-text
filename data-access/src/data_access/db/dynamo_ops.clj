@@ -93,7 +93,7 @@
 
 (def ignored-tables
   "Ignore data of these tables when cloning"
-  #{:blockly-workspace})
+  #{:blockly-workspace :nlg-results})
 
 (defn clone-tables-to-local-db
   [endpoint-url local-endpoint-url limit]
