@@ -192,6 +192,7 @@
    reader-profile - key defining reader (user)
    returns: generated text"
   [document-plan data reader-profile]
+  (log/debugf "Given document plan: %s" document-plan)
   (let [dp (parser/parse-document-plan document-plan {} {:reader-profile reader-profile})
         instances (map #(map build-dp-instance %) dp)
         context (ops/merge-contexts {:static [] :dynamic []} (flatten instances))
