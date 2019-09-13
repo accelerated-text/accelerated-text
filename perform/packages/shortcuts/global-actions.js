@@ -29,6 +29,8 @@ export default {
 
         openComponentBar( QuickJump, {
             Blockly,
+            onDone:         closeBar,
+            selected:       Blockly.selected,
             workspace,
         });
         onCloseBar(() =>
