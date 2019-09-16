@@ -2,6 +2,7 @@
   (:require [nlg.api.resource :as resource]
             [nlg.api.utils :as utils]
             [data-access.db.config :as config]
+            [data-access.db.dynamo-ops :as ops]
             [taoensso.faraday :as far]
             [data-access.entities.document-plan :as document-plan])
   (:gen-class
@@ -9,29 +10,36 @@
     :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
 
 (defn write-workspace [body]
-  (far/put-item (config/client-opts) (:table-name config/blockly-table) body)
-  body)
+  (ops/write! (ops/db-access :blockly) (utils/gen-uuid) body true))
 
 (defn get-workspace
-  [{:keys [id]}]
-  {:status 200
-   :body (document-plan/get-document-plan id)})
+  [path-params]
+  (let [key (path-params :id)]
+    {:status 200
+     :body   (ops/read! (ops/db-access :blockly) key)}))
 
 (defn delete-workspace
-  [{:keys [id]}]
-  (let [original (document-plan/get-document-plan id)]
-    (document-plan/delete-document-plan id)
-    {:status 200
-     :body original}))
+  [path-params]
+  (let [key (path-params :id)]
+    (utils/do-delete (fn [key]
+                       (ops/read! (ops/db-access :blockly) key))
+                     (fn [key]
+                       (ops/delete! (ops/db-access :blockly) key))
+                     key)))
 
 (defn add-workspace
-  [dp]
-  (document-plan/add-document-plan dp))
+  [request-body]
+  (utils/do-insert (fn [_ workspace]
+                     (write-workspace workspace))
+                   request-body))
 
 (defn update-workspace
-  [{:keys [id]} dp]
-  (document-plan/update-document-plan id dp)
-  (get-workspace id))
+  [path-params request-body]
+  (let [key (path-params :id)]
+    (utils/do-update (fn [key workspace]
+                       (ops/update! (ops/db-access :blockly) key workspace))
+                     key
+                     request-body)))
 
 (defn list-workspaces
   [query-params]

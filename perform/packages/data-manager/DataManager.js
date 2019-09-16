@@ -1,19 +1,27 @@
 import { h, Component }     from 'preact';
+import PropTypes            from 'prop-types';
 
 import { composeQueries }   from '../graphql/';
 import { listDataFiles }    from '../graphql/queries.graphql';
+import PlanActions          from '../document-plans/Actions';
 
 import Cells                from './Cells';
 import Files                from './Files';
 import S                    from './DataManager.sass';
 
 
-export default composeQueries({
+export default PlanActions( composeQueries({
     listDataFiles,
 })( class DataManager extends Component {
 
+    static propTypes = {
+        listDataFiles:      PropTypes.object.isRequired,
+        onUpdatePlan:       PropTypes.func.isRequired,
+        plan:               PropTypes.object,
+    };
+
     onChangeRow = dataSampleRow =>
-        this.context.E.documentPlans.onUpdate({
+        this.props.onUpdatePlan({
             ...this.props.plan,
             dataSampleRow,
         });
@@ -46,4 +54,4 @@ export default composeQueries({
             </div>
         );
     }
-});
+}));

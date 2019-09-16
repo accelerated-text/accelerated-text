@@ -18,7 +18,8 @@
 
 (defn parse-children
   [children attrs ctx]
-  (map #(parse-node % attrs ctx) children))
+  (map #(parse-node % attrs ctx)
+       (remove nil? children)))
 
 (defn parse-segment
   [{:keys [children]} attrs ctx]

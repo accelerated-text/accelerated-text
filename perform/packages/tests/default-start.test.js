@@ -13,19 +13,22 @@ test( 'should not have errors', defaultResponsesPage, async t => {
 
 
 test( 'should not start unaccounted-for requests', defaultResponsesPage, async t => {
-    t.timeout( 10e3 );
 
+    await t.waitUntilElementGone( SELECTORS.UI_LOADING );
+    t.timeout( 10e3 );
     await sleep( 8e3 );
+    t.timeout( 8e3 );
     await t.notFindElement( SELECTORS.UI_ERROR );
 });
 
 
 test( 'should load the document plan', defaultResponsesPage, async t => {
 
-    const PLAN =            DOCUMENT_PLAN_LIST[0];
+    const PLAN =            DOCUMENT_PLAN_LIST.documentPlans.items[0];
+    const documentPlan =    JSON.parse( PLAN.documentPlan );
 
-    await t.findElement( `[data-id=${ PLAN.documentPlan.srcId }]` );
-    await t.findElement( `[data-id=${ PLAN.documentPlan.segments[0].srcId }]` );
+    await t.findElement( `[data-id=${ documentPlan.srcId }]` );
+    await t.findElement( `[data-id=${ documentPlan.segments[0].srcId }]` );
 });
 
 

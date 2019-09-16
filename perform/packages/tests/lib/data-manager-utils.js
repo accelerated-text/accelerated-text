@@ -2,19 +2,20 @@ import { respondOnPlanChange }  from './responses';
 import { SELECTORS }            from '../constants';
 
 
-export const selectDataFile = ( t, dataFile ) => {
-
-    t.page.select( SELECTORS.DATA_MANAGER_FILE_LIST, dataFile.id );
-
-    return Promise.all([
+export const selectDataFile = ( t, dataFile, documentPlan = null ) =>
+    Promise.all([
         t.graphqlApi.provideOnce(
             'getDataFile',
             { id: dataFile.id },
             { data: { getDataFile: dataFile }},
         ),
-        respondOnPlanChange( t ),
+        respondOnPlanChange( t, {
+            ...documentPlan,
+            dataSampleId:       dataFile.id,
+            dataSampleRow:      0,
+        }),
+        t.page.select( SELECTORS.DATA_MANAGER_FILE_LIST, dataFile.id ),
     ]);
-};
 
 
 export const isDataFileRecordVisible = async ( t, record ) => {

@@ -1,17 +1,25 @@
+import { range }            from 'ramda';
+
 import { createDocumentPlan }   from './document-plan';
 
 
-export default [
-    createDocumentPlan({
-        uid:   'tests-data-document-plan-list-uid-0',
-        srcId: 'tests-data-document-plan-list-src-id-0',
-    }),
-    createDocumentPlan({
-        uid:   'tests-data-document-plan-list-uid-1',
-        srcId: 'tests-data-document-plan-list-src-id-1',
-    }),
-    createDocumentPlan({
-        uid:   'tests-data-document-plan-list-uid-2',
-        srcId: 'tests-data-document-plan-list-src-id-2',
-    }),
-];
+const PREFIX =              'tests-data-document-plan-list';
+
+
+export const createDocumentPlans = totalCount => ({
+    documentPlans: {
+        __typename:     'DocumentPlanResults',
+        offset:         0,
+        totalCount,
+        limit:          totalCount,
+        items: range( 0, totalCount ).map( i =>
+            createDocumentPlan( `${ PREFIX }-${ i }` )
+        ),
+    },
+});
+
+
+export const EMPTY_DOCUMENT_PLANS = createDocumentPlans( 0 );
+
+
+export default createDocumentPlans( 3 );

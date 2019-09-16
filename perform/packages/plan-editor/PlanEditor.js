@@ -2,66 +2,67 @@ import classnames           from 'classnames';
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
-import DocumentPlansContext from '../document-plans/Context';
+import composeContexts      from '../compose-contexts/';
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
 import OnboardCode          from '../onboard-code/OnboardCode';
+import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
+import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
+import PlanActions          from '../document-plans/Actions';
 import planTemplate         from '../document-plans/plan-template';
-import { useStores }        from '../vesa/';
 import Workspace            from '../nlg-workspace/NlgWorkspace';
 
 import S                    from './PlanEditor.sass';
 
 
-export default useStores([
-    'planList',
-])( class PlanEditor extends Component {
-
-    static contextType =    DocumentPlansContext;
+export default PlanActions( composeContexts({
+    openedDataFile:         OpenedFileContext,
+    openedPlan:             OpenedPlanContext,
+})( class PlanEditor extends Component {
 
     static propTypes = {
         className:          PropTypes.string,
-        planList:           PropTypes.object.isRequired,
+        onCreatePlan:       PropTypes.func.isRequired,
+        onUpdatePlan:       PropTypes.func.isRequired,
+        openedDataFile:     PropTypes.object.isRequired,
+        openedPlan:         PropTypes.object.isRequired,
     };
 
-    onChangeWorkspace = ({ documentPlan, workspaceXml }) =>
-        this.props.E.documentPlans.onUpdate({
-            ...this.context.openedPlan,
+    onChangeWorkspace = ({ documentPlan, workspaceXml }) => {
+        this.props.onUpdatePlan({
+            ...this.props.openedPlan.plan,
             documentPlan,
             blocklyXml:     workspaceXml,
         });
+    };
 
-    onCreateXml = blocklyXml =>
-        this.props.E.documentPlans.onCreate.async({
+    onCreateXml = blocklyXml => {
+        this.props.onCreatePlan({
             name:           planTemplate.name,
             blocklyXml,
-        })
+        });
+    };
 
     render({
         className,
-        planList: {
-            getListError,
-            getListLoading,
-        },
-    }, _, {
-        openedDataFile,
-        openedPlan,
+        openedDataFile: { file },
+        openedPlan: { error, loading, plan },
     }) {
         return (
             <div className={ classnames( S.className, className ) }>{
-                openedPlan
+                plan
                     ? <Workspace
-                        cellNames={ openedDataFile && openedDataFile.fieldNames }
-                        key={ openedPlan.uid }
+                        cellNames={ file && file.fieldNames }
+                        key={ plan.uid }
                         onChangeWorkspace={ this.onChangeWorkspace }
-                        workspaceXml={ openedPlan.blocklyXml }
+                        workspaceXml={ plan.blocklyXml }
                     />
-                : getListLoading
+                : loading
                     ? <Loading className={ S.item } message="Loading document plans." />
-                : getListError
+                : error
                     ? <Error className={ S.item } message="Error loading document plans." />
                     : <OnboardCode onCreateXml={ this.onCreateXml } />
             }</div>
         );
     }
-});
+}));
