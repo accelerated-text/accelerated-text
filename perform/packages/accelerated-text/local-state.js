@@ -10,7 +10,6 @@ export const acceleratedText = gql`
         acceleratedText @client {
             id
             openedDictionaryItem
-            openedQuickSearch
         }
     }
 `;
@@ -21,21 +20,9 @@ export const closeDictionaryItem = gql`
     }
 `;
 
-export const closeQuickSearch = gql`
-    mutation closeQuickSearch {
-        closeQuickSearch @client
-    }
-`;
-
 export const openDictionaryItem = gql`
     mutation openDictionaryItem( $itemId: ID! ) {
         openDictionaryItem( itemId: $itemId ) @client
-    }
-`;
-
-export const openQuickSearch = gql`
-    mutation openQuickSearch {
-        openQuickSearch @client
     }
 `;
 
@@ -48,22 +35,10 @@ export default {
                 data:   { openedDictionaryItem: null },
             });
         },
-        closeQuickSearch:       ( _, __, { cache, getCacheKey }) => {
-            cache.writeData({
-                id:     getCacheKey({ __typename, id }),
-                data:   { openedQuickSearch: false },
-            });
-        },
         openDictionaryItem:     ( _, { itemId }, { cache, getCacheKey }) => {
             cache.writeData({
                 id:     getCacheKey({ __typename, id }),
                 data:   { openedDictionaryItem: itemId },
-            });
-        },
-        openQuickSearch:        ( _, __, { cache, getCacheKey }) => {
-            cache.writeData({
-                id:     getCacheKey({ __typename, id }),
-                data:   { openedQuickSearch: true },
             });
         },
     },
@@ -72,7 +47,6 @@ export default {
             __typename,
             id,
             openedDictionaryItem:   null,
-            openedQuickSearch:      false,
         }),
     },
 };

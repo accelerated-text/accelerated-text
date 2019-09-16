@@ -1,19 +1,19 @@
 import { h, Component }     from 'preact';
 
 import Context              from './Context';
-import S                    from './Modal.sass';
+import S                    from './BottomBar.sass';
 
 
-export default class Modal extends Component {
+export default class BottomBar extends Component {
 
     static contextType =    Context;
 
     onClose = () => {
-        this.context.closeModal();
+        this.context.closeBar();
         this.props.onClose && this.props.onClose();
     };
 
-    onClickModal = evt => {
+    onClickBar = evt => {
         evt.stopPropagation();
     };
 
@@ -36,11 +36,19 @@ export default class Modal extends Component {
                     onKeyDown={ this.onKeyDown }
                     tabIndex="0"
                 >
-                    <div className={ S.modal } onClick={ this.onClickModal }>{
-                        children
-                        || childElement
-                        || <ChildComponent { ...childProps } />
-                    }</div>
+                    <div className={ S.bar } onClick={ this.onClickBar }>
+                        { ( childElement || ChildComponent ) &&
+                            <button
+                                children="✖️ close"
+                                className={ S.close }
+                                onClick={ this.onClose }
+                            />
+                        }
+                        { children
+                            || childElement
+                            || <ChildComponent { ...childProps } />
+                        }
+                    </div>
                 </div>
             );
         }
