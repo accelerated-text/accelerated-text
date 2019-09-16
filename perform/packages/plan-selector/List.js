@@ -1,6 +1,8 @@
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
+import { sortByCreatedAt }  from '../document-plans/functions';
+
 import S                    from './List.sass';
 
 
@@ -40,7 +42,7 @@ export default class PlanSelectorList extends Component {
                             📑 { selectedPlan.name }
                         </option>
                     }
-                    { plans && plans.map( plan =>
+                    { plans && plans.sort( sortByCreatedAt ).map( plan =>
                         <option key={ plan.uid } value={ plan.uid }>
                             📄 { plan.name }
                         </option>
