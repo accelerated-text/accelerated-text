@@ -3,19 +3,10 @@ import { path }             from 'ramda';
 
 import { composeQueries }   from '../graphql/';
 import { documentPlans }    from '../graphql/queries.graphql';
+import { getPlanByUid }     from '../document-plans/functions';
 
 import Context              from './OpenedPlanContext';
 import { OPENED_PLAN_UID }  from './constants';
-
-
-const findByUid = ( documentPlans, uid ) => (
-    uid
-    && documentPlans
-    && documentPlans.items
-    && documentPlans.items.find( plan =>
-        plan.uid === uid
-    )
-);
 
 
 export default composeQueries({
@@ -32,14 +23,14 @@ export default composeQueries({
             || ! documentPlans
             || (
                 plan
-                && plan === findByUid( documentPlans, plan.uid )
+                && plan === getPlanByUid( documentPlans, plan.uid )
             )
         );
         if( ! skip ) {
             const newOpenedPlan = (
-                findByUid( documentPlans, plan && plan.uid )
+                getPlanByUid( documentPlans, plan && plan.uid )
                 || ( plan && ! plan.id && plan )
-                || findByUid( documentPlans, localStorage.getItem( OPENED_PLAN_UID ))
+                || getPlanByUid( documentPlans, localStorage.getItem( OPENED_PLAN_UID ))
                 || path([ 'items', 0 ], documentPlans )
             );
             if( newOpenedPlan ) {
@@ -64,7 +55,7 @@ export default composeQueries({
     };
 
     openPlanUid = uid => {
-        const plan =        findByUid( this.props.documentPlans.documentPlans, uid );
+        const plan =        getPlanByUid( this.props.documentPlans.documentPlans, uid );
         if( plan ) {
             this.openPlan( plan );
         } else {

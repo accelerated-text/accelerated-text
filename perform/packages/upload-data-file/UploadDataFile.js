@@ -1,5 +1,6 @@
 import classnames           from 'classnames';
 import { h, Component }     from 'preact';
+import PropTypes            from 'prop-types';
 
 import {
     Error,
@@ -12,6 +13,14 @@ import withUploader         from './withUploader';
 
 
 export default withUploader( class UploadDataFile extends Component {
+
+    static propTypes = {
+        className:          PropTypes.string,
+        fileClassName:      PropTypes.string,
+        onUpload:           PropTypes.func.isRequired,
+        uploadClassName:    PropTypes.string,
+        uploader:           PropTypes.object.isRequired,
+    };
 
     onSubmit = evt => {
         evt.preventDefault();

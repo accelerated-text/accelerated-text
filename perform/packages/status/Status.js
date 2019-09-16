@@ -42,8 +42,8 @@ export default composeContexts({
         || openedPlan.loading
         || variants.loading
     );
-    /// TODO: add upload status
-    /// TODO: add all plans statuses
+    /// TODO: https://gitlab.com/tokenmill/nlg/accelerated-text/issues/272
+    /// TODO: https://gitlab.com/tokenmill/nlg/accelerated-text/issues/273
 
     const isReady = ! isError && ! isLoading;
 

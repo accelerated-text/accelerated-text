@@ -22,7 +22,7 @@ const getResultKey = ( plan, file, flagValues ) =>
         flagValues,
         planId:             plan.id,
         planUpdateCount:    plan.updateCount,
-        /// TODO: use the data file
+        /// TODO: https://gitlab.com/tokenmill/nlg/accelerated-text/issues/274
     });
 
 
@@ -72,7 +72,6 @@ export default composeContexts({
                 });
             }
         }
-        /// TODO: implement pre-loading status
     }
 
     componentDidMount() {

@@ -3,12 +3,11 @@ import { h }            from 'preact';
 
 import PlanSelector     from '../plan-selector/PlanSelector';
 import Status           from '../status/Status';
-import { useStores }    from '../vesa/';
 
 import S                from './Header.sass';
 
 
-export default useStores([])(({ className, onClickLogo }) =>
+export default ({ className, onClickLogo }) =>
     <div className={ classnames( S.className, className ) }>
         <div className={ S.left }>
             <img
@@ -24,5 +23,4 @@ export default useStores([])(({ className, onClickLogo }) =>
         <div className={ S.right }>
             <Status />
         </div>
-    </div>
-);
+    </div>;
