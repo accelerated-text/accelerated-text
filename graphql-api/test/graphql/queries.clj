@@ -73,11 +73,11 @@
   {:query (format "{documentPlan(id: \"%s\") { id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount }}" id)})
 
 (defn create-document-plan [document-plan]
-  {:query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
+  {:query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String!){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan){ id uid name blocklyXml documentPlan }}"
    :variables document-plan})
 
 (defn update-document-plan [document-plan]
-  {:query "mutation updateDocumentPlan($id: ID! $uid: ID $name: String $blocklyXml: String $documentPlan: String $dataSampleRow: Int){updateDocumentPlan(id: $id uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
+  {:query "mutation updateDocumentPlan($id: ID! $uid: ID! $name: String! $blocklyXml: String! $documentPlan: String!){updateDocumentPlan(id: $id uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan){ id uid name blocklyXml documentPlan }}"
    :variables document-plan})
 
 (defn delete-document-plan [id]

@@ -1,48 +1,26 @@
 (ns graphql.document-plan-test
   (:require [clojure.test :refer :all]
-            [data-access.db.config :as config]
             [graphql.queries :as queries]
             [graphql.core :as graph]))
 
-(def sample-data [{:id            "0"
-                   :uid           "0"
-                   :name          "test"
-                   :blocklyXml    "<>"
-                   :documentPlan  "{}"
-                   :dataSampleRow 0
-                   :createdAt     1568377899
-                   :updatedAt     1568377899
-                   :updateCount   0}])
-
-(def table-key (:table-key config/blockly-table))
-
-(def sample-data-map (reduce (fn [acc item] (assoc acc (get item table-key) item)) {} sample-data))
-
 (deftest ^:integration document-plans-test
-  (with-redefs [taoensso.faraday/scan (fn [& _] sample-data)]
-    (queries/validate-resp (graph/nlg (queries/document-plans 0 1)))))
+  (queries/validate-resp (graph/nlg (queries/document-plans 0 1))))
 
 (deftest ^:integration document-plan-test
-  (with-redefs [taoensso.faraday/get-item (fn [_ _ prim-kvs & _] (get sample-data-map (get prim-kvs table-key)))]
-    (queries/validate-resp (graph/nlg (queries/document-plan "0")))))
+  (queries/validate-resp (graph/nlg (queries/document-plan "17541b7f-eac4-44c4-8e34-12d3af57fd10"))))
 
 (deftest ^:integration create-document-plan-test
-  (with-redefs [taoensso.faraday/put-item (fn [& _])]
-    (queries/validate-resp (graph/nlg (queries/create-document-plan {:uid          "1"
-                                                                     :name         "test"
-                                                                     :blocklyXml   "<>"
-                                                                     :documentPlan "{}"})))))
+  (queries/validate-resp (graph/nlg (queries/create-document-plan {:uid "0"
+                                                                   :name "test"
+                                                                   :blocklyXml "<>"
+                                                                   :documentPlan "{}"}))))
 
 (deftest ^:integration update-document-plan-test
-  (with-redefs [taoensso.faraday/put-item (fn [& _])
-                taoensso.faraday/get-item (fn [_ _ prim-kvs & _] (get sample-data-map (get prim-kvs table-key)))]
-    (queries/validate-resp (graph/nlg (queries/update-document-plan {:id            "0"
-                                                                     :uid           "0"
-                                                                     :name          "test-updated"
-                                                                     :blocklyXml    "<>"
-                                                                     :documentPlan  "{}"
-                                                                     :dataSampleRow 0})))))
+  (queries/validate-resp (graph/nlg (queries/update-document-plan {:id "0"
+                                                                   :uid "0"
+                                                                   :name "test-updated"
+                                                                   :blocklyXml "<>"
+                                                                   :documentPlan "{}"}))))
 
 (deftest ^:integration delete-document-plan-test
-  (with-redefs [taoensso.faraday/delete-item (fn [& _])]
-    (queries/validate-resp (graph/nlg (queries/delete-document-plan "0")))))
+  (queries/validate-resp (graph/nlg (queries/delete-document-plan "0"))))
