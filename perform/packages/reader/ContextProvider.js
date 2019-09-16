@@ -7,9 +7,7 @@ export default class ReaderContextProvider extends Component {
 
     state = {
         flagValues:         {},
-    };
 
-    value = {
         onToggleFlag: flagId => {
             this.setState( state => ({
                 flagValues: {
@@ -23,6 +21,6 @@ export default class ReaderContextProvider extends Component {
     render = ({ children }, state ) =>
         <Context.Provider
             children={ children }
-            value={ Object.assign( this.value, state ) }
+            value={ this.state }
         />;
 }
