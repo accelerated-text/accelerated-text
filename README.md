@@ -24,6 +24,11 @@ You should have NPM installed in your path. Get it from https://nodejs.org .
 make run
 ```
 
+
+⚠️  the section should answer: What features are available
+    * A bullet list would probably do.
+
+
 ⚠️ the section should answer: How do I get my bug fixes, or community support?
     * Link to Gitlab/GitHub issues page.
     * Description of needed information for bug requests (like project version number, Docker version, etc.)
