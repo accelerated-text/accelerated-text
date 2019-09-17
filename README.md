@@ -1,8 +1,18 @@
 # Accelerated Text
 
+⚠️ the section should answer: What is this?
+    * Needs screenshot.
+    * Should have one description sentence. The current one seems too vague.
+
 Accelerated Text helps in building domain specific texts as well as constructing templates.
 
 ## Usage
+
+⚠️ should answer: How do I test/evaluate it?
+    * Check if title is appropriate.
+    * Should have a demo link.
+    * Should have dependencies (links) + 1 shell command to run it locally.
+    * May have an alternative method to run it.
 
 ### Dependencies
 
@@ -13,6 +23,17 @@ You should have NPM installed in your path. Get it from https://nodejs.org .
 ```bash
 make run
 ```
+
+⚠️ the section should answer: How do I get my bug fixes, or community support?
+    * Link to Gitlab/GitHub issues page.
+    * Description of needed information for bug requests (like project version number, Docker version, etc.)
+    * Link to other support channels.
+
+
+⚠️ the section should answer: How do I fix/change my local version?
+    * Short overview of codebase structure with links to other Markdown files?
+    * Directions how to submit PRs.
+
 
 ### Running tests
 
@@ -35,3 +56,7 @@ Before publishing make sure that you're loged in Gitlab container registry (use 
 ```bash
 docker login registry.gitlab.com
 ```
+
+⚠️ the section should contain legal stuff:
+    * copyright,
+    * owners name and contact.
