@@ -1,10 +1,16 @@
 # Accelerated Text
 
+Accelerated Text is a text generation tool which takes in your data and produces texts descring it. Be it descriptions of your business metrics to generate reports, product descriptions for your e-commerce site, or elaborate customer support messages for your chat bot.
+
+Accelerated Text provides a user friendly GUI to define the logics and communication goals of the document to be produced. We call it a *Document Plan*.  Text generation back end executes this plan connecting it with your data and producing multiple variations of the text exactly matching what you inteded to communicate to your readers.
+
 ⚠️ the section should answer: What is this?
     * Needs screenshot.
     * Should have one description sentence. The current one seems too vague.
 
 Accelerated Text helps in building domain specific texts as well as constructing templates.
+
+## Key Features
 
 ## Usage
 
