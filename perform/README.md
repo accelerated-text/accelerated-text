@@ -6,8 +6,8 @@ The single-page application for editing _document plans_.
 
 ### Dependencies
 
-* You should have NPM installed in your path. Get it from https://nodejs.org .
-* You should have Accelerated Text back-end services running (see [Environment][#Environment] below).
+* You should have [NPM][NPM] installed in your path. Get it from [Nodejs.org][Nodejs].
+* You should have Accelerated Text back-end services running (see [Environment](#Environment) below).
 
 ### Running
 
@@ -41,7 +41,7 @@ See file _.env.defaults_ for the variables you can use.
 
 ##  Development
 
-The app uses [Preact][Preact] v10.x, [Apollo GraphQL][Apollo] client and [Google Blockly][Blockly].
+The app uses [Preact][Preact] v10.x, [Apollo GraphQL][Apollo] client and [Blockly][Blockly].
 
 It is built with [Babel][Babel] and [Webpack][Webpack]. Tests are run with [AVA test runner][AVA].
 
@@ -52,7 +52,7 @@ Also don't forget to open DeveloperTools in your browser.
 ### Directory structure
 
 * `./`  The root directory contains configuration files
-    * `./assets/`       Assets include images and link to the pre-compiled [Google Blockly][Blockly] libraries.
+    * `./assets/`       Assets include images and link to the pre-compiled [Blockly][Blockly] libraries.
     * `./dist/`         The directory for compiled files.
     * `./node_modules/` Dependencies.
     * `./packages/`     Source code for the app.
@@ -88,5 +88,7 @@ Some important packages:
 [Apollo]:       https://www.apollographql.com/docs/react/
 [Babel]:        https://babeljs.io/
 [Blockly]:      https://developers.google.com/blockly/
+[Node]:         https://nodejs.org/
+[NPM]:          https://www.npmjs.com/
 [Preact]:       https://preactjs.com/
 [Webpack]:      https://webpack.js.org/
