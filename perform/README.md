@@ -36,6 +36,8 @@ GRAPHQL_URL=https://example.org/_graphql npm start
 
 See file _.env.defaults_ for the variables you can use.
 
+⚠️ Document how to launch dependencies
+⚠️ Link to back end readme
 
 ##  Development
 
