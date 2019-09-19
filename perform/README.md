@@ -38,6 +38,8 @@ See file _.env.defaults_ for the variables you can use.
 
 ⚠️ Document how to launch dependencies
 ⚠️ Link to back end readme
+⚠️ How to run tests
+
 
 ##  Development
 

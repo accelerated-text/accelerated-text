@@ -1,11 +1,11 @@
-![Accelerated Text](perform/assets/accelerated-text-logo.svg)
+![Accelerated Text](docs/assets/accelerated-text-logo.svg)
 
 # Accelerated Text
 
 Accelerated Text is a text generation tool which takes in your data and produces texts describing it.
 
 
-[Key Features](#Key_Features) • [Usage](#Usage) • [Getting Help](#Getting_Help) • [Contributing](#Contributing) • [License](#License) • [Demo](#Demo)
+[Key Features](#Key_Features) • [Usage](#Usage) • [Getting Help](#Getting_Help) • [Contributing](#Contributing) • [License](#License) • [Demo](http://demo.acceleratedtext.org/)
 
 ![Accelerated Text](docs/assets/quick_demo.mp4)
 
@@ -41,22 +41,37 @@ You should have NPM installed in your path. Get it from https://nodejs.org .
 make run
 ```
 
-⚠️ the section should answer: How do I get my bug fixes, or community support?
-    * Link to Gitlab/GitHub issues page.
-    * Description of needed information for bug requests (like project version number, Docker version, etc.)
-    * Link to other support channels.
+## Getting Started
+
+⚠️ For a walkthrough on creating your first text generator, check out our -Getting Started- guide. A video?
+
+## Getting Help
+
+Send your questions to ??@acceleratedtext.org or join our slack channel at acceleratedtext.slack.com
+
+If you'll submit an [Issue](github/issues) this will help everyone and you will be able to track the progress of us fixing it. In order to facilitate it please provide description of needed information for bug requests (like project version number, Docker version, etc.)
 
 
-⚠️ the section should answer: How do I fix/change my local version?
-    * Short overview of codebase structure with links to other Markdown files?
-    * Directions how to submit PRs.
+## Contributing
+
+We accept pull requests with your features or bug fixes.
+
+To get started with a development installation of the Accelerated Text, follow the instructions at our Developers Guides for [Front-end](front-end/README.md) and [Back-end](docs/README-back-end.md) developers.
+
+Then take a look at our [Contribution Guide](docs/contributing.md) for information about our process and where you can fit in!
+
+Talk to other contributors in our Chat room.
+
+## License 
+
+Copyright &copy; 2019 [TokenMill UAB](http://www.tokenmill.lt).
+
+Distributed under the The Apache License, Version 2.0.
 
 
-### Running tests
+## TODO
 
-```bash
-make test
-```
+This goes somewhere. Back end doc?
 
 ### CI test
 
@@ -73,25 +88,3 @@ Before publishing make sure that you're loged in Gitlab container registry (use 
 ```bash
 docker login registry.gitlab.com
 ```
-
-⚠️ For a walkthrough on creating your first text generator, check out our -Getting Started- guide.
-
-# Getting Help
-
-* Where to submit issues
-* Where to ask questions (Slack, Email)
-
-# Contributing
-⚠️  
-
-To get started with a development installation of the Accelerated Text, follow the instructions at our Developers Guides for [Front-end](front-end-readme.md) and [Back-end](back-end.md) developers.
-
-Then take a look at our [Contribution Guide](docs/contributiong.md) for information about our process and where you can fit in!
-
-Talk to other contributors in our Chat room.
-
-# License 
-
-Copyright &copy; 2019 [TokenMill UAB](http://www.tokenmill.lt).
-
-Distributed under the The Apache License, Version 2.0.
