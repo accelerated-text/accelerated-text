@@ -79,20 +79,19 @@ docker login registry.gitlab.com
 # Getting Help
 
 * Where to submit issues
-* FAQ
-* Where to ask questions (chat?)
+* Where to ask questions (Slack, Email)
 
 # Contributing
 ⚠️  
 
-To get started with a development installation of the AccText, follow the instructions at our Developers Guide.
+To get started with a development installation of the Accelerated Text, follow the instructions at our Developers Guides for [Front-end](front-end-readme.md) and [Back-end](back-end.md) developers.
 
-Then take a look at our Contribution Guide for information about our process and where you can fit in!
+Then take a look at our [Contribution Guide](docs/contributiong.md) for information about our process and where you can fit in!
 
 Talk to other contributors in our Chat room.
 
 # License 
 
-⚠️ the section should contain legal stuff:
-    * copyright,
-    * owners name and contact.
+Copyright &copy; 2019 [TokenMill UAB](http://www.tokenmill.lt).
+
+Distributed under the The Apache License, Version 2.0.
