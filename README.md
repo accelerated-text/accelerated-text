@@ -1,26 +1,28 @@
-⚠️ Product logo
+![Accelerated Text](perform/assets/accelerated-text-logo.svg)
 
 # Accelerated Text
 
-Accelerated Text is a text generation tool which takes in your data and produces texts descring it. 
+Accelerated Text is a text generation tool which takes in your data and produces texts describing it.
 
 
-TOC one line, finshing with DEMO link
+[Key Features](#Key_Features) • [Usage](#Usage) • [Getting Help](#Getting_Help) • [Contributing](#Contributing) • [License](#License) • [Demo](#Demo)
 
-GIF screenshot
+![Accelerated Text](docs/assets/quick_demo.mp4)
 
-BADGES
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Be it descriptions of your business metrics to generate reports, product descriptions for your e-commerce site, or elaborate customer support messages for your chat bot.
+Provide Accelerated Text with your data: descriptions of your business metrics, metadata describing interactions with your customers, product descriptions, financial data and get back text to be used in report generation, e-commerce platform or your customer support system.
 
-Accelerated Text provides a user friendly GUI to define the logics and communication goals of the document to be produced. We call it a *Document Plan*.  Text generation back end executes this plan connecting it with your data and producing multiple variations of the text exactly matching what you inteded to communicate to your readers.
+Accelerated Text provides a user friendly GUI to define the logic and communication goals of the document to be produced. We call it a *Document Plan*.  Text generation back end executes this plan connecting it with your data and producing multiple variations of the text exactly matching what you intended to communicate to your readers.
 
 ## Key Features
-⚠️
-* Your data
-* Your doc plan
-* Get variants
-* ....
+
+* *Document plans* to define what needs to be said about your data.
+* *Text structure variations* to provide richer reading experience going beyond rigid template generated text.
+* *Vocabulary control* to match the language style of each of your reader groups.
+* *In build rule engine* to allow you to state different facts based on the values of your data.
+* *Life preview* of generated text.
+* *Fully integrated* document plan definition GUI which allows you to import data samples, define document flow and see the results all in one place.
 
 ## Usage
 
