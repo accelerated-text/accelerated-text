@@ -9,7 +9,7 @@ Accelerated Text is a text generation tool which takes in your data and produces
 
 #### [Key Features](#key-features) • [Usage](#usage) • [Getting Help](#getting-help) • [Contributing](#contributing) • [License](#license) • [Demo](http://demo.acceleratedtext.org/)
 
-![Accelerated Text Preview](docs/assets/quick_demo.mp4)
+![Accelerated Text Preview](docs/assets/preview.gif)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
