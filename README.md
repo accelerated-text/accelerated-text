@@ -1,4 +1,6 @@
-![Accelerated Text](docs/assets/accelerated-text-logo.svg)
+<p align="center">
+  <img alt="Accelerated Text" src="docs/assets/accelerated-text-logo.svg" width="400"/>
+</p>
 
 # Accelerated Text
 
