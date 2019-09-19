@@ -5,7 +5,7 @@
 Accelerated Text is a text generation tool which takes in your data and produces texts describing it.
 
 
-#### [Key Features](#Key_Features) • [Usage](#Usage) • [Getting Help](#Getting_Help) • [Contributing](#Contributing) • [License](#License) • [Demo](http://demo.acceleratedtext.org/)
+#### [Key Features](#Key_Features) • [Usage](#usage) • [Getting Help](#Getting_Help) • [Contributing](#Contributing) • [License](#License) • [Demo](http://demo.acceleratedtext.org/)
 
 ![Accelerated Text Preview](docs/assets/quick_demo.mp4)
 
