@@ -81,15 +81,9 @@ Send your questions to ??@acceleratedtext.org or join our slack channel at accel
 If you'll submit an [Issue](github/issues) this will help everyone and you will be able to track the progress of us fixing it. In order to facilitate it please provide description of needed information for bug requests (like project version number, Docker version, etc.)
 
 
-## Contributing
+## Development
 
-We accept pull requests with your features or bug fixes.
-
-To get started with a development installation of the Accelerated Text, follow the instructions at our Developers Guides for [Front-end](front-end/README.md) and [Back-end](docs/README-back-end.md) developers.
-
-Then take a look at our [Contribution Guide](docs/contributing.md) for information about our process and where you can fit in!
-
-Talk to other contributors in our Chat room.
+To get started with a development of the Accelerated Text, follow the instructions at our Developers Guides for [Front-end](front-end/README.md) and [Back-end](docs/README-back-end.md) developers.
 
 ## License 
 
