@@ -2,6 +2,11 @@
   <img alt="Accelerated Text" src="docs/assets/accelerated-text-logo.svg" width="400"/>
 </p>
 
+<p align="center">
+  <img alt="TokenMill" src="docs/assets/tokenmill-logo.svg" width="400"/>
+</p>
+
+
 # Accelerated Text
 
 Accelerated Text is a text generation tool which takes in your data and produces texts describing it.
@@ -52,7 +57,7 @@ To run *Accelerated Text* via Docker, just type
 docker run -d -p 3000:3000 --name accelerated-text accelerated-text/accelerated-text
 ```
 
-#### From source
+#### From Source
 
 If you want to start tinkering and run it based on the latest code in the repository, first make sure that you have the following dependencies installed:
 
