@@ -1,21 +1,23 @@
-<p align="center">
-  <img alt="Accelerated Text" src="docs/assets/accelerated-text-logo.svg" width="400"/>
+
+<img style="float: none; width: 200px; overflow: hidden" alt="Accelerated Text" src="docs/assets/accelerated-text-logo.svg"/>
+<img style="width: 80px; float: right" alt="TokenMill" src="docs/assets/tokenmill-logo.svg"/>
+
+<p style="font-size:120%" align="center">
+  <a href="#key-features">Key Features</a> • 
+  <a href="#usage">Usage</a> • 
+  <a href="#getting-help">Getting Help</a> • 
+  <a href="#developing">Developing</a> • 
+  <a href="#license">License</a> •
 </p>
 
-<p align="center">
-  <img alt="TokenMill" src="docs/assets/tokenmill-logo.svg" width="400"/>
-</p>
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
-# Accelerated Text
-
-Accelerated Text is a text generation tool which takes in your data and produces texts describing it.
-
-#### [Key Features](#key-features) • [Usage](#usage) • [Getting Help](#getting-help) • [Contributing](#contributing) • [License](#license) • [Demo](http://demo.acceleratedtext.org/)
+*A picture is worth a thousand words.* Or is it? The data you have needs to have a description, an interpretation and a story. 
+**Accelerated Text** is a text generation tool which takes in your data and produces texts about it.
 
 ![Accelerated Text Preview](docs/assets/preview.gif)
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Accelerated Text will use your data: 
 * descriptions of your business metrics, 
