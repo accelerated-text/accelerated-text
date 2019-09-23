@@ -1,6 +1,7 @@
 
-<img style="float: none; width: 200px; overflow: hidden" alt="Accelerated Text" src="docs/assets/accelerated-text-logo.svg"/>
-<img style="width: 80px; float: right" alt="TokenMill" src="docs/assets/tokenmill-logo.svg"/>
+<img style="height:80px;float: left" alt="Accelerated Text" src="docs/assets/accelerated-text-logo.svg"/>
+<img style="height:80px;float: right" alt="TokenMill" src="docs/assets/tokenmill-logo.svg"/>
+
 
 <p style="font-size:120%" align="center">
   <a href="#key-features">Key Features</a> • 
