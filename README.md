@@ -35,16 +35,24 @@ Accelerated Text provides a user friendly GUI to define the logic and communicat
 * **Life preview** of generated text.
 * **Fully integrated** document plan definition GUI which allows you to import data samples, define document flow and see the results all in one place.
 
-## Usage
 
+## Getting Started
+
+### Running
+
+#### Demo
 
 Try out *Accelerated Text* at our [Demo](http://demo.acceleratedtext.org/) server.
+
+#### Docker
 
 To run *Accelerated Text* via Docker, just type
 
 ```
 docker run -d -p 3000:3000 --name accelerated-text accelerated-text/accelerated-text
 ```
+
+#### From source
 
 If you want to start tinkering and run it based on the latest code in the repository, first make sure that you have the following dependencies installed:
 
@@ -57,7 +65,7 @@ Then clone the project and run
 make run
 ```
 
-## Getting Started
+### Usage
 
 ⚠️ For a walkthrough on creating your first text generator, check out our -Getting Started- guide. A video?
 
