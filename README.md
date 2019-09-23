@@ -21,6 +21,11 @@ and it will generate text to be used in reports, e-commerce platforms or your cu
 
 Accelerated Text provides a user friendly GUI to define the logic and communication goals of the document to be produced. We call it a **Document Plan**.  Text generation back end executes this plan connecting it with your data and producing multiple variations of the text exactly matching what you intended to communicate to your readers.
 
+
+⚠ Data 2 Text pipeline image ending with animated gif which shows how text changes
+
+[Your Data (grid)] -> [Accelerate Text] -> [GIF Result end app (shop?)]
+
 ## Key Features
 
 * **Document plans** to define what needs to be said about your data.
