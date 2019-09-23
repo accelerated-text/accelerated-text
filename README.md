@@ -6,14 +6,18 @@
 
 Accelerated Text is a text generation tool which takes in your data and produces texts describing it.
 
-
 #### [Key Features](#key-features) • [Usage](#usage) • [Getting Help](#getting-help) • [Contributing](#contributing) • [License](#license) • [Demo](http://demo.acceleratedtext.org/)
 
 ![Accelerated Text Preview](docs/assets/preview.gif)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Provide Accelerated Text with your data: descriptions of your business metrics, metadata describing interactions with your customers, product descriptions, financial data and get back text to be used in report generation, e-commerce platform or your customer support system.
+Accelerated Text will use your data: 
+* descriptions of your business metrics, 
+* metadata describing interactions with your customers, 
+* product descriptions, 
+* financial metrics
+and it will generate text to be used in reports, e-commerce platforms or your customer support system.
 
 Accelerated Text provides a user friendly GUI to define the logic and communication goals of the document to be produced. We call it a **Document Plan**.  Text generation back end executes this plan connecting it with your data and producing multiple variations of the text exactly matching what you intended to communicate to your readers.
 
