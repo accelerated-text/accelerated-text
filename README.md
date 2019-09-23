@@ -32,19 +32,23 @@ Accelerated Text provides a user friendly GUI to define the logic and communicat
 
 ## Usage
 
-⚠️ should answer: How do I test/evaluate it?
 
-    * Should have a demo link.
-    * Should have dependencies (links) + 1 shell command to run it locally.
-    * May have an alternative method to run it.
+Try out *Accelerated Text* at our [Demo](http://demo.acceleratedtext.org/) server.
 
-### Dependencies
+To run *Accelerated Text* via Docker, just type
 
-You should have NPM installed in your path. Get it from https://nodejs.org .
+```
+docker run -d -p 3000:3000 --name accelerated-text accelerated-text/accelerated-text
+```
 
-### Running
+If you want to start tinkering and run it based on the latest code in the repository, first make sure that you have the following dependencies installed:
 
-```bash
+* [make](https://www.gnu.org/software/make/)
+* [npm](https://nodejs.org )
+
+Then clone the project and run
+
+```
 make run
 ```
 
