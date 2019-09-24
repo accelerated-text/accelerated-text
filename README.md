@@ -14,20 +14,23 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
-*A picture is worth a thousand words.* Or is it? The data you have needs to have a description, an interpretation and a story. 
+*A picture is worth a thousand words.* Or is it? <br>
+The data you have needs to have a description, an interpretation and a story. 
 **Accelerated Text** is a text generation tool which takes in your data and produces texts about it.
 
 ![Accelerated Text Preview](docs/assets/preview.gif)
 
 
-Accelerated Text will use your data: 
-* descriptions of your business metrics, 
-* metadata describing interactions with your customers, 
-* product descriptions, 
-* financial metrics
-and it will generate text to be used in reports, e-commerce platforms or your customer support system.
+Accelerated Text can work with different types of data and turn it to descriptions:
 
-Accelerated Text provides a user friendly GUI to define the logic and communication goals of the document to be produced. We call it a **Document Plan**.  Text generation back end executes this plan connecting it with your data and producing multiple variations of the text exactly matching what you intended to communicate to your readers.
+* business metrics can be described and embedded in reports or BI dashboards, 
+* metadata describing interactions with your customers can be used to generate customer support messages,
+* product data can be turned in to product descriptions for your e-commerce site, 
+* financial data can be summarized in generated reports.
+
+
+Accelerated Text provides a user friendly GUI to define the logic and communication goals of the document to be produced. We call it a **Document Plan**.  
+Text generation back end executes this plan connecting it with your data and producing multiple variations of the text exactly matching what you intended to communicate to your readers.
 
 
 ⚠ Data 2 Text pipeline image ending with animated gif which shows how text changes
