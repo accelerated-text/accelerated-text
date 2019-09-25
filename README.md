@@ -68,17 +68,20 @@ to produce multiple variations of the text exactly exactly expressing what was i
 
 ### Running
 
-#### Demo
-
-Try out *Accelerated Text* at our [Demo](http://demo.acceleratedtext.org/) server.
-
 #### Docker
 
 To run *Accelerated Text* via Docker, just type
 
 ```
-docker run -d -p 3000:3000 --name accelerated-text accelerated-text/accelerated-text
+docker-compose -p dev -f docker-compose.yml pull && \
+        docker-compose -p dev -f docker-compose.yml down && \
+        docker-compose -p dev -f docker-compose.yml build && \
+        docker-compose -p dev -f docker-compose.yml up --remove-orphans
 ```
+
+After running this command the front-end will be availabe at the http://localhost:8080
+
+The generation back-end API is at http://localhost:8081
 
 #### From Source
 
