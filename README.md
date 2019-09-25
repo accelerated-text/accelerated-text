@@ -1,15 +1,31 @@
-
 <img style="height:80px;float: left" alt="Accelerated Text" src="docs/assets/accelerated-text-logo.svg"/>
 <img style="height:80px;float: right" alt="TokenMill" src="docs/assets/tokenmill-logo.svg"/>
 
 
-<p style="font-size:120%" align="center">
-  <a href="#key-features">Key Features</a> • 
-  <a href="#usage">Usage</a> • 
-  <a href="#getting-help">Getting Help</a> • 
-  <a href="#developing">Developing</a> • 
-  <a href="#license">License</a> •
-</p>
+<div align="center"><a name="menu"></a>
+  <h3>
+    <a href="#usage">
+      Usage
+    </a>
+    <span> • </span>
+    <a href="#getting-help">
+      Getting Help
+    </a>
+    <span> • </span>
+    <a href="#developing">
+      Developing
+    </a>
+    <span> • </span>
+    <a href="#license">
+      License
+    </a>
+    <span> • </span>
+    <a href="https://twitter.com/tokenmill">
+      Follow Us
+    </a>
+  </h4>
+</div>
+
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
