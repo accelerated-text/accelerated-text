@@ -1,7 +1,6 @@
 <img style="height:80px;float: left" alt="Accelerated Text" src="docs/assets/accelerated-text-logo.svg"/>
 <img style="height:80px;float: right" alt="TokenMill" src="docs/assets/tokenmill-logo.svg"/>
 
-
 <div align="center"><a name="menu"></a>
   <h3>
     <a href="#usage">
@@ -55,19 +54,14 @@ Accelerated Text provides a web based **Document Plan** builder, where
 Document Plans and the connected data are used by Accelerated Text's Natural Language Generation engine 
 to produce multiple variations of the text exactly exactly expressing what was intended to bo communicated to the readers.
 
-
-⚠ Data 2 Text pipeline image ending with animated gif which shows how text changes
-
-[Your Data (grid)] -> [Accelerate Text] -> [GIF Result end app (shop?)]
-
 ## Key Features
 
-* **Document plans** to define what needs to be said about your data.
+* **Document plan** editor to define what needs to be said about the data.
+* **Data samples** can be uploaded as CSV files to be used when building Document Plans.
 * **Text structure variations** to provide richer reading experience going beyond rigid template generated text.
 * **Vocabulary control** to match the language style of each of your reader groups.
-* **In build rule engine** to allow you to state different facts based on the values of your data.
-* **Life preview** of generated text.
-* **Fully integrated** document plan definition GUI which allows you to import data samples, define document flow and see the results all in one place.
+* **In build rule engine** to allow the control of what is said based on the different values of the data points.
+* **Life preview** to see variations of generated text.
 
 
 ## Getting Started
