@@ -111,9 +111,14 @@ The generation back-end API is at http://localhost:8081
 
 | Step | View |
 | ------ | ------ |
-| cell | ![xx](docs/assets/create-plan.png) |
-| cell | ![xx](docs/assets/empty-doc-plan.png) |
-| cell | ![xx](docs/assets/csv-file-selection.png) | 
+| Create plan | ![xx](docs/assets/create-plan.png) |
+| Emty doc | ![xx](docs/assets/empty-doc-plan.png) |
+| Select data file | ![xx](docs/assets/csv-file-selection.png) | 
+| Select AMR | ![xx](docs/assets/amr.png) | 
+| Search author | ![xx](docs/assets/search-author.png) | 
+| Search title | ![xx](docs/assets/search-title.png) | 
+| Finished plan | ![xx](docs/assets/complete-plan.png) | 
+
 
 ⚠️ For a walkthrough on creating your first text generator, check out our -Getting Started- guide. A video?
 
