@@ -113,7 +113,6 @@ Follow the the step by step buide bellow to create a very simple document plan w
 generates book authorshop sentence.
 
 <table>
-
 <tr>
 <th>View</th>
 <th>Step</th>
@@ -125,12 +124,12 @@ generates book authorshop sentence.
 </tr>
 
 <tr>
-<td><img src="docs/assets/empty-doc-plan.png" width="300"/></td>
+<td><img src="docs/assets/empty-doc-plan.png" width="200"/></td>
 <td>You should get an initial emtpy plan.</td>
 </tr>
 
 <tr>
-<td><img src="docs/assets/csv-file-selection.png" width="300"/></td>
+<td><img src="docs/assets/csv-file-selection.png" width="200"/></td>
 <td>A CSV file which will feed in data for the generation needs to be selected. By default we provide _books.csv_ file. Select it.</td>
 </tr>
 
@@ -158,7 +157,6 @@ generates book authorshop sentence.
 <td><img src="docs/assets/generation-results.png" width="300"/></td>
 <td>The plan is imediatly used by the generation back end to provide text variations.</td>
 </tr>
-
 </table>
 
 ## Getting Help
