@@ -109,6 +109,12 @@ The generation back-end API is at http://localhost:8081
 
 ### Usage
 
+| Step | View |
+| ------ | ------ |
+| cell | ![xx](docs/assets/create-plan.png) |
+| cell | ![xx](docs/assets/empty-doc-plan.png) |
+| cell | ![xx](docs/assets/csv-file-selection.png) | 
+
 ⚠️ For a walkthrough on creating your first text generator, check out our -Getting Started- guide. A video?
 
 ## Getting Help
