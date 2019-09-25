@@ -112,51 +112,51 @@ The generation back-end API is at http://localhost:8081
 Follow the the step by step buide bellow to create a very simple document plan which
 generates book authorshop sentence.
 
-<table width="400px">
+<table>
 
 <tr>
-<th>Step</th>
 <th>View</th>
+<th>Step</th>
 </tr>
 
 <tr>
-<td>Firstly a new document plan has to be created. Application starts with a _Create Plan_ button in its workspace.</td>
 <td><img src="docs/assets/create-plan.png" width="300"/></td>
+<td>Firstly a new document plan has to be created. Application starts with a _Create Plan_ button in its workspace.</td>
 </tr>
 
 <tr>
-<td>You should get an initial emtpy plan.</td>
 <td><img src="docs/assets/empty-doc-plan.png" width="300"/></td>
+<td>You should get an initial emtpy plan.</td>
 </tr>
 
 <tr>
-<td>A CSV file which will feed in data for the generation needs to be selected. By default we provide _books.csv_ file. Select it.</td>
 <td><img src="docs/assets/csv-file-selection.png" width="300"/></td>
+<td>A CSV file which will feed in data for the generation needs to be selected. By default we provide _books.csv_ file. Select it.</td>
 </tr>
 
 <tr>
-<td>The central part of the plan is _Abstract Meaning Representation_ element which defines the message to be communicated. Select _Author_ from AMR section.</td>
 <td><img src="docs/assets/amr.png" width="300"/></td>
+<td>The central part of the plan is _Abstract Meaning Representation_ element which defines the message to be communicated. Select _Author_ from AMR section.</td>
 </tr>
 
 <tr>
-<td>Then we need to tell from where in our book store data we have _Author_ field</td>
 <td><img src="docs/assets/search-authors.png" width="300"/></td>
+<td>Then we need to tell from where in our book store data we have _Author_ field</td>
 </tr>
 
 <tr>
-<td>Same for _Title_ field</td>
 <td><img src="docs/assets/search-title.png" width="300"/></td>
+<td>Same for _Title_ field</td>
 </tr>
 
 <tr>
-<td>Thats it the plan is ready and should look like in the picture to the right</td>
 <td><img src="docs/assets/complete-plan.png" width="300"/></td>
+<td>Thats it the plan is ready and should look like in the picture to the right</td>
 </tr>
 
 <tr>
-<td>The plan is imediatly used by the generation back end to provide text variations.</td>
 <td><img src="docs/assets/generation-results.png" width="300"/></td>
+<td>The plan is imediatly used by the generation back end to provide text variations.</td>
 </tr>
 
 </table>
