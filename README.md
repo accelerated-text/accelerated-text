@@ -30,20 +30,30 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
-*A picture is worth a thousand words.* Or is it? The data you have needs to have a description, an interpretation and a story. 
-**Accelerated Text** is a text generation tool which takes in your data and produces texts about it.
+*A picture is worth a thousand words.* Or is it? Tables, charts, pictures are all useful to undestand the data but often 
+we need a description, a story to explain to us what are we looking at. 
+**Accelerated Text** is a text generation tool which allows to define how the data is to be described 
+and then produces multiple versions of those descriptions which vary in wording and text structure.
 
 ![Accelerated Text Preview](docs/assets/preview.gif)
 
 
-Accelerated Text will use your data: 
-* descriptions of your business metrics, 
-* metadata describing interactions with your customers, 
-* product descriptions, 
-* financial metrics
-and it will generate text to be used in reports, e-commerce platforms or your customer support system.
+Accelerated Text can work with all sorts of data:
 
-Accelerated Text provides a user friendly GUI to define the logic and communication goals of the document to be produced. We call it a **Document Plan**.  Text generation back end executes this plan connecting it with your data and producing multiple variations of the text exactly matching what you intended to communicate to your readers.
+* descriptions of business metrics, 
+* metadata describing interactions with the customers, 
+* product attributes, 
+* financial metrics.
+
+Based on it will generate text to be used in business reports, e-commerce platforms or your customer support system.
+
+Accelerated Text provides a web based **Document Plan** builder, where 
+* the logical structure of the document is defined, 
+* communication goals are expresed, 
+* data usage within a text is defined.
+
+Document Plans and the connected data are used by Accelerated Text's Natural Language Generation engine 
+to produce multiple variations of the text exactly exactly expressing what was intended to bo communicated to the readers.
 
 
 ⚠ Data 2 Text pipeline image ending with animated gif which shows how text changes
