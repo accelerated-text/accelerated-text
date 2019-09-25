@@ -93,8 +93,19 @@ If you want to start tinkering and run it based on the latest code in the reposi
 Then clone the project and run
 
 ```
-make run
+make run-front-end-dev-deps
 ```
+
+follwed by
+
+```
+make run-front-end-dev
+
+```
+
+After running this command the front-end will be availabe at the http://localhost:8080
+
+The generation back-end API is at http://localhost:8081
 
 ### Usage
 
