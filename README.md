@@ -172,7 +172,7 @@ In order to facilitate it please provide description of needed information for b
 ## Development
 
 To get started with a development of the Accelerated Text, follow the instructions at our Developers Guides 
-for [Front-end](front-end/README.md) and [Back-end](docs/README-back-end.md) developers.
+for [Front-end](front-end/README.md) and [text generation engine](docs/README-back-end.md) developers.
 
 ## License 
 
