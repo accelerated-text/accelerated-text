@@ -109,18 +109,57 @@ The generation back-end API is at http://localhost:8081
 
 ### Usage
 
-| Step | View |
-| ------ | ------ |
-| Create plan | ![xx](docs/assets/create-plan.png) |
-| Emty doc | ![xx](docs/assets/empty-doc-plan.png) |
-| Select data file | ![xx](docs/assets/csv-file-selection.png) | 
-| Select AMR | ![xx](docs/assets/amr.png) | 
-| Search author | ![xx](docs/assets/search-author.png) | 
-| Search title | ![xx](docs/assets/search-title.png) | 
-| Finished plan | ![xx](docs/assets/complete-plan.png) | 
+Follow the the step by step buide bellow to create a very simple document plan which
+generates book authorshop sentence.
 
+<table width="400px">
 
-⚠️ For a walkthrough on creating your first text generator, check out our -Getting Started- guide. A video?
+<tr>
+<th>Step</th>
+<th>View</th>
+</tr>
+
+<tr>
+<td>Firstly a new document plan has to be created. Application starts with a _Create Plan_ button in its workspace.</td>
+<td><img src="docs/assets/create-plan.png" width="300"/></td>
+</tr>
+
+<tr>
+<td>You should get an initial emtpy plan.</td>
+<td><img src="docs/assets/empty-doc-plan.png" width="300"/></td>
+</tr>
+
+<tr>
+<td>A CSV file which will feed in data for the generation needs to be selected. By default we provide _books.csv_ file. Select it.</td>
+<td><img src="docs/assets/csv-file-selection.png" width="300"/></td>
+</tr>
+
+<tr>
+<td>The central part of the plan is _Abstract Meaning Representation_ element which defines the message to be communicated. Select _Author_ from AMR section.</td>
+<td><img src="docs/assets/amr.png" width="300"/></td>
+</tr>
+
+<tr>
+<td>Then we need to tell from where in our book store data we have _Author_ field</td>
+<td><img src="docs/assets/search-authors.png" width="300"/></td>
+</tr>
+
+<tr>
+<td>Same for _Title_ field</td>
+<td><img src="docs/assets/search-title.png" width="300"/></td>
+</tr>
+
+<tr>
+<td>Thats it the plan is ready and should look like in the picture to the right</td>
+<td><img src="docs/assets/complete-plan.png" width="300"/></td>
+</tr>
+
+<tr>
+<td>The plan is imediatly used by the generation back end to provide text variations.</td>
+<td><img src="docs/assets/generation-results.png" width="300"/></td>
+</tr>
+
+</table>
 
 ## Getting Help
 
