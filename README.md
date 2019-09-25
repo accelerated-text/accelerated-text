@@ -99,38 +99,19 @@ make run
 
 ## Getting Help
 
-Send your questions to ??@acceleratedtext.org or join our slack channel at acceleratedtext.slack.com
+Send your questions to support@acceleratedtext.org or join our slack channel at acceleratedtext.slack.com
 
-If you'll submit an [Issue](github/issues) this will help everyone and you will be able to track the progress of us fixing it. In order to facilitate it please provide description of needed information for bug requests (like project version number, Docker version, etc.)
+If you'll submit an *Issue* this will help everyone and you will be able to track the progress of us fixing it. 
+In order to facilitate it please provide description of needed information for bug requests (like project version number, Docker version, etc.)
 
 
 ## Development
 
-To get started with a development of the Accelerated Text, follow the instructions at our Developers Guides for [Front-end](front-end/README.md) and [Back-end](docs/README-back-end.md) developers.
+To get started with a development of the Accelerated Text, follow the instructions at our Developers Guides 
+for [Front-end](front-end/README.md) and [Back-end](docs/README-back-end.md) developers.
 
 ## License 
 
 Copyright &copy; 2019 [TokenMill UAB](http://www.tokenmill.lt).
 
 Distributed under the The Apache License, Version 2.0.
-
-
-## TODO
-
-This goes somewhere. Back end doc?
-
-### CI test
-
-Test are run in Gitlab CI. Test environment is a docker container that we prepare ourselves.
-
-Publishing a Docker container with test env is a manual process and as of now must be done on developer PC.
-
-```bash
-make publish-demo-test-env
-```
-
-Before publishing make sure that you're loged in Gitlab container registry (use your Gitlab login username/password).
-
-```bash
-docker login registry.gitlab.com
-```
