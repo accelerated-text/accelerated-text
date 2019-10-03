@@ -1,0 +1,58 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="orphan-29.7" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="apprentice" wn="" grouping=""/>
+        <MEMBER name="beggar" wn="beggar%2:40:00" grouping=""/>
+        <MEMBER name="cripple" wn="cripple%2:29:00" grouping="cripple.01"/>
+        <MEMBER name="cuckold" wn="cuckold%2:41:00" grouping=""/>
+        <MEMBER name="knight" wn="knight%2:41:01" grouping=""/>
+        <MEMBER name="martyr" wn="martyr%2:35:00 martyr%2:29:00" grouping=""/>
+        <MEMBER name="orphan" wn="orphan%2:40:00" grouping=""/>
+        <MEMBER name="outlaw" wn="outlaw%2:41:00" grouping="outlaw.01"/>
+        <MEMBER name="pauper" wn="" grouping=""/>
+        <MEMBER name="recruit" wn="recruit%2:40:00 recruit%2:33:00" grouping="recruit.01 recruit.02"/>
+        <MEMBER name="whore" wn="whore%2:32:01" grouping="whore.01"/>
+        <MEMBER name="widow" wn="widow%2:30:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The king knighted the brave soldier.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="designated">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="VerbSpecific" value="Role"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

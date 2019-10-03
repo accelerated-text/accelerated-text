@@ -1,0 +1,105 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="benefit-72.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+	<MEMBERS>
+                <MEMBER name="benefit" wn="benefit%2:40:00 benefit%2:40:01" grouping="benefit.01"/>
+		<MEMBER name="profit" wn="profit%2:40:00 profit%2:40:02" grouping=""/>
+	</MEMBERS>
+	<THEMROLES>
+		<THEMROLE type="Causer">
+			<SELRESTRS/>
+		</THEMROLE>
+		<THEMROLE type="Beneficiary">
+			<SELRESTRS/>
+		</THEMROLE>
+	</THEMROLES>
+	<FRAMES>
+		<FRAME>
+			<DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="" xtag="0.2"/>
+			<EXAMPLES>
+				<EXAMPLE>Sunlight benefits plants.</EXAMPLE>
+			</EXAMPLES>
+			<SYNTAX>
+				<NP value="Causer">
+					<SYNRESTRS/>
+				</NP>
+				<VERB/>
+				<NP value="Beneficiary">
+					<SYNRESTRS/>
+				</NP>	
+			</SYNTAX>
+			<SEMANTICS>
+		          <PRED value="cause">
+                                 <ARGS>
+                                   <ARG type="Event" value="during(E)"/>
+                                   <ARG type="ThemRole" value="Causer"/>
+                                  </ARGS>
+                           </PRED>
+                           <PRED value="benefit">
+                               <ARGS>
+                                   <ARG type="Event" value="E"/>
+                                   <ARG type="ThemRole" value="Beneficiary"/> 
+                               </ARGS>
+                           </PRED>
+			</SEMANTICS>
+		</FRAME>
+		<FRAME>
+			<DESCRIPTION descriptionNumber="" primary="NP V" secondary="" xtag="0.2"/>
+			<EXAMPLES>
+				<EXAMPLE>Everyone benefits.</EXAMPLE>
+			</EXAMPLES>
+			<SYNTAX>
+				<NP value="Beneficiary">
+					<SYNRESTRS/>
+				</NP>
+				<VERB/>
+			</SYNTAX>
+			<SEMANTICS>
+                          <PRED value="cause">
+                                 <ARGS>
+                                   <ARG type="Event" value="during(E)"/>
+                                   <ARG type="ThemRole" value="?Causer"/>
+                                  </ARGS>
+                           </PRED>
+                           <PRED value="benefit">
+                               <ARGS>
+                                   <ARG type="Event" value="E"/>
+                                   <ARG type="ThemRole" value="Beneficiary"/>
+                               </ARGS>
+                           </PRED>
+                        </SEMANTICS>
+		</FRAME>
+		<FRAME>
+			<DESCRIPTION descriptionNumber="" primary="NP V PP" secondary="" xtag="0.2"/>
+			<EXAMPLES>
+				<EXAMPLE>Minorities benefit from the program.</EXAMPLE>
+			</EXAMPLES>
+			<SYNTAX>
+				<NP value="Beneficiary">
+					<SYNRESTRS/>
+				</NP>
+				<VERB/>
+				<PREP value="from by">
+					<SELRESTRS/>
+				</PREP>
+				<NP value="Causer">
+					<SYNRESTRS/>
+				</NP>
+			</SYNTAX>
+			<SEMANTICS>
+                          <PRED value="cause">
+                                 <ARGS>
+                                   <ARG type="Event" value="during(E)"/>
+                                   <ARG type="ThemRole" value="Causer"/>
+                                  </ARGS>
+                           </PRED>
+                           <PRED value="benefit">
+                               <ARGS>
+                                   <ARG type="Event" value="E"/>
+                                   <ARG type="ThemRole" value="Beneficiary"/>
+                               </ARGS>
+                           </PRED>
+                        </SEMANTICS>
+		</FRAME>
+	</FRAMES>
+	<SUBCLASSES/>
+</VNCLASS>

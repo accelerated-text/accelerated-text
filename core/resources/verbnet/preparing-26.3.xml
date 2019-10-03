@@ -1,0 +1,411 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="preparing-26.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS/>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="machine"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Beneficiary">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES/>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="preparing-26.3-1">
+            <MEMBERS>
+                <MEMBER name="bake" wn="bake%2:30:00 bake%2:36:00" grouping="bake.01"/>
+                <MEMBER name="blend" wn="blend%2:35:00" grouping="blend.01"/>
+                <MEMBER name="brew" wn="brew%2:36:00" grouping="brew.01"/>
+                <MEMBER name="clear" wn="clear%2:30:09" grouping="clear.01"/>
+                <MEMBER name="cook" wn="cook%2:36:00" grouping="cook.01 cook.02"/>
+                <MEMBER name="cook_up" wn="cook_up%2:36:01" grouping=""/>
+                <MEMBER name="fix" wn="fix%2:36:00" grouping="fix.04"/>
+                <MEMBER name="invent" wn="invent%2:36:00 invent%2:36:01" grouping="invent.01 invent.02"/>
+                <MEMBER name="kindle" wn="kindle%2:43:00" grouping=""/>
+                <MEMBER name="light" wn="light%2:43:00" grouping="light.02"/>
+                <MEMBER name="mix" wn="mix%2:30:00" grouping="mix.01"/>
+                <MEMBER name="prepare" wn="prepare%2:36:01" grouping="prepare.01"/>
+                <MEMBER name="ready" wn="ready%2:36:00 ready%2:30:00" grouping=""/>
+                <MEMBER name="roll" wn="roll%2:30:10" grouping="roll.02"/>
+                <MEMBER name="run" wn="run%2:36:00" grouping="run.03"/>
+                <MEMBER name="toss" wn="toss%2:35:00" grouping="toss.06"/>
+                <MEMBER name="cultivate" wn="cultivate%2:36:01" grouping="cultivate.02"/>
+                <!--'cultivate' does not take benefactive alternation!!! must divide.-->
+            </MEMBERS>
+            <THEMROLES>
+            <THEMROLE type="Product">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+            </THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>Donna fixed a sandwich.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Product">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="?Material"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Product"/>
+                                <ARG type="ThemRole" value="?Material"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED bool="!" value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Product"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Product"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.2" primary="NP V NP.beneficiary NP" secondary="NP-NP; Beneficiary Object" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Donna fixed me a sandwich.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Beneficiary">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Product">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="?Material"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Product"/>
+                                <ARG type="ThemRole" value="?Material"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED bool="!" value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Product"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Product"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="benefit">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Beneficiary"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.2" primary="NP V NP PP.beneficiary" secondary="NP-PP; for-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Donna fixed a sandwich for me.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Product">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="for">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Beneficiary">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="?Material"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Product"/>
+                                <ARG type="ThemRole" value="?Material"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED bool="!" value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Product"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Product"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="benefit">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Beneficiary"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="preparing-26.3-2">
+            <MEMBERS>
+                <!--Members specify the Endstate of the Patient-->
+                <MEMBER name="barbeque" wn="barbeque%2:30:00" grouping=""/>
+                <MEMBER name="barbecue" wn="barbecue%2:30:00" grouping=""/>
+                <MEMBER name="boil" wn="boil%2:30:00" grouping="boil.02"/>
+                <MEMBER name="broil" wn="broil%2:30:00" grouping="broil.01"/>
+                <MEMBER name="clean" wn="clean%2:30:01" grouping="clean.04"/>
+                <MEMBER name="fry" wn="fry%2:30:00" grouping="fry.02"/>
+                <MEMBER name="grill" wn="grill%2:30:00" grouping="grill.01"/>
+                <MEMBER name="hardboil" wn="" grouping=""/>
+                <MEMBER name="iron" wn="iron%2:35:00" grouping=""/>
+                <MEMBER name="microwave" wn="microwave%2:30:00" grouping=""/>
+                <MEMBER name="overbake" wn="" grouping=""/>
+                <MEMBER name="poach" wn="poach%2:30:00" grouping=""/>
+                <MEMBER name="pour" wn="pour%2:38:03" grouping="pour.01 pour.02"/>
+                <MEMBER name="roast" wn="roast%2:30:00" grouping="roast.01"/>
+                <MEMBER name="scramble" wn="scramble%2:35:02" grouping="scramble.02"/>
+                <MEMBER name="set" wn="set%2:30:12" grouping="set.04"/>
+                <MEMBER name="softboil" wn="" grouping=""/>
+                <MEMBER name="toast" wn="toast%2:30:00" grouping=""/>
+                <MEMBER name="wash" wn="wash%2:35:02 wash%2:35:00" grouping="wash.01"/>
+                <MEMBER name="weld" wn="" grouping=""/>
+            </MEMBERS>
+            <THEMROLES>
+            <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+            </THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>Donna grilled steaks.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="?Product"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.2" primary="NP V NP.beneficiary NP" secondary="NP-NP; Beneficiary Object" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Donna grilled me steaks.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Beneficiary">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="?Product"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="benefit">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Beneficiary"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.2" primary="NP V NP PP.beneficiary" secondary="NP-PP; for-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Donna grilled steaks for me.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="for">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Beneficiary">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="?Product"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="benefit">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Beneficiary"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

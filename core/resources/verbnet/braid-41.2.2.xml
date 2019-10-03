@@ -1,0 +1,100 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="braid-41.2.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="bob" wn="bob%2:29:00" grouping="bob.05"/>
+        <MEMBER name="braid" wn="braid%2:35:00" grouping=""/>
+        <MEMBER name="brush" wn="brush%2:35:02" grouping="brush.01"/>
+        <MEMBER name="clip" wn="clip%2:35:03" grouping="clip.01"/>
+        <MEMBER name="coldcream" wn="" grouping=""/>
+        <MEMBER name="comb" wn="comb%2:35:01 comb%2:29:00" grouping="comb.01"/>
+        <MEMBER name="condition" wn="condition%2:29:00" grouping="condition.04"/>
+        <MEMBER name="crimp" wn="crimp%2:35:00" grouping=""/>
+        <MEMBER name="crop" wn="crop%2:35:02" grouping="crop.01"/>
+        <MEMBER name="curl" wn="curl%2:35:00" grouping="curl.01"/>
+        <MEMBER name="cut" wn="cut%2:30:14" grouping="cut.01"/>
+        <MEMBER name="dye" wn="dye%2:30:00" grouping=""/>
+        <MEMBER name="file" wn="file%2:35:00" grouping="file.02"/>
+        <MEMBER name="gel" wn="" grouping=""/>
+        <MEMBER name="henna" wn="henna%2:30:00" grouping=""/>
+        <MEMBER name="highlight" wn="" grouping=""/>
+        <MEMBER name="lather" wn="lather%2:30:00 lather%2:29:00" grouping=""/>
+        <MEMBER name="manicure" wn="manicure%2:29:01 manicure%2:29:00" grouping=""/>
+        <MEMBER name="part" wn="" grouping=""/>
+        <MEMBER name="perm" wn="perm%2:29:00" grouping=""/>
+        <MEMBER name="paint" wn="" grouping=""/>
+        <MEMBER name="plait" wn="plait%2:35:00" grouping=""/>
+        <MEMBER name="pluck" wn="pluck%2:35:00" grouping="pluck.01"/>
+        <MEMBER name="powder" wn="powder%2:29:00" grouping=""/>
+        <MEMBER name="rinse" wn="rinse%2:35:00 rinse%2:35:02 rinse%2:29:00" grouping="rinse.01 rinse.02"/>
+        <MEMBER name="rouge" wn="rouge%2:29:00" grouping=""/>
+        <MEMBER name="set" wn="set%2:29:05" grouping="set.07"/>
+        <MEMBER name="shampoo" wn="shampoo%2:29:00" grouping=""/>
+        <MEMBER name="soap" wn="soap%2:29:00" grouping=""/>
+        <MEMBER name="style" wn="" grouping=""/>
+        <MEMBER name="talc" wn="talc%2:29:00" grouping=""/>
+        <MEMBER name="tease" wn="tease%2:29:00" grouping="tease.05"/>
+        <MEMBER name="towel" wn="towel%2:35:00" grouping=""/>
+        <MEMBER name="trim" wn="trim%2:35:03 trim%2:36:01 trim%2:36:00" grouping="trim.01 trim.03"/>
+        <MEMBER name="tweeze" wn="tweeze%2:35:00" grouping=""/>
+        <MEMBER name="wave" wn="wave%2:35:01 wave%2:29:00" grouping="wave.03"/>
+        <MEMBER name="wax" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="body_part"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Celia brushed the baby's hair.</EXAMPLE>
+                <EXAMPLE>Celia brushed her hair.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="take_care_of">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

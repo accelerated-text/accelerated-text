@@ -1,0 +1,302 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="separate-23.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <!--REMOVED "dismember" misclassified-->
+        <MEMBER name="disassociate" wn="disassociate%2:41:00" grouping=""/>
+        <MEMBER name="sever" wn="sever%2:35:01 sever%2:35:00" grouping="sever.01 sever.02"/>
+        <MEMBER name="uncoil" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <!--Patient is interpreted as Figure, Co-Patient as Ground
+        Selectional restriction on Patient is the same as on Co-Patient (could be either concrete or abstract...)-->
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Co-Patient">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.5.1" primary="NP V NP PP.co-patient" secondary="NP-PP; from-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I separated the yolk from the white.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="from">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Co-Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.5.1" primary="NP V NP" secondary="Simple Reciprocal Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I separated the yolk and the white.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.5.4" primary="NP V" secondary="Simple Reciprocal Intransitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The yolk and the white separated.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="1.1.1" primary="NP V ADVP-Middle PP" secondary="Middle Construction" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The cream separated easily from milk.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <ADV/>
+                <PREP value="from">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Co-Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="1.1.1" primary="NP V ADVP-Middle" secondary="Middle Construction" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The egg yolks and egg whites separated easily.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+                <ADV/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="separate-23.1-1">
+            <MEMBERS>
+                <!--REMOVED "distinguish" misclassified-->
+                <MEMBER name="decouple" wn="decouple%2:31:00" grouping=""/>
+                <MEMBER name="differentiate" wn="differentiate%2:31:01 differentiate%2:30:00" grouping="differentiate.01 differentiate.03"/>
+                <MEMBER name="disentangle" wn="disentangle%2:35:02 disentangle%2:42:00" grouping=""/>
+                <MEMBER name="dissimilate" wn="dissimilate%2:30:02 dissimilate%2:30:01 dissimilate%2:30:00" grouping="dissimilate.01"/>
+                <MEMBER name="divide" wn="divide%2:42:00 divide%2:35:00 divide%2:35:01" grouping="divide.01 divide.02 divide.04"/>
+                <MEMBER name="divorce" wn="divorce%2:41:01 divorce%2:41:00" grouping="divorce.01 divorce.02"/>
+                <MEMBER name="segregate" wn="segregate%2:41:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V PP.co-patient" secondary="PP; from-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The yolk separated from the white.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <PREP value="from">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Co-Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="together">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Co-Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="apart">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Co-Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="separate-23.1-2">
+            <MEMBERS>
+                <MEMBER name="disconnect" wn="disconnect%2:35:03 disconnect%2:35:00" grouping="disconnect.01 disconnect.02"/>
+                <MEMBER name="dissociate" wn="dissociate%2:41:00" grouping=""/>
+                <MEMBER name="part" wn="part%2:38:02 part%2:41:00 part%2:35:00 part%2:35:01" grouping="part.01 part.02 part.03 part.04"/>
+                <MEMBER name="separate" wn="separate%2:42:00 separate%2:35:01 separate%2:35:00 separate%2:35:02 separate%2:41:02 separate%2:38:00" grouping="separate.01"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V PP.co-patient" secondary="PP; with-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The yoke parted with the white.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <PREP value="with">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Co-Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="together">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Co-Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="apart">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Co-Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

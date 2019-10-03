@@ -1,0 +1,234 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="require-103" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="take" wn="take%2:42:00" grouping="take.07"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Pivot">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="NP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Success requires hard work.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Pivot">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="necessitate">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Pivot"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V for NP S_INF" secondary="FOR-TO-INF" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Success requires for us to work hard.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Pivot">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="for_comp"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="necessitate">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Pivot"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V that S" secondary="S-SUBJUNCT" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Success requires that we work hard.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Pivot">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="that_comp"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="necessitate">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Pivot"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="require-103-1">
+        <MEMBERS>
+          <MEMBER name="necessitate" wn="necessitate%2:42:00" grouping=""/>
+          <MEMBER name="require" wn="require%2:34:00" grouping="require.01"/>
+          <MEMBER name="involve" wn="involve%2:42:07" grouping="involve.02"/>
+          <MEMBER name="demand" wn="demand%2:42:00" grouping="demand.02"/>
+        </MEMBERS>
+        <THEMROLES>
+          <THEMROLE type="Source">
+            <SELRESTRS/>
+          </THEMROLE>
+        </THEMROLES>
+        <FRAMES>
+          <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.source" secondary="NP-PP; from-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Success requires hard work from us.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Pivot">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                  <SYNRESTRS/>
+                </NP>
+                <PREP value="from">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="require">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Pivot"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+          </FRAME>
+          <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP S_INF" secondary="NP-ING-SC" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Success requires everyone to work hard.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Pivot">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="np_to_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="require">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Pivot"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+          </FRAME>
+          <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="ING-AC" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Success requires working long hours.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Pivot">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="ac_ing"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="require">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Pivot"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+          </FRAME>
+        </FRAMES>
+        <SUBCLASSES/>
+      </VNSUBCLASS>
+      <VNSUBCLASS ID="require-103-2">
+        <MEMBERS>
+          <MEMBER name="need" wn="need%2:42:00" grouping="need.01"/>
+        </MEMBERS>
+        <THEMROLES/>
+        <FRAMES>
+          <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Success needs to happen quickly.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Pivot">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="sc_to_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+              <PRED value="require">
+                <ARGS>
+                  <ARG type="Event" value="E"/>
+                  <ARG type="ThemRole" value="Pivot"/>
+                  <ARG type="ThemRole" value="Theme"/>
+                  <ARG type="ThemRole" value="?Source"/>
+                </ARGS>
+              </PRED>
+            </SEMANTICS>
+          </FRAME>
+        </FRAMES>
+        <SUBCLASSES/>
+      </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

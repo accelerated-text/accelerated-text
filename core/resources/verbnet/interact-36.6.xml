@@ -1,0 +1,98 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="interact-36.6" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="follow-up" wn="" grouping="follow.06"/>
+        <MEMBER name="follow-through" wn="" grouping="follow.06"/>
+        <MEMBER name="go-steady" wn="go_steady%2:41:00" grouping=""/>
+        <MEMBER name="go-out" wn="go_out%2:41:00" grouping=""/>
+        <MEMBER name="interact" wn="interact%2:41:00" grouping=""/>
+        <MEMBER name="hook-up" wn="" grouping="hook.04"/>
+        <MEMBER name="split-up" wn="split_up%2:41:01" grouping="split.03"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Co-Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Intransitive; Singular Subject" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Kathy hooked up.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="social_interaction">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Co-Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V" secondary="Intransitive; Plural Agent" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Brenda and Molly split up.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="social_interaction">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V PP.co-agent" secondary="PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Fred is going steady with Amanda.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP> 
+                <NP value="Co-Agent">
+                    <SYNRESTRS/>
+                </NP> 
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="social_interaction">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

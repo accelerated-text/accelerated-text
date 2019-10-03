@@ -1,0 +1,130 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="admit-64.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="allow" wn="allow%2:32:00" grouping="allow.01"/>
+	<MEMBER name="let" wn="" grouping=""/>
+        <MEMBER name="hail" wn="hail%2:32:01" grouping="hail.03"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Location">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+	<FRAME>
+	    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.location" secondary="NP-PP; Location-PP" xtag="0.2"/>
+	    <EXAMPLES>
+	        <EXAMPLE>She admitted us.</EXAMPLE>
+	    </EXAMPLES>
+	    <SYNTAX>
+	        <NP value="Agent">
+	            <SYNRESTRS/>
+	        </NP>
+	        <VERB/>
+	        <NP value="Theme">
+	            <SYNRESTRS/>
+	        </NP>
+	        <NP value="Location">
+	            <SYNRESTRS/>
+	        </NP>
+	    </SYNTAX>
+	    <SEMANTICS>
+	        <PRED value="admit">
+	            <ARGS>
+	                <ARG type="Event" value="during(E)"/>
+	                <ARG type="ThemRole" value="Agent"/>
+	                <ARG type="ThemRole" value="Theme"/>
+	                <ARG type="ThemRole" value="Location"/>
+	            </ARGS>
+	        </PRED>
+	    </SEMANTICS>
+	</FRAME>	
+    </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="admit-64.3-1">
+	    <MEMBERS>
+		<MEMBER name="admit" wn="admit%2:41:01 admit%2:41:00" grouping="admit.02 admit.03"/>
+		<MEMBER name="include" wn="include%2:41:03" grouping="include.02"/>
+		<MEMBER name="permit" wn="permit%2:32:00" grouping="permit.01"/>
+		<MEMBER name="receive" wn="receive%2:35:00" grouping="receive.02"/>
+		<MEMBER name="welcome" wn="welcome%2:35:00" grouping="welcome.02"/>
+	    </MEMBERS>   
+            <THEMROLES/>
+	    <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP ADV" secondary="NP-ADVP-PRED" xtag="0.2"/>
+		    <EXAMPLES>
+		        <EXAMPLE>She admitted us here.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS/>
+		        </NP>
+		        <NP value="Location">
+		            <SYNRESTRS>
+		                <SYNRESTR Value="+" type="adv_loc"/>
+		            </SYNRESTRS>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="admit">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		                <ARG type="ThemRole" value="Location"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.location" secondary="NP-PP; locative-PP" xtag="0.1"/>
+		    <EXAMPLES>
+		        <EXAMPLE>She allowed us near the house.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS/>
+		        </NP>
+		        <PREP>
+		            <SELRESTRS>
+		                <SELRESTR Value="+" type="loc"/>
+		            </SELRESTRS>
+		        </PREP>
+		        <NP value="Location">
+		            <SELRESTRS logic="or">
+		                <SELRESTR Value="+" type="location"/>
+		                <SELRESTR Value="-" type="region"/>
+		            </SELRESTRS>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="admit">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		                <ARG type="ThemRole" value="Location"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+	    </FRAMES>
+	    <SUBCLASSES/>
+	</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

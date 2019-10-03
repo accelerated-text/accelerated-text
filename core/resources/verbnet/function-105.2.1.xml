@@ -1,0 +1,82 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="function-105.2.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="go" wn="go%2:35:00" grouping="go.10"/>
+        <MEMBER name="go_on" wn="go_on%2:35:00" grouping="go.10"/>
+        <MEMBER name="run" wn="run%2:35:00 run%2:35:04" grouping="run.03"/>  
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V" secondary="Basic Intransitive" xtag="0.2"/>
+             <EXAMPLES>
+                 <EXAMPLE>The old dishwasher still functions.</EXAMPLE>
+             </EXAMPLES>
+             <SYNTAX>
+                 <NP value="Theme">
+                     <SYNRESTRS/>
+                 </NP>
+                 <VERB/>
+             </SYNTAX>
+             <SEMANTICS>
+                 <PRED value="function">
+                     <ARGS>
+                         <ARG type="Event" value="during(E)"/>
+                         <ARG type="ThemRole" value="Theme"/>
+                     </ARGS>
+                 </PRED>
+             </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="function-105.2.1-1">
+            <MEMBERS>
+                <MEMBER name="perform" wn="perform%2:36:00" grouping="perform.01"/>
+                <MEMBER name="function" wn="function%2:35:00" grouping="function.02"/>
+                <MEMBER name="operate" wn="operate%2:35:03 operate%2:35:02" grouping="operate.01"/>
+                <MEMBER name="work" wn="work%2:35:02" grouping="work.02"/>
+            </MEMBERS>
+            <THEMROLES>
+                <THEMROLE type="Predicate">
+                    <SELRESTRS/>
+                </THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP" secondary="NP-PP" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>The nail functions as a coat hook.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Predicate">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="function">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="property">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Predicate"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

@@ -1,0 +1,73 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="void-106" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="annul" wn="annul%2:41:00" grouping=""/>
+        <MEMBER name="quash" wn="quash%2:41:00 quash%2:41:01" grouping=""/>
+        <MEMBER name="void" wn="void%2:41:00" grouping="void.01"/>
+        <MEMBER name="avoid" wn="avoid%2:41:00" grouping="avoid.02"/>
+        <MEMBER name="invalidate" wn="invalidate%2:41:00 invalidate%2:30:00" grouping="invalidate.01"/>
+        <MEMBER name="nullify" wn="nullify%2:41:00" grouping="nullify.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="NP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I nullified their advantage.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS> 
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="void">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

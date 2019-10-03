@@ -1,0 +1,321 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="remedy-45.7" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="abase" wn="" grouping=""/>
+        <MEMBER name="africanize" wn="" grouping=""/>
+        <MEMBER name="alcoholize" wn="alcoholize%2:30:00 alcoholize%2:30:01" grouping="wet.01"/>
+        <MEMBER name="alleviate" wn="" grouping=""/>
+        <MEMBER name="anesthetize" wn="" grouping=""/>
+        <MEMBER name="animate" wn="" grouping="animate.01"/>
+        <MEMBER name="backfill" wn="" grouping=""/>
+        <MEMBER name="bastardize" wn="" grouping=""/>
+        <MEMBER name="bedew" wn="" grouping=""/>
+        <MEMBER name="blast" wn="blast%2:39:00" grouping="blast.01"/>
+        <MEMBER name="blemish" wn="" grouping=""/>
+        <MEMBER name="bloody" wn="" grouping=""/>
+        <MEMBER name="botch" wn="" grouping=""/>
+        <MEMBER name="bowdlerize" wn="" grouping=""/>
+        <MEMBER name="bring-out" wn="" grouping=""/>
+        <MEMBER name="bring-up" wn="" grouping=""/>		
+        <MEMBER name="bungle" wn="" grouping=""/>
+        <MEMBER name="capacitate" wn="" grouping="capacitate.01 capacitate.02"/>
+        <MEMBER name="carbonify" wn="" grouping=""/>
+        <MEMBER name="castrate" wn="" grouping="castrate.01 castrate.02 castrate.03"/>
+        <MEMBER name="catholicize" wn="" grouping=""/>
+        <MEMBER name="cauterize" wn="" grouping=""/>
+        <MEMBER name="chamfer" wn="" grouping=""/>
+        <MEMBER name="chlorinate" wn="" grouping=""/>
+        <MEMBER name="christianize" wn="" grouping=""/>
+        <MEMBER name="circumcise" wn="" grouping=""/>
+        <MEMBER name="circumscribe" wn="" grouping=""/>
+        <MEMBER name="coif" wn="" grouping=""/>
+        <MEMBER name="commercialize" wn="" grouping=""/>
+        <MEMBER name="configure" wn="" grouping=""/>
+        <MEMBER name="constipate" wn="" grouping=""/>
+        <MEMBER name="constringe" wn="" grouping=""/>
+        <MEMBER name="construct" wn="" grouping="construct.01 construct.02 construct.03"/>
+        <MEMBER name="contextualize" wn="" grouping=""/>
+        <MEMBER name="correct" wn="" grouping="correct.02"/>
+        <MEMBER name="counteract" wn="" grouping=""/>
+        <MEMBER name="cremate" wn="" grouping=""/>
+        <MEMBER name="deafen" wn="" grouping="deafen.03"/>
+        <MEMBER name="debase" wn="" grouping=""/>
+        <MEMBER name="deconstruct" wn="" grouping=""/>
+        <MEMBER name="dehumidify" wn="dehumidify%2:30:00" grouping=""/>
+        <MEMBER name="delineate" wn="" grouping=""/>
+        <MEMBER name="demean" wn="" grouping=""/>
+        <MEMBER name="dement" wn="" grouping=""/>
+        <MEMBER name="demobilize" wn="" grouping=""/>
+        <MEMBER name="desalinate" wn="" grouping=""/>
+        <MEMBER name="desensitize" wn="" grouping=""/>
+        <MEMBER name="diffract" wn="" grouping=""/>
+        <MEMBER name="disable" wn="" grouping=""/>
+        <MEMBER name="dishevel" wn="" grouping=""/>
+        <MEMBER name="disinfect" wn="" grouping=""/>
+        <MEMBER name="disinter" wn="" grouping=""/>
+        <MEMBER name="dispel" wn="" grouping=""/>
+        <MEMBER name="dislocate" wn="" grouping=""/>
+        <MEMBER name="disorganize" wn="" grouping=""/>
+        <MEMBER name="edify" wn="" grouping=""/>
+        <MEMBER name="emasculate" wn="" grouping=""/>
+        <MEMBER name="embitter" wn="" grouping=""/>
+        <MEMBER name="embrocate" wn="" grouping=""/>
+        <MEMBER name="enhance" wn="" grouping="enhance.01"/>
+        <MEMBER name="enunciate" wn="" grouping=""/>
+        <MEMBER name="eternalize" wn="" grouping=""/>
+        <MEMBER name="eternize" wn="" grouping=""/>
+        <MEMBER name="europeanize" wn="" grouping=""/>
+        <MEMBER name="exacerbate" wn="" grouping=""/>
+        <MEMBER name="exhume" wn="" grouping=""/>
+        <MEMBER name="expropriate" wn="" grouping=""/>	
+        <MEMBER name="fanaticize" wn="" grouping=""/>
+        <MEMBER name="federalize" wn="federalize%2:30:00 federalize%2:30:02" grouping="federalize.01"/>
+        <MEMBER name="fertilize" wn="" grouping="fertilize.01 fertilize.02 fertilize.03"/>
+        <MEMBER name="flouridate" wn="" grouping=""/>       
+	<MEMBER name="fortify" wn="fortify%2:30:01 fortify%2:35:00" grouping="fortify.02 fortify.04"/>
+        <MEMBER name="grade" wn="grade%2:35:00" grouping="grade.02"/>
+        <MEMBER name="humanize" wn="" grouping=""/>
+        <MEMBER name="humidify" wn="humidify%2:30:00" grouping=""/>
+        <MEMBER name="hydrogenate" wn="" grouping=""/>
+        <MEMBER name="ice" wn="ice%2:30:03 ice%2:30:00" grouping="ice.02"/>
+        <MEMBER name="immortalize" wn="" grouping=""/>
+        <MEMBER name="inactivate" wn="" grouping=""/>
+        <MEMBER name="incinerate" wn="" grouping=""/>
+        <MEMBER name="inseminate" wn="" grouping=""/>
+        <MEMBER name="inspissate" wn="inspissate%2:30:03 inspissate%2:30:01 inspissate%2:30:00" grouping="inspissate.01"/>
+        <MEMBER name="invert" wn="" grouping="invert.01 invert.02"/>
+        <MEMBER name="iodize" wn="iodize%2:30:00 iodize%2:29:00" grouping=""/>
+        <MEMBER name="light" wn="light%2:30:00 light%2:43:00" grouping="light.01 light.02"/>
+	<MEMBER name="manure" wn="" grouping=""/>
+        <MEMBER name="marginalize" wn="" grouping=""/>
+        <MEMBER name="mechanize" wn="" grouping=""/>
+        <MEMBER name="medicate" wn="" grouping=""/>
+        <MEMBER name="militarize" wn="" grouping=""/>
+        <MEMBER name="mineralize" wn="" grouping=""/>
+        <MEMBER name="miniaturize" wn="" grouping=""/>
+        <MEMBER name="minimize" wn="" grouping=""/>
+        <MEMBER name="mishandle" wn="" grouping=""/>
+        <MEMBER name="mismanage" wn="" grouping=""/>
+        <MEMBER name="motorize" wn="" grouping="motorize.02"/>
+        <MEMBER name="muddy" wn="muddy%2:35:00 muddy%2:30:00" grouping=""/>
+        <MEMBER name="mummify" wn="" grouping=""/>
+        <MEMBER name="mute" wn="" grouping=""/>
+        <MEMBER name="nasalize" wn="" grouping=""/>
+        <MEMBER name="nitrify" wn="nitrify%2:30:02" grouping=""/>
+        <MEMBER name="objectify" wn="" grouping=""/>
+        <MEMBER name="obscure" wn="" grouping="obscure.01 obscure.02"/>
+        <MEMBER name="obviate" wn="" grouping=""/>
+        <MEMBER name="overshadow" wn="" grouping=""/>
+        <MEMBER name="oxygenate" wn="" grouping=""/>
+        <MEMBER name="paralyze" wn="" grouping=""/>
+        <MEMBER name="pasteurize" wn="" grouping=""/>
+        <MEMBER name="perfect" wn="" grouping=""/>
+        <MEMBER name="perpetuate" wn="" grouping=""/>
+        <MEMBER name="pink" wn="pink%2:35:00" grouping="pink.02"/>
+        <MEMBER name="pollard" wn="" grouping=""/>
+        <MEMBER name="popularize" wn="" grouping=""/>
+	<MEMBER name="prejudge" wn="" grouping=""/>
+        <MEMBER name="prettify" wn="" grouping=""/>
+        <MEMBER name="publicize" wn="" grouping="publicize.01"/>
+        <MEMBER name="raise" wn="raise%2:30:02 raise%2:41:04 raise%2:30:03" grouping="raise.07"/> 
+        <MEMBER name="reanimate" wn="" grouping=""/>
+        <MEMBER name="rectify" wn="" grouping=""/>
+        <MEMBER name="redact" wn="" grouping=""/>
+        <MEMBER name="refract" wn="" grouping=""/>
+        <MEMBER name="regularize" wn="regularize%2:30:00" grouping=""/>
+        <MEMBER name="remaster" wn="" grouping=""/>
+        <MEMBER name="remedy" wn="" grouping=""/>
+        <MEMBER name="repair" wn="" grouping=""/>
+        <MEMBER name="revise" wn="" grouping=""/>
+        <MEMBER name="secularize" wn="" grouping=""/>
+        <MEMBER name="sensationalize" wn="" grouping=""/>
+        <MEMBER name="shortchange" wn="" grouping=""/>
+        <MEMBER name="silence" wn="" grouping="silence.01"/>
+        <MEMBER name="singe" wn="singe%2:30:00" grouping=""/>
+        <MEMBER name="sinter" wn="" grouping=""/>
+        <MEMBER name="sovietize" wn="" grouping=""/>
+        <MEMBER name="sterilize" wn="" grouping="sterilize.01 sterilize.02 sterilize.03"/>
+        <MEMBER name="streamline" wn="" grouping=""/>
+        <MEMBER name="subvert" wn="" grouping=""/>        
+	<MEMBER name="sulfurize" wn="" grouping=""/>
+        <MEMBER name="tabulate" wn="" grouping=""/>
+        <MEMBER name="taiwanize" wn="" grouping=""/>
+        <MEMBER name="tart up" wn="" grouping=""/>
+        <MEMBER name="tousle" wn="" grouping=""/>
+        <MEMBER name="traumatize" wn="" grouping=""/>
+        <MEMBER name="truncate" wn="" grouping=""/>
+        <MEMBER name="trivialize" wn="trivialize%2:32:00" grouping=""/>
+        <MEMBER name="turn-up" wn="" grouping=""/>
+        <MEMBER name="turn-down" wn="" grouping=""/>
+        <MEMBER name="underfeed" wn="" grouping=""/>
+        <MEMBER name="urbanize" wn="" grouping=""/>
+        <MEMBER name="ventilate" wn="" grouping=""/>
+        <MEMBER name="vulgarize" wn="vulgarize%2:32:00 vulgarize%2:30:01" grouping="vulgarize.01 vulgarize.02"/>
+    </MEMBERS>
+    <THEMROLES>
+	<THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="int_control"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Instrument">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+	<FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP.patient" secondary="Basic Transitive; Causative" xtag="0.2"/>
+            <!-- couldn't find transitive frame for carbonify, degenerate, glutenize, subside-->
+            <EXAMPLES>
+                <EXAMPLE>Bill repaired the tractor.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.instrument" secondary="NP-PP; Instrument-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Bill repaired the tractor with duct tape.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Instrument">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="utilize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Instrument"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="remedy-45.7-1">
+	    <MEMBERS>
+		<MEMBER name="categorize" wn="" grouping=""/>
+		<MEMBER name="conflate" wn="" grouping=""/>
+		<MEMBER name="domesticate" wn="" grouping="domesticate.01"/>
+	        <MEMBER name="extinguish" wn="extinguish%2:43:00 extinguish%2:30:05" grouping="extinguish.02"/>
+		<MEMBER name="halve" wn="" grouping=""/>
+		<MEMBER name="homogenize" wn="" grouping=""/>
+	        <MEMBER name="lighten" wn="lighten%2:35:00" grouping="lighten.02 lighten.03"/>
+	        <MEMBER name="magnetize" wn="magnetize%2:30:00" grouping=""/>
+	        <MEMBER name="magnify" wn="magnify%2:30:00 magnify%2:30:01" grouping="magnify.01"/>
+		<MEMBER name="transplant" wn="" grouping=""/>
+		<MEMBER name="upload" wn="" grouping=""/>
+	    </MEMBERS>
+            <THEMROLES/>
+	    <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="1.1.1" primary="NP V ADV-Middle" secondary="Middle Construction" xtag=""/>
+		    <!-- Verb specifies property Prop of Patient-->
+		    <EXAMPLES>
+		        <EXAMPLE>The new tractors repaired easily.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Patient">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <ADV/>
+		    </SYNTAX>
+		    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+    	    </FRAMES>
+	    <SUBCLASSES/>
+	</VNSUBCLASS>	
+    </SUBCLASSES>
+</VNCLASS>

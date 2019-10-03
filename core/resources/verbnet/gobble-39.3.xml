@@ -1,0 +1,176 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="gobble-39.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS/>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES/>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="gobble-39.3-1">
+            <MEMBERS>
+                <MEMBER name="bolt" wn="bolt%2:34:01 bolt%2:34:00" grouping="bolt.03"/>
+                <MEMBER name="gobble" wn="gobble%2:34:00" grouping=""/>
+                <MEMBER name="wolf" wn="wolf%2:34:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES>
+                <THEMROLE type="Patient">
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="comestible"/>
+                        <SELRESTR Value="+" type="solid"/>
+                    </SELRESTRS>
+                </THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Cynthia gobbled the pizza.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="take_in">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V NP up" secondary="NP-PART; up" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Cynthia gobbled the pizza up.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <LEX value="up"/>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="take_in">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V NP down" secondary="NP-PART; down" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Cynthia gobbled the pizza down.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <LEX value="down"/>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="take_in">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="gobble-39.3-2">
+            <MEMBERS>
+                <MEMBER name="gulp" wn="gulp%2:34:01" grouping=""/>
+                <MEMBER name="guzzle" wn="guzzle%2:34:00" grouping=""/>
+                <MEMBER name="quaff" wn="quaff%2:34:00" grouping=""/>
+                <MEMBER name="slug" wn="" grouping=""/>
+                <MEMBER name="swallow" wn="swallow%2:34:00" grouping="swallow.01"/>
+                <MEMBER name="swig" wn="swig%2:34:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES>
+                <THEMROLE type="Patient">
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="comestible"/>
+                        <SELRESTR Value="-" type="solid"/>
+                    </SELRESTRS>
+                </THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Cynthia quaffed her mead.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="take_in">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V down NP" secondary="PART-NP; down" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Cynthia quaffed down the mixture.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <LEX value="down"/>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="take_in">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

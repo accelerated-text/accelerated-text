@@ -1,0 +1,25 @@
+@import '../styles/variables'
+@import '../styles/sidebar-table'
+
+
+.className
+
+    @include sidebar-table
+
+    > thead > tr > th
+
+        &.block
+
+            @include sidebar-table-block-cell
+
+        &.name
+
+            @include sidebar-table-name-cell( 2 )
+
+    > tbody.items > tr > td
+
+        cursor:             pointer
+
+        &.message
+
+            text-align:     center

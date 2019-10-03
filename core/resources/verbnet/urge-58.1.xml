@@ -1,0 +1,161 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="urge-58.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+	<MEMBERS>
+		<MEMBER name="bring" wn="" grouping=""/>		
+	</MEMBERS>
+	<THEMROLES>
+		<THEMROLE type="Agent">
+			<SELRESTRS logic="or">
+				<SELRESTR Value="+" type="animate"/>
+				<SELRESTR Value="+" type="organization"/>
+			</SELRESTRS>
+		</THEMROLE>
+		<THEMROLE type="Patient">
+			<SELRESTRS logic="or">
+				<SELRESTR Value="+" type="animate"/>
+				<SELRESTR Value="+" type="organization"/>
+			</SELRESTRS>
+		</THEMROLE>
+		<THEMROLE type="Result">
+			<SELRESTRS/>
+		</THEMROLE>
+	</THEMROLES>
+	<FRAMES>
+          <FRAME>
+            <DESCRIPTION descriptionNumber="0.2"
+                         primary="NP V NP" secondary="Basic
+						      Transitive" xtag="0.2"/>
+            <EXAMPLES>
+              <EXAMPLE>I brought him.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+              <NP value="Agent">
+                <SYNRESTRS/>
+              </NP>
+              <VERB/>
+              <NP value="Patient">
+                <SYNRESTRS/>
+              </NP>
+            </SYNTAX>
+            <SEMANTICS>
+              <PRED value="urge">
+                <ARGS>
+                  <ARG type="Event"
+                       value="during(E)"/>
+                  <ARG type="ThemRole"
+                       value="Agent"/>
+                  <ARG type="ThemRole"
+                       value="Patient"/>
+                  <ARG type="ThemRole"
+                       value="?Result"/>
+                </ARGS>
+              </PRED>
+            </SEMANTICS>
+          </FRAME>
+	</FRAMES>
+	<SUBCLASSES>
+		<VNSUBCLASS ID="urge-58.1-1">
+		<MEMBERS>
+        		<MEMBER name="call_on" wn="call%2:32:05 call%2:32:15" grouping="call.01 call.07"/>
+		        <MEMBER name="dare" wn="dare%2:32:00" grouping="dare.02"/>
+			<MEMBER name="egg_on" wn="egg_on%2:35:00" grouping=""/>	
+                        <MEMBER name="force" wn="force%2:36:00 force%2:35:00" grouping="force.01"/>
+		        <MEMBER name="invite" wn="invite%2:37:00" grouping="invite.02 invite.03 invite.04"/>		        
+				<MEMBER name="lean_on" wn="" grouping="lean.05"/>
+	    	    <MEMBER name="push" wn="push%2:38:00 push%2:32:01" grouping="push.01"/>
+                           <MEMBER name="summon" wn="summon%2:32:05           summon%2:35:02" grouping="summon.01 summon.02"/>
+    	    	           <MEMBER name="tempt" wn="tempt%2:32:04" grouping="tempt.02"/>
+			</MEMBERS>
+			<THEMROLES/>
+			<FRAMES>
+			  <FRAME>
+                            <DESCRIPTION descriptionNumber="0.2"
+                            primary="NP V NP S_ING" secondary="NP-TO-INF-OC" xtag="0.2"/>
+                            <EXAMPLES>
+                              <EXAMPLE>I urged him to come.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                              <NP value="Agent">
+                                <SYNRESTRS/>
+                              </NP>
+                              <VERB/>
+                              <NP value="Patient">
+                                <SYNRESTRS/>
+                              </NP>
+                              <NP value="Result">
+                                <SYNRESTRS>
+                                  <SYNRESTR Value="+"
+                                            type="oc_to_inf"/>
+                                </SYNRESTRS>
+                              </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                              <PRED value="urge">
+                                <ARGS>
+                                  <ARG type="Event"
+                                       value="during(E)"/>
+                                  <ARG type="ThemRole"
+                                       value="Agent"/>
+                                  <ARG type="ThemRole"
+                                       value="Patient"/>
+                                  <ARG type="ThemRole"
+                                       value="Result"/>
+                                </ARGS>
+                              </PRED>
+                            </SEMANTICS>
+			  </FRAME>
+			</FRAMES>
+			<SUBCLASSES>
+				<VNSUBCLASS ID="urge-58.1-1-1">
+					<MEMBERS>
+                                                <MEMBER name="admonish" wn="admonish%2:32:02 admonish%2:32:01" grouping="admonish.01"/>
+						<MEMBER name="ask" wn="ask%2:32:01" grouping="ask.02"/>
+						<MEMBER name="encourage" wn="encourage%2:32:00" grouping="encourage.02"/>
+                                                <MEMBER name="exhort" wn="exhort%2:32:00" grouping=""/>
+						<MEMBER name="entreat" wn="entreat%2:32:00" grouping=""/>
+						<MEMBER name="implore" wn="implore%2:32:00" grouping=""/>
+						<MEMBER name="lobby" wn="lobby%2:41:00" grouping="lobby.01"/>
+						<MEMBER name="press" wn="press%2:32:00 press%2:32:01" grouping="press.03"/>
+						<MEMBER name="pressure" wn="pressure%2:41:00" grouping="pressure.01"/>
+						<MEMBER name="prod" wn="prod%2:35:00" grouping="prod.02"/>
+						<MEMBER name="urge" wn="urge%2:32:00 urge%2:32:03" grouping="urge.01 urge.02"/>									
+				</MEMBERS>
+				<THEMROLES/>
+				<FRAMES>
+						<FRAME>
+					<DESCRIPTION descriptionNumber="8.1" primary="NP V NP that S" secondary="NP-S" xtag="0.2"/>
+					<EXAMPLES>
+						<EXAMPLE>I implored him that he should come.</EXAMPLE>
+					</EXAMPLES>
+					<SYNTAX>
+						<NP value="Agent">
+							<SYNRESTRS/>
+						</NP>
+						<VERB/>
+						<NP value="Patient">
+							<SYNRESTRS/>
+						</NP>
+						<NP value="Topic">
+							<SYNRESTRS>
+								<SYNRESTR Value="+" type="that_comp"/>
+							</SYNRESTRS>
+						</NP>
+					</SYNTAX>
+					<SEMANTICS>
+						<PRED value="urge">
+							<ARGS>
+								<ARG type="Event" value="during(E)"/>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="ThemRole" value="Patient"/>
+								<ARG type="ThemRole" value="Result"/>
+							</ARGS>
+						</PRED>
+					</SEMANTICS>
+				</FRAME>
+				</FRAMES>
+				<SUBCLASSES/>
+			</VNSUBCLASS>
+			</SUBCLASSES>
+		</VNSUBCLASS>
+	</SUBCLASSES>
+</VNCLASS>

@@ -1,0 +1,41 @@
+@import './colors'
+
+$font-family:   Ubuntu, sans-serif
+
+$grow-factor:   1.148698354997035   /// 2 ^ ( 1/5 )
+$shrink-factor: 1.0442737824274138  /// 2 ^ ( 1/16 )
+
+$size-factor:   $grow-factor
+$size-base:     1rem
+
+$size-m:        $size-base
+$size-l:        $size-m * $size-factor
+$size-xl:       $size-l * $size-factor
+$size-xxl:      $size-xl * $size-factor
+$size-xxxl:     $size-xxl * $size-factor
+$size-s:        $size-m / $shrink-factor
+$size-xs:       $size-s / $shrink-factor
+$size-xxs:      $size-xs / $shrink-factor
+
+$light-weight:  300
+$normal-weight: 400
+$bold:          500
+$bolder:        600
+
+$line-height:       1.5874010519681994  /// 2 ^ ( 2 / 3 )
+$line-height-rem:   $line-height * 1rem
+
+$space-xxs:     .125rem
+$space-xs:      .25rem
+$space-s:       .5rem
+$space-m:       1rem
+$space-l:       2rem
+$space-xl:      4rem
+
+$border-radius: $space-xs
+
+$transition:        400ms ease-in-out
+$transition-quick:  100ms ease-in
+
+$z-index-blockly-toolbox:   70
+$z-index-onboard-blocker:   100

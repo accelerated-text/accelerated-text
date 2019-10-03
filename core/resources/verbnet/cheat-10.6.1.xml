@@ -1,0 +1,303 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="cheat-10.6.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <!--Also split class based on manner(illegal)-->
+    <MEMBERS>
+        <!--REMOVED "void" from class, misclassified-->
+        <MEMBER name="cheat" wn="cheat%2:41:00" grouping="cheat.01"/>
+        <MEMBER name="gull" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <!--Theme is inalienable possession of Source-->
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Source">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTRS>
+                    <SELRESTR Value="+" type="location"/>
+                    <SELRESTR Value="-" type="region"/>
+                </SELRESTRS>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Goal">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Transitive; dropped Theme" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The swindler cheated Pat.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="ThemRole" value="?Goal"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Goal"/>
+                    </ARGS> 
+                </PRED>  
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP PP.theme"
+			 secondary="NP-PP; of-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The swindler cheated Pat out of her fortune.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="out_of">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Goal"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Goal"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="cheat-10.6.1-1">
+            <MEMBERS>
+                <MEMBER name="con" wn="con%2:41:00" grouping="con.01"/>
+                <MEMBER name="cozen" wn="cozen%2:40:00" grouping="cozen.01"/>
+                <MEMBER name="fleece" wn="fleece%2:40:00" grouping=""/>
+                <MEMBER name="defraud" wn="defraud%2:41:00" grouping="defraud.01"/>
+                <MEMBER name="swindle" wn="swindle%2:41:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V NP PP.theme" secondary="NP-PP; for-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The swindler conned Pat for her fortune.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Source">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="for">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Source"/>
+                                <ARG type="Constant" value="ch_of_poss"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Goal"/>
+                                <ARG type="Constant" value="ch_of_poss"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="transfer">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="equals">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="?Goal"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="cheat-10.6.1-1-1">
+                    <MEMBERS>
+                        <MEMBER name="rob" wn="rob%2:40:00" grouping="rob.01 rob.02"/>
+                        <MEMBER name="bleed" wn="bleed%2:40:09 bleed%2:30:00" grouping="bleed.04"/>
+                        <MEMBER name="strip" wn="strip%2:40:03 strip%2:30:06 strip%2:30:05 strip%2:40:00 strip%2:35:04 strip%2:30:12" grouping="strip.01 strip.03 strip.04"/>
+                        <MEMBER name="milk" wn="milk%2:34:00" grouping="milk.01"/>
+                        <MEMBER name="cull" wn="cull%2:40:00" grouping=""/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="0.2"
+                            primary="NP V NP PP.source" secondary="NP-PP;
+                            of-PP" xtag="0.2"/>
+                            <EXAMPLES>
+                                <EXAMPLE>The swindler swindled 20 dollars from his boss.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <PREP value="from">
+                                    <SELRESTRS/>
+                                </PREP>
+                                <NP value="Source">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="-"
+                                        type="sentential"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Event" value="E"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole"
+                                        value="Source"/>
+                                        <ARG type="Constant"
+                                        value="ch_of_poss"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="end(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="?Goal"/>
+                                        <ARG type="Constant" value="ch_of_poss"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="transfer">
+                                    <ARGS>
+                                        <ARG type="Event"
+                                        value="during(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="equals">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="?Goal"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+           </SUBCLASSES>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

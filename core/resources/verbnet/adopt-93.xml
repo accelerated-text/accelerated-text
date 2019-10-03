@@ -1,0 +1,50 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="adopt-93" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="abide-by" wn="abide_by%2:41:00" grouping="abide.03"/>
+        <MEMBER name="assume" wn="assume%2:41:00 assume%2:30:00 assume%2:38:00" grouping="assume.02"/>
+        <MEMBER name="adopt" wn="adopt%2:40:02" grouping="adopt.01"/>
+        <MEMBER name="follow" wn="follow%2:41:00 follow%2:40:00" grouping="follow.03"/>
+        <MEMBER name="take_over" wn="take_over%2:40:07 take_over%2:41:01" grouping=""/>
+        <MEMBER name="take_on" wn="take_on%2:30:00 take_on%2:41:01" grouping=""/>
+        <MEMBER name="take" wn="take%2:40:05" grouping="take.08"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Soon, the new President will assume office.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="adopt">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

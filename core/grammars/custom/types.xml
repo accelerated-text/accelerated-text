@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types 
+  name="shop"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:noNamespaceSchemaLocation="../types.xsd" >
+
+  <type name="sem-obj"/>
+    <type name="phys-obj" parents="sem-obj"/>
+      <type name="garment" parents="phys-obj"/>
+        <type name="shoe" parents="garment"/>
+        <type name="redesigned-shoe" parents="shoe"/>
+    <type name="purpose" parents="sem-obj"/>
+</types>

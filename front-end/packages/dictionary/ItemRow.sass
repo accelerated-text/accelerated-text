@@ -1,0 +1,19 @@
+@import '../styles/variables'
+@import '../styles/sidebar-table'
+
+
+.className
+    > td
+
+        &.dragInBlock
+
+            @include sidebar-table-block-cell
+
+        &.name
+
+            color:          shade-2( $blue )
+
+            > .pos
+
+                color:          tint-1-2( shade-2( $blue ))
+                padding-left:   $space-s

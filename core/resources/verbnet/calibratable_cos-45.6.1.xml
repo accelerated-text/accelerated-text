@@ -1,0 +1,637 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="calibratable_cos-45.6.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="build" wn="" grouping="build.02" features="+increase"/>
+        <MEMBER name="die" wn="" grouping="die.02" features="+decrease"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Patient">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Attribute">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.13.5" primary="NP.attribute V" secondary="Intransitive; Attribute Subject" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The price of oil soared.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Attribute">
+                    <SYNRESTRS/>
+                </NP>
+                <LEX value="of"/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="change_value">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="VerbSpecific" value="Direction"/>
+                        <ARG type="ThemRole" value="Attribute"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_on_scale"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                   <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Extent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_on_scale"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_on_scale"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.13.5" primary="NP.patient V PP.attribute" secondary="PP; Possessor Subject, Attribute-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Oil soared in price.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="in">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Attribute">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="change_value">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="VerbSpecific" value="Direction"/>
+                        <ARG type="ThemRole" value="Attribute"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_on_scale"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                   <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Extent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_on_scale"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_on_scale"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V" secondary="Basic Intransitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Imports declined.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="change_value">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="VerbSpecific" value="Direction"/>
+                        <ARG type="ThemRole" value="?Attribute"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="calibratable_cos-45.6.1-1">
+            <MEMBERS>
+                <MEMBER name="appreciate" wn="appreciate%2:30:00" grouping="appreciate.03" features="+increase"/>
+                <MEMBER name="climb" wn="climb%2:38:00 climb%2:38:01 climb%2:30:01" grouping="climb.01" features="+increase"/>
+                <MEMBER name="decline" wn="decline%2:30:01" grouping="decline.01" features="+decrease"/>
+                <MEMBER name="dip" wn="dip%2:38:01" grouping="dip.02" features="+decrease"/>
+                <MEMBER name="dive" wn="dive%2:38:00" grouping="dive.01"/>
+                <MEMBER name="depreciate" wn="depreciate%2:30:00" grouping="depreciate.02" features="+decrease"/>
+                <MEMBER name="drop" wn="drop%2:30:00" grouping="drop.02" features="+decrease"/>
+                <MEMBER name="dwindle" wn="" grouping="" features="+decrease"/>
+                <MEMBER name="explode" wn="explode%2:30:02" grouping="explode.03" features="+increase"/>
+                <MEMBER name="fall" wn="fall%2:30:06" grouping="fall.04" features="+decrease"/>
+                <MEMBER name="fall_away" wn="fall_away%2:30:00" grouping="fall.02" features="+decrease"/>
+                <MEMBER name="fall-off" wn="" grouping="" features="+decrease"/>
+                <MEMBER name="fluctuate" wn="fluctuate%2:30:00" grouping="fluctuate.01" features="+fluctuate"/>
+                <MEMBER name="gain" wn="gain%2:30:00" grouping="gain.02" features="+increase"/>
+                <MEMBER name="go_down" wn="go_down%2:30:00" grouping="go.02" features="+decrease"/>
+                <MEMBER name="go_up" wn="go_up%2:30:00" grouping="go.01" features="+increase"/>
+                <MEMBER name="grow" wn="" grouping="grow.02 grow.04" features="+increase"/>
+                <MEMBER name="jump" wn="jump%2:30:00" grouping="jump.01" features="+increase"/>
+                <MEMBER name="mushroom" wn="mushroom%2:30:00" grouping="mushroom.01" features="+increase"/>
+                <MEMBER name="multiply" wn="" grouping="" features="+increase"/>
+                <MEMBER name="plummet" wn="plummet%2:38:00" grouping="plummet.01" features="+decrease"/>
+                <MEMBER name="plump" wn="plump%2:38:01" grouping="plump.01" features="+decrease"/>
+                <MEMBER name="plunge" wn="plunge%2:38:01" grouping="plunge.02" features="+decrease"/>
+                <MEMBER name="retreat" wn="" grouping="retreat.05" features="+decrease"/>
+                <MEMBER name="rocket" wn="rocket%2:38:00" grouping="" features="+increase"/>
+                <MEMBER name="rise" wn="rise%2:30:00 rise%2:30:03 rise%2:30:09 rise%2:38:02" grouping="rise.02" features="+increase"/>
+                <MEMBER name="seesaw" wn="seesaw%2:38:00" grouping="" features="+fluctuate"/>
+                <MEMBER name="skyrocket" wn="skyrocket%2:38:00" grouping="skyrocket.01" features="+increase"/>
+                <MEMBER name="slide" wn="" grouping="slide.03" features="+decrease"/>
+                <MEMBER name="slip" wn="slip%2:30:00" grouping="slip.03" features="+decrease"/>
+                <MEMBER name="soar" wn="soar%2:38:01 soar%2:30:00" grouping="soar.02" features="+increase"/>
+                <MEMBER name="surge" wn="surge%2:38:00" grouping="surge.02" features="+increase"/>
+                <MEMBER name="swing" wn="swing%2:30:08" grouping="swing.03" features="+fluctuate"/>
+                <MEMBER name="tumble" wn="tumble%2:30:00" grouping="tumble.01" features="+decrease"/>
+                <MEMBER name="swell" wn="swell%2:30:02" grouping="swell.01" features="+increase"/>
+            </MEMBERS>
+            <THEMROLES>
+                <THEMROLE type="Extent">
+                    <SELRESTRS/>
+                </THEMROLE>
+		<THEMROLE type="Initial_State">
+  		    <SELRESTRS/>
+		</THEMROLE>
+		<THEMROLE type="Result">
+		    <SELRESTRS/>
+		</THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.13.5" primary="NP.patient V NP.extent PP.source PP.goal" secondary="NP-PP-PP; optional" xtag=""/>
+                    <EXAMPLES>
+                       <EXAMPLE>Oil rose 500 percent from $26 to $147.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Extent">
+                            <SYNRESTRS/>
+                        </NP>
+		        <PREP value="?from">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Initial_State">
+                            <SYNRESTRS/>
+                        </NP>
+			<PREP value="?to">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Result">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="change_value">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+			        <ARG type="ThemRole" value="Direction"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Extent"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                           </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.13.5" primary="NP.patient V PP.extent PP.source PP.goal" secondary="PP-PP-PP; optional" xtag=""/>
+                    <EXAMPLES>
+                       <EXAMPLE>Oil rose by 500 percent from $26 to $147.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+		        <PREP value="by">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="Extent">
+                            <SYNRESTRS/>
+                        </NP>
+		        <PREP value="?from">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Initial_State">
+                            <SYNRESTRS/>
+                        </NP>
+			<PREP value="?to">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Result">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="change_value">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+			        <ARG type="ThemRole" value="Direction"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Extent"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                           </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.13.5" primary="NP.attribute V NP.extent PP.source PP.goal" secondary="NP-PP-PP; optional" xtag=""/>
+                    <EXAMPLES>
+                       <EXAMPLE>The price of oil rose 500 percent from $26 to $147.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Attribute">
+                            <SYNRESTRS/>
+                        </NP>
+		        <PREP value="of">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Extent">
+                            <SYNRESTRS/>
+                        </NP>
+		        <PREP value="?from">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Initial_State">
+                            <SYNRESTRS/>
+                        </NP>
+			<PREP value="?to">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Result">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="change_value">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+			        <ARG type="ThemRole" value="Direction"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Extent"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                           </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+			<PRED value="property">
+			    <ARGS>
+				<ARG type="ThemRole" value="Patient"/>
+				<ARG type="ThemRole" value="Attribute"/>
+			    </ARGS>
+			 </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.13.5" primary="NP.attribute V PP.extent PP.source PP.goal" secondary="PP-PP-PP; optional" xtag=""/>
+                    <EXAMPLES>
+                       <EXAMPLE>The price of oil rose by 500 percent from $26 to $147.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Attribute">
+                            <SYNRESTRS/>
+                        </NP>
+		        <PREP value="of">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+		        <PREP value="by">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="Extent">
+                            <SYNRESTRS/>
+                        </NP>
+		        <PREP value="?from">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Initial_State">
+                            <SYNRESTRS/>
+                        </NP>
+			<PREP value="?to">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Result">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="change_value">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+			        <ARG type="ThemRole" value="Direction"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Extent"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                           </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+			<PRED value="property">
+			    <ARGS>
+				<ARG type="ThemRole" value="Patient"/>
+				<ARG type="ThemRole" value="Attribute"/>
+			    </ARGS>
+			 </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.13.5" primary="NP.patient V PP.attribute NP.extent PP.source PP.goal" secondary="PP-PP-PP-PP; optional" xtag=""/>
+                    <EXAMPLES>
+                       <EXAMPLE>Oil rose in price 500 percent from $26 to $147.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+		        <PREP value="in">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="Attribute">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="?Extent">
+                            <SYNRESTRS/>
+                        </NP>
+		        <PREP value="?from">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Initial_State">
+                            <SYNRESTRS/>
+                        </NP>
+			<PREP value="?to">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Result">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="change_value">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+			        <ARG type="ThemRole" value="Direction"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="?Extent"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                           </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+			<PRED value="property">
+			    <ARGS>
+				<ARG type="ThemRole" value="Patient"/>
+				<ARG type="ThemRole" value="Attribute"/>
+			    </ARGS>
+			 </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.13.5" primary="NP.patient V PP.attribute PP.extent PP.source PP.goal" secondary="PP-PP-PP-PP; optional" xtag=""/>
+                    <EXAMPLES>
+                       <EXAMPLE>Oil rose in price by 500 percent from $26 to $147.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+		        <PREP value="in">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="Attribute">
+                            <SYNRESTRS/>
+                        </NP>
+		        <PREP value="?by">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Extent">
+                            <SYNRESTRS/>
+                        </NP>
+		        <PREP value="?from">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Initial_State">
+                            <SYNRESTRS/>
+                        </NP>
+			<PREP value="?to">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="?Result">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="change_value">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+			        <ARG type="ThemRole" value="Direction"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="?Extent"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                           </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="Constant" value="ch_on_scale"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+			<PRED value="property">
+			    <ARGS>
+				<ARG type="ThemRole" value="Patient"/>
+				<ARG type="ThemRole" value="Attribute"/>
+			    </ARGS>
+			 </PRED>
+                    </SEMANTICS>
+                </FRAME>
+	    </FRAMES>
+	<SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

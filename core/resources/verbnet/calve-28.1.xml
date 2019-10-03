@@ -1,0 +1,58 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="calve-28.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <!--Each member specifies the Patient-->
+        <MEMBER name="calve" wn="calve%2:29:00" grouping=""/>
+        <MEMBER name="cub" wn="cub%2:29:00" grouping=""/>
+        <MEMBER name="fawn" wn="fawn%2:29:00" grouping="fawn.02"/>
+        <MEMBER name="foal" wn="foal%2:29:00" grouping=""/>
+        <MEMBER name="kitten" wn="kitten%2:29:00" grouping=""/>
+        <MEMBER name="lamb" wn="lamb%2:29:00" grouping=""/>
+        <MEMBER name="litter" wn="litter%2:29:00" grouping="litter.02"/>
+        <MEMBER name="pup" wn="pup%2:29:00" grouping=""/>
+        <MEMBER name="spawn" wn="spawn%2:36:00" grouping="spawn.01"/>
+        <MEMBER name="whelp" wn="whelp%2:29:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag="0.1"/>
+            <EXAMPLES>
+                <EXAMPLE>The cat kittened.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="give_birth">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

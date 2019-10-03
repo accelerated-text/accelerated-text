@@ -1,0 +1,158 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="deprive-10.6.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="burgle" wn="" grouping=""/>
+        <MEMBER name="despoil" wn="despoil%2:40:00 despoil%2:35:00" grouping=""/>
+        <MEMBER name="disabuse" wn="disabuse%2:32:00" grouping=""/>
+        <MEMBER name="plunder" wn="plunder%2:40:00 plunder%2:35:01" grouping=""/>
+        <MEMBER name="rid" wn="rid%2:40:00" grouping="rid.01"/>
+        <MEMBER name="depopulate" wn="depopulate%2:30:00" grouping=""/>
+        <MEMBER name="bereave" wn="bereave%2:40:00" grouping=""/>
+        <MEMBER name="denude" wn="denude%2:30:00" grouping=""/>
+        <MEMBER name="disarm" wn="disarm%2:33:01" grouping="disarm.01"/>
+        <MEMBER name="drain" wn="drain%2:34:00 drain%2:30:01" grouping="drain.01 drain.02"/>
+        <MEMBER name="dispossess" wn="dispossess%2:40:00" grouping=""/>
+        <MEMBER name="deplete" wn="deplete%2:34:00" grouping=""/>
+        <MEMBER name="divest" wn="divest%2:40:01 divest%2:41:00 divest%2:40:00" grouping="divest.01 divest.02"/>
+        <MEMBER name="deprive" wn="deprive%2:40:01 deprive%2:40:00 deprive%2:30:00" grouping="deprive.01"/>
+        <MEMBER name="sap" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>            
+        </THEMROLE>
+        <THEMROLE type="Source">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTRS>
+                    <SELRESTR Value="+" type="location"/>
+                    <SELRESTR Value="-" type="region"/>
+                </SELRESTRS>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Goal">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>They plundered Rome.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                    </ARGS>
+                </PRED> 
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.1" primary="NP V NP PP.theme" secondary="NP-PP; Source-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>They deprived Pat of sleep.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="of">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

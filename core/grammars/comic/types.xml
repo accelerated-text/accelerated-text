@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2003-4 University of Edinburgh (Michael White)
+$Revision: 1.14 $, $Date: 2005/07/22 20:44:18 $ 
+-->
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="comic" xsi:noNamespaceSchemaLocation="../types.xsd">
+  <!-- form vals -->
+  <type name="form-vals"/>
+  <type name="dcl-base" parents="form-vals"/>
+  <type name="dcl" parents="dcl-base"/>
+  <type name="fronted" parents="dcl-base"/>
+  <type name="q-base" parents="form-vals"/>
+  <type name="q" parents="q-base"/>
+  <type name="wh" parents="q-base"/>
+  <type name="base" parents="form-vals"/>
+  <type name="emb" parents="form-vals"/>
+  <type name="inf" parents="form-vals"/>
+  <type name="adj" parents="form-vals"/>
+  <type name="ng" parents="form-vals"/>
+  <!-- person vals (nb: could merge this with number vals) -->
+  <type name="pers-vals"/>
+  <type name="3rd" parents="pers-vals"/>
+  <type name="non-3rd" parents="pers-vals"/>
+  <type name="1st" parents="non-3rd"/>
+  <type name="2nd" parents="non-3rd"/>
+  <!-- number vals -->
+  <type name="num-vals"/>
+  <type name="sg-or-mass" parents="num-vals"/>
+  <type name="sg" parents="sg-or-mass"/>
+  <type name="pl-or-mass" parents="num-vals"/>
+  <type name="pl" parents="pl-or-mass"/>
+  <type name="mass" parents="sg-or-mass pl-or-mass"/>
+  <!-- ontological sorts (adapted in part from WordNet 2.0) -->
+  <type name="sem-obj"/>
+  <type name="abstraction" parents="sem-obj"/>
+  <type name="date" parents="abstraction"/>
+  <type name="measure" parents="abstraction"/>
+  <type name="amt" parents="measure"/>
+  <type name="dur" parents="measure"/>
+  <type name="num" parents="abstraction"/>
+  <type name="time" parents="abstraction"/>
+  <type name="location" parents="sem-obj"/>
+  <type name="city" parents="location"/>
+  <type name="entity" parents="sem-obj"/>
+  <type name="causal-agent" parents="entity"/>
+  <type name="organization" parents="causal-agent"/>
+  <type name="mental-obj" parents="entity"/>
+  <type name="phys-obj" parents="entity"/>
+  <type name="animate-being" parents="phys-obj"/>
+  <type name="person" parents="animate-being causal-agent"/>
+  <type name="grouping" parents="sem-obj"/>
+  <type name="situation" parents="sem-obj"/>
+  <type name="change" parents="situation"/>
+  <type name="action" parents="change"/>
+  <type name="statement" parents="action"/>
+  <type name="motion" parents="change"/>
+  <type name="quantification" parents="situation"/>
+  <type name="state" parents="situation"/>
+  <type name="proposition" parents="state"/>
+  <type name="experience" parents="state"/>
+  <!-- a structural element in the semantics -->
+  <type name="struct"/>
+  <!-- additional sorts for comic (builds on ../core-en/types.xml) -->
+  <type name="colour" parents="abstraction proposition"/>
+  <type name="colour_prop" parents="proposition"/>
+  <type name="decoration" parents="phys-obj"/>
+  <type name="manufacturer" parents="organization"/>
+  <type name="quality" parents="proposition"/>
+  <type name="series" parents="abstraction proposition"/>
+  <type name="size" parents="abstraction proposition"/>
+  <type name="style" parents="abstraction proposition"/>
+</types>

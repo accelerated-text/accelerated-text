@@ -1,0 +1,415 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="steal-10.5" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="abduct" wn="abduct%2:35:02" grouping="abduct.01"/>
+        <MEMBER name="annex" wn="annex%2:40:00" grouping=""/>
+        <MEMBER name="bleed" wn="bleed%2:40:09 bleed%2:30:00" grouping="bleed.04"/>
+        <MEMBER name="cabbage" wn="cabbage%2:40:00" grouping=""/>
+        <MEMBER name="carjack" wn="carjack%2:35:00" grouping=""/>
+        <MEMBER name="commandeer" wn="commandeer%2:35:00" grouping=""/>
+        <MEMBER name="confiscate" wn="confiscate%2:40:01" grouping="confiscate.01"/>
+        <MEMBER name="cull" wn="cull%2:40:00" grouping=""/>
+        <MEMBER name="emancipate" wn="?emancipate%2:41:00" grouping=""/>
+        <MEMBER name="embezzle" wn="embezzle%2:40:00" grouping=""/>
+        <MEMBER name="extort" wn="extort%2:40:01 extort%2:40:00" grouping="extort.01"/>
+        <MEMBER name="filch" wn="filch%2:40:00" grouping=""/>
+        <MEMBER name="highjack" wn="highjack%2:35:00" grouping=""/>
+        <MEMBER name="kidnap" wn="kidnap%2:35:00" grouping="kidnap.01"/>
+        <MEMBER name="knock_off" wn="knock_off%2:40:00" grouping=""/>
+        <MEMBER name="liberate" wn="liberate%2:41:02 liberate%2:41:00" grouping="liberate.01"/>
+        <MEMBER name="lift" wn="lift%2:40:00 lift%2:40:03" grouping="lift.04"/>
+        <MEMBER name="milk" wn="milk%2:34:00" grouping="milk.01"/>
+        <MEMBER name="misappropriate" wn="" grouping=""/>
+        <MEMBER name="nobble" wn="nobble%2:40:00 nobble%2:35:00" grouping=""/>
+        <MEMBER name="pickpocket" wn="" grouping=""/>
+        <MEMBER name="pinch" wn="pinch%2:40:00" grouping="pinch.03"/>
+        <MEMBER name="plagiarize" wn="plagiarize%2:40:00" grouping=""/>
+        <MEMBER name="plunder" wn="plunder%2:40:00 plunder%2:35:01" grouping=""/>
+        <MEMBER name="purloin" wn="purloin%2:40:00" grouping=""/>
+        <MEMBER name="recapture" wn="recapture%2:37:00 recapture%2:36:00 recapture%2:40:00 recapture%2:35:00" grouping=""/>
+        <MEMBER name="reclaim" wn="reclaim%2:40:00" grouping="reclaim.01 reclaim.03"/>
+        <MEMBER name="recoup" wn="recoup%2:40:00" grouping="recoup.01"/>
+        <MEMBER name="redeem" wn="" grouping=""/>
+        <MEMBER name="repossess" wn="repossess%2:40:00 repossess%2:40:03" grouping=""/>
+        <MEMBER name="rescue" wn="rescue%2:40:00" grouping="rescue.01"/>
+        <MEMBER name="rob" wn="rob%2:40:00" grouping="rob.01 rob.02"/>
+        <MEMBER name="rustle" wn="rustle%2:40:00" grouping=""/>
+        <MEMBER name="seize" wn="seize%2:35:01 seize%2:40:01 seize%2:40:02 seize%2:40:07" grouping="seize.03"/>
+        <MEMBER name="snatch_away" wn="" grouping=""/>
+        <MEMBER name="sequester" wn="sequester%2:40:00" grouping=""/>
+        <MEMBER name="take" wn="?take%2:38:09 take%2:40:01" grouping="take.04 take.09"/>
+        <MEMBER name="thieve" wn="thieve%2:40:00" grouping=""/>
+        <MEMBER name="wrest" wn="wrest%2:35:01" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Source">
+            <SELRESTRS logic="or">
+                <SELRESTRS> 
+                    <SELRESTR Value="+" type="animate"/>
+                    <SELRESTR Value="+" type="organization"/>
+                </SELRESTRS> 
+                <SELRESTRS>
+                    <SELRESTR Value="+" type="location"/>
+                    <SELRESTR Value="-" type="region"/>
+                </SELRESTRS>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Beneficiary">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The thief stole the paint.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="manner">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="Constant" value="illegal"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Beneficiary"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Beneficiary"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS> 
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.source" secondary="NP-PP; Source-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The thief stole the paint from the museum.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="src"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="manner">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="Constant" value="illegal"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Beneficiary"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Beneficiary"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.2" primary="NP V NP PP.beneficiary" secondary="NP-PP; for-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The thief stole the paint for Mary.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Beneficiary">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="manner">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="Constant" value="illegal"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Beneficiary"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/> 
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.2" primary="NP V NP PP.source PP.beneficiary" secondary="NP-PP-PP; Source-PP Beneficiary-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The thief stole the paint from John for Mary.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="src"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Beneficiary">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="manner">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="Constant" value="illegal"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Beneficiary"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+    <VNSUBCLASS ID="steal-10.5-1">
+            <MEMBERS>
+                <MEMBER name="cadge" wn="cadge%2:40:00 cadge%2:40:01" grouping="capture.01"/>
+                <MEMBER name="capture" wn="capture%2:36:00" grouping="capture.01"/>
+                <MEMBER name="cop" wn="cop%2:40:00" grouping="cop.01"/>
+                <MEMBER name="flog" wn="" grouping=""/>
+                <MEMBER name="grab" wn="grab%2:40:03" grouping="grab.01"/>
+                <MEMBER name="hook" wn="hook%2:40:01 hook%2:40:00" grouping="hook.09"/>
+                <MEMBER name="nab" wn="?nab%2:35:01" grouping=""/>
+                <MEMBER name="nick" wn="" grouping=""/>
+                <MEMBER name="pilfer" wn="pilfer%2:40:00" grouping=""/>
+                <MEMBER name="pirate" wn="pirate%2:35:00" grouping=""/>
+                <MEMBER name="salvage" wn="salvage%2:41:00" grouping="salvage.02"/>
+                <MEMBER name="shoplift" wn="shoplift%2:40:00" grouping=""/>
+                <MEMBER name="smuggle" wn="smuggle%2:40:00" grouping=""/>
+                <MEMBER name="snatch" wn="?snatch%2:35:00 snatch%2:35:01" grouping="snatch.01 snatch.03"/>
+                <MEMBER name="sneak" wn="sneak%2:40:00" grouping="sneak.02"/>
+                <MEMBER name="steal" wn="steal%2:40:00" grouping="steal.01"/>
+                <MEMBER name="swipe" wn="swipe%2:40:00" grouping=""/>
+                <MEMBER name="wangle" wn="wangle%2:41:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.13.5" primary="NP V NP NP" secondary="Ditransitive" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The thief stole Mary some paint.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Beneficiary">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                         <PRED value="manner">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="Constant" value="illegal"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Beneficiary"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

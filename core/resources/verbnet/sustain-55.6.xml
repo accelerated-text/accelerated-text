@@ -1,0 +1,121 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="sustain-55.6" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="hold" wn="" grouping="hold.03"/>
+        <MEMBER name="maintain" wn="maintain%2:34:00" grouping="maintain.01"/>
+        <MEMBER name="sustain" wn="sustain%2:34:00" grouping="sustain.01"/>
+        <MEMBER name="prolong" wn="prolong%2:42:00" grouping="prolong.01"/>
+        <MEMBER name="protract" wn="protract%2:30:00" grouping=""/>
+        <MEMBER name="keep_up" wn="keep_up%2:42:00" grouping=""/>
+        <MEMBER name="continue" wn="continue%2:32:00" grouping="continue.02"/>
+        <MEMBER name="carry_on" wn="carry_on%2:32:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Instrument">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.instrument" secondary="NP-PP; through-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I maintained a strong government through ruthless domination.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+		<PREP value="through">
+		    <SELRESTRS/>
+		</PREP>
+                <NP value="Instrument">
+                    <SYNRESTRS>
+			<SYNRESTR Value="-" type="sentential"/>
+		    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                 <PRED value="continue">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                 </PRED>
+                 <PRED value="cause">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>   
+                 </PRED>  
+                 <PRED value="utilize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Instrument"/>
+                    </ARGS>
+                 </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="sustain-55.6-1">
+            <MEMBERS>
+                <MEMBER name="keep" wn="keep%2:34:00" grouping="keep.06"/>
+                <MEMBER name="leave" wn="" grouping="leave.02"/>
+            </MEMBERS>
+            <THEMROLES>
+                <THEMROLE type="Attribute">
+                    <SELRESTRS/>
+                </THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+            <FRAME>
+                <DESCRIPTION descriptionNumber="" primary="NP V NP ADJ" secondary="NP-ADJP-PRED" xtag="0.2"/>
+                <EXAMPLES>
+                    <EXAMPLE>They kept the government strong. </EXAMPLE>
+                </EXAMPLES>
+                <SYNTAX>
+                    <NP value="Agent">
+                        <SYNRESTRS/>
+                    </NP>
+                    <VERB/>
+                    <NP value="Theme">
+                        <SYNRESTRS/>
+                    </NP>
+                    <NP value="Attribute">
+                        <SYNRESTRS/>
+                    </NP>
+                </SYNTAX>
+                <SEMANTICS>
+                    <PRED value="continue">
+                        <ARGS>
+                            <ARG type="Event" value="during(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="property">
+                        <ARGS>
+                            <ARG type="ThemRole" value="Theme"/>
+                            <ARG type="ThemRole" value="Attribute"/>
+                        </ARGS>
+                    </PRED>                 
+                </SEMANTICS>
+            </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

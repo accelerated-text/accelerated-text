@@ -1,0 +1,113 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="die-42.4" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="buy_the_farm" wn="" grouping=""/>
+        <MEMBER name="decease" wn="" grouping=""/>
+        <MEMBER name="fall" wn="" grouping=""/>
+        <MEMBER name="give_up_the_ghost" wn="" grouping=""/>
+        <MEMBER name="kick_the_bucket" wn="" grouping=""/> 
+        <MEMBER name="pass" wn="" grouping=""/>
+        <MEMBER name="pop_off" wn="" grouping=""/>
+        <MEMBER name="snuff_it" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Causer">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V" secondary="Basic Intransitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>He died.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="?Causer"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="alive">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED bool="!" value="alive">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="die-42.4-1">
+    	    <MEMBERS>
+	        <MEMBER name="choke" wn="" grouping=""/>
+	        <MEMBER name="conk" wn="" grouping=""/>
+	        <MEMBER name="croak" wn="" grouping=""/>
+	        <MEMBER name="die" wn="" grouping=""/>
+	        <MEMBER name="drop_dead" wn="" grouping=""/>
+	        <MEMBER name="expire" wn="" grouping=""/>
+	        <MEMBER name="pass_away" wn="" grouping=""/>
+	        <MEMBER name="perish" wn="" grouping=""/>
+	    </MEMBERS>
+	    <THEMROLES/>
+	    <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="0.2" primary="NP V PP.cause" secondary="Transitive; PP-cause" xtag="0.2"/>
+		    <EXAMPLES>
+		        <EXAMPLE>He died of illness.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Patient">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+			<PREP value="of | from">
+			    <SELRESTRS/>
+			</PREP>
+			<NP value="Causer">
+			    <SYNRESTRS/>
+			</NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="cause">
+		            <ARGS>
+		                <ARG type="ThemRole" value="Causer"/>
+		                <ARG type="Event" value="E"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="alive">
+		            <ARGS>
+		                <ARG type="Event" value="start(E)"/>
+		                <ARG type="ThemRole" value="Patient"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED bool="!" value="alive">
+		            <ARGS>
+		                <ARG type="Event" value="result(E)"/>
+		                <ARG type="ThemRole" value="Patient"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+	    </FRAMES>
+	    <SUBCLASSES/>
+    	</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

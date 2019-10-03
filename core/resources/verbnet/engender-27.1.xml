@@ -1,0 +1,130 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="engender-27.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="beget" wn="" grouping=""/>
+        <MEMBER name="bring" wn="" grouping="bring.02"/>
+        <MEMBER name="bring_about" wn="" grouping="bring.02"/>
+        <MEMBER name="create" wn="create%2:36:00 create%2:36:02" grouping="create.01"/>
+        <MEMBER name="engender" wn="engender%2:36:00" grouping=""/>
+        <MEMBER name="generate" wn="generate%2:36:00" grouping="generate.01"/>
+        <MEMBER name="kindle" wn="kindle%2:37:00" grouping=""/>
+        <MEMBER name="produce" wn="produce%2:36:03" grouping="produce.01"/>
+        <MEMBER name="raise" wn="raise%2:32:00 raise%2:36:06 raise%2:32:06" grouping="raise.03"/> 
+        <MEMBER name="return" wn="return%2:36:00" grouping="return.02"/>
+        <MEMBER name="set-in_motion" wn="set_in_motion%2:35:05" grouping="set.06"/>
+        <MEMBER name="set_off" wn="set_off%2:32:00 set_off%2:36:00" grouping=""/>
+        <MEMBER name="shape" wn="shape%2:31:00" grouping="shape.02"/>
+        <MEMBER name="sire" wn="" grouping=""/>
+        <MEMBER name="spawn" wn="spawn%2:36:00" grouping="spawn.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Causer">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="abstract"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Racial inequality engenders conflict.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Causer">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED bool="!" value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="nonagentive_cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Causer"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="engender-27.1-1">
+            <MEMBERS>
+                <MEMBER name="actuate" wn="actuate%2:36:00" grouping=""/>
+                <MEMBER name="arouse" wn="arouse%2:36:00" grouping=""/>
+                <MEMBER name="call_forth" wn="call_forth%2:36:01 call_forth%2:36:00" grouping="call.02"/>
+                <MEMBER name="cause" wn="cause%2:36:00" grouping="cause.01"/>  
+                <MEMBER name="elicit" wn="" grouping=""/>
+                <MEMBER name="incite" wn="incite%2:32:00" grouping="incite.01"/>
+                <MEMBER name="inspire" wn="inspire%2:37:00 inspire%2:36:00" grouping="inspire.01"/>
+                <MEMBER name="instigate" wn="instigate%2:32:00" grouping=""/> 
+                <MEMBER name="prompt" wn="prompt%2:36:00" grouping="prompt.01"/>
+                <MEMBER name="provoke" wn="provoke%2:37:00 provoke%2:36:00" grouping="provoke.01"/>
+                <MEMBER name="spark" wn="spark%2:36:00" grouping="spark.01"/>
+                <MEMBER name="stimulate" wn="stimulate%2:36:00 stimulate%2:32:00" grouping="stimulate.01"/>
+                <MEMBER name="stir_up" wn="stir_up%2:32:00" grouping="stir.02"/>
+                <MEMBER name="trigger" wn="" grouping=""/>
+            </MEMBERS>
+            <THEMROLES>
+            </THEMROLES> 
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V S" secondary="NP-INF-OC" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The bug causes the chip to give wrong answers for some mathematical calculations.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Causer">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Predicate">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED bool="!" value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="nonagentive_cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Causer"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

@@ -1,0 +1,143 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="act-114" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="action" wn="action%2:36:00" grouping=""/>
+        <MEMBER name="carry_out" wn="carry_out%2:36:00" grouping="carry.08"/>
+        <MEMBER name="carry_through" wn="carry_through%2:36:00" grouping="carry.08"/>
+        <MEMBER name="conduct" wn="conduct%2:36:00 conduct%2:41:00" grouping="conduct.01 conduct.02"/>
+        <MEMBER name="execute" wn="execute%2:36:00" grouping="execute.02"/>
+        <MEMBER name="fulfill" wn="fulfill%2:36:00" grouping="fulfill.01"/>
+        <MEMBER name="make" wn="make%2:41:00 make%2:36:08" grouping="make.01 make.02"/>
+        <MEMBER name="cause" wn="cause%2:36:00" grouping="cause.01"/>
+        <MEMBER name="engage_in" wn="engage_in%2:41:06" grouping="engage.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Predicate">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>They carried out the deed."</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Predicate">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="act">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Predicate"/>
+                    </ARGS> 
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="act-114-1">
+            <MEMBERS>
+                <MEMBER name="do" wn="do%2:41:01 do%2:36:01 do%2:41:04 do%2:36:02" grouping="do.01"/>
+                <MEMBER name="perform" wn="perform%2:36:00" grouping="perform.01"/>
+            </MEMBERS>
+                <THEMROLES/>    
+                <FRAMES>
+                    <FRAME>    
+                        <DESCRIPTION descriptionNumber="" primary="NP V" secondary="" xtag=""/>
+                        <EXAMPLES>
+                            <EXAMPLE>No one acted.</EXAMPLE>
+                        </EXAMPLES>
+                        <SYNTAX>
+                            <NP value="Agent">
+                                <SYNRESTRS/>
+                            </NP>
+                            <VERB/>
+                        </SYNTAX>
+                        <SEMANTICS>
+                            <PRED value="act">
+                                <ARGS>
+                                    <ARG type="Event" value="during(E)"/>
+                                    <ARG type="ThemRole" value="Agent"/>
+                                    <ARG type="ThemRole" value="?Predicate"/>
+                                </ARGS>
+                            </PRED>
+                        </SEMANTICS>
+                    </FRAME>    
+                </FRAMES>
+                <SUBCLASSES>
+                    <VNSUBCLASS ID="act-114-1-1">
+                        <MEMBERS>
+                            <MEMBER name="act" wn="act%2:41:00" grouping="act.02"/>
+                            <MEMBER name="move" wn="move%2:41:00" grouping="move.02"/>
+                        </MEMBERS>
+                        <THEMROLES/>
+                        <FRAMES>    
+                            <FRAME>
+                                <DESCRIPTION descriptionNumber="" primary="NP V PP.theme" secondary="" xtag=""/>
+                                <EXAMPLES>
+                                    <EXAMPLE>We moved (quickly) on the buyer's offer.</EXAMPLE>
+                                </EXAMPLES>
+                                <SYNTAX>
+                                    <NP value="Agent">
+                                         <SYNRESTRS/>
+                                    </NP>
+                                    <VERB/>
+                                    <PREP value="on">
+                                        <SELRESTRS/>
+                                    </PREP>
+                                    <NP value="Predicate">
+                                        <SYNRESTRS/>
+                                    </NP>
+                                </SYNTAX>
+                                <SEMANTICS>
+                                    <PRED value="act">
+                                        <ARGS>
+                                            <ARG type="Event" value="during(E)"/>
+                                            <ARG type="ThemRole" value="Agent"/>
+                                            <ARG type="ThemRole" value="Predicate"/>
+                                        </ARGS>
+                                    </PRED>
+                                </SEMANTICS>
+                            </FRAME>
+                            <FRAME>
+                                <DESCRIPTION descriptionNumber="" primary="NP V PP.predicate" secondary="" xtag=""/>
+                                <EXAMPLES>
+                                    <EXAMPLE>We must act to end hunger.</EXAMPLE>
+                                </EXAMPLES>
+                                <SYNTAX>
+                                    <NP value="Agent">
+                                        <SYNRESTRS/>
+                                    </NP>
+                                    <VERB/>
+                                    <NP value="Predicate">
+                                        <SYNRESTRS/>
+                                    </NP>
+                                </SYNTAX>
+                                <SEMANTICS>
+                                    <PRED value="act">
+                                        <ARGS>
+                                            <ARG type="Event" value="during(E)"/>
+                                            <ARG type="ThemRole" value="Agent"/>
+                                            <ARG type="ThemRole" value="Predicate"/>
+                                        </ARGS>
+                                    </PRED>
+                                </SEMANTICS>
+                            </FRAME>   
+                        </FRAMES>
+                        <SUBCLASSES/>
+                     </VNSUBCLASS>
+                 </SUBCLASSES>
+           </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

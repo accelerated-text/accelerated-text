@@ -1,0 +1,410 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="convert-26.6.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="advert" wn="advert%2:32:01" grouping=""/> 
+        <MEMBER name="come_around" wn="come_around%2:31:00" grouping=""/>
+        <MEMBER name="fall" wn="fall%2:30:08" grouping="fall.02"/>
+        <MEMBER name="get" wn="get%2:30:00" grouping="get.02 get.03"/>
+        <MEMBER name="get_around" wn="get_around%2:38:00" grouping=""/>
+        <MEMBER name="get_down" wn="get_down%2:30:00" grouping=""/>
+        <MEMBER name="go_back" wn="go_back%2:30:00" grouping=""/>
+        <MEMBER name="resort" wn="resort%2:41:11" grouping=""/>
+        <MEMBER name="return" wn="return%2:38:00" grouping="return.01"/>
+        <MEMBER name="revert" wn="revert%2:30:00" grouping="revert.01"/>
+        <MEMBER name="settle_down" wn="settle_down%2:30:00" grouping=""/>
+        <MEMBER name="take" wn="take%2:41:13" grouping="take.06"/>
+        <MEMBER name="turn" wn="turn%2:38:14" grouping="turn.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Patient">
+	    <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Result">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Initial_State">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="P-ING-SC; to-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>He converted to believing in Buddha.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="to">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Result">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="sc_ing"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="convert">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.goal" secondary="PP; to-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>He converted to Buddhism.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="to">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Result">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="convert">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="convert-26.6.2-1">
+	    <MEMBERS>
+		<MEMBER name="return" wn="return%2:38:00 return%2:30:00" grouping="return.06"/>
+		<MEMBER name="revert" wn="revert%2:30:00" grouping="revert.01"/>
+		<MEMBER name="shift" wn="shift%2:30:04 shift%2:30:03 shift%2:30:02" grouping="shift.02"/>
+		<MEMBER name="turn" wn="turn%2:38:00 turn%2:30:04" grouping="turn.03"/>
+	    </MEMBERS>
+	    <THEMROLES/>
+	    <FRAMES>
+		<FRAME>
+                    <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.source PP.goal" secondary="PP-PP; from-PP to-PP" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>He converted from Christianity to Buddhism.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <PREP value="from">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Initial_State">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="to">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Result">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Initial_State"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Result"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                             </ARGS>
+                        </PRED>
+                        <PRED value="convert">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Initial_State"/>
+                                <ARG type="ThemRole" value="Result"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+	    </FRAMES>
+	    <SUBCLASSES>
+		<VNSUBCLASS ID="convert-26.6.2-1-1">
+		    <MEMBERS>
+		        <MEMBER name="change_over" wn="change_over%2:30:02" grouping=""/>
+		        <MEMBER name="convert" wn="convert%2:30:07" grouping="convert.02"/>
+		        <MEMBER name="move_over" wn="" grouping=""/>
+		        <MEMBER name="switch" wn="switch%2:30:02 switch%2:30:00" grouping="switch.01"/>
+		        <MEMBER name="switch_over" wn="switch_over%2:30:00" grouping=""/>
+		    </MEMBERS>
+		    <THEMROLES>
+			<THEMROLE type="Agent">
+			   <SELRESTRS/>
+			</THEMROLE>
+		    </THEMROLES>
+		    <FRAMES>
+		        <FRAME>
+		            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag="0.2"/>
+		            <EXAMPLES>
+		                <EXAMPLE>He converted.</EXAMPLE>
+		            </EXAMPLES>
+		            <SYNTAX>
+		                <NP value="Patient">
+		                    <SYNRESTRS/>
+		                </NP>
+		                <VERB/>
+		            </SYNTAX>
+		            <SEMANTICS>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="?Initial_State"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="result(E)"/>
+                                        <ARG type="ThemRole" value="?Result"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                     </ARGS>
+                                </PRED>
+                                <PRED value="convert">
+		                    <ARGS>
+		                        <ARG type="Event" value="during(E)"/>
+		                        <ARG type="ThemRole" value="Patient"/>
+		                        <ARG type="ThemRole" value="?Initial_State"/>
+		                        <ARG type="ThemRole" value="?Goal"/>
+		                    </ARGS>
+		                </PRED>
+		            </SEMANTICS>
+		        </FRAME>
+		        <FRAME>
+		            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+		            <EXAMPLES>
+		                <EXAMPLE>I converted him.</EXAMPLE>
+		            </EXAMPLES>
+		            <SYNTAX>
+		                <NP value="Agent">
+		                    <SYNRESTRS/>
+		                </NP>
+		                <VERB/>
+		                <NP value="Patient">
+		                    <SYNRESTRS/>
+		                </NP>
+		            </SYNTAX>
+		            <SEMANTICS>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="?Initial_State"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="result(E)"/>
+                                        <ARG type="ThemRole" value="?Result"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                     </ARGS>
+                                </PRED>
+		                <PRED value="convert">
+		                    <ARGS>
+		                        <ARG type="Event" value="during(E)"/>
+		                        <ARG type="ThemRole" value="Patient"/>
+		                        <ARG type="ThemRole" value="?Initial_State"/>
+		                        <ARG type="ThemRole" value="?Result"/>
+		                    </ARGS>
+		                </PRED>
+		                <PRED value="cause">
+		                    <ARGS>
+		                        <ARG type="Event" value="E"/>
+		                        <ARG type="ThemRole" value="Agent"/>
+		                    </ARGS>
+		                </PRED>
+		            </SEMANTICS>
+		        </FRAME>
+		        <FRAME>
+		            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP S_ING" secondary="NP-P-ING-OC; to-PP" xtag="0.2"/>
+		            <EXAMPLES>
+		                <EXAMPLE>I converted him to believing in Buddha.</EXAMPLE>
+		            </EXAMPLES>
+		            <SYNTAX>
+		                <NP value="Agent">
+		                    <SYNRESTRS/>
+		                </NP>
+		                <VERB/>
+		                <NP value="Patient">
+		                    <SYNRESTRS/>
+		                </NP>
+		                <PREP value="to">
+		                    <SELRESTRS/>
+		                </PREP>
+		                <NP value="Result">
+		                    <SYNRESTRS>
+		                        <SYNRESTR Value="+" type="oc_ing"/>
+		                    </SYNRESTRS>
+		                </NP>
+		            </SYNTAX>
+		            <SEMANTICS>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="?Initial_State"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="result(E)"/>
+                                        <ARG type="ThemRole" value="Result"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                     </ARGS>
+                                </PRED>
+		                <PRED value="convert">
+		                    <ARGS>
+		                        <ARG type="Event" value="during(E)"/>
+		                        <ARG type="ThemRole" value="Patient"/>
+		                        <ARG type="ThemRole" value="?Initial_State"/>
+		                        <ARG type="ThemRole" value="Result"/>
+		                    </ARGS>
+		                </PRED>
+		                <PRED value="cause">
+		                    <ARGS>
+		                        <ARG type="Event" value="E"/>
+		                        <ARG type="ThemRole" value="Agent"/>
+		                    </ARGS>
+		                </PRED>
+		            </SEMANTICS>
+		        </FRAME>
+		        <FRAME>
+		            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.goal" secondary="NP-PP; to-PP" xtag="0.2"/>
+		            <EXAMPLES>
+		                <EXAMPLE>I converted him to Buddhism.</EXAMPLE>
+		            </EXAMPLES>
+		            <SYNTAX>
+		                <NP value="Agent">
+		                    <SYNRESTRS/>
+		                </NP>
+		                <VERB/>
+		                <NP value="Patient">
+		                    <SYNRESTRS/>
+		                </NP>
+		                <PREP value="to">
+		                    <SELRESTRS/>
+		                </PREP>
+		                <NP value="Result">
+		                    <SYNRESTRS/>
+		                </NP>
+		            </SYNTAX>
+		            <SEMANTICS>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="?Initial_State"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="result(E)"/>
+                                        <ARG type="ThemRole" value="Result"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                     </ARGS>
+                                </PRED>
+		                <PRED value="convert">
+		                    <ARGS>
+		                        <ARG type="Event" value="during(E)"/>
+		                        <ARG type="ThemRole" value="Patient"/>
+		                        <ARG type="ThemRole" value="?Initial_State"/>
+		                        <ARG type="ThemRole" value="Result"/>
+		                    </ARGS>
+		                </PRED>
+		                <PRED value="cause">
+		                    <ARGS>
+		                        <ARG type="Event" value="E"/>
+		                        <ARG type="ThemRole" value="Agent"/>
+		                    </ARGS>
+		                </PRED>
+		            </SEMANTICS>
+		        </FRAME>
+		    </FRAMES>
+		    <SUBCLASSES/>
+		</VNSUBCLASS>
+	    </SUBCLASSES>
+	</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

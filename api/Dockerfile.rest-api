@@ -1,0 +1,17 @@
+FROM registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps as builder
+
+COPY ./api /usr/src/app
+COPY ./core /usr/src/core
+RUN clojure -A:rest-uberjar
+
+CMD ["java", "-jar", "target/app-1.0.0-SNAPSHOT-standalone.jar"]
+
+
+FROM openjdk:8u171-jre-alpine3.8
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY --from=builder /usr/src/app/target/app-1.0.0-SNAPSHOT-standalone.jar /usr/src/app
+
+CMD ["java", "-jar", "app-1.0.0-SNAPSHOT-standalone.jar"]

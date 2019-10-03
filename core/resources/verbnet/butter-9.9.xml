@@ -1,0 +1,269 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="butter-9.9" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="aromatize" wn="aromatize%2:39:00" grouping=""/>
+        <MEMBER name="asphalt" wn="asphalt%2:35:00" grouping=""/>
+        <MEMBER name="bait" wn="" grouping=""/>
+        <MEMBER name="black" wn="black%2:30:00" grouping=""/>
+        <MEMBER name="blanket" wn="blanket%2:35:00 blanket%2:42:00" grouping=""/>
+        <MEMBER name="blindfold" wn="blindfold%2:35:00" grouping=""/>
+        <MEMBER name="board" wn="board%2:38:00" grouping="board.04"/>
+        <MEMBER name="bread" wn="bread%2:35:00" grouping=""/>
+        <MEMBER name="brick" wn="" grouping=""/>
+        <MEMBER name="bridle" wn="bridle%2:35:00" grouping=""/>
+        <MEMBER name="bronze" wn="bronze%2:30:00" grouping=""/>
+        <MEMBER name="butter" wn="butter%2:35:00" grouping=""/>
+        <MEMBER name="buttonhole" wn="" grouping=""/>
+        <MEMBER name="calk" wn="calk%2:35:01" grouping="calk.01"/>
+        <MEMBER name="camouflage" wn="camouflage%2:39:00" grouping=""/>
+        <MEMBER name="cap" wn="cap%2:42:00" grouping="cap.01"/>
+        <MEMBER name="carpet" wn="carpet%2:42:00 carpet%2:35:01 carpet%2:35:00" grouping="carpet.01 carpet.02"/>
+        <MEMBER name="caulk" wn="caulk%2:35:00" grouping=""/>
+        <MEMBER name="chrome" wn="chrome%2:35:00" grouping=""/>
+        <MEMBER name="clay" wn="" grouping=""/>
+        <MEMBER name="cloak" wn="" grouping="cloak.02"/>
+        <MEMBER name="coal" wn="coal%2:40:00" grouping="coal.02"/>
+        <MEMBER name="cork" wn="cork%2:35:00" grouping=""/>
+        <MEMBER name="crown" wn="crown%2:41:00 crown%2:30:01 crown%2:42:00 crown%2:35:00" grouping="crown.01 crown.02 crown.03 crown.04"/>
+        <MEMBER name="crumb" wn="crumb%2:35:00" grouping="crumb.01"/>
+        <MEMBER name="diaper" wn="" grouping=""/>
+        <MEMBER name="dope" wn="dope%2:30:00" grouping="dope.02"/>
+        <MEMBER name="drug" wn="drug%2:29:00" grouping=""/>
+        <MEMBER name="feather" wn="feather%2:35:00" grouping="feather.02"/>
+        <MEMBER name="fence" wn="fence%2:35:00" grouping="fence.01"/>
+        <MEMBER name="flour" wn="flour%2:35:00" grouping=""/>
+        <MEMBER name="forest" wn="forest%2:35:00" grouping=""/>
+        <MEMBER name="frame" wn="frame%2:35:00 frame%2:42:00" grouping="frame.01"/>
+        <MEMBER name="frost" wn="frost%2:35:00" grouping="frost.01"/>
+        <MEMBER name="fuel" wn="fuel%2:40:00" grouping="fuel.01"/>
+        <MEMBER name="glaze" wn="glaze%2:35:00 glaze%2:39:00" grouping="glaze.01"/>
+        <MEMBER name="gag" wn="gag%2:39:00 gag%2:35:07" grouping="gag.01"/>
+        <MEMBER name="garland" wn="garland%2:36:00" grouping=""/>
+        <MEMBER name="gas" wn="gas%2:33:00" grouping=""/>
+        <MEMBER name="gild" wn="gild%2:36:00" grouping=""/>
+        <MEMBER name="glass" wn="glass%2:40:00" grouping="glass.01"/>
+        <MEMBER name="glove" wn="" grouping=""/>
+        <MEMBER name="graffiti" wn="" grouping=""/>
+        <MEMBER name="grass" wn="grass%2:35:00 grass%2:35:02" grouping="grass.02"/>
+        <MEMBER name="gravel" wn="gravel%2:35:00" grouping=""/>
+        <MEMBER name="grease" wn="grease%2:35:00" grouping=""/>
+        <MEMBER name="groove" wn="groove%2:35:02" grouping=""/>
+        <MEMBER name="halter" wn="halter%2:41:00" grouping=""/>
+        <MEMBER name="harness" wn="harness%2:35:00" grouping="harness.01"/>
+        <MEMBER name="hat" wn="hat%2:29:00 hat%2:40:00" grouping=""/>
+        <MEMBER name="heel" wn="heel%2:30:00" grouping="heel.05"/>
+        <MEMBER name="ice" wn="ice%2:35:00" grouping="ice.01"/>
+        <MEMBER name="ink" wn="ink%2:30:00" grouping="ink.03"/>
+        <MEMBER name="label" wn="label%2:35:00" grouping="label.02"/>
+        <MEMBER name="leash" wn="leash%2:35:00" grouping=""/>
+        <MEMBER name="leaven" wn="leaven%2:38:00" grouping=""/>
+        <MEMBER name="lipstick" wn="lipstick%2:29:00" grouping=""/>
+        <MEMBER name="lubricate" wn="lubricate%2:30:02" grouping="lubricate.02"/>
+        <MEMBER name="mantle" wn="mantle%2:38:00" grouping=""/>
+        <MEMBER name="mulch" wn="mulch%2:35:00" grouping=""/>
+        <MEMBER name="muzzle" wn="muzzle%2:40:00" grouping=""/>
+        <MEMBER name="nickel" wn="nickel%2:35:00" grouping=""/>
+        <MEMBER name="oil" wn="oil%2:35:00 oil%2:29:00" grouping=""/>
+        <MEMBER name="ornament" wn="ornament%2:36:00" grouping=""/>
+        <MEMBER name="panel" wn="panel%2:36:00" grouping=""/>
+        <MEMBER name="paper" wn="paper%2:35:00 paper%2:35:01" grouping=""/>
+        <MEMBER name="parquet" wn="" grouping=""/>
+        <MEMBER name="patch" wn="patch%2:30:00" grouping="patch.01"/>
+        <MEMBER name="pepper" wn="pepper%2:39:00" grouping=""/>
+        <MEMBER name="perfume" wn="perfume%2:29:00" grouping=""/>
+        <MEMBER name="plank" wn="plank%2:35:00" grouping=""/>
+        <MEMBER name="plaster" wn="plaster%2:35:02 plaster%2:35:00" grouping=""/>
+        <MEMBER name="poison" wn="poison%2:30:00" grouping="poison.02"/>
+        <MEMBER name="polish" wn="" grouping="polish.01"/>
+        <MEMBER name="pomade" wn="pomade%2:29:00" grouping=""/>
+        <MEMBER name="poster" wn="" grouping=""/>
+        <MEMBER name="postmark" wn="postmark%2:35:00" grouping=""/>
+        <MEMBER name="powder" wn="powder%2:29:00" grouping=""/>
+        <MEMBER name="punctuate" wn="" grouping=""/>
+        <MEMBER name="putty" wn="putty%2:35:00" grouping=""/>
+        <MEMBER name="robe" wn="robe%2:29:00" grouping=""/>
+        <MEMBER name="roof" wn="roof%2:35:00" grouping=""/>
+        <MEMBER name="rosin" wn="rosin%2:35:00" grouping=""/>
+        <MEMBER name="rouge" wn="rouge%2:29:00" grouping=""/>
+        <MEMBER name="rut" wn="?rut%2:35:00" grouping=""/>
+        <MEMBER name="saddle" wn="saddle%2:35:01" grouping=""/>
+        <MEMBER name="salt" wn="salt%2:39:00" grouping="salt.01"/>
+        <MEMBER name="salve" wn="salve%2:29:00" grouping=""/>
+        <MEMBER name="sand" wn="sand%2:35:00" grouping=""/>
+        <MEMBER name="scent" wn="scent%2:39:02 scent%2:29:00" grouping="scent.01"/>
+        <MEMBER name="seed" wn="seed%2:35:01" grouping="seed.03"/>
+        <MEMBER name="sequin" wn="" grouping=""/>
+        <MEMBER name="shawl" wn="" grouping=""/>
+        <MEMBER name="shingle" wn="shingle%2:35:00" grouping=""/>
+        <MEMBER name="shoe" wn="shoe%2:29:00" grouping=""/>
+        <MEMBER name="shutter" wn="shutter%2:35:00" grouping=""/>
+        <MEMBER name="side" wn="" grouping=""/>
+        <MEMBER name="silver" wn="silver%2:35:00" grouping=""/>
+        <MEMBER name="slate" wn="slate%2:35:00" grouping="slate.03"/>
+        <MEMBER name="slime" wn="slime%2:35:00" grouping=""/>
+        <MEMBER name="slipcover" wn="" grouping=""/>
+        <MEMBER name="sod" wn="sod%2:35:00" grouping=""/>
+        <MEMBER name="soil" wn="soil%2:35:00" grouping=""/>
+        <MEMBER name="sole" wn="sole%2:30:00" grouping=""/>
+        <MEMBER name="spice" wn="spice%2:39:00" grouping=""/>
+        <MEMBER name="stain" wn="stain%2:30:01" grouping="stain.01"/>
+        <MEMBER name="starch" wn="starch%2:30:00" grouping=""/>
+        <MEMBER name="stopper" wn="stopper%2:35:00" grouping=""/>
+        <MEMBER name="stress" wn="stress%2:32:01" grouping="stress.03"/>
+        <MEMBER name="string" wn="string%2:35:04" grouping="string.03"/>
+        <MEMBER name="stucco" wn="stucco%2:36:00 stucco%2:35:00" grouping=""/>
+        <MEMBER name="sugar" wn="sugar%2:39:00" grouping=""/>
+        <MEMBER name="sulphur" wn="sulphur%2:30:00" grouping=""/>
+        <MEMBER name="tag" wn="tag%2:35:00" grouping="tag.01 tag.04"/>
+        <MEMBER name="tar" wn="tar%2:35:00" grouping=""/>
+        <MEMBER name="tarmac" wn="tarmac%2:35:00" grouping=""/>
+        <MEMBER name="tassel" wn="" grouping=""/>
+        <MEMBER name="thatch" wn="thatch%2:35:00" grouping=""/>
+        <MEMBER name="ticket" wn="?ticket%2:41:00" grouping=""/>
+        <MEMBER name="tile" wn="tile%2:35:00" grouping=""/>
+        <MEMBER name="tinsel" wn="tinsel%2:36:00" grouping="tinsel.01"/>
+        <MEMBER name="top" wn="top%2:35:00" grouping="top.04"/>
+        <MEMBER name="turf" wn="turf%2:35:00" grouping=""/>
+        <MEMBER name="varnish" wn="varnish%2:35:00" grouping=""/>
+        <MEMBER name="veil" wn="veil%2:35:00" grouping=""/>
+        <MEMBER name="veneer" wn="veneer%2:35:00" grouping=""/>
+        <MEMBER name="wallpaper" wn="wallpaper%2:35:00" grouping=""/>
+        <MEMBER name="water" wn="water%2:29:00" grouping="water.01"/>
+        <MEMBER name="wax" wn="wax%2:35:00" grouping="wax.01"/>
+        <MEMBER name="wharf" wn="wharf%2:40:01" grouping="wharf.01"/>
+        <MEMBER name="whitewash" wn="whitewash%2:35:00" grouping="whitewash.01"/>
+        <MEMBER name="wreathe" wn="wreathe%2:35:01 wreathe%2:35:00" grouping=""/>
+        <MEMBER name="yoke" wn="yoke%2:35:00" grouping=""/>
+        <MEMBER name="zipcode" wn="" grouping=""/>
+        <MEMBER name="insulate" wn="insulate%2:30:01" grouping="insulate.01"/>
+        <MEMBER name="sauce" wn="sauce%2:35:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Initial_Location">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="location"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Destination">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="location"/>
+                <SELRESTR Value="-" type="region"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP.destination" secondary="Transitive; Destination Object" xtag="0.2"/>
+            <!-- Theme specified by verb-->
+            <EXAMPLES>
+                <EXAMPLE>Lora buttered the toast.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Destination">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Initial_Location"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.theme" secondary="NP-PP; Theme-PP" xtag=""/>
+            <!-- Theme must be a hyponym of verb's zero-related nominal, or specify additional information-->
+            <EXAMPLES>
+                <EXAMPLE>Lora buttered the toast with unsalted butter.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Destination">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Initial_Location"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

@@ -1,0 +1,64 @@
+@import '../styles/variables'
+@import '../styles/buttons'
+
+
+.className
+
+    align-items:            start
+    display:                grid
+    grid-gap:               $space-s
+    grid-template-columns:  1fr
+    margin:                 0
+    padding:                0
+    width:                  100%
+
+    &.hasDelete
+
+        grid-template-columns:      auto $space-l
+
+    &.isEditing
+
+        align-items:                center
+        grid-gap:                   $space-xs
+        grid-template-columns:      1fr 6em 6em
+
+        &.compact
+
+            grid-template-columns:  1fr 2em 2em
+
+        > button
+
+            font-size:              $size-xs
+
+        > button,
+        > input
+
+            margin:                 0
+            padding:                $space-xxs
+            width:                  100%
+
+    > .text
+
+        cursor:             pointer
+        display:            block
+        margin:             0
+        padding:            0
+
+        &:hover
+            &::after
+
+                content:    ' 📝'
+                display:    inline
+                font-size:  100% / $size-factor
+
+    > .delete
+
+        @include unstyled-button
+
+        font-size:          $size-s
+
+        opacity:            .2
+
+        &:hover
+
+            opacity:        1

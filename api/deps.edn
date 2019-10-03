@@ -1,0 +1,64 @@
+{:deps      {acceleratedtext/openccg             {:mvn/version "0.10.5"}
+             ccg-kit                             {:local/root "../core"}
+             ch.qos.logback/logback-classic      {:mvn/version "1.2.3"}
+             cheshire                            {:mvn/version "5.8.1"}
+             clj-time                            {:mvn/version "0.5.1"}
+             com.amazonaws/aws-lambda-java-core  {:mvn/version "1.0.0"}
+             com.amazonaws/aws-java-sdk-dynamodb {:mvn/version "1.11.556"}
+             com.cognitect.aws/api               {:mvn/version "0.8.352"}
+             com.cognitect.aws/endpoints         {:mvn/version "1.1.11.633"}
+             com.cognitect.aws/s3                {:mvn/version "726.2.488.0"}
+             com.taoensso/faraday                {:git/url "https://github.com/tokenmill/faraday.git"
+                                                  :sha     "23e71e7ac8cf6c68efe9446da13ddd913c91accf"}
+             com.walmartlabs/lacinia             {:mvn/version "0.32.0"}
+             http-kit                            {:mvn/version "2.3.0"}
+             net.sf.extjwnl/extjwnl              {:mvn/version "2.0.2"}
+             net.sf.extjwnl/extjwnl-data-wn31    {:mvn/version "1.2"}
+             metosin/jsonista                    {:mvn/version "0.2.2"}
+             org.clojure/clojure                 {:mvn/version "1.10.0"}
+             org.clojure/data.csv                {:mvn/version "0.1.4"}
+             org.clojure/tools.logging           {:mvn/version "0.4.1"}
+             org.eclipse.jetty/jetty-http        {:mvn/version "9.4.20.v20190813"}
+             org.eclipse.jetty/jetty-util        {:mvn/version "9.4.20.v20190813"}
+             org.eclipse.jetty/jetty-client      {:mvn/version "9.4.20.v20190813"}}
+ :paths     ["src" "resources"]
+ :mvn/repos {"central"      {:url "https://repo1.maven.org/maven2/"}
+             "clojars"      {:url "https://repo.clojars.org/"}}
+ :aliases   {:dev
+             {:extra-paths ["spec" "test" "test/resources"]}
+             :test
+             {:extra-paths ["test"]
+              :extra-deps  {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
+                                                       :sha     "028a6d41ac9ac5d5c405dfc38e4da6b4cc1255d5"}}
+              :main-opts   ["-m" "cognitect.test-runner"]}
+             :native-image
+             {:extra-deps {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
+                                                  :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
+                                                  :exclusions [org.slf4j/slf4j-nop]}}
+              :main-opts  ["-m" "cambada.native-image"
+                           "-m" "api.graphql.lambda"
+                           "-a" "api.graphql.lambda"
+                           "-O" "-initialize-at-build-time"
+                           "-O" "-static"
+                           "-O" "-enable-all-security-services"
+                           "-O" "H:ConfigurationFileDirectories=graalvm"
+                           "-O" "-initialize-at-run-time=org.httpkit.client.SslContextFactory"
+                           "-O" "-initialize-at-run-time=org.httpkit.client.HttpClient"]}
+             :rest-uberjar
+             {:extra-deps {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
+                                                  :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
+                                                  :exclusions [org.slf4j/slf4j-nop]}}
+              :main-opts  ["-m" "cambada.uberjar"
+                           "-m" "api.server"
+                           "-a" "api.server"]}
+             :import-uberjar
+             {:extra-deps {luchiniatwork/cambada {:git/url    "https://github.com/xfthhxk/cambada"
+                                                  :sha        "8fdc7d29a41620ad3e9e6210fd7140f3a4c7936b"
+                                                  :exclusions [org.slf4j/slf4j-nop]}}
+              :main-opts  ["-m" "cambada.uberjar"
+                           "-m" "importer.core"
+                           "-a" "importer.core"]}
+             :clj-kondo
+             {:main-opts  ["-m" "clj-kondo.main --lint src test"]
+              :extra-deps {clj-kondo {:mvn/version "2019.07.31-alpha"}}
+              :jvm-opts   ["-Dclojure.main.report=stderr"]}}}

@@ -1,0 +1,49 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="break_down-45.8" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+	<MEMBER name="break_down" wn="" grouping=""/>
+        <MEMBER name="croak" wn="" grouping=""/>
+	<MEMBER name="die" wn="" grouping=""/>
+        <MEMBER name="expire" wn="" grouping=""/>
+        <MEMBER name="fall_apart" wn="fall_apart%2:37:00 fall_apart%2:35:00         fall_apart%2:30:00 fall_apart%2:30:03" grouping="fall.10"/>
+	<MEMBER name="go_out" wn="" grouping=""/>
+	<MEMBER name="go_down" wn="" grouping=""/>
+	<MEMBER name="go_off" wn="" grouping=""/>
+	<MEMBER name="give_out" wn="" grouping=""/>
+	<MEMBER name="give_way" wn="" grouping="give.06"/>
+	<MEMBER name="give" wn="" grouping="give.06"/>
+        <MEMBER name="kick_the_bucket" wn="" grouping=""/>
+        <MEMBER name="pass_away" wn="" grouping=""/>
+        <MEMBER name="perish" wn="" grouping=""/>
+	<MEMBER name="poop_out" wn="" grouping=""/>
+	<MEMBER name="fizzle_out" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+	<THEMROLE type="Patient">
+	    <SELRESTRS/>
+	</THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+	<FRAME>
+	    <DESCRIPTION descriptionNumber="" primary="NP V" secondary="Basic Intransitive" xtag=""/>
+	    <EXAMPLES>
+		<EXAMPLE>The bridge gave way.</EXAMPLE>
+	    </EXAMPLES>
+	    <SYNTAX>
+		<NP value="Patient">
+		   <SYNRESTRS/>
+		</NP>
+		<VERB/>
+	    </SYNTAX>
+	    <SEMANTICS>
+		<PRED value="degradation_material_integrity">
+		    <ARGS>
+			<ARG type="Event" value="result(E)"/>
+			<ARG type="ThemRole" value="Patient"/>
+		    </ARGS>
+		</PRED>
+	    </SEMANTICS>
+	</FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

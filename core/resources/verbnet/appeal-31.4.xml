@@ -1,0 +1,172 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="appeal-31.4" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS/>
+    <THEMROLES>
+        <THEMROLE type="Stimulus">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Experiencer">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.experiencer" secondary="PP; Experiencer-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>This painting appeals to Malinda.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Stimulus">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="to">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Experiencer">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="emotional_state">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="VerbSpecific" value="Emotion"/>
+                        <ARG type="ThemRole" value="Experiencer"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="in_reaction_to">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="appeal-31.4-1">
+            <MEMBERS>
+                <MEMBER name="niggle" wn="niggle%2:37:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V PP.experiencer" secondary="PP; at-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The irritation niggled at Melinda.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Stimulus">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <PREP value="at">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Experiencer">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="emotional_state">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="VerbSpecific" value="Emotion"/>
+                                <ARG type="ThemRole" value="Experiencer"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="in_reaction_to">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Stimulus"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="appeal-31.4-2">
+            <MEMBERS>
+                <MEMBER name="grate" wn="grate%2:37:00" grouping="grate.02"/>
+                <MEMBER name="jar" wn="jar%2:37:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V PP.experiencer" secondary="PP; on-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The music grates on me.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Stimulus">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <PREP value="on">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Experiencer">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="emotional_state">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="VerbSpecific" value="Emotion"/>
+                                <ARG type="ThemRole" value="Experiencer"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="in_reaction_to">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Stimulus"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="appeal-31.4-3">
+            <MEMBERS>
+                <MEMBER name="appeal" wn="appeal%2:37:00" grouping="appeal.03"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V" secondary="Basic Intransitive" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Stuff matters.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Stimulus">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="emotional_state">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="VerbSpecific" value="Emotion"/>
+                                <ARG type="ThemRole" value="?Experiencer"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="in_reaction_to">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Stimulus"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

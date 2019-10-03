@@ -1,0 +1,52 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="trifle-105.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="dally" wn="dally%2:41:00 dally%2:32:00 dally%2:31:01" grouping="dally.02"/>
+        <MEMBER name="diddle" wn="diddle%2:35:00" grouping=""/>
+        <MEMBER name="fiddle" wn="fiddle%2:35:00 fiddle%2:35:03 fiddle%2:30:00" grouping="fiddle.04"/>
+        <MEMBER name="play" wn="play%2:29:00 play%2:35:00 play%2:31:01 play%2:41:13" grouping="play.07"/>
+        <MEMBER name="toy" wn="toy%2:52:00 toy%2:35:00 toy%2:29:00" grouping="toy.01"/>
+        <MEMBER name="trifle" wn="trifle%2:31:01" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+	    <SELRESTRS logic="or">
+	        <SELRESTR Value="+" type="animate"/>
+		<SELRESTR Value="+" type="organization"/>
+	    </SELRESTRS>
+	</THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V PP.theme" secondary="PP;PP-theme" xtag="0.2"/>
+             <EXAMPLES>
+                 <EXAMPLE>She trifled with him.</EXAMPLE>
+             </EXAMPLES>
+             <SYNTAX>
+                 <NP value="Agent">
+                     <SYNRESTRS/>
+                 </NP>
+                 <VERB/>
+		 <PREP value="with">
+		     <SELRESTRS/>
+		 </PREP>
+		 <NP value="Theme">
+		     <SYNRESTRS/>
+		 </NP>
+             </SYNTAX>
+             <SEMANTICS>
+                 <PRED value="social_interaction">
+                     <ARGS>
+                         <ARG type="Event" value="during(E)"/>
+                         <ARG type="ThemRole" value="Agent"/>
+			 <ARG type="ThemRole" value="Theme"/>
+                     </ARGS>
+                 </PRED>
+             </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

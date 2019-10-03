@@ -1,0 +1,91 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="relate-86.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Co-Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES/>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="relate-86.2-1">
+            <MEMBERS>
+                <MEMBER name="involve" wn="involve%2:42:00" grouping="involve.02"/>
+                <MEMBER name="concern" wn="concern%2:42:00" grouping="concern.01"/>
+                <MEMBER name="touch" wn="touch%2:42:00" grouping="touch.04"/>
+                <MEMBER name="bear_on" wn="bear_on%2:42:00" grouping=""/>
+                <MEMBER name="touch_on" wn="touch_on%2:42:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.1" primary="NP V NP" secondary="NP" xtag="0.1"/>
+                    <EXAMPLES>
+                        <EXAMPLE>This concerns both of us.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Co-Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="relate">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Co-Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="relate-86.2-2">
+            <MEMBERS>
+                <MEMBER name="refer" wn="refer%2:42:00" grouping="refer.02"/>
+                <MEMBER name="pertain" wn="pertain%2:42:01" grouping="pertain.01"/>
+                <MEMBER name="relate" wn="relate%2:42:00" grouping="relate.02"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.co-theme" secondary="PP; to-PP" xtag="0.1"/>
+                    <EXAMPLES>
+                        <EXAMPLE>This pertains to both of us.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+			<PREP value="to">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="Co-Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="relate">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Co-Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

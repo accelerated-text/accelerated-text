@@ -1,0 +1,147 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="allow-64.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="approve" wn="approve%2:32:00 approve%2:31:00" grouping="approve.01 approve.02"/>
+		<MEMBER name="authorize" wn="" grouping=""/>
+		<MEMBER name="endorse" wn="" grouping=""/>
+		<MEMBER name="okay" wn="okay%2:32:00" grouping=""/>
+        <MEMBER name="sanction" wn="sanction%2:32:01 sanction%2:41:01" grouping="sanction.01"/>
+        <MEMBER name="tolerate" wn="tolerate%2:32:01" grouping="tolerate.01"/>    
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Beneficiary">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>They tolerate birds.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Beneficiary">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="allow">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+			<ARG type="ThemRole" value="Beneficiary"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="ING-AC" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>They tolerate smoking.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="ac_ing"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="allow">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+	<FRAME>
+	    <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="POSSING" xtag="0.2"/>
+	    <EXAMPLES>
+		<EXAMPLE>They tolerate our smoking.</EXAMPLE>
+	    </EXAMPLES>
+	    <SYNTAX>
+		<NP value="Agent">
+		    <SYNRESTRS/>
+		</NP>
+		<VERB/>
+		<NP value="Theme">
+		    <SYNRESTRS>
+		        <SYNRESTR Value="+" type="poss_ing"/>
+		    </SYNRESTRS>
+		</NP>
+	    </SYNTAX>
+	    <SEMANTICS>
+		<PRED value="allow">
+		    <ARGS>
+		        <ARG type="Event" value="during(E)"/>
+		        <ARG type="ThemRole" value="Agent"/>
+		        <ARG type="ThemRole" value="Theme"/>
+		        <ARG type="ThemRole" value="?Beneficiary"/>
+		    </ARGS>
+		</PRED>
+	    </SEMANTICS>
+	</FRAME>        
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="allow-64.1-1">
+            <MEMBERS>
+                <MEMBER name="allow" wn="allow%2:32:00" grouping="allow.01"/>
+                <MEMBER name="permit" wn="permit%2:32:00" grouping="permit.01"/>
+            </MEMBERS>
+            <THEMROLES/>    
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP S" secondary="NP-S_INF NP-TOBE" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>They allow us to smoke.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Beneficiary">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Theme">    
+			    <SYNRESTRS>
+				<SYNRESTR Value="+" type="oc_to_inf"/>
+			    </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="allow">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Beneficiary"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

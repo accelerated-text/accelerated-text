@@ -1,0 +1,98 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="confront-98" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="face" wn="face%2:32:00 face%2:33:00 face%2:32:03" grouping="face.01"/>
+        <MEMBER name="confront" wn="confront%2:33:00 confront%2:32:00 confront%2:32:03" grouping="confront.01 confront.02 confront.03"/>
+        <MEMBER name="head_on" wn="" grouping=""/>
+        <MEMBER name="undertake" wn="undertake%2:41:01" grouping="undertake.01"/>
+        <MEMBER name="tackle" wn="tackle%2:41:00" grouping="tackle.01"/>
+        <MEMBER name="take_on" wn="take_on%2:41:00" grouping=""/>
+        <MEMBER name="go_about" wn="go_about%2:41:00" grouping=""/>
+        <MEMBER name="approach" wn="approach%2:41:00" grouping="approach.03"/>
+        <MEMBER name="brave" wn="brave%2:42:00" grouping=""/>
+        <MEMBER name="handle" wn="handle%2:41:00" grouping="handle.02"/>
+        <MEMBER name="intercept" wn="intercept%2:35:00" grouping="intercept.01"/>
+        <MEMBER name="target" wn="target%2:33:00" grouping="target.01"/>
+        <MEMBER name="rival" wn="rival%2:33:00" grouping=""/>
+        <MEMBER name="counter" wn="counter%2:41:00" grouping="counter.01"/>
+        <MEMBER name="pre-empt" wn="" grouping=""/>
+        <MEMBER name="combat" wn="combat%2:33:00" grouping="combat.01"/>
+        <MEMBER name="breast" wn="breast%2:33:00" grouping=""/>
+        <MEMBER name="move_in_on" wn="move_in_on%2:38:00         move_in_on%2:41:00" grouping="move.07"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Instrument">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="NP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>John confronted the disaster.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="confront">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Instrument"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.instrument" secondary="NP-PP; with-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>John confronted it with emergency measures.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+		<PREP value="with">
+		    <SELRESTRS/>
+		</PREP>
+                <NP value="Instrument">
+                    <SYNRESTRS>
+			<SYNRESTR Value="-" type="sentential"/>
+		    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="confront">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Instrument"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

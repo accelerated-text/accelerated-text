@@ -1,0 +1,231 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="scribble-25.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="copy" wn="copy%2:36:05 copy%2:36:01" grouping="copy.01"/>
+        <MEMBER name="forge" wn="forge%2:36:01" grouping="forge.02"/>
+        <MEMBER name="jot" wn="jot%2:32:00" grouping=""/>
+        <MEMBER name="jot_down" wn="jot_down%2:32:00" grouping=""/>
+        <MEMBER name="misspell" wn="" grouping=""/>
+        <MEMBER name="spell" wn="" grouping="spell.01"/>
+        <MEMBER name="take" wn="" grouping="take.12"/>
+        <MEMBER name="take_down" wn="" grouping="take.12"/>
+        <MEMBER name="trace" wn="trace%2:35:00 trace%2:36:00" grouping="trace.02"/>
+        <MEMBER name="underscore" wn="underscore%2:32:03" grouping=""/>
+        <MEMBER name="underline" wn="underline%2:32:03" grouping="underline.02"/>
+    </MEMBERS>
+    <THEMROLES>
+        <!--In most predicates, such as location, Theme really means image_of(Theme)-->
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="machine"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Destination">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Roberto took notes.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="created_image">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="location">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Destination"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.destination" secondary="NP-PP; locative-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Saul jotted down readings on a notepad.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="on | in">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Destination">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="created_image">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="location">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Destination"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+      <VNSUBCLASS ID="scribble-25.2-1">
+        <MEMBERS>
+          <MEMBER name="carve" wn="carve%2:35:02" grouping="carve.01"/>
+          <MEMBER name="chalk" wn="chalk%2:36:00" grouping=""/>
+          <MEMBER name="charcoal" wn="charcoal%2:36:00" grouping=""/>
+          <MEMBER name="crayon" wn="crayon%2:36:00" grouping=""/>
+          <MEMBER name="doodle" wn="doodle%2:36:00" grouping=""/>
+          <MEMBER name="draw" wn="draw%2:31:00 draw%2:36:00 draw%2:36:02" grouping="draw.06 draw.07"/>
+          <MEMBER name="ink" wn="ink%2:32:00" grouping="ink.01"/>
+          <MEMBER name="pencil" wn="pencil%2:36:00" grouping=""/>
+          <MEMBER name="plot" wn="plot%2:36:00" grouping="plot.02"/>
+          <MEMBER name="print" wn="print%2:36:03 print%2:36:00" grouping="print.01 print.02 print.03"/>
+          <MEMBER name="record" wn="record%2:32:00" grouping="record.01"/> 
+          <MEMBER name="scratch" wn="" grouping="scratch.03"/>
+          <MEMBER name="scrawl" wn="scrawl%2:36:00" grouping=""/>
+          <MEMBER name="scribble" wn="scribble%2:32:00 scribble%2:36:00" grouping=""/>
+          <MEMBER name="sketch" wn="sketch%2:36:00" grouping=""/>
+          <MEMBER name="spraypaint" wn="" grouping=""/>
+          <MEMBER name="stencil" wn="stencil%2:36:00" grouping=""/>
+          <MEMBER name="type" wn="type%2:32:00" grouping="type.01"/>
+          <MEMBER name="write" wn="write%2:36:01" grouping="write.02"/>
+          <MEMBER name="print_out" wn="" grouping=""/>
+          <MEMBER name="print_up" wn="" grouping=""/>     
+        </MEMBERS>
+        <THEMROLES/>
+        <FRAMES>      
+        <FRAME>
+            <DESCRIPTION descriptionNumber="1.2.1" primary="NP V" secondary="Unspecified Object" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Smith was scribbling.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="created_image">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="location">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="ThemRole" value="?Destination"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        </FRAMES>
+        <SUBCLASSES/>
+      </VNSUBCLASS>
+      </SUBCLASSES>
+</VNCLASS>

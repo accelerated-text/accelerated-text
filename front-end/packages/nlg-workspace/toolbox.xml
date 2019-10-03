@@ -1,0 +1,36 @@
+<xml style="display: none">
+    <category name="Document">
+        <block type="Segment" />
+        <block type="Define-var" />
+    </category>
+    <category name="Values">
+        <block type="Quote" />
+        <block type="Get-var" />
+        <block type="Modifier" />
+    </category>
+    <category name="Lists">
+        <block type="Sequence" />
+        <block type="Shuffle" />
+        <block type="One-of-synonyms" />
+    </category>
+    <category name="Logic">
+        <block type="If-then-else" />
+        <block type="And-or">
+            <field name="operator">and</field>
+        </block>
+        <block type="And-or">
+            <field name="operator">or</field>
+        </block>
+        <block type="Xor" />
+        <block type="Not" />
+    </category>
+    <category name="Checks">
+        <block type="Value-comparison">
+            <field name="operator">=</field>
+        </block>
+        <block type="Value-comparison">
+            <field name="operator">&gt;</field>
+        </block>
+        <block type="Value-in" />
+    </category>
+</xml>

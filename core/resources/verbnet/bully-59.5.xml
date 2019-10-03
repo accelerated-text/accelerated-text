@@ -1,0 +1,189 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="bully-59.5" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+<MEMBER name="annoy" wn="annoy%2:37:00" grouping=""/>
+<MEMBER name="badger" wn="badger%2:32:00" grouping=""/>
+<MEMBER name="bullock" wn="" grouping=""/>
+<MEMBER name="bully" wn="bully%2:32:00" grouping="bully.01"/>
+<MEMBER name="frighten" wn="frighten%2:37:00" grouping="frighten.01"/>
+<MEMBER name="harass" wn="harass%2:37:00 harass%2:33:00" grouping="harass.01 harass.02"/>
+<MEMBER name="harry" wn="harry%2:37:00" grouping=""/>
+<MEMBER name="hustle" wn="hustle%2:32:00" grouping=""/>
+<MEMBER name="nag" wn="" grouping=""/>
+<MEMBER name="panic" wn="panic%2:37:01" grouping="panic.01"/>
+<MEMBER name="shame" wn="shame%2:41:01" grouping=""/>
+<MEMBER name="shock" wn="shock%2:37:01" grouping="shock.01"/>
+<MEMBER name="taunt" wn="" grouping=""/>
+<MEMBER name="tease" wn="tease%2:37:00 tease%2:32:00" grouping="tease.01"/>
+<MEMBER name="terrify" wn="terrify%2:37:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Result">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I bullied him.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="social_interaction">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="emotional_state">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/> 
+                    </ARGS> 
+                </PRED>
+                <PRED value="manner">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="Constant" value="hostile"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP S_ING" secondary="NP-P-ING-OC; into-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I bullied him into coming.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="into">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Result">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="oc_ing"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="social_interaction">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="act">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="manner">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="Constant" value="hostile"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.result" secondary="NP-PP; into-PP" xtag="0.1"/>
+            <EXAMPLES>
+                <EXAMPLE>I bullied John into the chairmanship.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="into">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Result">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="sentential"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="social_interaction">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="act">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="manner">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="Constant" value="hostile"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+	</FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

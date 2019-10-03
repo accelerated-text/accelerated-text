@@ -1,0 +1,176 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="invest-13.5.4" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="buy" wn="" grouping="buy.04"/>
+        <MEMBER name="speculate" wn="" grouping="speculate.03"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Asset">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Goal">
+            <SELRESTRS/>
+        </THEMROLE> 
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V PP" secondary="" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>They bought into an NLP startup.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="has_possession">
+                    <ARGS>
+                       <ARG type="Event" value="start(E)"/>
+                       <ARG type="ThemRole" value="Agent"/>
+                       <ARG type="ThemRole" value="?Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="financial_interest_in">
+                    <ARGS>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                        <ARG type="ThemRole" value="?Asset"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause"> 
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="invest-13.5.4-1">
+            <MEMBERS>
+                <MEMBER name="invest" wn="" grouping="invest.01"/>
+                <MEMBER name="put" wn="" grouping="put.05"/>
+                <MEMBER name="commit" wn="" grouping=""/> 
+                <MEMBER name="allocate" wn="" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V NP PP.goal" secondary="" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>She invested $50,000 in Wal-Mart </EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Asset">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Goal">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="transfer">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="?Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="has_possession">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="?Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="financial_interest_in">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Goal"/>
+                                <ARG type="ThemRole" value="Asset"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                           <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V NP PP.theme" secondary="" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>Lionsgate invested $21 million in stock
+                        for a 42% stake in Break.com </EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Asset">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="transfer">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="has_possession">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="financial_interest_in">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Goal"/>
+                                <ARG type="ThemRole" value="Asset"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                           <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>  
+</VNCLASS>

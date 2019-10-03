@@ -1,0 +1,80 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="representation-110.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="be" wn="be%2:42:08 be%2:42:06" grouping="be.01"/>
+        <MEMBER name="denote" wn="denote%2:32:00" grouping="denote.01"/>
+        <MEMBER name="mean" wn="mean%2:32:03" grouping="mean.02"/>
+        <MEMBER name="represent" wn="represent%2:42:02 represent%2:32:02" grouping="represent.01"/>
+	<MEMBER name="signify" wn="signify%2:32:02" grouping="signify.01"/>
+	<MEMBER name="symbolize" wn="symbolize%2:32:00" grouping=""/>
+   </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Co-Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Context">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Black symbolizes mourning.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Co-Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="signify">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Co-Theme"/>
+                        <ARG type="ThemRole" value="?Context"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.manner" secondary="NP-PP; Manner-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>'Cuando' means 'when' in Spanish.</EXAMPLE>
+                <EXAMPLE>5 is 101 in binary.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Co-Theme">
+                    <SYNRESTRS/> 
+                </NP>
+                <PREP value="in | for | to">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Context">
+                    <SYNRESTRS/>
+                </NP> 
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="signify">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Co-Theme"/>
+                        <ARG type="ThemRole" value="Context"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

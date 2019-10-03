@@ -1,0 +1,422 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="create-26.4" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="author" wn="author%2:36:00" grouping=""/>
+        <MEMBER name="coin" wn="coin%2:36:01 coin%2:36:00" grouping="coin.01 coin.02"/>
+        <MEMBER name="compute" wn="compute%2:31:00" grouping="compute.01"/>
+        <MEMBER name="concoct" wn="concoct%2:35:00 concoct%2:36:01 concoct%2:36:00" grouping="concoct.01 concoct.02"/>
+        <MEMBER name="construct" wn="construct%2:36:00 construct%2:35:00" grouping="construct.01 construct.02"/>
+        <MEMBER name="contrive" wn="" grouping="contrive.02"/>
+        <MEMBER name="cowrite" wn="" grouping=""/> 
+        <MEMBER name="create" wn="create%2:36:13 create%2:36:03" grouping="create.01"/>
+        <MEMBER name="derive" wn="derive%2:31:00" grouping="derive.02"/>
+        <MEMBER name="fabricate" wn="fabricate%2:36:01" grouping="fabricate.01"/>
+        <MEMBER name="form" wn="form%2:30:01 form%2:36:00" grouping="form.01 form.03"/>
+        <MEMBER name="formulate" wn="formulate%2:32:03 formulate%2:36:00" grouping="formulate.01"/>
+        <MEMBER name="lay" wn="lay%2:36:00" grouping="lay.02"/>
+        <MEMBER name="manufacture" wn="manufacture%2:36:00" grouping="manufacture.01"/>
+        <MEMBER name="mass-produce" wn="mass-produce%2:36:00" grouping=""/>
+        <MEMBER name="model" wn="model%2:36:02 model%2:36:00" grouping="model.01"/>
+        <MEMBER name="organize" wn="organize%2:31:00" grouping="organize.02"/>
+        <MEMBER name="produce" wn="produce%2:36:00" grouping="produce.01"/>
+        <MEMBER name="publish" wn="publish%2:36:01 publish%2:32:00 publish%2:36:00" grouping=""/>
+        <MEMBER name="rearrange" wn="rearrange%2:30:00" grouping=""/>
+        <MEMBER name="rebuild" wn="rebuild%2:36:00" grouping="rebuild.01"/>
+        <MEMBER name="reconstitute" wn="reconstitute%2:30:02" grouping=""/>
+        <MEMBER name="reorganize" wn="reorganize%2:41:00 reorganize%2:41:01" grouping="reorganize.01"/>
+        <MEMBER name="style" wn="style%2:36:00" grouping="style.01"/>
+        <MEMBER name="synthesize" wn="synthesize%2:31:00" grouping="synthesize.01"/>
+        <MEMBER name="turn-out" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="machine"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Result">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Material">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Beneficiary">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Attribute">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>David constructed a house.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Result">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="?Material"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="?Material"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED bool="!" value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.material" secondary="NP-PP; Material-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>David constructed a house out of sticks.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Result">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="from out_of">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Material">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Material"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="Material"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED bool="!" value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.2" primary="NP V NP PP.beneficiary" secondary="NP-PP; for-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>David dug a hole for me.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Result">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Beneficiary">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="?Material"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="?Material"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED bool="!" value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="benefit">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Beneficiary"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP PP.attribute" secondary="NP-PP; as-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>They designed the Westinghouse-Mitsubishi venture as a non-equity transaction.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Result">
+                    <SYNRESTRS/>
+                </NP>
+                <LEX value="as"/>
+                <NP value="Attribute">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="?Material"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="?Material"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED bool="!" value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="create-26.4-1">
+            <MEMBERS>
+                <MEMBER name="choreograph" wn="choreograph%2:36:00" grouping=""/>        
+                <MEMBER name="compose" wn="compose%2:36:03 compose%2:36:01
+                compose%2:36:09 compose%2:31:00" grouping="compose.01 compose.03"/>  
+                <MEMBER name="draft" wn="draft%2:36:00" grouping="draft.01"/>
+                <MEMBER name="improvise" wn="improvise%2:36:00"
+                grouping=""/>
+                <MEMBER name="invent" wn="invent%2:36:00" grouping="invent.01"/>
+                <MEMBER name="scriptwrite" wn="" grouping=""/>
+                <MEMBER name="silkscreen" wn="silkscreen%2:36:00" grouping=""/>
+                <MEMBER name="write" wn="write%2:36:00 write%2:32:00 write%2:36:10" grouping="write.01 write.04"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.2" primary="NP V"
+                    secondary="Basic Intransitive" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>Claire drew.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED bool="!" value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Result"/>
+                            </ARGS>
+                        </PRED> 
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>  
+                            </ARGS>
+                        </PRED> 
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>    
+        <SUBCLASSES>
+            <VNSUBCLASS ID="create-26.4-1-1">
+                <MEMBERS>
+                    <MEMBER name="conjure" wn="conjure%2:36:00"
+                    grouping="conjure.01"/>
+                    <MEMBER name="craft" wn="craft%2:36:00" grouping=""/>
+                    <MEMBER name="design" wn="design%2:31:00 design%2:36:01
+                    design%2:36:00" grouping="design.01 design.03"/>
+                    <MEMBER name="dig" wn="dig%2:35:01" grouping="dig.02"/>
+                    <MEMBER name="draw" wn="draw%2:35:01 draw%2:36:00 draw%2:36:02" grouping="paint.06"/>
+                    <MEMBER name="paint" wn="paint%2:36:01 paint%2:36:00" grouping="paint.01"/>
+                    <MEMBER name="spin" wn="spin%2:36:01 spin%2:32:00" grouping="spin.02 spin.03"/>
+                </MEMBERS>
+                <THEMROLES/>
+                <FRAMES>
+                    <FRAME>
+                        <DESCRIPTION descriptionNumber="2.2" primary="NP V NP.beneficiary NP" secondary="NP-NP; Beneficiary Object" xtag=""/>
+                        <EXAMPLES>
+                            <EXAMPLE>David dug me a hole.</EXAMPLE>
+                        </EXAMPLES>
+                        <SYNTAX>
+                            <NP value="Agent">
+                                <SYNRESTRS/>
+                            </NP>
+                            <VERB/>
+                            <NP value="Beneficiary">
+                                <SYNRESTRS/>
+                            </NP>
+                            <NP value="Result">
+                                <SYNRESTRS/>
+                            </NP>
+                        </SYNTAX>
+                        <SEMANTICS>
+                            <PRED value="path_rel">
+                                <ARGS>
+                                    <ARG type="Event" value="start(E)"/>
+                                    <ARG type="ThemRole" value="?Initial_State"/>
+                                    <ARG type="ThemRole" value="?Material"/>
+                                    <ARG type="Constant" value="ch_of_state"/>
+                                    <ARG type="VerbSpecific" value="prep"/>
+                                </ARGS>
+                            </PRED>
+                            <PRED value="path_rel">
+                                <ARGS>
+                                    <ARG type="Event" value="result(E)"/>
+                                    <ARG type="ThemRole" value="Result"/>
+                                    <ARG type="ThemRole" value="?Material"/>
+                                    <ARG type="Constant" value="ch_of_state"/>
+                                    <ARG type="VerbSpecific" value="prep"/>
+                                </ARGS>
+                            </PRED>
+                            <PRED bool="!" value="exist">
+                                <ARGS>
+                                    <ARG type="Event" value="start(E)"/>
+                                    <ARG type="ThemRole" value="Result"/>
+                                </ARGS>
+                            </PRED>
+                            <PRED value="exist">
+                                <ARGS>
+                                    <ARG type="Event" value="result(E)"/>
+                                    <ARG type="ThemRole" value="Result"/>
+                                </ARGS>
+                            </PRED>
+                            <PRED value="cause">
+                                <ARGS>
+                                    <ARG type="ThemRole" value="Agent"/>
+                                    <ARG type="Event" value="E"/>
+                                </ARGS>
+                            </PRED>
+                            <PRED value="benefit">
+                                <ARGS>
+                                    <ARG type="Event" value="E"/>
+                                    <ARG type="ThemRole" value="Beneficiary"/>
+                                </ARGS>
+                            </PRED>
+                        </SEMANTICS>
+                    </FRAME>
+                </FRAMES>
+                <SUBCLASSES/>
+            </VNSUBCLASS>
+        </SUBCLASSES>
+      </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

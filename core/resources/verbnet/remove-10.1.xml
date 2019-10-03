@@ -1,0 +1,173 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="remove-10.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="abolish" wn="abolish%2:41:00" grouping="abolish.01"/>
+        <MEMBER name="abstract" wn="abstract%2:40:00" grouping="abstract.02"/>
+        <MEMBER name="cull" wn="cull%2:40:00 cull%2:35:00" grouping=""/>
+        <MEMBER name="cut-off" wn="" grouping="cut.06"/>
+        <MEMBER name="deburr" wn="" grouping=""/>
+        <MEMBER name="deduct" wn="deduct%2:31:01 deduct%2:40:00" grouping="deduct.01"/>
+        <MEMBER name="delete" wn="delete%2:35:00 delete%2:32:00" grouping="delete.01"/>
+        <MEMBER name="depose" wn="depose%2:41:00" grouping=""/>
+        <MEMBER name="disgorge" wn="disgorge%2:35:00" grouping=""/>
+        <MEMBER name="dislodge" wn="dislodge%2:35:00 dislodge%2:35:01" grouping="dislodge.01"/>
+        <MEMBER name="disengage" wn="disengage%2:35:00" grouping="disengage.01"/>
+        <MEMBER name="draw" wn="draw%2:38:01 draw%2:38:00 draw%2:31:13 draw%2:40:01 draw%2:33:01 draw%2:38:07" grouping="draw.03"/>
+        <MEMBER name="eject" wn="eject%2:35:01" grouping="eject.02"/>
+        <MEMBER name="eliminate" wn="eliminate%2:30:01 eliminate%2:42:01 eliminate%2:31:00 eliminate%2:29:00" grouping="eliminate.01 eliminate.02 eliminate.03"/>
+        <MEMBER name="eradicate" wn="eradicate%2:30:00 eradicate%2:36:00" grouping="eradicate.01"/>
+        <MEMBER name="excise" wn="excise%2:35:00 excise%2:30:02" grouping="excise.01 excise.03"/>
+        <MEMBER name="excommunicate" wn="excommunicate%2:32:00" grouping=""/>
+        <MEMBER name="expel" wn="expel%2:41:00 expel%2:41:01" grouping="expel.01 expel.02"/>
+        <MEMBER name="extirpate" wn="extirpate%2:35:00" grouping=""/>
+        <MEMBER name="extract" wn="extract%2:35:04 extract%2:40:00 extract%2:30:00 extract%2:35:07 extract%2:35:05 extract%2:31:00" grouping="extract.01 extract.02 extract.03 extract.04"/>
+        <MEMBER name="extrude" wn="extrude%2:36:00" grouping=""/>
+        <MEMBER name="kill" wn="kill%2:30:08 kill%2:30:00 kill%2:30:04" grouping="kill.03"/>  
+        <MEMBER name="lop" wn="lop%2:35:01 lop%2:35:00" grouping=""/>
+        <MEMBER name="lose" wn="" grouping=""/>
+        <MEMBER name="omit" wn="omit%2:31:01" grouping="omit.01"/>
+        <MEMBER name="ostracize" wn="ostracize%2:41:01" grouping=""/>
+        <MEMBER name="partition" wn="partition%2:35:00 partition%2:30:00" grouping=""/>
+        <MEMBER name="pry" wn="pry%2:35:00" grouping="pry.01"/>
+        <MEMBER name="pull" wn="pull%2:38:03" grouping="pull.02"/>
+        <MEMBER name="reap" wn="reap%2:35:00 reap%2:40:00" grouping="reap.01 reap.02"/>
+        <MEMBER name="ream" wn="ream%2:30:01" grouping="ream.02"/>
+        <MEMBER name="render" wn="" grouping="render.04"/>
+        <MEMBER name="retract" wn="retract%2:32:00" grouping="retract.01"/>
+        <MEMBER name="roust" wn="" grouping=""/>
+        <MEMBER name="separate" wn="separate%2:42:00 separate%2:35:01 separate%2:35:02" grouping="separate.01"/>
+        <MEMBER name="shoo" wn="shoo%2:38:00" grouping=""/>
+        <MEMBER name="strip" wn="strip%2:40:03 strip%2:30:06 strip%2:30:05 strip%2:40:00 strip%2:35:04 strip%2:30:12" grouping="strip.01 strip.03 strip.04"/>
+        <MEMBER name="subtract" wn="subtract%2:31:00" grouping="subtract.01"/>
+        <MEMBER name="take" wn="subtract%2:31:00" grouping="take.10"/>
+        <MEMBER name="take_away" wn="take_away%2:30:01 take_away%2:30:00 take_away%2:40:01 take_away%2:30:02" grouping="take.10"/>
+        <MEMBER name="take_out" wn="take_out%2:41:01 take_out%2:35:01 take_out%2:30:00 take_out%2:35:00 take_out%2:40:00 take_out%2:38:10 take_out%2:38:00 take_out%2:35:09 take_out%2:31:01 take_out%2:31:00" grouping="take.10"/>
+        <MEMBER name="take_off" wn="take_off%2:30:00 take_off%2:41:00 take_off%2:29:03" grouping="take.10"/>
+        <MEMBER name="uproot" wn="uproot%2:35:00" grouping=""/>
+        <MEMBER name="winkle" wn="winkle%2:35:00" grouping=""/>
+        <MEMBER name="wrench" wn="wrench%2:35:00" grouping="wrench.01"/>
+        <MEMBER name="withdraw" wn="withdraw%2:40:01 withdraw%2:30:01 withdraw%2:40:00" grouping="withdraw.02 withdraw.03 withdraw.04"/>
+        <MEMBER name="oust" wn="oust%2:41:00" grouping="oust.01"/>
+        <MEMBER name="discharge" wn="discharge%2:35:00 discharge%2:29:00 discharge%2:35:06" grouping="discharge.01"/>
+        <MEMBER name="dismiss" wn="dismiss%2:41:00" grouping="dismiss.02"/>
+        <MEMBER name="evict" wn="evict%2:35:00" grouping="evict.01"/>
+        <MEMBER name="remove" wn="remove%2:30:00 remove%2:41:00 remove%2:41:02" grouping="remove.01"/>
+        <MEMBER name="sever" wn="sever%2:35:00" grouping="sever.01"/>
+        <MEMBER name="extinguish" wn="extinguish%2:30:00 extinguish%2:43:00 extinguish%2:30:05 extinguish%2:30:03 extinguish%2:30:01" grouping="extinguish.01 extinguish.02"/>
+        <MEMBER name="prise" wn="prise%2:35:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="int_control"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Source">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="location"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Goal">
+             <SELRESTRS>
+                 <SELRESTR Value="+" type="location"/>
+             </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Doug removed the smudges.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Goal"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.source" secondary="NP-PP; Source-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Doug removed the smudges from the tabletop.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="src"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Goal"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

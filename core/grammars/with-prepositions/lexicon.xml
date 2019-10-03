@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE doc [
+<!ENTITY gen SYSTEM "gen-lexicon.xml">
+]>
+
+<ccg-lexicon name="shop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="../lexicon.xsd">
+
+  <family name="GPE" pos="NNP">
+    <entry name="Primary">
+      <atomcat type="n">
+        <lf>
+          <satop nomvar="X:gpe">
+            <prop name="[*DEFAULT*]"/>
+          </satop>
+        </lf>
+      </atomcat>
+    </entry>
+  </family>
+
+  <family name="Conflict" pos="V" closed="false">
+    <entry name="Primary">
+      <complexcat>
+        <atomcat type="s">
+        </atomcat>
+        <slash mode="*" dir="\"/>
+        <atomcat type="n">
+        </atomcat>
+        <lf>
+          <satop nomvar="E">
+            <prop name="[*DEFAULT*]"/>
+          </satop>
+        </lf>
+      </complexcat>
+    </entry>
+  </family>
+
+  <family name="whith-whom" pos="IN">
+    <entry name="Primary">
+      <complexcat>
+        <atomcat type="s"/>
+        <slash mode="*" dir="\"/>
+        <atomcat type="s"/>
+        <slash mode="*" dir="/"/>
+        <atomcat type="n"/>
+        <lf>
+          <satop nomvar="E">
+            <prop name="[*DEFAULT*]"/>
+          </satop>
+        </lf>
+      </complexcat>
+    </entry>
+  </family>
+</ccg-lexicon>

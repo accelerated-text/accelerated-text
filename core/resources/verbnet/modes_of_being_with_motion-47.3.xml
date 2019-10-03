@@ -1,0 +1,239 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="modes_of_being_with_motion-47.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <!--Each member adds a manner predicate for how the Theme is moving-->
+        <MEMBER name="bob" wn="bob%2:38:00" grouping="bob.01"/>
+        <MEMBER name="bow" wn="" grouping="bow.01"/>
+        <MEMBER name="circulate" wn="circulate%2:38:03 circulate%2:38:04" grouping="circulate.01"/>
+        <MEMBER name="creep" wn="creep%2:38:06" grouping="creep.01 creep.02"/>
+        <MEMBER name="dance" wn="dance%2:38:02" grouping="dance.02"/>
+        <MEMBER name="drift" wn="drift%2:38:02 drift%2:38:06 drift%2:30:00" grouping="drift.01 drift.02"/>
+        <MEMBER name="eddy" wn="eddy%2:38:00" grouping=""/>
+        <MEMBER name="falter" wn="" grouping="falter.01"/>
+        <MEMBER name="flap" wn="flap%2:38:01 flap%2:38:00" grouping="flap.01"/>
+        <MEMBER name="float" wn="float%2:38:00 float%2:38:02" grouping="float.01"/>
+        <MEMBER name="flutter" wn="flutter%2:38:01 flutter%2:38:00 flutter%2:29:00" grouping="flutter.01"/>
+        <MEMBER name="hover" wn="hover%2:38:00 hover%2:38:01" grouping="hover.01"/>
+        <MEMBER name="jiggle" wn="jiggle%2:38:00" grouping=""/>
+        <MEMBER name="joggle" wn="joggle%2:38:00" grouping=""/>
+        <MEMBER name="oscillate" wn="oscillate%2:38:00" grouping=""/>
+        <MEMBER name="pulsate" wn="pulsate%2:38:00" grouping=""/>
+        <MEMBER name="pulse" wn="pulse%2:38:00" grouping="pulse.01"/>
+        <MEMBER name="quake" wn="quake%2:38:01 quake%2:38:02" grouping=""/>
+        <MEMBER name="quiver" wn="quiver%2:38:00 quiver%2:38:04" grouping=""/>
+        <MEMBER name="recirculate" wn="" grouping=""/>
+        <MEMBER name="revolve" wn="revolve%2:38:00 revolve%2:38:01 revolve%2:38:02" grouping="revolve.01"/>
+        <MEMBER name="rock" wn="rock%2:38:00" grouping="rock.01"/>
+        <MEMBER name="rotate" wn="rotate%2:38:01 rotate%2:38:00" grouping="rotate.01"/>
+        <MEMBER name="shake" wn="shake%2:38:00 shake%2:29:00 shake%2:38:02" grouping="shake.01"/>
+        <MEMBER name="stir" wn="stir%2:38:01 stir%2:38:00 stir%2:38:04" grouping="stir.01"/>
+        <MEMBER name="swag" wn="swag%2:38:00" grouping="swag.03"/>
+        <MEMBER name="sway" wn="sway%2:38:00 sway%2:38:06" grouping="sway.01"/>
+        <MEMBER name="swirl" wn="swirl%2:38:01 swirl%2:38:00" grouping=""/>
+        <MEMBER name="teeter" wn="teeter%2:38:00" grouping=""/>
+        <MEMBER name="throb" wn="throb%2:39:00 throb%2:38:00" grouping="throb.01"/>
+        <MEMBER name="totter" wn="totter%2:38:02 totter%2:38:00" grouping=""/>
+        <MEMBER name="tremble" wn="tremble%2:38:00" grouping=""/>
+        <MEMBER name="undulate" wn="undulate%2:38:01 undulate%2:38:00" grouping=""/>
+        <MEMBER name="vacillate" wn="" grouping=""/>
+        <MEMBER name="vibrate" wn="vibrate%2:38:00 vibrate%2:38:01" grouping="vibrate.01"/>
+        <MEMBER name="waft" wn="waft%2:43:00" grouping=""/>
+        <MEMBER name="wave" wn="wave%2:35:00 wave%2:38:00" grouping="wave.02"/>
+        <MEMBER name="waver" wn="waver%2:38:01 waver%2:38:02 waver%2:38:00" grouping="waver.02"/>
+        <MEMBER name="wiggle" wn="wiggle%2:38:00" grouping=""/>
+        <MEMBER name="wobble" wn="wobble%2:38:00 wobble%2:38:01" grouping=""/>
+        <MEMBER name="worm" wn="worm%2:38:00" grouping=""/>
+        <MEMBER name="writhe" wn="writhe%2:38:00" grouping=""/>
+        <MEMBER name="roil" wn="roil%2:38:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="int_control"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Location">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="location"/>
+                <SELRESTR Value="-" type="region"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag="0.1"/>
+            <EXAMPLES>
+                <EXAMPLE>A flag fluttered.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.location" secondary="PP; locative-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>A flag fluttered over the fort.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="loc"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="location">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Location"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="6.1" primary="There V NP" secondary="NP; Expletive-there Subject" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>There fluttered a flag (over the fort).</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <LEX value="there"/>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="definite"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+            <!--some verbs-->
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="6.2" primary="PP.location V NP" secondary="Locative Inversion" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Over the fort fluttered a flag.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="loc"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="location">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Location"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+            <!--some verbs-->
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP.theme" secondary="NP; Causative variant" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The patriots waved the flag.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+            <!--some verbs-->
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

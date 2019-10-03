@@ -1,0 +1,35 @@
+@import '../styles/variables'
+@import '../styles/sidebar-table'
+
+
+.className
+
+    @include sidebar-table
+
+    > thead > tr > th
+
+        &.dragInBlock
+
+            @include sidebar-table-block-cell
+
+        &.cellName
+
+            @include sidebar-table-name-cell( 2 )
+
+        .selectRow
+
+            margin:     0 $space-s
+
+    > tbody > tr > td
+
+        &.dragInBlock
+
+            @include sidebar-table-block-cell
+
+        &.cellName
+
+            font-weight:    $bold
+
+        &.cellValue
+
+            word-wrap:      break-word

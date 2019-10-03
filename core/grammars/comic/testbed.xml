@@ -1,0 +1,1999 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright (C) 2003-4 University of Edinburgh (Michael White) 
+$Revision: 1.36 $, $Date: 2005/01/31 11:41:08 $ 
+-->
+<regression>
+
+  <comment>Describing the style.</comment>
+
+  <item numOfParses="2" string="here_L+H* LH% we have a design in the classic_H* style LL% .">
+    <lf>
+      <node id="h1" pred="have" info="rh" mood="dcl" tense="pres">
+        <rel name="Owner">
+          <node id="p1" pred="pro1" num="pl"/>
+        </rel>
+        <rel name="Poss">
+          <node id="d1" pred="design" det="a" num="sg">
+            <rel name="FigInv">
+              <node id="i1" pred="in">
+                <rel name="Ground">
+                  <node id="s1" pred="style" det="the" num="sg">
+                    <rel name="HasProp">
+                      <node id="c1" pred="classic" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Location">
+          <node id="h2" pred="here" info="th" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="here is another_H* modern design LL% .">
+    <lf>
+      <node id="h1" pred="here-be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="d1" pred="design" num="sg">
+            <rel name="Det">
+              <node id="a1" pred="another" kon="+"/>
+            </rel>
+            <rel name="HasProp">
+              <node id="m1" pred="modern"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="this_H* design_H* is in the country_H* style LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="d1" pred="design" kon="+" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="i1" pred="in">
+            <rel name="Fig">
+              <node idref="d1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="s1" pred="style" det="the" num="sg">
+                <rel name="HasProp">
+                  <node id="c1" pred="country" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="this_H* design_H* is classic_H* LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="d1" pred="design" kon="+" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="c1" pred="classic" kon="+">
+            <rel name="Of">
+              <node idref="d1"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="this_H* design_H* is also_H* classic LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="d1" pred="design" kon="+" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="c1" pred="classic">
+            <rel name="Of">
+              <node idref="d1"/>
+            </rel>
+            <rel name="HasProp">
+              <node id="a1" pred="also" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="this_H* design_H* is also_H* in the family style LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="d1" pred="design" kon="+" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="i1" pred="in">
+            <rel name="Fig">
+              <node idref="d1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="s1" pred="style" det="the" num="sg">
+                <rel name="HasProp">
+                  <node id="f1" pred="family"/>
+                </rel>
+              </node>
+            </rel>
+            <rel name="HasProp">
+              <node id="a1" pred="also" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="once_again_L+H* LH% this_H* design_H* is modern LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="d1" pred="design" kon="+" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="m1" pred="modern">
+            <rel name="Of">
+              <node idref="d1"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="o1" pred="once-again" info="th" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="once_again_L+H* LH% it is in the modern_H* style LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="p1" pred="pro3n" num="sg"/>
+        </rel>
+        <rel name="Prop">
+          <node id="i1" pred="in">
+            <rel name="Fig">
+              <node idref="p1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="s1" pred="style" det="the" num="sg">
+                <rel name="HasProp">
+                  <node id="m1" pred="modern" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="o1" pred="once-again" info="th" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+
+  <comment>Manufacturer and series.</comment>
+
+  <item numOfParses="1" string="it draws from Armonie_H* LL% , by Coem_H* LL% .">
+    <lf>
+      <node id="e1" pred="elab-rel" info="rh" mood="dcl">
+        <rel name="Core">
+          <node id="d1" pred="draw-from" tense="pres">
+            <rel name="Artifact">
+              <node id="p1" pred="pro3n" num="sg"/>
+            </rel>
+            <rel name="Source">
+              <node id="a1" pred="Armonie" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Trib">
+          <node id="h1" pred="has-rel">
+            <rel name="Of">
+              <node idref="a1"/>
+            </rel>
+            <rel name="Creator">
+              <node id="c1" pred="Coem" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="it also_H* draws from Armonie LL% .">
+    <lf>
+      <node id="d1" pred="draw-from" info="rh" mood="dcl" tense="pres">
+        <rel name="Artifact">
+          <node id="p1" pred="pro3n" num="sg"/>
+        </rel>
+        <rel name="Source">
+          <node id="a1" pred="Armonie"/>
+        </rel>
+        <rel name="HasProp">
+          <node id="a2" pred="also" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="it uses tiles from Coem_H* 's Armonie_H* series LL% .">
+    <lf>
+      <node id="u1" pred="use" info="rh" mood="dcl" tense="pres">
+        <rel name="Artifact">
+          <node id="p1" pred="pro3n" num="sg"/>
+        </rel>
+        <rel name="Material">
+          <node id="t1" pred="tile" det="nil" num="pl">
+            <rel name="Source">
+              <node id="s1" pred="series" num="sg">
+                <rel name="HasProp">
+                  <node id="a1" pred="Armonie" kon="+"/>
+                </rel>
+                <rel name="GenOwner">
+                  <node id="c1" pred="Coem" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="it also_H* uses tiles from the Century collection LL% .">
+    <lf>
+      <node id="u1" pred="use" info="rh" mood="dcl" tense="pres">
+        <rel name="Artifact">
+          <node id="p1" pred="pro3n" num="sg"/>
+        </rel>
+        <rel name="Material">
+          <node id="t1" pred="tile" det="nil" num="pl">
+            <rel name="Source">
+              <node id="c1" pred="collection" det="the" num="sg">
+                <rel name="HasProp">
+                  <node id="c2" pred="Century"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="a1" pred="also" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="it is based_on the Armonie_H* collection LL% , by Coem_H* LL% .">
+    <lf>
+      <node id="e1" pred="elab-rel" info="rh" mood="dcl">
+        <rel name="Core">
+          <node id="b1" pred="be" tense="pres">
+            <rel name="Arg">
+              <node id="p1" pred="pro3n" num="sg"/>
+            </rel>
+            <rel name="Prop">
+              <node id="b2" pred="based-on">
+                <rel name="Artifact">
+                  <node idref="p1"/>
+                </rel>
+                <rel name="Source">
+                  <node id="c1" pred="collection" det="the" num="sg">
+                    <rel name="HasProp">
+                      <node id="a1" pred="Armonie" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Trib">
+          <node id="h1" pred="has-rel">
+            <rel name="Of">
+              <node idref="c1"/>
+            </rel>
+            <rel name="Creator">
+              <node id="c2" pred="Coem" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="it is also_H* based_on Armonie LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="p1" pred="pro3n" num="sg"/>
+        </rel>
+        <rel name="Prop">
+          <node id="b2" pred="based-on">
+            <rel name="Artifact">
+              <node idref="p1"/>
+            </rel>
+            <rel name="Source">
+              <node id="a1" pred="Armonie"/>
+            </rel>
+            <rel name="HasProp">
+              <node id="a2" pred="also" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="the tiles are from the Armonie_H* collection LL% , by Coem_H* LL% .">
+    <lf>
+      <node id="e1" pred="elab-rel" info="rh" mood="dcl">
+        <rel name="Core">
+          <node id="b1" pred="be" tense="pres">
+            <rel name="Arg">
+              <node id="t1" pred="tile" det="the" num="pl"/>
+            </rel>
+            <rel name="Prop">
+              <node id="h1" pred="has-rel">
+                <rel name="Of">
+                  <node idref="t1"/>
+                </rel>
+                <rel name="Source">
+                  <node id="c1" pred="collection" det="the" num="sg">
+                    <rel name="HasProp">
+                      <node id="a1" pred="Armonie" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Trib">
+          <node id="h2" pred="has-rel">
+            <rel name="Of">
+              <node idref="c1"/>
+            </rel>
+            <rel name="Creator">
+              <node id="c2" pred="Coem" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="its tiles are from the Kerarock_H* collection LL% , by Steuler_H* LL% .">
+    <lf>
+      <node id="e1" pred="elab-rel" info="rh" mood="dcl">
+        <rel name="Core">
+          <node id="b1" pred="be" tense="pres">
+            <rel name="Arg">
+              <node id="t1" pred="tile" num="pl">
+                <rel name="GenOwner">
+                  <node id="p1" pred="pro3n" num="sg"/>
+                </rel>
+              </node>
+            </rel>
+            <rel name="Prop">
+              <node id="h1" pred="has-rel">
+                <rel name="Of">
+                  <node idref="t1"/>
+                </rel>
+                <rel name="Source">
+                  <node id="c1" pred="collection" det="the" num="sg">
+                    <rel name="HasProp">
+                      <node id="k1" pred="Kerarock" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Trib">
+          <node id="h2" pred="has-rel">
+            <rel name="Of">
+              <node idref="c1"/>
+            </rel>
+            <rel name="Creator">
+              <node id="s1" pred="Steuler" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="once_again_L+H* LH% the tiles are by Porcelaingres_H* LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="t1" pred="tile" det="the" num="pl"/>
+        </rel>
+        <rel name="Prop">
+          <node id="h1" pred="has-rel">
+            <rel name="Of">
+              <node idref="t1"/>
+            </rel>
+            <rel name="Creator">
+              <node id="p1" pred="Porcelaingres" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="o1" pred="once-again" info="th" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="they are also_H* from Armonie LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="p1" pred="pro3n" num="pl"/>
+        </rel>
+        <rel name="Prop">
+          <node id="h1" pred="has-rel">
+            <rel name="Of">
+              <node idref="p1"/>
+            </rel>
+            <rel name="Source">
+              <node id="a1" pred="Armonie"/>
+            </rel>
+            <rel name="HasProp">
+              <node id="a2" pred="also" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="this_H* series_H* is also_H* by Coem LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="s1" pred="series" kon="+" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="h1" pred="has-rel">
+            <rel name="Of">
+              <node idref="s1"/>
+            </rel>
+            <rel name="Creator">
+              <node id="c1" pred="Coem"/>
+            </rel>
+            <rel name="HasProp">
+              <node id="a1" pred="also" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="this_H* collection_H* is by Steuler_H* LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="c1" pred="collection" kon="+" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="h1" pred="has-rel">
+            <rel name="Of">
+              <node idref="c1"/>
+            </rel>
+            <rel name="Creator">
+              <node id="s1" pred="Steuler" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+
+  <comment>Decorative tiles.</comment>
+
+  <item numOfParses="2" string="there are floral_H* motifs_H* on the decorative_H* tiles LL% .">
+    <lf>
+      <node id="t1" pred="there-be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="m1" pred="motif" det="nil" kon="+" num="pl">
+            <rel name="HasProp">
+              <node id="f1" pred="floral" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="o1" pred="on">
+            <rel name="Fig">
+              <node idref="m1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="t2" pred="tile" det="the" num="pl">
+                <rel name="HasProp">
+                  <node id="d1" pred="decorative" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="there are also_H* mosaics LL% .">
+    <lf>
+      <node id="t1" pred="there-be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="m1" pred="mosaics" det="nil" num="pl"/>
+        </rel>
+        <rel name="HasProp">
+          <node id="a1" pred="also" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="4" string="there are also_H* floral motifs LH% and abstract shapes on the decorative tiles LL% .">
+    <lf>
+      <node id="t1" pred="there-be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="a1" pred="and">
+            <rel name="List">
+              <node id="m1" pred="motif" det="nil" num="pl">
+                <rel name="HasProp">
+                  <node id="f1" pred="floral"/>
+                </rel>
+              </node>
+              <node id="s1" pred="shape" det="nil" num="pl">
+                <rel name="HasProp">
+                  <node id="a2" pred="abstract"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="o1" pred="on">
+            <rel name="Fig">
+              <node idref="a1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="t2" pred="tile" det="the" num="pl">
+                <rel name="HasProp">
+                  <node id="d1" pred="decorative"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="a3" pred="also" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="there are also_H* floral motifs on the decorative tiles LL% .">
+    <lf>
+      <node id="t1" pred="there-be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="m1" pred="motif" det="nil" num="pl">
+            <rel name="HasProp">
+              <node id="f1" pred="floral"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="o1" pred="on">
+            <rel name="Fig">
+              <node idref="m1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="t2" pred="tile" det="the" num="pl">
+                <rel name="HasProp">
+                  <node id="d1" pred="decorative"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="a1" pred="also" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="it also_H* has abstract shapes LL% .">
+    <lf>
+      <node id="h1" pred="have" info="rh" mood="dcl" tense="pres">
+        <rel name="Owner">
+          <node id="p1" pred="pro3n" num="sg"/>
+        </rel>
+        <rel name="Poss">
+          <node id="s1" pred="shape" det="nil" num="pl">
+            <rel name="HasProp">
+              <node id="a1" pred="abstract"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="a2" pred="also" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="it is based_on the Century_H* collection LL% , with floral_H* motifs_H* on the decorative_H* tiles LL% .">
+    <comment>Appositive 'with' now uses an elab-rel.</comment>
+    <lf>
+      <node id="e1" pred="elab-rel" info="rh" mood="dcl">
+        <rel name="Core">
+          <node id="b1" pred="be" tense="pres">
+            <rel name="Arg">
+              <node id="p1" pred="pro3n" num="sg"/>
+            </rel>
+            <rel name="Prop">
+              <node id="b2" pred="based-on">
+                <rel name="Artifact">
+                  <node idref="p1"/>
+                </rel>
+                <rel name="Source">
+                  <node id="c1" pred="collection" det="the" num="sg">
+                    <rel name="HasProp">
+                      <node id="c2" pred="Century" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Trib">
+          <node id="h1" pred="has-rel">
+            <rel name="Of">
+              <node idref="x1"/>
+            </rel>
+            <rel name="Poss">
+              <node id="m1" pred="motif" det="nil" kon="+" num="pl">
+                <rel name="HasProp">
+                  <node id="f1" pred="floral" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+            <rel name="Where">
+              <node id="o1" pred="on">
+                <rel name="Fig">
+                  <node idref="m1"/>
+                </rel>
+                <rel name="Ground">
+                  <node id="t1" pred="tile" det="the" num="pl">
+                    <rel name="HasProp">
+                      <node id="d1" pred="decorative" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="4" string="this_H* design_H* has floral_H* motifs_H* LH% and artwork_H* on the decorative_H* tiles LL% .">
+    <lf>
+      <node id="h1" pred="have" info="rh" mood="dcl" tense="pres">
+        <rel name="Owner">
+          <node id="d1" pred="design" kon="+" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Poss">
+          <node id="a1" pred="and">
+            <rel name="List">
+              <node id="m1" pred="motif" det="nil" kon="+" num="pl">
+                <rel name="HasProp">
+                  <node id="f1" pred="floral" kon="+"/>
+                </rel>
+              </node>
+              <node id="a2" pred="artwork" det="nil" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Where">
+          <node id="o1" pred="on">
+            <rel name="Fig">
+              <node idref="a1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="t2" pred="tile" det="the" num="pl">
+                <rel name="HasProp">
+                  <node id="d2" pred="decorative" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+
+  <comment>Colour scheme.</comment>
+
+  <item numOfParses="3" string="the colours are terracotta_H* LH% and beige_H* LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="c1" pred="colour" det="the" num="pl"/>
+        </rel>
+        <rel name="Prop">
+          <node id="a1" pred="and">
+            <rel name="List">
+              <node id="t1" pred="terracotta" kon="+">
+                <rel name="Of">
+                  <node idref="c1"/>
+                </rel>
+              </node>
+              <node id="b2" pred="beige" kon="+">
+                <rel name="Of">
+                  <node idref="c1"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="3" string="once_again_L+H* LH% the colours are terracotta_H* LH% and beige_H* LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="c1" pred="colour" det="the" num="pl"/>
+        </rel>
+        <rel name="Prop">
+          <node id="a1" pred="and">
+            <rel name="List">
+              <node id="t1" pred="terracotta" kon="+">
+                <rel name="Of">
+                  <node idref="c1"/>
+                </rel>
+              </node>
+              <node id="b2" pred="beige" kon="+">
+                <rel name="Of">
+                  <node idref="c1"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="o1" pred="once-again" info="th" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="the tiles have a terracotta_H* LH% and beige_H* colour_scheme LL% .">
+    <lf>
+      <node id="h1" pred="have" info="rh" mood="dcl" tense="pres">
+        <rel name="Owner">
+          <node id="t1" pred="tile" det="the" num="pl"/>
+        </rel>
+        <rel name="Poss">
+          <node id="c1" pred="colour_scheme" det="a" num="sg">
+            <rel name="GenRel">
+              <node id="a1" pred="and">
+                <rel name="List">
+                  <node id="t2" pred="terracotta" kon="+">
+                    <rel name="Of">
+                      <node idref="c1"/>
+                    </rel>
+                  </node>
+                  <node id="b1" pred="beige" kon="+">
+                    <rel name="Of">
+                      <node idref="c1"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="the tiles also_H* have a blue colour_scheme LL% .">
+    <lf>
+      <node id="h1" pred="have" info="rh" mood="dcl" tense="pres">
+        <rel name="Owner">
+          <node id="t1" pred="tile" det="the" num="pl"/>
+        </rel>
+        <rel name="Poss">
+          <node id="c1" pred="colour_scheme" det="a" num="sg">
+            <rel name="HasProp">
+              <node id="b1" pred="blue"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="a1" pred="also" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="this_H* design_H* also_H* has a blue LH% and green colour_scheme LL% .">
+    <lf>
+      <node id="h1" pred="have" info="rh" mood="dcl" tense="pres">
+        <rel name="Owner">
+          <node id="d1" pred="design" kon="+" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Poss">
+          <node id="c1" pred="colour_scheme" det="a" num="sg">
+            <rel name="GenRel">
+              <node id="a1" pred="and">
+                <rel name="List">
+                  <node id="b1" pred="blue">
+                    <rel name="Of">
+                      <node idref="c1"/>
+                    </rel>
+                  </node>
+                  <node id="g1" pred="green">
+                    <rel name="Of">
+                      <node idref="c1"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="a2" pred="also" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="the blue_L+H* LH% and beige_L+H* colour_scheme LH% helps_to_set_the_mood_H* LL% .">
+    <comment>Added pitch accent onto canned text bits.</comment>
+    <lf>
+      <node id="h1" pred="help-set-mood" info="rh" kon="+" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="c1" pred="colour_scheme" det="the" info="th" num="sg">
+            <rel name="GenRel">
+              <node id="a1" pred="and">
+                <rel name="List">
+                  <node id="b1" pred="blue" kon="+">
+                    <rel name="Of">
+                      <node idref="c1"/>
+                    </rel>
+                  </node>
+                  <node id="b2" pred="beige" kon="+">
+                    <rel name="Of">
+                      <node idref="c1"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="the colours_L+H* LH% emphasise_the_clear,_straight_lined_character_of_your_bathroom_in_a_stylish_way_H* LL% .">
+    <lf>
+      <node id="e1" pred="emphasise-straight-lined-character" info="rh" kon="+" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="c1" pred="colour" det="the" info="th" kon="+" num="pl"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="the design features green_H* in the colour_scheme LL% .">
+    <lf>
+      <node id="f1" pred="feature" info="rh" mood="dcl" tense="pres">
+        <rel name="Artifact">
+          <node id="d1" pred="design" det="the" num="sg"/>
+        </rel>
+        <rel name="Poss">
+          <node id="g1" pred="green" det="nil" kon="+"/>
+        </rel>
+        <rel name="Where">
+          <node id="i1" pred="in">
+            <rel name="Fig">
+              <node idref="g1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="c1" pred="colour_scheme" det="the" num="sg"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="this_H* design also_H* features green LL% .">
+    <lf>
+      <node id="f1" pred="feature" info="rh" mood="dcl" tense="pres">
+        <rel name="Artifact">
+          <node id="d1" pred="design" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Poss">
+          <node id="g1" pred="green" det="nil"/>
+        </rel>
+        <rel name="HasProp">
+          <node id="a1" pred="also" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="that_L+H* one LH% features blue LH% and_H* beige_H* LL% .">
+    <lf>
+      <node id="f1" pred="feature" info="rh" mood="dcl" tense="pres">
+        <rel name="Artifact">
+          <node id="p1" pred="pro_one" info="th" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="that" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Poss">
+          <node id="a1" pred="and" kon="+">
+            <rel name="List">
+              <node id="b1" pred="blue" det="nil"/>
+              <node id="b2" pred="beige" det="nil" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="once_again_L+H* LH% the tiles have an off_white_H* LH% and dark_red_H* colour_scheme LL% .">
+    <lf>
+      <node id="h1" pred="have" info="rh" mood="dcl" tense="pres">
+        <rel name="Owner">
+          <node id="t1" pred="tile" det="the" num="pl"/>
+        </rel>
+        <rel name="Poss">
+          <node id="c1" pred="colour_scheme" det="a" num="sg">
+            <rel name="GenRel">
+              <node id="a1" pred="and">
+                <rel name="List">
+                  <node id="o1" pred="off_white" kon="+">
+                    <rel name="Of">
+                      <node idref="c1"/>
+                    </rel>
+                  </node>
+                  <node id="d1" pred="dark_red" kon="+">
+                    <rel name="Of">
+                      <node idref="c1"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="o2" pred="once-again" info="th" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+
+  <comment>Combining things.</comment>
+
+  <item numOfParses="4" string="once_again_L+H* LH% there are mosaics_H* on the decorative tiles LL% , but L here_L+H* LH% the colour is rose_H* LL% .">
+    <lf>
+      <node id="b1" pred="but" mood="dcl">
+        <rel name="Arg1">
+          <node id="t1" pred="there-be" info="rh" tense="pres">
+            <rel name="Arg">
+              <node id="m1" pred="mosaics" det="nil" kon="+" num="pl"/>
+            </rel>
+            <rel name="Prop">
+              <node id="o1" pred="on">
+                <rel name="Fig">
+                  <node idref="m1"/>
+                </rel>
+                <rel name="Ground">
+                  <node id="t2" pred="tile" det="the" num="pl">
+                    <rel name="HasProp">
+                      <node id="d1" pred="decorative"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+            <rel name="HasProp">
+              <node id="o2" pred="once-again" info="th" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Arg2">
+          <node id="b2" pred="be" info="rh" tense="pres">
+            <rel name="Arg">
+              <node id="c1" pred="colour" det="the" num="sg"/>
+            </rel>
+            <rel name="Prop">
+              <node id="r1" pred="rose" kon="+">
+                <rel name="Of">
+                  <node idref="c1"/>
+                </rel>
+              </node>
+            </rel>
+            <rel name="Location">
+              <node id="h1" pred="here" info="th" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="these_L+H* two_L+H* designs LH% are in the family_H* style LL% , while L this_L+H* one LH% is classic_H* LL% .">
+    <lf>
+      <node id="w1" pred="while" mood="dcl">
+        <rel name="Arg1">
+          <node id="b1" pred="be" info="rh" tense="pres">
+            <rel name="Arg">
+              <node id="d1" pred="design" info="th" num="pl">
+                <rel name="Det">
+                  <node id="t1" pred="this" kon="+"/>
+                </rel>
+                <rel name="Card">
+                  <node id="t2" pred="two" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+            <rel name="Prop">
+              <node id="i1" pred="in">
+                <rel name="Fig">
+                  <node idref="d1"/>
+                </rel>
+                <rel name="Ground">
+                  <node id="s1" pred="style" det="the" num="sg">
+                    <rel name="HasProp">
+                      <node id="f1" pred="family" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Arg2">
+          <node id="b2" pred="be" info="rh" tense="pres">
+            <rel name="Arg">
+              <node id="p1" pred="pro_one" info="th" num="sg">
+                <rel name="Det">
+                  <node id="t3" pred="this" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+            <rel name="Prop">
+              <node id="c1" pred="classic" kon="+">
+                <rel name="Of">
+                  <node idref="p1"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="3" string="the colours are terracotta_H* LH% and beige_H* LL% , giving_the_room_the_feeling_of_a_Tuscan_country_home_H* LL% .">
+    <comment>The shared argument (the colours) no longer has to be separated out, since the VPing is now an appositive.</comment>
+    <lf>
+      <node id="e1" pred="elab-rel" info="rh" mood="dcl">
+        <rel name="Core">
+          <node id="b1" pred="be" tense="pres">
+            <rel name="Arg">
+              <node id="c1" pred="colour" det="the" num="pl"/>
+            </rel>
+            <rel name="Prop">
+              <node id="a1" pred="and">
+                <rel name="List">
+                  <node id="t1" pred="terracotta" kon="+">
+                    <rel name="Of">
+                      <node idref="c1"/>
+                    </rel>
+                  </node>
+                  <node id="b2" pred="beige" kon="+">
+                    <rel name="Of">
+                      <node idref="c1"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Trib">
+          <node id="g1" pred="give-tuscan-feeling" kon="+">
+            <rel name="Arg">
+              <node idref="c1"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="the colours_L+H* LH% give_the_room_the_feeling_of_a_Tuscan_country_home_H* LL% , using tiles from Coem_H* 's Armonie_H* collection LL% .">
+    <lf>
+      <node id="e1" pred="elab-rel" info="rh" mood="dcl">
+        <rel name="Core">
+          <node id="g1" pred="give-tuscan-feeling" tense="pres" kon="+">
+            <rel name="Arg">
+              <node id="c1" pred="colour" det="the" info="th" kon="+" num="pl"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Trib">
+          <node id="u1" pred="use">
+            <rel name="Artifact">
+              <node idref="c1"/>
+            </rel>
+            <rel name="Material">
+              <node id="t1" pred="tile" det="nil" num="pl">
+                <rel name="Source">
+                  <node id="c2" pred="collection" num="sg">
+                    <rel name="HasProp">
+                      <node id="a1" pred="Armonie" kon="+"/>
+                    </rel>
+                    <rel name="GenOwner">
+                      <node id="c3" pred="Coem" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="here is another_H* modern design LL% that features blue_L+H* in the colour_scheme LH% .">
+    <comment>
+      NB: The relative clause 'that features ...' is now an appositive, and has theme status here; 
+          this would be appropriate in the context of the question 'do you have any more designs with 
+          blue in the colour scheme?'.
+    </comment>
+    <lf>
+      <node id="e1" pred="elab-rel" info="th" mood="dcl">
+        <rel name="Core">
+          <node id="h1" pred="here-be" info="rh" tense="pres">
+            <rel name="Arg">
+              <node id="d1" pred="design" num="sg">
+                <rel name="Det">
+                  <node id="a1" pred="another" kon="+"/>
+                </rel>
+                <rel name="HasProp">
+                  <node id="m1" pred="modern"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Trib">
+          <node id="f1" pred="feature" tense="pres">
+            <rel name="Artifact">
+              <node idref="d1"/>
+            </rel>
+            <rel name="Poss">
+              <node id="b1" pred="blue" det="nil" kon="+"/>
+            </rel>
+            <rel name="Where">
+              <node id="i1" pred="in">
+                <rel name="Fig">
+                  <node idref="b1"/>
+                </rel>
+                <rel name="Ground">
+                  <node id="c1" pred="colour_scheme" det="the" num="sg"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+
+  <comment>Transitions.</comment>
+
+  <item numOfParses="1" string="now_L+H* LH% , this_L+H* design LH% here_L+H* LH% is in the family_H* style LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="d1" pred="design" info="th" num="sg">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="i1" pred="in">
+            <rel name="Fig">
+              <node idref="d1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="s1" pred="style" det="the" num="sg">
+                <rel name="HasProp">
+                  <node id="f1" pred="family" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Location">
+          <node id="h1" pred="here" info="th" kon="+"/>
+        </rel>
+        <rel name="HasProp">
+          <node id="n1" pred="now" info="th" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="as you can see_L+H* LH% , the design features blue_H* in the colour_scheme LL% .">
+    <lf>
+      <node id="f1" pred="feature" info="rh" mood="dcl" tense="pres">
+        <rel name="Artifact">
+          <node id="d1" pred="design" det="the" num="sg"/>
+        </rel>
+        <rel name="Poss">
+          <node id="b1" pred="blue" det="nil" kon="+"/>
+        </rel>
+        <rel name="Where">
+          <node id="i1" pred="in">
+            <rel name="Fig">
+              <node idref="b1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="c1" pred="colour_scheme" det="the" num="sg"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="a1" pred="as" info="th">
+            <rel name="Arg">
+              <node id="c2" pred="can">
+                <rel name="Body">
+                  <node id="s1" pred="see" kon="+">
+                    <rel name="Perceiver">
+                      <node id="p1" pred="pro2"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="in_addition_to the classic_L+H* style LH% , there are also modern_H* LH% and country_H* options LL% .">
+    <lf>
+      <node id="t1" pred="there-be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="o1" pred="option" det="nil" num="pl">
+            <rel name="GenRel">
+              <node id="a1" pred="and">
+                <rel name="List">
+                  <node id="m1" pred="modern" kon="+">
+                    <rel name="Of">
+                      <node idref="o1"/>
+                    </rel>
+                  </node>
+                  <node id="c1" pred="country" kon="+">
+                    <rel name="Of">
+                      <node idref="o1"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="a2" pred="also"/>
+        </rel>
+        <rel name="HasProp">
+          <node id="i1" pred="in-addition-to" info="th">
+            <rel name="Arg">
+              <node id="s1" pred="style" det="the" num="sg">
+                <rel name="HasProp">
+                  <node id="c2" pred="classic" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+
+  <comment>Further options (in thumbnails).</comment>
+
+  <item numOfParses="2" string="we have more_H* designs in the classic style LL% .">
+    <comment>NB: this clause from the sample dialogue gets its own sentence.</comment>
+    <lf>
+      <node id="h1" pred="have" info="rh" mood="dcl" tense="pres">
+        <rel name="Owner">
+          <node id="p1" pred="pro1" num="pl"/>
+        </rel>
+        <rel name="Poss">
+          <node id="d1" pred="design" det="nil" num="pl">
+            <rel name="FigInv">
+              <node id="i1" pred="in">
+                <rel name="Ground">
+                  <node id="s1" pred="style" det="the" num="sg">
+                    <rel name="HasProp">
+                      <node id="c1" pred="classic"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+            <rel name="HasProp">
+              <node id="m1" pred="more" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="we also have modern_H* LH% , family_H* LH% and country_H* designs LL% .">
+    <lf>
+      <node id="h1" pred="have" info="rh" mood="dcl" tense="pres">
+        <rel name="Owner">
+          <node id="p1" pred="pro1" num="pl"/>
+        </rel>
+        <rel name="Poss">
+          <node id="d1" pred="design" det="nil" num="pl">
+            <rel name="GenRel">
+              <node id="a1" pred="and">
+                <rel name="List">
+                  <node id="m1" pred="modern" kon="+">
+                    <rel name="Of">
+                      <node idref="d1"/>
+                    </rel>
+                  </node>
+                  <node id="f1" pred="family" kon="+">
+                    <rel name="Of">
+                      <node idref="d1"/>
+                    </rel>
+                  </node>
+                  <node id="c1" pred="country" kon="+">
+                    <rel name="Of">
+                      <node idref="d1"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="a2" pred="also"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="down_here_L+H* LH% we have some other_H* options in blue LL% .">
+    <lf>
+      <node id="h1" pred="have" info="rh" mood="dcl" tense="pres">
+        <rel name="Owner">
+          <node id="p1" pred="pro1" num="pl"/>
+        </rel>
+        <rel name="Poss">
+          <node id="o1" pred="option" det="some" num="pl">
+            <rel name="FigInv">
+              <node id="i1" pred="in">
+                <rel name="Ground">
+                  <node id="b1" pred="blue" det="nil"/>
+                </rel>
+              </node>
+            </rel>
+            <rel name="HasProp">
+              <node id="o2" pred="other" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Location">
+          <node id="d1" pred="down_here" info="th" kon="+"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="these_L+H* two_L+H* LH% are in the family_H* style LL% .">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="p1" pred="pro-n" info="th">
+            <rel name="Det">
+              <node id="t1" pred="this" kon="+"/>
+            </rel>
+            <rel name="Card">
+              <node id="t2" pred="two" kon="+"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Prop">
+          <node id="i1" pred="in">
+            <rel name="Fig">
+              <node idref="p1"/>
+            </rel>
+            <rel name="Ground">
+              <node id="s1" pred="style" det="the" num="sg">
+                <rel name="HasProp">
+                  <node id="f1" pred="family" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+
+  <comment>Questions.</comment>
+
+  <item numOfParses="1" string="would you like to look at one of these_H* LH% ?">
+    <lf>
+      <node id="w1" pred="would" info="rh" mood="int">
+        <rel name="Body">
+          <node id="l1" pred="like">
+            <rel name="Experiencer">
+              <node id="p1" pred="pro2"/>
+            </rel>
+            <rel name="Content">
+              <node id="l2" pred="look-at">
+                <rel name="Perceiver">
+                  <node idref="p1"/>
+                </rel>
+                <rel name="Phenomenon">
+                  <node id="o1" pred="one" det="nil">
+                    <rel name="ElementOf">
+                      <node id="t1" pred="this" kon="+" num="pl"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="would you like to see more_H* designs in the country style LH% ?">
+    <lf>
+      <node id="w1" pred="would" info="rh" mood="int">
+        <rel name="Body">
+          <node id="l1" pred="like">
+            <rel name="Experiencer">
+              <node id="p1" pred="pro2"/>
+            </rel>
+            <rel name="Content">
+              <node id="s1" pred="see">
+                <rel name="Perceiver">
+                  <node idref="p1"/>
+                </rel>
+                <rel name="Phenomenon">
+                  <node id="d1" pred="design" det="nil" num="pl">
+                    <rel name="FigInv">
+                      <node id="i1" pred="in">
+                        <rel name="Ground">
+                          <node id="s2" pred="style" det="the" num="sg">
+                            <rel name="HasProp">
+                              <node id="c1" pred="country"/>
+                            </rel>
+                          </node>
+                        </rel>
+                      </node>
+                    </rel>
+                    <rel name="HasProp">
+                      <node id="m1" pred="more" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="would you like to see more designs with blue_L+H* tiles LH% ?">
+    <comment>Changed pitch accent and phrase to theme, for clarification context.</comment>
+    <lf>
+      <node id="w1" pred="would" info="th" mood="int">
+        <rel name="Body">
+          <node id="l1" pred="like">
+            <rel name="Experiencer">
+              <node id="p1" pred="pro2"/>
+            </rel>
+            <rel name="Content">
+              <node id="s1" pred="see">
+                <rel name="Perceiver">
+                  <node idref="p1"/>
+                </rel>
+                <rel name="Phenomenon">
+                  <node id="d1" pred="design" det="nil" num="pl">
+                    <rel name="Poss">
+                      <node id="t1" pred="tile" det="nil" num="pl">
+                        <rel name="HasProp">
+                          <node id="b1" pred="blue" kon="+"/>
+                        </rel>
+                      </node>
+                    </rel>
+                    <rel name="HasProp">
+                      <node id="m1" pred="more"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="would you like to see more family_L+H* designs LH% ?">
+    <lf>
+      <node id="w1" pred="would" info="th" mood="int">
+        <rel name="Body">
+          <node id="l1" pred="like">
+            <rel name="Experiencer">
+              <node id="p1" pred="pro2"/>
+            </rel>
+            <rel name="Content">
+              <node id="s1" pred="see">
+                <rel name="Perceiver">
+                  <node idref="p1"/>
+                </rel>
+                <rel name="Phenomenon">
+                  <node id="d1" pred="design" det="nil" num="pl">
+                    <rel name="HasProp">
+                      <node id="m1" pred="more"/>
+                    </rel>
+                    <rel name="HasProp">
+                      <node id="f1" pred="family" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="would you like to see them_H* LH% ?">
+    <lf>
+      <node id="w1" pred="would" info="rh" mood="int">
+        <rel name="Body">
+          <node id="l1" pred="like">
+            <rel name="Experiencer">
+              <node id="p1" pred="pro2"/>
+            </rel>
+            <rel name="Content">
+              <node id="s1" pred="see">
+                <rel name="Perceiver">
+                  <node idref="p1"/>
+                </rel>
+                <rel name="Phenomenon">
+                  <node id="p2" pred="pro3n" kon="+" num="pl"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="do you want to go with this_H* design_H* LH% ?">
+    <lf>
+      <node id="w1" pred="want" info="rh" mood="int" tense="pres">
+        <rel name="Experiencer">
+          <node id="p1" pred="pro2"/>
+        </rel>
+        <rel name="Content">
+          <node id="g1" pred="go-with">
+            <rel name="Cognizer">
+              <node idref="p1"/>
+            </rel>
+            <rel name="Chosen">
+              <node id="d1" pred="design" kon="+" num="sg">
+                <rel name="Det">
+                  <node id="t1" pred="this" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="4" string="do you mean this modern_L+H* one LH% , with the tiles from the Kerarock_L+H* collection LH% ?">
+    <comment>Changed pitch accent and phrase to theme, for clarification context.</comment>
+    <lf>
+      <node id="e1" pred="elab-rel" info="th" mood="int">
+        <rel name="Core">
+          <node id="m1" pred="mean" tense="pres">
+            <rel name="Communicator">
+              <node id="p1" pred="pro2"/>
+            </rel>
+            <rel name="Referent">
+              <node id="p2" pred="pro_one" num="sg">
+                <rel name="Det">
+                  <node id="t1" pred="this"/>
+                </rel>
+                <rel name="HasProp">
+                  <node id="m2" pred="modern" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Trib">
+          <node id="h1" pred="has-rel">
+            <rel name="Of">
+              <node idref="p2"/>
+            </rel>
+            <rel name="Poss">
+              <node id="t2" pred="tile" det="the" num="pl">
+                <rel name="Source">
+                  <node id="c1" pred="collection" det="the" num="sg">
+                    <rel name="HasProp">
+                      <node id="k1" pred="Kerarock" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="is this_H* the one you want to go with LH% ?">
+    <lf>
+      <node id="b1" pred="be" info="rh" mood="int" tense="pres">
+        <rel name="Arg">
+          <node id="t1" pred="this" kon="+" num="sg"/>
+        </rel>
+        <rel name="Pred">
+          <node id="p1" pred="pro_one" det="the" num="sg">
+            <rel name="GenRel">
+              <node id="w1" pred="want" tense="pres">
+                <rel name="Experiencer">
+                  <node id="p2" pred="pro2"/>
+                </rel>
+                <rel name="Content">
+                  <node id="g1" pred="go-with">
+                    <rel name="Cognizer">
+                      <node idref="p2"/>
+                    </rel>
+                    <rel name="Chosen">
+                      <node idref="p1"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  
+  <comment>User tailoring.</comment>
+  
+  <item numOfParses="1" string="although it 's in the classic_L+H* style LH% , this design does_H* have a blue_H* LH% and beige_H* colour_scheme LL% .">
+    <lf>
+      <node id="a1:situation" pred="although" info="th" mood="dcl">
+        <rel name="Arg1">
+          <node id="b1:state" pred="be" tense="pres">
+            <rel name="Arg">
+              <node id="p1:sem-obj" pred="pro3n" num="sg"/>
+            </rel>
+            <rel name="Prop">
+              <node id="i1:proposition" pred="in">
+                <rel name="Fig">
+                  <node idref="p1:sem-obj"/>
+                </rel>
+                <rel name="Ground">
+                  <node id="s1:abstraction" pred="style" det="the" num="sg">
+                    <rel name="HasProp">
+                      <node id="c1:style" pred="classic" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Arg2">
+          <node id="d1:state" pred="do" info="rh" kon="+" owner="s" tense="pres">
+            <rel name="Body">
+              <node id="h1:situation" pred="have">
+                <rel name="Owner">
+                  <node id="d2:mental-obj" pred="design" num="sg">
+                    <rel name="Det">
+                      <node id="t1:proposition" pred="this"/>
+                    </rel>
+                  </node>
+                </rel>
+                <rel name="Poss">
+                  <node id="c2:mental-obj" pred="colour_scheme" det="a" num="sg">
+                    <rel name="GenRel">
+                      <node id="a2:proposition" pred="and">
+                        <rel name="List">
+                          <node id="b2:colour" pred="blue" kon="+">
+                            <rel name="Of">
+                              <node idref="c2:mental-obj"/>
+                            </rel>
+                          </node>
+                          <node id="b3:colour" pred="beige" kon="+">
+                            <rel name="Of">
+                              <node idref="c2:mental-obj"/>
+                            </rel>
+                          </node>
+                        </rel>
+                      </node>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="although it 's by Villeroy_and_Boch_L+H* LH% , it does_H* have animal_H* motifs_H* on the decorative_H* tiles LL% .">
+    <lf>
+      <node id="a1:situation" pred="although" info="th" mood="dcl">
+        <rel name="Arg1">
+          <node id="b1:state" pred="be" tense="pres">
+            <rel name="Arg">
+              <node id="p1:sem-obj" pred="pro3n" num="sg"/>
+            </rel>
+            <rel name="Prop">
+              <node id="h1:proposition" pred="has-rel">
+                <rel name="Of">
+                  <node idref="p1:sem-obj"/>
+                </rel>
+                <rel name="Creator">
+                  <node id="v1:manufacturer" pred="Villeroy_and_Boch" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Arg2">
+          <node id="d1:state" pred="do" info="rh" kon="+" owner="s" tense="pres">
+            <rel name="Body">
+              <node id="h2:situation" pred="have">
+                <rel name="Owner">
+                  <node id="p2:sem-obj" pred="pro3n" num="sg"/>
+                </rel>
+                <rel name="Poss">
+                  <node id="m1:decoration" pred="motif" det="nil" kon="+" num="pl">
+                    <rel name="HasProp">
+                      <node id="a2:quality" pred="animal" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+                <rel name="Where">
+                  <node id="o1:proposition" pred="on">
+                    <rel name="Fig">
+                      <node idref="m1:decoration"/>
+                    </rel>
+                    <rel name="Ground">
+                      <node id="t1:phys-obj" pred="tile" det="the" num="pl">
+                        <rel name="HasProp">
+                          <node id="d2:quality" pred="decorative" kon="+"/>
+                        </rel>
+                      </node>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="1" string="this_L+H* design_L+H* LH% is_H* in the country_H* style LH% , but L it has a blue_H* LH% and beige_H* colour_scheme LL% .">
+    <lf>
+      <node id="b1:situation" pred="but" mood="dcl">
+        <rel name="Arg1">
+          <node id="b2:state" pred="be" info="rh" kon="+" owner="h" tense="pres">
+            <rel name="Arg">
+              <node id="d1:mental-obj" pred="design" info="th" kon="+" num="sg">
+                <rel name="Det">
+                  <node id="t1:proposition" pred="this" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+            <rel name="Prop">
+              <node id="i1:proposition" pred="in">
+                <rel name="Fig">
+                  <node idref="d1:mental-obj"/>
+                </rel>
+                <rel name="Ground">
+                  <node id="s1:abstraction" pred="style" det="the" num="sg">
+                    <rel name="HasProp">
+                      <node id="c1:style" pred="country" kon="+"/>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Arg2">
+          <node id="h1:situation" pred="have" info="rh" tense="pres">
+            <rel name="Owner">
+              <node id="p1:sem-obj" pred="pro3n" num="sg"/>
+            </rel>
+            <rel name="Poss">
+              <node id="c2:mental-obj" pred="colour_scheme" det="a" num="sg">
+                <rel name="GenRel">
+                  <node id="a1:proposition" pred="and">
+                    <rel name="List">
+                      <node id="b3:colour" pred="blue" kon="+">
+                        <rel name="Of">
+                          <node idref="c2:mental-obj"/>
+                        </rel>
+                      </node>
+                      <node id="b4:colour" pred="beige" kon="+">
+                        <rel name="Of">
+                          <node idref="c2:mental-obj"/>
+                        </rel>
+                      </node>
+                    </rel>
+                  </node>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="this_L+H* design_L+H* LH% is_H* by Villeroy_and_Boch_H* LH% , but L it features green_H* in the colour_scheme_H* LL% .">
+    <lf>
+      <node id="b1:situation" pred="but" mood="dcl">
+        <rel name="Arg1">
+          <node id="b2:state" pred="be" info="rh" kon="+" owner="h" tense="pres">
+            <rel name="Arg">
+              <node id="d1:mental-obj" pred="design" info="th" kon="+" num="sg">
+                <rel name="Det">
+                  <node id="t1:proposition" pred="this" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+            <rel name="Prop">
+              <node id="h1:proposition" pred="has-rel">
+                <rel name="Of">
+                  <node idref="d1:mental-obj"/>
+                </rel>
+                <rel name="Creator">
+                  <node id="v1:manufacturer" pred="Villeroy_and_Boch" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="Arg2">
+          <node id="f1:proposition" pred="feature" info="rh" tense="pres">
+            <rel name="Artifact">
+              <node id="p1:sem-obj" pred="pro3n" num="sg"/>
+            </rel>
+            <rel name="Poss">
+              <node id="g1:colour" pred="green" det="nil" kon="+"/>
+            </rel>
+            <rel name="Where">
+              <node id="i1:proposition" pred="in">
+                <rel name="Fig">
+                  <node idref="g1:colour"/>
+                </rel>
+                <rel name="Ground">
+                  <node id="c1:mental-obj" pred="colour_scheme" det="the" kon="+" num="sg"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="3" string="it features green_H* in the colour_scheme_H* though LL% .">
+    <lf>
+      <node id="f1:proposition" pred="feature" info="rh" mood="dcl" tense="pres">
+        <rel name="Artifact">
+          <node id="p1:sem-obj" pred="pro3n" num="sg"/>
+        </rel>
+        <rel name="Poss">
+          <node id="g1:colour" pred="green" det="nil" kon="+"/>
+        </rel>
+        <rel name="Where">
+          <node id="i1:proposition" pred="in">
+            <rel name="Fig">
+              <node idref="g1:colour"/>
+            </rel>
+            <rel name="Ground">
+              <node id="c1:mental-obj" pred="colour_scheme" det="the" kon="+" num="sg"/>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="t1:proposition" pred="though"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+  <item numOfParses="2" string="it 's in the modern_H* style though LL% .">
+    <lf>
+      <node id="b1:state" pred="be" info="rh" mood="dcl" tense="pres">
+        <rel name="Arg">
+          <node id="p1:sem-obj" pred="pro3n" num="sg"/>
+        </rel>
+        <rel name="Prop">
+          <node id="i1:proposition" pred="in">
+            <rel name="Fig">
+              <node idref="p1:sem-obj"/>
+            </rel>
+            <rel name="Ground">
+              <node id="s1:abstraction" pred="style" det="the" num="sg">
+                <rel name="HasProp">
+                  <node id="m1:style" pred="modern" kon="+"/>
+                </rel>
+              </node>
+            </rel>
+          </node>
+        </rel>
+        <rel name="HasProp">
+          <node id="t1:proposition" pred="though"/>
+        </rel>
+      </node>
+    </lf>
+  </item>
+</regression>

@@ -1,0 +1,178 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="multiply-108" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="sum" wn="sum%2:32:00" grouping="sum.02"/>
+        <MEMBER name="add" wn="add%2:32:00 add%2:31:00" grouping="add.02"/>
+        <MEMBER name="tally" wn="tally%2:32:00" grouping="tally.01"/>
+        <MEMBER name="count" wn="count%2:32:00 count%2:31:00" grouping="count.01 count.03"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Co-Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="NP; Plural object" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I summed the numbers.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+			<SYNRESTR Value="+" type="plural"/>
+		    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="calculate">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="multiply-108-1">
+            <MEMBERS>
+                <MEMBER name="multiply" wn="" grouping=""/>
+                <MEMBER name="divide" wn="" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.1" primary="NP V NP PP.co-theme" secondary="NP-PP; by-PP" xtag="0.1"/>
+                    <EXAMPLES>
+                        <EXAMPLE>I multiplied x by y.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+			<PREP value="by">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="Co-Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                <PRED value="calculate">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Co-Theme"/>
+                    </ARGS>
+                </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+	</VNSUBCLASS>
+        <VNSUBCLASS ID="multiply-108-2">
+            <MEMBERS>
+                <MEMBER name="deduct" wn="" grouping="deduct.01"/>
+                <MEMBER name="factor_out" wn="" grouping=""/>
+                <MEMBER name="interpolate" wn="" grouping=""/>
+                <MEMBER name="extrapolate" wn="" grouping="extrapolate.01"/>
+                <MEMBER name="subtract" wn="" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.1" primary="NP V NP PP.co-theme" secondary="NP-PP; from-PP" xtag="0.1"/>
+                    <EXAMPLES>
+                        <EXAMPLE>I subtracted x from y.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+			<PREP value="from">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="Co-Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                <PRED value="calculate">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Co-Theme"/>
+                    </ARGS>
+                </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="multiply-108-3">
+            <MEMBERS>
+                <MEMBER name="average" wn="" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.1" primary="NP V NP PP.co-theme" secondary="NP-PP; over-PP" xtag="0.1"/>
+                    <EXAMPLES>
+                        <EXAMPLE>I averaged x over n.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+			<PREP value="over">
+			    <SELRESTRS/>
+			</PREP>
+                        <NP value="Co-Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="calculate">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Co-Theme"/>
+                    </ARGS>
+                </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

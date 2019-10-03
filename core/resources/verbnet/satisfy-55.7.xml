@@ -1,0 +1,84 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="satisfy-55.7" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+	<MEMBER name="exceed" wn="" grouping=""/>
+	<MEMBER name="fulfill" wn="" grouping=""/>
+	<MEMBER name="meet" wn="" grouping="meet.04"/>
+	<MEMBER name="sate" wn="" grouping=""/>
+	<MEMBER name="satiate" wn="" grouping=""/>
+	<MEMBER name="satisfy" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+	<THEMROLE type="Agent">
+	    <SELRESTRS logic="or">
+		<SELRESTR Value="+" type="animate"/>		
+		<SELRESTR Value="+" type="organization"/>
+	    </SELRESTRS>
+	</THEMROLE>
+	<THEMROLE type="Theme">
+	    <SELRESTRS/>
+	</THEMROLE>
+	<THEMROLE type="Instrument">
+	    <SELRESTRS/>
+	</THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+	<FRAME>
+	    <DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+	    <EXAMPLES>
+		<EXAMPLE>This course satisfies the foreign language requirement.</EXAMPLE>
+	    </EXAMPLES>
+	    <SYNTAX>
+		<NP value="Instrument">
+		   <SYNRESTRS/>
+		</NP>
+		<VERB/>
+		<NP value="Theme">
+		    <SYNRESTRS/>
+		</NP>
+	    </SYNTAX>
+	    <SEMANTICS>
+		<PRED value="satisfy">
+		    <ARGS>
+			<ARG type="Event" value="E"/>
+			<ARG type="ThemRole" value="?Agent"/>
+			<ARG type="ThemRole" value="Theme"/>
+			<ARG type="ThemRole" value="Instrument"/>
+		    </ARGS>
+		</PRED>
+	    </SEMANTICS>
+	</FRAME>
+	<FRAME>
+	    <DESCRIPTION descriptionNumber="" primary="NP V NP PP" secondary="NP-PP" xtag=""/>
+	    <EXAMPLES>
+		<EXAMPLE>I satisfied the foreign language requirement with German.</EXAMPLE>
+	    </EXAMPLES>
+	    <SYNTAX>
+		<NP value="Agent">
+		   <SYNRESTRS/>
+		</NP>
+		<VERB/>
+		<NP value="Theme">
+		    <SYNRESTRS/>
+		</NP>
+		<PREP value="with">
+		    <SELRESTRS/>
+		</PREP>
+		<NP value="Instrument">
+		    <SYNRESTRS/>
+		</NP>
+	    </SYNTAX>
+	    <SEMANTICS>
+		<PRED value="satisfy">
+		    <ARGS>
+			<ARG type="Event" value="E"/>
+			<ARG type="ThemRole" value="Agent"/>
+			<ARG type="ThemRole" value="Theme"/>
+			<ARG type="ThemRole" value="Instrument"/>
+		    </ARGS>
+		</PRED>
+	    </SEMANTICS>
+	</FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

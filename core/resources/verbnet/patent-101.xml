@@ -1,0 +1,60 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="patent-101" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="copyright" wn="copyright%2:40:00" grouping=""/>
+        <MEMBER name="patent" wn="patent%2:40:00" grouping="patent.01"/>
+        <MEMBER name="trademark" wn="trademark%2:32:00" grouping=""/>
+        <MEMBER name="license" wn="licence%2:41:00" grouping="license.01"/>
+        <MEMBER name="register" wn="register%2:32:03" grouping="register.01"/>
+        <MEMBER name="certify" wn="certify%2:41:02" grouping="certify.01"/>
+        <MEMBER name="credential" wn="" grouping=""/>
+        <MEMBER name="accredit" wn="accredit%2:41:00" grouping=""/>
+        <MEMBER name="verify" wn="verify%2:32:04" grouping="verify.01"/>
+        <MEMBER name="evidence" wn="" grouping=""/>
+        <MEMBER name="imitate" wn="imitate%2:36:03" grouping="imitate.02"/>
+        <MEMBER name="impersonate" wn="impersonate%2:36:00         impersonate%2:32:01 impersonate%2:32:00" grouping="impersonate.01 impersonate.02"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="NP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I patented my idea.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="license">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

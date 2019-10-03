@@ -1,0 +1,12 @@
+FROM registry.gitlab.com/tokenmill/clojure:1
+
+RUN mkdir /root/.gitlibs
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY deps.edn /usr/src/app
+COPY src /usr/src/app/src
+COPY test /usr/src/app/test
+COPY resources /usr/src/app/resources
+
+RUN clj -R:test || true

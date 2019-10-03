@@ -1,0 +1,201 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="equip-13.4.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="charge" wn="charge%2:41:00 charge%2:32:01" grouping="charge.02"/>
+        <MEMBER name="invest" wn="invest%2:41:03 invest%2:41:02 invest%2:41:00" grouping="invest.02 invest.03"/>
+        <MEMBER name="ply" wn="ply%2:34:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Recipient">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.6" primary="NP V NP-Fulfilling PP" secondary="Fulfilling Alternation" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Brown equipped Jones with a camera.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Recipient">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="equip-13.4.2-1">
+            <MEMBERS>
+                <MEMBER name="arm" wn="arm%2:33:00 arm%2:40:00" grouping="arm.01"/>
+                <MEMBER name="equip" wn="equip%2:40:00" grouping="equip.01"/>
+                <MEMBER name="outfit" wn="outfit%2:40:00" grouping=""/>
+                <MEMBER name="rearm" wn="rearm%2:40:00 rearm%2:33:00" grouping=""/>
+                <MEMBER name="recompense" wn="recompense%2:40:01" grouping=""/> 
+                <MEMBER name="redress" wn="" grouping=""/>
+                <MEMBER name="regale" wn="regale%2:34:00" grouping=""/>
+                <MEMBER name="remunerate" wn="remunerate%2:40:00" grouping=""/>
+                <MEMBER name="repay" wn="repay%2:40:02" grouping=""/>
+                <MEMBER name="reward" wn="reward%2:40:00" grouping="reward.01"/>
+                <MEMBER name="saddle" wn="saddle%2:35:10 saddle%2:32:00" grouping=""/>
+                <MEMBER name="treat" wn="treat%2:40:00 treat%2:34:00" grouping="treat.02"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP.recipient" secondary="Transitive; Recipient Object" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>Brown equipped his soldiers.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Recipient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Source"/>
+                                <ARG type="ThemRole" value="?Theme"/>
+                                <ARG type="Constant" value="ch_of_poss"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="Recipient"/>
+                                <ARG type="ThemRole" value="?Theme"/>
+                                <ARG type="Constant" value="ch_of_poss"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="transfer">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="?Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="equals">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Source"/>
+                            </ARGS>
+                        </PRED>  
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="equip-13.4.2-1-1">
+                    <MEMBERS>
+                        <MEMBER name="armor" wn="armor%2:40:00" grouping=""/>
+                        <MEMBER name="encumber" wn="" grouping=""/>
+                        <MEMBER name="fortify" wn="fortify%2:33:00" grouping="fortify.03"/>
+                        <MEMBER name="overburden" wn="overburden%2:35:00" grouping=""/>
+                        <MEMBER name="weight" wn="weight%2:35:00" grouping="weight.01"/>
+                        <MEMBER name="burden" wn="burden%2:35:00 burden%2:32:00" grouping=""/>
+                        <MEMBER name="compensate" wn="compensate%2:40:02 compensate%2:40:00" grouping="compensate.01 compensate.02"/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="" primary="NP.theme V NP" secondary="Transitive; Theme Subject" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>The huge load burdened the mule.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Theme">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Recipient">
+                                    <SYNRESTRS/>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="has_possession">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Recipient"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

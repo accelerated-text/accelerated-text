@@ -1,0 +1,153 @@
+#import "./fragments.graphql"
+
+### DictionaryItem -------------------------------------------------------------
+
+mutation createDictionaryItem(
+  $name:            String!
+  $partOfSpeech:    PartOfSpeech
+) {
+  createDictionaryItem(
+    name:           $name
+    partOfSpeech:   $partOfSpeech
+  ) {
+    ...dictionaryItemFields
+  }
+}
+
+mutation updateDictionaryItem(
+  $id:              ID!
+  $name:            String!
+) {
+  updateDictionaryItem(
+    id:             $id
+    name:           $name
+  ) {
+    ...dictionaryItemFields
+  }
+}
+
+mutation deleteDictionaryItem(
+  $id:              ID!
+) {
+  deleteDictionaryItem(
+    id:             $id
+  )
+}
+
+
+### Document plans -------------------------------------------------------------
+
+mutation createDocumentPlan(
+  $uid:             ID!
+  $name:            String!
+  $blocklyXml:      String!
+  $documentPlan:    String!
+  $dataSampleId:    ID
+  $dataSampleRow:   Int
+) {
+  createDocumentPlan(
+    uid:            $uid
+    name:           $name
+    blocklyXml:     $blocklyXml
+    documentPlan:   $documentPlan
+    dataSampleId:   $dataSampleId
+    dataSampleRow:  $dataSampleRow
+  ) {
+    ...documentPlanFields
+  }
+}
+
+mutation deleteDocumentPlan(
+  $id:              ID!
+) {
+  deleteDocumentPlan(
+    id:             $id
+  )
+}
+
+mutation updateDocumentPlan(
+  $id:              ID!
+  $uid:             ID
+  $name:            String
+  $blocklyXml:      String
+  $documentPlan:    String
+  $dataSampleId:    ID
+  $dataSampleRow:   Int
+) {
+  updateDocumentPlan(
+    id:             $id
+    uid:            $uid
+    name:           $name
+    blocklyXml:     $blocklyXml
+    documentPlan:   $documentPlan
+    dataSampleId:   $dataSampleId
+    dataSampleRow:  $dataSampleRow
+  ) {
+    ...documentPlanFields
+  }
+}
+
+### Phrase ---------------------------------------------------------------------
+
+mutation createPhrase(
+  $dictionaryItemId:  ID!
+  $text:              String!
+  $defaultUsage:      DefaultUsage
+) {
+  createPhrase(
+    dictionaryItemId: $dictionaryItemId
+    text:             $text
+    defaultUsage:     $defaultUsage
+  ) {
+    ...dictionaryItemFields
+  }
+}
+
+mutation updatePhrase(
+  $id:              ID!
+  $text:            String!
+) {
+  updatePhrase(
+    id:             $id
+    text:           $text
+  ) {
+    ...phraseFields
+  }
+}
+
+mutation updatePhraseDefaultUsage(
+  $id:              ID!
+  $defaultUsage:    DefaultUsage!
+) {
+  updatePhraseDefaultUsage(
+    id:             $id
+    defaultUsage:   $defaultUsage
+  ) {
+    ...phraseFields
+  }
+}
+
+mutation deletePhrase(
+  $id:              ID!
+) {
+  deletePhrase(
+    id:             $id
+  ) {
+    ...dictionaryItemFields
+  }
+}
+
+
+### ReaderFlagUsage ------------------------------------------------------------
+
+mutation updateReaderFlagUsage(
+  $id:              ID!
+  $usage:           Usage!
+) {
+  updateReaderFlagUsage(
+    id:             $id
+    usage:          $usage
+  ) {
+    ...readerFlagUsageFields
+  }
+}

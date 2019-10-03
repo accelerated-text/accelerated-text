@@ -1,0 +1,612 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="other_cos-45.4" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="abate" wn="abate%2:30:01 abate%2:30:00" grouping="abate.01"/>
+        <MEMBER name="abbreviate" wn="" grouping=""/>
+        <MEMBER name="abrade" wn="" grouping=""/>
+        <MEMBER name="abridge" wn="" grouping=""/>
+        <MEMBER name="accelerate" wn="accelerate%2:30:00 accelerate%2:30:01" grouping="accelerate.01"/>
+        <MEMBER name="acetify" wn="acetify%2:39:00 acetify%2:30:00" grouping=""/>
+        <MEMBER name="acidify" wn="acidify%2:39:00 acidify%2:30:00" grouping=""/>
+        <MEMBER name="activate" wn="" grouping="activate.01 activate.02 activate.03 activate.04"/>
+        <MEMBER name="advance" wn="advance%2:30:08 advance%2:30:00 advance%2:30:09 advance%2:30:01" grouping="advance.03"/>
+        <MEMBER name="age" wn="age%2:30:01 age%2:30:00 age%2:30:02" grouping="age.02"/>
+        <MEMBER name="agglomerate" wn="agglomerate%2:35:00" grouping=""/>
+        <MEMBER name="air" wn="air%2:39:00 air%2:30:01 air%2:30:00" grouping="air.01"/>
+        <MEMBER name="alkalify" wn="alkalify%2:30:00" grouping=""/>
+	<MEMBER name="alkalize" wn="" grouping=""/>
+        <MEMBER name="alter" wn="alter%2:30:01 alter%2:30:00 alter%2:36:00" grouping="alter.02"/>
+        <MEMBER name="ameliorate" wn="ameliorate%2:30:01 ameliorate%2:30:00" grouping=""/>
+        <MEMBER name="americanize" wn="americanize%2:30:01 americanize%2:30:00" grouping=""/>
+        <MEMBER name="amplify" wn="" grouping="amplify.01 amplify.02"/>
+        <MEMBER name="anglicize" wn="" grouping=""/>
+        <MEMBER name="atomize" wn="" grouping=""/>
+        <MEMBER name="attenuate" wn="attenuate%2:30:01 attenuate%2:30:00" grouping=""/>
+        <MEMBER name="augment" wn="" grouping=""/>
+        <MEMBER name="balance" wn="balance%2:42:00 balance%2:42:01" grouping="balance.01 balance.02"/>
+        <MEMBER name="blacken" wn="blacken%2:30:00 blacken%2:30:01" grouping=""/>
+        <MEMBER name="beautify" wn="" grouping=""/>
+        <MEMBER name="bifurcate" wn="" grouping=""/>
+        <MEMBER name="bisect" wn="" grouping=""/>
+        <MEMBER name="bleach" wn="" grouping=""/>
+        <MEMBER name="blunt" wn="blunt%2:35:00 blunt%2:30:00" grouping="blunt.01 blunt.02"/>
+        <MEMBER name="blur" wn="blur%2:39:01 blur%2:39:00 blur%2:30:01 blur%2:30:00" grouping="blur.01 blur.02"/>
+        <MEMBER name="bolshevize" wn="" grouping=""/>
+        <MEMBER name="brighten" wn="brighten%2:30:01 brighten%2:43:00" grouping=""/>
+        <MEMBER name="broaden" wn="broaden%2:30:01 broaden%2:30:00" grouping="broaden.01 broaden.02"/>
+        <MEMBER name="burn" wn="burn%2:30:02 burn%2:43:01 burn%2:30:00 burn%2:30:01 burn%2:41:00 burn%2:29:00 burn%2:30:03" grouping="burn.01 burn.02 burn.03 burn.05"/>
+        <MEMBER name="burst" wn="burst%2:30:00 burst%2:30:09 burst%2:38:04 burst%2:30:01" grouping="burst.01"/>
+        <MEMBER name="calcify" wn="calcify%2:30:02 calcify%2:30:00 calcify%2:30:01" grouping=""/>
+        <MEMBER name="capsize" wn="capsize%2:38:00" grouping=""/>
+        <MEMBER name="caramelize" wn="caramelize%2:30:01 caramelize%2:30:00" grouping=""/>
+        <MEMBER name="carbonize" wn="carbonize%2:30:00" grouping=""/>
+        <MEMBER name="centralize" wn="centralize%2:30:00" grouping=""/>
+        <MEMBER name="change" wn="change%2:30:00 change%2:30:01 change%2:30:02 change%2:30:08" grouping="change.01"/>
+        <MEMBER name="char" wn="char%2:43:00 char%2:30:00" grouping=""/>
+        <MEMBER name="cheapen" wn="cheapen%2:30:00" grouping=""/>
+	<MEMBER name="cheer_up" wn="" grouping=""/>
+        <MEMBER name="chill" wn="chill%2:30:01 chill%2:30:00" grouping="chill.02"/>
+        <MEMBER name="civilize" wn="" grouping=""/>
+        <MEMBER name="clarify" wn="clarify%2:32:00 clarify%2:30:02" grouping="clarify.01 clarify.02"/>
+        <MEMBER name="clean" wn="clean%2:35:00 clean%2:30:01 clean%2:29:00 clean%2:42:00 clean%2:35:02 clean%2:30:02" grouping="clean.01 clean.04"/>
+        <MEMBER name="clear" wn="clear%2:43:00 clear%2:39:05 clear%2:40:12 clear%2:30:03" grouping="clear.01"/>
+        <MEMBER name="clog" wn="clog%2:35:00" grouping="clog.01"/>
+        <MEMBER name="close" wn="close%2:41:00 close%2:35:00 close%2:35:06 close%2:39:10" grouping="close.01 close.02 close.05 close.06"/>
+        <MEMBER name="cloud" wn="cloud%2:39:00 cloud%2:43:00 cloud%2:30:04" grouping="cloud.01"/>
+        <MEMBER name="coagulate" wn="coagulate%2:30:00" grouping=""/>
+        <MEMBER name="coarsen" wn="coarsen%2:35:00" grouping=""/>
+        <MEMBER name="collapse" wn="collapse%2:38:00 collapse%2:38:02 collapse%2:38:03" grouping="collapse.01"/>
+        <MEMBER name="collect" wn="collect%2:40:00 collect%2:35:01" grouping="collect.01"/>
+        <MEMBER name="combust" wn="combust%2:43:02 combust%2:43:00 combust%2:30:00 combust%2:37:00" grouping="combust.01 combust.02 combust.03"/>
+        <MEMBER name="compress" wn="compress%2:35:01 compress%2:35:00" grouping="compress.01"/>
+	<MEMBER name="compact" wn="" grouping=""/>
+        <MEMBER name="condense" wn="condense%2:30:01 condense%2:30:05 condense%2:30:03 condense%2:30:07" grouping="condense.01 condense.03 condense.04"/>
+        <MEMBER name="congeal" wn="congeal%2:30:00" grouping=""/>        
+	<MEMBER name="contract" wn="contract%2:35:04 contract%2:30:04 contract%2:35:00" grouping="contract.02 contract.03"/>
+        <MEMBER name="constrict" wn="" grouping=""/>
+        <MEMBER name="cool" wn="cool%2:30:01 cool%2:30:00" grouping="cool.01"/>
+        <MEMBER name="corrode" wn="corrode%2:30:01 corrode%2:30:00" grouping=""/>
+        <MEMBER name="corrugate" wn="" grouping=""/>
+        <MEMBER name="corrupt" wn="" grouping="corrupt.01"/>
+        <MEMBER name="crimson" wn="crimson%2:29:00" grouping=""/>
+        <MEMBER name="crisp" wn="crisp%2:30:00" grouping=""/>
+        <MEMBER name="crumble" wn="crumble%2:30:00 crumble%2:38:00" grouping="crumble.01 crumble.02"/>
+        <MEMBER name="crystallize" wn="crystallize%2:30:01 crystallize%2:30:00" grouping="crystallize.02"/>
+        <MEMBER name="curdle" wn="" grouping=""/>
+        <MEMBER name="dampen" wn="dampen%2:30:01" grouping="dampen.01 dampen.02"/>
+        <MEMBER name="darken" wn="darken%2:30:00 darken%2:30:01" grouping="darken.01"/>
+        <MEMBER name="de-escalate" wn="de-escalate%2:30:00" grouping=""/>
+        <MEMBER name="decelerate" wn="decelerate%2:30:00 decelerate%2:30:01" grouping=""/>
+        <MEMBER name="decentralize" wn="decentralize%2:30:00" grouping=""/>
+        <MEMBER name="decompress" wn="decompress%2:35:00 decompress%2:30:00" grouping="decompress.01 decompress.02"/>
+        <MEMBER name="decrease" wn="decrease%2:30:00 decrease%2:30:01" grouping="decrease.01"/>
+        <MEMBER name="deepen" wn="deepen%2:30:03 deepen%2:30:02" grouping="deepen.02 deepen.03"/>
+        <MEMBER name="deflate" wn="deflate%2:35:01 deflate%2:35:00 deflate%2:30:00" grouping="deflate.01"/>
+	<MEMBER name="deflect" wn="" grouping=""/>
+        <MEMBER name="defrost" wn="defrost%2:30:00" grouping=""/>
+        <MEMBER name="degenerate" wn="degenerate%2:29:00" grouping=""/>
+        <MEMBER name="degrade" wn="degrade%2:30:00" grouping="degrade.01"/>
+        <MEMBER name="dehydrate" wn="" grouping="dehydrate.01"/>
+        <MEMBER name="demagnetize" wn="demagnetize%2:30:00" grouping=""/>
+        <MEMBER name="democratize" wn="democratize%2:41:00 democratize%2:41:01" grouping=""/>
+        <MEMBER name="depressurize" wn="depressurize%2:30:00" grouping=""/>
+        <MEMBER name="derail" wn="derail%2:38:01" grouping=""/>
+        <MEMBER name="desiccate" wn="desiccate%2:30:00" grouping=""/>
+        <MEMBER name="destabilize" wn="destabilize%2:30:01 destabilize%2:30:00" grouping=""/>
+        <MEMBER name="deteriorate" wn="" grouping=""/>
+        <MEMBER name="detonate" wn="detonate%2:30:00" grouping="detonate.01"/>
+        <MEMBER name="devalue" wn="" grouping="devalue.01"/>
+        <MEMBER name="diffuse" wn="" grouping="diffuse.02"/>
+        <MEMBER name="dilate" wn="" grouping=""/>
+        <MEMBER name="dilute" wn="" grouping="dilute.01"/>
+        <MEMBER name="dim" wn="dim%2:39:01 dim%2:30:01" grouping="dim.01"/>
+        <MEMBER name="diminish" wn="diminish%2:30:00" grouping="diminish.01"/>
+        <MEMBER name="dirty" wn="dirty%2:35:00" grouping=""/>
+	<MEMBER name="disband" wn="" grouping=""/>
+	<MEMBER name="discolor" wn="" grouping=""/>
+        <MEMBER name="disintegrate" wn="disintegrate%2:30:00" grouping="disintegrate.01"/>
+        <MEMBER name="disperse" wn="" grouping="disperse.01"/>
+        <MEMBER name="dissipate" wn="dissipate%2:38:01 dissipate%2:38:00" grouping="dissipate.01"/>
+        <MEMBER name="dissolve" wn="dissolve%2:30:01 dissolve%2:30:00" grouping="dissolve.01 dissolve.03 dissolve.04"/>
+        <MEMBER name="diversify" wn="" grouping="diversify.01"/>
+        <MEMBER name="divide" wn="divide%2:41:00 divide%2:35:00" grouping="divide.01"/>
+        <MEMBER name="double" wn="double%2:30:00" grouping="double.01"/>
+	<MEMBER name="downshift" wn="" grouping=""/>        
+	<MEMBER name="drain" wn="drain%2:38:00 drain%2:30:01" grouping="drain.01"/>
+        <MEMBER name="dull" wn="dull%2:35:01 dull%2:30:00 dull%2:35:02" grouping="dull.01 dull.04"/>
+        <MEMBER name="ease" wn="ease%2:30:00 ease%2:37:00" grouping="ease.01"/>
+        <MEMBER name="effeminate" wn="" grouping=""/>
+        <MEMBER name="emaciate" wn="" grouping=""/>
+        <MEMBER name="empty" wn="empty%2:30:01 empty%2:30:00" grouping="empty.01"/>
+        <MEMBER name="emulsify" wn="emulsify%2:30:01 emulsify%2:30:00" grouping=""/>
+        <MEMBER name="energize" wn="energize%2:29:00" grouping="energize.01"/>
+        <MEMBER name="enlarge" wn="enlarge%2:30:03 enlarge%2:30:01 enlarge%2:30:00" grouping="enlarge.01"/>
+        <MEMBER name="equalize" wn="equalize%2:30:00" grouping=""/>
+        <MEMBER name="equilibrate" wn="" grouping=""/>
+	<MEMBER name="escalate" wn="" grouping=""/>
+        <MEMBER name="evaporate" wn="evaporate%2:30:00" grouping="evaporate.01"/>
+        <MEMBER name="even" wn="even%2:35:00 even%2:30:00 even%2:30:01" grouping="even.01"/>
+	<MEMBER name="exfoliate" wn="" grouping=""/>        
+	<MEMBER name="expand" wn="expand%2:38:00 expand%2:30:07 expand%2:30:12" grouping="expand.01 expand.02"/>
+        <MEMBER name="explode" wn="explode%2:30:01 explode%2:30:00 explode%2:35:00" grouping="explode.01"/>
+        <MEMBER name="fade" wn="fade%2:30:02 fade%2:30:01" grouping="fade.01 fade.02"/>
+        <MEMBER name="fatten" wn="fatten%2:34:00" grouping=""/>
+        <MEMBER name="federate" wn="federate%2:30:00" grouping=""/>
+        <MEMBER name="feminize" wn="" grouping=""/>
+        <MEMBER name="fill" wn="fill%2:30:01 fill%2:30:00" grouping="fill.01"/>
+        <MEMBER name="firm" wn="firm%2:30:00 firm%2:30:01" grouping="firm.01"/>
+        <MEMBER name="flatten" wn="flatten%2:30:01 flatten%2:30:00" grouping="flatten.01"/>
+        <MEMBER name="flood" wn="flood%2:35:00 flood%2:30:00 flood%2:30:01" grouping="flood.01"/>
+	<MEMBER name="fluff" wn="" grouping=""/>        
+	<MEMBER name="fossilize" wn="fossilize%2:30:00" grouping=""/>
+        <MEMBER name="fray" wn="fray%2:35:00" grouping=""/>
+	<MEMBER name="freckle" wn="" grouping=""/>        
+	<MEMBER name="freshen" wn="freshen%2:30:00 freshen%2:29:02 freshen%2:29:00" grouping=""/>
+        <MEMBER name="frost" wn="frost%2:35:00" grouping="frost.01"/>
+        <MEMBER name="fructify" wn="fructify%2:30:00 fructify%2:30:01 fructify%2:29:00" grouping="fructify.01"/>
+        <MEMBER name="fuse" wn="fuse%2:30:03 fuse%2:30:02" grouping="fuse.02"/>
+        <MEMBER name="gasify" wn="gasify%2:30:00" grouping=""/>
+        <MEMBER name="gelatinize" wn="gelatinize%2:30:00 gelatinize%2:30:01" grouping="gelatinize.02"/>
+	<MEMBER name="gentrify" wn="" grouping=""/>
+        <MEMBER name="germanize" wn="" grouping=""/>
+        <MEMBER name="gladden" wn="gladden%2:37:01 gladden%2:37:00" grouping=""/>
+	<MEMBER name="globalize" wn="" grouping=""/>
+        <MEMBER name="glutenize" wn="" grouping=""/>
+        <MEMBER name="granulate" wn="granulate%2:30:00 granulate%2:30:01" grouping=""/>
+        <MEMBER name="gray" wn="gray%2:30:01 gray%2:30:00" grouping=""/>
+        <MEMBER name="grow" wn="grow%2:30:02 grow%2:30:01 grow%2:30:04 grow%2:36:00" grouping="grow.02 grow.03"/>
+        <MEMBER name="halt" wn="halt%2:38:05 halt%2:38:01" grouping="halt.01"/>
+        <MEMBER name="harden" wn="harden%2:30:00 harden%2:30:01 harden%2:30:04" grouping="harden.01"/>
+        <MEMBER name="harmonize" wn="harmonize%2:42:00 harmonize%2:30:03 harmonize%2:30:02" grouping="harmonize.02"/>
+        <MEMBER name="hasten" wn="hasten%2:30:00 hasten%2:38:00 hasten%2:41:00 hasten%2:36:00" grouping="hasten.01"/>
+        <MEMBER name="heal" wn="heal%2:30:00 heal%2:29:00 heal%2:29:01" grouping="heal.01"/>
+        <MEMBER name="heat" wn="heat%2:30:01 heat%2:40:00 heat%2:30:00" grouping="heat.01"/>
+        <MEMBER name="heighten" wn="heighten%2:30:01 heighten%2:30:02 heighten%2:30:00 heighten%2:30:05 heighten%2:30:04" grouping="heighten.01 heighten.02"/>
+        <MEMBER name="hellenize" wn="" grouping=""/>
+        <MEMBER name="hush" wn="hush%2:30:00 hush%2:30:01 hush%2:39:00" grouping="hush.01"/>
+        <MEMBER name="hybridize" wn="hybridize%2:35:00" grouping=""/>
+	<MEMBER name="hydrolize" wn="" grouping=""/>
+        <MEMBER name="hydrate" wn="hydrate%2:30:03 hydrate%2:30:02 hydrate%2:30:00" grouping="hydrate.01"/>
+        <MEMBER name="ignite" wn="ignite%2:43:00 ignite%2:43:01" grouping="ignite.01"/>
+        <MEMBER name="improve" wn="improve%2:30:01 improve%2:30:00" grouping="improve.01"/>
+        <MEMBER name="increase" wn="increase%2:30:00 increase%2:30:02" grouping="increase.01"/>
+        <MEMBER name="incubate" wn="incubate%2:30:02 incubate%2:29:00" grouping=""/>
+        <MEMBER name="indurate" wn="indurate%2:30:01 indurate%2:30:00" grouping="indurate.02"/>
+	<MEMBER name="industrialize" wn="" grouping=""/>
+        <MEMBER name="inflate" wn="inflate%2:30:00 inflate%2:30:02" grouping="inflate.01 inflate.02 inflate.03"/>
+        <MEMBER name="intensify" wn="intensify%2:30:02 intensify%2:30:01 intensify%2:30:00" grouping="intensify.01"/>
+	<MEMBER name="internationalize" wn="" grouping=""/>
+        <MEMBER name="ionize" wn="ionize%2:30:00" grouping=""/>
+        <MEMBER name="kindle" wn="kindle%2:43:01 kindle%2:43:00" grouping=""/>
+        <MEMBER name="laminate" wn="" grouping=""/>
+        <MEMBER name="lengthen" wn="lengthen%2:30:01 lengthen%2:30:00" grouping="lengthen.01"/>
+        <MEMBER name="lessen" wn="lessen%2:30:00 lessen%2:30:02 lessen%2:30:01" grouping="lessen.01"/>
+        <MEMBER name="level" wn="level%2:35:01 level%2:30:00" grouping="level.02"/>
+        <MEMBER name="levitate" wn="levitate%2:38:00" grouping=""/>
+	<MEMBER name="liberalize" wn="" grouping=""/>
+        <MEMBER name="lignify" wn="" grouping=""/>
+        <MEMBER name="liquefy" wn="liquefy%2:43:00 liquefy%2:30:01 liquefy%2:30:00" grouping=""/>
+        <MEMBER name="liquify" wn="liquify%2:30:01 liquify%2:30:00" grouping=""/>
+	<MEMBER name="liven" wn="" grouping=""/>
+        <MEMBER name="loop" wn="loop%2:38:01 loop%2:36:00 loop%2:38:00 loop%2:35:00" grouping="loop.01 loop.02"/>
+        <MEMBER name="loose" wn="loose%2:30:01 loose%2:30:02" grouping="loose.02"/>
+        <MEMBER name="loosen" wn="loosen%2:30:01 loosen%2:35:05 loosen%2:30:00" grouping="loosen.01"/>
+        <MEMBER name="macerate" wn="macerate%2:30:02 macerate%2:30:01" grouping=""/>
+        <MEMBER name="mature" wn="mature%2:30:00 mature%2:30:01" grouping="mature.01"/>
+        <MEMBER name="mellow" wn="mellow%2:30:01 mellow%2:30:03 mellow%2:30:00" grouping=""/>
+	<MEMBER name="metabolize" wn="" grouping=""/>
+	<MEMBER name="mitigate" wn="" grouping=""/>
+        <MEMBER name="mobilize" wn="" grouping="mobilize.01 mobilize.02"/>
+        <MEMBER name="moderate" wn="" grouping="moderate.02"/>
+        <MEMBER name="modernize" wn="" grouping="modernize.01 modernize.02"/>
+	<MEMBER name="modify" wn="" grouping=""/>
+        <MEMBER name="modulate" wn="" grouping="modulate.01 modulate.02"/>
+        <MEMBER name="moisten" wn="moisten%2:30:00" grouping=""/>
+        <MEMBER name="multiply" wn="multiply%2:30:00 multiply%2:29:00 multiply%2:29:01" grouping="multiply.02"/>
+	<MEMBER name="mummify" wn="" grouping=""/>
+        <MEMBER name="narrow" wn="narrow%2:30:00" grouping="narrow.01"/>
+        <MEMBER name="nationalize" wn="" grouping=""/>
+        <MEMBER name="naturalize" wn="" grouping=""/>
+        <MEMBER name="neutralize" wn="neutralize%2:30:01 neutralize%2:41:02" grouping="neutralize.02"/>
+        <MEMBER name="normalize" wn="" grouping=""/>
+        <MEMBER name="occlude" wn="occlude%2:35:00" grouping=""/>
+        <MEMBER name="open" wn="open%2:35:00 open%2:35:06 open%2:35:08" grouping="open.01 open.04"/>
+        <MEMBER name="operate" wn="operate%2:35:03 operate%2:35:00" grouping="operate.01 operate.02"/>
+        <MEMBER name="ossify" wn="ossify%2:30:00" grouping=""/>
+        <MEMBER name="overturn" wn="overturn%2:38:00 overturn%2:38:01" grouping="overturn.01"/>
+        <MEMBER name="oxidize" wn="oxidize%2:30:00" grouping=""/>
+        <MEMBER name="pale" wn="pale%2:29:00" grouping=""/>
+        <MEMBER name="petrify" wn="petrify%2:30:01 petrify%2:30:00" grouping=""/>
+        <MEMBER name="plump" wn="plump%2:34:00" grouping="plump.03"/>
+        <MEMBER name="polarize" wn="polarize%2:30:02 polarize%2:30:01 polarize%2:30:00" grouping="polarize.01 polarize.02"/>
+        <MEMBER name="polymerize" wn="" grouping=""/>
+        <MEMBER name="pop" wn="" grouping="pop.01"/>
+	<MEMBER name="privatize" wn="" grouping=""/>
+        <MEMBER name="proliferate" wn="proliferate%2:30:00 proliferate%2:30:01" grouping=""/>
+        <MEMBER name="propagate" wn="propagate%2:40:00 propagate%2:38:01 propagate%2:35:00 propagate%2:35:01 propagate%2:29:00" grouping="propagate.01 propagate.02"/>
+        <MEMBER name="pulverize" wn="pulverize%2:30:00" grouping=""/>
+	<MEMBER name="puncture" wn="" grouping=""/>
+        <MEMBER name="purify" wn="purify%2:30:00" grouping="purify.01"/>
+        <MEMBER name="purple" wn="purple%2:30:01 purple%2:30:00" grouping=""/>
+        <MEMBER name="putrefy" wn="putrefy%2:30:00" grouping=""/>
+        <MEMBER name="quadruple" wn="quadruple%2:30:00" grouping=""/>
+        <MEMBER name="quicken" wn="quicken%2:30:01 quicken%2:39:00 quicken%2:30:00 quicken%2:29:00" grouping="quicken.01 quicken.02"/>
+        <MEMBER name="quiet" wn="quiet%2:39:00 quiet%2:37:00" grouping="quiet.01 quiet.02"/>
+        <MEMBER name="quieten" wn="quieten%2:39:00 quieten%2:37:00 quieten%2:30:00" grouping=""/>
+        <MEMBER name="rarefy" wn="" grouping=""/>
+        <MEMBER name="redden" wn="redden%2:29:00 redden%2:30:01 redden%2:30:00" grouping=""/>
+        <MEMBER name="redouble" wn="redouble%2:30:00 redouble%2:30:01         redouble%2:30:02" grouping=""/>
+	<MEMBER name="refine" wn="" grouping=""/>
+	<MEMBER name="reform" wn="" grouping=""/>
+        <MEMBER name="rekindle" wn="rekindle%2:43:00" grouping="rekindle.01"/>
+	<MEMBER name="renew" wn="" grouping=""/>
+        <MEMBER name="reopen" wn="reopen%2:35:00" grouping="reopen.01"/>
+	<MEMBER name="replicate" wn="" grouping=""/>
+        <MEMBER name="reproduce" wn="reproduce%2:29:00" grouping="reproduce.01"/>
+        <MEMBER name="resuscitate" wn="" grouping=""/>
+        <MEMBER name="reverse" wn="" grouping=""/>
+        <MEMBER name="revive" wn="" grouping=""/>
+        <MEMBER name="ripen" wn="ripen%2:30:01 ripen%2:30:00" grouping=""/>
+	<MEMBER name="root" wn="" grouping=""/>
+        <MEMBER name="roughen" wn="roughen%2:35:00" grouping=""/>
+        <MEMBER name="rupture" wn="rupture%2:35:00" grouping=""/>
+        <MEMBER name="saponify" wn="" grouping=""/>
+        <MEMBER name="scorch" wn="scorch%2:30:02" grouping=""/>
+        <MEMBER name="sear" wn="sear%2:30:00 sear%2:30:02" grouping=""/>
+	<MEMBER name="section" wn="" grouping=""/>
+	<MEMBER name="sensitize" wn="" grouping=""/>
+        <MEMBER name="sharpen" wn="sharpen%2:35:00 sharpen%2:30:00 sharpen%2:30:08" grouping="sharpen.01 sharpen.02"/>
+        <MEMBER name="short" wn="short%2:36:00" grouping="short.02"/>
+        <MEMBER name="short-circuit" wn="short-circuit%2:36:00" grouping=""/>
+        <MEMBER name="shorten" wn="shorten%2:30:09 shorten%2:30:00" grouping="shorten.01 shorten.02"/>
+        <MEMBER name="shrink" wn="shrink%2:30:02 shrink%2:30:01 shrink%2:30:00" grouping="shrink.01"/>
+        <MEMBER name="shrivel" wn="shrivel%2:30:00 shrivel%2:30:11" grouping=""/>
+        <MEMBER name="shush" wn="" grouping=""/>
+        <MEMBER name="shut" wn="shut%2:35:00 shut%2:35:06" grouping="shut.01"/>
+        <MEMBER name="sicken" wn="sicken%2:29:00 sicken%2:39:00 sicken%2:29:01" grouping="sicken.01"/>
+        <MEMBER name="silicify" wn="" grouping=""/>
+        <MEMBER name="silver" wn="silver%2:30:00 silver%2:30:01" grouping=""/>
+        <MEMBER name="sink" wn="sink%2:38:02 sink%2:38:00" grouping="sink.01"/>
+        <MEMBER name="slack" wn="slack%2:30:00 slack%2:30:03 slack%2:30:05 slack%2:30:04 slack%2:30:07 slack%2:30:06" grouping=""/>
+        <MEMBER name="slacken" wn="slacken%2:30:02 slacken%2:30:03 slacken%2:30:00 slacken%2:30:01" grouping="slacken.01 slacken.02"/>
+        <MEMBER name="slim" wn="slim%2:29:00" grouping=""/>
+        <MEMBER name="slow" wn="slow%2:30:00 slow%2:30:01 slow%2:30:05" grouping="slow.01 slow.02"/>
+        <MEMBER name="smarten" wn="" grouping=""/>
+        <MEMBER name="smooth" wn="smooth%2:35:00" grouping="smooth.01"/>
+        <MEMBER name="smoothen" wn="smoothen%2:35:00 smoothen%2:35:01" grouping="smoothen.01"/>
+        <MEMBER name="soak" wn="soak%2:35:01 soak%2:30:01 soak%2:30:00" grouping="soak.01"/>
+        <MEMBER name="sober" wn="sober%2:30:02 sober%2:30:01" grouping=""/>
+        <MEMBER name="soften" wn="soften%2:30:01 soften%2:30:00" grouping="soften.01 soften.02 soften.03 soften.04"/>
+        <MEMBER name="solidify" wn="solidify%2:30:01 solidify%2:30:00" grouping="solidify.01 solidify.02"/>
+        <MEMBER name="sour" wn="sour%2:30:01 sour%2:39:00" grouping=""/>
+        <MEMBER name="souse" wn="souse%2:30:01 souse%2:35:00" grouping="souse.01"/>
+        <MEMBER name="sprout" wn="sprout%2:30:00 sprout%2:29:01" grouping=""/>
+        <MEMBER name="stabilize" wn="stabilize%2:30:01 stabilize%2:30:00" grouping="stabilize.01 stabilize.02"/>
+        <MEMBER name="standardize" wn="" grouping=""/>
+        <MEMBER name="steady" wn="steady%2:30:00 steady%2:35:00" grouping=""/>
+        <MEMBER name="steep" wn="steep%2:30:00" grouping=""/>
+        <MEMBER name="steepen" wn="steepen%2:30:01 steepen%2:30:00" grouping=""/>
+        <MEMBER name="stiffen" wn="stiffen%2:30:00 stiffen%2:30:01" grouping="stiffen.01"/>
+        <MEMBER name="stratify" wn="stratify%2:30:00" grouping=""/>
+        <MEMBER name="strangulate" wn="strangulate%2:35:01 strangulate%2:30:00" grouping="strangulate.02"/>
+        <MEMBER name="strengthen" wn="strengthen%2:30:01 strengthen%2:30:00" grouping="strengthen.01 strengthen.02"/>
+        <MEMBER name="submerge" wn="submerge%2:38:00 submerge%2:35:01 submerge%2:30:02" grouping=""/>
+        <MEMBER name="sunburn" wn="" grouping=""/>
+        <MEMBER name="sweeten" wn="sweeten%2:39:00" grouping="sweeten.01 sweeten.02"/>
+        <MEMBER name="tame" wn="tame%2:30:01 tame%2:30:04 tame%2:30:02" grouping="tame.01"/>
+        <MEMBER name="tan" wn="tan%2:30:00 tan%2:29:00" grouping=""/>
+        <MEMBER name="taper" wn="taper%2:30:02 taper%2:30:00" grouping=""/>
+	<MEMBER name="tatter" wn="" grouping=""/>
+        <MEMBER name="tauten" wn="tauten%2:30:00 tauten%2:30:01" grouping=""/>
+	<MEMBER name="tenderize" wn="" grouping=""/>
+        <MEMBER name="tense" wn="tense%2:35:00 tense%2:30:00 tense%2:29:01 tense%2:29:00" grouping=""/>
+        <MEMBER name="thicken" wn="thicken%2:30:01 thicken%2:30:00 thicken%2:30:02" grouping="thicken.01"/>
+        <MEMBER name="thin" wn="thin%2:30:00 thin%2:30:01 thin%2:30:02 thin%2:29:00" grouping="thin.01"/>
+        <MEMBER name="tighten" wn="tighten%2:30:01 tighten%2:30:00" grouping="tighten.01"/>
+        <MEMBER name="tilt" wn="tilt%2:38:00 tilt%2:38:01 tilt%2:38:02" grouping="tilt.01"/>
+        <MEMBER name="tire" wn="tire%2:29:01" grouping="tire.01"/>
+	<MEMBER name="tone" wn="" grouping=""/>
+        <MEMBER name="topple" wn="topple%2:38:00 topple%2:38:01" grouping="topple.01"/>
+        <MEMBER name="toughen" wn="toughen%2:30:00" grouping=""/>
+        <MEMBER name="tranquilize" wn="" grouping=""/>
+        <MEMBER name="treble" wn="" grouping=""/>
+        <MEMBER name="trip" wn="trip%2:36:00" grouping="trip.03"/>
+        <MEMBER name="triple" wn="triple%2:30:00" grouping="triple.01"/>
+        <MEMBER name="turn-on" wn="" grouping=""/>
+        <MEMBER name="turn-off" wn="" grouping=""/>
+        <MEMBER name="ulcerate" wn="ulcerate%2:30:00 ulcerate%2:29:00" grouping=""/>
+        <MEMBER name="unionize" wn="unionize%2:41:00" grouping=""/>
+	<MEMBER name="upload" wn="" grouping=""/>
+        <MEMBER name="vaporize" wn="vaporize%2:30:00 vaporize%2:30:01" grouping=""/>
+        <MEMBER name="vary" wn="vary%2:30:01 vary%2:30:04" grouping="vary.01 vary.02"/>
+        <MEMBER name="vibrate" wn="vibrate%2:38:00 vibrate%2:38:01" grouping="vibrate.01"/>
+        <MEMBER name="vitrify" wn="vitrify%2:30:01 vitrify%2:30:00" grouping=""/>
+        <MEMBER name="volatilize" wn="volatilize%2:30:00" grouping=""/>
+        <MEMBER name="vulcanize" wn="" grouping=""/>
+        <MEMBER name="wake" wn="" grouping="wake.01"/>
+        <MEMBER name="waken" wn="waken%2:29:01 waken%2:29:00" grouping=""/>
+        <MEMBER name="warm" wn="warm%2:30:00 warm%2:30:01" grouping="warm.01 warm.03"/>
+        <MEMBER name="weaken" wn="weaken%2:30:01 weaken%2:30:00" grouping="weaken.01"/>
+        <MEMBER name="westernize" wn="westernize%2:30:00" grouping=""/>
+        <MEMBER name="wet" wn="" grouping="wet.01"/>
+        <MEMBER name="whiten" wn="whiten%2:30:00" grouping=""/>
+	<MEMBER name="wizen" wn="" grouping=""/>
+        <MEMBER name="widen" wn="widen%2:30:00 widen%2:30:05 widen%2:30:03" grouping="widen.01"/>
+        <MEMBER name="worsen" wn="worsen%2:30:00 worsen%2:30:01" grouping="worsen.01"/>
+        <MEMBER name="yellow" wn="yellow%2:30:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="int_control"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Instrument">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Result">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP.patient" secondary="Basic Transitive; Causative" xtag="0.2"/>
+            <!-- couldn't find transitive frame for carbonify, degenerate, glutenize, subside-->
+            <EXAMPLES>
+                <EXAMPLE>Bill dried the clothes.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.instrument" secondary="NP-PP; Instrument-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Bill dried the clothes with a hairdryer.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Instrument">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="utilize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Instrument"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP.patient V" secondary="Intransitive; Inchoative" xtag="0.1"/>
+            <EXAMPLES>
+                <EXAMPLE>The clothes dried.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="1.1.1" primary="NP V ADV-Middle" secondary="Middle Construction" xtag=""/>
+            <!-- Verb specifies property Prop of Patient-->
+            <EXAMPLES>
+                <EXAMPLE>The cotton clothes dried easily.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <ADV/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="3.3" primary="NP.instrument V NP" secondary="Instrument Subject Alternation" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The hairdryer dried the clothes.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Instrument">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="utilize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Agent"/>
+                        <ARG type="ThemRole" value="Instrument"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>   
+    </FRAMES>
+    <SUBCLASSES>
+    	<VNSUBCLASS ID="other_cos-45.4-1">
+	    <MEMBERS>
+        	<MEMBER name="awake" wn="awake%2:29:00" grouping=""/>
+        	<MEMBER name="awaken" wn="awaken%2:29:00 awaken%2:29:01" grouping="awaken.01"/>
+        	<MEMBER name="dry" wn="dry%2:30:01 dry%2:30:00" grouping="dry.01"/>
+        	<MEMBER name="freeze" wn="freeze%2:30:00 freeze%2:30:02 freeze%2:30:04" grouping="freeze.02"/>
+        	<MEMBER name="melt" wn="melt%2:30:01 melt%2:30:00" grouping="melt.01"/>
+                <MEMBER name="set" wn="" grouping="set.03"/> 
+        	<MEMBER name="thaw" wn="thaw%2:30:00" grouping=""/>
+	    </MEMBERS>
+	    <THEMROLES/>
+	    <FRAMES>
+		<FRAME>
+		<DESCRIPTION descriptionNumber="0.4" primary="NP V NP ADJ" secondary="ADJP; Resultative" xtag=""/>
+		<EXAMPLES>
+		    <EXAMPLE>The clothes dried wrinkled.</EXAMPLE>
+		</EXAMPLES>
+		<SYNTAX>
+		    <NP value="Patient">
+			<SYNRESTRS/>
+		    </NP>
+		    <VERB/>
+		    <NP value="Result">
+			<SYNRESTRS/>
+		    </NP>
+		</SYNTAX>
+		<SEMANTICS>
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="start(E)"/>
+                            <ARG type="ThemRole" value="?Initial_State"/>
+                            <ARG type="ThemRole" value="Patient"/>
+                            <ARG type="Constant" value="ch_of_state"/>
+                            <ARG type="VerbSpecific" value="prep"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="result(E)"/>
+                            <ARG type="ThemRole" value="Result"/>
+                            <ARG type="ThemRole" value="Patient"/>
+                            <ARG type="Constant" value="ch_of_state"/>
+                            <ARG type="VerbSpecific" value="prep"/>
+                        </ARGS>
+                    </PRED>
+		</SEMANTICS>
+		</FRAME>  
+	    </FRAMES>
+	<SUBCLASSES/>
+    </VNSUBCLASS>
+</SUBCLASSES>
+</VNCLASS>

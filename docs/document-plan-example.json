@@ -1,0 +1,100 @@
+{
+    "type": "Document-plan",
+    "srcId": "qa-plan-editor-example-xml",
+    "statements": [{
+        "type": "Segment",
+        "srcId": "gVVXSJkhHN@A|cqKK0L$",
+        "textType": "description",
+        "children": [{
+            "type": "Product",
+            "srcId": "m~qkKi;R1i3UqX/CIYnG",
+            "name": {
+                "type": "Cell",
+                "srcId": "E#)-@W$.6}DD,_*l;0e@",
+                "name": "Product name"
+            },
+            "children": [{
+                "type": "Relationship",
+                "srcId": ";oz#,d}OLjwN|wXhSV@u",
+                "relationshipType": "provides",
+                "children": [{
+                    "type": "Cell",
+                    "srcId": "sA_J?0}ERf1UqSF#an8k",
+                    "name": "Main Feature"
+                },{
+                    "type": "Cell",
+                    "srcId": "{B)_$V-nt.ZNY.z*#}v(",
+                    "name": "Secondary feature"
+                }]
+            },{
+                "type": "Rhetorical",
+                "srcId": "i!oqsk`W|kt2t4I)9uD@",
+                "rstType": "elaboration",
+                "children": [{
+                    "type": "Cell",
+                    "srcId": "x}57j@VpjJXOsKYV]9=U",
+                    "name": "Style"
+                }]
+            }]
+        },{
+            "type": "Product-component",
+            "srcId": "D,zuNsMhXbrEd%7Z{g|X",
+            "name": {
+                "type": "Cell",
+                "srcId": ",H#d=qOLK,bN@z25wT:J",
+                "name": "Lacing"
+            },
+            "children": [{
+                "type": "Relationship",
+                "srcId": "39K:Z]8f`@m/YWB,qkZT",
+                "relationshipType": "consequence",
+                "children": [{
+                    "type": "If-then-else",
+                    "srcId": "yzn1bT{b;o{/Y!S`a0eU",
+                    "conditions": [{
+                        "type": "If-condition",
+                        "condition": {
+                            "type": "Value-comparison",
+                            "srcId": "Ip6,=R7mE^w3.Q]rRWNE",
+                            "operator": "==",
+                            "value1": {
+                                "type": "Cell",
+                                "srcId": "dfX%Bme]eN9Z|ya:#1VM",
+                                "name": "Lacing"
+                            },
+                            "value2": {
+                                "type": "Quote",
+                                "srcId": "QK_PKn7ybNmfvH|@yr}c",
+                                "text": "premium"
+                            }
+                        },
+                        "thenExpression": {
+                            "type": "One-of-synonyms",
+                            "srcId": "w6gg/~[+o6H1L+^^FOG7",
+                            "children": [{
+                                "type": "Quote",
+                                "srcId": "cexb}1zxkFE7,4I,LIN(",
+                                "text": "snug fit for everyday wear"
+                            },{
+                                "type": "Quote",
+                                "srcId": "vXi5My/baqdUYn{2PV,e",
+                                "text": "never gets into a knot"
+                            },{
+                                "type": "Quote",
+                                "srcId": "O%WHjtHj)e/d#.7yJSbW",
+                                "text": "remains firmly tied"
+                            }]
+                        }
+                    },{
+                        "type": "Default-condition",
+                        "thenExpression": {
+                            "type": "Quote",
+                            "srcId": "asdfgasdfasdasdsf",
+                            "text": "The laces look brillant!"
+                        }
+                    }]
+                }]
+            }]
+        }]
+    }]
+}

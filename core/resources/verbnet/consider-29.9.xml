@@ -1,0 +1,648 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="consider-29.9" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS/>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Attribute">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V how S" secondary="HOW-S" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I considered how he could become professor.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="how_extract"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="consider">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V how S_INF" secondary="HOW-TO-INF" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I considered how to be a professor.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="wh_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="consider">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="consider-29.9-1">
+            <MEMBERS>
+                <MEMBER name="acknowledge" wn="" grouping=""/>
+                <MEMBER name="deem" wn="deem%2:31:00" grouping="deem.01"/>
+                <MEMBER name="esteem" wn="esteem%2:31:00" grouping=""/>
+                <MEMBER name="rate" wn="rate%2:31:00" grouping="rate.02 rate.03"/>
+                <MEMBER name="reckon" wn="reckon%2:31:00" grouping="reckon.01"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.attribute" secondary="NP-P-ING; as-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>They considered him as being stupid.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP> 
+                        <NP value="Attribute">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="np_p_ing"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="characterize">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="consider">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP to be NP" secondary="NP-TOBE" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>They considered him to be the professor.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="to_be"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="consider">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V that S" secondary="S" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>They considered that he was the professor.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="that_comp"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="consider">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="consider-29.9-1-1">
+                    <MEMBERS>
+                        <MEMBER name="report" wn="report%2:32:01" grouping="report.01"/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP ADJ" secondary="NP-VEN-NP-OMIT" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>I considered the matter closed.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="np_ppart"/>
+                                    </SYNRESTRS>
+                                </NP>
+                                <NP value="Attribute">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="-" type="sentential"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="characterize">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="Attribute"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="consider">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V whether/if S" secondary="WH-S" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>He considered whether he should come.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="wh_comp"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="consider">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V what S" secondary="WHAT-S" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>He considered what he should do.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="what_extract"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="consider">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V what S_INF" secondary="WHAT-TO-INF" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>He considered what to do.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="what_inf"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="consider">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES>
+                        <VNSUBCLASS ID="consider-29.9-1-1-1">
+                            <MEMBERS>
+                                <MEMBER name="consider" wn="consider%2:32:02" grouping="consider.01 consider.02"/>
+                            </MEMBERS>
+                            <THEMROLES/>
+                            <FRAMES>
+                                <FRAME>
+                                    <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="ING-SC/BE-ING-SC" xtag=""/>
+                                    <EXAMPLES>
+                                        <EXAMPLE>He considered smoking.</EXAMPLE>
+                                    </EXAMPLES>
+                                    <SYNTAX>
+                                        <NP value="Agent">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <VERB/>
+                                        <NP value="Theme">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="+" type="be_sc_ing"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                                    </SYNTAX>
+                                    <SEMANTICS>
+                                        <PRED value="consider">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Agent"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                            </ARGS>
+                                        </PRED>
+                                    </SEMANTICS>
+                                </FRAME>
+                                <FRAME>
+                                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP ADJ" secondary="NP-ADJP-PRED" xtag=""/>
+                                    <EXAMPLES>
+                                        <EXAMPLE>They considered him stupid.</EXAMPLE>
+                                    </EXAMPLES>
+                                    <SYNTAX>
+                                        <NP value="Agent">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <VERB/>
+                                        <NP value="Theme">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <NP value="Attribute">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="-" type="sentential"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                                    </SYNTAX>
+                                    <SEMANTICS>
+                                        <PRED value="characterize">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                                <ARG type="ThemRole" value="Attribute"/>
+                                            </ARGS>
+                                        </PRED>
+                                        <PRED value="consider">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Agent"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                            </ARGS>
+                                        </PRED>
+                                    </SEMANTICS>
+                                </FRAME>
+                                <FRAME>
+                                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP NP" secondary="NP-NP-PRED" xtag=""/>
+                                    <EXAMPLES>
+                                        <EXAMPLE>They considered him professor.</EXAMPLE>
+                                    </EXAMPLES>
+                                    <SYNTAX>
+                                        <NP value="Agent">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <VERB/>
+                                        <NP value="Theme">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <NP value="Attribute">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="-" type="sentential"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                                    </SYNTAX>
+                                    <SEMANTICS>
+                                        <PRED value="characterize">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                                <ARG type="ThemRole" value="Attribute"/>
+                                            </ARGS>
+                                        </PRED>
+                                        <PRED value="consider">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Agent"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                            </ARGS>
+                                        </PRED>
+                                    </SEMANTICS>
+                                </FRAME>
+                                <FRAME>
+                                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.attribute" secondary="NP-PP-PRED; for-PP" xtag=""/>
+                                    <EXAMPLES>
+                                        <EXAMPLE>They considered him for professor.</EXAMPLE>
+                                    </EXAMPLES>
+                                    <SYNTAX>
+                                        <NP value="Agent">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <VERB/>
+                                        <NP value="Theme">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <PREP value="for">
+                                            <SELRESTRS/>
+                                        </PREP>
+                                        <NP value="Attribute">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="-" type="sentential"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                                    </SYNTAX>
+                                    <SEMANTICS>
+                                        <PRED value="characterize">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                                <ARG type="ThemRole" value="Attribute"/>
+                                            </ARGS>
+                                        </PRED>
+                                        <PRED value="consider">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Agent"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                            </ARGS>
+                                        </PRED>
+                                    </SEMANTICS>
+                                </FRAME>
+                                <FRAME>
+                                    <DESCRIPTION descriptionNumber="8.1" primary="NP V whether S_INF" secondary="WH-TO-INF" xtag=""/>
+                                    <EXAMPLES>
+                                        <EXAMPLE>He considered whether to clean the house.</EXAMPLE>
+                                    </EXAMPLES>
+                                    <SYNTAX>
+                                        <NP value="Agent">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <VERB/>
+                                        <NP value="Theme">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="+" type="wheth_inf"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                                    </SYNTAX>
+                                    <SEMANTICS>
+                                        <PRED value="consider">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Agent"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                            </ARGS>
+                                        </PRED>
+                                    </SEMANTICS>
+                                </FRAME>
+                            </FRAMES>
+                            <SUBCLASSES/>
+                        </VNSUBCLASS>
+                    </SUBCLASSES>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="consider-29.9-2">
+            <MEMBERS>
+                <MEMBER name="suspect" wn="" grouping="suspect.01"/>
+                <MEMBER name="think" wn="" grouping="think.01"/>
+                <MEMBER name="suppose" wn="" grouping="suppose.02"/>
+                <MEMBER name="posit" wn="postulate%2:31:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP ADJ" secondary="NP-ADJP-PRED" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>They considered him stupid.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Attribute">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="-" type="sentential"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="characterize">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="consider">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP NP" secondary="NP-NP-PRED" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>They considered him professor.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Attribute">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="-" type="sentential"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="characterize">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="consider">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP to be NP" secondary="NP-TOBE" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>They considered him to be the professor.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="to_be"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="consider">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP ADJ" secondary="NP-VEN-NP-OMIT" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>They considered the children found.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="np_ppart"/>
+                            </SYNRESTRS>
+                        </NP>
+                        <NP value="Attribute">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="-" type="sentential"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="characterize">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="consider">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V that S" secondary="S" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>They considered that he was the professor.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="that_comp"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="consider">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

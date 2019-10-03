@@ -1,0 +1,130 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="cut-21.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <!--each verb specifies the specific manner of Motion of Agent during event-->
+<MEMBERS>
+<MEMBER name="chip" wn="chip%2:35:01 chip%2:35:03 chip%2:35:00" grouping="chip.01"/>
+                <MEMBER name="chop" wn="chop%2:35:01" grouping="chop.01"/>
+                <MEMBER name="clip" wn="clip%2:35:03 clip%2:35:04" grouping="clip.01"/>
+                <MEMBER name="cut" wn="cut%2:35:00 cut%2:35:12 cut%2:35:11 cut%2:35:14 cut%2:30:14" grouping="cut.01"/>
+                <MEMBER name="hack" wn="hack%2:35:02 hack%2:35:01" grouping="hack.01"/>
+                <MEMBER name="hew" wn="hew%2:35:00" grouping=""/>
+                <MEMBER name="rip" wn="rip%2:35:00" grouping="rip.01"/>
+                <MEMBER name="saw" wn="saw%2:35:00" grouping="saw.01"/>
+                <MEMBER name="scarify" wn="scarify%2:35:00 scarify%2:35:02 scarify%2:35:01" grouping="scarify.01"/>
+                <MEMBER name="scrape" wn="scrape%2:35:00 scrape%2:35:02 scrape%2:35:01" grouping="scrape.01"/>
+                <MEMBER name="scratch" wn="scratch%2:35:00" grouping="scratch.01"/>
+                <MEMBER name="slash" wn="slash%2:35:01 slash%2:35:00" grouping="slash.01"/>
+                <MEMBER name="slice" wn="slice%2:35:01" grouping="slice.01"/>
+                <MEMBER name="snip" wn="snip%2:35:07 snip%2:35:00" grouping="snip.01"/>
+                <MEMBER name="ream" wn="ream%2:30:01 ream%2:30:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="int_control"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Instrument">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Source">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Result">
+                <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.4" primary="NP V NP PP.result PP.instrument" secondary="NP-PP-PP; Result-PP, Instrument-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Carol cut the envelope into pieces with a knife.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="to into">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Result">
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="state"/>
+                    </SELRESTRS>
+                </NP>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Instrument">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="manner">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="VerbSpecific" value="Motion"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="contact">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Instrument"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="degradation_material_integrity">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="utilize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Instrument"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+    </SUBCLASSES>
+</VNCLASS>

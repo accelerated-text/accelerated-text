@@ -1,0 +1,501 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="characterize-29.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="count" wn="count%2:31:00" grouping="count.03"/>
+        <MEMBER name="depict" wn="depict%2:36:00" grouping="depict.01"/>
+        <MEMBER name="detail" wn="" grouping="detail.01"/>
+        <MEMBER name="envision" wn="envision%2:36:00 envision%2:36:01" grouping="envision.01"/>
+        <MEMBER name="fancy" wn="fancy%2:36:00" grouping=""/>  
+        <MEMBER name="interpret" wn="" grouping=""/>
+        <MEMBER name="moot" wn="moot%2:32:00" grouping=""/>
+        <MEMBER name="peg" wn="" grouping=""/>
+        <MEMBER name="picture" wn="picture%2:36:01" grouping="picture.01"/>
+        <MEMBER name="pigeonhole" wn="pigeonhole%2:31:00" grouping=""/>
+        <MEMBER name="paint" wn="paint%2:36:00" grouping="paint.05"/>
+        <MEMBER name="recast" wn="" grouping=""/>
+        <MEMBER name="redraw" wn="" grouping=""/>
+        <MEMBER name="specify" wn="" grouping=""/>
+        <MEMBER name="stereotype" wn="stereotype%2:31:00" grouping=""/>
+        <MEMBER name="typecast" wn="typecast%2:31:00" grouping=""/>
+        <MEMBER name="bill" wn="bill%2:32:00 bill%2:32:01" grouping="bill.02"/>
+        <MEMBER name="cast" wn="cast%2:36:01 cast%2:32:00" grouping="cast.03"/>
+        <MEMBER name="diagnose" wn="diagnose%2:31:01" grouping="diagnose.02"/>
+        <MEMBER name="certify" wn="certify%2:41:02 certify%2:41:00 certify%2:32:01" grouping="certify.01 certify.03 certify.04"/>
+        <MEMBER name="praise" wn="praise%2:32:00" grouping="praise.01"/>
+        <MEMBER name="hail" wn="hail%2:32:02 hail%2:32:00" grouping="hail.01 hail.02"/>
+        <MEMBER name="regard" wn="regard%2:31:00" grouping="regard.01"/>
+        <MEMBER name="treat" wn="treat%2:31:00" grouping="treat.01 treat.05"/>
+        <MEMBER name="rank" wn="rank%2:31:13" grouping="rank.01"/>
+        <MEMBER name="take" wn="take%2:31:07 take%2:31:01 take%2:40:05" grouping="take.05 take.07 take.08"/>
+        <MEMBER name="perceive" wn="" grouping="perceive.03"/>
+        <MEMBER name="adopt" wn="adopt%2:40:02 adopt%2:40:00 adopt%2:41:01 adopt%2:31:04" grouping="adopt.02"/>
+        <MEMBER name="class" wn="class%2:31:00" grouping=""/>
+        <MEMBER name="classify" wn="classify%2:31:00 classify%2:31:01" grouping="classify.01"/>
+        <MEMBER name="select" wn="select%2:31:00" grouping="select.01"/>
+        <MEMBER name="subselect" wn="" grouping=""/>
+        <MEMBER name="pidgeonhole" wn="pigeonhole%2:31:00" grouping=""/>
+        <MEMBER name="stamp" wn="stamp%2:31:00" grouping="stamp.05"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="concrete"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Attribute">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP S_ING" secondary="NP-P-ING-OC; as-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>He characterized him as being smart.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <LEX value="as"/>
+                <NP value="Attribute">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="oc_ing"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="characterize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Attribute"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP to be ADJ" secondary="NP-TOBE" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>He characterized him to be smart.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <LEX value="to be"/>
+                <NP value="Attribute">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="small_clause"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="characterize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Attribute"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP PP.attribute" secondary="NP-PP; as-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>He characterized him as smart.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="as">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Attribute">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="sentential"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="characterize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Attribute"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="characterize-29.2-1">
+            <MEMBERS>
+                <MEMBER name="characterize" wn="characterize%2:42:01" grouping="characterize.02"/>
+                <MEMBER name="conceive" wn="conceive%2:31:00" grouping="conceive.01"/>
+                <MEMBER name="view" wn="view%2:31:00" grouping="view.01"/>
+                <MEMBER name="underestimate" wn="underestimate%2:31:00                 underestimate%2:31:01 underestimate%2:31:02" grouping="underestimate.01"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V how S" secondary="HOW-S" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>He described how he could rise to high office.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="how_extract"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="describe">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V how S_INF" secondary="HOW-TO-INF" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>He described how to do it.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="wh_inf"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="describe">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="characterize-29.2-1-1">
+                    <MEMBERS>
+                        <MEMBER name="portray" wn="portray%2:32:00" grouping="portray.01"/>
+                        <MEMBER name="define" wn="" grouping="define.01"/>
+                        <MEMBER name="describe" wn="describe%2:32:00 describe%2:32:01" grouping="describe.01"/>
+                        <MEMBER name="represent" wn="" grouping="represent.05"/>
+                        <MEMBER name="accept" wn="accept%2:31:00 accept%2:31:01 accept%2:31:03" grouping="accept.02 accept.03"/>
+                        <MEMBER name="envisage" wn="envisage%2:36:00" grouping=""/>
+                        <MEMBER name="identify" wn="identify%2:31:00 identify%2:31:02" grouping="identify.01"/>
+                        <MEMBER name="imagine" wn="imagine%2:36:00" grouping="imagine.01"/>
+                        <MEMBER name="visualize" wn="visualize%2:36:00" grouping="visualize.01"/>
+                        <MEMBER name="remember" wn="remember%2:31:00" grouping="remember.01"/>
+                        <MEMBER name="recollect" wn="recollect%2:31:00" grouping=""/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="ING-AC" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>He described going to work.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="ac_ing"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="describe">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Event" value="E"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V what S" secondary="WHAT-S" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>He described what we should do.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="what_extract"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="describe">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Event" value="E"/>
+                                    </ARGS>
+                                </PRED>
+
+                            </SEMANTICS>
+                        </FRAME>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V what S_INF" secondary="WHAT-TO-INF" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>He described what to do.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="what_inf"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="describe">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Event" value="E"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+                <VNSUBCLASS ID="characterize-29.2-1-2">
+                    <MEMBERS>
+                        <MEMBER name="report" wn="report%2:32:00 report%2:32:04" grouping="report.01"/>
+                        <MEMBER name="reveal" wn="reveal%2:32:00" grouping="reveal.02"/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP ADJ" secondary="NP-VEN-NP-OMIT" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>He revealed the children found.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="np_ppart"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="describe">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Event" value="E"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V whether/if S" secondary="WH-S" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>He revealed if we should come.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="wh_comp"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="describe">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Event" value="E"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V what S" secondary="WHAT-S" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>He revealed what he should do.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="what_extract"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="describe">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Event" value="E"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="8.1" primary="NP V what S_INF" secondary="WHAT-TO-INF" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>He revealed what to do.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="what_inf"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="describe">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Event" value="E"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

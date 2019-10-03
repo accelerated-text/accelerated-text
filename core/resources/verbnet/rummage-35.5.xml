@@ -1,0 +1,146 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="rummage-35.5" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="bore" wn="bore%2:35:00" grouping=""/>
+        <MEMBER name="burrow" wn="burrow%2:38:00" grouping=""/>
+        <MEMBER name="fumble" wn="fumble%2:35:00" grouping="fumble.01"/>
+        <MEMBER name="go" wn="" grouping="go.12"/>
+        <MEMBER name="leaf" wn="leaf%2:39:10" grouping="leaf.01"/>
+        <MEMBER name="listen" wn="listen%2:39:01 listen%2:41:11" grouping="listen.01"/>
+        <MEMBER name="look" wn="look%2:39:02" grouping="look.01"/>
+        <MEMBER name="page" wn="" grouping=""/>
+        <MEMBER name="poke" wn="poke%2:39:00" grouping="poke.02"/>
+        <MEMBER name="scrabble" wn="scrabble%2:35:13" grouping=""/>
+        <MEMBER name="scratch" wn="" grouping="scratch.05"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Location">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V PP.location" secondary="PP; Location-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>He pawed over the documents.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="over through into">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="search">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Location"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V PP.location PP.theme" secondary="PP-PP; Location-PP Theme-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>He rummaged through the drawer for the ball.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="loc"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="search">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Location"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+   <SUBCLASSES>
+        <VNSUBCLASS ID="rummage-35.5-1">
+            <MEMBERS>
+                 <MEMBER name="forage" wn="forage%2:40:00" grouping=""/>
+                 <MEMBER name="grope" wn="grope%2:35:01" grouping=""/>
+                 <MEMBER name="rifle" wn="rifle%2:35:13" grouping=""/>
+                 <MEMBER name="rummage" wn="rummage%2:35:00" grouping=""/>
+                 <MEMBER name="paw" wn="paw%2:35:00" grouping=""/>
+                 <MEMBER name="delve" wn="delve%2:35:00" grouping=""/>
+                 <MEMBER name="root" wn="root%2:35:00" grouping="root.03"/>
+                 <MEMBER name="thumb" wn="thumb%2:39:10" grouping=""/>
+                 <MEMBER name="snoop" wn="snoop%2:32:00" grouping=""/>
+                 <MEMBER name="tunnel" wn="tunnel%2:38:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+             <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.theme" secondary="NP-PP; Theme-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>We rummaged the drawer for important documents.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="search">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Location"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

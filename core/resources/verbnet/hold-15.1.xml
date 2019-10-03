@@ -1,0 +1,103 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="hold-15.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+<!--This class includes an implicit hands instrument (for human Agents). -->
+    <MEMBERS>
+        <MEMBER name="clasp" wn="clasp%2:35:00" grouping="clasp.01"/>
+        <MEMBER name="clutch" wn="clutch%2:35:04" grouping="clutch.01"/>
+        <MEMBER name="grab" wn="grab%2:35:00 grab%2:40:00 grab%2:38:02 grab%2:40:03  grab%2:35:05" grouping="grab.01 grab.02"/>
+        <MEMBER name="grasp" wn="grasp%2:35:00" grouping="grasp.01"/>
+        <MEMBER name="grip" wn="grip%2:35:00" grouping="grip.01"/>
+        <MEMBER name="handle" wn="handle%2:35:00" grouping="handle.01"/>
+        <MEMBER name="hold" wn="hold%2:35:00" grouping="hold.03"/>
+        <MEMBER name="seize" wn="seize%2:35:00 seize%2:35:01" grouping="seize.01 seize.03"/>
+        <MEMBER name="wield" wn="wield%2:35:00" grouping="wield.01"/>
+    </MEMBERS>    
+    <THEMROLES>
+	<THEMROLE type="Agent">
+	    <SELRESTRS>
+		<SELRESTR Value="+" type="animate"/>
+	    </SELRESTRS>
+	</THEMROLE>
+	<THEMROLE type="Theme">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="body_part"/>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>She held the rail.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="continue">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="contact">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Transitive; Body-part Object" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>She held his arm.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="continue">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="contact">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

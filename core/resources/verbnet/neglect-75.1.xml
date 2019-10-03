@@ -1,0 +1,88 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="neglect-75.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="disregard" wn="disregard%2:31:00" grouping="disregard.01"/>
+        <MEMBER name="forgo" wn="forgo%2:41:00" grouping="forgo.01"/>
+        <MEMBER name="forego" wn="forego%2:41:00" grouping=""/>
+        <MEMBER name="ignore" wn="ignore%2:31:03" grouping="ignore.01"/>
+        <MEMBER name="leave_out" wn="leave_out%2:31:00" grouping="leave.05"/>
+        <MEMBER name="overleap" wn="overleap%2:31:00" grouping="overleap.03"/>
+        <MEMBER name="overlook" wn="overlook%2:31:00" grouping="overlook.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+                <EXAMPLES>
+                    <EXAMPLE>I disregarded the message.</EXAMPLE>
+                </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="neglect">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+           </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="neglect-75.1-1">
+            <MEMBERS>
+                <MEMBER name="fail" wn="fail%2:41:02" grouping="fail.03"/>
+                <MEMBER name="neglect" wn="neglect%2:31:00 neglect%2:41:00                 neglect%2:31:05 neglect%2:31:01" grouping="neglect.01 neglect.02"/>
+                <MEMBER name="omit" wn="omit%2:31:00" grouping="omit.02"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V S_INF" secondary="TO-INF-SC" xtag="0.2"/>
+                        <EXAMPLES>
+                            <EXAMPLE>I neglected to do the job.</EXAMPLE>
+                        </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="sc_to_inf"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="neglect">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>                
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

@@ -1,0 +1,163 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="destroy-44" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="annihilate" wn="annihilate%2:30:00" grouping=""/>
+        <MEMBER name="blight" wn="blight%2:43:00" grouping=""/>
+        <MEMBER name="blitz" wn="blitz%2:33:00" grouping=""/>
+        <MEMBER name="damage" wn="damage%2:30:00" grouping="damage.01"/>
+        <MEMBER name="decimate" wn="decimate%2:30:00" grouping=""/>
+        <MEMBER name="demolish" wn="demolish%2:36:00" grouping="demolish.01"/>
+        <MEMBER name="desecrate" wn="desecrate%2:41:00 desecrate%2:32:00" grouping=""/>
+        <MEMBER name="destroy" wn="destroy%2:36:00 destroy%2:35:00" grouping="destroy.01"/>
+        <MEMBER name="devastate" wn="devastate%2:30:00" grouping="devastate.01"/>
+        <MEMBER name="disfigure" wn="disfigure%2:35:00" grouping=""/>
+        <MEMBER name="efface" wn="efface%2:35:00" grouping="efface.03"/>
+        <MEMBER name="exterminate" wn="exterminate%2:35:01" grouping="exterminate.01"/>
+        <MEMBER name="extirpate" wn="extirpate%2:36:00" grouping=""/>
+        <MEMBER name="level" wn="" grouping=""/>
+        <MEMBER name="louse_up" wn="" grouping=""/>
+        <MEMBER name="maim" wn="maim%2:29:00" grouping=""/>
+        <MEMBER name="mutilate" wn="mutilate%2:30:00 mutilate%2:30:01 mutilate%2:29:00" grouping=""/>
+        <MEMBER name="obliterate" wn="obliterate%2:30:03" grouping="obliterate.01"/>
+        <MEMBER name="rack" wn="rack%2:37:01" grouping="rack.01"/> 
+        <MEMBER name="ravage" wn="ravage%2:30:01" grouping=""/>
+        <MEMBER name="raze" wn="raze%2:36:00" grouping=""/>
+        <MEMBER name="ruin" wn="ruin%2:35:00" grouping="ruin.01"/>
+        <MEMBER name="shipwreck" wn="shipwreck%2:41:00" grouping="shipwreck.01"/>
+        <MEMBER name="smoke" wn="" grouping="smoke.04"/>
+        <MEMBER name="undo" wn="" grouping="undo.01 undo.03"/>
+        <MEMBER name="unmake" wn="" grouping=""/>
+        <MEMBER name="vaporize" wn="" grouping=""/>
+        <MEMBER name="waste" wn="waste%2:35:00 waste%2:30:00" grouping="waste.03"/>
+        <MEMBER name="wrack" wn="wrack%2:35:00" grouping=""/>
+        <MEMBER name="wreck" wn="wreck%2:35:00" grouping="wreck.01"/>
+        <MEMBER name="shatter" wn="shatter%2:30:00 shatter%2:30:01" grouping="shatter.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="int_control"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Instrument">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The Romans destroyed the city.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="destroyed">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.instrument" secondary="NP-PP; Instrument-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The builders destroyed the warehouse with explosives.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Instrument">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="utilize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Instrument"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="destroyed">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="3.3" primary="NP.instrument V NP" secondary="Instrument Subject Alternation" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The explosives destroyed the warehouse.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Instrument">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="?Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="utilize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Agent"/>
+                        <ARG type="ThemRole" value="Instrument"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="destroyed">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

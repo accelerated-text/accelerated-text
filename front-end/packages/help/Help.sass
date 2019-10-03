@@ -1,0 +1,48 @@
+@import '../styles/variables'
+
+
+.className
+
+    max-width:              90vw
+    width:                  52em
+
+    > .shortcuts,
+    > .gettingStarted
+
+        line-height:        $line-height
+
+        > :first-child
+
+            margin-top:     0
+
+        > :last-child
+
+            margin-bottom:  0
+
+    > .shortcuts
+
+        box-shadow:         -1px 0 0 $subtle-gray
+        float:              right
+        margin:             0 0 $space-m $space-m
+        padding:            $space-s $space-m
+        width:              13em
+
+        code
+
+            background-color:   tint-4( $gray )
+            border-radius:      $border-radius
+            box-shadow:         1px 1px 0 $darken
+            font-family:        $font-family
+            font-size:          $size-m
+            font-weight:        $bold
+            margin:             0 $space-xs
+            padding:            $space-xxs $space-xs
+
+            &:first-child
+
+                margin-left:    0
+
+    > .gettingStarted
+
+        max-width:          100%
+        width:              36em

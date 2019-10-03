@@ -1,0 +1,41 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="disfunction-105.2.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="croak" wn="croak%2:30:00" grouping="croak.01"/>
+        <MEMBER name="die" wn="die%2:30:04" grouping="die.04"/>
+        <MEMBER name="fizzle_out" wn="fizzle_out%2:42:00" grouping=""/>
+        <MEMBER name="give_out" wn="give_out%2:30:00" grouping="give.05"/>
+        <MEMBER name="go_down" wn="go_down%2:30:14" grouping="go.03"/>
+        <MEMBER name="go_off" wn="go_off%2:35:00" grouping="go.03"/>
+        <MEMBER name="go_out" wn="go_out%2:30:00" grouping="go.03"/>
+        <MEMBER name="poop_out" wn="poop_out%2:29:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V" secondary="Basic Intransitive" xtag="0.2"/>
+             <EXAMPLES>
+                 <EXAMPLE>The old dishwasher died.</EXAMPLE>
+             </EXAMPLES>
+             <SYNTAX>
+                 <NP value="Theme">
+                     <SYNRESTRS/>
+                 </NP>
+                 <VERB/>
+             </SYNTAX>
+             <SEMANTICS>
+                 <PRED bool="!" value="function">
+                     <ARGS>
+                         <ARG type="Event" value="during(E)"/>
+                         <ARG type="ThemRole" value="Theme"/>
+                     </ARGS>
+                 </PRED>
+             </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

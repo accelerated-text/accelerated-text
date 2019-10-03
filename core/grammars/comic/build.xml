@@ -1,0 +1,105 @@
+<!-- $Id: build.xml,v 1.5 2007/03/26 14:42:19 mwhite14850 Exp $ -->
+<!-- Copyright (C) 2003-4 University of Edinburgh (Michael White) -->
+<project default="grammar" basedir=".">
+
+  <!-- =================================================================== -->
+  <!-- Initialization target                                               -->
+  <!-- =================================================================== -->
+  <target name="init">
+    <tstamp/>
+    <property name="Name" value="OpenCCG"/>
+    <property name="name" value="openccg"/>
+
+    <echo message="----------- ${Name} ------------"/>
+
+    <property name="lib.dir" value="${openccg.home}/lib"/>
+    <property name="grammars.dir" value="${openccg.home}/grammars"/>
+    <property name="core-en.dir" value="${grammars.dir}/core-en"/>
+
+    <path id="validate.classpath">
+      <pathelement location="${lib.dir}/xercesImpl.jar"/>
+      <pathelement location="${lib.dir}/${name}.jar"/>
+    </path>
+  </target>
+  
+
+  <!-- =================================================================== -->
+  <!-- Help on usage                                                       -->
+  <!-- =================================================================== -->
+  <target name="usage">
+    <echo message=""/>
+    <echo message=""/>
+    <echo message="OpenCCG grammar build file"/>
+    <echo message="-------------------------------------------------------------"/>
+    <echo message=""/>
+    <echo message=" Available targets are:"/>
+    <echo message=""/>
+    <echo message="   grammar  --> builds the grammar (default)"/>
+    <echo message=""/>
+    <echo message=" See the comments inside the build.xml file for more details."/>
+    <echo message="-------------------------------------------------------------"/>
+    <echo message=""/>
+    <echo message=""/>
+  </target>
+  
+
+  <!-- =================================================================== -->
+  <!-- Builds grammar                                                     -->
+  <!-- =================================================================== -->
+  <target name="grammar" depends="init" description="builds grammar">
+    <echo message="Transforming dict.xsl to dict.xml"/>
+    <java classname="org.apache.xalan.xslt.Process"> 
+      <arg value="-XSL"/> <arg value="dict.xsl"/>
+      <arg value="-OUT"/> <arg value="dict.xml"/>
+    </java>
+    <echo message="Transforming lexicon-base.xsl to lexicon-base.xml and unary-rules.xml"/>
+    <java classname="org.apache.xalan.xslt.Process"> 
+      <arg value="-XSL"/> <arg value="lexicon-base.xsl"/>
+      <arg value="-OUT"/> <arg value="lexicon-base.xml"/>
+    </java>
+    <echo message="Adding family members from dict.xml to lexicon-base.xml, yielding lexicon.xml"/>
+    <java classname="org.apache.xalan.xslt.Process"> 
+      <arg value="-IN"/> <arg value="lexicon-base.xml"/>
+      <arg value="-XSL"/> <arg value="${grammars.dir}/add-family-members.xsl"/>
+      <arg value="-PARAM"/> <arg value="dict-file"/> <arg value="${basedir}/dict.xml"/>
+      <arg value="-OUT"/> <arg value="lexicon.xml"/>
+    </java>
+    <echo message="Adding intonation info to dict.xml yielding dict-plus-intonation-info.xml"/>
+    <java classname="org.apache.xalan.xslt.Process"> 
+      <arg value="-IN"/> <arg value="dict.xml"/>
+      <arg value="-XSL"/> <arg value="${core-en.dir}/add-intonation-info.xsl"/>
+      <arg value="-OUT"/> <arg value="dict-plus-intonation-info.xml"/>
+    </java>
+    <echo message="Extracting morph items from dict-plus-intonation-info.xml to morph.xml"/>
+    <java classname="org.apache.xalan.xslt.Process"> 
+      <arg value="-IN"/> <arg value="dict-plus-intonation-info.xml"/>
+      <arg value="-XSL"/> <arg value="${grammars.dir}/extract-morph.xsl"/>
+      <arg value="-OUT"/> <arg value="morph.xml"/>
+    </java>
+    <echo message="Adding type changing rules from unary-rules.xml to rules-base.xml, yielding rules.xml"/>
+    <java classname="org.apache.xalan.xslt.Process"> 
+      <arg value="-IN"/> <arg value="rules-base.xml"/>
+      <arg value="-XSL"/> <arg value="${grammars.dir}/append.xsl"/>
+      <arg value="-PARAM"/> <arg value="file-to-append"/> <arg value="${basedir}/unary-rules.xml"/>
+      <arg value="-OUT"/> <arg value="rules.xml"/>
+    </java>
+    <echo message="Adding extra types from types-extras.xml to core-en/types.xml, yielding types.xml"/>
+    <java classname="org.apache.xalan.xslt.Process"> 
+      <arg value="-IN"/> <arg value="${core-en.dir}/types.xml"/>
+      <arg value="-XSL"/> <arg value="${grammars.dir}/append.xsl"/>
+      <arg value="-PARAM"/> <arg value="file-to-append"/> <arg value="${basedir}/types-extras.xml"/>
+      <arg value="-OUT"/> <arg value="types.xml"/>
+    </java>
+    <echo message="Validating grammar.xml, lexicon.xml, morph.xml, rules.xml and types.xml"/>
+    <java classname="opennlp.ccg.test.Validator" classpathref="validate.classpath" fork="true"> 
+      <arg value="grammar.xml"/>
+      <arg value="lexicon.xml"/>
+      <arg value="morph.xml"/>
+      <arg value="rules.xml"/>
+      <arg value="types.xml"/>
+    </java>
+  </target>
+
+</project>
+
+<!-- End of file -->

@@ -1,0 +1,164 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="forbid-64.4" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+      <MEMBER name="dissuade" wn="dissuade%2:32:00" grouping=""/>
+      <MEMBER name="keep" wn="keep%2:41:00" grouping="keep.03"/>
+    </MEMBERS>
+    <THEMROLES>
+      <THEMROLE type="Agent">
+        <SELRESTRS logic="or">
+          <SELRESTR Value="+" type="animate"/>
+          <SELRESTR Value="+" type="organization"/>
+        </SELRESTRS>
+      </THEMROLE>
+      <THEMROLE type="Theme">
+        <SELRESTRS/>
+      </THEMROLE>
+      <THEMROLE type="Beneficiary">
+        <SELRESTRS/>
+      </THEMROLE>
+
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.theme" secondary="" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The rules forbid us from smoking.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Beneficiary">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="from">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED bool="!" value="allow">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Beneficiary"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+      <VNSUBCLASS ID="forbid-64.4-1">
+        <MEMBERS>
+          <MEMBER name="ban" wn="ban%2:32:00" grouping="ban.01"/>
+          <MEMBER name="bar" wn="bar%2:32:00" grouping="bar.01"/>
+          <MEMBER name="block" wn="block%2:41:00 block%2:41:01" grouping="block.02"/>
+          <MEMBER name="deter" wn="deter%2:32:01 deter%2:32:00" grouping="deter.01"/>
+          <MEMBER name="discourage" wn="discourage%2:32:01" grouping="discourage.02"/>
+		  <MEMBER name="exclude" wn="exclude%2:31:01 exclude%2:41:00" grouping="exclude.01"/>
+          <MEMBER name="forbid" wn="forbid%2:32:00 forbid%2:41:03" grouping="forbid.01 forbid.02"/>
+          <MEMBER name="hamper" wn="hamper%2:30:00" grouping="hamper.01"/>
+          <MEMBER name="hinder" wn="hinder%2:41:01 hinder%2:41:00" grouping="hinder.01"/>
+          <MEMBER name="impede" wn="impede%2:41:00" grouping="impede.01"/>
+          <MEMBER name="inhibit" wn="inhibit%2:30:00" grouping="inhibit.01"/>
+          <MEMBER name="obstruct" wn="obstruct%2:41:00" grouping="obstruct.01"/>
+          <MEMBER name="preclude" wn="preclude%2:41:00" grouping="preclude.01"/>
+          <MEMBER name="prevent" wn="prevent%2:41:01 prevent%2:41:00" grouping="prevent.01"/>
+          <MEMBER name="prohibit" wn="prohibit%2:32:00" grouping="prohibit.01"/>
+          <MEMBER name="restrain" wn="restrain%2:37:00" grouping="restrain.01"/>
+          <MEMBER name="stop" wn="stop%2:41:00" grouping="stop.02"/>
+        </MEMBERS>
+      <THEMROLES>
+      </THEMROLES>
+      <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="POSSING" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The rules forbid our smoking.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="poss_ing"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED bool="!" value="allow">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Beneficiary"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="ING-AC" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The rules forbid smoking.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="ac_ing"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED bool="!" value="allow">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Beneficiary"/>                        
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The rules forbid it.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="sentential"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED bool="!" value="allow">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Beneficiary"/>                        
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+  </VNSUBCLASS>
+  </SUBCLASSES>
+</VNCLASS>

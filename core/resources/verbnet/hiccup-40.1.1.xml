@@ -1,0 +1,61 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="hiccup-40.1.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <!--each verb adds a manner predicate-->
+        <MEMBER name="belch" wn="belch%2:29:00" grouping=""/>
+        <MEMBER name="blink" wn="" grouping=""/>
+        <MEMBER name="blush" wn="blush%2:29:00" grouping=""/>
+        <MEMBER name="burp" wn="burp%2:29:00" grouping=""/>
+        <MEMBER name="eruct" wn="eruct%2:29:00" grouping=""/>
+        <MEMBER name="fart" wn="fart%2:29:00" grouping=""/>
+        <MEMBER name="flush" wn="flush%2:29:00" grouping="flush.01"/>
+        <MEMBER name="hiccup" wn="hiccup%2:29:00" grouping=""/>
+        <MEMBER name="pant" wn="pant%2:29:00" grouping=""/>
+        <MEMBER name="salivate" wn="" grouping=""/>
+        <MEMBER name="shiver" wn="" grouping=""/>
+        <MEMBER name="sneeze" wn="sneeze%2:29:00" grouping=""/>
+        <MEMBER name="sniffle" wn="sniffle%2:29:00" grouping=""/>
+        <MEMBER name="snore" wn="snore%2:29:00" grouping=""/>
+        <MEMBER name="snuff" wn="snuff%2:29:02" grouping=""/>
+        <MEMBER name="snuffle" wn="snuffle%2:29:00" grouping="snuffle.02"/>
+        <MEMBER name="swallow" wn="swallow%2:34:00" grouping="swallow.01"/>
+        <MEMBER name="wheeze" wn="wheeze%2:29:00" grouping=""/>
+        <MEMBER name="yawn" wn="yawn%2:29:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Intransitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Paul hiccuped.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="body_process">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="involuntary">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

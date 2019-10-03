@@ -1,0 +1,206 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="estimate-34.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+	<MEMBER name="put" wn="put%2:31:13" grouping="put.06"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Value">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+	<FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.value" secondary="NP-PP; Value-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>He put the probability at 0.9.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+		<PREP value="at">
+		    <SELRESTRS/>
+		</PREP>
+                <NP value="Value">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="assess">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Value"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="estimate-34.2-1">
+	    <MEMBERS>
+		<MEMBER name="estimate" wn="estimate%2:31:00" grouping="estimate.01"/>
+		<MEMBER name="gauge" wn="gauge%2:31:00" grouping="gauge.01"/>
+		<MEMBER name="approximate" wn="approximate%2:31:00" grouping=""/>
+		<MEMBER name="guess" wn="guess%2:31:01" grouping="guess.02"/>
+		<MEMBER name="judge" wn="judge%2:31:01" grouping="judge.02"/>
+		<MEMBER name="count" wn="" grouping=""/>
+		<MEMBER name="quantize" wn="" grouping=""/>
+		<MEMBER name="assess" wn="assess%2:31:00" grouping="assess.01"/>
+		<MEMBER name="guesstimate" wn="guesstimate%2:32:00" grouping=""/>
+		<MEMBER name="project" wn="" grouping=""/>
+	    </MEMBERS>
+	    <THEMROLES/>
+	    <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="NP" xtag="0.2"/>
+		    <EXAMPLES>
+		        <EXAMPLE>He estimated the probability of Don Quixote spontaneously combusting upon contact with the curry powder.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS/>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="assess">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		                <ARG type="ThemRole" value="?Value"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="8.1" primary="NP V how S" secondary="HOW-S" xtag="0.2"/>
+		    <EXAMPLES>
+		        <EXAMPLE>He estimated how likely it would be.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Value">
+		            <SYNRESTRS>
+		                <SYNRESTR Value="+" type="how_extract"/>
+		            </SYNRESTRS>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="assess">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="ThemRole" value="?Theme"/>
+		                <ARG type="ThemRole" value="Value"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP to be ADJ" secondary="NP-TOBE" xtag="0.2"/>
+		    <EXAMPLES>
+		        <EXAMPLE>He estimated this outcome to be likely.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS>
+		                <SYNRESTR Value="+" type="to_be"/>
+		            </SYNRESTRS>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="assess">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		                <ARG type="ThemRole" value="?Value"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="8.1" primary="NP V that S" secondary="S" xtag="0.2"/>
+		    <EXAMPLES>
+		        <EXAMPLE>He estimated that it would be likely.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS>
+		                <SYNRESTR Value="+" type="that_comp"/>
+		            </SYNRESTRS>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="assess">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		                <ARG type="ThemRole" value="?Value"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="8.1" primary="NP V what S" secondary="WHAT-S" xtag="0.2"/>
+		    <EXAMPLES>
+		        <EXAMPLE>He estimated what would be likely.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS>
+		                <SYNRESTR Value="+" type="what_extract"/>
+		            </SYNRESTRS>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="assess">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		                <ARG type="ThemRole" value="?Value"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+	    </FRAMES>
+	    <SUBCLASSES/>
+	</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

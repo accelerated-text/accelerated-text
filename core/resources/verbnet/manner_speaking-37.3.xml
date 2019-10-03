@@ -1,0 +1,936 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="manner_speaking-37.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="babble" wn="babble%2:32:02 babble%2:32:00" grouping="babble.01"/>
+        <MEMBER name="bark" wn="bark%2:32:01" grouping="bark.01"/>
+        <MEMBER name="bawl" wn="bawl%2:32:00" grouping=""/>
+        <MEMBER name="bellow" wn="bellow%2:32:00" grouping=""/>
+        <MEMBER name="bleat" wn="bleat%2:32:01" grouping=""/>
+        <MEMBER name="blubber" wn="blubber%2:32:00" grouping=""/>
+        <MEMBER name="boom" wn="boom%2:39:00 boom%2:39:01" grouping="boom.02"/>
+        <MEMBER name="bray" wn="?bray%2:29:00" grouping=""/>
+        <MEMBER name="burble" wn="" grouping=""/>
+        <MEMBER name="bluster" wn="" grouping="bluster.02"/>
+        <MEMBER name="cackle" wn="cackle%2:32:01" grouping=""/>
+        <MEMBER name="call" wn="call%2:31:13" grouping="call.09"/>
+        <MEMBER name="carol" wn="carol%2:36:00" grouping=""/>
+        <MEMBER name="chant" wn="chant%2:32:00 chant%2:32:01" grouping="chant.01"/>
+        <MEMBER name="chatter" wn="chatter%2:32:01 chatter%2:32:00" grouping="chatter.03"/>
+        <MEMBER name="chirp" wn="" grouping=""/>
+        <MEMBER name="chortle" wn="chortle%2:29:00" grouping=""/>
+        <MEMBER name="chuckle" wn="" grouping=""/>
+        <MEMBER name="cluck" wn="" grouping=""/>
+        <MEMBER name="coo" wn="coo%2:32:01" grouping=""/>
+        <MEMBER name="croak" wn="croak%2:32:00" grouping="croak.03"/>
+        <MEMBER name="croon" wn="croon%2:32:00" grouping=""/>
+        <MEMBER name="crow" wn="crow%2:32:01" grouping="crow.01"/>
+        <MEMBER name="cry" wn="cry%2:32:07" grouping="cry.02"/>
+        <MEMBER name="drawl" wn="drawl%2:32:00" grouping=""/>
+        <MEMBER name="drone" wn="drone%2:32:00" grouping=""/>
+        <MEMBER name="gabble" wn="gabble%2:32:00" grouping=""/>
+        <MEMBER name="gasp" wn="" grouping=""/>
+        <MEMBER name="gibber" wn="gibber%2:32:00" grouping=""/>
+        <MEMBER name="groan" wn="" grouping=""/>
+        <MEMBER name="growl" wn="growl%2:32:00" grouping=""/>
+        <MEMBER name="grumble" wn="grumble%2:32:00 grumble%2:32:02" grouping="grumble.01 grumble.02"/>
+        <MEMBER name="grunt" wn="grunt%2:32:00" grouping=""/>
+        <MEMBER name="hiss" wn="hiss%2:32:01" grouping="hiss.01"/>
+        <MEMBER name="holler" wn="holler%2:32:06 holler%2:32:00" grouping="holler.01"/>
+        <MEMBER name="hoot" wn="hoot%2:32:00" grouping=""/>
+        <MEMBER name="howl" wn="howl%2:32:02" grouping="howl.01"/>
+        <MEMBER name="jabber" wn="jabber%2:32:00" grouping=""/>
+        <MEMBER name="keen" wn="keen%2:37:00" grouping=""/>
+        <MEMBER name="lilt" wn="lilt%2:32:00" grouping=""/>
+        <MEMBER name="lisp" wn="lisp%2:32:00" grouping=""/>
+        <MEMBER name="mewl" wn="mewl%2:29:00" grouping=""/>
+        <MEMBER name="moan" wn="moan%2:32:00" grouping=""/>
+        <MEMBER name="mumble" wn="mumble%2:32:00" grouping="mumble.01"/>
+        <MEMBER name="murmur" wn="murmur%2:32:00 murmur%2:32:01" grouping="murmur.01"/>
+        <MEMBER name="mutter" wn="mutter%2:32:01 mutter%2:32:00" grouping="mutter.01"/>
+        <MEMBER name="nasal" wn="" grouping=""/>
+        <MEMBER name="natter" wn="" grouping=""/>
+        <MEMBER name="pant" wn="pant%2:32:00" grouping=""/>
+        <MEMBER name="prattle" wn="" grouping=""/>
+        <MEMBER name="purr" wn="purr%2:32:00" grouping="purr.02"/>
+        <MEMBER name="quaver" wn="" grouping=""/>
+        <MEMBER name="rage" wn="" grouping="rage.01"/>
+        <MEMBER name="rant" wn="" grouping=""/>
+        <MEMBER name="rasp" wn="rasp%2:32:00" grouping=""/>
+        <MEMBER name="roar" wn="roar%2:32:03" grouping="roar.03"/>
+        <MEMBER name="rumble" wn="rumble%2:32:00" grouping=""/>
+        <MEMBER name="scream" wn="scream%2:32:08" grouping="scream.01"/>
+        <MEMBER name="screech" wn="screech%2:39:00 screech%2:32:01" grouping=""/>
+        <MEMBER name="shout" wn="shout%2:32:08" grouping="shout.01"/>
+        <MEMBER name="shriek" wn="shriek%2:32:00" grouping=""/>
+        <MEMBER name="sibilate" wn="sibilate%2:32:03 sibilate%2:32:02 sibilate%2:32:01 sibilate%2:32:00" grouping="sibilate.01 sibilate.02 sibilate.03 sibilate.04"/>
+        <MEMBER name="simper" wn="" grouping=""/>
+        <MEMBER name="sigh" wn="sigh%2:32:01" grouping="sigh.02"/>
+        <MEMBER name="sing" wn="sing%2:36:01" grouping="sing.01"/>
+        <MEMBER name="smatter" wn="smatter%2:32:01" grouping="smatter.02"/>
+        <MEMBER name="smile" wn="smile%2:32:00" grouping="smile.02"/>
+        <MEMBER name="snap" wn="snap%2:32:00" grouping="snap.05"/>
+        <MEMBER name="snarl" wn="snarl%2:32:00" grouping=""/>
+        <MEMBER name="snivel" wn="snivel%2:32:00" grouping="snivel.01"/>
+        <MEMBER name="snuffle" wn="snuffle%2:29:01" grouping="snuffle.03"/>
+        <MEMBER name="splutter" wn="splutter%2:32:00" grouping=""/>
+        <MEMBER name="squall" wn="squall%2:32:01" grouping="squall.01"/>
+        <MEMBER name="squawk" wn="squawk%2:32:00" grouping=""/>
+        <MEMBER name="squeak" wn="squeak%2:39:00" grouping=""/>
+        <MEMBER name="squeal" wn="?squeal%2:32:01" grouping=""/>
+        <MEMBER name="stammer" wn="stammer%2:32:00" grouping=""/>
+        <MEMBER name="stemmer" wn="" grouping=""/>
+        <MEMBER name="stutter" wn="stutter%2:32:00" grouping=""/>
+        <MEMBER name="thunder" wn="thunder%2:32:00" grouping=""/>
+        <MEMBER name="tisk" wn="" grouping=""/>
+        <MEMBER name="trill" wn="trill%2:32:01 trill%2:32:00" grouping=""/>
+        <MEMBER name="trumpet" wn="trumpet%2:32:00" grouping="trumpet.01"/>
+        <MEMBER name="twang" wn="twang%2:32:00" grouping="twang.04"/>
+        <MEMBER name="twitter" wn="" grouping=""/>
+        <MEMBER name="vociferate" wn="" grouping=""/>
+        <MEMBER name="wail" wn="wail%2:32:00" grouping="wail.01"/>
+        <MEMBER name="warble" wn="warble%2:32:00 warble%2:32:01" grouping=""/>
+        <MEMBER name="wheeze" wn="" grouping=""/>
+        <MEMBER name="whimper" wn="whimper%2:29:00" grouping=""/>
+        <MEMBER name="whine" wn="whine%2:32:01 whine%2:32:00" grouping="whine.02"/>
+        <MEMBER name="whisper" wn="whisper%2:32:00" grouping=""/>
+        <MEMBER name="whistle" wn="whistle%2:32:00" grouping="whistle.01"/>
+        <MEMBER name="witter" wn="" grouping=""/>
+        <MEMBER name="whoop" wn="whoop%2:32:00" grouping=""/>
+        <MEMBER name="yammer" wn="yammer%2:32:00" grouping=""/>
+        <MEMBER name="yap" wn="" grouping=""/>
+        <MEMBER name="yell" wn="yell%2:32:00" grouping="yell.01"/>
+        <MEMBER name="yelp" wn="" grouping=""/>
+        <MEMBER name="yodel" wn="yodel%2:32:00" grouping=""/>
+        <MEMBER name="blare" wn="" grouping="blare.01"/>
+        <MEMBER name="gurgle" wn="" grouping="gurgle.02"/>
+        <MEMBER name="hum" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <!--Each verb adds a predicate indicating the manner of speaking during the event-->
+        <!--Topic maps to Theme for chant, sing and whistle (26.7)-->
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Topic">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="communication"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Recipient">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag="0.1"/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.recipient" secondary="PP; Recipient-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered to/at Rachel.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="dest_dir"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Recipient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.topic" secondary="PP; Topic-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered about the party.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="about">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Topic">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED> 
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <!-- couldn't find this frame for burble, rage, squall-->
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered the news/a few words.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Topic">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.3" primary="NP V S-Quote" secondary="QUOT" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered, 'Leave the room.'</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Topic">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>    
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.recipient" secondary="NP-PP; Recipient-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered the news/a few words to/at Rachel.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Topic">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="dest_dir"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Recipient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED> 
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.5" primary="NP V that S" secondary="S" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered that the party would be tonight.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Topic">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="that_comp"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.5" primary="NP V how S_INF" secondary="HOW-TO-INF" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered how to avoid the crowd.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Topic">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="wh_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.5" primary="NP V S_INF" secondary="TO-INF-AC" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered to come.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Topic">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="ac_to_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.5" primary="NP V PP.recipient that S" secondary="PP-S; Recipient-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered to Rachel that the party would be tonight.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="dest_dir"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Recipient">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Topic">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="that_comp"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>  
+                    </ARGS>
+                </PRED> 
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.5" primary="NP V PP.recipient how S_INF" secondary="PP-HOW-TO-INF; Recipient-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered to Rachel how to avoid the crowd.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="dest_dir"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Recipient">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Topic">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="wh_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>  
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.5" primary="NP V PP.recipient S_INF" secondary="PP-TO-INF-OC; Recipient-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered to Rachel to come.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="dest_dir"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Recipient">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Topic">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="oc_to_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS>
+                </PRED>  
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.5" primary="NP V PP.recipient S_INF" secondary="PP-TO-INF-OC; Recipient-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered for me to come.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Recipient">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Topic">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="oc_to_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS>
+                </PRED> 
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS> 
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.3" primary="NP V PP.recipient S-Quote" secondary="PP-QUOT; Recipient-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan whispered to Rachel, 'Leave the room.'</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="dest_dir"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Recipient">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Topic">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED> 
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

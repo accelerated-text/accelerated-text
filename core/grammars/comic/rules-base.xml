@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright (C) 2003 University of Edinburgh (Michael White) 
+$Revision: 1.2 $, $Date: 2004/10/05 11:01:47 $ 
+-->
+<rules
+  name="comic"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../rules.xsd"
+>
+  <application dir="forward"/>
+  <application dir="backward"/>
+  <composition dir="forward" harmonic="true"/>
+  <!--
+  <composition dir="forward" harmonic="false"/>
+  -->
+  <composition dir="backward" harmonic="true"/>
+  <composition dir="backward" harmonic="false"/>
+  <typeraising dir="forward" useDollar="false"/>
+  <typeraising dir="forward" useDollar="false">
+    <arg><atomcat type="pp"/></arg>
+  </typeraising>
+  <typeraising dir="backward" useDollar="true"/>
+  <typeraising dir="backward" useDollar="true">
+    <arg><atomcat type="pp"/></arg>
+  </typeraising>
+  <!--
+  <substitution dir="forward" harmonic="true"/>
+  <substitution dir="forward" harmonic="false"/>
+  <substitution dir="backward" harmonic="true"/>
+  <substitution dir="backward" harmonic="false"/>
+  -->
+</rules>

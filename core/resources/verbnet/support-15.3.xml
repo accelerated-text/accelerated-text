@@ -1,0 +1,95 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="support-15.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="hold" wn="" grouping="hold.01"/>
+        <MEMBER name="bear" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Instrument">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>This wall bears the weight of the roof.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Instrument">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="support">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Agent"/>
+			<ARG type="ThemRole" value="Theme"/>
+			<ARG type="ThemRole" value="Instrument"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="support-15.3-1">
+	    <MEMBERS>
+	        <MEMBER name="bolster" wn="" grouping="bolster.01 bolster.02"/>
+		<MEMBER name="boost" wn="" grouping="boost.01 boost.02"/>
+		<MEMBER name="buttress" wn="" grouping=""/>
+		<MEMBER name="buoy" wn="" grouping="buoy.01"/>
+		<MEMBER name="hold-up" wn="" grouping="hold.03"/>
+		<MEMBER name="reinforce" wn="" grouping="reinforce.01"/>
+		<MEMBER name="strengthen" wn="" grouping="strengthen.01"/>
+		<MEMBER name="support" wn="" grouping="support.01"/>
+	    </MEMBERS>
+	    <THEMROLES/>
+	    <FRAMES>
+	        <FRAME>
+		    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.instrument" secondary="NP PP;PP-instrument" xtag=""/>
+		    <EXAMPLES>
+		        <EXAMPLE>She supported her argument with facts.</EXAMPLE>
+			<EXAMPLE>I reinforced the tarp with rivets.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+			    <SYNRESTRS/>
+			</NP>
+			<VERB/>
+			<NP value="Theme">
+			    <SYNRESTRS/>
+			</NP>
+			<PREP value="with | through">
+			    <SELRESTRS/>
+			</PREP>
+			<NP value="Instrument">
+			    <SYNRESTRS/>
+			</NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="support">
+			    <ARGS>
+			        <ARG type="Event" value="during(E)"/>
+			        <ARG type="ThemRole" value="Agent"/>                                                                                                                                               
+				<ARG type="ThemRole" value="Theme"/>
+			        <ARG type="ThemRole" value="Instrument"/>
+			    </ARGS>
+			</PRED>
+		    </SEMANTICS>
+		</FRAME>
+	    </FRAMES>
+	    <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

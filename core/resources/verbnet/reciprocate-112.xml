@@ -1,0 +1,152 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="reciprocate-112" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="return" wn="return%2:40:03 return%2:32:01" grouping="return.03"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Predicate">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>He returned my call.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="act">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Predicate"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="in_reaction_to">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP PP" secondary="" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>He reciprocated my glare with an annoyed one of his own.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Predicate">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="act">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Predicate"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="in_reaction_to">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>            
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="reciprocate-112-1">
+            <MEMBERS>
+                <MEMBER name="answer" wn="answer%2:32:00 answer%2:31:02 answer%2:31:00
+                answer%2:31:03 answer%2:32:06 answer%2:31:05" grouping="answer.01 answer.02"/>
+                <MEMBER name="reciprocate" wn="reciprocate%2:41:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+			<FRAMES>
+				<FRAME>
+					<DESCRIPTION descriptionNumber="" primary="NP V" secondary="" xtag=""/>
+					<EXAMPLES>
+						<EXAMPLE>He answered.</EXAMPLE>
+					</EXAMPLES>
+					<SYNTAX>
+						<NP value="Agent">
+							<SYNRESTRS/>
+						</NP>
+						<VERB/>
+					</SYNTAX>
+					<SEMANTICS>
+						<PRED value="act">
+							<ARGS>
+								<ARG type="Event" value="during(E)"/>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="ThemRole" value="?Predicate"/>
+							</ARGS>
+						</PRED>
+						<PRED value="in_reaction_to">
+							<ARGS>
+								<ARG type="Event" value="E"/>
+								<ARG type="ThemRole" value="?Theme"/>
+							</ARGS>
+						</PRED>
+					</SEMANTICS>	
+				</FRAME>
+				<FRAME>			
+					<DESCRIPTION descriptionNumber="" primary="NP V PP" secondary="" xtag=""/>
+					<EXAMPLES>
+						<EXAMPLE>He reciprocated with a smile of his own.</EXAMPLE>
+					</EXAMPLES>
+					<SYNTAX>
+						<NP value="Agent">
+							<SYNRESTRS/>
+						</NP>
+						<VERB/>
+						<NP value="Predicate">
+							<SYNRESTRS/>
+						</NP>
+					</SYNTAX>
+					<SEMANTICS>
+						<PRED value="act">
+							<ARGS>
+								<ARG type="Event" value="during(E)"/>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="ThemRole" value="Predicate"/>
+							</ARGS>
+						</PRED>
+						<PRED value="in_reaction_to">
+							<ARGS>
+								<ARG type="Event" value="E"/>
+								<ARG type="ThemRole" value="?Theme"/>
+							</ARGS>
+						</PRED>
+					</SEMANTICS>	
+				</FRAME>
+			</FRAMES>			
+			<SUBCLASSES/>
+		</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

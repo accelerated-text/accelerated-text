@@ -1,0 +1,182 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="beg-58.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="request" wn="request%2:32:13 request%2:32:01 request%2:32:02" grouping="request.01"/>
+        <MEMBER name="importune" wn="importune%2:32:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Result">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP S_INF" secondary="TO-INF-SC; with-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I begged him to be civilized with my friends.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Result">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="sc_to_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="urge">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V S_INF" secondary="TO-INF-SC; with-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I begged to be dismissed.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Result">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="sc_to_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="urge">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Patient"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+				<PRED value="authority_relationship">
+					<ARGS>
+						<ARG type="ThemRole" value="Patient"/>
+						<ARG type="ThemRole" value="Agent"/>
+					</ARGS>
+				</PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+    	<VNSUBCLASS ID="beg-58.2-1">
+			<MEMBERS>
+				<MEMBER name="supplicate" wn="supplicate%2:32:00 supplicate%2:32:01 supplicate%2:32:02" grouping=""/>		
+			</MEMBERS>
+			<THEMROLES/>
+			<FRAMES>
+				<FRAME>
+					<DESCRIPTION descriptionNumber="8.1" primary="NP V PP.result" secondary="PP; for-PP" xtag="0.2"/>
+					<EXAMPLES>
+						<EXAMPLE>I begged for release.</EXAMPLE>
+					</EXAMPLES>
+					<SYNTAX>
+						<NP value="Agent">
+							<SYNRESTRS/>
+						</NP>
+						<VERB/>
+						<PREP value="for">
+							<SELRESTRS/>
+						</PREP>
+						<NP value="Result">
+							<SYNRESTRS>
+					<SYNRESTR Value="-" type="sentential"/>
+					</SYNRESTRS>
+						</NP>
+					</SYNTAX>
+					<SEMANTICS>
+						<PRED value="urge">
+							<ARGS>
+								<ARG type="Event" value="during(E)"/>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="ThemRole" value="?Patient"/>
+								<ARG type="ThemRole" value="Result"/>
+							</ARGS>
+						</PRED>
+						<PRED value="authority_relationship">
+							<ARGS>
+								<ARG type="ThemRole" value="Patient"/>
+								<ARG type="ThemRole" value="Agent"/>
+							</ARGS>
+						</PRED>
+					</SEMANTICS>
+				</FRAME>
+			</FRAMES>
+			<SUBCLASSES>
+				<VNSUBCLASS ID="beg-58.2-1-1">
+					<MEMBERS>
+						<MEMBER name="beg" wn="beg%2:32:00 beg%2:32:01" grouping="beg.01"/>
+					</MEMBERS>
+					<THEMROLES/>
+					<FRAMES>			
+						<FRAME>
+							<DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.result" secondary="NP-PP; for-PP" xtag="0.2"/>
+							<EXAMPLES>
+								<EXAMPLE>I begged her for release.</EXAMPLE>
+							</EXAMPLES>
+							<SYNTAX>
+								<NP value="Agent">
+									<SYNRESTRS/>
+								</NP>
+								<VERB/>
+								<NP value="Patient">
+									<SYNRESTRS/>
+								</NP>
+						<PREP value="for">
+							<SELRESTRS/>
+						</PREP>
+								<NP value="Result">
+									<SYNRESTRS>
+							<SYNRESTR Value="-" type="sentential"/>
+							</SYNRESTRS>
+								</NP>
+							</SYNTAX>
+							<SEMANTICS>
+								<PRED value="urge">
+									<ARGS>
+										<ARG type="Event" value="during(E)"/>
+										<ARG type="ThemRole" value="Agent"/>
+										<ARG type="ThemRole" value="Patient"/>
+										<ARG type="ThemRole" value="Result"/>
+									</ARGS>
+								</PRED>
+								<PRED value="authority_relationship">
+									<ARGS>
+										<ARG type="ThemRole" value="Patient"/>
+										<ARG type="ThemRole" value="Agent"/>
+									</ARGS>
+								</PRED>
+							</SEMANTICS>
+						</FRAME>
+					</FRAMES>
+					<SUBCLASSES/>
+				</VNSUBCLASS>
+			</SUBCLASSES>
+		</VNSUBCLASS>
+	</SUBCLASSES>
+</VNCLASS>

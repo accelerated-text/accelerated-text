@@ -1,0 +1,146 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="classify-29.10" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="classify" wn="classify%2:31:00" grouping="classify.01"/>
+        <MEMBER name="class" wn="class%2:31:00" grouping=""/>
+        <MEMBER name="constellate" wn="constellate%2:38:00 constellate%2:30:00" grouping="constellate.02"/>
+        <MEMBER name="sort" wn="sort%2:31:00" grouping="sort.02"/>
+        <MEMBER name="isolate" wn="isolate%2:30:02" grouping="isolate.01"/>
+        <MEMBER name="reclassify" wn="reclassify%2:31:00" grouping=""/>
+        <MEMBER name="group" wn="group%2:31:00" grouping="group.01"/>
+        <MEMBER name="regroup" wn="regroup%2:31:00" grouping="regroup.02"/>
+        <MEMBER name="bracket" wn="bracket%2:31:00" grouping=""/>
+        <MEMBER name="lump" wn="lump%2:31:13" grouping="lump.01"/>
+        <MEMBER name="chunk" wn="chunk%2:31:13" grouping=""/>
+        <MEMBER name="grade" wn="grade%2:31:03" grouping="grade.01"/>
+        <MEMBER name="number" wn="number%2:32:00" grouping="number.04"/>
+        <MEMBER name="catalogue" wn="catalogue%2:31:00" grouping=""/>
+        <MEMBER name="sort_out" wn="sort_out%2:31:00" grouping=""/>
+        <MEMBER name="separate" wn="separate%2:31:00" grouping="separate.01"/>
+        <MEMBER name="seed" wn="seed%2:31:00" grouping="seed.04"/>
+        <MEMBER name="categorize" wn="categorize%2:31:00" grouping=""/>
+        <MEMBER name="code" wn="" grouping="code.01"/>
+        <MEMBER name="recode" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Goal">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="NP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The curator classified the artifacts.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="group">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Goal"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.goal" secondary="NP-PP; as-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>She classified the works as 'dangerous'.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+		<PREP value="as">
+		    <SELRESTRS/>
+		</PREP>
+                <NP value="Goal">
+                    <SYNRESTRS>
+			<SYNRESTR Value="-" type="sentential"/>
+		    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="group">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.location" secondary="NP-PP; in-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>She classified the articles into different genres.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="in">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="group">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

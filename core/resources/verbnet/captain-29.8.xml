@@ -1,0 +1,176 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="captain-29.8" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="butcher" wn="butcher%2:35:00" grouping=""/>
+        <MEMBER name="judge" wn="" grouping=""/>
+        <MEMBER name="lawyer" wn="" grouping=""/>
+        <MEMBER name="midwife" wn="" grouping=""/>
+        <MEMBER name="model" wn="model%2:39:01 model%2:39:00 model%2:36:04" grouping="model.03"/>
+        <MEMBER name="prostitute" wn="prostitute%2:41:00" grouping=""/>
+        <MEMBER name="soldier" wn="soldier%2:33:00" grouping=""/>
+        <MEMBER name="volunteer" wn="volunteer%2:41:01 volunteer%2:41:00" grouping="volunteer.01 volunteer.02"/>
+        <MEMBER name="whore" wn="whore%2:41:00" grouping="whore.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Beneficiary">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.beneficiary" secondary="PP; for-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Her cousin clerked for Judge Davis.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Beneficiary">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="masquerade">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="VerbSpecific" value="Role"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="benefit">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Beneficiary"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="captain-29.8-1">
+            <MEMBERS>
+                <MEMBER name="babysit" wn="" grouping=""/>
+                <MEMBER name="boss" wn="" grouping=""/>
+                <MEMBER name="bully" wn="bully%2:37:00 bully%2:32:00" grouping="bully.01"/>
+                <MEMBER name="butler" wn="" grouping=""/>
+                <MEMBER name="caddy" wn="caddy%2:33:00" grouping=""/>
+                <MEMBER name="captain" wn="captain%2:41:00" grouping=""/>
+                <MEMBER name="champion" wn="champion%2:33:00" grouping=""/>
+                <MEMBER name="chaperone" wn="chaperone%2:38:00" grouping=""/>
+                <MEMBER name="chauffeur" wn="chauffeur%2:38:00" grouping=""/>
+                <MEMBER name="clerk" wn="clerk%2:41:00" grouping=""/>
+                <MEMBER name="coach" wn="coach%2:32:00" grouping="coach.01"/>
+                <MEMBER name="cox" wn="cox%2:41:00" grouping=""/>
+                <MEMBER name="crew" wn="crew%2:33:00" grouping=""/>
+                <MEMBER name="doctor" wn="doctor%2:29:00" grouping="doctor.02"/>
+                <MEMBER name="emcee" wn="emcee%2:41:00" grouping=""/>
+                <MEMBER name="escort" wn="escort%2:38:00" grouping="escort.01"/>
+                <MEMBER name="guard" wn="guard%2:41:00 guard%2:33:00 guard%2:33:03" grouping="guard.01 guard.02"/>
+                <MEMBER name="host" wn="host%2:34:00" grouping="host.01"/>
+                <MEMBER name="mother" wn="mother%2:41:00" grouping=""/>
+                <MEMBER name="nurse" wn="nurse%2:41:00 nurse%2:34:00" grouping="nurse.03 nurse.04"/>
+                <MEMBER name="partner" wn="partner%2:41:00" grouping="partner.01"/>
+                <MEMBER name="pilot" wn="pilot%2:38:00 pilot%2:38:01" grouping=""/>
+                <MEMBER name="pioneer" wn="pioneer%2:36:00 pioneer%2:36:01" grouping="pioneer.01"/>
+                <MEMBER name="police" wn="police%2:41:00" grouping=""/>
+                <MEMBER name="referee" wn="referee%2:33:00" grouping=""/>
+                <MEMBER name="shepherd" wn="shepherd%2:41:01 shepherd%2:41:00" grouping=""/>
+                <MEMBER name="skipper" wn="skipper%2:41:00" grouping=""/>
+                <MEMBER name="sponsor" wn="sponsor%2:40:00 sponsor%2:40:01 sponsor%2:41:00" grouping="sponsor.01"/>
+                <MEMBER name="tailor" wn="tailor%2:30:00 tailor%2:36:01 tailor%2:36:00" grouping="tailor.01 tailor.02"/>
+                <MEMBER name="tutor" wn="tutor%2:32:00 tutor%2:41:00" grouping=""/>
+                <MEMBER name="umpire" wn="umpire%2:33:00" grouping=""/>
+                <MEMBER name="understudy" wn="understudy%2:31:00" grouping=""/>
+                <MEMBER name="usher" wn="usher%2:38:00" grouping="usher.01"/>
+                <MEMBER name="valet" wn="valet%2:41:00" grouping=""/>
+                <MEMBER name="witness" wn="witness%2:39:00" grouping="witness.01"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Miriam tutored her brother.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Beneficiary">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="masquerade">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="VerbSpecific" value="Role"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="benefit">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Beneficiary"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="captain-29.8-1-1">
+                    <MEMBERS>
+                        <MEMBER name="star" wn="star%2:36:00" grouping="star.01"/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>The show starred Miriam.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Beneficiary">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="masquerade">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="VerbSpecific" value="Role"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="benefit">
+                                    <ARGS>
+                                        <ARG type="Event" value="E"/>
+                                        <ARG type="ThemRole" value="Beneficiary"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

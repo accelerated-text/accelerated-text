@@ -1,0 +1,509 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="declare-29.4" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="avow" wn="avow%2:32:00" grouping=""/>
+        <MEMBER name="confess" wn="confess%2:32:01" grouping="confess.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Result">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP ADJ" secondary="NP-ADJP-PRED" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The president declared Smith foolish.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Result">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="sentential"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="declare">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP NP" secondary="NP-NP-PRED" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The president declared Smith professor.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Result">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="sentential"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="declare">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP to be NP" secondary="NP-TOBE" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The president maintained Smith to be a good man.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="to_be"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="declare">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP ADJ" secondary="NP-VEN-NP-OMIT" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The president declared the matter closed.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="np_ppart"/>
+                    </SYNRESTRS>
+                </NP>
+                <NP value="Result">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="sentential"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="declare">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Result"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V that S" secondary="S" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The president maintained that the matter was closed.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="that_comp"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="declare">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="declare-29.4-1">
+            <MEMBERS>
+                <MEMBER name="adjudge" wn="adjudge%2:32:00" grouping=""/>
+                <MEMBER name="assume" wn="assume%2:31:00" grouping="assume.02"/>
+                <MEMBER name="maintain" wn="maintain%2:32:00" grouping="maintain.02"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V what S" secondary="WHAT-S" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The president declared what we should do.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="what_extract"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="declare">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP ADJ" secondary="NP-PP; as-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The president declared John as stupid.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="as">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Result">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="sentential"/>
+                    </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="declare">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="declare-29.4-1-1">
+                    <MEMBERS>
+                        <MEMBER name="prove" wn="prove%2:32:00" grouping="prove.01"/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="0.2" primary="NP V what S_INF" secondary="WHAT-TO-INF" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>The president declared what to
+                                do.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="what_inf"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="declare">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="?Result"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="0.2" primary="NP V how S" secondary="HOW-S" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>John declared how he did it.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="+" type="how_extract"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="declare">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="?Result"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES>
+                        <VNSUBCLASS ID="declare-29.4-1-1-1">
+                            <MEMBERS>
+                                <MEMBER name="declare" wn="declare%2:32:04" grouping="declare.01"/>
+                            </MEMBERS>
+                            <THEMROLES/>
+                            <FRAMES>
+                                <FRAME>
+                                    <DESCRIPTION descriptionNumber="0.2" primary="NP V how S_INF" secondary="HOW-TO-INF" xtag=""/>
+                                    <EXAMPLES>
+                                        <EXAMPLE>John declared how to do it.</EXAMPLE>
+                                    </EXAMPLES>
+                                    <SYNTAX>
+                                        <NP value="Agent">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <VERB/>
+                                        <NP value="Theme">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="+" type="wh_inf"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                                    </SYNTAX>
+                                    <SEMANTICS>
+                                        <PRED value="declare">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Agent"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                                <ARG type="ThemRole" value="?Result"/>
+                                            </ARGS>
+                                        </PRED>
+                                    </SEMANTICS>
+                                </FRAME>
+                            </FRAMES>
+                            <SUBCLASSES>
+                            </SUBCLASSES>
+                        </VNSUBCLASS>
+                        <VNSUBCLASS ID="declare-29.4-1-1-2">
+                            <MEMBERS>
+                                <MEMBER name="find" wn="find%2:31:10" grouping="find.03"/>
+                                <MEMBER name="judge" wn="judge%2:31:00 judge%2:32:00" grouping="judge.02"/>
+                            </MEMBERS>
+                            <THEMROLES/>
+                            <FRAMES>
+                                <FRAME>
+                                    <DESCRIPTION descriptionNumber="0.2" primary="NP V whether/if S" secondary="WH-S" xtag=""/>
+                                    <EXAMPLES>
+                                        <EXAMPLE>John judged whether he should come.</EXAMPLE>
+                                    </EXAMPLES>
+                                    <SYNTAX>
+                                        <NP value="Agent">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <VERB/>
+                                        <NP value="Theme">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="+" type="wh_comp"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                                    </SYNTAX>
+                                    <SEMANTICS>
+                                        <PRED value="declare">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Agent"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                                <ARG type="ThemRole" value="?Result"/>
+                                            </ARGS>
+                                        </PRED>
+                                    </SEMANTICS>
+                                </FRAME>
+                                <FRAME>
+                                    <DESCRIPTION descriptionNumber="0.2" primary="NP V whether/if S_INF" secondary="WH-TO-INF" xtag=""/>
+                                    <EXAMPLES>
+                                        <EXAMPLE>John judged whether to clean the house.</EXAMPLE>
+                                    </EXAMPLES>
+                                    <SYNTAX>
+                                        <NP value="Agent">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <VERB/>
+                                        <NP value="Theme">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="+" type="wheth_inf"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                                    </SYNTAX>
+                                    <SEMANTICS>
+                                        <PRED value="declare">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Agent"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                                <ARG type="ThemRole" value="?Result"/>
+                                            </ARGS>
+                                        </PRED>
+                                    </SEMANTICS>
+                                </FRAME>
+                            </FRAMES>
+                            <SUBCLASSES>
+                            </SUBCLASSES>
+                        </VNSUBCLASS>
+                        <VNSUBCLASS ID="declare-29.4-1-1-3">
+                            <MEMBERS>
+                                <MEMBER name="profess" wn="profess%2:32:10 profess%2:32:04" grouping="profess.01"/>
+                            </MEMBERS>
+                            <THEMROLES/>
+                            <FRAMES>
+                                <FRAME>
+                                    <DESCRIPTION descriptionNumber="0.2" primary="NP V S_ING" secondary="ING-SC/BE-ING-SC" xtag=""/>
+                                    <EXAMPLES>
+                                        <EXAMPLE>John professed loving the miscreants.</EXAMPLE>
+                                    </EXAMPLES>
+                                    <SYNTAX>
+                                        <NP value="Agent">
+                                            <SYNRESTRS/>
+                                        </NP>
+                                        <VERB/>
+                                        <NP value="Theme">
+                                            <SYNRESTRS>
+                                                <SYNRESTR Value="+" type="be_sc_ing"/>
+                                            </SYNRESTRS>
+                                        </NP>
+                                    </SYNTAX>
+                                    <SEMANTICS>
+                                        <PRED value="declare">
+                                            <ARGS>
+                                                <ARG type="Event" value="during(E)"/>
+                                                <ARG type="ThemRole" value="Agent"/>
+                                                <ARG type="ThemRole" value="Theme"/>
+                                                <ARG type="ThemRole" value="?Result"/>
+                                            </ARGS>
+                                        </PRED>
+                                    </SEMANTICS>
+                                </FRAME>
+                            </FRAMES>
+                            <SUBCLASSES>
+                            </SUBCLASSES>
+                        </VNSUBCLASS>
+                    </SUBCLASSES>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="declare-29.4-2">
+            <MEMBERS>
+                <MEMBER name="proclaim" wn="proclaim%2:32:02" grouping="proclaim.02"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V how S" secondary="HOW-S" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The president proclaimed how we should work.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="how_extract"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="declare">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V how S_INF" secondary="HOW-TO-INF" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The president proclaimed how to do it.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="wh_inf"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="declare">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

@@ -1,0 +1,326 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="body_motion-49.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="hold" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="body_part"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Goal">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Path">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V NP ADV" secondary="NP-ADVP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>She reached her hand out.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Path">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="body_motion">
+                    <ARGS>
+			<ARG type="Event" value="during(E)"/>                        
+			<ARG type="ThemRole" value="Theme"/>                   
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+			<ARG type="Event" value="during(E)"/>                        
+			<ARG type="ThemRole" value="Theme"/>                        
+			<ARG type="ThemRole" value="Path"/>                        
+			<ARG type="Constant" value="ch_of_loc"/>                        
+			<ARG type="VerbSpecific" value="Prep"/>                   
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V ADV NP" secondary="ADVP-NP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>She reached out her hand.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Path">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="body_motion">
+                    <ARGS>
+			<ARG type="Event" value="during(E)"/>                        
+			<ARG type="ThemRole" value="Theme"/>                   
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+			<ARG type="Event" value="during(E)"/>                        
+			<ARG type="ThemRole" value="Theme"/>                        
+			<ARG type="ThemRole" value="Path"/>                        
+			<ARG type="Constant" value="ch_of_loc"/>                        
+			<ARG type="VerbSpecific" value="Prep"/>                   
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+      </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="body_motion-49.2-1">
+	    <MEMBERS>
+		<MEMBER name="extend" wn="" grouping=""/>
+	    </MEMBERS>
+	    <THEMROLES/>
+	    <FRAMES>
+	        <FRAME>
+	            <DESCRIPTION descriptionNumber="0.1" primary="NP V NP PP" secondary="NP-PP" xtag=""/>
+	            <EXAMPLES>
+	                <EXAMPLE>She reached her hand into the cookie jar.</EXAMPLE>
+	            </EXAMPLES>
+	            <SYNTAX>
+	                <NP value="Agent">
+	                    <SYNRESTRS/>
+	                </NP>
+	                <VERB/>
+	                <NP value="Theme">
+	                    <SYNRESTRS/>
+	                </NP>
+	                <NP value="Goal">
+	                    <SYNRESTRS/>
+	                </NP>
+	            </SYNTAX>
+	            <SEMANTICS>
+	                <PRED value="cause">
+	                    <ARGS>
+	                        <ARG type="ThemRole" value="Agent"/>
+	                        <ARG type="Event" value="E"/>
+	                    </ARGS>
+	                </PRED>
+	                <PRED value="body_motion">
+	                    <ARGS>
+				<ARG type="Event" value="during(E)"/>                        
+				<ARG type="ThemRole" value="Theme"/>                   
+	                    </ARGS>
+	                </PRED>
+	                <PRED value="path_rel">
+	                    <ARGS>
+				<ARG type="Event" value="end(E)"/>                        
+				<ARG type="ThemRole" value="Theme"/>                        
+				<ARG type="ThemRole" value="Goal"/>                        
+				<ARG type="Constant" value="ch_of_loc"/>                        
+				<ARG type="VerbSpecific" value="Prep"/>                   
+	                    </ARGS>
+	                </PRED>
+	            </SEMANTICS>
+	        </FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="0.1" primary="NP V PP" secondary="PP" xtag=""/>
+		    <EXAMPLES>
+		        <EXAMPLE>She reached into the cookie jar.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Goal">
+		            <SYNRESTRS/>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="cause">
+		            <ARGS>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="Event" value="E"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="body_motion">
+		            <ARGS>
+				<ARG type="Event" value="during(E)"/>                        
+				<ARG type="ThemRole" value="?Theme"/>                   
+		            </ARGS>
+		        </PRED>
+		        <PRED value="path_rel">
+		            <ARGS>
+				<ARG type="Event" value="during(E)"/>                        
+				<ARG type="ThemRole" value="?Theme"/>                        
+				<ARG type="ThemRole" value="Goal"/>                        
+				<ARG type="Constant" value="ch_of_loc"/>                        
+				<ARG type="VerbSpecific" value="Prep"/>                   
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="0.1" primary="NP V PP" secondary="PP; directional" xtag=""/>
+		    <EXAMPLES>
+		        <EXAMPLE>She reached for the shelf.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+			<PREP>
+			    <SELRESTRS>
+				<SELRESTR Value="+" type="dir"/>
+			    </SELRESTRS>
+			</PREP>
+		        <NP value="Path">
+		            <SYNRESTRS/>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="cause">
+		            <ARGS>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="Event" value="E"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="body_motion">
+		            <ARGS>
+				<ARG type="Event" value="during(E)"/>                        
+				<ARG type="ThemRole" value="?Theme"/>                   
+		            </ARGS>
+		        </PRED>
+		        <PRED value="path_rel">
+		            <ARGS>
+				<ARG type="Event" value="during(E)"/>                        
+				<ARG type="ThemRole" value="?Theme"/>                        
+				<ARG type="ThemRole" value="Path"/>                        
+				<ARG type="Constant" value="ch_of_loc"/>                        
+				<ARG type="VerbSpecific" value="Prep"/>                   
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="0.1" primary="NP V PP PP" secondary="PP-PP; Path-Theme" xtag=""/>
+		    <EXAMPLES>
+		        <EXAMPLE>She reached for the shelf with her right hand.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Path">
+		            <SYNRESTRS/>
+		        </NP>
+		        <NP value="Theme">
+		            <SYNRESTRS/>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="cause">
+		            <ARGS>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="Event" value="E"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="body_motion">
+		            <ARGS>
+				<ARG type="Event" value="during(E)"/>                        
+				<ARG type="ThemRole" value="Theme"/>                   
+		            </ARGS>
+		        </PRED>
+		        <PRED value="path_rel">
+		            <ARGS>
+				<ARG type="Event" value="end(E)"/>                        
+				<ARG type="ThemRole" value="Theme"/>                        
+				<ARG type="ThemRole" value="Path"/>                        
+				<ARG type="Constant" value="ch_of_loc"/>                        
+				<ARG type="VerbSpecific" value="Prep"/>                   
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+	    </FRAMES>
+	    <SUBCLASSES>
+		<VNSUBCLASS ID="body_motion-49.2-1-1">
+		    <MEMBERS>
+			<MEMBER name="reach" wn="" grouping="reach.04"/>
+			<MEMBER name="stretch" wn="" grouping=""/>
+		    </MEMBERS>
+		    <THEMROLES/>
+		    <FRAMES>
+			<FRAME>
+			    <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag=""/>
+			    <EXAMPLES>
+				<EXAMPLE>She reached.</EXAMPLE>
+			    </EXAMPLES>
+			    <SYNTAX>
+				<NP value="Agent">
+				    <SYNRESTRS/>
+				</NP>
+				<VERB/>
+			    </SYNTAX>
+			    <SEMANTICS>
+				<PRED value="cause">
+				    <ARGS>
+				        <ARG type="ThemRole" value="Agent"/>
+				        <ARG type="Event" value="E"/>
+				    </ARGS>
+				</PRED>
+				<PRED value="body_motion">
+				    <ARGS>
+					<ARG type="Event" value="during(E)"/>                        
+					<ARG type="ThemRole" value="?Theme"/>                   
+				    </ARGS>
+				</PRED>
+				<PRED value="path_rel">
+				    <ARGS>
+					<ARG type="Event" value="end(E)"/>                        
+					<ARG type="ThemRole" value="?Theme"/>                        
+					<ARG type="ThemRole" value="?Path"/>                        
+					<ARG type="Constant" value="ch_of_loc"/>                        
+					<ARG type="VerbSpecific" value="?Prep"/>                   
+				    </ARGS>
+				</PRED>
+			    </SEMANTICS>
+			</FRAME>
+		    </FRAMES>
+		    <SUBCLASSES/>
+		</VNSUBCLASS>
+	    </SUBCLASSES>
+	</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

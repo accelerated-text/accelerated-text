@@ -1,0 +1,181 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="subjugate-42.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="disenfranchise" wn="disenfranchise%2:41:00" grouping=""/>
+        <MEMBER name="enslave" wn="enslave%2:41:00" grouping=""/>
+        <MEMBER name="mob" wn="mob%2:38:00" grouping=""/>
+        <MEMBER name="nourish" wn="nourish%2:34:00" grouping=""/> 
+        <MEMBER name="suppress" wn="" grouping=""/>
+        <MEMBER name="stamp_down" wn="" grouping=""/>
+        <MEMBER name="subdue" wn="" grouping=""/>
+        <MEMBER name="conquer" wn="" grouping="conquer.01"/>
+        <MEMBER name="curb" wn="" grouping=""/>
+        <MEMBER name="crush" wn="" grouping="crush.02 crush.03"/>
+        <MEMBER name="stifle" wn="" grouping=""/>
+        <MEMBER name="dampen" wn="" grouping=""/>
+        <MEMBER name="suffocate" wn="" grouping=""/>
+        <MEMBER name="choke" wn="" grouping=""/>
+        <MEMBER name="hush" wn="" grouping="hush.01"/>
+        <MEMBER name="silence" wn="" grouping="silence.01"/>
+        <MEMBER name="still" wn="" grouping="still.01 still.02"/>
+        <MEMBER name="shut_up" wn="" grouping=""/>
+        <MEMBER name="hush_up" wn="" grouping=""/>
+        <MEMBER name="lull" wn="" grouping=""/>
+        <MEMBER name="calm_down" wn="" grouping=""/>
+        <MEMBER name="gag" wn="" grouping="gag.01 gag.02"/>
+        <MEMBER name="muzzle" wn="" grouping=""/>
+        <MEMBER name="squelch" wn="" grouping=""/>
+        <MEMBER name="quell" wn="" grouping=""/>
+        <MEMBER name="quench" wn="" grouping=""/>
+        <MEMBER name="smother" wn="" grouping=""/>
+        <MEMBER name="muffle" wn="" grouping=""/>
+        <MEMBER name="repress" wn="" grouping=""/>
+        <MEMBER name="quash" wn="" grouping=""/>
+        <MEMBER name="keep_down" wn="" grouping=""/>
+        <MEMBER name="subjugate" wn="" grouping=""/>
+        <MEMBER name="reduce" wn="" grouping=""/>
+        <MEMBER name="slake" wn="slake%2:34:00 slake%2:30:00" grouping="slake.01"/>
+        <MEMBER name="strangle" wn="" grouping=""/>
+        <MEMBER name="kill" wn="" grouping=""/>
+        <MEMBER name="walk_over" wn="walk_over%2:33:00" grouping="walk.08"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Instrument">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="NP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Winnie the Pooh subjugated the unfortunate Pixies.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED bool="!" value="subjugated">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED> 
+                <PRED value="subjugated">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.instrument" secondary="NP-PP; with-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Russia subjugated Mongolia with overwhelming force.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+		<PREP value="with">
+		    <SELRESTRS/>
+		</PREP>
+                <NP value="Instrument">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED bool="!" value="subjugated">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED> 
+                <PRED value="subjugated">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="utilize">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Instrument"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

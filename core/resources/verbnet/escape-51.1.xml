@@ -1,0 +1,533 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="escape-51.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd"> 
+	<MEMBERS>
+                <MEMBER name="cut" wn="cut%2:38:13 cut%2:38:12" grouping="cut.04"/>
+		<MEMBER name="get" wn="get%2:38:00 get%2:38:15" grouping="get.04"/>
+                <MEMBER name="make_it" wn="" grouping=""/>
+        </MEMBERS>
+        <THEMROLES>
+            <THEMROLE type="Theme">
+                <SELRESTRS>
+                    <SELRESTR Value="+" type="concrete"/>
+                </SELRESTRS>
+            </THEMROLE>
+            <THEMROLE type="Initial_Location">
+                <SELRESTRS>
+                    <SELRESTR Value="+" type="concrete"/>
+                </SELRESTRS>
+            </THEMROLE>
+            <THEMROLE type="Destination">
+                <SELRESTRS>
+                    <SELRESTR Value="+" type="concrete"/>
+                </SELRESTRS>
+            </THEMROLE>
+            <THEMROLE type="Trajectory">
+                <SELRESTRS>
+                    <SELRESTR Value="+" type="concrete"/>
+                </SELRESTRS>
+            </THEMROLE>
+        </THEMROLES>
+	<FRAMES>
+<FRAME>
+                <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.destination" secondary="PP; destination-PP" xtag=""/>
+                <EXAMPLES>
+                    <EXAMPLE>He came to Colorado.</EXAMPLE>
+                </EXAMPLES>
+                <SYNTAX>
+                    <NP value="Theme">
+                        <SYNRESTRS/>
+                    </NP>
+                    <VERB/>
+                    <PREP>
+                        <SELRESTRS>
+                            <SELRESTR Value="+" type="path"/>
+                        </SELRESTRS>
+                    </PREP>
+                    <NP value="Destination">
+                        <SELRESTRS/>
+                    </NP>
+                </SYNTAX>
+                <SEMANTICS>
+                    <PRED value="motion">
+                        <ARGS>
+                            <ARG type="Event" value="during(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="start(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                            <ARG type="ThemRole" value="?Initial_Location"/>
+                            <ARG type="Constant" value="ch_of_loc"/>
+                            <ARG type="VerbSpecific" value="prep"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="during(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                            <ARG type="ThemRole" value="?Trajectory"/>
+                            <ARG type="Constant" value="ch_of_loc"/>
+                            <ARG type="VerbSpecific" value="prep"/> 
+                        </ARGS>
+                    </PRED>
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="end(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                            <ARG type="ThemRole" value="Destination"/>
+                            <ARG type="Constant" value="ch_of_loc"/>
+                            <ARG type="VerbSpecific" value="prep"/>
+                        </ARGS>
+                    </PRED>
+                </SEMANTICS>
+            </FRAME>
+	    <FRAME>
+                <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.trajectory" secondary="PP; trajectory-PP" xtag=""/>
+                <EXAMPLES>
+                    <EXAMPLE>He came through the door.</EXAMPLE>
+                </EXAMPLES>
+                <SYNTAX>
+                    <NP value="Theme">
+                        <SYNRESTRS/>
+                    </NP>
+                    <VERB/>
+                    <PREP>
+                        <SELRESTRS>
+                            <SELRESTR Value="+" type="path"/>
+                        </SELRESTRS>
+                    </PREP>
+                    <NP value="Trajectory">
+                        <SELRESTRS/>
+                    </NP>
+                </SYNTAX>
+                <SEMANTICS>
+                    <PRED value="motion">
+                        <ARGS>
+                            <ARG type="Event" value="during(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="start(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                            <ARG type="ThemRole" value="?Initial_Location"/>
+                            <ARG type="Constant" value="ch_of_loc"/>
+                            <ARG type="VerbSpecific" value="prep"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="during(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                            <ARG type="ThemRole" value="Trajectory"/>
+                            <ARG type="Constant" value="ch_of_loc"/>
+                            <ARG type="VerbSpecific" value="prep"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="end(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                            <ARG type="ThemRole" value="?Destination"/>
+                            <ARG type="Constant" value="ch_of_loc"/>
+                            <ARG type="VerbSpecific" value="prep"/>
+                        </ARGS>
+                    </PRED>
+                </SEMANTICS>
+            </FRAME>
+            <FRAME>
+                <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.initial_loc PP.destination" secondary="PP-PP; source-PP destination-PP" xtag=""/>
+                <EXAMPLES>
+                    <EXAMPLE>He came from France to Colorado.</EXAMPLE>
+                </EXAMPLES>
+                <SYNTAX>
+                    <NP value="Theme">
+                        <SYNRESTRS/>
+                    </NP>
+                    <VERB/>
+                    <PREP>
+                        <SELRESTRS>
+                            <SELRESTR Value="+" type="path"/>
+                        </SELRESTRS>
+                    </PREP>
+                    <NP value="Initial_Location">
+                        <SELRESTRS/>
+                    </NP>
+                    <PREP>
+                        <SELRESTRS>
+                            <SELRESTR Value="+" type="path"/>
+                        </SELRESTRS>
+                    </PREP>
+                    <NP value="Destination">
+                        <SELRESTRS/>
+                    </NP>
+                </SYNTAX>
+                <SEMANTICS>
+                    <PRED value="motion">
+                        <ARGS>
+                            <ARG type="Event" value="during(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="start(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                            <ARG type="ThemRole" value="Initial_Location"/>
+                            <ARG type="Constant" value="ch_of_loc"/>
+                            <ARG type="VerbSpecific" value="prep"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="during(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                            <ARG type="ThemRole" value="?Trajectory"/>
+                            <ARG type="Constant" value="ch_of_loc"/>
+                            <ARG type="VerbSpecific" value="prep"/>
+                        </ARGS>
+                    </PRED> 
+                    <PRED value="path_rel">
+                        <ARGS>
+                            <ARG type="Event" value="end(E)"/>
+                            <ARG type="ThemRole" value="Theme"/>
+                            <ARG type="ThemRole" value="Destination"/>
+                            <ARG type="Constant" value="ch_of_loc"/>
+                            <ARG type="VerbSpecific" value="prep"/>
+                        </ARGS>
+                    </PRED>
+                </SEMANTICS>
+            </FRAME>
+	</FRAMES>
+	<SUBCLASSES>
+	    <VNSUBCLASS ID="escape-51.1-1">
+        	 <MEMBERS>
+                       <MEMBER name="advance" wn="advance%2:38:00" grouping="advance.01"/>
+                       <MEMBER name="approach" wn="approach%2:38:00" grouping="approach.01"/>
+                       <MEMBER name="come" wn="come%2:38:00 come%2:38:04" grouping="come.01"/>
+			<MEMBER name="continue" wn="continue%2:38:00" grouping="continue.03"/>
+                        <MEMBER name="decamp" wn="decamp%2:38:00                        decamp%2:38:01 decamp%2:38:02" grouping=""/>
+                       <MEMBER name="fall" wn="fall%2:38:03 fall%2:38:15 fall%2:38:14" grouping="fall.01"/>
+                       <MEMBER name="file" wn="file%2:38:00" grouping="file.03"/>
+                       <MEMBER name="go" wn="go%2:38:00 go%2:38:01" grouping="go.01 go.02"/>
+                       <MEMBER name="plunge" wn="plunge%2:38:05 plunge%2:38:00" grouping="plunge.01 plunge.02"/>
+                       <MEMBER name="recede" wn="recede%2:38:01 recede%2:33:00 recede%2:30:00" grouping=""/>
+                       <MEMBER name="return" wn="return%2:38:00" grouping="return.01"/>
+                       <MEMBER name="rise" wn="rise%2:38:00 rise%2:38:05 rise%2:38:04 rise%2:29:08 rise%2:38:08" grouping="rise.01 rise.03"/>
+                        <MEMBER name="tumble" wn="tumble%2:38:00 tumble%2:38:04" grouping="tumble.01 tumble.02"/>
+                        <MEMBER name="arrive" wn="arrive%2:38:00" grouping="arrive.01"/>
+                        <MEMBER name="set_off" wn="set_off%2:38:00" grouping=""/>
+                        <MEMBER name="set_out" wn="set_out%2:38:00" grouping=""/>
+                        <MEMBER name="bolt" wn="bolt%2:38:02 bolt%2:38:01" grouping=""/>
+                        <MEMBER name="emerge" wn="emerge%2:30:00" grouping=""/>
+                        <MEMBER name="emigrate" wn="emigrate%2:30:00" grouping=""/>
+                        <MEMBER name="retreat" wn="retreat%2:38:00 retreat%2:38:02" grouping=""/>
+                        <MEMBER name="skedaddle" wn="skedaddle%2:38:00" grouping=""/>
+                        <MEMBER name="vamoose" wn="" grouping=""/>
+                        <MEMBER name="withdraw" wn="withdraw%2:38:00" grouping=""/>
+		    </MEMBERS>
+		<THEMROLES/>
+		<FRAMES>
+		    <FRAME>
+		        <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag="0.1"/>
+		        <!-- each verb specifies the Prep_Dir (and sometimes
+		        the Oblique) that is it's default-->
+		        <EXAMPLES>
+		            <EXAMPLE>The prisoners advanced.</EXAMPLE>
+		        </EXAMPLES>
+		        <SYNTAX>
+		            <NP value="Theme">
+		                <SYNRESTRS/>
+		            </NP>
+		            <VERB/>
+		        </SYNTAX>
+		        <SEMANTICS>
+		            <PRED value="motion">
+		                <ARGS>
+		                    <ARG type="Event" value="during(E)"/>
+		                    <ARG type="ThemRole" value="Theme"/>
+		                </ARGS>
+		            </PRED>
+                            <PRED value="path_rel">
+                                <ARGS>
+                                    <ARG type="Event" value="start(E)"/>
+                                    <ARG type="ThemRole" value="Theme"/>
+                                    <ARG type="ThemRole" value="?Initial_Location"/>
+                                    <ARG type="Constant" value="ch_of_loc"/>
+                                    <ARG type="VerbSpecific" value="prep"/>
+                                </ARGS> 
+                            </PRED>  
+                            <PRED value="path_rel">
+                                <ARGS>
+                                    <ARG type="Event" value="during(E)"/>
+                                    <ARG type="ThemRole" value="Theme"/>
+                                    <ARG type="ThemRole" value="?Trajectory"/>
+                                    <ARG type="Constant" value="ch_of_loc"/>
+                                    <ARG type="VerbSpecific" value="prep"/>
+                                </ARGS>
+                            </PRED>
+                            <PRED value="path_rel">
+                                <ARGS>
+                                    <ARG type="Event" value="end(E)"/>
+                                    <ARG type="ThemRole" value="Theme"/>
+                                    <ARG type="ThemRole" value="?Destination"/>
+                                    <ARG type="Constant" value="ch_of_loc"/>
+                                    <ARG type="VerbSpecific" value="prep"/>
+                                </ARGS>
+                            </PRED>
+		        </SEMANTICS>
+		    </FRAME>
+		     <FRAME>
+		        <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.initial_loc" secondary="PP; initial_loc-PP" xtag=""/>
+		        <EXAMPLES>
+		            <EXAMPLE>He came from France.</EXAMPLE>
+		        </EXAMPLES>
+		        <SYNTAX>
+		            <NP value="Theme">
+		                <SYNRESTRS/>
+		            </NP>
+		            <VERB/>
+		            <PREP>
+		                <SELRESTRS>
+		                    <SELRESTR Value="+" type="path"/>
+		                </SELRESTRS>
+		            </PREP>
+		            <NP value="Initial_Location">
+		                <SELRESTRS/>
+		            </NP>
+		        </SYNTAX>
+		        <SEMANTICS>
+		            <PRED value="motion">
+		                <ARGS>
+		                    <ARG type="Event" value="during(E)"/>
+		                    <ARG type="ThemRole" value="Theme"/>
+		                </ARGS>
+		            </PRED>
+		            <PRED value="path_rel">
+		                <ARGS>
+		                    <ARG type="Event" value="start(E)"/>
+		                    <ARG type="ThemRole" value="Theme"/>
+		                    <ARG type="ThemRole" value="Initial_Location"/>
+                                    <ARG type="Constant" value="ch_of_loc"/>
+                                    <ARG type="VerbSpecific" value="prep"/>
+		                </ARGS>
+		            </PRED>
+                            <PRED value="path_rel">
+                                <ARGS>
+                                    <ARG type="Event" value="during(E)"/>
+                                    <ARG type="ThemRole" value="Theme"/>
+                                    <ARG type="ThemRole" value="?Trajectory"/>
+                                    <ARG type="Constant" value="ch_of_loc"/>
+                                    <ARG type="VerbSpecific" value="prep"/>
+                                </ARGS>
+                            </PRED>
+                            <PRED value="path_rel">
+                                <ARGS>
+                                    <ARG type="Event" value="end(E)"/>   
+                                    <ARG type="ThemRole" value="Theme"/>
+                                    <ARG type="ThemRole" value="?Destination"/>
+                                    <ARG type="Constant" value="ch_of_loc"/>
+                                    <ARG type="VerbSpecific" value="prep"/>
+                                </ARGS>
+                            </PRED>  
+		        </SEMANTICS>
+		    </FRAME>
+                </FRAMES>
+ 	        <SUBCLASSES>
+		    <VNSUBCLASS ID="escape-51.1-1-1">
+		    <MEMBERS>
+		      <MEMBER name="depart" wn="depart%2:38:04 depart%2:38:01" grouping="depart.01"/>
+		      <MEMBER name="disembark" wn="disembark%2:38:00" grouping=""/>
+		      <MEMBER name="escape" wn="escape%2:38:00" grouping="escape.01"/>
+		      <MEMBER name="exit" wn="exit%2:38:00" grouping="exit.01"/>
+		      <MEMBER name="flee" wn="flee%2:38:00" grouping="flee.01"/>
+		      <MEMBER name="leave" wn="leave%2:38:01 leave%2:38:00" grouping="leave.01"/>
+		      <MEMBER name="vacate" wn="vacate%2:38:00" grouping="vacate.01"/>
+		    </MEMBERS>
+		    <THEMROLES/>
+		    <FRAMES>
+		      <FRAME>
+		            <DESCRIPTION descriptionNumber="0.1" primary="NP V NP" secondary="Locative Preposition Drop" xtag=""/>
+		                <EXAMPLES>
+		                    <EXAMPLE>The convict escaped the prison.</EXAMPLE>
+		                </EXAMPLES>
+		                <SYNTAX>
+		                <NP value="Theme">
+		                    <SYNRESTRS/>
+		                </NP>
+		                <VERB/>
+		                <NP value="Initial_Location">
+		                    <SYNRESTRS/>
+		                </NP>
+		            </SYNTAX>
+		            <SEMANTICS>
+		                <PRED value="motion">
+		                    <ARGS>
+		                        <ARG type="Event" value="during(E)"/>
+		                        <ARG type="ThemRole" value="Theme"/>
+		                    </ARGS>
+		                </PRED>
+		                <PRED value="path_rel">
+		                    <ARGS>
+		                        <ARG type="Event" value="start(E)"/>
+		                        <ARG type="ThemRole" value="Theme"/>
+		                        <ARG type="ThemRole" value="Initial_Location"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+		                    </ARGS>
+		                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="?Trajectory"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>   
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="end(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="?Destination"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+		            </SEMANTICS>
+		        </FRAME>
+		    </FRAMES>
+		<SUBCLASSES/>
+		</VNSUBCLASS>
+		        <VNSUBCLASS ID="escape-51.1-1-2">
+		            <MEMBERS>
+		               <MEMBER name="enter" wn="enter%2:38:00 enter%2:36:00" grouping="enter.01"/> 
+		               <MEMBER name="approach" wn="approach%2:38:00" grouping="approach.01"/>
+		            </MEMBERS>
+		     <THEMROLES/>
+		    <FRAMES>
+		      <FRAME>
+		            <DESCRIPTION descriptionNumber="0.1" primary="NP V NP" secondary="Locative Preposition Drop" xtag=""/>
+		                <EXAMPLES>
+		                    <EXAMPLE>He entered the room.</EXAMPLE>
+		                </EXAMPLES>
+		                <SYNTAX>
+		                <NP value="Theme">
+		                    <SYNRESTRS/>
+		                </NP>
+		                <VERB/>
+		                <NP value="Destination">
+		                    <SYNRESTRS/>
+		                </NP>
+		            </SYNTAX>
+		            <SEMANTICS>
+		                <PRED value="motion">
+		                    <ARGS>
+		                        <ARG type="Event" value="during(E)"/>
+		                        <ARG type="ThemRole" value="Theme"/>
+		                    </ARGS>
+		                </PRED>
+		                <PRED value="path_rel">
+		                    <ARGS>
+		                        <ARG type="Event" value="start(E)"/>
+		                        <ARG type="ThemRole" value="Theme"/>
+	  	                        <ARG type="ThemRole" value="?Initial_Location"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+		                    </ARGS>
+                                </PRED>                                
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="during(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="?Trajectory"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="end(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="Destination"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+		            </SEMANTICS>
+		        </FRAME>
+		    </FRAMES>
+		     <SUBCLASSES/>
+		</VNSUBCLASS>
+		        <VNSUBCLASS ID="escape-51.1-1-3">
+		          <MEMBERS>
+		            <MEMBER name="ascend" wn="ascend%2:38:02 ascend%2:38:04               ascend%2:38:01 ascend%2:38:03" grouping="ascend.01 ascend.04 ascend.05"/>
+		            <MEMBER name="climb" wn="climb%2:38:00" grouping="climb.01"/>
+		            <MEMBER name="cross" wn="cross%2:38:00" grouping="cross.01"/>
+		            <MEMBER name="descend" wn="descend%2:38:00"
+		            grouping="descend.01"/>
+                            <MEMBER name="pass" wn="pass%2:38:00
+		            pass%2:38:05 pass%2:38:01 pass%2:35:00" grouping="pass.01"/>
+		          </MEMBERS>
+		           <THEMROLES/>
+		    <FRAMES>
+		      <FRAME>
+		            <DESCRIPTION descriptionNumber="0.1" primary="NP V NP" secondary="Locative Preposition Drop" xtag=""/>
+		                <EXAMPLES>
+		                    <EXAMPLE>He climbed the mountain.</EXAMPLE>
+		                </EXAMPLES>
+		                <SYNTAX>
+		                <NP value="Theme">
+		                    <SYNRESTRS/>
+		                </NP>
+		                <VERB/>
+		                <NP value="Trajectory">
+		                    <SYNRESTRS/>
+		                </NP>
+		            </SYNTAX>
+		            <SEMANTICS>
+		                <PRED value="motion">
+		                    <ARGS>
+		                        <ARG type="Event" value="during(E)"/>
+		                        <ARG type="ThemRole" value="Theme"/>
+		                    </ARGS>
+		                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="?Initial_Location"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED> 
+		                <PRED value="path_rel">
+		                    <ARGS>
+		                        <ARG type="Event" value="during(E)"/>
+		                        <ARG type="ThemRole" value="Theme"/>
+		                        <ARG type="ThemRole" value="Trajectory"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+		                    </ARGS>
+		                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="end(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="?Destination"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>               
+                                    </ARGS>  
+                                </PRED> 
+		            </SEMANTICS>
+		        </FRAME>
+		    </FRAMES>
+		 <SUBCLASSES/>
+	    </VNSUBCLASS>
+	</SUBCLASSES>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

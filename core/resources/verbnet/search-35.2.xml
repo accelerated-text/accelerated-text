@@ -1,0 +1,181 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="search-35.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="advertise" wn="advertise%2:32:00" grouping="advertise.01"/>
+        <MEMBER name="check" wn="check%2:31:02 check%2:32:10" grouping="check.01"/>
+        <MEMBER name="comb" wn="comb%2:35:00" grouping="comb.02"/>
+        <MEMBER name="dive" wn="?dive%2:38:02 ?dive%2:38:01" grouping="dive.02 dive.03"/>
+        <MEMBER name="drag" wn="drag%2:35:02" grouping="drag.03"/>
+        <MEMBER name="dredge" wn="dredge%2:35:01" grouping="dredge.02"/>
+        <MEMBER name="excavate" wn="excavate%2:39:00" grouping="excavate.01"/>
+        <MEMBER name="nose" wn="nose%2:39:01" grouping="nose.03"/>
+        <MEMBER name="patrol" wn="patrol%2:41:00" grouping="patrol.01"/>
+        <MEMBER name="plumb" wn="plumb%2:31:02" grouping="plumb.01"/>
+        <MEMBER name="probe" wn="probe%2:32:00 probe%2:35:00" grouping="probe.01 probe.02"/>
+        <MEMBER name="prospect" wn="prospect%2:31:00" grouping=""/>
+        <MEMBER name="prowl" wn="prowl%2:38:00" grouping=""/>
+        <MEMBER name="quarry" wn="" grouping=""/>
+        <MEMBER name="rake" wn="rake%2:39:00" grouping="rake.04"/>
+        <MEMBER name="rifle" wn="rifle%2:35:13" grouping=""/>
+        <MEMBER name="scavenge" wn="scavenge%2:35:01" grouping=""/>
+        <MEMBER name="scour" wn="scour%2:35:03" grouping="scour.02"/>
+        <MEMBER name="scout" wn="scout%2:39:00" grouping=""/>
+        <MEMBER name="search" wn="search%2:35:00 search%2:39:00 search%2:35:01" grouping="search.01"/>
+        <MEMBER name="shop" wn="?shop%2:41:00" grouping="shop.02"/>
+        <MEMBER name="sift" wn="sift%2:38:00 sift%2:35:02" grouping="sift.02"/>
+        <MEMBER name="sweep" wn="" grouping="sweep.07"/>
+        <MEMBER name="trawl" wn="trawl%2:33:00" grouping=""/>
+        <MEMBER name="troll" wn="troll%2:33:00" grouping="troll.03"/>
+        <MEMBER name="watch" wn="watch%2:39:01" grouping="watch.02"/>
+        <MEMBER name="quest" wn="quest%2:40:00 quest%2:38:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Location">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.theme" secondary="NP-PP; Theme-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I searched the cave for treasure.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="search">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Location"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.theme NP.location" secondary="PP-PP; Theme-PP Location-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I searched for treasure in the cave.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="loc"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="search">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Location"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.location PP.theme" secondary="PP-PP; Location-PP Theme-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I searched in the cave for treasure.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="loc"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="search">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Location"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V PP.location" secondary="PP; Location-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I searched through America.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="loc"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="search">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Location"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

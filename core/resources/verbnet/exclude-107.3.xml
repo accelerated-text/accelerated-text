@@ -1,0 +1,128 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="exclude-107.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+      <MEMBER name="omit" wn="omit%2:31:01" grouping="omit.01"/>
+    </MEMBERS>
+    <THEMROLES>
+      <THEMROLE type="Agent">
+        <SELRESTRS logic="or">
+          <SELRESTR Value="+" type="animate"/>
+          <SELRESTR Value="+" type="organization"/>
+        </SELRESTRS>
+      </THEMROLE>
+      <THEMROLE type="Theme">
+        <SELRESTRS logic="or">
+          <SELRESTR Value="+" type="animate"/>
+          <SELRESTR Value="+" type="organization"/>
+        </SELRESTRS>
+      </THEMROLE>
+      <THEMROLE type="Goal">
+        <SELRESTRS/>
+      </THEMROLE>
+
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.goal" secondary="" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>They excluded me from the meeting.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="from">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED bool="!" value="involve">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP" secondary="" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>She excluded books she had read before.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED bool="!" value="involve">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Goal"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+      <VNSUBCLASS ID="exclude-107.3-1">
+        <MEMBERS>
+            <MEMBER name="exclude" wn="exclude%2:31:01" grouping="exclude.01"/>
+            <MEMBER name="preclude" wn="preclude%2:41:00 preclude%2:42:00" grouping="preclude.01"/>
+        </MEMBERS>
+      <THEMROLES>
+      </THEMROLES>
+      <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.goal S_ING" secondary="P-ING-OC" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>They excluded us from going to the party.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="from">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Goal">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="oc_ing"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED bool="!" value="involve">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+  </VNSUBCLASS>
+  </SUBCLASSES>
+</VNCLASS>

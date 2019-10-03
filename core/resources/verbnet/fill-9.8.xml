@@ -1,0 +1,347 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="fill-9.8" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="anoint" wn="anoint%2:29:00" grouping=""/>
+        <MEMBER name="bandage" wn="bandage%2:35:03 bandage%2:29:00" grouping=""/>
+        <MEMBER name="bestrew" wn="bestrew%2:35:00" grouping=""/>
+        <MEMBER name="blacktop" wn="blacktop%2:35:00" grouping="blacktop.01"/>
+        <MEMBER name="blockade" wn="blockade%2:35:00" grouping="blockade.01"/> 
+        <MEMBER name="blot" wn="blot%2:35:00" grouping=""/>
+        <MEMBER name="bombard" wn="bombard%2:35:00 bombard%2:33:00" grouping="bombard.01"/>
+        <MEMBER name="choke" wn="choke%2:35:00 choke%2:35:02 choke%2:29:04 choke%2:35:01 choke%2:35:03" grouping="choke.03"/>
+        <MEMBER name="clog" wn="clog%2:35:00 clog%2:30:00" grouping="clog.01"/>
+        <MEMBER name="close" wn="close%2:35:11" grouping="close.06"/>
+        <MEMBER name="clutter" wn="clutter%2:30:00" grouping=""/>
+        <MEMBER name="contaminate" wn="contaminate%2:30:00" grouping="contaminate.01"/>
+        <MEMBER name="dam" wn="dam%2:35:00" grouping=""/>
+        <MEMBER name="deluge" wn="deluge%2:35:00 deluge%2:30:00" grouping=""/>
+        <MEMBER name="dirty" wn="dirty%2:35:00" grouping=""/>
+        <MEMBER name="dope" wn="dope%2:34:00 dope%2:30:00" grouping="dope.01 dope.02"/>
+        <MEMBER name="dot" wn="dot%2:42:00 dot%2:35:00" grouping="dot.01"/>
+        <MEMBER name="embellish" wn="embellish%2:32:00 embellish%2:42:00 embellish%2:36:00 embellish%2:30:00" grouping="embellish.01 embellish.02"/>
+        <MEMBER name="emblazon" wn="emblazon%2:36:01 emblazon%2:36:00" grouping=""/>
+        <MEMBER name="encircle" wn="encircle%2:35:12 encircle%2:35:00" grouping=""/>
+        <MEMBER name="endow" wn="endow%2:41:00" grouping="endow.01"/>
+        <MEMBER name="enrich" wn="enrich%2:30:00 enrich%2:40:00" grouping="enrich.01 enrich.02"/>
+        <MEMBER name="fill" wn="fill%2:30:01 fill%2:42:00 fill%2:30:02 fill%2:30:00" grouping="fill.01"/>
+        <MEMBER name="fleck" wn="fleck%2:35:00" grouping=""/>
+        <MEMBER name="flood" wn="flood%2:35:00 flood%2:30:00 flood%2:40:00" grouping="flood.01 flood.02"/>
+        <MEMBER name="garland" wn="garland%2:36:00" grouping=""/>
+        <MEMBER name="garnish" wn="garnish%2:36:00" grouping=""/>
+        <MEMBER name="grace" wn="" grouping=""/>
+        <MEMBER name="gum_up" wn="gum_up%2:35:00" grouping="gum.03"/>
+        <MEMBER name="honeycomb" wn="honeycomb%2:35:00" grouping="honeycomb.02"/>
+        <MEMBER name="imbue" wn="imbue%2:30:01" grouping="imbue.01"/>
+        <MEMBER name="impregnate" wn="impregnate%2:30:00 impregnate%2:29:00" grouping=""/>
+        <MEMBER name="infect" wn="infect%2:29:00" grouping="infect.01"/>
+        <MEMBER name="infest" wn="infest%2:38:00 infest%2:42:02         infest%2:42:00" grouping="infest.01"/>
+        <MEMBER name="inlay" wn="inlay%2:36:00" grouping=""/>
+        <MEMBER name="interlace" wn="interlace%2:35:00" grouping=""/>
+        <MEMBER name="interlard" wn="interlard%2:30:00" grouping=""/>
+        <MEMBER name="interleave" wn="interleave%2:30:00" grouping=""/>
+        <MEMBER name="intersperse" wn="intersperse%2:35:02 intersperse%2:30:00" grouping=""/>
+        <MEMBER name="interweave" wn="interweave%2:35:00" grouping=""/>
+        <MEMBER name="inundate" wn="inundate%2:35:00 inundate%2:30:00" grouping=""/>
+        <MEMBER name="lard" wn="lard%2:36:00 lard%2:32:00" grouping=""/>
+        <MEMBER name="lash" wn="lash%2:35:02" grouping="lash.03"/>
+        <MEMBER name="litter" wn="litter%2:42:00 litter%2:35:00" grouping="litter.01"/>
+        <MEMBER name="mask" wn="mask%2:35:00 mask%2:35:02" grouping="mask.01"/>
+        <MEMBER name="mottle" wn="mottle%2:36:00 mottle%2:30:00" grouping=""/>
+        <MEMBER name="ornament" wn="ornament%2:36:00" grouping=""/>
+        <MEMBER name="pad" wn="pad%2:32:00 pad%2:35:00 pad%2:30:00" grouping="pad.01 pad.03 pad.04"/>
+        <MEMBER name="plate" wn="plate%2:35:00" grouping=""/>
+        <MEMBER name="plug" wn="plug%2:35:01" grouping="plug.01"/>
+        <MEMBER name="prefill" wn="" grouping=""/> 
+        <MEMBER name="replenish" wn="replenish%2:30:00" grouping=""/>
+        <MEMBER name="repopulate" wn="" grouping=""/>
+        <MEMBER name="resupply" wn="" grouping=""/>
+        <MEMBER name="riddle" wn="riddle%2:35:00" grouping=""/>
+        <MEMBER name="ring" wn="ring%2:35:03" grouping="ring.02"/>
+        <MEMBER name="ripple" wn="?ripple%2:38:00" grouping=""/>
+        <MEMBER name="sauce" wn="sauce%2:35:00 sauce%2:30:00" grouping="sauce.02"/>
+        <MEMBER name="season" wn="season%2:39:00" grouping="season.01"/>
+        <MEMBER name="smut" wn="smut%2:30:00" grouping="smut.02"/>
+        <MEMBER name="soil" wn="soil%2:35:00" grouping=""/>	
+        <MEMBER name="splotch" wn="splotch%2:35:00" grouping=""/>
+        <MEMBER name="staff" wn="staff%2:33:00" grouping="staff.01"/>
+        <MEMBER name="stipple" wn="stipple%2:36:00 stipple%2:36:01 stipple%2:36:02 stipple%2:35:00" grouping="stipple.01 stipple.02 stipple.03"/>
+        <MEMBER name="stop_up" wn="stop_up%2:35:00" grouping=""/>
+        <MEMBER name="stud" wn="stud%2:35:00" grouping=""/>
+        <MEMBER name="suffuse" wn="suffuse%2:30:01" grouping=""/>
+        <MEMBER name="sully" wn="" grouping=""/>
+        <MEMBER name="taint" wn="taint%2:29:00" grouping="taint.01"/>
+        <MEMBER name="tinge" wn="tinge%2:30:00 tinge%2:32:13" grouping=""/> 
+        <MEMBER name="inject" wn="inject%2:29:00 inject%2:35:00 inject%2:34:01 inject%2:34:00" grouping="inject.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Initial_Location">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="location"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Destination">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="location"/>
+                <SELRESTR Value="-" type="region"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.theme" secondary="NP-PP; with-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Leslie staffed the store with employees.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Destination">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Initial_Location"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="3.5" primary="NP V NP" secondary="Locatum Subject Alternation" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The employees staffed the store.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Destination">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Initial_Location"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="?Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP.destination" secondary="Transitive; Destination Object" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Leslie staffed the store.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Destination">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="ThemRole" value="?Initial_Location"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="ThemRole" value="Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="fill-9.8-1">
+            <MEMBERS>
+		<MEMBER name="adorn" wn="adorn%2:36:00 adorn%2:42:00" grouping="adorn.01 adorn.02"/>
+		<MEMBER name="bathe" wn="bathe%2:35:00" grouping="bathe.02"/>
+		<MEMBER name="bind" wn="bind%2:35:00 bind%2:35:08 bind%2:35:07 bind%2:35:01" grouping="bind.02"/>
+		<MEMBER name="blanket" wn="blanket%2:35:00 blanket%2:42:00" grouping=""/>
+		<MEMBER name="block" wn="block%2:35:00 block%2:39:00 block%2:33:00" grouping="block.01"/>
+		<MEMBER name="carpet" wn="?carpet%2:42:00 carpet%2:35:01 carpet%2:35:00" grouping="carpet.01 carpet.02"/>
+		<MEMBER name="cloak" wn="" grouping="cloak.02"/>
+		<MEMBER name="coat" wn="coat%2:35:00 coat%2:29:00 coat%2:35:01" grouping="coat.01"/>
+		<MEMBER name="cover" wn="cover%2:35:00 cover%2:35:01 cover%2:35:14 cover%2:29:15" grouping="cover.01"/>
+		<MEMBER name="dapple" wn="dapple%2:30:00" grouping=""/>
+		<MEMBER name="deck" wn="deck%2:42:00 deck%2:36:00" grouping="deck.01"/>
+		<MEMBER name="decorate" wn="decorate%2:36:00 decorate%2:42:00 decorate%2:35:00" grouping="decorate.01"/>
+		<MEMBER name="disguise" wn="" grouping=""/>
+		<MEMBER name="douse" wn="douse%2:43:00 douse%2:42:09 douse%2:38:00 douse%2:35:00 douse%2:30:00" grouping="douse.01 douse.02"/>
+		<MEMBER name="drench" wn="drench%2:30:00" grouping="drench.01"/>
+		<MEMBER name="edge" wn="edge%2:40:00" grouping="edge.02"/>
+		<MEMBER name="encrust" wn="encrust%2:35:00 encrust%2:35:01 encrust%2:30:00" grouping=""/>
+		<MEMBER name="entangle" wn="entangle%2:42:00 entangle%2:35:00" grouping=""/>
+		<MEMBER name="face" wn="face%2:35:00 face%2:35:01" grouping="face.03"/>
+		<MEMBER name="festoon" wn="festoon%2:36:00" grouping=""/>
+		<MEMBER name="frame" wn="frame%2:35:00 frame%2:42:00" grouping="frame.01"/>
+		<MEMBER name="line" wn="line%2:35:00 line%2:30:00 line%2:30:01" grouping="line.03"/>
+		<MEMBER name="marinate" wn="marinate%2:30:00" grouping=""/>
+		<MEMBER name="panel" wn="panel%2:36:00" grouping=""/>
+		<MEMBER name="pave" wn="pave%2:35:00" grouping="pave.01"/>
+		<MEMBER name="redecorate" wn="redecorate%2:36:00" grouping=""/>
+		<MEMBER name="robe" wn="robe%2:29:00" grouping=""/>
+		<MEMBER name="saturate" wn="saturate%2:30:04" grouping="saturate.01"/>
+		<MEMBER name="shroud" wn="shroud%2:42:02 shroud%2:35:00" grouping=""/>
+		<MEMBER name="smother" wn="smother%2:35:02 smother%2:42:00" grouping="smother.01"/>
+		<MEMBER name="soak" wn="soak%2:30:01 soak%2:30:00" grouping="soak.01"/>
+		<MEMBER name="speckle" wn="speckle%2:35:00" grouping=""/>
+		<MEMBER name="spot" wn="spot%2:35:01 spot%2:35:00" grouping="spot.02"/>
+		<MEMBER name="surround" wn="surround%2:35:00 surround%2:35:01 surround%2:33:00 surround%2:33:01" grouping="surround.01 surround.02"/>
+		<MEMBER name="swaddle" wn="swaddle%2:35:00" grouping=""/>
+		<MEMBER name="swathe" wn="swathe%2:35:00" grouping=""/>
+		<MEMBER name="tile" wn="tile%2:35:00" grouping=""/>
+		<MEMBER name="tool" wn="tool%2:40:00" grouping="tool.02 tool.03"/>
+		<MEMBER name="trim" wn="trim%2:36:01 trim%2:36:00" grouping="trim.03"/>
+		<MEMBER name="veil" wn="veil%2:35:00" grouping=""/>
+		<MEMBER name="vein" wn="vein%2:36:00" grouping=""/>
+                <MEMBER name="stain" wn="stain%2:30:01 stain%2:30:00 stain%2:30:04" grouping="stain.01 stain.02 stain.03"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V NP PP.theme" secondary="NP-PP; Theme-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Leigh swaddled the baby in blankets.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+			<NP value="Destination">
+			    <SYNRESTRS/>
+			</NP>
+			<PREP value="in">
+			    <SELRESTRS/>
+			</PREP>
+			<NP value="Theme">
+			    <SYNRESTRS/>
+			</NP>
+                    </SYNTAX>
+	            <SEMANTICS>
+	                <PRED value="motion">
+	                    <ARGS>
+	                        <ARG type="Event" value="during(E)"/>
+	                        <ARG type="ThemRole" value="Theme"/>
+	                    </ARGS>
+	                </PRED>
+	                <PRED value="path_rel">
+	                    <ARGS>
+	                        <ARG type="Event" value="start(E)"/>
+	                        <ARG type="ThemRole" value="Theme"/>
+	                        <ARG type="ThemRole" value="?Initial_Location"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+	                    </ARGS>
+	                </PRED>
+	                <PRED value="path_rel">
+	                    <ARGS>
+	                        <ARG type="Event" value="end(E)"/>
+	                        <ARG type="ThemRole" value="Theme"/>
+	                        <ARG type="ThemRole" value="Destination"/> 
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/> 
+	                    </ARGS>
+	                </PRED>
+	                <PRED value="cause">
+	                    <ARGS>
+	                        <ARG type="ThemRole" value="Agent"/>
+	                        <ARG type="Event" value="E"/>
+	                    </ARGS>
+	                </PRED>
+	            </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

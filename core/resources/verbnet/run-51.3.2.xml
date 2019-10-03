@@ -1,0 +1,947 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="run-51.3.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <!--Each member also adds a manner predicate such as manner(during(E),Theme,running)-->
+        <MEMBER name="amble" wn="amble%2:38:00" grouping="amble.01" features="+speed +bodily_manner"/>  
+        <MEMBER name="ambulate" wn="ambulate%2:38:00" grouping="ambulate.01" features="+bodily_manner"/>
+        <MEMBER name="backpack" wn="backpack%2:38:00" grouping="" features="+bodily_manner +orientation"/>
+        <MEMBER name="bolt" wn="bolt%2:38:02" grouping="bolt.01" features="+speed"/>  
+        <MEMBER name="bound" wn="bound%2:38:01" grouping="bound.01" features="+speed +bodily_manner"/>
+	<MEMBER name="breeze" wn="" grouping="" features="+speed"/>
+        <MEMBER name="bustle" wn="bustle%2:38:00" grouping="" features="+speed"/>
+        <MEMBER name="caper" wn="caper%2:38:00" grouping="" features="+speed +attitude"/>
+        <MEMBER name="carom" wn="carom%2:38:00 carom%2:35:00" grouping="" features="+path_shape"/>
+        <MEMBER name="cavort" wn="cavort%2:38:00" grouping="" features="+path_shape +attitude"/>
+        <MEMBER name="charge" wn="charge%2:33:00 charge%2:38:00" grouping="charge.05" features="+speed +orientation"/>
+	<MEMBER name="chunter" wn="" grouping=""/>
+        <MEMBER name="clamber" wn="clamber%2:38:00" grouping="clamber.01" features="+bodily_manner +orientation"/>
+        <MEMBER name="climb" wn="climb%2:38:00 climb%2:38:01" grouping="climb.01 climb.03" features="+bodily_manner +orientation"/>
+        <MEMBER name="clump" wn="clump%2:38:00" grouping="clump.03" features="+bodily_manner"/>
+        <MEMBER name="crawl" wn="crawl%2:38:00" grouping="crawl.01" features="+speed +bodily_manner +orientation"/>
+        <MEMBER name="creep" wn="creep%2:38:00 creep%2:38:04" grouping="creep.01" features="+speed +bodily_manner +purpose"/>
+        <MEMBER name="dodder" wn="dodder%2:38:00" grouping="" features="+speed +bodily_manner"/>
+        <MEMBER name="flit" wn="flit%2:38:00" grouping="" features="+speed +path_shape"/>
+        <MEMBER name="flounce" wn="flounce%2:38:00" grouping="" features="+attitude"/>
+        <MEMBER name="frolic" wn="frolic%2:38:00" grouping="" features="+attitude"/>
+        <MEMBER name="gallivant" wn="gallivant%2:38:00" grouping="" features="+attitude"/>
+        <MEMBER name="gambol" wn="gambol%2:38:00" grouping="" features="+attitude"/>
+        <MEMBER name="ghost" wn="ghost%2:38:00" grouping="ghost.01" features="+attitude"/>
+        <MEMBER name="globetrot" wn="" grouping="" features="+purpose"/>
+        <MEMBER name="goose_step" wn="goose_step%2:38:00" grouping="" features="+bodily_manner"/>
+        <MEMBER name="hike" wn="hike%2:38:00" grouping="hike.01" features="+path_shape +purpose"/>
+        <MEMBER name="hitchhike" wn="hitchhike%2:38:00" grouping=""/>
+        <MEMBER name="hopscotch" wn="" grouping="" features="+path_shape"/>
+	<MEMBER name="jounce" wn="" grouping="" features="+path_shape"/>
+        <MEMBER name="limp" wn="limp%2:38:00 limp%2:38:01" grouping="" features="+bodily_manner"/>
+        <MEMBER name="lollop" wn="lollop%2:38:00" grouping="" features="+bodily_manner"/>
+        <MEMBER name="lumber" wn="lumber%2:38:00" grouping="" features="+bodily_manner +attitude"/>
+        <MEMBER name="lurch" wn="lurch%2:38:03 lurch%2:38:00 lurch%2:38:01" grouping="lurch.01 lurch.02" features="+bodily_manner +attitude"/>
+        <MEMBER name="meander" wn="meander%2:38:00" grouping=""  features="+path_shape +purpose"/>
+        <MEMBER name="mince" wn="mince%2:38:00" grouping="mince.02" features="+bodily_manner +attitude"/>
+        <MEMBER name="mosey" wn="mosey%2:38:00" grouping="" features="+speed +bodily_manner"/>
+        <MEMBER name="nip" wn="" grouping="" features="+speed"/>
+        <MEMBER name="pace" wn="pace%2:38:00 pace%2:38:01" grouping="" features="+speed +bodily_manner +attitude"/>
+	<MEMBER name="pootle" wn="" grouping="" features="+speed +purpose"/>
+        <MEMBER name="pounce" wn="pounce%2:38:00" grouping="" features="+purpose +bodily_manner"/>
+	<MEMBER name="pussyfoot" wn="" grouping="" features="+attitude"/>
+	<MEMBER name="roar" wn="" grouping="" features="+bodily_manner"/>
+        <MEMBER name="romp" wn="romp%2:38:00 romp%2:38:01" grouping="" features="+attitude"/>
+        <MEMBER name="sashay" wn="sashay%2:38:01 sashay%2:38:00" grouping="" features="+bodily_manner +attitude"/>
+        <MEMBER name="saunter" wn="saunter%2:38:00" grouping="" features="+speed +attitude"/>
+        <MEMBER name="scamper" wn="scamper%2:38:00" grouping="" features="+speed +bodily_manner"/>
+        <MEMBER name="scram" wn="scram%2:38:00" grouping="" features="+orientation"/>
+        <MEMBER name="scramble" wn="scramble%2:38:00 scramble%2:38:01" grouping="scramble.01" features="+purpose +bodily_manner"/>
+        <MEMBER name="scud" wn="scud%2:38:00" grouping="" features="+speed"/>
+        <MEMBER name="scurry" wn="scurry%2:38:00" grouping="" features="+speed +bodily_manner"/>
+        <MEMBER name="scutter" wn="" grouping="" features="+speed +bodily_manner"/>
+        <MEMBER name="scuttle" wn="scuttle%2:38:00" grouping="scuttle.02" features="+speed +purpose"/>
+	<MEMBER name="seesaw" wn="" grouping="" features="+path_shape"/>
+        <MEMBER name="shamble" wn="shamble%2:38:00" grouping="" features="+bodily_manner"/>
+        <MEMBER name="shuffle" wn="shuffle%2:38:00" grouping="shuffle.01" features="+bodily_manner"/>
+        <MEMBER name="sidle" wn="sidle%2:38:01 sidle%2:38:00" grouping="" features="+attitude"/>
+        <MEMBER name="skedaddle" wn="skedaddle%2:38:00" grouping="" features="+speed +attitude"/>
+	<MEMBER name="skid" wn="" grouping="" features="+bodily_manner"/>
+        <MEMBER name="skulk" wn="skulk%2:38:00" grouping="" features="+attitude"/>
+        <MEMBER name="sleepwalk" wn="sleepwalk%2:38:00" grouping=""/>
+        <MEMBER name="slink" wn="slink%2:38:00" grouping="" features="+attitude"/>
+        <MEMBER name="slither" wn="slither%2:38:00" grouping="" features="+path_shape +orientation"/>
+        <MEMBER name="slog" wn="slog%2:38:00" grouping="" features="+speed"/>
+        <MEMBER name="slouch" wn="slouch%2:38:00" grouping="" features="+bodily_manner"/>
+        <MEMBER name="somersault" wn="somersault%2:38:00" grouping="" features="+path_shape +bodily_manner"/>
+        <MEMBER name="sprint" wn="sprint%2:38:00" grouping="" features="+speed"/>
+        <MEMBER name="spring" wn="spring%2:38:01" grouping="spring.02" features="+speed +path_shape"/>
+        <MEMBER name="stagger" wn="stagger%2:38:00 stagger%2:38:01" grouping="stagger.01" features="+bodily_manner"/>
+        <MEMBER name="step" wn="" grouping="step.01"/>
+        <MEMBER name="stomp" wn="stomp%2:38:00" grouping="" features="+purpose +bodily_manner +attitude +orientation"/>
+        <MEMBER name="stray" wn="stray%2:38:01 stray%2:38:00" grouping="stray.01" features="+path_shape +orientation"/>
+        <MEMBER name="streak" wn="streak%2:38:00 streak%2:38:01" grouping="streak.01 streak.02" features="+speed"/>
+        <MEMBER name="stumble" wn="stumble%2:38:01 stumble%2:38:00" grouping="stumble.01" features="+bodily_manner"/>
+        <MEMBER name="stump" wn="stump%2:38:00" grouping="stump.02" features="+speed +bodily_manner"/>
+        <MEMBER name="swag" wn="swag%2:38:01" grouping="swag.02"/>
+        <MEMBER name="swagger" wn="swagger%2:38:00" grouping="" features="+attitude"/>
+	<MEMBER name="swan" wn="" grouping="" features="+path_shape"/>
+        <MEMBER name="swerve" wn="" grouping="" features="+path_shape"/>
+        <MEMBER name="tear" wn="tear%2:38:00" grouping="tear.02" features="+speed"/>
+        <MEMBER name="tiptoe" wn="tiptoe%2:38:00" grouping=""/>
+        <MEMBER name="toddle" wn="toddle%2:38:00" grouping="" features="+bodily_manner"/>
+        <MEMBER name="toil" wn="" grouping=""/>
+	<MEMBER name="tootle" wn="" grouping="" features="+speed +attitude"/>
+        <MEMBER name="totter" wn="totter%2:38:02 totter%2:38:01 totter%2:38:00" grouping="" features="+bodily_manner"/>
+        <MEMBER name="tread" wn="tread%2:38:00" grouping="tread.01"/>
+        <MEMBER name="troop" wn="troop%2:38:00" grouping=""/>
+        <MEMBER name="trundle" wn="trundle%2:38:00" grouping="" features="+bodily_manner"/>
+        <MEMBER name="waddle" wn="waddle%2:38:00" grouping="" features="+bodily_manner"/>
+        <MEMBER name="weave" wn="" grouping="" features="+path_shape +purpose"/>
+	<MEMBER name="wend" wn="" grouping="" features="+path_shape +purpose"/>
+        <MEMBER name="whiz" wn="" grouping="" features="+speed"/>
+        <MEMBER name="worm" wn="worm%2:38:00" grouping="" features="+bodily_manner"/>
+        <MEMBER name="yaw" wn="yaw%2:38:00 yaw%2:38:01" grouping="yaw.02" features="+orientation"/>
+        <MEMBER name="zigzag" wn="zigzag%2:38:00" grouping="" features="+path_shape"/>
+        <MEMBER name="zoom" wn="zoom%2:38:00" grouping="zoom.01" features="+speed"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Theme">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="machine"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Initial_Location">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Trajectory">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Destination">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive; inchoative" xtag="0.1"/>
+            <!-- stump doesn't take it-->
+            <EXAMPLES>
+                <EXAMPLE>The horse jumped.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.location" secondary="PP; over-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The horse jumped over the fence.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="spatial"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Trajectory">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Initial_Location"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Trajectory"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS> 
+                </PRED> 
+            </SEMANTICS>
+        </FRAME> 
+        <FRAME>
+            <DESCRIPTION descriptionNumber="6.1" primary="There V PP NP" secondary="PP-NP; Expletive-there Subject" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>There jumped out of the box a little white rabbit.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <LEX value="there"/>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="path"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Initial_Location">
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="concrete"/>
+                    </SELRESTRS>
+                </NP>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="definite"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Initial_Location"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/> 
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Trajectory"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>  
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="6.1" primary="There V NP PP" secondary="NP-PP; Expletive-there Subject" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>There jumped a little white rabbit out of the box.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <LEX value="there"/>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="definite"/>
+                    </SYNRESTRS>
+                </NP>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="path"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Initial_Location">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Initial_Location"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Trajectory"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="6.2" primary="PP.location V NP" secondary="Locative Inversion" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Out of the box jumped a little white rabbit.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="path"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Initial_Location">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Initial_Location"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Trajectory"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="run-51.3.2-1">
+            <MEMBERS>
+		<MEMBER name="hop" wn="hop%2:38:00 hop%2:38:04 hop%2:38:02 hop%2:38:01" grouping="hop.01 hop.02" features="+speed +path_shape"/>        
+		<MEMBER name="journey" wn="journey%2:38:00 journey%2:38:01" grouping=""/>
+		<MEMBER name="leap" wn="leap%2:38:00 leap%2:38:10" grouping="leap.01 leap.02" features="+bodily_manner +orientation"/>
+		<MEMBER name="pad" wn="pad%2:38:00" grouping="pad.02" features="+speed"/>
+		<MEMBER name="perambulate" wn="perambulate%2:38:00" grouping=""/>
+		<MEMBER name="plod" wn="plod%2:38:00" grouping="" features="+speed +bodily_manner"/>
+		<MEMBER name="prowl" wn="prowl%2:38:00" grouping="" features="+attitude"/>
+		<MEMBER name="ramble" wn="ramble%2:38:01" grouping="ramble.02" features="+speed +purpose"/>
+		<MEMBER name="roam" wn="roam%2:38:00" grouping="" features="+speed +purpose"/>
+		<MEMBER name="rove" wn="rove%2:38:00" grouping="" features="+purpose"/>
+		<MEMBER name="stride" wn="stride%2:38:00 stride%2:38:03" grouping="stride.01" features="+bodily_manner"/>
+		<MEMBER name="stroll" wn="stroll%2:38:00" grouping="" features="+purpose"/>
+		<MEMBER name="sweep" wn="sweep%2:38:00 sweep%2:35:03" grouping="sweep.01" features="+speed"/>
+		<MEMBER name="swim" wn="swim%2:38:00" grouping="swim.01"/>
+		<MEMBER name="traipse" wn="traipse%2:38:00" grouping="" features="+purpose +bodily_manner"/>
+		<MEMBER name="tramp" wn="tramp%2:38:00 tramp%2:38:01 tramp%2:38:03 tramp%2:38:02" grouping=""/>
+		<MEMBER name="travel" wn="travel%2:38:00 travel%2:38:02" grouping="travel.01 travel.02"/>
+		<MEMBER name="trek" wn="trek%2:38:01" grouping="" features="+speed +bodily_manner"/>
+		<MEMBER name="trudge" wn="trudge%2:38:01" grouping="" features="+speed +bodily_manner"/>
+		<MEMBER name="vault" wn="vault%2:38:01 vault%2:38:00" grouping="" features="+bodily_manner"/>
+		<MEMBER name="wade" wn="wade%2:38:00" grouping="" features="+speed"/>
+		<MEMBER name="wander" wn="wander%2:38:00 wander%2:38:02" grouping="wander.01" features="+purpose"/>
+		<MEMBER name="wing" wn="wing%2:38:00" grouping="" features="+speed"/>
+            </MEMBERS>
+            <THEMROLES>
+            </THEMROLES>
+            <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="1.4.1" primary="NP V NP" secondary="Locative Preposition Drop" xtag=""/>
+		    <EXAMPLES>
+			<EXAMPLE>The horse traveled the stream.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+			<NP value="Theme">
+			    <SYNRESTRS/>
+			</NP>
+			<VERB/>
+			<NP value="Trajectory">
+			    <SELRESTRS>
+				<SELRESTR Value="+" type="concrete"/>
+			    </SELRESTRS>
+			</NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+			<PRED value="motion">
+			    <ARGS>
+				<ARG type="Event" value="during(E)"/>
+				<ARG type="ThemRole" value="Theme"/>
+			    </ARGS>
+			</PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Initial_Location"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+			<PRED value="path_rel">
+			    <ARGS>
+				<ARG type="Event" value="during(E)"/>
+				<ARG type="ThemRole" value="Theme"/>
+   				<ARG type="ThemRole" value="Trajectory"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+			    </ARGS>
+			</PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Destination"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="run-51.3.2-2">
+            <MEMBERS>
+        	<MEMBER name="back" wn="back%2:38:00" grouping="" features="+orientation"/>
+		<MEMBER name="bounce" wn="bounce%2:38:00 bounce%2:35:03 bounce%2:38:02" grouping="bounce.01 bounce.06" features="+path_shape"/>
+		<MEMBER name="bowl" wn="bowl%2:38:00" grouping="bowl.03" features="+bodily_manner +orientation"/>
+		<MEMBER name="canter" wn="canter%2:38:00 canter%2:38:01 canter%2:38:03" grouping="canter.01" features="+speed +bodily_manner"/>
+		<MEMBER name="coast" wn="coast%2:38:00" grouping="" features="+path_shape +orientation"/>
+		<MEMBER name="dart" wn="dart%2:38:01 dart%2:38:00" grouping="dart.01" features="+speed"/>
+		<MEMBER name="dash" wn="dash%2:38:00" grouping="dash.01" features="+speed"/>
+		<MEMBER name="drift" wn="drift%2:38:02 drift%2:38:04 drift%2:38:05 drift%2:38:06 drift%2:35:03" grouping="drift.01 drift.02 drift.04" features="+speed +path_shape +purpose"/>
+		<MEMBER name="float" wn="float%2:38:00 float%2:38:01" grouping="float.01"/>
+		<MEMBER name="gallop" wn="gallop%2:38:00 gallop%2:38:01 gallop%2:38:03" grouping="gallop.01" features="+speed +bodily_manner"/>
+		<MEMBER name="glide" wn="glide%2:38:00 glide%2:38:02" grouping="glide.01" features="+speed +bodily_manner"/>
+		<MEMBER name="hasten" wn="?hasten%2:30:00 hasten%2:38:00" grouping="hasten.01" features="+speed"/>
+		<MEMBER name="hobble" wn="hobble%2:38:00" grouping="hobble.01" features="+bodily_manner"/>
+		<MEMBER name="hurry" wn="hurry%2:38:00" grouping="hurry.01" features="+speed +attitude"/>
+		<MEMBER name="hurtle" wn="hurtle%2:38:01 hurtle%2:38:00 hurtle%2:35:00" grouping="" features="+speed"/>
+		<MEMBER name="inch" wn="inch%2:38:00" grouping="inch.01" features="+speed"/>
+		<MEMBER name="lope" wn="lope%2:38:00" grouping="" features="+speed +bodily_manner"/>
+		<MEMBER name="prance" wn="prance%2:38:00" grouping="" features="+bodily_manner"/>
+		<MEMBER name="race" wn="race%2:38:00 race%2:38:10" grouping="race.01" features="+speed"/>
+		<MEMBER name="roll" wn="roll%2:38:00 roll%2:29:06" grouping="roll.01" features="+bodily_manner +orientation"/>
+		<MEMBER name="scoot" wn="scoot%2:38:00" grouping="" features="+speed"/>
+		<MEMBER name="skip" wn="skip%2:38:00 skip%2:35:00" grouping="skip.02" features="+bodily_manner"/>
+		<MEMBER name="skitter" wn="skitter%2:38:00 skitter%2:38:01 skitter%2:35:01" grouping="skitter.01" features="+speed +bodily_manner"/>
+		<MEMBER name="slide" wn="slide%2:38:01 slide%2:38:00 slide%2:38:02" grouping="slide.01 slide.02" features="+bodily_manner +orientation"/>
+		<MEMBER name="sneak" wn="sneak%2:38:00" grouping="sneak.01" features="+attitude"/>
+		<MEMBER name="speed" wn="speed%2:38:03 speed%2:30:00 speed%2:30:02" grouping="speed.01 speed.02" features="+speed"/>
+		<MEMBER name="strut" wn="strut%2:38:00" grouping="" features="+attitude"/>
+		<MEMBER name="tack" wn="tack%2:38:00" grouping="tack.03" features="+path_shape"/>
+        	<MEMBER name="trip" wn="trip%2:38:00 trip%2:38:01" grouping="trip.01" features="+bodily_manner"/>
+		<MEMBER name="trot" wn="trot%2:38:00 trot%2:38:01 trot%2:38:02" grouping="trot.01" features="+speed"/>
+            </MEMBERS>
+            <THEMROLES>
+	      <THEMROLE type="Agent">
+		<SELRESTRS>
+		  <SELRESTR Value="+" type="animate"/>
+		</SELRESTRS>
+	      </THEMROLE>
+	      <THEMROLE type="Result">
+		<SELRESTRS/>
+	      </THEMROLE>
+	      <THEMROLE type="Source">
+		<SELRESTRS/>
+	      </THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="1.1.2.2" primary="NP V NP PP.location" secondary="NP-PP; Induced Action with accompanied motion, path-PP" xtag=""/>
+		    <EXAMPLES>
+		        <EXAMPLE>Tom jumped the horse over the fence.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS/>
+		        </NP>
+		        <PREP>
+		            <SELRESTRS>
+		                <SELRESTR Value="+" type="spatial"/>
+		            </SELRESTRS>
+		        </PREP>
+		        <NP value="Trajectory">
+		            <SYNRESTRS/>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="motion">
+		            <ARGS>
+		                <ARG type="Event" value="during(E0)"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		            </ARGS>
+		        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E0)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Initial_Location"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+		        <PRED value="path_rel">
+		            <ARGS>
+		                <ARG type="Event" value="during(E0)"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		                <ARG type="ThemRole" value="Trajectory"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+		            </ARGS>
+		        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E0)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Destination"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+		        <PRED value="cause">
+		            <ARGS>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="Event" value="E0"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="equals">
+		            <ARGS>
+		                <ARG type="Event" value="E0"/>
+		                <ARG type="Event" value="E1"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="motion">
+		            <ARGS>
+		                <ARG type="Event" value="during(E1)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		            </ARGS>
+		        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E1)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="?Initial_Location"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+		        <PRED value="path_rel">
+		            <ARGS>
+		                <ARG type="Event" value="during(E1)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="ThemRole" value="Trajectory"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+		            </ARGS>
+		        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E1)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="?Destination"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>  
+                            </ARGS>
+                        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="1.1.2.2" primary="NP V NP PP.location" secondary="NP-PP; Induced Action without accompanied motion, path-PP" xtag=""/>
+		    <EXAMPLES>
+		        <EXAMPLE>The lion tamer jumped the lions through the loop.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS/>
+		        </NP>
+		        <PREP>
+		            <SELRESTRS>
+		                <SELRESTR Value="+" type="spatial"/>
+		            </SELRESTRS>
+		        </PREP>
+		        <NP value="Trajectory">
+		            <SYNRESTRS/>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="motion">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		            </ARGS>
+		        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Initial_Location"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/> 
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Trajectory"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Destination"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS> 
+                        </PRED>
+		        <PRED value="cause">
+		            <ARGS>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="Event" value="E"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="1.1.2.2" primary="NP V NP" secondary="NP; Induced Action with accompanied motion" xtag=""/>
+		    <EXAMPLES>
+		        <EXAMPLE>Tom jumped the horse.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS/>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="motion">
+		            <ARGS>
+		                <ARG type="Event" value="during(E0)"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		            </ARGS>
+		        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E0)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Initial_Location"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS> 
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="during(E0)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Trajectory"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS> 
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E0)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Destination"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+		        <PRED value="cause">
+		            <ARGS>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="Event" value="E0"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="equals">
+		            <ARGS>
+		                <ARG type="Event" value="E0"/>
+		                <ARG type="Event" value="E1"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="motion">
+		            <ARGS>
+		                <ARG type="Event" value="during(E1)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		            </ARGS>
+		        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E1)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="?Initial_Location"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="during(E1)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="?Trajectory"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/> 
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E1)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="?Destination"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="1.1.2.2" primary="NP V NP" secondary="NP; Induced Action without accompanied motion" xtag=""/>
+		    <EXAMPLES>
+		        <EXAMPLE>The lion tamer jumped the lions.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS/>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="motion">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		            </ARGS>
+		        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Initial_Location"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Trajectory"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Destination"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+		        <PRED value="cause">
+		            <ARGS>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="Event" value="E"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="0.4" primary="NP V NP PP.result" secondary="NP-PP; Result-PP" xtag=""/>
+		    <EXAMPLES>
+		        <EXAMPLE>Tom walked the dog to exhaustion.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Theme">
+		            <SYNRESTRS/>
+		        </NP>
+		        <PREP value="to into">
+		            <SELRESTRS/>
+		        </PREP>
+		        <NP value="Result">
+		            <SELRESTRS>
+		                <SELRESTR Value="+" type="state"/>
+		            </SELRESTRS>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="motion">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Theme"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="cause">
+		            <ARGS>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="Event" value="E"/>
+		            </ARGS>
+		        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/> 
+                            </ARGS>
+                        </PRED>
+		        <PRED value="path_rel">
+		            <ARGS>
+		                <ARG type="Event" value="end(E)"/>
+		                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Result"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+		<VNSUBCLASS ID="run-51.3.2-2-1">
+		    <MEMBERS>
+			<MEMBER name="fly" wn="fly%2:38:00 fly%2:38:02 fly%2:38:07 fly%2:38:03" grouping="fly.01 fly.02"/>
+			<MEMBER name="jog" wn="jog%2:38:01" grouping="" features="+speed +purpose +bodily_manner"/>
+			<MEMBER name="jump" wn="jump%2:38:00 jump%2:38:01" grouping="jump.01" features="+bodily_manner"/>
+			<MEMBER name="march" wn="march%2:38:01 march%2:38:00" grouping="march.01" features="+bodily_manner"/>
+			<MEMBER name="parade" wn="parade%2:38:00" grouping="" features="+speed +purpose"/>
+			<MEMBER name="promenade" wn="promenade%2:38:01 promenade%2:38:00" grouping="" features="+speed"/>
+			<MEMBER name="run" wn="run%2:38:00 run%2:38:04 run%2:38:10 run%2:38:05" grouping="run.01 run.11" features="+speed +bodily_manner"/>
+			<MEMBER name="rush" wn="rush%2:38:00 rush%2:38:10" grouping="rush.01 rush.02" features="+speed"/>
+			<MEMBER name="walk" wn="walk%2:38:00 walk%2:38:03 walk%2:38:01 walk%2:38:05 ?walk%2:38:02" grouping="walk.01 walk.02 walk.06 walk.07" features="+orientation"/>
+		    </MEMBERS>
+		    <THEMROLES>
+		    </THEMROLES>
+		    <FRAMES>
+			<FRAME>
+			    <DESCRIPTION descriptionNumber="1.4.1" primary="NP V NP" secondary="Locative Preposition Drop" xtag=""/>
+			    <EXAMPLES>
+				<EXAMPLE>The horse jumped the stream.</EXAMPLE>
+			    </EXAMPLES>
+			    <SYNTAX>
+				<NP value="Theme">
+				    <SYNRESTRS/>
+				</NP>
+				<VERB/>
+				<NP value="Trajectory">
+				    <SELRESTRS>
+					<SELRESTR Value="+" type="concrete"/>
+				    </SELRESTRS>
+				</NP>
+			    </SYNTAX>
+			    <SEMANTICS>
+				<PRED value="motion">
+				    <ARGS>
+					<ARG type="Event" value="during(E)"/>
+					<ARG type="ThemRole" value="Theme"/>
+				    </ARGS>
+				</PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/> 
+                                        <ARG type="ThemRole" value="?Initial_Location"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+				<PRED value="path_rel">
+				    <ARGS>
+					<ARG type="Event" value="during(E)"/>
+					<ARG type="ThemRole" value="Theme"/>
+					<ARG type="ThemRole" value="Trajectory"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+				    </ARGS>
+				</PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="end(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="?Destination"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+			    </SEMANTICS>
+			</FRAME>
+		    </FRAMES>
+		    <SUBCLASSES/>
+		</VNSUBCLASS>    
+	    </SUBCLASSES>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

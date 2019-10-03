@@ -1,0 +1,10 @@
+[{
+    "id":           "example-context-hotels",
+    "name":         "Hotels"
+}, {
+    "id":           "example-context-shoes",
+    "name":         "Shoes"
+}, {
+    "id":           "example-context-t-shirts",
+    "name":         "T-Shirts"
+}]

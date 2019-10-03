@@ -1,0 +1,33 @@
+@import '../styles/variables'
+@import '../styles/buttons'
+@import '../styles/inputs'
+
+
+.className
+
+    > .thumbnail
+
+        box-shadow:             1px 1px $space-xs $gray
+        float:                  right
+        margin:                 0 0 $space-m $space-m
+        max-height:             6rem
+        max-width:              6rem
+
+    > .title
+
+        font-size:              $size-l
+        font-weight:            $bold
+        margin:                 0 0 $space-m
+        padding:                0
+
+    .description
+
+        @include text-input-multiline
+
+        clear:                  both
+        margin-bottom:          $space-m
+
+    .addProduct,
+    .updateProduct
+
+        @include primary-button

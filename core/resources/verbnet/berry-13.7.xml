@@ -1,0 +1,145 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="berry-13.7" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="antique" wn="antique%2:40:00" grouping=""/>
+        <MEMBER name="berry" wn="berry%2:35:00" grouping=""/>
+        <MEMBER name="birdnest" wn="birdnest%2:35:00" grouping=""/>
+        <MEMBER name="blackberry" wn="blackberry%2:35:00" grouping=""/>
+        <MEMBER name="clam" wn="clam%2:35:00" grouping=""/>
+        <MEMBER name="crab" wn="crab%2:33:00" grouping=""/>
+        <MEMBER name="fish" wn="fish%2:33:00" grouping="fish.02"/>
+        <MEMBER name="fowl" wn="fowl%2:33:01 fowl%2:33:00" grouping=""/>
+        <MEMBER name="grouse" wn="grouse%2:33:00" grouping=""/>
+        <MEMBER name="hog" wn="" grouping=""/>
+        <MEMBER name="hay" wn="" grouping=""/>
+        <MEMBER name="log" wn="log%2:35:00" grouping="log.04"/>
+        <MEMBER name="mushroom" wn="mushroom%2:35:00" grouping="mushroom.03"/>
+        <MEMBER name="nest" wn="nest%2:35:01" grouping="nest.03"/>
+        <MEMBER name="nut" wn="nut%2:35:00" grouping=""/>
+        <MEMBER name="oyster" wn="oyster%2:35:00" grouping=""/>
+        <MEMBER name="pearl" wn="pearl%2:35:00" grouping=""/>
+        <MEMBER name="prawn" wn="prawn%2:35:00" grouping=""/>
+        <MEMBER name="rabbit" wn="rabbit%2:33:00" grouping=""/>
+        <MEMBER name="scollop" wn="scollop%2:33:00" grouping="scollop.02"/>
+        <MEMBER name="seal" wn="seal%2:33:00" grouping="seal.04"/>
+        <MEMBER name="shark" wn="shark%2:33:00" grouping=""/>
+        <MEMBER name="shrimp" wn="shrimp%2:33:00" grouping=""/>
+        <MEMBER name="snail" wn="snail%2:35:00" grouping=""/>
+        <MEMBER name="snipe" wn="snipe%2:33:01" grouping="snipe.01"/>
+        <MEMBER name="sponge" wn="sponge%2:35:03" grouping=""/>
+        <MEMBER name="whale" wn="whale%2:33:00" grouping=""/>
+        <MEMBER name="whelk" wn="whelk%2:33:00" grouping=""/>
+        <MEMBER name="whore" wn="whore%2:35:00" grouping="whore.02"/>
+        <MEMBER name="hawk" wn="hawk%2:33:00" grouping="hawk.02"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The children berry in the summer.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The children went fishing.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Recipient"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

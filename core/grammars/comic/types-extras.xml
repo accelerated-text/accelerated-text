@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2003-4 University of Edinburgh (Michael White)
+$Revision: 1.3 $, $Date: 2004/11/21 14:22:18 $ 
+-->
+<types name="comic" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:noNamespaceSchemaLocation="../types.xsd"
+>
+
+  <!-- additional sorts for comic (builds on ../core-en/types.xml) -->
+  <type name="colour" parents="abstraction proposition"/>
+  <type name="colour_prop" parents="proposition"/>
+  <type name="decoration" parents="phys-obj"/>
+  <type name="manufacturer" parents="organization"/>
+  <type name="quality" parents="proposition"/>
+  <type name="series" parents="abstraction proposition"/>
+  <type name="size" parents="abstraction proposition"/>
+  <type name="style" parents="abstraction proposition"/>
+  
+</types>

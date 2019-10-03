@@ -1,0 +1,22 @@
+@import '../styles/variables'
+@import '../styles/sidebar-table'
+
+
+.className
+    > td
+
+        &.dragInBlock
+
+            @include sidebar-table-block-cell
+
+        &.helpText
+
+            padding:        0
+
+            > .helpTextContainer
+
+                padding:    $space-s
+
+                &.expandedHelp
+
+                    white-space:    pre-wrap

@@ -1,0 +1,221 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="prosecute-33.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="book" wn="" grouping="book.02"/>
+        <MEMBER name="bust" wn="" grouping="bust.02"/>
+        <MEMBER name="collar" wn="" grouping=""/>
+        <MEMBER name="impeach" wn="impeach%2:32:03" grouping="impeach.02"/>
+        <MEMBER name="nab" wn="" grouping="nab.02"/>
+        <MEMBER name="penalize" wn="penalize%2:41:00" grouping=""/>
+        <MEMBER name="report" wn="wn%2:32:01" grouping="report.02"/>
+        <MEMBER name="sanction" wn="" grouping="sanction.02"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="human"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="human"/> 
+            </SELRESTRS> 
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>They collared the suspect.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="charge">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.theme" secondary="NP-PP; Cause-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>They booked her for drunk driving.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="charge">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="prosecute-33.2-1">
+	    <MEMBERS>
+		<MEMBER name="arrest" wn="" grouping="arrest.01"/>
+		<MEMBER name="indict" wn="" grouping="indict.01"/>
+	        <MEMBER name="persecute" wn="persecute%2:41:00" grouping=""/>
+		<MEMBER name="prosecute" wn="prosecute%2:41:01" grouping="prosecute.01"/>
+		<MEMBER name="punish" wn="punish%2:41:00" grouping="punish.01"/>
+		<MEMBER name="try" wn="" grouping="try.03"/> 
+	    </MEMBERS>
+	    <THEMROLES>
+                <THEMROLE type="Attribute">
+                    <SELRESTRS/>
+                </THEMROLE>
+            </THEMROLES>
+	    <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.attribute" secondary="NP-PP; as-PP" xtag=""/>
+		    <EXAMPLES>
+		        <EXAMPLE>They tried him as a war criminal.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+		        <NP value="Patient">
+		            <SYNRESTRS/>
+		        </NP>
+		        <PREP value="as">
+		            <SELRESTRS/>
+		        </PREP>
+		        <NP value="Attribute">
+		            <SYNRESTRS/>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="charge">
+		            <ARGS>
+		                <ARG type="Event" value="during(E)"/>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="ThemRole" value="Patient"/>
+		                <ARG type="ThemRole" value="?Theme"/>
+		            </ARGS>
+		        </PRED>
+                        <PRED value="declare">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                            </ARGS>
+                        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.theme PP.attribute" secondary="PP-PP; theme-PP attribute-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>They tried her for shoplifting as a juvenile.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="as">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Attribute">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="charge">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="?Theme"/>
+                            </ARGS>   
+                       </PRED>
+                       <PRED value="declare">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.attribute PP.theme" secondary="PP-PP; attribute-PP theme-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>They tried her as a juvenile for shoplifting.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <PREP value="as">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Attribute">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="charge">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="?Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="declare">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+	    </FRAMES>
+	    <SUBCLASSES/>
+	</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

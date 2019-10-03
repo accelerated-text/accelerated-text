@@ -1,0 +1,295 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="hurt-40.8.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Experiencer">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES/>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="hurt-40.8.3-1">
+            <MEMBERS>
+                <MEMBER name="hit" wn="" grouping=""/>
+                <MEMBER name="jam" wn="" grouping=""/>
+                <MEMBER name="graze" wn="" grouping="graze.02"/>
+                <MEMBER name="chafe" wn="chafe%2:35:00" grouping="chafe.01"/>
+                <MEMBER name="overstretch" wn="" grouping=""/>
+                <MEMBER name="rick" wn="" grouping=""/>
+                <MEMBER name="sting" wn="" grouping="sting.01"/>
+                <MEMBER name="stub" wn="stub%2:29:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES>
+                <THEMROLE type="Patient">
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="body_part"/>
+                    </SELRESTRS>
+                </THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="7.6" primary="NP V NP" secondary="Unintentional Interpretation of ObjectBody_part Object" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Tessa hurt/sprained her ankle.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Experiencer">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED bool="!" value="harmed">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="harmed">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="experience">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Experiencer"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="hurt-40.8.3-1-1">
+                    <MEMBERS>
+                        <!--verb adds manner predicate for how the Patient is hurt-->
+                        <MEMBER name="break" wn="break%2:35:13 break%2:35:09 break%2:30:15 break%2:29:04" grouping="break.01 break.08"/>
+                        <MEMBER name="chip" wn="chip%2:35:00" grouping="chip.01"/>
+                        <MEMBER name="fracture" wn="fracture%2:29:02 fracture%2:29:01 fracture%2:29:00" grouping="fracture.02"/>
+                        <MEMBER name="pull" wn="pull%2:29:00" grouping="pull.05"/>
+                        <MEMBER name="rupture" wn="rupture%2:35:00" grouping=""/>
+                        <MEMBER name="split" wn="split%2:35:00" grouping="split.01"/>
+                        <MEMBER name="splinter" wn="splinter%2:30:00" grouping="splinter.01"/>
+                        <MEMBER name="sprain" wn="sprain%2:29:00" grouping=""/>
+                        <MEMBER name="tear" wn="" grouping=""/>
+                        <MEMBER name="turn" wn="turn%2:29:00" grouping="turn.10"/>
+                        <MEMBER name="twist" wn="twist%2:29:00" grouping="twist.03"/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Intransitive" xtag="0.1"/>
+                            <EXAMPLES>
+                                <EXAMPLE>My ankle twisted.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Patient">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="?Initial_State"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="result(E)"/>
+                                        <ARG type="ThemRole" value="?Result"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED bool="!" value="harmed">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="harmed">
+                                    <ARGS>
+                                        <ARG type="Event" value="result(E)"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="experience">
+                                    <ARGS>
+                                        <ARG type="Event" value="E"/>
+                                        <ARG type="ThemRole" value="?Experiencer"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="hurt-40.8.3-2">
+            <MEMBERS>
+                <!--verb adds manner predicate for how the Patient is hurt-->
+                <MEMBER name="bark" wn="" grouping=""/>
+                <MEMBER name="bite" wn="bite%2:35:00" grouping="bite.01"/>
+                <MEMBER name="bruise" wn="bruise%2:35:00" grouping=""/>
+                <MEMBER name="bump" wn="bump%2:35:00" grouping="bump.01"/>
+                <MEMBER name="burn" wn="burn%2:30:02 burn%2:39:00" grouping="burn.01 burn.05"/>
+                <MEMBER name="contuse" wn="" grouping=""/>
+                <MEMBER name="cut" wn="cut%2:35:14" grouping="cut.01"/>
+                <MEMBER name="hurt" wn="hurt%2:29:01" grouping="hurt.01"/>
+                <MEMBER name="injure" wn="injure%2:29:00" grouping="injure.01"/>
+                <MEMBER name="nick" wn="nick%2:35:01" grouping=""/>
+                <MEMBER name="prick" wn="prick%2:35:00 prick%2:35:03" grouping=""/>
+                <MEMBER name="scald" wn="scald%2:30:00" grouping="scald.01"/>
+                <MEMBER name="scratch" wn="scratch%2:35:00 ?scratch%2:39:00" grouping="scratch.01"/>
+                <MEMBER name="skin" wn="skin%2:35:02" grouping=""/>
+                <MEMBER name="strain" wn="strain%2:34:00" grouping="strain.01"/>
+                <MEMBER name="sunburn" wn="" grouping=""/>
+                <MEMBER name="wrench" wn="wrench%2:29:00" grouping="wrench.03"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="7.6" primary="NP V NP" secondary="Unintentional Interpretation of ObjectBody_part Object" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Tessa hurt/sprained her ankle.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Experiencer">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS>
+                               <SYNRESTR Value="+" type="refl"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED bool="!" value="harmed">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS> 
+                        </PRED>
+                        <PRED value="harmed">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="experience">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Experiencer"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="7.6" primary="NP V NP" secondary="Unintentional Interpretation of ObjectReflexive Object" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Tessa hurt herself.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Experiencer">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="?Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="?Result"/>
+                                <ARG type="ThemRole" value="?Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED bool="!" value="harmed">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="harmed">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="?Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="experience">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Experiencer"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

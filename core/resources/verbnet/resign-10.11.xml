@@ -1,0 +1,183 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="resign-10.11" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+	<MEMBER name="leave_office" wn="leave_office%2:41:00" grouping=""/>
+	<MEMBER name="step_down" wn="step_down%2:41:00" grouping=""/>
+	<MEMBER name="walk_out" wn="walk_out%2:41:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Source">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Goal">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V" secondary="Intransitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>He resigned.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Goal"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Constant" value="ch_of_loc"/> 
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>       
+    </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="resign-10.11-1">
+	    <MEMBERS>
+		<MEMBER name="resign" wn="resign%2:41:00" grouping="resign.01"/>
+		<MEMBER name="retire" wn="retire%2:41:02" grouping="retire.01"/>
+		<MEMBER name="walk" wn="" grouping="walk.03"/>
+		<MEMBER name="walk_away" wn="" grouping="walk.03"/>
+		<MEMBER name="walk_out" wn="walk_out%2:38:00" grouping="walk.03"/>
+		<MEMBER name="withdraw" wn="withdraw%2:41:01" grouping="withdraw.01"/>
+	    </MEMBERS>
+	    <THEMROLES/>
+	    <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="8.1" primary="NP V PP.source" secondary="PP; from-PP" xtag="0.2"/>
+		    <EXAMPLES>
+		        <EXAMPLE>He resigned from the military.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+		        <NP value="Agent">
+		            <SYNRESTRS/>
+		        </NP>
+		        <VERB/>
+			<PREP value="from">
+			    <SELRESTRS/>
+			</PREP>
+		        <NP value="Source">
+		            <SYNRESTRS>
+				<SYNRESTR Value="-" type="sentential"/>
+			    </SYNRESTRS>
+		        </NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+		        <PRED value="cause">
+		            <ARGS>
+		                <ARG type="ThemRole" value="Agent"/>
+		                <ARG type="Event" value="E"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="path_rel">
+		            <ARGS>
+		                <ARG type="Event" value="start(E)"/>
+		                <ARG type="ThemRole" value="Source"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+		            </ARGS>
+		        </PRED>
+		        <PRED value="path_rel">
+		            <ARGS>
+		                <ARG type="Event" value="end(E)"/>
+		                <ARG type="ThemRole" value="?Goal"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+		            </ARGS>
+		        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+	    </FRAMES>
+	    <SUBCLASSES>
+		<VNSUBCLASS ID="resign-10.11-2">
+		    <MEMBERS>
+			<MEMBER name="abdicate" wn="abdicate%2:41:00" grouping=""/>
+			<MEMBER name="depart" wn="depart%2:41:00" grouping="depart.01"/>
+			<MEMBER name="give_up" wn="give_up%2:41:05" grouping=""/>
+			<MEMBER name="leave" wn="leave%2:41:00" grouping="leave.01"/>
+			<MEMBER name="renounce" wn="renounce%2:41:00 renounce%2:41:01" grouping="renounce.01"/>
+			<MEMBER name="resign" wn="resign%2:41:00" grouping="resign.01"/>
+			<MEMBER name="quit" wn="quit%2:41:00" grouping="quit.02"/>
+			<MEMBER name="vacate" wn="vacate%2:41:00 resign%2:41:05" grouping="vacate.01"/>
+			<MEMBER name="walk_off" wn="" grouping=""/>
+		    </MEMBERS>
+		    <THEMROLES/>
+		    <FRAMES>
+			<FRAME>
+			    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP" secondary="NP" xtag="0.2"/>
+			    <EXAMPLES>
+				<EXAMPLE>I resigned my position.</EXAMPLE>
+			    </EXAMPLES>
+			    <SYNTAX>
+				<NP value="Agent">
+				    <SYNRESTRS/>
+				</NP>
+				<VERB/>
+				<NP value="Source">
+				    <SYNRESTRS/>
+				</NP>
+			    </SYNTAX>
+			    <SEMANTICS>
+				<PRED value="cause">
+				    <ARGS>
+				        <ARG type="ThemRole" value="Agent"/>
+				        <ARG type="Event" value="E"/>
+				    </ARGS>
+				</PRED>
+				<PRED value="path_rel">
+				    <ARGS>
+				        <ARG type="Event" value="start(E)"/>
+				        <ARG type="ThemRole" value="Source"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+				    </ARGS>
+				</PRED>
+				<PRED value="path_rel">
+				    <ARGS>
+				        <ARG type="Event" value="end(E)"/>
+				        <ARG type="ThemRole" value="?Goal"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Constant" value="ch_of_loc"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+				    </ARGS>
+				</PRED>
+			    </SEMANTICS>
+			</FRAME>        
+		    </FRAMES>
+		    <SUBCLASSES/>
+		</VNSUBCLASS>
+	    </SUBCLASSES>
+	</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

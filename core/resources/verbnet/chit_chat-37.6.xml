@@ -1,0 +1,1127 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="chit_chat-37.6" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="chat" wn="chat%2:32:00" grouping=""/>
+        <MEMBER name="chatter" wn="chatter%2:32:01 chatter%2:32:00" grouping="chatter.03"/>
+        <MEMBER name="chitchat" wn="chitchat%2:32:00" grouping=""/>
+        <MEMBER name="confer" wn="confer%2:32:00" grouping="confer.02"/>
+        <MEMBER name="converse" wn="converse%2:32:00" grouping=""/>
+        <MEMBER name="flirt" wn="flirt%2:32:00" grouping=""/>
+        <MEMBER name="gab" wn="gab%2:32:00" grouping=""/>
+        <MEMBER name="gossip" wn="gossip%2:32:00 gossip%2:32:01" grouping=""/>
+        <MEMBER name="jest" wn="jest%2:32:00" grouping=""/>
+        <MEMBER name="joke" wn="joke%2:32:00" grouping="joke.01"/>
+        <MEMBER name="palaver" wn="palaver%2:32:00" grouping="palaver.03"/>
+        <MEMBER name="rap" wn="rap%2:32:00" grouping=""/>
+        <MEMBER name="schmooze" wn="schmooze%2:32:00" grouping=""/>
+        <MEMBER name="yak" wn="yak%2:32:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Co-Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Topic">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="communication"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag="0.1"/>
+            <EXAMPLES>
+                <EXAMPLE>Susan was chitchatting.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Co-Agent"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="?Co-Agent"/>
+                        <ARG type="ThemRole" value="?Recipient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.co-agent" secondary="PP; with-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan chitchatted with Rachel.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Co-Agent">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS> 
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED> 
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.co-agent PP.topic" secondary="PP-PP; with-PP Topic-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan chitchatted with Rachel about the problem.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Co-Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="about">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Topic">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                    </ARGS> 
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.5.4" primary="NP V" secondary="Simple Reciprocal Intransitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan and Rachel chitchatted.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS> 
+                </PRED> 
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS> 
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS> 
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent_i"/>
+                        <ARG type="ThemRole" value="Agent_j"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent_j"/>
+                        <ARG type="ThemRole" value="Agent_i"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent_i"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent_j"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent_i"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent_j"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                    </ARGS> 
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V PP.topic PP.co-agent" secondary="PP-PP; Topic-PP with-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan chitchatted about the problem with Rachel.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="about">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Topic">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Co-Agent">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V PP.topic" secondary="PP; Simple Reciprocal Subject, Topic-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan and Rachel chitchatted about matters of great import.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+                <PREP value="about">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Topic">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V PP.topic" secondary="PP; Topic-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Susan chitchatted about matters of great import.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="about">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Topic">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Source_j"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Recipient_i"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                        <ARG type="Constant" value="tr_of_info"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Co-Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="transfer">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="?Co-Agent"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="?Co-Agent"/>
+                        <ARG type="ThemRole" value="Source_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Recipient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="?Co-Agent"/>
+                        <ARG type="ThemRole" value="Recipient_i"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+		<VNSUBCLASS ID="chit_chat-37.6-1">
+			<MEMBERS>
+				<MEMBER name="argue" wn="argue%2:32:00" grouping="argue.01"/>
+				<MEMBER name="debate" wn="" grouping=""/>
+				<MEMBER name="discuss" wn="" grouping=""/>
+			</MEMBERS>
+			<THEMROLES/>
+			<FRAMES>
+				<FRAME>
+					<DESCRIPTION descriptionNumber="0.1" primary="NP V how S" secondary="HOW-S" xtag="0.1"/>
+					<EXAMPLES>
+						<EXAMPLE>I debated how it can be done.</EXAMPLE>
+					</EXAMPLES>
+					<SYNTAX>
+						<NP value="Agent">
+							<SYNRESTRS/>
+						</NP>
+						<VERB/>
+						<NP value="Topic">
+							<SYNRESTRS>
+                                                                <SYNRESTR Value="+" type="wh_extract"/>
+                                                        </SYNRESTRS>
+                                                </NP>
+					</SYNTAX>
+					<SEMANTICS>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="start(E)"/>
+                                                        <ARG type="ThemRole" value="Source_i"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/> 
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="start(E)"/>
+                                                        <ARG type="ThemRole" value="?Source_j"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="end(E)"/>
+                                                        <ARG type="ThemRole" value="?Recipient_i"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="end(E)"/>
+                                                        <ARG type="ThemRole" value="Recipient_j"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+						<PRED value="transfer">
+							<ARGS>
+								<ARG type="Event" value="during(E)"/>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="ThemRole" value="?Co-Agent"/>
+								<ARG type="ThemRole" value="Topic"/>
+							</ARGS>
+						</PRED>
+                                                <PRED value="transfer">
+                                                        <ARGS>
+                                                                <ARG type="Event" value="during(E)"/>
+                                                                <ARG type="ThemRole" value="Co-Agent"/>
+                                                                <ARG type="ThemRole" value="Agent"/>
+                                                                <ARG type="ThemRole" value="Topic"/>
+                                                        </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Source_i"/>
+                                                        <ARG type="ThemRole" value="Agent"/>
+                                                    </ARGS>
+                                                </PRED> 
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Source_j"/>
+                                                        <ARG type="ThemRole" value="?Co-Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Recipient_i"/>
+                                                        <ARG type="ThemRole" value="?Co-Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Recipient_j"/>
+                                                        <ARG type="ThemRole" value="Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="cause">
+							<ARGS>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="Event" value="E"/>
+							</ARGS>
+						</PRED>
+					</SEMANTICS>
+				</FRAME>
+				<FRAME>
+					<DESCRIPTION descriptionNumber="0.1" primary="NP V how S_INF" secondary="HOW-TO-INF" xtag="0.1"/>
+					<EXAMPLES>
+						<EXAMPLE>I discussed how to do it.</EXAMPLE>
+					</EXAMPLES>
+					<SYNTAX>
+						<NP value="Agent">
+							<SYNRESTRS/>
+						</NP>
+						<VERB/>
+						<NP value="Topic">
+							<SYNRESTRS>
+                                                                <SYNRESTR Value="+" type="wh_ing"/>
+                                                        </SYNRESTRS>
+						</NP>
+					</SYNTAX>
+					<SEMANTICS>
+                                                <PRED value="path_rel">    
+                                                    <ARGS>
+                                                        <ARG type="Event" value="start(E)"/>
+                                                        <ARG type="ThemRole" value="Source_i"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="start(E)"/>
+                                                        <ARG type="ThemRole" value="?Source_j"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="end(E)"/>
+                                                        <ARG type="ThemRole" value="?Recipient_i"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="end(E)"/>
+                                                        <ARG type="ThemRole" value="Recipient_j"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+						<PRED value="transfer">
+							<ARGS>
+								<ARG type="Event" value="during(E)"/>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="ThemRole" value="?Co-Agent"/>
+								<ARG type="ThemRole" value="Topic"/>
+							</ARGS>
+						</PRED>
+                                                <PRED value="transfer">
+                                                        <ARGS>
+                                                                <ARG type="Event" value="during(E)"/>
+                                                                <ARG type="ThemRole" value="?Co-Agent"/>
+                                                                <ARG type="ThemRole" value="Agent"/>
+                                                                <ARG type="ThemRole" value="Topic"/>
+                                                        </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Source_i"/>
+                                                        <ARG type="ThemRole" value="Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Source_j"/>
+                                                        <ARG type="ThemRole" value="?Co-Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Recipient_i"/>
+                                                        <ARG type="ThemRole" value="?Co-Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Recipient_j"/>
+                                                        <ARG type="ThemRole" value="Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+						<PRED value="cause">
+							<ARGS>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="Event" value="E"/>
+							</ARGS>
+						</PRED>
+					</SEMANTICS>
+				</FRAME>
+				<FRAME>
+					<DESCRIPTION descriptionNumber="0.1" primary="NP V NP" secondary="Basic Transitive" xtag="0.1"/>
+					<EXAMPLES>
+						<EXAMPLE>I debated the matter.</EXAMPLE>
+					</EXAMPLES>
+					<SYNTAX>
+						<NP value="Agent">
+							<SYNRESTRS/>
+						</NP>
+						<VERB/>
+						<NP value="Topic">
+							<SYNRESTRS/>
+						</NP>
+					</SYNTAX>
+					<SEMANTICS>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="start(E)"/>
+                                                        <ARG type="ThemRole" value="Source_i"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="start(E)"/>
+                                                        <ARG type="ThemRole" value="?Source_j"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="end(E)"/>
+                                                        <ARG type="ThemRole" value="?Recipient_i"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="end(E)"/>
+                                                        <ARG type="ThemRole" value="Recipient_j"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="transfer">
+                                                        <ARGS>
+                                                                <ARG type="Event" value="during(E)"/>
+                                                                <ARG type="ThemRole" value="Agent"/>
+                                                                <ARG type="ThemRole" value="?Co-Agent"/>
+                                                                <ARG type="ThemRole" value="Topic"/>
+                                                        </ARGS>
+                                                </PRED>
+                                                <PRED value="transfer">
+                                                        <ARGS>
+                                                                <ARG type="Event" value="during(E)"/>
+                                                                <ARG type="ThemRole" value="?Co-Agent"/>
+                                                                <ARG type="ThemRole" value="Agent"/>
+                                                                <ARG type="ThemRole" value="Topic"/>
+                                                        </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Source_i"/>
+                                                        <ARG type="ThemRole" value="Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Source_j"/>
+                                                        <ARG type="ThemRole" value="?Co-Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Recipient_i"/>
+                                                        <ARG type="ThemRole" value="?Co-Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Recipient_j"/>
+                                                        <ARG type="ThemRole" value="Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+						<PRED value="cause">
+							<ARGS>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="Event" value="E"/>
+							</ARGS>
+						</PRED>
+					</SEMANTICS>
+				</FRAME>
+				<FRAME>
+					<DESCRIPTION descriptionNumber="0.1" primary="NP V NP PP.co-agent" secondary="NP-PP; with-PP" xtag="0.1"/>
+					<EXAMPLES>
+						<EXAMPLE>I debated the matter with Susan.</EXAMPLE>
+					</EXAMPLES>
+					<SYNTAX>
+						<NP value="Agent">
+							<SYNRESTRS/>
+						</NP>
+						<VERB/>
+						<NP value="Topic">
+							<SYNRESTRS/>
+						</NP>
+						<PREP value="with">
+                                                        <SELRESTRS/>
+                                                </PREP>
+						<NP value="Co-Agent">
+							<SYNRESTRS/>
+						</NP>
+					</SYNTAX>
+					<SEMANTICS>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="start(E)"/>
+                                                        <ARG type="ThemRole" value="Source_i"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="start(E)"/>
+                                                        <ARG type="ThemRole" value="Source_j"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="end(E)"/>
+                                                        <ARG type="ThemRole" value="Recipient_i"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="path_rel">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="end(E)"/>
+                                                        <ARG type="ThemRole" value="Recipient_j"/>
+                                                        <ARG type="ThemRole" value="Topic"/>
+                                                        <ARG type="Constant" value="tr_of_info"/>
+                                                        <ARG type="VerbSpecific" value="prep"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="transfer">
+                                                        <ARGS>
+                                                                <ARG type="Event" value="during(E)"/>
+                                                                <ARG type="ThemRole" value="Agent"/>
+                                                                <ARG type="ThemRole" value="Co-Agent"/>
+                                                                <ARG type="ThemRole" value="Topic"/>
+                                                        </ARGS>
+                                                </PRED>
+						<PRED value="transfer">
+							<ARGS>
+								<ARG type="Event" value="during(E)"/>
+								<ARG type="ThemRole" value="Co-Agent"/>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="ThemRole" value="Topic"/>
+							</ARGS>
+						</PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Source_i"/>
+                                                        <ARG type="ThemRole" value="Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Source_j"/>
+                                                        <ARG type="ThemRole" value="Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Recipient_i"/>
+                                                        <ARG type="ThemRole" value="Co-Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+                                                <PRED value="equals">
+                                                    <ARGS>
+                                                        <ARG type="ThemRole" value="Recipient_j"/>
+                                                        <ARG type="ThemRole" value="Agent"/>
+                                                    </ARGS>
+                                                </PRED>
+						<PRED value="cause">
+							<ARGS>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="Event" value="E"/>
+							</ARGS>
+						</PRED>
+					</SEMANTICS>
+				</FRAME>
+			</FRAMES>
+			<SUBCLASSES/>
+		</VNSUBCLASS>
+	</SUBCLASSES>
+</VNCLASS>

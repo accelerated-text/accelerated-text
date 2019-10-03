@@ -1,0 +1,256 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="wipe_manner-10.4.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="buff" wn="?buff%2:35:00" grouping=""/>
+        <MEMBER name="distill" wn="distill%2:30:03" grouping="distill.01"/>
+        <MEMBER name="distil" wn="distil%2:30:02" grouping="distil.01"/>
+        <MEMBER name="exorcise" wn="exorcise%2:35:00" grouping=""/>
+        <MEMBER name="expunge" wn="expunge%2:35:00" grouping=""/>
+        <MEMBER name="expurgate" wn="expurgate%2:30:00" grouping=""/>
+        <MEMBER name="flush" wn="flush%2:30:01" grouping="flush.04"/>
+        <MEMBER name="leach" wn="leach%2:30:00" grouping=""/>
+        <MEMBER name="offload" wn="offload%2:35:00" grouping=""/> 
+        <MEMBER name="polish" wn="polish%2:35:00" grouping="polish.01"/>
+        <MEMBER name="purge" wn="purge%2:30:00 purge%2:29:00" grouping="purge.01"/>
+        <MEMBER name="shave" wn="shave%2:29:00 shave%2:35:01 shave%2:35:02 shave%2:35:03" grouping="shave.02"/>
+        <MEMBER name="smooth" wn="smooth%2:35:00" grouping="smooth.01"/>
+        <MEMBER name="skim" wn="skim%2:35:01" grouping="skim.04"/>
+        <MEMBER name="soak" wn="soak%2:30:01" grouping="soak.01"/>
+        <MEMBER name="strain" wn="strain%2:35:01 strain%2:35:00 strain%2:35:10" grouping="strain.03"/>
+        <MEMBER name="trim" wn="trim%2:35:03 trim%2:30:00 trim%2:35:02 trim%2:35:01" grouping="trim.01 trim.02"/>
+        <MEMBER name="unload" wn="unload%2:35:00" grouping="unload.01"/>
+        <MEMBER name="weed" wn="weed%2:30:00" grouping=""/>
+        <MEMBER name="whisk" wn="whisk%2:35:01" grouping=""/>
+        <MEMBER name="winnow" wn="winnow%2:35:05 winnow%2:30:00" grouping=""/>
+        <MEMBER name="wring" wn="wring%2:35:02" grouping="wring.01"/>
+    </MEMBERS>
+    <!--individual verbs will each add a manner predicate-->
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="int_control"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+                <SELRESTR Value="-" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Source">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="location"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Destination">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="location"/>
+            </SELRESTRS>
+        </THEMROLE>   
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.source" secondary="NP-PP; Source-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Brian wiped the fingerprints from the counter.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="src"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP.source" secondary="Transitive; Source Object" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Brian wiped the counter.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Theme"/>
+                        <ARG type="ThemRole" value="?Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP.theme" secondary="Transitive; Theme Object" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Barry Cryer erased the writing.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Source"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+            <!--Does not seem to apply to all verbs. Judgments differ on which are allowable. If the Theme is understoof from context to be be capable of being wiped of then is legal.-->
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="wipe_manner-10.4.1-1">
+            <MEMBERS>
+                <MEMBER name="bail" wn="bail%2:30:02 bail%2:30:01" grouping="bail.03"/>
+                <MEMBER name="dab" wn="dab%2:35:01 dab%2:35:00" grouping=""/>
+                <MEMBER name="dust" wn="dust%2:35:00" grouping="dust.01"/>
+                <MEMBER name="erase" wn="erase%2:35:00" grouping="erase.02"/>
+                <MEMBER name="lick" wn="lick%2:35:00" grouping="lick.01"/>
+                <MEMBER name="pluck" wn="pluck%2:35:00 pluck%2:35:03 pluck%2:35:01" grouping="pluck.01"/>
+                <MEMBER name="prune" wn="prune%2:35:00" grouping=""/>
+                <MEMBER name="rinse" wn="rinse%2:35:00" grouping="rinse.01"/>
+                <MEMBER name="rub" wn="rub%2:35:00" grouping="rub.01"/>
+                <MEMBER name="scour" wn="scour%2:35:01 scour%2:35:00" grouping="scour.01"/>
+                <MEMBER name="scrape" wn="scrape%2:35:02" grouping="scrape.01"/>
+                <MEMBER name="scratch" wn="scratch%2:35:00" grouping="scratch.01"/>
+                <MEMBER name="scrub" wn="scrub%2:35:00" grouping="scrub.01"/>
+                <MEMBER name="squeeze" wn="squeeze%2:35:05" grouping="squeeze.01"/>
+                <MEMBER name="strip" wn="strip%2:35:00 strip%2:30:06 strip%2:30:05 strip%2:35:01 strip%2:30:02 strip%2:30:12" grouping="strip.01 strip.02 strip.03 strip.04"/>
+                <MEMBER name="suck" wn="suck%2:34:04" grouping="suck.01"/>
+                <MEMBER name="suction" wn="suction%2:38:00 suction%2:29:00" grouping=""/>
+                <MEMBER name="swab" wn="swab%2:35:00" grouping=""/>
+                <MEMBER name="sweep" wn="sweep%2:35:00 sweep%2:35:01" grouping="sweep.02"/>
+                <MEMBER name="wash" wn="wash%2:35:00 wash%2:35:01 wash%2:30:05" grouping="wash.01 wash.02"/>
+                <MEMBER name="wear" wn="wear%2:30:00" grouping="wear.02"/>
+                <MEMBER name="wipe" wn="wipe%2:35:00" grouping="wipe.01"/>
+            </MEMBERS>
+            <THEMROLES>
+                <THEMROLE type="Source">
+                    <SELRESTRS>
+                        <SELRESTR Value="-" type="region"/>
+                    </SELRESTRS>
+                </THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="1.3" primary="NP V PP-Conative" secondary="Conative" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Brian wiped at the counter.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <LEX value="at"/>
+                        <NP value="Source">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Theme"/>
+                                <ARG type="ThemRole" value="Source"/>
+                                <ARG type="Constant" value="ch_of_loc"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

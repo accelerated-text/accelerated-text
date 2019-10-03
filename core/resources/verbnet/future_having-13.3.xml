@@ -1,0 +1,367 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="future_having-13.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+	<MEMBER name="accord" wn="accord%2:40:00" grouping=""/>
+	<MEMBER name="devolve" wn="devolve%2:41:02" grouping="devolve.01"/>		
+	<MEMBER name="portion-out" wn="portion%2:40:00" grouping=""/>
+	<MEMBER name="ration" wn="ration%2:40:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+	<THEMROLE type="Beneficiary">
+	    <SELRESTRS/>
+	</THEMROLE>
+        <THEMROLE type="Goal">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+<FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.goal" secondary="NP-PP; Goal-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>We offered our paycheck to her.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="to">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/> 
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP.theme (PP)" secondary="Transitive; Theme Object" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I promised my house (to somebody).</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="?Goal"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>  
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.1" primary="NP V NP-Dative NP" secondary="Dative" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I promised somebody my time.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS> 
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP PP.goal" secondary="NP-PP; for-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The House allocated more than $1.8 million for the pensions and expenses of former presidents.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/> 
+                    </ARGS> 
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+	<FRAME>
+	    <DESCRIPTION descriptionNumber="" primary="NP V NP PP PP" secondary="NP-PP-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>We allocated money to the organization for pensions.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Beneficiary">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Goal"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="Constant" value="ch_of_poss"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="equals">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS> 
+                </PRED>
+            </SEMANTICS>
+	</FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="future_having-13.3-1">
+	    <MEMBERS>
+		<MEMBER name="advance" wn="advance%2:40:00" grouping="advance.05"/>
+		<MEMBER name="allocate" wn="allocate%2:40:00" grouping="allocate.01"/>
+		<MEMBER name="allot" wn="allot%2:40:01 allot%2:40:00 allot%2:40:02" grouping="allot.01 allot.02"/>
+		<MEMBER name="allow" wn="" grouping=""/>
+		<MEMBER name="apportion" wn="apportion%2:40:01 apportion%2:40:00" grouping=""/>
+		<MEMBER name="assign" wn="assign%2:40:01" grouping="assign.02"/>
+		<MEMBER name="award" wn="award%2:40:00 award%2:40:01" grouping="award.01"/>
+		<MEMBER name="bequeath" wn="bequeath%2:40:00" grouping=""/>
+		<MEMBER name="cede" wn="cede%2:40:01 cede%2:40:00" grouping="cede.01"/>
+		<MEMBER name="concede" wn="concede%2:40:00" grouping="concede.02"/>
+		<MEMBER name="extend" wn="extend%2:40:05" grouping="extend.03"/>
+		<MEMBER name="grant" wn="grant%2:40:01 grant%2:40:03 grant%2:40:00 grant%2:40:05 grant%2:40:04 grant%2:40:02" grouping="grant.01 grant.03"/>
+		<MEMBER name="guarantee" wn="guarantee%2:32:01" grouping="guarantee.01"/>
+		<MEMBER name="issue" wn="issue%2:41:00" grouping="issue.01"/>
+		<MEMBER name="leave" wn="leave%2:31:05 leave%2:40:01 leave%2:40:02" grouping="leave.02"/>
+		<MEMBER name="offer" wn="offer%2:40:00 offer%2:42:00" grouping="offer.01 offer.04"/>
+		<MEMBER name="owe" wn="owe%2:40:01 owe%2:40:00" grouping="owe.01 owe.02"/>
+		<MEMBER name="promise" wn="promise%2:32:01" grouping="promise.01"/>
+		<MEMBER name="reallocate" wn="reallocate%2:40:00" grouping=""/>
+		<MEMBER name="reassign" wn="reassign%2:41:00" grouping=""/>
+		<MEMBER name="vote" wn="?vote%2:41:12" grouping="vote.05"/>
+		<MEMBER name="will" wn="will%2:40:00" grouping="will.02"/>
+		<MEMBER name="yield" wn="yield%2:40:01" grouping="yield.02"/>
+    	    </MEMBERS>	
+	    <THEMROLES/>
+    	    <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="" primary="NP V NP NP PP" secondary="NP-NP-PP" xtag=""/>
+		    <EXAMPLES>
+			<EXAMPLE>We offered the organization money for pensions.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+			<NP value="Agent">
+			    <SYNRESTRS/>
+			</NP>
+			<VERB/>
+			<NP value="Beneficiary">
+			    <SYNRESTRS/>
+			</NP>
+			<NP value="Theme">
+			    <SYNRESTRS/>
+			</NP>
+			<NP value="Goal">
+			    <SYNRESTRS/>
+			</NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+			<PRED value="path_rel">
+			    <ARGS>
+			        <ARG type="Event" value="start(E)"/>
+			        <ARG type="ThemRole" value="Source"/>
+			        <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="Constant" value="ch_of_poss"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+			    </ARGS>
+			</PRED>
+			<PRED value="path_rel">
+			    <ARGS>
+			        <ARG type="Event" value="end(E)"/>
+			        <ARG type="ThemRole" value="Goal"/>
+			        <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="Constant" value="ch_of_poss"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+			    </ARGS>
+			</PRED>
+			<PRED value="cause">
+			    <ARGS>
+			        <ARG type="ThemRole" value="Agent"/>
+			        <ARG type="Event" value="E"/>
+			    </ARGS>
+			</PRED>
+                        <PRED value="equals">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Source"/>
+                            </ARGS>
+                        </PRED>
+		    </SEMANTICS>
+		</FRAME>
+            </FRAMES>
+	    <SUBCLASSES/>
+	</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

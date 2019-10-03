@@ -1,0 +1,155 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="order-58.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+	<MEMBERS>
+            <MEMBER name="announce" wn="announce%2:32:02" grouping="announce.01"/>
+            <MEMBER name="declare" wn="declare%2:32:05" grouping="declare.01"/>
+            <MEMBER name="demand" wn="demand%2:32:02 demand%2:32:00" grouping="demand.01"/>
+            <MEMBER name="mandate" wn="mandate%2:32:02" grouping="mandate.01"/>
+	</MEMBERS>
+	<THEMROLES>
+		<THEMROLE type="Agent">
+			<SELRESTRS logic="or">
+				<SELRESTR Value="+" type="animate"/>
+				<SELRESTR Value="+" type="organization"/>
+			</SELRESTRS>
+		</THEMROLE>
+		<THEMROLE type="Patient">
+			<SELRESTRS logic="or">
+				<SELRESTR Value="+" type="animate"/>
+				<SELRESTR Value="+" type="organization"/>
+			</SELRESTRS>
+		</THEMROLE>
+		<THEMROLE type="Result">
+			<SELRESTRS/>
+		</THEMROLE>
+	</THEMROLES>
+	<FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>The country declared war.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Result">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="require">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="?Patient"/>
+                                <ARG type="ThemRole" value="Result"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                            </ARGS>
+                        </PRED>  
+                    </SEMANTICS>
+                  </FRAME> 
+                  <FRAME>
+			<DESCRIPTION descriptionNumber="8.1" primary="NP V S" secondary="THAT-S" xtag="0.1"/>
+			<EXAMPLES>
+				<EXAMPLE>He ordered that she should come immediately.</EXAMPLE>
+			</EXAMPLES>
+			<SYNTAX>
+				<NP value="Agent">
+					<SYNRESTRS/>
+				</NP>
+				<VERB/>
+				<NP value="Result">
+                                    <SYNRESTRS>    
+					<SYNRESTR Value="+" type="that_comp"/>
+                                    </SYNRESTRS>
+				</NP>
+			</SYNTAX>
+			<SEMANTICS>
+				<PRED value="require">
+					<ARGS>
+						<ARG type="Event" value="during(E)"/>
+						<ARG type="ThemRole" value="Agent"/>
+						<ARG type="ThemRole" value="?Patient"/>
+						<ARG type="ThemRole" value="Result"/>
+					</ARGS>
+				</PRED>
+				<PRED value="authority_relationship">
+					<ARGS>
+						<ARG type="ThemRole" value="Agent"/>
+						<ARG type="ThemRole" value="?Patient"/>
+					</ARGS>
+				</PRED>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="Event" value="E"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                    </ARGS>
+                                </PRED>
+			</SEMANTICS>
+		</FRAME>	
+        </FRAMES>
+	<SUBCLASSES>
+		<VNSUBCLASS ID="order-58.3-1">
+			<MEMBERS>
+                <MEMBER name="authorize" wn="authorize%2:32:00                 authorize%2:41:00" grouping="authorize.01 authorize.02"/>
+                <MEMBER name="command" wn="command%2:32:00" grouping="command.02"/>
+                <MEMBER name="commission" wn="commission%2:41:00" grouping="commission.03"/>
+                <MEMBER name="order" wn="order%2:32:01" grouping="order.01"/>
+                <MEMBER name="require" wn="require%2:32:01 require%2:32:00                 require%2:34:00" grouping="require.01 require.02"/>
+			</MEMBERS>
+			<THEMROLES/>
+			<FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP S_ING" secondary="NP-TO-INF-OC" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>The Senate ordered him to disband his army.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <NP value="Result">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="oc_to_inf"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+						<PRED value="require">
+							<ARGS>
+								<ARG type="Event" value="during(E)"/>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="ThemRole" value="Patient"/>
+								<ARG type="ThemRole" value="Result"/>
+							</ARGS>
+						</PRED>
+						<PRED value="authority_relationship">
+							<ARGS>
+								<ARG type="ThemRole" value="Agent"/>
+								<ARG type="ThemRole" value="Patient"/>
+							</ARGS>
+						</PRED>
+                                                <PRED value="cause">
+                                                    <ARGS>
+                                                        <ARG type="Event" value="E"/>
+                                                        <ARG type="ThemRole" value="Agent"/> 
+                                                    </ARGS>
+                                                </PRED>
+                    </SEMANTICS>
+                </FRAME>
+			</FRAMES>
+			<SUBCLASSES/>
+		</VNSUBCLASS>
+	</SUBCLASSES>
+</VNCLASS>

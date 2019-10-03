@@ -1,0 +1,62 @@
+@import '../styles/variables'
+@import '../styles/groove-table'
+
+
+.className
+
+    $col1-width:                16em
+    $col2-width:                6em
+    $fixed-width:               $col1-width + $col2-width
+
+    position:                   relative
+
+    > .inner
+
+        border-left:            $fixed-width solid transparent
+        overflow-x:             auto
+        overflow-y:             visible
+
+        > table
+
+            @include groove-table( 1 / 8 )
+
+            table-layout:       fixed
+
+            > thead > tr > th
+
+                font-weight:    $bold
+                text-align:     center
+
+            > .phrases
+                td
+
+                    text-align: center
+
+            > .addPhrase
+                td
+
+                    height:     3em
+
+            td,
+            th
+
+                box-sizing:     border-box
+                height:         3rem
+                overflow-y:     hidden
+                padding:        $space-s
+                vertical-align: top
+                width:          $col2-width
+
+                &:nth-child( 1 )
+
+                    left:       0
+                    position:   absolute
+                    text-align: left
+                    width:      $col1-width
+
+                &:nth-child( 2 )
+
+                    left:       $col1-width
+                    position:   absolute
+                    width:      $col2-width
+

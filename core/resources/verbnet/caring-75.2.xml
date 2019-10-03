@@ -1,0 +1,130 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="caring-75.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS/>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES/>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="caring-75.2-1">
+            <MEMBERS>
+                <MEMBER name="babysit" wn="babysit%2:41:01" grouping=""/>
+                <MEMBER name="look_after" wn="look_after%2:39:00" grouping="look.04"/>
+                <MEMBER name="manage" wn="manage%2:41:01" grouping="manage.02"/>
+                <MEMBER name="mind" wn="mind%2:31:02 mind%2:41:00" grouping="mind.02"/>
+                <MEMBER name="wait_on" wn="wait_on%2:41:00" grouping="wait.02"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+                        <EXAMPLES>
+                            <EXAMPLE>Jared looked after the children.</EXAMPLE>
+                        </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                             <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="take_care_of">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                   </SEMANTICS>
+                </FRAME>   
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="caring-75.2-1-1">
+                    <MEMBERS>
+                       <MEMBER name="attend" wn="attend%2:41:12" grouping="attend.02"/>
+                       <MEMBER name="tend" wn="tend%2:41:00 tend%2:41:01" grouping="tend.02"/> 
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="0.2" primary="NP V PP" secondary="PP" xtag="0.2"/>
+                            <EXAMPLES>
+                                <EXAMPLE>The vet attended to the sick ram.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/> 
+                                <PREP value="to">
+                                    <SELRESTRS/>
+                                </PREP> 
+                                <NP value="Theme">
+                                    <SYNRESTRS/>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="take_care_of">
+                                    <ARGS>
+                                        <ARG type="Event" value="E"/>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="caring-75.2-2">
+            <MEMBERS>
+                <MEMBER name="care" wn="care%2:41:11" grouping="care.02"/>
+                <MEMBER name="look_out" wn="" grouping="look.04"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V PP" secondary="PP" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>The vet cared for the sick ram.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <PREP value="for">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="take_care_of">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

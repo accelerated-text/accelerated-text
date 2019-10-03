@@ -1,0 +1,179 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="conjecture-29.5" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="admit" wn="admit%2:32:00" grouping="admit.01"/>
+        <MEMBER name="affirm" wn="affirm%2:32:00" grouping="affirm.01"/>
+        <MEMBER name="assert" wn="assert%2:32:00" grouping="assert.01"/>
+        <MEMBER name="conjecture" wn="conjecture%2:31:00" grouping=""/>
+        <MEMBER name="deny" wn="?deny%2:32:04" grouping="deny.01 deny.03"/>
+        <MEMBER name="determine" wn="determine%2:32:00" grouping="determine.02 determine.03"/>
+        <MEMBER name="doubt" wn="" grouping="doubt.01"/>
+        <MEMBER name="hold" wn="hold%2:31:01 hold%2:32:11" grouping="hold.02 hold.05"/>
+        <MEMBER name="prognosticate" wn="prognosticate%2:32:00" grouping=""/>
+        <MEMBER name="repute" wn="repute%2:31:00" grouping=""/>
+        <MEMBER name="spectulate" wn="speculate%2:31:01 speculate%2:32:00" grouping="speculate.01"/>
+        <MEMBER name="surmise" wn="" grouping=""/>
+        <MEMBER name="swear" wn="" grouping="swear.03"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Predicate">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V NP to be NP" secondary="Infinitival Copular Clause" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>He knew the choice to be a bad one.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <LEX value="to"/>
+                <LEX value="be"/>
+                <NP value="Predicate">
+                   <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                 <PRED value="believe">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Predicate"/>
+                    </ARGS>
+                 </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+           <DESCRIPTION descriptionNumber="" primary="NP V that S" secondary="S" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The populace feel that the RIAA has too much power.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="that_comp"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                 <PRED value="believe">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Predicate"/>
+                    </ARGS>
+                 </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+        <SUBCLASSES>
+	    <VNSUBCLASS ID="conjecture-29.5-1">
+	        <MEMBERS>
+		    <MEMBER name="anticipate" wn="anticipate%2:31:00" grouping="anticipate.01"/>
+		    <MEMBER name="believe" wn="believe%2:31:04 believe%2:31:03" grouping="believe.01"/>
+	            <MEMBER name="expect" wn="expect%2:31:00" grouping="expect.01"/>
+	            <MEMBER name="foreknow" wn="" grouping=""/>
+	            <MEMBER name="foresee" wn="foresee%2:31:00" grouping="foresee.01"/>
+	            <MEMBER name="foretell" wn="foretell%2:32:00" grouping="foretell.01"/>
+	            <MEMBER name="guess" wn="guess%2:31:01" grouping="guess.02"/>
+	            <MEMBER name="infer" wn="infer%2:31:00 infer%2:32:00" grouping="infer.01"/>
+                    <MEMBER name="presume" wn="presume%2:31:00" grouping="presume.01"/>
+                    <MEMBER name="prophesy" wn="" grouping=""/>
+	            <MEMBER name="trust" wn="trust%2:31:02" grouping="trust.01"/>
+	            <MEMBER name="vaticinate" wn="" grouping=""/>
+	        </MEMBERS>
+		<THEMROLES/>
+		<FRAMES>
+                    <FRAME>
+                        <DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+                        <EXAMPLES>
+                            <EXAMPLE>He trusted the woman's statement.</EXAMPLE>
+                        </EXAMPLES>
+                        <SYNTAX>
+                            <NP value="Agent">
+                                <SYNRESTRS/>
+                            </NP>
+                            <VERB/>
+                            <NP value="Theme">
+                                <SYNRESTRS>
+                                    <SYNRESTR Value="-" type="sentential"/>
+                                </SYNRESTRS>
+                            </NP>
+                        </SYNTAX>
+                        <SEMANTICS>
+                            <PRED value="believe">
+                                <ARGS>
+                                    <ARG type="Event" value="during(E)"/>
+                                    <ARG type="ThemRole" value="Agent"/>
+                                    <ARG type="ThemRole" value="Theme"/>
+                                    <ARG type="ThemRole" value="?Predicate"/>
+                                </ARGS>
+                            </PRED>
+                        </SEMANTICS>
+                    </FRAME>
+                </FRAMES>
+                <SUBCLASSES/>
+	    </VNSUBCLASS>
+	    <VNSUBCLASS ID="conjecture-29.5-2">
+                <MEMBERS>
+	            <MEMBER name="feel" wn="feel%2:31:00" grouping="feel.03"/> 
+	        </MEMBERS>
+	        <THEMROLES/>
+	        <FRAMES>
+                    <FRAME>
+                        <DESCRIPTION descriptionNumber="" primary="NP V S" secondary="NP-INF-OC" xtag=""/>
+                        <EXAMPLES>
+                            <EXAMPLE>I feel like the RIAA has too much power.</EXAMPLE>
+                        </EXAMPLES>
+                        <SYNTAX>
+                            <NP value="Agent">
+                                <SYNRESTRS/>
+                            </NP>
+                            <VERB/>
+		            <PREP value="like | as if | as though">
+			        <SELRESTRS/>
+			    </PREP>
+                            <NP value="Theme">
+                                <SYNRESTRS>
+                                    <SYNRESTR Value="+" type="sentential"/>
+                                </SYNRESTRS>
+                            </NP>
+                        </SYNTAX>
+                        <SEMANTICS>
+                            <PRED value="believe">
+                                <ARGS>
+                                    <ARG type="Event" value="during(E)"/>
+                                    <ARG type="ThemRole" value="Agent"/>
+                                    <ARG type="ThemRole" value="Theme"/>
+                                    <ARG type="ThemRole" value="?Predicate"/>
+                                </ARGS>
+                            </PRED>
+                        </SEMANTICS>
+                    </FRAME>
+                </FRAMES>
+                <SUBCLASSES/>
+            </VNSUBCLASS>
+        </SUBCLASSES>    
+</VNCLASS>

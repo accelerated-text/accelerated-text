@@ -1,0 +1,157 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="become-109.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="come_out" wn="come_out%2:42:00" grouping="come.03"/>
+        <MEMBER name="get" wn="get%2:30:00 get%2:30:01 get%2:39:00" grouping="get.03"/>
+        <MEMBER name="turn" wn="turn%2:38:03" grouping="turn.02 turn.03"/>
+	<MEMBER name="turn_up" wn="turn_up%2:40:00" grouping="turn.07"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Patient">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Result">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V ADJ" secondary="" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The belt came undone</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Result">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Initial_State"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Result"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="Constant" value="ch_of_state"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>    
+    </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="become-109.1-1">
+	     <MEMBERS>
+		<MEMBER name="come" wn="come%2:30:01 come%2:30:02" grouping="come.03"/>
+		<MEMBER name="fall" wn="fall%2:30:08" grouping="fall.03"/>
+		<MEMBER name="go" wn="go%2:30:04" grouping="go.04"/>
+		<MEMBER name="grow" wn="grow%2:30:03" grouping="go.01"/>
+	    </MEMBERS>
+	    <THEMROLES/>
+	    <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="" primary="NP V PP.attribute" secondary="" xtag="0.2"/>
+		    <EXAMPLES>
+			<EXAMPLE>The matter fell into dispute.</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+			<NP value="Patient">
+			    <SYNRESTRS/>
+			</NP>
+			<VERB/>
+			<PREP value="in | into">
+			    <SELRESTRS/>
+			</PREP>
+			<NP value="Result">
+			    <SYNRESTRS>
+				<SYNRESTR Value="-" type="sentential"/>
+			    </SYNRESTRS>
+			</NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Initial_State"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="path_rel">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Result"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="Constant" value="ch_of_state"/>
+                                <ARG type="VerbSpecific" value="prep"/>
+                            </ARGS>
+                        </PRED>
+		    </SEMANTICS>
+		</FRAME>    
+	    </FRAMES>
+	    <SUBCLASSES>
+		<VNSUBCLASS ID="become-109.1-1-1">
+		    <MEMBERS>
+			<MEMBER name="become" wn="become%2:30:00" grouping="become.01"/>
+			<MEMBER name="end_up" wn="end_up%2:30:01" grouping="end.04"/>
+			<MEMBER name="leave" wn="" grouping=""/>
+		    </MEMBERS>
+		    <THEMROLES/>
+		    <FRAMES>
+			<FRAME>
+			    <DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="" xtag="0.2"/>
+			    <EXAMPLES>
+				<EXAMPLE>He became a banker.</EXAMPLE>
+			    </EXAMPLES>
+			    <SYNTAX>
+				<NP value="Patient">
+				    <SYNRESTRS/>
+				</NP>
+				<VERB/>
+				<NP value="Result">
+				    <SYNRESTRS>
+					<SYNRESTR Value="-" type="sentential"/>
+				    </SYNRESTRS>
+				</NP>
+			    </SYNTAX>
+			    <SEMANTICS>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="?Initial_State"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="path_rel">
+                                    <ARGS>
+                                        <ARG type="Event" value="result(E)"/>
+                                        <ARG type="ThemRole" value="Result"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="Constant" value="ch_of_state"/>
+                                        <ARG type="VerbSpecific" value="prep"/>
+                                    </ARGS>
+                                </PRED>
+			    </SEMANTICS>
+			</FRAME>    
+		    </FRAMES>
+		<SUBCLASSES/>
+		</VNSUBCLASS>
+  	    </SUBCLASSES>
+	</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

@@ -1,0 +1,11 @@
+{
+    "offset":       0,
+    "totalCount":   9001,
+    "items": [{
+        "id":       "good",
+        "words":    [ "bestest", "tremendous" ]
+    }, {
+        "id":       "greatly",
+        "words":    [ "bigly", "hugely" ]
+    }]
+}

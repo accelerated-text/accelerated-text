@@ -1,0 +1,1809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<morph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../morph.xsd" name="comic">
+  <entry pos="Dummy" word="*dummy*"/>
+  <entry pos="NNP" word="[*DATE*]" class="date" macros="@INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*DATE*]_L+H*" stem="[*DATE*]" class="date" macros="@th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*DATE*]_H*" stem="[*DATE*]" class="date" macros="@rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*TIME*]" class="time" macros="@INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*TIME*]_L+H*" stem="[*TIME*]" class="time" macros="@th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*TIME*]_H*" stem="[*TIME*]" class="time" macros="@rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="[*NUM*]" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="[*NUM*]_L+H*" stem="[*NUM*]" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="[*NUM*]_H*" stem="[*NUM*]" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*AMT*]" class="amt" macros="@INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*AMT*]_L+H*" stem="[*AMT*]" class="amt" macros="@th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*AMT*]_H*" stem="[*AMT*]" class="amt" macros="@rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*DUR*]" class="dur" macros="@INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*DUR*]_L+H*" stem="[*DUR*]" class="dur" macros="@th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="[*DUR*]_H*" stem="[*DUR*]" class="dur" macros="@rh-X @kon-X @OWNER-X"/>
+  <entry pos="BT" word="L"/>
+  <entry pos="BT" word="LL%"/>
+  <entry pos="BT" word="LH%"/>
+  <entry pos="BT" word="HH%"/>
+  <entry pos="," word=","/>
+  <entry pos="." word="."/>
+  <entry pos="?" word="?"/>
+  <entry pos="Comp" word="that"/>
+  <entry pos="RelPro" word="that"/>
+  <entry pos="Pro" word="I" stem="pro1" class="animate-being" macros="@1st @sg @nom @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="I_L+H*" stem="pro1" class="animate-being" macros="@1st @sg @nom @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="I_H*" stem="pro1" class="animate-being" macros="@1st @sg @nom @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="me" stem="pro1" class="animate-being" macros="@1st @sg @acc @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="me_L+H*" stem="pro1" class="animate-being" macros="@1st @sg @acc @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="me_H*" stem="pro1" class="animate-being" macros="@1st @sg @acc @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="we" stem="pro1" class="animate-being" macros="@1st @pl @nom @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="we_L+H*" stem="pro1" class="animate-being" macros="@1st @pl @nom @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="we_H*" stem="pro1" class="animate-being" macros="@1st @pl @nom @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="us" stem="pro1" class="animate-being" macros="@1st @pl @acc @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="us_L+H*" stem="pro1" class="animate-being" macros="@1st @pl @acc @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="us_H*" stem="pro1" class="animate-being" macros="@1st @pl @acc @rh-X @kon-X @OWNER-X"/>
+  <entry pos="PossPro" word="my" stem="pro1" class="animate-being" macros="@sg-P @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PossPro" word="my_L+H*" stem="pro1" class="animate-being" macros="@sg-P @th-P @kon-P @OWNER-P"/>
+  <entry pos="PossPro" word="my_H*" stem="pro1" class="animate-being" macros="@sg-P @rh-P @kon-P @OWNER-P"/>
+  <entry pos="PossPro" word="our" stem="pro1" class="animate-being" macros="@pl-P @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PossPro" word="our_L+H*" stem="pro1" class="animate-being" macros="@pl-P @th-P @kon-P @OWNER-P"/>
+  <entry pos="PossPro" word="our_H*" stem="pro1" class="animate-being" macros="@pl-P @rh-P @kon-P @OWNER-P"/>
+  <entry pos="Pro" word="you" stem="pro2" class="animate-being" macros="@2nd @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="you_L+H*" stem="pro2" class="animate-being" macros="@2nd @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="you_H*" stem="pro2" class="animate-being" macros="@2nd @rh-X @kon-X @OWNER-X"/>
+  <entry pos="PossPro" word="your" stem="pro2" class="animate-being" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PossPro" word="your_L+H*" stem="pro2" class="animate-being" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="PossPro" word="your_H*" stem="pro2" class="animate-being" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Pro" word="she" stem="pro3f" macros="@3rd @sg @nom @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="she_L+H*" stem="pro3f" macros="@3rd @sg @nom @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="she_H*" stem="pro3f" macros="@3rd @sg @nom @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="her" stem="pro3f" macros="@3rd @sg @acc @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="her_L+H*" stem="pro3f" macros="@3rd @sg @acc @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="her_H*" stem="pro3f" macros="@3rd @sg @acc @rh-X @kon-X @OWNER-X"/>
+  <entry pos="PossPro" word="her" stem="pro3f" macros="@sg-P @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PossPro" word="her_L+H*" stem="pro3f" macros="@sg-P @th-P @kon-P @OWNER-P"/>
+  <entry pos="PossPro" word="her_H*" stem="pro3f" macros="@sg-P @rh-P @kon-P @OWNER-P"/>
+  <entry pos="Pro" word="he" stem="pro3m" macros="@3rd @sg @nom @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="he_L+H*" stem="pro3m" macros="@3rd @sg @nom @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="he_H*" stem="pro3m" macros="@3rd @sg @nom @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="him" stem="pro3m" macros="@3rd @sg @acc @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="him_L+H*" stem="pro3m" macros="@3rd @sg @acc @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="him_H*" stem="pro3m" macros="@3rd @sg @acc @rh-X @kon-X @OWNER-X"/>
+  <entry pos="PossPro" word="his" stem="pro3m" macros="@sg-P @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PossPro" word="his_L+H*" stem="pro3m" macros="@sg-P @th-P @kon-P @OWNER-P"/>
+  <entry pos="PossPro" word="his_H*" stem="pro3m" macros="@sg-P @rh-P @kon-P @OWNER-P"/>
+  <entry pos="Pro" word="it" stem="pro3n" macros="@3rd @sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="it_L+H*" stem="pro3n" macros="@3rd @sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="it_H*" stem="pro3n" macros="@3rd @sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="they" stem="pro3n" macros="@3rd @pl @nom @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="they_L+H*" stem="pro3n" macros="@3rd @pl @nom @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="they_H*" stem="pro3n" macros="@3rd @pl @nom @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="them" stem="pro3n" macros="@3rd @pl @acc @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="them_L+H*" stem="pro3n" macros="@3rd @pl @acc @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="them_H*" stem="pro3n" macros="@3rd @pl @acc @rh-X @kon-X @OWNER-X"/>
+  <entry pos="PossPro" word="its" stem="pro3n" macros="@sg-P @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PossPro" word="its_L+H*" stem="pro3n" macros="@sg-P @th-P @kon-P @OWNER-P"/>
+  <entry pos="PossPro" word="its_H*" stem="pro3n" macros="@sg-P @rh-P @kon-P @OWNER-P"/>
+  <entry pos="PossPro" word="their" stem="pro3n" macros="@pl-P @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PossPro" word="their_L+H*" stem="pro3n" macros="@pl-P @th-P @kon-P @OWNER-P"/>
+  <entry pos="PossPro" word="their_H*" stem="pro3n" macros="@pl-P @rh-P @kon-P @OWNER-P"/>
+  <entry pos="Pro" word="this" macros="@3rd @sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="this_L+H*" stem="this" macros="@3rd @sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="this_H*" stem="this" macros="@3rd @sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="these" stem="this" macros="@3rd @pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="these_L+H*" stem="this" macros="@3rd @pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="these_H*" stem="this" macros="@3rd @pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="that" macros="@3rd @sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="that_L+H*" stem="that" macros="@3rd @sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="that_H*" stem="that" macros="@3rd @sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="those" stem="that" macros="@3rd @pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Pro" word="those_L+H*" stem="that" macros="@3rd @pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="Pro" word="those_H*" stem="that" macros="@3rd @pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="one" stem="pro_one" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="one_L+H*" stem="pro_one" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="one_H*" stem="pro_one" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="ones" stem="pro_one" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="ones_L+H*" stem="pro_one" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="ones_H*" stem="pro_one" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Expl" word="it"/>
+  <entry pos="Expl" word="there"/>
+  <entry pos="Expl" word="here"/>
+  <entry pos="Conj" word="and" macros="@INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="Conj" word="and_L+H*" stem="and" macros="@th-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="and_H*" stem="and" macros="@rh-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="or" macros="@INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="Conj" word="or_L+H*" stem="or" macros="@th-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="or_H*" stem="or" macros="@rh-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="but" macros="@INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="Conj" word="but_L+H*" stem="but" macros="@th-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="but_H*" stem="but" macros="@rh-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="although" macros="@INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="Conj" word="although_L+H*" stem="although" macros="@th-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="although_H*" stem="although" macros="@rh-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="if" macros="@INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="Conj" word="if_L+H*" stem="if" macros="@th-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="if_H*" stem="if" macros="@rh-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="while" macros="@INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="Conj" word="while_L+H*" stem="while" macros="@th-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="while_H*" stem="while" macros="@rh-S @kon-S @OWNER-S"/>
+  <entry pos="QNP" word="everyone" macros="@sg-2 @INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="QNP" word="everyone_L+H*" stem="everyone" macros="@sg-2 @th-S @kon-S @OWNER-S"/>
+  <entry pos="QNP" word="everyone_H*" stem="everyone" macros="@sg-2 @rh-S @kon-S @OWNER-S"/>
+  <entry pos="QNP" word="both" macros="@pl-2 @INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="QNP" word="both_L+H*" stem="both" macros="@pl-2 @th-S @kon-S @OWNER-S"/>
+  <entry pos="QNP" word="both_H*" stem="both" macros="@pl-2 @rh-S @kon-S @OWNER-S"/>
+  <entry pos="QNP" word="neither" macros="@sg-2 @INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="QNP" word="neither_L+H*" stem="neither" macros="@sg-2 @th-S @kon-S @OWNER-S"/>
+  <entry pos="QNP" word="neither_H*" stem="neither" macros="@sg-2 @rh-S @kon-S @OWNER-S"/>
+  <entry pos="QNP" word="none" macros="@pl-2 @INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="QNP" word="none_L+H*" stem="none" macros="@pl-2 @th-S @kon-S @OWNER-S"/>
+  <entry pos="QNP" word="none_H*" stem="none" macros="@pl-2 @rh-S @kon-S @OWNER-S"/>
+  <entry pos="QNP" word="all" macros="@pl-or-mass-2 @INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="QNP" word="all_L+H*" stem="all" macros="@pl-or-mass-2 @th-S @kon-S @OWNER-S"/>
+  <entry pos="QNP" word="all_H*" stem="all" macros="@pl-or-mass-2 @rh-S @kon-S @OWNER-S"/>
+  <entry pos="WhNP" word="what" macros="@INFO-Q @nokon-Q @OWNER-Q"/>
+  <entry pos="WhNP" word="what_L+H*" stem="what" macros="@th-Q @kon-Q @OWNER-Q"/>
+  <entry pos="WhNP" word="what_H*" stem="what" macros="@rh-Q @kon-Q @OWNER-Q"/>
+  <entry pos="WhNP" word="where" macros="@X-location @INFO-Q @nokon-Q @OWNER-Q"/>
+  <entry pos="WhNP" word="where_L+H*" stem="where" macros="@X-location @th-Q @kon-Q @OWNER-Q"/>
+  <entry pos="WhNP" word="where_H*" stem="where" macros="@X-location @rh-Q @kon-Q @OWNER-Q"/>
+  <entry pos="WhNP" word="who" macros="@X-person @INFO-Q @nokon-Q @OWNER-Q"/>
+  <entry pos="WhNP" word="who_L+H*" stem="who" macros="@X-person @th-Q @kon-Q @OWNER-Q"/>
+  <entry pos="WhNP" word="who_H*" stem="who" macros="@X-person @rh-Q @kon-Q @OWNER-Q"/>
+  <entry pos="Det" word="a" macros="@sg-2"/>
+  <entry pos="Det" word="an" stem="a" macros="@sg-2"/>
+  <entry pos="Det" word="some"/>
+  <entry pos="Det" word="the"/>
+  <entry pos="PDet" word="another" macros="@sg-2 @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PDet" word="another_L+H*" stem="another" macros="@sg-2 @th-P @kon-P @OWNER-P"/>
+  <entry pos="PDet" word="another_H*" stem="another" macros="@sg-2 @rh-P @kon-P @OWNER-P"/>
+  <entry pos="PDet" word="this" macros="@sg-or-mass-2 @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PDet" word="this_L+H*" stem="this" macros="@sg-or-mass-2 @th-P @kon-P @OWNER-P"/>
+  <entry pos="PDet" word="this_H*" stem="this" macros="@sg-or-mass-2 @rh-P @kon-P @OWNER-P"/>
+  <entry pos="PDet" word="these" stem="this" macros="@pl-2 @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PDet" word="these_L+H*" stem="this" macros="@pl-2 @th-P @kon-P @OWNER-P"/>
+  <entry pos="PDet" word="these_H*" stem="this" macros="@pl-2 @rh-P @kon-P @OWNER-P"/>
+  <entry pos="PDet" word="that" macros="@sg-or-mass-2 @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PDet" word="that_L+H*" stem="that" macros="@sg-or-mass-2 @th-P @kon-P @OWNER-P"/>
+  <entry pos="PDet" word="that_H*" stem="that" macros="@sg-or-mass-2 @rh-P @kon-P @OWNER-P"/>
+  <entry pos="PDet" word="those" stem="that" macros="@pl-2 @INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="PDet" word="those_L+H*" stem="that" macros="@pl-2 @th-P @kon-P @OWNER-P"/>
+  <entry pos="PDet" word="those_H*" stem="that" macros="@pl-2 @rh-P @kon-P @OWNER-P"/>
+  <entry pos="PossS" word="'s" macros="@INFO-3 @OWNER-3"/>
+  <entry pos="QDet" word="all" macros="@pl-or-mass-2 @INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="QDet" word="all_L+H*" stem="all" macros="@pl-or-mass-2 @th-S @kon-S @OWNER-S"/>
+  <entry pos="QDet" word="all_H*" stem="all" macros="@pl-or-mass-2 @rh-S @kon-S @OWNER-S"/>
+  <entry pos="QDet" word="both" macros="@pl-2 @INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="QDet" word="both_L+H*" stem="both" macros="@pl-2 @th-S @kon-S @OWNER-S"/>
+  <entry pos="QDet" word="both_H*" stem="both" macros="@pl-2 @rh-S @kon-S @OWNER-S"/>
+  <entry pos="QDet" word="every" macros="@sg-2 @INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="QDet" word="every_L+H*" stem="every" macros="@sg-2 @th-S @kon-S @OWNER-S"/>
+  <entry pos="QDet" word="every_H*" stem="every" macros="@sg-2 @rh-S @kon-S @OWNER-S"/>
+  <entry pos="QDet" word="neither" macros="@sg-2 @INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="QDet" word="neither_L+H*" stem="neither" macros="@sg-2 @th-S @kon-S @OWNER-S"/>
+  <entry pos="QDet" word="neither_H*" stem="neither" macros="@sg-2 @rh-S @kon-S @OWNER-S"/>
+  <entry pos="QDet" word="no" macros="@INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="QDet" word="no_L+H*" stem="no" macros="@th-S @kon-S @OWNER-S"/>
+  <entry pos="QDet" word="no_H*" stem="no" macros="@rh-S @kon-S @OWNER-S"/>
+  <entry pos="Wh" word="what" macros="@INFO-Q @nokon-Q @OWNER-Q"/>
+  <entry pos="Wh" word="what_L+H*" stem="what" macros="@th-Q @kon-Q @OWNER-Q"/>
+  <entry pos="Wh" word="what_H*" stem="what" macros="@rh-Q @kon-Q @OWNER-Q"/>
+  <entry pos="Wh" word="which" macros="@INFO-Q @nokon-Q @OWNER-Q"/>
+  <entry pos="Wh" word="which_L+H*" stem="which" macros="@th-Q @kon-Q @OWNER-Q"/>
+  <entry pos="Wh" word="which_H*" stem="which" macros="@rh-Q @kon-Q @OWNER-Q"/>
+  <entry pos="Adv" word="also" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adv" word="also_L+H*" stem="also" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="also_H*" stem="also" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="either" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adv" word="either_L+H*" stem="either" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="either_H*" stem="either" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="though" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adv" word="though_L+H*" stem="though" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="though_H*" stem="though" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Prep" word="with" macros="@INFO-3 @OWNER-3"/>
+  <entry pos="V" word="can" macros="@INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="can_L+H*" stem="can" macros="@th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="can_H*" stem="can" macros="@rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="may" macros="@INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="may_L+H*" stem="may" macros="@th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="may_H*" stem="may" macros="@rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="should" macros="@INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="should_L+H*" stem="should" macros="@th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="should_H*" stem="should" macros="@rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="would" macros="@INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="would_L+H*" stem="would" macros="@th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="would_H*" stem="would" macros="@rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="'d" stem="would" macros="@INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="will" macros="@INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="will_L+H*" stem="will" macros="@th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="will_H*" stem="will" macros="@rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="'ll" stem="will" macros="@INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="not" macros="@base @base6 @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="not_L+H*" stem="not" macros="@base @base6 @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="not_H*" stem="not" macros="@base @base6 @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="n't" stem="not" macros="@base @base6 @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="not" macros="@adj @adj6 @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="not_L+H*" stem="not" macros="@adj @adj6 @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="not_H*" stem="not" macros="@adj @adj6 @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="n't" stem="not" macros="@adj @adj6 @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="do" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="do_L+H*" stem="do" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="do_H*" stem="do" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="does" stem="do" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="does_L+H*" stem="do" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="does_H*" stem="do" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="do" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="do_L+H*" stem="do" macros="@pres @pl-agr @th-E @kon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="do_H*" stem="do" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="did" stem="do" macros="@past @INFO-E @nokon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="did_L+H*" stem="do" macros="@past @th-E @kon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="did_H*" stem="do" macros="@past @rh-E @kon-E @OWNER-E" excluded="Do-Support"/>
+  <entry pos="V" word="do" macros="@pres @sg-agr @non-3rd-agr" excluded="Modal"/>
+  <entry pos="V" word="does" stem="do" macros="@pres @sg-or-mass-agr @3rd-agr" excluded="Modal"/>
+  <entry pos="V" word="do" macros="@pres @pl-agr" excluded="Modal"/>
+  <entry pos="V" word="did" stem="do" macros="@past" excluded="Modal"/>
+  <entry pos="V" word="be" macros="@base @INFO-E @nokon-E @OWNER-E" excluded="Inverted"/>
+  <entry pos="V" word="be_L+H*" stem="be" macros="@base @th-E @kon-E @OWNER-E" excluded="Inverted"/>
+  <entry pos="V" word="be_H*" stem="be" macros="@base @rh-E @kon-E @OWNER-E" excluded="Inverted"/>
+  <entry pos="V" word="am" stem="be" macros="@pres @sg-agr @1st-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="am_L+H*" stem="be" macros="@pres @sg-agr @1st-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="am_H*" stem="be" macros="@pres @sg-agr @1st-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="'m" stem="be" macros="@pres @sg-agr @1st-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="are" stem="be" macros="@pres @sg-agr @2nd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="are_L+H*" stem="be" macros="@pres @sg-agr @2nd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="are_H*" stem="be" macros="@pres @sg-agr @2nd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="'re" stem="be" macros="@pres @sg-agr @2nd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="is" stem="be" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="is_L+H*" stem="be" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="is_H*" stem="be" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="'s" stem="be" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="are" stem="be" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="are_L+H*" stem="be" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="are_H*" stem="be" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="'re" stem="be" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="was" stem="be" macros="@past @sg-agr @1st-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="was_L+H*" stem="be" macros="@past @sg-agr @1st-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="was_H*" stem="be" macros="@past @sg-agr @1st-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="were" stem="be" macros="@past @sg-agr @2nd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="were_L+H*" stem="be" macros="@past @sg-agr @2nd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="were_H*" stem="be" macros="@past @sg-agr @2nd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="was" stem="be" macros="@past @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="was_L+H*" stem="be" macros="@past @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="was_H*" stem="be" macros="@past @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="were" stem="be" macros="@past @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="were_L+H*" stem="be" macros="@past @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="were_H*" stem="be" macros="@past @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="have" macros="@base @INFO-E @nokon-E @OWNER-E" excluded="Inverted"/>
+  <entry pos="V" word="have_L+H*" stem="have" macros="@base @th-E @kon-E @OWNER-E" excluded="Inverted"/>
+  <entry pos="V" word="have_H*" stem="have" macros="@base @rh-E @kon-E @OWNER-E" excluded="Inverted"/>
+  <entry pos="V" word="have" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="have_L+H*" stem="have" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="have_H*" stem="have" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="has" stem="have" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="has_L+H*" stem="have" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="has_H*" stem="have" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="have" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="have_L+H*" stem="have" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="have_H*" stem="have" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="had" stem="have" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="had_L+H*" stem="have" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="had_H*" stem="have" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="like" macros="@base @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="like_L+H*" stem="like" macros="@base @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="like_H*" stem="like" macros="@base @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="liking" stem="like" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="liking_L+H*" stem="like" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="liking_H*" stem="like" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="like" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="like_L+H*" stem="like" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="like_H*" stem="like" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="likes" stem="like" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="likes_L+H*" stem="like" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="likes_H*" stem="like" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="like" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="like_L+H*" stem="like" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="like_H*" stem="like" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="liked" stem="like" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="liked_L+H*" stem="like" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="liked_H*" stem="like" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="make" macros="@base @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="make_L+H*" stem="make" macros="@base @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="make_H*" stem="make" macros="@base @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="making" stem="make" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="making_L+H*" stem="make" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="making_H*" stem="make" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="make" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="make_L+H*" stem="make" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="make_H*" stem="make" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="makes" stem="make" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="makes_L+H*" stem="make" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="makes_H*" stem="make" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="make" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="make_L+H*" stem="make" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="make_H*" stem="make" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="made" stem="make" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="made_L+H*" stem="make" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="made_H*" stem="make" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mention" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="mention_L+H*" stem="mention" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mention_H*" stem="mention" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mentions" stem="mention" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="mentions_L+H*" stem="mention" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mentions_H*" stem="mention" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mention" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="mention_L+H*" stem="mention" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mention_H*" stem="mention" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mentioned" stem="mention" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="mentioned_L+H*" stem="mention" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mentioned_H*" stem="mention" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="say" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="say_L+H*" stem="say" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="say_H*" stem="say" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="says" stem="say" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="says_L+H*" stem="say" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="says_H*" stem="say" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="say" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="say_L+H*" stem="say" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="say_H*" stem="say" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="said" stem="say" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="said_L+H*" stem="say" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="said_H*" stem="say" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="Num" word="one" class="num" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="one_L+H*" stem="one" class="num" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="one_H*" stem="one" class="num" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="1" class="num" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="1_L+H*" stem="1" class="num" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="1_H*" stem="1" class="num" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="several" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="several_L+H*" stem="several" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="several_H*" stem="several" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="two" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="two_L+H*" stem="two" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="two_H*" stem="two" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="three" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="three_L+H*" stem="three" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="three_H*" stem="three" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="four" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="four_L+H*" stem="four" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="four_H*" stem="four" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="five" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="five_L+H*" stem="five" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="five_H*" stem="five" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="six" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="six_L+H*" stem="six" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="six_H*" stem="six" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="seven" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="seven_L+H*" stem="seven" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="seven_H*" stem="seven" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="eight" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="eight_L+H*" stem="eight" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="eight_H*" stem="eight" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="nine" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="nine_L+H*" stem="nine" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="nine_H*" stem="nine" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="ten" class="num" macros="@pl-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="Num" word="ten_L+H*" stem="ten" class="num" macros="@pl-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="Num" word="ten_H*" stem="ten" class="num" macros="@pl-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Prep" word="at" macros="@INFO-3 @OWNER-3"/>
+  <entry pos="Prep" word="by" macros="@INFO-3 @OWNER-3"/>
+  <entry pos="Prep" word="from" macros="@INFO-3 @OWNER-3"/>
+  <entry pos="Adj" word="in" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="in_L+H*" stem="in" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="in_H*" stem="in" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="in_addition_to" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adv" word="in_addition_to_L+H*" stem="in_addition_to" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="in_addition_to_H*" stem="in_addition_to" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Prep" word="of" macros="@INFO-3 @OWNER-3"/>
+  <entry pos="Adj" word="on" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="on_L+H*" stem="on" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="on_H*" stem="on" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Prep" word="to" macros="@INFO-3 @OWNER-3"/>
+  <entry pos="Adv" word="before" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adv" word="before_L+H*" stem="before" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="before_H*" stem="before" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="earlier" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adv" word="earlier_L+H*" stem="earlier" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="earlier_H*" stem="earlier" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="down_here" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adv" word="down_here_L+H*" stem="down_here" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="down_here_H*" stem="down_here" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="here" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adv" word="here_L+H*" stem="here" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="here_H*" stem="here" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="now" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adv" word="now_L+H*" stem="now" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="now_H*" stem="now" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="once_again" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adv" word="once_again_L+H*" stem="once_again" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adv" word="once_again_H*" stem="once_again" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Conj" word="as" macros="@INFO-S @nokon-S @OWNER-S"/>
+  <entry pos="Conj" word="as_L+H*" stem="as" macros="@th-S @kon-S @OWNER-S"/>
+  <entry pos="Conj" word="as_H*" stem="as" macros="@rh-S @kon-S @OWNER-S"/>
+  <entry pos="V" word="draw" macros="@base @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="draw_L+H*" stem="draw" macros="@base @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="draw_H*" stem="draw" macros="@base @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="drawing" stem="draw" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="drawing_L+H*" stem="draw" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="drawing_H*" stem="draw" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="draw" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="draw_L+H*" stem="draw" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="draw_H*" stem="draw" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="draws" stem="draw" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="draws_L+H*" stem="draw" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="draws_H*" stem="draw" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="draw" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="draw_L+H*" stem="draw" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="draw_H*" stem="draw" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="drew" stem="draw" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="drew_L+H*" stem="draw" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="drew_H*" stem="draw" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="feature" macros="@base @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="feature_L+H*" stem="feature" macros="@base @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="feature_H*" stem="feature" macros="@base @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="featuring" stem="feature" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="featuring_L+H*" stem="feature" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="featuring_H*" stem="feature" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="feature" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="feature_L+H*" stem="feature" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="feature_H*" stem="feature" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="features" stem="feature" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="features_L+H*" stem="feature" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="features_H*" stem="feature" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="feature" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="feature_L+H*" stem="feature" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="feature_H*" stem="feature" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="featured" stem="feature" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="featured_L+H*" stem="feature" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="featured_H*" stem="feature" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="go" macros="@base @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="go_L+H*" stem="go" macros="@base @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="go_H*" stem="go" macros="@base @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="going" stem="go" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="going_L+H*" stem="go" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="going_H*" stem="go" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="go" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="go_L+H*" stem="go" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="go_H*" stem="go" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="goes" stem="go" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="goes_L+H*" stem="go" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="goes_H*" stem="go" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="go" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="go_L+H*" stem="go" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="go_H*" stem="go" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="went" stem="go" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="went_L+H*" stem="go" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="went_H*" stem="go" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="look" stem="look-at" macros="@base @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="look_L+H*" stem="look-at" macros="@base @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="look_H*" stem="look-at" macros="@base @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="looking" stem="look-at" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="looking_L+H*" stem="look-at" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="looking_H*" stem="look-at" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="look" stem="look-at" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="look_L+H*" stem="look-at" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="look_H*" stem="look-at" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="looks" stem="look-at" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="looks_L+H*" stem="look-at" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="looks_H*" stem="look-at" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="look" stem="look-at" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="look_L+H*" stem="look-at" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="look_H*" stem="look-at" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="looked" stem="look-at" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="looked_L+H*" stem="look-at" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="looked_H*" stem="look-at" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mean" macros="@base @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="mean_L+H*" stem="mean" macros="@base @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mean_H*" stem="mean" macros="@base @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="meaning" stem="mean" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="meaning_L+H*" stem="mean" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="meaning_H*" stem="mean" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mean" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="mean_L+H*" stem="mean" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mean_H*" stem="mean" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="means" stem="mean" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="means_L+H*" stem="mean" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="means_H*" stem="mean" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mean" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="mean_L+H*" stem="mean" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="mean_H*" stem="mean" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="meant" stem="mean" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="meant_L+H*" stem="mean" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="meant_H*" stem="mean" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="see" macros="@base @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="see_L+H*" stem="see" macros="@base @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="see_H*" stem="see" macros="@base @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="seeing" stem="see" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="seeing_L+H*" stem="see" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="seeing_H*" stem="see" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="see" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="see_L+H*" stem="see" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="see_H*" stem="see" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="sees" stem="see" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="sees_L+H*" stem="see" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="sees_H*" stem="see" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="see" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="see_L+H*" stem="see" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="see_H*" stem="see" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="saw" stem="see" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="saw_L+H*" stem="see" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="saw_H*" stem="see" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="use" macros="@base @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="use_L+H*" stem="use" macros="@base @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="use_H*" stem="use" macros="@base @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="using" stem="use" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="using_L+H*" stem="use" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="using_H*" stem="use" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="use" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="use_L+H*" stem="use" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="use_H*" stem="use" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="uses" stem="use" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="uses_L+H*" stem="use" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="uses_H*" stem="use" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="use" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="use_L+H*" stem="use" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="use_H*" stem="use" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="used" stem="use" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="used_L+H*" stem="use" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="used_H*" stem="use" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="want" macros="@base @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="want_L+H*" stem="want" macros="@base @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="want_H*" stem="want" macros="@base @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="wanting" stem="want" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="wanting_L+H*" stem="want" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="wanting_H*" stem="want" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="want" macros="@pres @sg-agr @non-3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="want_L+H*" stem="want" macros="@pres @sg-agr @non-3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="want_H*" stem="want" macros="@pres @sg-agr @non-3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="wants" stem="want" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="wants_L+H*" stem="want" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="wants_H*" stem="want" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="want" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="want_L+H*" stem="want" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="want_H*" stem="want" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="wanted" stem="want" macros="@past @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="wanted_L+H*" stem="want" macros="@past @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="wanted_H*" stem="want" macros="@past @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="helping_to_set_the_mood" stem="help-set-mood" class="colour_prop" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="helping_to_set_the_mood_L+H*" stem="help-set-mood" class="colour_prop" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="helping_to_set_the_mood_H*" stem="help-set-mood" class="colour_prop" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="helps_to_set_the_mood" stem="help-set-mood" class="colour_prop" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="helps_to_set_the_mood_L+H*" stem="help-set-mood" class="colour_prop" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="helps_to_set_the_mood_H*" stem="help-set-mood" class="colour_prop" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="help_to_set_the_mood" stem="help-set-mood" class="colour_prop" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="help_to_set_the_mood_L+H*" stem="help-set-mood" class="colour_prop" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="help_to_set_the_mood_H*" stem="help-set-mood" class="colour_prop" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="emphasising_the_clear,_straight_lined_character_of_your_bathroom_in_a_stylish_way" stem="emphasise-straight-lined-character" class="colour_prop" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="emphasising_the_clear,_straight_lined_character_of_your_bathroom_in_a_stylish_way_L+H*" stem="emphasise-straight-lined-character" class="colour_prop" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="emphasising_the_clear,_straight_lined_character_of_your_bathroom_in_a_stylish_way_H*" stem="emphasise-straight-lined-character" class="colour_prop" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="emphasises_the_clear,_straight_lined_character_of_your_bathroom_in_a_stylish_way" stem="emphasise-straight-lined-character" class="colour_prop" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="emphasises_the_clear,_straight_lined_character_of_your_bathroom_in_a_stylish_way_L+H*" stem="emphasise-straight-lined-character" class="colour_prop" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="emphasises_the_clear,_straight_lined_character_of_your_bathroom_in_a_stylish_way_H*" stem="emphasise-straight-lined-character" class="colour_prop" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="emphasise_the_clear,_straight_lined_character_of_your_bathroom_in_a_stylish_way" stem="emphasise-straight-lined-character" class="colour_prop" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="emphasise_the_clear,_straight_lined_character_of_your_bathroom_in_a_stylish_way_L+H*" stem="emphasise-straight-lined-character" class="colour_prop" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="emphasise_the_clear,_straight_lined_character_of_your_bathroom_in_a_stylish_way_H*" stem="emphasise-straight-lined-character" class="colour_prop" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="giving_the_room_the_feeling_of_a_Tuscan_country_home" stem="give-tuscan-feeling" class="colour_prop" macros="@ng @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="giving_the_room_the_feeling_of_a_Tuscan_country_home_L+H*" stem="give-tuscan-feeling" class="colour_prop" macros="@ng @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="giving_the_room_the_feeling_of_a_Tuscan_country_home_H*" stem="give-tuscan-feeling" class="colour_prop" macros="@ng @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="gives_the_room_the_feeling_of_a_Tuscan_country_home" stem="give-tuscan-feeling" class="colour_prop" macros="@pres @sg-or-mass-agr @3rd-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="gives_the_room_the_feeling_of_a_Tuscan_country_home_L+H*" stem="give-tuscan-feeling" class="colour_prop" macros="@pres @sg-or-mass-agr @3rd-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="gives_the_room_the_feeling_of_a_Tuscan_country_home_H*" stem="give-tuscan-feeling" class="colour_prop" macros="@pres @sg-or-mass-agr @3rd-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="give_the_room_the_feeling_of_a_Tuscan_country_home" stem="give-tuscan-feeling" class="colour_prop" macros="@pres @pl-agr @INFO-E @nokon-E @OWNER-E"/>
+  <entry pos="V" word="give_the_room_the_feeling_of_a_Tuscan_country_home_L+H*" stem="give-tuscan-feeling" class="colour_prop" macros="@pres @pl-agr @th-E @kon-E @OWNER-E"/>
+  <entry pos="V" word="give_the_room_the_feeling_of_a_Tuscan_country_home_H*" stem="give-tuscan-feeling" class="colour_prop" macros="@pres @pl-agr @rh-E @kon-E @OWNER-E"/>
+  <entry pos="Adj" word="based_on" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="based_on_L+H*" stem="based_on" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="based_on_H*" stem="based_on" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="more" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="more_L+H*" stem="more" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="more_H*" stem="more" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="other" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="other_L+H*" stem="other" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="other_H*" stem="other" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="abstract" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="abstract_L+H*" stem="abstract" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="abstract_H*" stem="abstract" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="animal" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="animal_L+H*" stem="animal" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="animal_H*" stem="animal" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="belt_buckle" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="belt_buckle_L+H*" stem="belt_buckle" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="belt_buckle_H*" stem="belt_buckle" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="comic" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="comic_L+H*" stem="comic" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="comic_H*" stem="comic" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="cross" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="cross_L+H*" stem="cross" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="cross_H*" stem="cross" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="diamond" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="diamond_L+H*" stem="diamond" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="diamond_H*" stem="diamond" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="decorative" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="decorative_L+H*" stem="decorative" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="decorative_H*" stem="decorative" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="face" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="face_L+H*" stem="face" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="face_H*" stem="face" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="female" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="female_L+H*" stem="female" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="female_H*" stem="female" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="floral" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="floral_L+H*" stem="floral" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="floral_H*" stem="floral" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="geometric" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="geometric_L+H*" stem="geometric" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="geometric_H*" stem="geometric" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="jeans" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="jeans_L+H*" stem="jeans" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="jeans_H*" stem="jeans" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="male" class="quality" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="male_L+H*" stem="male" class="quality" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="male_H*" stem="male" class="quality" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="classic" class="style" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="classic_L+H*" stem="classic" class="style" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="classic_H*" stem="classic" class="style" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="country" class="style" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="country_L+H*" stem="country" class="style" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="country_H*" stem="country" class="style" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="family" class="style" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="family_L+H*" stem="family" class="style" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="family_H*" stem="family" class="style" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="modern" class="style" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="modern_L+H*" stem="modern" class="style" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="modern_H*" stem="modern" class="style" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="larger" class="size" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="larger_L+H*" stem="larger" class="size" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="larger_H*" stem="larger" class="size" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="smaller" class="size" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="smaller_L+H*" stem="smaller" class="size" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="smaller_H*" stem="smaller" class="size" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="beige" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="beige_L+H*" stem="beige" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="beige_H*" stem="beige" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="beige" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="beige_L+H*" stem="beige" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="beige_H*" stem="beige" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="black" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="black_L+H*" stem="black" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="black_H*" stem="black" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="black" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="black_L+H*" stem="black" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="black_H*" stem="black" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="blue" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="blue_L+H*" stem="blue" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="blue_H*" stem="blue" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="blue" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="blue_L+H*" stem="blue" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="blue_H*" stem="blue" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="brown" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="brown_L+H*" stem="brown" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="brown_H*" stem="brown" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="brown" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="brown_L+H*" stem="brown" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="brown_H*" stem="brown" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="cream" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="cream_L+H*" stem="cream" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="cream_H*" stem="cream" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="cream" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="cream_L+H*" stem="cream" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="cream_H*" stem="cream" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="dark_green" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="dark_green_L+H*" stem="dark_green" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="dark_green_H*" stem="dark_green" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="dark_green" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="dark_green_L+H*" stem="dark_green" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="dark_green_H*" stem="dark_green" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="dark_red" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="dark_red_L+H*" stem="dark_red" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="dark_red_H*" stem="dark_red" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="dark_red" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="dark_red_L+H*" stem="dark_red" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="dark_red_H*" stem="dark_red" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="gray" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="gray_L+H*" stem="gray" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="gray_H*" stem="gray" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="gray" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="gray_L+H*" stem="gray" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="gray_H*" stem="gray" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="grey" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="grey_L+H*" stem="grey" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="grey_H*" stem="grey" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="grey" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="grey_L+H*" stem="grey" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="grey_H*" stem="grey" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="green" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="green_L+H*" stem="green" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="green_H*" stem="green" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="green" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="green_L+H*" stem="green" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="green_H*" stem="green" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="indigo" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="indigo_L+H*" stem="indigo" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="indigo_H*" stem="indigo" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="indigo" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="indigo_L+H*" stem="indigo" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="indigo_H*" stem="indigo" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="ochre" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="ochre_L+H*" stem="ochre" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="ochre_H*" stem="ochre" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="ochre" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="ochre_L+H*" stem="ochre" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="ochre_H*" stem="ochre" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="off_white" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="off_white_L+H*" stem="off_white" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="off_white_H*" stem="off_white" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="off_white" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="off_white_L+H*" stem="off_white" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="off_white_H*" stem="off_white" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="orange" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="orange_L+H*" stem="orange" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="orange_H*" stem="orange" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="orange" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="orange_L+H*" stem="orange" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="orange_H*" stem="orange" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="pink" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="pink_L+H*" stem="pink" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="pink_H*" stem="pink" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="pink" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="pink_L+H*" stem="pink" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="pink_H*" stem="pink" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="purple" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="purple_L+H*" stem="purple" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="purple_H*" stem="purple" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="purple" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="purple_L+H*" stem="purple" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="purple_H*" stem="purple" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="red" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="red_L+H*" stem="red" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="red_H*" stem="red" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="red" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="red_L+H*" stem="red" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="red_H*" stem="red" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="rose" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="rose_L+H*" stem="rose" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="rose_H*" stem="rose" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="rose" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="rose_L+H*" stem="rose" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="rose_H*" stem="rose" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="royal_blue" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="royal_blue_L+H*" stem="royal_blue" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="royal_blue_H*" stem="royal_blue" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="royal_blue" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="royal_blue_L+H*" stem="royal_blue" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="royal_blue_H*" stem="royal_blue" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="salmon" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="salmon_L+H*" stem="salmon" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="salmon_H*" stem="salmon" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="salmon" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="salmon_L+H*" stem="salmon" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="salmon_H*" stem="salmon" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="sandstone" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="sandstone_L+H*" stem="sandstone" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="sandstone_H*" stem="sandstone" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="sandstone" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="sandstone_L+H*" stem="sandstone" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="sandstone_H*" stem="sandstone" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="silver" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="silver_L+H*" stem="silver" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="silver_H*" stem="silver" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="silver" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="silver_L+H*" stem="silver" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="silver_H*" stem="silver" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="terracotta" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="terracotta_L+H*" stem="terracotta" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="terracotta_H*" stem="terracotta" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="terracotta" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="terracotta_L+H*" stem="terracotta" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="terracotta_H*" stem="terracotta" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="violet" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="violet_L+H*" stem="violet" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="violet_H*" stem="violet" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="violet" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="violet_L+H*" stem="violet" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="violet_H*" stem="violet" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="white" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="white_L+H*" stem="white" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="white_H*" stem="white" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="white" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="white_L+H*" stem="white" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="white_H*" stem="white" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="yellow" class="colour" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="yellow_L+H*" stem="yellow" class="colour" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="yellow_H*" stem="yellow" class="colour" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="N" word="yellow" class="colour" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="yellow_L+H*" stem="yellow" class="colour" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="yellow_H*" stem="yellow" class="colour" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="art" class="decoration" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="art_L+H*" stem="art" class="decoration" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="art_H*" stem="art" class="decoration" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="artwork" class="decoration" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="artwork_L+H*" stem="artwork" class="decoration" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="artwork_H*" stem="artwork" class="decoration" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="collection" class="abstraction" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="collection_L+H*" stem="collection" class="abstraction" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="collection_H*" stem="collection" class="abstraction" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="collections" stem="collection" class="abstraction" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="collections_L+H*" stem="collection" class="abstraction" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="collections_H*" stem="collection" class="abstraction" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="colour" class="abstraction" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="colour_L+H*" stem="colour" class="abstraction" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="colour_H*" stem="colour" class="abstraction" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="colours" stem="colour" class="abstraction" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="colours_L+H*" stem="colour" class="abstraction" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="colours_H*" stem="colour" class="abstraction" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="colour_scheme" class="mental-obj" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="colour_scheme_L+H*" stem="colour_scheme" class="mental-obj" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="colour_scheme_H*" stem="colour_scheme" class="mental-obj" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="colour_schemes" stem="colour_scheme" class="mental-obj" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="colour_schemes_L+H*" stem="colour_scheme" class="mental-obj" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="colour_schemes_H*" stem="colour_scheme" class="mental-obj" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="design" class="mental-obj" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="design_L+H*" stem="design" class="mental-obj" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="design_H*" stem="design" class="mental-obj" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="designs" stem="design" class="mental-obj" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="designs_L+H*" stem="design" class="mental-obj" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="designs_H*" stem="design" class="mental-obj" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="fruit" class="decoration" macros="@mass @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="fruit_L+H*" stem="fruit" class="decoration" macros="@mass @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="fruit_H*" stem="fruit" class="decoration" macros="@mass @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="mosaics" class="decoration" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="mosaics_L+H*" stem="mosaics" class="decoration" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="mosaics_H*" stem="mosaics" class="decoration" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="motif" class="decoration" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="motif_L+H*" stem="motif" class="decoration" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="motif_H*" stem="motif" class="decoration" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="motifs" stem="motif" class="decoration" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="motifs_L+H*" stem="motif" class="decoration" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="motifs_H*" stem="motif" class="decoration" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="option" class="mental-obj" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="option_L+H*" stem="option" class="mental-obj" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="option_H*" stem="option" class="mental-obj" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="options" stem="option" class="mental-obj" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="options_L+H*" stem="option" class="mental-obj" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="options_H*" stem="option" class="mental-obj" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="series" class="abstraction" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="series_L+H*" stem="series" class="abstraction" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="series_H*" stem="series" class="abstraction" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="series" class="abstraction" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="series_L+H*" stem="series" class="abstraction" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="series_H*" stem="series" class="abstraction" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="shape" class="decoration" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="shape_L+H*" stem="shape" class="decoration" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="shape_H*" stem="shape" class="decoration" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="shapes" stem="shape" class="decoration" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="shapes_L+H*" stem="shape" class="decoration" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="shapes_H*" stem="shape" class="decoration" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="style" class="abstraction" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="style_L+H*" stem="style" class="abstraction" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="style_H*" stem="style" class="abstraction" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="styles" stem="style" class="abstraction" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="styles_L+H*" stem="style" class="abstraction" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="styles_H*" stem="style" class="abstraction" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="tile" class="phys-obj" macros="@sg @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="tile_L+H*" stem="tile" class="phys-obj" macros="@sg @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="tile_H*" stem="tile" class="phys-obj" macros="@sg @rh-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="tiles" stem="tile" class="phys-obj" macros="@pl @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="N" word="tiles_L+H*" stem="tile" class="phys-obj" macros="@pl @th-X @kon-X @OWNER-X"/>
+  <entry pos="N" word="tiles_H*" stem="tile" class="phys-obj" macros="@pl @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Agrob_Buchtal" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Agrob_Buchtal_L+H*" stem="Agrob_Buchtal" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Agrob_Buchtal_H*" stem="Agrob_Buchtal" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Alessi_Tiles" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Alessi_Tiles_L+H*" stem="Alessi_Tiles" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Alessi_Tiles_H*" stem="Alessi_Tiles" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Aparici" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Aparici_L+H*" stem="Aparici" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Aparici_H*" stem="Aparici" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Apavisa" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Apavisa_L+H*" stem="Apavisa" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Apavisa_H*" stem="Apavisa" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Bisazza" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Bisazza_L+H*" stem="Bisazza" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Bisazza_H*" stem="Bisazza" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Cerim_Ceramiche" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Cerim_Ceramiche_L+H*" stem="Cerim_Ceramiche" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Cerim_Ceramiche_H*" stem="Cerim_Ceramiche" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Coem" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Coem_L+H*" stem="Coem" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Coem_H*" stem="Coem" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Engers_Eurodesign" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Engers_Eurodesign_L+H*" stem="Engers_Eurodesign" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Engers_Eurodesign_H*" stem="Engers_Eurodesign" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Gardenia_Orchidea" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Gardenia_Orchidea_L+H*" stem="Gardenia_Orchidea" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Gardenia_Orchidea_H*" stem="Gardenia_Orchidea" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Imola_Ceramica" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Imola_Ceramica_L+H*" stem="Imola_Ceramica" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Imola_Ceramica_H*" stem="Imola_Ceramica" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Iris_Ceramica" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Iris_Ceramica_L+H*" stem="Iris_Ceramica" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Iris_Ceramica_H*" stem="Iris_Ceramica" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="NovaBell" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="NovaBell_L+H*" stem="NovaBell" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="NovaBell_H*" stem="NovaBell" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Porcelaingres" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Porcelaingres_L+H*" stem="Porcelaingres" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Porcelaingres_H*" stem="Porcelaingres" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Porcelanosa" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Porcelanosa_L+H*" stem="Porcelanosa" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Porcelanosa_H*" stem="Porcelanosa" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Sphinx_Tiles" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Sphinx_Tiles_L+H*" stem="Sphinx_Tiles" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Sphinx_Tiles_H*" stem="Sphinx_Tiles" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Steuler" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Steuler_L+H*" stem="Steuler" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Steuler_H*" stem="Steuler" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Villeroy_and_Boch" class="manufacturer" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Villeroy_and_Boch_L+H*" stem="Villeroy_and_Boch" class="manufacturer" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Villeroy_and_Boch_H*" stem="Villeroy_and_Boch" class="manufacturer" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Abbazie" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Abbazie_L+H*" stem="Abbazie" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Abbazie_H*" stem="Abbazie" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Abbazie" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Abbazie_L+H*" stem="Abbazie" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Abbazie_H*" stem="Abbazie" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Aguamarina" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Aguamarina_L+H*" stem="Aguamarina" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Aguamarina_H*" stem="Aguamarina" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Aguamarina" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Aguamarina_L+H*" stem="Aguamarina" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Aguamarina_H*" stem="Aguamarina" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Alt_Mettlach" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Alt_Mettlach_L+H*" stem="Alt_Mettlach" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Alt_Mettlach_H*" stem="Alt_Mettlach" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Alt_Mettlach" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Alt_Mettlach_L+H*" stem="Alt_Mettlach" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Alt_Mettlach_H*" stem="Alt_Mettlach" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Altamira" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Altamira_L+H*" stem="Altamira" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Altamira_H*" stem="Altamira" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Altamira" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Altamira_L+H*" stem="Altamira" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Altamira_H*" stem="Altamira" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Amazonita" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Amazonita_L+H*" stem="Amazonita" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Amazonita_H*" stem="Amazonita" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Amazonita" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Amazonita_L+H*" stem="Amazonita" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Amazonita_H*" stem="Amazonita" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Anasol" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Anasol_L+H*" stem="Anasol" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Anasol_H*" stem="Anasol" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Anasol" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Anasol_L+H*" stem="Anasol" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Anasol_H*" stem="Anasol" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Aramis" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Aramis_L+H*" stem="Aramis" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Aramis_H*" stem="Aramis" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Aramis" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Aramis_L+H*" stem="Aramis" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Aramis_H*" stem="Aramis" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Asterix" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Asterix_L+H*" stem="Asterix" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Asterix_H*" stem="Asterix" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Asterix" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Asterix_L+H*" stem="Asterix" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Asterix_H*" stem="Asterix" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Armonie" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Armonie_L+H*" stem="Armonie" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Armonie_H*" stem="Armonie" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Armonie" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Armonie_L+H*" stem="Armonie" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Armonie_H*" stem="Armonie" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Ateliers" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Ateliers_L+H*" stem="Ateliers" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Ateliers_H*" stem="Ateliers" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Ateliers" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Ateliers_L+H*" stem="Ateliers" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Ateliers_H*" stem="Ateliers" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Blue_Jeans" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Blue_Jeans_L+H*" stem="Blue_Jeans" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Blue_Jeans_H*" stem="Blue_Jeans" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Blue_Jeans" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Blue_Jeans_L+H*" stem="Blue_Jeans" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Blue_Jeans_H*" stem="Blue_Jeans" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Carioca" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Carioca_L+H*" stem="Carioca" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Carioca_H*" stem="Carioca" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Carioca" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Carioca_L+H*" stem="Carioca" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Carioca_H*" stem="Carioca" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Cardiff" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Cardiff_L+H*" stem="Cardiff" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Cardiff_H*" stem="Cardiff" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Cardiff" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Cardiff_L+H*" stem="Cardiff" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Cardiff_H*" stem="Cardiff" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Century" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Century_L+H*" stem="Century" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Century_H*" stem="Century" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Century" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Century_L+H*" stem="Century" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Century_H*" stem="Century" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Century_Esprit" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Century_Esprit_L+H*" stem="Century_Esprit" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Century_Esprit_H*" stem="Century_Esprit" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Century_Esprit" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Century_Esprit_L+H*" stem="Century_Esprit" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Century_Esprit_H*" stem="Century_Esprit" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Colorado" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Colorado_L+H*" stem="Colorado" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Colorado_H*" stem="Colorado" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Colorado" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Colorado_L+H*" stem="Colorado" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Colorado_H*" stem="Colorado" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Creative_System_Amazonas" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Creative_System_Amazonas_L+H*" stem="Creative_System_Amazonas" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Creative_System_Amazonas_H*" stem="Creative_System_Amazonas" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Creative_System_Amazonas" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Creative_System_Amazonas_L+H*" stem="Creative_System_Amazonas" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Creative_System_Amazonas_H*" stem="Creative_System_Amazonas" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Creative_System_Safari" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Creative_System_Safari_L+H*" stem="Creative_System_Safari" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Creative_System_Safari_H*" stem="Creative_System_Safari" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Creative_System_Safari" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Creative_System_Safari_L+H*" stem="Creative_System_Safari" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Creative_System_Safari_H*" stem="Creative_System_Safari" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Darlington" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Darlington_L+H*" stem="Darlington" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Darlington_H*" stem="Darlington" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Darlington" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Darlington_L+H*" stem="Darlington" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Darlington_H*" stem="Darlington" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Funny_Day" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Funny_Day_L+H*" stem="Funny_Day" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Funny_Day_H*" stem="Funny_Day" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Funny_Day" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Funny_Day_L+H*" stem="Funny_Day" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Funny_Day_H*" stem="Funny_Day" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Girotondo_Tile" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Girotondo_Tile_L+H*" stem="Girotondo_Tile" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Girotondo_Tile_H*" stem="Girotondo_Tile" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Girotondo_Tile" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Girotondo_Tile_L+H*" stem="Girotondo_Tile" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Girotondo_Tile_H*" stem="Girotondo_Tile" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Helenus" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Helenus_L+H*" stem="Helenus" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Helenus_H*" stem="Helenus" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Helenus" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Helenus_L+H*" stem="Helenus" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Helenus_H*" stem="Helenus" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Hippo" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Hippo_L+H*" stem="Hippo" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Hippo_H*" stem="Hippo" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Hippo" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Hippo_L+H*" stem="Hippo" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Hippo_H*" stem="Hippo" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="HundertWasser" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="HundertWasser_L+H*" stem="HundertWasser" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="HundertWasser_H*" stem="HundertWasser" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="HundertWasser" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="HundertWasser_L+H*" stem="HundertWasser" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="HundertWasser_H*" stem="HundertWasser" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="I_marmi" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="I_marmi_L+H*" stem="I_marmi" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="I_marmi_H*" stem="I_marmi" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="I_marmi" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="I_marmi_L+H*" stem="I_marmi" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="I_marmi_H*" stem="I_marmi" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="I_marmi_Art" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="I_marmi_Art_L+H*" stem="I_marmi_Art" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="I_marmi_Art_H*" stem="I_marmi_Art" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="I_marmi_Art" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="I_marmi_Art_L+H*" stem="I_marmi_Art" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="I_marmi_Art_H*" stem="I_marmi_Art" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Jazz" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Jazz_L+H*" stem="Jazz" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Jazz_H*" stem="Jazz" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Jazz" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Jazz_L+H*" stem="Jazz" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Jazz_H*" stem="Jazz" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Kerarock" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Kerarock_L+H*" stem="Kerarock" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Kerarock_H*" stem="Kerarock" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Kerarock" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Kerarock_L+H*" stem="Kerarock" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Kerarock_H*" stem="Kerarock" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Le_Pietre" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Le_Pietre_L+H*" stem="Le_Pietre" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Le_Pietre_H*" stem="Le_Pietre" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Le_Pietre" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Le_Pietre_L+H*" stem="Le_Pietre" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Le_Pietre_H*" stem="Le_Pietre" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Levante" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Levante_L+H*" stem="Levante" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Levante_H*" stem="Levante" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Levante" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Levante_L+H*" stem="Levante" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Levante_H*" stem="Levante" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Lollipop" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Lollipop_L+H*" stem="Lollipop" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Lollipop_H*" stem="Lollipop" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Lollipop" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Lollipop_L+H*" stem="Lollipop" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Lollipop_H*" stem="Lollipop" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Opus_Romano" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Opus_Romano_L+H*" stem="Opus_Romano" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Opus_Romano_H*" stem="Opus_Romano" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Opus_Romano" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Opus_Romano_L+H*" stem="Opus_Romano" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Opus_Romano_H*" stem="Opus_Romano" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Palace" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Palace_L+H*" stem="Palace" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Palace_H*" stem="Palace" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Palace" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Palace_L+H*" stem="Palace" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Palace_H*" stem="Palace" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Sandstein" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Sandstein_L+H*" stem="Sandstein" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Sandstein_H*" stem="Sandstein" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Sandstein" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Sandstein_L+H*" stem="Sandstein" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Sandstein_H*" stem="Sandstein" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Smart" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Smart_L+H*" stem="Smart" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Smart_H*" stem="Smart" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Smart" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Smart_L+H*" stem="Smart" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Smart_H*" stem="Smart" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Tirrenia" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Tirrenia_L+H*" stem="Tirrenia" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Tirrenia_H*" stem="Tirrenia" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Tirrenia" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Tirrenia_L+H*" stem="Tirrenia" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Tirrenia_H*" stem="Tirrenia" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry pos="NNP" word="Viso_Tile" class="series" macros="@sg-2 @INFO-X @nokon-X @OWNER-X"/>
+  <entry pos="NNP" word="Viso_Tile_L+H*" stem="Viso_Tile" class="series" macros="@sg-2 @th-X @kon-X @OWNER-X"/>
+  <entry pos="NNP" word="Viso_Tile_H*" stem="Viso_Tile" class="series" macros="@sg-2 @rh-X @kon-X @OWNER-X"/>
+  <entry pos="Adj" word="Viso_Tile" class="series" macros="@INFO-P @nokon-P @OWNER-P"/>
+  <entry pos="Adj" word="Viso_Tile_L+H*" stem="Viso_Tile" class="series" macros="@th-P @kon-P @OWNER-P"/>
+  <entry pos="Adj" word="Viso_Tile_H*" stem="Viso_Tile" class="series" macros="@rh-P @kon-P @OWNER-P"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-00:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-01:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-03:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-25:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-28:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-29:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-30:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-31:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-32:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-33:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-34:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*circ*" word="GI-35:GC-e"/>
+  <entry coart="true" pos="Gest" stem="*wave*" word="GI-36:GC-w"/>
+  <entry coart="true" pos="Gest" stem="*wave*" word="GI-37:GC-w"/>
+  <entry coart="true" pos="Gest" stem="*wave*" word="GI-40:GC-w"/>
+  <entry coart="true" pos="Gest" stem="*wave*" word="GI-41:GC-w"/>
+  <entry coart="true" pos="Gest" stem="*wave*" word="GI-44:GC-w"/>
+  <entry coart="true" pos="Nod" stem="*nod*" word="NI-00"/>
+  <macro name="@mass">
+    <fs val="mass" attr="num" id="2"/>
+  </macro>
+  <macro name="@sg">
+    <fs val="sg" attr="num" id="2"/>
+    <lf>
+      <satop nomvar="X">
+        <diamond mode="num">
+          <prop name="sg"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro name="@sg-agr">
+    <fs val="sg" attr="num" id="1"/>
+    <fs val="sg" attr="num" id="2"/>
+  </macro>
+  <macro name="@sg-or-mass-agr">
+    <fs id="1">
+      <feat attr="num">
+        <featvar name="NUM:sg-or-mass"/>
+      </feat>
+    </fs>
+    <fs id="2">
+      <feat attr="num">
+        <featvar name="NUM:sg-or-mass"/>
+      </feat>
+    </fs>
+  </macro>
+  <macro name="@sg-2">
+    <fs val="sg" attr="num" id="2"/>
+  </macro>
+  <macro name="@sg-or-mass-2">
+    <fs val="sg-or-mass" attr="num" id="2"/>
+  </macro>
+  <macro name="@sg-P">
+    <lf>
+      <satop nomvar="P">
+        <diamond mode="num">
+          <prop name="sg"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro name="@pl">
+    <fs val="pl" attr="num" id="2"/>
+    <lf>
+      <satop nomvar="X">
+        <diamond mode="num">
+          <prop name="pl"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro name="@pl-agr">
+    <fs val="pl" attr="num" id="1"/>
+    <fs val="pl" attr="num" id="2"/>
+  </macro>
+  <macro name="@pl-2">
+    <fs val="pl" attr="num" id="2"/>
+  </macro>
+  <macro name="@pl-or-mass-2">
+    <fs val="pl-or-mass" attr="num" id="2"/>
+  </macro>
+  <macro name="@pl-P">
+    <lf>
+      <satop nomvar="P">
+        <diamond mode="num">
+          <prop name="pl"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro name="@1st">
+    <fs val="1st" attr="pers" id="2"/>
+  </macro>
+  <macro name="@1st-agr">
+    <fs val="1st" attr="pers" id="1"/>
+    <fs val="1st" attr="pers" id="2"/>
+  </macro>
+  <macro name="@2nd">
+    <fs val="2nd" attr="pers" id="2"/>
+  </macro>
+  <macro name="@2nd-agr">
+    <fs val="2nd" attr="pers" id="1"/>
+    <fs val="2nd" attr="pers" id="2"/>
+  </macro>
+  <macro name="@non-3rd-agr">
+    <fs id="1">
+      <feat attr="pers">
+        <featvar name="PERS:non-3rd"/>
+      </feat>
+    </fs>
+    <fs id="2">
+      <feat attr="pers">
+        <featvar name="PERS:non-3rd"/>
+      </feat>
+    </fs>
+  </macro>
+  <macro name="@3rd">
+    <fs val="3rd" attr="pers" id="2"/>
+  </macro>
+  <macro name="@3rd-agr">
+    <fs val="3rd" attr="pers" id="1"/>
+    <fs val="3rd" attr="pers" id="2"/>
+  </macro>
+  <macro name="@nom">
+    <fs val="nom" attr="case" id="2"/>
+  </macro>
+  <macro name="@acc">
+    <fs val="acc" attr="case" id="2"/>
+  </macro>
+  <macro name="@pp-from">
+    <fs val="from" attr="lex" id="3"/>
+  </macro>
+  <macro name="@pp-to">
+    <fs val="to" attr="lex" id="3"/>
+  </macro>
+  <macro name="@prt-up">
+    <fs val="up" attr="lex" id="4"/>
+  </macro>
+  <macro name="@prt-with">
+    <fs val="with" attr="lex" id="4"/>
+  </macro>
+  <macro name="@ng">
+    <fs val="ng" attr="form" id="1"/>
+  </macro>
+  <macro name="@base">
+    <fs val="base" attr="form" id="1"/>
+  </macro>
+  <macro name="@base6">
+    <fs val="base" attr="form" id="6"/>
+  </macro>
+  <macro name="@dcl">
+    <fs id="1">
+      <feat val="dcl" attr="form"/>
+    </fs>
+  </macro>
+  <macro name="@adj">
+    <fs val="adj" attr="form" id="1"/>
+  </macro>
+  <macro name="@adj6">
+    <fs val="adj" attr="form" id="6"/>
+  </macro>
+  <macro name="@X-location">
+    <fs id="2">
+      <feat attr="index">
+        <lf>
+          <nomvar name="X:location"/>
+        </lf>
+      </feat>
+    </fs>
+  </macro>
+  <macro name="@X-person">
+    <fs id="2">
+      <feat attr="index">
+        <lf>
+          <nomvar name="X:person"/>
+        </lf>
+      </feat>
+    </fs>
+  </macro>
+  <macro name="@past">
+    <lf>
+      <satop nomvar="E">
+        <diamond mode="tense">
+          <prop name="past"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro name="@pres">
+    <lf>
+      <satop nomvar="E">
+        <diamond mode="tense">
+          <prop name="pres"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@th-X">
+    <fs id="2">
+      <feat attr="info">
+        <lf>
+          <prop name="th"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="X">
+        <diamond mode="info">
+          <prop name="th"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@rh-X">
+    <fs id="2">
+      <feat attr="info">
+        <lf>
+          <prop name="rh"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="X">
+        <diamond mode="info">
+          <prop name="rh"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@INFO-X">
+    <fs id="2">
+      <feat attr="info">
+        <lf>
+          <var name="INFO"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="X">
+        <diamond mode="info">
+          <var name="INFO"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@th-S">
+    <fs id="1">
+      <feat attr="info">
+        <lf>
+          <prop name="th"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="S">
+        <diamond mode="info">
+          <prop name="th"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@rh-S">
+    <fs id="1">
+      <feat attr="info">
+        <lf>
+          <prop name="rh"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="S">
+        <diamond mode="info">
+          <prop name="rh"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@INFO-S">
+    <fs id="1">
+      <feat attr="info">
+        <lf>
+          <var name="INFO"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="S">
+        <diamond mode="info">
+          <var name="INFO"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@th-Q">
+    <fs id="2">
+      <feat attr="info">
+        <lf>
+          <prop name="th"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="Q">
+        <diamond mode="info">
+          <prop name="th"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@rh-Q">
+    <fs id="2">
+      <feat attr="info">
+        <lf>
+          <prop name="rh"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="Q">
+        <diamond mode="info">
+          <prop name="rh"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@INFO-Q">
+    <fs id="2">
+      <feat attr="info">
+        <lf>
+          <var name="INFO"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="Q">
+        <diamond mode="info">
+          <var name="INFO"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@th-P">
+    <fs id="1">
+      <feat attr="info">
+        <lf>
+          <prop name="th"/>
+        </lf>
+      </feat>
+    </fs>
+    <fs id="2">
+      <feat attr="info">
+        <lf>
+          <prop name="th"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="P">
+        <diamond mode="info">
+          <prop name="th"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@rh-P">
+    <fs id="1">
+      <feat attr="info">
+        <lf>
+          <prop name="rh"/>
+        </lf>
+      </feat>
+    </fs>
+    <fs id="2">
+      <feat attr="info">
+        <lf>
+          <prop name="rh"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="P">
+        <diamond mode="info">
+          <prop name="rh"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@INFO-P">
+    <fs id="1">
+      <feat attr="info">
+        <lf>
+          <var name="INFO"/>
+        </lf>
+      </feat>
+    </fs>
+    <fs id="2">
+      <feat attr="info">
+        <lf>
+          <var name="INFO"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="P">
+        <diamond mode="info">
+          <var name="INFO"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@th-E">
+    <fs id="1">
+      <feat attr="info">
+        <lf>
+          <prop name="th"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="E">
+        <diamond mode="info">
+          <prop name="th"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@rh-E">
+    <fs id="1">
+      <feat attr="info">
+        <lf>
+          <prop name="rh"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="E">
+        <diamond mode="info">
+          <prop name="rh"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@INFO-E">
+    <fs id="1">
+      <feat attr="info">
+        <lf>
+          <var name="INFO"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="E">
+        <diamond mode="info">
+          <var name="INFO"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@INFO-3">
+    <fs id="3">
+      <feat attr="info">
+        <lf>
+          <var name="INFO"/>
+        </lf>
+      </feat>
+    </fs>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@OWNER-X">
+    <fs id="2">
+      <feat attr="owner">
+        <lf>
+          <var name="OWNER"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="X">
+        <diamond mode="owner">
+          <var name="OWNER"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@OWNER-S">
+    <fs id="1">
+      <feat attr="owner">
+        <lf>
+          <var name="OWNER"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="S">
+        <diamond mode="owner">
+          <var name="OWNER"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@OWNER-Q">
+    <fs id="2">
+      <feat attr="owner">
+        <lf>
+          <var name="OWNER"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="Q">
+        <diamond mode="owner">
+          <var name="OWNER"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@OWNER-P">
+    <fs id="1">
+      <feat attr="owner">
+        <lf>
+          <var name="OWNER"/>
+        </lf>
+      </feat>
+    </fs>
+    <fs id="2">
+      <feat attr="owner">
+        <lf>
+          <var name="OWNER"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="P">
+        <diamond mode="owner">
+          <var name="OWNER"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@OWNER-E">
+    <fs id="1">
+      <feat attr="owner">
+        <lf>
+          <var name="OWNER"/>
+        </lf>
+      </feat>
+    </fs>
+    <lf>
+      <satop nomvar="E">
+        <diamond mode="owner">
+          <var name="OWNER"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@OWNER-3">
+    <fs id="3">
+      <feat attr="owner">
+        <lf>
+          <var name="OWNER"/>
+        </lf>
+      </feat>
+    </fs>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@kon-X">
+    <lf>
+      <satop nomvar="X">
+        <diamond mode="kon">
+          <prop name="+"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@nokon-X">
+    <lf>
+      <satop nomvar="X">
+        <diamond mode="kon">
+          <prop name="-"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@kon-S">
+    <lf>
+      <satop nomvar="S">
+        <diamond mode="kon">
+          <prop name="+"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@nokon-S">
+    <lf>
+      <satop nomvar="S">
+        <diamond mode="kon">
+          <prop name="-"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@kon-Q">
+    <lf>
+      <satop nomvar="Q">
+        <diamond mode="kon">
+          <prop name="+"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@nokon-Q">
+    <lf>
+      <satop nomvar="Q">
+        <diamond mode="kon">
+          <prop name="-"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@kon-P">
+    <lf>
+      <satop nomvar="P">
+        <diamond mode="kon">
+          <prop name="+"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@nokon-P">
+    <lf>
+      <satop nomvar="P">
+        <diamond mode="kon">
+          <prop name="-"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@kon-E">
+    <lf>
+      <satop nomvar="E">
+        <diamond mode="kon">
+          <prop name="+"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+  <macro xmlns:xalan2="http://xml.apache.org/xslt" name="@nokon-E">
+    <lf>
+      <satop nomvar="E">
+        <diamond mode="kon">
+          <prop name="-"/>
+        </diamond>
+      </satop>
+    </lf>
+  </macro>
+</morph>

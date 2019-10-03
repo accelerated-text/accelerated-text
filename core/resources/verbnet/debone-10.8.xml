@@ -1,0 +1,127 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="debone-10.8" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <!--Perhaps combine pit-10.7 and debone-10.8-->
+    <MEMBERS>
+        <MEMBER name="deaccent" wn="" grouping=""/>
+        <MEMBER name="debark" wn="" grouping=""/>
+        <MEMBER name="debone" wn="debone%2:30:00" grouping=""/>
+        <MEMBER name="debowel" wn="" grouping=""/>
+        <MEMBER name="debug" wn="debug%2:30:00" grouping=""/>
+        <MEMBER name="debur" wn="" grouping=""/>
+        <MEMBER name="declaw" wn="declaw%2:30:00" grouping=""/>
+        <MEMBER name="decontaminate" wn="decontaminate%2:30:00" grouping=""/>
+        <MEMBER name="defang" wn="defang%2:30:00" grouping=""/>
+        <MEMBER name="defat" wn="defat%2:40:00" grouping=""/>
+        <MEMBER name="defeather" wn="" grouping=""/>
+        <MEMBER name="deflea" wn="" grouping=""/>
+        <MEMBER name="deflesh" wn="" grouping=""/>
+        <MEMBER name="deflower" wn="" grouping=""/>
+        <MEMBER name="defoam" wn="" grouping=""/>
+        <MEMBER name="defog" wn="defog%2:30:00" grouping=""/>
+        <MEMBER name="deforest" wn="deforest%2:30:00" grouping=""/>
+        <MEMBER name="defrost" wn="defrost%2:30:00" grouping=""/>
+        <MEMBER name="defuzz" wn="" grouping=""/>
+        <MEMBER name="degas" wn="degas%2:30:00" grouping=""/>
+        <MEMBER name="degerm" wn="" grouping=""/>
+        <MEMBER name="deglaze" wn="" grouping=""/>
+        <MEMBER name="degrease" wn="" grouping=""/>
+        <MEMBER name="degrit" wn="" grouping=""/>
+        <MEMBER name="degum" wn="" grouping=""/>
+        <MEMBER name="degut" wn="" grouping=""/>
+        <MEMBER name="dehair" wn="" grouping=""/>
+        <MEMBER name="dehead" wn="" grouping=""/>
+        <MEMBER name="dehorn" wn="dehorn%2:30:00" grouping=""/>
+        <MEMBER name="dehull" wn="" grouping=""/>
+        <MEMBER name="dehusk" wn="" grouping=""/>
+        <MEMBER name="deice" wn="deice%2:30:00" grouping=""/>
+        <MEMBER name="deink" wn="" grouping=""/>
+        <MEMBER name="delint" wn="" grouping=""/>
+        <MEMBER name="delouse" wn="delouse%2:30:00" grouping=""/>
+        <MEMBER name="deluster" wn="" grouping=""/>
+        <MEMBER name="demast" wn="" grouping=""/>
+        <MEMBER name="derat" wn="" grouping=""/>
+        <MEMBER name="derib" wn="" grouping=""/>
+        <MEMBER name="derind" wn="" grouping=""/>
+        <MEMBER name="desalt" wn="desalt%2:30:00" grouping=""/>
+        <MEMBER name="descale" wn="descale%2:35:00" grouping=""/>
+        <MEMBER name="desex" wn="desex%2:29:00" grouping=""/>
+        <MEMBER name="desprout" wn="" grouping=""/>
+        <MEMBER name="destarch" wn="" grouping=""/>
+        <MEMBER name="destress" wn="destress%2:30:00" grouping=""/>
+        <MEMBER name="detassel" wn="" grouping=""/>
+        <MEMBER name="detusk" wn="detusk%2:30:00" grouping=""/>
+        <MEMBER name="devein" wn="devein%2:40:00" grouping=""/>
+        <MEMBER name="dewater" wn="" grouping=""/>
+        <MEMBER name="dewax" wn="" grouping=""/>
+        <MEMBER name="deworm" wn="" grouping=""/>
+        <MEMBER name="disembowel" wn="disembowel%2:30:00" grouping=""/>
+        <MEMBER name="eviscerate" wn="eviscerate%2:35:01 eviscerate%2:30:02 eviscerate%2:30:00" grouping="eviscerate.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Source">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Destination">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <!--Theme is an inalienable possession of Source-->
+        <!--Theme is realized in the verb (with a de- prefix)-->
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The cook deboned the fish.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="VerbSpecific" value="?Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="path_rel">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="VerbSpecific" value="?Theme"/>
+                        <ARG type="ThemRole" value="?Destination"/>
+                        <ARG type="Constant" value="ch_of_loc"/>
+                        <ARG type="VerbSpecific" value="prep"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

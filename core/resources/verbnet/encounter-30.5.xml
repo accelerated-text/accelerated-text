@@ -1,0 +1,56 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="encounter-30.5" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+	<MEMBER name="chance_across" wn="" grouping=""/>
+	<MEMBER name="chance_upon" wn="" grouping=""/>
+	<MEMBER name="come_across" wn="" grouping=""/>
+	<MEMBER name="encounter" wn="" grouping=""/>
+	<MEMBER name="happen_on" wn="" grouping=""/>
+	<MEMBER name="happen_upon" wn="" grouping=""/>
+	<MEMBER name="meet" wn="" grouping=""/>
+	<MEMBER name="meet_with" wn="" grouping=""/>
+	<MEMBER name="stumble_on" wn="" grouping=""/>
+	<MEMBER name="stumble_upon" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+	<THEMROLE type="Experiencer">
+	    <SELRESTRS/>
+	</THEMROLE>
+	<THEMROLE type="Stimulus">
+	    <SELRESTRS/>
+	</THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+	<FRAME>
+	    <DESCRIPTION descriptionNumber="" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+	    <EXAMPLES>
+		<EXAMPLE>I stumbled across the silver chalice.</EXAMPLE>
+	    </EXAMPLES>
+	    <SYNTAX>
+		<NP value="Experiencer">
+		   <SYNRESTRS/>
+		</NP>
+		<VERB/>
+		<NP value="Stimulus">
+		    <SYNRESTRS/>
+		</NP>
+	    </SYNTAX>
+	    <SEMANTICS>
+		<PRED value="perceive">
+		    <ARGS>
+			<ARG type="Event" value="during(E)"/>
+			<ARG type="ThemRole" value="Experiencer"/>
+			<ARG type="ThemRole" value="Stimulus"/>
+		    </ARGS>
+		</PRED>
+		<PRED value="in_reaction_to">
+		    <ARGS>
+			<ARG type="Event" value="E"/>
+			<ARG type="ThemRole" value="Stimulus"/>
+		    </ARGS>
+		</PRED>
+	    </SEMANTICS>
+	</FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

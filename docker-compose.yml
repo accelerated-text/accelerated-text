@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  dynamodb:
+    image: registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
+    ports: ["8000:8000"]
+  s3:
+    image: registry.gitlab.com/tokenmill/nlg/accelerated-text/s3-local:latest
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    ports: ["8001:4572"]
+  acc-text-api:
+    image: registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
+    ports: ["3001:3001"]
+    environment:
+      S3_ENDPOINT: http://s3:4572
+      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      AWS_REGION: eu-central-1
+      AWS_ACCESS_KEY_ID: DEV
+      AWS_SECRET_ACCESS_KEY: DEV
+    command: clojure -m api.server
+    volumes:
+      - ./api:/usr/src/app
+      - ./core:/usr/src/core
+  mock-shop:
+    build:
+      context: integrations/demo-shop-lambdas
+      dockerfile: Dockerfile
+    ports: ["8090:8090"]
+    environment:
+      API_URL: http://0.0.0.0:8090/mock-shop
+      PORT: 8090

@@ -1,0 +1,32 @@
+files:
+    include:        'packages/**/*.s+(a|c)ss'
+rules:
+    class-name-format:
+        - 4
+        -
+            allow-leading-underscore:   false
+            convention:                 camelcase
+
+    force-attribute-nesting:
+        - 0
+
+    force-element-nesting:
+        - 0
+
+    force-pseudo-nesting:
+        - 0
+
+    indentation:
+        - 4
+        - { size: 4 }
+
+    nesting-depth:
+        - 4
+        - { max-depth: 3 }
+
+    no-qualifying-elements:
+        - 0
+
+    space-between-parens:
+        - 4
+        - { include: true }

@@ -1,0 +1,111 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="birth-28.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="reproduce" wn="reproduce%2:29:00" grouping="reproduce.01"/>
+        <MEMBER name="multiply" wn="multiply%2:29:00" grouping="multiply.02"/>
+        <MEMBER name="procreate" wn="procreate%2:29:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag="0.1"/>
+            <EXAMPLES>
+                <EXAMPLE>They multiplied.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED bool="!" value="alive">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="?Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="alive">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="?Patient"/>
+                    </ARGS>
+                </PRED>    
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="birth-28.2-1">
+            <MEMBERS>
+                <MEMBER name="bear" wn="bear%2:29:01 bear%2:42:14" grouping="bear.02"/>
+                <MEMBER name="beget" wn="beget%2:29:00" grouping=""/>
+                <MEMBER name="birth" wn="birth%2:29:00" grouping=""/>
+                <MEMBER name="bring_forth" wn="bring_forth%2:36:01" grouping="bring.02"/>
+                <MEMBER name="deliver" wn="deliver%2:29:01" grouping="deliver.05"/>
+                <MEMBER name="father" wn="father%2:29:00" grouping=""/>
+                <MEMBER name="generate" wn="generate%2:29:00" grouping="generate.01"/>
+                <MEMBER name="get" wn="get%2:29:08" grouping="get.10"/>
+                <MEMBER name="have" wn="have%2:29:00" grouping="have.09"/>
+                <MEMBER name="mother" wn="mother%2:29:00" grouping=""/>
+                <MEMBER name="sire" wn="sire%2:29:00" grouping=""/>
+                <MEMBER name="spawn" wn="spawn%2:29:00" grouping="spawn.02"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.1" primary="NP V NP" secondary="Basic Transitive" xtag="0.1"/>
+                    <EXAMPLES>
+                        <EXAMPLE>My wife had twins.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED bool="!" value="alive">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="?Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="alive">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="?Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>  
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

@@ -1,0 +1,53 @@
+@import './variables'
+@import './groove-table'
+
+
+$sidebar-table-value-background:    rgba( 255, 255, 255, 2 / 3 )
+$sidebar-table-block-cell-width:    $space-l + 2 * $space-xs
+
+
+@mixin sidebar-table-body-cell
+
+    background-color:       $sidebar-table-value-background
+    box-sizing:             border-box
+    padding:                $space-s
+    text-align:             left
+    vertical-align:         top
+
+
+@mixin sidebar-table-head-cell
+
+    box-sizing:             border-box
+    font-weight:            $bold
+    padding:                $space-s
+    text-align:             left
+    vertical-align:         bottom
+
+
+@mixin sidebar-table-block-cell
+
+    /// implied box-sizing: border-box
+    min-width:              $sidebar-table-block-cell-width
+    padding:                $space-xs $space-xs 0
+    width:                  $sidebar-table-block-cell-width
+
+
+@mixin sidebar-table-name-cell( $block-count: 1 )
+
+    width:                  14rem - $block-count * $sidebar-table-block-cell-width
+
+
+@mixin sidebar-table
+
+    @include groove-table( 1 / 8 )
+
+    table-layout:           fixed
+    width:                  100%
+
+    > thead > tr > th
+
+        @include sidebar-table-head-cell
+
+    > tbody > tr > td
+
+        @include sidebar-table-body-cell

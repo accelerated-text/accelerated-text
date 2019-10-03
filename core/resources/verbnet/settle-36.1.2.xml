@@ -1,0 +1,224 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="settle-36.1.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="settle" wn="settle%2:32:00" grouping="settle.02"/>
+        <MEMBER name="collaborate" wn="collaborate%2:41:00 collaborate%2:41:01" grouping="collaborate.01"/>
+        <MEMBER name="commiserate" wn="commiserate%2:37:00" grouping=""/>
+        <MEMBER name="communicate" wn="communicate%2:32:02" grouping="communicate.01"/>
+        <MEMBER name="compromise" wn="compromise%2:32:00" grouping="compromise.01"/>
+        <MEMBER name="concur" wn="concur%2:32:00" grouping="concur.01"/>
+        <MEMBER name="cooperate" wn="cooperate%2:41:00" grouping="cooperate.01"/> 
+        <MEMBER name="correspond" wn="correspond%2:32:00" grouping="correspond.02"/>
+        <MEMBER name="differ" wn="differ%2:32:00" grouping="differ.02"/>
+        <MEMBER name="deliberate" wn="" grouping=""/>
+        <MEMBER name="disagree" wn="disagree%2:32:00" grouping="disagree.01"/>
+        <MEMBER name="haggle" wn="haggle%2:40:00" grouping=""/>
+        <MEMBER name="interact" wn="" grouping=""/>
+        <MEMBER name="bargain" wn="bargain%2:32:00" grouping=""/>
+        <MEMBER name="square" wn="square%2:42:01" grouping="square.04"/>
+        <MEMBER name="renegotiate" wn="renegotiate%2:32:01" grouping=""/> 
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Co-Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Topic">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V" secondary="Basic Intransitive" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Eventually, they settled.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="agree">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Co-Agent"/>
+                        <ARG type="ThemRole" value="?Topic"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V PP.goal what S_INF" secondary="P-WHAT-TO-INF; on-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>They settled on what to do.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+                <PREP value="on">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Goal">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="what_inf"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="agree">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V PP.co-agent PP.goal" secondary="PP-PP; with-PP on-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I settled with them on a novel proposal.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="with">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Co-Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="on">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Goal">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="sentential"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="agree">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="settle-36.1.2-1">
+            <MEMBERS>
+<MEMBER name="resolve" wn="" grouping=""/>
+              <MEMBER name="agree" wn="" grouping=""/>
+              <MEMBER name="argue" wn="argue%2:32:00 argue%2:32:02" grouping="argue.01 argue.02"/>
+              <MEMBER name="debate" wn="debate%2:32:01" grouping="debate.01"/> 
+              <MEMBER name="decide" wn="" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+            <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V that S" secondary="" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>They agreed that they should go.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="agree">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Co-Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+            </FRAME>
+            <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V PP that S" secondary="" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>They agreed with him that we should go.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Co-Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="agree">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+            </FRAME>
+            <FRAME>
+            <DESCRIPTION descriptionNumber="" primary="NP V S" secondary="TO-INF-AC" xtag=""/>
+            <EXAMPLES>
+            <EXAMPLE>They agreed to go.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+            <PRED value="agree">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="?Co-Agent"/>
+                        <ARG type="ThemRole" value="Topic"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+            </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

@@ -1,0 +1,82 @@
+### Thesaurus ------------------------------------------------------------------
+
+fragment wordFields on Word {
+  id
+  partOfSpeech
+  text
+  concept {
+    ...conceptFields
+  }
+}
+
+
+### Reader ---------------------------------------------------------------------
+
+fragment readerFlagFields on ReaderFlag {
+  id
+  name
+}
+
+### Dictionary -----------------------------------------------------------------
+
+fragment readerFlagUsageFields on ReaderFlagUsage {
+  id
+  flag {
+    ...readerFlagFields
+  }
+  usage
+}
+
+fragment phraseFields on Phrase {
+  id
+  text
+  defaultUsage
+  readerFlagUsage {
+    ...readerFlagUsageFields
+  }
+}
+
+fragment dictionaryItemFields on DictionaryItem {
+  id
+  name
+  partOfSpeech
+  concept {
+    ...conceptFields
+  }
+  phrases {
+    ...phraseFields
+  }
+}
+
+
+### Document plans -------------------------------------------------------------
+
+fragment documentPlanFields on DocumentPlan {
+  id
+  uid
+  name
+  blocklyXml
+  documentPlan
+  dataSampleId
+  dataSampleRow
+  createdAt
+  updatedAt
+  updateCount
+}
+
+### AMR ------------------------------------------------------------------------
+
+fragment thematicRoleFields on ThematicRole {
+  id
+  fieldLabel
+  fieldType
+}
+
+fragment conceptFields on Concept {
+  id
+  label
+  helpText
+  roles {
+    ...thematicRoleFields
+  }
+}

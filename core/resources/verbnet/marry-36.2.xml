@@ -1,0 +1,79 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="marry-36.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="court" wn="court%2:41:00 court%2:41:10" grouping="court.02"/>
+        <MEMBER name="cuddle" wn="cuddle%2:35:00 cuddle%2:35:01" grouping=""/>
+        <MEMBER name="date" wn="date%2:41:00 date%2:41:01" grouping="date.01"/>
+        <MEMBER name="divorce" wn="divorce%2:41:01 divorce%2:41:00" grouping="divorce.01 divorce.02"/>
+        <MEMBER name="embrace" wn="embrace%2:35:00" grouping="embrace.02"/>
+        <MEMBER name="hug" wn="hug%2:35:01" grouping="hug.01"/>
+        <MEMBER name="kiss" wn="kiss%2:35:00" grouping="kiss.01"/>
+        <MEMBER name="marry" wn="marry%2:41:00" grouping="marry.01"/>
+        <MEMBER name="neck" wn="neck%2:35:00" grouping=""/>
+        <MEMBER name="nuzzle" wn="nuzzle%2:35:02 nuzzle%2:35:00" grouping=""/>
+        <MEMBER name="pet" wn="pet%2:35:00 pet%2:35:01" grouping=""/>
+        <!-- Removed "pass" from class -->
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Co-Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Intransitive; Plural Subject" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Bill and Kathy married.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="social_interaction">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent_i"/>
+                        <ARG type="ThemRole" value="Agent_j"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Bill married Kathy.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Co-Agent">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="social_interaction">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

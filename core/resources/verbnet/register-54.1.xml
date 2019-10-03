@@ -1,0 +1,207 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="register-54.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="come" wn="" grouping=""/>
+        <MEMBER name="amount" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Value">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V PP.value" secondary="" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The total amounted to $100</EXAMPLE>
+            </EXAMPLES> 
+            <SYNTAX>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="at | to">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Value">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="value">
+                   <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Value"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="register-54.1-1">
+            <MEMBERS>
+                <MEMBER name="time" wn="" grouping=""/>
+                <MEMBER name="mistime" wn="" grouping=""/>
+            </MEMBERS>
+            <THEMROLES>
+                <THEMROLE type="Agent">
+                    <SELRESTRS/>
+                </THEMROLE>
+                <THEMROLE type="Attribute">
+                    <SELRESTRS/>
+                </THEMROLE>
+            </THEMROLES>
+            <FRAMES>          
+                <FRAME>            
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="NP" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>He clocked the runners.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="assess">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Attribute"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.value" secondary="" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>He clocked the runners at 16 mph.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="at">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Value">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="-" type="sentential"/>
+                            </SYNRESTRS>
+                        </NP> 
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="assess">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Attribute"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="value">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Value"/>
+                            </ARGS>
+                        </PRED>  
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.value" secondary="" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>He clocked his speed at 76 mph.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Attribute">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="at">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Value">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="-" type="sentential"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="assess">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="?Theme"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="value">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="ThemRole" value="Value"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>                     
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="register-54.1-1-1">
+                    <MEMBERS>
+                        <MEMBER name="clock" wn="" grouping=""/>
+                        <MEMBER name="measure" wn="measure%2:31:00 measure%2:42:00" grouping="measure.01 measure.03"/>
+                        <MEMBER name="read" wn="read%2:32:02" grouping="read.06"/>
+                        <MEMBER name="register" wn="register%2:32:00" grouping="register.03"/>
+                        <MEMBER name="total" wn="total%2:42:00" grouping="total.01"/>
+                        <MEMBER name="weigh" wn="weigh%2:42:01 weigh%2:42:00" grouping="weigh.01 weigh.02"/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP.value" secondary="Transitive; Attribute Object" xtag=""/>
+                            <EXAMPLES>
+                                <EXAMPLE>The package weighed ten pounds.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Theme">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Value">
+                                    <SYNRESTRS/>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="value">
+                                    <ARGS>
+                                        <ARG type="Event" value="E"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="Value"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

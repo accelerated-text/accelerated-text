@@ -1,0 +1,141 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="assessment-34.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="analyse" wn="analyse%2:31:00 analyse%2:31:04 analyse%2:31:01 analyse%2:31:02" grouping=""/>
+        <MEMBER name="analyze" wn="analyze%2:31:00" grouping="analyze.01"/>
+        <MEMBER name="appraise" wn="assess%2:31:00" grouping=""/>
+        <MEMBER name="assay" wn="assay%2:31:00" grouping=""/>
+        <MEMBER name="assess" wn="assess%2:31:00" grouping="assess.01"/>
+        <MEMBER name="audit" wn="audit%2:31:01" grouping="audit.01"/>
+        <MEMBER name="check" wn="check%2:31:00" grouping="check.01"/>
+        <MEMBER name="consult" wn="consult%2:32:02 consult%2:32:01" grouping="consult.01"/>
+	<MEMBER name="examine" wn="examine%2:31:00 examine%2:39:00" grouping="examine.01 examine.02"/>
+        <MEMBER name="evaluate" wn="evaluate%2:31:00" grouping="evaluate.01 evaluate.02"/>
+        <MEMBER name="feel_out" wn="feel_out%2:32:00" grouping="feel.04"/>
+        <MEMBER name="follow" wn="follow%2:41:02 follow%2:30:01" grouping="follow.04"/>
+        <MEMBER name="go_over" wn="go_over%2:31:01" grouping=""/>
+	<MEMBER name="inspect" wn="inspect%2:39:00 inspect%2:38:00 inspect%2:31:00" grouping="inspect.01"/>
+	<MEMBER name="investigate" wn="investigate%2:32:00 investigate%2:32:01" grouping="investigate.01"/>
+        <MEMBER name="monitor" wn="monitor%2:39:00" grouping="monitor.01"/>
+	<MEMBER name="peruse" wn="peruse%2:39:00" grouping=""/>
+	<MEMBER name="proofread" wn="proofread%2:31:00" grouping=""/>
+	<MEMBER name="regard" wn="regard%2:39:00" grouping="regard.02"/>
+        <MEMBER name="research" wn="research%2:32:00 research%2:31:00" grouping="research.01"/>
+        <MEMBER name="review" wn="review%2:32:00" grouping="review.02"/>
+        <MEMBER name="sample" wn="sample%2:34:00" grouping=""/>       
+	<MEMBER name="scan" wn="scan%2:39:01 scan%2:39:00" grouping="scan.01"/>
+        <MEMBER name="scrutinize" wn="scrutinize%2:39:00 scrutinize%2:31:00" grouping="scrutinize.01"/>
+	<MEMBER name="study" wn="study%2:31:02" grouping="study.01"/>
+	<MEMBER name="surveil" wn="surveil%2:39:00" grouping=""/>
+	<MEMBER name="survey" wn="survey%2:39:00 survey%2:39:13" grouping=""/>
+        <MEMBER name="taste" wn="taste%2:34:00 taste%2:39:01" grouping=""/>
+        <MEMBER name="test" wn="test%2:41:00 test%2:41:01 test%2:32:00" grouping="test.02"/>
+        <MEMBER name="try" wn="" grouping="try.02"/>
+        <MEMBER name="try_on" wn="try_on%2:29:00" grouping="try.02"/>
+        <MEMBER name="try_out" wn="try_out%2:41:00 try_out%2:41:05 try_out%2:34:00" grouping="try.02"/>
+	<MEMBER name="watch" wn="watch%2:39:00 watch%2:41:00 watch%2:39:05 watch%2:39:02 watch%2:39:01 watch%2:39:03" grouping="watch.01 watch.02 watch.03"/> 
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Attribute">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The inspector analyzed the building.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="assess">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="?Attribute"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.attribute" secondary="NP-PP; Attribute-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The inspector analyzed the building for its soundness.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="for">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Attribute">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="assess">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Attribute"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.13.2" primary="NP V NP.attribute" secondary="NP; Attribute Object" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The inspector analyzed the building's soundness.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="genitive"/>
+                    </SYNRESTRS>
+                </NP>
+                <LEX value="'s"/>
+                <NP value="Attribute">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="assess">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Attribute"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

@@ -1,0 +1,136 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="establish-55.5" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="bring" wn="" grouping="bring.02"/>
+        <MEMBER name="constitute" wn="constitute%2:36:00" grouping="constitute.02"/>
+        <MEMBER name="constitutionalize" wn="constitutionalize%2:40:00" grouping="constitutionalize.01"/>
+        <MEMBER name="innovate" wn="innovate%2:36:00" grouping=""/>
+        <MEMBER name="machinate" wn="machinate%2:36:00" grouping=""/>
+        <MEMBER name="pioneer" wn="" grouping="pioneer.01"/>
+        <MEMBER name="stage" wn="stage%2:36:01" grouping="stage.02"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="NP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>Zellig Harris established Penn's linguistics department.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="begin">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="establish-55.5-1">
+            <MEMBERS>
+                <MEMBER name="initiate" wn="initiate%2:30:00 initiate%2:36:01" grouping="initiate.01"/>
+                <MEMBER name="establish" wn="establish%2:41:00 establish%2:36:00" grouping="establish.01"/>
+                <MEMBER name="fake" wn="" grouping=""/>
+                <MEMBER name="feign" wn="" grouping=""/>
+                <MEMBER name="format" wn="" grouping=""/>
+                <MEMBER name="found" wn="found%2:41:00 found%2:36:00" grouping="found.01"/>
+                <MEMBER name="plant" wn="plant%2:36:00" grouping="plant.04"/>
+                <MEMBER name="implement" wn="" grouping=""/>
+                <MEMBER name="instigate" wn="instigate%2:32:01" grouping=""/>
+                <MEMBER name="institute" wn="institute%2:36:00" grouping="institute.01"/>
+                <MEMBER name="organize" wn="organize%2:36:00" grouping="organize.02"/>
+                <MEMBER name="originate" wn="originate%2:36:00" grouping="originate.02"/>
+                <MEMBER name="prepare" wn="prepare%2:36:00" grouping="prepare.01"/>
+                <MEMBER name="premise" wn="premise%2:32:00 premise%2:32:01" grouping="premise.01"/>
+                <MEMBER name="devise" wn="devise%2:36:01" grouping="devise.01"/>
+                <MEMBER name="mount" wn="mount%2:36:00 mount%2:36:01" grouping="mount.03"/>
+                <MEMBER name="bring_about" wn="" grouping=""/>
+                <MEMBER name="arrange" wn="arrange%2:36:03" grouping="arrange.02"/>
+                <MEMBER name="introduce" wn="" grouping=""/>
+                <MEMBER name="set" wn="" grouping="set.03"/>
+                <MEMBER name="simulate" wn="" grouping=""/>
+                <MEMBER name="strike_up" wn="strike_up%2:36:00" grouping=""/>
+                <MEMBER name="synthesise" wn="" grouping=""/>
+                <MEMBER name="launch" wn="launch%2:41:01" grouping="launch.02"/>
+                <MEMBER name="open" wn="open%2:41:00 open%2:41:01" grouping="open.02"/>
+                <MEMBER name="open_up" wn="open_up%2:41:00" grouping=""/>
+            </MEMBERS>
+            <THEMROLES>
+                <THEMROLE type="Instrument">
+                    <SELRESTRS/>
+                </THEMROLE>
+            </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="" primary="NP V NP PP.instrument" secondary="NP-PP; with-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>I opened the event with a speech.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="with">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Instrument">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="begin">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="utilize">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="ThemRole" value="Instrument"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+              </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

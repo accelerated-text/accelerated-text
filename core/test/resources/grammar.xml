@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<grammar name="shop"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../grammar.xsd"
+>
+
+  <lexicon file="lexicon.xml"/>
+  <morphology file="morph.xml"/>
+  <rules file="rules.xml"/>
+  <types file="types.xml"/>
+
+</grammar>

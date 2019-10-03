@@ -1,0 +1,55 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="gorge-39.6" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="exist" wn="exist%2:42:01" grouping="exist.02"/>
+        <MEMBER name="feed" wn="feed%2:34:00" grouping="feed.05"/>
+        <MEMBER name="flourish" wn="flourish%2:30:01" grouping="flourish.01"/>
+        <MEMBER name="gorge" wn="gorge%2:34:00" grouping=""/>
+        <MEMBER name="prosper" wn="prosper%2:40:00" grouping=""/>
+        <MEMBER name="subsist" wn="subsist%2:42:00" grouping=""/>
+        <MEMBER name="survive" wn="survive%2:42:01" grouping="survive.01"/>
+        <MEMBER name="thrive" wn="thrive%2:30:00" grouping="thrive.01"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="comestible"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.patient" secondary="PP; Patient-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Cynthia gorged on peaches.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="on">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="take_in">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

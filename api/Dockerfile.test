@@ -1,0 +1,6 @@
+FROM registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
+
+COPY ./api /usr/src/app
+COPY ./core /usr/src/core
+
+CMD ["clojure", "-A:test", "-i", "integration"]

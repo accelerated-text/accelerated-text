@@ -1,0 +1,56 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="body_internal_motion-49.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="buck" wn="buck%2:38:00" grouping="buck.02"/>
+        <MEMBER name="fidget" wn="fidget%2:38:00" grouping=""/>
+        <MEMBER name="flap" wn="flap%2:38:03 flap%2:38:02" grouping="flap.01"/>
+        <MEMBER name="gyrate" wn="gyrate%2:38:00 gyrate%2:38:01" grouping=""/>
+        <MEMBER name="jiggle" wn="" grouping=""/>
+        <MEMBER name="kick" wn="kick%2:38:00 kick%2:35:08" grouping="kick.01 kick.11"/>
+        <MEMBER name="rock" wn="rock%2:38:00" grouping="rock.01"/>
+        <MEMBER name="squirm" wn="squirm%2:38:00" grouping=""/>
+        <MEMBER name="sway" wn="sway%2:38:00 sway%2:38:01 sway%2:38:06" grouping="sway.01"/>
+        <MEMBER name="teeter" wn="teeter%2:38:00" grouping=""/>
+        <MEMBER name="totter" wn="totter%2:38:02 totter%2:38:01 totter%2:38:00" grouping=""/>
+        <MEMBER name="twitch" wn="twitch%2:29:00 twitch%2:38:01 twitch%2:35:02" grouping=""/>
+        <MEMBER name="waggle" wn="waggle%2:38:00 waggle%2:38:01" grouping=""/>
+        <MEMBER name="wiggle" wn="wiggle%2:38:00" grouping=""/>
+        <MEMBER name="wobble" wn="wobble%2:38:00 wobble%2:38:02" grouping=""/>
+        <MEMBER name="wriggle" wn="wriggle%2:38:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="animate"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="refl"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V" secondary="Basic Intransitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Sylvia fidgeted.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="body_motion">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+      </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

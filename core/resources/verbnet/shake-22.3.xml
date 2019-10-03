@@ -1,0 +1,430 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="shake-22.3" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS/>
+    <THEMROLES>
+        <!--Patient1 is interpreted as Figure, Patient2 as Ground-->
+        <!--Each verb adds manner in which Patient1 and Patient2 are combined-->
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="machine"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Co-Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="1.1.1" primary="NP V ADV-Middle" secondary="Middle Construction" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The eggs whisked easily.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+                <ADV/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="degradation_material_integrity">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="1.1.1" primary="NP V together ADV-Middle" secondary="Middle Construction" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The sugar and cream whipped together easily.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+                <ADV/>
+                <LEX value="together"/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="degradation_material_integrity">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="degradation_material_integrity">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="mingled">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="shake-22.3-1">
+            <MEMBERS>
+                <!--physical, change of integrity of Patients (but note alternate interpretation when both Patients are plural and countable - "mixed eggs and marbles")-->
+                <MEMBER name="lump" wn="lump%2:35:00 lump%2:31:13" grouping="lump.01"/>
+                <MEMBER name="mass" wn="mass%2:38:00" grouping="mass.01"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.5.1" primary="NP V NP PP.co-patient" secondary="NP-PP; with-PP" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Herman whipped sugar with the cream.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="with into to">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Co-Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="degradation_material_integrity">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="degradation_material_integrity">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Co-Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="mingled">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Co-Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.5.2" primary="NP V NP together" secondary="Together Reciprocal Alternation Transitive" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Herman whipped sugar and the cream together.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="plural"/>
+                            </SYNRESTRS>
+                        </NP>
+                        <LEX value="together"/>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="degradation_material_integrity">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="degradation_material_integrity">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Co-Patient"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="mingled">
+                            <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Co-Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="shake-22.3-1-1">
+                    <MEMBERS>
+                        <!--physical, change of integrity of Patients (but note alternate interpretation when both Patients are plural and countable - "mixed eggs and marbles")-->
+                        <MEMBER name="beat" wn="beat%2:35:03" grouping="beat.06"/>
+                        <MEMBER name="fuse" wn="fuse%2:30:00" grouping="fuse.01"/>
+                        <MEMBER name="scramble" wn="scramble%2:35:00 scramble%2:35:02" grouping="scramble.02"/>
+                        <MEMBER name="stir" wn="stir%2:38:01 stir%2:35:04" grouping="stir.03"/>
+                        <MEMBER name="swirl" wn="" grouping=""/>
+                        <MEMBER name="whip" wn="whip%2:35:01" grouping="whip.03"/>
+                        <MEMBER name="whisk" wn="whisk%2:35:00" grouping=""/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="1.1.1" primary="NP V PP ADV-Middle" secondary="Middle Construction" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The sugar whipped into cream easily.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="with into to">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Co-Patient">
+                    <SYNRESTRS/>
+                </NP>
+                 <ADV/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="degradation_material_integrity">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="degradation_material_integrity">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="mingled">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Transitive; affected Patient, no Co-Patient" xtag="0.2"/>
+                   <EXAMPLES>
+                       <EXAMPLE>Herman whipped cream.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                        <SYNRESTRS/>
+                            </NP>
+                            <VERB/>
+                            <NP value="Patient">
+                        <SYNRESTRS/>
+                             </NP>
+                     </SYNTAX>
+                      <SEMANTICS>
+                          <PRED value="cause">
+                             <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                             </ARGS>
+                          </PRED>
+                          <PRED value="degradation_material_integrity">
+                             <ARGS>
+                                <ARG type="Event" value="result(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                             </ARGS>
+                          </PRED>
+                      </SEMANTICS>
+                    </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+        <VNSUBCLASS ID="shake-22.3-2">
+            <MEMBERS>
+                <!--physical, no change of integrity of Patients-->
+                <MEMBER name="band" wn="band%2:35:00" grouping=""/>
+                <MEMBER name="baste" wn="baste%2:35:00" grouping="baste.03"/>
+                <MEMBER name="cluster" wn="cluster%2:38:00 cluster%2:35:00" grouping="cluster.01"/>
+                <MEMBER name="collate" wn="collate%2:35:00" grouping=""/>
+                <MEMBER name="collect" wn="collect%2:40:00 collect%2:35:00 collect%2:35:01 collect%2:40:03" grouping="collect.01 collect.03"/>
+                <MEMBER name="fix" wn="fix%2:35:00" grouping="fix.02"/> 
+                <MEMBER name="gather" wn="gather%2:35:00 gather%2:41:02" grouping="gather.01 gather.02"/>
+                <MEMBER name="glom" wn="glom%2:40:13" grouping=""/> 
+                <MEMBER name="group" wn="group%2:31:00 group%2:33:00" grouping="group.01"/>
+                <MEMBER name="herd" wn="herd%2:38:01 herd%2:38:00 herd%2:42:00" grouping="herd.01"/>
+                <MEMBER name="pair" wn="pair%2:35:01" grouping="pair.01"/>
+                <MEMBER name="roll" wn="?roll%2:30:10" grouping="roll.02"/>
+                <MEMBER name="sew" wn="sew%2:35:00" grouping="sew.01"/>
+                <MEMBER name="shake" wn="shake%2:38:00" grouping="shake.01"/>
+                <MEMBER name="shuffle" wn="shuffle%2:35:00" grouping="shuffle.03"/>
+                <MEMBER name="stick" wn="?stick%2:35:02 ?stick%2:35:00" grouping="stick.01"/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.5.1" primary="NP V NP PP" secondary="Simple Reciprocal Alternation Transitive; prepositional variant" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Herman gathered the students into a group.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="with into to">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Co-Patient">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="together">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Co-Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="2.5.2" primary="NP V NP together" secondary="Together Reciprocal Alternation Transitive" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Herman gathered the students together.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Agent">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Patient">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="plural"/>
+                            </SYNRESTRS>
+                        </NP>
+                        <LEX value="together"/>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Agent"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="together">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="Patient"/>
+                                <ARG type="ThemRole" value="Co-Patient"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="shake-22.3-2-1">
+                    <MEMBERS>
+                        <!--REMOVED "append" misclassified-->
+                        <MEMBER name="attach" wn="attach%2:35:01 attach%2:35:00" grouping="attach.01"/>
+                        <MEMBER name="bind" wn="?bind%2:35:06 ?bind%2:35:00 ?bind%2:35:07 bind%2:35:02 ?bind%2:35:01" grouping="bind.01 bind.02 bind.04"/>
+                        <MEMBER name="bond" wn="?bond%2:35:00" grouping="bond.02"/>
+                        <MEMBER name="bundle" wn="bundle%2:35:00" grouping="bundle.01"/>
+                        <MEMBER name="concatenate" wn="concatenate%2:35:00 concatenate%2:30:00" grouping=""/>
+                        <MEMBER name="fasten" wn="fasten%2:35:01 fasten%2:35:00" grouping="fasten.01"/>
+                        <MEMBER name="graft" wn="graft%2:35:00 graft%2:35:01" grouping=""/>
+                        <MEMBER name="jumble" wn="jumble%2:35:00" grouping=""/>
+                        <MEMBER name="ligate" wn="ligate%2:30:00 ligate%2:29:00" grouping="ligate.02 ligate.03"/>
+                        <MEMBER name="moor" wn="moor%2:35:01 moor%2:35:00" grouping=""/>
+                        <MEMBER name="package" wn="package%2:35:00" grouping="package.01"/>
+                        <MEMBER name="secure" wn="secure%2:35:01" grouping="secure.02"/>
+                        <MEMBER name="splice" wn="splice%2:35:01 splice%2:35:02 splice%2:35:00" grouping="splice.01"/>
+                        <MEMBER name="toggle" wn="toggle%2:35:00" grouping="toggle.02"/>
+                        <MEMBER name="weld" wn="weld%2:35:00" grouping="weld.01"/>
+                        <MEMBER name="fixate" wn="fixate%2:30:01 fixate%2:30:00" grouping="fixate.02"/>
+                        <MEMBER name="affix" wn="affix%2:35:00" grouping=""/>
+                        <MEMBER name="agglutinate" wn="agglutinate%2:35:00" grouping=""/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Transitive; understood Patient2" xtag="0.2"/>
+                            <EXAMPLES>
+                                <EXAMPLE>Herman spliced ropes.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Agent">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Patient">
+                                    <SYNRESTRS/>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Agent"/>
+                                        <ARG type="Event" value="E"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="together">
+                                    <ARGS>
+                                        <ARG type="Event" value="end(E)"/>
+                                        <ARG type="ThemRole" value="Patient"/>
+                                        <ARG type="ThemRole" value="?Co-Patient"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

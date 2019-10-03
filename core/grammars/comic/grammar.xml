@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!-- 
+Copyright (C) 2003-4 University of Edinburgh (Michael White) 
+$Revision: 1.8 $, $Date: 2004/11/19 10:59:05 $ 
+-->
+<grammar name="comic"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../grammar.xsd"
+>
+
+  <lexicon file="lexicon.xml"/>
+  <morphology file="morph.xml"/>
+  <rules file="rules.xml"/>
+  <types file="types.xml"/>
+  <tokenizer replacement-sem-classes="amt colour colour_prop 
+    date decoration manufacturer num quality series time"/>
+
+  <LF-from-XML>
+    <transform file="../core-en/derive-features.xsl"/>
+    <transform file="../treeify-lists.xsl"/>
+    <transform file="../convert-to-hlds.xsl"/>
+    <transform file="../core-en/add-chunks.xsl"/>
+  </LF-from-XML>
+
+  <LF-to-XML>
+    <transform file="../core-en/raise-nodes.xsl"/>
+    <transform file="../convert-to-graph.xsl"/>
+    <transform file="../simplify-lists.xsl"/>
+    <transform file="../core-en/drop-features.xsl"/>
+  </LF-to-XML>
+
+</grammar>
+

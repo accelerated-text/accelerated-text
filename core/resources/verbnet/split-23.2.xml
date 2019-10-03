@@ -1,0 +1,262 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="split-23.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="blow" wn="blow%2:38:00 blow%2:38:03" grouping="blow.01"/>
+        <MEMBER name="break" wn="break%2:35:05" grouping="break.01"/>
+        <MEMBER name="cut" wn="cut%2:35:00 cut%2:35:11" grouping="cut.01"/>
+        <MEMBER name="draw" wn="draw%2:38:01" grouping="draw.03"/>
+        <MEMBER name="hack" wn="hack%2:35:01" grouping="hack.01"/>
+        <MEMBER name="hew" wn="hew%2:35:00" grouping=""/>
+        <MEMBER name="kick" wn="kick%2:35:01" grouping="kick.01"/>
+        <MEMBER name="knock" wn="knock%2:35:04" grouping="knock.01"/>
+        <MEMBER name="pry" wn="pry%2:35:00" grouping="pry.01"/>
+        <MEMBER name="pull" wn="pull%2:35:04 pull%2:38:03 pull%2:35:10" grouping="pull.01"/>
+        <MEMBER name="push" wn="push%2:38:00" grouping="push.01"/>
+        <MEMBER name="rip" wn="rip%2:35:00" grouping="rip.01"/>
+        <MEMBER name="roll" wn="roll%2:38:00" grouping="roll.01"/>
+        <MEMBER name="saw" wn="saw%2:35:00" grouping="saw.01"/>
+        <MEMBER name="shove" wn="shove%2:38:01" grouping="shove.02"/>
+        <MEMBER name="slip" wn="slip%2:38:05" grouping="slip.02"/>
+        <MEMBER name="sliver" wn="sliver%2:41:00 sliver%2:30:00 sliver%2:30:01" grouping="sliver.01"/>
+        <MEMBER name="snap" wn="snap%2:35:01 snap%2:30:00" grouping="snap.01"/>
+        <MEMBER name="split" wn="split%2:35:00 split%2:30:01" grouping="split.01 split.02"/>
+        <MEMBER name="tear" wn="tear%2:35:01" grouping="tear.01"/>
+        <MEMBER name="tug" wn="tug%2:35:02" grouping=""/>
+        <MEMBER name="yank" wn="yank%2:35:00" grouping="yank.01 yank.02 yank.03"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="int_control"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="solid"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Co-Patient">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="solid"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.co-patient" secondary="NP-PP; Source-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I broke the twig off the branch.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="off off of from">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Co-Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.5.3" primary="NP V NP apart" secondary="Apart Reciprocal Alternation Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>I broke the twig and the branch apart.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Patient">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <LEX value="apart"/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.co-patient" secondary="PP; Source-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The twig broke off the branch.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="off off of from">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Co-Patient">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="2.5.6" primary="NP V apart" secondary="Apart Reciprocal Alternation Intransitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The twig and the branch broke apart.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+                <LEX value="apart"/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="1.1.1" primary="NP V PP ADV-Middle" secondary="Middle Construction" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The twigs broke off of those branches easily.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP value="off off of from">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Co-Patient">
+                    <SYNRESTRS/>
+                </NP>
+                <ADV/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient"/>
+                        <ARG type="ThemRole" value="Co-Patient"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="1.1.1" primary="NP V ADV-Middle" secondary="Middle Construction" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Those twigs and branches broke apart easily.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Patient">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="plural"/>
+                    </SYNRESTRS>
+                </NP>
+                <VERB/>
+                <LEX value="apart"/>
+                <ADV/>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="together">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="apart">
+                    <ARGS>
+                        <ARG type="Event" value="result(E)"/>
+                        <ARG type="ThemRole" value="Patient_i"/>
+                        <ARG type="ThemRole" value="Patient_j"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES/>
+</VNCLASS>

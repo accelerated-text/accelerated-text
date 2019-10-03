@@ -1,0 +1,12 @@
+{:type "Document-plan"
+ :segments [{:type "Segment"
+             :textType "description"
+             :children [{:type "Product"
+                         :name {:type "Cell"
+                                :name "product-name"}
+                         :children [{:type "Relationship"
+                                     :relationshipType "provides"
+                                     :children [{:type "Cell"
+                                                 :name "main-feature"}
+                                                {:type "Dictionary-item"
+                                                 :name "see"}]}]}]}]}

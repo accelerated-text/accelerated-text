@@ -1,0 +1,126 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="acquiesce-95.1" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="accede" wn="accede%2:32:00 accede%2:32:01" grouping="accede.01"/>
+        <MEMBER name="bow" wn="bow%2:32:01" grouping="bow.03"/>
+        <MEMBER name="capitulate" wn="capitulate%2:33:00" grouping=""/>
+        <MEMBER name="defer" wn="defer%2:32:00" grouping="defer.02"/>
+	<MEMBER name="fall" wn="fall%2:40:05" grouping="fall.04"/>
+        <MEMBER name="give_way" wn="give_way%2:38:01 give_way%2:30:01" grouping="give.05"/>
+        <MEMBER name="give_in" wn="give_in%2:32:02 give_in%2:32:01" grouping=""/>
+        <MEMBER name="succumb" wn="succumb%2:32:00" grouping=""/>
+        <MEMBER name="yield" wn="yield%2:30:00 yield%2:40:01 yield%2:33:00 yield%2:32:00" grouping="yield.02"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Co-Agent">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V PP.co-agent" secondary="NP-PP; to-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The enemy soldiers yielded to us.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+		<PREP value="to">
+		    <SELRESTRS/>
+		</PREP>
+                <NP value="Co-Agent">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="yield">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Co-Agent"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V PP.theme" secondary="NP-PP; to-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>The enemy soldiers submitted to demands.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Agent">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+		<PREP value="to">
+		    <SELRESTRS/>
+		</PREP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="yield">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Agent"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+	<VNSUBCLASS ID="acquiesce-95.1-1">
+	    <MEMBERS>
+	        <MEMBER name="acquiesce" wn="acquiesce%2:32:00" grouping=""/>
+                <MEMBER name="consent" wn="consent%2:32:00" grouping="consent.01"/>
+	        <MEMBER name="submit" wn="submit%2:33:00" grouping="submit.01"/>
+	    </MEMBERS>
+	    <THEMROLES/>
+	    <FRAMES>
+		<FRAME>
+		    <DESCRIPTION descriptionNumber="8.1" primary="NP V S_INF" secondary="TO_INF; N-SC" xtag="0.2"/>
+		    <EXAMPLES>
+			<EXAMPLE>The king acquiesced to be in the same room with the paupers</EXAMPLE>
+		    </EXAMPLES>
+		    <SYNTAX>
+			<NP value="Agent">
+			    <SYNRESTRS/>
+			</NP>
+			<VERB/>
+			<NP value="Theme">
+			    <SYNRESTRS>
+				<SYNRESTR Value="+" type="sc_to_inf"/>
+			    </SYNRESTRS>
+			</NP>
+		    </SYNTAX>
+		    <SEMANTICS>
+			<PRED value="yield">
+			    <ARGS>
+				<ARG type="Event" value="during(E)"/>
+				<ARG type="ThemRole" value="Agent"/>
+				<ARG type="ThemRole" value="Theme"/>
+			    </ARGS>
+			</PRED>
+		    </SEMANTICS>
+		</FRAME>
+	    </FRAMES>
+	    <SUBCLASSES/>
+	</VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

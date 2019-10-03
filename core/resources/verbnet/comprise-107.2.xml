@@ -1,0 +1,87 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="comprise-107.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="comprise" wn="comprise%2:42:03" grouping="comprise.02"/>
+        <MEMBER name="compose" wn="compose%2:42:00" grouping="compose.02"/>
+        <MEMBER name="make" wn="make%2:36:05" grouping="make.06"/>
+        <MEMBER name="make_up" wn="make_up%2:42:00" grouping="make.06"/>
+        <MEMBER name="constitute" wn="constitute%2:42:00" grouping="constitute.01"/>
+        <MEMBER name="form" wn="form%2:42:00" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Attribute">
+            <SELRESTRS/>
+        </THEMROLE>   
+    </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP" secondary="Transitive" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>Textiles make up the majority of exports.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Attribute">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="set_member">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+               
+        <VNSUBCLASS ID="comprise-107.2-1">
+            <MEMBERS>
+                <MEMBER name="comprise" wn="comprise%2:42:01" grouping="comprise.01"/>
+                <MEMBER name="consist_of" wn="consist%2:42:01" grouping="consist.02"/>
+                <MEMBER name="encompass" wn="encompass%2:42:00" grouping=""/>
+                <MEMBER name="contain" wn="contain%2:42:00" grouping="contain.01"/>
+            </MEMBERS>
+            <THEMROLES>
+            </THEMROLES>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP" secondary="Transitive" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The Milky Way comprises more than 100
+                        billion planets.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Attribute">
+                            <SYNRESTRS/>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="set_member">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Attribute"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

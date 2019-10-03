@@ -1,0 +1,51 @@
+@import '../styles/variables'
+@import '../styles/buttons'
+
+
+.className
+
+    background-color:       shade-1-8( $primary-color )
+    color:                  $white
+    display:                grid
+    grid-gap:               $space-m
+    grid-template-areas:    'left center right'
+    grid-template-columns:  12em auto 12rem
+    grid-template-rows:     auto
+    line-height:            $space-m
+    padding:                $space-s
+
+    > *
+
+        align-self:         center
+
+    > .left
+
+        grid-area:          left
+        justify-self:       start
+
+        > .logo
+
+            cursor:         pointer
+            height:         $space-l
+
+    > .center
+
+        grid-area:          center
+        justify-self:       center
+
+    > .right
+
+        grid-area:          right
+        justify-self:       end
+
+        > .help,
+        > .status
+
+            display:        inline-block
+
+        > .help
+
+            @include unstyled-button
+
+            color:          $white
+            margin-right:   $space-s

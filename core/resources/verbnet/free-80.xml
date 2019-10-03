@@ -1,0 +1,197 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="free-80" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="alleviate" wn="" grouping=""/>
+        <MEMBER name="liberate" wn="liberate%2:41:01" grouping="liberate.02"/>
+        <MEMBER name="discharge" wn="discharge%2:41:01 discharge%2:32:00" grouping="discharge.02"/>
+        <MEMBER name="exonerate" wn="exonerate%2:32:00" grouping=""/>
+        <MEMBER name="unburden" wn="unburden%2:40:00 unburden%2:35:00" grouping=""/>
+        <MEMBER name="cleanse" wn="cleanse%2:30:05" grouping="cleanse.01"/>
+        <MEMBER name="disencumber" wn="disencumber%2:35:00" grouping=""/>
+        <MEMBER name="wean" wn="wean%2:37:00" grouping=""/>
+        <MEMBER name="ease" wn="ease%2:30:00 ease%2:37:00" grouping="ease.01"/>
+        <MEMBER name="break" wn="break%2:42:04" grouping="break.03"/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Causer">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Source">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP PP.theme" secondary="NP-PP; of-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>It freed him of guilt.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Causer">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Source">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="of">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Theme">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="-" type="sentential"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="cause">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Causer"/>
+                        <ARG type="Event" value="E"/>
+                    </ARGS>
+                </PRED>
+                <PRED bool="!" value="free">
+                    <ARGS>
+                        <ARG type="Event" value="start(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="free">
+                    <ARGS>
+                        <ARG type="Event" value="end(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Source"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="free-80-1">
+            <MEMBERS>
+                <MEMBER name="absolve" wn="absolve%2:32:00" grouping=""/>
+                <MEMBER name="acquit" wn="acquit%2:32:00" grouping="acquit.01"/>
+                <MEMBER name="clear" wn="clear%2:32:00" grouping="clear.01"/>
+                <MEMBER name="free" wn="free%2:41:07 free%2:41:02 free%2:32:00" grouping="free.01"/>
+                <MEMBER name="emancipate" wn="emancipate%2:41:00" grouping=""/>
+                <MEMBER name="release" wn="" grouping=""/>
+                <MEMBER name="rerelease" wn="" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V NP S_ING" secondary="NP-P-ING-OC; of-PP" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>It freed him of feeling guilt.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Causer">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Source">
+                            <SYNRESTRS/>
+                        </NP>
+                        <PREP value="of">
+                            <SELRESTRS/>
+                        </PREP>
+                        <NP value="Theme">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="oc_ing"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="cause">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Causer"/>
+                                <ARG type="Event" value="E"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED bool="!" value="free">
+                            <ARGS>
+                                <ARG type="Event" value="start(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Source"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="free">
+                            <ARGS>
+                                <ARG type="Event" value="end(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="Source"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+                <VNSUBCLASS ID="free-80-1-1">
+                    <MEMBERS>
+                        <MEMBER name="cure" wn="cure%2:29:00" grouping="cure.01"/>
+                        <MEMBER name="relieve" wn="relieve%2:41:01 relieve%2:41:02 relieve%2:40:01 relieve%2:32:01 relieve%2:30:05" grouping="relieve.01 relieve.02 reieve.03 relieve.05"/>
+                        <MEMBER name="purge" wn="purge%2:30:00" grouping="purge.01"/>
+                        <MEMBER name="purify" wn="purify%2:30:00 purify%2:30:01" grouping="purify.01 purify.02"/>
+                    </MEMBERS>
+                    <THEMROLES/>
+                    <FRAMES>
+                        <FRAME>
+                            <DESCRIPTION descriptionNumber="0.2"
+                            primary="NP V NP PP.theme" secondary="NP-PP; of-PP" xtag="0.2"/>
+                            <EXAMPLES>
+                                <EXAMPLE>It relieved pressure from China.</EXAMPLE>
+                            </EXAMPLES>
+                            <SYNTAX>
+                                <NP value="Causer">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <VERB/>
+                                <NP value="Source">
+                                    <SYNRESTRS/>
+                                </NP>
+                                <PREP value="from">
+                                    <SELRESTRS/>
+                                </PREP>
+                                <NP value="Theme">
+                                    <SYNRESTRS>
+                                        <SYNRESTR Value="-" type="sentential"/>
+                                    </SYNRESTRS>
+                                </NP>
+                            </SYNTAX>
+                            <SEMANTICS>
+                                <PRED value="cause">
+                                    <ARGS>
+                                        <ARG type="ThemRole" value="Causer"/>
+                                        <ARG type="Event" value="E"/>
+                                    </ARGS>
+                                </PRED> 
+                                <PRED bool="!" value="free">
+                                    <ARGS>
+                                        <ARG type="Event" value="start(E)"/>
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="Source"/>
+                                    </ARGS>
+                                </PRED>
+                                <PRED value="free">
+                                    <ARGS>
+                                        <ARG type="Event" value="end(E)"/> 
+                                        <ARG type="ThemRole" value="Theme"/>
+                                        <ARG type="ThemRole" value="Source"/>
+                                    </ARGS>
+                                </PRED>
+                            </SEMANTICS>
+                        </FRAME>
+                    </FRAMES>
+                    <SUBCLASSES/>
+                </VNSUBCLASS>
+            </SUBCLASSES>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

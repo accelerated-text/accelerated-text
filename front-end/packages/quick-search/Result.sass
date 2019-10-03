@@ -1,0 +1,69 @@
+@import '../styles/variables'
+@import '../styles/no-list'
+
+
+.className
+
+    @include no-list
+
+    align-items:            center
+    background-color:       transparent
+    border:                 0 none transparent
+    box-sizing:             border-box
+    color:                  $gray
+    cursor:                 pointer
+    display:                grid
+    font-size:              $size-m
+    grid-gap:               $space-xs
+    grid-template-columns:  $space-l $space-m auto
+    justify-items:          start
+    margin:                 0
+    padding:                0 0 0 $space-xs
+    width:                  100%
+
+    > div
+
+        padding:            $space-xs 0
+
+    > .icon,
+    > .nextIcon
+
+        opacity:            .2
+
+    > .icon
+
+        width:              $space-l
+
+    > .nextIcon
+
+        width:              $space-m
+
+    > .text
+
+        overflow:           hidden
+        padding-left:       $space-xs
+        text-overflow:      ellipsis
+        white-space:        nowrap
+        width:              24rem
+
+        > .details
+
+            box-shadow:     -1px 0 0 $darken
+            color:          tint-2( $gray )
+            font-size:      $size-s
+            margin-left:    $space-s
+            padding-left:   $space-s
+
+    &:hover,
+    &.isActive
+
+        box-shadow:         1px 1px 3px $gray
+        color:              $text-color
+
+        > .icon
+
+            opacity:        1
+
+        > .text > .details
+
+            color:          $gray

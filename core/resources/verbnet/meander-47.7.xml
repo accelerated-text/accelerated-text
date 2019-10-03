@@ -1,0 +1,245 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="meander-47.7" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+        <MEMBER name="angle" wn="" grouping="angle.01"/>
+        <MEMBER name="cascade" wn="cascade%2:38:00" grouping="cascade.01"/>
+        <MEMBER name="crawl" wn="" grouping="crawl.01"/>
+        <MEMBER name="crest" wn="" grouping=""/>
+        <MEMBER name="cross" wn="" grouping=""/>
+        <MEMBER name="cut" wn="" grouping="cut.04"/>
+        <MEMBER name="dive" wn="" grouping=""/>
+        <MEMBER name="edge" wn="" grouping=""/>
+        <MEMBER name="emerge" wn="" grouping=""/>
+        <MEMBER name="fall" wn="fall%2:38:11 fall%2:35:00" grouping="fall.07"/>
+        <MEMBER name="go" wn="go%2:42:00" grouping="go.10"/>
+        <MEMBER name="lance" wn="lance%2:38:00" grouping=""/>
+        <MEMBER name="mount" wn="" grouping=""/>
+        <MEMBER name="pass" wn="pass%2:42:08" grouping="pass.06"/>
+        <MEMBER name="round" wn="round%2:38:00" grouping="round.02"/>
+        <MEMBER name="skirt" wn="" grouping=""/>
+        <MEMBER name="straggle" wn="straggle%2:38:01" grouping=""/>
+        <MEMBER name="stretch" wn="stretch%2:42:00" grouping="stretch.01"/>
+        <MEMBER name="sweep" wn="sweep%2:42:03" grouping="sweep.05"/>
+        <MEMBER name="tumble" wn="" grouping=""/>
+        <MEMBER name="wander" wn="wander%2:38:01" grouping="wander.02"/>
+        <MEMBER name="weave" wn="weave%2:38:00" grouping="weave.03"/>
+        <MEMBER name="wind" wn="wind%2:38:00 wind%2:42:00" grouping="wind.01"/>
+        <MEMBER name="range" wn="" grouping=""/>
+        <MEMBER name="veer" wn="" grouping=""/>
+        <MEMBER name="zag" wn="" grouping=""/>
+        <MEMBER name="zig" wn="" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Location">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="concrete"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Theme">
+            <SELRESTRS>
+                <SELRESTR Value="+" type="elongated"/>
+            </SELRESTRS>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.1" primary="NP V PP.location" secondary="PP; path-PP" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>The river runs through the valley.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="path"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="location">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Location"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="6.2" primary="PP.location V NP" secondary="Locative Inversion" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Through the valley meanders the river.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="path"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="location">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Location"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="6.1" primary="There V PP NP" secondary="PP-NP; Expletive-there Subject" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>There meanders through the valley a river.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <LEX value="there"/>
+                <VERB/>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="path"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="location">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Location"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="6.1" primary="There V NP PP" secondary="NP-PP; Expletive-there Subject" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>There meanders a river through the valley.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <LEX value="there"/>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP>
+                    <SELRESTRS>
+                        <SELRESTR Value="+" type="path"/>
+                    </SELRESTRS>
+                </PREP>
+                <NP value="Location">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="location">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                        <ARG type="ThemRole" value="Location"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="exist">
+                    <ARGS>
+                        <ARG type="Event" value="during(E)"/>
+                        <ARG type="ThemRole" value="Theme"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="meander-47.7-1">
+            <MEMBERS>
+                <MEMBER name="ascend" wn="" grouping=""/>
+                <MEMBER name="bend" wn="" grouping=""/> 
+                <MEMBER name="climb" wn="climb%2:38:06" grouping="climb.02"/>
+                <MEMBER name="converge" wn="converge%2:42:00" grouping="converge.01"/>
+                <MEMBER name="crisscross" wn="" grouping=""/>
+                <MEMBER name="descend" wn="" grouping=""/>
+                <MEMBER name="dip" wn="" grouping=""/>
+                <MEMBER name="drop" wn="" grouping="drop.07"/>
+                <MEMBER name="meander" wn="meander%2:38:00" grouping=""/>
+                <MEMBER name="plummit" wn="" grouping=""/>
+                <MEMBER name="plunge" wn="" grouping=""/>
+                <MEMBER name="rise" wn="" grouping=""/>
+                <MEMBER name="run" wn="run%2:42:00" grouping="run.02"/>
+                <MEMBER name="slant" wn="" grouping=""/>
+                <MEMBER name="snake" wn="" grouping="snake.02"/>
+                <MEMBER name="turn" wn="" grouping=""/>
+                <MEMBER name="twist" wn="" grouping="twist.05"/>
+                <MEMBER name="undulate" wn="" grouping=""/>
+                <MEMBER name="swerve" wn="" grouping=""/>
+                <MEMBER name="zigzag" wn="" grouping=""/>  
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="6.1" primary="NP V" secondary="Basic Intransitive" xtag=""/>
+                    <EXAMPLES>
+                        <EXAMPLE>The river is twisting.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Theme">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="location">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                                <ARG type="ThemRole" value="?Location"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="exist">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Theme"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+               </FRAME>
+            </FRAMES>
+            <SUBCLASSES/>
+        </VNSUBCLASS>
+    </SUBCLASSES>
+</VNCLASS>

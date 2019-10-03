@@ -1,0 +1,28 @@
+@import '../styles/variables'
+
+
+.className
+
+    background-color:   transparent
+    bottom:             0
+    left:               0
+    padding:            0
+    position:           fixed
+    right:              0
+    top:                0
+    z-index:            100
+
+    > .bar
+
+        background-color:   $subtle-gray
+        bottom:             0
+        box-shadow:         0 -1px 0 $soft-darken, inset 0 1px 0 $hard-lighten
+        height:             $space-l
+        left:               0
+        padding:            $space-s
+        position:           absolute
+        right:              0
+
+        > .close
+
+            float:          right

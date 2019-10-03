@@ -1,0 +1,552 @@
+<!DOCTYPE VNCLASS SYSTEM "vn_class-3.dtd">
+<VNCLASS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="comprehend-87.2" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+    <MEMBERS>
+         <MEMBER name="appreciate" wn="appreciate%2:31:00" grouping=""/>
+         <MEMBER name="misconstrue" wn="misconstrue%2:31:01" grouping=""/>
+         <MEMBER name="misinterpret" wn="misinterpret%2:31:02" grouping="misinterpret.01"/>
+         <MEMBER name="misunderstand" wn="misunderstand%2:31:01" grouping=""/>
+         <MEMBER name="misapprehend" wn="misapprehend%2:31:01" grouping=""/>
+    </MEMBERS>
+    <THEMROLES>
+        <THEMROLE type="Experiencer">
+            <SELRESTRS logic="or">
+                <SELRESTR Value="+" type="animate"/>
+                <SELRESTR Value="+" type="organization"/>
+            </SELRESTRS>
+        </THEMROLE>
+        <THEMROLE type="Attribute">
+            <SELRESTRS/>
+        </THEMROLE>
+        <THEMROLE type="Stimulus">
+            <SELRESTRS/>
+        </THEMROLE>
+    </THEMROLES>
+    <FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V how S" secondary="HOW-S" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I understood how she did it.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Experiencer">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Stimulus">
+                    <SYNRESTRS>
+			<SYNRESTR Value="+" type="how_extract"/>
+		    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="understand">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Experiencer"/>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="property">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                        <ARG type="ThemRole" value="?Attribute"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP" secondary="NP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I understood the problem.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Experiencer">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Stimulus">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="understand">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Experiencer"/>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="property">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                        <ARG type="ThemRole" value="?Attribute"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.attribute" secondary="NP-PP; as-PP" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I understood it as a joke.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Experiencer">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Stimulus">
+                    <SYNRESTRS/>
+                </NP>
+                <PREP value="as">
+                    <SELRESTRS/>
+                </PREP>
+                <NP value="Attribute">
+                    <SYNRESTRS>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="understand">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Experiencer"/>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="property">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                        <ARG type="ThemRole" value="Attribute"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="POSSING" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I understood their wanting more minutes.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Experiencer">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Stimulus">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="poss_ing"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="understand">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Experiencer"/>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="property">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                        <ARG type="ThemRole" value="?Attribute"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V why S" secondary="WH-S" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I understood why we should help them.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Experiencer">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Stimulus">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="wh_comp"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="understand">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Experiencer"/>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="property">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                        <ARG type="ThemRole" value="?Attribute"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V what S" secondary="WHAT-S" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I understood what we should do.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Experiencer">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Stimulus">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="what_extract"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="understand">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Experiencer"/>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="property">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                        <ARG type="ThemRole" value="?Attribute"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="8.1" primary="NP V that S" secondary="S" xtag="0.2"/>
+            <EXAMPLES>
+                <EXAMPLE>I understood that he is a good doctor.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Experiencer">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Stimulus">
+                    <SYNRESTRS>
+                        <SYNRESTR Value="+" type="that_comp"/>
+                    </SYNRESTRS>
+                </NP>
+            </SYNTAX>
+            <SEMANTICS>
+                <PRED value="understand">
+                    <ARGS>
+                        <ARG type="Event" value="E"/>
+                        <ARG type="ThemRole" value="Experiencer"/>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                    </ARGS>
+                </PRED>
+                <PRED value="property">
+                    <ARGS>
+                        <ARG type="ThemRole" value="Stimulus"/>
+                        <ARG type="ThemRole" value="?Attribute"/>
+                    </ARGS>
+                </PRED>
+            </SEMANTICS>
+        </FRAME>
+    </FRAMES>
+    <SUBCLASSES>
+        <VNSUBCLASS ID="comprehend-87.2-1">
+            <MEMBERS>
+                <MEMBER name="grasp" wn="grasp%2:31:00" grouping="grasp.02"/>
+                <MEMBER name="comprehend" wn="comprehend%2:31:00" grouping="comprehend.01"/>
+                <MEMBER name="apprehend" wn="apprehend%2:31:00" grouping="apprehend.01"/>
+                <MEMBER name="follow" wn="follow%2:31:14" grouping="follow.01"/>
+                <MEMBER name="fathom" wn="fathom%2:31:00" grouping=""/>
+                <MEMBER name="get" wn="get%2:31:09" grouping=""/>
+                <MEMBER name="read" wn="read%2:31:02 read%2:31:09" grouping="read.03"/>
+                <MEMBER name="realize" wn="realize%2:31:01" grouping=""/>
+                <MEMBER name="recognise" wn="recognise%2:31:01" grouping=""/>
+                <MEMBER name="recognize" wn="recognize%2:31:01" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V S_ING" secondary="ING-AC" xtag="0.2"/>
+                    <EXAMPLES>
+                        <EXAMPLE>I understood wanting more.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Experiencer">
+                            <SYNRESTRS/>
+                        </NP>
+                        <VERB/>
+                        <NP value="Stimulus">
+                            <SYNRESTRS>
+                                <SYNRESTR Value="+" type="ac_ing"/>
+                            </SYNRESTRS>
+                        </NP>
+                    </SYNTAX>
+                    <SEMANTICS>
+                        <PRED value="understand">
+                            <ARGS>
+                                <ARG type="Event" value="E"/>
+                                <ARG type="ThemRole" value="Experiencer"/>
+                                <ARG type="ThemRole" value="Stimulus"/>
+                            </ARGS>
+                        </PRED>
+                        <PRED value="property">
+                            <ARGS>
+                                <ARG type="ThemRole" value="Stimulus"/>
+                                <ARG type="ThemRole" value="?Attribute"/>
+                            </ARGS>
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            <FRAME>
+                <DESCRIPTION descriptionNumber="8.1" primary="NP V how S_INF" secondary="HOW-TO-INF" xtag="0.2"/>
+                <EXAMPLES>
+                    <EXAMPLE>I understood how to do it.</EXAMPLE>
+                </EXAMPLES>
+                <SYNTAX>
+                    <NP value="Experiencer">
+                        <SYNRESTRS/>
+                    </NP>
+                    <VERB/>
+                    <NP value="Stimulus">
+                        <SYNRESTRS>
+                            <SYNRESTR Value="+" type="wh_inf"/>
+                        </SYNRESTRS>
+                    </NP>
+                </SYNTAX>
+                <SEMANTICS>
+                    <PRED value="understand">
+                        <ARGS>
+                            <ARG type="Event" value="E"/>
+                            <ARG type="ThemRole" value="Experiencer"/>
+                            <ARG type="ThemRole" value="Stimulus"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="property">
+                        <ARGS>
+                            <ARG type="ThemRole" value="Stimulus"/>
+                            <ARG type="ThemRole" value="?Attribute"/>
+                        </ARGS>
+                    </PRED>
+                </SEMANTICS>
+            </FRAME>
+            <FRAME>
+                <DESCRIPTION descriptionNumber="8.1" primary="NP V NP to be NP" secondary="NP-TOBE" xtag="0.2"/>
+                <EXAMPLES>
+                    <EXAMPLE>I understood him to be a good doctor.</EXAMPLE>
+                </EXAMPLES>
+                <SYNTAX>
+                    <NP value="Experiencer">
+                        <SYNRESTRS/>
+                    </NP>
+                    <VERB/>
+                    <NP value="Stimulus">
+                        <SYNRESTRS>
+                            <SYNRESTR Value="+" type="to_be"/>
+                        </SYNRESTRS>
+                    </NP>
+                </SYNTAX>
+                <SEMANTICS>
+                    <PRED value="understand">
+                        <ARGS>
+                            <ARG type="Event" value="E"/>
+                            <ARG type="ThemRole" value="Experiencer"/>
+                            <ARG type="ThemRole" value="Stimulus"/>
+                        </ARGS>
+                    </PRED>
+                    <PRED value="property">
+                        <ARGS>
+                            <ARG type="ThemRole" value="Stimulus"/>
+                            <ARG type="ThemRole" value="?Attribute"/>
+                        </ARGS>
+                    </PRED>
+                </SEMANTICS>
+            </FRAME>
+        </FRAMES>
+        <SUBCLASSES>
+        <VNSUBCLASS ID="comprehend-87.2-1-1">
+            <MEMBERS>
+                <MEMBER name="see" wn="see%2:31:01" grouping=""/>
+            </MEMBERS>
+            <THEMROLES/>
+            <FRAMES>
+                <FRAME>
+                    <DESCRIPTION descriptionNumber="8.1" primary="NP V" secondary="Basic Intransitive" xtag="0.1"/>
+                    <EXAMPLES>
+                        <EXAMPLE>I understand.</EXAMPLE>
+                    </EXAMPLES>
+                    <SYNTAX>
+                        <NP value="Experiencer">
+                             <SYNRESTRS/>
+                        </NP>
+                        <VERB/> 
+                    </SYNTAX>
+                    <SEMANTICS>
+                       <PRED value="understand">
+                            <ARGS>
+                                <ARG type="Event" value="during(E)"/>
+                                <ARG type="ThemRole" value="Experiencer"/>
+                                <ARG type="ThemRole" value="?Stimulus"/>
+                            </ARGS> 
+                        </PRED>
+                    </SEMANTICS>
+                </FRAME>
+            </FRAMES>
+            <SUBCLASSES>
+            <VNSUBCLASS ID="comprehend-87.2-1-1-1">
+                <MEMBERS>
+                    <MEMBER name="know" wn="know%2:31:15" grouping="know.03"/>
+                    <MEMBER name="understand" wn="understand%2:31:00                     understand%2:31:01 undertand%2:31:02 understand%2:31:03" grouping="understand.01                     understand.02 understand.03"/>   
+                </MEMBERS> 
+                <THEMROLES/>
+                <FRAMES>
+                    <FRAME>
+                        <DESCRIPTION descriptionNumber="8.1" primary="NP V PP.stimulus" secondary="PP; Stimulus-PP" xtag="0.2"/>
+                        <EXAMPLES>
+                            <EXAMPLE>She understood about life.</EXAMPLE>
+                        </EXAMPLES>
+                        <SYNTAX>
+                            <NP value="Experiencer">
+                               <SYNRESTRS/>
+                            </NP>
+                            <VERB/>   
+                            <PREP value="about | of">
+                                <SELRESTRS/>
+                            </PREP>
+                            <NP value="Stimulus">
+                                <SYNRESTRS/>
+                            </NP>
+                        </SYNTAX>
+                        <SEMANTICS>
+                            <PRED value="understand">
+                                <ARGS>
+                                    <ARG type="Event" value="during(E)"/>
+                                    <ARG type="ThemRole" value="Experiencer"/>
+                                    <ARG type="ThemRole" value="Stimulus"/> 
+                                </ARGS>
+                            </PRED>
+                        </SEMANTICS>
+                    </FRAME>
+                    <FRAME>
+                        <DESCRIPTION descriptionNumber="8.1" primary="NP V PP.stimulus S_ING" secondary="PP; Stimulus-PP; P-POSSING" xtag="0.2"/>
+                        <EXAMPLES>
+                            <EXAMPLE>I knew about his drinking.</EXAMPLE>
+                        </EXAMPLES>
+                        <SYNTAX>
+                            <NP value="Experiencer">
+                                <SYNRESTRS/>
+                            </NP>
+                            <VERB/>
+                            <PREP value="about | of">
+                                <SELRESTRS/>
+                            </PREP>
+                            <NP value="Stimulus">
+                                <SYNRESTRS>
+                                    <SYNRESTR Value="+" type="poss_ing"/>
+                                </SYNRESTRS> 
+                            </NP>
+                        </SYNTAX>
+                        <SEMANTICS>
+                            <PRED value="understand">
+                                <ARGS>
+                                    <ARG type="Event" value="during(E)"/>
+                                    <ARG type="ThemRole" value="Experiencer"/>
+                                    <ARG type="ThemRole" value="Stimulus"/>
+                                </ARGS>
+                            </PRED>
+                        </SEMANTICS>
+                    </FRAME>
+                    <FRAME>
+                        <DESCRIPTION descriptionNumber="8.1" primary="NP V PP.stimulus what S" secondary="S" xtag="0.2"/>
+                        <EXAMPLES>
+                            <EXAMPLE>I knew about what to do.</EXAMPLE>
+                        </EXAMPLES>
+                        <SYNTAX>
+                            <NP value="Experiencer">
+                                <SYNRESTRS/>
+                            </NP>
+                            <VERB/>
+                            <PREP value="about | of">
+                                <SELRESTRS/>
+                            </PREP>
+                            <NP value="Stimulus">
+                                <SYNRESTRS>
+                                    <SYNRESTR Value="+" type="wh_inf"/>
+                                </SYNRESTRS>
+                            </NP>
+                        </SYNTAX>
+                        <SEMANTICS>
+                            <PRED value="understand">
+                                <ARGS>
+                                    <ARG type="Event" value="during(E)"/>
+                                    <ARG type="ThemRole" value="Experiencer"/>
+                                    <ARG type="ThemRole" value="Stimulus"/>
+                                </ARGS>
+                            </PRED>
+                        </SEMANTICS> 
+                    </FRAME>
+                    <FRAME>
+                        <DESCRIPTION descriptionNumber="8.1" primary="NP V PP.stimulus what S" secondary="S" xtag="0.2"/>
+                        <EXAMPLES>
+                            <EXAMPLE>I knew about what he should do.</EXAMPLE>
+                        </EXAMPLES>
+                        <SYNTAX>
+                            <NP value="Experiencer">
+                                <SYNRESTRS/>
+                            </NP>
+                            <VERB/>
+                            <PREP value="about | of">
+                                <SELRESTRS/>
+                            </PREP>
+                            <NP value="Stimulus">
+                                <SYNRESTRS>
+                                    <SYNRESTR Value="+" type="wh_extract"/>
+                                </SYNRESTRS>
+                            </NP>
+                        </SYNTAX>
+                        <SEMANTICS>
+                            <PRED value="understand">
+                                <ARGS>
+                                    <ARG type="Event" value="during(E)"/>
+                                    <ARG type="ThemRole" value="Experiencer"/>
+                                    <ARG type="ThemRole" value="Stimulus"/>
+                                </ARGS>
+                            </PRED>
+                        </SEMANTICS>
+                    </FRAME>
+                    <FRAME>
+                        <DESCRIPTION descriptionNumber="8.1" primary="NP V NP PP.attribute" secondary="NP-PP" xtag="0.2"/>
+                        <EXAMPLES>
+                            <EXAMPLE>I understood this about her."</EXAMPLE>
+                        </EXAMPLES>
+                        <SYNTAX>
+                            <NP value="Experiencer">
+                                <SYNRESTRS/>
+                            </NP>
+                            <VERB/>
+                            <NP value="Stimulus">
+                                <SYNRESTRS/>
+                            </NP>
+                            <PREP value="about">
+                                <SELRESTRS/>
+                            </PREP>
+                        </SYNTAX>
+                        <SEMANTICS>
+                            <PRED value="understand">
+                                <ARGS>
+                                    <ARG type="Event" value="during(E)"/>
+                                    <ARG type="ThemRole" value="Experiencer"/>
+                                    <ARG type="ThemRole" value="Stimulus"/>
+                                </ARGS>
+                            </PRED>
+                        </SEMANTICS>
+                    </FRAME>
+                </FRAMES>
+                <SUBCLASSES/>
+            </VNSUBCLASS>
+          </SUBCLASSES>     
+        </VNSUBCLASS>
+    </SUBCLASSES>
+    </VNSUBCLASS>
+    </SUBCLASSES> 
+</VNCLASS>
