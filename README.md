@@ -98,8 +98,8 @@ This description - a document plan - is executed by its natural language generat
 * **Data samples** can be uploaded as CSV files to be used when building Document Plans.
 * **Text structure variations** to provide richer reading experience going beyond rigid template generated text.
 * **Vocabulary control** to match the language style of each of your reader groups.
-* **In build rule engine** to allow the control of what is said based on the different values of the data points.
-* **Life preview** to see variations of generated text.
+* **Built-in rule engine** to allow the control of what is said based on the different values of the data points.
+* **Live preview** to see variations of generated text.
 
 
 ## Getting Started
