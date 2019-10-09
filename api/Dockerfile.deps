@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/tokenmill/clojure:1
+FROM clojure:tools-deps-alpine
 
 RUN mkdir /root/.gitlibs
 

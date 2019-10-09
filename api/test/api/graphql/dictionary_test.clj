@@ -1,77 +1,103 @@
 (ns api.graphql.dictionary-test
-  (:require [api.graphql.core :as graph]
-            [api.graphql.queries :as queries]
-            [clojure.test :refer [deftest testing is use-fixtures]]
-            [clojure.tools.logging :as log]
-            [data.entities.dictionary :as dict-entity]
-            [jsonista.core :as json]))
+  (:require [api.test-utils :refer [q]]
+            [clojure.test :refer [deftest is use-fixtures]]
+            [data.db.dynamo-ops :as ops]
+            [data.entities.dictionary :as dict-entity]))
 
 (defn prepare-environment [f]
-  (dict-entity/create-dictionary-item {:key          "VB-test-phrase"
-                                       :name         "test-phrase"
-                                       :partOfSpeech "VB"
-                                       :phrases      ["t1" "t2" "t3"]})
+  (ops/write! (ops/db-access :dictionary-combined)
+              "VB-test-phrase"
+              {:name         "test-phrase"
+               :partOfSpeech "VB"
+               :phrases      [{:id    "VB-test-phrase/1"
+                               :text  "t1"
+                               :flags {:default :YES}}
+                              {:id    "VB-test-phrase/2"
+                               :text  "t2"
+                               :flags {:senior  :YES
+                                       :default :NO}}]})
   (f)
   (dict-entity/delete-dictionary-item "VB-test-phrase"))
 
-(defn normalize-resp [resp]
-  (-> resp (json/write-value-as-string) (json/read-value)))
-
-(defn exists-pair?
-  [col [name-part phrases-part]]
-  (seq (filter (fn [pair]                                   ;; We cannot deconstruct OrderedMap
-                 (let [[k1 p1] (first pair)
-                       [k2 p2] (second pair)]
-                   (and (= p1 (get name-part k1))
-                        (= (set p2) (set (get phrases-part k2))))))
-               (flatten col))))
-
-(defn exists-item?
-  [col item]
-  (seq (filter (fn [d] (= d item)) col)))
+(use-fixtures :each prepare-environment)
 
 (deftest ^:integration full-query-test
-  (queries/validate-resp (graph/nlg {:query "{dictionary{items{name partOfSpeech phrases{id text defaultUsage readerFlagUsage{id usage flag{id name}}}}}}"})))
+  (let [query "{dictionary{items{name partOfSpeech phrases{id text defaultUsage readerFlagUsage{id usage flag{id name}}}}}}"
+        {{{{items :items} :dictionary} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query})]
+    (is (nil? errors))
+    (is (seq items))))
 
-(deftest ^:integration list-dictionary-phrases
-  (let [resp (graph/nlg {:query "{dictionary{items{name phrases{text}}}}"})
-        result (get-in resp [:data :dictionary :items])]
-    (log/debugf "Result:\t %s\n" (pr-str result))
-    (is (exists-pair? result (list {:name "test-phrase"} {:phrases '({:text "t1"} {:text "t2"} {:text "t3"})})))))
+(deftest ^:integration list-dictionary-phrases-test
+  (let [query "{dictionary{items{name phrases{text}}}}"
+        {{{{items :items} :dictionary} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query})]
+    (is (nil? errors))
+    (is (seq items))
+    (is (contains? (set items) {:name "test-phrase" :phrases [{:text "t1"} {:text "t2"}]}))
+    (is (= items (sort-by :name (shuffle items))))))
 
-(deftest ^:integration get-dictionary-item
-  (let [resp (graph/nlg {:query "{dictionaryItem(id: \"VB-test-phrase\"){name partOfSpeech phrases{text} concept { id }}}"})
-        result (get-in resp [:data :dictionaryItem])]
-    (queries/validate-resp resp)
-    (log/debugf "Resp: %s" resp)
-    (is (= "test-phrase" (:name result)))
-    (is (= :VB (:partOfSpeech result)))
-    (is (some? (get-in result [:concept :id])))
-    (is (= #{{:text "t1"}
-             {:text "t2"}
-             {:text "t3"}}
-           (set (:phrases result))))))
+(deftest ^:integration get-dictionary-item-test
+  (let [query "{dictionaryItem(id:\"%s\"){name partOfSpeech phrases{text} concept{id}}}"
+        {{{{:keys [name partOfSpeech phrases concept]} :dictionaryItem} :data errors :errors} :body}
+        (q "/_graphql" :post {:query (format query "VB-test-phrase")})]
+    (is (nil? errors))
+    (is (= "test-phrase" name))
+    (is (= "VB" partOfSpeech))
+    (is (= [{:text "t1"} {:text "t2"}] phrases))
+    (is (some? (:id concept)))))
 
-(deftest ^:integration ^:mutation mutation-scenario
-  (testing "create dict item"
-    (queries/validate-resp (graph/nlg (queries/create-dict-item "test-phrase2" "VB")))
-    (let [resp (graph/nlg (queries/get-dict-item "VB-test-phrase2"))
-          result (get-in resp [:data :dictionaryItem])]
-      (log/debugf "Resp: %s" resp)
-      (is (= "test-phrase2" (:name result)))))
-  (testing "add phrase"
-    (let [resp (graph/nlg (queries/create-phrase "VB-test-phrase2" "t1" "YES"))
-          phrases (get-in resp [:data :createPhrase :phrases])
-          target-id (-> (filter #(= "t1" (:text %)) phrases)
-                        (first)
-                        :id)]
-      (log/debugf "Resp: %s" resp)
-      (log/debugf "We've created phrase with ID: %s" target-id)
-      (is (not (nil? target-id)))
-      (queries/validate-resp (graph/nlg (queries/update-phrase target-id "t2")))
-      (queries/validate-resp (graph/nlg (queries/update-phrase-default-usage target-id "NO")))
-      (queries/validate-resp (graph/nlg (queries/update-reader-flag-usage (format "%s/%s" target-id "senior") "YES")))))
-  (testing "cleanup"
-    (queries/validate-resp (graph/nlg (queries/delete-dict-item "VB-test-phrase2")))))
+(deftest ^:integration create-dict-item-test
+  (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech}}"
+        {{{{:keys [name partOfSpeech]} :createDictionaryItem} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:name "test-phrase2", :partOfSpeech "VB"}})]
+    (is (nil? errors))
+    (is (= "test-phrase2" name))
+    (is (= "VB" partOfSpeech))
+    (dict-entity/delete-dictionary-item "VB-test-phrase2")))
 
-(use-fixtures :each prepare-environment)
+(deftest ^:integration create-phrase-test
+  (let [query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
+        {{{{:keys [phrases]} :createPhrase} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:dictionaryItemId "VB-test-phrase"
+                                                       :text             "t3"
+                                                       :defaultUsage     "YES"}})]
+    (is (nil? errors))
+    (is (seq phrases))
+    (is (contains? (set (map :text phrases)) "t3"))))
+
+(deftest ^:integration update-phrase-test
+  (let [query "mutation UpdatePhrase($id:ID! $text:String!){updatePhrase(id:$id text:$text){text defaultUsage}}"
+        {{{{text :text} :updatePhrase} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:id   "VB-test-phrase/2"
+                                                       :text "t2-updated"}})]
+    (is (nil? errors))
+    (is (= "t2-updated" text))))
+
+(deftest ^:integration update-phrase-default-usage-test
+  (let [query "mutation UpdatePhraseDefaultUsage($id:ID! $defaultUsage:DefaultUsage!){updatePhraseDefaultUsage(id:$id defaultUsage:$defaultUsage){text defaultUsage}}"
+        {{{{:keys [defaultUsage text]} :updatePhraseDefaultUsage} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:id           "VB-test-phrase/2"
+                                                       :defaultUsage "YES"}})]
+    (is (nil? errors))
+    (is (= "t2" text))
+    (is (= "YES" defaultUsage))))
+
+(deftest ^:integration update-phrase-reader-flag-usage-test
+  (let [query "mutation UpdateReaderFlagUsage($id:ID! $usage:Usage!){updateReaderFlagUsage(id:$id usage:$usage){id flag{id name} usage}}"
+        {{{{:keys [flag usage id]} :updateReaderFlagUsage} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:id    "VB-test-phrase/2/senior"
+                                                       :usage "YES"}})]
+    (is (nil? errors))
+    (is (= {:name "senior" :id "senior"} flag))
+    (is (= "YES" usage))
+    (is (= "VB-test-phrase/2/senior" id))))
+
+(deftest ^:integration delete-dict-item-test
+  (is (some? (dict-entity/get-dictionary-item "VB-test-phrase")))
+  (let [query "mutation DeleteDictionaryItem($id:ID!){deleteDictionaryItem(id:$id)}"
+        {{{response :deleteDictionaryItem} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:id "VB-test-phrase"}})]
+    (is (nil? errors))
+    (is (true? response))
+    (is (nil? (dict-entity/get-dictionary-item "VB-test-phrase")))))

@@ -4,7 +4,6 @@
             [api.graphql.domain.dictionary :as dictionary-domain]
             [api.graphql.domain.document-plan :as document-plan-domain]
             [api.graphql.domain.thesaurus :as thesaurus-domain]
-            [api.graphql.translate.core :as translate]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [com.walmartlabs.lacinia :refer [execute]]
@@ -66,6 +65,6 @@
 
 (defn nlg [{:keys [query variables context] :as request}]
   (log/infof "The request is: %s" request)
-  (->> (translate/translate-input query variables context)
+  (->> (list query variables context)
        (cons nlg-schema)
        (apply execute)))

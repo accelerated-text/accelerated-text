@@ -1,40 +1,29 @@
 (ns api.nlg.generator.planner-ng-test
   (:require [api.nlg.generator.planner-ng :as planner]
             [api.nlg.generator.parser-ng :as parser]
+            [api.test-utils :refer [load-test-data]]
             [clojure.data :as data]
-            [clojure.edn :as edn]
-            [clojure.java.io :as io]
             [clojure.string :as string]
             [clojure.test :refer [deftest is testing]]
-            [clojure.tools.logging :as log])
-  (:import (java.io PushbackReader)))
-
-(defn load-test-data
-  [filename]
-  (with-open [r (io/reader (format "test/resources/%s.edn" filename))]
-    (edn/read (PushbackReader. r))))
+            [clojure.tools.logging :as log]))
 
 (defn compare-result
   [expected result]
-  (println "Result: " result)
   (let [[l r _] (data/diff expected result)]
     (is (= [] (remove nil? l)))
     (is (= [] (remove nil? r)))))
 
 (deftest test-compile-single-node-plan
-  (testing "Create a single subject plan"
-    (let [document-plan (load-test-data "single-subj")
-          compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
-      (is (seq compiled))
-      (is (= 1 (count compiled)))
-      (let [first-segment (first compiled)
-            concrete-plan (first first-segment)
-            expected {:dynamic        [{:name {:cell :product-name :dyn-name "$1"} :attrs {:type :product :source :cell}}]
-                      :static         []
-                      :reader-profile :default}]
-        (log/debugf "Concrete plan: %s" (pr-str concrete-plan))
-        (let [result (planner/build-dp-instance concrete-plan)]
-          (is (compare-result expected result)))))))
+  (let [compiled (parser/parse-document-plan
+                   (load-test-data "single-subj")
+                   {} {:reader-profile :default})]
+    (is (= 1 (count compiled)))
+    (is (compare-result
+          {:dynamic        [{:name  {:cell :product-name :dyn-name "$1"}
+                             :attrs {:type :product :source :cell}}]
+           :static         []
+           :reader-profile :default}
+          (planner/build-dp-instance (-> compiled first first))))))
 
 (deftest plan-with-two-features
   (testing "Create subject with two features"
@@ -44,9 +33,12 @@
       (is (= 1 (count compiled)))
       (let [first-segment (first compiled)
             concrete-plan (first first-segment)
-            expected {:dynamic        [{:name {:cell :product-name :dyn-name "$1"} :attrs {:type :product :source :cell}}
-                                       {:name {:cell :main-feature :dyn-name "$2"} :attrs {:type :benefit :source :cell}}
-                                       {:name {:cell :secondary-feature :dyn-name "$3"} :attrs {:type :benefit :source :cell}}]
+            expected {:dynamic        [{:name  {:cell :product-name :dyn-name "$1"}
+                                        :attrs {:type :product :source :cell}}
+                                       {:name  {:cell :main-feature :dyn-name "$2"}
+                                        :attrs {:type :benefit :source :cell}}
+                                       {:name  {:cell :secondary-feature :dyn-name "$3"}
+                                        :attrs {:type :benefit :source :cell}}]
                       :static         ["provides"]
                       :reader-profile :default}]
         (log/debugf "Concrete plan: %s" (pr-str concrete-plan))
@@ -60,13 +52,16 @@
           compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
       (is (seq compiled))
       (is (= 1 (count compiled)))
-      (println compiled)
       (let [first-segment (first compiled)
             concrete-plan (first first-segment)
-            expected {:dynamic        [{:name {:cell :product-name :dyn-name "$1"} :attrs {:type :product :source :cell}}
-                                       {:name {:cell :main-feature :dyn-name "$2"} :attrs {:type :benefit :source :cell}}
-                                       {:name {:cell :secondary-feature :dyn-name "$3"} :attrs {:type :benefit :source :cell}}
-                                       {:name {:quote "special for you" :dyn-name "$4"} :attrs {:type :benefit :source :quote}}]
+            expected {:dynamic        [{:name  {:cell :product-name :dyn-name "$1"}
+                                        :attrs {:type :product :source :cell}}
+                                       {:name  {:cell :main-feature :dyn-name "$2"}
+                                        :attrs {:type :benefit :source :cell}}
+                                       {:name  {:cell :secondary-feature :dyn-name "$3"}
+                                        :attrs {:type :benefit :source :cell}}
+                                       {:name  {:quote "special for you" :dyn-name "$4"}
+                                        :attrs {:type :benefit :source :quote}}]
                       :static         ["provides"]
                       :reader-profile :default}]
         (log/debugf "Concrete plan: %s" (pr-str concrete-plan))
@@ -81,10 +76,13 @@
       (is (= 1 (count compiled)))
       (is (= 2 (count (first compiled))))
       ;; First sentence
-      (let [concrete-plan (first (first compiled))
-            expected {:dynamic        [{:name {:cell :product-name :dyn-name "$1"} :attrs {:type :product :source :cell}}
-                                       {:name {:cell :main-feature :dyn-name "$3"} :attrs {:type :benefit :source :cell}}
-                                       {:name {:cell :secondary-feature :dyn-name "$4"} :attrs {:type :benefit :source :cell}}]
+      (let [concrete-plan (ffirst compiled)
+            expected {:dynamic        [{:name  {:cell :product-name :dyn-name "$1"}
+                                        :attrs {:type :product :source :cell}}
+                                       {:name  {:cell :main-feature :dyn-name "$3"}
+                                        :attrs {:type :benefit :source :cell}}
+                                       {:name  {:cell :secondary-feature :dyn-name "$4"}
+                                        :attrs {:type :benefit :source :cell}}]
                       :static         ["provides"]
                       :reader-profile :default}
             result (planner/build-dp-instance concrete-plan)]
@@ -175,6 +173,10 @@
           result (first (planner/render-dp document-plan data :default))
           expected "cool looking fit"]
       (is (string/includes? result expected)))))
+
+;; (deftest generate-simple-statement
+;;   (is (= "x" (first (planner/render-dp (load-test-data "simple-plan")
+;;                                        [{:product-name "X"}] :default)))))
 
 (deftest ^:integration plan-with-dictionary
   (testing "Create text with dictionary"

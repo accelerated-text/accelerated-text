@@ -18,22 +18,6 @@
           result (ops/merge-contexts main children)]
       (is (= expected result)))))
 
-(deftest test-join-words
-  (testing "join 1 word"
-    (is (= "apple" (ops/join-words ["apple"]))))
-  (testing "join 2 words"
-    (let [data ["apple", "orange"]
-          expected "apple and orange"]
-      (is (= expected (ops/join-words data)))))
-  (testing "join 3 words"
-    (let [data ["apple" "orange" "pear"]
-          expected "apple, orange and pear"]
-      (is (= expected (ops/join-words data)))))
-  (testing "join 4 words"
-    (let [data ["apple" "orange" "pear" "mango"]
-          expected "apple, orange, pear and mango"]
-      (is (= expected (ops/join-words data))))))
-
 (deftest test-wordlist-filter
   (testing "Filter simple wordlist"
     (let [data (list {:name "w1", :attrs {:type :wordlist :class :test}}
@@ -47,3 +31,9 @@
          (ops/replace-multi "{{AGENT}} battled with {{CO-AGENT}}" (list
                                                                     ["{{AGENT}}" "Sparta"]
                                                                     ["{{CO-AGENT}}" "Athens"])))))
+
+(deftest join-sentences-test
+  (let [s1 "Hello world"
+        s2 "it's a very hot day"
+        result (ops/join-sentences [s1 s2])]
+    (is (= "Hello world. It's a very hot day." result))))

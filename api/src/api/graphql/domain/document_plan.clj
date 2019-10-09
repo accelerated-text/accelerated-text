@@ -3,10 +3,13 @@
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.entities.document-plan :as dp]))
 
+(defn- resolve-as-not-found-document-plan [id]
+  (resolve-as nil {:message (format "Cannot find document plan with id `%s`." id)}))
+
 (defn get-document-plan [_ {:keys [id]} _]
   (if-let [document-plan (dp/get-document-plan id)]
     (resolve-as (translate-dp/dp->schema document-plan))
-    (resolve-as nil {:message (format "Cannot find document plan with id `%s`." id)})))
+    (resolve-as-not-found-document-plan id)))
 
 (defn delete-document-plan [_ {:keys [id]} _]
   (dp/delete-document-plan id)
@@ -31,4 +34,4 @@
 (defn update-document-plan [_ {:keys [id] :as args} _]
   (if-let [document-plan (dp/update-document-plan id (translate-dp/schema->dp args))]
     (resolve-as (translate-dp/dp->schema document-plan))
-    (resolve-as nil {:message (format "Cannot find document plan with id `%s`." id)})))
+    (resolve-as-not-found-document-plan id)))

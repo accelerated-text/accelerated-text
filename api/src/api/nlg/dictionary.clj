@@ -2,29 +2,21 @@
   (:require [clojure.tools.logging :as log]
             [data.entities.dictionary :as dict-entity]))
 
-(defn get-phrases
-  [id]
-  (-> (dict-entity/get-dictionary-item id)
-      :phrases))
+(defn get-phrases [id]
+  (:phrases (dict-entity/get-dictionary-item id)))
 
-(defn use-phrase?
-  [phrase reader-profile]
-  (let [flags (:flags phrase)
-        default (:default flags)
-        profile-keys (filter #(get reader-profile %) (keys flags))
-        other (vals (select-keys flags profile-keys))]
-    (log/tracef "Item: %s, logical table: %s default: %s" (:text phrase) (pr-str other) default)
+(defn use-phrase? [{{default-flags :default :as flags} :flags text :text} reader-profile]
+  (let [other (->> (keys flags) (filter #(get reader-profile %)) (select-keys flags) (vals))]
+    (log/tracef "Item: %s, logical table: %s default: %s" text (pr-str other) default-flags)
     (cond
       (some #(= % :NO) other) false
-      (and (every? #(= % :DONT_CARE) other) (= default :NO)) false
+      (and (every? #(= % :DONT_CARE) other) (= default-flags :NO)) false
       :else true)))
 
-(defn filter-by-profile
-  [phrases reader-profile]
-  (map
-    :text
-    (filter #(use-phrase? % reader-profile) phrases)))
+(defn filter-by-profile [phrases reader-profile]
+  (->> phrases
+       (filter #(use-phrase? % reader-profile))
+       (map :text)))
 
-(defn search
-  [key reader-profile]
+(defn search [key reader-profile]
   (filter-by-profile (get-phrases key) reader-profile))

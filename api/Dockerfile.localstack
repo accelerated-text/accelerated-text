@@ -1,0 +1,3 @@
+FROM localstack/localstack:latest
+
+COPY ./api/resources/localstack/data /tmp/localstack/data

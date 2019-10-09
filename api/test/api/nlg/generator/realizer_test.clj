@@ -19,9 +19,3 @@
         result (first (realizer/realize data {:context   context
                                               :templates [sent]}))]
     (is (= expected result))))
-
-(deftest join-sentences-test
-  (let [s1 "Hello world"
-        s2 "it's a very hot day"
-        result (realizer/join-sentences [s1 s2])]
-    (is (= "Hello world. It's a very hot day." result))))

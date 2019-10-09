@@ -2,16 +2,13 @@
   (:gen-class)
   (:require [api.graphql.core :as graphql]
             [api.nlg.generate :as generate]
-            [cheshire.core :as json]
+            [api.utils :as utils]
             [clojure.java.io :as io]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
-            [clojure.walk :as walk]
+            [jsonista.core :as json]
             [org.httpkit.server :as server])
-  (:import (java.net URLDecoder)
-           (java.nio.charset Charset)
-           (java.io ByteArrayOutputStream)
-           (org.httpkit BytesInputStream)))
+  (:import (java.io ByteArrayOutputStream)))
 
 (defonce server (atom nil))
 
@@ -24,85 +21,43 @@
     (@server :timeout 100)
     (reset! server nil)))
 
-(defn- split-param [param]
-  (take 2 (-> (str/split param #"=")
-              (concat (repeat "")))))
-
-(defn- url-decode
-  ([string]
-   (url-decode string "UTF-8"))
-  ([string encoding]
-   (when (some? string)
-     (URLDecoder/decode string encoding))))
-
-(defn- query->map [query-string]
-  (when-not (str/blank? query-string)
-    (some->> (str/split query-string #"&")
-             (seq)
-             (mapcat split-param)
-             (map url-decode)
-             (apply hash-map)
-             (walk/keywordize-keys))))
-
-(defn- normalize-body [body]
-  (-> body
-      (.bytes)
-      (String.)
-      (json/decode true)))
-
-(defn- normalize-request [{:keys [headers query-string body request-method]} path-params]
-  (json/generate-string
-    {:httpMethod            (-> request-method (name) (str/upper-case) (keyword))
-     :queryStringParameters (query->map query-string)
-     :headers               headers
-     :body                  (cond-> body
-                                    (= BytesInputStream (type body)) (-> (normalize-body) (json/encode)))
-     :pathParameters        path-params}))
-
-(defn- parse-path [uri]
-  (let [matcher (re-matcher #"(?<namespace>(\/(\w|[-])+))\/?(?<id>((\w|[-])+))?\/?(?<file>((\w+|[-])+\.\w+))?" uri)
-        _ (re-find matcher)
-        namespace (.group matcher "namespace")
-        id (.group matcher "id")
-        file (.group matcher "file")]
-    {:namespace   (str/lower-case namespace)
-     :path-params (cond
-                    (some? file) {:user id :file file}
-                    (some? id) {:id id}
-                    :else {})}))
-
 (defn- http-result [body]
   {:status  200
    :headers (assoc headers "Content-Type" "application/json")
    :body    body})
 
+(defn- normalize-request [{:keys [headers query-string body request-method]} path-params]
+  (json/write-value-as-string
+    {:httpMethod            (-> request-method (name) (str/upper-case) (keyword))
+     :queryStringParameters (utils/query->map query-string)
+     :headers               headers
+     :body                  (some-> body (utils/read-json-is) (json/write-value-as-string))
+     :pathParameters        path-params}))
+
 (defn app [{:keys [body uri request-method] :as request}]
-  (let [{:keys [namespace path-params]} (parse-path uri)
-        normalized-req (normalize-request request path-params)]
+  (let [{:keys [namespace path-params]} (utils/parse-path uri)]
     (if (= request-method :options)
       {:status  200
        :headers headers}
       (try
         (case namespace
           "/_graphql" (-> body
-                          (normalize-body)
+                          (utils/read-json-is)
                           (graphql/nlg)
                           (http-result)
-                          (update :body json/encode))
-          "/nlg" (let [is (io/input-stream (.getBytes normalized-req))
+                          (update :body json/write-value-as-string))
+          "/nlg" (let [is (-> request (normalize-request path-params) (.getBytes) (io/input-stream))
                        os (ByteArrayOutputStream.)]
                    (generate/-handleRequest nil is os nil)
                    (-> os
-                       (.toByteArray)
-                       (String. (Charset/defaultCharset))
-                       (json/decode true)
+                       (utils/read-json-os)
                        (get :body)
                        (http-result)))
           {:status 404
            :body   (format "ERROR: unsupported URI '%s'" uri)})
         (catch Exception e
-          (log/errorf "Encountered error '%s' with request '%s'" (.getMessage e) request)
-          (log/errorf "Normalized request -> '%s'" normalized-req)
+          (log/errorf "Encountered error '%s' with request '%s'"
+                      (.getMessage e) (update request :body utils/read-json-is))
           (.printStackTrace e)
           {:status  500
            :headers headers})))))

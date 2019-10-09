@@ -98,7 +98,7 @@ This description - a document plan - is executed by its natural language generat
 * **Data samples** can be uploaded as CSV files to be used when building Document Plans.
 * **Text structure variations** to provide richer reading experience going beyond rigid template generated text.
 * **Vocabulary control** to match the language style of each of your reader groups.
-* **Built-in rule engine** to allow the control of what is said based on the different values of the data points.
+* **Build-in rule engine** to allow the control of what is said based on the different values of the data points.
 * **Live preview** to see variations of generated text.
 
 
@@ -106,44 +106,17 @@ This description - a document plan - is executed by its natural language generat
 
 ### Running
 
-#### Docker
-
-To run *Accelerated Text* via Docker, just type
-
-```
-docker-compose -p dev -f docker-compose.yml pull && \
-        docker-compose -p dev -f docker-compose.yml down && \
-        docker-compose -p dev -f docker-compose.yml build && \
-        docker-compose -p dev -f docker-compose.yml up --remove-orphans
-```
-
-After running this command the front-end will be availabe at the http://localhost:8080
-
-The generation back-end API is at http://localhost:8081
-
-#### From Source
-
-If you want to start tinkering and run it based on the latest code in the repository, first make sure that you have the following dependencies installed:
-
-* [make](https://www.gnu.org/software/make/)
-* [npm](https://nodejs.org )
+If you want to start tinkering and run it based on the latest code in the repository, first make sure that you have [make](https://www.gnu.org/software/make/) installed 
 
 Then clone the project and run
 
 ```
-make run-front-end-dev-deps
-```
-
-follwed by
-
-```
-make run-front-end-dev
-
+make run-dev-env
 ```
 
 After running this command the front-end will be availabe at the http://localhost:8080
 
-The generation back-end API is at http://localhost:8081
+The generation back-end API is at http://localhost:3001
 
 ### Usage
 

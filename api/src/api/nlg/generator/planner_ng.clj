@@ -8,7 +8,7 @@
             [clojure.tools.logging :as log]))
 
 (defn build-dp-instance
-  "dp - a hashmap compiled with `compile-dp`
+  "dp - a hashmap compiled with `parse-document-plan`
    data - a flat hashmap (represents CSV)
    returns: hashmap (context) which will be used to generate text"
   [dp]
@@ -16,44 +16,34 @@
                   :static         []
                   :reader-profile :default}
          fs dp]
-    (if (empty? fs)
-      context
-      (let [[head & tail] fs]
-        (log/tracef "Head: %s" head)
-        (recur (ops/merge-context context (into {} head)) tail)))))
+    (if (map? fs)
+      (ops/merge-context context fs)
+      (if (empty? fs)
+        context
+        (let [[head & tail] fs]
+          (log/tracef "Head: %s" head)
+          (recur (ops/merge-context context (into {} head)) tail))))))
 
-(defn resolve-item-context
-  [item]
-  (let [type-name (get-in item [:attrs :type])
-        default {:pos :NP}]
-    (case type-name
-      :product {:class "product"
-                :pos   :NNP}
-      :benefit {:class "benefit"
-                :pos   :NP}
-      :component {:class "component"
-                  :pos   :NNP}
-      :amr {:class "amr"
-            :pos   :S}
-      default)))
+(defn resolve-item-context [item]
+  (case (get-in item [:attrs :type])
+    :product   {:class "product" :pos :NNP}
+    :benefit   {:class "benefit" :pos :NP}
+    :component {:class "component" :pos :NNP}
+    :amr       {:class "amr" :pos :S}
+    {:pos :NP}))
 
-(defn resolve-morph-context
-  [group]
-  (map (fn
-         [item]
-         (let [name (case (string? (item :name))
-                      true (item :name)
-                      false ((item :name) :dyn-name))
-               context (resolve-item-context item)]
+(defn resolve-morph-context [group]
+  (map (fn [{:keys [name] :as item}]
+         (let [context (resolve-item-context item)]
            (dsl/morph-entry
-             name
+            (if (string? name) name (:dyn-name name))
              (:pos context)
              {:class (:class context)})))
        group))
 
 (defn resolve-lex-context
   [idx [k members]]
-  (let [{:keys [pos _]} (resolve-item-context (first members))
+  (let [{:keys [pos]} (resolve-item-context (first members))
         family-part (partial
                       dsl/family
                       (name k) pos true
@@ -62,11 +52,8 @@
                                  (dsl/atomcat pos {:index (+ idx 10)}
                                               (dsl/fs-nomvar "index" "X"))))]
     (apply family-part
-           (map (fn [m]
-                  (let [name (case (string? (m :name))
-                               true (m :name)
-                               false ((m :name) :dyn-name))]
-                    (dsl/member name)))
+           (map (fn [{:keys [name]}]
+                  (dsl/member (if (string? name) name (:dyn-name name))))
                 members))))
 
 (defn compile-custom-grammar
@@ -151,9 +138,9 @@
 (defn get-placeholder [item]
   (if (realizer/placeholder? item)
     (get-in item [:name :dyn-name])
-    (item :name)))
+    (:item item)))
 
-(defn amr? [item] (get (:attrs item) :amr false))
+(defn amr? [item] (get-in item [:attrs :amr] false))
 
 (defn generate-templates
   "Takes context and generates numerous sentences. Picks random one"
@@ -175,7 +162,7 @@
   (let [realized (map (partial realizer/realize data) templates)
         _ (log/debugf "Realized: %s" (pr-str realized))
         sentences (map #(if (empty? %) "" (rand-nth %)) realized)]
-    (realizer/join-sentences sentences)))
+    (ops/join-sentences sentences)))
 
 (defn render-dp
   "document-plan - a hash map with document plan
@@ -195,5 +182,5 @@
     (log/debugf "Templates: %s" (pr-str templates))
     (map (fn [row] (->> templates
                         (map #(render-segment % row))
-                        (realizer/join-segments)))
+                        (ops/join-segments)))
          data)))

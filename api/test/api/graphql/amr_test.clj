@@ -1,7 +1,11 @@
 (ns api.graphql.amr-test
-  (:require [api.graphql.core :as graph]
-            [api.graphql.queries :as queries]
-            [clojure.test :refer [deftest]]))
+  (:require [api.test-utils :refer [q]]
+            [clojure.test :refer [deftest is]]))
 
-(deftest ^:integration full-query-test
-  (queries/validate-resp (graph/nlg (queries/list-verbclasses))))
+(deftest ^:integration concepts-test
+  (let [query "{concepts{id concepts{id label roles{id fieldType fieldLabel} dictionaryItem{name phrases{text}} helpText}}}"
+        {{{{:keys [id concepts]} :concepts} :data errors :errors} :body} (q "/_graphql" :post {:query query})]
+    (is (nil? errors))
+    (is (seq concepts))
+    (is (= "concepts" id))
+    (is (= concepts (sort-by :id (shuffle concepts))))))
