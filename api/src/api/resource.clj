@@ -17,13 +17,13 @@
                {}
                m)))
 
-(defn- process-input [is decode-body?]
-  (-> is
-      (utils/read-json-is)
-      (update :pathParameters decode-vals)
-      (update :queryStringParameters decode-vals)
-      (cond-> (true? decode-body?)
-              (update :body #(ch/decode % true)))))
+(defn- decode-input [is decode-body?]
+  (with-open [rdr (io/reader is)]
+    (-> (ch/decode-stream rdr true)
+        (update :pathParameters decode-vals)
+        (update :queryStringParameters decode-vals)
+        (cond-> (true? decode-body?)
+                (update :body #(ch/decode % true))))))
 
 (defn- generate-response [status-code body]
   (ch/encode
@@ -40,7 +40,7 @@
     (let [{path-params  :pathParameters
            query-params :queryStringParameters
            method       :httpMethod
-           body         :body :as input} (process-input is decode-body?)
+           body         :body :as input} (decode-input is decode-body?)
           {:keys [status body]} (case (keyword method)
                                   :GET (if get-handler (get-handler query-params path-params) (dummy))
                                   :DELETE (if delete-handler (delete-handler path-params) (dummy))
