@@ -1,6 +1,5 @@
 (ns api.resource
-  (:require [api.utils :as utils]
-            [clojure.tools.logging :as log]
+  (:require [clojure.tools.logging :as log]
             [clojure.java.io :as io]
             [cheshire.core :as ch])
   (:import (java.io BufferedWriter)
