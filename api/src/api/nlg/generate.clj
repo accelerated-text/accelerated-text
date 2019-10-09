@@ -1,8 +1,8 @@
 (ns api.nlg.generate
   (:require [api.nlg.generator.planner-ng :as planner]
             [api.nlg.nlp :as nlp]
-            [api.nlg.resource :as resource]
-            [api.nlg.utils :as utils]
+            [api.resource :as resource]
+            [api.utils :as utils]
             [clojure.tools.logging :as log]
             [data.db.dynamo-ops :as ops]
             [data.db.config :as config]
@@ -15,12 +15,10 @@
 (defn get-db []
   (ops/db-access :results))
 
-(defn get-data
-  [data-id]
+(defn get-data [data-id]
   (doall (utils/csv-to-map (s3/read-file config/data-bucket data-id))))
 
-(defn generation-process
-  [dp-id data-id result-fn reader-model]
+(defn generation-process [dp-id data-id result-fn reader-model]
   (let [data (get-data data-id)
         dp (:documentPlan (document-plan/get-document-plan dp-id))
         results (utils/result-or-error (planner/render-dp dp data reader-model))
@@ -43,7 +41,8 @@
     (generation-process document-plan-id data-id result-fn (if (seq reader-model)
                                                              reader-model
                                                              default-reader-model))
-    (utils/do-return (fn [] {:resultId result-id}))))
+    (utils/do-return (fn []
+                       {:resultId result-id}))))
 
 (defn wrap-to-annotated-text
   [results]
@@ -80,14 +79,12 @@
   (let [db (get-db)]
     (utils/do-delete (partial ops/read! db) (partial ops/delete! db) (path-params :id))))
 
-(def request-handler-atom (atom nil))
+(def handler-fn (delay
+                  (resource/build-resource
+                    {:get-handler    read-result
+                     :post-handler   generate-request
+                     :delete-handler delete-result}
+                    true)))
 
 (defn -handleRequest [_ is os _]
-  (let [handler-fn (or
-                     @request-handler-atom
-                     (reset! request-handler-atom (resource/build-resource
-                                                    {:get-handler    read-result
-                                                     :post-handler   generate-request
-                                                     :delete-handler delete-result}
-                                                    true)))]
-    (handler-fn nil is os nil)))
+  (@handler-fn nil is os nil))

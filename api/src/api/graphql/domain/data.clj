@@ -23,10 +23,13 @@
        :recordLimit  limit
        :recordCount  (count records)})))
 
+(defn- resolve-as-not-found-file [id]
+  (resolve-as nil {:message (format "Cannot find data file with id `%s`." id)}))
+
 (defn get-data-file [_ {:keys [id recordOffset recordLimit] :or {recordOffset 0 recordLimit 20}} _]
   (if-let [data-file (read-data-file-from-s3 id recordOffset recordLimit)]
     (resolve-as data-file)
-    (resolve-as nil {:message (format "Cannot find data file with id `%s`." id)})))
+    (resolve-as-not-found-file id)))
 
 (defn list-data-files [_ {:keys [offset limit recordOffset recordLimit] :or {offset 0 limit 20 recordOffset 0 recordLimit 20}} _]
   (let [data-files (s3/list-objects config/data-bucket "example-user")]

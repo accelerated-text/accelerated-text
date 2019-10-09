@@ -1,0 +1,3 @@
+{:type "Document-plan"
+ :segments [{:type "Segment"
+             :children [{:name "product-name" :type "Cell"}]}]}

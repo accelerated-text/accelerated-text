@@ -1,24 +1,22 @@
 version: '2'
 
 services:
-  dynamodb:
-    image: registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
-  s3:
-    image: registry.gitlab.com/tokenmill/nlg/accelerated-text/s3-local:latest
+  localstack:
+    build:
+      context: ../
+      dockerfile: api/Dockerfile.localstack
     environment:
-      - SERVICES=s3
-      - DEBUG=1
+      - SERVICES=dynamodb,s3
       - DATA_DIR=/tmp/localstack/data
   api:
     build:
       context: ../
       dockerfile: api/Dockerfile.test
     depends_on:
-      - dynamodb
-      - s3
+      - localstack
     environment:
-      S3_ENDPOINT: http://s3:4572
-      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      S3_ENDPOINT: http://localstack:4572
+      DYNAMODB_ENDPOINT: http://localstack:4569
       AWS_REGION: "eu-central-1"
       AWS_ACCESS_KEY_ID: "DEV"
       AWS_SECRET_ACCESS_KEY: "DEV"

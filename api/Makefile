@@ -5,6 +5,9 @@ REMOTE_API_URL=https://5cf9n85hrg.execute-api.eu-central-1.amazonaws.com/Prod
 DEV_API_URL=https://9u87u8ycfk.execute-api.eu-central-1.amazonaws.com/Prod
 PROFILE=tm
 
+-include ../.env
+export
+
 build-deps-image:
 	cd ../ && docker build -f api/Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps .
 
@@ -55,7 +58,6 @@ unit-tests:
 
 integration-tests:
 	docker-compose -p test -f docker-compose.test.yml down && \
-	docker-compose -p test -f docker-compose.test.yml pull && \
 	docker-compose -p test -f docker-compose.test.yml build && \
 	docker-compose -p test -f docker-compose.test.yml up --remove-orphans --abort-on-container-exit --exit-code-from api
 
@@ -71,13 +73,13 @@ build-rest-api-image:
 upload-sam:
 	aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket ${S3_BUCKET_NAME} --profile ${PROFILE}
 
-deploy: build-legacy-uberjar upload-sam
+deploy: build-rest-api-uberjar upload-sam
 	aws cloudformation deploy --template-file output-sam.yaml --stack-name ${STACK_NAME} --capabilities CAPABILITY_IAM --profile ${PROFILE}
 
 upload-sam-dev:
 	aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket ${S3_BUCKET_NAME}-dev --profile ${PROFILE}
 
-deploy-dev: build-legacy-uberjar upload-sam-dev
+deploy-dev: build-rest-api-uberjar upload-sam-dev
 	aws cloudformation deploy --template-file output-sam.yaml --stack-name ${STACK_NAME}-dev --capabilities CAPABILITY_IAM --profile ${PROFILE}
 
 install-aws-sam:

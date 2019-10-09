@@ -1,22 +1,20 @@
 version: '3.3'
 
 services:
-  dynamodb:
-    image: registry.gitlab.com/tokenmill/nlg/accelerated-text/dynamodb-local:latest
-    ports: ["8000:8000"]
-  s3:
-    image: registry.gitlab.com/tokenmill/nlg/accelerated-text/s3-local:latest
+  localstack:
+    build:
+      context: .
+      dockerfile: api/Dockerfile.localstack
     environment:
-      - SERVICES=s3
-      - DEBUG=1
+      - SERVICES=dynamodb,s3
       - DATA_DIR=/tmp/localstack/data
-    ports: ["8001:4572"]
+    ports: ["8000:4569", "8001:4572"]
   acc-text-api:
     image: registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
     ports: ["3001:3001"]
     environment:
-      S3_ENDPOINT: http://s3:4572
-      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      S3_ENDPOINT: http://localstack:4572
+      DYNAMODB_ENDPOINT: http://localstack:4569
       AWS_REGION: eu-central-1
       AWS_ACCESS_KEY_ID: DEV
       AWS_SECRET_ACCESS_KEY: DEV

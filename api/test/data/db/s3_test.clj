@@ -7,7 +7,7 @@
 (deftest ^:integration reading-from-s3
   (testing "List files in bucket"
     (let [result (s3/list-objects config/data-bucket "example-user")]
-      (is (> (count result) 0))))
+      (is (pos? (count result)))))
   (testing "Read books.csv headers"
     (let [result (s3/read-file config/data-bucket "example-user/books.csv")
           headers (-> result (str/split-lines) (first) (str/split #",") (set))]

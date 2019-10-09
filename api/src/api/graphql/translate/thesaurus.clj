@@ -22,12 +22,11 @@
 
 (defn synonyms [word-id]
   (let [[pos & tokens] (string/split word-id #"-")
-        root-word (string/join " " tokens)
-        words (search-thesaurus root-word pos)]
+        root-word (string/join " " tokens)]
     {:rootWord {:id           word-id
                 :partOfSpeech pos
                 :text         root-word
                 :concept      (when (= pos "VB")
                                 (translate-amr/verbclass->schema
                                   (amr/get-verbclass :author)))}
-     :synonyms (:words words)}))
+     :synonyms (:words (search-thesaurus root-word pos))}))

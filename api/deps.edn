@@ -22,8 +22,8 @@
              org.eclipse.jetty/jetty-util        {:mvn/version "9.4.20.v20190813"}
              org.eclipse.jetty/jetty-client      {:mvn/version "9.4.20.v20190813"}}
  :paths     ["src" "resources"]
- :mvn/repos {"central"      {:url "https://repo1.maven.org/maven2/"}
-             "clojars"      {:url "https://repo.clojars.org/"}}
+ :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
+             "clojars" {:url "https://repo.clojars.org/"}}
  :aliases   {:dev
              {:extra-paths ["spec" "test" "test/resources"]}
              :test
