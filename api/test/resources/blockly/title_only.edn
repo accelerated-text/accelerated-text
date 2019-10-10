@@ -1,0 +1,6 @@
+{:uid "02",
+ :name "title-only",
+ :blocklyXml "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\"G=Rh:ssF)$/$+H);gPsI\" deletable=\"false\" x=\"316\" y=\"231\"><statement name=\"segments\"><block type=\"Segment\" id=\"%!Y{*?HuA=,[x7AOZ?f-\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"Cell\" id=\"isiyTw^15gyD-G}G^i9*\"><field name=\"name\">title</field></block></value></block></statement></block></xml>",
+ :documentPlan {:segments [{:children [{:name "title", :type "Cell", :srcId "isiyTw"}], :type "Segment", :srcId "%!Y"}],
+                :type "Document-plan",
+                :srcId "G=Rh"}}
