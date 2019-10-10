@@ -35,7 +35,7 @@
                                    (string/join " ")
                                    (string/trim))))))))
 
-(deftest full-document-plan-generation
+(deftest authorship-document-plan-generation
   (let [{{result-id :resultId} :body status :status}
         (q "/nlg" :post {:documentPlanId   "2"
                          :readerFlagValues {}
