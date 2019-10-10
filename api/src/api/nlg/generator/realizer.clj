@@ -4,7 +4,7 @@
 
 (defn placeholder?
   "Checks if item is placeholder inside sentence"
-  [{{source :source} :attrs :as item}]
+  [{{source :source} :attrs}]
   (case source
     :cell true
     :quote true
