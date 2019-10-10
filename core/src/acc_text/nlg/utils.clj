@@ -69,7 +69,7 @@
   (let [cat (.getCategory sign)]
     (if (instance? AtomCat cat)
       (let [atom (cast AtomCat cat)]
-        (= "s" (.getType atom)))
+        (contains? #{"s" "np"} (.getType atom)))
       false)))
 
 (defn conj?
