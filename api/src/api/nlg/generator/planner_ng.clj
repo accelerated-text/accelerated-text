@@ -149,6 +149,8 @@
         values (concat (distinct (:static context)) dyn-values)
         _ (log/debugf "Context: %s" context)
         generated (apply (partial ccg/generate grammar) (ops/distinct-wordlist values))]
+    (log/debugf "generate-templates context %s" context)
+    (log/debugf "generate-templates generated %s" generated)
     {:context   context
      :templates generated}))
 

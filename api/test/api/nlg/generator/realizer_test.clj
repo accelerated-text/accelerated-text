@@ -1,6 +1,6 @@
 (ns api.nlg.generator.realizer-test
   (:require [api.nlg.generator.realizer :as realizer]
-            [clojure.test :refer [deftest is]]))
+            [clojure.test :refer [deftest testing is]]))
 
 (deftest replace-quote-test
   (let [sent "$1 - Albert Einstein"
@@ -19,3 +19,10 @@
         result (first (realizer/realize data {:context   context
                                               :templates [sent]}))]
     (is (= expected result))))
+
+(deftest template-realization
+  (testing "check if get-value works"
+    (is (= "The Title" (realizer/get-value
+                {:name {:cell :title :dyn-name "$1"}
+                 :attrs {:amr true :title "agent" :source :cell}}
+                {:title "The Title"})))))
