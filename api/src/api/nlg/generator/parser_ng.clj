@@ -73,10 +73,9 @@
   [{:keys [segments]} attrs ctx]
   (reset-parse-cnt)
   (let [res (parse-children segments attrs ctx)]
-    (if (log/spy (-> res first first :dynamic))
+    (if (-> res first first :dynamic)
       [res]
-      res
-      )))
+      res)))
 
 (defn parse-if-statement
   [{:keys [operator type value1 value2]} attrs ctx]
