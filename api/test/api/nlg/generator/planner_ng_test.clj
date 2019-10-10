@@ -140,7 +140,11 @@
 
                      "Nike Air gives support."
                      "Nike Air offers support."
-                     "Nike Air provides support."}]
+                     "Nike Air provides support."
+
+                     "Comfort."
+
+                     "Support."}]
       (is (contains? expected result))))
   (testing "Create text with product, two features and component with quote"
     (let [document-plan (load-test-data "subj-w-2-features-and-component")
@@ -149,8 +153,9 @@
                  :secondary-feature "support"
                  :lacing            "premium lacing"}]
           result (first (planner/render-dp document-plan data :default))
-          expected "a snug fit for everyday wear"]
-      (is (string/includes? result expected)))))
+          expected #{"A snug fit for everyday wear."
+                     "Premium lacing results in a snug fit for everyday wear."}]
+      (is (contains? expected result)))))
 
 (deftest generate-complex-examples
   (testing "Create text with if"
@@ -175,8 +180,8 @@
       (is (string/includes? result expected)))))
 
 (deftest generate-simple-statement
-  (is (= "x" (first (planner/render-dp (load-test-data "simple-plan")
-                                       [{:product-name "X"}] :default)))))
+  (is (= "X." (first (planner/render-dp (load-test-data "simple-plan")
+                                        [{:product-name "X"}] :default)))))
 
 (deftest ^:integration plan-with-dictionary
   (testing "Create text with dictionary"
