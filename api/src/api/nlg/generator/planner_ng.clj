@@ -163,7 +163,7 @@
 
 (defn render-segment
   [templates data]
-  (let [realized (map (partial realizer/realize data) templates)
+  (let [realized (filter seq (map (partial realizer/realize data) templates))
         _ (log/debugf "Realized: %s" (pr-str realized))
         sentences (map #(if (empty? %) "" (rand-nth %)) realized)]
     (ops/join-sentences sentences)))
