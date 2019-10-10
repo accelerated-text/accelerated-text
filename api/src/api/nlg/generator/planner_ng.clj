@@ -43,14 +43,15 @@
 
 (defn resolve-lex-context
   [idx [k members]]
+  (log/debugf "Idx: %s; K: %s, %s" idx k (pr-str members))
   (let [{:keys [pos]} (resolve-item-context (first members))
         family-part (partial
-                      dsl/family
-                      (name k) pos true
-                      (dsl/entry "Primary"
-                                 (dsl/lf "X")
-                                 (dsl/atomcat pos {:index (+ idx 10)}
-                                              (dsl/fs-nomvar "index" "X"))))]
+                     dsl/family
+                     (name (or k "Cell")) pos true
+                     (dsl/entry "Primary"
+                                (dsl/lf "X")
+                                (dsl/atomcat pos {:index (+ idx 10)}
+                                             (dsl/fs-nomvar "index" "X"))))]
     (apply family-part
            (map (fn [{:keys [name]}]
                   (dsl/member (if (string? name) name (:dyn-name name))))
@@ -121,6 +122,7 @@
                                          (dsl/atomcat :IN {} (dsl/fs-nomvar "index" "I")))))
 
         grouped (group-by (fn [item] (get-in item [:attrs :type])) values)
+        _ (prn "---- " grouped)
         initial-morph (list
                         (dsl/morph-entry "provides" :V {:stem "benefit" :class "purpose"})
                         (dsl/morph-entry "offers" :V {:stem "benefit" :class "purpose"})
@@ -130,7 +132,7 @@
         morphology-context (map resolve-morph-context (vals grouped))
         generated-families (map-indexed resolve-lex-context grouped)
         lexicon (ccg/build-lexicon
-                  {:families (map translate/family->entry (concat initial-families generated-families))
+                 {:families (map translate/family->entry (concat initial-families generated-families))
                    :morph    (map translate/morph->entry (concat initial-morph (flatten morphology-context)))
                    :macros   (list)})]
     (grammar-builder lexicon)))

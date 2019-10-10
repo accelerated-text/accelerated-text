@@ -58,7 +58,10 @@
   [node attrs ctx]
   (ops/append-dynamic {:cell     (keyword (:name node))
                        :dyn-name (format "$%d" (swap! parse-cnt inc))}
-                      (assoc attrs :source :cell) ctx))
+                      (if (:type attrs)
+                        (assoc attrs :source :cell)
+                        (assoc attrs :source :cell :type :cell))
+                       ctx))
 
 (defn parse-quote
   [node attrs ctx]
@@ -69,7 +72,11 @@
 (defn parse-document-plan
   [{:keys [segments]} attrs ctx]
   (reset-parse-cnt)
-  (parse-children segments attrs ctx))
+  (let [res (parse-children segments attrs ctx)]
+    (if (log/spy (-> res first first :dynamic))
+      [res]
+      res
+      )))
 
 (defn parse-if-statement
   [{:keys [operator type value1 value2]} attrs ctx]

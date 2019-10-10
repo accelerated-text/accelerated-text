@@ -174,9 +174,9 @@
           expected "cool looking fit"]
       (is (string/includes? result expected)))))
 
-;; (deftest generate-simple-statement
-;;   (is (= "x" (first (planner/render-dp (load-test-data "simple-plan")
-;;                                        [{:product-name "X"}] :default)))))
+(deftest generate-simple-statement
+  (is (= "x" (first (planner/render-dp (load-test-data "simple-plan")
+                                       [{:product-name "X"}] :default)))))
 
 (deftest ^:integration plan-with-dictionary
   (testing "Create text with dictionary"
