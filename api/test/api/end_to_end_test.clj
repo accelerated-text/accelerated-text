@@ -1,33 +1,14 @@
 (ns api.end-to-end-test
-  (:require [clojure.test :refer [deftest is testing use-fixtures]]
-            [api.test-utils :refer [q]]
+  (:require [api.test-utils :refer [q load-test-data]]
+            [clojure.string :as string]
+            [clojure.test :refer [deftest is use-fixtures]]
             [data.db.dynamo-ops :as ops]
-            [data.entities.document-plan :as dp]
-            [clojure.string :as string]))
+            [data.entities.document-plan :as dp]))
 
 (defn prepare-environment [f]
   (System/setProperty  "aws.region" "eu-central-1")
   (ops/write! (ops/db-access :blockly) "1"
-              {:uid        "01"
-               :name       "authorship"
-               :blocklyXml (slurp "test/resources/blockly/authorship.xml")
-               :documentPlan
-               {:segments
-                [{:children
-                  [{:type      "AMR"
-                    :srcId     "WlSg"
-                    :conceptId "author"
-                    :dictionaryItem
-                    {:name  "author" :type   "Dictionary-item"
-                     :srcId "jirq"   :itemId "VB-author"}
-                    :roles
-                    [{:name     "agent"
-                      :children [{:name "authors" :type "Cell" :srcId "uakxT"}]}
-                     {:name     "co-agent"
-                      :children [{:name "title" :type "Cell" :srcId "X_Cw"}]}
-                     {:name "theme" :children [nil]}]}]
-                  :type "Segment" :srcId "0Ci"}]
-                :type "Document-plan" :srcId "eoPNHZ1"}}
+              (load-test-data "blockly/authorship")
               true)
   (ops/write! (ops/db-access :blockly) "2"
               {:uid        "02"
@@ -46,40 +27,39 @@
 (use-fixtures :each prepare-environment)
 
 (deftest single-element-plan-generation
-  (testing "Single title element plan"
-    (let [{{result-id :resultId} :body status :status}
-          (q "/nlg" :post {:documentPlanId "2"
-                           :readerFlagValues {}
-                           :dataId "example-user/books.csv"})]
+  (let [{{result-id :resultId} :body status :status}
+        (q "/nlg" :post {:documentPlanId "2"
+                         :readerFlagValues {}
+                         :dataId "example-user/books.csv"})]
 
-      (Thread/sleep 1000)
-      (is (= 200 status))
-      (is (some? result-id))
-      (let [generation-results (q (str "/nlg/" result-id) :get nil)]
-        (is (not(string/blank?
-                 (->> (get-in generation-results [:body :variants])
-                      (first) (:children)
-                      (first) (:children)
-                      (first) (:children)
-                      (map :text)
-                      (string/join " ")))))))))
+    (Thread/sleep 1000)
+    (is (= 200 status))
+    (is (some? result-id))
+    (let [generation-results (q (str "/nlg/" result-id) :get nil)]
+      (is (not(string/blank?
+               (->> (get-in generation-results [:body :variants])
+                    (first) (:children)
+                    (first) (:children)
+                    (first) (:children)
+                    (map :text)
+                    (string/join " "))))))))
 
-(deftest authorship-document-plan-generation
-  (testing "Authorship plan"
-    (let [{{result-id :resultId} :body status :status}
-          (q "/nlg" :post {:documentPlanId "1"
-                           :readerFlagValues {}
-                           :dataId "example-user/books.csv"})]
+(defn wait-for-results [result-id]
+  (when (some? result-id)
+    (while (false? (get-in (q (str "/nlg/" result-id) :get nil) [:body :ready]))
+      (Thread/sleep 100))))
 
-      (Thread/sleep 1000)
-      (is (= 200 status))
-      (is (some? result-id))
-      (let [generation-results (q (str "/nlg/" result-id) :get nil)]
-        (is (not(string/blank?
-                 (->> (get-in generation-results [:body :variants])
-                      (first) (:children)
-                      (first) (:children)
-                      (first) (:children)
-                      (map :text)
-                      (string/join " ")))))))))
-
+(deftest full-document-plan-generation
+  (let [{{result-id :resultId} :body status :status}
+        (q "/nlg" :post {:documentPlanId   "1"
+                         :readerFlagValues {}
+                         :dataId           "example-user/books.csv"})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (not (string/blank? (do
+                              (wait-for-results result-id)
+                              (->> [:body :variants 0 :children 0 :children 0 :children]
+                                   (get-in (q (str "/nlg/" result-id) :get nil))
+                                   (map :text)
+                                   (string/join " ")
+                                   (string/trim))))))))
