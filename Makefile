@@ -58,7 +58,7 @@ run-dev-env: ensure-deps-image
 run-dev-env-no-api: ensure-deps-image
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml down && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml build && \
-	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml up --remove-orphans s3 dynamodb mock-shop front-end
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml up --remove-orphans localstack mock-shop front-end
 
 restart-api-service:
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml restart acc-text-api
@@ -73,7 +73,7 @@ run-front-end-dev-deps: ensure-deps-image
 run-front-end-dev-deps-no-api: ensure-deps-image
 	docker-compose -p dev -f docker-compose.yml down && \
 	docker-compose -p dev -f docker-compose.yml build && \
-	docker-compose -p dev -f docker-compose.yml up --remove-orphans s3 dynamodb mock-shop
+	docker-compose -p dev -f docker-compose.yml up --remove-orphans localstack mock-shop
 
 .PHONY: run-front-end-dev
 run-front-end-dev:
