@@ -57,7 +57,7 @@
            :body   (format "ERROR: unsupported URI '%s'" uri)})
         (catch Exception e
           (log/errorf "Encountered error '%s' with request '%s'"
-                      (.getMessage e) (update request :body utils/read-json-is))
+                      (.getMessage e) request)
           (.printStackTrace e)
           {:status  500
            :headers headers})))))
