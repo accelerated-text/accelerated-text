@@ -7,6 +7,16 @@ stages:
 
 image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 
+update-api-deps:
+  stage: deps
+  image: docker:stable
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+  script:
+    - docker build -f api/Dockerfile.deps -t registry.gitlab.com/tokenmill/oss/accelerated-text/api:deps .
+    - docker push registry.gitlab.com/tokenmill/oss/accelerated-text/api:deps
+    - docker rmi registry.gitlab.com/tokenmill/oss/accelerated-text/api:deps
+
 test:front_end:
   retry: 2
   script:
@@ -31,20 +41,6 @@ deploy-app:
     - master
   script:
     - make deploy-app
-
-update-api-deps:
-  stage: deps
-  image: docker:stable
-  only:
-    changes:
-      - api/deps.edn
-      - api/Dockerfile.deps
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-  script:
-    - docker build -f api/Dockerfile.deps -t registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps .
-    - docker push registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
-    - docker rmi registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
 
 lint-api:
   stage: lint
