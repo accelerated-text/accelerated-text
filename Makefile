@@ -36,16 +36,10 @@ docker-repo-login:
 	docker login registry.gitlab.com
 
 build-demo-test-env:
-	(cd dockerfiles && docker build -f Dockerfile.test-env -t ${DEMO_TEST_ENV_TARGET} .)
+	(cd dockerfiles && docker build -f dockerfiles/Dockerfile.test-env -t ${DEMO_TEST_ENV_TARGET} .)
 
 publish-demo-test-env: build-demo-test-env
 	docker push ${DEMO_TEST_ENV_TARGET}
-
-build-pytest-docker:
-	(cd dockerfiles && docker build -f Dockerfile.pytest -t ${PYTEST_DOCKER} .)
-
-publish-pytest-docker: build-pytest-docker
-	docker push ${PYTEST_DOCKER}
 
 ensure-deps-image:
 	[ ! -z $$(docker images -q ${API_DEPS_TARGET}) ] || docker build -f api/Dockerfile.deps -t ${API_DEPS_TARGET} .
