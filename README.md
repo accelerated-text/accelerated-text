@@ -141,7 +141,7 @@ generates book authorship sentences.
 To get started with a development environment for Accelerated Text please follow the instructions in our developer's guides 
 for the [front-end](front-end/README.md) and the [text generation engine](core/README.md).
 
-### Text generation
+### Text generation via Clojure API
 
 Accelerated Text UI helps with creating document plan and testing it with sample data. 
 Accelerated Text's generation functionality can be used directly from the Clojure code.
