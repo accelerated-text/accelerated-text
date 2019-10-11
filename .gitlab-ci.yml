@@ -7,10 +7,13 @@ stages:
 image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 
 cache:
+  key: one-key-to-rule-them-all
   paths:
-    - ~/.m2/
-    - /root/.m2/
+    - .m2/
     - front-end/node_modules/
+
+variables:
+  MAVEN_OPTS: -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2
 
 test:front_end:
   retry: 2
@@ -50,7 +53,7 @@ unit-test-api:
   when: always
   script:
     - cd api
-    - clojure -A:test -e integration
+    - clojure -Sdeps '{:mvn/local-repo ".m2/repository"}' -A:test -e integration
 
 integration-test-api:
   stage: test
