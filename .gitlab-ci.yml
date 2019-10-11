@@ -34,6 +34,7 @@ deploy-app:
 lint-api:
   stage: lint
   image: borkdude/clj-kondo
+  cache: {}
   when: always
   script:
     - clj-kondo --lint api/src api/test
