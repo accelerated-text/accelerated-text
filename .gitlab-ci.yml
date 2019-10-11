@@ -9,6 +9,8 @@ image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 cache:
   paths:
     - ~/.m2/
+    - /root/.m2/
+    - front-end/node_modules/
 
 test:front_end:
   retry: 2
