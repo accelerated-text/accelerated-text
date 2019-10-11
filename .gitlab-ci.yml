@@ -8,6 +8,10 @@ image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 
 test:front_end:
   retry: 2
+  cache:
+    key: front-end-cache
+    paths:
+      - ./front-end/node_modules/
   script:
     - make test
   stage: test
