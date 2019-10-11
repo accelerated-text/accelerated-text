@@ -6,15 +6,6 @@ stages:
 
 image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 
-cache:
-  key: one-key-to-rule-them-all
-  paths:
-    - .m2/
-    - front-end/node_modules/
-
-variables:
-  MAVEN_OPTS: -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2
-
 test:front_end:
   retry: 2
   script:
@@ -46,6 +37,14 @@ lint-api:
   when: always
   script:
     - clj-kondo --lint api/src api/test
+
+cache:
+  key: one-key-to-rule-them-all
+  paths:
+    - ./.m2/repository
+
+variables:
+  MAVEN_OPTS: -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2
 
 unit-test-api:
   stage: test
