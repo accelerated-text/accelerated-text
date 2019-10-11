@@ -9,7 +9,9 @@ image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 
 update-api-deps:
   stage: deps
-  image: docker:stable
+  image: docker:19.03.0-dind
+  services:
+    - docker:19.03.0-dind
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
   script:
