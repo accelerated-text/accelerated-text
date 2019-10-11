@@ -57,6 +57,11 @@ unit-test-api:
 integration-test-api:
   stage: test
   image: tiangolo/docker-with-compose
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
   when: always
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
