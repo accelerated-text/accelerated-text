@@ -1,5 +1,4 @@
 stages:
-  - deps
   - lint
   - test
   - build
@@ -7,17 +6,9 @@ stages:
 
 image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
 
-update-api-deps:
-  stage: deps
-  image: docker:19.03.0-dind
-  services:
-    - docker:19.03.0-dind
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-  script:
-    - docker build -f api/Dockerfile.deps -t registry.gitlab.com/tokenmill/oss/accelerated-text/api:deps .
-    - docker push registry.gitlab.com/tokenmill/oss/accelerated-text/api:deps
-    - docker rmi registry.gitlab.com/tokenmill/oss/accelerated-text/api:deps
+cache:
+  paths:
+    - ~/.m2/
 
 test:front_end:
   retry: 2
@@ -46,22 +37,15 @@ deploy-app:
 
 lint-api:
   stage: lint
-  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
-  only:
-    changes:
-      - api/src/**/*
-      - api/test/**/*
+  image: borkdude/clj-kondo
+  when: always
   script:
-    - cd api
-    - clojure -A:clj-kondo
+    - clj-kondo --lint api/src api/test
 
 unit-test-api:
   stage: test
-  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
+  image: clojure:tools-deps-alpine
   when: always
-  only:
-    changes:
-      - api/**/*
   script:
     - cd api
     - clojure -A:test -e integration
