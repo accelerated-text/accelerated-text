@@ -62,7 +62,11 @@
   (combinator/reset-indices)
   (let [signs (flatten (map (partial utils/str->sign grammar) tokens))
         combinations (combinator/combinate grammar signs max-depth)
-        sentences (filter utils/sentence? combinations)
+        ;;If we have one token in then we are likely dealing with partial sentences,
+        ;;generated for a simple statement plans. Like {{TITLE}}
+        sentences (if (= 1 (count tokens))
+                    (filter utils/partial-sentence? combinations)
+                    (filter utils/sentence? combinations))
         ;; sentences combinations
         results (flatten (map (partial realizer/realize-sign grammar) sentences))
         strs (map utils/sign->str results)]
