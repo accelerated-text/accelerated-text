@@ -41,10 +41,7 @@ lint-api:
 cache:
   key: one-key-to-rule-them-all
   paths:
-    - ./.m2/repository
-
-variables:
-  MAVEN_OPTS: -Dmaven.repo.local=${CI_PROJECT_DIR}/.m2
+    - ./api/.m2/repository
 
 unit-test-api:
   stage: test
@@ -52,7 +49,7 @@ unit-test-api:
   when: always
   script:
     - cd api
-    - clojure -Sdeps '{:mvn/local-repo ".m2/repository"}' -A:test -e integration
+    - clojure -Sdeps '{:mvn/local-repo "./.m2/repository"}' -A:test -e integration
 
 integration-test-api:
   stage: test
