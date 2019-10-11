@@ -57,6 +57,7 @@ unit-test-api:
 integration-test-api:
   stage: test
   image: tiangolo/docker-with-compose
+  cache: {}
   services:
     - docker:dind
   variables:
