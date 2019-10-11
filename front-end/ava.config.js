@@ -1,9 +1,9 @@
 import os                   from 'os';
 
 
-const concurrency = Math.floor(
+const concurrency = Math.abs(Math.floor(
     ( os.cpus().length - os.loadavg()[0]) / 2
-) || 1;
+)) || 1;
 
 
 export default {
