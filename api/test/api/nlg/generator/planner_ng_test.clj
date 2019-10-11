@@ -140,11 +140,7 @@
 
                      "Nike Air gives support."
                      "Nike Air offers support."
-                     "Nike Air provides support."
-
-                     "Comfort."
-
-                     "Support."}]
+                     "Nike Air provides support."}]
       (is (contains? expected result))))
   (testing "Create text with product, two features and component with quote"
     (let [document-plan (load-test-data "subj-w-2-features-and-component")

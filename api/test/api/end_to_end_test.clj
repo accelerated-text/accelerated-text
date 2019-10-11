@@ -20,7 +20,7 @@
     (while (false? (get-in (q (str "/nlg/" result-id) :get nil) [:body :ready]))
       (Thread/sleep 100))))
 
-(deftest single-element-plan-generation
+(deftest ^:integration single-element-plan-generation
   (let [{{result-id :resultId} :body status :status}
         (q "/nlg" :post {:documentPlanId   "1"
                          :readerFlagValues {}
@@ -35,7 +35,7 @@
                                    (string/join " ")
                                    (string/trim))))))))
 
-(deftest authorship-document-plan-generation
+(deftest ^:integration authorship-document-plan-generation
   (let [{{result-id :resultId} :body status :status}
         (q "/nlg" :post {:documentPlanId   "2"
                          :readerFlagValues {}

@@ -44,7 +44,6 @@
   "Takes sentence, context and replaces all placeholders with actual value"
   [data {:keys [context templates]}]
   (let [placeholders (filter placeholder? (:dynamic context))]
-    (doall
-     (->> templates
-          (map (partial realize-template placeholders data))
-          (filter str-realized?)))))
+    (->> templates
+         (map (partial realize-template placeholders data))
+         (filter str-realized?))))

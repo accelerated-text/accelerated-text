@@ -2,8 +2,8 @@
   (:require [clojure.string :as str]
             [clojure.tools.logging :as log])
   (:import opennlp.ccg.grammar.Grammar
-           [opennlp.ccg.synsem AtomCat Category ComplexCat Sign]
-           [opennlp.ccg.lexicon LexException]))
+           opennlp.ccg.lexicon.LexException
+           [opennlp.ccg.synsem AbstractCat AtomCat ComplexCat Sign]))
 
 (defn str->int
   "Parses int from string"
@@ -62,15 +62,19 @@
   (let [cat (.getCategory sign)]
     (format "%s[%s]" (sign->str sign) (.prettyPrint cat))))
 
+(defn atom-cat-type [^Sign sign]
+  (let [cat (.getCategory sign)]
+    (if (instance? AtomCat cat)
+      (.getType (cast AtomCat cat))
+      false)))
 
 (defn sentence?
   "Sign builds actual sentence"
-  [^Sign sign]
-  (let [cat (.getCategory sign)]
-    (if (instance? AtomCat cat)
-      (let [atom (cast AtomCat cat)]
-        (contains? #{"s" "np"} (.getType atom)))
-      false)))
+  [^Sign sign] (= "s" (atom-cat-type sign)))
+
+(defn partial-sentence?
+  "Sign builds actual sentence"
+  [^Sign sign] (contains? #{"s" "np"} (atom-cat-type sign)))
 
 (defn conj?
   "Sign is conj, eg. 'and'"
