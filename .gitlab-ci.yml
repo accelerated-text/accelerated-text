@@ -42,6 +42,7 @@ cache:
   key: one-key-to-rule-them-all
   paths:
     - ./api/.m2/repository
+    - ./api/.gitlibs
 
 unit-test-api:
   stage: test
@@ -49,6 +50,7 @@ unit-test-api:
   when: always
   script:
     - cd api
+    - export GITLIBS=".gitlibs/"
     - clojure -Sdeps '{:mvn/local-repo "./.m2/repository"}' -A:test -e integration
 
 integration-test-api:
