@@ -57,12 +57,8 @@ integration-test-api:
   stage: test
   image: tiangolo/docker-with-compose
   when: always
-  only:
-    changes:
-      - api/**/*
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
     - docker-compose -p test -f api/docker-compose.test.yml pull
     - docker-compose -p test -f api/docker-compose.test.yml build
   script:
