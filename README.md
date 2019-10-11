@@ -141,6 +141,65 @@ generates book authorship sentences.
 To get started with a development environment for Accelerated Text please follow the instructions in our developer's guides 
 for the [front-end](front-end/README.md) and the [text generation engine](core/README.md).
 
+### Text generation
+
+Accelerated Text UI helps with creating document plan and testing it with sample data. 
+Accelerated Text's generation functionality can be used directly from the Clojure code.
+
+Lets say you have a book data limited to the author and the book title:
+
+| title                       | author        |
+| -----                       | ------        |
+| Frankenstein                | M. W. Shelley |
+| Dracula                     | Bram Stoker   |
+| The Island of Doctor Moreau | H.G. Wells    |
+
+When working via UI this data needs to be uploaded as the CSV. To use it in the code we'll have to represent as a Clojure map. 
+
+```
+(def data
+  [{:title "Frankenstein"
+    :author "M. W. Shelley"}
+   {:title "Dracula"
+    :author "Bram Stoker"}
+   {:title "The Island of Doctor Moreau"
+    :author "H.G. Wells"}])
+```
+
+Second component needed for generation is the plan itself. In UI it has a nice representation in visual blocks, and is persisted in the structure like this:
+
+```
+(def document-plan 
+  {:type "Document-plan"
+  :segments
+  [{:type "Segment"
+    :textType "description"
+    :children
+    [{:type "AMR"
+      :conceptId "author"
+      :dictionaryItem {:itemId "written"
+                        :name "written"
+                        :type "Dictionary-item"}
+      :roles [{:name "Agent"
+                :children [{:type "Thematic-role"
+                            :children [{:type "Cell"
+                                        :name "author"}]}]}
+              {:name "co-Agent"
+                :children [{:type "Thematic-role"
+                            :children [{:type "Cell"
+                                        :name "title"}]}]}]}]}]})
+```
+
+With those two in place we can generate the text:
+
+```
+(api.nlg.generator.planner-ng/render-dp document-plan data {})
+=>
+("The Island of Doctor Moreau is written by H.G. Wells"))
+("Frankenstein is done by M. W. Shelley."
+ "Dracula is done by Bram Stoker."
+ "The Island of Doctor Moreau is written by H.G. Wells.")
+```
 ## Getting Help
 
 If you have any questions, do not hesitate asking us at accelerated-text@tokenmill.lt
