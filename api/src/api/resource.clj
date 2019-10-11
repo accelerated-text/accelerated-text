@@ -10,7 +10,7 @@
   {:status 200
    :body   {:text "I do nothing."}})
 
-(defn- decode-vals [m]
+(defn decode-vals [m]
   (when m
     (reduce-kv (fn [m k v]
                  (assoc m k (URLDecoder/decode v)))

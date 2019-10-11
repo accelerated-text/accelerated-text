@@ -4,6 +4,11 @@
             [jsonista.core :as json])
   (:import (java.io BufferedInputStream ByteArrayInputStream)))
 
+(deftest decode-vals-test
+  (is (= nil (resource/decode-vals nil)))
+  (is (= {} (resource/decode-vals {})))
+  (is (= {:id "a bit.1"} (resource/decode-vals {:id "a%20bit.1"}))))
+
 (deftest decode-input
   (let [request {:httpMethod            "POST",
                  :queryStringParameters nil,
