@@ -40,7 +40,8 @@
         result-id (utils/gen-uuid)]
     (ops/write! db result-id {:ready false})
     (ops/update! db result-id (generation-process document-plan-id data-id reader-model))
-    (utils/do-return (fn [] {:resultId result-id}))))
+    {:status 200
+     :body   {:resultId result-id}}))
 
 (defn wrap-to-annotated-text
   [results]
@@ -64,18 +65,39 @@
 
 (defn read-result [_ path-params]
   (let [db (get-db)
-        request-id (path-params :id)
-        gen-result (ops/read! db request-id)
-        body {:offset     0
-              :totalCount 123
-              :ready      (gen-result :ready)
-              :updatedAt  (gen-result :updatedAt)
-              :variants   (wrap-to-annotated-text (gen-result :results))}]
-    (utils/do-return (fn [] body))))
+        request-id (:id path-params)]
+    (try
+      (if-let [{:keys [results ready updatedAt]} (ops/read! db request-id)]
+        {:status 200
+         :body   {:offset     0
+                  :totalCount (count results)
+                  :ready      ready
+                  :updatedAt  updatedAt
+                  :variants   (wrap-to-annotated-text results)}}
+        {:status 404})
+      (catch Exception e
+        (log/errorf "Failed to read result with id `%s`: %s"
+                    request-id (utils/get-stack-trace e))
+        {:status 500
+         :body   {:error   true
+                  :message (.getMessage e)}}))))
 
 (defn delete-result [path-params]
-  (let [db (get-db)]
-    (utils/do-delete (partial ops/read! db) (partial ops/delete! db) (path-params :id))))
+  (let [db (get-db)
+        request-id (:id path-params)]
+    (try
+      (if-let [item (ops/read! db request-id)]
+        (do
+          (ops/delete! db request-id)
+          {:status 200
+           :body   item})
+        {:status 404})
+      (catch Exception e
+        (log/errorf "Failed to delete result with id `%s`: %s"
+                    request-id (utils/get-stack-trace e))
+        {:status 500
+         :body   {:error   true
+                  :message (.getMessage e)}}))))
 
 (def handler-fn (delay
                   (resource/build-resource
