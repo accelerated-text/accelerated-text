@@ -13,20 +13,18 @@
 (deftest ^:integration basic-generation
   (let [documentPlanId "8fa07eda-68d1-480f-a8e5-d39385977ca3"
         dataId "example-user/data-example.csv"
-        result-fn (fn [body]
-                    (println (format "Generation result: %s", body))
-                    (let [results (:results body)]
-                      (is (= 1 (count results)))))]
-    (generation-process documentPlanId dataId result-fn false)))
+        body (generation-process documentPlanId dataId false)]
+    (println (format "Generation result: %s", body))
+    (let [results (:results body)]
+      (is (= 1 (count results))))))
 
 (deftest ^:integration basic-generation-ccg
   (let [documentPlanId "8fa07eda-68d1-480f-a8e5-d39385977ca3"
         dataId "example-user/ccg-example.csv"
-        result-fn (fn [body]
-                    (println (format "Generation result: %s", body))
-                    (let [results (:results body)]
-                      (is (= 1 (count results)))))]
-    (generation-process documentPlanId dataId result-fn true)))
+        body (generation-process documentPlanId dataId true)]
+    (println (format "Generation result: %s", body))
+    (let [results (:results body)]
+      (is (= 1 (count results))))))
 
 (deftest annotated-text-formatting
   (let [variants ["Nike Air offers watch and contemplate. Premium lacing gives snug fit for everyday wear."

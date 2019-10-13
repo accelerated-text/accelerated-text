@@ -18,16 +18,14 @@
 (defn get-data [data-id]
   (doall (utils/csv-to-map (s3/read-file config/data-bucket data-id))))
 
-(defn generation-process [dp-id data-id result-fn reader-model]
+(defn generation-process [dp-id data-id reader-model]
   (let [data (get-data data-id)
         dp (:documentPlan (document-plan/get-document-plan dp-id))
-        results (utils/result-or-error (planner/render-dp dp data reader-model))
-        body (if (map? results)
-               results
-               {:ready   true
-                :results (when (seq results) (vec results))})]
-    (log/debugf "Body: %s" body)
-    (result-fn body)))
+        results (utils/result-or-error (planner/render-dp dp data reader-model))]
+    (if (map? results)
+      results
+      {:ready   true
+       :results (when (seq results) (vec results))})))
 
 (def default-reader-model
   {:junior false
@@ -35,12 +33,11 @@
 
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues}]
   (let [db (get-db)
-        result-id (utils/gen-uuid)
-        result-fn (fn [body] (ops/update! db result-id body))]
+        result-id (utils/gen-uuid)]
     (ops/write! db result-id {:ready false})
-    (generation-process document-plan-id data-id result-fn (if (seq reader-model)
-                                                             reader-model
-                                                             default-reader-model))
+    (ops/update! db result-id (generation-process document-plan-id data-id (if (seq reader-model)
+                                                                             reader-model
+                                                                             default-reader-model)))
     (utils/do-return (fn []
                        {:resultId result-id}))))
 
