@@ -13,7 +13,7 @@
 (deftest ^:integration basic-generation
   (let [documentPlanId "8fa07eda-68d1-480f-a8e5-d39385977ca3"
         dataId "example-user/data-example.csv"
-        body (generation-process documentPlanId dataId false)]
+        body (generation-process documentPlanId dataId nil)]
     (println (format "Generation result: %s", body))
     (let [results (:results body)]
       (is (= 1 (count results))))))
@@ -21,7 +21,7 @@
 (deftest ^:integration basic-generation-ccg
   (let [documentPlanId "8fa07eda-68d1-480f-a8e5-d39385977ca3"
         dataId "example-user/ccg-example.csv"
-        body (generation-process documentPlanId dataId true)]
+        body (generation-process documentPlanId dataId nil)]
     (println (format "Generation result: %s", body))
     (let [results (:results body)]
       (is (= 1 (count results))))))

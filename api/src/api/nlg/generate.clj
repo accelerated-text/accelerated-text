@@ -18,28 +18,29 @@
 (defn get-data [data-id]
   (doall (utils/csv-to-map (s3/read-file config/data-bucket data-id))))
 
-(defn generation-process [dp-id data-id reader-model]
-  (let [data (get-data data-id)
-        dp (:documentPlan (document-plan/get-document-plan dp-id))
-        results (utils/result-or-error (planner/render-dp dp data reader-model))]
-    (if (map? results)
-      results
-      {:ready   true
-       :results (when (seq results) (vec results))})))
-
 (def default-reader-model
   {:junior false
    :senior false})
+
+(defn generation-process [dp-id data-id reader-model]
+  (try
+    {:ready   true
+     :results (doall
+                (planner/render-dp (:documentPlan (document-plan/get-document-plan dp-id))
+                                   (get-data data-id)
+                                   (if (seq reader-model)
+                                     reader-model
+                                     default-reader-model)))}
+    (catch Exception e
+      (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
+      {:error true :ready true :message (.getMessage e)})))
 
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues}]
   (let [db (get-db)
         result-id (utils/gen-uuid)]
     (ops/write! db result-id {:ready false})
-    (ops/update! db result-id (generation-process document-plan-id data-id (if (seq reader-model)
-                                                                             reader-model
-                                                                             default-reader-model)))
-    (utils/do-return (fn []
-                       {:resultId result-id}))))
+    (ops/update! db result-id (generation-process document-plan-id data-id reader-model))
+    (utils/do-return (fn [] {:resultId result-id}))))
 
 (defn wrap-to-annotated-text
   [results]

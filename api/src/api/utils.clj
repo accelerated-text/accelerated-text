@@ -65,14 +65,6 @@
 (defn get-stack-trace [e]
   (str/join "\n" (map str (.getStackTrace e))))
 
-(defn result-or-error
-  [results]
-  (try
-    (doall results)
-    (catch Exception e
-      (log/errorf "Failed to get result: %s" (get-stack-trace e))
-      {:error true :ready true :message (.getMessage e)})))
-
 (defn csv-to-map
   [f]
   (let [raw-csv (csv/read-csv f)]
