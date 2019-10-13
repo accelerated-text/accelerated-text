@@ -3,11 +3,7 @@ FROM clojure:tools-deps-alpine
 RUN mkdir /root/.gitlibs
 
 COPY ./core/deps.edn /usr/src/core/
-WORKDIR /usr/src/core
-
-RUN clojure -R:test:eastwood:kibit:uberjar || true
-
 COPY ./api/deps.edn /usr/src/app/
 WORKDIR /usr/src/app
 
-RUN clojure -R:test:native-image:rest-uberjar:import-uberjar:clj-kondo || true
+RUN clojure -R:test || true
