@@ -58,6 +58,7 @@
   [node attrs ctx]
   (ops/append-dynamic {:cell     (keyword (:name node))
                        :dyn-name (format "$%d" (swap! parse-cnt inc))}
+                      ; FIXME
                       (if (:type attrs)
                         (assoc attrs :source :cell)
                         (assoc attrs :source :cell :type :cell))
