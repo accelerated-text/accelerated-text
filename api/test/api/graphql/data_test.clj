@@ -1,6 +1,6 @@
 (ns api.graphql.data-test
   (:require [api.test-utils :refer [q]]
-            [clojure.test :refer [deftest is use-fixtures]]))
+            [clojure.test :refer [deftest is]]))
 
 (deftest ^:integration get-data-test
   (let [query "{getDataFile(id:\"%s\" recordOffset:%s recordLimit:%s){id fileName fieldNames records{id fields{id fieldName value}} recordOffset recordLimit recordCount}}"

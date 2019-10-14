@@ -4,7 +4,7 @@
             [api.test-utils :refer [load-test-data]]
             [clojure.data :as data]
             [clojure.string :as string]
-            [clojure.test :refer [deftest is testing use-fixtures]]
+            [clojure.test :refer [deftest is testing]]
             [clojure.tools.logging :as log]))
 
 (defn compare-result
