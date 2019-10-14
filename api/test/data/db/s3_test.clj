@@ -1,8 +1,11 @@
 (ns data.db.s3-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [api.test-utils :refer [with-dev-aws-credentials]]
+            [clojure.test :refer [deftest is testing use-fixtures]]
             [clojure.string :as str]
             [data.db.s3 :as s3]
             [data.db.config :as config]))
+
+(use-fixtures :once with-dev-aws-credentials)
 
 (deftest ^:integration reading-from-s3
   (testing "List files in bucket"

@@ -54,7 +54,6 @@
   [resource-type]
   (let [{table-name :table-name
          table-key  :table-key} (resolve-table resource-type)]
-    (utils/set-dev-aws-system-properties)
     (reify
       DBAccess
       (read-item [this key]

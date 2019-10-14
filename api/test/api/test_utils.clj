@@ -19,6 +19,12 @@
               "accept-encoding"                "gzip, deflate"
               "dnt"                            "1"})
 
+(defn with-dev-aws-credentials [f]
+  (System/setProperty "aws.region" "eu-central-1")
+  (System/setProperty "aws.accessKeyId" "DEV")
+  (System/setProperty "aws.secretKey" "DEV")
+  (f))
+
 (defn encode [body]
   (let [content (json/write-value-as-string body)]
     (BytesInputStream. (.getBytes content) (count content))))

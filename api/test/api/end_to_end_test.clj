@@ -1,7 +1,7 @@
 (ns api.end-to-end-test
-  (:require [api.test-utils :refer [q load-test-data]]
+  (:require [api.test-utils :refer [with-dev-aws-credentials q load-test-data]]
             [clojure.string :as string]
-            [clojure.test :refer [deftest is use-fixtures]]
+            [clojure.test :refer [deftest is use-fixtures join-fixtures]]
             [data.db.dynamo-ops :as ops]
             [data.entities.document-plan :as dp]))
 
@@ -12,7 +12,7 @@
   (dp/delete-document-plan "1")
   (dp/delete-document-plan "2"))
 
-(use-fixtures :each prepare-environment)
+(use-fixtures :each (join-fixtures [with-dev-aws-credentials prepare-environment]))
 
 (defn wait-for-results [result-id]
   (when (some? result-id)

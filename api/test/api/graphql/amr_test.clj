@@ -1,6 +1,8 @@
 (ns api.graphql.amr-test
-  (:require [api.test-utils :refer [q]]
-            [clojure.test :refer [deftest is]]))
+  (:require [api.test-utils :refer [with-dev-aws-credentials q]]
+            [clojure.test :refer [deftest is use-fixtures]]))
+
+(use-fixtures :once with-dev-aws-credentials)
 
 (deftest ^:integration concepts-test
   (let [query "{concepts{id concepts{id label roles{id fieldType fieldLabel} dictionaryItem{name phrases{text}} helpText}}}"
