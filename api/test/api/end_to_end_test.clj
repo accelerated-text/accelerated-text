@@ -7,6 +7,8 @@
 
 (defn prepare-environment [f]
   (System/setProperty "aws.region" "eu-central-1")
+  (System/setProperty "aws.accessKeyId" "DEV")
+  (System/setProperty "aws.secretKey" "DEV")
   (ops/write! (ops/db-access :blockly) "1" (load-test-data "blockly/title_only") true)
   (ops/write! (ops/db-access :blockly) "2" (load-test-data "blockly/authorship") true)
   (f)
