@@ -1,15 +1,10 @@
 (ns api.nlg.generate-test
   (:require [api.nlg.generate :refer [wrap-to-annotated-text generate-request generation-process]]
+            [api.test-utils :refer [with-dev-aws-credentials]]
             [clojure.test :refer [deftest is use-fixtures]]
             [clojure.walk :refer [postwalk]]))
 
-(defn prepare-environment [f]
-  (System/setProperty "aws.region" "eu-central-1")
-  (System/setProperty "aws.accessKeyId" "DEV")
-  (System/setProperty "aws.secretKey" "DEV")
-  (f))
-
-(use-fixtures :each prepare-environment)
+(use-fixtures :once with-dev-aws-credentials)
 
 (deftest ^:integration generate-request-test
   (let [{:keys [status]} (generate-request
