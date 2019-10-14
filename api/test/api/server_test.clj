@@ -1,8 +1,6 @@
 (ns api.server-test
-  (:require [api.test-utils :refer [with-dev-aws-credentials q]]
-            [clojure.test :refer [deftest is testing use-fixtures]]))
-
-(use-fixtures :once with-dev-aws-credentials)
+  (:require [api.test-utils :refer [q]]
+            [clojure.test :refer [deftest is testing]]))
 
 (deftest ^:integration server-test
   (testing "GraphQL endpoint test"

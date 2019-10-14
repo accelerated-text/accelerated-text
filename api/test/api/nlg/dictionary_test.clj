@@ -1,9 +1,6 @@
 (ns api.nlg.dictionary-test
   (:require [api.nlg.dictionary :as dictionary]
-            [api.test-utils :refer [with-dev-aws-credentials]]
-            [clojure.test :refer [deftest testing is use-fixtures]]))
-
-(use-fixtures :once with-dev-aws-credentials)
+            [clojure.test :refer [deftest testing is]]))
 
 (deftest test-filter-with-not
   (let [data (list {:text "test1" :flags {:default :YES :f1 :DONT_CARE :f2 :DONT_CARE}}

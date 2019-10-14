@@ -1,12 +1,14 @@
 (ns data.db.s3
   (:require [cognitect.aws.client.api :as aws]
             [cognitect.aws.credentials :as credentials]
-            [data.db.config :as config])
+            [data.db.config :as config]
+            [data.utils :refer [set-dev-aws-system-properties]])
   (:import (java.net URI)))
 
 (def s3
   (delay
     (let [endpoint (some-> (config/s3-endpoint) (URI.))]
+      (set-dev-aws-system-properties)
       (aws/client (cond-> {:api                  :s3
                            :credentials-provider (credentials/default-credentials-provider
                                                    (aws/default-http-client))}
