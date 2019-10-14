@@ -73,6 +73,7 @@
   [{:keys [segments]} attrs ctx]
   (reset-parse-cnt)
   (let [res (parse-children segments attrs ctx)]
+    ; FIXME
     (if (-> res first first :dynamic)
       [res]
       res)))
