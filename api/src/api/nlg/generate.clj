@@ -25,12 +25,12 @@
 (defn generation-process [dp-id data-id reader-model]
   (try
     {:ready   true
-     :results (doall
-                (planner/render-dp (:documentPlan (document-plan/get-document-plan dp-id))
-                                   (get-data data-id)
-                                   (if (seq reader-model)
-                                     reader-model
-                                     default-reader-model)))}
+     :results (planner/render-dp
+                (-> dp-id (document-plan/get-document-plan) (get :documentPlan))
+                (get-data data-id)
+                (if (seq reader-model)
+                  reader-model
+                  default-reader-model))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
