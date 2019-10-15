@@ -47,26 +47,35 @@
           (compare-result expected result))))))
 
 (deftest plan-with-two-features-and-quote
-  (testing "Create subject with two features and quote"
-    (let [document-plan (load-test-data "document_plans/subj-w-2-features-and-quote")
-          compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
-      (is (seq compiled))
-      (is (= 1 (count compiled)))
-      (let [first-segment (first compiled)
-            concrete-plan (first first-segment)
-            expected {:dynamic        [{:name  {:cell :product-name :dyn-name "$1"}
-                                        :attrs {:type :product :source :cell}}
-                                       {:name  {:cell :main-feature :dyn-name "$2"}
-                                        :attrs {:type :benefit :source :cell}}
-                                       {:name  {:cell :secondary-feature :dyn-name "$3"}
-                                        :attrs {:type :benefit :source :cell}}
-                                       {:name  {:quote "special for you" :dyn-name "$4"}
-                                        :attrs {:type :benefit :source :quote}}]
-                      :static         ["provides"]
-                      :reader-profile :default}]
-        (log/debugf "Concrete plan: %s" (pr-str concrete-plan))
-        (let [result (planner/build-dp-instance concrete-plan)]
-          (compare-result expected result))))))
+  (let [document-plan (load-test-data "document_plans/subj-w-2-features-and-quote")
+        compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
+    (is (seq compiled))
+    (is (= 1 (count compiled)))
+    (let [first-segment (first compiled)
+          concrete-plan (first first-segment)
+          expected {:dynamic        [{:name  {:cell :product-name :dyn-name "$1"}
+                                      :attrs {:type :product :source :cell}}
+                                     {:name  {:cell :main-feature :dyn-name "$2"}
+                                      :attrs {:type :benefit :source :cell}}
+                                     {:name  {:cell :secondary-feature :dyn-name "$3"}
+                                      :attrs {:type :benefit :source :cell}}
+                                     {:name  {:quote "special for you" :dyn-name "$4"}
+                                      :attrs {:type :benefit :source :quote}}]
+                    :static         ["provides"]
+                    :reader-profile :default}]
+      (compare-result expected (planner/build-dp-instance concrete-plan)))))
+
+(deftest plan-with-modifier
+  (let [compiled (parser/parse-document-plan (load-test-data "document_plans/adjective-phrase")
+                                             {} {:reader-profile :default})
+        concrete-plan (ffirst compiled)
+        expected {:dynamic        [{:name  {:modifier "good" :dyn-name "$1"}
+                                    :attrs {:type :xx :source :modifier}}
+                                   {:name  {:cell :title :dyn-name "$2"}
+                                    :attrs {:type :title :source :cell}}]
+                  :static         []
+                  :reader-profile :default}]
+    (compare-result expected (planner/build-dp-instance concrete-plan))))
 
 (deftest plan-with-conditional-if
   (testing "Create plan with conditional"

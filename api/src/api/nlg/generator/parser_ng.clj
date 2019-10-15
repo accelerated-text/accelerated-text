@@ -56,21 +56,10 @@
 
 (defn parse-dictionary-item-modifier
   [{:keys [child] :as node} attrs ctx]
-  [{:reader-profile {:junior false, :senior false}
-    :name           {:quotes [{:value "$1 $2"}]
-                     :attrs  {:source :quotes, :type :amr}}}
-
-   {:reader-profile {:junior false, :senior false},
-    :dynamic        '({:name  {:quote "XXXXXXXX", :dyn-name "$1"},
-                       :attrs {:source :quote, :type :quote}})}
-
-   {:reader-profile {:junior false, :senior false},
-    :dynamic        '({:name  {:cell :title, :dyn-name "$2"},
-                       :attrs {:source :cell, :type :cell}})}]
-  #_(first
-      (cons
-        (parse-dictionary node attrs ctx)
-        (parse-node child attrs ctx))))
+  [{:name  {:modifier "good" :dyn-name "$1"}
+    :attrs {:type :modifier :source :modifier}}
+   {:name  {:cell :title :dyn-name "$2"}
+    :attrs {:type :title :source :cell}}])
 
 (defn parse-cell
   [node attrs ctx]
