@@ -146,8 +146,9 @@ If Accelerated Text was started as described in [Running](#running) section, the
 First lets get registered document plans:
 
 ```
-curl -XPOST -H "Content-Type: application/json" \ 
-http://localhost:3001/_graphql -d '{query{documentPlans(offset:0 limit:10){items{id uid name dataSampleId dataSampleRow createdAt updatedAt updateCount} offset limit totalCount}}}'
+curl -X POST -H "Content-Type: application/json" \
+  --data '{ "query": "{documentPlans(offset:0 limit:10){items{id uid name dataSampleId dataSampleRow createdAt updatedAt updateCount} offset limit totalCount}}" }' \
+  http://localhost:3001/_graphql
 ```
 
 This will return a list of document plans:
@@ -191,7 +192,58 @@ A result id is returned:
 Whith this a final request can be made to fetch the results. Note that it can be done repeatedly with high performance, since the text generation is not happening at this stage.
 
 ```
-curl -XPOST -H "Content-Type: application/json" http://localhost:3001/nlg/6f26099d-429d-41e9-9800-83ab58c59ddd}'
+curl -XGET -H "Content-Type: application/json" http://localhost:3001/nlg/6f26099d-429d-41e9-9800-83ab58c59ddd
+```
+
+You should get generated text with annotations (data is truncated):
+
+```
+{
+   "offset":0,
+   "totalCount":5,
+   "ready":true,
+   "variants":[
+      {
+         "type":"ANNOTATED_TEXT",
+         "id":"ae9a1d60-4aa6-49da-9738-480243a5095b",
+         "children":[
+            {
+               "type":"PARAGRAPH",
+               "id":"ab8b650a-8774-4992-8a56-fe8d01f74097",
+               "children":[
+                  {
+                     "type":"SENTENCE",
+                     "id":"5cda3e9f-8fad-4b69-a0a3-f9f5e9a19465",
+                     "children":[
+                        {
+                           "type":"WORD",
+                           "id":"db5c71ec-f893-4406-8a3f-e91ca6aa08dc",
+                           "text":"Building"
+                        },
+                        {
+                           "type":"WORD",
+                           "id":"84e164c7-1fd0-4f18-b120-8a4f7563741b",
+                           "text":"Search"
+                        },
+                        {
+                           "type":"WORD",
+                           "id":"2e54b4b1-ed52-4689-8f5f-0a06ec8a35b5",
+                           "text":"Applications"
+                        }
+                        ...
+                        {
+                           "type":"PUNCTUATION",
+                           "id":"5710b009-4ad2-4b6d-b738-945cb576c1fc",
+                           "text":"."
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+     ...
+}
 ```
 
 #### Clojure API use
