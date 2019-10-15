@@ -46,3 +46,12 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (not (string/blank? (get-first-variant result-id))))))
+
+(deftest ^:integration adjective-phrase-document-plan-generation
+  (let [{{result-id :resultId} :body status :status}
+        (q "/nlg" :post {:documentPlanId   "3"
+                         :readerFlagValues {}
+                         :dataId           "example-user/books.csv"})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (string/includes? (get-first-variant result-id) "Good Building Search Applications"))))
