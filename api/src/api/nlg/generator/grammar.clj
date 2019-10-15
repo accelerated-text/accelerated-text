@@ -99,9 +99,14 @@
                                     (dsl/atomcat :IN {} (dsl/fs-nomvar "index" "I"))))
 
                        (dsl/family "Modifier" :ADJ false
-                                   (dsl/>F
-                                    (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X"))
-                                    (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "Y"))))))
+                                   (dsl/entry
+                                    "Primary"
+                                    (dsl/lf "E" "[*DEFAULT*]"
+                                            (dsl/diamond "Modifier" {:nomvar "X"})
+                                            (dsl/diamond "Thing" {:nomvar "Y"}))
+                                    (dsl/>F
+                                               (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X"))
+                                               (dsl/atomcat :xNP {} (dsl/fs-nomvar "index" "Y")))))))
 
 (def initial-morph (list
                     (dsl/morph-entry "provides" :V {:stem "benefit" :class "purpose"})
