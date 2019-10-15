@@ -25,7 +25,10 @@
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://repo.clojars.org/"}}
  :aliases   {:dev
-             {:extra-paths ["spec" "test" "test/resources"]}
+             {:jvm-opts    ["-Daws.region=eu-central-1"
+                            "-Daws.accessKeyId=DEV"
+                            "-Daws.secretKey=DEV"]
+              :extra-paths ["spec" "test" "test/resources"]}
              :test
              {:extra-paths ["test"]
               :extra-deps  {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
