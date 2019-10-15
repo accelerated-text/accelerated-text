@@ -64,6 +64,7 @@
         combinations (combinator/combinate grammar signs max-depth)
         ;;If we have one token in then we are likely dealing with partial sentences,
         ;;generated for a simple statement plans. Like {{TITLE}}
+        ;;FIXME
         sentences (if (= 1 (count tokens))
                     (filter utils/partial-sentence? combinations)
                     (filter utils/sentence? combinations))
