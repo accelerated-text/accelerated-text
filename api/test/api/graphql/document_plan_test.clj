@@ -1,6 +1,6 @@
 (ns api.graphql.document-plan-test
-  (:require [api.test-utils :refer [with-dev-aws-credentials q]]
-            [clojure.test :refer [deftest is use-fixtures join-fixtures]]
+  (:require [api.test-utils :refer [q]]
+            [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.db.dynamo-ops :as ops]))
 
@@ -15,7 +15,7 @@
   (f)
   (dp/delete-document-plan "1"))
 
-(use-fixtures :each (join-fixtures [with-dev-aws-credentials prepare-environment]))
+(use-fixtures :each prepare-environment)
 
 (deftest ^:integration document-plans-test
   (let [query "{documentPlans(offset:%s limit:%s){items{id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount} offset limit totalCount}}"

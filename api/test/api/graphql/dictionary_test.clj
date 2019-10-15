@@ -1,6 +1,6 @@
 (ns api.graphql.dictionary-test
-  (:require [api.test-utils :refer [with-dev-aws-credentials q]]
-            [clojure.test :refer [deftest is use-fixtures join-fixtures]]
+  (:require [api.test-utils :refer [q]]
+            [clojure.test :refer [deftest is use-fixtures]]
             [data.db.dynamo-ops :as ops]
             [data.entities.dictionary :as dict-entity]))
 
@@ -19,7 +19,7 @@
   (f)
   (dict-entity/delete-dictionary-item "VB-test-phrase"))
 
-(use-fixtures :each (join-fixtures [with-dev-aws-credentials prepare-environment]))
+(use-fixtures :each prepare-environment)
 
 (deftest ^:integration full-query-test
   (let [query "{dictionary{items{name partOfSpeech phrases{id text defaultUsage readerFlagUsage{id usage flag{id name}}}}}}"

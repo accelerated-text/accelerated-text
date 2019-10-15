@@ -11,4 +11,4 @@ RUN clojure -R:test || true
 COPY ./api /usr/src/app
 COPY ./core /usr/src/core
 
-CMD ["clojure", "-A:test", "-i", "integration"]
+CMD ["clojure", "-A:dev:test", "-i", "integration"]

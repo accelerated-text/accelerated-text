@@ -1,10 +1,7 @@
 (ns api.nlg.generate-test
   (:require [api.nlg.generate :refer [wrap-to-annotated-text generate-request generation-process]]
-            [api.test-utils :refer [with-dev-aws-credentials]]
-            [clojure.test :refer [deftest is use-fixtures]]
+            [clojure.test :refer [deftest is]]
             [clojure.walk :refer [postwalk]]))
-
-(use-fixtures :once with-dev-aws-credentials)
 
 (deftest ^:integration generate-request-test
   (let [{:keys [status]} (generate-request

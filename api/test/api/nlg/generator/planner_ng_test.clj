@@ -1,13 +1,11 @@
 (ns api.nlg.generator.planner-ng-test
   (:require [api.nlg.generator.planner-ng :as planner]
             [api.nlg.generator.parser-ng :as parser]
-            [api.test-utils :refer [with-dev-aws-credentials load-test-data]]
+            [api.test-utils :refer [load-test-data]]
             [clojure.data :as data]
             [clojure.string :as string]
-            [clojure.test :refer [deftest is testing use-fixtures]]
+            [clojure.test :refer [deftest is testing]]
             [clojure.tools.logging :as log]))
-
-(use-fixtures :once with-dev-aws-credentials)
 
 (defn compare-result
   [expected result]

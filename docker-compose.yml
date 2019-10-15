@@ -17,9 +17,6 @@ services:
     environment:
       S3_ENDPOINT: http://localstack:4572
       DYNAMODB_ENDPOINT: http://localstack:4569
-      AWS_REGION: eu-central-1
-      AWS_ACCESS_KEY_ID: DEV
-      AWS_SECRET_ACCESS_KEY: DEV
   mock-shop:
     build:
       context: integrations/demo-shop-lambdas

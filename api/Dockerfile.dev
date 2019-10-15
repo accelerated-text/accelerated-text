@@ -5,4 +5,4 @@ COPY ./core /usr/src/core
 
 WORKDIR /usr/src/app
 
-CMD clojure -m api.server
+CMD ["clojure", "-A:dev", "-m", "api.server"]
