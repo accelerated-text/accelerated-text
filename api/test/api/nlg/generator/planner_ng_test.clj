@@ -70,9 +70,9 @@
                                              {} {:reader-profile :default})
         concrete-plan (ffirst compiled)
         expected {:dynamic        [{:name  {:modifier "good" :dyn-name "$1"}
-                                    :attrs {:type :xx :source :modifier}}
+                                    :attrs {:type :modifier :source :modifier}}
                                    {:name  {:cell :title :dyn-name "$2"}
-                                    :attrs {:type :title :source :cell}}]
+                                    :attrs {:type :cell :source :cell}}]
                   :static         []
                   :reader-profile :default}]
     (compare-result expected (planner/build-dp-instance concrete-plan))))

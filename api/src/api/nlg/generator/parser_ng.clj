@@ -55,11 +55,16 @@
     (map #(ops/append-dynamic % (assoc attrs :type :wordlist :class name) ctx) words)))
 
 (defn parse-dictionary-item-modifier
-  [{:keys [child] :as node} attrs ctx]
-  [{:name  {:modifier "good" :dyn-name "$1"}
-    :attrs {:type :modifier :source :modifier}}
-   {:name  {:cell :title :dyn-name "$2"}
-    :attrs {:type :title :source :cell}}])
+  [{:keys [child name]} attrs ctx]
+  (cons
+    (ops/append-dynamic {:modifier name
+                         :dyn-name (format "$%d" (swap! parse-cnt inc))}
+                        ; FIXME
+                        (if (:type attrs)
+                          (assoc attrs :source :modifier)
+                          (assoc attrs :source :modifier :type :modifier))
+                        ctx)
+    (parse-children [child] attrs ctx)))
 
 (defn parse-cell
   [node attrs ctx]
