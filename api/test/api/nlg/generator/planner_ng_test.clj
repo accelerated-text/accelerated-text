@@ -15,7 +15,7 @@
 
 (deftest test-compile-single-node-plan
   (let [compiled (parser/parse-document-plan
-                   (load-test-data "single-subj")
+                   (load-test-data "document_plans/single-subj")
                    {} {:reader-profile :default})]
     (is (= 1 (count compiled)))
     (is (compare-result
@@ -27,7 +27,7 @@
 
 (deftest plan-with-two-features
   (testing "Create subject with two features"
-    (let [document-plan (load-test-data "subj-w-2-features")
+    (let [document-plan (load-test-data "document_plans/subj-w-2-features")
           compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
       (is (seq compiled))
       (is (= 1 (count compiled)))
@@ -48,7 +48,7 @@
 
 (deftest plan-with-two-features-and-quote
   (testing "Create subject with two features and quote"
-    (let [document-plan (load-test-data "subj-w-2-features-and-quote")
+    (let [document-plan (load-test-data "document_plans/subj-w-2-features-and-quote")
           compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
       (is (seq compiled))
       (is (= 1 (count compiled)))
@@ -70,7 +70,7 @@
 
 (deftest plan-with-conditional-if
   (testing "Create plan with conditional"
-    (let [document-plan (load-test-data "subj-w-if")
+    (let [document-plan (load-test-data "document_plans/subj-w-if")
           compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
       (is (seq compiled))
       (is (= 1 (count compiled)))
@@ -97,7 +97,7 @@
 
 (deftest plan-with-conditional-if-else
   (testing "Create plan with if-else"
-    (let [document-plan (load-test-data "subj-w-if-else")
+    (let [document-plan (load-test-data "document_plans/subj-w-if-else")
           compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
       (is (seq compiled))
       (is (= 1 (count compiled)))
@@ -113,7 +113,7 @@
 
 (deftest generate-actual-text
   (testing "Create text with product and two features"
-    (let [document-plan (load-test-data "subj-w-2-features")
+    (let [document-plan (load-test-data "document_plans/subj-w-2-features")
           data [{:product-name      "Nike Air"
                  :main-feature      "comfort"
                  :secondary-feature "support"}]
@@ -143,7 +143,7 @@
                      "Nike Air provides support."}]
       (is (contains? expected result))))
   (testing "Create text with product, two features and component with quote"
-    (let [document-plan (load-test-data "subj-w-2-features-and-component")
+    (let [document-plan (load-test-data "document_plans/subj-w-2-features-and-component")
           data [{:product-name      "Nike Air"
                  :main-feature      "comfort"
                  :secondary-feature "support"
@@ -155,7 +155,7 @@
 
 (deftest generate-complex-examples
   (testing "Create text with if"
-    (let [document-plan (load-test-data "subj-w-if-else")
+    (let [document-plan (load-test-data "document_plans/subj-w-if-else")
           data [{:product-name      "Nike Air"
                  :main-feature      "comfort"
                  :secondary-feature "support"
@@ -165,7 +165,7 @@
           expected "snug fit for everyday wear"]
       (is (string/includes? result expected))))
   (testing "Create text with else"
-    (let [document-plan (load-test-data "subj-w-if-else")
+    (let [document-plan (load-test-data "document_plans/subj-w-if-else")
           data [{:product-name      "Nike Air"
                  :main-feature      "comfort"
                  :secondary-feature "support"
@@ -176,12 +176,12 @@
       (is (string/includes? result expected)))))
 
 (deftest generate-simple-statement
-  (is (= "X." (first (planner/render-dp (load-test-data "simple-plan")
+  (is (= "X." (first (planner/render-dp (load-test-data "document_plans/simple-plan")
                                         [{:product-name "X"}] :default)))))
 
 (deftest ^:integration plan-with-dictionary
   (testing "Create text with dictionary"
-    (let [document-plan (load-test-data "subj-w-dictionary")
+    (let [document-plan (load-test-data "document_plans/subj-w-dictionary")
           data [{:product-name "Nike Air"
                  :main-feature "comfort"}]
           result (planner/render-dp document-plan data {})]
@@ -189,7 +189,7 @@
 
 (deftest ^:integration plan-with-amr
   (testing "Create text with amr"
-    (let [document-plan (load-test-data "subj-w-amr")
+    (let [document-plan (load-test-data "document_plans/subj-w-amr")
           data [{:product-name      "Nike Air"
                  :main-feature      "comfort"
                  :secondary-feature "support"}]
@@ -199,7 +199,7 @@
 
 (deftest ^:integration plain-plan-with-amr
   (testing "Handle plan with it"
-    (let [document-plan (load-test-data "plain-amr")
+    (let [document-plan (load-test-data "document_plans/plain-amr")
           data [{:actor    "Harry"
                  :co-actor "Sally"}]
           result (planner/render-dp document-plan data {})]
@@ -208,7 +208,7 @@
 
 (deftest ^:integration plain-plan-with-author-amr
   (testing "Handle plan with it"
-    (let [document-plan (load-test-data "plain-author-amr")
+    (let [document-plan (load-test-data "document_plans/plain-author-amr")
           data [{:actor    "Paul Vigna, Michael J. Casey"
                  :co-actor "The Age of Cryptocurrency"}]
           result (planner/render-dp document-plan data {})]

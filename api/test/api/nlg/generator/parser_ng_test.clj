@@ -6,9 +6,9 @@
 (deftest simple-plan-parser
   (is (= [[[{:dynamic [{:name  {:cell :product-name :dyn-name "$1"}
                         :attrs {:type :product :source :cell}}]}]]]
-         (sut/parse-document-plan (load-test-data "single-subj") nil nil)))
+         (sut/parse-document-plan (load-test-data "document_plans/single-subj") nil nil)))
 
   (is (= [[[{:dynamic [{:name  {:cell :product-name :dyn-name "$1"}
                         :attrs {:source :cell
                                 :type :cell}}]}]]]
-         (sut/parse-document-plan (load-test-data "simple-plan") nil nil))))
+         (sut/parse-document-plan (load-test-data "document_plans/simple-plan") nil nil))))
