@@ -6,7 +6,8 @@
   (:import [org.jdom Element]
            [opennlp.ccg.grammar Grammar ForwardApplication BackwardApplication] 
            [opennlp.ccg.builders LexiconBuilder RulesBuilder TypesBuilder GrammarBuilder]
-           [opennlp.ccg.lexicon Family DataItem EntriesItem MorphItem MacroItem]))
+           [opennlp.ccg.lexicon Family DataItem EntriesItem MorphItem MacroItem]
+           [opennlp.ccg.synsem Sign]))
 
 (defn element->EntriesItem [family el] (new EntriesItem el family))
 
@@ -56,6 +57,9 @@
 (def max-depth
   (or (utils/str->int (System/getenv "MAX_DEPTH")) 7))
 
+(defn get-tag [^Sign s]
+  (.getSupertag (.getCategory s)))
+
 (defn generate
   "Generates multiple of valid sentences from given array of tokens"
   [^Grammar grammar & tokens]
@@ -65,9 +69,11 @@
         ;;If we have one token in then we are likely dealing with partial sentences,
         ;;generated for a simple statement plans. Like {{TITLE}}
         ;;FIXME
-        sentences (if (= 1 (count tokens))
-                    (filter utils/partial-sentence? combinations)
-                    (filter utils/sentence? combinations))
+        sentences (cond
+                    (= 1 (count tokens)) (filter utils/partial-sentence? combinations)
+                    (and (= 2 (count tokens))
+                         (= "adj" (get-tag (first signs)))) (filter #(= "np" (get-tag %)) combinations)
+                    :else (filter utils/sentence? combinations))
         ;; sentences combinations
         results (flatten (map (partial realizer/realize-sign grammar) sentences))
         strs (map utils/sign->str results)]
