@@ -106,7 +106,7 @@
                                             (dsl/diamond "Thing" {:nomvar "Y"}))
                                     (dsl/>F
                                                (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X"))
-                                               (dsl/atomcat :xNP {} (dsl/fs-nomvar "index" "Y")))))))
+                                               (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "Y")))))))
 
 (def initial-morph (list
                     (dsl/morph-entry "provides" :V {:stem "benefit" :class "purpose"})
