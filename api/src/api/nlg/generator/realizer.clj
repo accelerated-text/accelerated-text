@@ -9,6 +9,7 @@
     :cell true
     :quote true
     :quotes true
+    :modifier true
     false))
 
 (defn data-filter [data {:keys [gate]}]
