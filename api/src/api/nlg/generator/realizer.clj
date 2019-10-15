@@ -17,7 +17,7 @@
 
 (defn get-value
   "Pulls concrete value for item"
-  [{{:keys [source gate]} :attrs {:keys [cell quote quotes] :as name} :name} data]
+  [{{:keys [source gate]} :attrs {:keys [cell quote quotes modifier] :as name} :name} data]
   (when (or (nil? gate) (gate data))
     (case source
       :cell (get data cell)
@@ -27,6 +27,7 @@
                        (seq)
                        (rand-nth)
                        (:value))
+      :modifier modifier
       name)))
 
 (defn realize-template [placeholders data template]
