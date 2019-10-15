@@ -8,6 +8,7 @@
                         :attrs {:type :product :source :cell}}]}]]]
          (sut/parse-document-plan (load-test-data "single-subj") nil nil)))
 
-  (is (= [[{:dynamic [{:name  {:cell :product-name :dyn-name "$1"}
-                       :attrs {:source :cell}}]}]]
+  (is (= [[[{:dynamic [{:name  {:cell :product-name :dyn-name "$1"}
+                        :attrs {:source :cell
+                                :type :cell}}]}]]]
          (sut/parse-document-plan (load-test-data "simple-plan") nil nil))))

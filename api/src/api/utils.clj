@@ -65,14 +65,6 @@
 (defn get-stack-trace [e]
   (str/join "\n" (map str (.getStackTrace e))))
 
-(defn result-or-error
-  [results]
-  (try
-    (doall results)
-    (catch Exception e
-      (log/errorf "Failed to get result: %s" (get-stack-trace e))
-      {:error true :ready true :message (.getMessage e)})))
-
 (defn csv-to-map
   [f]
   (let [raw-csv (csv/read-csv f)]
@@ -82,55 +74,3 @@
           pairs (map #(interleave header %) data)]
       (log/debugf "Header: %s" header)
       (doall (map #(apply array-map %) pairs)))))
-
-(defn do-return
-  [func & args]
-  (try (if-let [resp (apply func args)]
-         (if (contains? resp :error)
-           {:status 500 :body {:error true :message "ERROR_01"}}
-           {:status 200 :body resp})
-         {:status 404})
-       (catch Exception e
-         (log/error (get-stack-trace e))
-         {:status 500
-          :body   {:error true :message (.getMessage e)}})))
-
-(defn do-insert
-  [func & args]
-  (let [id (gen-uuid)
-        insert-fn (partial func id)]
-    (try (let [resp (apply insert-fn args)]
-           {:status 200
-            :body   resp})
-         (catch Exception e
-           (log/error (get-stack-trace e))
-           {:status 500
-            :body   {:error   true
-                     :message (.getMessage e)}}))))
-
-(defn do-delete
-  [search-fn delete-fn & args]
-  (try (let [original (apply search-fn args)
-             _ (apply delete-fn args)]
-         {:status 200
-          :body   original})
-       (catch Exception e
-         (log/error e)
-         {:status 500
-          :body   {:error   true
-                   :message (.getMessage e)}})))
-
-(defn do-update
-  [func & args]
-  (try (let [resp (apply func args)]
-         {:status 200
-          :body   resp})
-       (catch Exception e
-         (log/error e)
-         {:status 500
-          :body   {:error   true
-                   :message (.getMessage e)}})))
-
-(defn add-status [resp-vec]
-  {:status (if (every? #(= 200 (get % :status)) resp-vec) 200 500)
-   :body   resp-vec})

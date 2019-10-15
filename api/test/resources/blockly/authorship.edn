@@ -1,0 +1,21 @@
+{:uid          "01",
+ :name         "authorship",
+ :blocklyXml   "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\"+$qrA=$pwnsPVHaZY:KA\" deletable=\"false\" x=\"230\" y=\"147\"><statement name=\"segments\"><block type=\"Segment\" id=\"JPsM$@6oEZys5I^[@5Yd\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"O|5a;oI@a)gJpA:[e15.\"><mutation concept_id=\"author\" concept_label=\"author\" roles=\"[{&quot;id&quot;:&quot;agent&quot;,&quot;fieldLabel&quot;:&quot;Agent&quot;,&quot;fieldType&quot;:[&quot;STRING&quot;,&quot;LIST&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;co-agent&quot;,&quot;fieldLabel&quot;:&quot;co-Agent&quot;,&quot;fieldType&quot;:[&quot;STRING&quot;,&quot;LIST&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;theme&quot;,&quot;fieldLabel&quot;:&quot;Theme&quot;,&quot;fieldType&quot;:[&quot;STRING&quot;,&quot;LIST&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"dictionaryItem\"><block type=\"Dictionary-item\" id=\"02Ie583INU#FmAd/3EHB\"><mutation id=\"VB-author\" name=\"author\"></mutation></block></value><value name=\"agent\"><block type=\"Cell\" id=\"MapzC=a(V,4.W-k#,;N[\"><field name=\"name\">authors</field></block></value><value name=\"co-agent\"><block type=\"Cell\" id=\"+m6v*Ohiw~CD:g@RD^_X\"><field name=\"name\">title</field></block></value></block></value></block></statement></block></xml>",
+ :documentPlan {:segments [{:children [{:type           "AMR",
+                                        :srcId          "W}lSg%-S(rQ*nmVp3fFV",
+                                        :conceptId      "author",
+                                        :dictionaryItem {:name   "author",
+                                                         :type   "Dictionary-item",
+                                                         :srcId  "jirq-V{WgCd+u[sdVWpd",
+                                                         :itemId "VB-author"},
+                                        :roles          [{:name     "agent",
+                                                          :children [{:name  "authors",
+                                                                      :type  "Cell",
+                                                                      :srcId "uakxT`=!W@8/xV#^orHk"}]}
+                                                         {:name     "co-agent",
+                                                          :children [{:name "title", :type "Cell", :srcId "X_CwogT+.Z)N@;Mhz.j/"}]}
+                                                         {:name "theme", :children [nil]}]}],
+                            :type     "Segment",
+                            :srcId    "}0Ci`hF%i?izegwAT[@J"}],
+                :type     "Document-plan",
+                :srcId    "eoPNHZ1PSV{MJBwehL^Z"}}

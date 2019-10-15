@@ -10,18 +10,13 @@ services:
       - DATA_DIR=/tmp/localstack/data
     ports: ["8000:4569", "8001:4572"]
   acc-text-api:
-    image: registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
+    build:
+      context: .
+      dockerfile: api/Dockerfile.dev
     ports: ["3001:3001"]
     environment:
       S3_ENDPOINT: http://localstack:4572
       DYNAMODB_ENDPOINT: http://localstack:4569
-      AWS_REGION: eu-central-1
-      AWS_ACCESS_KEY_ID: DEV
-      AWS_SECRET_ACCESS_KEY: DEV
-    command: clojure -m api.server
-    volumes:
-      - ./api:/usr/src/app
-      - ./core:/usr/src/core
   mock-shop:
     build:
       context: integrations/demo-shop-lambdas

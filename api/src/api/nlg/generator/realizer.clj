@@ -11,10 +11,8 @@
     :quotes true
     false))
 
-(defn data-filter [data {:keys [value gate]}]
-  (let [result (gate data)]
-    (log/debugf "Value: '%s' Data: %s. Passes? %b" value data result)
-    result))
+(defn data-filter [data {:keys [gate]}]
+  (gate data))
 
 (defn get-value
   "Pulls concrete value for item"
@@ -27,11 +25,11 @@
                        (filter (partial data-filter data))
                        (seq)
                        (rand-nth)
-                       (get :value))
+                       (:value))
       name)))
 
 (defn realize-template [placeholders data template]
-  (log/tracef "Placeholders: %s data: %s template: %s" (pr-str placeholders) data template)
+  (log/debugf "Placeholders: %s data: %s template: %s" (pr-str placeholders) data template)
   (reduce (fn [result {{dyn-name :dyn-name} :name :as placeholder}]
             (if-let [value (get-value placeholder data)]
               (string/replace result dyn-name value)
