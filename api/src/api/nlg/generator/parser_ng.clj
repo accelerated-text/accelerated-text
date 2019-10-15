@@ -54,6 +54,24 @@
         words (dictionary-api/search (str/lower-case name) reader-profile)]
     (map #(ops/append-dynamic % (assoc attrs :type :wordlist :class name) ctx) words)))
 
+(defn parse-dictionary-item-modifier
+  [{:keys [child] :as node} attrs ctx]
+  [{:reader-profile {:junior false, :senior false}
+    :name           {:quotes [{:value "$1 $2"}]
+                     :attrs  {:source :quotes, :type :amr}}}
+
+   {:reader-profile {:junior false, :senior false},
+    :dynamic        '({:name  {:quote "XXXXXXXX", :dyn-name "$1"},
+                       :attrs {:source :quote, :type :quote}})}
+
+   {:reader-profile {:junior false, :senior false},
+    :dynamic        '({:name  {:cell :title, :dyn-name "$2"},
+                       :attrs {:source :cell, :type :cell}})}]
+  #_(first
+      (cons
+        (parse-dictionary node attrs ctx)
+        (parse-node child attrs ctx))))
+
 (defn parse-cell
   [node attrs ctx]
   (ops/append-dynamic {:cell     (keyword (:name node))
@@ -62,7 +80,7 @@
                       (if (:type attrs)
                         (assoc attrs :source :cell)
                         (assoc attrs :source :cell :type :cell))
-                       ctx))
+                      ctx))
 
 (defn parse-quote
   [node attrs ctx]
@@ -178,6 +196,7 @@
     :Product (parse-product node attrs ctx)
     :Product-component (parse-component node attrs ctx)
     :Cell (parse-cell node attrs ctx)
+    :Dictionary-item-modifier (parse-dictionary-item-modifier node attrs ctx)
     :Quote (parse-quote node attrs ctx)
     :Relationship (parse-relationship node attrs ctx)
     :If-then-else (parse-conditional node attrs ctx)
