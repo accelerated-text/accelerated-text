@@ -9,6 +9,11 @@
   (ops/write! (ops/db-access :blockly) "1" (load-test-data "blockly/title_only") true)
   (ops/write! (ops/db-access :blockly) "2" (load-test-data "blockly/authorship") true)
   (ops/write! (ops/db-access :blockly) "3" (load-test-data "blockly/adjective-phrase") true)
+  (ops/write! (ops/db-access :dictionary-combined) "good" {:name         "good"
+                                                           :partOfSpeech :NN
+                                                           :phrases      [{:id    "good/1"
+                                                                           :text  "good"
+                                                                           :flags {:default :YES}}]})
   (f)
   (dp/delete-document-plan "1")
   (dp/delete-document-plan "2")
