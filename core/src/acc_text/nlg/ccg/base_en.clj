@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.dsl.core :as dsl]))
 
 (def initial-families
-  (list
-   ;; AND rule. Example: <word1> and <word2>
+  [;; AND rule. Example: <word1> and <word2>
    (dsl/family "coord.objects" :Conj true
                (dsl/entry
                 "NP-Collective"
@@ -12,11 +11,10 @@
                         (dsl/diamond "First"
                                      {:nomvar   "L1"
                                       :prop     "elem"
-                                      :diamonds (list
-                                                 (dsl/diamond "Item" {:nomvar "X1"})
+                                      :diamonds [(dsl/diamond "Item" {:nomvar "X1"})
                                                  (dsl/diamond "Next" {:nomvar  "L2"
                                                                       :prop    "elem"
-                                                                      :diamond (dsl/diamond "Item" {:nomvar "X2"})}))}))
+                                                                      :diamond (dsl/diamond "Item" {:nomvar "X2"})})]}))
                 (dsl/>F
                  \.
                  (dsl/<B
@@ -65,12 +63,11 @@
                         (dsl/diamond "Thing" {:nomvar "Y"}))
                 (dsl/>F
                  (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "X"))
-                 (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "Y")))))))
+                 (dsl/atomcat :NP {} (dsl/fs-nomvar "index" "Y")))))])
 
 (def initial-morph
-  (list
-   (dsl/morph-entry "provides" :V {:stem "benefit" :class "purpose"})
+  [(dsl/morph-entry "provides" :V {:stem "benefit" :class "purpose"})
    (dsl/morph-entry "offers" :V {:stem "benefit" :class "purpose"})
    (dsl/morph-entry "gives" :V {:stem "benefit" :class "purpose"})
    (dsl/morph-entry "results" :Vp {:stem "consequence" :class "consequence"})
-   (dsl/morph-entry "in" :IN {:stem "in"})))
+   (dsl/morph-entry "in" :IN {:stem "in"})])

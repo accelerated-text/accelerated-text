@@ -43,9 +43,8 @@
   [values]
   (log/debugf "Dynamic values: %s" (pr-str values))
   (let [grammar-builder (ccg/build-grammar
-                         {:types (ccg/build-types (list
-                                                   {:name "sem-obj"}
-                                                   {:name "phys-obj" :parents "sem-obj"}))
+                         {:types (ccg/build-types [{:name "sem-obj"}
+                                                   {:name "phys-obj" :parents "sem-obj"}])
                           :rules (ccg/build-default-rules)})
         grouped            (group-by (fn [item] (get-in item [:attrs :type])) values)
         morphology-context (map resolve-morph-context (vals grouped))
@@ -53,5 +52,5 @@
         lexicon            (ccg/build-lexicon
                             {:families (map translate/family->entry (concat base-en/initial-families generated-families))
                              :morph    (map translate/morph->entry (concat base-en/initial-morph (flatten morphology-context)))
-                             :macros   (list)})]
+                             :macros   []})]
     (grammar-builder lexicon)))
