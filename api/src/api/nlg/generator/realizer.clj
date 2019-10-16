@@ -5,12 +5,7 @@
 (defn placeholder?
   "Checks if item is placeholder inside sentence"
   [{{source :source} :attrs}]
-  (case source
-    :cell true
-    :quote true
-    :quotes true
-    :modifier true
-    false))
+  (contains? #{:cell :quote :quotes :modifier} source))
 
 (defn data-filter [data {:keys [gate]}]
   (gate data))
