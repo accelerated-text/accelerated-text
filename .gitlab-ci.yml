@@ -26,13 +26,13 @@ job_npm_audit:
   script:
     - make npm-audit
 
-lint_api:
+lint_api_and_core:
   stage: lint
   image: borkdude/clj-kondo
   cache: {}
   when: always
   script:
-    - clj-kondo --lint api/src api/test core/src core/test
+    - clj-kondo --lint api/src api/test core/src
 
 unit_test_core:
   stage: test
