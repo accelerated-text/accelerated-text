@@ -1,9 +1,5 @@
 FRONT_END_MAKE= cd front-end && make
 PROJECT_NAME=accelerated-text
-DEMO_TEST_ENV_TARGET=registry.gitlab.com/tokenmill/nlg/${PROJECT_NAME}/demo-test-env:latest
-
--include .env
-export
 
 .PHONY: test
 test:
