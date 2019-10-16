@@ -40,8 +40,4 @@
                                                   :exclusions [org.slf4j/slf4j-nop]}}
               :main-opts  ["-m" "cambada.uberjar"
                            "-m" "api.server"
-                           "-a" "api.server"]}
-             :clj-kondo
-             {:main-opts  ["-m" "clj-kondo.main --lint src test"]
-              :extra-deps {clj-kondo {:mvn/version "2019.07.31-alpha"}}
-              :jvm-opts   ["-Dclojure.main.report=stderr"]}}}
+                           "-a" "api.server"]}}}

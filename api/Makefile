@@ -1,5 +1,5 @@
 lint-code:
-	clojure -A:clj-kondo
+	clojure -Sdeps '{:deps {clj-kondo {:mvn/version "RELEASE"}}}' -m clj-kondo.main --lint src test
 
 unit-tests:
 	clojure -A:test -e:integration

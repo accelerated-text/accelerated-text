@@ -32,7 +32,16 @@ lint_api:
   cache: {}
   when: always
   script:
-    - clj-kondo --lint api/src api/test
+    - clj-kondo --lint api/src api/test core/src core/test
+
+unit_test_core:
+  stage: test
+  image: clojure:tools-deps-alpine
+  when: always
+  script:
+    - cd core
+    - export GITLIBS="../api/.gitlibs/"
+    - clojure -Sdeps '{:mvn/local-repo "../api/.m2/repository"}' -A:test -e integration
 
 unit_test_api:
   stage: test
