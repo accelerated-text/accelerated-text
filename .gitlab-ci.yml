@@ -2,6 +2,9 @@ stages:
   - lint
   - test
 
+variables:
+  GIT_DEPTH: 3
+
 cache:
   key: one-key-to-rule-them-all
   paths:
@@ -25,6 +28,10 @@ job_npm_audit:
   image: node:11-slim
   only:
     - schedules
+  cache:
+    key: front-end-cache
+    paths:
+      - ./front-end/node_modules/
   script:
     - make npm-audit
 
