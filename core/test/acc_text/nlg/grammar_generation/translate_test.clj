@@ -100,75 +100,77 @@
                         (tr/build-satop "P:shoe" (tr/build-prop "[*DEFAULT*]")))})]
     (compare-elements expected result)))
 
-(deftest translate-lex-entry
-  (testing "simple entry"
-    (let [result (tr/lex-entry->entry (dsl/entry
-                                    "Primary"
-                                    (dsl/lf "P:shoe")
-                                    (dsl/atomcat "nnp" {:index 2}
-                                                 (dsl/fs-nomvar "index" "P")
-                                                 (dsl/fs-featvar "design" "DESIGN:garment"))))
-          expected (tr/build-entry
-                                {:name "Primary"
-                                 :category (tr/build-atom-cat
-                                            {:type "nnp"
-                                             :fs (tr/build-fs
-                                                  {:id "2"
-                                                   :feats (list
-                                                           (tr/build-feat
-                                                            {:attr "index"
-                                                             :values (tr/build-lf
-                                                                      (tr/build-nomvar "P"))})
-                                                           (tr/build-feat
-                                                            {:attr "design"
-                                                             :values (tr/build-featvar "DESIGN:garment")}))})
-                                             :lf (tr/build-lf
-                                                  (tr/build-satop "P:shoe" (tr/build-prop "[*DEFAULT*]")))})})]
-      (compare-elements expected result))
-    (testing "complex entry"
-      (let [result (tr/lex-entry->entry (dsl/entry
-                                      "adj.full"
-                                      (dsl/lf "U" nil
-                                              (dsl/diamond "concrete" {:prop "true"})
-                                              (dsl/diamond "gum-domain" {:nomvar "T"})
-                                              (dsl/diamond "gum-attribute"
-                                                           {:prop "[*DEFAULT*]"
-                                                            :nomvar "P:gum-Color"
-                                                            :diamond (dsl/diamond "concrete"
-                                                                                  {:prop "true"})}))
-                                      (dsl/<B
-                                       (dsl/atomcat "np" nil
-                                                    (dsl/fs-nomvar "index" "T"))
-                                       (dsl/atomcat "np" 7
-                                                    (dsl/fs-nomvar "index" "T")))))
-            expected (tr/build-entry
-                               {:type "adj.full"
-                                :category (tr/build-complex-cat
-                                           (tr/build-atom-cat
-                                            {:type "np"
-                                             :fs (tr/build-fs
-                                                  {:inherits-from "1"
-                                                   :feats (tr/build-feat
-                                                           {:attr "index"
-                                                            :values (tr/build-lf (tr/build-nomvar "T"))})})})
-                                           (tr/build-slash {:mode "*" :dir "/"})
-                                           (tr/build-atom-cat
-                                            {:type "np"
-                                             :fs (tr/build-fs
-                                                  {:id "7"
-                                                   :feats (tr/build-feat
-                                                           {:attr "index"
-                                                            :values (tr/build-lf (tr/build-nomvar "T"))})})})
-                                           (tr/build-lf
-                                            (tr/build-satop
-                                             "U"
-                                             (tr/build-diamond "concrete" (tr/build-prop "true"))
-                                             (tr/build-diamond "gum-domain" (tr/build-nomvar "T"))
-                                             (tr/build-diamond
-                                              "gum-attribute"
-                                              (tr/build-nomvar "P:gum-Color")
-                                              (tr/build-prop "[*DEFAULT*]")
-                                              (tr/build-diamond "concrete" (tr/build-prop "true"))))))})]))))
+(deftest translate-lex-simple-entry
+  (let [result (tr/lex-entry->entry (dsl/entry
+                                     "Primary"
+                                     (dsl/lf "P:shoe")
+                                     (dsl/atomcat "nnp" {:index 2}
+                                                  (dsl/fs-nomvar "index" "P")
+                                                  (dsl/fs-featvar "design" "DESIGN:garment"))))
+        expected (tr/build-entry
+                  {:name "Primary"
+                   :category (tr/build-atom-cat
+                              {:type "nnp"
+                               :fs (tr/build-fs
+                                    {:id "2"
+                                     :feats (list
+                                             (tr/build-feat
+                                              {:attr "index"
+                                               :values (tr/build-lf
+                                                        (tr/build-nomvar "P"))})
+                                             (tr/build-feat
+                                              {:attr "design"
+                                               :values (tr/build-featvar "DESIGN:garment")}))})
+                               :lf (tr/build-lf
+                                    (tr/build-satop "P:shoe" (tr/build-prop "[*DEFAULT*]")))})})]
+    (compare-elements expected result)))
+
+(deftest translte-lex-complex-entry
+  (let [result (tr/lex-entry->entry (dsl/entry
+                                     "adj.full"
+                                     (dsl/lf "U" nil
+                                             (dsl/diamond "concrete" {:prop "true"})
+                                             (dsl/diamond "gum-domain" {:nomvar "T"})
+                                             (dsl/diamond "gum-attribute"
+                                                          {:prop "[*DEFAULT*]"
+                                                           :nomvar "P:gum-Color"
+                                                           :diamond (dsl/diamond "concrete"
+                                                                                 {:prop "true"})}))
+                                     (dsl/<B
+                                      (dsl/atomcat "np" nil
+                                                   (dsl/fs-nomvar "index" "T"))
+                                      (dsl/atomcat "np" {:index 7}
+                                                   (dsl/fs-nomvar "index" "T")))))
+        expected (tr/build-entry
+                  {:type "adj.full"
+                   :name "adj.full"
+                   :category (tr/build-complex-cat
+                              (tr/build-atom-cat
+                               {:type "np"
+                                :fs (tr/build-fs
+                                     {
+                                      :feats (tr/build-feat
+                                              {:attr "index"
+                                               :values (tr/build-lf (tr/build-nomvar "T"))})})})
+                              (tr/build-slash {:mode "*" :dir "\\"})
+                              (tr/build-atom-cat
+                               {:type "np"
+                                :fs (tr/build-fs
+                                     {:id "7"
+                                      :feats (tr/build-feat
+                                              {:attr "index"
+                                               :values (tr/build-lf (tr/build-nomvar "T"))})})})
+                              (tr/build-lf
+                               (tr/build-satop
+                                "U"
+                                (tr/build-diamond "concrete" (tr/build-prop "true"))
+                                (tr/build-diamond "gum-domain" (tr/build-nomvar "T"))
+                                (tr/build-diamond
+                                 "gum-attribute"
+                                 (tr/build-nomvar "P:gum-Color")
+                                 (tr/build-prop "[*DEFAULT*]")
+                                 (tr/build-diamond "concrete" (tr/build-prop "true"))))))})]
+    (compare-elements expected result)))
 
 (deftest translate-complex-cat
   (let [lf (dsl/lf "E" "[*DEFAULT*]"
