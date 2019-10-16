@@ -65,4 +65,5 @@
                          :dataId           "example-user/books.csv"})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (string/includes? (get-first-variant result-id) "Good Building Search Applications"))))
+    (is (contains? #{"Building Search Applications" "Good Building Search Applications"}
+                   (get-first-variant result-id)))))
