@@ -1,8 +1,0 @@
-FROM registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
-
-COPY ./api /usr/src/app
-COPY ./core /usr/src/core
-
-WORKDIR /usr/src/app
-
-CMD ["clojure", "-A:dev", "-m", "api.server"]

@@ -1,9 +1,0 @@
-FROM clojure:tools-deps-alpine
-
-RUN mkdir /root/.gitlibs
-
-COPY ./core/deps.edn /usr/src/core/
-COPY ./api/deps.edn /usr/src/app/
-WORKDIR /usr/src/app
-
-RUN clojure -R:test || true
