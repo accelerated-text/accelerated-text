@@ -1,5 +1,5 @@
 (ns api.end-to-end-test
-  (:require [api.test-utils :refer [q load-test-data]]
+  (:require [api.test-utils :refer [q load-test-document-plan]]
             [clojure.string :as string]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.db.dynamo-ops :as ops]
@@ -15,13 +15,13 @@
 (defn prepare-environment [f]
   (ops/write! (ops/db-access :blockly) "1" {:uid          "01"
                                             :name         "title-only"
-                                            :documentPlan (load-test-data "document_plans/title-only")} true)
+                                            :documentPlan (load-test-document-plan "title-only")} true)
   (ops/write! (ops/db-access :blockly) "2" {:uid          "02"
                                             :name         "authorship"
-                                            :documentPlan (load-test-data "document_plans/authorship")} true)
+                                            :documentPlan (load-test-document-plan "authorship")} true)
   (ops/write! (ops/db-access :blockly) "3" {:uid          "03"
                                             :name         "adjective-phrase"
-                                            :documentPlan (load-test-data "document_plans/adjective-phrase")} true)
+                                            :documentPlan (load-test-document-plan "adjective-phrase")} true)
   (ops/write! (ops/db-access :dictionary-combined) "good" {:name         "good"
                                                            :partOfSpeech :NN
                                                            :phrases      [{:id    "good/1"

@@ -30,6 +30,6 @@
       (server/app)
       (update :body #(json/read-value % utils/read-mapper))))
 
-(defn load-test-data [filename]
-  (with-open [r (io/reader (format "test/resources/%s.edn" filename))]
+(defn load-test-document-plan [filename]
+  (with-open [r (io/reader (format "test/resources/document_plans/%s.edn" filename))]
     (edn/read (PushbackReader. r))))
