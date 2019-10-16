@@ -1,47 +1,6 @@
 stages:
   - lint
   - test
-  - build
-  - deploy
-
-image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
-
-test:front_end:
-  retry: 2
-  cache:
-    key: front-end-cache
-    paths:
-      - ./front-end/node_modules/
-  script:
-    - make test
-  stage: test
-
-job:npm_audit:
-  only:
-    - schedules
-  script:
-    - make npm-audit
-
-deploy-app:
-  stage: deploy
-  when: on_success
-  variables:
-    ACC_TEXT_API_URL: $ACC_TEXT_API_URL
-    ACC_TEXT_GRAPHQL_URL: $ACC_TEXT_GRAPHQL_URL
-    DATA_FILES_BUCKET: $DATA_FILES_BUCKET
-    MOCK_SHOP_API_URL: $MOCK_SHOP_API_URL
-  only:
-    - master
-  script:
-    - make deploy-app
-
-lint-api:
-  stage: lint
-  image: borkdude/clj-kondo
-  cache: {}
-  when: always
-  script:
-    - clj-kondo --lint api/src api/test
 
 cache:
   key: one-key-to-rule-them-all
@@ -49,7 +8,33 @@ cache:
     - ./api/.m2/repository
     - ./api/.gitlibs
 
-unit-test-api:
+test_front_end:
+  stage: test
+  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
+  retry: 2
+  cache:
+    key: front-end-cache
+    paths:
+      - ./front-end/node_modules/
+  script:
+    - make test
+
+job_npm_audit:
+  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/demo-test-env:latest
+  only:
+    - schedules
+  script:
+    - make npm-audit
+
+lint_api:
+  stage: lint
+  image: borkdude/clj-kondo
+  cache: {}
+  when: always
+  script:
+    - clj-kondo --lint api/src api/test
+
+unit_test_api:
   stage: test
   image: clojure:tools-deps-alpine
   when: always
@@ -58,7 +43,7 @@ unit-test-api:
     - export GITLIBS=".gitlibs/"
     - clojure -Sdeps '{:mvn/local-repo "./.m2/repository"}' -A:test -e integration
 
-integration-test-api:
+integration_test_api:
   stage: test
   image: tiangolo/docker-with-compose
   cache: {}
@@ -75,66 +60,3 @@ integration-test-api:
     - docker-compose -p test -f api/docker-compose.test.yml up --remove-orphans --abort-on-container-exit --exit-code-from api
   after_script:
     - docker-compose -p test -f api/docker-compose.test.yml down --rmi local
-
-build-api:
-  stage: build
-  image: registry.gitlab.com/tokenmill/nlg/accelerated-text/api:deps
-  when: on_success
-  script:
-    - cd api
-    - clojure -A:rest-uberjar
-  artifacts:
-    paths:
-      - api/target/api-1.0.0-SNAPSHOT-standalone.jar
-    expire_in: 1 week
-
-deploy-api:
-  stage: deploy
-  image: registry.gitlab.com/tokenmill/commons/aws:1
-  when: on_success
-  only:
-    - master
-  dependencies:
-    - build-api
-  script:
-    - cd api
-    - export S3_BUCKET_NAME=nlg-api
-    - export STACK_NAME=nlg-api
-    - aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket $S3_BUCKET_NAME
-    - aws cloudformation deploy --template-file output-sam.yaml --stack-name $STACK_NAME --capabilities CAPABILITY_IAM
-
-deploy-graphql-api-lambda:
-  stage: deploy
-  image: docker:stable
-  when: manual
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-  script:
-    - >
-      docker build
-      --target deployer
-      --build-arg AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-      --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-      --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-      --build-arg S3_BUCKET="nlg-api"
-      --build-arg S3_FOLDER="graphql"
-      --build-arg STACK_NAME="lambda-custom-runtime-graphqlApi"
-      -t lambda-deployer -f api/Dockerfile .
-
-deploy-graphql-api-dev-lambda:
-  stage: deploy
-  image: docker:stable
-  when: manual
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-  script:
-    - >
-      docker build
-      --target deployer
-      --build-arg AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-      --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-      --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-      --build-arg S3_BUCKET="nlg-api"
-      --build-arg S3_FOLDER="graphql"
-      --build-arg STACK_NAME="lambda-custom-runtime-graphqlApi-dev"
-      -t lambda-deployer -f api/Dockerfile .
