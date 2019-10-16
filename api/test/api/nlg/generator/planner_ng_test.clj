@@ -1,7 +1,7 @@
 (ns api.nlg.generator.planner-ng-test
   (:require [api.nlg.generator.planner-ng :as planner]
             [api.nlg.generator.parser-ng :as parser]
-            [api.test-utils :refer [load-test-data]]
+            [api.test-utils :refer [load-test-document-plan]]
             [clojure.data :as data]
             [clojure.string :as string]
             [clojure.test :refer [deftest is testing]]
@@ -15,7 +15,7 @@
 
 (deftest test-compile-single-node-plan
   (let [compiled (parser/parse-document-plan
-                   (load-test-data "single-subj")
+                   (load-test-document-plan "single-subj")
                    {} {:reader-profile :default})]
     (is (= 1 (count compiled)))
     (is (compare-result
@@ -27,7 +27,7 @@
 
 (deftest plan-with-two-features
   (testing "Create subject with two features"
-    (let [document-plan (load-test-data "subj-w-2-features")
+    (let [document-plan (load-test-document-plan "subj-w-2-features")
           compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
       (is (seq compiled))
       (is (= 1 (count compiled)))
@@ -47,30 +47,39 @@
           (compare-result expected result))))))
 
 (deftest plan-with-two-features-and-quote
-  (testing "Create subject with two features and quote"
-    (let [document-plan (load-test-data "subj-w-2-features-and-quote")
-          compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
-      (is (seq compiled))
-      (is (= 1 (count compiled)))
-      (let [first-segment (first compiled)
-            concrete-plan (first first-segment)
-            expected {:dynamic        [{:name  {:cell :product-name :dyn-name "$1"}
-                                        :attrs {:type :product :source :cell}}
-                                       {:name  {:cell :main-feature :dyn-name "$2"}
-                                        :attrs {:type :benefit :source :cell}}
-                                       {:name  {:cell :secondary-feature :dyn-name "$3"}
-                                        :attrs {:type :benefit :source :cell}}
-                                       {:name  {:quote "special for you" :dyn-name "$4"}
-                                        :attrs {:type :benefit :source :quote}}]
-                      :static         ["provides"]
-                      :reader-profile :default}]
-        (log/debugf "Concrete plan: %s" (pr-str concrete-plan))
-        (let [result (planner/build-dp-instance concrete-plan)]
-          (compare-result expected result))))))
+  (let [document-plan (load-test-document-plan "subj-w-2-features-and-quote")
+        compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
+    (is (seq compiled))
+    (is (= 1 (count compiled)))
+    (let [first-segment (first compiled)
+          concrete-plan (first first-segment)
+          expected {:dynamic        [{:name  {:cell :product-name :dyn-name "$1"}
+                                      :attrs {:type :product :source :cell}}
+                                     {:name  {:cell :main-feature :dyn-name "$2"}
+                                      :attrs {:type :benefit :source :cell}}
+                                     {:name  {:cell :secondary-feature :dyn-name "$3"}
+                                      :attrs {:type :benefit :source :cell}}
+                                     {:name  {:quote "special for you" :dyn-name "$4"}
+                                      :attrs {:type :benefit :source :quote}}]
+                    :static         ["provides"]
+                    :reader-profile :default}]
+      (compare-result expected (planner/build-dp-instance concrete-plan)))))
+
+(deftest plan-with-modifier
+  (let [compiled (parser/parse-document-plan (load-test-document-plan "adjective-phrase")
+                                             {} {:reader-profile :default})
+        concrete-plan (ffirst compiled)
+        expected {:dynamic        [{:name  {:modifier "good" :dyn-name "$1"}
+                                    :attrs {:type :modifier :source :modifier}}
+                                   {:name  {:cell :title :dyn-name "$2"}
+                                    :attrs {:type :cell :source :cell}}]
+                  :static         []
+                  :reader-profile :default}]
+    (compare-result expected (planner/build-dp-instance concrete-plan))))
 
 (deftest plan-with-conditional-if
   (testing "Create plan with conditional"
-    (let [document-plan (load-test-data "subj-w-if")
+    (let [document-plan (load-test-document-plan "subj-w-if")
           compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
       (is (seq compiled))
       (is (= 1 (count compiled)))
@@ -97,7 +106,7 @@
 
 (deftest plan-with-conditional-if-else
   (testing "Create plan with if-else"
-    (let [document-plan (load-test-data "subj-w-if-else")
+    (let [document-plan (load-test-document-plan "subj-w-if-else")
           compiled (parser/parse-document-plan document-plan {} {:reader-profile :default})]
       (is (seq compiled))
       (is (= 1 (count compiled)))
@@ -113,7 +122,7 @@
 
 (deftest generate-actual-text
   (testing "Create text with product and two features"
-    (let [document-plan (load-test-data "subj-w-2-features")
+    (let [document-plan (load-test-document-plan "subj-w-2-features")
           data [{:product-name      "Nike Air"
                  :main-feature      "comfort"
                  :secondary-feature "support"}]
@@ -143,7 +152,7 @@
                      "Nike Air provides support."}]
       (is (contains? expected result))))
   (testing "Create text with product, two features and component with quote"
-    (let [document-plan (load-test-data "subj-w-2-features-and-component")
+    (let [document-plan (load-test-document-plan "subj-w-2-features-and-component")
           data [{:product-name      "Nike Air"
                  :main-feature      "comfort"
                  :secondary-feature "support"
@@ -155,7 +164,7 @@
 
 (deftest generate-complex-examples
   (testing "Create text with if"
-    (let [document-plan (load-test-data "subj-w-if-else")
+    (let [document-plan (load-test-document-plan "subj-w-if-else")
           data [{:product-name      "Nike Air"
                  :main-feature      "comfort"
                  :secondary-feature "support"
@@ -165,7 +174,7 @@
           expected "snug fit for everyday wear"]
       (is (string/includes? result expected))))
   (testing "Create text with else"
-    (let [document-plan (load-test-data "subj-w-if-else")
+    (let [document-plan (load-test-document-plan "subj-w-if-else")
           data [{:product-name      "Nike Air"
                  :main-feature      "comfort"
                  :secondary-feature "support"
@@ -176,12 +185,12 @@
       (is (string/includes? result expected)))))
 
 (deftest generate-simple-statement
-  (is (= "X." (first (planner/render-dp (load-test-data "simple-plan")
+  (is (= "X." (first (planner/render-dp (load-test-document-plan "simple-plan")
                                         [{:product-name "X"}] :default)))))
 
 (deftest ^:integration plan-with-dictionary
   (testing "Create text with dictionary"
-    (let [document-plan (load-test-data "subj-w-dictionary")
+    (let [document-plan (load-test-document-plan "subj-w-dictionary")
           data [{:product-name "Nike Air"
                  :main-feature "comfort"}]
           result (planner/render-dp document-plan data {})]
@@ -189,7 +198,7 @@
 
 (deftest ^:integration plan-with-amr
   (testing "Create text with amr"
-    (let [document-plan (load-test-data "subj-w-amr")
+    (let [document-plan (load-test-document-plan "subj-w-amr")
           data [{:product-name      "Nike Air"
                  :main-feature      "comfort"
                  :secondary-feature "support"}]
@@ -199,7 +208,7 @@
 
 (deftest ^:integration plain-plan-with-amr
   (testing "Handle plan with it"
-    (let [document-plan (load-test-data "plain-amr")
+    (let [document-plan (load-test-document-plan "plain-amr")
           data [{:actor    "Harry"
                  :co-actor "Sally"}]
           result (planner/render-dp document-plan data {})]
@@ -208,7 +217,7 @@
 
 (deftest ^:integration plain-plan-with-author-amr
   (testing "Handle plan with it"
-    (let [document-plan (load-test-data "plain-author-amr")
+    (let [document-plan (load-test-document-plan "plain-author-amr")
           data [{:actor    "Paul Vigna, Michael J. Casey"
                  :co-actor "The Age of Cryptocurrency"}]
           result (planner/render-dp document-plan data {})]

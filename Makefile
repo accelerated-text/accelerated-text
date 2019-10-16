@@ -54,9 +54,6 @@ run-dev-env-no-api: ensure-deps-image
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml build && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml up --remove-orphans localstack mock-shop front-end
 
-restart-api-service:
-	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml restart acc-text-api
-
 .PHONY: run-front-end-dev-deps
 run-front-end-dev-deps: ensure-deps-image
 	docker-compose -p dev -f docker-compose.yml down && \

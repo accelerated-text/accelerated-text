@@ -5,18 +5,14 @@
 (defn placeholder?
   "Checks if item is placeholder inside sentence"
   [{{source :source} :attrs}]
-  (case source
-    :cell true
-    :quote true
-    :quotes true
-    false))
+  (contains? #{:cell :quote :quotes :modifier} source))
 
 (defn data-filter [data {:keys [gate]}]
   (gate data))
 
 (defn get-value
   "Pulls concrete value for item"
-  [{{:keys [source gate]} :attrs {:keys [cell quote quotes] :as name} :name} data]
+  [{{:keys [source gate]} :attrs {:keys [cell quote quotes modifier] :as name} :name} data]
   (when (or (nil? gate) (gate data))
     (case source
       :cell (get data cell)
@@ -26,6 +22,7 @@
                        (seq)
                        (rand-nth)
                        (:value))
+      :modifier modifier
       name)))
 
 (defn realize-template [placeholders data template]
