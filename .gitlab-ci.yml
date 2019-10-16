@@ -13,7 +13,7 @@ cache:
 
 test_front_end:
   stage: test
-  image: node:11-slim
+  image: node:12-slim
   retry: 2
   cache:
     key: front-end-cache
@@ -25,7 +25,7 @@ test_front_end:
     - make test
 
 job_npm_audit:
-  image: node:11-slim
+  image: node:12-slim
   only:
     - schedules
   cache:
