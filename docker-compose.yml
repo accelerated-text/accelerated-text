@@ -12,11 +12,12 @@ services:
   acc-text-api:
     build:
       context: .
-      dockerfile: api/Dockerfile.dev
+      dockerfile: api/Dockerfile
     ports: ["3001:3001"]
     environment:
       S3_ENDPOINT: http://localstack:4572
       DYNAMODB_ENDPOINT: http://localstack:4569
+    command: ["clojure", "-A:dev", "-m", "api.server"]
   mock-shop:
     build:
       context: integrations/demo-shop-lambdas

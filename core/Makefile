@@ -1,22 +1,5 @@
-TEST_IMAGE=registry.gitlab.com/tokenmill/nlg/ccg-kit/test
-
-__PHONY__:
-
-docker-login:
-	docker login registry.gitlab.com
-
-docker-build-test:
-	docker build -f Dockerfile.test -t ${TEST_IMAGE} .
-
-docker-push-test: docker-login docker-build-test
-	docker push ${TEST_IMAGE}
+lint:
+	clojure -Sdeps '{:deps {clj-kondo {:mvn/version "RELEASE"}}}' -m clj-kondo.main --lint src test
 
 unit-tests:
-	clj -Atest
-
-lint:
-	clj -Aeastwood
-	clj -Akibit
-
-package:
-	clj -Auberjar
+	clojure -Atest
