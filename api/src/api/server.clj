@@ -43,7 +43,7 @@
         (case namespace
           "/_graphql" (-> body
                           (utils/read-json-is)
-                          (graphql/nlg)
+                          (graphql/handle)
                           (http-result)
                           (update :body json/write-value-as-string))
           "/nlg" (let [is (-> request (normalize-request path-params) (.getBytes) (io/input-stream))

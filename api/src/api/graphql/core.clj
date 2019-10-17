@@ -63,8 +63,6 @@
                               :get-data-file               data-domain/get-data-file})
       schema/compile))
 
-(defn nlg [{:keys [query variables context] :as request}]
+(defn handle [{:keys [query variables context] :as request}]
   (log/infof "The request is: %s" request)
-  (->> (list query variables context)
-       (cons nlg-schema)
-       (apply execute)))
+  (execute nlg-schema query variables context {}))

@@ -35,7 +35,7 @@
        :statusCode      200
        :isBase64Encoded false
        :body            (json/write-value-as-string
-                          (graphql/nlg
+                          (graphql/handle
                             (json/read-value (:body decoded-request) read-mapper)))})))
 
 (defn -main [& _]
