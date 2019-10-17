@@ -22,6 +22,9 @@
   (ops/write! (ops/db-access :blockly) "3" {:uid          "03"
                                             :name         "adjective-phrase"
                                             :documentPlan (load-test-document-plan "adjective-phrase")} true)
+  (ops/write! (ops/db-access :blockly) "4" {:uid          "04"
+                                            :name         "author-amr"
+                                            :documentPlan (load-test-document-plan "author-amr")} true)
   (ops/write! (ops/db-access :dictionary-combined) "good" {:name         "good"
                                                            :partOfSpeech :NN
                                                            :phrases      [{:id    "good/1"
@@ -30,7 +33,8 @@
   (f)
   (dp/delete-document-plan "1")
   (dp/delete-document-plan "2")
-  (dp/delete-document-plan "3"))
+  (dp/delete-document-plan "3")
+  (dp/delete-document-plan "4"))
 
 (use-fixtures :each prepare-environment)
 
@@ -74,3 +78,12 @@
     (is (some? result-id))
     (is (contains? #{"Building Search Applications ." "Good Building Search Applications ."}
                    (get-first-variant result-id)))))
+
+(deftest ^:integration author-amr-plan-generation
+  (let [{{result-id :resultId} :body status :status}
+        (q "/nlg" :post {:documentPlanId   "4"
+                         :readerFlagValues {}
+                         :dataId           "example-user/books.csv"})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (some? (get-first-variant result-id)))))

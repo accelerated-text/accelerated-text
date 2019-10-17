@@ -2,7 +2,7 @@
   (:require [api.utils :as utils]
             [clojure.tools.logging :as log]
             [clojure.java.io :as io]
-            [cheshire.core :as ch])
+            [jsonista.core :as json])
   (:import (java.io BufferedWriter)
            (java.net URLDecoder)))
 
@@ -23,13 +23,13 @@
       (update :pathParameters decode-vals)
       (update :queryStringParameters decode-vals)
       (cond-> (true? decode-body?)
-              (update :body #(ch/decode % true)))))
+              (update :body #(json/read-value % utils/read-mapper)))))
 
 (defn- generate-response [status-code body]
-  (ch/encode
+  (json/write-value-as-string
     {:statusCode      status-code
      :isBase64Encoded false
-     :body            (if (some? body) (ch/encode body) "")
+     :body            (if (some? body) (json/write-value-as-string body) "")
      :headers         (cond-> {"Access-Control-Allow-Origin"  "*"
                                "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
                                "Access-Control-Allow-Headers" "*, Content-Type"}
