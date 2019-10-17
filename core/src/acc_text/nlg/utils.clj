@@ -32,7 +32,7 @@
   [^Grammar grammar word]
   (when word
     (try
-      (let [hash (.getSignsFromWord (.lexicon grammar) word)
+      (let [hash  (.getSignsFromWord (.lexicon grammar) word)
             signs (.getSignsSorted hash)]
         (log/debugf "'%s' resolves into %d signs" (word->str word) (count signs))
         (log/debugf "'%s' => %s" (word->str word) (str/join "; " (map sign->debug-str signs)))
