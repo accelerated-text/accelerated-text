@@ -101,10 +101,10 @@
 
 (defn morph-entry
   [word pos {:keys [class stem macros]}]
-  #::morph-spec{:word word
-                            :pos pos
-                            :class class
-                            :predicate stem
-                            :macros macros})
+  #::morph-spec{:word      word
+                :pos       pos
+                :class     class
+                :predicate stem
+                :macros    macros})
 
 (defn macro [name fs] #::morph-spec{:name name :fs fs})

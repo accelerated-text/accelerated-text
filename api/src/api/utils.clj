@@ -65,12 +65,9 @@
 (defn get-stack-trace [e]
   (str/join "\n" (map str (.getStackTrace e))))
 
-(defn csv-to-map
-  [f]
-  (let [raw-csv (csv/read-csv f)]
-    (log/debug "Raw CSV: " raw-csv)
-    (let [header (->> raw-csv (first) (map keyword) (vec))
-          data (rest raw-csv)
-          pairs (map #(interleave header %) data)]
-      (log/debugf "Header: %s" header)
-      (doall (map #(apply array-map %) pairs)))))
+(defn csv-to-map [f]
+  (let [raw-csv (csv/read-csv f)
+        header  (->> raw-csv (first) (map keyword) (vec))
+        data    (rest raw-csv)
+        pairs   (map #(interleave header %) data)]
+    (doall (map #(apply array-map %) pairs))))
