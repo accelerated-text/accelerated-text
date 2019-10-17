@@ -16,7 +16,8 @@
   (doseq [[id filename] [["1" "title-only"]
                          ["2" "authorship"]
                          ["3" "adjective-phrase"]
-                         ["4" "author-amr"]]]
+                         ["4" "author-amr"]
+                         ["5" "author-amr-with-adj"]]]
     (ops/write! (ops/db-access :blockly) id {:uid          id
                                              :name         filename
                                              :documentPlan (load-test-document-plan filename)} true))
@@ -26,7 +27,7 @@
                                                                            :text  "good"
                                                                            :flags {:default :YES}}]})
   (f)
-  (doseq [id ["1" "2" "3" "4"]]
+  (doseq [id ["1" "2" "3" "4" "5"]]
     (dp/delete-document-plan id)))
 
 (use-fixtures :each prepare-environment)
@@ -80,3 +81,12 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (some? (get-first-variant result-id)))))
+
+(deftest ^:integration author-amr-with-adjective-plan-generation
+  (let [{{result-id :resultId} :body status :status}
+        (q "/nlg" :post {:documentPlanId   "5"
+                         :readerFlagValues {}
+                         :dataId           "example-user/books.csv"})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (string/includes? (get-first-variant result-id) "good"))))
