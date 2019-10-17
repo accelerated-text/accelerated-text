@@ -13,7 +13,7 @@
                                 :type   :cell}}]}]]]
          (sut/parse-document-plan (load-test-document-plan "simple-plan") nil nil))))
 
-(deftest amr-plan-parser
+(deftest ^:integration amr-plan-parser
   (let [[{quotes-dynamic :dynamic} {agent-dynamic :dynamic} {coagent-dynamic :dynamic}]
         (-> (load-test-document-plan "plain-amr")
             (sut/parse-document-plan  nil nil)
