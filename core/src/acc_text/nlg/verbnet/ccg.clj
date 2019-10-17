@@ -139,9 +139,9 @@
   "At the moment, only single level of restrictors supported"
   [[{type :type} & _] parent index-fn symbol-fn]
   (let [value (format "%s_restrictor" parent)
-        S (symbol-fn)
-        stem (get static-restrictors (keyword type))]
-    (family value :IN true
+        S     (symbol-fn)
+        stem  (get static-restrictors (keyword type))]
+    (family value :IN false
             (entry "Restrictor" (lf (lf-name S value))
                    (build-atomcat :RSTR (index-fn) S value))
             (member stem))))
@@ -170,24 +170,24 @@
   [index-fn symbol-fn & args]
   (->> args
        (map
-        (fn [{:keys [arg1 arg2 pos value restrictors] :as part
-             {pred-restrictors :restrictors pred-pos
-              :pos pred-val :value :as predicate} :predicate}]
-          (log/debugf "Part: %s" part)
-          (let [S (symbol-fn)]
-            (if predicate
-              (if (and pred-restrictors (some static-restrictor? pred-restrictors))
-                (cons [(build-restrictors pred-restrictors pred-val index-fn symbol-fn)
-                       (<B-family "Predicate" (index-fn) S pred-val pred-pos)]
-                      (get-parts index-fn symbol-fn arg1 arg2))
-                (cons (simple-family "Predicate" (index-fn) S pred-val pred-pos)
-                      (get-parts index-fn symbol-fn arg1 arg2)))
+         (fn [{:keys                                                [arg1 arg2 pos value restrictors] :as part
+               {pred-restrictors :restrictors pred-pos
+                :pos             pred-val     :value :as predicate} :predicate}]
+           (log/debugf "Part: %s" part)
+           (let [S (symbol-fn)]
+             (if predicate
+               (if (and pred-restrictors (some static-restrictor? pred-restrictors))
+                 (cons [(build-restrictors pred-restrictors pred-val index-fn symbol-fn)
+                        (<B-family "Predicate" (index-fn) S pred-val pred-pos)]
+                       (get-parts index-fn symbol-fn arg1 arg2))
+                 (cons (simple-family "Predicate" (index-fn) S pred-val pred-pos)
+                       (get-parts index-fn symbol-fn arg1 arg2)))
 
-              (when (contains? #{:NP :LEX :PREP :ADV} pos)
-                (if (and restrictors (some static-restrictor? restrictors))
-                  [(build-restrictors restrictors value index-fn symbol-fn)
-                   (<B-family "Primary" (index-fn) S value pos)]
-                  (simple-family "Primary" (index-fn) S value pos)))))))
+               (when (contains? #{:NP :LEX :PREP :ADV} pos)
+                 (if (and restrictors (some static-restrictor? restrictors))
+                   [(build-restrictors restrictors value index-fn symbol-fn)
+                    (<B-family "Primary" (index-fn) S value pos)]
+                   (simple-family "Primary" (index-fn) S value pos)))))))
        (flatten)
        (remove nil?)))
 
