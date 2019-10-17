@@ -3,7 +3,7 @@
     <appender name="A1" class="ch.qos.logback.core.ConsoleAppender">
         <target>${LOGGER_TARGET:-System.out}</target>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%date{ISO8601} [%t] %-5p %c{1} - %m%n</pattern>
+            <pattern>%date{ISO8601} %-5p %c{1} - %m%n</pattern>
         </encoder>
     </appender>
     <logger name="lt.tokenmill.nlg" level="DEBUG"/>
