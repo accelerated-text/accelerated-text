@@ -38,7 +38,7 @@
         (log/debugf "'%s' => %s" (word->str word) (str/join "; " (map sign->debug-str signs)))
         (vec signs))
       (catch LexException e
-        (log/errorf "Failed to parse word '%s'. This happens when CCG morphology has the word class but it is not matched with lexicon entry." (word->str word))
+        (log/warnf "Failed to parse word '%s'. This happens when CCG morphology has the word class but it is not matched with lexicon entry." (word->str word))
         (vector)))))
 
 (defn str->sign
