@@ -101,21 +101,20 @@
    If recursive is true - we go through whole tree and build rules
    If false - we just add root node as a category, expect other rules to build upon it"
   [order-fn {:keys [predicate arg1 arg2 pos value placement] :as arg} parent-placement]
-  (log/tracef "Arg->CCG %s" arg)
   (if predicate
     (let [[outer-slash inner-slash] (placement->slashes placement parent-placement)]
-        (if arg2
-          (outer-slash
-           (arg->ccg-cat order-fn arg2 placement)
-           (inner-slash
+      (if arg2
+        (outer-slash
+          (arg->ccg-cat order-fn arg2 placement)
+          (inner-slash
             (atomcat (:pos predicate) {}
                      (fs-nomvar "index" (nomvar-name order-fn (:value predicate))))
             (arg->ccg-cat order-fn arg1 placement)))
 
-          (outer-slash
-           (arg->ccg-cat order-fn arg1 placement)
-           (atomcat (:pos predicate) {}
-                    (fs-nomvar "index" (nomvar-name order-fn (:value predicate)))))))
+        (outer-slash
+          (arg->ccg-cat order-fn arg1 placement)
+          (atomcat (:pos predicate) {}
+                   (fs-nomvar "index" (nomvar-name order-fn (:value predicate)))))))
 
     (atomcat pos {} (fs-nomvar "index" (nomvar-name order-fn value)))))
 
@@ -183,7 +182,7 @@
                  (cons (simple-family "Predicate" (index-fn) S pred-val pred-pos)
                        (get-parts index-fn symbol-fn arg1 arg2)))
 
-               (when (contains? #{:N :NP :LEX :PREP :ADV} pos)
+               (when (contains? #{:NP :LEX :PREP :ADV} pos)
                  (if (and restrictors (some static-restrictor? restrictors))
                    [(build-restrictors restrictors value index-fn symbol-fn)
                     (<B-family "Primary" (index-fn) S value pos)]
@@ -264,8 +263,7 @@
 
 (defn vn->grammar
   [vn]
-  (let [morph (vclass->morph vn)
-
+  (let [morph         (vclass->morph vn)
         base-morph    (map (fn [[_ v]] (morph-entry v :IN {:stem v})) static-restrictors) 
         morph-entries (map translate/morph->entry (concat morph base-morph))
         base-families base-en/initial-families
