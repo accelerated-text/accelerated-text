@@ -203,35 +203,39 @@
   [idx-fn symbol-fn {:keys [predicate arg1 arg2 placement] :as root}]
   (log/debugf "Root category: %s" root)
   (let [{:keys [value pos restrictors]} predicate
-        [outer-slash inner-slash] (placement->slashes placement)
-        order (atom 0)
-        order-fn (fn [] (swap! order inc))
-        parts (concat
-               (get-parts idx-fn symbol-fn arg1 arg2)
-               (when (seq restrictors)
-                 (list (build-restrictors restrictors value idx-fn symbol-fn))))
-        main-family (family "AMR" (get pred->loner pos) true
-                            (entry "Primary"
-                                   (lf (symbol-fn))
-                                   (apply-restrictors
-                                    value
-                                    restrictors
-                                    (if arg2
-                                      (outer-slash
-                                       (atomcat :S {:index (idx-fn)} (fs-nomvar "index" (nomvar-name order-fn value)))
-                                       (inner-slash
-                                        (arg->ccg-cat order-fn arg1 placement)
-                                        (arg->ccg-cat order-fn arg2 placement)))
+        [outer-slash inner-slash]       (placement->slashes placement)
+        order                           (atom 0)
+        order-fn                        (fn [] (swap! order inc))
+        parts                           (concat
+                                          (get-parts idx-fn symbol-fn arg1 arg2)
+                                          (when (seq restrictors)
+                                            (list (build-restrictors restrictors value idx-fn symbol-fn))))
+        main-family                     (family "AMR" (get pred->loner pos) true
+                                                (entry "Primary"
+                                                       (lf (symbol-fn))
+                                                       (apply-restrictors
+                                                         value
+                                                         restrictors
+                                                         (if arg2
+                                                           (outer-slash
+                                                             (atomcat :S
+                                                                      {:index (idx-fn)}
+                                                                      (fs-nomvar "index" (nomvar-name order-fn value)))
+                                                             (inner-slash
+                                                               (arg->ccg-cat order-fn arg1 placement)
+                                                               (arg->ccg-cat order-fn arg2 placement)))
 
-                                      (inner-slash
-                                       (atomcat :S {:index (idx-fn)} (fs-nomvar "index" (nomvar-name order-fn value)))
-                                       (arg->ccg-cat order-fn arg1 placement)))))
-                            (member value))]
+                                                           (inner-slash
+                                                             (atomcat :S
+                                                                      {:index (idx-fn)}
+                                                                      (fs-nomvar "index" (nomvar-name order-fn value)))
+                                                             (arg->ccg-cat order-fn arg1 placement)))))
+                                                (member value))]
     (log/debugf "Parts: %s" (pr-str parts))
     (log/debugf "Main-Family: %s" main-family)
     (cons
-     main-family
-     parts)))
+      main-family
+      parts)))
 
 (defn frame->complex-categories [id {syntax :syntax}]
   (let [idx         (atom 20)
@@ -260,28 +264,28 @@
 
 (defn vn->grammar
   [vn]
-  (let [morph (vclass->morph vn)
-        base-morph (concat
-                    (list)
-                    (map (fn [[_ v]] (morph-entry v :IN {:stem v})) static-restrictors))
+  (let [morph         (vclass->morph vn)
+        base-morph    (concat
+                        []
+                        (map (fn [[_ v]] (morph-entry v :IN {:stem v})) static-restrictors))
         morph-entries (map translate/morph->entry (concat morph base-morph))
-        base-families (list)
-        macros (list)]
+        base-families []
+        macros        []]
     (map
-     (fn [frame]
-       (let [grammar-builder (grammar/build-grammar {:types (grammar/build-types (list
-                                                                                  {:name "sem-obj"}
-                                                                                  {:name "phys-obj" :parents "sem-obj"}))
-                                                :rules (grammar/build-default-rules)})
-             lex (frame->complex-categories (:id vn) frame)
-             implicit    (map (fn [[word pos]] (translate/morph->entry
-                                                (morph-entry word pos {:stem word})))
-                              (->> frame
-                                   (:syntax)
-                                   (extract-implicit)))
-             lexicon (grammar/build-lexicon
-                      {:families (map translate/family->entry (concat base-families lex))
-                       :morph (concat morph-entries implicit)
-                       :macros (map translate/macro->entry macros)})]
-         (grammar-builder lexicon)))
-     (:frames vn))))
+      (fn [frame]
+        (let [grammar-builder (grammar/build-grammar {:types (grammar/build-types (list
+                                                                                    {:name "sem-obj"}
+                                                                                    {:name "phys-obj" :parents "sem-obj"}))
+                                                      :rules (grammar/build-default-rules)})
+              lex             (frame->complex-categories (:id vn) frame)
+              implicit        (map (fn [[word pos]] (translate/morph->entry
+                                                      (morph-entry word pos {:stem word})))
+                                   (->> frame
+                                        (:syntax)
+                                        (extract-implicit)))
+              lexicon         (grammar/build-lexicon
+                                {:families (map translate/family->entry (concat base-families lex))
+                                 :morph    (concat morph-entries implicit)
+                                 :macros   (map translate/macro->entry macros)})]
+          (grammar-builder lexicon)))
+      (:frames vn))))
