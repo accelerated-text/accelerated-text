@@ -1,5 +1,6 @@
 (ns acc-text.nlg.verbnet.ccg
-  (:require [acc-text.nlg.dsl.core
+  (:require [acc-text.nlg.ccg.base-en :as base-en]
+            [acc-text.nlg.dsl.core
              :refer
              [<B
               >F
@@ -40,15 +41,16 @@
 
 (defn vclass->morph [{:keys [id members thematic-roles adverbs]}]
   (concat
-   (map
-    (fn [{:keys [name macros]}] (morph-entry name :VB {:stem (drop-vnet-id id) :macros macros}))
-    members)
-   (map
-    (fn [{name :name}] (morph-entry name :A {:stem (format "%s-adv" (drop-vnet-id id))}))
-    adverbs)
-   (map (fn [{type :type}]
-          (morph-entry (format "{{%s}}" (string/upper-case type)) :N {:stem type}))
-        thematic-roles)))
+    (map
+      (fn [{:keys [name macros]}] (morph-entry name :VB {:stem (drop-vnet-id id) :macros macros}))
+      members)
+    ;;FIXME when do we get adverbs from vclass?
+    (map
+      (fn [{name :name}] (morph-entry name :A {:stem (format "%s-adv" (drop-vnet-id id))}))
+      adverbs)
+    (map (fn [{type :type}]
+           (morph-entry (format "{{%s}}" (string/upper-case type)) :N {:stem type}))
+         thematic-roles)))
 
 (defn role->pattern [[next-role role previous-role]]
   (case (vector (:pos previous-role) (:pos role) (:pos next-role))
@@ -170,9 +172,7 @@
   [index-fn symbol-fn & args]
   (->> args
        (map
-         (fn [{:keys                                                [arg1 arg2 pos value restrictors] :as part
-               {pred-restrictors :restrictors pred-pos
-                :pos             pred-val     :value :as predicate} :predicate}]
+         (fn [{:keys [arg1 arg2 pos value restrictors] :as part {pred-restrictors :restrictors pred-pos :pos pred-val :value :as predicate} :predicate}]
            (log/debugf "Part: %s" part)
            (let [S (symbol-fn)]
              (if predicate
@@ -183,7 +183,7 @@
                  (cons (simple-family "Predicate" (index-fn) S pred-val pred-pos)
                        (get-parts index-fn symbol-fn arg1 arg2)))
 
-               (when (contains? #{:NP :LEX :PREP :ADV} pos)
+               (when (contains? #{:N :NP :LEX :PREP :ADV} pos)
                  (if (and restrictors (some static-restrictor? restrictors))
                    [(build-restrictors restrictors value index-fn symbol-fn)
                     (<B-family "Primary" (index-fn) S value pos)]
@@ -264,12 +264,11 @@
 
 (defn vn->grammar
   [vn]
-  (let [morph         (vclass->morph vn)
-        base-morph    (concat
-                        []
-                        (map (fn [[_ v]] (morph-entry v :IN {:stem v})) static-restrictors))
+  (let [morph (vclass->morph vn)
+
+        base-morph    (map (fn [[_ v]] (morph-entry v :IN {:stem v})) static-restrictors) 
         morph-entries (map translate/morph->entry (concat morph base-morph))
-        base-families []
+        base-families base-en/initial-families
         macros        []]
     (map
       (fn [frame]
