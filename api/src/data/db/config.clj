@@ -12,10 +12,6 @@
 (def lexicon-table {:table-name "lexicon"
                     :table-key  :key})
 
-(def data-bucket "accelerated-text-data-files")
-
-(def grammar-bucket "ccg-grammar")
-
 (def dictionary-combined-table {:table-name "dictionary-combined"
                                 :table-key  :key})
 
@@ -45,6 +41,10 @@
 
 (defn client-opts []
   {:endpoint (dynamodb-endpoint)})
+
+(def data-bucket "accelerated-text-data-files")
+
+(def grammar-bucket "ccg-grammar")
 
 (defn s3-endpoint []
   (or (System/getenv "S3_ENDPOINT") "http://localhost:8001"))
