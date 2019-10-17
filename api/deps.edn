@@ -1,10 +1,7 @@
 {:deps      {acceleratedtext/openccg             {:mvn/version "0.10.5"}
              ccg-kit                             {:local/root "../core"}
              ch.qos.logback/logback-classic      {:mvn/version "1.2.3"}
-             cheshire                            {:mvn/version "5.8.1"}
-             clj-time                            {:mvn/version "0.5.1"}
-             com.amazonaws/aws-lambda-java-core  {:mvn/version "1.0.0"}
-             com.amazonaws/aws-java-sdk-dynamodb {:mvn/version "1.11.556"}
+             cheshire                            {:mvn/version "5.9.0"}
              com.cognitect.aws/api               {:mvn/version "0.8.352"}
              com.cognitect.aws/endpoints         {:mvn/version "1.1.11.633"}
              com.cognitect.aws/s3                {:mvn/version "726.2.488.0"}
@@ -14,13 +11,10 @@
              http-kit                            {:mvn/version "2.3.0"}
              net.sf.extjwnl/extjwnl              {:mvn/version "2.0.2"}
              net.sf.extjwnl/extjwnl-data-wn31    {:mvn/version "1.2"}
-             metosin/jsonista                    {:mvn/version "0.2.2"}
+             metosin/jsonista                    {:mvn/version "0.2.5"}
              org.clojure/clojure                 {:mvn/version "1.10.1"}
              org.clojure/data.csv                {:mvn/version "0.1.4"}
-             org.clojure/tools.logging           {:mvn/version "0.4.1"}
-             org.eclipse.jetty/jetty-http        {:mvn/version "9.4.20.v20190813"}
-             org.eclipse.jetty/jetty-util        {:mvn/version "9.4.20.v20190813"}
-             org.eclipse.jetty/jetty-client      {:mvn/version "9.4.20.v20190813"}}
+             org.clojure/tools.logging           {:mvn/version "0.5.0"}}
  :paths     ["src" "resources"]
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://repo.clojars.org/"}}

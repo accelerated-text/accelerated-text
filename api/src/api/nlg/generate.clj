@@ -7,10 +7,7 @@
             [data.db.dynamo-ops :as ops]
             [data.db.config :as config]
             [data.db.s3 :as s3]
-            [data.entities.document-plan :as document-plan])
-  (:gen-class
-    :name nlg.NLGHandler
-    :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
+            [data.entities.document-plan :as document-plan]))
 
 (defn get-db []
   (ops/db-access :results))
