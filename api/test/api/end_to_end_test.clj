@@ -36,14 +36,15 @@
   (while (false? (get-in (q (str "/nlg/" result-id) :get nil) [:body :ready]))
     (Thread/sleep 100)))
 
-(defn get-first-variant [result-id]
+(defn get-variants [result-id]
   (when (some? result-id)
     (wait-for-results result-id)
     (let [response (q (str "/nlg/" result-id) :get nil)]
-      (->> (get-in response [:body :variants 0 :children 0 :children 0 :children])
-           (map :text)
-           (string/join " ")
-           (string/trim)))))
+      (for [variant (get-in response [:body :variants])]
+        (->> (get-in variant [:children 0 :children 0 :children])
+             (map :text)
+             (string/join " ")
+             (string/trim))))))
 
 (deftest ^:integration single-element-plan-generation
   (let [{{result-id :resultId} :body status :status}
@@ -52,7 +53,7 @@
                          :dataId           "example-user/books.csv"})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (valid-sentence? (get-first-variant result-id)))))
+    (is (valid-sentence? (first (get-variants result-id))))))
 
 (deftest ^:integration authorship-document-plan-generation
   (let [{{result-id :resultId} :body status :status}
@@ -61,7 +62,7 @@
                          :dataId           "example-user/books.csv"})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (valid-sentence? (get-first-variant result-id)))))
+    (is (valid-sentence? (first (get-variants result-id))))))
 
 (deftest ^:integration adjective-phrase-document-plan-generation
   (let [{{result-id :resultId} :body status :status}
@@ -71,7 +72,7 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (contains? #{"Building Search Applications ." "Good Building Search Applications ."}
-                   (get-first-variant result-id)))))
+                   (first (get-variants result-id))))))
 
 (deftest ^:integration author-amr-plan-generation
   (let [{{result-id :resultId} :body status :status}
@@ -80,7 +81,7 @@
                          :dataId           "example-user/books.csv"})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (some? (get-first-variant result-id)))))
+    (is (some? (first (get-variants result-id))))))
 
 (deftest ^:integration author-amr-with-adjective-plan-generation
   (let [{{result-id :resultId} :body status :status}
@@ -89,4 +90,4 @@
                          :dataId           "example-user/books.csv"})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (string/includes? (get-first-variant result-id) "good"))))
+    (is (some #(string/includes? % "good") (get-variants result-id)))))
