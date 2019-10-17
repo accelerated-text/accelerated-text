@@ -1,7 +1,6 @@
 {:deps      {acceleratedtext/openccg             {:mvn/version "0.10.5"}
              ccg-kit                             {:local/root "../core"}
              ch.qos.logback/logback-classic      {:mvn/version "1.2.3"}
-             cheshire                            {:mvn/version "5.8.1"}
              clj-time                            {:mvn/version "0.5.1"}
              com.amazonaws/aws-lambda-java-core  {:mvn/version "1.0.0"}
              com.amazonaws/aws-java-sdk-dynamodb {:mvn/version "1.11.556"}
