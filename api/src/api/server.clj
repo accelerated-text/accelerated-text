@@ -21,10 +21,10 @@
     (@server :timeout 100)
     (reset! server nil)))
 
-(defn- http-result [body]
+(defn- http-response [body]
   {:status  200
    :headers (assoc headers "Content-Type" "application/json")
-   :body    body})
+   :body    (json/write-value-as-string body)})
 
 (defn- normalize-request [{:keys [headers query-string body request-method]} path-params]
   (json/write-value-as-string
@@ -44,15 +44,15 @@
           "/_graphql" (-> body
                           (utils/read-json-is)
                           (graphql/handle)
-                          (http-result)
-                          (update :body json/write-value-as-string))
+                          (http-response))
           "/nlg" (let [is (-> request (normalize-request path-params) (.getBytes) (io/input-stream))
                        os (ByteArrayOutputStream.)]
                    (generate/-handleRequest nil is os nil)
-                   (-> os
-                       (utils/read-json-os)
-                       (get :body)
-                       (http-result)))
+                   {:status  200
+                    :headers (assoc headers "Content-Type" "application/json")
+                    :body    (-> os
+                                 (utils/read-json-os)
+                                 (get :body))})
           {:status 404
            :body   (format "ERROR: unsupported URI '%s'" uri)})
         (catch Exception e
