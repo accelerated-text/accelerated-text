@@ -19,8 +19,9 @@
                                    (log/debugf "Restrictor: %s key: %s (%s)" r v (get data v))
                                    (case (:type r)
                                      :count (case (:value r)
-                                              :singular (not (str/includes? (get data v) ","))
-                                              :plural (str/includes? (get data v) ","))
+                                              ; FIXME
+                                              :singular (not (str/includes? (get data v "") ","))
+                                              :plural (str/includes? (get data v "") ","))
                                      true))                 ;; Ignore all other types for now
                                  restrictors))
                        (map
