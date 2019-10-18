@@ -60,12 +60,11 @@
         (when (some? key)
           (far/get-item (config/client-opts) table-name {table-key key})))
       (write-item [this key data update-count?]
-        (log/debugf "Writing\n key: '%s' \n content: '%s'" key data)
         (let [current-ts (utils/ts-now)
-              body (cond-> (assoc data
-                             table-key key
-                             :createdAt current-ts
-                             :updatedAt current-ts)
+              body       (cond-> (assoc data
+                                        table-key key
+                                        :createdAt current-ts
+                                        :updatedAt current-ts)
                            update-count? (assoc :updateCount 0))]
           (far/put-item (config/client-opts) table-name (freeze body))
           body))
@@ -73,7 +72,7 @@
         (when-let [original (far/get-item (config/client-opts) table-name {table-key key})]
           (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
           (let [body (cond-> (merge original data {:updatedAt (utils/ts-now) table-key key})
-                             (contains? original :updateCount) (update :updateCount inc))]
+                       (contains? original :updateCount) (update :updateCount inc))]
             (log/debugf "Saving updated content: %s" (pr-str body))
             (far/put-item (config/client-opts) table-name (freeze body))
             body)))
