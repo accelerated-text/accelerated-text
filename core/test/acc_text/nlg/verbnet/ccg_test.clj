@@ -9,11 +9,6 @@
 
 (def battle (vnet/xml->vclass "test/resources/verbnet/battle.xml"))
 
-(deftest vnet-id->predicate
-  (is (= "aaa" (ccg/drop-vnet-id "aaa")))
-  (is (= "aaa" (ccg/drop-vnet-id "aaa-1")))
-  (is (= "aaa" (ccg/drop-vnet-id "aaa-1.1"))))
-
 (deftest vnet->morph
   (is (= #{#::morph-spec{:word "vie" :pos :VB :predicate "battle" :macros nil :class nil}
            #::morph-spec{:word "war" :pos :VB :predicate "battle" :macros nil :class nil}

@@ -30,8 +30,6 @@
   ;;invert `loner-pred` map
   (reduce-kv (fn [m k v] (assoc m v k)) {} loner->pred))
 
-(defn drop-vnet-id [word] (string/replace word #"-\d+.*" ""))
-
 (defn is-implicit? [{pos :pos}] (contains? #{:PREP :POST :LEX :Conj :IN} pos))
 
 (defn extract-implicit [syntax]
@@ -42,41 +40,15 @@
 (defn vclass->morph [{:keys [id members thematic-roles adverbs]}]
   (concat
     (map
-      (fn [{:keys [name macros]}] (morph-entry name :VB {:stem (drop-vnet-id id) :macros macros}))
+      (fn [{:keys [name macros]}] (morph-entry name :VB {:stem (gp/drop-vnet-id id) :macros macros}))
       members)
     ;;FIXME when do we get adverbs from vclass?
     (map
-      (fn [{name :name}] (morph-entry name :A {:stem (format "%s-adv" (drop-vnet-id id))}))
+      (fn [{name :name}] (morph-entry name :A {:stem (format "%s-adv" (gp/drop-vnet-id id))}))
       adverbs)
     (map (fn [{type :type}]
            (morph-entry (format "{{%s}}" (string/upper-case type)) :N {:stem type}))
          thematic-roles)))
-
-(defn role->pattern [[next-role role previous-role]]
-  (case (vector (:pos previous-role) (:pos role) (:pos next-role))
-    [:NP :LEX :LEX]    (gp/pattern role previous-role next-role :middle)
-    [:LEX :LEX :PREP]  (gp/pattern next-role previous-role role :end)
-    [:LEX :PREP :NP]   (gp/pattern role previous-role next-role :middle)
-    [:NP :VERB :PREP]  (gp/pattern role previous-role next-role :middle)
-    [:VERB :PREP :NP]  (gp/pattern previous-role role next-role :start)
-    [nil :NP :VERB]    (gp/pattern next-role role nil :end)
-    [:NP :LEX :VERB]   (gp/pattern next-role previous-role role :end)
-    [:LEX :VERB :PREP] (gp/pattern role previous-role next-role :middle)
-    [:LEX :LEX :LEX]   (gp/pattern previous-role role next-role :start)
-    [:LEX :LEX :NP]    (gp/pattern previous-role role next-role :start)
-    [:NP :LEX :PREP]   (gp/pattern next-role previous-role role :end)
-    [:NP :VERB :NP]    (gp/pattern role previous-role next-role :middle)
-    [:VERB :NP :PREP]  (gp/pattern previous-role role next-role :start)
-    [:NP :PREP :NP]    (gp/pattern role previous-role next-role :middle)
-    [:PREP :NP :PREP]  (gp/pattern next-role previous-role role :end)
-    [:NP :VERB :ADV]   (gp/pattern role previous-role next-role :middle)
-    [:VERB :ADV :PREP] (gp/pattern previous-role role next-role :start)
-    [:ADV :PREP :NP]   (gp/pattern role previous-role next-role :middle)
-    [:VERB :NP :NP]    (gp/pattern previous-role role next-role :start)
-    [:VERB :NP :LEX]   (gp/pattern previous-role role next-role :start)
-    [:NP :LEX :NP]     (gp/pattern role previous-role next-role :middle)
-    [:NP :NP :VERB]    (gp/pattern next-role previous-role role :end)
-    [:LEX :NP :VERB]   (gp/pattern next-role previous-role role :end)))
 
 (def <<-compose [<B <B])
 (def ><-compose [>F <B])
@@ -247,17 +219,7 @@
                       (let [result (peek @symbols)]
                         (swap! symbols pop)
                         result))]
-    (->> (gp/map-shift role->pattern (map (fn [p] (case   (:pos p)
-                                                :VERB (assoc p :value (drop-vnet-id id))
-                                                ;; Where do we get these adverbs?
-                                                :ADV (assoc p :value (format "%s-adv" (drop-vnet-id id)))
-                                                p))
-                                       syntax))
-         (gp/merge-arguments)
-         (gp/merge-predicates)
-         (gp/optimize-arguments)
-         (gp/combine-roots)
-         (gp/debug-patterns)
+    (->> (gp/build-grammar-patterns id syntax)
          (map (partial build-ccg next-idx next-symbol))
          (flatten))))
 
