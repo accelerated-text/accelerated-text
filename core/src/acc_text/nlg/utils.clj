@@ -32,13 +32,13 @@
   [^Grammar grammar word]
   (when word
     (try
-      (let [hash (.getSignsFromWord (.lexicon grammar) word)
+      (let [hash  (.getSignsFromWord (.lexicon grammar) word)
             signs (.getSignsSorted hash)]
         (log/debugf "'%s' resolves into %d signs" (word->str word) (count signs))
         (log/debugf "'%s' => %s" (word->str word) (str/join "; " (map sign->debug-str signs)))
         (vec signs))
-      (catch LexException e
-        (log/errorf "Failed to parse word %s. Reason: %s" (word->str word) (.getMessage e))
+      (catch LexException _
+        (log/warnf "Failed to parse word '%s'. This happens when CCG morphology has the word class but it is not matched with lexicon entry." (word->str word))
         (vector)))))
 
 (defn str->sign

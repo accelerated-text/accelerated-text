@@ -266,13 +266,15 @@
                             ::morph-spec/predicate
                             ::morph-spec/class
                             ::morph-spec/macros]}]
+  ;;FIXME speced map is deconstructed only to be reconstructed with unqualified keys further to
+  ;;`build-morph-entry`. Change `build-morph-entry` to accept speced map directly
   (log/debugf "Adding Morh word: %s stem: %s pos: %s class: %s macros: %s" word predicate pos class macros)
   (build-morph-entry
-   {:word   word
-    :pos    pos
-    :stem   predicate
-    :class  class
-    :macros macros}))
+    {:word   word
+     :pos    pos
+     :stem   predicate
+     :class  class
+     :macros macros}))
 
 (defn macro->entry [{:keys [::morph-spec/name
                             ::morph-spec/fs]}]
