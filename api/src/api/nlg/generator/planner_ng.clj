@@ -11,17 +11,15 @@
    data - a flat hashmap (represents CSV)
    returns: hashmap (context) which will be used to generate text"
   [dp]
-  (loop [context {:dynamic        []
-                  :static         []
-                  :reader-profile :default}
-         fs dp]
+  (loop [context              {:dynamic        []
+                               :static         []
+                               :reader-profile :default}
+         [head & tail :as fs] dp]
     (if (map? fs)
       (ops/merge-context context fs)
       (if (empty? fs)
         context
-        (let [[head & tail] fs]
-          (log/tracef "Head: %s" head)
-          (recur (ops/merge-context context (into {} head)) tail))))))
+        (recur (ops/merge-context context (into {} head)) tail)))))
 
 (defn get-placeholder [item]
   (if (realizer/placeholder? item)
