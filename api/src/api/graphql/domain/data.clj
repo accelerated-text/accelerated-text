@@ -3,7 +3,8 @@
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.db.config :as config]
             [data.db.s3 :as s3])
-  (:import (java.io File)))
+  (:import (java.io File)
+           (java.util UUID)))
 
 (defn- read-data-file-from-s3 [id offset limit]
   (when-let [raw-csv-string (s3/read-file config/data-bucket id)]
@@ -42,3 +43,7 @@
        :offset     offset
        :limit      limit
        :totalCount (count data-files)})))
+
+(defn create-data-file [_ request _]
+  (let [data-file-id (.toString (UUID/randomUUID))]
+    (resolve-as {:id data-file-id})))

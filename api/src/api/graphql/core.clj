@@ -36,7 +36,8 @@
                                                    :updatePhrase             :update-phrase
                                                    :deletePhrase             :delete-phrase
                                                    :updatePhraseDefaultUsage :update-phrase-default-usage
-                                                   :updateReaderFlagUsage    :update-reader-flag-usage}
+                                                   :updateReaderFlagUsage    :update-reader-flag-usage
+                                                   :createDataFile           :create-data-file}
                                         :Concept  {:dictionaryItem :ref-dictionary-item}}})
       (util/attach-resolvers {:dictionary                  dictionary-domain/dictionary
                               :ref-dictionary-item         dictionary-domain/ref-dictionary-item
@@ -60,9 +61,10 @@
                               :concepts                    amr-domain/list-verbclasses
                               :concept                     amr-domain/get-verbclass
                               :list-data-files             data-domain/list-data-files
-                              :get-data-file               data-domain/get-data-file})
+                              :get-data-file               data-domain/get-data-file
+                              :create-data-file            #'data-domain/create-data-file})
       schema/compile))
 
 (defn handle [{:keys [query variables context] :as request}]
-  (log/infof "The request is: %s" request)
+  (log/debugf "The request is: %s" request)
   (execute nlg-schema query variables context {}))

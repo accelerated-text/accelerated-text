@@ -88,6 +88,12 @@ type DataFiles {
     totalCount:         Int!
 }
 
+type DataFileInput {
+    id:                 ID!
+    fileName:           String!
+    contents:           String!
+}
+
 ### Thesaurus ------------------------------------------------------------------
 
 type ThesaurusResults {
@@ -370,6 +376,12 @@ type Mutation {
         id:                 ID!
         usage:              Usage!
     ):  ReaderFlagUsage!
+
+    createDataFile(
+        id:                 ID
+        fileName:           String
+        contents:           String
+    ):  DataFileInput
 }
 
 
