@@ -37,17 +37,6 @@
       (assoc :members members)
       (vn-ccg/vn->grammar)))
 
-(defn placeholders->dyn-names
-  [children]
-  (into {}
-        (map (fn [c]
-               (let [title (get-in c [:attrs :title])
-                     dyn-name (get-in c [:name :dyn-name])]
-                 [(to-placeholder title) dyn-name]))
-             (->> children
-                  (map :dynamic)
-                  (flatten)))))
-
 (defn amr-keys->data-keys
   "AMR-Key is key used inside, eg. `Agent` Data-key is our linked CSV column, eg. `:actor`"
   [children]
@@ -56,7 +45,7 @@
                (case (:source attrs)
                  :cell [(str/upper-case (:title attrs)) (:cell name)]
                  name))
-             (flatten (map :dynamic children)))))
+             (:dynamic children))))
 
 (defn generate-results
   [grammars seed]
