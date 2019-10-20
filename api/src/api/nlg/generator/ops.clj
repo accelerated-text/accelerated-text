@@ -19,14 +19,6 @@
         ctx
         (recur (merge-context ctx (into {} head)) tail)))))
 
-(defn append-static
-  [value context]
-  (update context :static #(conj % value)))
-
-(defn append-dynamic
-  [value attrs context]
-  (update context :dynamic #(conj % {:name value :attrs attrs})))
-
 (defn distinct-wordlist
   [values]
   (let [wordlists (filter (fn [v] (= :wordlist (get-in v [:attrs :type]))) values)
