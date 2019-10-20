@@ -72,7 +72,7 @@
   "Builds complex categories.
    If recursive is true - we go through whole tree and build rules
    If false - we just add root node as a category, expect other rules to build upon it"
-  [order-fn {:keys [predicate arg1 arg2 pos value placement] :as arg} parent-placement]
+  [order-fn {:keys [predicate arg1 arg2 pos value placement]} parent-placement]
   (if predicate
     (let [[outer-slash inner-slash] (placement->slashes placement parent-placement)]
       (if arg2
