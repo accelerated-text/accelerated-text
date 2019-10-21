@@ -1,7 +1,6 @@
 (ns api.graphql.data-test
   (:require [api.test-utils :refer [q]]
-            [clojure.test :refer [deftest is]]
-            [clojure.tools.logging :as log]))
+            [clojure.test :refer [deftest is]]))
 
 (deftest ^:integration get-data-test
   (let [query "{getDataFile(id:\"%s\" recordOffset:%s recordLimit:%s){id fileName fieldNames records{id fields{id fieldName value}} recordOffset recordLimit recordCount}}"
@@ -29,7 +28,7 @@
 
 (deftest ^:integration create-data-file
   (let [query "mutation CreateDataFile($fileName:String! $contents:String! $id:ID){createDataFile(fileName:$fileName contents:$contents){id}}"
-        {{{{id :id :as df} :createDataFile} :data errors :errors :as body} :body}
+        {{{{id :id :as df} :createDataFile} :data errors :errors} :body}
         (q "/_graphql" :post {:query     query
                               :variables {:fileName "test-filename"
                                           :contents (slurp "resources/accelerated-text-data-files/example-user/books.csv")}})]

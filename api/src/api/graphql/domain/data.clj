@@ -44,6 +44,6 @@
        :limit      limit
        :totalCount (count data-files)})))
 
-(defn create-data-file [_ request _]
+(defn create-data-file [_ _ _]
   (let [data-file-id (.toString (UUID/randomUUID))]
     (resolve-as {:id data-file-id})))
