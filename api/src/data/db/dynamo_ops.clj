@@ -4,21 +4,21 @@
             [data.utils :as utils]
             [taoensso.faraday :as far]))
 
-(defn resolve-table
-  [type]
-  (case type
-    :results config/results-table
-    :data config/data-table
-    :blockly config/blockly-table
-    :lexicon config/lexicon-table
-    :dictionary config/dictionary-table
-    :dictionary-combined config/dictionary-combined-table
-    :phrase-usage config/phrase-usage-model-table
-    :phrase config/phrase-table
-    :reader-flag-usage config/reader-flag-usage-table
-    :reader-flag config/reader-flag-table
-    :members config/amr-member-table
-    :verbclass config/amr-verbclass-table))
+(def tables-conf {:results            config/results-table
+                 :data                config/data-table
+                 :blockly             config/blockly-table
+                 :lexicon             config/lexicon-table
+                 :dictionary          config/dictionary-table
+                 :dictionary-combined config/dictionary-combined-table
+                 :phrase-usage        config/phrase-usage-model-table
+                 :phrase              config/phrase-table
+                 :reader-flag-usage   config/reader-flag-usage-table
+                 :reader-flag         config/reader-flag-table
+                 :members             config/amr-member-table
+                 :verbclass           config/amr-verbclass-table
+                 :data-files          config/data-files-table})
+
+(defn resolve-table [type] (get tables-conf type))
 
 (defprotocol DBAccess
   (read-item [this key])

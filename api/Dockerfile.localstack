@@ -1,3 +1,7 @@
 FROM localstack/localstack:latest
 
+RUN pip3 install awscli --upgrade --user
+
+COPY ./api/resources/localstack/startup /docker-entrypoint-initaws.d
+
 COPY ./api/resources/localstack/data /tmp/localstack/data

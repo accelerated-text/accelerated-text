@@ -7,7 +7,9 @@
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [jsonista.core :as json]
-            [org.httpkit.server :as server])
+            [org.httpkit.server :as server]
+            [clojure.string :as string]
+            [ring.middleware.multipart-params :as multipart-params])
   (:import (java.io ByteArrayOutputStream)))
 
 (defonce server (atom nil))
@@ -34,6 +36,10 @@
      :body                  (some-> body (utils/read-json-is) (json/write-value-as-string))
      :pathParameters        path-params}))
 
+(defn string-store [item]
+  (-> (select-keys item [:filename :content-type])
+      (assoc :content (slurp (:stream item)))))
+
 (defn app [{:keys [body uri request-method] :as request}]
   (let [{:keys [namespace path-params]} (utils/parse-path uri)]
     (if (= request-method :options)
@@ -53,6 +59,12 @@
                     :body    (-> os
                                  (utils/read-json-os)
                                  (get :body))})
+          "/accelerated-text-data-files"
+          (let [handler (multipart-params/wrap-multipart-params identity {:store string-store})]
+            (prn ">>>>>>>")
+            (clojure.pprint/pprint (handler request))
+            (prn "<<<<" )
+            (http-response {:message "Succesfully uploaded file"}))
           {:status 404
            :body   (format "ERROR: unsupported URI '%s'" uri)})
         (catch Exception e

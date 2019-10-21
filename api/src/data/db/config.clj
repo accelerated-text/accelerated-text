@@ -36,6 +36,9 @@
 (def amr-verbclass-table {:table-name "amr-verbclass"
                           :table-key  :id})
 
+(def data-files-table {:table-name "data-files"
+                       :table-key  :id})
+
 (defn dynamodb-endpoint []
   (or (System/getenv "DYNAMODB_ENDPOINT") "http://localhost:8000"))
 
@@ -47,4 +50,4 @@
 (def grammar-bucket "ccg-grammar")
 
 (defn s3-endpoint []
-  (or (System/getenv "S3_ENDPOINT") "http://localhost:8001"))
+  (or (System/getenv "S3_ENDPOINT") "http://localhost:3001"))

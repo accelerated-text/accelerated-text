@@ -39,29 +39,29 @@
                                                    :updateReaderFlagUsage    :update-reader-flag-usage
                                                    :createDataFile           :create-data-file}
                                         :Concept  {:dictionaryItem :ref-dictionary-item}}})
-      (util/attach-resolvers {:dictionary                  dictionary-domain/dictionary
-                              :ref-dictionary-item         dictionary-domain/ref-dictionary-item
-                              :dictionary-item             dictionary-domain/dictionary-item
-                              :create-dictionary-item      dictionary-domain/create-dictionary-item
-                              :delete-dictionary-item      dictionary-domain/delete-dictionary-item
-                              :update-dictionary-item      dictionary-domain/update-dictionary-item
-                              :create-phrase               dictionary-domain/create-phrase
-                              :update-phrase               dictionary-domain/update-phrase-text
-                              :delete-phrase               dictionary-domain/delete-phrase
-                              :update-phrase-default-usage dictionary-domain/update-phrase-default-usage
-                              :update-reader-flag-usage    dictionary-domain/update-reader-flag-usage
-                              :reader-flags                dictionary-domain/reader-flags
-                              :document-plan               document-plan-domain/get-document-plan
-                              :document-plans              document-plan-domain/list-document-plans
-                              :create-document-plan        document-plan-domain/add-document-plan
-                              :delete-document-plan        document-plan-domain/delete-document-plan
-                              :update-document-plan        document-plan-domain/update-document-plan
-                              :search-thesaurus            thesaurus-domain/search-thesaurus
-                              :synonyms                    thesaurus-domain/synonyms
-                              :concepts                    amr-domain/list-verbclasses
-                              :concept                     amr-domain/get-verbclass
-                              :list-data-files             data-domain/list-data-files
-                              :get-data-file               data-domain/get-data-file
+      (util/attach-resolvers {:dictionary                  #'dictionary-domain/dictionary
+                              :ref-dictionary-item         #'dictionary-domain/ref-dictionary-item
+                              :dictionary-item             #'dictionary-domain/dictionary-item
+                              :create-dictionary-item      #'dictionary-domain/create-dictionary-item
+                              :delete-dictionary-item      #'dictionary-domain/delete-dictionary-item
+                              :update-dictionary-item      #'dictionary-domain/update-dictionary-item
+                              :create-phrase               #'dictionary-domain/create-phrase
+                              :update-phrase               #'dictionary-domain/update-phrase-text
+                              :delete-phrase               #'dictionary-domain/delete-phrase
+                              :update-phrase-default-usage #'dictionary-domain/update-phrase-default-usage
+                              :update-reader-flag-usage    #'dictionary-domain/update-reader-flag-usage
+                              :reader-flags                #'dictionary-domain/reader-flags
+                              :document-plan               #'document-plan-domain/get-document-plan
+                              :document-plans              #'document-plan-domain/list-document-plans
+                              :create-document-plan        #'document-plan-domain/add-document-plan
+                              :delete-document-plan        #'document-plan-domain/delete-document-plan
+                              :update-document-plan        #'document-plan-domain/update-document-plan
+                              :search-thesaurus            #'thesaurus-domain/search-thesaurus
+                              :synonyms                    #'thesaurus-domain/synonyms
+                              :concepts                    #'amr-domain/list-verbclasses
+                              :concept                     #'amr-domain/get-verbclass
+                              :list-data-files             #'data-domain/list-data-files
+                              :get-data-file               #'data-domain/get-data-file
                               :create-data-file            #'data-domain/create-data-file})
       schema/compile))
 
