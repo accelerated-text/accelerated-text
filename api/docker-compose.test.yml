@@ -6,7 +6,7 @@ services:
       context: ../
       dockerfile: api/Dockerfile.localstack
     environment:
-      - SERVICES=dynamodb,s3
+      - SERVICES=dynamodb
       - DATA_DIR=/tmp/localstack/data
   api:
     build:
@@ -15,6 +15,5 @@ services:
     depends_on:
       - localstack
     environment:
-      S3_ENDPOINT: http://localstack:4572
       DYNAMODB_ENDPOINT: http://localstack:4569
     command: ["clojure", "-A:dev:test", "-i", "integration"]
