@@ -1,5 +1,6 @@
 (ns api.end-to-end-test
-  (:require [api.test-utils :refer [q load-test-document-plan]]
+  (:require [api.graphql.ddb-fixtures :as ddb-fixtures]
+            [api.test-utils :refer [q load-test-document-plan]]
             [clojure.string :as string]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.db.dynamo-ops :as ops]
@@ -37,7 +38,7 @@
   (dp/delete-document-plan "3")
   (dp/delete-document-plan "4"))
 
-(use-fixtures :each prepare-environment)
+(use-fixtures :each ddb-fixtures/wipe-ddb-tables prepare-environment)
 
 (defn wait-for-results [result-id]
   (while (false? (get-in (q (str "/nlg/" result-id) :get nil) [:body :ready]))
