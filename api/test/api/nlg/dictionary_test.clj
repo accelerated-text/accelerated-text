@@ -2,7 +2,7 @@
   (:require [api.graphql.ddb-fixtures :as ddb-fixtures]
             [api.nlg.dictionary :as dictionary]
             [api.test-utils :refer [q]]
-            [clojure.test :refer [deftest testing is use-fixtures]]))
+            [clojure.test :refer [deftest is use-fixtures]]))
 
 (use-fixtures :each ddb-fixtures/wipe-ddb-tables)
 
