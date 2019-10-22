@@ -5,7 +5,6 @@ services:
     image: localstack/localstack:latest
     environment:
       - SERVICES=dynamodb
-      - DATA_DIR=/tmp/localstack/data
   api:
     build:
       context: ../
