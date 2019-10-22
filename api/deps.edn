@@ -19,7 +19,8 @@
              org.clojure/tools.logging           {:mvn/version "0.4.1"}
              org.eclipse.jetty/jetty-http        {:mvn/version "9.4.20.v20190813"}
              org.eclipse.jetty/jetty-util        {:mvn/version "9.4.20.v20190813"}
-             org.eclipse.jetty/jetty-client      {:mvn/version "9.4.20.v20190813"}}
+             org.eclipse.jetty/jetty-client      {:mvn/version "9.4.20.v20190813"}
+             ubergraph                           {:mvn/version "0.8.1"}}
  :paths     ["src" "resources"]
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://repo.clojars.org/"}}
@@ -27,6 +28,7 @@
              {:jvm-opts    ["-Daws.region=eu-central-1"
                             "-Daws.accessKeyId=DEV"
                             "-Daws.secretKey=DEV"]
+              :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0"}}
               :extra-paths ["spec" "test" "test/resources"]}
              :test
              {:extra-paths ["test"]
