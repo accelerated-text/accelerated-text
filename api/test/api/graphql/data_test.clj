@@ -47,7 +47,7 @@
 
 (deftest ^:integration reading-data-file-contents
   (testing "Read books.csv headers"
-    (let [data-file-id (data.entities.data-files/store!
+    (let [data-file-id (data-files/store!
                          {:filename "example-user/books.csv"
                           :content  (slurp "resources/accelerated-text-data-files/example-user/books.csv")})
           result (data-files/read-data-file-content "example-user" data-file-id)
