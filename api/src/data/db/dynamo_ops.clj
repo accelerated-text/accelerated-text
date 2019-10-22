@@ -4,7 +4,7 @@
             [data.utils :as utils]
             [taoensso.faraday :as far]))
 
-(def tables-conf {:results            config/results-table
+(def tables-conf {:results             config/results-table
                   :data                config/data-table
                   :blockly             config/blockly-table
                   :lexicon             config/lexicon-table
