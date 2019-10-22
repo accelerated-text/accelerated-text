@@ -2,9 +2,7 @@ version: '2'
 
 services:
   localstack:
-    build:
-      context: ../
-      dockerfile: api/Dockerfile.localstack
+    image: localstack/localstack:latest
     environment:
       - SERVICES=dynamodb
       - DATA_DIR=/tmp/localstack/data
