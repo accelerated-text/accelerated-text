@@ -82,4 +82,4 @@
   (let [host (or (System/getenv "ACC_TEXT_API_HOST") "0.0.0.0")
         port (Integer/valueOf ^String (or (System/getenv "ACC_TEXT_API_PORT") "3001"))]
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
-    (reset! server (server/run-server #'app {:port port :ip host}))))
+    (reset! server (server/run-server #'app {:port port :ip host :max-body Integer/MAX_VALUE}))))
