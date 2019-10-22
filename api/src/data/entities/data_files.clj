@@ -3,7 +3,9 @@
             [data.db.dynamo-ops :as ops]
             [data.utils :as utils]))
 
-(defn store! [data-file]
+(defn store!
+  "Expected keys are :filename and :content everything else is optional"
+  [data-file]
   (let [id (utils/gen-uuid)]
     (ops/write! (ops/db-access :data-files) id data-file)
     id))
@@ -36,3 +38,6 @@
      :offset     offset
      :limit      limit
      :totalCount (count data-files)}))
+
+(defn read-data-file-content [_ key]
+  (:content (ops/read! (ops/db-access :data-files) key)))

@@ -46,8 +46,3 @@
   {:endpoint (dynamodb-endpoint)})
 
 (def data-bucket "accelerated-text-data-files")
-
-(def grammar-bucket "ccg-grammar")
-
-(defn s3-endpoint []
-  (or (System/getenv "S3_ENDPOINT") "http://localhost:3001"))

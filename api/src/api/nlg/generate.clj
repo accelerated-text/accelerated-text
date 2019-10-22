@@ -5,15 +5,14 @@
             [api.utils :as utils]
             [clojure.tools.logging :as log]
             [data.db.dynamo-ops :as ops]
-            [data.db.config :as config]
-            [data.db.s3 :as s3]
+            [data.entities.data-files :as s3]
             [data.entities.document-plan :as document-plan]))
 
 (defn get-db []
   (ops/db-access :results))
 
 (defn get-data [data-id]
-  (doall (utils/csv-to-map (s3/read-file config/data-bucket data-id))))
+  (doall (utils/csv-to-map (s3/read-data-file-content "example-user" data-id))))
 
 (def default-reader-model
   {:junior false

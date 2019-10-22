@@ -65,9 +65,7 @@
                           (get :body))})
           "/accelerated-text-data-files"
           (let [{params :params} (multipart-handler request)
-                id (data.entities.data-files/store!
-                     {:fileName (get-in params ["file" :filename])
-                      :contents (get-in params ["file" :content])})]
+                id (data.entities.data-files/store! (get params "file"))]
             (http-response {:message "Succesfully uploaded file" :id id}))
           {:status 404
            :body   (format "ERROR: unsupported URI '%s'" uri)})

@@ -1,7 +1,9 @@
 (ns api.graphql.data-test
   (:require [api.test-utils :refer [q]]
             [api.graphql.ddb-fixtures :as ddb-fixtures]
-            [clojure.test :refer [deftest is use-fixtures testing]]))
+            [clojure.string :as str]
+            [clojure.test :refer [deftest is use-fixtures testing]]
+            [data.entities.data-files :as data-files]))
 
 (use-fixtures :each ddb-fixtures/wipe-ddb-tables)
 
@@ -42,3 +44,14 @@
           (q "/_graphql" :post {:query (format query 0 20 0 20)})]
       (nil? errors)
       (is (= 1 totalCount)))))
+
+(deftest ^:integration reading-data-file-contents
+  (testing "Read books.csv headers"
+    (let [data-file-id (data.entities.data-files/store!
+                         {:filename "example-user/books.csv"
+                          :content  (slurp "resources/accelerated-text-data-files/example-user/books.csv")})
+          result (data-files/read-data-file-content "example-user" data-file-id)
+          headers (-> result (str/split-lines) (first) (str/split #",") (set))]
+      (is (= #{"pageCount" "publishedDate" "ratingsCount" "authors" "maturityRating"
+               "id" "categories" "averageRating" "thumbnail" "subtitle"
+               "title" "publisher" "language" "isbn-13"} headers)))))
