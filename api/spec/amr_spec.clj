@@ -4,7 +4,7 @@
 
 (s/def ::core-role
   (s/with-gen keyword?
-              #(gen/fmap (fn [idx] (keyword (str "ARG" (Math/abs idx)))) (gen/int))))
+              #(gen/fmap (fn [idx] (keyword (str "ARG" (Math/abs ^Integer idx)))) (gen/int))))
 
 (s/def ::non-core-role #{:part :location})
 
@@ -22,10 +22,10 @@
          :to ::id
          :attributes ::edge-attributes))
 
-(s/def ::edges (s/coll-of ::edge :gen-max 5))
+(s/def ::relations (s/coll-of ::edge :gen-max 5))
 
 (s/def ::concept (s/keys :req [::id ::type]))
 
 (s/def ::concepts (s/coll-of ::concept ::gen-max 5))
 
-(s/def ::amr (s/keys :req [::edges ::concepts]))
+(s/def ::amr (s/keys :req [::relations ::concepts]))
