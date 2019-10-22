@@ -8,7 +8,6 @@
             [clojure.tools.logging :as log]
             [jsonista.core :as json]
             [org.httpkit.server :as server]
-            [clojure.string :as string]
             [ring.middleware.multipart-params :as multipart-params])
   (:import (java.io ByteArrayOutputStream)))
 
@@ -40,6 +39,9 @@
   (-> (select-keys item [:filename :content-type])
       (assoc :content (slurp (:stream item)))))
 
+(def multipart-handler
+  (multipart-params/wrap-multipart-params identity {:store string-store}))
+
 (defn app [{:keys [body uri request-method] :as request}]
   (let [{:keys [namespace path-params]} (utils/parse-path uri)]
     (if (= request-method :options)
@@ -47,24 +49,26 @@
        :headers headers}
       (try
         (case namespace
-          "/_graphql" (-> body
-                          (utils/read-json-is)
-                          (graphql/handle)
-                          (http-response))
-          "/nlg" (let [is (-> request (normalize-request path-params) (.getBytes) (io/input-stream))
-                       os (ByteArrayOutputStream.)]
-                   (generate/-handleRequest nil is os nil)
-                   {:status  200
-                    :headers (assoc headers "Content-Type" "application/json")
-                    :body    (-> os
-                                 (utils/read-json-os)
-                                 (get :body))})
+          "/_graphql"
+          (-> body
+              (utils/read-json-is)
+              (graphql/handle)
+              (http-response))
+          "/nlg"
+          (let [is (-> request (normalize-request path-params) (.getBytes) (io/input-stream))
+                os (ByteArrayOutputStream.)]
+            (generate/-handleRequest nil is os nil)
+            {:status  200
+             :headers (assoc headers "Content-Type" "application/json")
+             :body    (-> os
+                          (utils/read-json-os)
+                          (get :body))})
           "/accelerated-text-data-files"
-          (let [handler (multipart-params/wrap-multipart-params identity {:store string-store})]
-            (prn ">>>>>>>")
-            (clojure.pprint/pprint (handler request))
-            (prn "<<<<" )
-            (http-response {:message "Succesfully uploaded file"}))
+          (let [{params :params} (multipart-handler request)
+                id (data.entities.data-files/store!
+                     {:fileName (get-in params ["file" :filename])
+                      :contents (get-in params ["file" :content])})]
+            (http-response {:message "Succesfully uploaded file" :id id}))
           {:status 404
            :body   (format "ERROR: unsupported URI '%s'" uri)})
         (catch Exception e
