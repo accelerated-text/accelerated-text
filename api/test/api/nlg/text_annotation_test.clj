@@ -1,7 +1,6 @@
 (ns api.nlg.text-annotation-test
-  (:require [api.nlg.generate :refer [wrap-to-annotated-text generate-request generation-process]]
-            [api.test-utils :refer [q]]
-            [clojure.test :refer [deftest is use-fixtures]]
+  (:require [api.nlg.generate :refer [wrap-to-annotated-text]]
+            [clojure.test :refer [deftest is]]
             [clojure.walk :refer [postwalk]]))
 
 (deftest annotated-text-formatting

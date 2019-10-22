@@ -1,9 +1,8 @@
 (ns api.nlg.generate-test
-  (:require [api.nlg.generate :refer [wrap-to-annotated-text generate-request generation-process]]
+  (:require [api.nlg.generate :refer [generation-process]]
             [api.graphql.ddb-fixtures :as ddb-fixtures]
             [api.test-utils :refer [q]]
             [clojure.test :refer [deftest is use-fixtures]]
-            [clojure.walk :refer [postwalk]]
             [data.entities.data-files :as data-files]))
 
 (use-fixtures :each ddb-fixtures/wipe-ddb-tables)
@@ -19,9 +18,8 @@
         dataId (data-files/store!
                  {:filename "example-user/data-example.csv"
                   :content  (slurp "resources/accelerated-text-data-files/example-user/data-example.csv")})
-        body (generation-process id dataId nil)]
-    (let [results (:results body)]
-      (is (= 1 (count results))))))
+        {:keys [results]} (generation-process id dataId nil)]
+    (is (= 1 (count results)))))
 
 (deftest ^:integration basic-generation-ccg
   (let [query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
@@ -34,6 +32,5 @@
         dataId (data-files/store!
                  {:filename "example-user/ccg-example.csv"
                   :content  (slurp "resources/accelerated-text-data-files/example-user/ccg-example.csv")})
-        body (generation-process id dataId nil)]
-    (let [results (:results body)]
-      (is (= 1 (count results))))))
+        {:keys [results]} (generation-process id dataId nil)]
+    (is (= 1 (count results)))))
