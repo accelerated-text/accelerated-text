@@ -90,8 +90,8 @@ type DataFiles {
 
 type DataFileInput {
     id:                 ID!
-    fileName:           String!
-    contents:           String!
+    filename:           String!
+    content:            String!
 }
 
 ### Thesaurus ------------------------------------------------------------------
@@ -379,8 +379,8 @@ type Mutation {
 
     createDataFile(
         id:                 ID
-        fileName:           String
-        contents:           String
+        filename:           String
+        content:            String
     ):  DataFileInput
 }
 

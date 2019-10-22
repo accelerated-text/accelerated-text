@@ -9,8 +9,8 @@
     id))
 
 (defn fetch [id offset limit]
-  (when-let [{contents :contents file-name :fileName} (ops/read! (ops/db-access :data-files) id)]
-    (let [rows (csv/read-csv contents)
+  (when-let [{content :content file-name :filename} (ops/read! (ops/db-access :data-files) id)]
+    (let [rows (csv/read-csv content)
           field-names (first rows)
           records (rest rows)]
       {:id           id
