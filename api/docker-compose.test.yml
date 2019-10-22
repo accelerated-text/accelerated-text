@@ -2,7 +2,7 @@ version: '2'
 
 services:
   localstack:
-    image: localstack/localstack:latest
+    image: localstack/localstack:0.10.4
     environment:
       - SERVICES=dynamodb
   api:

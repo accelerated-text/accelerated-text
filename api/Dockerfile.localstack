@@ -1,4 +1,4 @@
-FROM localstack/localstack:latest
+FROM localstack/localstack:0.10.4
 
 COPY ./api/resources/localstack/startup /docker-entrypoint-initaws.d
 
