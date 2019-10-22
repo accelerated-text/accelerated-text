@@ -5,7 +5,8 @@
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [clojure.walk :as walk]
-            [jsonista.core :as json])
+            [jsonista.core :as json]
+            [ubergraph.core :as uber])
   (:import (java.net URLDecoder)
            (java.nio.charset Charset)
            (java.util UUID)))
@@ -71,3 +72,8 @@
         data    (rest raw-csv)
         pairs   (map #(interleave header %) data)]
     (doall (map #(apply array-map %) pairs))))
+
+(defn plan-graph [semantic-graph]
+  (apply uber/graph (map (fn [[from rel to]] [from to {:name rel}]) (:relations semantic-graph))))
+
+(defn vizgraph [uber-graph] (uber/viz-graph uber-graph))
