@@ -1,7 +1,6 @@
 {:deps      {acceleratedtext/openccg          {:mvn/version "0.10.5"}
              ccg-kit                          {:local/root "../core"}
              ch.qos.logback/logback-classic   {:mvn/version "1.2.3"}
-             cheshire                         {:mvn/version "5.9.0"}
              com.taoensso/faraday             {:git/url "https://github.com/tokenmill/faraday.git"
                                                :sha     "23e71e7ac8cf6c68efe9446da13ddd913c91accf"}
              com.walmartlabs/lacinia          {:mvn/version "0.35.0"}
