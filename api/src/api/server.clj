@@ -6,6 +6,7 @@
             [clojure.java.io :as io]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
+            [data.entities.data-files :as data-files]
             [jsonista.core :as json]
             [org.httpkit.server :as server]
             [ring.middleware.multipart-params :as multipart-params])
@@ -65,7 +66,7 @@
                           (get :body))})
           "/accelerated-text-data-files"
           (let [{params :params} (multipart-handler request)
-                id (data.entities.data-files/store! (get params "file"))]
+                id (data-files/store! (get params "file"))]
             (http-response {:message "Succesfully uploaded file" :id id}))
           {:status 404
            :body   (format "ERROR: unsupported URI '%s'" uri)})
