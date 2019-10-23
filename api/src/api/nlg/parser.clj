@@ -1,81 +1,124 @@
 (ns api.nlg.parser
   (:require [amr-spec]
-            [api.nlg.dictionary :as dictionary-api]
             [api.utils :as utils]
             [clojure.spec.alpha :as s]
-            [clojure.string :as string]
-            [clojure.zip :as zip]
-            [clojure.set :as set]))
+            [clojure.zip :as zip]))
 
-(defmulti build-concept (fn [node] (-> node (get :type) (keyword))))
+(defmulti build-amr (fn [node] (-> node (get :type) (keyword))))
 
-(defmethod build-concept :default [node]
-  {:id    (utils/gen-uuid)
-   :type  :unk
-   :value (dissoc node :segments :roles :children :child)})
+(defmethod build-amr :default [{:keys [id children] :as node}]
+  {:concepts  [{:id    id
+                :type  :unk
+                :value (dissoc node :id :children)}]
+   :relations (mapv (fn [{child-id :id}]
+                      {:from id
+                       :to   child-id
+                       :type :unk})
+                    children)})
 
-(defmethod build-concept :Cell [{name :name}]
-  {:id   (utils/gen-uuid)
-   :type :cell
-   :name name})
+(defmethod build-amr :Document-plan [{:keys [id segments]}]
+  {:concepts  [{:id   id
+                :type :root}]
+   :relations (mapv (fn [{segment-id :id}]
+                      {:from id
+                       :to   segment-id
+                       :type :segment})
+                    segments)})
 
-(defmethod build-concept :quote [{text :text}]
-  {:id    (utils/gen-uuid)
-   :type  :quote
-   :value text})
+(defmethod build-amr :Segment [{:keys [id children textType]}]
+  {:concepts  [{:id   id
+                :type :segment
+                :kind (keyword textType)}]
+   :relations (mapv (fn [{child-id :id}]
+                      {:from id
+                       :to   child-id
+                       :type :instance})
+                    children)})
 
-(defmethod build-concept :dictionaryItem [{name :text}]
-  {:id    (utils/gen-uuid)
-   :type  :dictionary-item
-   :name  name
-   :value (dictionary-api/search (string/lower-case name) :default)})
+(defmethod build-amr :AMR [{:keys [id name conceptId roles dictionaryItem]}]
+  {:concepts  [{:id   id
+                :type (keyword conceptId)
+                :name name}
+               {:id   (:itemId dictionaryItem)
+                :type :dictionary-item
+                :name (:name dictionaryItem)}]
+   :relations (vec
+                (cons
+                  {:from id
+                   :to   (:itemId dictionaryItem)
+                   :type :ARG0}
+                  (map-indexed (fn [index role]
+                                 {:from id
+                                  :to   (:id role)
+                                  :type (keyword (str "ARG" (inc index)))})
+                               roles)))})
 
-(defmethod build-concept :dictionaryItemModifier [{name :name}]
-  {:id   (utils/gen-uuid)
-   :type :modifier
-   :name name})
+(defmethod build-amr :Relationship [{:keys [id relationshipType children]}]
+  {:concepts  [{:id   id
+                :type :relationship
+                :kind (keyword relationshipType)}]
+   :relations (mapv (fn [{child-id :id}]
+                      {:from id
+                       :to   child-id
+                       :type :relationship})
+                    children)})
 
-(defmethod build-concept :Document-plan [_]
-  {:id   (utils/gen-uuid)
-   :type :root})
+(defmethod build-amr :Cell [{:keys [id name]}]
+  {:concepts  [{:id   id
+                :type :data
+                :name name}]
+   :relations []})
 
-(defmethod build-concept :Segment [_]
-  {:id   (utils/gen-uuid)
-   :type :segment})
+(defmethod build-amr :Quote [{:keys [id text]}]
+  {:concepts  [{:id    id
+                :type  :quote
+                :value text}]
+   :relations []})
 
-(defn relate [parent-concept child-concepts]
-  (map-indexed (fn [index concept]
-                 {:from (or (:id parent-concept) :ROOT)
-                  :to   (:id concept)
-                  :type (keyword (str "ARG" index))})
-               child-concepts))
+(defmethod build-amr :Dictionary-item-modifier [{:keys [id name child]}]
+  {:concepts  [{:id   id
+                :type :modifier
+                :name name}]
+   :relations [{:from id
+                :to   (:id child)
+                :type :ARG0-of}]})
 
-(defn known? [concept]
-  (not= :unk (:type concept)))
+(defn make-zipper [root]
+  (zip/zipper
+    map?
+    (fn [node]
+      (cond
+        (:segments node) (:segments node)
+        (:roles node) (:roles node)
+        (:children node) (:children node)
+        (:child node) (-> node :child vector)))
+    (fn [{type :type :as node} children]
+      (case (keyword type)
+        :Document-plan (assoc node :segments (vec children))
+        :AMR (assoc node :roles (vec children))
+        :Dictionary-item-modifier (assoc node :child (first children))
+        (assoc node :children (vec children))))
+    root))
 
-(defn has-children? [node]
-  (some? (seq (keys (select-keys node [:segments :roles :children :child])))))
-
-(defn get-children [node]
-  (cond
-    (:segments node) (:segments node)
-    (:roles node) (:roles node)
-    (:children node) (:children node)
-    (:child node) (-> node :child vector)))
+(defn preprocess [root]
+  (loop [zipper (make-zipper root)]
+    (if (zip/end? zipper)
+      (zip/root zipper)
+      (let [id (subs (utils/gen-uuid) 0 8)]
+        (recur (-> zipper
+                   (zip/edit #(assoc % :id id))
+                   (zip/next)))))))
 
 (defn parse [root]
-  (loop [zipper (zip/zipper #(and (map? %) (has-children? %)) get-children (fn [& _]) root)
-         amr {:relations #{} :concepts #{}}]
+  (loop [zipper (-> root (preprocess) (make-zipper))
+         amr {:relations [] :concepts []}]
     (if (zip/end? zipper)
-      amr
-      (let [node (zip/node zipper)
-            parent-concept (build-concept node)
-            child-concepts (map build-concept (get-children node))]
-        (recur
-          (zip/next zipper)
-          (-> amr
-              (update :concepts #(set/union % (into #{} (conj child-concepts parent-concept))))
-              (update :relations #(set/union % (into #{} (relate parent-concept child-concepts))))))))))
+      (-> amr
+          (update :relations set)
+          (update :concepts set))
+      (recur
+        (zip/next zipper)
+        (merge-with concat amr (build-amr (zip/node zipper)))))))
 
 (s/fdef parse
         :args (s/cat :document-plan any?)
