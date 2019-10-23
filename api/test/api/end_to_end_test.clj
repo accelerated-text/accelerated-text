@@ -56,7 +56,7 @@
 (deftest ^:integration single-element-plan-generation
   (let [data-file-id (data-files/store!
                        {:filename "example-user/books.csv"
-                        :content  (slurp "resources/accelerated-text-data-files/example-user/books.csv")})
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
         (q "/nlg" :post {:documentPlanId   "1"
                          :readerFlagValues {}
@@ -68,7 +68,7 @@
 (deftest ^:integration authorship-document-plan-generation
   (let [data-file-id (data-files/store!
                        {:filename "example-user/books.csv"
-                        :content  (slurp "resources/accelerated-text-data-files/example-user/books.csv")})
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
         (q "/nlg" :post {:documentPlanId   "2"
                          :readerFlagValues {}
@@ -80,7 +80,7 @@
 (deftest ^:integration adjective-phrase-document-plan-generation
   (let [data-file-id (data-files/store!
                        {:filename "example-user/books.csv"
-                        :content  (slurp "resources/accelerated-text-data-files/example-user/books.csv")})
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
         (q "/nlg" :post {:documentPlanId   "3"
                          :readerFlagValues {}
@@ -93,7 +93,7 @@
 (deftest ^:integration author-amr-plan-generation
   (let [data-file-id (data-files/store!
                        {:filename "example-user/books.csv"
-                        :content  (slurp "resources/accelerated-text-data-files/example-user/books.csv")})
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
         (q "/nlg" :post {:documentPlanId   "4"
                          :readerFlagValues {}

@@ -20,7 +20,7 @@
           {{{{id :id :as df} :createDataFile} :data errors :errors} :body}
           (q "/_graphql" :post {:query     query
                                 :variables {:filename "books.csv"
-                                            :content  (slurp "resources/accelerated-text-data-files/example-user/books.csv")}})]
+                                            :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")}})]
       (is (nil? errors))
       (is (= #{:id} (set (keys df))))
       (is (string? id))
@@ -49,7 +49,7 @@
   (testing "Read books.csv headers"
     (let [data-file-id (data-files/store!
                          {:filename "example-user/books.csv"
-                          :content  (slurp "resources/accelerated-text-data-files/example-user/books.csv")})
+                          :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
           result (data-files/read-data-file-content "example-user" data-file-id)
           headers (-> result (str/split-lines) (first) (str/split #",") (set))]
       (is (= #{"pageCount" "publishedDate" "ratingsCount" "authors" "maturityRating"

@@ -7,7 +7,6 @@ services:
       dockerfile: api/Dockerfile.localstack
     environment:
       - SERVICES=dynamodb
-      - DATA_DIR=/tmp/localstack/data
     ports: ["8000:4569"]
   acc-text-api:
     build:

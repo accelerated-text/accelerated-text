@@ -17,7 +17,7 @@
                                           :documentPlan "\"{}\""}})
         dataId (data-files/store!
                  {:filename "example-user/data-example.csv"
-                  :content  (slurp "resources/accelerated-text-data-files/example-user/data-example.csv")})
+                  :content  (slurp "test/resources/accelerated-text-data-files/example-user/data-example.csv")})
         {:keys [results]} (generation-process id dataId nil)]
     (is (= 1 (count results)))))
 
@@ -31,6 +31,6 @@
                                           :documentPlan "\"{}\""}})
         dataId (data-files/store!
                  {:filename "example-user/ccg-example.csv"
-                  :content  (slurp "resources/accelerated-text-data-files/example-user/ccg-example.csv")})
+                  :content  (slurp "test/resources/accelerated-text-data-files/example-user/ccg-example.csv")})
         {:keys [results]} (generation-process id dataId nil)]
     (is (= 1 (count results)))))
