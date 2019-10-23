@@ -19,7 +19,7 @@ declare -a arr=(
 for i in "${arr[@]}"
 do
     IFS=',' read tableName tableKey <<< "${i}"
-    echo "Creating:" "${tableName}" and "${tableKey}"
+    echo "Creating table:" "${tableName}" "with key:" "${tableKey}"
     awslocal dynamodb create-table \
     --table-name "${tableName}" \
     --attribute-definitions AttributeName="${tableKey}",AttributeType=S \
