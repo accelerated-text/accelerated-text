@@ -6,15 +6,17 @@
 
 (defmulti build-amr (fn [node] (-> node (get :type) (keyword))))
 
-(defmethod build-amr :default [{:keys [id children] :as node}]
-  {:concepts  [{:id    id
-                :type  :unk
-                :value (dissoc node :id :children)}]
-   :relations (mapv (fn [{child-id :id}]
-                      {:from id
-                       :to   child-id
-                       :type :unk})
-                    children)})
+(defmethod build-amr :default [{:keys [id type children] :as node}]
+  (cond-> {:concepts  []
+           :relations []}
+          (some? type) (-> (update :concepts #(conj % {:id    id
+                                                       :type  :unk
+                                                       :value (dissoc node :id :children)}))
+                           (update :relations #(concat % (mapv (fn [{child-id :id}]
+                                                                 {:from id
+                                                                  :to   child-id
+                                                                  :type :unk})
+                                                               children))))))
 
 (defmethod build-amr :Document-plan [{:keys [id segments]}]
   {:concepts  [{:id   id
@@ -42,16 +44,18 @@
                {:id   (:itemId dictionaryItem)
                 :type :dictionary-item
                 :name (:name dictionaryItem)}]
-   :relations (vec
-                (cons
-                  {:from id
-                   :to   (:itemId dictionaryItem)
-                   :type :ARG0}
-                  (map-indexed (fn [index role]
-                                 {:from id
-                                  :to   (:id role)
-                                  :type (keyword (str "ARG" (inc index)))})
-                               roles)))})
+   :relations (->> roles
+                   (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
+                                  (when (some? type)
+                                    {:from id
+                                     :to   child-id
+                                     :name name
+                                     :type (keyword (str "ARG" (inc index)))})))
+                   (cons {:from id
+                          :to   (:itemId dictionaryItem)
+                          :type :ARG0})
+                   (remove nil?)
+                   (vec))})
 
 (defmethod build-amr :Relationship [{:keys [id relationshipType children]}]
   {:concepts  [{:id   id
@@ -89,25 +93,31 @@
     (fn [node]
       (cond
         (:segments node) (:segments node)
-        (:roles node) (:roles node)
+        (:roles node) (mapcat :children (:roles node))
         (:children node) (:children node)
         (:child node) (-> node :child vector)))
     (fn [{type :type :as node} children]
       (case (keyword type)
         :Document-plan (assoc node :segments (vec children))
-        :AMR (assoc node :roles (vec children))
+        :AMR (assoc node :roles (mapv (fn [{name :name} child]
+                                        {:name name :children [child]})
+                                      (:roles node) (vec children)))
         :Dictionary-item-modifier (assoc node :child (first children))
         (assoc node :children (vec children))))
     root))
+
+(defn gen-id [node]
+  (-> node
+      (assoc :id (subs (utils/gen-uuid) 0 8))
+      (dissoc :srcId)))
 
 (defn preprocess [root]
   (loop [zipper (make-zipper root)]
     (if (zip/end? zipper)
       (zip/root zipper)
-      (let [id (subs (utils/gen-uuid) 0 8)]
-        (recur (-> zipper
-                   (zip/edit #(assoc % :id id))
-                   (zip/next)))))))
+      (recur
+        (zip/next
+          (zip/edit zipper #(-> % (gen-id))))))))
 
 (defn parse [root]
   (loop [zipper (-> root (preprocess) (make-zipper))
