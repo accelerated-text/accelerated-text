@@ -12,10 +12,6 @@
 (def lexicon-table {:table-name "lexicon"
                     :table-key  :key})
 
-(def data-bucket "accelerated-text-data-files")
-
-(def grammar-bucket "ccg-grammar")
-
 (def dictionary-combined-table {:table-name "dictionary-combined"
                                 :table-key  :key})
 
@@ -40,11 +36,11 @@
 (def amr-verbclass-table {:table-name "amr-verbclass"
                           :table-key  :id})
 
+(def data-files-table {:table-name "data-files"
+                       :table-key  :id})
+
 (defn dynamodb-endpoint []
   (or (System/getenv "DYNAMODB_ENDPOINT") "http://localhost:8000"))
 
 (defn client-opts []
   {:endpoint (dynamodb-endpoint)})
-
-(defn s3-endpoint []
-  (or (System/getenv "S3_ENDPOINT") "http://localhost:8001"))

@@ -2,9 +2,9 @@
   (:require [acc-text.nlg.utils :as utils]
             [clojure.tools.logging :as log])
   (:import opennlp.ccg.grammar.Grammar
-           [opennlp.ccg.hylo HyloHelper Nominal]
-           [opennlp.ccg.realize Chart Realizer]
-           [opennlp.ccg.synsem Category Sign]))
+           [opennlp.ccg.hylo HyloHelper]
+           [opennlp.ccg.realize Realizer Edge]
+           [opennlp.ccg.synsem Sign]))
 
 (defn convert-lf
   "Converts Sign LF to proper one for realization"
@@ -19,8 +19,8 @@
   [^Grammar grammar ^Sign sign]
   (log/tracef "Got sign to realize: '%s'" (utils/sign->bracket-str sign))
   (let [realizer (Realizer. grammar)
-        lf (log/spyf :trace "Result after LF convertion: %s" (convert-lf sign))
+        lf (convert-lf sign)
         _ (.realize realizer lf)
         chart (.getChart realizer)
         edges (.bestEdges chart)]
-    (map #(.getSign %) edges)))
+    (map (fn [^Edge edge] (.getSign edge)) edges)))
