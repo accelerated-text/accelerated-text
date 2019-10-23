@@ -44,5 +44,3 @@
 
 (defn client-opts []
   {:endpoint (dynamodb-endpoint)})
-
-(def data-bucket "accelerated-text-data-files")
