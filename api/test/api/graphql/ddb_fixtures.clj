@@ -1,8 +1,9 @@
 (ns api.graphql.ddb-fixtures
   (:require [clojure.tools.logging :as log]
-            [taoensso.faraday :as far]
             [data.db.config :as config]
-            [data.db.dynamo-ops :as ops]))
+            [data.db.dynamo-ops :as ops]
+            [mount.core :as mount]
+            [taoensso.faraday :as far]))
 
 (defn tables []
   (far/list-tables (config/client-opts)))
@@ -14,6 +15,7 @@
   (far/delete-table (config/client-opts) table-name))
 
 (defn wipe-ddb-tables [f]
+  (mount/start)
   (doseq [table-name (tables)]
    (log/tracef "Deleting table: '%s'" (name table-name))
    (delete-table! table-name))
