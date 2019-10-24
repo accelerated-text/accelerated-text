@@ -41,23 +41,25 @@
                     children)})
 
 (defmethod build-amr :AMR [{:keys [id conceptId roles dictionaryItem]}]
-  {:concepts  [{:id   id
-                :type (keyword conceptId)}
-               {:id   (:itemId dictionaryItem)
-                :type :dictionary-item
-                :name (:name dictionaryItem)}]
-   :relations (->> roles
-                   (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
-                                  (when (not= type "placeholder")
-                                    {:from id
-                                     :to   child-id
-                                     :name name
-                                     :type (keyword (str "ARG" (inc index)))})))
-                   (cons {:from id
-                          :to   (:itemId dictionaryItem)
-                          :type :ARG0})
-                   (remove nil?)
-                   (vec))})
+  (let [dictionary-item-concept (when (some? dictionaryItem)
+                                  (first (:concepts (build-amr dictionaryItem))))]
+    {:concepts  (cond-> [{:id   id
+                          :type (keyword conceptId)}]
+                        (some? dictionary-item-concept) (conj dictionary-item-concept))
+     :relations (->> roles
+                     (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
+                                    (when (not= type "placeholder")
+                                      {:from id
+                                       :to   child-id
+                                       :name name
+                                       :type (keyword (str "ARG" (inc index)))})))
+                     (cons
+                       (when (some? dictionary-item-concept)
+                         {:from id
+                          :to   (:id dictionary-item-concept)
+                          :type :ARG0}))
+                     (remove nil?)
+                     (vec))}))
 
 (defmethod build-amr :Relationship [{:keys [id relationshipType children]}]
   {:concepts  [{:id   id
@@ -89,7 +91,7 @@
                        :type :modifier})
                     children)})
 
-(defmethod build-amr :Dictionary-item-modifier [{:keys [itemId name]}]
+(defmethod build-amr :Dictionary-item [{:keys [itemId name]}]
   {:concepts  [{:id    itemId
                 :type  :dictionary-item
                 :value name}]
@@ -136,7 +138,9 @@
       (if-not (and (= "Dictionary-item-modifier" type) (some? child))
         (cond-> node (seq modifiers) (-> (make-node (concat (get-children node) modifiers))
                                          (preprocess-node)))
-        (recur (zip/next zipper) (conj modifiers (dissoc node :child)))))))
+        (recur (zip/next zipper) (conj modifiers (-> node
+                                                     (dissoc :child)
+                                                     (assoc :type :Dictionary-item))))))))
 
 (defn preprocess-node [node]
   (-> node (nil->placeholder) (gen-id) (preprocess-dict-item) (rearrange-modifiers)))
