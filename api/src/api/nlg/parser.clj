@@ -6,17 +6,15 @@
 
 (defmulti build-amr (fn [node] (-> node (get :type) (keyword))))
 
-(defmethod build-amr :default [{:keys [id type children] :as node}]
-  (cond-> {:concepts  []
-           :relations []}
-          (some? type) (-> (update :concepts #(conj % {:id    id
-                                                       :type  :unk
-                                                       :value (dissoc node :id :children)}))
-                           (update :relations #(concat % (mapv (fn [{child-id :id}]
-                                                                 {:from id
-                                                                  :to   child-id
-                                                                  :type :unk})
-                                                               children))))))
+(defmethod build-amr :default [{:keys [id children] :as node}]
+  {:concepts  [{:id    id
+                :type  :unk
+                :value (dissoc node :id :children)}]
+   :relations (mapv (fn [{child-id :id}]
+                      {:from id
+                       :to   child-id
+                       :type :unk})
+                    children)})
 
 (defmethod build-amr :placeholder [_]
   {:concepts  []
