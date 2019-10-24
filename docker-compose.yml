@@ -13,6 +13,8 @@ services:
       context: .
       dockerfile: api/Dockerfile
     ports: ["3001:3001"]
+    depends_on:
+      - localstack
     environment:
       DYNAMODB_ENDPOINT: http://localstack:4569
     command: ["clojure", "-A:dev", "-m", "api.server"]
@@ -21,6 +23,9 @@ services:
       context: integrations/demo-shop-lambdas
       dockerfile: Dockerfile
     ports: ["8090:8090"]
+    depends_on:
+      - localstack
+      - acc-text-api
     environment:
       API_URL: http://0.0.0.0:8090/mock-shop
       PORT: 8090
