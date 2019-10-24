@@ -14,8 +14,10 @@
 (defn delete-document-plan [document-plan-id]
   (ops/delete! document-plans-db document-plan-id))
 
-(defn add-document-plan [document-plan]
-  (ops/write! document-plans-db (utils/gen-uuid) document-plan true))
+(defn add-document-plan
+  ([document-plan] (add-document-plan document-plan (utils/gen-uuid)))
+  ([document-plan provided-id]
+   (ops/write! document-plans-db provided-id document-plan true)))
 
 (defn update-document-plan [document-plan-id document-plan]
   (ops/update! document-plans-db document-plan-id document-plan))

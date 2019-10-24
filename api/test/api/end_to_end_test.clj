@@ -3,7 +3,6 @@
             [api.test-utils :refer [q load-test-document-plan]]
             [clojure.string :as string]
             [clojure.test :refer [deftest is use-fixtures]]
-            [data.db.dynamo-ops :as ops]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]))
 
@@ -15,28 +14,23 @@
   [txt] (re-matches #"(\S{2,} )+[.?!]" txt))
 
 (defn prepare-environment [f]
-  (ops/write! (ops/db-access :blockly) "1" {:uid          "01"
-                                            :name         "title-only"
-                                            :documentPlan (load-test-document-plan "title-only")} true)
-  (ops/write! (ops/db-access :blockly) "2" {:uid          "02"
-                                            :name         "authorship"
-                                            :documentPlan (load-test-document-plan "authorship")} true)
-  (ops/write! (ops/db-access :blockly) "3" {:uid          "03"
-                                            :name         "adjective-phrase"
-                                            :documentPlan (load-test-document-plan "adjective-phrase")} true)
-  (ops/write! (ops/db-access :blockly) "4" {:uid          "04"
-                                            :name         "author-amr"
-                                            :documentPlan (load-test-document-plan "author-amr")} true)
-  (ops/write! (ops/db-access :dictionary-combined) "good" {:name         "good"
-                                                           :partOfSpeech :NN
-                                                           :phrases      [{:id    "good/1"
-                                                                           :text  "good"
-                                                                           :flags {:default :YES}}]})
-  (f)
-  (dp/delete-document-plan "1")
-  (dp/delete-document-plan "2")
-  (dp/delete-document-plan "3")
-  (dp/delete-document-plan "4"))
+  (dp/add-document-plan {:uid          "01"
+                         :name         "title-only"
+                         :documentPlan (load-test-document-plan "title-only")}
+                        "1")
+  (dp/add-document-plan {:uid          "02"
+                         :name         "authorship"
+                         :documentPlan (load-test-document-plan "authorship")}
+                        "2")
+  (dp/add-document-plan {:uid          "03"
+                         :name         "adjective-phrase"
+                         :documentPlan (load-test-document-plan "adjective-phrase")}
+                        "3")
+  (dp/add-document-plan {:uid          "04"
+                         :name         "author-amr"
+                         :documentPlan (load-test-document-plan "author-amr")}
+                        "4")
+  (f))
 
 (use-fixtures :each ddb-fixtures/wipe-ddb-tables prepare-environment)
 
