@@ -16,3 +16,4 @@ api/libsunec.so
 **/*.env
 **/.cpcache/
 .nrepl-port
+**/.clj-kondo/.cache/*
