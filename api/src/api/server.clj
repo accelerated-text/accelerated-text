@@ -8,21 +8,14 @@
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [jsonista.core :as json]
-            [mount.core :as mount]
+            [mount.core :refer [defstate] :as mount]
             [org.httpkit.server :as server]
             [ring.middleware.multipart-params :as multipart-params])
   (:import (java.io ByteArrayOutputStream)))
 
-(defonce server (atom nil))
-
 (def headers {"Access-Control-Allow-Origin"  "*"
               "Access-Control-Allow-Headers" "content-type, *"
               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"})
-
-(defn stop-server []
-  (when-not (nil? @server)
-    (@server :timeout 100)
-    (reset! server nil)))
 
 (defn- http-response [body]
   {:status  200
@@ -78,9 +71,15 @@
           {:status  500
            :headers headers})))))
 
+(defstate http-server
+  :start (let [host (or (System/getenv "ACC_TEXT_API_HOST") "0.0.0.0")
+               port (Integer/valueOf ^String (or (System/getenv "ACC_TEXT_API_PORT") "3001"))]
+           (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
+           (server/run-server
+            #'app {:port     port
+                   :ip       host
+                   :max-body Integer/MAX_VALUE}))
+  :stop (http-server :timeout 100))
+
 (defn -main [& _]
-  (let [host (or (System/getenv "ACC_TEXT_API_HOST") "0.0.0.0")
-        port (Integer/valueOf ^String (or (System/getenv "ACC_TEXT_API_PORT") "3001"))]
-    (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
-    (mount/start)
-    (reset! server (server/run-server #'app {:port port :ip host :max-body Integer/MAX_VALUE}))))
+  (mount/start))
