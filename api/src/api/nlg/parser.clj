@@ -18,6 +18,10 @@
                                                                   :type :unk})
                                                                children))))))
 
+(defmethod build-amr :placeholder [_]
+  {:concepts  []
+   :relations []})
+
 (defmethod build-amr :Document-plan [{:keys [id segments]}]
   {:concepts  [{:id   id
                 :type :root}]
@@ -27,26 +31,24 @@
                        :type :segment})
                     segments)})
 
-(defmethod build-amr :Segment [{:keys [id children textType]}]
+(defmethod build-amr :Segment [{:keys [id children]}]
   {:concepts  [{:id   id
-                :type :segment
-                :kind (keyword textType)}]
+                :type :segment}]
    :relations (mapv (fn [{child-id :id}]
                       {:from id
                        :to   child-id
                        :type :instance})
                     children)})
 
-(defmethod build-amr :AMR [{:keys [id name conceptId roles dictionaryItem]}]
+(defmethod build-amr :AMR [{:keys [id conceptId roles dictionaryItem]}]
   {:concepts  [{:id   id
-                :type (keyword conceptId)
-                :name name}
+                :type (keyword conceptId)}
                {:id   (:itemId dictionaryItem)
                 :type :dictionary-item
                 :name (:name dictionaryItem)}]
    :relations (->> roles
                    (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
-                                  (when (some? type)
+                                  (when (not= type "placeholder")
                                     {:from id
                                      :to   child-id
                                      :name name
@@ -67,57 +69,87 @@
                        :type :relationship})
                     children)})
 
-(defmethod build-amr :Cell [{:keys [id name]}]
-  {:concepts  [{:id   id
-                :type :data
-                :name name}]
-   :relations []})
+(defmethod build-amr :Cell [{:keys [id name children]}]
+  {:concepts  [{:id    id
+                :type  :data
+                :value name}]
+   :relations (mapv (fn [{child-id :itemId}]
+                      {:from id
+                       :to   child-id
+                       :type :modifier})
+                    children)})
 
-(defmethod build-amr :Quote [{:keys [id text]}]
+(defmethod build-amr :Quote [{:keys [id text children]}]
   {:concepts  [{:id    id
                 :type  :quote
                 :value text}]
+   :relations (mapv (fn [{child-id :itemId}]
+                      {:from id
+                       :to   child-id
+                       :type :modifier})
+                    children)})
+
+(defmethod build-amr :Dictionary-item-modifier [{:keys [itemId name]}]
+  {:concepts  [{:id    itemId
+                :type  :dictionary-item
+                :value name}]
    :relations []})
 
-(defmethod build-amr :Dictionary-item-modifier [{:keys [id name child]}]
-  {:concepts  [{:id   id
-                :type :modifier
-                :name name}]
-   :relations [{:from id
-                :to   (:id child)
-                :type :ARG0-of}]})
+
+(defn make-node [{type :type :as node} children]
+  (case (keyword type)
+    :Document-plan (assoc node :segments (vec children))
+    :AMR (assoc node :roles (mapv (fn [role child]
+                                    (assoc role :children [child]))
+                                  (:roles node) children))
+    :Dictionary-item-modifier (assoc node :child (first children))
+    (assoc node :children (vec children))))
+
+(defn get-children [{type :type :as node}]
+  (case (keyword type)
+    :Document-plan (:segments node)
+    :AMR (mapcat :children (:roles node))
+    :Dictionary-item-modifier (some-> node :child vector)
+    (:children node)))
 
 (defn make-zipper [root]
-  (zip/zipper
-    map?
-    (fn [node]
-      (cond
-        (:segments node) (:segments node)
-        (:roles node) (mapcat :children (:roles node))
-        (:children node) (:children node)
-        (:child node) (-> node :child vector)))
-    (fn [{type :type :as node} children]
-      (case (keyword type)
-        :Document-plan (assoc node :segments (vec children))
-        :AMR (assoc node :roles (mapv (fn [{name :name} child]
-                                        {:name name :children [child]})
-                                      (:roles node) (vec children)))
-        :Dictionary-item-modifier (assoc node :child (first children))
-        (assoc node :children (vec children))))
-    root))
+  (zip/zipper map? get-children make-node root))
+
+
+(declare preprocess-node)
 
 (defn gen-id [node]
   (-> node
       (assoc :id (subs (utils/gen-uuid) 0 8))
       (dissoc :srcId)))
 
+(defn nil->placeholder [node]
+  (cond-> node (nil? node) (assoc :type "placeholder")))
+
+(defn preprocess-dict-item [node]
+  (cond-> node (contains? node :dictionaryItem) (update :dictionaryItem preprocess-node)))
+
+(defn rearrange-modifiers [node]
+  (loop [zipper (make-zipper node)
+         modifiers []]
+    (let [{:keys [type child] :as node} (zip/node zipper)]
+      (if-not (and (= "Dictionary-item-modifier" type) (some? child))
+        (cond-> node (seq modifiers) (-> (make-node (concat (get-children node) modifiers))
+                                         (preprocess-node)))
+        (recur (zip/next zipper) (conj modifiers (dissoc node :child)))))))
+
+(defn preprocess-node [node]
+  (-> node (nil->placeholder) (gen-id) (preprocess-dict-item) (rearrange-modifiers)))
+
 (defn preprocess [root]
   (loop [zipper (make-zipper root)]
     (if (zip/end? zipper)
       (zip/root zipper)
-      (recur
-        (zip/next
-          (zip/edit zipper #(-> % (gen-id))))))))
+      (-> zipper
+          (zip/edit preprocess-node)
+          (zip/next)
+          (recur)))))
+
 
 (defn parse [root]
   (loop [zipper (-> root (preprocess) (make-zipper))
