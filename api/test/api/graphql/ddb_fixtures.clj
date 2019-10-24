@@ -3,6 +3,7 @@
             [data.db.config :as config]
             [data.db.dynamo-ops :as ops]
             [mount.core :as mount]
+            [api.server :as server]
             [taoensso.faraday :as far]))
 
 (defn tables []
@@ -15,7 +16,7 @@
   (far/delete-table (config/client-opts) table-name))
 
 (defn wipe-ddb-tables [f]
-  (mount/start)
+  (mount/start-without #'server/http-server)
   (doseq [table-name (tables)]
    (log/tracef "Deleting table: '%s'" (name table-name))
    (delete-table! table-name))
