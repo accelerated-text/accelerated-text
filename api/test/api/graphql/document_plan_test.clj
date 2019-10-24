@@ -1,21 +1,20 @@
 (ns api.graphql.document-plan-test
   (:require [api.test-utils :refer [q]]
+            [api.graphql.ddb-fixtures :as fixtures]
             [clojure.test :refer [deftest is use-fixtures]]
-            [data.entities.document-plan :as dp]
-            [data.db.dynamo-ops :as ops]))
+            [data.db.dynamo-ops :as ops]
+            [data.entities.document-plan :as dp]))
 
 (defn prepare-environment [f]
-  (ops/write! (ops/db-access :blockly)
-              "1"
-              {:uid          "01"
-               :name         "test"
-               :blocklyXml   "<>"
-               :documentPlan "{}"}
-              true)
-  (f)
-  (dp/delete-document-plan "1"))
+  (dp/add-document-plan
+    {:uid          "01"
+     :name         "test"
+     :blocklyXml   "<>"
+     :documentPlan "{}"}
+    "1")
+  (f))
 
-(use-fixtures :each prepare-environment)
+(use-fixtures :each fixtures/wipe-ddb-tables prepare-environment)
 
 (deftest ^:integration document-plans-test
   (let [query "{documentPlans(offset:%s limit:%s){items{id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount} offset limit totalCount}}"
@@ -27,7 +26,7 @@
     (is (= 20 limit))
     (is (pos-int? totalCount))))
 
-(deftest ^:integration document-plan-test
+(deftest ^:integration fetch-document-plan-by-id
   (let [query "{documentPlan(id:\"%s\"){id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"
         {{{{:keys [id uid name blocklyXml documentPlan createdAt updatedAt updateCount]} :documentPlan} :data errors :errors} :body}
         (q "/_graphql" :post {:query (format query "1")})]
@@ -82,10 +81,17 @@
     (is (= 1 updateCount))))
 
 (deftest ^:integration delete-document-plan-test
-  (is (some? (ops/read! (ops/db-access :blockly) "1")))
-  (let [{{{response :deleteDocumentPlan} :data errors :errors} :body}
-        (q "/_graphql" :post {:query     "mutation deleteDocumentPlan($id: ID!){deleteDocumentPlan(id: $id)}"
-                              :variables {:id "1"}})]
-    (is (nil? errors))
-    (is (true? response))
-    (is (nil? (ops/read! (ops/db-access :blockly) "1")))))
+  (let [query "{documentPlan(id:\"%s\"){id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"]
+    (is (some? (-> (q "/_graphql" :post {:query (format query "1")})
+                   :body
+                   :data
+                   :documentPlan)))
+    (let [{{{response :deleteDocumentPlan} :data errors :errors} :body}
+          (q "/_graphql" :post {:query     "mutation deleteDocumentPlan($id: ID!){deleteDocumentPlan(id: $id)}"
+                                :variables {:id "1"}})]
+      (is (nil? errors))
+      (is (true? response))
+      (is (nil? (-> (q "/_graphql" :post {:query (format query "1")})
+                    :body
+                    :data
+                    :documentPlan))))))
