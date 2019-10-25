@@ -1,23 +1,36 @@
 (ns data.ddb.impl
   (:require [clojure.tools.logging :as log]
-            [data.ddb.config :as config]
             [data.utils :as utils]
             [data.protocol :as protocol]
             [taoensso.faraday :as far]))
 
-(def tables-conf {:results             config/results-table
-                  :data                config/data-table
-                  :blockly             config/blockly-table
-                  :lexicon             config/lexicon-table
-                  :dictionary          config/dictionary-table
-                  :dictionary-combined config/dictionary-combined-table
-                  :phrase-usage        config/phrase-usage-model-table
-                  :phrase              config/phrase-table
-                  :reader-flag-usage   config/reader-flag-usage-table
-                  :reader-flag         config/reader-flag-table
-                  :members             config/amr-member-table
-                  :verbclass           config/amr-verbclass-table
-                  :data-files          config/data-files-table})
+(def tables-conf
+  {:results             {:table-name "nlg-results"
+                         :table-key  :key}
+   :data                {:table-name "data"
+                         :table-key  :key}
+   :blockly             {:table-name "blockly-workspace"
+                         :table-key  :id}
+   :lexicon             {:table-name "lexicon"
+                         :table-key  :key}
+   :dictionary          {:table-name "dictionary"
+                         :table-key  :id}
+   :dictionary-combined {:table-name "dictionary-combined"
+                         :table-key  :key}
+   :phrase-usage        {:table-name "phrase-usage-model"
+                         :table-key  :prim-kvs}
+   :phrase              {:table-name "phrase"
+                         :table-key  :id}
+   :reader-flag-usage   {:table-name "reader-flag-usage"
+                         :table-key  :prim-kvs}
+   :reader-flag         {:table-name "reader-flag"
+                         :table-key  :id}
+   :members             {:table-name "amr-members"
+                         :table-key  :id}
+   :verbclass           {:table-name "amr-verbclass"
+                         :table-key  :id}
+   :data-files          {:table-name "data-files"
+                         :table-key  :id}})
 
 (defn resolve-table [type] (get tables-conf type))
 
@@ -28,11 +41,14 @@
                     {k v}))
                 data)))
 
+(defn client-opts []
+  {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://localhost:8000")})
+
 (defn db-access
   [resource-type]
   (let [{table-name :table-name
          table-key  :table-key} (resolve-table resource-type)
-        client-ops (config/client-opts)]
+        client-ops (client-opts)]
     (reify
       protocol/DBAccess
       (read-item [this key]

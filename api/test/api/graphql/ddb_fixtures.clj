@@ -1,6 +1,5 @@
 (ns api.graphql.ddb-fixtures
   (:require [clojure.tools.logging :as log]
-            [data.ddb.config :as config]
             [data.ddb.impl :as ddb]
             [mount.core :as mount]
             [api.server :as server]
@@ -17,7 +16,7 @@
 
 (defn wipe-ddb-tables [f]
   (mount/start-without #'server/http-server)
-  (let [client-opts (config/client-opts)]
+  (let [client-opts (ddb/client-opts)]
     (doseq [table-name (tables client-opts)]
       (log/tracef "Deleting table: '%s'" (name table-name))
       (delete-table! client-opts table-name))
