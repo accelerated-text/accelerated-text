@@ -1,10 +1,11 @@
 (ns api.nlg.parser
   (:require [api.nlg.parser.impl :as parser]
             [clojure.spec.alpha :as s]
-            [clojure.spec.gen.alpha :as gen]))
+            [clojure.spec.gen.alpha :as gen]
+            [clojure.string :as string]))
 
-(s/def :acctext.amr/id aphanumeric?)
-(s/def :acctext.amr/name string?)
+(s/def :acctext.amr/id (s/and string? #(not (string/blank? %))))
+(s/def :acctext.amr/name (s/and string? #(not (string/blank? %))))
 
 ;;FIXME
 ;; - 'root' is should be renamed to 'document-plan'
@@ -14,7 +15,7 @@
 
 (s/def :acctext.amr/concept (s/keys :req [:acctext.amr/id :acctext.amr/type]))
 
-(s/def :acctext.amr/concepts (s/coll-of :acctext.amr/concept ::gen-max 5))
+(s/def :acctext.amr/concepts (s/coll-of :acctext.amr/concept :min-count 1))
 
 (s/def :acctext.amr/role
   (s/or :core (s/with-gen keyword?
@@ -31,7 +32,7 @@
          :role :acctext.amr/role
          :attributes :acctext.amr/attributes))
 
-(s/def :acctext.amr/relations (s/coll-of ::relation :gen-max 5))
+(s/def :acctext.amr/relations (s/coll-of :acctext.amr/relation))
 
 (s/def :acctext.amr/graph (s/keys :req [:acctext.amr/relations :acctext.amr/concepts]))
 
@@ -39,5 +40,5 @@
   (parser/parse document-plan))
 
 (s/fdef parse-document-plan
-        :args (s/cat :document-plan any?)
+        :args (s/cat :document-plan map?)
         :ret :acctext.amr/graph)
