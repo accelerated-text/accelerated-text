@@ -1,4 +1,4 @@
-(ns data.entities.dictionary-filtering-test
+(ns api.graphql.dictionary-filtering-test
   (:require [api.nlg.dictionary :as dictionary]
             [clojure.test :refer [deftest testing is]]))
 

@@ -6,10 +6,10 @@
             [clojure.tools.logging :as log]
             [data.db.dynamo-ops :as ops]
             [data.entities.data-files :as data-files]
-            [data.entities.document-plan :as document-plan]))
+            [data.entities.document-plan :as document-plan]
+            [mount.core :refer [defstate]]))
 
-(defn get-db []
-  (ops/db-access :results))
+(defstate results-db :start (ops/db-access :results))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
@@ -32,10 +32,9 @@
       {:error true :ready true :message (.getMessage e)})))
 
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues}]
-  (let [db (get-db)
-        result-id (utils/gen-uuid)]
-    (ops/write! db result-id {:ready false})
-    (ops/update! db result-id (generation-process document-plan-id data-id reader-model))
+  (let [result-id (utils/gen-uuid)]
+    (ops/write! results-db result-id {:ready false})
+    (ops/update! results-db result-id (generation-process document-plan-id data-id reader-model))
     {:status 200
      :body   {:resultId result-id}}))
 
@@ -60,10 +59,9 @@
        results))
 
 (defn read-result [_ path-params]
-  (let [db (get-db)
-        request-id (:id path-params)]
+  (let [request-id (:id path-params)]
     (try
-      (if-let [{:keys [results ready updatedAt]} (ops/read! db request-id)]
+      (if-let [{:keys [results ready updatedAt]} (ops/read! results-db request-id)]
         {:status 200
          :body   {:offset     0
                   :totalCount (count results)
@@ -79,12 +77,11 @@
                   :message (.getMessage e)}}))))
 
 (defn delete-result [path-params]
-  (let [db (get-db)
-        request-id (:id path-params)]
+  (let [request-id (:id path-params)]
     (try
-      (if-let [item (ops/read! db request-id)]
+      (if-let [item (ops/read! results-db request-id)]
         (do
-          (ops/delete! db request-id)
+          (ops/delete! results-db request-id)
           {:status 200
            :body   item})
         {:status 404})

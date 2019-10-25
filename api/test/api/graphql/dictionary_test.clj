@@ -2,6 +2,7 @@
   (:require [api.test-utils :refer [q]]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.db.dynamo-ops :as ops]
+            [api.graphql.ddb-fixtures :as fixtures]
             [data.entities.dictionary :as dict-entity]))
 
 (defn prepare-environment [f]
@@ -19,7 +20,7 @@
   (f)
   (dict-entity/delete-dictionary-item "VB-test-phrase"))
 
-(use-fixtures :each prepare-environment)
+(use-fixtures :each fixtures/wipe-ddb-tables prepare-environment)
 
 (deftest ^:integration full-query-test
   (let [query "{dictionary{items{name partOfSpeech phrases{id text defaultUsage readerFlagUsage{id usage flag{id name}}}}}}"
@@ -34,7 +35,9 @@
         (q "/_graphql" :post {:query query})]
     (is (nil? errors))
     (is (seq items))
-    (is (contains? (set items) {:name "test-phrase" :phrases [{:text "t1"} {:text "t2"}]}))
+    (let [{phrases :phrases :as test-phrase-item} (first (filter (fn [item] (= "test-phrase" (:name item))) items))]
+      (is test-phrase-item)
+      (is (= 2 (count phrases))))
     (is (= items (sort-by :name (shuffle items))))))
 
 (deftest ^:integration get-dictionary-item-test
@@ -44,7 +47,7 @@
     (is (nil? errors))
     (is (= "test-phrase" name))
     (is (= "VB" partOfSpeech))
-    (is (= [{:text "t1"} {:text "t2"}] phrases))
+    (is (= (set [{:text "t1"} {:text "t2"}]) (set phrases)))
     (is (some? (:id concept)))))
 
 (deftest ^:integration create-dict-item-test
