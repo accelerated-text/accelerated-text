@@ -1,6 +1,7 @@
 (ns data.db.dynamoops-test
   (:require [clojure.test :refer [deftest is]]
-            [data.db.dynamo-ops :as ops]
+            [data.protocol :as ops]
+            [data.db :as db]
             [data.utils :as utils]))
 
 (def mock-db
@@ -18,13 +19,13 @@
 
 (deftest test-write-wo-key
   (let [db mock-db
-        result (ops/write! db {:something "somedata"})]
+        result (db/write! db {:something "somedata"})]
     (is (seq result))
     (is (:something result))))
 
 (deftest test-write-w-key
   (let [db mock-db
-        result (ops/write! db "testKey" {:something "somedata"})]
+        result (db/write! db "testKey" {:something "somedata"})]
     (is (seq result))
     (is (= "testKey" (:key result)))
     (is (:something result))))

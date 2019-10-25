@@ -1,6 +1,6 @@
 (ns data.entities.data-files
   (:require [clojure.data.csv :as csv]
-            [data.db.dynamo-ops :as ops]
+            [data.db :as ops]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 

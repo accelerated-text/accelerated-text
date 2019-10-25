@@ -1,6 +1,6 @@
 (ns data.entities.amr
   (:require [data.db.amr-rules :as amr-rules]
-            [data.db.dynamo-ops :as ops]
+            [data.db :as ops]
             [mount.core :refer [defstate]]))
 
 (defstate verbclass-db :start (ops/db-access :verbclass))

@@ -1,5 +1,5 @@
 (ns data.entities.document-plan
-  (:require [data.db.dynamo-ops :as ops]
+  (:require [data.db :as ops]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 

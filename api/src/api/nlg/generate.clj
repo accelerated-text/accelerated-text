@@ -4,12 +4,9 @@
             [api.resource :as resource]
             [api.utils :as utils]
             [clojure.tools.logging :as log]
-            [data.db.dynamo-ops :as ops]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as document-plan]
-            [mount.core :refer [defstate]]))
-
-(defstate results-db :start (ops/db-access :results))
+            [data.entities.result :as results]))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
@@ -33,8 +30,8 @@
 
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues}]
   (let [result-id (utils/gen-uuid)]
-    (ops/write! results-db result-id {:ready false})
-    (ops/update! results-db result-id (generation-process document-plan-id data-id reader-model))
+    (results/store-status result-id {:ready false})
+    (results/update result-id (generation-process document-plan-id data-id reader-model))
     {:status 200
      :body   {:resultId result-id}}))
 
@@ -61,7 +58,7 @@
 (defn read-result [_ path-params]
   (let [request-id (:id path-params)]
     (try
-      (if-let [{:keys [results ready updatedAt]} (ops/read! results-db request-id)]
+      (if-let [{:keys [results ready updatedAt]} (results/fetch request-id)]
         {:status 200
          :body   {:offset     0
                   :totalCount (count results)
@@ -79,9 +76,9 @@
 (defn delete-result [path-params]
   (let [request-id (:id path-params)]
     (try
-      (if-let [item (ops/read! results-db request-id)]
+      (if-let [item (results/fetch request-id)]
         (do
-          (ops/delete! results-db request-id)
+          (results/delete request-id)
           {:status 200
            :body   item})
         {:status 404})

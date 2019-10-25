@@ -1,6 +1,6 @@
 (ns data.entities.dictionary
   (:require [clojure.string :as str]
-            [data.db.dynamo-ops :as ops]
+            [data.db :as ops]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 

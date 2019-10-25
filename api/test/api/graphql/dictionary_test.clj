@@ -1,7 +1,7 @@
 (ns api.graphql.dictionary-test
   (:require [api.test-utils :refer [q]]
             [clojure.test :refer [deftest is use-fixtures]]
-            [data.db.dynamo-ops :as ops]
+            [data.db :as ops]
             [api.graphql.ddb-fixtures :as fixtures]
             [data.entities.dictionary :as dict-entity]))
 
