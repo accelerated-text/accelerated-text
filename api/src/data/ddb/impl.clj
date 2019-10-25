@@ -31,12 +31,13 @@
 (defn db-access
   [resource-type]
   (let [{table-name :table-name
-         table-key  :table-key} (resolve-table resource-type)]
+         table-key  :table-key} (resolve-table resource-type)
+        client-ops (config/client-opts)]
     (reify
       protocol/DBAccess
       (read-item [this key]
         (when (some? key)
-          (far/get-item (config/client-opts) table-name {table-key key})))
+          (far/get-item client-ops table-name {table-key key})))
       (write-item [this key data update-count?]
         (let [current-ts (utils/ts-now)
               body       (cond-> (assoc data
@@ -44,23 +45,23 @@
                                    :createdAt current-ts
                                    :updatedAt current-ts)
                                  update-count? (assoc :updateCount 0))]
-          (far/put-item (config/client-opts) table-name (freeze body))
+          (far/put-item client-ops table-name (freeze body))
           body))
       (update-item [this key data]
-        (when-let [original (far/get-item (config/client-opts) table-name {table-key key})]
+        (when-let [original (far/get-item client-ops table-name {table-key key})]
           (log/debugf "Updating\n key: '%s' \n content: '%s'" key data)
           (let [body (cond-> (merge original data {:updatedAt (utils/ts-now) table-key key})
                              (contains? original :updateCount) (update :updateCount inc))]
             (log/debugf "Saving updated content: %s" (pr-str body))
-            (far/put-item (config/client-opts) table-name (freeze body))
+            (far/put-item client-ops table-name (freeze body))
             body)))
       (delete-item [this key]
         (log/debugf "Deleting\n key: '%s'" key)
-        (far/delete-item (config/client-opts) table-name {table-key key}))
+        (far/delete-item client-ops table-name {table-key key}))
       (list-items [this limit]
-        (far/scan (config/client-opts) table-name {:limit limit}))
+        (far/scan client-ops table-name {:limit limit}))
       (scan-items [this opts]
-        (far/scan (config/client-opts) table-name opts))
+        (far/scan client-ops table-name opts))
       (batch-read-items [this ids]
         (log/debugf "Batch reading keys: %s" (pr-str ids))
-        (far/batch-get-item (config/client-opts) {table-name {:prim-kvs {table-key ids}}})))))
+        (far/batch-get-item client-ops {table-name {:prim-kvs {table-key ids}}})))))
