@@ -1,4 +1,4 @@
-(ns data.db.dynamoops-test
+(ns data.ddb.dynamoops-test
   (:require [clojure.test :refer [deftest is]]
             [data.protocol :as ops]
             [data.db :as db]

@@ -1,6 +1,6 @@
-(ns data.db.dynamo-ops
+(ns data.ddb.impl
   (:require [clojure.tools.logging :as log]
-            [data.db.config :as config]
+            [data.ddb.config :as config]
             [data.utils :as utils]
             [data.protocol :as protocol]
             [taoensso.faraday :as far]))

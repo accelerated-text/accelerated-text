@@ -1,5 +1,5 @@
 (ns data.db
-  (:require [data.db.dynamo-ops :as ddb]
+  (:require [data.ddb.impl :as ddb]
             [data.protocol :as protocol]
             [data.utils :as utils]))
 

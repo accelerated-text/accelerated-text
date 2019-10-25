@@ -1,14 +1,14 @@
 (ns data.entities.dictionary
   (:require [clojure.string :as str]
-            [data.db :as ops]
+            [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 
-(defstate reader-flags-db :start (ops/db-access :reader-flag))
-(defstate dictionary-combined-db :start (ops/db-access :dictionary-combined))
+(defstate reader-flags-db :start (db/db-access :reader-flag))
+(defstate dictionary-combined-db :start (db/db-access :dictionary-combined))
 
 (defn list-readers []
-  (ops/list! reader-flags-db 100))
+  (db/list! reader-flags-db 100))
 
 (defn get-default-flags []
   (->> (list-readers)
@@ -16,14 +16,14 @@
        (into {})))
 
 (defn get-reader [key]
-  (ops/read! reader-flags-db key))
+  (db/read! reader-flags-db key))
 
 (defn list-dictionary []
-  (ops/list! dictionary-combined-db 100))
+  (db/list! dictionary-combined-db 100))
 
 (defn get-dictionary-item [key]
   (when-not (str/blank? key)
-    (ops/read! dictionary-combined-db key)))
+    (db/read! dictionary-combined-db key)))
 
 (defn text->phrase
   ([text parent-id default-usage]
@@ -35,12 +35,12 @@
 
 (defn create-dictionary-item [{:keys [key name phrases partOfSpeech]}]
   (when-not (str/blank? name)
-    (ops/write! dictionary-combined-db key {:name         name
+    (db/write! dictionary-combined-db key {:name          name
                                             :partOfSpeech partOfSpeech
                                             :phrases      (map #(text->phrase % key :YES) phrases)})))
 
 (defn delete-dictionary-item [key]
-  (ops/delete! dictionary-combined-db key))
+  (db/delete! dictionary-combined-db key))
 
 (defn update-dictionary-item [item]
-  (ops/update! dictionary-combined-db (:key item) (dissoc item :key)))
+  (db/update! dictionary-combined-db (:key item) (dissoc item :key)))

@@ -1,4 +1,4 @@
-(ns data.db.amr-rules)
+(ns data.ddb.amr-rules)
 
 (def see
   {:id                 "see"

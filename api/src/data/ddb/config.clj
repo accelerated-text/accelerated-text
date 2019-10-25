@@ -1,4 +1,4 @@
-(ns data.db.config)
+(ns data.ddb.config)
 
 (def blockly-table {:table-name "blockly-workspace"
                     :table-key  :id})
