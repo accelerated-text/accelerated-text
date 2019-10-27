@@ -8,7 +8,7 @@
 (s/def :acctext.amr/name (s/and string? #(not (string/blank? %))))
 
 (s/def :acctext.amr/type (s/or :valid #{:document-plan :segment :data :quote :dictionary-item}
-                               :invalid #{:unknown}))
+                               :invalid #{:amr :unknown}))
 
 (s/def :acctext.amr/concept (s/keys :req [:acctext.amr/id :acctext.amr/type]))
 

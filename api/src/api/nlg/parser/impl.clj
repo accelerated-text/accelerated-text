@@ -33,20 +33,20 @@
                       :role :instance})
                    children)})
 
-(defmethod build-amr :AMR [{:keys [roles dictionaryItem]}]
-  (when (some? dictionaryItem)
-    (let [amr (build-amr dictionaryItem)
-          parent-id (get-in amr [:concepts 0 :id])]
-      (update amr :relations
-              #(->> roles
-                    (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
-                                   (when (not= type "placeholder")
-                                     {:from       parent-id
-                                      :to         child-id
-                                      :role       (keyword (str "ARG" index))
-                                      :attributes {:name name}})))
-                    (remove nil?)
-                    (concat %))))))
+(defmethod build-amr :AMR [{:keys [id conceptId roles dictionaryItem]}]
+  {:concepts  (if (some? dictionaryItem)
+                (-> dictionaryItem (build-amr) (get :concepts))
+                [{:id    id
+                  :type  :amr
+                  :value conceptId}])
+   :relations (->> roles
+                   (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
+                                  (when (not= type "placeholder")
+                                    {:from       id
+                                     :to         child-id
+                                     :role       (keyword (str "ARG" index))
+                                     :attributes {:name name}})))
+                   (remove nil?))})
 
 (defmethod build-amr :Cell [{:keys [id name children]}]
   {:concepts  [{:id    id
