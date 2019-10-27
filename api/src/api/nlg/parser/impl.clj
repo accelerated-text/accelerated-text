@@ -6,12 +6,12 @@
 
 (defmethod build-amr :default [{:keys [id children] :as node}]
   {:concepts  [{:id    id
-                :type  :unk
+                :type  :unknown
                 :value (dissoc node :id :children)}]
    :relations (mapv (fn [{child-id :id}]
                       {:from id
                        :to   child-id
-                       :role :unk})
+                       :role :unknown})
                     children)})
 
 (defmethod build-amr :placeholder [_]

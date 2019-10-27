@@ -9,17 +9,17 @@
 
 ;;FIXME
 ;; - 'relationship' is not really a concept node type?
-;; - 'unk' should not be allowed, if we want to model it  do it via (s/or :valid ... :bad ...)construction
-(s/def :acctext.amr/type #{:document-plan :segment :relationship :data :quote :dictionary-item :unk})
+(s/def :acctext.amr/type (s/or :valid #{:document-plan :segment :relationship :data :quote :dictionary-item}
+                               :invalid #{:unknown}))
 
 (s/def :acctext.amr/concept (s/keys :req [:acctext.amr/id :acctext.amr/type]))
 
 (s/def :acctext.amr/concepts (s/coll-of :acctext.amr/concept :min-count 1))
 
 (s/def :acctext.amr/role
-  (s/or :core (s/with-gen keyword?
-                #(gen/fmap (fn [idx] (keyword (str "ARG" (Math/abs ^Integer idx)))) (gen/int)))
-        :non-core #{:segment :instance :relationship :modifier}))
+  (s/or :core (s/with-gen keyword? #(gen/fmap (fn [idx] (keyword (str "ARG" (Math/abs ^Integer idx)))) (gen/int)))
+        :non-core #{:segment :instance :relationship :modifier}
+        :invalid #{:unknown}))
 
 (s/def :acctext.amr/attributes
   (s/or :has-attrs (s/keys :req [:acctext.amr/name])
