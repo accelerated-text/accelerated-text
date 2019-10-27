@@ -7,36 +7,34 @@
   {:concepts  [{:id    id
                 :type  :unknown
                 :value (dissoc node :id :children)}]
-   :relations (mapv (fn [{child-id :id}]
-                      {:from id
-                       :to   child-id
-                       :role :unknown})
-                    children)})
+   :relations (map (fn [{child-id :id}]
+                     {:from id
+                      :to   child-id
+                      :role :unknown})
+                   children)})
 
-(defmethod build-amr :placeholder [_]
-  {:concepts  []
-   :relations []})
+(defmethod build-amr :placeholder [_])
 
 (defmethod build-amr :Document-plan [{:keys [id segments]}]
   {:concepts  [{:id   id
                 :type :document-plan}]
-   :relations (mapv (fn [{segment-id :id}]
-                      {:from id
-                       :to   segment-id
-                       :role :segment})
-                    segments)})
+   :relations (map (fn [{segment-id :id}]
+                     {:from id
+                      :to   segment-id
+                      :role :segment})
+                   segments)})
 
 (defmethod build-amr :Segment [{:keys [id children]}]
   {:concepts  [{:id   id
                 :type :segment}]
-   :relations (mapv (fn [{child-id :id}]
-                      {:from id
-                       :to   child-id
-                       :role :instance})
-                    children)})
+   :relations (map (fn [{child-id :id}]
+                     {:from id
+                      :to   child-id
+                      :role :instance})
+                   children)})
 
 (defmethod build-amr :AMR [{:keys [roles dictionaryItem]}]
-  (if (some? dictionaryItem)
+  (when (some? dictionaryItem)
     (let [amr (build-amr dictionaryItem)
           parent-id (get-in amr [:concepts 0 :id])]
       (update amr :relations
@@ -48,47 +46,43 @@
                                       :role       (keyword (str "ARG" index))
                                       :attributes {:name name}})))
                     (remove nil?)
-                    (concat %)
-                    (vec))))
-    {:concepts  []
-     :relations []}))
+                    (concat %))))))
 
 (defmethod build-amr :Cell [{:keys [id name children]}]
   {:concepts  [{:id    id
                 :type  :data
                 :value name}]
-   :relations (mapv (fn [{child-id :id}]
-                      {:from id
-                       :to   child-id
-                       :role :modifier})
-                    children)})
+   :relations (map (fn [{child-id :id}]
+                     {:from id
+                      :to   child-id
+                      :role :modifier})
+                   children)})
 
 (defmethod build-amr :Quote [{:keys [id text children]}]
   {:concepts  [{:id    id
                 :type  :quote
                 :value text}]
-   :relations (mapv (fn [{child-id :id}]
-                      {:from id
-                       :to   child-id
-                       :role :modifier})
-                    children)})
+   :relations (map (fn [{child-id :id}]
+                     {:from id
+                      :to   child-id
+                      :role :modifier})
+                   children)})
 
 (defmethod build-amr :Dictionary-item [{:keys [id itemId name]}]
-  {:concepts  [{:id         id
-                :type       :dictionary-item
-                :value      itemId
-                :attributes {:name name}}]
-   :relations []})
+  {:concepts [{:id         id
+               :type       :dictionary-item
+               :value      itemId
+               :attributes {:name name}}]})
 
 
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
-    :Document-plan (assoc node :segments (vec children))
-    :AMR (assoc node :roles (mapv (fn [role child]
-                                    (assoc role :children [child]))
-                                  (:roles node) children))
+    :Document-plan (assoc node :segments children)
+    :AMR (assoc node :roles (map (fn [role child]
+                                   (assoc role :children (list child)))
+                                 (:roles node) children))
     :Dictionary-item-modifier (assoc node :child (first children))
-    (assoc node :children (vec children))))
+    (assoc node :children children)))
 
 (defn get-children [{type :type :as node}]
   (case (keyword type)
