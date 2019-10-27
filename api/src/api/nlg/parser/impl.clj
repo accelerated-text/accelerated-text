@@ -20,7 +20,7 @@
 
 (defmethod build-amr :Document-plan [{:keys [id segments]}]
   {:concepts  [{:id   id
-                :type :root}]
+                :type :document-plan}]
    :relations (mapv (fn [{segment-id :id}]
                       {:from id
                        :to   segment-id
@@ -36,27 +36,23 @@
                        :role :instance})
                     children)})
 
-(defmethod build-amr :AMR [{:keys [id conceptId roles dictionaryItem]}]
-  (let [dictionary-item-concept (when (some? dictionaryItem)
-                                  (first (:concepts (build-amr dictionaryItem))))]
-    {:concepts  (cond-> [{:id   id
-                          :type :amr
-                          :name conceptId}]
-                        (some? dictionary-item-concept) (conj dictionary-item-concept))
-     :relations (->> roles
-                     (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
-                                    (when (not= type "placeholder")
-                                      {:from       id
-                                       :to         child-id
-                                       :role       (keyword (str "ARG" (inc index)))
-                                       :attributes {:name name}})))
-                     (cons
-                       (when (some? dictionary-item-concept)
-                         {:from id
-                          :to   (:id dictionary-item-concept)
-                          :role :ARG0}))
-                     (remove nil?)
-                     (vec))}))
+(defmethod build-amr :AMR [{:keys [roles dictionaryItem]}]
+  (if (some? dictionaryItem)
+    (let [amr (build-amr dictionaryItem)
+          parent-id (get-in amr [:concepts 0 :id])]
+      (update amr :relations
+              #(->> roles
+                    (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
+                                   (when (not= type "placeholder")
+                                     {:from       parent-id
+                                      :to         child-id
+                                      :role       (keyword (str "ARG" index))
+                                      :attributes {:name name}})))
+                    (remove nil?)
+                    (concat %)
+                    (vec))))
+    {:concepts  []
+     :relations []}))
 
 (defmethod build-amr :Relationship [{:keys [id relationshipType children]}]
   {:concepts  [{:id   id

@@ -8,10 +8,9 @@
 (s/def :acctext.amr/name (s/and string? #(not (string/blank? %))))
 
 ;;FIXME
-;; - 'root' is should be renamed to 'document-plan'
 ;; - 'relationship' is not really a concept node type?
 ;; - 'unk' should not be allowed, if we want to model it  do it via (s/or :valid ... :bad ...)construction
-(s/def :acctext.amr/type #{:root :segment :amr :relationship :data :quote :dictionary-item :unk})
+(s/def :acctext.amr/type #{:document-plan :segment :relationship :data :quote :dictionary-item :unk})
 
 (s/def :acctext.amr/concept (s/keys :req [:acctext.amr/id :acctext.amr/type]))
 
