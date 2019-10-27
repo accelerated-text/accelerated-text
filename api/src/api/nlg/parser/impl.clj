@@ -1,6 +1,5 @@
 (ns api.nlg.parser.impl
-  (:require [api.utils :as utils]
-            [clojure.zip :as zip]))
+  (:require [clojure.zip :as zip]))
 
 (defmulti build-amr (fn [node] (-> node (get :type) (keyword))))
 
@@ -58,7 +57,7 @@
   {:concepts  [{:id    id
                 :type  :data
                 :value name}]
-   :relations (mapv (fn [{child-id :itemId}]
+   :relations (mapv (fn [{child-id :id}]
                       {:from id
                        :to   child-id
                        :role :modifier})
@@ -68,16 +67,17 @@
   {:concepts  [{:id    id
                 :type  :quote
                 :value text}]
-   :relations (mapv (fn [{child-id :itemId}]
+   :relations (mapv (fn [{child-id :id}]
                       {:from id
                        :to   child-id
                        :role :modifier})
                     children)})
 
-(defmethod build-amr :Dictionary-item [{:keys [itemId name]}]
-  {:concepts  [{:id    itemId
-                :type  :dictionary-item
-                :value name}]
+(defmethod build-amr :Dictionary-item [{:keys [id itemId name]}]
+  {:concepts  [{:id         id
+                :type       :dictionary-item
+                :value      itemId
+                :attributes {:name name}}]
    :relations []})
 
 
@@ -103,39 +103,40 @@
 
 (declare preprocess-node)
 
-(defn gen-id [node]
+(defn gen-id [node index]
   (-> node
-      (assoc :id (subs (utils/gen-uuid) 0 8))
+      (assoc :id (format "%02d" index))
       (dissoc :srcId)))
 
 (defn nil->placeholder [node]
   (cond-> node (nil? node) (assoc :type "placeholder")))
 
-(defn preprocess-dict-item [node]
-  (cond-> node (contains? node :dictionaryItem) (update :dictionaryItem preprocess-node)))
+(defn preprocess-dict-item [node index]
+  (cond-> node (contains? node :dictionaryItem) (update :dictionaryItem #(preprocess-node % index))))
 
-(defn rearrange-modifiers [node]
+(defn rearrange-modifiers [node index]
   (loop [zipper (make-zipper node)
          modifiers []]
     (let [{:keys [type child] :as node} (zip/node zipper)]
       (if-not (and (= "Dictionary-item-modifier" type) (some? child))
         (cond-> node (seq modifiers) (-> (make-node (concat (get-children node) modifiers))
-                                         (preprocess-node)))
+                                         (preprocess-node index)))
         (recur (zip/next zipper) (conj modifiers (-> node
                                                      (dissoc :child)
-                                                     (assoc :type :Dictionary-item))))))))
+                                                     (assoc :type "Dictionary-item"))))))))
 
-(defn preprocess-node [node]
-  (-> node (nil->placeholder) (gen-id) (preprocess-dict-item) (rearrange-modifiers)))
+(defn preprocess-node [node index]
+  (-> node (nil->placeholder) (preprocess-dict-item index) (rearrange-modifiers index) (gen-id index)))
 
 (defn preprocess [root]
-  (loop [zipper (make-zipper root)]
+  (loop [zipper (make-zipper root)
+         index 1]
     (if (zip/end? zipper)
       (zip/root zipper)
       (-> zipper
-          (zip/edit preprocess-node)
+          (zip/edit preprocess-node index)
           (zip/next)
-          (recur)))))
+          (recur (inc index))))))
 
 
 (defn parse [root]
@@ -143,8 +144,8 @@
          amr {:relations [] :concepts []}]
     (if (zip/end? zipper)
       (-> amr
-          (update :relations set)
-          (update :concepts set))
+          (update :relations vec)
+          (update :concepts vec))
       (recur
         (zip/next zipper)
         (merge-with concat amr (build-amr (zip/node zipper)))))))
