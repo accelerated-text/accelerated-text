@@ -7,9 +7,7 @@
 (s/def :acctext.amr/id (s/and string? #(not (string/blank? %))))
 (s/def :acctext.amr/name (s/and string? #(not (string/blank? %))))
 
-;;FIXME
-;; - 'relationship' is not really a concept node type?
-(s/def :acctext.amr/type (s/or :valid #{:document-plan :segment :relationship :data :quote :dictionary-item}
+(s/def :acctext.amr/type (s/or :valid #{:document-plan :segment :data :quote :dictionary-item}
                                :invalid #{:unknown}))
 
 (s/def :acctext.amr/concept (s/keys :req [:acctext.amr/id :acctext.amr/type]))
@@ -18,7 +16,7 @@
 
 (s/def :acctext.amr/role
   (s/or :core (s/with-gen keyword? #(gen/fmap (fn [idx] (keyword (str "ARG" (Math/abs ^Integer idx)))) (gen/int)))
-        :non-core #{:segment :instance :relationship :modifier}
+        :non-core #{:segment :instance :modifier}
         :invalid #{:unknown}))
 
 (s/def :acctext.amr/attributes

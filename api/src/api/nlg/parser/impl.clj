@@ -54,16 +54,6 @@
     {:concepts  []
      :relations []}))
 
-(defmethod build-amr :Relationship [{:keys [id relationshipType children]}]
-  {:concepts  [{:id   id
-                :type :relationship
-                :kind (keyword relationshipType)}]
-   :relations (mapv (fn [{child-id :id}]
-                      {:from id
-                       :to   child-id
-                       :role :relationship})
-                    children)})
-
 (defmethod build-amr :Cell [{:keys [id name children]}]
   {:concepts  [{:id    id
                 :type  :data
