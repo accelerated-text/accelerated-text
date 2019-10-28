@@ -20,17 +20,20 @@
 
 (defn health [_] {:status 200, :body "Ok"})
 
-(def routes
-  (ring/router
-   [["/_graphql" graphql/handle]
-    ["/health" {:get health}]]))
-
-
-
 (defn- http-response [body]
   {:status  200
    :headers (assoc headers "Content-Type" "application/json")
    :body    (json/write-value-as-string body)})
+
+(def routes
+  (ring/router
+   [["/_graphql" {:post (fn [{:keys [body] :as request}]
+                          (-> body
+                              (utils/read-json-is)
+                              (graphql/handle)
+                              (http-response)))}]
+    ["/health" {:get health}]]))
+
 
 (defn- normalize-request [{:keys [headers query-string body request-method]} path-params]
   (json/write-value-as-string
