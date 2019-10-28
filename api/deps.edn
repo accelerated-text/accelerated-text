@@ -11,6 +11,7 @@
              net.sf.extjwnl/extjwnl-data-wn31 {:mvn/version "1.2"}
              metosin/jsonista                 {:mvn/version "0.2.5"}
              metosin/reitit                   {:mvn/version "0.3.10"}
+             metosin/reitit-ring              {:mvn/version "0.3.10"}
              mount                            {:mvn/version "0.1.16"}
              org.clojure/clojure              {:mvn/version "1.10.1"}
              org.clojure/data.csv             {:mvn/version "0.1.4"}
