@@ -1,0 +1,7 @@
+{:acc-text/dictionary-schema
+ {:txes [[{:db/id #db/id [:db.part/db]
+           :db/ident :dictionary/value
+           :db/valueType :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/index false
+           :db.install/_attribute :db.part/db}]]}}
