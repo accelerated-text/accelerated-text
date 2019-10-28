@@ -1,7 +1,6 @@
 (ns api.graphql.ddb-fixtures
   (:require [clojure.tools.logging :as log]
-            [data.db.config :as config]
-            [data.db.dynamo-ops :as ops]
+            [data.ddb.impl :as ddb]
             [mount.core :as mount]
             [api.server :as server]
             [taoensso.faraday :as far]))
@@ -17,11 +16,11 @@
 
 (defn wipe-ddb-tables [f]
   (mount/start-without #'server/http-server)
-  (let [client-opts (config/client-opts)]
+  (let [client-opts (ddb/client-opts)]
     (doseq [table-name (tables client-opts)]
       (log/tracef "Deleting table: '%s'" (name table-name))
       (delete-table! client-opts table-name))
-    (doseq [[_ table-conf] ops/tables-conf]
+    (doseq [[_ table-conf] ddb/tables-conf]
       (log/tracef "Creating table: '%s'" table-conf)
       (create-table! client-opts table-conf)))
   (log/debugf "DynamoDB is wiped!")

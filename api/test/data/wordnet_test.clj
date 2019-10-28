@@ -1,4 +1,4 @@
-(ns data.db.wordnet-test
+(ns data.wordnet-test
   (:require [clojure.test :refer [deftest is]]
             [data.wordnet :as wn]))
 

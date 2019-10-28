@@ -1,20 +1,20 @@
 (ns data.entities.data-files
   (:require [clojure.data.csv :as csv]
-            [data.db.dynamo-ops :as ops]
+            [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 
-(defstate data-files-db :start (ops/db-access :data-files))
+(defstate data-files-db :start (db/db-access :data-files))
 
 (defn store!
   "Expected keys are :filename and :content everything else is optional"
   [data-file]
   (let [id (utils/gen-uuid)]
-    (ops/write! data-files-db id data-file)
+    (db/write! data-files-db id data-file)
     id))
 
 (defn fetch [id offset limit]
-  (when-let [{content :content file-name :filename} (ops/read! data-files-db id)]
+  (when-let [{content :content file-name :filename} (db/read! data-files-db id)]
     (let [rows (csv/read-csv content)
           field-names (first rows)
           records (rest rows)]
@@ -32,7 +32,7 @@
        :recordCount  (count records)})))
 
 (defn listing [offset limit recordOffset recordLimit]
-  (let [data-files (->> (ops/list! data-files-db Integer/MAX_VALUE)
+  (let [data-files (->> (db/list! data-files-db Integer/MAX_VALUE)
                         (drop offset)
                         (take limit))]
     {:dataFiles  (map (fn [{id :id}]
@@ -43,4 +43,4 @@
      :totalCount (count data-files)}))
 
 (defn read-data-file-content [_ key]
-  (:content (ops/read! data-files-db key)))
+  (:content (db/read! data-files-db key)))
