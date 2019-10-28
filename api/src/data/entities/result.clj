@@ -1,8 +1,9 @@
 (ns data.entities.result
-  (:require [data.db :as db]
+  (:require [api.config :refer [conf]]
+            [data.db :as db]
             [mount.core :refer [defstate]]))
 
-(defstate results-db :start (db/db-access :results))
+(defstate results-db :start (db/db-access :results conf))
 
 (defn store-status
   "Status is a map like {:ready false}"
