@@ -74,22 +74,32 @@
 ;;           {:status  500
 ;;            :headers headers})))))
 
+(defn cors-handler [_] {:status 200 :headers headers})
+(defn wrapped-handler [handler]
+  (fn [request]
+    (-> (handler request)
+        :body
+        (http-response))))
+
 (def routes
   (ring/router
    [["/_graphql" {:post (fn [{:keys [body] :as request}]
                           (-> body
                               (utils/read-json-is)
                               (graphql/handle)
-                              (http-response)))}]
-    ["/nlg" {:post   (fn [{:keys [body]}] (generate/generate-request body))
-             :get    generate/read-result
-             :delete generate/delete-result}]
-    ["/accelerated-text-data-files" (fn [{:keys [uri path-params body] :as request}]
-                                      (let [{params :params} (multipart-handler request)
-                                            id (data-files/store! (get params "file"))]
-                                        (http-response {:message "Succesfully uploaded file" :id id}))
-                                      {:status 404
-                                       :body   (format "ERROR: unsupported URI '%s'" uri)})]
+                              (http-response)))
+                  :options cors-handler}]
+    ["/nlg/" {:post   (fn [{:keys [body]}] (-> (generate/generate-request body)
+                                               :body
+                                               (http-response)))
+              :options cors-handler}]
+    ["/nlg/:id" {:get     (wrapped-handler generate/read-result)
+                 :delete  (wrapped-handler generate/delete-result)}]
+    ["/accelerated-text-data-files/" {:options cors-handler
+                                      :post (fn [{:keys [uri path-params body] :as request}]
+                                              (let [{params :params} (multipart-handler request)
+                                                    id (data-files/store! (get params "file"))]
+                                                (http-response {:message "Succesfully uploaded file" :id id})))}]
     ["/health" {:get health}]]))
 
 
