@@ -32,6 +32,9 @@
                               (utils/read-json-is)
                               (graphql/handle)
                               (http-response)))}]
+    ["/nlg" {:post   (fn [{:keys [body]}] (generate/generate-request body))
+             :get    (generate/read-result)
+             :delete (generate/delete-result)}]
     ["/health" {:get health}]]))
 
 

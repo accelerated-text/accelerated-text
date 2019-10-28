@@ -55,7 +55,7 @@
                                                        :text token}))}))}]})
        results))
 
-(defn read-result [_ path-params]
+(defn read-result [{:keys [path-params]}]
   (let [request-id (:id path-params)]
     (try
       (if-let [{:keys [results ready updatedAt]} (results/fetch request-id)]
@@ -73,7 +73,7 @@
          :body   {:error   true
                   :message (.getMessage e)}}))))
 
-(defn delete-result [path-params]
+(defn delete-result [{:keys [path-params]}]
   (let [request-id (:id path-params)]
     (try
       (if-let [item (results/fetch request-id)]
@@ -88,13 +88,3 @@
         {:status 500
          :body   {:error   true
                   :message (.getMessage e)}}))))
-
-(def handler-fn (delay
-                  (resource/build-resource
-                    {:get-handler    read-result
-                     :post-handler   generate-request
-                     :delete-handler delete-result}
-                    true)))
-
-(defn -handleRequest [_ is os _]
-  (@handler-fn nil is os nil))
