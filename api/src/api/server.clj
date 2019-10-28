@@ -1,6 +1,7 @@
 (ns api.server
   (:gen-class)
-  (:require [api.graphql.core :as graphql]
+  (:require [api.config :refer [conf]]
+            [api.graphql.core :as graphql]
             [api.nlg.generate :as generate]
             [api.utils :as utils]
             [clojure.java.io :as io]
@@ -71,14 +72,17 @@
           {:status  500
            :headers headers})))))
 
+(defn start-http-server [conf]
+  (let [host (get conf :host "0.0.0.0")
+        port (get conf :port 3001)]
+    (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
+    (server/run-server
+      #'app {:port     port
+             :ip       host
+             :max-body Integer/MAX_VALUE})))
+
 (defstate http-server
-  :start (let [host (or (System/getenv "ACC_TEXT_API_HOST") "0.0.0.0")
-               port (Integer/valueOf ^String (or (System/getenv "ACC_TEXT_API_PORT") "3001"))]
-           (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
-           (server/run-server
-            #'app {:port     port
-                   :ip       host
-                   :max-body Integer/MAX_VALUE}))
+  :start (start-http-server conf)
   :stop (http-server :timeout 100))
 
 (defn -main [& _]

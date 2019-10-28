@@ -1,8 +1,9 @@
 (ns data.entities.amr
   (:require [data.db :as db]
+            [api.config :refer [conf]]
             [mount.core :refer [defstate]]))
 
-(defstate verbclass-db :start (db/db-access :verbclass))
+(defstate verbclass-db :start (db/db-access :verbclass conf))
 
 (def see
   {:id                 "see"
