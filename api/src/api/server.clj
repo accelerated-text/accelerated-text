@@ -40,41 +40,8 @@
 (def multipart-handler
   (multipart-params/wrap-multipart-params identity {:store string-store}))
 
-;; (defn app [{:keys [body uri request-method] :as request}]
-;;   (let [{:keys [namespace path-params]} (utils/parse-path uri)]
-;;     (if (= request-method :options)
-;;       {:status  200
-;;        :headers headers}
-;;       (try
-;;         (case namespace
-;;           "/_graphql"
-;;           (-> body
-;;               (utils/read-json-is)
-;;               (graphql/handle)
-;;               (http-response))
-;;           "/nlg"
-;;           (let [is (-> request (normalize-request path-params) (.getBytes) (io/input-stream))
-;;                 os (ByteArrayOutputStream.)]
-;;             (generate/-handleRequest nil is os nil)
-;;             {:status  200
-;;              :headers (assoc headers "Content-Type" "application/json")
-;;              :body    (-> os
-;;                           (utils/read-json-os)
-;;                           (get :body))})
-;;           "/accelerated-text-data-files"
-;;           (let [{params :params} (multipart-handler request)
-;;                 id (data-files/store! (get params "file"))]
-;;             (http-response {:message "Succesfully uploaded file" :id id}))
-;;           {:status 404
-;;            :body   (format "ERROR: unsupported URI '%s'" uri)})
-;;         (catch Exception e
-;;           (log/errorf "Encountered error '%s' with request '%s'"
-;;                       (.getMessage e) request)
-;;           (.printStackTrace e)
-;;           {:status  500
-;;            :headers headers})))))
-
 (defn cors-handler [_] {:status 200 :headers headers})
+
 (defn wrapped-handler [handler]
   (fn [request]
     (-> (handler request)
@@ -91,7 +58,8 @@
                   :options cors-handler}]
     ["/nlg/" {:post   (fn [{:keys [body]}]
                         (log/debugf "Generate: %s" body)
-                        (-> (utils/read-json-is body)
+                        (-> body
+                            (utils/read-json-is)
                             (generate/generate-request)
                             :body
                             (http-response)))
@@ -123,3 +91,4 @@
 
 (defn -main [& _]
   (mount/start))
+
