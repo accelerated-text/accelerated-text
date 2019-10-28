@@ -25,19 +25,6 @@
    :headers (assoc headers "Content-Type" "application/json")
    :body    (json/write-value-as-string body)})
 
-(def routes
-  (ring/router
-   [["/_graphql" {:post (fn [{:keys [body] :as request}]
-                          (-> body
-                              (utils/read-json-is)
-                              (graphql/handle)
-                              (http-response)))}]
-    ["/nlg" {:post   (fn [{:keys [body]}] (generate/generate-request body))
-             :get    (generate/read-result)
-             :delete (generate/delete-result)}]
-    ["/health" {:get health}]]))
-
-
 (defn- normalize-request [{:keys [headers query-string body request-method]} path-params]
   (json/write-value-as-string
     {:httpMethod            (-> request-method (name) (str/upper-case) (keyword))
@@ -86,6 +73,25 @@
 ;;           (.printStackTrace e)
 ;;           {:status  500
 ;;            :headers headers})))))
+
+(def routes
+  (ring/router
+   [["/_graphql" {:post (fn [{:keys [body] :as request}]
+                          (-> body
+                              (utils/read-json-is)
+                              (graphql/handle)
+                              (http-response)))}]
+    ["/nlg" {:post   (fn [{:keys [body]}] (generate/generate-request body))
+             :get    generate/read-result
+             :delete generate/delete-result}]
+    ["/accelerated-text-data-files" (fn [{:keys [uri path-params body] :as request}]
+                                      (let [{params :params} (multipart-handler request)
+                                            id (data-files/store! (get params "file"))]
+                                        (http-response {:message "Succesfully uploaded file" :id id}))
+                                      {:status 404
+                                       :body   (format "ERROR: unsupported URI '%s'" uri)})]
+    ["/health" {:get health}]]))
+
 
 (def app
   (ring/ring-handler routes (ring/create-default-handler)))
