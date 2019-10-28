@@ -15,5 +15,5 @@
 (defn delete [request-id]
   (db/delete! results-db request-id))
 
-(defn update [result-id rez]
+(defn rewrite [result-id rez]
   (db/update! results-db result-id rez))

@@ -31,7 +31,7 @@
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues}]
   (let [result-id (utils/gen-uuid)]
     (results/store-status result-id {:ready false})
-    (results/update result-id (generation-process document-plan-id data-id reader-model))
+    (results/rewrite result-id (generation-process document-plan-id data-id reader-model))
     {:status 200
      :body   {:resultId result-id}}))
 
