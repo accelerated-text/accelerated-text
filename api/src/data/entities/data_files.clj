@@ -2,8 +2,7 @@
   (:require [clojure.data.csv :as csv]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]
-            [clojure.tools.logging :as log]))
+            [mount.core :refer [defstate]]))
 
 (defstate data-files-db :start (db/db-access :data-files))
 
@@ -44,5 +43,5 @@
      :totalCount (count data-files)}))
 
 (defn read-data-file-content [_ key]
-  (:content (db/read! data-files-db key))))
+  (:content (db/read! data-files-db key)))))
 
