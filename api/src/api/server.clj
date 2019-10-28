@@ -89,14 +89,17 @@
                               (graphql/handle)
                               (http-response)))
                   :options cors-handler}]
-    ["/nlg/" {:post   (fn [{:keys [body]}] (-> (generate/generate-request body)
-                                               :body
-                                               (http-response)))
+    ["/nlg/" {:post   (fn [{:keys [body]}]
+                        (log/debugf "Generate: %s" body)
+                        (-> (utils/read-json-is body)
+                            (generate/generate-request)
+                            :body
+                            (http-response)))
               :options cors-handler}]
     ["/nlg/:id" {:get     (wrapped-handler generate/read-result)
                  :delete  (wrapped-handler generate/delete-result)}]
     ["/accelerated-text-data-files/" {:options cors-handler
-                                      :post (fn [{:keys [uri path-params body] :as request}]
+                                      :post (fn [request]
                                               (let [{params :params} (multipart-handler request)
                                                     id (data-files/store! (get params "file"))]
                                                 (http-response {:message "Succesfully uploaded file" :id id})))}]
