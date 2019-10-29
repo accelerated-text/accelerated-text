@@ -54,12 +54,6 @@
 
 (defn cors-handler [_] {:status 200 :headers headers})
 
-(defn wrapped-handler [handler]
-  (fn [request]
-    (-> (handler request)
-        :body
-        (http-response))))
-
 (def routes
   (ring/router
    [["/_graphql" {:post (fn [{:keys [body] :as request}]
@@ -76,8 +70,8 @@
                        :handler (fn [{{body :body} :parameters}]
                                   (generate/generate-request body))}
               :options cors-handler}]
-    ["/nlg/:id" {:get     (wrapped-handler generate/read-result)
-                 :delete  (wrapped-handler generate/delete-result)}]
+    ["/nlg/:id" {:get     generate/read-result
+                 :delete  generate/delete-result}]
     ["/accelerated-text-data-files/" {:options cors-handler
                                       :post (fn [request]
                                               (let [{params :params} (multipart-handler request)
