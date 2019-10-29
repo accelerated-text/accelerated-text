@@ -1,23 +1,12 @@
 (ns api.graphql.data-files-datomic-test
-  (:require [api.datomic-fixtures :as df]
-            [clojure.test :refer [deftest is testing]]
+  (:require [api.datomic-fixtures :refer [datomix-fixture]]
+            [clojure.test :refer [deftest is testing use-fixtures]]
             [data.entities.data-files :as data-files]
-            [mount.core :as mount]
-            [clojure.string :as str])
-  (:import (java.util UUID)))
+            [clojure.string :as str]))
+
+(use-fixtures :each datomix-fixture)
 
 (deftest ^:integration writing-an-reading
-  (let [db-name (str (UUID/randomUUID))
-        conn (df/scratch-conn db-name)
-        _ (df/migrate conn)]
-    (-> (mount/swap-states {#'api.config/conf {:start (fn [] {:db-implementation  :datomic
-                                                              :db-name            db-name
-                                                              :db-uri             (str "datomic:mem://" db-name)
-                                                              :validate-hostnames false})}})
-        (mount/only #{#'api.config/conf
-                      #'data.entities.data-files/data-files-db
-                      #'data.datomic.impl/conn})
-        (mount/start)))
   (testing "Read books.csv headers"
     (let [data-file-id (data-files/store!
                          {:filename "example-user/books.csv"
@@ -26,5 +15,4 @@
           headers (-> result (str/split-lines) (first) (str/split #",") (set))]
       (is (= #{"pageCount" "publishedDate" "ratingsCount" "authors" "maturityRating"
                "id" "categories" "averageRating" "thumbnail" "subtitle"
-               "title" "publisher" "language" "isbn-13"} headers))))
-  (mount/stop))
+               "title" "publisher" "language" "isbn-13"} headers)))))
