@@ -43,7 +43,7 @@
 (defn cors-handler [_] {:status 200 :headers headers})
 
 (s/def ::query string?)
-(s/def ::variables (s/coll-of string?))
+(s/def ::variables (s/map-of string? string?))
 (s/def ::context string?)
 (s/def ::graphql-req (s/keys :req-un [::query]
                              :opt-un [::variables ::context]))
