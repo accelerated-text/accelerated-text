@@ -23,10 +23,8 @@
         :no-attrs nil?))
 
 (s/def :acctext.amr/relation
-  (s/cat :from :acctext.amr/id
-         :to :acctext.amr/id
-         :role :acctext.amr/role
-         :attributes :acctext.amr/attributes))
+  (s/keys :req [:acctext.amr/from :acctext.amr/to :acctext.amr/role]
+          :opt [:acctext.amr/attributes]))
 
 (s/def :acctext.amr/relations (s/coll-of :acctext.amr/relation))
 

@@ -6,75 +6,78 @@
 (defmulti build-amr (fn [node] (-> node (get :type) (keyword))))
 
 (defmethod build-amr :default [{:keys [id children] :as node}]
-  {:concepts  [{:id    id
-                :type  :unknown
-                :value (dissoc node :id :children)}]
-   :relations (map (fn [{child-id :id}]
-                     {:from id
-                      :to   child-id
-                      :role :unknown})
-                   children)})
+  #:acctext.amr{:concepts  [#:acctext.amr{:id    id
+                                          :type  :unknown
+                                          :value (dissoc node :id :children)}]
+                :relations (map (fn [{child-id :id}]
+                                  #:acctext.amr{:from id
+                                                :to   child-id
+                                                :role :unknown})
+                                children)})
 
-(defmethod build-amr :placeholder [_])
+(defmethod build-amr :placeholder [_]
+  #:acctext.amr{:concepts  []
+                :relations []})
 
 (defmethod build-amr :Document-plan [{:keys [id segments]}]
-  {:concepts  [{:id   id
-                :type :document-plan}]
-   :relations (map (fn [{segment-id :id}]
-                     {:from id
-                      :to   segment-id
-                      :role :segment})
-                   segments)})
+  #:acctext.amr{:concepts  [#:acctext.amr{:id   id
+                                          :type :document-plan}]
+                :relations (map (fn [{segment-id :id}]
+                                  #:acctext.amr{:from id
+                                                :to   segment-id
+                                                :role :segment})
+                                segments)})
 
 (defmethod build-amr :Segment [{:keys [id children]}]
-  {:concepts  [{:id   id
-                :type :segment}]
-   :relations (map (fn [{child-id :id}]
-                     {:from id
-                      :to   child-id
-                      :role :instance})
-                   children)})
+  #:acctext.amr{:concepts  [#:acctext.amr{:id   id
+                                          :type :segment}]
+                :relations (map (fn [{child-id :id}]
+                                  #:acctext.amr{:from id
+                                                :to   child-id
+                                                :role :instance})
+                                children)})
 
 (defmethod build-amr :AMR [{:keys [id conceptId roles dictionaryItem]}]
-  {:concepts  (if (some? dictionaryItem)
-                (-> dictionaryItem (build-amr) (get :concepts))
-                [{:id    id
-                  :type  :amr
-                  :value conceptId}])
-   :relations (->> roles
-                   (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
-                                  (when (not= type "placeholder")
-                                    {:from       id
-                                     :to         child-id
-                                     :role       (keyword (str "ARG" index))
-                                     :attributes {:name name}})))
-                   (remove nil?))})
+  #:acctext.amr{:concepts  (if (some? dictionaryItem)
+                             (-> dictionaryItem (build-amr) (get :concepts))
+                             [#:acctext.amr{:id    id
+                                            :type  :amr
+                                            :value conceptId}])
+                :relations (->> roles
+                                (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
+                                               (when (not= type "placeholder")
+                                                 #:acctext.amr{:from       id
+                                                               :to         child-id
+                                                               :role       (keyword (str "ARG" index))
+                                                               :attributes #:acctext.amr{:name name}})))
+                                (remove nil?))})
 
 (defmethod build-amr :Cell [{:keys [id name children]}]
-  {:concepts  [{:id    id
-                :type  :data
-                :value name}]
-   :relations (map (fn [{child-id :id}]
-                     {:from id
-                      :to   child-id
-                      :role :modifier})
-                   children)})
+  #:acctext.amr{:concepts  [#:acctext.amr{:id    id
+                                          :type  :data
+                                          :value name}]
+                :relations (map (fn [{child-id :id}]
+                                  #:acctext.amr{:from id
+                                                :to   child-id
+                                                :role :modifier})
+                                children)})
 
 (defmethod build-amr :Quote [{:keys [id text children]}]
-  {:concepts  [{:id    id
-                :type  :quote
-                :value text}]
-   :relations (map (fn [{child-id :id}]
-                     {:from id
-                      :to   child-id
-                      :role :modifier})
-                   children)})
+  #:acctext.amr{:concepts  [#:acctext.amr{:id    id
+                                          :type  :quote
+                                          :value text}]
+                :relations (map (fn [{child-id :id}]
+                                  #:acctext.amr{:from id
+                                                :to   child-id
+                                                :role :modifier})
+                                children)})
 
 (defmethod build-amr :Dictionary-item [{:keys [id itemId name]}]
-  {:concepts [{:id         id
-               :type       :dictionary-item
-               :value      itemId
-               :attributes {:name name}}]})
+  #:acctext.amr{:concepts  [#:acctext.amr{:id         id
+                                          :type       :dictionary-item
+                                          :value      itemId
+                                          :attributes #:acctext.amr{:name name}}]
+                :relations []})
 
 
 (defn make-node [{type :type :as node} children]
@@ -137,11 +140,11 @@
 
 (defn parse [root]
   (loop [zipper (-> root (preprocess) (make-zipper))
-         amr {:relations [] :concepts []}]
+         amr #:acctext.amr{:relations [] :concepts []}]
     (if (zip/end? zipper)
       (-> amr
-          (update :relations vec)
-          (update :concepts vec))
+          (update :acctext.amr/relations vec)
+          (update :acctext.amr/concepts vec))
       (recur
         (zip/next zipper)
         (merge-with concat amr (build-amr (zip/node zipper)))))))
