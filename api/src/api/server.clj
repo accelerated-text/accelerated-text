@@ -19,6 +19,7 @@
             [muuntaja.core :as m]
             [reitit.ring.coercion :as coercion]
             [reitit.ring.spec :as spec]
+            [clojure.spec.alpha :as s]
             [reitit.ring.middleware.multipart :as multipart]
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.ring.middleware.exception :as exception]
@@ -54,18 +55,26 @@
 
 (defn cors-handler [_] {:status 200 :headers headers})
 
+(s/def ::query string?)
+(s/def ::variables (s/coll-of string?))
+(s/def ::context string?)
+(s/def ::graphql-req (s/keys :req-un [::query]
+                             :opt-un [::variables ::context]))
+
+(s/def ::documentPlanId string?)
+(s/def ::dataId string?)
+(s/def ::readerFlagValues (s/coll-of string?))
+(s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId]
+                              :opt-un [::readerFlagValues]))
+
 (def routes
   (ring/router
-   [["/_graphql" {:post {:parameters {:body {:query string?
-                                             :variables [string?]
-                                             :context string?}}
+   [["/_graphql" {:post {:parameters {:body ::graphql-req}
                          :handler (fn [{{body :body} :parameters}]
                                     (graphql/handle body))
                          :summary "GraphQL endpoint"}
                   :options cors-handler}]
-    ["/nlg/" {:post   {:parameters {:body {:documentPlanId string?
-                                           :dataId string?
-                                           :readerFlagValues [string?]}}
+    ["/nlg/" {:post   {:parameters {:body ::generate-req}
                        :responses {200 {:body {:resultId string?}}}
                        :summary "Registers document plan for generation"
                        :handler (fn [{{body :body} :parameters}]
