@@ -11,8 +11,8 @@
              net.sf.extjwnl/extjwnl-data-wn31 {:mvn/version "1.2"}
              metosin/jsonista                 {:mvn/version "0.2.5"}
              mount                            {:mvn/version "0.1.16"}
-             com.datomic/client-pro           {:mvn/version "0.9.37"}
-             com.datomic/datomic-free         {:mvn/version "0.9.5697"}
+             com.datomic/datomic-free         {:mvn/version "0.9.5697"
+                                               :exclusions [org.slf4j/slf4j-nop org.slf4j/slf4j-log4j12]}
              io.rkn/conformity                {:mvn/version "0.5.1"}
              org.clojure/clojure              {:mvn/version "1.10.1"}
              org.clojure/data.csv             {:mvn/version "0.1.4"}

@@ -1,7 +1,15 @@
-{:acc-text/dictionary-schema
- {:txes [[{:db/id #db/id [:db.part/db]
-           :db/ident :dictionary/value
+{:acc-text/data-file-schema
+ {:txes [[{:db/ident :data-file/id
            :db/valueType :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/index false
-           :db.install/_attribute :db.part/db}]]}}
+           :db/doc "Public Id of the Data File"}
+
+          {:db/ident :data-file/filename
+           :db/valueType :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc "File name of the Data File"}
+
+          {:db/ident :data-file/content
+           :db/valueType :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc "Content of the Data File"}]]}}
