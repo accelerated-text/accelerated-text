@@ -11,12 +11,19 @@
             [mount.core :refer [defstate] :as mount]
             [org.httpkit.server :as server]
             [ring.middleware.multipart-params :as multipart-params]
+            [reitit.coercion.spec]
             [reitit.ring :as ring]
             [reitit.coercion.schema]
-            [reitit.coercion :as coercion]
-            [reitit.ring.coercion :as rrc]
-            [reitit.coercion.spec :as rcs]
-            [schema.core :as s])
+            [reitit.swagger :as swagger]
+            [reitit.swagger-ui :as swagger-ui]
+            [muuntaja.core :as m]
+            [reitit.ring.coercion :as coercion]
+            [reitit.ring.spec :as spec]
+            [reitit.ring.middleware.multipart :as multipart]
+            [reitit.ring.middleware.parameters :as parameters]
+            [reitit.ring.middleware.exception :as exception]
+            [reitit.ring.middleware.muuntaja :as muuntaja]
+            [reitit.dev.pretty :as pretty])
   (:import (java.io ByteArrayOutputStream)))
 
 (def headers {"Access-Control-Allow-Origin"  "*"
@@ -61,17 +68,13 @@
                               (graphql/handle)
                               (http-response)))
                   :options cors-handler}]
-    ["/nlg/" {:post   {:coercion reitit.coercion.schema/coercion
-                       :parameters {:body {:documentPlanId s/Str
-                                           :dataId s/Str}}
-                       :responses {200 {:body {:resultId s/Str}}}
-                       :handler (fn [{:keys [body]}]
-                                  (log/debugf "Generate: %s" body)
-                                  (-> body
-                                      (utils/read-json-is)
-                                      (generate/generate-request)
-                                      :body
-                                      (http-response)))}
+    ["/nlg/" {:post   {:parameters {:body {:documentPlanId string?
+                                           :dataId string?
+                                           :readerFlagValues [string?]}}
+                       :responses {200 {:body {:resultId string?}}}
+                       :summary "Registers document plan for generation"
+                       :handler (fn [{{body :body} :parameters}]
+                                  (generate/generate-request body))}
               :options cors-handler}]
     ["/nlg/:id" {:get     (wrapped-handler generate/read-result)
                  :delete  (wrapped-handler generate/delete-result)}]
@@ -81,10 +84,27 @@
                                                     id (data-files/store! (get params "file"))]
                                                 (http-response {:message "Succesfully uploaded file" :id id})))}]
     ["/health" {:get health}]]
-   {:data {:coercion rcs/coercion
-           :middleware [rrc/coerce-exceptions-middleware
-                        rrc/coerce-request-middleware
-                        rrc/coerce-response-middleware]}}))
+   {:data {:coercion reitit.coercion.spec/coercion
+           :muuntaja m/instance
+           :middleware [;; swagger feature
+                        swagger/swagger-feature
+                        ;; query-params & form-params
+                        parameters/parameters-middleware
+                        ;; content-negotiation
+                        muuntaja/format-negotiate-middleware
+                        ;; encoding response body
+                        muuntaja/format-response-middleware
+                        ;; exception handling
+                        exception/exception-middleware
+                        ;; decoding request body
+                        muuntaja/format-request-middleware
+                        ;; coercing response bodys
+                        coercion/coerce-response-middleware
+                        ;; coercing request parameters
+                        coercion/coerce-request-middleware
+                        ;; multipart
+                        multipart/multipart-middleware]}
+    :exception pretty/exception}))
 
 
 (def app
