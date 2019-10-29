@@ -12,6 +12,7 @@
              metosin/jsonista                 {:mvn/version "0.2.5"}
              metosin/reitit                   {:mvn/version "0.3.10"}
              metosin/reitit-ring              {:mvn/version "0.3.10"}
+             prismatic/schema                 {:mvn/version "1.1.12"}
              mount                            {:mvn/version "0.1.16"}
              org.clojure/clojure              {:mvn/version "1.10.1"}
              org.clojure/data.csv             {:mvn/version "0.1.4"}

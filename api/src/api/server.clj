@@ -11,7 +11,8 @@
             [mount.core :refer [defstate] :as mount]
             [org.httpkit.server :as server]
             [ring.middleware.multipart-params :as multipart-params]
-            [reitit.ring :as ring])
+            [reitit.ring :as ring]
+            [reitit.coercion.schema :as coercion])
   (:import (java.io ByteArrayOutputStream)))
 
 (def headers {"Access-Control-Allow-Origin"  "*"
