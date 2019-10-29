@@ -39,7 +39,7 @@
 
 (defmethod build-amr :AMR [{:keys [id conceptId roles dictionaryItem]}]
   #:acctext.amr{:concepts  (if (some? dictionaryItem)
-                             (-> dictionaryItem (build-amr) (get :concepts))
+                             (-> dictionaryItem (build-amr) (get :acctext.amr/concepts))
                              [#:acctext.amr{:id    id
                                             :type  :amr
                                             :value conceptId}])
