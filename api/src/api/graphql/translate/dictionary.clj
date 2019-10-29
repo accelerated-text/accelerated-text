@@ -27,13 +27,11 @@
 
 (defn dictionary-item->schema [{:keys [key name phrases] :as dict-item}]
   (log/debugf "DictionaryItem: %s" dict-item)
-  (log/spyf
-    "Translation result %s"
-    (let [part-of-speech (get dict-item :partOfSpeech "VB")]
-      {:id           key
-       :name         name
-       :phrases      (map phrase->schema phrases)
-       :partOfSpeech part-of-speech
-       :concept      (when (= part-of-speech "VB")
-                       (translate-amr/verbclass->schema
-                         (amr/get-verbclass :author)))})))
+  (let [part-of-speech (get dict-item :partOfSpeech "VB")]
+    {:id           key
+     :name         name
+     :phrases      (map phrase->schema phrases)
+     :partOfSpeech part-of-speech
+     :concept      (when (= part-of-speech "VB")
+                     (translate-amr/verbclass->schema
+                       (amr/get-verbclass :author)))}))

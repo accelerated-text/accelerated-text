@@ -6,16 +6,16 @@ services:
       context: .
       dockerfile: api/Dockerfile.localstack
     environment:
-      - SERVICES=dynamodb,s3
-      - DATA_DIR=/tmp/localstack/data
-    ports: ["8000:4569", "8001:4572"]
+      - SERVICES=dynamodb
+    ports: ["8000:4569"]
   acc-text-api:
     build:
       context: .
       dockerfile: api/Dockerfile
     ports: ["3001:3001"]
+    depends_on:
+      - localstack
     environment:
-      S3_ENDPOINT: http://localstack:4572
       DYNAMODB_ENDPOINT: http://localstack:4569
     command: ["clojure", "-A:dev", "-m", "api.server"]
   mock-shop:
@@ -23,6 +23,9 @@ services:
       context: integrations/demo-shop-lambdas
       dockerfile: Dockerfile
     ports: ["8090:8090"]
+    depends_on:
+      - localstack
+      - acc-text-api
     environment:
       API_URL: http://0.0.0.0:8090/mock-shop
       PORT: 8090

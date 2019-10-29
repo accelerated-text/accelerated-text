@@ -1,7 +1,5 @@
 (ns api.utils
-  (:require [clj-time.coerce :as tc]
-            [clj-time.core :as time]
-            [clojure.data.csv :as csv]
+  (:require [clojure.data.csv :as csv]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [clojure.walk :as walk]
@@ -15,9 +13,6 @@
 
 (defn gen-uuid []
   (str (UUID/randomUUID)))
-
-(defn ts-now []
-  (tc/to-long (time/now)))
 
 (defn split-param [param]
   (take 2 (concat (str/split param #"=") (repeat ""))))

@@ -4,19 +4,12 @@
             [api.resource :as resource]
             [api.utils :as utils]
             [clojure.tools.logging :as log]
-            [data.db.dynamo-ops :as ops]
-            [data.db.config :as config]
-            [data.db.s3 :as s3]
-            [data.entities.document-plan :as document-plan])
-  (:gen-class
-    :name nlg.NLGHandler
-    :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
-
-(defn get-db []
-  (ops/db-access :results))
+            [data.entities.data-files :as data-files]
+            [data.entities.document-plan :as document-plan]
+            [data.entities.result :as results]))
 
 (defn get-data [data-id]
-  (doall (utils/csv-to-map (s3/read-file config/data-bucket data-id))))
+  (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
 (def default-reader-model
   {:junior false
@@ -36,10 +29,9 @@
       {:error true :ready true :message (.getMessage e)})))
 
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues}]
-  (let [db (get-db)
-        result-id (utils/gen-uuid)]
-    (ops/write! db result-id {:ready false})
-    (ops/update! db result-id (generation-process document-plan-id data-id reader-model))
+  (let [result-id (utils/gen-uuid)]
+    (results/store-status result-id {:ready false})
+    (results/rewrite result-id (generation-process document-plan-id data-id reader-model))
     {:status 200
      :body   {:resultId result-id}}))
 
@@ -64,10 +56,9 @@
        results))
 
 (defn read-result [_ path-params]
-  (let [db (get-db)
-        request-id (:id path-params)]
+  (let [request-id (:id path-params)]
     (try
-      (if-let [{:keys [results ready updatedAt]} (ops/read! db request-id)]
+      (if-let [{:keys [results ready updatedAt]} (results/fetch request-id)]
         {:status 200
          :body   {:offset     0
                   :totalCount (count results)
@@ -83,12 +74,11 @@
                   :message (.getMessage e)}}))))
 
 (defn delete-result [path-params]
-  (let [db (get-db)
-        request-id (:id path-params)]
+  (let [request-id (:id path-params)]
     (try
-      (if-let [item (ops/read! db request-id)]
+      (if-let [item (results/fetch request-id)]
         (do
-          (ops/delete! db request-id)
+          (results/delete request-id)
           {:status 200
            :body   item})
         {:status 404})
