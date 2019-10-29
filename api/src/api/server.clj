@@ -73,10 +73,12 @@
     ["/nlg/:id" {:get     generate/read-result
                  :delete  generate/delete-result}]
     ["/accelerated-text-data-files/" {:options cors-handler
-                                      :post (fn [request]
-                                              (let [{params :params} (multipart-handler request)
-                                                    id (data-files/store! (get params "file"))]
-                                                (http-response {:message "Succesfully uploaded file" :id id})))}]
+                                      :post {:parameters {:multipart {:file multipart/temp-file-part}}
+                                             :responses {200 {:body {:message string?}}}
+                                             :handler (fn [{{{:keys [file]} :multipart} :parameters}]
+                                                        (let [id (data-files/store! file)]
+                                                          {:status 200
+                                                           :body {:message "Succesfully uploaded file" :id id}}))}}]
     ["/health" {:get health}]]
    {:data {:coercion reitit.coercion.spec/coercion
            :muuntaja m/instance
