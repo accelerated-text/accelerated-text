@@ -2,7 +2,8 @@
   (:require [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [datomic.api :as d]
-            [io.rkn.conformity :as c])
+            [io.rkn.conformity :as c]
+            [mount.core :as mount])
   (:import (java.util UUID)
            (java.io File)))
 
@@ -28,7 +29,18 @@
 (def data-file {:data-file/id "id" :data-file/filename "filename" :data-file/content "content"})
 
 (defn datomix-fixture [f]
-  (let [conn (scratch-conn)]
-    (migrate conn)
-    (log/spy (d/transact conn [data-file]))
-    (f)))
+  (let [db-name (str (UUID/randomUUID))
+        conn (scratch-conn db-name)
+        _ (migrate conn)]
+    (-> (mount/swap-states
+          {#'api.config/conf
+           {:start (fn []
+                     {:db-implementation  :datomic
+                      :db-name            db-name
+                      :db-uri             (str "datomic:mem://" db-name)
+                      :validate-hostnames false})}})
+        (mount/only #{#'api.config/conf
+                      #'data.entities.data-files/data-files-db
+                      #'data.datomic.impl/conn})
+        (mount/start)))
+  (f))
