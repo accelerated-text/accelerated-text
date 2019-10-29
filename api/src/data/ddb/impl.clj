@@ -45,7 +45,7 @@
   {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://localhost:8000")})
 
 (defn db-access
-  [resource-type]
+  [resource-type _]
   (let [{table-name :table-name
          table-key  :table-key} (resolve-table resource-type)
         client-ops (client-opts)]
@@ -56,11 +56,11 @@
           (far/get-item client-ops table-name {table-key key})))
       (write-item [this key data update-count?]
         (let [current-ts (utils/ts-now)
-              body       (cond-> (assoc data
-                                   table-key key
-                                   :createdAt current-ts
-                                   :updatedAt current-ts)
-                                 update-count? (assoc :updateCount 0))]
+              body (cond-> (assoc data
+                             table-key key
+                             :createdAt current-ts
+                             :updatedAt current-ts)
+                           update-count? (assoc :updateCount 0))]
           (far/put-item client-ops table-name (freeze body))
           body))
       (update-item [this key data]
