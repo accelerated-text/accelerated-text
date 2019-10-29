@@ -11,15 +11,17 @@
    data - a flat hashmap (represents CSV)
    returns: hashmap (context) which will be used to generate text"
   [dp]
-  (loop [context              {:dynamic        []
-                               :static         []
-                               :reader-profile :default}
-         [head & tail :as fs] dp]
+  (loop [context {:dynamic        []
+                  :static         []
+                  :reader-profile :default}
+         fs dp]
     (if (map? fs)
       (ops/merge-context context fs)
       (if (empty? fs)
         context
-        (recur (ops/merge-context context (into {} head)) tail)))))
+        (let [[head & tail] fs]
+          (log/tracef "Head: %s" head)
+          (recur (ops/merge-context context (into {} head)) tail))))))
 
 (defn get-placeholder [item]
   (if (realizer/placeholder? item)
@@ -56,7 +58,8 @@
    reader-profile - key defining reader (user)
    returns: generated text"
   [document-plan data reader-profile]
-  (let [dp [[[(parser/parse-document-plan document-plan {} {:reader-profile reader-profile})]]]
+  (log/debugf "Given document plan: %s" document-plan)
+  (let [dp (parser/parse-document-plan document-plan {} {:reader-profile reader-profile})
         instances (map #(map build-dp-instance %) dp)
         context (ops/merge-contexts {:static [] :dynamic []} instances)
         g (grammar/compile-custom-grammar
