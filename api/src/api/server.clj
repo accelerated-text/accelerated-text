@@ -33,19 +33,6 @@
 
 (defn health [_] {:status 200, :body "Ok"})
 
-(defn- http-response [body]
-  {:status  200
-   :headers (assoc headers "Content-Type" "application/json")
-   :body    (json/write-value-as-string body)})
-
-(defn- normalize-request [{:keys [headers query-string body request-method]} path-params]
-  (json/write-value-as-string
-    {:httpMethod            (-> request-method (name) (str/upper-case) (keyword))
-     :queryStringParameters (utils/query->map query-string)
-     :headers               headers
-     :body                  (some-> body (utils/read-json-is) (json/write-value-as-string))
-     :pathParameters        path-params}))
-
 (defn string-store [item]
   (-> (select-keys item [:filename :content-type])
       (assoc :content (slurp (:stream item)))))
@@ -69,33 +56,29 @@
 
 (def routes
   (ring/router
-   [["/_graphql" {:post {:parameters {:body ::graphql-req}
-                         :handler (fn [{{body :body} :parameters}]
-                                    (graphql/handle body))
-                         :summary "GraphQL endpoint"}
-                  :options cors-handler}]
-    ["/nlg/" {:post   {:parameters {:body ::generate-req}
-                       :responses {200 {:body {:resultId string?}}}
-                       :summary "Registers document plan for generation"
-                       :handler (fn [{{body :body} :parameters}]
-                                  (generate/generate-request body))}
-              :options cors-handler}]
-    ["/nlg/:id" {:get     generate/read-result
-                 :delete  generate/delete-result}]
-    ["/accelerated-text-data-files/" {:options cors-handler
-                                      :post {:parameters {:multipart {:file multipart/temp-file-part}}
+   [["/_graphql"    {:post {:parameters {:body ::graphql-req}
+                            :handler (fn [{{body :body} :parameters}]
+                                       (graphql/handle body))
+                            :summary "GraphQL endpoint"}}]
+    ["/nlg/"        {:post   {:parameters {:body ::generate-req}
+                              :responses {200 {:body {:resultId string?}}}
+                              :summary "Registers document plan for generation"
+                              :handler (fn [{{body :body} :parameters}]
+                                         (generate/generate-request body))}}]
+    ["/nlg/:id"     {:get     generate/read-result
+                     :delete  generate/delete-result}]
+    ["/accelerated-text-data-files/" {:post {:parameters {:multipart {:file multipart/temp-file-part}}
                                              :responses {200 {:body {:message string?}}}
                                              :summary "Accepts CSV data files from user"
                                              :handler (fn [{{{:keys [file]} :multipart} :parameters}]
                                                         (let [id (data-files/store! file)]
                                                           {:status 200
                                                            :body {:message "Succesfully uploaded file" :id id}}))}}]
-    ["/swagger.json"
-     {:get {:no-doc true
-            :swagger {:info {:title "nlg-api"
-                             :description "api description"}}
-            :handler (swagger/create-swagger-handler)}}]
-    ["/health" {:get health}]]
+    ["/swagger.json" {:get {:no-doc true
+                            :swagger {:info {:title "nlg-api"
+                                             :description "api description"}}
+                            :handler (swagger/create-swagger-handler)}}]
+    ["/health"       {:get health}]]
    {:data {:coercion reitit.coercion.spec/coercion
            :muuntaja m/instance
            :middleware [ ;; swagger feature
