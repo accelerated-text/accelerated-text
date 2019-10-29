@@ -56,11 +56,12 @@
 
 (def routes
   (ring/router
-   [["/_graphql" {:post (fn [{:keys [body] :as request}]
-                          (-> body
-                              (utils/read-json-is)
-                              (graphql/handle)
-                              (http-response)))
+   [["/_graphql" {:post {:parameters {:body {:query string?
+                                             :variables [string?]
+                                             :context string?}}
+                         :handler (fn [{{body :body} :parameters}]
+                                    (graphql/handle body))
+                         :summary "GraphQL endpoint"}
                   :options cors-handler}]
     ["/nlg/" {:post   {:parameters {:body {:documentPlanId string?
                                            :dataId string?
@@ -75,14 +76,20 @@
     ["/accelerated-text-data-files/" {:options cors-handler
                                       :post {:parameters {:multipart {:file multipart/temp-file-part}}
                                              :responses {200 {:body {:message string?}}}
+                                             :summary "Accepts CSV data files from user"
                                              :handler (fn [{{{:keys [file]} :multipart} :parameters}]
                                                         (let [id (data-files/store! file)]
                                                           {:status 200
                                                            :body {:message "Succesfully uploaded file" :id id}}))}}]
+    ["/swagger.json"
+     {:get {:no-doc true
+            :swagger {:info {:title "nlg-api"
+                             :description "api description"}}
+            :handler (swagger/create-swagger-handler)}}]
     ["/health" {:get health}]]
    {:data {:coercion reitit.coercion.spec/coercion
            :muuntaja m/instance
-           :middleware [;; swagger feature
+           :middleware [ ;; swagger feature
                         swagger/swagger-feature
                         ;; query-params & form-params
                         parameters/parameters-middleware
@@ -104,7 +111,13 @@
 
 
 (def app
-  (ring/ring-handler routes (ring/create-default-handler)))
+  (ring/ring-handler
+   routes
+   (swagger-ui/create-swagger-ui-handler
+    {:path "/"
+     :config {:validatorUrl nil
+              :operationsSorter "alpha"}})
+   (ring/create-default-handler)))
 
 (defstate http-server
   :start (let [host (or (System/getenv "ACC_TEXT_API_HOST") "0.0.0.0")
