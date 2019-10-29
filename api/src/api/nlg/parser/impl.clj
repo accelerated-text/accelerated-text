@@ -99,7 +99,7 @@
 
 (defn gen-id [node index]
   (-> node
-      (assoc :id (format "%02d" index))
+      (assoc :id (keyword (format "%02d" index)))
       (dissoc :srcId)))
 
 (defn nil->placeholder [node]

@@ -4,7 +4,7 @@
             [clojure.spec.gen.alpha :as gen]
             [clojure.string :as string]))
 
-(s/def :acctext.amr/id (s/and string? #(not (string/blank? %))))
+(s/def :acctext.amr/id keyword?)
 (s/def :acctext.amr/name (s/and string? #(not (string/blank? %))))
 
 (s/def :acctext.amr/type (s/or :valid #{:document-plan :segment :data :quote :dictionary-item}
