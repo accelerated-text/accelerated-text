@@ -69,6 +69,9 @@
     (doall (map #(apply array-map %) pairs))))
 
 (defn plan-graph [semantic-graph]
-  (apply uber/graph (map (fn [[from rel to]] [from to {:name rel}]) (:relations semantic-graph))))
+  (apply uber/graph (for [{{name :acctext.amr/name} :acctext.amr/attributes
+                           from                     :acctext.amr/from
+                           to                       :acctext.amr/to} (:acctext.amr/relations semantic-graph)]
+                      [from to {:name name}])))
 
 (defn vizgraph [uber-graph] (uber/viz-graph uber-graph))
