@@ -12,7 +12,11 @@
             [org.httpkit.server :as server]
             [ring.middleware.multipart-params :as multipart-params]
             [reitit.ring :as ring]
-            [reitit.coercion.schema :as coercion])
+            [reitit.coercion.schema]
+            [reitit.coercion :as coercion]
+            [reitit.ring.coercion :as rrc]
+            [reitit.coercion.spec :as rcs]
+            [schema.core :as s])
   (:import (java.io ByteArrayOutputStream)))
 
 (def headers {"Access-Control-Allow-Origin"  "*"
@@ -57,13 +61,17 @@
                               (graphql/handle)
                               (http-response)))
                   :options cors-handler}]
-    ["/nlg/" {:post   (fn [{:keys [body]}]
-                        (log/debugf "Generate: %s" body)
-                        (-> body
-                            (utils/read-json-is)
-                            (generate/generate-request)
-                            :body
-                            (http-response)))
+    ["/nlg/" {:post   {:coercion reitit.coercion.schema/coercion
+                       :parameters {:body {:documentPlanId s/Str
+                                           :dataId s/Str}}
+                       :responses {200 {:body {:resultId s/Str}}}
+                       :handler (fn [{:keys [body]}]
+                                  (log/debugf "Generate: %s" body)
+                                  (-> body
+                                      (utils/read-json-is)
+                                      (generate/generate-request)
+                                      :body
+                                      (http-response)))}
               :options cors-handler}]
     ["/nlg/:id" {:get     (wrapped-handler generate/read-result)
                  :delete  (wrapped-handler generate/delete-result)}]
@@ -72,7 +80,11 @@
                                               (let [{params :params} (multipart-handler request)
                                                     id (data-files/store! (get params "file"))]
                                                 (http-response {:message "Succesfully uploaded file" :id id})))}]
-    ["/health" {:get health}]]))
+    ["/health" {:get health}]]
+   {:data {:coercion rcs/coercion
+           :middleware [rrc/coerce-exceptions-middleware
+                        rrc/coerce-request-middleware
+                        rrc/coerce-response-middleware]}}))
 
 
 (def app
