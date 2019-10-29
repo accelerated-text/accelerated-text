@@ -7,6 +7,7 @@
              http-kit                         {:mvn/version "2.3.0"}
              javax.servlet/servlet-api        {:mvn/version "2.5"}
              ring/ring-core                   {:mvn/version "1.7.1"}
+             ring-cors                        {:mvn/version "0.1.13"}
              net.sf.extjwnl/extjwnl           {:mvn/version "2.0.2"}
              net.sf.extjwnl/extjwnl-data-wn31 {:mvn/version "1.2"}
              metosin/jsonista                 {:mvn/version "0.2.5"}

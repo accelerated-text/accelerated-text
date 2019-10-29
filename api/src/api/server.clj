@@ -13,6 +13,7 @@
             [ring.middleware.multipart-params :as multipart-params]
             [reitit.coercion.spec]
             [reitit.ring :as ring]
+            [ring.middleware.cors :refer [wrap-cors]]
             [reitit.coercion.schema]
             [reitit.swagger :as swagger]
             [reitit.swagger-ui :as swagger-ui]
@@ -58,8 +59,11 @@
   (ring/router
    [["/_graphql"    {:post {:parameters {:body ::graphql-req}
                             :handler (fn [{{body :body} :parameters}]
-                                       (graphql/handle body))
-                            :summary "GraphQL endpoint"}}]
+                                       {:status 200
+                                        :headers headers
+                                        :body (graphql/handle body)})
+                            :summary "GraphQL endpoint"}
+                     :options cors-handler}]
     ["/nlg/"        {:post   {:parameters {:body ::generate-req}
                               :responses {200 {:body {:resultId string?}}}
                               :summary "Registers document plan for generation"
@@ -73,6 +77,7 @@
                                              :handler (fn [{{{:keys [file]} :multipart} :parameters}]
                                                         (let [id (data-files/store! file)]
                                                           {:status 200
+                                                           :headers headers
                                                            :body {:message "Succesfully uploaded file" :id id}}))}}]
     ["/swagger.json" {:get {:no-doc true
                             :swagger {:info {:title "nlg-api"
@@ -80,6 +85,7 @@
                             :handler (swagger/create-swagger-handler)}}]
     ["/health"       {:get health}]]
    {:data {:coercion reitit.coercion.spec/coercion
+           ::default-options-handler cors-handler
            :muuntaja m/instance
            :middleware [ ;; swagger feature
                         swagger/swagger-feature
@@ -98,7 +104,8 @@
                         ;; coercing request parameters
                         coercion/coerce-request-middleware
                         ;; multipart
-                        multipart/multipart-middleware]}
+                        multipart/multipart-middleware
+                        ]}
     :exception pretty/exception}))
 
 
