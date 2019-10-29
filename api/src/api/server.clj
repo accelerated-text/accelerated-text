@@ -72,7 +72,7 @@
     ["/nlg/:id"     {:get     generate/read-result
                      :delete  generate/delete-result}]
     ["/accelerated-text-data-files/" {:post {:parameters {:multipart {:file multipart/temp-file-part}}
-                                             :responses {200 {:body {:message string?}}}
+                                             :responses {200 {:body {:message string? :id string?}}}
                                              :summary "Accepts CSV data files from user"
                                              :handler (fn [{{{:keys [file]} :multipart} :parameters}]
                                                         (let [id (data-files/store! file)]
