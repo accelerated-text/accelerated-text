@@ -44,10 +44,11 @@
 (defn cors-handler [_] {:status 200 :headers headers})
 
 (s/def ::query string?)
-(s/def ::variables (s/map-of string? string?))
+(s/def ::operationName string?)
+(s/def ::variables (s/map-of string? any?))
 (s/def ::context string?)
 (s/def ::graphql-req (s/keys :req-un [::query]
-                             :opt-un [::variables ::context]))
+                             :opt-un [::operationName ::variables ::context]))
 
 (s/def ::documentPlanId string?)
 (s/def ::dataId string?)
@@ -71,14 +72,12 @@
                                          (generate/generate-request body))}}]
     ["/nlg/:id"     {:get     generate/read-result
                      :delete  generate/delete-result}]
-    ["/accelerated-text-data-files/" {:post {:parameters {:multipart {:file multipart/temp-file-part}}
-                                             :responses {200 {:body {:message string? :id string?}}}
-                                             :summary "Accepts CSV data files from user"
-                                             :handler (fn [{{{:keys [file]} :multipart} :parameters}]
-                                                        (let [id (data-files/store! file)]
-                                                          {:status 200
-                                                           :headers headers
-                                                           :body {:message "Succesfully uploaded file" :id id}}))}}]
+    ["/accelerated-text-data-files/" {:post (fn [request]
+                                              (let [{params :params} (multipart-handler request)
+                                                    id (data-files/store! (get params "file"))]
+                                                {:status 200
+                                                 :headers headers
+                                                 :body {:message "Succesfully uploaded file" :id id}}))}]
     ["/swagger.json" {:get {:no-doc true
                             :swagger {:info {:title "nlg-api"
                                              :description "api description"}}
