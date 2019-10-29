@@ -1,21 +1,13 @@
 (ns acc-text.nlg.verbnet.grammar-patterns
-  (:require [clojure.tools.logging :as log]
-            [clojure.set :as set]))
+  (:require [clojure.set :as set]
+            [clojure.string :as string]
+            [clojure.tools.logging :as log]))
 
 (defn pattern [predicate a b placement]
   {:predicate predicate
-   :arg1 a
-   :arg2 b
+   :arg1      a
+   :arg2      b
    :placement placement})
-
-(defn map-shift
-  "Gives next value, current value and previous value."
-  [f col]
-  (let [k (min 3 (count col))
-        filter-fn (fn [args] (= k (count (remove nil? args))))]
-    (->> (map vector col (cons nil col) (->> col (cons nil) (cons nil)))
-         (filter filter-fn) ;; Filter out sequences with unecessary nils
-         (map f))))
 
 (defn optimize-arguments
   "Optimizes arguments like this:
@@ -27,13 +19,13 @@
           (inside-predicate? [{:keys [predicate]} {:keys [arg1 arg2]}] (or (= arg1 predicate) (= arg2 predicate)))
           (predicate? [p] (contains? p :predicate))]
     (map
-     (fn [{:keys [arg1 arg2] :as pattern}]
-       (log/tracef "Arg: %s single? %b predicate? %b Inside? %b" arg1 (single? arg1) (predicate? arg1) (inside-predicate? arg1 arg2))
-       (cond
-         (and (predicate? arg1) (inside-predicate? arg1 arg2) (single? arg1)) (assoc pattern :arg1 (:arg1 arg1))
-         (and (predicate? arg2) (inside-predicate? arg2 arg1) (single? arg2)) (assoc pattern :arg2 (:arg1 arg2))
-         :else pattern))
-     patterns)))
+      (fn [{:keys [arg1 arg2] :as pattern}]
+        (log/tracef "Arg: %s single? %b predicate? %b Inside? %b" arg1 (single? arg1) (predicate? arg1) (inside-predicate? arg1 arg2))
+        (cond
+          (and (predicate? arg1) (inside-predicate? arg1 arg2) (single? arg1)) (assoc pattern :arg1 (:arg1 arg1))
+          (and (predicate? arg2) (inside-predicate? arg2 arg1) (single? arg2)) (assoc pattern :arg2 (:arg1 arg2))
+          :else                                                                pattern))
+      patterns)))
 
 (defn replace-arguments
   " Go through all patterns and replace arguments with given predicate:
@@ -162,8 +154,7 @@
           (group-by :predicate patterns)))))
 
 (defn combine-roots
-  "In case we have two root items at the end of merging, we need to combine them somehow
-  "
+  "In case we have two root items at the end of merging, we need to combine them somehow"
   [patterns]
   (case (count patterns)
     1 patterns ;; Usually there's only one item, do nothing
@@ -171,13 +162,56 @@
         (cond
           (= (:arg2 p1) (:arg1 p2)) (list (assoc p1 :arg2 p2))
           (= (:arg1 p1) (:arg2 p2)) (list (assoc p2 :arg2 p1))
-          :else (do
-                  (log/debugf "Sorry '%s' and '%s' doesn't combine" p1 p2)
-                  patterns)))
-    patterns ;; Need separate algorithm if we ever get more than two
-    ))
+          :else                     (do
+                                      (log/debugf "Sorry '%s' and '%s' doesn't combine" p1 p2)
+                                      patterns)))
+    ;; Need separate algorithm if we ever get more than two
+    patterns))
 
-(defn debug-patterns
-  [patterns]
-  (log/debugf "Patterns: %s" (pr-str patterns))
-  patterns)
+(defn drop-vnet-id [word] (string/replace word #"-\d+.*" ""))
+
+(defn role->pattern [[next-role role previous-role]]
+  (case (vector (:pos previous-role) (:pos role) (:pos next-role))
+    [:NP :LEX :LEX]    (pattern role previous-role next-role :middle)
+    [:LEX :LEX :PREP]  (pattern next-role previous-role role :end)
+    [:LEX :PREP :NP]   (pattern role previous-role next-role :middle)
+    [:NP :VERB :PREP]  (pattern role previous-role next-role :middle)
+    [:VERB :PREP :NP]  (pattern previous-role role next-role :start)
+    [nil :NP :VERB]    (pattern next-role role nil :end)
+    [:NP :LEX :VERB]   (pattern next-role previous-role role :end)
+    [:LEX :VERB :PREP] (pattern role previous-role next-role :middle)
+    [:LEX :LEX :LEX]   (pattern previous-role role next-role :start)
+    [:LEX :LEX :NP]    (pattern previous-role role next-role :start)
+    [:NP :LEX :PREP]   (pattern next-role previous-role role :end)
+    [:NP :VERB :NP]    (pattern role previous-role next-role :middle)
+    [:VERB :NP :PREP]  (pattern previous-role role next-role :start)
+    [:NP :PREP :NP]    (pattern role previous-role next-role :middle)
+    [:PREP :NP :PREP]  (pattern next-role previous-role role :end)
+    [:NP :VERB :ADV]   (pattern role previous-role next-role :middle)
+    [:VERB :ADV :PREP] (pattern previous-role role next-role :start)
+    [:ADV :PREP :NP]   (pattern role previous-role next-role :middle)
+    [:VERB :NP :NP]    (pattern previous-role role next-role :start)
+    [:VERB :NP :LEX]   (pattern previous-role role next-role :start)
+    [:NP :LEX :NP]     (pattern role previous-role next-role :middle)
+    [:NP :NP :VERB]    (pattern next-role previous-role role :end)
+    [:LEX :NP :VERB]   (pattern next-role previous-role role :end)))
+
+(defn map-shift
+  "Gives next value, current value and previous value."
+  [coll]
+  (->> (map vector coll (cons nil coll) (->> coll (cons nil) (cons nil)))
+       (filter (fn [args] (= (min 3 (count coll)) (count (remove nil? args)))))
+       (map role->pattern)))
+
+(defn build-grammar-patterns [id syntax]
+  (->> syntax
+       (map (fn [p] (case   (:pos p)
+                      :VERB (assoc p :value (drop-vnet-id id))
+                      ;; Where do we get these adverbs?
+                      :ADV  (assoc p :value (format "%s-adv" (drop-vnet-id id)))
+                      p)))
+       (map-shift)
+       (merge-arguments)
+       (merge-predicates)
+       (optimize-arguments)
+       (combine-roots)))
