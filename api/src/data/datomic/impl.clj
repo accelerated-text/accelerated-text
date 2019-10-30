@@ -18,21 +18,40 @@
 
 (defmethod transact-item :default [resource-type key _]
   (log/warnf "Default implementation of transact-item for the '%s' with key '%s'"
-             resource-type key))
+             resource-type key)
+  (throw (RuntimeException. "NOT IMPLEMENTED")))
 
 (defmulti pull-entity (fn [resource-type _] resource-type))
 
-(defmethod pull-entity :data-files [resource-type key]
-  (log/debugf "Pulling entity %s with key %s" resource-type key)
+(defmethod pull-entity :data-files [_ key]
+  (log/trace key)
   (let [df (ffirst (d/q '[:find (pull ?e [*])
                           :where
                           [?e :data-file/id ?key]]
                         (d/db conn)))]
-    {:content (:data-file/content df)}))
+    {:filename (:data-file/filename df)
+     :content (:data-file/content df)}))
 
 (defmethod pull-entity :default [resource-type key]
   (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'"
-             resource-type key))
+             resource-type key)
+  (throw (RuntimeException. "NOT IMPLEMENTED")))
+
+(defmulti pull-n (fn [resource-type _] resource-type))
+
+(defmethod pull-n :data-files [_ limit]
+  (let [resp (first (d/q '[:find (pull ?e [*])
+                           :where [?e :data-file/id]]
+                         (d/db conn)))]
+
+    (map (fn [df] {:id       (:data-file/id df)
+                   :filename (:data-file/filename df)
+                   :content  (:data-file/content df)}) (take limit resp))))
+
+(defmethod pull-n :default [resource-type limit]
+  (log/warnf "Default implementation of list-items for the '%s' with key '%s'"
+             resource-type limit)
+  (throw (RuntimeException. "NOT IMPLEMENTED")))
 
 (defn db-access
   [resource-type config]
@@ -43,8 +62,8 @@
       (pull-entity resource-type key))
     (write-item [this key data update-count?]
       (transact-item resource-type key data))
-    (update-item [this key data] (prn "updating"))
-    (delete-item [this key] (prn "deleting"))
-    (list-items [this limit] (prn "list items"))
-    (scan-items [this opts] (prn "scan items"))
-    (batch-read-items [this ids] (prn "batch read"))))
+    (update-item [this key data] (throw (RuntimeException. "NOT IMPLEMENTED")))
+    (delete-item [this key] (throw (RuntimeException. "NOT IMPLEMENTED")))
+    (list-items [this limit] (pull-n resource-type limit))
+    (scan-items [this opts] (throw (RuntimeException. "NOT IMPLEMENTED")))
+    (batch-read-items [this ids] (throw (RuntimeException. "NOT IMPLEMENTED")))))
