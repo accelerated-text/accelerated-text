@@ -1,5 +1,5 @@
 (ns api.db-fixtures
-  (:require [api.graphql.ddb-fixtures :as ddb]
+  (:require [api.ddb-fixtures :as ddb]
             [api.datomic-fixtures :as datomic]))
 
 (defn clean-db [f]

@@ -1,6 +1,6 @@
 (ns api.nlg.generate-test
   (:require [api.nlg.generate :refer [generation-process]]
-            [api.graphql.ddb-fixtures :as ddb-fixtures]
+            [api.ddb-fixtures :as ddb-fixtures]
             [api.test-utils :refer [q]]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.data-files :as data-files]))

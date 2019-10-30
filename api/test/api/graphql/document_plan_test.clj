@@ -1,6 +1,6 @@
 (ns api.graphql.document-plan-test
   (:require [api.test-utils :refer [q]]
-            [api.graphql.ddb-fixtures :as fixtures]
+            [api.ddb-fixtures :as fixtures]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]))
 
