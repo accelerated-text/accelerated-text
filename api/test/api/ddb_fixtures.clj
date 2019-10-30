@@ -1,4 +1,4 @@
-(ns api.graphql.ddb-fixtures
+(ns api.ddb-fixtures
   (:require [clojure.tools.logging :as log]
             [data.ddb.impl :as ddb]
             [mount.core :as mount]

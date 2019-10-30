@@ -2,7 +2,7 @@
   (:require [api.test-utils :refer [q]]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.db :as ops]
-            [api.graphql.ddb-fixtures :as fixtures]
+            [api.ddb-fixtures :as fixtures]
             [data.entities.dictionary :as dict-entity]))
 
 (defn prepare-environment [f]

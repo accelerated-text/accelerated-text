@@ -1,6 +1,6 @@
 (ns api.graphql.data-test
   (:require [api.test-utils :refer [q]]
-            [api.graphql.ddb-fixtures :as ddb-fixtures]
+            [api.ddb-fixtures :as ddb-fixtures]
             [clojure.string :as str]
             [clojure.test :refer [deftest is use-fixtures testing]]
             [data.entities.data-files :as data-files]))

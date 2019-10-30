@@ -1,6 +1,6 @@
 (ns api.graphql.amr-test
   (:require [api.test-utils :refer [q]]
-            [api.graphql.ddb-fixtures :as ddb-fixtures]
+            [api.ddb-fixtures :as ddb-fixtures]
             [clojure.test :refer [deftest is use-fixtures]]))
 
 (use-fixtures :each ddb-fixtures/wipe-ddb-tables)

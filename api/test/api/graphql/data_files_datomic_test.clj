@@ -1,8 +1,8 @@
 (ns api.graphql.data-files-datomic-test
   (:require [api.db-fixtures :refer [clean-db]]
+            [clojure.string :as str]
             [clojure.test :refer [deftest is testing use-fixtures]]
-            [data.entities.data-files :as data-files]
-            [clojure.string :as str]))
+            [data.entities.data-files :as data-files]))
 
 (use-fixtures :each clean-db)
 

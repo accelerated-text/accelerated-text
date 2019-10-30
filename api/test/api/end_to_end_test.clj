@@ -1,5 +1,5 @@
 (ns api.end-to-end-test
-  (:require [api.graphql.ddb-fixtures :as ddb-fixtures]
+  (:require [api.ddb-fixtures :as ddb-fixtures]
             [api.test-utils :refer [q load-test-document-plan]]
             [clojure.string :as string]
             [clojure.test :refer [deftest is use-fixtures]]

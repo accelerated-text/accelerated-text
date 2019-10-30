@@ -1,5 +1,5 @@
 (ns api.nlg.generator.amr-plan-parser-test
-  (:require [api.graphql.ddb-fixtures :as ddb-fixtures]
+  (:require [api.ddb-fixtures :as ddb-fixtures]
             [api.nlg.generator.parser-ng :as parser-ng]
             [api.test-utils :refer [load-test-document-plan q]]
             [clojure.test :refer [deftest is use-fixtures]]))
