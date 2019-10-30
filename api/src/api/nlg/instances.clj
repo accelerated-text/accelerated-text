@@ -11,7 +11,7 @@
 
 (defn build-dictionary-for-profile [dictionary-items reader-profile]
   (reduce (fn [m value]
-            (assoc m value (vec (dictionary-api/search (str/lower-case value) reader-profile))))
+            (assoc m value (dictionary-api/search (str/lower-case value) reader-profile)))
           {}
           dictionary-items))
 
@@ -36,4 +36,4 @@
     (for [reader-profile reader-profiles]
       (let [context {:reader-profile reader-profile
                      :dictionary     (get dictionary reader-profile)}]
-        (update document-plan :acctext.amr/concepts #(mapv (fn [concept] (add-context concept context)) %))))))
+        (update document-plan :acctext.amr/concepts #(map (fn [concept] (add-context concept context)) %))))))
