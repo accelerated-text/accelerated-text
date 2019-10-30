@@ -20,7 +20,6 @@
             [muuntaja.core :as m]
             [reitit.ring.coercion :as coercion]
             [reitit.ring.spec :as spec]
-            [clojure.spec.alpha :as s]
             [reitit.ring.middleware.multipart :as multipart]
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.ring.middleware.exception :as exception]
@@ -43,35 +42,30 @@
 
 (defn cors-handler [_] {:status 200 :headers headers})
 
-(s/def ::query string?)
-(s/def ::operationName string?)
-(s/def ::variables (s/map-of string? any?))
-(s/def ::context string?)
-(s/def ::graphql-req (s/keys :req-un [::query]
-                             :opt-un [::operationName ::variables ::context]))
-
-(s/def ::documentPlanId string?)
-(s/def ::dataId string?)
-(s/def ::readerFlagValues (s/coll-of string?))
-(s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId]
-                              :opt-un [::readerFlagValues]))
-
 (def routes
   (ring/router
-   [["/_graphql"    {:post {:parameters {:body ::graphql-req}
-                            :handler (fn [{{body :body} :parameters}]
-                                       {:status 200
-                                        :headers headers
-                                        :body (graphql/handle body)})
+   [["/_graphql"    {:post {:handler (fn [{raw :body}]
+                                       (let [body (utils/read-json-is raw)]
+                                         {:status 200
+                                          :headers headers
+                                          :body (graphql/handle body)}))
                             :summary "GraphQL endpoint"}
                      :options cors-handler}]
-    ["/nlg/"        {:post   {:parameters {:body ::generate-req}
+    ["/nlg/"        {:post   {:parameters {:body ::generate/generate-req}
                               :responses {200 {:body {:resultId string?}}}
                               :summary "Registers document plan for generation"
+                              :coercion reitit.coercion.spec/coercion
+                              :middleware [muuntaja/format-request-middleware
+                                           coercion/coerce-request-middleware
+                                           coercion/coerce-response-middleware]
                               :handler (fn [{{body :body} :parameters}]
-                                         (generate/generate-request body))}}]
-    ["/nlg/:id"     {:get     generate/read-result
-                     :delete  generate/delete-result}]
+                                         {:status 200
+                                          :body (generate/generate-request body)
+                                          :headers headers})}
+                     :options cors-handler}]
+    ["/nlg/:id"     {:get     (assoc generate/read-result :headers headers) 
+                     :delete  (assoc generate/delete-result :headers headers)
+                     :options cors-handler}]
     ["/accelerated-text-data-files/" {:post (fn [request]
                                               (let [{params :params} (multipart-handler request)
                                                     id (data-files/store! (get params "file"))]
@@ -83,27 +77,13 @@
                                              :description "api description"}}
                             :handler (swagger/create-swagger-handler)}}]
     ["/health"       {:get health}]]
-   {:data {:coercion reitit.coercion.spec/coercion
-           ::default-options-handler cors-handler
+   {:data {
            :muuntaja m/instance
-           :middleware [ ;; swagger feature
-                        swagger/swagger-feature
-                        ;; query-params & form-params
-                        parameters/parameters-middleware
-                        ;; content-negotiation
+           :middleware [swagger/swagger-feature
                         muuntaja/format-negotiate-middleware
-                        ;; encoding response body
+                        parameters/parameters-middleware
                         muuntaja/format-response-middleware
-                        ;; exception handling
                         exception/exception-middleware
-                        ;; decoding request body
-                        muuntaja/format-request-middleware
-                        ;; coercing response bodys
-                        coercion/coerce-response-middleware
-                        ;; coercing request parameters
-                        coercion/coerce-request-middleware
-                        ;; multipart
-                        multipart/multipart-middleware
                         ]}
     :exception pretty/exception}))
 
@@ -122,9 +102,9 @@
                port (Integer/valueOf ^String (or (System/getenv "ACC_TEXT_API_PORT") "3001"))]
            (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
            (server/run-server
-            app {:port     port
-                 :ip       host
-                 :max-body Integer/MAX_VALUE}))
+            #'app {:port     port
+                   :ip       host
+                   :max-body Integer/MAX_VALUE}))
   :stop (http-server :timeout 100))
 
 

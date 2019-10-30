@@ -6,7 +6,16 @@
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as document-plan]
-            [data.entities.result :as results]))
+            [clojure.spec.alpha :as s]
+            [data.entities.result :as results]
+            [mount.core :refer [defstate]]))
+
+(s/def ::documentPlanId string?)
+(s/def ::dataId string?)
+(s/def ::readerFlagValues (s/map-of string? boolean?))
+(s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId ::readerFlagValues]))
+
+(defstate results-db :start (ops/db-access :results))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
@@ -34,6 +43,7 @@
     (results/rewrite result-id (generation-process document-plan-id data-id reader-model))
     {:status 200
      :body   {:resultId result-id}}))
+
 
 (defn wrap-to-annotated-text
   [results]
