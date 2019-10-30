@@ -1,9 +1,20 @@
 (ns api.graphql.document-plan-test
   (:require [api.test-utils :refer [q]]
-            [api.ddb-fixtures :as fixtures]
+            [api.db-fixtures :as db-fixtures]
             [clojure.test :refer [deftest is use-fixtures]]))
 
-(use-fixtures :each fixtures/wipe-ddb-tables)
+(use-fixtures :each db-fixtures/clean-db)
+
+(deftest ^:integration write-document-plan
+  (let [query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
+        {{{{:keys [id]} :createDocumentPlan} :data errors :errors} :body}
+        (q "/_graphql" :post {:query     query
+                                :variables {:uid          "01"
+                                            :name         "test"
+                                            :blocklyXml   "<>"
+                                            :documentPlan "\"{}\""}})]
+    (is (nil? errors))
+    (is (string? id))))
 
 (deftest ^:integration document-plans-test
   (let [query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
