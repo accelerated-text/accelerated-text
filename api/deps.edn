@@ -7,13 +7,11 @@
              http-kit                         {:mvn/version "2.3.0"}
              javax.servlet/servlet-api        {:mvn/version "2.5"}
              ring/ring-core                   {:mvn/version "1.7.1"}
-             ring-cors                        {:mvn/version "0.1.13"}
              net.sf.extjwnl/extjwnl           {:mvn/version "2.0.2"}
              net.sf.extjwnl/extjwnl-data-wn31 {:mvn/version "1.2"}
              metosin/jsonista                 {:mvn/version "0.2.5"}
              metosin/reitit                   {:mvn/version "0.3.10"}
              metosin/reitit-ring              {:mvn/version "0.3.10"}
-             prismatic/schema                 {:mvn/version "1.1.12"}
              mount                            {:mvn/version "0.1.16"}
              org.clojure/clojure              {:mvn/version "1.10.1"}
              org.clojure/data.csv             {:mvn/version "0.1.4"}
