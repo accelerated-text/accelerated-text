@@ -44,6 +44,8 @@
                       :validate-hostnames false})}})
         (mount/only #{#'api.config/conf
                       #'data.entities.data-files/data-files-db
+                      #'data.entities.dictionary/reader-flags-db
+                      #'data.entities.dictionary/dictionary-combined-db
                       #'data.datomic.impl/conn})
         (mount/start)))
   (f))

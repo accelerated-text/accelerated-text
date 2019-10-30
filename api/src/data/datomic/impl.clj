@@ -11,10 +11,18 @@
 (defmulti transact-item (fn [resource-type _ _] resource-type))
 
 (defmethod transact-item :data-files [_ key data-item]
-  (d/transact conn
-              [{:data-file/id       key
-                :data-file/filename (:filename data-item)
-                :data-file/content  (:content data-item)}]))
+  @(d/transact conn [{:data-file/id       key
+                      :data-file/filename (:filename data-item)
+                      :data-file/content  (:content data-item)}]))
+
+(defmethod transact-item :dictionary-combined [_ key data-item]
+  @(d/transact conn [(cond-> {:dictionary-combined/id key}
+                             (:name data-item)
+                             (assoc :dictionary-combined/name (:name data-item))
+                             (:partOfSpeech data-item)
+                             (assoc :dictionary-combined/partOfSpeech (:partOfSpeech data-item))
+                             (seq (:phrases data-item))
+                             (assoc :dictionary-combined/phrases (:phrases data-item)))]))
 
 (defmethod transact-item :default [resource-type key _]
   (log/warnf "Default implementation of transact-item for the '%s' with key '%s'"
@@ -24,13 +32,23 @@
 (defmulti pull-entity (fn [resource-type _] resource-type))
 
 (defmethod pull-entity :data-files [_ key]
-  (log/trace key)
   (let [df (ffirst (d/q '[:find (pull ?e [*])
                           :where
                           [?e :data-file/id ?key]]
-                        (d/db conn)))]
+                        (d/db conn)
+                        key))]
     {:filename (:data-file/filename df)
      :content (:data-file/content df)}))
+
+(defmethod pull-entity :dictionary-combined [_ key]
+  (let [dictionary-entry (ffirst (d/q '[:find (pull ?e [*])
+                                        :in $ ?key
+                                        :where [?e :dictionary-combined/id ?key]]
+                                      (d/db conn)
+                                      key))]
+    {:key     (:dictionary-combined/id dictionary-entry)
+     :name    (:dictionary-combined/name dictionary-entry)
+     :phrases (:dictionary-combined/phrases dictionary-entry)}))
 
 (defmethod pull-entity :default [resource-type key]
   (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'"
