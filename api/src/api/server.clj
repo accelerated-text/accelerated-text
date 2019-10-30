@@ -42,6 +42,11 @@
 
 (defn cors-handler [_] {:status 200 :headers headers})
 
+(defn wrap-response [handler]
+  (fn [request]
+    (let [resp (handler request)]
+      (assoc resp :headers (merge (:headers resp) headers)))))
+
 (def routes
   (ring/router
    [["/_graphql"    {:post {:handler (fn [{raw :body}]
@@ -59,18 +64,15 @@
                                            coercion/coerce-request-middleware
                                            coercion/coerce-response-middleware]
                               :handler (fn [{{body :body} :parameters}]
-                                         {:status 200
-                                          :body (generate/generate-request body)
-                                          :headers headers})}
+                                         (generate/generate-request body))}
                      :options cors-handler}]
-    ["/nlg/:id"     {:get     (assoc generate/read-result :headers headers) 
-                     :delete  (assoc generate/delete-result :headers headers)
+    ["/nlg/:id"     {:get     generate/read-result
+                     :delete  generate/delete-result
                      :options cors-handler}]
     ["/accelerated-text-data-files/" {:post (fn [request]
                                               (let [{params :params} (multipart-handler request)
                                                     id (data-files/store! (get params "file"))]
                                                 {:status 200
-                                                 :headers headers
                                                  :body {:message "Succesfully uploaded file" :id id}}))}]
     ["/swagger.json" {:get {:no-doc true
                             :swagger {:info {:title "nlg-api"
@@ -84,6 +86,7 @@
                         parameters/parameters-middleware
                         muuntaja/format-response-middleware
                         exception/exception-middleware
+                        wrap-response
                         ]}
     :exception pretty/exception}))
 

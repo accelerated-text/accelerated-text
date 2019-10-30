@@ -44,7 +44,6 @@
     {:status 200
      :body   {:resultId result-id}}))
 
-
 (defn wrap-to-annotated-text
   [results]
   (map (fn [r]
