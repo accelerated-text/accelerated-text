@@ -11,7 +11,7 @@
 
 (defn build-dictionary-for-profile [dictionary-items reader-profile]
   (reduce (fn [m value]
-            (assoc m value (dictionary-api/search (str/lower-case value) reader-profile)))
+            (assoc m value (vec (dictionary-api/search (str/lower-case value) reader-profile))))
           {}
           dictionary-items))
 
