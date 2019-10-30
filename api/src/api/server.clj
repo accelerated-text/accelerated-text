@@ -13,7 +13,6 @@
             [ring.middleware.multipart-params :as multipart-params]
             [reitit.coercion.spec]
             [reitit.ring :as ring]
-            [ring.middleware.cors :refer [wrap-cors]]
             [reitit.coercion.schema]
             [reitit.swagger :as swagger]
             [reitit.swagger-ui :as swagger-ui]
