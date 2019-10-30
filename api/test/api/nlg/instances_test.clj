@@ -1,6 +1,6 @@
-(ns api.nlg.context-test
+(ns api.nlg.instances-test
   (:require [api.graphql.ddb-fixtures :as ddb-fixtures]
-            [api.nlg.context :as context]
+            [api.nlg.instances :as instances]
             [api.nlg.parser :as parser]
             [api.test-utils :refer [q load-test-document-plan]]
             [clojure.test :refer [deftest is use-fixtures]]))
@@ -20,18 +20,24 @@
 
 (use-fixtures :each ddb-fixtures/wipe-ddb-tables prepare-environment)
 
-(deftest dictionary-building
+(deftest dictionary-item-extraction
   (let [document-plan (parser/parse-document-plan (load-test-document-plan "author-amr-with-adj"))]
-    (is (= {"good"    ["excellent"]
-            "written" ["authored"]} (context/build-dictionary document-plan :default)))))
+    (is (= #{"good" "written"} (instances/get-dictionary-items document-plan)))))
+
+(deftest dictionary-building
+  (let [dictionary-items #{"good" "written"}]
+    (is (= {:default {"good"    ["excellent"]
+                      "written" ["authored"]}
+            :senior  {"good"    ["excellent"]
+                      "written" ["authored"]}}
+           (instances/build-dictionary dictionary-items [:default :senior])))))
 
 (deftest context-building
   (let [document-plan (parser/parse-document-plan (load-test-document-plan "author-amr-with-adj"))]
-    (is (= [#:acctext.amr{:dictionary {"written" ["authored"]
-                                       "good"    ["excellent"]}
-                          :data       {"authors" "X1" "title" "Y1"}}
-            #:acctext.amr{:dictionary {"written" ["authored"]
-                                       "good"    ["excellent"]}
-                          :data       {"authors" "X2" "title" "Y2"}}]
-           (map :acctext.amr/context (context/build-contexts document-plan [{"authors" "X1" "title" "Y1"}
-                                                                            {"authors" "X2" "title" "Y2"}] :default))))))
+    (is (= [#:acctext.amr{:reader-profile :default
+                          :dictionary     {"written" ["authored"]
+                                           "good"    ["excellent"]}}
+            #:acctext.amr{:reader-profile :senior
+                          :dictionary     {"written" ["authored"]
+                                           "good"    ["excellent"]}}]
+           (map :acctext.amr/context (instances/build-instances document-plan [:default :senior]))))))
