@@ -43,5 +43,5 @@
      :totalCount (count data-files)}))
 
 (defn read-data-file-content [_ key]
-  (:content (db/read! data-files-db key))))))
+  (:content (db/read! data-files-db key)))
 
