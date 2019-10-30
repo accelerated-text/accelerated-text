@@ -1,5 +1,5 @@
 (ns api.datomic-fixtures
-  (:require [api.config :refer [conf]]
+  (:require [api.config]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [data.entities.data-files]
