@@ -1,6 +1,8 @@
 (ns api.datomic-fixtures
-  (:require [clojure.java.io :as io]
+  (:require [api.config :refer [conf]]
+            [clojure.java.io :as io]
             [clojure.tools.logging :as log]
+            [data.entities.data-files]
             [datomic.api :as d]
             [io.rkn.conformity :as c]
             [mount.core :as mount])
@@ -32,6 +34,7 @@
   (let [db-name (str (UUID/randomUUID))
         conn (scratch-conn db-name)
         _ (migrate conn)]
+    (mount/stop)
     (-> (mount/swap-states
           {#'api.config/conf
            {:start (fn []

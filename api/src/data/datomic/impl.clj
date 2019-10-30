@@ -8,13 +8,13 @@
 (defstate conn
   :start (d/connect (:db-uri conf)))
 
-(defn transact-item [key data-item]
+(defn transact-item [resource-type key data-item]
   (d/transact conn
               [{:data-file/id       key
                 :data-file/filename (:filename data-item)
                 :data-file/content  (:content data-item)}]))
 
-(defn pull-entity [key]
+(defn pull-entity [resource-type key]
   (log/trace key)
   (let [df (ffirst (d/q '[:find (pull ?e [*])
                           :where
@@ -28,9 +28,9 @@
   (reify
     protocol/DBAccess
     (read-item [this key]
-      (pull-entity key))
+      (pull-entity resource-type key))
     (write-item [this key data update-count?]
-      (transact-item key data))
+      (transact-item resource-type key data))
     (update-item [this key data] (prn "updating"))
     (delete-item [this key] (prn "deleting"))
     (list-items [this limit] (prn "list items"))
