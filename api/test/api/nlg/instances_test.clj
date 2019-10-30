@@ -18,9 +18,9 @@
                                                                  :defaultUsage     "YES"}})
     (f)))
 
-(use-fixtures :once ddb-fixtures/wipe-ddb-tables prepare-environment)
+(use-fixtures :each ddb-fixtures/wipe-ddb-tables prepare-environment)
 
-(deftest dictionary-item-extraction
+(deftest ^:integration dictionary-item-extraction
   (let [document-plan (parser/parse-document-plan (load-test-document-plan "author-amr-with-adj"))]
     (is (= #{"good" "written"} (instances/get-dictionary-items document-plan)))))
 
