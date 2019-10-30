@@ -15,6 +15,7 @@
               "connection"                     "keep-alive"
               "accept"                         "*/*"
               "accept-language"                "en-US,en;q=0.5"
+              "content-type"                   "application/json"
               "access-control-request-method"  "POST"
               "accept-encoding"                "gzip, deflate"
               "dnt"                            "1"})
