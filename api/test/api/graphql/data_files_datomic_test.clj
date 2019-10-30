@@ -1,10 +1,10 @@
 (ns api.graphql.data-files-datomic-test
-  (:require [api.datomic-fixtures :refer [datomix-fixture]]
+  (:require [api.db-fixtures :refer [clean-db]]
             [clojure.test :refer [deftest is testing use-fixtures]]
             [data.entities.data-files :as data-files]
             [clojure.string :as str]))
 
-(use-fixtures :each datomix-fixture)
+(use-fixtures :each clean-db)
 
 (deftest ^:integration writing-an-reading
   (testing "Read books.csv headers"
