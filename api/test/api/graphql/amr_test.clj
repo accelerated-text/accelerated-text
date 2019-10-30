@@ -1,9 +1,9 @@
 (ns api.graphql.amr-test
   (:require [api.test-utils :refer [q]]
-            [api.ddb-fixtures :as ddb-fixtures]
+            [api.db-fixtures :as db]
             [clojure.test :refer [deftest is use-fixtures]]))
 
-(use-fixtures :each ddb-fixtures/wipe-ddb-tables)
+(use-fixtures :each db/clean-db)
 
 (deftest ^:integration concepts-test
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech}}"
