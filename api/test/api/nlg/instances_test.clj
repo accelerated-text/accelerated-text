@@ -18,13 +18,13 @@
                                                                  :defaultUsage     "YES"}})
     (f)))
 
-(use-fixtures :each ddb-fixtures/wipe-ddb-tables prepare-environment)
+(use-fixtures :once ddb-fixtures/wipe-ddb-tables prepare-environment)
 
 (deftest dictionary-item-extraction
   (let [document-plan (parser/parse-document-plan (load-test-document-plan "author-amr-with-adj"))]
     (is (= #{"good" "written"} (instances/get-dictionary-items document-plan)))))
 
-(deftest dictionary-building
+(deftest ^:integration dictionary-building
   (let [dictionary-items #{"good" "written"}]
     (is (= {:default {"good"    ["excellent"]
                       "written" ["authored"]}
@@ -32,7 +32,7 @@
                       "written" ["authored"]}}
            (instances/build-dictionary dictionary-items [:default :senior])))))
 
-(deftest context-adding
+(deftest ^:integration context-adding
   (testing "Dictionary item context adding"
     (let [document-plan (parser/parse-document-plan (load-test-document-plan "author-amr-with-adj"))]
       (is (= #{#:acctext.amr{:attributes #:acctext.amr{:name           "written"
