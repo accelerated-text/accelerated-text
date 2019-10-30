@@ -80,9 +80,7 @@
                         parameters/parameters-middleware
                         wrap-response
                         muuntaja/format-response-middleware
-                        
-                        exception/exception-middleware
-                        ]}
+                        exception/exception-middleware]}
     :exception pretty/exception}))
 
 
