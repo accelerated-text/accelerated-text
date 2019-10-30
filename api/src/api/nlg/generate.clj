@@ -1,14 +1,12 @@
 (ns api.nlg.generate
   (:require [api.nlg.generator.planner-ng :as planner]
             [api.nlg.nlp :as nlp]
-            [api.resource :as resource]
             [api.utils :as utils]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as document-plan]
             [clojure.spec.alpha :as s]
-            [data.entities.result :as results]
-            [mount.core :refer [defstate]]))
+            [data.entities.result :as results]))
 
 (s/def ::documentPlanId string?)
 (s/def ::dataId string?)
