@@ -21,9 +21,19 @@
           {}
           reader-profiles))
 
+(defmulti add-context (fn [concept _] (get concept :acctext.amr/type)))
+
+(defmethod add-context :default [concept _] concept)
+
+(defmethod add-context :dictionary-item [{value :acctext.amr/value :as concept} {:keys [dictionary reader-profile]}]
+  (-> concept
+      (assoc :acctext.amr/members (get dictionary value))
+      (assoc-in [:acctext.amr/attributes :acctext.amr/reader-profile] reader-profile)))
+
 (defn build-instances [document-plan reader-profiles]
   (let [dictionary-items (get-dictionary-items document-plan)
         dictionary (build-dictionary dictionary-items reader-profiles)]
     (for [reader-profile reader-profiles]
-      (assoc document-plan :acctext.amr/context #:acctext.amr{:reader-profile reader-profile
-                                                              :dictionary     (get dictionary reader-profile)}))))
+      (let [context {:reader-profile reader-profile
+                     :dictionary     (get dictionary reader-profile)}]
+        (update document-plan :acctext.amr/concepts #(mapv (fn [concept] (add-context concept context)) %))))))

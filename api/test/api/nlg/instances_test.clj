@@ -3,7 +3,7 @@
             [api.nlg.instances :as instances]
             [api.nlg.parser :as parser]
             [api.test-utils :refer [q load-test-document-plan]]
-            [clojure.test :refer [deftest is use-fixtures]]))
+            [clojure.test :refer [deftest is testing use-fixtures]]))
 
 (defn prepare-environment [f]
   (let [create-dict-item-query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech}}"
@@ -32,12 +32,34 @@
                       "written" ["authored"]}}
            (instances/build-dictionary dictionary-items [:default :senior])))))
 
-(deftest context-building
-  (let [document-plan (parser/parse-document-plan (load-test-document-plan "author-amr-with-adj"))]
-    (is (= [#:acctext.amr{:reader-profile :default
-                          :dictionary     {"written" ["authored"]
-                                           "good"    ["excellent"]}}
-            #:acctext.amr{:reader-profile :senior
-                          :dictionary     {"written" ["authored"]
-                                           "good"    ["excellent"]}}]
-           (map :acctext.amr/context (instances/build-instances document-plan [:default :senior]))))))
+(deftest context-adding
+  (testing "Dictionary item context adding"
+    (let [document-plan (parser/parse-document-plan (load-test-document-plan "author-amr-with-adj"))]
+      (is (= #{#:acctext.amr{:attributes #:acctext.amr{:name           "written"
+                                                       :reader-profile :default}
+                             :id         :03
+                             :members    ["authored"]
+                             :type       :dictionary-item
+                             :value      "written"}
+               #:acctext.amr{:attributes #:acctext.amr{:name           "good"
+                                                       :reader-profile :default}
+                             :id         :05
+                             :members    ["excellent"]
+                             :type       :dictionary-item
+                             :value      "good"}
+               #:acctext.amr{:attributes #:acctext.amr{:name           "written"
+                                                       :reader-profile :senior}
+                             :id         :03
+                             :members    ["authored"]
+                             :type       :dictionary-item
+                             :value      "written"}
+               #:acctext.amr{:attributes #:acctext.amr{:name           "good"
+                                                       :reader-profile :senior}
+                             :id         :05
+                             :members    ["excellent"]
+                             :type       :dictionary-item
+                             :value      "good"}}
+             (->> (instances/build-instances document-plan [:default :senior])
+                  (mapcat :acctext.amr/concepts)
+                  (filter #(= (:acctext.amr/type %) :dictionary-item))
+                  (set)))))))
