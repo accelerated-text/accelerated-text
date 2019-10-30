@@ -6,7 +6,8 @@
   (->> (get document-plan :acctext.amr/concepts)
        (filter (fn [{type :acctext.amr/type}]
                  (= type :dictionary-item)))
-       (map :acctext.amr/value)))
+       (map :acctext.amr/value)
+       (set)))
 
 (defn build-dictionary [document-plan reader-profile]
   (reduce (fn [m value]
