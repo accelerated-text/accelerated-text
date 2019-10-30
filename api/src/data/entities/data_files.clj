@@ -44,4 +44,3 @@
 
 (defn read-data-file-content [_ key]
   (:content (db/read! data-files-db key)))
-
