@@ -27,8 +27,6 @@
                          :table-key  :id}
    :members             {:table-name "amr-members"
                          :table-key  :id}
-   :verbclass           {:table-name "amr-verbclass"
-                         :table-key  :id}
    :data-files          {:table-name "data-files"
                          :table-key  :id}})
 

@@ -1,9 +1,6 @@
 (ns data.entities.amr
-  (:require [data.db :as db]
-            [api.config :refer [conf]]
+  (:require [api.config :refer [conf]]
             [mount.core :refer [defstate]]))
-
-(defstate verbclass-db :start (db/db-access :verbclass conf))
 
 (def see
   {:id                 "see"
@@ -63,16 +60,6 @@
 
 (defn list-all [] (map (fn [[_ v]] v) rules))
 
-(defn list-verbclasses []
-  (concat
-    (db/list! verbclass-db 100)
-    (list-all)))
+(defn list-verbclasses [] (list-all))
 
-(defn get-verbclass [k]
-  (if (contains? rules (keyword k))
-    (get rules (keyword k))
-    (db/read! verbclass-db k)))
-
-(defn create-verbclass
-  [{:keys [id _ _ _] :as req}]
-  (db/write! verbclass-db id req))
+(defn get-verbclass [k] (get rules (keyword k)))
