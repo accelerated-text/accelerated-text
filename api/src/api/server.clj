@@ -23,7 +23,8 @@
 
 (def headers {"Access-Control-Allow-Origin"  "*"
               "Access-Control-Allow-Headers" "content-type, *"
-              "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"})
+              "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
+              "Content-Type" "application/json"})
 
 (defn health [_] {:status 200, :body "Ok"})
 
@@ -46,7 +47,6 @@
    [["/_graphql"    {:post {:handler (fn [{raw :body}]
                                        (let [body (utils/read-json-is raw)]
                                          {:status 200
-                                          :headers headers
                                           :body (graphql/handle body)}))
                             :summary "GraphQL endpoint"}
                      :options cors-handler}]
@@ -78,9 +78,11 @@
            :middleware [swagger/swagger-feature
                         muuntaja/format-negotiate-middleware
                         parameters/parameters-middleware
+                        wrap-response
                         muuntaja/format-response-middleware
+                        
                         exception/exception-middleware
-                        wrap-response]}
+                        ]}
     :exception pretty/exception}))
 
 
@@ -102,8 +104,6 @@
                    :ip       host
                    :max-body Integer/MAX_VALUE}))
   :stop (http-server :timeout 100))
-
-
 
 (defn -main [& _]
   (mount/start))
