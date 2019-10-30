@@ -50,15 +50,15 @@
                                           :body (graphql/handle body)}))
                             :summary "GraphQL endpoint"}
                      :options cors-handler}]
-    ["/nlg"        {:post   {:parameters {:body ::generate/generate-req}
-                             :responses {200 {:body {:resultId string?}}}
-                             :summary "Registers document plan for generation"
-                             :coercion reitit.coercion.spec/coercion
-                             :middleware [muuntaja/format-request-middleware
-                                          coercion/coerce-request-middleware
-                                          coercion/coerce-response-middleware]
-                             :handler (fn [{{body :body} :parameters}]
-                                        (generate/generate-request body))}
+    ["/nlg/"        {:post   {:parameters {:body ::generate/generate-req}
+                              :responses {200 {:body {:resultId string?}}}
+                              :summary "Registers document plan for generation"
+                              :coercion reitit.coercion.spec/coercion
+                              :middleware [muuntaja/format-request-middleware
+                                           coercion/coerce-request-middleware
+                                           coercion/coerce-response-middleware]
+                              :handler (fn [{{body :body} :parameters}]
+                                         (generate/generate-request body))}
                      :options cors-handler}]
     ["/nlg/:id"     {:get     generate/read-result
                      :delete  generate/delete-result
@@ -93,8 +93,7 @@
     {:path "/"
      :config {:validatorUrl nil
               :operationsSorter "alpha"}})
-   (ring/create-default-handler)
-   (ring/redirect-trailing-slash-handler {:method :strip})))
+   (ring/create-default-handler)))
 
 (defstate http-server
   :start (let [host (or (System/getenv "ACC_TEXT_API_HOST") "0.0.0.0")
