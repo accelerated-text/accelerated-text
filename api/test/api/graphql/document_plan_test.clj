@@ -1,22 +1,18 @@
 (ns api.graphql.document-plan-test
   (:require [api.test-utils :refer [q]]
             [api.ddb-fixtures :as fixtures]
-            [clojure.test :refer [deftest is use-fixtures]]
-            [data.entities.document-plan :as dp]))
+            [clojure.test :refer [deftest is use-fixtures]]))
 
-(defn prepare-environment [f]
-  (dp/add-document-plan
-    {:uid          "01"
-     :name         "test"
-     :blocklyXml   "<>"
-     :documentPlan "{}"}
-    "1")
-  (f))
-
-(use-fixtures :each fixtures/wipe-ddb-tables prepare-environment)
+(use-fixtures :each fixtures/wipe-ddb-tables)
 
 (deftest ^:integration document-plans-test
-  (let [query "{documentPlans(offset:%s limit:%s){items{id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount} offset limit totalCount}}"
+  (let [query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
+        _ (q "/_graphql" :post {:query     query
+                                :variables {:uid          "01"
+                                            :name         "test"
+                                            :blocklyXml   "<>"
+                                            :documentPlan "\"{}\""}})
+        query "{documentPlans(offset:%s limit:%s){items{id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount} offset limit totalCount}}"
         {{{{:keys [items offset limit totalCount]} :documentPlans} :data errors :errors} :body}
         (q "/_graphql" :post {:query (format query 0 20)})]
     (is (nil? errors))
@@ -26,11 +22,18 @@
     (is (pos-int? totalCount))))
 
 (deftest ^:integration fetch-document-plan-by-id
-  (let [query "{documentPlan(id:\"%s\"){id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"
+  (let [query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
+        {{{{:keys [id]} :createDocumentPlan} :data} :body}
+        (q "/_graphql" :post {:query     query
+                              :variables {:uid          "01"
+                                          :name         "test"
+                                          :blocklyXml   "<>"
+                                          :documentPlan "\"{}\""}})
+        query "{documentPlan(id:\"%s\"){id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"
         {{{{:keys [id uid name blocklyXml documentPlan createdAt updatedAt updateCount]} :documentPlan} :data errors :errors} :body}
-        (q "/_graphql" :post {:query (format query "1")})]
+        (q "/_graphql" :post {:query (format query id)})]
     (is (nil? errors))
-    (is (= "1" id))
+    (is (string? id))
     (is (= "01" uid))
     (is (= "test" name))
     (is (= "<>" blocklyXml))
@@ -59,10 +62,18 @@
     (is (zero? updateCount))))
 
 (deftest ^:integration update-document-plan-test
-  (let [query "mutation updateDocumentPlan($id: ID! $uid: ID $name: String $blocklyXml: String $documentPlan: String $dataSampleRow: Int){updateDocumentPlan(id: $id uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount}}"
+  (let [query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
+        {{{{:keys [id]} :createDocumentPlan} :data} :body}
+        (q "/_graphql" :post {:query     query
+                              :variables {:uid          "01"
+                                          :name         "test"
+                                          :blocklyXml   "<>"
+                                          :documentPlan "\"{}\""}})
+
+        query "mutation updateDocumentPlan($id: ID! $uid: ID $name: String $blocklyXml: String $documentPlan: String $dataSampleRow: Int){updateDocumentPlan(id: $id uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount}}"
         {{{{:keys [id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount]} :updateDocumentPlan} :data errors :errors} :body}
         (q "/_graphql" :post {:query     query
-                              :variables {:id            "1"
+                              :variables {:id            id
                                           :uid           "01"
                                           :name          "test-updated"
                                           :blocklyXml    "<>"
@@ -80,8 +91,16 @@
     (is (= 1 updateCount))))
 
 (deftest ^:integration delete-document-plan-test
-  (let [query "{documentPlan(id:\"%s\"){id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"]
-    (is (some? (-> (q "/_graphql" :post {:query (format query "1")})
+  (let [query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
+        {{{{:keys [id]} :createDocumentPlan} :data} :body}
+        (q "/_graphql" :post {:query     query
+                              :variables {:uid          "01"
+                                          :name         "test"
+                                          :blocklyXml   "<>"
+                                          :documentPlan "\"{}\""}})
+
+        query "{documentPlan(id:\"%s\"){id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"]
+    (is (some? (-> (q "/_graphql" :post {:query (format query id)})
                    :body
                    :data
                    :documentPlan)))
