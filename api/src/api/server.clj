@@ -3,7 +3,6 @@
   (:require [api.graphql.core :as graphql]
             [api.nlg.generate :as generate]
             [api.utils :as utils]
-            [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [mount.core :refer [defstate] :as mount]
@@ -81,8 +80,7 @@
                         parameters/parameters-middleware
                         muuntaja/format-response-middleware
                         exception/exception-middleware
-                        wrap-response
-                        ]}
+                        wrap-response]}
     :exception pretty/exception}))
 
 
