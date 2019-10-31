@@ -9,6 +9,8 @@
 (defstate conn
   :start (d/connect (:db-uri conf)))
 
+(defn remove-nil-vals [m] (into {} (remove (comp nil? second) m)))
+
 (defmulti transact-item (fn [resource-type _ _] resource-type))
 
 (defmethod transact-item :data-files [_ key data-item]
@@ -16,17 +18,24 @@
                       :data-file/filename (:filename data-item)
                       :data-file/content  (:content data-item)}]))
 
-(defmethod transact-item :dictionary-combined [_ key data-item]
-  @(d/transact conn [(cond-> {:dictionary-combined/id key}
-                             (:name data-item)
-                             (assoc :dictionary-combined/name (:name data-item))
-                             (:partOfSpeech data-item)
-                             (assoc :dictionary-combined/partOfSpeech (:partOfSpeech data-item))
-                             (seq (:phrases data-item))
-                             (assoc :dictionary-combined/phrases (:phrases data-item)))]))
+(defn prepare-dictionary-item [key data-item]
+  {:db/id                            [:dictionary-combined/id key]
+   :dictionary-combined/id           key
+   :dictionary-combined/name         (:name data-item)
+   :dictionary-combined/partOfSpeech (:partOfSpeech data-item)
+   :dictionary-combined/phrases
+                                     (->> (:phrases data-item)
+                                          (map (fn [phrase]
+                                                 (remove-nil-vals
+                                                   {:phrase/id    (:id phrase)
+                                                    :phrase/text  (:text phrase)
+                                                    :phrase/flags (let [flgs (:flags phrase)]
+                                                                    (when flgs
+                                                                      {:reader-flag/default (:default flgs)}))})))
+                                          (remove empty?))})
 
-(defn remove-nil-vals [m]
-  (into {} (remove (comp nil? second) m)))
+(defmethod transact-item :dictionary-combined [_ key data-item]
+  @(d/transact conn [(remove-nil-vals (dissoc (prepare-dictionary-item key data-item) :db/id))]))
 
 (defmethod transact-item :blockly [_ key data-item]
   (let [current-ts (utils/ts-now)]
@@ -48,9 +57,8 @@
       :updateCount 0)))
 
 (defmethod transact-item :default [resource-type key _]
-  (log/warnf "Default implementation of transact-item for the '%s' with key '%s'"
-             resource-type key)
-  (throw (RuntimeException. "NOT IMPLEMENTED")))
+  (log/warnf "Default implementation of transact-item for the '%s' with key '%s'" resource-type key)
+  (throw (RuntimeException. (format "DATOMIC TRANSACT-ITEM FOR '%s' NOT IMPLEMENTED" resource-type))))
 
 (defmulti pull-entity (fn [resource-type _] resource-type))
 
@@ -73,7 +81,10 @@
     (when dictionary-entry
       {:key     (:dictionary-combined/id dictionary-entry)
        :name    (:dictionary-combined/name dictionary-entry)
-       :phrases (:dictionary-combined/phrases dictionary-entry)})))
+       :phrases (map (fn [phrase] {:id    (:phrase/id phrase)
+                                   :text  (:phrase/text phrase)
+                                   :flags {:default (:reader-flag/default (:phrase/flags phrase))}})
+                     (:dictionary-combined/phrases dictionary-entry))})))
 
 (defmethod pull-entity :blockly [_ key]
   (let [document-plan (ffirst (d/q '[:find (pull ?e [*])
@@ -93,9 +104,8 @@
        :updateCount   (:document-plan/update-count document-plan)})))
 
 (defmethod pull-entity :default [resource-type key]
-  (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'"
-             resource-type key)
-  (throw (RuntimeException. "NOT IMPLEMENTED")))
+  (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'" resource-type key)
+  (throw (RuntimeException. (format "DATOMIC PULL-ENTITY FOR '%s' NOT IMPLEMENTED" resource-type))))
 
 (defmulti pull-n (fn [resource-type _] resource-type))
 
@@ -108,16 +118,18 @@
                    :filename (:data-file/filename df)
                    :content  (:data-file/content df)}) (take limit resp))))
 
+(defmethod pull-n :reader-flag [_ limit]
+  (first (d/q '[:find (pull ?e [*])
+          :where [?e :reader-flag/default]]
+        (d/db conn))))
+
 (defmethod pull-n :default [resource-type limit]
-  (log/warnf "Default implementation of list-items for the '%s' with key '%s'"
-             resource-type limit)
-  (throw (RuntimeException. "NOT IMPLEMENTED")))
+  (log/warnf "Default implementation of list-items for the '%s' with key '%s'" resource-type limit)
+  (throw (RuntimeException. (format "DATOMIC PULL-N FOR '%s' NOT IMPLEMENTED" resource-type))))
 
 (defmulti scan (fn [resource-type opts] resource-type))
 
 (defmethod scan :blockly [resource-type opts]
-  (log/warnf "Blockly of SCAN for the '%s' with key '%s'"
-             resource-type opts)
   (let [resp (first (d/q '[:find (pull ?e [*])
                            :where [?e :document-plan/id]]
                          (d/db conn)))]
@@ -133,9 +145,8 @@
             :updateCount   (:document-plan/update-count document-plan)}) resp)))
 
 (defmethod scan :default [resource-type opts]
-  (log/warnf "Default implementation of SCAN for the '%s' with key '%s'"
-             resource-type opts)
-  (throw (RuntimeException. "NOT IMPLEMENTED")))
+  (log/warnf "Default implementation of SCAN for the '%s' with key '%s'" resource-type opts)
+  (throw (RuntimeException. (format "DATOMIC SCAN FOR '%s' NOT IMPLEMENTED" resource-type))))
 
 (defmulti delete (fn [resource-type _] resource-type))
 
@@ -143,13 +154,12 @@
   @(d/transact conn [[:db.fn/retractEntity [:document-plan/id key]]]))
 
 (defmethod delete :default [resource-type opts]
-  (log/warnf "Default implementation of DELETE for the '%s' with key '%s'"
-             resource-type opts)
-  (throw (RuntimeException. "NOT IMPLEMENTED")))
+  (log/warnf "Default implementation of DELETE for the '%s' with key '%s'" resource-type opts)
+  (throw (RuntimeException. (format "DATOMIC DELETE FOR '%s' NOT IMPLEMENTED" resource-type))))
 
-(defmulti update (fn [resource-type _ _] resource-type))
+(defmulti update! (fn [resource-type _ _] resource-type))
 
-(defmethod update :blockly [resource-type key data-item]
+(defmethod update! :blockly [resource-type key data-item]
   (let [original (pull-entity resource-type key)
         current-ts (utils/ts-now)]
     @(d/transact conn [(remove-nil-vals
@@ -164,21 +174,30 @@
                           :document-plan/update-count    (inc (:updateCount original))})])
     (pull-entity resource-type key)))
 
-(defmethod update :default [resource-type key data]
+(defmethod update! :dictionary-combined [resource-type key data-item]
+  (let [val [(remove-nil-vals (prepare-dictionary-item key data-item))]]
+    (try
+      @(d/transact conn val)
+      (catch Exception e
+        (log/errorf "Error %s with data %s" e val)))
+    (pull-entity resource-type key)))
+
+(defmethod update! :default [resource-type key data]
   (log/errorf "Default UPDATE for %s with key %s and %s" resource-type key data)
-  (throw (RuntimeException. "NOT IMPLEMENTED")))
+  (throw (RuntimeException. (format "DATOMIC UPDATE FOR '%s' NOT IMPLEMENTED" resource-type))))
 
 (defn db-access
   [resource-type config]
-  (log/debugf "Datomic for: %s with config %s" resource-type config)
+  ;(log/debugf "Datomic for: %s with config %s" resource-type config)
   (reify
     protocol/DBAccess
     (read-item [this key]
       (pull-entity resource-type key))
     (write-item [this key data update-count?]
       (transact-item resource-type key data))
-    (update-item [this key data] (update resource-type key data))
+    (update-item [this key data] (update! resource-type key data))
     (delete-item [this key] (delete resource-type key))
     (list-items [this limit] (pull-n resource-type limit))
     (scan-items [this opts] (scan resource-type opts))
-    (batch-read-items [this ids] (throw (RuntimeException. "NOT IMPLEMENTED")))))
+    (batch-read-items [this ids]
+      (throw (RuntimeException. (format "DATOMIC BATCH-READ-ITEMS FOR '%s' NOT IMPLEMENTED" resource-type))))))
