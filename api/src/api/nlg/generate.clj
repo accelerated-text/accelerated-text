@@ -1,12 +1,17 @@
 (ns api.nlg.generate
   (:require [api.nlg.generator.planner-ng :as planner]
             [api.nlg.nlp :as nlp]
-            [api.resource :as resource]
             [api.utils :as utils]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as document-plan]
+            [clojure.spec.alpha :as s]
             [data.entities.result :as results]))
+
+(s/def ::documentPlanId string?)
+(s/def ::dataId string?)
+(s/def ::readerFlagValues (s/map-of string? boolean?))
+(s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId ::readerFlagValues]))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
@@ -55,7 +60,7 @@
                                                        :text token}))}))}]})
        results))
 
-(defn read-result [_ path-params]
+(defn read-result [{:keys [path-params]}]
   (let [request-id (:id path-params)]
     (try
       (if-let [{:keys [results ready updatedAt]} (results/fetch request-id)]
@@ -73,7 +78,7 @@
          :body   {:error   true
                   :message (.getMessage e)}}))))
 
-(defn delete-result [path-params]
+(defn delete-result [{:keys [path-params]}]
   (let [request-id (:id path-params)]
     (try
       (if-let [item (results/fetch request-id)]
@@ -88,13 +93,3 @@
         {:status 500
          :body   {:error   true
                   :message (.getMessage e)}}))))
-
-(def handler-fn (delay
-                  (resource/build-resource
-                    {:get-handler    read-result
-                     :post-handler   generate-request
-                     :delete-handler delete-result}
-                    true)))
-
-(defn -handleRequest [_ is os _]
-  (@handler-fn nil is os nil))

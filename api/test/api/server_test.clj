@@ -13,8 +13,8 @@
       (is (= "Failed to parse GraphQL query." message))))
   (testing "NLG endpoint test"
     (let [{{result-id :resultId} :body status :status}
-          (q "/nlg" :post {:dataId           "example-user/books.csv"
-                           :documentPlanId   "test"
-                           :readerFlagValues {}})]
+          (q "/nlg/" :post {:dataId           "example-user/books.csv"
+                            :documentPlanId   "test"
+                            :readerFlagValues {}})]
       (is (= 200 status))
       (is (some? result-id)))))
