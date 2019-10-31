@@ -119,17 +119,17 @@
                    :content  (:data-file/content df)}) (take limit resp))))
 
 (defmethod pull-n :reader-flag [_ limit]
-  (first (d/q '[:find (pull ?e [*])
-          :where [?e :reader-flag/default]]
-        (d/db conn))))
+  (take limit (first (d/q '[:find (pull ?e [*])
+                            :where [?e :reader-flag/default]]
+                          (d/db conn)))))
 
 (defmethod pull-n :default [resource-type limit]
   (log/warnf "Default implementation of list-items for the '%s' with key '%s'" resource-type limit)
   (throw (RuntimeException. (format "DATOMIC PULL-N FOR '%s' NOT IMPLEMENTED" resource-type))))
 
-(defmulti scan (fn [resource-type opts] resource-type))
+(defmulti scan (fn [resource-type _] resource-type))
 
-(defmethod scan :blockly [resource-type opts]
+(defmethod scan :blockly [_ _]
   (let [resp (first (d/q '[:find (pull ?e [*])
                            :where [?e :document-plan/id]]
                          (d/db conn)))]
@@ -188,7 +188,7 @@
 
 (defn db-access
   [resource-type config]
-  ;(log/debugf "Datomic for: %s with config %s" resource-type config)
+  (log/debugf "Datomic for: %s with config %s" resource-type config)
   (reify
     protocol/DBAccess
     (read-item [this key]

@@ -1,6 +1,4 @@
-(ns data.entities.amr
-  (:require [api.config :refer [conf]]
-            [mount.core :refer [defstate]]))
+(ns data.entities.amr)
 
 (def see
   {:id                 "see"
