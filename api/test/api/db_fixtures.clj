@@ -1,7 +1,6 @@
 (ns api.db-fixtures
   (:require [api.ddb-fixtures :as ddb]
-            [api.datomic-fixtures :as datomic]
-            [clojure.tools.logging :as log]))
+            [api.datomic-fixtures :as datomic]))
 
 (defn clean-db [f]
   (when-not (System/getProperty "skip-dynamo")
