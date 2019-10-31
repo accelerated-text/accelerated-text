@@ -82,14 +82,15 @@
                                    (d/db conn)
                                    key))]
     (when document-plan
-      {:id           (:document-plan/id document-plan)
-       :uid          (:document-plan/uid document-plan)
-       :name         (:document-plan/name document-plan)
-       :blocklyXml   (:document-plan/blockly-xml document-plan)
-       :documentPlan (:document-plan/document-plan document-plan)
-       :createdAt    (:document-plan/created-at document-plan)
-       :updatedAt    (:document-plan/updated-at document-plan)
-       :updateCount  (:document-plan/update-count document-plan)})))
+      {:id            (:document-plan/id document-plan)
+       :uid           (:document-plan/uid document-plan)
+       :name          (:document-plan/name document-plan)
+       :blocklyXml    (:document-plan/blockly-xml document-plan)
+       :documentPlan  (:document-plan/document-plan document-plan)
+       :createdAt     (:document-plan/created-at document-plan)
+       :updatedAt     (:document-plan/updated-at document-plan)
+       :dataSampleRow (:document-plan/data-sample-row document-plan)
+       :updateCount   (:document-plan/update-count document-plan)})))
 
 (defmethod pull-entity :default [resource-type key]
   (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'"
@@ -121,14 +122,15 @@
                            :where [?e :document-plan/id]]
                          (d/db conn)))]
     (map (fn [document-plan]
-           {:id           (:document-plan/id document-plan)
-            :uid          (:document-plan/uid document-plan)
-            :name         (:document-plan/name document-plan)
-            :blocklyXml   (:document-plan/blockly-xml document-plan)
-            :documentPlan (:document-plan/document-plan document-plan)
-            :createdAt    (:document-plan/created-at document-plan)
-            :updatedAt    (:document-plan/updated-at document-plan)
-            :updateCount  (:document-plan/update-count document-plan)}) resp)))
+           {:id            (:document-plan/id document-plan)
+            :uid           (:document-plan/uid document-plan)
+            :name          (:document-plan/name document-plan)
+            :blocklyXml    (:document-plan/blockly-xml document-plan)
+            :documentPlan  (:document-plan/document-plan document-plan)
+            :createdAt     (:document-plan/created-at document-plan)
+            :updatedAt     (:document-plan/updated-at document-plan)
+            :dataSampleRow (:document-plan/data-sample-row document-plan)
+            :updateCount   (:document-plan/update-count document-plan)}) resp)))
 
 (defmethod scan :default [resource-type opts]
   (log/warnf "Default implementation of SCAN for the '%s' with key '%s'"
@@ -145,6 +147,27 @@
              resource-type opts)
   (throw (RuntimeException. "NOT IMPLEMENTED")))
 
+(defmulti update (fn [resource-type _ _] resource-type))
+
+(defmethod update :blockly [resource-type key data-item]
+  (let [original (pull-entity resource-type key)
+        current-ts (utils/ts-now)]
+    @(d/transact conn [(remove-nil-vals
+                         {:db/id                         [:document-plan/id key]
+                          :document-plan/uid             (:uid data-item)
+                          :document-plan/data-sample-id  (:dataSampleId data-item)
+                          :document-plan/name            (:name data-item)
+                          :document-plan/blockly-xml     (:blocklyXml data-item)
+                          :document-plan/document-plan   (:documentPlan data-item)
+                          :document-plan/updated-at      current-ts
+                          :document-plan/data-sample-row (:dataSampleRow data-item)
+                          :document-plan/update-count    (inc (:updateCount original))})])
+    (pull-entity resource-type key)))
+
+(defmethod update :default [resource-type key data]
+  (log/errorf "Default UPDATE for %s with key %s and %s" resource-type key data)
+  (throw (RuntimeException. "NOT IMPLEMENTED")))
+
 (defn db-access
   [resource-type config]
   (log/debugf "Datomic for: %s with config %s" resource-type config)
@@ -154,7 +177,7 @@
       (pull-entity resource-type key))
     (write-item [this key data update-count?]
       (transact-item resource-type key data))
-    (update-item [this key data] (throw (RuntimeException. "NOT IMPLEMENTED")))
+    (update-item [this key data] (update resource-type key data))
     (delete-item [this key] (delete resource-type key))
     (list-items [this limit] (pull-n resource-type limit))
     (scan-items [this opts] (scan resource-type opts))
