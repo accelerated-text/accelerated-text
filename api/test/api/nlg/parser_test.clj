@@ -1,5 +1,6 @@
 (ns api.nlg.parser-test
-  (:require [api.nlg.parser :as parser]
+  (:require [acc-text.nlg.spec.document-plan :as dp]
+            [api.nlg.parser :as parser]
             [clojure.test :refer [deftest testing is]]
             [clojure.set :as set]))
 
@@ -11,9 +12,9 @@
                                         :itemId "NN-good"}]
                             :type     "Segment"}]
                 :type     "Document-plan"}
-          {concepts :acctext.amr/concepts relations :acctext.amr/relations} (parser/parse-document-plan root)]
-      (is (set/subset? #{:document-plan :segment :data :dictionary-item} (set (map :acctext.amr/type concepts))))
-      (is (set/subset? #{:segment :instance :modifier} (set (map :acctext.amr/role relations))))))
+          {concepts ::dp/concepts relations ::dp/relations} (parser/parse-document-plan root)]
+      (is (set/subset? #{:document-plan :segment :data :dictionary-item} (set (map ::dp/type concepts))))
+      (is (set/subset? #{:segment :instance :modifier} (set (map ::dp/role relations))))))
   (testing "AMR parsing"
     (let [root {:roles          [{:children [{:name "authors" :type "Cell"}]
                                   :name     "agent"}
@@ -25,9 +26,9 @@
                                  :itemId "written"}
                 :type           "AMR"
                 :conceptId      "author"}
-          {concepts :acctext.amr/concepts relations :acctext.amr/relations} (parser/parse-document-plan root)]
-      (is (set/subset? #{:data :dictionary-item} (set (map :acctext.amr/type concepts))))
-      (is (set/subset? #{:ARG0 :ARG1} (set (map :acctext.amr/role relations))))))
+          {concepts ::dp/concepts relations ::dp/relations} (parser/parse-document-plan root)]
+      (is (set/subset? #{:data :dictionary-item} (set (map ::dp/type concepts))))
+      (is (set/subset? #{:ARG0 :ARG1} (set (map ::dp/role relations))))))
   (testing "Modifier parsing"
     (let [root {:name   "good"
                 :type   "Dictionary-item-modifier"
@@ -36,7 +37,7 @@
                          :child  {:name "authors" :type "Cell"}
                          :itemId "famous"}
                 :itemId "good"}
-          {concepts :acctext.amr/concepts relations :acctext.amr/relations} (parser/parse-document-plan root)]
-      (is (set/subset? #{:data :dictionary-item} (set (map :acctext.amr/type concepts))))
-      (is (set/subset? #{:modifier} (set (map :acctext.amr/role relations))))
+          {concepts ::dp/concepts relations ::dp/relations} (parser/parse-document-plan root)]
+      (is (set/subset? #{:data :dictionary-item} (set (map ::dp/type concepts))))
+      (is (set/subset? #{:modifier} (set (map ::dp/role relations))))
       (is (= 2 (count relations))))))

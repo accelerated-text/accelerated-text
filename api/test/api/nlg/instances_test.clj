@@ -1,5 +1,6 @@
 (ns api.nlg.instances-test
-  (:require [api.graphql.ddb-fixtures :as ddb-fixtures]
+  (:require [acc-text.nlg.spec.document-plan :as dp]
+            [api.graphql.ddb-fixtures :as ddb-fixtures]
             [api.nlg.instances :as instances]
             [api.nlg.parser :as parser]
             [api.test-utils :refer [q load-test-document-plan]]
@@ -35,31 +36,31 @@
 (deftest ^:integration context-adding
   (testing "Dictionary item context adding"
     (let [document-plan (parser/parse-document-plan (load-test-document-plan "author-amr-with-adj"))]
-      (is (= #{#:acctext.amr{:attributes #:acctext.amr{:name           "written"
-                                                       :reader-profile :default}
-                             :id         :03
-                             :members    ["authored"]
-                             :type       :dictionary-item
-                             :value      "written"}
-               #:acctext.amr{:attributes #:acctext.amr{:name           "good"
-                                                       :reader-profile :default}
-                             :id         :05
-                             :members    ["excellent"]
-                             :type       :dictionary-item
-                             :value      "good"}
-               #:acctext.amr{:attributes #:acctext.amr{:name           "written"
-                                                       :reader-profile :senior}
-                             :id         :03
-                             :members    ["authored"]
-                             :type       :dictionary-item
-                             :value      "written"}
-               #:acctext.amr{:attributes #:acctext.amr{:name           "good"
-                                                       :reader-profile :senior}
-                             :id         :05
-                             :members    ["excellent"]
-                             :type       :dictionary-item
-                             :value      "good"}}
+      (is (= #{#::dp{:attributes #::dp{:name           "written"
+                                       :reader-profile :default}
+                     :id         :03
+                     :members    ["authored"]
+                     :type       :dictionary-item
+                     :value      "written"}
+               #::dp{:attributes #::dp{:name           "good"
+                                       :reader-profile :default}
+                     :id         :05
+                     :members    ["excellent"]
+                     :type       :dictionary-item
+                     :value      "good"}
+               #::dp{:attributes #::dp{:name           "written"
+                                       :reader-profile :senior}
+                     :id         :03
+                     :members    ["authored"]
+                     :type       :dictionary-item
+                     :value      "written"}
+               #::dp{:attributes #::dp{:name           "good"
+                                       :reader-profile :senior}
+                     :id         :05
+                     :members    ["excellent"]
+                     :type       :dictionary-item
+                     :value      "good"}}
              (->> (instances/build-instances document-plan [:default :senior])
-                  (mapcat :acctext.amr/concepts)
-                  (filter #(= (:acctext.amr/type %) :dictionary-item))
+                  (mapcat ::dp/concepts)
+                  (filter #(= (::dp/type %) :dictionary-item))
                   (set)))))))

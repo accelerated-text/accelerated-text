@@ -1,5 +1,6 @@
 (ns api.utils
-  (:require [clojure.data.csv :as csv]
+  (:require [acc-text.nlg.spec.document-plan :as dp]
+            [clojure.data.csv :as csv]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [clojure.walk :as walk]
@@ -69,9 +70,9 @@
     (doall (map #(apply array-map %) pairs))))
 
 (defn plan-graph [semantic-graph]
-  (apply uber/graph (for [{{name :acctext.amr/name} :acctext.amr/attributes
-                           from                     :acctext.amr/from
-                           to                       :acctext.amr/to} (:acctext.amr/relations semantic-graph)]
+  (apply uber/graph (for [{{name ::dp/name} ::dp/attributes
+                           from             ::dp/from
+                           to               ::dp/to} (::dp/relations semantic-graph)]
                       [from to {:name name}])))
 
 (defn vizgraph [uber-graph] (uber/viz-graph uber-graph))
