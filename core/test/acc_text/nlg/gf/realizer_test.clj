@@ -45,10 +45,9 @@
           "TITLE. NP ::= \"{{TITLE}}\" ;"]
          (sut/dp->rgl single-fact-dp)))
   (is (= ["Pred. S ::= AP ;"
-          "Comp. AP ::= A NP ;"
+          "Compl. AP ::= A NP ;"
           "GOOD. A ::= \"good\" ;"
           "GOOD. A ::= \"nice\" ;"
           "TITLE. NP ::= \"{{TITLE}}\" ;"]
-         (sut/dp->rgl modifier-dp)))
-  )
+         (sut/dp->rgl modifier-dp))))
 
