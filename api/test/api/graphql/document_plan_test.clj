@@ -117,10 +117,10 @@
                    :documentPlan)))
     (let [{{{response :deleteDocumentPlan} :data errors :errors} :body}
           (q "/_graphql" :post {:query     "mutation deleteDocumentPlan($id: ID!){deleteDocumentPlan(id: $id)}"
-                                :variables {:id "1"}})]
+                                :variables {:id id}})]
       (is (nil? errors))
       (is (true? response))
-      (is (nil? (-> (q "/_graphql" :post {:query (format query "1")})
+      (is (nil? (-> (q "/_graphql" :post {:query (format query id)})
                     :body
                     :data
                     :documentPlan))))))

@@ -1,85 +1,86 @@
 {:acc-text/data-file-schema
- {:txes [[{:db/ident :data-file/id
-           :db/valueType :db.type/string
+ {:txes [[{:db/ident       :data-file/id
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "Public Id of the Data File"}
+           :db/doc         "Public Id of the Data File"}
 
-          {:db/ident :data-file/filename
-           :db/valueType :db.type/string
+          {:db/ident       :data-file/filename
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "File name of the Data File"}
+           :db/doc         "File name of the Data File"}
 
-          {:db/ident :data-file/content
-           :db/valueType :db.type/string
+          {:db/ident       :data-file/content
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "Content of the Data File"}]
+           :db/doc         "Content of the Data File"}]
 
-         [{:db/ident :dictionary-combined/id
-           :db/valueType :db.type/string
+         [{:db/ident       :dictionary-combined/id
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "Public Id of the dictionary-item"}
+           :db/doc         "Public Id of the dictionary-item"}
 
-          {:db/ident :dictionary-combined/name
-           :db/valueType :db.type/string
+          {:db/ident       :dictionary-combined/name
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "Name of the dictionary-item"}
+           :db/doc         "Name of the dictionary-item"}
 
-          {:db/ident :dictionary-combined/partOfSpeech
-           :db/valueType :db.type/string
+          {:db/ident       :dictionary-combined/partOfSpeech
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "Part of speech tag of the dictionary-item"}
+           :db/doc         "Part of speech tag of the dictionary-item"}
 
-          {:db/ident :dictionary-combined/phrases
-           :db/valueType :db.type/string
+          {:db/ident       :dictionary-combined/phrases
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/many
-           :db/doc "Phrases associated with the dictionary-item"}]
+           :db/doc         "Phrases associated with the dictionary-item"}]
 
-         [{:db/ident :document-plan/id
-           :db/valueType :db.type/string
+         [{:db/ident       :document-plan/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "Public Id of the document plan"}
+           :db/doc         "Public Id of the document plan"}
 
-          {:db/ident :document-plan/uid
-           :db/valueType :db.type/string
+          {:db/ident       :document-plan/uid
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "UID of the document plan"}
+           :db/doc         "UID of the document plan"}
 
-          {:db/ident :document-plan/data-sample-id
-           :db/valueType :db.type/string
+          {:db/ident       :document-plan/data-sample-id
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "Data sample ID of the document plan"}
+           :db/doc         "Data sample ID of the document plan"}
 
-          {:db/ident :document-plan/name
-           :db/valueType :db.type/string
+          {:db/ident       :document-plan/name
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "Name of the document plan"}
+           :db/doc         "Name of the document plan"}
 
-          {:db/ident :document-plan/blockly-xml
-           :db/valueType :db.type/string
+          {:db/ident       :document-plan/blockly-xml
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "Blockly XML representation of the document plan"}
+           :db/doc         "Blockly XML representation of the document plan"}
 
-          {:db/ident :document-plan/document-plan
-           :db/valueType :db.type/string
+          {:db/ident       :document-plan/document-plan
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc "Serialized document plan"}
+           :db/doc         "Serialized document plan"}
 
-          {:db/ident :document-plan/created-at
-           :db/valueType :db.type/long
+          {:db/ident       :document-plan/created-at
+           :db/valueType   :db.type/long
            :db/cardinality :db.cardinality/one
-           :db/doc "Creation timestamp of the document plan"}
+           :db/doc         "Creation timestamp of the document plan"}
 
-          {:db/ident :document-plan/updated-at
-           :db/valueType :db.type/long
+          {:db/ident       :document-plan/updated-at
+           :db/valueType   :db.type/long
            :db/cardinality :db.cardinality/one
-           :db/doc "Update timestamp of the document plan"}
+           :db/doc         "Update timestamp of the document plan"}
 
-          {:db/ident :document-plan/data-sample-row
-           :db/valueType :db.type/long
+          {:db/ident       :document-plan/data-sample-row
+           :db/valueType   :db.type/long
            :db/cardinality :db.cardinality/one
-           :db/doc "Data sample row number"}
+           :db/doc         "Data sample row number"}
 
-          {:db/ident :document-plan/update-count
-           :db/valueType :db.type/long
+          {:db/ident       :document-plan/update-count
+           :db/valueType   :db.type/long
            :db/cardinality :db.cardinality/one
-           :db/doc "Count of how many times DP was updated"}]]}}
+           :db/doc         "Count of how many times DP was updated"}]]}}
