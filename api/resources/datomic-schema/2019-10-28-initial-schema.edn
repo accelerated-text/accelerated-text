@@ -18,7 +18,15 @@
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
-           :db/doc         "Public Id of the reader-flag"}]
+           :db/doc         "Is Default reader-flag"}
+          {:db/ident       :reader-flag/senior
+           :db/valueType   :db.type/keyword
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Is senior reader-flag"}
+          {:db/ident       :reader-flag/junior
+           :db/valueType   :db.type/keyword
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Is junior reader-flag"}]
 
          [{:db/ident       :phrase/id
            :db/unique      :db.unique/identity
