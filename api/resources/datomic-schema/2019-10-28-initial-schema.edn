@@ -14,7 +14,29 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Content of the Data File"}]
 
+         [{:db/ident       :reader-flag/default
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/keyword
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of the reader-flag"}]
+
+         [{:db/ident       :phrase/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of the phrase"}
+          {:db/ident       :phrase/text
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Text of the phrase"}
+          {:db/ident       :phrase/flags
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Phrases associated with the dictionary-item"}]
+
          [{:db/ident       :dictionary-combined/id
+           :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Public Id of the dictionary-item"}
@@ -30,7 +52,8 @@
            :db/doc         "Part of speech tag of the dictionary-item"}
 
           {:db/ident       :dictionary-combined/phrases
-           :db/valueType   :db.type/string
+           :db/valueType   :db.type/ref
+           :db/isComponent true
            :db/cardinality :db.cardinality/many
            :db/doc         "Phrases associated with the dictionary-item"}]
 
