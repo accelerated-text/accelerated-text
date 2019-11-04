@@ -1,82 +1,82 @@
 (ns api.nlg.parser
-  (:require [acc-text.nlg.spec.document-plan :as dp]
+  (:require [acc-text.nlg.spec.semantic-graph :as sg]
             [clojure.spec.alpha :as s]
             [clojure.zip :as zip]))
 
-(defmulti build-document-plan (fn [node] (-> node (get :type) (keyword))))
+(defmulti build-semantic-graph (fn [node] (-> node (get :type) (keyword))))
 
-(defmethod build-document-plan :default [{:keys [id children] :as node}]
-  #::dp{:concepts  [#::dp{:id    id
+(defmethod build-semantic-graph :default [{:keys [id children] :as node}]
+  #::sg{:concepts  [#::sg{:id    id
                           :type  :unknown
                           :value (dissoc node :id :children)}]
         :relations (map (fn [{child-id :id}]
-                          #::dp{:from id
+                          #::sg{:from id
                                 :to   child-id
                                 :role :unknown})
                         children)})
 
-(defmethod build-document-plan :placeholder [_]
-  #::dp{:concepts  []
+(defmethod build-semantic-graph :placeholder [_]
+  #::sg{:concepts  []
         :relations []})
 
-(defmethod build-document-plan :Document-plan [{:keys [id segments]}]
-  #::dp{:concepts  [#::dp{:id   id
+(defmethod build-semantic-graph :Document-plan [{:keys [id segments]}]
+  #::sg{:concepts  [#::sg{:id   id
                           :type :document-plan}]
         :relations (map (fn [{segment-id :id}]
-                          #::dp{:from id
+                          #::sg{:from id
                                 :to   segment-id
                                 :role :segment})
                         segments)})
 
-(defmethod build-document-plan :Segment [{:keys [id children]}]
-  #::dp{:concepts  [#::dp{:id   id
+(defmethod build-semantic-graph :Segment [{:keys [id children]}]
+  #::sg{:concepts  [#::sg{:id   id
                           :type :segment}]
         :relations (map (fn [{child-id :id}]
-                          #::dp{:from id
+                          #::sg{:from id
                                 :to   child-id
                                 :role :instance})
                         children)})
 
-(defmethod build-document-plan :AMR [{:keys [id conceptId roles dictionaryItem]}]
-  #::dp{:concepts  (if (some? dictionaryItem)
-                     (-> dictionaryItem (build-document-plan) (get ::dp/concepts))
-                     [#::dp{:id    id
+(defmethod build-semantic-graph :AMR [{:keys [id conceptId roles dictionaryItem]}]
+  #::sg{:concepts  (if (some? dictionaryItem)
+                     (-> dictionaryItem (build-semantic-graph) (get ::sg/concepts))
+                     [#::sg{:id    id
                             :type  :amr
                             :value conceptId}])
         :relations (->> roles
                         (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
                                        (when (not= type "placeholder")
-                                         #::dp{:from       id
+                                         #::sg{:from       id
                                                :to         child-id
                                                :role       (keyword (str "ARG" index))
-                                               :attributes #::dp{:name name}})))
+                                               :attributes #::sg{:name name}})))
                         (remove nil?))})
 
-(defmethod build-document-plan :Cell [{:keys [id name children]}]
-  #::dp{:concepts  [#::dp{:id    id
+(defmethod build-semantic-graph :Cell [{:keys [id name children]}]
+  #::sg{:concepts  [#::sg{:id    id
                           :type  :data
                           :value name}]
         :relations (map (fn [{child-id :id}]
-                          #::dp{:from id
+                          #::sg{:from id
                                 :to   child-id
                                 :role :modifier})
                         children)})
 
-(defmethod build-document-plan :Quote [{:keys [id text children]}]
-  #::dp{:concepts  [#::dp{:id    id
+(defmethod build-semantic-graph :Quote [{:keys [id text children]}]
+  #::sg{:concepts  [#::sg{:id    id
                           :type  :quote
                           :value text}]
         :relations (map (fn [{child-id :id}]
-                          #::dp{:from id
+                          #::sg{:from id
                                 :to   child-id
                                 :role :modifier})
                         children)})
 
-(defmethod build-document-plan :Dictionary-item [{:keys [id itemId name]}]
-  #::dp{:concepts  [#::dp{:id         id
+(defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name]}]
+  #::sg{:concepts  [#::sg{:id         id
                           :type       :dictionary-item
                           :value      itemId
-                          :attributes #::dp{:name name}}]
+                          :attributes #::sg{:name name}}]
         :relations []})
 
 
@@ -136,15 +136,15 @@
           (zip/next)
           (recur (inc index))))))
 
-(defn parse-document-plan [root]
+(defn document-plan->semantic-graph [root]
   (loop [zipper (-> root (preprocess) (make-zipper))
-         amr #::dp{:relations [] :concepts []}]
+         amr #::sg{:relations [] :concepts []}]
     (if (zip/end? zipper)
       amr
       (recur
         (zip/next zipper)
-        (merge-with concat amr (build-document-plan (zip/node zipper)))))))
+        (merge-with concat amr (build-semantic-graph (zip/node zipper)))))))
 
-(s/fdef parse-document-plan
+(s/fdef document-plan->semantic-graph
         :args (s/cat :document-plan map?)
-        :ret ::dp/graph)
+        :ret ::sg/graph)

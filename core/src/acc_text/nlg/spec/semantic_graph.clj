@@ -1,4 +1,4 @@
-(ns acc-text.nlg.spec.document-plan
+(ns acc-text.nlg.spec.semantic-graph
   (:require [clojure.spec.alpha :as s]
             [clojure.spec.gen.alpha :as gen]
             [clojure.string :as string]))
