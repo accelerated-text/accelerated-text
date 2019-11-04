@@ -10,10 +10,10 @@ RUN wget https://www.grammaticalframework.org/download/gf_3.10-2_amd64.deb
 RUN dpkg -i gf_3.10-2_amd64.deb
 RUN rm -rf gf_3.10-2_amd64.deb
 
-RUN wget https://github.com/GrammaticalFramework/gf-core/archive/master.tar.gz
-RUN tar -xzf master.tar.gz && rm master.tar.gz
+RUN wget https://github.com/GrammaticalFramework/gf-core/archive/GF-3.10.tar.gz
+RUN tar -xzf GF-3.10.tar.gz && rm GF-3.10.tar.gz
 
-RUN mkdir -p /usr/src/runtime && cp -R gf-core-master/src/runtime/c /usr/src/runtime/c && cp -R gf-core-master/src/runtime/python /usr/src/runtime/python && rm -rf gf-core-master
+RUN mkdir -p /usr/src/runtime && cp -R gf-core-GF-3.10/src/runtime/c /usr/src/runtime/c && cp -R gf-core-GF-3.10/src/runtime/python /usr/src/runtime/python && rm -rf gf-core-GF-3.10
 
 RUN cd /usr/src/runtime/c && autoreconf -i && ./configure && make && make install
 RUN cd /usr/src/runtime/python && python setup.py install
