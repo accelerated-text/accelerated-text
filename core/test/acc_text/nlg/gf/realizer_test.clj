@@ -36,6 +36,11 @@
 (deftest gf-item-construction
   (is (= "Pred. S ::= NP VP ;" (sut/gf-syntax-item "Pred" "S" "NP VP"))))
 
+(deftest roled-relation-filtering
+  (is (= [[{:id "03" :type :data :value "title"}
+           {:id "04" :type :dictionary-item :value "NN-good" :attributes {:name "good"}}]]
+         (sut/modifier-relations modifier-dp (sut/concepts->id-concept modifier-dp)))))
+
 (deftest extracting-root-amrs
   (is (= [{:id "03" :type :data :value "title"}] (sut/find-root-amr single-fact-dp)))
   (is (= [{:id "03" :type :data :value "title"}] (sut/find-root-amr verb-dp))))

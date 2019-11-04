@@ -1,13 +1,6 @@
 (ns acc-text.nlg.gf.realizer
   (:require [clojure.string :as string]))
 
-;; Pred.  S  ::= NP VP ;
-;; Compl. VP ::= V2 NP ;
-;; John.  NP ::= "John" ;
-;; Mary.  NP ::= "Mary" ;
-;; L.  V2 ::= "loves" ;
-;; L.  V2 ::= "adores" ;
-
 (defn data-morphology-value [{value :value}] (format "{{%s}}" (string/upper-case value)))
 (defn data-syntactic-function-name [{value :value}] (string/upper-case value))
 
@@ -35,6 +28,9 @@
 (defn all-by-type [{concepts :concepts} concept-type]
   (filter (fn [{:keys [type]}] (= concept-type type)) concepts))
 
+(defn relations-with-role [{relations :relations} relation-role]
+  (filter (fn [{:keys [role]}] (= role relation-role)) relations))
+
 (defn NP-only-graph? [{concepts :concepts}]
   (and (= 1 (count concepts))
        (= :data (:type (first concepts)))))
@@ -47,8 +43,29 @@
   (let [amr (first-by-type dp :amr)]
     ))
 
+(defn concepts->id-concept
+  "Take semantic graph and produce a map of concept id to a concept item.
+  Useful when later we do analysis based on relations where only concept ID is present"
+  [{:keys [concepts]}]
+  (reduce (fn [agg c]
+            (assoc agg (:id c) c))
+          {} concepts))
+
+(defn modifier-relations [semantic-graph concept-table]
+  (reduce (fn [agg {:keys [from to]}]
+            (conj agg [(get concept-table from) (get concept-table to)]))
+          []
+          (relations-with-role semantic-graph :modifier)))
+
+(defn modifier->gf [semantic-graph concept-table]
+  (cons "ComplA. AP ::= A NP;"
+        (map (fn [[_ {{name :name} :attributes}]]
+               (gf-syntax-item name "A" name))
+             (modifier-relations semantic-graph concept-table))))
+
 (defn dp->rgl [dp]
-  (let [sem-graph (drop-non-semantic-parts dp)]
+  (let [sem-graph (drop-non-semantic-parts dp)
+        concept-table (concepts->id-concept sem-graph)]
     (cond
       (AP-only-graph? sem-graph)
       (let [np (first-by-type sem-graph :data)
