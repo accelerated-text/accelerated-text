@@ -39,7 +39,7 @@
                               :variables {:uid          "01"
                                           :name         "test"
                                           :blocklyXml   "<>"
-                                          :documentPlan "\"{}\""}})
+                                          :documentPlan "{}"}})
         query "{documentPlan(id:\"%s\"){id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"
         {{{{:keys [id uid name blocklyXml documentPlan createdAt updatedAt updateCount]} :documentPlan} :data errors :errors} :body}
         (q "/_graphql" :post {:query (format query id)})]
@@ -48,7 +48,7 @@
     (is (= "01" uid))
     (is (= "test" name))
     (is (= "<>" blocklyXml))
-    (is (= "\"{}\"" documentPlan))
+    (is (= "{}" documentPlan))
     (is (pos-int? createdAt))
     (is (= createdAt updatedAt))
     (is (zero? updateCount))))
@@ -60,13 +60,13 @@
                               :variables {:uid          "02"
                                           :name         "test"
                                           :blocklyXml   "<>"
-                                          :documentPlan "\"{}\""}})]
+                                          :documentPlan "{}"}})]
     (is (nil? errors))
     (is (string? id))
     (is (= "02" uid))
     (is (= "test" name))
     (is (= "<>" blocklyXml))
-    (is (= "\"{}\"" documentPlan))
+    (is (= "{}" documentPlan))
     (is (nil? dataSampleRow))
     (is (pos-int? createdAt))
     (is (= createdAt updatedAt))
@@ -88,14 +88,14 @@
                                           :uid           "01"
                                           :name          "test-updated"
                                           :blocklyXml    "<>"
-                                          :documentPlan  "\"{}\""
+                                          :documentPlan  "{}"
                                           :dataSampleRow 0}})]
     (is (nil? errors))
     (is (string? id))
     (is (= "01" uid))
     (is (= "test-updated" name))
     (is (= "<>" blocklyXml))
-    (is (= "\"{}\"" documentPlan))
+    (is (= "{}" documentPlan))
     (is (zero? dataSampleRow))
     (is (pos-int? createdAt))
     (is (pos-int? updatedAt))

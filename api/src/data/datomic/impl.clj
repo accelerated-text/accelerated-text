@@ -11,6 +11,17 @@
 
 (defn remove-nil-vals [m] (into {} (remove (comp nil? second) m)))
 
+(defn remove-empty-or-nil-vals [m]
+  (into {}
+        (remove (fn [[_ v]] (or (nil? v)
+                                (and (not (boolean? v)) (empty? v))
+                                (= [nil] v))) m)))
+
+(defn remove-empty-or-nil-but-not-nil-list-vals [m]
+  (into {}
+        (remove (fn [[_ v]] (or (nil? v)
+                                (and (not (boolean? v)) (empty? v)))) m)))
+
 (defmulti transact-item (fn [resource-type _ _] resource-type))
 
 (defmethod transact-item :data-files [_ key data-item]
@@ -37,6 +48,21 @@
 (defmethod transact-item :dictionary-combined [_ key data-item]
   @(d/transact conn [(remove-nil-vals (dissoc (prepare-dictionary-item key data-item) :db/id))]))
 
+(defn prepare-document-plan [document-plan]
+  (when document-plan
+    (remove-empty-or-nil-vals
+      {:blockly/segments        (map prepare-document-plan (:segments document-plan))
+       :blockly/children        (map prepare-document-plan (:children document-plan))
+       :blockly/hasChildren     (not (nil? (:children document-plan)))
+       :blockly/srcId           (:srcId document-plan)
+       :blockly/type            (:type document-plan)
+       :blockly/name            (:name document-plan)
+       :blockly/concept-id      (:conceptId document-plan)
+       :blockly/item-id         (:itemId document-plan)
+       :blockly/roles           (map prepare-document-plan (:roles document-plan))
+       :blockly/child           (prepare-document-plan (:child document-plan))
+       :blockly/dictionary-item (prepare-document-plan (:dictionaryItem document-plan))})))
+
 (defmethod transact-item :blockly [_ key data-item]
   (let [current-ts (utils/ts-now)]
     @(d/transact conn [(remove-nil-vals
@@ -45,7 +71,7 @@
                           :document-plan/data-sample-id  (:dataSampleId data-item)
                           :document-plan/name            (:name data-item)
                           :document-plan/blockly-xml     (:blocklyXml data-item)
-                          :document-plan/document-plan   (:documentPlan data-item)
+                          :document-plan/document-plan   (prepare-document-plan (:documentPlan data-item))
                           :document-plan/created-at      current-ts
                           :document-plan/updated-at      current-ts
                           :document-plan/data-sample-row (:dataSampleRow data-item)
@@ -91,6 +117,28 @@
                                    :flags {:default (:reader-flag/default (:phrase/flags phrase))}})
                      (:dictionary-combined/phrases dictionary-entry))})))
 
+(defn doc-plan->document-plan [document-plan]
+  (when (= (:blockly/name document-plan) "theme")
+    (prn document-plan (if (and (:blockly/hasChildren document-plan)
+                                (nil? (:blockly/children document-plan)))
+                         [nil]
+                         (map doc-plan->document-plan (:blockly/children document-plan)))))
+  (when document-plan
+    (remove-empty-or-nil-but-not-nil-list-vals
+      {:segments       (map doc-plan->document-plan (:blockly/segments document-plan))
+       :children       (if (and (:blockly/hasChildren document-plan)
+                                (nil? (:blockly/children document-plan)))
+                         [nil]
+                         (map doc-plan->document-plan (:blockly/children document-plan)))
+       :conceptId      (:blockly/concept-id document-plan)
+       :srcId          (:blockly/srcId document-plan)
+       :type           (:blockly/type document-plan)
+       :name           (:blockly/name document-plan)
+       :itemId         (:blockly/item-id document-plan)
+       :child          (doc-plan->document-plan (:blockly/child document-plan))
+       :roles          (map doc-plan->document-plan (:blockly/roles document-plan))
+       :dictionaryItem (doc-plan->document-plan (:blockly/dictionary-item document-plan))})))
+
 (defmethod pull-entity :blockly [_ key]
   (let [document-plan (ffirst (d/q '[:find (pull ?e [*])
                                      :in $ ?key
@@ -98,15 +146,29 @@
                                    (d/db conn)
                                    key))]
     (when document-plan
-      {:id            (:document-plan/id document-plan)
-       :uid           (:document-plan/uid document-plan)
-       :name          (:document-plan/name document-plan)
-       :blocklyXml    (:document-plan/blockly-xml document-plan)
-       :documentPlan  (:document-plan/document-plan document-plan)
-       :createdAt     (:document-plan/created-at document-plan)
-       :updatedAt     (:document-plan/updated-at document-plan)
-       :dataSampleRow (:document-plan/data-sample-row document-plan)
-       :updateCount   (:document-plan/update-count document-plan)})))
+      (remove-nil-vals
+        {:id            (:document-plan/id document-plan)
+         :uid           (:document-plan/uid document-plan)
+         :name          (:document-plan/name document-plan)
+         :blocklyXml    (:document-plan/blockly-xml document-plan)
+         :documentPlan  (doc-plan->document-plan (:document-plan/document-plan document-plan))
+         :createdAt     (:document-plan/created-at document-plan)
+         :updatedAt     (:document-plan/updated-at document-plan)
+         :dataSampleRow (:document-plan/data-sample-row document-plan)
+         :updateCount   (:document-plan/update-count document-plan)}))))
+
+(defmethod pull-entity :results [_ key]
+  (let [entity (ffirst (d/q '[:find (pull ?e [*])
+                              :where
+                              [?e :results/id ?key]]
+                            (d/db conn)
+                            key))]
+    (when entity
+      {:id      (:results/id key)
+       :ready   (:results/ready entity)
+       :error   (:results/error entity)
+       :message (:results/message entity)
+       :results (:results/results entity)})))
 
 (defmethod pull-entity :default [resource-type key]
   (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'" resource-type key)
@@ -173,7 +235,7 @@
                           :document-plan/data-sample-id  (:dataSampleId data-item)
                           :document-plan/name            (:name data-item)
                           :document-plan/blockly-xml     (:blocklyXml data-item)
-                          :document-plan/document-plan   (:documentPlan data-item)
+                          :document-plan/document-plan   (prepare-document-plan (:documentPlan data-item))
                           :document-plan/updated-at      current-ts
                           :document-plan/data-sample-row (:dataSampleRow data-item)
                           :document-plan/update-count    (inc (:updateCount original))})])
@@ -181,9 +243,10 @@
 
 (defmethod update! :results [_ key data-item]
   @(d/transact conn [(remove-nil-vals
-                       {:db/id                         [:results/id key]
-                        :results/ready (:ready data-item)
-                        :results/error (:error data-item)
+                       {:db/id           [:results/id key]
+                        :results/ready   (:ready data-item)
+                        :results/error   (:error data-item)
+                        :results/results (:results data-item)
                         :results/message (:message data-item)})]))
 
 (defmethod update! :dictionary-combined [resource-type key data-item]

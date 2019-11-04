@@ -92,7 +92,8 @@
            :db/doc         "Blockly XML representation of the document plan"}
 
           {:db/ident       :document-plan/document-plan
-           :db/valueType   :db.type/string
+           :db/valueType   :db.type/ref
+           :db/isComponent true
            :db/cardinality :db.cardinality/one
            :db/doc         "Serialized document plan"}
 
@@ -116,6 +117,66 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Count of how many times DP was updated"}]
 
+         [{:db/ident       :blockly/srcId
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of the blockly"}
+
+          {:db/ident       :blockly/type
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Type of the blockly item"}
+
+          {:db/ident       :blockly/name
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Name of the blockly item"}
+
+          {:db/ident       :blockly/concept-id
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Concept ID of the blockly item when it is AMR"}
+
+          {:db/ident       :blockly/dictionary-item
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Dictionary item related to the concept"}
+
+          {:db/ident       :blockly/child
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Child in blockly document plan"}
+
+          {:db/ident       :blockly/item-id
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Dictionary item related to the concept"}
+
+          {:db/ident       :blockly/segments
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Segments of the blockly item"}
+
+          {:db/ident       :blockly/children
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Children of the blockly item"}
+
+          {:db/ident       :blockly/hasChildren
+           :db/valueType   :db.type/boolean
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Marks if this item has children"}
+
+          {:db/ident       :blockly/roles
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Roles of the blockly item"}]
+
          [{:db/ident       :results/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
@@ -135,4 +196,9 @@
           {:db/ident       :results/message
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Text to be conveyed"}]]}}
+           :db/doc         "Text to be conveyed"}
+
+          {:db/ident       :results/results
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Text that was generated"}]]}}
