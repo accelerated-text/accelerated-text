@@ -12,8 +12,30 @@ from http.server import BaseHTTPRequestHandler
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-def response_json(content):
-    return json.dumps(content).encode("UTF-8")
+
+def setup_headers(fn):
+    def wrapper(self, *args, **kwargs):
+        self.send_response(200)
+        self.send_header("Content-type", "application/json")
+        self.end_headers()
+        return fn(self, *args, **kwargs)
+    return wrapper
+
+
+def json_response(fn):
+    def wrapper(self, *args, **kwargs):
+        result = fn(self, *args, **kwargs)
+        self.wfile.write(json.dumps(result).encode("UTF-8"))
+    return wrapper
+
+
+def json_request(fn):
+    def wrapper(self, *args, **kwargs):
+        content_length = int(self.headers["Content-Length"])
+        post_data = json.loads(self.rfile.read(content_length).decode("UTF-8"))
+        logger.debug("Got: {}".format(post_data))
+        return fn(self, post_data, *args, **kwargs)
+    return wrapper
 
 
 def compile_grammar(raw):
@@ -41,23 +63,17 @@ def compile_grammar(raw):
             grammar = pgf.readPGF("{0}/grammarAbs.pgf".format(tmpdir))
             return grammar
         
-
-
+        
 class GFHandler(BaseHTTPRequestHandler):
-    def _set_headers(self):
-        self.send_response(200)
-        self.send_header("Content-type", "application/json")
-        self.end_headers()
-
+    @setup_headers
     def do_HEAD(self):
-        self._set_headers()
+        pass
 
-    def do_POST(self):
-        content_length = int(self.headers["Content-Length"])
-        post_data = json.loads(self.rfile.read(content_length).decode("UTF-8"))
-        logger.debug("Got: {}".format(post_data))
-        grammar = compile_grammar(post_data["content"])
-        self._set_headers()
+    @setup_headers
+    @json_response
+    @json_request
+    def do_POST(self, data):
+        grammar = compile_grammar(data["content"])
         if grammar:
             expressions = grammar.generateAll(grammar.startCat)
             lang = grammar.languages["grammar"]
@@ -65,9 +81,9 @@ class GFHandler(BaseHTTPRequestHandler):
                             for (_, e) in expressions
                             for r in lang.linearizeAll(e)])
             logger.debug("Results: {}".format(results))
-            self.wfile.write(response_json({"results": results}))
+            return {"results": results}
         else:
-            self.wfile.write(response_json({"results": []}))
+            return {"results": []}
 
 
 
