@@ -47,6 +47,7 @@
                       #'data.entities.document-plan/document-plans-db
                       #'data.entities.dictionary/reader-flags-db
                       #'data.entities.dictionary/dictionary-combined-db
+                      #'data.entities.result/results-db
                       #'data.datomic.impl/conn})
         (mount/start)))
   (f))

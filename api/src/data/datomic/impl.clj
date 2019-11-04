@@ -56,6 +56,11 @@
       :updatedAt current-ts
       :updateCount 0)))
 
+(defmethod transact-item :results [_ key data-item]
+  @(d/transact conn [(remove-nil-vals
+                       {:results/id key
+                        :results/ready (:ready data-item)})]))
+
 (defmethod transact-item :default [resource-type key _]
   (log/warnf "Default implementation of transact-item for the '%s' with key '%s'" resource-type key)
   (throw (RuntimeException. (format "DATOMIC TRANSACT-ITEM FOR '%s' NOT IMPLEMENTED" resource-type))))
@@ -173,6 +178,13 @@
                           :document-plan/data-sample-row (:dataSampleRow data-item)
                           :document-plan/update-count    (inc (:updateCount original))})])
     (pull-entity resource-type key)))
+
+(defmethod update! :results [_ key data-item]
+  @(d/transact conn [(remove-nil-vals
+                       {:db/id                         [:results/id key]
+                        :results/ready (:ready data-item)
+                        :results/error (:error data-item)
+                        :results/message (:message data-item)})]))
 
 (defmethod update! :dictionary-combined [resource-type key data-item]
   (let [val [(remove-nil-vals (prepare-dictionary-item key data-item))]]

@@ -114,4 +114,25 @@
           {:db/ident       :document-plan/update-count
            :db/valueType   :db.type/long
            :db/cardinality :db.cardinality/one
-           :db/doc         "Count of how many times DP was updated"}]]}}
+           :db/doc         "Count of how many times DP was updated"}]
+
+         [{:db/ident       :results/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of the results"}
+
+          {:db/ident       :results/ready
+           :db/valueType   :db.type/boolean
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Status of the results"}
+
+          {:db/ident       :results/error
+           :db/valueType   :db.type/boolean
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Whether text generation ended in error"}
+
+          {:db/ident       :results/message
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Text to be conveyed"}]]}}
