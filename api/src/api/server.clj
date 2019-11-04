@@ -103,6 +103,15 @@
              :ip       host
              :max-body Integer/MAX_VALUE})))
 
+(defn start-http-server [conf]
+  (let [host (get conf :host "0.0.0.0")
+        port (get conf :port 3001)]
+    (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
+    (server/run-server
+      #'app {:port     port
+             :ip       host
+             :max-body Integer/MAX_VALUE})))
+
 (defstate http-server
   :start (start-http-server conf)
   :stop (http-server :timeout 100))
