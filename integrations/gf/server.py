@@ -1,13 +1,18 @@
 import logging
 import json
 import argparse
-import socketserver
 import subprocess
-import tempfile
+
+from backports.tempfile import TemporaryDirectory
 
 import pgf
 
-from http.server import BaseHTTPRequestHandler
+try:
+    import SocketServer as socketserver
+    from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+except ImportError:
+    import socketserver
+    from http.server import HTTPServer, BaseHTTPRequestHandler
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -40,7 +45,7 @@ def json_request(fn):
 
 
 def compile_grammar(raw):
-    with tempfile.TemporaryDirectory() as tmpdir:
+    with TemporaryDirectory() as tmpdir:
         logger.info("Created temp dir: {}".format(tmpdir))
         grammar_path = "{}/grammar.cf".format(tmpdir)
         with open(grammar_path, "w") as f:
@@ -82,8 +87,8 @@ class GFHandler(BaseHTTPRequestHandler):
             try:
                 logger.debug("Start category: {}".format(grammar.startCat))
                 expressions = grammar.generateAll(grammar.startCat)
-                logger.debug("Expressions: {}".format(list(expressions)))
                 lang = grammar.languages["grammar"]
+                logger.debug("Expressions: {}".format(list(expressions)))
                 results = list([r
                                 for (_, e) in expressions
                                 for r in lang.linearizeAll(e)])
@@ -93,10 +98,7 @@ class GFHandler(BaseHTTPRequestHandler):
             logger.debug("Results: {}".format(results))
             return {"results": results}
         else:
-            logger.info("No grammar")
             return {"results": []}
-
-
 
 
 def main(args):
