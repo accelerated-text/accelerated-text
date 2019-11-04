@@ -31,10 +31,18 @@
       (assoc ::sg/members (get dictionary value))
       (assoc-in [::sg/attributes ::sg/reader-profile] reader-profile)))
 
-(defn build-instances [semantic-graph reader-profiles]
+(defn ->instance-id [document-plan-id {:keys [reader-profile]}]
+  (str/join "-" (remove nil? [document-plan-id (when (some? reader-profile) (name reader-profile))])))
+
+(defn build-instances [semantic-graph document-plan-id reader-profiles]
   (let [dictionary-items (get-dictionary-items semantic-graph)
         dictionary (build-dictionary dictionary-items reader-profiles)]
-    (for [reader-profile reader-profiles]
-      (let [context {:reader-profile reader-profile
-                     :dictionary     (get dictionary reader-profile)}]
-        (update semantic-graph ::sg/concepts #(map (fn [concept] (add-context concept context)) %))))))
+    (reduce (fn [m reader-profile]
+              (let [context {:reader-profile reader-profile
+                             :dictionary     (get dictionary reader-profile)}]
+                (assoc
+                  m
+                  (->instance-id document-plan-id context)
+                  (update semantic-graph ::sg/concepts #(map (fn [concept] (add-context concept context)) %)))))
+            {}
+            reader-profiles)))
