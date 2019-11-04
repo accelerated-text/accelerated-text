@@ -220,6 +220,9 @@
 (defmethod delete :blockly [_ key]
   @(d/transact conn [[:db.fn/retractEntity [:document-plan/id key]]]))
 
+(defmethod delete :dictionary-combined [_ key]
+  @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]]))
+
 (defmethod delete :default [resource-type opts]
   (log/warnf "Default implementation of DELETE for the '%s' with key '%s'" resource-type opts)
   (throw (RuntimeException. (format "DATOMIC DELETE FOR '%s' NOT IMPLEMENTED" resource-type))))
