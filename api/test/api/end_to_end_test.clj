@@ -1,5 +1,5 @@
 (ns api.end-to-end-test
-  (:require [api.ddb-fixtures :as ddb-fixtures]
+  (:require [api.db-fixtures :as fixtures]
             [api.test-utils :refer [q load-test-document-plan]]
             [clojure.string :as string]
             [clojure.test :refer [deftest is use-fixtures]]
@@ -11,7 +11,7 @@
   String is considered a valid sentence if it:
   1. ends with one of the following punctuation symbols - .!?
   2. has at least two alphanumeric characters."
-  [txt] (re-matches #"(\S{2,} )+[.?!]" txt))
+  [txt] (re-matches #".*\w{2,}.*[.?!]" txt))
 
 (defn prepare-environment [f]
   (dp/add-document-plan {:uid          "01"
@@ -32,7 +32,7 @@
                         "4")
   (f))
 
-(use-fixtures :each ddb-fixtures/wipe-ddb-tables prepare-environment)
+(use-fixtures :each fixtures/clean-db prepare-environment)
 
 (defn wait-for-results [result-id]
   (while (false? (get-in (q (str "/nlg/" result-id) :get nil) [:body :ready]))
