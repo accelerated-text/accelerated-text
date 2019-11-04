@@ -11,6 +11,8 @@
                          :table-key  :key}
    :blockly             {:table-name "blockly-workspace"
                          :table-key  :id}
+   :instances           {:table-name "semantic-graph-instances"
+                         :table-key  :id}
    :lexicon             {:table-name "lexicon"
                          :table-key  :key}
    :dictionary          {:table-name "dictionary"
@@ -56,11 +58,11 @@
           (far/get-item client-ops table-name {table-key key})))
       (write-item [this key data update-count?]
         (let [current-ts (utils/ts-now)
-              body       (cond-> (assoc data
-                                   table-key key
-                                   :createdAt current-ts
-                                   :updatedAt current-ts)
-                                 update-count? (assoc :updateCount 0))]
+              body (cond-> (assoc data
+                             table-key key
+                             :createdAt current-ts
+                             :updatedAt current-ts)
+                           update-count? (assoc :updateCount 0))]
           (far/put-item client-ops table-name (freeze body))
           body))
       (update-item [this key data]
