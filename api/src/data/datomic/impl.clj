@@ -1,13 +1,28 @@
 (ns data.datomic.impl
   (:require [api.config :refer [conf]]
+            [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [data.protocol :as protocol]
             [data.utils :as utils]
             [datomic.api :as d]
-            [mount.core :refer [defstate]]))
+            [io.rkn.conformity :as c]
+            [mount.core :refer [defstate]])
+  (:import (java.io File)))
+
+(def schema-folder-name "datomic-schema")
+
+(defn migrate [conn]
+  (doseq [file-name (->> (file-seq (io/file (io/resource schema-folder-name)))
+                         (remove #(.isDirectory ^File %))
+                         (map #(.getName ^File %))
+                         (sort))]
+    (log/infof "Applying Datomic migration: %s" file-name)
+    (c/ensure-conforms conn (c/read-resource (str schema-folder-name "/" file-name)))))
 
 (defstate conn
-  :start (d/connect (:db-uri conf)))
+  :start (let [c (d/connect (:db-uri conf))]
+           (migrate c)
+           c))
 
 (defn remove-nil-vals [m] (into {} (remove (comp nil? second) m)))
 

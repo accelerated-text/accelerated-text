@@ -1,13 +1,9 @@
 (ns api.datomic-fixtures
   (:require [api.config]
-            [clojure.java.io :as io]
-            [clojure.tools.logging :as log]
             [data.entities.data-files]
             [datomic.api :as d]
-            [io.rkn.conformity :as c]
             [mount.core :as mount])
-  (:import (java.util UUID)
-           (java.io File)))
+  (:import (java.util UUID)))
 
 (defn scratch-conn
   "Creates an in-memory Datomic connection.
@@ -18,22 +14,11 @@
      (d/create-database uri)
      (d/connect uri))))
 
-(def schema-folder-name "datomic-schema")
-
-(defn migrate [conn]
-  (doseq [file-name (->> (file-seq (io/file (io/resource schema-folder-name)))
-                         (remove #(.isDirectory ^File %))
-                         (map #(.getName ^File %))
-                         (sort))]
-    (log/infof "Applying Datomic migration: %s" file-name)
-    (c/ensure-conforms conn (c/read-resource (str schema-folder-name "/" file-name)))))
-
 (def data-file {:data-file/id "id" :data-file/filename "filename" :data-file/content "content"})
 
 (defn datomix-fixture [f]
-  (let [db-name (str (UUID/randomUUID))
-        conn (scratch-conn db-name)
-        _ (migrate conn)]
+  (let [db-name (str (UUID/randomUUID))]
+    (scratch-conn db-name)
     (mount/stop)
     (-> (mount/swap-states
           {#'api.config/conf
