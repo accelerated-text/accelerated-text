@@ -5,6 +5,8 @@ import socketserver
 import subprocess
 import tempfile
 
+import pgf
+
 from http.server import BaseHTTPRequestHandler
 
 logging.basicConfig(level=logging.DEBUG)
@@ -23,8 +25,21 @@ def compile_grammar(raw):
             f.write(raw)
 
         logger.info("Compiling")
-        result = subprocess.run("gf -make {}".format(grammar_path), shell=True)
-        logger.info(result)
+        proc = subprocess.Popen(
+            "gf --output-dir={1} -make {0}".format(grammar_path, tmpdir),
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+        (result, error) = proc.communicate()
+
+        if proc.returncode != 0:
+            logger.error(error)
+            return None
+        else:
+            logger.info("Compiled successfuly! Message: {}".format(result))
+            grammar = pgf.readPGF("{0}/grammarAbs.pgf".format(tmpdir))
+            return grammar
         
 
 
@@ -39,19 +54,32 @@ class GFHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         content_length = int(self.headers["Content-Length"])
-        post_data = self.rfile.read(content_length).decode("UTF-8")
+        post_data = json.loads(self.rfile.read(content_length).decode("UTF-8"))
         logger.debug("Got: {}".format(post_data))
-        compile_grammar(post_data)
+        grammar = compile_grammar(post_data["content"])
         self._set_headers()
-        
-        self.wfile.write(response_json({"result": "NOTHING"}))
+        if grammar:
+            expressions = grammar.generateAll(grammar.startCat)
+            lang = grammar.languages["grammar"]
+            results = list([r
+                            for (_, e) in expressions
+                            for r in lang.linearizeAll(e)])
+            logger.debug("Results: {}".format(results))
+            self.wfile.write(response_json({"results": results}))
+        else:
+            self.wfile.write(response_json({"results": []}))
+
 
 
 
 def main(args):
-    with socketserver.TCPServer(("", args.port), GFHandler) as httpd:
-        logger.info("Serving on port: {}".format(args.port))
+    httpd = socketserver.TCPServer(("", args.port), GFHandler)
+    logger.info("Serving on port: {}".format(args.port))
+    try:
         httpd.serve_forever()
+    except KeyboardInterrupt:
+        logger.info("Stopping server")
+        httpd.server_close()
 
 
 if __name__ == "__main__":

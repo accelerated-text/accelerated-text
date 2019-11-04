@@ -23,6 +23,7 @@ services:
     build:
       context: .
       dockerfile: integrations/gf/Dockerfile
+    ports: ["8001:8000"]
   mock-shop:
     build:
       context: integrations/demo-shop-lambdas
