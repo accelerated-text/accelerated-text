@@ -61,7 +61,9 @@
   (str/join "\n" (map str (.getStackTrace e))))
 
 (defn csv-to-map [f]
-  (let [raw-csv (csv/read-csv f)
+  (when-not f
+    (log/warnf "CSV is NULL" f))
+  (let [raw-csv (csv/read-csv (or f ""))
         header  (->> raw-csv (first) (map keyword) (vec))
         data    (rest raw-csv)
         pairs   (map #(interleave header %) data)]
