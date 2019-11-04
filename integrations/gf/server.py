@@ -24,6 +24,7 @@ def setup_headers(fn):
 
 def json_response(fn):
     def wrapper(self, *args, **kwargs):
+        logger.info("Doing json response")
         result = fn(self, *args, **kwargs)
         self.wfile.write(json.dumps(result).encode("UTF-8"))
     return wrapper
@@ -59,30 +60,40 @@ def compile_grammar(raw):
             logger.error(error)
             return None
         else:
-            logger.info("Compiled successfuly! Message: {}".format(result))
+            logger.debug("Compiled successfuly! Message: {}".format(result))
             grammar = pgf.readPGF("{0}/grammarAbs.pgf".format(tmpdir))
             return grammar
-        
-        
+
+
 class GFHandler(BaseHTTPRequestHandler):
     @setup_headers
     def do_HEAD(self):
         pass
 
-    @setup_headers
     @json_response
+    @setup_headers
     @json_request
     def do_POST(self, data):
         grammar = compile_grammar(data["content"])
         if grammar:
-            expressions = grammar.generateAll(grammar.startCat)
-            lang = grammar.languages["grammar"]
-            results = list([r
-                            for (_, e) in expressions
-                            for r in lang.linearizeAll(e)])
+            logger.info("Generating")
+            results = []
+            try:
+                logger.debug("Start category: {}".format(grammar.startCat))
+                expressions = grammar.generateAll(grammar.startCat)
+                logger.debug("Expressions: {}".format(list(expressions)))
+                logger.debug("Languages: {}".format(grammar.languages))
+                lang = grammar.languages["grammar"]
+                results = list([r
+                                for (_, e) in expressions
+                                for r in lang.linearizeAll(e)])
+            except Exception as ex:
+                logger.exception(ex)
+
             logger.debug("Results: {}".format(results))
             return {"results": results}
         else:
+            logger.info("No grammar")
             return {"results": []}
 
 
