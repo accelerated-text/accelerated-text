@@ -1,6 +1,6 @@
 (ns api.nlg.instances-test
   (:require [acc-text.nlg.spec.semantic-graph :as sg]
-            [api.graphql.ddb-fixtures :as ddb-fixtures]
+            [api.db-fixtures :as fixtures]
             [api.nlg.instances :as instances]
             [api.nlg.parser :as parser]
             [api.test-utils :refer [q load-test-document-plan]]
@@ -19,7 +19,7 @@
                                                                  :defaultUsage     "YES"}})
     (f)))
 
-(use-fixtures :each ddb-fixtures/wipe-ddb-tables prepare-environment)
+(use-fixtures :each fixtures/clean-db prepare-environment)
 
 (deftest ^:integration dictionary-item-extraction
   (let [semantic-graph (parser/document-plan->semantic-graph (load-test-document-plan "author-amr-with-adj"))]
