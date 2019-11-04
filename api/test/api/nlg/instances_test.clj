@@ -1,5 +1,6 @@
 (ns api.nlg.instances-test
-  (:require [api.graphql.ddb-fixtures :as ddb-fixtures]
+  (:require [acc-text.nlg.spec.semantic-graph :as sg]
+            [api.graphql.ddb-fixtures :as ddb-fixtures]
             [api.nlg.instances :as instances]
             [api.nlg.parser :as parser]
             [api.test-utils :refer [q load-test-document-plan]]
@@ -21,8 +22,8 @@
 (use-fixtures :each ddb-fixtures/wipe-ddb-tables prepare-environment)
 
 (deftest ^:integration dictionary-item-extraction
-  (let [document-plan (parser/parse-document-plan (load-test-document-plan "author-amr-with-adj"))]
-    (is (= #{"good" "written"} (instances/get-dictionary-items document-plan)))))
+  (let [semantic-graph (parser/document-plan->semantic-graph (load-test-document-plan "author-amr-with-adj"))]
+    (is (= #{"good" "written"} (instances/get-dictionary-items semantic-graph)))))
 
 (deftest ^:integration dictionary-building
   (let [dictionary-items #{"good" "written"}]
@@ -34,32 +35,32 @@
 
 (deftest ^:integration context-adding
   (testing "Dictionary item context adding"
-    (let [document-plan (parser/parse-document-plan (load-test-document-plan "author-amr-with-adj"))]
-      (is (= #{#:acctext.amr{:attributes #:acctext.amr{:name           "written"
-                                                       :reader-profile :default}
-                             :id         :03
-                             :members    ["authored"]
-                             :type       :dictionary-item
-                             :value      "written"}
-               #:acctext.amr{:attributes #:acctext.amr{:name           "good"
-                                                       :reader-profile :default}
-                             :id         :05
-                             :members    ["excellent"]
-                             :type       :dictionary-item
-                             :value      "good"}
-               #:acctext.amr{:attributes #:acctext.amr{:name           "written"
-                                                       :reader-profile :senior}
-                             :id         :03
-                             :members    ["authored"]
-                             :type       :dictionary-item
-                             :value      "written"}
-               #:acctext.amr{:attributes #:acctext.amr{:name           "good"
-                                                       :reader-profile :senior}
-                             :id         :05
-                             :members    ["excellent"]
-                             :type       :dictionary-item
-                             :value      "good"}}
-             (->> (instances/build-instances document-plan [:default :senior])
-                  (mapcat :acctext.amr/concepts)
-                  (filter #(= (:acctext.amr/type %) :dictionary-item))
+    (let [semantic-graph (parser/document-plan->semantic-graph (load-test-document-plan "author-amr-with-adj"))]
+      (is (= #{#::sg{:attributes #::sg{:name           "written"
+                                       :reader-profile :default}
+                     :id         :03
+                     :members    ["authored"]
+                     :type       :dictionary-item
+                     :value      "written"}
+               #::sg{:attributes #::sg{:name           "good"
+                                       :reader-profile :default}
+                     :id         :05
+                     :members    ["excellent"]
+                     :type       :dictionary-item
+                     :value      "good"}
+               #::sg{:attributes #::sg{:name           "written"
+                                       :reader-profile :senior}
+                     :id         :03
+                     :members    ["authored"]
+                     :type       :dictionary-item
+                     :value      "written"}
+               #::sg{:attributes #::sg{:name           "good"
+                                       :reader-profile :senior}
+                     :id         :05
+                     :members    ["excellent"]
+                     :type       :dictionary-item
+                     :value      "good"}}
+             (->> (instances/build-instances semantic-graph [:default :senior])
+                  (mapcat ::sg/concepts)
+                  (filter #(= (::sg/type %) :dictionary-item))
                   (set)))))))

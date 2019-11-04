@@ -1,83 +1,83 @@
 (ns api.nlg.parser
-  (:require [acc-text.nlg.spec.amr-graph]
+  (:require [acc-text.nlg.spec.semantic-graph :as sg]
             [clojure.spec.alpha :as s]
             [clojure.zip :as zip]))
 
-(defmulti build-amr (fn [node] (-> node (get :type) (keyword))))
+(defmulti build-semantic-graph (fn [node] (-> node (get :type) (keyword))))
 
-(defmethod build-amr :default [{:keys [id children] :as node}]
-  #:acctext.amr{:concepts  [#:acctext.amr{:id    id
-                                          :type  :unknown
-                                          :value (dissoc node :id :children)}]
-                :relations (map (fn [{child-id :id}]
-                                  #:acctext.amr{:from id
-                                                :to   child-id
-                                                :role :unknown})
-                                children)})
+(defmethod build-semantic-graph :default [{:keys [id children] :as node}]
+  #::sg{:concepts  [#::sg{:id    id
+                          :type  :unknown
+                          :value (dissoc node :id :children)}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :unknown})
+                        children)})
 
-(defmethod build-amr :placeholder [_]
-  #:acctext.amr{:concepts  []
-                :relations []})
+(defmethod build-semantic-graph :placeholder [_]
+  #::sg{:concepts  []
+        :relations []})
 
-(defmethod build-amr :Document-plan [{:keys [id segments]}]
-  #:acctext.amr{:concepts  [#:acctext.amr{:id   id
-                                          :type :document-plan}]
-                :relations (map (fn [{segment-id :id}]
-                                  #:acctext.amr{:from id
-                                                :to   segment-id
-                                                :role :segment})
-                                segments)})
+(defmethod build-semantic-graph :Document-plan [{:keys [id segments]}]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :document-plan}]
+        :relations (map (fn [{segment-id :id}]
+                          #::sg{:from id
+                                :to   segment-id
+                                :role :segment})
+                        segments)})
 
-(defmethod build-amr :Segment [{:keys [id children]}]
-  #:acctext.amr{:concepts  [#:acctext.amr{:id   id
-                                          :type :segment}]
-                :relations (map (fn [{child-id :id}]
-                                  #:acctext.amr{:from id
-                                                :to   child-id
-                                                :role :instance})
-                                children)})
+(defmethod build-semantic-graph :Segment [{:keys [id children]}]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :segment}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :instance})
+                        children)})
 
-(defmethod build-amr :AMR [{:keys [id conceptId roles dictionaryItem]}]
-  #:acctext.amr{:concepts  (if (some? dictionaryItem)
-                             (-> dictionaryItem (build-amr) (get :acctext.amr/concepts))
-                             [#:acctext.amr{:id    id
-                                            :type  :amr
-                                            :value conceptId}])
-                :relations (->> roles
-                                (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
-                                               (when (not= type "placeholder")
-                                                 #:acctext.amr{:from       id
-                                                               :to         child-id
-                                                               :role       (keyword (str "ARG" index))
-                                                               :attributes #:acctext.amr{:name name}})))
-                                (remove nil?))})
+(defmethod build-semantic-graph :AMR [{:keys [id conceptId roles dictionaryItem]}]
+  #::sg{:concepts  (if (some? dictionaryItem)
+                     (-> dictionaryItem (build-semantic-graph) (get ::sg/concepts))
+                     [#::sg{:id    id
+                            :type  :amr
+                            :value conceptId}])
+        :relations (->> roles
+                        (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
+                                       (when (not= type "placeholder")
+                                         #::sg{:from       id
+                                               :to         child-id
+                                               :role       (keyword (str "ARG" index))
+                                               :attributes #::sg{:name name}})))
+                        (remove nil?))})
 
-(defmethod build-amr :Cell [{:keys [id name children]}]
-  #:acctext.amr{:concepts  [#:acctext.amr{:id    id
-                                          :type  :data
-                                          :value name}]
-                :relations (map (fn [{child-id :id}]
-                                  #:acctext.amr{:from id
-                                                :to   child-id
-                                                :role :modifier})
-                                children)})
+(defmethod build-semantic-graph :Cell [{:keys [id name children]}]
+  #::sg{:concepts  [#::sg{:id    id
+                          :type  :data
+                          :value name}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :modifier})
+                        children)})
 
-(defmethod build-amr :Quote [{:keys [id text children]}]
-  #:acctext.amr{:concepts  [#:acctext.amr{:id    id
-                                          :type  :quote
-                                          :value text}]
-                :relations (map (fn [{child-id :id}]
-                                  #:acctext.amr{:from id
-                                                :to   child-id
-                                                :role :modifier})
-                                children)})
+(defmethod build-semantic-graph :Quote [{:keys [id text children]}]
+  #::sg{:concepts  [#::sg{:id    id
+                          :type  :quote
+                          :value text}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :modifier})
+                        children)})
 
-(defmethod build-amr :Dictionary-item [{:keys [id itemId name]}]
-  #:acctext.amr{:concepts  [#:acctext.amr{:id         id
-                                          :type       :dictionary-item
-                                          :value      itemId
-                                          :attributes #:acctext.amr{:name name}}]
-                :relations []})
+(defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name]}]
+  #::sg{:concepts  [#::sg{:id         id
+                          :type       :dictionary-item
+                          :value      itemId
+                          :attributes #::sg{:name name}}]
+        :relations []})
 
 
 (defn make-node [{type :type :as node} children]
@@ -98,7 +98,6 @@
 
 (defn make-zipper [root]
   (zip/zipper map? get-children make-node root))
-
 
 (declare preprocess-node)
 
@@ -137,21 +136,15 @@
           (zip/next)
           (recur (inc index))))))
 
-
-(defn parse [root]
+(defn document-plan->semantic-graph [root]
   (loop [zipper (-> root (preprocess) (make-zipper))
-         amr #:acctext.amr{:relations [] :concepts []}]
+         amr #::sg{:relations [] :concepts []}]
     (if (zip/end? zipper)
-      (-> amr
-          (update :acctext.amr/relations vec)
-          (update :acctext.amr/concepts vec))
+      amr
       (recur
         (zip/next zipper)
-        (merge-with concat amr (build-amr (zip/node zipper)))))))
+        (merge-with concat amr (build-semantic-graph (zip/node zipper)))))))
 
-(defn parse-document-plan [document-plan]
-  (parse document-plan))
-
-(s/fdef parse-document-plan
+(s/fdef document-plan->semantic-graph
         :args (s/cat :document-plan map?)
-        :ret :acctext.amr/graph)
+        :ret ::sg/graph)

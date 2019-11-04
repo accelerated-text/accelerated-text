@@ -1,12 +1,13 @@
 (ns api.nlg.instances
-  (:require [api.nlg.dictionary :as dictionary-api]
+  (:require [acc-text.nlg.spec.semantic-graph :as sg]
+            [api.nlg.dictionary :as dictionary-api]
             [clojure.string :as str]))
 
-(defn get-dictionary-items [document-plan]
-  (->> (get document-plan :acctext.amr/concepts)
-       (filter (fn [{type :acctext.amr/type}]
+(defn get-dictionary-items [semantic-graph]
+  (->> (get semantic-graph ::sg/concepts)
+       (filter (fn [{type ::sg/type}]
                  (= type :dictionary-item)))
-       (map :acctext.amr/value)
+       (map ::sg/value)
        (set)))
 
 (defn build-dictionary-for-profile [dictionary-items reader-profile]
@@ -21,19 +22,19 @@
           {}
           reader-profiles))
 
-(defmulti add-context (fn [concept _] (get concept :acctext.amr/type)))
+(defmulti add-context (fn [concept _] (get concept ::sg/type)))
 
 (defmethod add-context :default [concept _] concept)
 
-(defmethod add-context :dictionary-item [{value :acctext.amr/value :as concept} {:keys [dictionary reader-profile]}]
+(defmethod add-context :dictionary-item [{value ::sg/value :as concept} {:keys [dictionary reader-profile]}]
   (-> concept
-      (assoc :acctext.amr/members (get dictionary value))
-      (assoc-in [:acctext.amr/attributes :acctext.amr/reader-profile] reader-profile)))
+      (assoc ::sg/members (get dictionary value))
+      (assoc-in [::sg/attributes ::sg/reader-profile] reader-profile)))
 
-(defn build-instances [document-plan reader-profiles]
-  (let [dictionary-items (get-dictionary-items document-plan)
+(defn build-instances [semantic-graph reader-profiles]
+  (let [dictionary-items (get-dictionary-items semantic-graph)
         dictionary (build-dictionary dictionary-items reader-profiles)]
     (for [reader-profile reader-profiles]
       (let [context {:reader-profile reader-profile
                      :dictionary     (get dictionary reader-profile)}]
-        (update document-plan :acctext.amr/concepts #(map (fn [concept] (add-context concept context)) %))))))
+        (update semantic-graph ::sg/concepts #(map (fn [concept] (add-context concept context)) %))))))
