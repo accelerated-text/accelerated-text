@@ -55,7 +55,7 @@
            :db/doc         "Name of the dictionary-item"}
 
           {:db/ident       :dictionary-combined/partOfSpeech
-           :db/valueType   :db.type/string
+           :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
            :db/doc         "Part of speech tag of the dictionary-item"}
 

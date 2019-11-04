@@ -46,7 +46,10 @@
                                           (remove empty?))})
 
 (defmethod transact-item :dictionary-combined [_ key data-item]
-  @(d/transact conn [(remove-nil-vals (dissoc (prepare-dictionary-item key data-item) :db/id))]))
+  (try
+    @(d/transact conn [(remove-nil-vals (dissoc (prepare-dictionary-item key data-item) :db/id))])
+    (assoc data-item :key key)
+    (catch Exception e (.printStackTrace e))))
 
 (defn prepare-document-plan [document-plan]
   (when document-plan
@@ -190,6 +193,19 @@
                             :where [?e :reader-flag/default]]
                           (d/db conn)))))
 
+(defmethod pull-n :dictionary-combined [_ limit]
+  (map (fn [item]
+         {:key          (:dictionary-combined/id item)
+          :name         (:dictionary-combined/name item)
+          :partOfSpeech (:dictionary-combined/partOfSpeech item)
+          :phrases      (map (fn [phrase] {:id    (:phrase/id phrase)
+                                           :text  (:phrase/text phrase)
+                                           :flags {:default (:reader-flag/default (:phrase/flags phrase))}})
+                             (:dictionary-combined/phrases item))})
+       (take limit (first (d/q '[:find (pull ?e [*])
+                                 :where [?e :dictionary-combined/id]]
+                               (d/db conn))))))
+
 (defmethod pull-n :default [resource-type limit]
   (log/warnf "Default implementation of list-items for the '%s' with key '%s'" resource-type limit)
   (throw (RuntimeException. (format "DATOMIC PULL-N FOR '%s' NOT IMPLEMENTED" resource-type))))
@@ -218,10 +234,12 @@
 (defmulti delete (fn [resource-type _] resource-type))
 
 (defmethod delete :blockly [_ key]
-  @(d/transact conn [[:db.fn/retractEntity [:document-plan/id key]]]))
+  @(d/transact conn [[:db.fn/retractEntity [:document-plan/id key]]])
+  nil)
 
 (defmethod delete :dictionary-combined [_ key]
-  @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]]))
+  @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]])
+  nil)
 
 (defmethod delete :default [resource-type opts]
   (log/warnf "Default implementation of DELETE for the '%s' with key '%s'" resource-type opts)
