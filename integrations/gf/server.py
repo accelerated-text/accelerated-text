@@ -62,6 +62,7 @@ def compile_grammar(raw):
         else:
             logger.debug("Compiled successfuly! Message: {}".format(result))
             grammar = pgf.readPGF("{0}/grammarAbs.pgf".format(tmpdir))
+            logger.debug("Languages: {}".format(grammar.languages))
             return grammar
 
 
@@ -82,7 +83,6 @@ class GFHandler(BaseHTTPRequestHandler):
                 logger.debug("Start category: {}".format(grammar.startCat))
                 expressions = grammar.generateAll(grammar.startCat)
                 logger.debug("Expressions: {}".format(list(expressions)))
-                logger.debug("Languages: {}".format(grammar.languages))
                 lang = grammar.languages["grammar"]
                 results = list([r
                                 for (_, e) in expressions
