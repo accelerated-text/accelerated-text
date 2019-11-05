@@ -11,6 +11,6 @@ RUN pip install backports.tempfile
 RUN wget https://www.grammaticalframework.org/download/gf_3.10-2_amd64.deb
 RUN dpkg -i gf_3.10-2_amd64.deb && rm -rf gf_3.10-2_amd64.deb
 
-ADD integrations/gf/server.py server.py
+ADD core/gf/server.py server.py
 
 CMD ["/usr/bin/python", "server.py"]
