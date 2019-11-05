@@ -12,6 +12,7 @@ declare -a arr=(
   "lexicon,key"
   "amr-members,id"
   "blockly-workspace,id"
+  "semantic-graph-instances,id"
   "data,key"
   "nlg-results,key"
   )

@@ -33,6 +33,11 @@
                       "written" ["authored"]}}
            (instances/build-dictionary dictionary-items [:default :senior])))))
 
+(deftest ^:integration instance-id-generation
+  (is (= "document-plan-01" (instances/->instance-id "document-plan-01" nil)))
+  (is (= "document-plan-01-default" (instances/->instance-id "document-plan-01" :default)))
+  (is (= "default" (instances/->instance-id nil :default))))
+
 (deftest ^:integration context-adding
   (testing "Dictionary item context adding"
     (let [semantic-graph (parser/document-plan->semantic-graph (load-test-document-plan "author-amr-with-adj"))]
@@ -60,7 +65,8 @@
                      :members    ["excellent"]
                      :type       :dictionary-item
                      :value      "good"}}
-             (->> (instances/build-instances semantic-graph [:default :senior])
+             (->> (instances/build-instances semantic-graph nil [:default :senior])
+                  (map :instance)
                   (mapcat ::sg/concepts)
                   (filter #(= (::sg/type %) :dictionary-item))
                   (set)))))))
