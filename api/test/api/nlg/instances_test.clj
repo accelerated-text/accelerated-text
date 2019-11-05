@@ -33,7 +33,7 @@
                       "written" ["authored"]}}
            (instances/build-dictionary dictionary-items [:default :senior])))))
 
-(deftest instance-id-generation
+(deftest ^:integration instance-id-generation
   (is (= "document-plan-01" (instances/->instance-id "document-plan-01" nil)))
   (is (= "document-plan-01-default" (instances/->instance-id "document-plan-01" :default)))
   (is (= "default" (instances/->instance-id nil :default))))
