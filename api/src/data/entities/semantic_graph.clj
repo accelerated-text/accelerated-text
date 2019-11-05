@@ -13,8 +13,8 @@
 (defn delete-instance [instance-id]
   (db/delete! instance-db instance-id))
 
-(defn add-instance [instance-id reader-profile instance]
-  (db/write! instance-db instance-id {:reader-profile reader-profile :semanticGraphInstance instance}))
+(defn add-instance [instance]
+  (db/write! instance-db (:id instance) (dissoc instance :id)))
 
-(defn update-instance [instance-id reader-profile instance]
-  (db/update! instance-db instance-id {:reader-profile reader-profile :semanticGraphInstance instance}))
+(defn update-instance [instance]
+  (db/update! instance-db (:id instance) (dissoc instance :id)))
