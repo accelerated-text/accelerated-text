@@ -40,7 +40,9 @@
 (defn remove-empty-or-nil-but-not-nil-list-vals [m]
   (into {}
         (remove (fn [[_ v]] (or (nil? v)
-                                (and (not (boolean? v)) (empty? v)))) m)))
+                                (and (not (boolean? v))
+                                     (not (vector? v))
+                                     (empty? v)))) m)))
 
 (defmulti transact-item (fn [resource-type _ _] resource-type))
 
@@ -142,17 +144,14 @@
                      (:dictionary-combined/phrases dictionary-entry))})))
 
 (defn doc-plan->document-plan [document-plan]
-  (when (= (:blockly/name document-plan) "theme")
-    (prn document-plan (if (and (:blockly/hasChildren document-plan)
-                                (nil? (:blockly/children document-plan)))
-                         [nil]
-                         (map doc-plan->document-plan (:blockly/children document-plan)))))
   (when document-plan
     (remove-empty-or-nil-but-not-nil-list-vals
       {:segments       (map doc-plan->document-plan (:blockly/segments document-plan))
        :children       (if (and (:blockly/hasChildren document-plan)
                                 (nil? (:blockly/children document-plan)))
-                         [nil]
+                         (if (= "theme" (:blockly/name document-plan))
+                           [nil]
+                           [])
                          (map doc-plan->document-plan (:blockly/children document-plan)))
        :conceptId      (:blockly/concept-id document-plan)
        :srcId          (:blockly/srcId document-plan)
@@ -238,15 +237,16 @@
                            :where [?e :document-plan/id]]
                          (d/db conn)))]
     (map (fn [document-plan]
-           {:id            (:document-plan/id document-plan)
-            :uid           (:document-plan/uid document-plan)
-            :name          (:document-plan/name document-plan)
-            :blocklyXml    (:document-plan/blockly-xml document-plan)
-            :documentPlan  (:document-plan/document-plan document-plan)
-            :createdAt     (:document-plan/created-at document-plan)
-            :updatedAt     (:document-plan/updated-at document-plan)
-            :dataSampleRow (:document-plan/data-sample-row document-plan)
-            :updateCount   (:document-plan/update-count document-plan)}) resp)))
+           (remove-nil-vals
+             {:id            (:document-plan/id document-plan)
+              :uid           (:document-plan/uid document-plan)
+              :name          (:document-plan/name document-plan)
+              :blocklyXml    (:document-plan/blockly-xml document-plan)
+              :documentPlan  (doc-plan->document-plan (:document-plan/document-plan document-plan))
+              :createdAt     (:document-plan/created-at document-plan)
+              :updatedAt     (:document-plan/updated-at document-plan)
+              :dataSampleRow (:document-plan/data-sample-row document-plan)
+              :updateCount   (:document-plan/update-count document-plan)})) resp)))
 
 (defmethod scan :default [resource-type opts]
   (log/warnf "Default implementation of SCAN for the '%s' with key '%s'" resource-type opts)

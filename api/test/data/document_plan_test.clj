@@ -32,7 +32,7 @@
                 :srcId "G=Rh"}
                doc-plan))))))
 
-(deftest authorship
+(deftest ^:integration authorship
   (testing "authorship document plan"
     (let [dp {:uid "02",
               :name "authorship",
@@ -81,7 +81,7 @@
                 :type     "Document-plan"}
                doc-plan))))))
 
-(deftest adjective
+(deftest ^:integration adjective
   (let [dp {:uid "03",
             :name "adjective-phrase",
             :documentPlan {:segments [{:children [{:child {:name "title", :type "Cell", :srcId "k1*3(#7IWxHal=%)AdyQ"},

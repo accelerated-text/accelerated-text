@@ -19,8 +19,7 @@
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.ring.middleware.exception :as exception]
             [reitit.ring.middleware.muuntaja :as muuntaja]
-            [reitit.dev.pretty :as pretty])
-  (:import (java.io ByteArrayOutputStream)))
+            [reitit.dev.pretty :as pretty]))
 
 (def headers {"Access-Control-Allow-Origin"  "*"
               "Access-Control-Allow-Headers" "content-type, *"
@@ -84,7 +83,6 @@
                         exception/exception-middleware]}
     :exception pretty/exception}))
 
-
 (def app
   (ring/ring-handler
    routes
@@ -93,15 +91,6 @@
      :config {:validatorUrl nil
               :operationsSorter "alpha"}})
    (ring/create-default-handler)))
-
-(defn start-http-server [conf]
-  (let [host (get conf :host "0.0.0.0")
-        port (get conf :port 3001)]
-    (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
-    (server/run-server
-      #'app {:port     port
-             :ip       host
-             :max-body Integer/MAX_VALUE})))
 
 (defn start-http-server [conf]
   (let [host (get conf :host "0.0.0.0")
