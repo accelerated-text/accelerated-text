@@ -1,37 +1,38 @@
 (ns acc-text.nlg.gf.builder-test
   (:require [acc-text.nlg.gf.builder :as builder]
+            [acc-text.nlg.spec.semantic-graph :as sg]
             [clojure.test :refer [deftest is]]))
 
 (def single-fact-dp
-  {:relations [{:from "01" :to "02" :role :segment}
-               {:from "02" :to "03" :role :instance}]
-   :concepts  [{:id "01" :type :document-plan}
-               {:id "02" :type :segment}
-               {:id "03" :type :data :value "title"}]})
+  #::sg{:relations [#::sg{:from "01" :to "02" :role :segment}
+                    #::sg{:from "02" :to "03" :role :instance}]
+        :concepts  [#::sg{:id "01" :type :document-plan}
+                    #::sg{:id "02" :type :segment}
+                    #::sg{:id "03" :type :data :value "title"}]})
 
 (def modifier-dp
-  {:relations [{:from "01" :to "02" :role :segment}
-               {:from "02" :to "03" :role :instance}
-               {:from "03" :to "04" :role :modifier}]
-   :concepts  [{:id "01" :type :document-plan}
-               {:id "02" :type :segment}
-               {:id "03" :type :data :value "title"}
-               {:id         "04"
-                :type       :dictionary-item
-                :value      "NN-good"
-                :attributes {:name "good"}}]})
+  #::sg{:relations [#::sg{:from "01" :to "02" :role :segment}
+                    #::sg{:from "02" :to "03" :role :instance}
+                    #::sg{:from "03" :to "04" :role :modifier}]
+        :concepts  [#::sg{:id "01" :type :document-plan}
+                    #::sg{:id "02" :type :segment}
+                    #::sg{:id "03" :type :data :value "title"}
+                    #::sg{:id         "04"
+                          :type       :dictionary-item
+                          :value      "NN-good"
+                          :attributes #::sg{:name "good"}}]})
 
 (def verb-dp
-  {:relations [{:from "01" :to "02" :role :segment}
-               {:from "02" :to "03" :role :instance}
-               {:from "03" :to "05" :role :amr}
-               {:from "05" :to "03" :role :arg0}
-               {:from "05" :to "04" :role :arg1}]
-   :concepts  [{:id "01" :type :document-plan}
-               {:id "02" :type :segment}
-               {:id "03" :type :data :value "title"}
-               {:id "04" :type :data :value "author"}
-               {:id "05" :type :amr :value "authorship"}]})
+  #::sg{:relations [#::sg{:from "01" :to "02" :role :segment}
+                    #::sg{:from "02" :to "03" :role :instance}
+                    #::sg{:from "03" :to "05" :role :amr}
+                    #::sg{:from "05" :to "03" :role :arg0}
+                    #::sg{:from "05" :to "04" :role :arg1}]
+        :concepts  [#::sg{:id "01" :type :document-plan}
+                    #::sg{:id "02" :type :segment}
+                    #::sg{:id "03" :type :data :value "title"}
+                    #::sg{:id "04" :type :data :value "author"}
+                    #::sg{:id "05" :type :amr :value "authorship"}]})
 
 (deftest plan-realization
   (is (= ["Phrase. S ::= NP;"
