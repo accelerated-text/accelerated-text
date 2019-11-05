@@ -18,6 +18,12 @@ services:
     environment:
       DYNAMODB_ENDPOINT: http://localstack:4569
     command: ["clojure", "-A:dev", "-m", "api.server"]
+
+  gf:
+    build:
+      context: .
+      dockerfile: core/gf/Dockerfile
+    ports: ["8001:8000"]
   mock-shop:
     build:
       context: integrations/demo-shop-lambdas
