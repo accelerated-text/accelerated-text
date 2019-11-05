@@ -1,10 +1,10 @@
-(ns acc-text.nlg.gf.semantic-graph)
+(ns acc-text.nlg.gf.semantic-graph
+  (:require [acc-text.nlg.spec.semantic-graph :as sg]))
 
-(defn drop-non-semantic-parts
-  [{:keys [concepts relations]}]
-  (assoc {}
-         :concepts (remove #(get #{:segment :document-plan} (:type %)) concepts)
-         :relations (remove #(get #{:segment :instance} (:role %)) relations)))
+(defn drop-non-semantic-parts [semantic-graph-instance]
+  (-> semantic-graph-instance
+      (update ::sg/concepts #(remove (fn [{type ::sg/type}] (contains? #{:segment :document-plan} type)) %))
+      (update ::sg/relations #(remove (fn [{role ::sg/role}] (contains? #{:segment :instance} role)) %))))
 
 (defn concepts-with-type [{concepts :concepts} concept-type]
   (filter (fn [{:keys [type]}] (= concept-type type)) concepts))
@@ -26,7 +26,7 @@
   "Get the sub-graph immediately bellow starting (the one under Segment) category"
   [semantic-graph concept-table]
   (let [{start-id :id :as start-cat} (root-relation semantic-graph concept-table)]
-    {:concepts start-cat
+    {:concepts  start-cat
      :relations (filter (fn [{:keys [from]}] (= from start-id)) (:relations semantic-graph))}))
 
 (defn concepts->id-concept
