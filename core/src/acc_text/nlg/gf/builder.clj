@@ -1,4 +1,4 @@
-(ns acc-text.nlg.gf.realizer
+(ns acc-text.nlg.gf.builder
   (:require [acc-text.nlg.gf.cf-format :as cf]
             [acc-text.nlg.gf.semantic-graph :as sg-utils]
             [acc-text.nlg.spec.semantic-graph :as sg]))

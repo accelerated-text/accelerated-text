@@ -1,5 +1,5 @@
-(ns acc-text.nlg.gf.realizer-test
-  (:require [acc-text.nlg.gf.realizer :as sut]
+(ns acc-text.nlg.gf.builder-test
+  (:require [acc-text.nlg.gf.builder :as builder]
             [clojure.test :refer [deftest is]]))
 
 (def single-fact-dp
@@ -33,19 +33,18 @@
                {:id "04" :type :data :value "author"}
                {:id "05" :type :amr :value "authorship"}]})
 
-
 (deftest plan-realization
   (is (= ["Phrase. S ::= NP;"
           "Title. NP ::= \"{{TITLE}}\";"]
-         (sut/dp->grammar single-fact-dp)))
+         (builder/generate-grammar single-fact-dp)))
   (is (= ["Phrase. S ::= AP;"
           "Compl-a. AP ::= A NP;"
           "Title. NP ::= \"{{TITLE}}\";"
           "Good. A ::= \"good\";"]
-         (sut/dp->grammar modifier-dp)))
+         (builder/generate-grammar modifier-dp)))
   (is (= ["Phrase. S ::= NP VP;"
           "Compl-v. VP ::= V2 NP;"
           "Authorship. V2 ::= \"authorship\";"
           "Title. NP ::= \"{{TITLE}}\";"
           "Author. NP ::= \"{{AUTHOR}}\";"]
-         (sut/dp->grammar verb-dp))))
+         (builder/generate-grammar verb-dp))))
