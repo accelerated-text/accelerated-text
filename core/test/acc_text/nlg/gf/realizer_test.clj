@@ -54,4 +54,3 @@
           "Title. NP ::= \"{{TITLE}}\";"
           "Good. A ::= \"good\";"]
          (sut/dp->grammar modifier-dp))))
-
