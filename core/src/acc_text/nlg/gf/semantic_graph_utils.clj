@@ -1,4 +1,4 @@
-(ns acc-text.nlg.gf.semantic-graph
+(ns acc-text.nlg.gf.semantic-graph-utils
   (:require [acc-text.nlg.spec.semantic-graph :as sg]
             [clojure.tools.logging :as log]))
 
@@ -12,21 +12,6 @@
 
 (defn relations-with-role [{relations ::sg/relations} relation-role]
   (filter (fn [{role ::sg/role}] (= role relation-role)) relations))
-
-(defn root-relation [{relations ::sg/relations} concept-table]
-  (let [{to ::sg/to} (first (filter (fn [{role ::sg/role}] (= :segment role)) relations))
-        root-concept-rel (->> relations
-                              (filter (fn [{from ::sg/from}] (= to from)))
-                              ;;FIXME. For now I assume that only one AMR will be present in Segment
-                              (first))]
-    (get concept-table (::sg/to root-concept-rel))))
-
-(defn start-category-graph
-  "Get the sub-graph immediately bellow starting (the one under Segment) category"
-  [semantic-graph concept-table]
-  (let [{start-id ::sg/id :as start-cat} (root-relation semantic-graph concept-table)]
-    #::sg{:concepts  [start-cat]
-          :relations (filter (fn [{from ::sg/from}] (= from start-id)) (::sg/relations semantic-graph))}))
 
 (defn concepts->concept-map
   "Take semantic graph and produce a map of concept id to a concept item.
