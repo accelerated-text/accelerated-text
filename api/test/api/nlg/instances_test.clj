@@ -35,8 +35,8 @@
 
 (deftest instance-id-generation
   (is (= "document-plan-01" (instances/->instance-id "document-plan-01" nil)))
-  (is (= "document-plan-01-default" (instances/->instance-id "document-plan-01" {:reader-profile :default})))
-  (is (= "default" (instances/->instance-id nil {:reader-profile :default}))))
+  (is (= "document-plan-01-default" (instances/->instance-id "document-plan-01" :default)))
+  (is (= "default" (instances/->instance-id nil :default))))
 
 (deftest ^:integration context-adding
   (testing "Dictionary item context adding"
