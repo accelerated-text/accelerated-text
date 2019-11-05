@@ -1,5 +1,6 @@
 (ns acc-text.nlg.gf.semantic-graph
-  (:require [acc-text.nlg.spec.semantic-graph :as sg]))
+  (:require [acc-text.nlg.spec.semantic-graph :as sg]
+            [clojure.tools.logging :as log]))
 
 (defn drop-non-semantic-parts [semantic-graph-instance]
   (-> semantic-graph-instance
@@ -29,13 +30,14 @@
     {:concepts  start-cat
      :relations (filter (fn [{:keys [from]}] (= from start-id)) (:relations semantic-graph))}))
 
-(defn concepts->id-concept
+(defn concepts->concept-map
   "Take semantic graph and produce a map of concept id to a concept item.
   Useful when later we do analysis based on relations where only concept ID is present"
-  [{:keys [concepts]}]
-  (reduce (fn [agg c]
-            (assoc agg (:id c) c))
-          {} concepts))
+  [{concepts ::sg/concepts :as item}]
+  (reduce (fn [m {id ::sg/id :as concept}]
+            (assoc m id concept))
+          {}
+          concepts))
 
 (defn relations-with-concepts
   "Take graph relation triplet and instead of just ID embed the full concept map.
