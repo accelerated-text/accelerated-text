@@ -39,7 +39,7 @@
 (deftest roled-relation-filtering
   (is (= [[{:id "03" :type :data :value "title"}
            {:id "04" :type :dictionary-item :value "NN-good" :attributes {:name "good"}}]]
-         (sut/modifier-relations modifier-dp (sut/concepts->id-concept modifier-dp)))))
+         (sut/relations-nodes modifier-dp (sut/concepts->id-concept modifier-dp) :modifier))))
 
 (deftest extracting-root-amrs
   (is (= [{:id "03" :type :data :value "title"}] (sut/find-root-amr single-fact-dp)))
@@ -47,7 +47,7 @@
 
 (deftest plan-realization
   (is (= ["Pred. S ::= NP ;"
-          "TITLE. NP ::= \"{{TITLE}}\" ;"]
+          "Title. NP ::= \"{{TITLE}}\" ;"]
          (sut/dp->rgl single-fact-dp)))
   (is (= ["Pred. S ::= AP ;"
           "Comp. AP ::= A NP ;"

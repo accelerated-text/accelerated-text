@@ -2,13 +2,12 @@
   (:require [clojure.string :as string]))
 
 (defn data-morphology-value [{value :value}] (format "{{%s}}" (string/upper-case value)))
-(defn data-syntactic-function-name [{value :value}] (string/upper-case value))
 
 (defn gf-syntax-item [syntactic-function category syntax]
-  (format "%s. %s ::= %s ;" syntactic-function category syntax))
+  (format "%s. %s ::= %s ;" (string/capitalize syntactic-function) category syntax))
 
 (defn gf-morph-item [syntactic-function category syntax]
-  (format "%s. %s ::= \"%s\" ;" syntactic-function category syntax))
+  (format "%s. %s ::= \"%s\" ;" (string/capitalize syntactic-function) category syntax))
 
 (defn find-root-amr [{:keys [concepts relations]}]
   (let [root-amr-id (->> relations
@@ -22,26 +21,25 @@
          :concepts (remove #(get #{:segment :document-plan} (:type %)) concepts)
          :relations (remove #(get #{:segment :instance} (:role %)) relations)))
 
-(defn first-by-type [{concepts :concepts} concept-type]
-  (some (fn [{:keys [type] :as c}] (when (= concept-type type) c)) concepts))
-
-(defn all-by-type [{concepts :concepts} concept-type]
+(defn concepts-with-type [{concepts :concepts} concept-type]
   (filter (fn [{:keys [type]}] (= concept-type type)) concepts))
 
 (defn relations-with-role [{relations :relations} relation-role]
   (filter (fn [{:keys [role]}] (= role relation-role)) relations))
 
-(defn NP-only-graph? [{concepts :concepts}]
-  (and (= 1 (count concepts))
-       (= :data (:type (first concepts)))))
+(defn root-relation [{:keys [relations]} concept-table]
+  (let [{:keys [to]} (->> relations
+                          (filter (fn [{:keys [role]}] (= :segment role)))
+                          (first))
+        root-concept-rel (->> relations
+                              (filter (fn [{:keys [from]}] (= to from)))
+                              ;;FIXME. For now I assume that only one AMR will be present in Segment
+                              (first))]
+    [(get concept-table (:from root-concept-rel)) (get concept-table (:to root-concept-rel))]))
 
-(defn AP-only-graph? [{:keys [concepts relations]}]
-  (and (= 2 (count concepts))
-       (= :modifier (:role (first relations)))))
-
-(defn AMR-only-graph? [{:keys [concepts relations] :as dp}]
-  (let [amr (first-by-type dp :amr)]
-    ))
+(defn gf-start-category [semantic-graph concept-table]
+  (let [rel (root-relation semantic-graph concept-table)])
+  )
 
 (defn concepts->id-concept
   "Take semantic graph and produce a map of concept id to a concept item.
@@ -51,22 +49,36 @@
             (assoc agg (:id c) c))
           {} concepts))
 
-(defn modifier-relations [semantic-graph concept-table]
+(defn relations-nodes [semantic-graph concept-table edge-role]
   (reduce (fn [agg {:keys [from to]}]
             (conj agg [(get concept-table from) (get concept-table to)]))
           []
-          (relations-with-role semantic-graph :modifier)))
+          (relations-with-role semantic-graph edge-role)))
 
 (defn modifier->gf [semantic-graph concept-table]
-  (cons "ComplA. AP ::= A NP;"
-        (map (fn [[_ {{name :name} :attributes}]]
-               (gf-syntax-item name "A" name))
-             (modifier-relations semantic-graph concept-table))))
+  (let [modifiers (relations-nodes semantic-graph concept-table :modifier)]
+    (when (seq modifiers)
+      (cons "ComplA. AP ::= A NP;"
+            (map (fn [[_ {{name :name} :attributes}]]
+                   (gf-syntax-item name "A" (data-morphology-value name)))
+                 modifiers)))))
+
+(defn data->gf [semantic-graph]
+  (map (fn [{value :value}] (gf-morph-item value "NP" value))
+       (concepts-with-type semantic-graph :data)))
 
 (defn dp->rgl [dp]
   (let [sem-graph (drop-non-semantic-parts dp)
         concept-table (concepts->id-concept sem-graph)]
-    (cond
+
+    (concat
+      (data->gf sem-graph)
+      (modifier->gf sem-graph concept-table))
+
+
+
+
+    #_(cond
       (AP-only-graph? sem-graph)
       (let [np (first-by-type sem-graph :data)
             adj (first-by-type sem-graph :dictionary-item)]
