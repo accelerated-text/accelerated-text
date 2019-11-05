@@ -66,7 +66,7 @@
                      :type       :dictionary-item
                      :value      "good"}}
              (->> (instances/build-instances semantic-graph nil [:default :senior])
-                  (vals)
+                  (map :instance)
                   (mapcat ::sg/concepts)
                   (filter #(= (::sg/type %) :dictionary-item))
                   (set)))))))

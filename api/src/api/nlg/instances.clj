@@ -37,12 +37,9 @@
 (defn build-instances [semantic-graph document-plan-id reader-profiles]
   (let [dictionary-items (get-dictionary-items semantic-graph)
         dictionary (build-dictionary dictionary-items reader-profiles)]
-    (reduce (fn [m reader-profile]
-              (let [context {:reader-profile reader-profile
-                             :dictionary     (get dictionary reader-profile)}]
-                (assoc
-                  m
-                  (->instance-id document-plan-id reader-profile)
-                  (update semantic-graph ::sg/concepts #(map (fn [concept] (add-context concept context)) %)))))
-            {}
-            reader-profiles)))
+    (for [reader-profile reader-profiles]
+      (let [context {:reader-profile reader-profile
+                     :dictionary     (get dictionary reader-profile)}]
+        {:id       (->instance-id document-plan-id reader-profile)
+         :context  context
+         :instance (update semantic-graph ::sg/concepts #(map (fn [concept] (add-context concept context)) %))}))))
