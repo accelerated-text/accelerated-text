@@ -86,9 +86,9 @@ class GFHandler(BaseHTTPRequestHandler):
             results = []
             try:
                 logger.debug("Start category: {}".format(grammar.startCat))
-                expressions = grammar.generateAll(grammar.startCat)
+                expressions = list(grammar.generateAll(grammar.startCat))
                 lang = grammar.languages["grammar"]
-                logger.debug("Expressions: {}".format(list(expressions)))
+                logger.debug("Expressions: {}".format(expressions)
                 results = list([r
                                 for (_, e) in expressions
                                 for r in lang.linearizeAll(e)])
