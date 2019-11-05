@@ -1,9 +1,9 @@
-FROM haskell:8
+FROM haskell:latest
 RUN mkdir -p /opt/gf
 WORKDIR /opt/gf
 
 RUN apt-get update
-RUN apt-get install wget python python-dev python-pip -y
+RUN apt-get install wget python python-pip -y
 
 
 RUN pip install backports.tempfile
