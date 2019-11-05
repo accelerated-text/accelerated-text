@@ -7,7 +7,8 @@
             [datomic.api :as d]
             [io.rkn.conformity :as c]
             [mount.core :refer [defstate]])
-  (:import (java.io File)))
+  (:import (java.io File)
+           (java.util UUID)))
 
 (def schema-folder-name "datomic-schema")
 
@@ -20,7 +21,11 @@
     (c/ensure-conforms conn (c/read-resource (str schema-folder-name "/" file-name)))))
 
 (defstate conn
-  :start (let [c (d/connect (:db-uri conf))]
+  :start (let [c (d/connect (if-let [uri (:db-uri conf)]
+                              uri
+                              (let [uri (str "datomic:mem://" (str (UUID/randomUUID)))]
+                                (d/create-database uri)
+                                uri)))]
            (migrate c)
            c))
 
@@ -118,7 +123,8 @@
                                (d/db conn)
                                key))]
     (when data-file
-      {:filename (:data-file/filename data-file)
+      {:id       (:data-file/id data-file)
+       :filename (:data-file/filename data-file)
        :content  (:data-file/content data-file)})))
 
 (defmethod pull-entity :dictionary-combined [_ key]

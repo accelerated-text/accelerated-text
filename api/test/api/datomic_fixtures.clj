@@ -11,10 +11,7 @@
   ([] (scratch-conn (str "mem-conn-" (UUID/randomUUID))))
   ([db-name]
    (let [uri (str "datomic:mem://" db-name)]
-     (d/create-database uri)
-     (d/connect uri))))
-
-(def data-file {:data-file/id "id" :data-file/filename "filename" :data-file/content "content"})
+     (d/create-database uri))))
 
 (defn datomix-fixture [f]
   (let [db-name (str (UUID/randomUUID))]
@@ -23,10 +20,7 @@
     (-> (mount/swap-states
           {#'api.config/conf
            {:start (fn []
-                     {:db-implementation  :datomic
-                      :db-name            db-name
-                      :db-uri             (str "datomic:mem://" db-name)
-                      :validate-hostnames false})}})
+                     {:db-implementation :datomic})}})
         (mount/only #{#'api.config/conf
                       #'data.entities.data-files/data-files-db
                       #'data.entities.document-plan/document-plans-db
