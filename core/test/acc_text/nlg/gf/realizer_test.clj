@@ -34,7 +34,7 @@
                {:id "05" :type :amr :value "authorship"}]})
 
 (deftest gf-item-construction
-  (is (= "Pred. S ::= NP VP ;" (sut/gf-syntax-item "Pred" "S" "NP VP"))))
+  (is (= "Pred. S ::= NP VP;" (sut/gf-syntax-item "Pred" "S" "NP VP"))))
 
 (deftest roled-relation-filtering
   (is (= [[{:id "03" :type :data :value "title"}
@@ -46,14 +46,12 @@
   (is (= [{:id "03" :type :data :value "title"}] (sut/find-root-amr verb-dp))))
 
 (deftest plan-realization
-  (is (= ["Pred. S ::= NP ;"
-          "Title. NP ::= \"{{TITLE}}\" ;"]
-         (sut/dp->rgl single-fact-dp)))
-  (is (= ["Pred. S ::= AP ;"
-          "Comp. AP ::= A NP ;"
-          "GOOD. A ::= \"good\" ;"
-          "GOOD. A ::= \"nice\" ;"
-          "TITLE. NP ::= \"{{TITLE}}\" ;"]
-         (sut/dp->rgl modifier-dp)))
-  )
+  (is (= ["Phrase. S ::= NP;"
+          "Title. NP ::= \"{{TITLE}}\";"]
+         (sut/dp->grammar single-fact-dp)))
+  (is (= ["Phrase. S ::= AP;"
+          "Compl-a. AP ::= A NP;"
+          "Title. NP ::= \"{{TITLE}}\";"
+          "Good. A ::= \"good\";"]
+         (sut/dp->grammar modifier-dp))))
 

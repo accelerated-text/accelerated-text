@@ -1,20 +1,13 @@
 (ns acc-text.nlg.gf.realizer
   (:require [clojure.string :as string]))
 
-(defn data-morphology-value [{value :value}] (format "{{%s}}" (string/upper-case value)))
+(defn data-morphology-value [value] (format "{{%s}}" (string/upper-case value)))
 
 (defn gf-syntax-item [syntactic-function category syntax]
-  (format "%s. %s ::= %s ;" (string/capitalize syntactic-function) category syntax))
+  (format "%s. %s ::= %s;" (string/capitalize syntactic-function) category syntax))
 
 (defn gf-morph-item [syntactic-function category syntax]
-  (format "%s. %s ::= \"%s\" ;" (string/capitalize syntactic-function) category syntax))
-
-(defn find-root-amr [{:keys [concepts relations]}]
-  (let [root-amr-id (->> relations
-                         (filter (fn [{:keys [role]}] (= :instance role)))
-                         (map :to)
-                         (set))]
-    (filter (fn [{id :id}] (get root-amr-id id)) concepts)))
+  (format "%s. %s ::= \"%s\";" (string/capitalize syntactic-function) category syntax))
 
 (defn drop-non-semantic-parts [{:keys [concepts relations]}]
   (assoc {}
@@ -35,11 +28,14 @@
                               (filter (fn [{:keys [from]}] (= to from)))
                               ;;FIXME. For now I assume that only one AMR will be present in Segment
                               (first))]
-    [(get concept-table (:from root-concept-rel)) (get concept-table (:to root-concept-rel))]))
+    (get concept-table (:to root-concept-rel))))
 
-(defn gf-start-category [semantic-graph concept-table]
-  (let [rel (root-relation semantic-graph concept-table)])
-  )
+(defn start-category-graph
+  "Get the sub-graph immediately bellow starting (the one under Segment) category"
+  [semantic-graph concept-table]
+  (let [{start-id :id :as start-cat} (root-relation semantic-graph concept-table)]
+    {:concepts start-cat
+     :relations (filter (fn [{:keys [from]}] (= from start-id)) (:relations semantic-graph))}))
 
 (defn concepts->id-concept
   "Take semantic graph and produce a map of concept id to a concept item.
@@ -49,52 +45,55 @@
             (assoc agg (:id c) c))
           {} concepts))
 
-(defn relations-nodes [semantic-graph concept-table edge-role]
+(defn relations-with-concepts
+  "Take graph relation triplet and instead of just ID embed the full concept map.
+  Going from [from-id to-id] to [from-concept-map to-concept-map]"
+  [semantic-graph concept-table edge-role]
   (reduce (fn [agg {:keys [from to]}]
             (conj agg [(get concept-table from) (get concept-table to)]))
           []
           (relations-with-role semantic-graph edge-role)))
 
 (defn modifier->gf [semantic-graph concept-table]
-  (let [modifiers (relations-nodes semantic-graph concept-table :modifier)]
+  (let [modifiers (relations-with-concepts semantic-graph concept-table :modifier)]
     (when (seq modifiers)
-      (cons "ComplA. AP ::= A NP;"
-            (map (fn [[_ {{name :name} :attributes}]]
-                   (gf-syntax-item name "A" (data-morphology-value name)))
-                 modifiers)))))
+      (map (fn [[_ {{name :name} :attributes}]] (gf-morph-item name "A" name))
+           modifiers))))
 
 (defn data->gf [semantic-graph]
-  (map (fn [{value :value}] (gf-morph-item value "NP" value))
+  (map (fn [{value :value}]
+         (gf-morph-item value "NP" (data-morphology-value value)))
        (concepts-with-type semantic-graph :data)))
 
-(defn dp->rgl [dp]
+(defn start-category->gf [{:keys [relations concepts]}]
+  ;;in order to decide which GF to generate we do not need complete concept/relation data
+  ;;for pattern matching only their types are needed
+  (let [concept-pattern  (set (map :type concepts))
+        relation-pattern (set (map :role relations))]
+    (cond
+      ;;Data concept only graph
+      (and (= concept-pattern #{:data}) (empty? relation-pattern))
+      [(gf-syntax-item "Phrase" "S" "NP")]
+
+      ;;Adverbial phrase only graph
+      (and (= concept-pattern #{:data :dictionary-item}) (= relation-pattern #{:modifier}))
+      [(gf-syntax-item "Phrase" "S" "AP")
+       (gf-syntax-item "Compl-a" "AP" "A NP")]
+
+      ;;Probably need to throw an error, we can not have unresolved start cats
+      :else nil)))
+
+(defn dp->grammar [dp]
   (let [sem-graph (drop-non-semantic-parts dp)
         concept-table (concepts->id-concept sem-graph)]
-
     (concat
+      (start-category->gf sem-graph)
       (data->gf sem-graph)
-      (modifier->gf sem-graph concept-table))
+      (modifier->gf sem-graph concept-table))))
 
-
-
-
-    #_(cond
-      (AP-only-graph? sem-graph)
-      (let [np (first-by-type sem-graph :data)
-            adj (first-by-type sem-graph :dictionary-item)]
-        [(gf-syntax-item "Pred" "S" "AP")
-         (gf-syntax-item "Compl" "AP" "A NP")
-         ;;TIXME words must come from DP Instance
-         (gf-morph-item "GOOD" "A" "good")
-         (gf-morph-item "GOOD" "A" "nice")
-         (gf-morph-item (data-syntactic-function-name np) "NP" (data-morphology-value np))])
-
-      (NP-only-graph? sem-graph)
-      (let [predicate (-> sem-graph :concepts first)]
-        [(gf-syntax-item "Pred" "S" "NP")
-         (gf-morph-item (data-syntactic-function-name predicate) "NP" (data-morphology-value predicate))]))))
-
-(defn write-rgl [rgl file-name]
+(defn write-grammar
+  "Debug function to spit grammar to a file"
+  [rgl file-name]
   (let [out-file (format "grammars/gf/%s.cf" file-name)]
     (clojure.java.io/delete-file out-file true)
     (doseq [item rgl]
