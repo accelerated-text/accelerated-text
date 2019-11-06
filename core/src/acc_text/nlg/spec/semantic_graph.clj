@@ -19,6 +19,9 @@
         :non-core #{:segment :instance :modifier}
         :invalid #{:unknown}))
 
+(s/def ::from keyword?)
+(s/def ::to keyword?)
+
 (s/def ::attributes
   (s/or :has-attrs (s/keys :req [::name])
         :no-attrs nil?))
