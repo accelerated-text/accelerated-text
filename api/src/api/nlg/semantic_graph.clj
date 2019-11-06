@@ -48,4 +48,5 @@
                            :dictionary       (get dictionary reader-profile)}]
          #::sg{:id      (->instance-id document-plan-id reader-profile)
                :context context
-               :graph   (update semantic-graph ::sg/concepts #(map (fn [concept] (add-context concept context)) %))})))))
+               :graph   (update semantic-graph ::sg/concepts (partial map (fn [concept]
+                                                                            (add-context concept context))))})))))
