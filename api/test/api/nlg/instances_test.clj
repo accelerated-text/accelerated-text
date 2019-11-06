@@ -34,9 +34,9 @@
            (instances/build-dictionary dictionary-items [:default :senior])))))
 
 (deftest ^:integration instance-id-generation
-  (is (= "document-plan-01" (instances/->instance-id "document-plan-01" nil)))
-  (is (= "document-plan-01-default" (instances/->instance-id "document-plan-01" :default)))
-  (is (= "default" (instances/->instance-id nil :default))))
+  (is (= :document-plan-01 (instances/->instance-id "document-plan-01" nil)))
+  (is (= :document-plan-01-default (instances/->instance-id "document-plan-01" :default)))
+  (is (= :default (instances/->instance-id nil :default))))
 
 (deftest ^:integration context-adding
   (testing "Dictionary item context adding"
@@ -66,7 +66,7 @@
                      :type       :dictionary-item
                      :value      "good"}}
              (->> (instances/build-instances semantic-graph nil [:default :senior])
-                  (map :instance)
+                  (map ::sg/graph)
                   (mapcat ::sg/concepts)
                   (filter #(= (::sg/type %) :dictionary-item))
                   (set)))))))

@@ -33,3 +33,13 @@
 (s/def ::relations (s/coll-of ::relation))
 
 (s/def ::graph (s/keys :req [::relations ::concepts]))
+
+(s/def ::document-plan-id string?)
+
+(s/def ::dictionary map?)
+
+(s/def ::reader-profile keyword?)
+
+(s/def ::context (s/keys :req [::document-plan-id ::dictionary ::reader-profile]))
+
+(s/def ::instance (s/keys :req [::id ::context ::graph]))

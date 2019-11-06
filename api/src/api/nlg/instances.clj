@@ -26,21 +26,21 @@
 
 (defmethod add-context :default [concept _] concept)
 
-(defmethod add-context :dictionary-item [{value ::sg/value :as concept} {:keys [dictionary reader-profile]}]
+(defmethod add-context :dictionary-item [{value ::sg/value :as concept} {dictionary ::sg/dictionary reader-profile ::sg/reader-profile}]
   (-> concept
       (assoc ::sg/members (get dictionary value))
       (assoc-in [::sg/attributes ::sg/reader-profile] reader-profile)))
 
 (defn ->instance-id [document-plan-id reader-profile]
-  (str/join "-" (remove nil? [document-plan-id (when (some? reader-profile) (name reader-profile))])))
+  (keyword (str/join "-" (remove nil? [document-plan-id (when (some? reader-profile) (name reader-profile))]))))
 
 (defn build-instances [semantic-graph document-plan-id reader-profiles]
   (let [dictionary-items (get-dictionary-items semantic-graph)
         dictionary (build-dictionary dictionary-items reader-profiles)]
     (for [reader-profile reader-profiles]
-      (let [context {:document-plan-id document-plan-id
-                     :reader-profile   reader-profile
-                     :dictionary       (get dictionary reader-profile)}]
-        {:id       (->instance-id document-plan-id reader-profile)
-         :context  context
-         :instance (update semantic-graph ::sg/concepts #(map (fn [concept] (add-context concept context)) %))}))))
+      (let [context #::sg{:document-plan-id document-plan-id
+                          :reader-profile   reader-profile
+                          :dictionary       (get dictionary reader-profile)}]
+        #::sg{:id      (->instance-id document-plan-id reader-profile)
+              :context context
+              :graph   (update semantic-graph ::sg/concepts #(map (fn [concept] (add-context concept context)) %))}))))
