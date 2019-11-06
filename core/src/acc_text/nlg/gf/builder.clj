@@ -1,7 +1,8 @@
 (ns acc-text.nlg.gf.builder
   (:require [acc-text.nlg.gf.cf-format :as cf]
             [acc-text.nlg.gf.semantic-graph-utils :as sg-utils]
-            [acc-text.nlg.spec.semantic-graph :as sg]))
+            [acc-text.nlg.spec.semantic-graph :as sg]
+            [clojure.spec.alpha :as s]))
 
 (defn modifier->gf [semantic-graph concept-table]
   (let [modifiers (sg-utils/relations-with-concepts semantic-graph concept-table :modifier)]
@@ -17,6 +18,8 @@
   (map (fn [{value ::sg/value}] (cf/gf-morph-item value "V2" value))
        (sg-utils/concepts-with-type semantic-graph :amr)))
 
+;; Those are predefined heads of grammar tree, they will differ
+;; based on what type of phrase begins the text.
 (def gf-head-trees {:np [(cf/gf-syntax-item "Phrase" "S" "NP")]
                     :vp [(cf/gf-syntax-item "Phrase" "S" "NP VP")
                          (cf/gf-syntax-item "Compl-v" "VP" "V2 NP")]
@@ -52,3 +55,7 @@
       (amr->gf main-graph)
       (data->gf main-graph)
       (modifier->gf main-graph concept-table))))
+
+(s/fdef generate-grammar
+        :args (s/cat :sem-graph ::sg/graph)
+        :ret (s/coll-of string? :min-count 2))
