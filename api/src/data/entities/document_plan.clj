@@ -2,8 +2,7 @@
   (:require [api.config :refer [conf]]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]
-            [clojure.tools.logging :as log]))
+            [mount.core :refer [defstate]]))
 
 (defstate document-plans-db :start (db/db-access :blockly conf))
 
@@ -22,4 +21,4 @@
    (db/write! document-plans-db provided-id document-plan true)))
 
 (defn update-document-plan [document-plan-id document-plan]
-  (log/spyf ">><<%s" (db/update! document-plans-db document-plan-id document-plan)))
+  (db/update! document-plans-db document-plan-id document-plan))

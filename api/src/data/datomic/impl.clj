@@ -170,7 +170,7 @@
 (defmethod pull-entity :blockly [_ key]
   (blockly/pull-entity conn key))
 (defmethod update! :blockly [_ key data-item]
-  (blockly/update conn key data-item))
+  (blockly/update! conn key data-item))
 (defmethod scan :blockly [_ _]
   (blockly/scan conn))
 (defmethod transact-item :blockly [_ key data-item]

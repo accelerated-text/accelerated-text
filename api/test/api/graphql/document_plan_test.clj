@@ -83,7 +83,7 @@
                                           :documentPlan "{}"}})
 
         query "mutation updateDocumentPlan($id: ID! $uid: ID $name: String $blocklyXml: String $documentPlan: String $dataSampleRow: Int){updateDocumentPlan(id: $id uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount}}"
-        {{{{:keys [id uid name blocklyXml documentPlan dataSampleRow dataSampleId createdAt updatedAt updateCount]} :updateDocumentPlan} :data errors :errors :as body} :body}
+        {{{{:keys [id uid name blocklyXml documentPlan dataSampleRow dataSampleId createdAt updatedAt updateCount]} :updateDocumentPlan} :data errors :errors} :body}
         (q "/_graphql" :post {:query     query
                               :variables {:id            id
                                           :uid           "01"

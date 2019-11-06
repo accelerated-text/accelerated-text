@@ -97,7 +97,7 @@
                          (d/db conn)))]
     (map (fn [document-plan] (dp->dp document-plan)) resp)))
 
-(defn update [conn key data-item]
+(defn update! [conn key data-item]
   (let [original (pull-entity conn key)
         current-ts (utils/ts-now)]
     @(d/transact conn [(remove-nil-vals
