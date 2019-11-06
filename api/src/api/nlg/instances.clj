@@ -38,8 +38,9 @@
   (let [dictionary-items (get-dictionary-items semantic-graph)
         dictionary (build-dictionary dictionary-items reader-profiles)]
     (for [reader-profile reader-profiles]
-      (let [context {:reader-profile reader-profile
-                     :dictionary     (get dictionary reader-profile)}]
+      (let [context {:document-plan-id document-plan-id
+                     :reader-profile   reader-profile
+                     :dictionary       (get dictionary reader-profile)}]
         {:id       (->instance-id document-plan-id reader-profile)
          :context  context
          :instance (update semantic-graph ::sg/concepts #(map (fn [concept] (add-context concept context)) %))}))))
