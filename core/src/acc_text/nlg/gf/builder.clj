@@ -22,9 +22,9 @@
 ;; based on what type of phrase begins the text.
 (def gf-head-trees {:np [(cf/gf-syntax-item "Phrase" "S" "NP")]
                     :vp [(cf/gf-syntax-item "Phrase" "S" "NP VP")
-                         (cf/gf-syntax-item "Compl-v" "VP" "V2 NP")]
+                         (cf/gf-syntax-item "ComplV2" "VP" "V2 NP")]
                     :ap [(cf/gf-syntax-item "Phrase" "S" "AP")
-                         (cf/gf-syntax-item "Compl-a" "AP" "A NP")]})
+                         (cf/gf-syntax-item "ComplA" "AP" "A NP")]})
 
 (defn start-category->gf [{relations ::sg/relations concepts ::sg/concepts}]
   ;;in order to decide which GF to generate we do not need complete concept/relation data
@@ -47,7 +47,7 @@
       ;;Probably need to throw an error, we can not have unresolved start cats
       :else nil)))
 
-(defn generate-grammar [semantic-graph]
+(defn build-grammar [semantic-graph]
   (let [main-graph (sg-utils/drop-non-semantic-parts semantic-graph)
         concept-table (sg-utils/concepts->concept-map main-graph)]
     (concat
@@ -56,6 +56,6 @@
       (data->gf main-graph)
       (modifier->gf main-graph concept-table))))
 
-(s/fdef generate-grammar
+(s/fdef build-grammar
         :args (s/cat :semantic-graph ::sg/graph)
         :ret (s/coll-of string? :min-count 2))

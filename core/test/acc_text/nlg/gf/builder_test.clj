@@ -37,15 +37,15 @@
 (deftest plan-realization
   (is (= ["Phrase. S ::= NP;"
           "Title. NP ::= \"{{TITLE}}\";"]
-         (builder/generate-grammar single-fact-dp)))
+         (builder/build-grammar single-fact-dp)))
   (is (= ["Phrase. S ::= AP;"
-          "Compl-a. AP ::= A NP;"
+          "ComplA. AP ::= A NP;"
           "Title. NP ::= \"{{TITLE}}\";"
           "Good. A ::= \"good\";"]
-         (builder/generate-grammar modifier-dp)))
+         (builder/build-grammar modifier-dp)))
   (is (= ["Phrase. S ::= NP VP;"
-          "Compl-v. VP ::= V2 NP;"
+          "ComplV2. VP ::= V2 NP;"
           "Authorship. V2 ::= \"authorship\";"
           "Title. NP ::= \"{{TITLE}}\";"
           "Author. NP ::= \"{{AUTHOR}}\";"]
-         (builder/generate-grammar verb-dp))))
+         (builder/build-grammar verb-dp))))

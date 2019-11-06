@@ -4,7 +4,7 @@
 (defn data-morphology-value [value] (format "{{%s}}" (string/upper-case value)))
 
 (defn gf-syntax-item [syntactic-function category syntax]
-  (format "%s. %s ::= %s;" (string/capitalize syntactic-function) category syntax))
+  (format "%s. %s ::= %s;" syntactic-function category syntax))
 
 (defn gf-morph-item [syntactic-function category syntax]
   (format "%s. %s ::= \"%s\";" (string/capitalize syntactic-function) category syntax))
