@@ -1,12 +1,18 @@
 (ns api.nlg.generate
-  (:require [api.nlg.generator.planner-ng :as planner]
+  (:require [acc-text.nlg.gf.builder :as gf-builder]
+            [acc-text.nlg.spec.semantic-graph :as sg]
             [api.nlg.nlp :as nlp]
+            [api.nlg.parser :as parser]
+            [api.nlg.semantic-graph :as semantic-graph]
             [api.utils :as utils]
+            [clojure.spec.alpha :as s]
+            [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as document-plan]
-            [clojure.spec.alpha :as s]
-            [data.entities.result :as results]))
+            [data.entities.result :as results]
+            [jsonista.core :as json]
+            [org.httpkit.client :as client]))
 
 (s/def ::documentPlanId string?)
 (s/def ::dataId string?)
@@ -16,19 +22,49 @@
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
-(def default-reader-model
-  {:junior false
-   :senior false})
+(defn get-reader-profiles [reader-model]
+  (or
+    (seq
+      (reduce-kv (fn [acc k v]
+                   (cond-> acc
+                           (true? v) (conj k)))
+                 []
+                 reader-model))
+    [:default]))
 
-(defn generation-process [dp-id data-id reader-model]
+(defn compile-request [grammar]
+  @(client/request {:url     (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
+                    :method  :post
+                    :headers {"Content-type" "application/json"}
+                    :body    (json/write-value-as-string {:content (reduce str grammar)})}))
+
+(defn generate-templates [{graph ::sg/graph}]
+  (-> (gf-builder/build-grammar graph)
+      (compile-request)
+      (get :body)
+      (json/read-value utils/read-mapper)
+      (get :results)))
+
+(defn realize [text placeholders]
+  (reduce-kv (fn [s k v]
+               (let [pattern (re-pattern (format "(?i)\\{\\{%s\\}\\}" (name k)))]
+                 (str/replace s pattern v)))
+             text
+             placeholders))
+
+(defn postprocess [sentence]
+  (reduce str (when-not (str/blank? sentence)
+                (str/join [(str/capitalize (first sentence)) (apply str (rest sentence)) \.]))))
+
+(defn generation-process [document-plan-id data-id reader-model]
   (try
-    {:ready   true
-     :results (planner/render-dp
-                (-> dp-id (document-plan/get-document-plan) (get :documentPlan))
-                (get-data data-id)
-                (if (seq reader-model)
-                  reader-model
-                  default-reader-model))}
+    (let [data (get-data data-id)
+          reader-profiles (get-reader-profiles reader-model)
+          document-plan (:documentPlan (document-plan/get-document-plan document-plan-id))
+          semantic-graph (parser/document-plan->semantic-graph document-plan)
+          instances (semantic-graph/build-instances semantic-graph document-plan-id reader-profiles)]
+      {:ready   true
+       :results (for [row data] (-> instances (rand-nth) (generate-templates) (rand-nth) (realize row) (postprocess)))})
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
