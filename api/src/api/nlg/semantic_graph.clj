@@ -1,7 +1,6 @@
 (ns api.nlg.semantic-graph
   (:require [acc-text.nlg.spec.semantic-graph :as sg]
             [api.nlg.dictionary :as dictionary-api]
-            [api.nlg.parser :as parser]
             [api.utils :as utils]
             [clojure.string :as str]))
 
@@ -37,13 +36,12 @@
   (keyword (str/join "-" (remove nil? [document-plan-id (when (some? reader-profile) (name reader-profile))]))))
 
 (defn build-instances
-  ([document-plan]
-   (build-instances document-plan (utils/gen-uuid)))
-  ([document-plan document-plan-id]
-   (build-instances document-plan document-plan-id [:default]))
-  ([document-plan document-plan-id reader-profiles]
-   (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
-         dictionary (build-dictionary semantic-graph reader-profiles)]
+  ([semantic-graph]
+   (build-instances semantic-graph (utils/gen-uuid)))
+  ([semantic-graph document-plan-id]
+   (build-instances semantic-graph document-plan-id [:default]))
+  ([semantic-graph document-plan-id reader-profiles]
+   (let [dictionary (build-dictionary semantic-graph reader-profiles)]
      (for [reader-profile reader-profiles]
        (let [context #::sg{:document-plan-id document-plan-id
                            :reader-profile   reader-profile

@@ -22,11 +22,13 @@
 (use-fixtures :each ddb-fixtures/wipe-ddb-tables prepare-environment)
 
 (deftest ^:integration dictionary-item-extraction
-  (let [semantic-graph (parser/document-plan->semantic-graph (load-test-document-plan "author-amr-with-adj"))]
+  (let [document-plan (load-test-document-plan "author-amr-with-adj")
+        semantic-graph (parser/document-plan->semantic-graph document-plan)]
     (is (= #{"good" "written"} (semantic-graph/get-dictionary-items semantic-graph)))))
 
 (deftest ^:integration dictionary-building
-  (let [semantic-graph (parser/document-plan->semantic-graph (load-test-document-plan "author-amr-with-adj"))]
+  (let [document-plan (load-test-document-plan "author-amr-with-adj")
+        semantic-graph (parser/document-plan->semantic-graph document-plan)]
     (is (= {:default {"good"    ["excellent"]
                       "written" ["authored"]}
             :senior  {"good"    ["excellent"]
@@ -40,7 +42,8 @@
 
 (deftest ^:integration instance-building
   (let [document-plan (load-test-document-plan "author-amr-with-adj")
-        instances (semantic-graph/build-instances document-plan "test-doc-plan" [:default :senior])]
+        semantic-graph (parser/document-plan->semantic-graph document-plan)
+        instances (semantic-graph/build-instances semantic-graph "test-doc-plan" [:default :senior])]
     (testing "Id"
       (is (= #{:test-doc-plan-default :test-doc-plan-senior} (set (map ::sg/id instances)))))
     (testing "Context"
