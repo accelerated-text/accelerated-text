@@ -47,8 +47,8 @@
       ;;Probably need to throw an error, we can not have unresolved start cats
       :else nil)))
 
-(defn generate-grammar [semantic-graph-instance]
-  (let [main-graph (sg-utils/drop-non-semantic-parts semantic-graph-instance)
+(defn generate-grammar [semantic-graph]
+  (let [main-graph (sg-utils/drop-non-semantic-parts semantic-graph)
         concept-table (sg-utils/concepts->concept-map main-graph)]
     (concat
       (start-category->gf main-graph)
@@ -57,5 +57,5 @@
       (modifier->gf main-graph concept-table))))
 
 (s/fdef generate-grammar
-        :args (s/cat :sem-graph ::sg/graph)
+        :args (s/cat :semantic-graph ::sg/graph)
         :ret (s/coll-of string? :min-count 2))
