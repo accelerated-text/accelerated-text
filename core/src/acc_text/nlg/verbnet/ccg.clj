@@ -251,15 +251,22 @@
       (:frames vn))))
 
 (defn frame->cf
-  [frame initial]
-  (println initial)
-  (println frame))
+  [themrole-idx {syntax :syntax}]
+  (map
+   (fn
+     [{:keys [pos value]}]
+     (case pos
+       :NP (get themrole-idx value)
+       :LEX (format "\"%s\"" value)
+       :VERB "VB"
+       :PREP (format "\"%s\"" value)))
+   syntax))
 
 (defn vn->cf
   [{:keys [members frames thematic-roles]}]
-  (let [themrole-idx (into {} (map-indexed (fn [idx {type :type}] [(format "NP%d" idx) (format "{{%s}}" (string/upper-case type))]) thematic-roles))
+  (let [themrole-idx (into {} (map-indexed (fn [idx {type :type}] [type (format "NP%d" idx)]) thematic-roles))
         initial (concat
                  (map (fn [{name :name}] (cf/gf-morph-item "Action" "VB" name)) members)
-                 (map (fn [[k v]] (cf/gf-morph-item "Actor" k v)) themrole-idx))
-        translate (partial frame->cf initial)]
+                 (map (fn [[k v]] (cf/gf-morph-item "Actor" v (cf/data-morphology-value k))) themrole-idx))
+        translate (partial frame->cf themrole-idx)]
     (map translate frames)))
