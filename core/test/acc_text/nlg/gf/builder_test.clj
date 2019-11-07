@@ -27,12 +27,18 @@
                     #::sg{:from "02" :to "03" :role :instance}
                     #::sg{:from "03" :to "05" :role :amr}
                     #::sg{:from "05" :to "03" :role :arg0}
-                    #::sg{:from "05" :to "04" :role :arg1}]
+                    #::sg{:from "05" :to "04" :role :arg1}
+                    #::sg{:from "05" :to "06" :role :function}]
         :concepts  [#::sg{:id "01" :type :document-plan}
                     #::sg{:id "02" :type :segment}
                     #::sg{:id "03" :type :data :value "title"}
                     #::sg{:id "04" :type :data :value "author"}
-                    #::sg{:id "05" :type :amr :value "authorship"}]})
+                    #::sg{:id "05" :type :amr :value "authorship"}
+                    #::sg{:id         "06"
+                          :type       :dictionary-item
+                          :value      "VB-author"
+                          :members    ["wrote"]
+                          :attributes #::sg{:name "author"}}]})
 
 (deftest plan-realization
   (is (= ["Phrase. S ::= NP;"
@@ -45,7 +51,7 @@
          (builder/build-grammar modifier-dp)))
   (is (= ["Phrase. S ::= NP VP;"
           "ComplV2. VP ::= V2 NP;"
-          "Authorship. V2 ::= \"authorship\";"
+          "Author. V2 ::= \"wrote\";"
           "Title. NP ::= \"{{TITLE}}\";"
           "Author. NP ::= \"{{AUTHOR}}\";"]
          (builder/build-grammar verb-dp))))
