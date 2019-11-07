@@ -34,7 +34,7 @@
                              "Actor. NP0 ::= \"{{AGENT}}\";"
                              "Actor. NP1 ::= \"{{CO-AGENT}}\";"]))
     (is (contains? grammars ["Pred. S ::= NP1 VP;"
-                             "Compl. VP ::= \"is\" VB \"by\" NP0;"
+                             "Compl. VP ::= \"is\" V2 \"by\" NP0;"
                              "Action. V2 ::= \"written\";"
                              "Actor. NP0 ::= \"{{AGENT}}\";"
                              "Actor. NP1 ::= \"{{CO-AGENT}}\";"]))))
