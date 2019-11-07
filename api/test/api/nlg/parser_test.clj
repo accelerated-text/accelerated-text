@@ -27,8 +27,8 @@
                 :type           "AMR"
                 :conceptId      "author"}
           {concepts ::sg/concepts relations ::sg/relations} (parser/document-plan->semantic-graph root)]
-      (is (set/subset? #{:data :dictionary-item} (set (map ::sg/type concepts))))
-      (is (set/subset? #{:ARG0 :ARG1} (set (map ::sg/role relations))))))
+      (is (set/subset? #{:amr :data :dictionary-item} (set (map ::sg/type concepts))))
+      (is (set/subset? #{:function :ARG0 :ARG1} (set (map ::sg/role relations))))))
   (testing "Modifier parsing"
     (let [root {:name   "good"
                 :type   "Dictionary-item-modifier"

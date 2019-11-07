@@ -31,11 +31,9 @@
                         children)})
 
 (defmethod build-semantic-graph :AMR [{:keys [id conceptId roles dictionaryItem]}]
-  #::sg{:concepts  (if (some? dictionaryItem)
-                     (-> dictionaryItem (build-semantic-graph) (get ::sg/concepts))
-                     [#::sg{:id    id
-                            :type  :amr
-                            :value conceptId}])
+  #::sg{:concepts  [#::sg{:id    id
+                          :type  :amr
+                          :value conceptId}]
         :relations (->> roles
                         (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
                                        (when (not= type "placeholder")
@@ -43,6 +41,10 @@
                                                :to         child-id
                                                :role       (keyword (str "ARG" index))
                                                :attributes #::sg{:name name}})))
+                        (cons (when (not= (:type dictionaryItem) "placeholder")
+                                #::sg{:from id
+                                      :to   (:id dictionaryItem)
+                                      :role :function}))
                         (remove nil?))})
 
 (defmethod build-semantic-graph :Cell [{:keys [id name children]}]
@@ -72,20 +74,20 @@
                           :attributes #::sg{:name name}}]
         :relations []})
 
-
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
     :Document-plan (assoc node :segments children)
-    :AMR (assoc node :roles (map (fn [role child]
+    :AMR (assoc node :dictionaryItem (first children)
+                     :roles (map (fn [role child]
                                    (assoc role :children (list child)))
-                                 (:roles node) children))
+                                 (:roles node) (rest children)))
     :Dictionary-item-modifier (assoc node :child (first children))
     (assoc node :children children)))
 
 (defn get-children [{type :type :as node}]
   (case (keyword type)
     :Document-plan (:segments node)
-    :AMR (mapcat :children (:roles node))
+    :AMR (cons (:dictionaryItem node) (mapcat :children (:roles node)))
     :Dictionary-item-modifier (some-> node :child vector)
     (:children node)))
 
