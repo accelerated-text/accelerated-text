@@ -10,7 +10,7 @@
                          (case pos
                            :NP (get themrole-idx value)
                            :LEX (format "\"%s\"" value)
-                           :VERB "VB"
+                           :VERB "V2"
                            :PREP (format "\"%s\"" value)))
                        syntax)]
     (concat
