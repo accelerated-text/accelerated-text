@@ -54,25 +54,25 @@
     (testing "Dictionary item context adding"
       (is (= #{#::sg{:attributes #::sg{:name           "written"
                                        :reader-profile :default}
-                     :id         :03
+                     :id         :04
                      :members    ["authored"]
                      :type       :dictionary-item
                      :value      "written"}
                #::sg{:attributes #::sg{:name           "good"
                                        :reader-profile :default}
-                     :id         :05
+                     :id         :06
                      :members    ["excellent"]
                      :type       :dictionary-item
                      :value      "good"}
                #::sg{:attributes #::sg{:name           "written"
                                        :reader-profile :senior}
-                     :id         :03
+                     :id         :04
                      :members    ["authored"]
                      :type       :dictionary-item
                      :value      "written"}
                #::sg{:attributes #::sg{:name           "good"
                                        :reader-profile :senior}
-                     :id         :05
+                     :id         :06
                      :members    ["excellent"]
                      :type       :dictionary-item
                      :value      "good"}}
