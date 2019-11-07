@@ -46,15 +46,20 @@
       (get :results)))
 
 (defn realize [text placeholders]
-  (reduce-kv (fn [s k v]
-               (let [pattern (re-pattern (format "(?i)\\{\\{%s\\}\\}" (name k)))]
-                 (str/replace s pattern v)))
-             text
-             placeholders))
+  (when-not (str/blank? text)
+    (reduce-kv (fn [s k v]
+                 (let [pattern (re-pattern (format "(?i)\\{\\{%s\\}\\}" (name k)))]
+                   (str/replace s pattern v)))
+               text
+               placeholders)))
 
 (defn postprocess [sentence]
   (reduce str (when-not (str/blank? sentence)
                 (str/join [(str/capitalize (first sentence)) (apply str (rest sentence)) \.]))))
+
+(defn take-rand [coll]
+  (when (seq coll)
+    (rand-nth coll)))
 
 (defn generation-process [document-plan-id data-id reader-model]
   (try
@@ -64,7 +69,7 @@
           semantic-graph (parser/document-plan->semantic-graph document-plan)
           instances (semantic-graph/build-instances semantic-graph document-plan-id reader-profiles)]
       {:ready   true
-       :results (for [row data] (-> instances (rand-nth) (generate-templates) (rand-nth) (realize row) (postprocess)))})
+       :results (for [row data] (-> instances (take-rand) (generate-templates) (take-rand) (realize row) (postprocess)))})
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
