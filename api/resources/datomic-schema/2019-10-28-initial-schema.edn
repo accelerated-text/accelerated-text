@@ -1,0 +1,204 @@
+{:acc-text/data-file-schema
+ {:txes [[{:db/ident       :data-file/id
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of the Data File"}
+
+          {:db/ident       :data-file/filename
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "File name of the Data File"}
+
+          {:db/ident       :data-file/content
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Content of the Data File"}]
+
+         [{:db/ident       :reader-flag/default
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/keyword
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Is Default reader-flag"}
+          {:db/ident       :reader-flag/senior
+           :db/valueType   :db.type/keyword
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Is senior reader-flag"}
+          {:db/ident       :reader-flag/junior
+           :db/valueType   :db.type/keyword
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Is junior reader-flag"}]
+
+         [{:db/ident       :phrase/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of the phrase"}
+          {:db/ident       :phrase/text
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Text of the phrase"}
+          {:db/ident       :phrase/flags
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Phrases associated with the dictionary-item"}]
+
+         [{:db/ident       :dictionary-combined/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of the dictionary-item"}
+
+          {:db/ident       :dictionary-combined/name
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Name of the dictionary-item"}
+
+          {:db/ident       :dictionary-combined/partOfSpeech
+           :db/valueType   :db.type/keyword
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Part of speech tag of the dictionary-item"}
+
+          {:db/ident       :dictionary-combined/phrases
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Phrases associated with the dictionary-item"}]
+
+         [{:db/ident       :document-plan/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of the document plan"}
+
+          {:db/ident       :document-plan/uid
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "UID of the document plan"}
+
+          {:db/ident       :document-plan/data-sample-id
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Data sample ID of the document plan"}
+
+          {:db/ident       :document-plan/name
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Name of the document plan"}
+
+          {:db/ident       :document-plan/blockly-xml
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Blockly XML representation of the document plan"}
+
+          {:db/ident       :document-plan/document-plan
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Serialized document plan"}
+
+          {:db/ident       :document-plan/created-at
+           :db/valueType   :db.type/long
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Creation timestamp of the document plan"}
+
+          {:db/ident       :document-plan/updated-at
+           :db/valueType   :db.type/long
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Update timestamp of the document plan"}
+
+          {:db/ident       :document-plan/data-sample-row
+           :db/valueType   :db.type/long
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Data sample row number"}
+
+          {:db/ident       :document-plan/update-count
+           :db/valueType   :db.type/long
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Count of how many times DP was updated"}]
+
+         [{:db/ident       :blockly/srcId
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of the blockly"}
+
+          {:db/ident       :blockly/type
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Type of the blockly item"}
+
+          {:db/ident       :blockly/name
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Name of the blockly item"}
+
+          {:db/ident       :blockly/concept-id
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Concept ID of the blockly item when it is AMR"}
+
+          {:db/ident       :blockly/dictionary-item
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Dictionary item related to the concept"}
+
+          {:db/ident       :blockly/child
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Child in blockly document plan"}
+
+          {:db/ident       :blockly/item-id
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Dictionary item related to the concept"}
+
+          {:db/ident       :blockly/segments
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Segments of the blockly item"}
+
+          {:db/ident       :blockly/children
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Children of the blockly item"}
+
+          {:db/ident       :blockly/hasChildren
+           :db/valueType   :db.type/boolean
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Marks if this item has children"}
+
+          {:db/ident       :blockly/roles
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Roles of the blockly item"}]
+
+         [{:db/ident       :results/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of the results"}
+
+          {:db/ident       :results/ready
+           :db/valueType   :db.type/boolean
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Status of the results"}
+
+          {:db/ident       :results/error
+           :db/valueType   :db.type/boolean
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Whether text generation ended in error"}
+
+          {:db/ident       :results/message
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Text to be conveyed"}
+
+          {:db/ident       :results/results
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Text that was generated"}]]}}

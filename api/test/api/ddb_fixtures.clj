@@ -1,4 +1,4 @@
-(ns api.graphql.ddb-fixtures
+(ns api.ddb-fixtures
   (:require [clojure.tools.logging :as log]
             [data.ddb.impl :as ddb]
             [mount.core :as mount]
@@ -15,7 +15,8 @@
   (far/delete-table client-ops table-name))
 
 (defn wipe-ddb-tables [f]
-  (mount/start-without #'server/http-server)
+  (mount/stop)
+  (mount/start-without #'server/http-server #'data.datomic.impl/conn)
   (let [client-opts (ddb/client-opts)]
     (doseq [table-name (tables client-opts)]
       (log/tracef "Deleting table: '%s'" (name table-name))

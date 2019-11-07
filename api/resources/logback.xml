@@ -7,6 +7,10 @@
         </encoder>
     </appender>
     <logger name="org.eclipse.jetty" level="WARN"/>
+    <logger name="org.apache.http" level="WARN"/>
+    <logger name="com.amazonaws" level="WARN"/>
+    <logger name="datomic.db" level="INFO"/>
+    <logger name="api.graphql" level="INFO"/>
     <root level="DEBUG">
         <appender-ref ref="A1"/>
     </root>

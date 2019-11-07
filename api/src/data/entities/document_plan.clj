@@ -1,9 +1,10 @@
 (ns data.entities.document-plan
-  (:require [data.db :as db]
+  (:require [api.config :refer [conf]]
+            [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 
-(defstate document-plans-db :start (db/db-access :blockly))
+(defstate document-plans-db :start (db/db-access :blockly conf))
 
 (defn list-document-plans []
   (db/scan! document-plans-db {}))

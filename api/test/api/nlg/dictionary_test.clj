@@ -1,10 +1,10 @@
 (ns api.nlg.dictionary-test
-  (:require [api.graphql.ddb-fixtures :as ddb-fixtures]
+  (:require [api.db-fixtures :as fixtures]
             [api.nlg.dictionary :as dictionary]
             [api.test-utils :refer [q]]
             [clojure.test :refer [deftest is use-fixtures]]))
 
-(use-fixtures :each ddb-fixtures/wipe-ddb-tables)
+(use-fixtures :each fixtures/clean-db)
 
 (deftest ^:integration query-database
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech}}"

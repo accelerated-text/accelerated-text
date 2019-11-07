@@ -1,10 +1,11 @@
 (ns data.entities.data-files
-  (:require [clojure.data.csv :as csv]
+  (:require [api.config :refer [conf]]
+            [clojure.data.csv :as csv]
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 
-(defstate data-files-db :start (db/db-access :data-files))
+(defstate data-files-db :start (db/db-access :data-files conf))
 
 (defn store!
   "Expected keys are :filename and :content everything else is optional"

@@ -29,8 +29,6 @@
                          :table-key  :id}
    :members             {:table-name "amr-members"
                          :table-key  :id}
-   :verbclass           {:table-name "amr-verbclass"
-                         :table-key  :id}
    :data-files          {:table-name "data-files"
                          :table-key  :id}})
 
@@ -47,7 +45,7 @@
   {:endpoint (or (System/getenv "DYNAMODB_ENDPOINT") "http://localhost:8000")})
 
 (defn db-access
-  [resource-type]
+  [resource-type _]
   (let [{table-name :table-name
          table-key  :table-key} (resolve-table resource-type)
         client-ops (client-opts)]

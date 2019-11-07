@@ -1,11 +1,12 @@
 (ns data.entities.dictionary
-  (:require [clojure.string :as str]
+  (:require [api.config :refer [conf]]
+            [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 
-(defstate reader-flags-db :start (db/db-access :reader-flag))
-(defstate dictionary-combined-db :start (db/db-access :dictionary-combined))
+(defstate reader-flags-db :start (db/db-access :reader-flag conf))
+(defstate dictionary-combined-db :start (db/db-access :dictionary-combined conf))
 
 (defn list-readers []
   (db/list! reader-flags-db 100))

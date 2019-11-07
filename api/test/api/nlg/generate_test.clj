@@ -1,11 +1,11 @@
 (ns api.nlg.generate-test
   (:require [api.nlg.generate :refer [generation-process]]
-            [api.graphql.ddb-fixtures :as ddb-fixtures]
+            [api.db-fixtures :as fixtures]
             [api.test-utils :refer [q]]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.data-files :as data-files]))
 
-(use-fixtures :each ddb-fixtures/wipe-ddb-tables)
+(use-fixtures :each fixtures/clean-db)
 
 (deftest ^:integration basic-generation
   (let [query "mutation createDocumentPlan($uid: ID! $name: String! $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
