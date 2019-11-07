@@ -14,7 +14,7 @@
                               :variables {:uid          "02"
                                           :name         "test"
                                           :blocklyXml   "<>"
-                                          :documentPlan "\"{}\""}})
+                                          :documentPlan "{}"}})
         dataId (data-files/store!
                  {:filename "example-user/data-example.csv"
                   :content  (slurp "test/resources/accelerated-text-data-files/example-user/data-example.csv")})
@@ -28,7 +28,7 @@
                               :variables {:uid          "02"
                                           :name         "test"
                                           :blocklyXml   "<>"
-                                          :documentPlan "\"{}\""}})
+                                          :documentPlan "{}"}})
         dataId (data-files/store!
                  {:filename "example-user/ccg-example.csv"
                   :content  (slurp "test/resources/accelerated-text-data-files/example-user/ccg-example.csv")})
