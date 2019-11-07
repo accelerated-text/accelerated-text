@@ -1,7 +1,7 @@
-(ns api.nlg.instances-test
+(ns api.nlg.semantic-graph-test
   (:require [acc-text.nlg.spec.semantic-graph :as sg]
+            [api.nlg.semantic-graph :as semantic-graph]
             [api.db-fixtures :as fixtures]
-            [api.nlg.instances :as instances]
             [api.nlg.parser :as parser]
             [api.test-utils :refer [q load-test-document-plan]]
             [clojure.test :refer [deftest is testing use-fixtures]]))
@@ -22,25 +22,36 @@
 (use-fixtures :each fixtures/clean-db prepare-environment)
 
 (deftest ^:integration dictionary-item-extraction
-  (let [semantic-graph (parser/document-plan->semantic-graph (load-test-document-plan "author-amr-with-adj"))]
-    (is (= #{"good" "written"} (instances/get-dictionary-items semantic-graph)))))
+  (let [document-plan (load-test-document-plan "author-amr-with-adj")
+        semantic-graph (parser/document-plan->semantic-graph document-plan)]
+    (is (= #{"good" "written"} (semantic-graph/get-dictionary-items semantic-graph)))))
 
 (deftest ^:integration dictionary-building
-  (let [dictionary-items #{"good" "written"}]
+  (let [document-plan (load-test-document-plan "author-amr-with-adj")
+        semantic-graph (parser/document-plan->semantic-graph document-plan)]
     (is (= {:default {"good"    ["excellent"]
                       "written" ["authored"]}
             :senior  {"good"    ["excellent"]
                       "written" ["authored"]}}
-           (instances/build-dictionary dictionary-items [:default :senior])))))
+           (semantic-graph/build-dictionary semantic-graph [:default :senior])))))
 
 (deftest ^:integration instance-id-generation
-  (is (= "document-plan-01" (instances/->instance-id "document-plan-01" nil)))
-  (is (= "document-plan-01-default" (instances/->instance-id "document-plan-01" :default)))
-  (is (= "default" (instances/->instance-id nil :default))))
+  (is (= :document-plan-01 (semantic-graph/->instance-id "document-plan-01" nil)))
+  (is (= :document-plan-01-default (semantic-graph/->instance-id "document-plan-01" :default)))
+  (is (= :default (semantic-graph/->instance-id nil :default))))
 
-(deftest ^:integration context-adding
-  (testing "Dictionary item context adding"
-    (let [semantic-graph (parser/document-plan->semantic-graph (load-test-document-plan "author-amr-with-adj"))]
+(deftest ^:integration instance-building
+  (let [document-plan (load-test-document-plan "author-amr-with-adj")
+        semantic-graph (parser/document-plan->semantic-graph document-plan)
+        instances (semantic-graph/build-instances semantic-graph "test-doc-plan" [:default :senior])]
+    (testing "Id"
+      (is (= #{:test-doc-plan-default :test-doc-plan-senior} (set (map ::sg/id instances)))))
+    (testing "Context"
+      (let [context (map ::sg/context instances)]
+        (is (= #{"test-doc-plan"} (set (map ::sg/document-plan-id context))))
+        (is (= #{{"good" ["excellent"], "written" ["authored"]}} (set (map ::sg/dictionary context))))
+        (is (= #{:default :senior} (set (map ::sg/reader-profile context))))))
+    (testing "Dictionary item context adding"
       (is (= #{#::sg{:attributes #::sg{:name           "written"
                                        :reader-profile :default}
                      :id         :03
@@ -65,8 +76,8 @@
                      :members    ["excellent"]
                      :type       :dictionary-item
                      :value      "good"}}
-             (->> (instances/build-instances semantic-graph nil [:default :senior])
-                  (map :instance)
+             (->> instances
+                  (map ::sg/graph)
                   (mapcat ::sg/concepts)
                   (filter #(= (::sg/type %) :dictionary-item))
                   (set)))))))

@@ -5,15 +5,8 @@
 
 (defmulti build-semantic-graph (fn [node] (-> node (get :type) (keyword))))
 
-(defmethod build-semantic-graph :default [{:keys [id children] :as node}]
-  #::sg{:concepts  [#::sg{:id    id
-                          :type  :unknown
-                          :value (dissoc node :id :children)}]
-        :relations (map (fn [{child-id :id}]
-                          #::sg{:from id
-                                :to   child-id
-                                :role :unknown})
-                        children)})
+(defmethod build-semantic-graph :default [{:keys [id type]}]
+  (throw (Exception. (format "Unknown node type for node id %s: %s" id type))))
 
 (defmethod build-semantic-graph :placeholder [_]
   #::sg{:concepts  []
@@ -139,7 +132,7 @@
 (defn document-plan->semantic-graph [root]
   (loop [zipper (-> root (preprocess) (make-zipper))
          amr #::sg{:relations [] :concepts []}]
-    (if (zip/end? zipper)
+    (if (or (zip/end? zipper) (empty? root))
       amr
       (recur
         (zip/next zipper)

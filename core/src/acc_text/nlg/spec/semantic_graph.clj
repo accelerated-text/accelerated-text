@@ -19,6 +19,9 @@
         :non-core #{:segment :instance :modifier}
         :invalid #{:unknown}))
 
+(s/def ::from keyword?)
+(s/def ::to keyword?)
+
 (s/def ::attributes
   (s/or :has-attrs (s/keys :req [::name])
         :no-attrs nil?))
@@ -30,3 +33,13 @@
 (s/def ::relations (s/coll-of ::relation))
 
 (s/def ::graph (s/keys :req [::relations ::concepts]))
+
+(s/def ::document-plan-id string?)
+
+(s/def ::dictionary map?)
+
+(s/def ::reader-profile keyword?)
+
+(s/def ::context (s/keys :req [::document-plan-id ::dictionary ::reader-profile]))
+
+(s/def ::instance (s/keys :req [::id ::context ::graph]))
