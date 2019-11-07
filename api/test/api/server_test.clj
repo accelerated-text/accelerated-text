@@ -1,6 +1,9 @@
 (ns api.server-test
   (:require [api.test-utils :refer [q]]
-            [clojure.test :refer [deftest is testing]]))
+            [api.db-fixtures :as fixtures]
+            [clojure.test :refer [deftest is testing use-fixtures]]))
+
+(use-fixtures :each fixtures/clean-db)
 
 (deftest ^:integration server-test
   (testing "GraphQL endpoint test"

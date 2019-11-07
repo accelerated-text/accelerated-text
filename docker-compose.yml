@@ -17,6 +17,7 @@ services:
       - localstack
     environment:
       DYNAMODB_ENDPOINT: http://localstack:4569
+      DB_IMPLEMENTATION: ${DB_IMPLEMENTATION}
     command: ["clojure", "-A:dev", "-m", "api.server"]
 
   gf:
