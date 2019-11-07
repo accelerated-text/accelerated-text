@@ -22,7 +22,7 @@
                                                              (case pos
                                                                :NP (get themrole-idx value)
                                                                :LEX (format "\"%s\"" value)
-                                                               :VERB "V2"
+                                                               :VERB "V2" ;; We may need similar mapping as for NP, in case there would be more than one verb
                                                                :PREP (format "\"%s\"" value)))
                                                            syntax))))
 
