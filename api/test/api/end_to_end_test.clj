@@ -30,6 +30,10 @@
                          :name         "author-amr"
                          :documentPlan (load-test-document-plan "author-amr")}
                         "4")
+  (dp/add-document-plan {:uid          "05"
+                         :name         "single-quote"
+                         :documentPlan (load-test-document-plan "single-quote")}
+                        "5")
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -95,3 +99,15 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (some? (get-first-variant result-id)))))
+
+(deftest ^:integration single-quote-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "5"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (nil? (get-first-variant result-id)))))
