@@ -132,6 +132,11 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Name of the blockly item"}
 
+          {:db/ident       :blockly/text
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Text of the blockly item"}
+
           {:db/ident       :blockly/concept-id
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one

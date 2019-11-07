@@ -110,4 +110,4 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (nil? (get-first-variant result-id)))))
+    (is (= "This is a very good book : Building Search Applications ." (get-first-variant result-id)))))
