@@ -14,6 +14,10 @@
   (map (fn [{value ::sg/value}] (cf/gf-morph-item value "NP" (cf/data-morphology-value value)))
        (sg-utils/concepts-with-type semantic-graph :data)))
 
+(defn quote->gf [semantic-graph]
+  (map (fn [{value ::sg/value}] (cf/gf-morph-item "Quote" "S" value))
+       (sg-utils/concepts-with-type semantic-graph :quote)))
+
 (defn amr->gf [semantic-graph]
   (map (fn [{value ::sg/value}] (cf/gf-morph-item value "V2" value))
        (sg-utils/concepts-with-type semantic-graph :amr)))
@@ -54,6 +58,7 @@
       (start-category->gf main-graph)
       (amr->gf main-graph)
       (data->gf main-graph)
+      (quote->gf main-graph)
       (modifier->gf main-graph concept-table))))
 
 (s/fdef build-grammar
