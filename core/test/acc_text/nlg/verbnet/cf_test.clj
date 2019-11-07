@@ -30,11 +30,11 @@
   (let [grammars (set (cf/vn->cf author-amr))]
     (is (contains? grammars ["Pred. S ::= NP0 VP;"
                              "Compl. VP ::= \"is\" \"the author of\" NP1;"
-                             "Action. VB ::= \"written\";"
+                             "Action. V2 ::= \"written\";"
                              "Actor. NP0 ::= \"{{AGENT}}\";"
                              "Actor. NP1 ::= \"{{CO-AGENT}}\";"]))
     (is (contains? grammars ["Pred. S ::= NP1 VP;"
                              "Compl. VP ::= \"is\" VB \"by\" NP0;"
-                             "Action. VB ::= \"written\";"
+                             "Action. V2 ::= \"written\";"
                              "Actor. NP0 ::= \"{{AGENT}}\";"
                              "Actor. NP1 ::= \"{{CO-AGENT}}\";"]))))
