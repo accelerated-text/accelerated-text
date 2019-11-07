@@ -27,14 +27,10 @@
       {:pos :NP :value "Agent"})})})
 
 (deftest author-amr-to-cf
-  (let [grammars (set (cf/vn->cf author-amr))]
-    (is (contains? grammars ["Pred. S ::= NP0 VP;"
-                             "Compl. VP ::= \"is\" \"the author of\" NP1;"
-                             "Action. V2 ::= \"written\";"
-                             "Actor. NP0 ::= \"{{AGENT}}\";"
-                             "Actor. NP1 ::= \"{{CO-AGENT}}\";"]))
-    (is (contains? grammars ["Pred. S ::= NP1 VP;"
-                             "Compl. VP ::= \"is\" V2 \"by\" NP0;"
-                             "Action. V2 ::= \"written\";"
-                             "Actor. NP0 ::= \"{{AGENT}}\";"
-                             "Actor. NP1 ::= \"{{CO-AGENT}}\";"]))))
+  (let [grammar (cf/vn->cf author-amr)]
+    (is (= grammar ["Pred. S ::= VP;"
+                    "Compl. VP ::= NP0 \"is\" \"the author of\" NP1;"
+                    "Compl. VP ::= NP1 \"is\" V2 \"by\" NP0;"
+                    "Action. V2 ::= \"written\";"
+                    "Actor. NP0 ::= \"{{AGENT}}\";"
+                    "Actor. NP1 ::= \"{{CO-AGENT}}\";"]))))
