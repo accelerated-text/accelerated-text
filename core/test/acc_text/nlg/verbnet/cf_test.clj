@@ -30,35 +30,33 @@
   {:id "cut-21.1",
    :members [{:name "cut"}]
    :thematic-roles
-   (list
-    {:type "Agent",
-     :selection-restrictions
-     ({:restrictors ({:value "+", :type "int_control"})})}
-    {:type "Patient",
-     :selection-restrictions
-     ({:restrictors ({:value "+", :type "concrete"})})}
-    {:type "Instrument",
-     :selection-restrictions
-     ({:restrictors ({:value "+", :type "concrete"})})}
+   [{:type "Agent"}
+    {:type "Patient"}
+    {:type "Instrument"}
     {:type "Source"}
-    {:type "Result"}),
+    {:type "Result"}]
    :frames
-   (list
-    {:examples ("Carol cut the envelope into pieces with a knife."),
+   [{:examples ["Carol cut the envelope into pieces with a knife."]
      :syntax
-     (list
-      {:pos :NP, :value "Agent"}
+     [{:pos :NP :value "Agent"}
       {:pos :VERB}
-      {:pos :NP, :value "Patient"}
-      {:pos :PREP, :value "to into"}
-      {:pos :NP,
-       :value "Result",
-       :restrictors {:restrictors ({:value "+", :type "state"})}}
-      {:pos :PREP, :value "with"}
-      {:pos :NP, :value "Instrument"})})})
+      {:pos :NP :value "Patient"}
+      {:pos :PREP :value "to into"}
+      {:pos :NP :value "Result"}
+      {:pos :PREP :value "with"}
+      {:pos :NP :value "Instrument"}]}]})
 
 (deftest author-amr-to-cf
   (let [grammar (cf/vn->cf author-amr)]
+    (is (= grammar ["Pred. S ::= VP;"
+                    "Compl. VP ::= NP0 \"is\" \"the author of\" NP1;"
+                    "Compl. VP ::= NP1 \"is\" V2 \"by\" NP0;"
+                    "Action. V2 ::= \"written\";"
+                    "Actor. NP0 ::= \"{{AGENT}}\";"
+                    "Actor. NP1 ::= \"{{CO-AGENT}}\";"]))))
+
+(deftest cut-amr-to-cf
+  (let [grammar (cf/vn->cf cut-amr)]
     (is (= grammar ["Pred. S ::= VP;"
                     "Compl. VP ::= NP0 \"is\" \"the author of\" NP1;"
                     "Compl. VP ::= NP1 \"is\" V2 \"by\" NP0;"
