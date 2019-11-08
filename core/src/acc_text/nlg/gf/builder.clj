@@ -18,9 +18,15 @@
   (map (fn [{value ::sg/value}] (cf/gf-morph-item "Quote" "S" value))
        (sg-utils/concepts-with-type semantic-graph :quote)))
 
-(defn amr->gf [semantic-graph]
-  (map (fn [{value ::sg/value}] (cf/gf-morph-item value "V2" value))
-       (sg-utils/concepts-with-type semantic-graph :amr)))
+(defn amr->gf [semantic-graph concept-table]
+  (let [functions (map second (sg-utils/relations-with-concepts semantic-graph concept-table :function))]
+    (map (fn [{type ::sg/type :as concept}]
+           (cond
+             (= :dictionary-item type) (let [name (get-in concept [::sg/attributes ::sg/name])
+                                             members (::sg/members concept)
+                                             item (when (seq members) (rand-nth members))]
+                                         (cf/gf-morph-item name "V2" (or item name)))))
+         functions)))
 
 ;; Those are predefined heads of grammar tree, they will differ
 ;; based on what type of phrase begins the text.
@@ -45,7 +51,7 @@
       (:ap gf-head-trees)
 
       ;;Verb phrase
-      (= concept-pattern #{:amr :data})
+      (contains? concept-pattern :amr)
       (:vp gf-head-trees)
 
       ;;Probably need to throw an error, we can not have unresolved start cats
@@ -56,7 +62,7 @@
         concept-table (sg-utils/concepts->concept-map main-graph)]
     (concat
       (start-category->gf main-graph)
-      (amr->gf main-graph)
+      (amr->gf main-graph concept-table)
       (data->gf main-graph)
       (quote->gf main-graph)
       (modifier->gf main-graph concept-table))))
