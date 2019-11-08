@@ -1,0 +1,14 @@
+id: provide
+members:
+  - provide
+roles:
+  - Agent
+  - co-Agent
+frames:
+  - example: Nike provides comfort.
+    syntax:
+      - pos: NP
+        value: Agent
+      - pos: VERB
+      - pos: NP
+        value: co-Agent
