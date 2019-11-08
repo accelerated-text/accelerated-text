@@ -11,7 +11,12 @@
            modifiers))))
 
 (defn data->gf [semantic-graph]
-  (map (fn [{value ::sg/value}] (cf/gf-morph-item value "NP" (cf/data-morphology-value value)))
+  (map (fn [{value ::sg/value :as concept}]
+         (if (< 1 (count (::sg/concepts (sg-utils/subgraph semantic-graph concept))))
+           ;; If we have modifiers create 'A NP'
+           (cf/gf-modified-morph-item value "NP" "A" value)
+           ;; Else just plain NP
+           (cf/gf-morph-item value "NP" (cf/data-morphology-value value))))
        (sg-utils/concepts-with-type semantic-graph :data)))
 
 (defn quote->gf [semantic-graph]
@@ -25,7 +30,7 @@
              (= :dictionary-item type) (let [name (get-in concept [::sg/attributes ::sg/name])
                                              members (::sg/members concept)
                                              item (when (seq members) (rand-nth members))]
-                                         (cf/gf-morph-item name "V2" (or item name)))))
+                                         (cf/gf-morph-item (str name "amr" )"V2" (or item name)))))
          functions)))
 
 ;; Those are predefined heads of grammar tree, they will differ
@@ -33,8 +38,7 @@
 (def gf-head-trees {:np [(cf/gf-syntax-item "Phrase" "S" "NP")]
                     :vp [(cf/gf-syntax-item "Phrase" "S" "NP VP")
                          (cf/gf-syntax-item "ComplV2" "VP" "V2 NP")]
-                    :ap [(cf/gf-syntax-item "Phrase" "S" "AP")
-                         (cf/gf-syntax-item "ComplA" "AP" "A NP")]})
+                    :ap [(cf/gf-syntax-item "Phrase" "S" "NP")]})
 
 (defn start-category->gf [{relations ::sg/relations concepts ::sg/concepts}]
   ;;in order to decide which GF to generate we do not need complete concept/relation data
