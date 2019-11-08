@@ -12,8 +12,7 @@
           :frames             [{:examples ["X is the author of Y"]
                                 :syntax   [{:pos :NP :value "Agent"}
                                            {:pos :LEX :value "is"}
-                                           {:pos :LEX :value "the author"}
-                                           {:pos :PREP :value "of"}
+                                           {:pos :LEX :value "the author of"}
                                            {:pos :NP :value "co-Agent"}]}
                                {:examples ["Y is written by X"]
                                 :syntax   [{:pos :NP :value "co-Agent"}

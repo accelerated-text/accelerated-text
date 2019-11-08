@@ -12,9 +12,7 @@ frames:
       - pos: LEX
         value: is
       - pos: LEX
-        value: the author
-      - pos: PREP
-        value: of
+        value: the author of
       - pos: NP
         value: co-Agent
   - example: Y is written by X
