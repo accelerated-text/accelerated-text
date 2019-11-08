@@ -26,6 +26,37 @@
       {:pos :PREP :value "by"}
       {:pos :NP :value "Agent"})})})
 
+(def cut-amr
+  {:id "cut-21.1",
+   :members [{:name "cut"}]
+   :thematic-roles
+   (list
+    {:type "Agent",
+     :selection-restrictions
+     ({:restrictors ({:value "+", :type "int_control"})})}
+    {:type "Patient",
+     :selection-restrictions
+     ({:restrictors ({:value "+", :type "concrete"})})}
+    {:type "Instrument",
+     :selection-restrictions
+     ({:restrictors ({:value "+", :type "concrete"})})}
+    {:type "Source"}
+    {:type "Result"}),
+   :frames
+   (list
+    {:examples ("Carol cut the envelope into pieces with a knife."),
+     :syntax
+     (list
+      {:pos :NP, :value "Agent"}
+      {:pos :VERB}
+      {:pos :NP, :value "Patient"}
+      {:pos :PREP, :value "to into"}
+      {:pos :NP,
+       :value "Result",
+       :restrictors {:restrictors ({:value "+", :type "state"})}}
+      {:pos :PREP, :value "with"}
+      {:pos :NP, :value "Instrument"})})})
+
 (deftest author-amr-to-cf
   (let [grammar (cf/vn->cf author-amr)]
     (is (= grammar ["Pred. S ::= VP;"
