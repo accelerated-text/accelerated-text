@@ -14,5 +14,7 @@
   (yaml/parse-string (slurp f)))
 
 (defn get-ext [^File f]
-  (let [filename (.getName f)]
-    (subs filename (.lastIndexOf filename ".") (count filename))))
+  (let [filename (.getName f)
+        index (.lastIndexOf filename ".")]
+    (when (not= index -1)
+      (subs filename index (count filename)))))
