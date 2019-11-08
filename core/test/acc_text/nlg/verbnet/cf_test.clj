@@ -58,8 +58,10 @@
 (deftest cut-amr-to-cf
   (let [grammar (cf/vn->cf cut-amr)]
     (is (= grammar ["Pred. S ::= VP;"
-                    "Compl. VP ::= NP0 \"is\" \"the author of\" NP1;"
-                    "Compl. VP ::= NP1 \"is\" V2 \"by\" NP0;"
-                    "Action. V2 ::= \"written\";"
+                    "Compl. VP ::= NP0 V2 NP1 \"to into\" NP4 \"with\" NP2;"
+                    "Action. V2 ::= \"cut\";"
                     "Actor. NP0 ::= \"{{AGENT}}\";"
-                    "Actor. NP1 ::= \"{{CO-AGENT}}\";"]))))
+                    "Actor. NP1 ::= \"{{PATIENT}}\";"
+                    "Actor. NP2 ::= \"{{INSTRUMENT}}\";"
+                    "Actor. NP3 ::= \"{{SOURCE}}\";"
+                    "Actor. NP4 ::= \"{{RESULT}}\";"]))))
