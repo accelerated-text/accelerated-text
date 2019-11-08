@@ -6,6 +6,9 @@
 (defn gf-syntax-item [syntactic-function category syntax]
   (format "%s. %s ::= %s;" syntactic-function category syntax))
 
+(defn gf-modified-morph-item [syntactic-function category modify-syntax item]
+  (format "%s. %s ::= %s \"%s\";" (string/capitalize syntactic-function) category modify-syntax (data-morphology-value item)))
+
 (defn gf-morph-item [syntactic-function category syntax]
   (format "%s. %s ::= \"%s\";" (string/capitalize syntactic-function) category syntax))
 
