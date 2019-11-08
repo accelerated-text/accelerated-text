@@ -17,7 +17,7 @@
             (if-not (= ".yaml" (utils/get-ext f))
               m
               (let [{id :id :as amr} (-> f (utils/read-yaml) (parse-amr))]
-                (assoc m id amr))))
+                (assoc m (keyword id) amr))))
           {}
           (-> "amr" (io/resource) (io/file) (file-seq))))
 
