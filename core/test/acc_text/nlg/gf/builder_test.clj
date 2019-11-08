@@ -71,13 +71,13 @@
          (builder/build-grammar modifier-dp)))
   (is (= ["Phrase. S ::= NP VP;"
           "ComplV2. VP ::= V2 NP;"
-          "Author. V2 ::= \"wrote\";"
+          "Authoramr. V2 ::= \"wrote\";"
           "Title. NP ::= \"{{TITLE}}\";"
           "Author. NP ::= \"{{AUTHOR}}\";"]
          (builder/build-grammar verb-dp)))
   (is (= ["Phrase. S ::= NP VP;"
           "ComplV2. VP ::= V2 NP;"
-          "Author. V2 ::= \"wrote\";"
+          "Authoramr. V2 ::= \"wrote\";"
           "Title. NP ::= A \"{{TITLE}}\";"
           "Author. NP ::= \"{{AUTHOR}}\";"
           "Good. A ::= \"good\";"]

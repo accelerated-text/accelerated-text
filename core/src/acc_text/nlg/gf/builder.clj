@@ -30,7 +30,7 @@
              (= :dictionary-item type) (let [name (get-in concept [::sg/attributes ::sg/name])
                                              members (::sg/members concept)
                                              item (when (seq members) (rand-nth members))]
-                                         (cf/gf-morph-item name "V2" (or item name)))))
+                                         (cf/gf-morph-item (str name "amr" )"V2" (or item name)))))
          functions)))
 
 ;; Those are predefined heads of grammar tree, they will differ
