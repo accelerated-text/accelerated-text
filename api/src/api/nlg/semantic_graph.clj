@@ -2,7 +2,8 @@
   (:require [acc-text.nlg.spec.semantic-graph :as sg]
             [api.nlg.dictionary :as dictionary-api]
             [api.utils :as utils]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [data.entities.amr :as amr]))
 
 (defn get-dictionary-items [semantic-graph]
   (->> (get semantic-graph ::sg/concepts)
@@ -31,6 +32,9 @@
   (-> concept
       (assoc ::sg/members (get dictionary value))
       (assoc-in [::sg/attributes ::sg/reader-profile] reader-profile)))
+
+(defmethod add-context :amr [{value ::sg/value :as concept} _]
+  (assoc-in concept [::sg/attributes ::sg/syntax] (->> value (amr/get-verbclass) (:frames) (map :syntax))))
 
 (defn ->instance-id [document-plan-id reader-profile]
   (keyword (str/join "-" (remove nil? [document-plan-id (when (some? reader-profile) (name reader-profile))]))))
