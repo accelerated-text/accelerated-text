@@ -53,4 +53,4 @@
                                                 {:pos :NP :value "Result"}
                                                 {:pos :PREP :value "with"}
                                                 {:pos :NP :value "Instrument"}]}]}
-         (amr/read-amr (io/file "test/resources/amr/cut.yaml"))))
+         (amr/read-amr (io/file "test/resources/amr/cut.yaml")))))

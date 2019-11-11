@@ -34,7 +34,7 @@
       (assoc-in [::sg/attributes ::sg/reader-profile] reader-profile)))
 
 (defmethod add-context :amr [{value ::sg/value :as concept} _]
-  (assoc-in concept [::sg/attributes ::sg/syntax] (->> value (amr/get-verbclass) (:frames) (map :syntax))))
+  (assoc-in concept [::sg/attributes ::sg/syntax] (->> value (amr/load-single) (:frames) (map :syntax))))
 
 (defn ->instance-id [document-plan-id reader-profile]
   (keyword (str/join "-" (remove nil? [document-plan-id (when (some? reader-profile) (name reader-profile))]))))
