@@ -34,7 +34,7 @@
         root         (cf/gf-syntax-item "Pred" "S" "VP")
         variables    (concat
                       (map (fn [{name :name}] (cf/gf-morph-item "Action" "V2" name)) members)
-                      (map (fn [[k v]] (cf/gf-morph-item "Actor" v (cf/data-morphology-value k))) themrole-idx))]
+                      (map (fn [[k v]] (cf/gf-morph-item k v (cf/data-morphology-value k))) themrole-idx))]
     (-> (partial frame->cf "VP" themrole-idx)
         (map frames)
         (build-grammars root variables))))
