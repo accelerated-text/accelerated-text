@@ -41,43 +41,42 @@
   (is (= :default (semantic-graph/->instance-id nil :default))))
 
 (deftest ^:integration instance-building
-  (let [document-plan (load-test-document-plan "author-amr-with-adj")
-        semantic-graph (parser/document-plan->semantic-graph document-plan)
-        instances (semantic-graph/build-instances semantic-graph "test-doc-plan" [:default :senior])]
-    (testing "Id"
-      (is (= #{:test-doc-plan-default :test-doc-plan-senior} (set (map ::sg/id instances)))))
-    (testing "Context"
-      (let [context (map ::sg/context instances)]
-        (is (= #{"test-doc-plan"} (set (map ::sg/document-plan-id context))))
-        (is (= #{{"good" ["excellent"], "written" ["authored"]}} (set (map ::sg/dictionary context))))
-        (is (= #{:default :senior} (set (map ::sg/reader-profile context))))))
-    (testing "Dictionary item context adding"
-      (is (= #{#::sg{:attributes #::sg{:name           "written"
-                                       :reader-profile :default}
-                     :id         :04
-                     :members    ["authored"]
-                     :type       :dictionary-item
-                     :value      "written"}
-               #::sg{:attributes #::sg{:name           "good"
-                                       :reader-profile :default}
-                     :id         :06
-                     :members    ["excellent"]
-                     :type       :dictionary-item
-                     :value      "good"}
-               #::sg{:attributes #::sg{:name           "written"
-                                       :reader-profile :senior}
-                     :id         :04
-                     :members    ["authored"]
-                     :type       :dictionary-item
-                     :value      "written"}
-               #::sg{:attributes #::sg{:name           "good"
-                                       :reader-profile :senior}
-                     :id         :06
-                     :members    ["excellent"]
-                     :type       :dictionary-item
-                     :value      "good"}}
-             (->> instances
-                  (map ::sg/graph)
-                  (mapcat ::sg/concepts)
-                  (filter #(= (::sg/type %) :dictionary-item))
-                  (set)))))))
+  (with-redefs [data.entities.document-plan/get-document-plan (fn [id] {:documentPlan (load-test-document-plan id)})]
+    (let [instances (semantic-graph/build-instances "author-amr-with-adj" [:default :senior])]
+      (testing "Id"
+        (is (= #{:author-amr-with-adj-default :author-amr-with-adj-senior} (set (map ::sg/id instances)))))
+      (testing "Context"
+        (let [context (map ::sg/context instances)]
+          (is (= #{"author-amr-with-adj"} (set (map ::sg/document-plan-id context))))
+          (is (= #{{"good" ["excellent"], "written" ["authored"]}} (set (map ::sg/dictionary context))))
+          (is (= #{:default :senior} (set (map ::sg/reader-profile context))))))
+      (testing "Dictionary item context adding"
+        (is (= #{#::sg{:attributes #::sg{:name           "written"
+                                         :reader-profile :default}
+                       :id         :04
+                       :members    ["authored"]
+                       :type       :dictionary-item
+                       :value      "written"}
+                 #::sg{:attributes #::sg{:name           "good"
+                                         :reader-profile :default}
+                       :id         :06
+                       :members    ["excellent"]
+                       :type       :dictionary-item
+                       :value      "good"}
+                 #::sg{:attributes #::sg{:name           "written"
+                                         :reader-profile :senior}
+                       :id         :04
+                       :members    ["authored"]
+                       :type       :dictionary-item
+                       :value      "written"}
+                 #::sg{:attributes #::sg{:name           "good"
+                                         :reader-profile :senior}
+                       :id         :06
+                       :members    ["excellent"]
+                       :type       :dictionary-item
+                       :value      "good"}}
+               (->> instances
+                    (map ::sg/graph)
+                    (mapcat ::sg/concepts)
+                    (filter #(= (::sg/type %) :dictionary-item))
+                    (set))))))))
