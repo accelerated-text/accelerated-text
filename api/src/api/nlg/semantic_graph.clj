@@ -1,9 +1,10 @@
 (ns api.nlg.semantic-graph
   (:require [acc-text.nlg.spec.semantic-graph :as sg]
             [api.nlg.dictionary :as dictionary-api]
-            [api.utils :as utils]
+            [api.nlg.parser :as parser]
             [clojure.string :as str]
-            [data.entities.amr :as amr]))
+            [data.entities.amr :as amr]
+            [data.entities.document-plan :as document-plan]))
 
 (defn get-dictionary-items [semantic-graph]
   (->> (get semantic-graph ::sg/concepts)
@@ -34,23 +35,22 @@
       (assoc-in [::sg/attributes ::sg/reader-profile] reader-profile)))
 
 (defmethod add-context :amr [{value ::sg/value :as concept} _]
-  (assoc-in concept [::sg/attributes ::sg/syntax] (->> value (amr/get-verbclass) (:frames) (map :syntax))))
+  (assoc-in concept [::sg/attributes ::sg/syntax] (->> value (amr/load-single) (:frames) (map :syntax))))
 
 (defn ->instance-id [document-plan-id reader-profile]
   (keyword (str/join "-" (remove nil? [document-plan-id (when (some? reader-profile) (name reader-profile))]))))
 
 (defn build-instances
-  ([semantic-graph]
-   (build-instances semantic-graph (utils/gen-uuid)))
-  ([semantic-graph document-plan-id]
-   (build-instances semantic-graph document-plan-id [:default]))
-  ([semantic-graph document-plan-id reader-profiles]
-   (let [dictionary (build-dictionary semantic-graph reader-profiles)]
+  ([document-plan-id]
+   (build-instances document-plan-id [:default]))
+  ([document-plan-id reader-profiles]
+   (let [document-plan (:documentPlan (document-plan/get-document-plan document-plan-id))
+         semantic-graph (parser/document-plan->semantic-graph document-plan)
+         dictionary (build-dictionary semantic-graph reader-profiles)]
      (for [reader-profile reader-profiles]
        (let [context #::sg{:document-plan-id document-plan-id
                            :reader-profile   reader-profile
                            :dictionary       (get dictionary reader-profile)}]
          #::sg{:id      (->instance-id document-plan-id reader-profile)
                :context context
-               :graph   (update semantic-graph ::sg/concepts (partial map (fn [concept]
-                                                                            (add-context concept context))))})))))
+               :graph   (update semantic-graph ::sg/concepts (partial map #(add-context % context)))})))))
