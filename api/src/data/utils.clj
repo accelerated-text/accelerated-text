@@ -18,3 +18,8 @@
         index (.lastIndexOf filename ".")]
     (when (not= index -1)
       (subs filename index (count filename)))))
+
+(defn get-name [^File f]
+  (let [filename (.getName f)
+        index (.lastIndexOf filename ".")]
+    (cond-> filename (not= index -1) (subs 0 index))))

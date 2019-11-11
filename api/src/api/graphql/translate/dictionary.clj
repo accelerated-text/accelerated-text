@@ -1,5 +1,5 @@
 (ns api.graphql.translate.dictionary
-  (:require [api.graphql.translate.amr :as translate-amr]
+  (:require [api.graphql.translate.concept :as translate-concept]
             [clojure.tools.logging :as log]
             [data.entities.amr :as amr]))
 
@@ -33,5 +33,5 @@
      :phrases      (map phrase->schema phrases)
      :partOfSpeech part-of-speech
      :concept      (when (= part-of-speech "VB")
-                     (translate-amr/verbclass->schema
-                       (amr/get-verbclass :author)))}))
+                     (translate-concept/amr->schema
+                       (amr/load-single :author)))}))

@@ -1,5 +1,5 @@
 (ns api.graphql.translate.thesaurus
-  (:require [api.graphql.translate.amr :as translate-amr]
+  (:require [api.graphql.translate.concept :as translate-concept]
             [clojure.string :as string]
             [data.entities.amr :as amr]
             [data.wordnet :as wn]))
@@ -13,8 +13,8 @@
                          :partOfSpeech (name pos)
                          :text         lemma
                          :concept      (when (= (name pos) "VB")
-                                         (translate-amr/verbclass->schema
-                                           (amr/get-verbclass :author)))})
+                                         (translate-concept/amr->schema
+                                           (amr/load-single :author)))})
                       words)
      :offset     0
      :limit      (count words)
@@ -27,6 +27,6 @@
                 :partOfSpeech pos
                 :text         root-word
                 :concept      (when (= pos "VB")
-                                (translate-amr/verbclass->schema
-                                  (amr/get-verbclass :author)))}
+                                (translate-concept/amr->schema
+                                  (amr/load-single :author)))}
      :synonyms (:words (search-thesaurus root-word pos))}))
