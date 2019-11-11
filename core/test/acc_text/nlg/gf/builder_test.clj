@@ -61,7 +61,38 @@
                           :value      "NN-good"
                           :attributes #::sg{:name "good"}}]})
 
-(def complex-amr-dp )
+(def author-amr-with-adj-default
+  #::sg{:relations [#::sg{:from "01" :to "02" :role :segment}
+                    #::sg{:from "02" :to "03" :role :instance}
+                    #::sg{:from "03" :to "04" :role :function}
+                    #::sg{:from "03" :to "05" :role :ARG0 :attributes #::sg{:name "agent"}}
+                    #::sg{:from "03" :to "07" :role :ARG1 :attributes #::sg{:name "co-agent"}}
+                    #::sg{:from "05" :to "06" :role :modifier}]
+        :concepts [#::sg{:id "01" :type :document-plan}
+                   #::sg{:id "02" :type :segment}
+                   #::sg{:id "03" :type :amr :value "author"
+                         :attributes #::sg{:syntax [[{:pos :NP :value "Agent"}
+                                                     {:pos :LEX :value "is"}
+                                                     {:pos :LEX :value "the author of"}
+                                                     {:pos :NP  :value "co-Agent"}]
+                                                    [{:pos :NP :value "co-Agent"}
+                                                     {:pos :LEX :value "is"}
+                                                     {:pos :VERB}
+                                                     {:pos :PREP :value "by"}
+                                                     {:pos :NP :value "Agent"}]]}}
+                   #::sg{:id "04"
+                         :type :dictionary-item,
+                         :value "written",
+                         :attributes #::sg{:name "written",
+                                           :reader-profile :default},
+                         :members ()}
+                   #::sg{:id "05" :type :data :value "authors"}
+                   #::sg{:id "06" :type :dictionary-item :value "good"
+                         :attributes #::sg{:name "good"
+                                           :reader-profile :default}
+                         :members ()}
+                   #::sg{:id "07" :type :data :value "title"}]})
+
 
 (deftest plan-realization
   (is (= ["Phrase. S ::= NP;"
