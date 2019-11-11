@@ -1,0 +1,14 @@
+id: see
+members:
+  - see
+roles:
+  - Agent
+  - co-Agent
+frames:
+  - example: Harry sees Sally.
+    syntax:
+      - pos: NP
+        value: Agent
+      - pos: VERB
+      - pos: NP
+        value: co-Agent

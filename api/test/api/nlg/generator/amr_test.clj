@@ -3,12 +3,14 @@
             [acc-text.nlg.verbnet.ccg :as verbnet.ccg]
             [clojure.test :refer [deftest is]]
             [clojure.tools.logging :as log]
-            [data.entities.amr :as amr-entity]))
+            [data.utils :as utils]
+            [clojure.java.io :as io]
+            [data.entities.amr :as amr]))
 
 (deftest test-author-amr
-  (let [vn (amr-entity/get-verbclass :author)
+  (let [vn (amr/parse-amr (utils/read-yaml (io/file "test/resources/amr/author.yaml")))
         grammars (verbnet.ccg/vn->grammar vn)
-        result (-> (map (fn [g] (grammar/generate g "{{AGENT}}" "{{CO-AGENT}}" "{{THEME}}")) grammars)
+        result (-> (map (fn [g] (grammar/generate g "{{AGENT}}" "{{CO-AGENT}}")) grammars)
                    (flatten)
                    (set))]
     (log/debugf "Got verblcass: %s" vn)

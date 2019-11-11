@@ -1,63 +1,26 @@
-(ns data.entities.amr)
+(ns data.entities.amr
+  (:require [clojure.java.io :as io]
+            [data.utils :as utils]))
 
-(def see
-  {:id                 "see"
-   :dictionary-item-id "see"
-   :thematic-roles     (list {:type "Agent"}
-                             {:type "co-Agent"})
-   :frames             (list {:examples (list "Harry sees Sally.")
-                              :syntax   (list
-                                          {:pos :NP :value "Agent"}
-                                          {:pos :VERB}
-                                          {:pos :NP :value "co-Agent"})})})
+(defn parse-amr [{:keys [id members roles frames]}]
+  {:id                 id
+   :dictionary-item-id (first members)
+   :thematic-roles     (map (fn [role] {:type role}) roles)
+   :frames             (map (fn [{:keys [syntax example]}]
+                              {:examples [example]
+                               :syntax   (for [instance syntax]
+                                           (into {} (update instance :pos keyword)))})
+                            frames)})
 
-(def provide
-  {:id                 "provide"
-   :dictionary-item-id "provide"
-   :thematic-roles     (list {:type "Agent"}
-                             {:type "co-Agent"})
-   :frames             (list {:examples (list "Nike provides comfort.")
-                              :syntax   (list
-                                          {:pos :NP :value "Agent"}
-                                          {:pos :VERB}
-                                          {:pos :NP :value "co-Agent"})})})
+(defn rules []
+  (reduce (fn [m f]
+            (if-not (= ".yaml" (utils/get-ext f))
+              m
+              (let [{id :id :as amr} (-> f (utils/read-yaml) (parse-amr))]
+                (assoc m (keyword id) amr))))
+          {}
+          (-> "amr" (io/resource) (io/file) (file-seq))))
 
-(def author
-  {:id                 "author"
-   :dictionary-item-id "written"
-   :thematic-roles     (list {:type "Agent"}
-                             {:type "co-Agent"}
-                             {:type "Theme" :restrictors '({:type  :determiner
-                                                            :value "the"})})
-   :frames             (list {:examples (list "X is the author of Y")
-                              :syntax   (list
-                                          {:pos :NP :value "Agent" :restrictors '({:type  :count
-                                                                                   :value :singular})}
-                                          {:pos :LEX :value "is"}
-                                          {:pos :LEX :value "the author of"}
-                                          {:pos :NP :value "co-Agent"})}
+(defn list-verbclasses [] (map (fn [[_ v]] v) (rules)))
 
-                             {:examples (list "X are authors of Y")
-                              :syntax   (list {:pos :NP :value "Agent" :restrictors '({:type  :count
-                                                                                       :value :plural})}
-                                              {:pos :LEX :value "are"}
-                                              {:pos :LEX :value "authors of"}
-                                              {:pos :NP :value "co-Agent"})}
-
-                             {:examples (list "Y is written by Y")
-                              :syntax   (list {:pos :NP :value "co-Agent"}
-                                              {:pos :LEX :value "is"}
-                                              {:pos :VERB}
-                                              {:pos :PREP :value "by"}
-                                              {:pos :NP :value "Agent"})})})
-
-(def rules
-  {:provide provide
-   :see     see
-   :author  author})
-
-(defn list-all [] (map (fn [[_ v]] v) rules))
-
-(defn list-verbclasses [] (list-all))
-
-(defn get-verbclass [k] (get rules (keyword k)))
+(defn get-verbclass [k] (get (rules) (keyword k)))

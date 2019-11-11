@@ -1,0 +1,28 @@
+id: author
+members:
+  - written
+roles:
+  - Agent
+  - co-Agent
+frames:
+  - example: X is the author of Y
+    syntax:
+      - pos: NP
+        value: Agent
+      - pos: LEX
+        value: is
+      - pos: LEX
+        value: the author of
+      - pos: NP
+        value: co-Agent
+  - example: Y is written by X
+    syntax:
+      - pos: NP
+        value: co-Agent
+      - pos: LEX
+        value: is
+      - pos: VERB
+      - pos: PREP
+        value: by
+      - pos: NP
+        value: Agent
