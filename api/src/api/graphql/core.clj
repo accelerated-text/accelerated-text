@@ -1,5 +1,5 @@
 (ns api.graphql.core
-  (:require [api.graphql.domain.amr :as amr-domain]
+  (:require [api.graphql.domain.concept :as concept-domain]
             [api.graphql.domain.data :as data-domain]
             [api.graphql.domain.dictionary :as dictionary-domain]
             [api.graphql.domain.document-plan :as document-plan-domain]
@@ -58,8 +58,8 @@
                               :update-document-plan        #'document-plan-domain/update-document-plan
                               :search-thesaurus            #'thesaurus-domain/search-thesaurus
                               :synonyms                    #'thesaurus-domain/synonyms
-                              :concepts                    #'amr-domain/list-verbclasses
-                              :concept                     #'amr-domain/get-verbclass
+                              :concepts                    #'concept-domain/list-concepts
+                              :concept                     #'concept-domain/get-concept
                               :list-data-files             #'data-domain/list-data-files
                               :get-data-file               #'data-domain/get-data-file
                               :create-data-file            #'data-domain/create-data-file})

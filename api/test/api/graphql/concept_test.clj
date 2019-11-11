@@ -1,4 +1,4 @@
-(ns api.graphql.amr-test
+(ns api.graphql.concept-test
   (:require [api.test-utils :refer [q]]
             [api.db-fixtures :as db]
             [clojure.test :refer [deftest is use-fixtures]]))

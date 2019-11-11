@@ -1,19 +1,19 @@
-(ns api.graphql.domain.amr
-  (:require [api.graphql.translate.amr :as amr-translate]
+(ns api.graphql.domain.concept
+  (:require [api.graphql.translate.concept :as concept-translate]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.entities.amr :as amr-entity]))
 
-(defn list-verbclasses [_ _ _]
+(defn list-concepts [_ _ _]
   (resolve-as
     {:id       "concepts"
      :concepts (->> (amr-entity/load-all)
-                    (map amr-translate/verbclass->schema)
+                    (map concept-translate/amr->schema)
                     (sort-by :id))}))
 
 (defn- resolve-as-not-found-concept [id]
   (resolve-as nil {:message (format "Cannot find concept with id `%s`." id)}))
 
-(defn get-verbclass [_ {:keys [id]} _]
-  (if-let [verbclass (amr-entity/load-single id)]
-    (resolve-as (amr-translate/verbclass->schema verbclass))
+(defn get-concept [_ {:keys [id]} _]
+  (if-let [amr (amr-entity/load-single id)]
+    (resolve-as (concept-translate/amr->schema amr))
     (resolve-as-not-found-concept id)))
