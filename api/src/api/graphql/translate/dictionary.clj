@@ -34,4 +34,4 @@
      :partOfSpeech part-of-speech
      :concept      (when (= part-of-speech "VB")
                      (translate-amr/verbclass->schema
-                       (amr/get-verbclass :author)))}))
+                       (amr/load-single :author)))}))

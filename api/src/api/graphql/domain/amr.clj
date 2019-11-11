@@ -6,7 +6,7 @@
 (defn list-verbclasses [_ _ _]
   (resolve-as
     {:id       "concepts"
-     :concepts (->> (amr-entity/list-verbclasses)
+     :concepts (->> (amr-entity/load-all)
                     (map amr-translate/verbclass->schema)
                     (sort-by :id))}))
 
@@ -14,6 +14,6 @@
   (resolve-as nil {:message (format "Cannot find concept with id `%s`." id)}))
 
 (defn get-verbclass [_ {:keys [id]} _]
-  (if-let [verbclass (amr-entity/get-verbclass id)]
+  (if-let [verbclass (amr-entity/load-single id)]
     (resolve-as (amr-translate/verbclass->schema verbclass))
     (resolve-as-not-found-concept id)))

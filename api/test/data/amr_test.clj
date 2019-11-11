@@ -1,10 +1,9 @@
 (ns data.amr-test
   (:require [clojure.java.io :as io]
             [clojure.test :refer [deftest is]]
-            [data.entities.amr :as amr]
-            [data.utils :as utils]))
+            [data.entities.amr :as amr]))
 
-(deftest amr-parsing
+(deftest amr-reading
   (is (= {:id                 "author"
           :dictionary-item-id "written"
           :thematic-roles     [{:type "Agent"}
@@ -20,7 +19,7 @@
                                            {:pos :VERB}
                                            {:pos :PREP :value "by"}
                                            {:pos :NP :value "Agent"}]}]}
-         (amr/parse-amr (utils/read-yaml (io/file "test/resources/amr/author.yaml")))))
+         (amr/read-amr (io/file "test/resources/amr/author.yaml"))))
   (is (= {:id                 "see"
           :dictionary-item-id "see"
           :thematic-roles     [{:type "Agent"}
@@ -29,7 +28,7 @@
                                 :syntax   [{:pos :NP :value "Agent"}
                                            {:pos :VERB}
                                            {:pos :NP :value "co-Agent"}]}]}
-         (amr/parse-amr (utils/read-yaml (io/file "test/resources/amr/see.yaml")))))
+         (amr/read-amr (io/file "test/resources/amr/see.yaml"))))
   (is (= {:id                 "provide"
           :dictionary-item-id "provide"
           :thematic-roles     [{:type "Agent"}
@@ -38,4 +37,4 @@
                                 :syntax   [{:pos :NP :value "Agent"}
                                            {:pos :VERB}
                                            {:pos :NP :value "co-Agent"}]}]}
-         (amr/parse-amr (utils/read-yaml (io/file "test/resources/amr/provide.yaml"))))))
+         (amr/read-amr (io/file "test/resources/amr/provide.yaml")))))

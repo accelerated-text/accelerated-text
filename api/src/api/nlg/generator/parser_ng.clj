@@ -138,7 +138,7 @@
   (let [amr-attrs (assoc attrs :amr true)
         idx (swap! parse-cnt inc)
         reader-profile (:reader-profile ctx)
-        vc (amr-entity/get-verbclass conceptId)
+        vc (amr-entity/load-single conceptId)
         slots (map :type (:thematic-roles vc))
         members (for [item (dictionary-api/search (:itemId dictionaryItem) reader-profile)]
                   {:name item})                             ;; Our dictionary-items are becoming grammar's members

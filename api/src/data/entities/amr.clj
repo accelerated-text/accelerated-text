@@ -2,25 +2,27 @@
   (:require [clojure.java.io :as io]
             [data.utils :as utils]))
 
-(defn parse-amr [{:keys [id members roles frames]}]
-  {:id                 id
-   :dictionary-item-id (first members)
-   :thematic-roles     (map (fn [role] {:type role}) roles)
-   :frames             (map (fn [{:keys [syntax example]}]
-                              {:examples [example]
-                               :syntax   (for [instance syntax]
-                                           (into {} (update instance :pos keyword)))})
-                            frames)})
+(defn read-amr [f]
+  (let [{:keys [members roles frames]} (utils/read-yaml f)]
+    {:id                 (utils/get-name f)
+     :dictionary-item-id (first members)
+     :thematic-roles     (map (fn [role] {:type role}) roles)
+     :frames             (map (fn [{:keys [syntax example]}]
+                                {:examples [example]
+                                 :syntax   (for [instance syntax]
+                                             (into {} (update instance :pos keyword)))})
+                              frames)}))
 
-(defn rules []
-  (reduce (fn [m f]
-            (if-not (= ".yaml" (utils/get-ext f))
-              m
-              (let [{id :id :as amr} (-> f (utils/read-yaml) (parse-amr))]
-                (assoc m (keyword id) amr))))
-          {}
-          (-> "amr" (io/resource) (io/file) (file-seq))))
+(defn list-amr-files []
+  (->> "amr"
+       (io/resource)
+       (io/file)
+       (file-seq)
+       (filter #(= ".yaml" (utils/get-ext %)))))
 
-(defn list-verbclasses [] (map (fn [[_ v]] v) (rules)))
+(defn load-single [id]
+  (when-let [f (some #(when (= (name id) (utils/get-name %)) %) (list-amr-files))]
+    (read-amr f)))
 
-(defn get-verbclass [k] (get (rules) (keyword k)))
+(defn load-all []
+  (map read-amr (list-amr-files)))

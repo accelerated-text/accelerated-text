@@ -3,12 +3,11 @@
             [acc-text.nlg.verbnet.ccg :as verbnet.ccg]
             [clojure.test :refer [deftest is]]
             [clojure.tools.logging :as log]
-            [data.utils :as utils]
             [clojure.java.io :as io]
             [data.entities.amr :as amr]))
 
 (deftest test-author-amr
-  (let [vn (amr/parse-amr (utils/read-yaml (io/file "test/resources/amr/author.yaml")))
+  (let [vn (amr/read-amr (io/file "test/resources/amr/author.yaml"))
         grammars (verbnet.ccg/vn->grammar vn)
         result (-> (map (fn [g] (grammar/generate g "{{AGENT}}" "{{CO-AGENT}}")) grammars)
                    (flatten)
