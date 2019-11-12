@@ -10,7 +10,7 @@
           "AuthorV2. x03 ::= x07 \"is\" x04 \"by\" x05;"
           "Item. x04 ::= \"authored\";"
           "Item. x04 ::= \"written\";"
-          "Data. x05 ::= \"{{authors}}\";"
+          "DataMod. x05 ::= x06 \"{{authors}}\";"
           "Item. x06 ::= \"excellent\";"
           "Item. x06 ::= \"good\";"
           "Data. x07 ::= \"{{title}}\";"]

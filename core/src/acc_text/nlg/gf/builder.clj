@@ -25,11 +25,17 @@
                                                                                           (when value (format "\"%s\"" value))
                                                                                           (str "x" function))))))))
 
-(defmethod build-grammar-fragment :data [{id ::sg/id value ::sg/value}]
-  (format "Data. x%s ::= \"{{%s}}\";" (name id) value))
+(defmethod build-grammar-fragment :data [{id ::sg/id value ::sg/value relations ::sg/relations}]
+  (if-not (seq relations)
+    (format "Data. x%s ::= \"{{%s}}\";" (name id) value)
+    (for [{to ::sg/to} relations]
+      (format "DataMod. x%s ::= x%s \"{{%s}}\";" (name id) (name to) value))))
 
-(defmethod build-grammar-fragment :quote [{id ::sg/id value ::sg/value}]
-  (format "Quote. x%s ::= \"%s\";" (name id) value))
+(defmethod build-grammar-fragment :quote [{id ::sg/id value ::sg/value relations ::sg/relations}]
+  (if-not (seq relations)
+    (format "Quote. x%s ::= \"%s\";" (name id) value)
+    (for [{to ::sg/to} relations]
+      (format "QuoteMod. x%s ::= x%s \"%s\";" (name id) (name to) value))))
 
 (defmethod build-grammar-fragment :dictionary-item [{id ::sg/id members ::sg/members {attr-name ::sg/name} ::sg/attributes}]
   (for [v (set (cons attr-name members))]
