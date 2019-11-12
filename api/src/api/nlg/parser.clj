@@ -104,9 +104,6 @@
 (defn nil->placeholder [node]
   (cond-> node (nil? node) (assoc :type "placeholder")))
 
-(defn preprocess-dict-item [node index]
-  (cond-> node (contains? node :dictionaryItem) (update :dictionaryItem #(preprocess-node % index))))
-
 (defn rearrange-modifiers [node index]
   (loop [zipper (make-zipper node)
          modifiers []]
@@ -119,7 +116,7 @@
                                                      (assoc :type "Dictionary-item"))))))))
 
 (defn preprocess-node [node index]
-  (-> node (nil->placeholder) (preprocess-dict-item index) (rearrange-modifiers index) (gen-id index)))
+  (-> node (nil->placeholder) (rearrange-modifiers index) (gen-id index)))
 
 (defn preprocess [root]
   (loop [zipper (make-zipper root)
