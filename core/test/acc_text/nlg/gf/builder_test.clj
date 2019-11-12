@@ -3,7 +3,7 @@
             [acc-text.nlg.test-utils :as utils]
             [clojure.test :refer [deftest is]]))
 
-(deftest plan-realization
+(deftest grammar-building
   (is (= ["Document. S ::= x02;"
           "Segment. x02 ::= x03;"
           "AuthorV1. x03 ::= x05 \"is\" \"the author of\" x07;"
