@@ -1,75 +1,46 @@
 (ns acc-text.nlg.gf.builder
-  (:require [acc-text.nlg.gf.cf-format :as cf]
-            [acc-text.nlg.gf.semantic-graph-utils :as sg-utils]
-            [acc-text.nlg.spec.semantic-graph :as sg]
-            [clojure.spec.alpha :as s]))
+  (:require [acc-text.nlg.spec.semantic-graph :as sg]
+            [clojure.spec.alpha :as s]
+            [clojure.string :as str]))
 
-(defn modifier->gf [semantic-graph concept-table]
-  (let [modifiers (sg-utils/relations-with-concepts semantic-graph concept-table :modifier)]
-    (when (seq modifiers)
-      (map (fn [[_ {{name ::sg/name} ::sg/attributes}]] (cf/gf-morph-item name "A" name))
-           modifiers))))
+(defmulti build-grammar-fragment ::sg/type)
 
-(defn data->gf [semantic-graph]
-  (map (fn [{value ::sg/value :as concept}]
-         (if (< 1 (count (::sg/concepts (sg-utils/subgraph semantic-graph concept))))
-           ;; If we have modifiers create 'A NP'
-           (cf/gf-modified-morph-item value "NP" "A" value)
-           ;; Else just plain NP
-           (cf/gf-morph-item value "NP" (cf/data-morphology-value value))))
-       (sg-utils/concepts-with-type semantic-graph :data)))
+(defmethod build-grammar-fragment :document-plan [{relations ::sg/relations}]
+  (format "Document. S ::= %s;" (str/join " " (map (comp (partial str "x") name ::sg/to) relations))))
 
-(defn quote->gf [semantic-graph]
-  (map (fn [{value ::sg/value}] (cf/gf-morph-item "Quote" "S" value))
-       (sg-utils/concepts-with-type semantic-graph :quote)))
+(defmethod build-grammar-fragment :segment [{id ::sg/id relations ::sg/relations}]
+  (format "Segment. x%s ::= %s;" (name id) (str/join " " (map (comp (partial str "x") name ::sg/to) relations))))
 
-(defn amr->gf [semantic-graph concept-table]
-  (let [functions (map second (sg-utils/relations-with-concepts semantic-graph concept-table :function))]
-    (map (fn [{type ::sg/type :as concept}]
-           (cond
-             (= :dictionary-item type) (let [name (get-in concept [::sg/attributes ::sg/name])
-                                             members (::sg/members concept)
-                                             item (when (seq members) (rand-nth members))]
-                                         (cf/gf-morph-item (str name "amr" )"V2" (or item name)))))
-         functions)))
+(defmethod build-grammar-fragment :amr [{id ::sg/id value ::sg/value relations ::sg/relations {syntax ::sg/syntax} ::sg/attributes}]
+  (let [function (some (fn [{role ::sg/role to ::sg/to}]
+                         (when (= :function role) (name to)))
+                       relations)
+        name->id (reduce (fn [m {to ::sg/to role ::sg/role {attr-name ::sg/name} ::sg/attributes}]
+                           (cond-> m (and (not= :function role) (some? attr-name)) (assoc (str/lower-case attr-name) (str "x" (name to)))))
+                         {}
+                         relations)]
+    (for [[i instance] (zipmap (rest (range)) syntax)]
+      (format "%sV%s. x%s ::= %s;" (str/capitalize value) i (name id) (str/join " " (for [{pos :pos value :value} instance]
+                                                                                      (or (get name->id (when value (str/lower-case value)))
+                                                                                          (when value (format "\"%s\"" value))
+                                                                                          (str "x" function))))))))
 
-;; Those are predefined heads of grammar tree, they will differ
-;; based on what type of phrase begins the text.
-(def gf-head-trees {:np [(cf/gf-syntax-item "Phrase" "S" "NP")]
-                    :vp [(cf/gf-syntax-item "Phrase" "S" "NP VP")
-                         (cf/gf-syntax-item "ComplV2" "VP" "V2 NP")]
-                    :ap [(cf/gf-syntax-item "Phrase" "S" "NP")]})
+(defmethod build-grammar-fragment :data [{id ::sg/id value ::sg/value}]
+  (format "Data. x%s ::= \"{{%s}}\";" (name id) value))
 
-(defn start-category->gf [{relations ::sg/relations concepts ::sg/concepts}]
-  ;;in order to decide which GF to generate we do not need complete concept/relation data
-  ;;for pattern matching only their types are needed
-  (let [concept-pattern (set (map ::sg/type concepts))
-        relation-pattern (set (map ::sg/role relations))]
-    (cond
-      ;;Data concept only graph
-      (and (= concept-pattern #{:data}) (empty? relation-pattern))
-      (:np gf-head-trees)
+(defmethod build-grammar-fragment :quote [{id ::sg/id value ::sg/value}]
+  (format "Quote. x%s ::= \"%s\";" (name id) value))
 
-      ;;Adverbial phrase only graph
-      (and (= concept-pattern #{:data :dictionary-item}) (= relation-pattern #{:modifier}))
-      (:ap gf-head-trees)
+(defmethod build-grammar-fragment :dictionary-item [{id ::sg/id members ::sg/members {attr-name ::sg/name} ::sg/attributes}]
+  (for [v (set (cons attr-name members))]
+    (format "Item. x%s ::= \"%s\";" (name id) v)))
 
-      ;;Verb phrase
-      (contains? concept-pattern :amr)
-      (:vp gf-head-trees)
-
-      ;;Probably need to throw an error, we can not have unresolved start cats
-      :else nil)))
-
-(defn build-grammar [semantic-graph]
-  (let [main-graph (sg-utils/drop-non-semantic-parts semantic-graph)
-        concept-table (sg-utils/concepts->concept-map main-graph)]
-    (concat
-      (start-category->gf main-graph)
-      (amr->gf main-graph concept-table)
-      (data->gf main-graph)
-      (quote->gf main-graph)
-      (modifier->gf main-graph concept-table))))
+(defn build-grammar [{relations ::sg/relations concepts ::sg/concepts :as graph}]
+  (let [relation-map (group-by ::sg/from relations)]
+    (->> concepts
+         (map #(assoc % ::sg/relations (get relation-map (::sg/id %) [])))
+         (map build-grammar-fragment)
+         (flatten))))
 
 (s/fdef build-grammar
         :args (s/cat :semantic-graph ::sg/graph)
