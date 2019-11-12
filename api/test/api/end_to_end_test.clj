@@ -98,7 +98,7 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (some? (get-first-variant result-id)))))
+    (is (valid-sentence? (get-first-variant result-id)))))
 
 (deftest ^:integration single-quote-plan-generation
   (let [data-file-id (data-files/store!
