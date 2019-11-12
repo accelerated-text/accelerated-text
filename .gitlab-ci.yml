@@ -70,6 +70,8 @@ integration_test_api:
   stage: test
   image: tiangolo/docker-with-compose
   when: always
+  variables:
+    DOCKER_HOST: "tcp://docker:2375"
   script:
     - cd api
     - docker-compose -p test -f docker-compose.test.yml down
