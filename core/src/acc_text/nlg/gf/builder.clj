@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.gf.cf-format :as cf]
             [acc-text.nlg.gf.semantic-graph-utils :as sg-utils]
             [acc-text.nlg.spec.semantic-graph :as sg]
-            [clojure.spec.alpha :as s]
-            [clojure.string :as string]))
+            [clojure.spec.alpha :as s]))
 
 (defn modifier->gf [semantic-graph concept-table]
   (let [modifiers (sg-utils/relations-with-concepts semantic-graph concept-table :modifier)]
@@ -12,13 +11,13 @@
            modifiers))))
 
 (defn data->gf [semantic-graph]
-  (map-indexed (fn [idx {value ::sg/value :as concept}]
+  (map (fn [{value ::sg/value :as concept}]
          (if (< 1 (count (::sg/concepts (sg-utils/subgraph semantic-graph concept))))
            ;; If we have modifiers create 'A NP'
            (cf/gf-modified-morph-item value "NP" "A" value)
            ;; Else just plain NP
-           (cf/gf-morph-item value "NP" (cf/data-morphology-value value)))
-       (sg-utils/concepts-with-type semantic-graph :data))))
+           (cf/gf-morph-item value "NP" (cf/data-morphology-value value))))
+       (sg-utils/concepts-with-type semantic-graph :data)))
 
 (defn quote->gf [semantic-graph]
   (map (fn [{value ::sg/value}] (cf/gf-morph-item "Quote" "S" value))
@@ -33,25 +32,6 @@
                                              item (when (seq members) (rand-nth members))]
                                          (cf/gf-morph-item (str name "amr" )"V2" (or item name)))))
          functions)))
-
-(defn frame->cf
-  ;; Takes single syntax and converts to CF grammar row
-  ;; syntax-type: string by which it will be refered in grammar, eg. `AMR1`
-  ;; themrole-idx: Mapping for values. Eg. `Agent` should be `NP0`, this map shows what value to use inside grammar
-  ;; syntax: syntax directly from verbnet frame
-  [syntax-type themrole-idx syntax]
-  (cf/gf-syntax-item "AMR" syntax-type (string/join " " (map
-                                                           (fn
-                                                             [{:keys [pos value]}]
-                                                             (case pos
-                                                               :NP (get themrole-idx value)
-                                                               :LEX (format "\"%s\"" value)
-                                                               :VERB "V2" ;; We may need similar mapping as for NP, in case there would be more than one verb
-                                                               :PREP (format "\"%s\"" value)))
-                                                           syntax))))
-
-(defn amr->gf [amr-table]
-  amr-table)
 
 ;; Those are predefined heads of grammar tree, they will differ
 ;; based on what type of phrase begins the text.
