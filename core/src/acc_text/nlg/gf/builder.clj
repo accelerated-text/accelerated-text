@@ -11,38 +11,28 @@
       (map (fn [[_ {{name ::sg/name} ::sg/attributes}]] (cf/gf-morph-item name "A" name))
            modifiers))))
 
-(defn data->table [semantic-graph]
+(defn data->cf [semantic-graph]
   (map-indexed (fn [idx {value ::sg/value :as concept}]
-         ;; (if (< 1 (count (::sg/concepts (sg-utils/subgraph semantic-graph concept))))
-         ;;   ;; If we have modifiers create 'A NP'
-         ;;   (cf/gf-modified-morph-item value "NP" "A" value)
-         ;;   ;; Else just plain NP
-         ;;   (cf/gf-morph-item value "NP" (cf/data-morphology-value value)))
-                 {:key value
-                  :index idx
-                  :symbol (format "NP%d" idx)
-                  :morph-value (cf/data-morphology-value value)})
+         (if (< 1 (count (::sg/concepts (sg-utils/subgraph semantic-graph concept))))
+           ;; If we have modifiers create 'A NP'
+           (cf/gf-modified-morph-item value "NP" "A" value)
+           ;; Else just plain NP
+           (cf/gf-morph-item value "NP" (cf/data-morphology-value value)))
        (sg-utils/concepts-with-type semantic-graph :data)))
-
-(defn data-table->gf [table]
-  (map (fn [{:keys [symbol morph-value key]}]
-         (cf/gf-morph-item key symbol morph-value))
-       table))
-
 
 (defn quote->gf [semantic-graph]
   (map (fn [{value ::sg/value}] (cf/gf-morph-item "Quote" "S" value))
        (sg-utils/concepts-with-type semantic-graph :quote)))
 
-;; (defn amr->gf [semantic-graph concept-table]
-;;   (let [functions (map second (sg-utils/relations-with-concepts semantic-graph concept-table :function))]
-;;     (map (fn [{type ::sg/type :as concept}]
-;;            (cond
-;;              (= :dictionary-item type) (let [name (get-in concept [::sg/attributes ::sg/name])
-;;                                              members (::sg/members concept)
-;;                                              item (when (seq members) (rand-nth members))]
-;;                                          (cf/gf-morph-item (str name "amr" )"V2" (or item name)))))
-;;          functions)))
+(defn amr->gf [semantic-graph concept-table]
+  (let [functions (map second (sg-utils/relations-with-concepts semantic-graph concept-table :function))]
+    (map (fn [{type ::sg/type :as concept}]
+           (cond
+             (= :dictionary-item type) (let [name (get-in concept [::sg/attributes ::sg/name])
+                                             members (::sg/members concept)
+                                             item (when (seq members) (rand-nth members))]
+                                         (cf/gf-morph-item (str name "amr" )"V2" (or item name)))))
+         functions)))
 
 (defn frame->cf
   ;; Takes single syntax and converts to CF grammar row
@@ -110,18 +100,13 @@
 
 (defn build-grammar [semantic-graph]
   (let [main-graph (sg-utils/drop-non-semantic-parts semantic-graph)
-        concept-table (sg-utils/concepts->concept-map main-graph)
-        data-table  (data->table main-graph)
-        amr-table   (amr->table main-graph data-table)]
+        concept-table (sg-utils/concepts->concept-map main-graph)]
     (concat
-     (data-table->gf data-table)
-     (amr-table->gf amr-table)
-      ;; (start-category->gf main-graph)
-      ;; (amr->gf main-graph concept-table)
-      ;; (data->gf main-graph)
-      ;; (quote->gf main-graph)
-      ;; (modifier->gf main-graph concept-table)
-      )))
+      (start-category->gf main-graph)
+      (amr->gf main-graph concept-table)
+      (data->gf main-graph)
+      (quote->gf main-graph)
+      (modifier->gf main-graph concept-table))))
 
 (s/fdef build-grammar
         :args (s/cat :semantic-graph ::sg/graph)
