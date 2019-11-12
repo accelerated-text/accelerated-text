@@ -70,9 +70,8 @@ integration_test_api:
   stage: test
   image: tiangolo/docker-with-compose
   when: always
-  before_script:
+  script:
     - cd api
     - docker-compose -p test -f docker-compose.test.yml down
     - docker-compose -p test -f docker-compose.test.yml build
-  script:
     - docker-compose -p test -f docker-compose.test.yml up --remove-orphans --abort-on-container-exit --exit-code-from api
