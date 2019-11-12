@@ -11,7 +11,7 @@
       (map (fn [[_ {{name ::sg/name} ::sg/attributes}]] (cf/gf-morph-item name "A" name))
            modifiers))))
 
-(defn data->cf [semantic-graph]
+(defn data->gf [semantic-graph]
   (map-indexed (fn [idx {value ::sg/value :as concept}]
          (if (< 1 (count (::sg/concepts (sg-utils/subgraph semantic-graph concept))))
            ;; If we have modifiers create 'A NP'

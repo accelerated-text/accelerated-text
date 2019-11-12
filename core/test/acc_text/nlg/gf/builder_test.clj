@@ -85,12 +85,12 @@
                          :value "written",
                          :attributes #::sg{:name "written",
                                            :reader-profile :default},
-                         :members ()}
+                         :members []}
                    #::sg{:id "05" :type :data :value "authors"}
                    #::sg{:id "06" :type :dictionary-item :value "good"
                          :attributes #::sg{:name "good"
                                            :reader-profile :default}
-                         :members ()}
+                         :members []}
                    #::sg{:id "07" :type :data :value "title"}]})
 
 
@@ -115,68 +115,3 @@
           "Author. NP ::= \"{{AUTHOR}}\";"
           "Good. A ::= \"good\";"]
          (builder/build-grammar amr-with-modifier-dp))))
-
-(def author-amr
-  {:id "author"
-   :members [{:name "written"}]
-   :thematic-roles
-   (list {:type "Agent"}
-         {:type "co-Agent"})
-   :frames
-   (list
-    {:examples (list "X is the author of Y")
-     :syntax
-     (list
-      {:pos :NP :value "Agent"}
-      {:pos :LEX :value "is"}
-      {:pos :LEX :value "the author of"}
-      {:pos :NP :value "co-Agent"})}
-    {:examples (list "Y is written by X")
-     :syntax
-     (list
-      {:pos :NP :value "co-Agent"}
-      {:pos :LEX :value "is"}
-      {:pos :VERB}
-      {:pos :PREP :value "by"}
-      {:pos :NP :value "Agent"})})})
-
-(def cut-amr
-  {:id "cut-21.1",
-   :members [{:name "cut"}]
-   :thematic-roles
-   [{:type "Agent"}
-    {:type "Patient"}
-    {:type "Instrument"}
-    {:type "Source"}
-    {:type "Result"}]
-   :frames
-   [{:examples ["Carol cut the envelope into pieces with a knife."]
-     :syntax
-     [{:pos :NP :value "Agent"}
-      {:pos :VERB}
-      {:pos :NP :value "Patient"}
-      {:pos :PREP :value "to into"}
-      {:pos :NP :value "Result"}
-      {:pos :PREP :value "with"}
-      {:pos :NP :value "Instrument"}]}]})
-
-(deftest author-amr-to-cf
-  (let [grammar (builder/vn->cf author-amr)]
-    (is (= grammar ["Pred. S ::= VP;"
-                    "Compl. VP ::= NP0 \"is\" \"the author of\" NP1;"
-                    "Compl. VP ::= NP1 \"is\" V2 \"by\" NP0;"
-                    "Action. V2 ::= \"written\";"
-                    "Agent. NP0 ::= \"{{AGENT}}\";"
-                    "Co-agent. NP1 ::= \"{{CO-AGENT}}\";"]))))
-
-(deftest cut-amr-to-cf
-  (let [grammar (builder/vn->cf cut-amr)]
-    (is (= grammar ["Pred. S ::= VP;"
-                    "Compl. VP ::= NP0 V2 NP1 \"to into\" NP4 \"with\" NP2;"
-                    "Action. V2 ::= \"cut\";"
-                    "Agent. NP0 ::= \"{{AGENT}}\";"
-                    "Patient. NP1 ::= \"{{PATIENT}}\";"
-                    "Instrument. NP2 ::= \"{{INSTRUMENT}}\";"
-                    "Source. NP3 ::= \"{{SOURCE}}\";"
-                    "Result. NP4 ::= \"{{RESULT}}\";"]))))
-
