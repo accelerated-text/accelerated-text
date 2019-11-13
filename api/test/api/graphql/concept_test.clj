@@ -10,6 +10,7 @@
         _ (q "/_graphql" :post {:query query :variables {:name "written"}})
         _ (q "/_graphql" :post {:query query :variables {:name "provide"}})
         _ (q "/_graphql" :post {:query query :variables {:name "see"}})
+        _ (q "/_graphql" :post {:query query :variables {:name "cut"}}
         query "{concepts{id concepts{id label roles{id fieldType fieldLabel} dictionaryItem{name phrases{text}} helpText}}}"
         {{{{:keys [id concepts]} :concepts} :data errors :errors} :body} (q "/_graphql" :post {:query query})]
     (is (nil? errors))
