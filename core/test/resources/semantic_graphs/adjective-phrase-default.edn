@@ -1,0 +1,12 @@
+#:acc-text.nlg.spec.semantic-graph{:relations (#:acc-text.nlg.spec.semantic-graph{:from :01 :to :02 :role :segment}
+                                                #:acc-text.nlg.spec.semantic-graph{:from :02 :to :03 :role :instance}
+                                                #:acc-text.nlg.spec.semantic-graph{:from :03 :to :04 :role :modifier})
+                                   :concepts  (#:acc-text.nlg.spec.semantic-graph{:id :01 :type :document-plan}
+                                                #:acc-text.nlg.spec.semantic-graph{:id :02 :type :segment}
+                                                #:acc-text.nlg.spec.semantic-graph{:id :03 :type :data :value "title"}
+                                                #:acc-text.nlg.spec.semantic-graph{:id         :04
+                                                                                   :type       :dictionary-item
+                                                                                   :value      "NN-good"
+                                                                                   :attributes #:acc-text.nlg.spec.semantic-graph{:name           "good"
+                                                                                                                                  :reader-profile :default}
+                                                                                   :members    ["excellent"]})}

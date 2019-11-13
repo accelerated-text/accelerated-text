@@ -1,0 +1,62 @@
+#:acc-text.nlg.spec.semantic-graph{:relations [#:acc-text.nlg.spec.semantic-graph{:from :01
+                                                                                  :to   :02
+                                                                                  :role :segment}
+                                               #:acc-text.nlg.spec.semantic-graph{:from :02
+                                                                                  :to   :03
+                                                                                  :role :instance}
+                                               #:acc-text.nlg.spec.semantic-graph{:from :03
+                                                                                  :to   :04
+                                                                                  :role :function}
+                                               #:acc-text.nlg.spec.semantic-graph{:from       :03
+                                                                                  :to         :05
+                                                                                  :role       :ARG0
+                                                                                  :attributes #:acc-text.nlg.spec.semantic-graph{:name "agent"}}
+                                               #:acc-text.nlg.spec.semantic-graph{:from       :03
+                                                                                  :to         :07
+                                                                                  :role       :ARG1
+                                                                                  :attributes #:acc-text.nlg.spec.semantic-graph{:name "co-agent"}}
+                                               #:acc-text.nlg.spec.semantic-graph{:from :05
+                                                                                  :to   :06
+                                                                                  :role :modifier}]
+                                   :concepts  [#:acc-text.nlg.spec.semantic-graph{:id   :01
+                                                                                  :type :document-plan}
+                                               #:acc-text.nlg.spec.semantic-graph{:id   :02
+                                                                                  :type :segment}
+                                               #:acc-text.nlg.spec.semantic-graph{:id         :03
+                                                                                  :type       :amr
+                                                                                  :value      "author"
+                                                                                  :attributes #:acc-text.nlg.spec.semantic-graph{:syntax [[{:pos   :NP
+                                                                                                                                            :value "Agent"}
+                                                                                                                                           {:pos   :LEX
+                                                                                                                                            :value "is"}
+                                                                                                                                           {:pos   :LEX
+                                                                                                                                            :value "the author of"}
+                                                                                                                                           {:pos   :NP
+                                                                                                                                            :value "co-Agent"}]
+                                                                                                                                          [{:pos   :NP
+                                                                                                                                            :value "co-Agent"}
+                                                                                                                                           {:pos   :LEX
+                                                                                                                                            :value "is"}
+                                                                                                                                           {:pos :VERB}
+                                                                                                                                           {:pos   :PREP
+                                                                                                                                            :value "by"}
+                                                                                                                                           {:pos   :NP
+                                                                                                                                            :value "Agent"}]]}}
+                                               #:acc-text.nlg.spec.semantic-graph{:id         :04
+                                                                                  :type       :dictionary-item
+                                                                                  :value      "written"
+                                                                                  :attributes #:acc-text.nlg.spec.semantic-graph{:name           "written"
+                                                                                                                                 :reader-profile :default}
+                                                                                  :members    ["authored"]}
+                                               #:acc-text.nlg.spec.semantic-graph{:id    :05
+                                                                                  :type  :data
+                                                                                  :value "authors"}
+                                               #:acc-text.nlg.spec.semantic-graph{:id         :06
+                                                                                  :type       :dictionary-item
+                                                                                  :value      "good"
+                                                                                  :attributes #:acc-text.nlg.spec.semantic-graph{:name           "good"
+                                                                                                                                 :reader-profile :default}
+                                                                                  :members    ["excellent"]}
+                                               #:acc-text.nlg.spec.semantic-graph{:id    :07
+                                                                                  :type  :data
+                                                                                  :value "title"}]}
