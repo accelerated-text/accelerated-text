@@ -37,4 +37,20 @@
                                 :syntax   [{:pos :NP :value "Agent"}
                                            {:pos :VERB}
                                            {:pos :NP :value "co-Agent"}]}]}
-         (amr/read-amr (io/file "test/resources/amr/provide.yaml")))))
+         (amr/read-amr (io/file "test/resources/amr/provide.yaml"))))
+  (is (= {:id                 "cut"
+          :dictionary-item-id "cut"
+          :thematic-roles     [{:type "Agent"}
+                               {:type "Patient"}
+                               {:type "Instrument"}
+                               {:type "Source"}
+                               {:type "Result"}]
+          :frames             [{:examples ["Carol cut the envelope into pieces with a knife."]
+                                :syntax        [{:pos :NP :value "Agent"}
+                                                {:pos :VERB}
+                                                {:pos :NP :value "Patient"}
+                                                {:pos :PREP :value "to into"}
+                                                {:pos :NP :value "Result"}
+                                                {:pos :PREP :value "with"}
+                                                {:pos :NP :value "Instrument"}]}]}
+         (amr/read-amr (io/file "test/resources/amr/cut.yaml")))))

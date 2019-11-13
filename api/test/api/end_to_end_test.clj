@@ -4,7 +4,8 @@
             [clojure.string :as string]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
-            [data.entities.data-files :as data-files]))
+            [data.entities.data-files :as data-files]
+            [data.entities.dictionary :as dictionary]))
 
 (defn valid-sentence?
   "Test validity of the sentence.
@@ -14,6 +15,10 @@
   [txt] (re-matches #".*\w{2,}.*[.?!]" txt))
 
 (defn prepare-environment [f]
+  (dictionary/create-dictionary-item {:key "cut"
+                                      :name "cut"
+                                      :phrases ["cut"]
+                                      :partOfSpeech :VB})
   (dp/add-document-plan {:uid          "01"
                          :name         "title-only"
                          :documentPlan (load-test-document-plan "title-only")}
@@ -38,6 +43,10 @@
                          :name         "single-modifier"
                          :documentPlan (load-test-document-plan "single-modifier")}
                         "6")
+  (dp/add-document-plan {:uid          "07"
+                         :name         "cut-amr"
+                         :documentPlan (load-test-document-plan "cut-amr")}
+                        "7")
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -128,3 +137,15 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= "Good ." (get-first-variant result-id)))))
+
+(deftest ^:integration complex-amr-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/carol.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/carol.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "7"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= "Carol cut envelope to into pieces with knife ." (get-first-variant result-id)))))

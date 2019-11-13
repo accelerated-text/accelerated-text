@@ -1,0 +1,24 @@
+members:
+  - cut
+roles:
+  - Agent
+  - Patient
+  - Instrument
+  - Source
+  - Result
+frames:
+  - example: Carol cut the envelope into pieces with a knife.
+    syntax:
+      - pos: NP
+        value: Agent
+      - pos: VERB
+      - pos: NP
+        value: Patient
+      - pos: PREP
+        value: "to into"
+      - pos: NP
+        value: Result
+      - pos: PREP
+        value: "with"
+      - pos: NP
+        value: Instrument
