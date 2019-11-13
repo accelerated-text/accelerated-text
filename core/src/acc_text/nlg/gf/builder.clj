@@ -20,7 +20,7 @@
                          {}
                          relations)]
     (for [[i instance] (zipmap (rest (range)) syntax)]
-      (format "%sV%s. x%s ::= %s;" (str/capitalize value) i (name id) (str/join " " (for [{pos :pos value :value} instance]
+      (format "%sV%s. x%s ::= %s;" (str/capitalize value) i (name id) (str/join " " (for [{value :value} instance]
                                                                                       (or (get name->id (when value (str/lower-case value)))
                                                                                           (when value (format "\"%s\"" value))
                                                                                           (str "x" function))))))))
@@ -41,7 +41,7 @@
   (for [v (set (cons attr-name members))]
     (format "Item. x%s ::= \"%s\";" (name id) v)))
 
-(defn build-grammar [{relations ::sg/relations concepts ::sg/concepts :as graph}]
+(defn build-grammar [{relations ::sg/relations concepts ::sg/concepts}]
   (let [relation-map (group-by ::sg/from relations)]
     (->> concepts
          (map #(assoc % ::sg/relations (get relation-map (::sg/id %) [])))
