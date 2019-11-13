@@ -132,4 +132,4 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= "Carol cut envelope to into pieces with knife." (get-first-variant result-id)))))
+    (is (= "Carol cut envelope to into pieces with knife ." (get-first-variant result-id)))))
