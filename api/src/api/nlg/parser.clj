@@ -74,6 +74,11 @@
                           :attributes #::sg{:name name}}]
         :relations []})
 
+(defmethod build-semantic-graph :Dictionary-item-modifier [node]
+  (-> node
+      (assoc :type "Dictionary-item")
+      (build-semantic-graph)))
+
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
     :Document-plan (assoc node :segments children)
