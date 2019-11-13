@@ -4,7 +4,8 @@
             [clojure.string :as string]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
-            [data.entities.data-files :as data-files]))
+            [data.entities.data-files :as data-files]
+            [data.entities.dictionary :as dictionary]))
 
 (defn valid-sentence?
   "Test validity of the sentence.
@@ -14,6 +15,11 @@
   [txt] (re-matches #".*\w{2,}.*[.?!]" txt))
 
 (defn prepare-environment [f]
+  (dictionary/create-dictionary-item {:key "cut"
+                                      :name "cut"
+                                      :phrases ["cut"]
+                                      :partOfSpeech :VB})
+  
   (dp/add-document-plan {:uid          "01"
                          :name         "title-only"
                          :documentPlan (load-test-document-plan "title-only")}
