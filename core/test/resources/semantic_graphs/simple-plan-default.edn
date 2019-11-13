@@ -1,0 +1,7 @@
+#:acc-text.nlg.spec.semantic-graph{:relations (#:acc-text.nlg.spec.semantic-graph{:from :01 :to :02 :role :segment}
+                                                #:acc-text.nlg.spec.semantic-graph{:from :02 :to :03 :role :instance})
+                                   :concepts  (#:acc-text.nlg.spec.semantic-graph{:id :01 :type :document-plan}
+                                                #:acc-text.nlg.spec.semantic-graph{:id :02 :type :segment}
+                                                #:acc-text.nlg.spec.semantic-graph{:id    :03
+                                                                                   :type  :data
+                                                                                   :value "product-name"})}
