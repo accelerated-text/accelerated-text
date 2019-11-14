@@ -68,8 +68,7 @@
          (map postprocess))))
 
 (defn generation-process [document-plan-id data-id reader-model]
-  (let [{document-plan :documentPlan data-sample-id :dataSampleId data-sample-row :dataSampleRow}
-        (document-plan/get-document-plan document-plan-id)
+  (let [{document-plan :documentPlan data-sample-row :dataSampleRow} (document-plan/get-document-plan document-plan-id)
         row (nth (get-data data-id) data-sample-row)]
     (try
       {:ready   true
