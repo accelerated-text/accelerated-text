@@ -62,11 +62,10 @@
 
 
 (defn generate-row [instance row]
-  (-> instance
-      (generate-templates)
-      (take-rand)
-      (realize row)
-      (postprocess)))
+  (let [templates (generate-templates instance)]
+    (->> templates
+         (map #(realize % row))
+         (map postprocess))))
 
 (defn generation-process [document-plan-id data-id reader-model]
   (let [{document-plan :documentPlan data-sample-id :dataSampleId data-sample-row :dataSampleRow}
@@ -74,10 +73,9 @@
         row (nth (get-data data-id) data-sample-row)]
     (try
       {:ready   true
-       :results [(-> (semantic-graph/build-instances document-plan (get-reader-profiles reader-model))
-                     (take-rand)
-                     (generate-row row)
-)]}
+       :results (-> (semantic-graph/build-instances document-plan (get-reader-profiles reader-model))
+                    (take-rand)
+                    (generate-row row))}
       (catch Exception e
         (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
         {:error true :ready true :message (.getMessage e)}))))
