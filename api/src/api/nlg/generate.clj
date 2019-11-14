@@ -61,21 +61,20 @@
     (rand-nth coll)))
 
 (defn generation-process [document-plan-id data-id reader-model]
-  (try
-    {:ready   true
-     :results (for [{document-plan :documentPlan data-sample-id :dataSampleId data-sample-row :dataSampleRow}
-                    (document-plan/get-document-plan document-plan-id)
-                    row (get-data data-id)]
-                (-> document-plan
-                    (semantic-graph/build-instances (get-reader-profiles reader-model))
-                    (take-rand)
-                    (generate-templates)
-                    (take-rand)
-                    (realize row)
-                    (postprocess)))}
-    (catch Exception e
-      (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
-      {:error true :ready true :message (.getMessage e)})))
+  (let [{document-plan :documentPlan data-sample-id :dataSampleId data-sample-row :dataSampleRow}
+        (document-plan/get-document-plan document-plan-id)]
+      (try
+        {:ready   true
+         :results (for [row (get-data data-id)]
+                    (-> (semantic-graph/build-instances document-plan (get-reader-profiles reader-model))
+                        (take-rand)
+                        (generate-templates)
+                        (take-rand)
+                        (realize row)
+                        (postprocess)))}
+        (catch Exception e
+          (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
+          {:error true :ready true :message (.getMessage e)}))))
 
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues}]
   (let [result-id (utils/gen-uuid)]

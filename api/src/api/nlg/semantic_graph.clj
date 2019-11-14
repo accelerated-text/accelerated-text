@@ -45,7 +45,7 @@
   ([document-plan reader-profiles]
    (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
          dictionary (build-dictionary semantic-graph reader-profiles)
-         document-plan-id (:id document-plan)]
+         document-plan-id (:uid document-plan)]
      (for [reader-profile reader-profiles]
        (let [context #::sg{:document-plan-id document-plan-id
                            :reader-profile   reader-profile
