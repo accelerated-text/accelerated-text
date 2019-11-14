@@ -9,7 +9,7 @@
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
-            [data.entities.document-plan :as document-plan]
+            [data.entities.document-plan :as dp]
             [data.entities.result :as results]
             [jsonista.core :as json]
             [org.httpkit.client :as client]))
@@ -61,20 +61,23 @@
   (when (seq coll)
     (rand-nth coll)))
 
+(defn generate-row [instance row]
+  (->> instance
+       (generate-templates)
+       (map #(realize % row))
+       (map postprocess)))
+
 (defn generation-process [document-plan-id data-id reader-model]
   (try
     {:ready   true
-     :results (for [row (get-data data-id)]
-                (let [document-plan (:documentPlan (document-plan/get-document-plan document-plan-id))
-                      semantic-graph (parser/document-plan->semantic-graph document-plan)
-                      context (context/build-context semantic-graph (get-reader-profiles reader-model))]
-                  (-> semantic-graph
-                      (sg/build-instances context)
-                      (take-rand)
-                      (generate-templates)
-                      (take-rand)
-                      (realize row)
-                      (postprocess))))}
+     :results (let [{document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)
+                    row (nth (get-data data-id) (or data-sample-row 0))
+                    semantic-graph (parser/document-plan->semantic-graph document-plan)
+                    context (context/build-context semantic-graph (get-reader-profiles reader-model))]
+                (-> semantic-graph
+                    (sg/build-instances context)
+                    (take-rand)
+                    (generate-row row)))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
