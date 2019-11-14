@@ -1,5 +1,5 @@
 (ns api.nlg.generate
-  (:require [acc-text.nlg.gf.builder :as gf-builder]
+  (:require [acc-text.nlg.gf.grammar :as grammar]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.utils.nlp :as nlp]
             [api.nlg.context :as context]
@@ -39,7 +39,7 @@
                     :body    (json/write-value-as-string {:content (reduce str grammar)})}))
 
 (defn generate-templates [{graph ::sg/graph}]
-  (-> (gf-builder/build-grammar graph)
+  (-> (grammar/build graph)
       (compile-request)
       (get :body)
       (json/read-value utils/read-mapper)

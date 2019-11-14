@@ -1,17 +1,17 @@
-(ns acc-text.nlg.gf.builder
+(ns acc-text.nlg.gf.grammar
   (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.spec.alpha :as s]
             [clojure.string :as str]))
 
-(defmulti build-grammar-fragment ::sg/type)
+(defmulti build-fragment ::sg/type)
 
-(defmethod build-grammar-fragment :document-plan [{relations ::sg/relations}]
+(defmethod build-fragment :document-plan [{relations ::sg/relations}]
   (format "Document. S ::= %s;" (str/join " " (map (comp (partial str "x") name ::sg/to) relations))))
 
-(defmethod build-grammar-fragment :segment [{id ::sg/id relations ::sg/relations}]
+(defmethod build-fragment :segment [{id ::sg/id relations ::sg/relations}]
   (format "Segment. x%s ::= %s;" (name id) (str/join " " (map (comp (partial str "x") name ::sg/to) relations))))
 
-(defmethod build-grammar-fragment :amr [{id ::sg/id value ::sg/value relations ::sg/relations {syntax ::sg/syntax} ::sg/attributes}]
+(defmethod build-fragment :amr [{id ::sg/id value ::sg/value relations ::sg/relations {syntax ::sg/syntax} ::sg/attributes}]
   (let [function (some (fn [{role ::sg/role to ::sg/to}]
                          (when (= :function role) (name to)))
                        relations)
@@ -25,29 +25,29 @@
                                                                                           (when value (format "\"%s\"" value))
                                                                                           (str "x" function))))))))
 
-(defmethod build-grammar-fragment :data [{id ::sg/id value ::sg/value relations ::sg/relations}]
+(defmethod build-fragment :data [{id ::sg/id value ::sg/value relations ::sg/relations}]
   (if-not (seq relations)
     (format "Data. x%s ::= \"{{%s}}\";" (name id) value)
     (for [{to ::sg/to} relations]
       (format "DataMod. x%s ::= x%s \"{{%s}}\";" (name id) (name to) value))))
 
-(defmethod build-grammar-fragment :quote [{id ::sg/id value ::sg/value relations ::sg/relations}]
+(defmethod build-fragment :quote [{id ::sg/id value ::sg/value relations ::sg/relations}]
   (if-not (seq relations)
     (format "Quote. x%s ::= \"%s\";" (name id) value)
     (for [{to ::sg/to} relations]
       (format "QuoteMod. x%s ::= x%s \"%s\";" (name id) (name to) value))))
 
-(defmethod build-grammar-fragment :dictionary-item [{id ::sg/id members ::sg/members {attr-name ::sg/name} ::sg/attributes}]
+(defmethod build-fragment :dictionary-item [{id ::sg/id members ::sg/members {attr-name ::sg/name} ::sg/attributes}]
   (for [v (set (cons attr-name members))]
     (format "Item. x%s ::= \"%s\";" (name id) v)))
 
-(defn build-grammar [{relations ::sg/relations concepts ::sg/concepts}]
+(defn build [{relations ::sg/relations concepts ::sg/concepts}]
   (let [relation-map (group-by ::sg/from relations)]
     (->> concepts
          (map #(assoc % ::sg/relations (get relation-map (::sg/id %) [])))
-         (map build-grammar-fragment)
+         (map build-fragment)
          (flatten))))
 
-(s/fdef build-grammar
+(s/fdef build
         :args (s/cat :semantic-graph ::sg/graph)
         :ret (s/coll-of string? :min-count 2))
