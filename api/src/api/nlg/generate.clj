@@ -1,18 +1,15 @@
 (ns api.nlg.generate
-  (:require [acc-text.nlg.gf.grammar :as grammar]
-            [acc-text.nlg.semantic-graph :as sg]
+  (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.utils.nlp :as nlp]
+            [acc-text.nlg.core :as nlg]
             [api.nlg.context :as context]
             [api.nlg.parser :as parser]
             [api.utils :as utils]
             [clojure.spec.alpha :as s]
-            [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as dp]
-            [data.entities.result :as results]
-            [jsonista.core :as json]
-            [org.httpkit.client :as client]))
+            [data.entities.result :as results]))
 
 (s/def ::documentPlanId string?)
 (s/def ::dataId string?)
@@ -32,40 +29,9 @@
                  reader-model))
     [:default]))
 
-(defn compile-request [grammar]
-  @(client/request {:url     (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
-                    :method  :post
-                    :headers {"Content-type" "application/json"}
-                    :body    (json/write-value-as-string {:content (reduce str grammar)})}))
-
-(defn generate-templates [{graph ::sg/graph}]
-  (-> (grammar/build graph)
-      (compile-request)
-      (get :body)
-      (json/read-value utils/read-mapper)
-      (get :results)))
-
-(defn realize [text placeholders]
-  (when-not (str/blank? text)
-    (reduce-kv (fn [s k v]
-                 (let [pattern (re-pattern (format "(?i)\\{\\{%s\\}\\}" (name k)))]
-                   (str/replace s pattern v)))
-               text
-               placeholders)))
-
-(defn postprocess [sentence]
-  (reduce str (when-not (str/blank? sentence)
-                (str/join [(str/capitalize (first sentence)) (apply str (rest sentence)) \.]))))
-
 (defn take-rand [coll]
   (when (seq coll)
     (rand-nth coll)))
-
-(defn generate-row [instance row]
-  (->> instance
-       (generate-templates)
-       (map #(realize % row))
-       (map postprocess)))
 
 (defn generation-process [document-plan-id data-id reader-model]
   (try
@@ -77,7 +43,7 @@
                 (-> semantic-graph
                     (sg/build-instances context)
                     (take-rand)
-                    (generate-row row)))}
+                    (nlg/generate-text row)))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
