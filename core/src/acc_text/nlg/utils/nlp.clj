@@ -1,4 +1,4 @@
-(ns api.nlg.nlp
+(ns acc-text.nlg.utils.nlp
   (:require [clojure.string :as str]))
 
 (defn split-into-sentences [s]
@@ -11,3 +11,7 @@
   (some? (re-seq #"\w" s)))
 
 (defn token-type [token] (if (word? token) "WORD" "PUNCTUATION"))
+
+(defn process-sentence [s]
+  (reduce str (when-not (str/blank? s)
+                (str/join [(str/capitalize (first s)) (apply str (rest s)) \.]))))

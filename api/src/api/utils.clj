@@ -1,5 +1,5 @@
 (ns api.utils
-  (:require [acc-text.nlg.spec.semantic-graph :as sg]
+  (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.data.csv :as csv]
             [clojure.string :as str]
             [clojure.tools.logging :as log]

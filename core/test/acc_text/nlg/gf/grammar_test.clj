@@ -1,5 +1,5 @@
-(ns acc-text.nlg.gf.builder-test
-  (:require [acc-text.nlg.gf.builder :as builder]
+(ns acc-text.nlg.gf.grammar-test
+  (:require [acc-text.nlg.gf.grammar :as grammar]
             [acc-text.nlg.test-utils :as utils]
             [clojure.test :refer [deftest is]]))
 
@@ -9,7 +9,7 @@
           "DataMod. x03 ::= x04 \"{{title}}\";"
           "Item. x04 ::= \"excellent\";"
           "Item. x04 ::= \"good\";"]
-         (builder/build-grammar (utils/load-test-semantic-graph "adjective-phrase-default"))))
+         (grammar/build (utils/load-test-semantic-graph "adjective-phrase-default"))))
   (is (= ["Document. S ::= x02;"
           "Segment. x02 ::= x03;"
           "AuthorV1. x03 ::= x05 \"is\" \"the author of\" x07;"
@@ -20,12 +20,12 @@
           "Item. x06 ::= \"excellent\";"
           "Item. x06 ::= \"good\";"
           "Data. x07 ::= \"{{title}}\";"]
-         (builder/build-grammar (utils/load-test-semantic-graph "author-amr-with-adj-default"))))
+         (grammar/build (utils/load-test-semantic-graph "author-amr-with-adj-default"))))
   (is (= ["Document. S ::= x02;"
           "Segment. x02 ::= x03;"
           "Data. x03 ::= \"{{product-name}}\";"]
-         (builder/build-grammar (utils/load-test-semantic-graph "simple-plan-default"))))
+         (grammar/build (utils/load-test-semantic-graph "simple-plan-default"))))
   (is (= ["Document. S ::= x02;"
           "Segment. x02 ::= x03;"
           "Quote. x03 ::= \"this is a very good book: {{TITLE}}\";"]
-         (builder/build-grammar (utils/load-test-semantic-graph "single-quote-default")))))
+         (grammar/build (utils/load-test-semantic-graph "single-quote-default")))))

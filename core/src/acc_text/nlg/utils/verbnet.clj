@@ -1,4 +1,4 @@
-(ns acc-text.nlg.verbnet.core
+(ns acc-text.nlg.utils.verbnet
   (:require [clojure.data.xml :as xml]
             [clojure.java.io :as io]
             [clojure.string :as string]))
