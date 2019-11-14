@@ -3,8 +3,7 @@
             [api.nlg.dictionary :as dictionary-api]
             [api.nlg.parser :as parser]
             [clojure.string :as str]
-            [data.entities.amr :as amr]
-            [data.entities.document-plan :as document-plan]))
+            [data.entities.amr :as amr]))
 
 (defn get-dictionary-items [semantic-graph]
   (->> (get semantic-graph ::sg/concepts)
@@ -45,7 +44,8 @@
    (build-instances document-plan [:default]))
   ([document-plan reader-profiles]
    (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
-         dictionary (build-dictionary semantic-graph reader-profiles)]
+         dictionary (build-dictionary semantic-graph reader-profiles)
+         document-plan-id (:id document-plan)]
      (for [reader-profile reader-profiles]
        (let [context #::sg{:document-plan-id document-plan-id
                            :reader-profile   reader-profile

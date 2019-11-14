@@ -9,6 +9,7 @@
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.result :as results]
+            [data.entities.document-plan :as document-plan]
             [jsonista.core :as json]
             [org.httpkit.client :as client]))
 
