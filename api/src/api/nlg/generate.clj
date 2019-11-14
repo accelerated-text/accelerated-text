@@ -1,8 +1,8 @@
 (ns api.nlg.generate
   (:require [acc-text.nlg.gf.builder :as gf-builder]
             [acc-text.nlg.semantic-graph :as sg]
+            [acc-text.nlg.utils.nlp :as nlp]
             [api.nlg.context :as context]
-            [api.nlg.nlp :as nlp]
             [api.nlg.parser :as parser]
             [api.utils :as utils]
             [clojure.spec.alpha :as s]
