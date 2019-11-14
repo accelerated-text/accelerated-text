@@ -1,5 +1,5 @@
 (ns api.nlg.semantic-graph
-  (:require [acc-text.nlg.spec.semantic-graph :as sg]
+  (:require [acc-text.nlg.semantic-graph :as sg]
             [api.nlg.dictionary :as dictionary-api]
             [api.nlg.parser :as parser]
             [clojure.string :as str]

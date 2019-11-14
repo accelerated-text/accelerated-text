@@ -1,5 +1,5 @@
 (ns api.nlg.parser-test
-  (:require [acc-text.nlg.spec.semantic-graph :as sg]
+  (:require [acc-text.nlg.semantic-graph :as sg]
             [api.nlg.parser :as parser]
             [clojure.test :refer [deftest testing is]]
             [clojure.set :as set]))

@@ -1,5 +1,5 @@
 (ns api.nlg.semantic-graph-test
-  (:require [acc-text.nlg.spec.semantic-graph :as sg]
+  (:require [acc-text.nlg.semantic-graph :as sg]
             [api.nlg.semantic-graph :as semantic-graph]
             [api.db-fixtures :as fixtures]
             [api.nlg.parser :as parser]

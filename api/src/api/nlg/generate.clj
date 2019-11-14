@@ -1,6 +1,6 @@
 (ns api.nlg.generate
   (:require [acc-text.nlg.gf.builder :as gf-builder]
-            [acc-text.nlg.spec.semantic-graph :as sg]
+            [acc-text.nlg.semantic-graph :as sg]
             [api.nlg.nlp :as nlp]
             [api.nlg.semantic-graph :as semantic-graph]
             [api.utils :as utils]

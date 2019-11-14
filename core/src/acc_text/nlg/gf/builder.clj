@@ -1,5 +1,5 @@
 (ns acc-text.nlg.gf.builder
-  (:require [acc-text.nlg.spec.semantic-graph :as sg]
+  (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.spec.alpha :as s]
             [clojure.string :as str]))
 
