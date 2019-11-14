@@ -1,13 +1,15 @@
 (ns api.nlg.generate
   (:require [acc-text.nlg.gf.builder :as gf-builder]
             [acc-text.nlg.semantic-graph :as sg]
+            [api.nlg.context :as context]
             [api.nlg.nlp :as nlp]
-            [api.nlg.semantic-graph :as semantic-graph]
+            [api.nlg.parser :as parser]
             [api.utils :as utils]
             [clojure.spec.alpha :as s]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
+            [data.entities.document-plan :as document-plan]
             [data.entities.result :as results]
             [jsonista.core :as json]
             [org.httpkit.client :as client]))
@@ -63,13 +65,16 @@
   (try
     {:ready   true
      :results (for [row (get-data data-id)]
-                (-> document-plan-id
-                    (semantic-graph/build-instances (get-reader-profiles reader-model))
-                    (take-rand)
-                    (generate-templates)
-                    (take-rand)
-                    (realize row)
-                    (postprocess)))}
+                (let [document-plan (:documentPlan (document-plan/get-document-plan document-plan-id))
+                      semantic-graph (parser/document-plan->semantic-graph document-plan)
+                      context (context/build-context semantic-graph (get-reader-profiles reader-model))]
+                  (-> semantic-graph
+                      (sg/build-instances context)
+                      (take-rand)
+                      (generate-templates)
+                      (take-rand)
+                      (realize row)
+                      (postprocess))))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))

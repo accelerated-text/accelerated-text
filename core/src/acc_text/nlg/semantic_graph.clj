@@ -1,5 +1,6 @@
 (ns acc-text.nlg.semantic-graph
-  (:require [clojure.spec.alpha :as s]
+  (:require [acc-text.nlg.semantic-graph.impl :as sg]
+            [clojure.spec.alpha :as s]
             [clojure.spec.gen.alpha :as gen]
             [clojure.string :as string]))
 
@@ -40,6 +41,18 @@
 
 (s/def ::reader-profile keyword?)
 
-(s/def ::context (s/keys :req [::document-plan-id ::dictionary ::reader-profile]))
+(s/def ::reader-profiles (s/coll-of ::reader-profile))
+
+(s/def ::amr map?)
+
+(s/def ::context (s/keys :req [::document-plan-id ::dictionary ::reader-profile ::amr]))
 
 (s/def ::instance (s/keys :req [::id ::context ::graph]))
+
+(defn build-instances
+  [semantic-graph context]
+  (sg/build-instances semantic-graph context))
+
+(s/fdef build-instances
+        :args (s/cat :semantic-graph ::graph :context ::context)
+        :ret (s/coll-of ::instance))
