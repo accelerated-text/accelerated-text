@@ -62,8 +62,10 @@
 (defn generation-process [document-plan-id data-id reader-model]
   (try
     {:ready   true
-     :results (for [row (get-data data-id)]
-                (-> document-plan-id
+     :results (for [{document-plan :documentPlan data-sample-id :dataSampleId data-sample-row :dataSampleRow}
+                    (document-plan/get-document-plan document-plan-id)
+                    row (get-data data-id)]
+                (-> document-plan
                     (semantic-graph/build-instances (get-reader-profiles reader-model))
                     (take-rand)
                     (generate-templates)

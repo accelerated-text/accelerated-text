@@ -41,11 +41,10 @@
   (keyword (str/join "-" (remove nil? [document-plan-id (when (some? reader-profile) (name reader-profile))]))))
 
 (defn build-instances
-  ([document-plan-id]
-   (build-instances document-plan-id [:default]))
-  ([document-plan-id reader-profiles]
-   (let [document-plan (:documentPlan (document-plan/get-document-plan document-plan-id))
-         semantic-graph (parser/document-plan->semantic-graph document-plan)
+  ([document-plan]
+   (build-instances document-plan [:default]))
+  ([document-plan reader-profiles]
+   (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
          dictionary (build-dictionary semantic-graph reader-profiles)]
      (for [reader-profile reader-profiles]
        (let [context #::sg{:document-plan-id document-plan-id
