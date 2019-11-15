@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  core:
+    build:
+      context: ../
+      dockerfile: core/Dockerfile
+    environment:
+      GF_ENDPOINT: http://gf:8000
+    command: ["clojure", "-A:test", "-i:integration"]
+  gf:
+    build:
+      context: ../
+      dockerfile: core/gf/Dockerfile
