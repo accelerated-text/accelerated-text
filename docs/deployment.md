@@ -15,7 +15,7 @@ If running everything on `Docker` stack, only `docker` and `docker-compose` are 
 
 ## Building blocks
 
-This project consists of serveral independant parts which are combined together using `docker-compose`, which relies on [Docker](https://www.docker.com/) containers. Each individual parts has it's `Dockerfile` which can be used as a reference launching directly on machine.
+This project consists of serveral independant parts which are combined together using `docker-compose`, which relies on [Docker](https://www.docker.com/) containers. Each individual part has it's `Dockerfile` which can be used as a reference launching directly on machine.
 
 ### Localstack
 
