@@ -1,6 +1,6 @@
 (ns api.end-to-end-test
   (:require [api.db-fixtures :as fixtures]
-            [api.test-utils :refer [q load-test-document-plan]]
+            [api.test-utils :refer [q load-test-document-plan rebuild-sentence]]
             [clojure.string :as string]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
@@ -60,7 +60,7 @@
   (when (some? result-id)
     (wait-for-results result-id)
     (let [response (q (str "/nlg/" result-id) :get nil)]
-      (nlp/rebuild-sentence
+      (rebuild-sentence
        (get-in response [:body :variants 0 :children 0 :children 0 :children])))))
 
 (deftest ^:integration single-element-plan-generation

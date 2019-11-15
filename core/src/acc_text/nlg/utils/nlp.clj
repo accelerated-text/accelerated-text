@@ -23,10 +23,3 @@
     (wrap-sentence
      (capitalize-first-word s))
     ""))
-
-(defn rebuild-sentence [tokens]
-  (apply str
-         (map (fn [{type :type text :text}]
-                (case type
-                  :WORD (str text " ")
-                  :PUNCTUATION text)) tokens)))

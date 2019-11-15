@@ -34,3 +34,10 @@
 (defn load-test-document-plan [filename]
   (with-open [r (io/reader (format "test/resources/document_plans/%s.edn" filename))]
     (edn/read (PushbackReader. r))))
+
+(defn rebuild-sentence [tokens]
+  (apply str
+         (map (fn [{type :type text :text}]
+                (case type
+                  :WORD (str text " ")
+                  :PUNCTUATION text)) tokens)))
