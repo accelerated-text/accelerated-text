@@ -3,6 +3,7 @@
             [api.utils :as utils]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
+            [clojure.string :as string]
             [jsonista.core :as json])
   (:import (java.io PushbackReader)
            (org.httpkit BytesInputStream)))
@@ -34,3 +35,12 @@
 (defn load-test-document-plan [filename]
   (with-open [r (io/reader (format "test/resources/document_plans/%s.edn" filename))]
     (edn/read (PushbackReader. r))))
+
+(defn rebuild-sentence [tokens]
+  (->> tokens
+       (map (fn [{type :type text :text}]
+          (case (keyword type)
+            :WORD (str " " text)
+            :PUNCTUATION text)))
+       (apply str)
+       (string/trim)))

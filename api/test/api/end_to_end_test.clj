@@ -1,7 +1,6 @@
 (ns api.end-to-end-test
   (:require [api.db-fixtures :as fixtures]
-            [api.test-utils :refer [q load-test-document-plan]]
-            [clojure.string :as string]
+            [api.test-utils :refer [q load-test-document-plan rebuild-sentence]]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
@@ -59,10 +58,8 @@
   (when (some? result-id)
     (wait-for-results result-id)
     (let [response (q (str "/nlg/" result-id) :get nil)]
-      (->> (get-in response [:body :variants 0 :children 0 :children 0 :children])
-           (map :text)
-           (string/join " ")
-           (string/trim)))))
+      (rebuild-sentence
+       (get-in response [:body :variants 0 :children 0 :children 0 :children])))))
 
 (deftest ^:integration single-element-plan-generation
   (let [data-file-id (data-files/store!
@@ -98,7 +95,7 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (contains? #{"Building Search Applications ." "Good Building Search Applications ."}
+    (is (contains? #{"Building Search Applications." "Good Building Search Applications."}
                    (get-first-variant result-id)))))
 
 (deftest ^:integration author-amr-plan-generation
@@ -123,7 +120,7 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= "This is a very good book : Building Search Applications ." (get-first-variant result-id)))))
+    (is (= "This is a very good book: Building Search Applications." (get-first-variant result-id)))))
 
 
 (deftest ^:integration single-modifier-plan-generation
@@ -136,7 +133,7 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= "Good ." (get-first-variant result-id)))))
+    (is (= "Good." (get-first-variant result-id)))))
 
 (deftest ^:integration complex-amr-plan-generation
   (let [data-file-id (data-files/store!
@@ -148,4 +145,4 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= "Carol cut envelope to into pieces with knife ." (get-first-variant result-id)))))
+    (is (= "Carol cut envelope to into pieces with knife." (get-first-variant result-id)))))
