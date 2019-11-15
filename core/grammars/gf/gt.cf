@@ -1,8 +1,3 @@
-Pred. S ::= AP VP ;
-ComplA. AP ::= A NP ;
-ComplV. VP ::= V2 NP ;
-TITLE. NP ::= "{{TITLE}}" ;
-AUTHOR. NP ::= "{{AUTHOR}}" ;
-AUTHORSHIP. V2 ::= "wrote" ;
-AUTHORSHIP. V2 ::= "created" ;
-L. A := "X" ;
+Document. S ::= x02;
+Segment. x02 ::= x03;
+Quote. x03 ::= "this is a \"very\" good book";
