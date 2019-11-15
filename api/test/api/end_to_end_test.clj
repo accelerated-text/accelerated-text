@@ -98,7 +98,7 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (contains? #{"Building Search Applications ." "Good Building Search Applications ."}
+    (is (contains? #{"Building Search Applications." "Good Building Search Applications."}
                    (get-first-variant result-id)))))
 
 (deftest ^:integration author-amr-plan-generation
@@ -123,7 +123,7 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= "This is a very good book : Building Search Applications ." (get-first-variant result-id)))))
+    (is (= "This is a very good book: Building Search Applications." (get-first-variant result-id)))))
 
 
 (deftest ^:integration single-modifier-plan-generation
@@ -148,4 +148,4 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= "Carol cut envelope to into pieces with knife ." (get-first-variant result-id)))))
+    (is (= "Carol cut envelope to into pieces with knife." (get-first-variant result-id)))))
