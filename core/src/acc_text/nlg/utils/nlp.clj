@@ -12,6 +12,14 @@
 
 (defn token-type [token] (if (word? token) "WORD" "PUNCTUATION"))
 
+(defn capitalize-first-word [[head & tail]]
+  (str/join [(str/capitalize head) (apply str tail)]))
+
+(defn wrap-sentence [s]
+  (str (str/trim s) "."))
+
 (defn process-sentence [s]
-  (reduce str (when-not (str/blank? s)
-                (str/join [(str/capitalize (first s)) (apply str (rest s)) \.]))))
+  (if-not (str/blank? s)
+    (wrap-sentence
+     (capitalize-first-word s))
+    ""))
