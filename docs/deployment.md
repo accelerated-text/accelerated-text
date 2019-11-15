@@ -63,7 +63,7 @@ All of these things are defined in environment variables:
 ```
 DYNAMODB_ENDPOINT: http://localstack:4569
 GF_ENDPOINT: http://gf:8000
-DB_IMPLEMENTATION: ${DB_IMPLEMENTATION}
+DB_IMPLEMENTATION: dynamodb
 ```
 
 ### Front-End
