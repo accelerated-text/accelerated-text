@@ -1,5 +1,6 @@
 (ns acc-text.nlg.gf.grammar
   (:require [acc-text.nlg.semantic-graph :as sg]
+            [acc-text.nlg.gf.string-utils :as su]
             [clojure.spec.alpha :as s]
             [clojure.string :as str]))
 
@@ -33,9 +34,9 @@
 
 (defmethod build-fragment :quote [{id ::sg/id value ::sg/value relations ::sg/relations}]
   (if-not (seq relations)
-    (format "Quote. x%s ::= \"%s\";" (name id) value)
+    (format "Quote. x%s ::= \"%s\";" (name id) (su/escape-string value))
     (for [{to ::sg/to} relations]
-      (format "QuoteMod. x%s ::= x%s \"%s\";" (name id) (name to) value))))
+      (format "QuoteMod. x%s ::= x%s \"%s\";" (name id) (name to) (su/escape-string value)))))
 
 (defmethod build-fragment :dictionary-item [{id ::sg/id members ::sg/members {attr-name ::sg/name} ::sg/attributes}]
   (for [v (set (cons attr-name members))]

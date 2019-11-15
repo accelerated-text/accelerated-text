@@ -29,3 +29,9 @@
           "Segment. x02 ::= x03;"
           "Quote. x03 ::= \"this is a very good book: {{TITLE}}\";"]
          (grammar/build (utils/load-test-semantic-graph "single-quote-default")))))
+
+(deftest quote-cases
+  (is (= ["Document. S ::= x02;"
+          "Segment. x02 ::= x03;"
+          "Quote. x03 ::= \"He said: \\\"GO!\\\"\";"]
+         (grammar/build (utils/load-test-semantic-graph "quote-quote")))))
