@@ -135,7 +135,7 @@
                           :dataId           data-file-id})]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= "Good ." (get-first-variant result-id)))))
+    (is (= "Good." (get-first-variant result-id)))))
 
 (deftest ^:integration complex-amr-plan-generation
   (let [data-file-id (data-files/store!

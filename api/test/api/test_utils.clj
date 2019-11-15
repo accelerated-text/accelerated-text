@@ -3,6 +3,7 @@
             [api.utils :as utils]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
+            [clojure.string :as string]
             [jsonista.core :as json])
   (:import (java.io PushbackReader)
            (org.httpkit BytesInputStream)))
@@ -36,8 +37,9 @@
     (edn/read (PushbackReader. r))))
 
 (defn rebuild-sentence [tokens]
-  (apply str
-         (map (fn [{type :type text :text}]
-                (case type
-                  :WORD (str text " ")
-                  :PUNCTUATION text)) tokens)))
+  (->> (map (fn [{type :type text :text}]
+                (case (keyword type)
+                  :WORD (str " " text)
+                  :PUNCTUATION text)) tokens)
+       (apply str)
+       (string/trim)))
