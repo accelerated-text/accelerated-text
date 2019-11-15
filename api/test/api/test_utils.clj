@@ -37,9 +37,10 @@
     (edn/read (PushbackReader. r))))
 
 (defn rebuild-sentence [tokens]
-  (->> (map (fn [{type :type text :text}]
-                (case (keyword type)
-                  :WORD (str " " text)
-                  :PUNCTUATION text)) tokens)
+  (->> tokens
+       (map (fn [{type :type text :text}]
+          (case (keyword type)
+            :WORD (str " " text)
+            :PUNCTUATION text)))
        (apply str)
        (string/trim)))
