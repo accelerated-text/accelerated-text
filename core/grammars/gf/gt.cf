@@ -1,3 +1,0 @@
-Document. S ::= x02;
-Segment. x02 ::= x03;
-Quote. x03 ::= "this is a \"very\" good book";
