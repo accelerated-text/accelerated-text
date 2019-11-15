@@ -1,5 +1,0 @@
-Pred. S ::= AP ;
-Comp. AP ::= A NP ;
-GOOD. A ::= "good" ;
-GOOD. A ::= "nice" ;
-TITLE. NP ::= "{{TITLE}}" ;
