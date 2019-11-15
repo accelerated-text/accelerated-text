@@ -30,6 +30,11 @@ run-dev-env:
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml build && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml up --remove-orphans
 
+run-dev-api:
+	docker-compose -p dev -f docker-compose.yml down && \
+	docker-compose -p dev -f docker-compose.yml build && \
+	docker-compose -p dev -f docker-compose.yml up --remove-orphans
+
 run-dev-env-no-api:
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml down && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml build && \
@@ -49,8 +54,7 @@ run-front-end-dev-deps-no-api:
 
 .PHONY: run-front-end-dev
 run-front-end-dev:
-	cd front-end && \
-      	ACC_TEXT_API_URL=http://0.0.0.0:3001 \
-      	ACC_TEXT_GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
-      	MOCK_SHOP_API_URL=http://0:0:0:0:8090 \
-		make run
+	ACC_TEXT_API_URL=http://0.0.0.0:3001 \
+	ACC_TEXT_GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
+	MOCK_SHOP_API_URL=http://0:0:0:0:8090 \
+	cd front-end && make run
