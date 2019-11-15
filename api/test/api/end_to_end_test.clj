@@ -5,7 +5,8 @@
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
-            [data.entities.dictionary :as dictionary]))
+            [data.entities.dictionary :as dictionary]
+            [clojure.tools.logging :as log]))
 
 (defn valid-sentence?
   "Test validity of the sentence.
@@ -59,10 +60,8 @@
   (when (some? result-id)
     (wait-for-results result-id)
     (let [response (q (str "/nlg/" result-id) :get nil)]
-      (->> (get-in response [:body :variants 0 :children 0 :children 0 :children])
-           (map :text)
-           (string/join " ")
-           (string/trim)))))
+      (nlp/rebuild-sentence
+       (get-in response [:body :variants 0 :children 0 :children 0 :children])))))
 
 (deftest ^:integration single-element-plan-generation
   (let [data-file-id (data-files/store!
