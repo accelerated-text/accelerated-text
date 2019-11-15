@@ -1,12 +1,10 @@
 (ns api.end-to-end-test
   (:require [api.db-fixtures :as fixtures]
             [api.test-utils :refer [q load-test-document-plan rebuild-sentence]]
-            [clojure.string :as string]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
-            [data.entities.dictionary :as dictionary]
-            [clojure.tools.logging :as log]))
+            [data.entities.dictionary :as dictionary]))
 
 (defn valid-sentence?
   "Test validity of the sentence.
