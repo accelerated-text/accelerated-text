@@ -48,7 +48,12 @@
       (format "ItemMod%d. x%s ::= \"%s\" %s;" (count relations) (name id) value (join-relation-ids relations) (su/escape-string value)))))
 
 (defmethod build-fragment :sequence [{id ::sg/id relations ::sg/relations}]
-  (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids relations)))
+  (when (seq relations)
+    (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids relations))))
+
+(defmethod build-fragment :shuffle [{id ::sg/id relations ::sg/relations}]
+  (when (seq relations)
+    (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids (shuffle relations)))))
 
 (defn build [{relations ::sg/relations concepts ::sg/concepts}]
   (let [relation-map (group-by ::sg/from relations)]

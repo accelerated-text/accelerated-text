@@ -54,6 +54,10 @@
                          :name         "sequence-block"
                          :documentPlan (load-test-document-plan "sequence-block")}
                         "9")
+  (dp/add-document-plan {:uid          "10"
+                         :name         "random-sequence-block"
+                         :documentPlan (load-test-document-plan "random-sequence-block")}
+                        "10")
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -178,3 +182,15 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= "1 2 3." (get-first-variant result-id)))))
+
+(deftest ^:integration random-sequence-block-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "10"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (contains? #{"1 2 3." "1 3 2." "2 1 3." "2 3 1." "3 2 1." "3 1 2."} (get-first-variant result-id)))))

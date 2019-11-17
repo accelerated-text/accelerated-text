@@ -87,6 +87,15 @@
                                 :role :item})
                         children)})
 
+(defmethod build-semantic-graph :Shuffle [{:keys [id children]}]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :shuffle}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :item})
+                        children)})
+
 (defmethod build-semantic-graph :Dictionary-item-modifier [node]
   (-> node
       (assoc :type "Dictionary-item")
