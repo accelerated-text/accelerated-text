@@ -47,7 +47,7 @@
                          :documentPlan (load-test-document-plan "cut-amr")}
                         "7")
   (dp/add-document-plan {:uid          "08"
-                         :name         "cut-amr"
+                         :name         "multiple-modifiers"
                          :documentPlan (load-test-document-plan "multiple-modifiers")}
                         "8")
   (f))
