@@ -14,9 +14,9 @@
   [txt] (re-matches #".*\w{2,}.*[.?!]" txt))
 
 (defn prepare-environment [f]
-  (dictionary/create-dictionary-item {:key "cut"
-                                      :name "cut"
-                                      :phrases ["cut"]
+  (dictionary/create-dictionary-item {:key          "cut"
+                                      :name         "cut"
+                                      :phrases      ["cut"]
                                       :partOfSpeech :VB})
   (dp/add-document-plan {:uid          "01"
                          :name         "title-only"
@@ -50,6 +50,10 @@
                          :name         "multiple-modifiers"
                          :documentPlan (load-test-document-plan "multiple-modifiers")}
                         "8")
+  (dp/add-document-plan {:uid          "09"
+                         :name         "sequence-block"
+                         :documentPlan (load-test-document-plan "sequence-block")}
+                        "9")
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -63,7 +67,7 @@
     (wait-for-results result-id)
     (let [response (q (str "/nlg/" result-id) :get nil)]
       (rebuild-sentence
-       (get-in response [:body :variants 0 :children 0 :children 0 :children])))))
+        (get-in response [:body :variants 0 :children 0 :children 0 :children])))))
 
 (deftest ^:integration single-element-plan-generation
   (let [data-file-id (data-files/store!
@@ -162,3 +166,15 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= "Noted author Manu Konchady." (get-first-variant result-id)))))
+
+(deftest ^:integration sequence-block-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "9"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= "1 2 3." (get-first-variant result-id)))))
