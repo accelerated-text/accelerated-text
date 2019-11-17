@@ -55,6 +55,10 @@
   (when (seq relations)
     (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids (shuffle relations)))))
 
+(defmethod build-fragment :synonyms [{id ::sg/id relations ::sg/relations}]
+  (for [{to ::sg/to} relations]
+    (format "Synonym. x%s ::= x%s;" (name id) (name to))))
+
 (defn build [{relations ::sg/relations concepts ::sg/concepts}]
   (let [relation-map (group-by ::sg/from relations)]
     (->> concepts
