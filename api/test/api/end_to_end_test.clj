@@ -1,6 +1,7 @@
 (ns api.end-to-end-test
   (:require [api.db-fixtures :as fixtures]
             [api.test-utils :refer [q load-test-document-plan rebuild-sentence]]
+            [clojure.string :as str]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
@@ -14,9 +15,9 @@
   [txt] (re-matches #".*\w{2,}.*[.?!]" txt))
 
 (defn prepare-environment [f]
-  (dictionary/create-dictionary-item {:key "cut"
-                                      :name "cut"
-                                      :phrases ["cut"]
+  (dictionary/create-dictionary-item {:key          "cut"
+                                      :name         "cut"
+                                      :phrases      ["cut"]
                                       :partOfSpeech :VB})
   (dp/add-document-plan {:uid          "01"
                          :name         "title-only"
@@ -46,6 +47,10 @@
                          :name         "cut-amr"
                          :documentPlan (load-test-document-plan "cut-amr")}
                         "7")
+  (dp/add-document-plan {:uid          "12"
+                         :name         "multiple-segments"
+                         :documentPlan (load-test-document-plan "multiple-segments")}
+                        "12")
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -58,8 +63,8 @@
   (when (some? result-id)
     (wait-for-results result-id)
     (let [response (q (str "/nlg/" result-id) :get nil)]
-      (rebuild-sentence
-       (get-in response [:body :variants 0 :children 0 :children 0 :children])))))
+      (str/join " " (for [{sentence-annotations :children} (get-in response [:body :variants 0 :children 0 :children])]
+                      (rebuild-sentence sentence-annotations))))))
 
 (deftest ^:integration single-element-plan-generation
   (let [data-file-id (data-files/store!
@@ -146,3 +151,17 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= "Carol cut envelope to into pieces with knife." (get-first-variant result-id)))))
+
+(deftest ^:integration multiple-segments-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "12"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (contains? #{"Manu Konchady is the author of Building Search Applications. Rarely is so much learning displayed with so much grace and charm."
+                     "Building Search Applications is written by Manu Konchady. Rarely is so much learning displayed with so much grace and charm."}
+                   (get-first-variant result-id)))))
