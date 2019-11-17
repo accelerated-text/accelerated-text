@@ -67,12 +67,16 @@
                                 :role :modifier})
                         children)})
 
-(defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name]}]
+(defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name children]}]
   #::sg{:concepts  [#::sg{:id         id
                           :type       :dictionary-item
                           :value      itemId
                           :attributes #::sg{:name name}}]
-        :relations []})
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :modifier})
+                        children)})
 
 (defmethod build-semantic-graph :Dictionary-item-modifier [node]
   (-> node
