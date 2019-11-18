@@ -46,6 +46,10 @@
                          :name         "cut-amr"
                          :documentPlan (load-test-document-plan "cut-amr")}
                         "7")
+  (dp/add-document-plan {:uid          "08"
+                         :name         "multiple-modifiers"
+                         :documentPlan (load-test-document-plan "multiple-modifiers")}
+                        "8")
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -146,3 +150,15 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= "Carol cut envelope to into pieces with knife." (get-first-variant result-id)))))
+
+(deftest ^:integration multiple-modifier-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "8"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= "Noted author Manu Konchady." (get-first-variant result-id)))))
