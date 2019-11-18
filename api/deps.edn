@@ -27,7 +27,7 @@
              {:jvm-opts    ["-Daws.region=eu-central-1"
                             "-Daws.accessKeyId=DEV"
                             "-Daws.secretKey=DEV"]
-              :extra-paths ["spec" "test" "test/resources"]}
+              :extra-paths ["spec"]}
              :test
              {:extra-paths ["test"]
               :extra-deps  {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
