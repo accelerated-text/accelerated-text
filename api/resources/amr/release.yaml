@@ -1,0 +1,25 @@
+members:
+  - published
+  - released
+roles:
+  - Object
+  - Date
+frames:
+  - example: The book was published in 2015
+    syntax:
+      - pos: NP
+        value: Object
+      - pos: LEX
+        value: was
+      - pos: VERB
+      - pos: LEX
+        value: in
+      - pos: NP
+        value: Date
+  - example: Published in 2015
+    syntax:
+      - pos: VERB
+      - pos: LEX
+        value: in
+      - pos: NP
+        value: Date
