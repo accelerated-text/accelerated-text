@@ -19,54 +19,23 @@
                                       :name         "cut"
                                       :phrases      ["cut"]
                                       :partOfSpeech :VB})
-  (dp/add-document-plan {:uid          "01"
-                         :name         "title-only"
-                         :documentPlan (load-test-document-plan "title-only")}
-                        "1")
-  (dp/add-document-plan {:uid          "02"
-                         :name         "authorship"
-                         :documentPlan (load-test-document-plan "authorship")}
-                        "2")
-  (dp/add-document-plan {:uid          "03"
-                         :name         "adjective-phrase"
-                         :documentPlan (load-test-document-plan "adjective-phrase")}
-                        "3")
-  (dp/add-document-plan {:uid          "04"
-                         :name         "author-amr"
-                         :documentPlan (load-test-document-plan "author-amr")}
-                        "4")
-  (dp/add-document-plan {:uid          "05"
-                         :name         "single-quote"
-                         :documentPlan (load-test-document-plan "single-quote")}
-                        "5")
-  (dp/add-document-plan {:uid          "06"
-                         :name         "single-modifier"
-                         :documentPlan (load-test-document-plan "single-modifier")}
-                        "6")
-  (dp/add-document-plan {:uid          "07"
-                         :name         "cut-amr"
-                         :documentPlan (load-test-document-plan "cut-amr")}
-                        "7")
-  (dp/add-document-plan {:uid          "08"
-                         :name         "multiple-modifiers"
-                         :documentPlan (load-test-document-plan "multiple-modifiers")}
-                        "8")
-  (dp/add-document-plan {:uid          "09"
-                         :name         "sequence-block"
-                         :documentPlan (load-test-document-plan "sequence-block")}
-                        "9")
-  (dp/add-document-plan {:uid          "10"
-                         :name         "random-sequence-block"
-                         :documentPlan (load-test-document-plan "random-sequence-block")}
-                        "10")
-  (dp/add-document-plan {:uid          "11"
-                         :name         "one-of-synonyms"
-                         :documentPlan (load-test-document-plan "one-of-synonyms")}
-                        "11")
-  (dp/add-document-plan {:uid          "12"
-                         :name         "multiple-segments"
-                         :documentPlan (load-test-document-plan "multiple-segments")}
-                        "12")
+  (doseq [[id name] (map-indexed (fn [idx name] [(inc idx) name])
+                                 ["title-only"
+                                  "authorship"
+                                  "adjective-phrase"
+                                  "author-amr"
+                                  "single-quote"
+                                  "single-modifier"
+                                  "cut-amr"
+                                  "multiple-modifiers"
+                                  "sequence-block"
+                                  "random-sequence-block"
+                                  "one-of-synonyms"
+                                  "multiple-segments"])]
+    (dp/add-document-plan {:uid          (format "%02d" id)
+                           :name         name
+                           :documentPlan (load-test-document-plan name)}
+                          (str id)))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
