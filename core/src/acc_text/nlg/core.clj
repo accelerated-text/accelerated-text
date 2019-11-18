@@ -15,4 +15,5 @@
   (->> semantic-graph
        (generator/generate)
        (map #(realize % placeholders))
-       (map nlp/process-sentence)))
+       (map nlp/process-sentence)
+       (map nlp/annotate)))

@@ -7,6 +7,9 @@
 (defn tokenize [s]
   (map first (re-seq #"([\w+'`]+|[^\s\w+'`]+)" s)))
 
+(defn tokenize-incl-space [s]
+  (map first (re-seq #"([\w+'`]+|[\s]+|[^\s\w+'`]+)" s)))
+
 (defn word? [s]
   (some? (re-seq #"\w" s)))
 
@@ -21,5 +24,16 @@
 (defn process-sentence [s]
   (if-not (str/blank? s)
     (wrap-sentence
-     (capitalize-first-word s))
+      (capitalize-first-word s))
     ""))
+
+(defn annotate [text]
+  {:text   text
+   :tokens (loop [[token & tokens] (tokenize-incl-space text)
+                  idx 0
+                  annotations []]
+             (if (nil? token)
+               annotations
+               (recur tokens (+ idx (count token)) (cond-> annotations
+                                                           (re-matches #"[^\s]+" token) (conj {:text token
+                                                                                               :idx  idx})))))})

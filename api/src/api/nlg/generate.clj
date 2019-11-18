@@ -40,10 +40,10 @@
                     row (nth (get-data data-id) (or data-sample-row 0))
                     semantic-graph (parser/document-plan->semantic-graph document-plan)
                     context (context/build-context semantic-graph (get-reader-profiles reader-model))]
-                (-> semantic-graph
-                    (sg/build-instances context)
-                    (take-rand)
-                    (nlg/generate-text row)))}
+                (map :text (-> semantic-graph
+                               (sg/build-instances context)
+                               (take-rand)
+                               (nlg/generate-text row))))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
