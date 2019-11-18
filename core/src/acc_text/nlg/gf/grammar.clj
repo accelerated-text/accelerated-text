@@ -1,6 +1,7 @@
 (ns acc-text.nlg.gf.grammar
   (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.gf.string-utils :as su]
+            [clojure.math.combinatorics :refer [permutations]]
             [clojure.spec.alpha :as s]
             [clojure.string :as str]))
 
@@ -52,8 +53,8 @@
     (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids relations))))
 
 (defmethod build-fragment :shuffle [{id ::sg/id relations ::sg/relations}]
-  (when (seq relations)
-    (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids (shuffle relations)))))
+  (for [p (permutations relations)]
+    (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids p))))
 
 (defmethod build-fragment :synonyms [{id ::sg/id relations ::sg/relations}]
   (for [{to ::sg/to} relations]
