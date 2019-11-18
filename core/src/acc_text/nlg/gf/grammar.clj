@@ -16,7 +16,8 @@
   (format "Document. S ::= %s;" (join-relation-ids relations)))
 
 (defmethod build-fragment :segment [{id ::sg/id relations ::sg/relations}]
-  (format "Segment. x%s ::= %s;" (name id) (join-relation-ids relations)))
+  (when (seq relations)
+    (format "Segment%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids relations))))
 
 (defmethod build-fragment :amr [{id ::sg/id value ::sg/value relations ::sg/relations {syntax ::sg/syntax} ::sg/attributes}]
   (let [function (some (fn [{role ::sg/role to ::sg/to}]
