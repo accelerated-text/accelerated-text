@@ -1,4 +1,5 @@
 members:
+  - is
 roles:
   - Theme
   - Category
@@ -9,8 +10,7 @@ frames:
         value: This
       - pos: NP
         value: Theme
-      - pos: LEX
-        value: is
+      - pos: VERB
       - pos: PREP
         value: in
       - pos: NP
