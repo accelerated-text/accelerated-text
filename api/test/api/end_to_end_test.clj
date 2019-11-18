@@ -47,6 +47,22 @@
                          :name         "cut-amr"
                          :documentPlan (load-test-document-plan "cut-amr")}
                         "7")
+  (dp/add-document-plan {:uid          "08"
+                         :name         "multiple-modifiers"
+                         :documentPlan (load-test-document-plan "multiple-modifiers")}
+                        "8")
+  (dp/add-document-plan {:uid          "09"
+                         :name         "sequence-block"
+                         :documentPlan (load-test-document-plan "sequence-block")}
+                        "9")
+  (dp/add-document-plan {:uid          "10"
+                         :name         "random-sequence-block"
+                         :documentPlan (load-test-document-plan "random-sequence-block")}
+                        "10")
+  (dp/add-document-plan {:uid          "11"
+                         :name         "one-of-synonyms"
+                         :documentPlan (load-test-document-plan "one-of-synonyms")}
+                        "11")
   (dp/add-document-plan {:uid          "12"
                          :name         "multiple-segments"
                          :documentPlan (load-test-document-plan "multiple-segments")}
@@ -151,6 +167,54 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= "Carol cut envelope to into pieces with knife." (get-first-variant result-id)))))
+
+(deftest ^:integration multiple-modifier-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "8"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= "Noted author Manu Konchady." (get-first-variant result-id)))))
+
+(deftest ^:integration sequence-block-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "9"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= "1 2 3." (get-first-variant result-id)))))
+
+(deftest ^:integration random-sequence-block-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "10"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (contains? #{"1 2 3." "1 3 2." "2 1 3." "2 3 1." "3 2 1." "3 1 2."} (get-first-variant result-id)))))
+
+(deftest ^:integration one-of-synonyms-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "11"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (contains? #{"Good." "Excellent."} (get-first-variant result-id)))))
 
 (deftest ^:integration multiple-segments-plan-generation
   (let [data-file-id (data-files/store!
