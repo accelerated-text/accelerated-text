@@ -3,8 +3,7 @@
             [acc-text.nlg.gf.string-utils :as su]
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.spec.alpha :as s]
-            [clojure.string :as str]
-            [clojure.tools.logging :as log]))
+            [clojure.string :as str]))
 
 (defn join-relation-ids [relations]
   (if (seq relations)
