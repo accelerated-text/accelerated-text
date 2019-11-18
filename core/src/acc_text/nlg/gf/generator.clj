@@ -12,8 +12,8 @@
                     :headers {"Content-type" "application/json"}
                     :body    (json/write-value-as-string {:content (reduce str grammar)})}))
 
-(defn generate [{graph ::sg/graph}]
-  (-> (grammar/build graph)
+(defn generate [grammar]
+  (-> grammar
       (compile-request)
       (get :body)
       (json/read-value read-mapper)
