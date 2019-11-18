@@ -1,6 +1,7 @@
 (ns acc-text.nlg.core
   (:require [acc-text.nlg.gf.generator :as generator]
             [acc-text.nlg.gf.grammar :as grammar]
+            [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.utils.nlp :as nlp]
             [clojure.string :as str]))
 
@@ -13,7 +14,7 @@
                placeholders)))
 
 (defn generate-text [semantic-graph placeholders]
-  (->> semantic-graph
+  (->> (get semantic-graph ::sg/graph)
        (grammar/build)
        (generator/generate)
        (map #(realize % placeholders))
