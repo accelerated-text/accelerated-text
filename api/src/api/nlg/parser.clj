@@ -78,6 +78,33 @@
                                 :role :modifier})
                         children)})
 
+(defmethod build-semantic-graph :Sequence [{:keys [id children]}]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :sequence}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :item})
+                        children)})
+
+(defmethod build-semantic-graph :Shuffle [{:keys [id children]}]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :shuffle}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :item})
+                        children)})
+
+(defmethod build-semantic-graph :One-of-synonyms [{:keys [id children]}]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :synonyms}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :synonym})
+                        children)})
+
 (defmethod build-semantic-graph :Dictionary-item-modifier [node]
   (-> node
       (assoc :type "Dictionary-item")
