@@ -27,6 +27,11 @@
              {:jvm-opts    ["-Daws.region=eu-central-1"
                             "-Daws.accessKeyId=DEV"
                             "-Daws.secretKey=DEV"]
+              :extra-paths ["spec" "test" "test/resources"]}
+             :local
+             {:jvm-opts    ["-Daws.region=eu-central-1"
+                            "-Daws.accessKeyId=DEV"
+                            "-Daws.secretKey=DEV"]
               :extra-paths ["spec"]}
              :test
              {:extra-paths ["test"]
