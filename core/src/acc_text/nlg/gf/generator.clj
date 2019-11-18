@@ -17,4 +17,6 @@
       (compile-request)
       (get :body)
       (json/read-value read-mapper)
-      (get :results)))
+      (get :results)
+      (sort)
+      (dedupe)))
