@@ -1,0 +1,9 @@
+{:type     "Document-plan"
+ :segments [{:children [{:children [{:type "Quote" :srcId "c5$+?d8FmzNG[%[h%t+" :text "1"}
+                                    {:type "Quote" :srcId "wK]w1_kr?Hq~X|th`94)" :text "2"}
+                                    {:type "Quote" :srcId "U]bo9[$}J!|3qEBOH`3" :text "3"}]
+                         :type     "Shuffle"
+                         :srcId    "1gaQZy#jW|W##SxI/CF"}]
+             :type     "Segment"
+             :srcId    "a:!#:FE_KB3Rxz0(rMd?"}]
+ :srcId    "FSc0eyGFnesqgJ}54yJ!"}

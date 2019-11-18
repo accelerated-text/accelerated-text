@@ -1,0 +1,13 @@
+{:type     "Document-plan"
+ :segments [{:children [{:name   "noted"
+                         :type   "Dictionary-item-modifier"
+                         :srcId  "Xb?y8D9{t|`S;8#ZAnW?"
+                         :child  {:name   "author"
+                                  :type   "Dictionary-item-modifier"
+                                  :srcId  "n~DKsq$Iu]0sHFLKEzz)"
+                                  :child  {:name "authors" :type "Cell" :srcId "v|(E]_1.0G8x({u8~*{m"}
+                                  :itemId "author"}
+                         :itemId "noted"}]
+             :type     "Segment"
+             :srcId    "83#M=Axh6|?-i4tz)`aN"}]
+ :srcId    "MM}`ca53KHc{B9ojAgzA"}

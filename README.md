@@ -118,6 +118,8 @@ After running this command the front-end will be availabe at the http://localhos
 
 The generation back-end API is at http://localhost:3001
 
+For full information on Deployment, visit [Deployment Section](docs/deployment.md)
+
 ### Usage
 
 #### Create Document Plan
