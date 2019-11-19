@@ -1,7 +1,10 @@
-(ns acc-text.nlg.gf.grammar-test
-  (:require [acc-text.nlg.gf.grammar :as grammar]
+(ns acc-text.nlg.gf.grammar-impl-test
+  (:require [acc-text.nlg.gf.grammar-impl :as grammar]
             [acc-text.nlg.test-utils :as utils]
-            [clojure.test :refer [deftest is]]))
+            [clojure.test :refer [deftest is]]
+            [clojure.spec.test.alpha :as stest]))
+
+(stest/instrument `build)
 
 (deftest grammar-building
   (is (= ["Document. S ::= x02;"
