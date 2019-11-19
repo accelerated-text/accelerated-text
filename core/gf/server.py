@@ -70,7 +70,7 @@ def json_request(fn):
 
         request_body = environ["wsgi.input"].read(request_body_size)
         return fn(environ, start_response, json.loads(request_body))
-        
+
     return wrapper
 
 
