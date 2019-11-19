@@ -6,7 +6,7 @@
 
 (def good-title-abstract
   (string/join "\n"
-               ["abstract GoodTitle {"
+               ["abstract GoodTitle = {"
                 "flags startcat = Sentence;"
                 "cat"
                 "Sentence; Data; Modifier;"
@@ -14,6 +14,12 @@
                 "GoodTitle : Modifier -> Data -> Sentence;"
                 "DataTitle : Data;"
                 "GoodModifier : Modifier;"
+                "}"]))
+
+(def good-title-concrete
+  (string/join "\n"
+               ["concrete GoodTitle01 of GoodTitle = {"
+                ""
                 "}"]))
 
 (deftest build-simple-abstract-grammar
@@ -27,3 +33,7 @@
                                                                                  :return "Data"}
                                                                       #::grammar{:name "GoodModifier"
                                                                                  :return "Modifier"}]}))))
+
+(deftest build-simple-concrete-grammar
+  (is (= good-title-concrete (sut/concrete->gf #::grammar{:module-name "GoodTitle01"
+                                                          :of          "GoodTitle"}))))
