@@ -6,12 +6,6 @@ pool:
 
 steps:
 -  task: DockerCompose@0
-   displayName: Build Integration tests dependencies
-   inputs:
-     dockerComposeFile: api/docker-compose.test.yml
-     projectName: $(Build.Repository.Name)
-     dockerComposeCommand: build
--  task: DockerCompose@1
    displayName: Run Integration tests
    inputs:
      dockerComposeFile: api/docker-compose.test.yml
