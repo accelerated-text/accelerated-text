@@ -58,9 +58,11 @@
 
 (s/def ::of ::module-name)
 
+(s/def ::function-name string?)
+
 (s/def ::lin-types (s/map-of #{"s" "n"} #{"Str" "Number"}))
 
-(s/def ::lin-function (s/keys :req [::name ::arguments ::body]))
+(s/def ::lin-function (s/keys :req [::function-name ::arguments ::body]))
 
 (s/def ::lin string?)
 

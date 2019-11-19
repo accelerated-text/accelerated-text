@@ -7,11 +7,16 @@
 (stest/instrument `build)
 
 (deftest grammar-building
-  (is (= ["Document. S ::= x02;"
-          "Segment. x02 ::= x03;"
-          "DataMod. x03 ::= x04 \"{{title}}\";"
-          "Item. x04 ::= \"excellent\";"
-          "Item. x04 ::= \"good\";"]
+  (is (= #::grammar{:module-name "GoodTitle"
+                    :flags       {:startcat "Sentence"}
+                    :categories  ["Sentence" "Data" "Modifier"]
+                    :functions   [#::grammar{:function-name "GoodTitle"
+                                             :arguments     ["Modifier" "Data"]
+                                             :return        "Sentence"}
+                                  #::grammar{:function-name "DataTitle"
+                                             :return        "Data"}
+                                  #::grammar{:function-name "GoodModifier"
+                                             :return        "Modifier"}]}
          (grammar/build (utils/load-test-semantic-graph "adjective-phrase-default"))))
   (is (= ["Document. S ::= x02;"
           "Segment. x02 ::= x03;"
