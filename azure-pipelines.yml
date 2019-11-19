@@ -1,0 +1,12 @@
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+-  task: DockerCompose@0
+   displayName: Integration tests
+   inputs:
+     dockerComposeFile: api/docker-compose.test.yml
+     projectName: $(Build.Repository.Name)
