@@ -1,5 +1,4 @@
 (ns acc-text.nlg.gf.grammar
-<<<<<<< HEAD
   (:require [clojure.spec.alpha :as s]
             [clojure.string :as string]))
 
