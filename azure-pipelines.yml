@@ -1,3 +1,6 @@
+trigger:
+- master
+
 pr:
 - master
 
