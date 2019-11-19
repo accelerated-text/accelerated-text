@@ -1,4 +1,5 @@
 (ns acc-text.nlg.gf.grammar
+<<<<<<< HEAD
   (:require [clojure.spec.alpha :as s]
             [clojure.string :as string]))
 
@@ -61,5 +62,6 @@
 
 (s/def ::lin-function (s/keys :req [::name ::arguments ::body]))
 
-(s/def ::concrete-grammar (s/keys :req [::module-name ::of ::lin-types ::lin]))
+(s/def ::lin string?)
 
+(s/def ::concrete-grammar (s/keys :req [::module-name ::of ::lin-types ::lin]))
