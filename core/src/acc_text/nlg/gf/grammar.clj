@@ -6,9 +6,11 @@
             [clojure.string :as str]))
 
 (defn join-relation-ids [relations]
-  (->> relations
-       (map (comp #(str "x" %) name ::sg/to))
-       (str/join " ")))
+  (if (seq relations)
+    (->> relations
+         (map (comp #(str "x" %) name ::sg/to))
+         (str/join " "))
+    "\"\""))
 
 (defmulti build-fragment ::sg/type)
 
@@ -16,8 +18,7 @@
   (format "Document. S ::= %s;" (join-relation-ids relations)))
 
 (defmethod build-fragment :segment [{id ::sg/id relations ::sg/relations}]
-  (when (seq relations)
-    (format "Segment%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids relations))))
+  (format "x%s ::= %s;" (name id) (join-relation-ids relations)))
 
 (defmethod build-fragment :amr [{id ::sg/id value ::sg/value relations ::sg/relations {syntax ::sg/syntax} ::sg/attributes}]
   (let [function (some (fn [{role ::sg/role to ::sg/to}]
@@ -50,16 +51,17 @@
       (format "ItemMod%d. x%s ::= \"%s\" %s;" (count relations) (name id) value (join-relation-ids relations) (su/escape-string value)))))
 
 (defmethod build-fragment :sequence [{id ::sg/id relations ::sg/relations}]
-  (when (seq relations)
-    (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids relations))))
+  (format "x%s ::= %s;" (name id) (join-relation-ids relations)))
 
 (defmethod build-fragment :shuffle [{id ::sg/id relations ::sg/relations}]
   (for [p (permutations relations)]
-    (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids p))))
+    (format "x%s ::= %s;" (name id) (join-relation-ids p))))
 
 (defmethod build-fragment :synonyms [{id ::sg/id relations ::sg/relations}]
-  (for [{to ::sg/to} relations]
-    (format "Synonym. x%s ::= x%s;" (name id) (name to))))
+  (if (seq relations)
+    (for [{to ::sg/to} relations]
+      (format "x%s ::= x%s;" (name id) (name to)))
+    (format "x%s ::= \"\";" (name id))))
 
 (defn build [{relations ::sg/relations concepts ::sg/concepts}]
   (let [relation-map (group-by ::sg/from relations)]

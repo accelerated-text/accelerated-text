@@ -41,7 +41,7 @@
                                                :to         child-id
                                                :role       (keyword (str "ARG" index))
                                                :attributes #::sg{:name name}})))
-                        (cons (when (not= (:type dictionaryItem) "placeholder")
+                        (cons (when (and (some? dictionaryItem) (not= (:type dictionaryItem) "placeholder"))
                                 #::sg{:from id
                                       :to   (:id dictionaryItem)
                                       :role :function}))
@@ -127,8 +127,17 @@
     :Dictionary-item-modifier (some-> node :child vector)
     (:children node)))
 
+(defn branch? [{type :type :as node}]
+  (and
+    (map? node)
+    (case (keyword type)
+      :Document-plan (seq (:segments node))
+      :AMR (or (some? (:dictionaryItem node)) (seq (:roles node)))
+      :Dictionary-item-modifier (some? (:child node))
+      (seq (:children node)))))
+
 (defn make-zipper [root]
-  (zip/zipper map? get-children make-node root))
+  (zip/zipper branch? get-children make-node root))
 
 (declare preprocess-node)
 
