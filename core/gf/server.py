@@ -17,17 +17,36 @@ except ImportError:
     logger.exception("Failed to import module 'pgf'. It's GrammaticalFramework runtime library which needs to be compiled and installed")
 
 
-def compile_grammar(raw):
+def compile_concrete_grammar(path, name, instances):
+    for inst in instances:
+        instance_path = "{path}/{name}{instance}.gf".format(
+                path=tmpdir,
+                name=name,
+                instance=inst["key"]
+        )
+        with open(instance_path, "w") as f:
+            f.write(inst["content"])
+            yield instance_path
+
+
+
+def compile_grammar(name, abstract, instances):
     with TemporaryDirectory() as tmpdir:
         logger.info("Created temp dir: {}".format(tmpdir))
-        grammar_path = "{}/grammar.cf".format(tmpdir)
-        with open(grammar_path, "w") as f:
-            logger.info("Wrote tmp file: {}".format(grammar_path))
-            f.write(raw)
+        abstract_path = "{0}/{1}Abs.gf".format(tmpdir, name)
+        with open(abstract_path, "w") as f:
+            logger.info("Wrote tmp file: {}".format(abstract_path))
+            f.write(abstract["content"])
+
+        concrete_grammars = list(compile_concrete_grammar(tmpdir, name, instances))
 
         logger.info("Compiling")
         proc = subprocess.Popen(
-            "gf --output-dir={1} -make {0}".format(grammar_path, tmpdir),
+            "gf --output-dir={path} -make {abstract} {other}".format(
+                abstract=abstract_path,
+                path=tmpdir,
+                other=" ".join(concrete_grammars)
+            ),
             shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
@@ -39,7 +58,7 @@ def compile_grammar(raw):
             return None
         else:
             logger.debug("Compiled successfuly! Message: {}".format(result))
-            grammar = pgf.readPGF("{0}/grammarAbs.pgf".format(tmpdir))
+            grammar = pgf.readPGF("{0}/{1}Abs.pgf".format(tmpdir, name))
             logger.debug("Languages: {}".format(grammar.languages))
             return grammar
 
@@ -97,7 +116,10 @@ def json_response(fn):
 @json_request
 @json_response
 def application(environ, start_response, data):
-    grammar = compile_grammar(data["content"])
+    abstract = data["abstract"]
+    instances = data["instances"]
+
+    grammar = compile_grammar(abstract, instances)
     if grammar:
         logger.info("Generating")
         results = []
