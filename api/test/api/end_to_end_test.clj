@@ -19,23 +19,22 @@
                                       :name         "cut"
                                       :phrases      ["cut"]
                                       :partOfSpeech :VB})
-  (doseq [[id name] (map-indexed (fn [idx name] [(inc idx) name])
-                                 ["title-only"
-                                  "authorship"
-                                  "adjective-phrase"
-                                  "author-amr"
-                                  "single-quote"
-                                  "single-modifier"
-                                  "cut-amr"
-                                  "multiple-modifiers"
-                                  "sequence-block"
-                                  "random-sequence-block"
-                                  "one-of-synonyms"
-                                  "multiple-segments"])]
-    (dp/add-document-plan {:uid          (format "%02d" id)
-                           :name         name
-                           :documentPlan (load-test-document-plan name)}
-                          (str id)))
+  (doseq [id ["title-only"
+              "authorship"
+              "adjective-phrase"
+              "author-amr"
+              "single-quote"
+              "single-modifier"
+              "cut-amr"
+              "multiple-modifiers"
+              "sequence-block"
+              "random-sequence-block"
+              "one-of-synonyms"
+              "multiple-segments"]]
+    (dp/add-document-plan {:uid          id
+                           :name         id
+                           :documentPlan (load-test-document-plan id)}
+                          id))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -56,7 +55,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "1"
+        (q "/nlg/" :post {:documentPlanId   "title-only"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -68,7 +67,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "2"
+        (q "/nlg/" :post {:documentPlanId   "authorship"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -80,7 +79,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "3"
+        (q "/nlg/" :post {:documentPlanId   "adjective-phrase"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -93,7 +92,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "4"
+        (q "/nlg/" :post {:documentPlanId   "author-amr"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -105,7 +104,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "5"
+        (q "/nlg/" :post {:documentPlanId   "single-quote"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -118,7 +117,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "6"
+        (q "/nlg/" :post {:documentPlanId   "single-modifier"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -130,7 +129,7 @@
                        {:filename "example-user/carol.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/carol.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "7"
+        (q "/nlg/" :post {:documentPlanId   "cut-amr"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -142,7 +141,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "8"
+        (q "/nlg/" :post {:documentPlanId   "multiple-modifiers"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -154,7 +153,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "9"
+        (q "/nlg/" :post {:documentPlanId   "sequence-block"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -166,7 +165,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "10"
+        (q "/nlg/" :post {:documentPlanId   "random-sequence-block"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -178,7 +177,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "11"
+        (q "/nlg/" :post {:documentPlanId   "one-of-synonyms"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
@@ -190,7 +189,7 @@
                        {:filename "example-user/books.csv"
                         :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
         {{result-id :resultId} :body status :status}
-        (q "/nlg/" :post {:documentPlanId   "12"
+        (q "/nlg/" :post {:documentPlanId   "multiple-segments"
                           :readerFlagValues {}
                           :dataId           data-file-id})]
     (is (= 200 status))
