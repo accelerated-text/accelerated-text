@@ -30,7 +30,11 @@
               "sequence-block"
               "random-sequence-block"
               "one-of-synonyms"
-              "multiple-segments"]]
+              "multiple-segments"
+              "sequence-with-empty-shuffle"
+              "sequence-with-shuffle"
+              "sequence-with-shuffle-and-empty-synonyms"
+              "sequence-with-shuffle-and-synonyms"]]
     (dp/add-document-plan {:uid          id
                            :name         id
                            :documentPlan (load-test-document-plan id)}
@@ -197,3 +201,51 @@
     (is (contains? #{"Manu Konchady is the author of Building Search Applications. Rarely is so much learning displayed with so much grace and charm."
                      "Building Search Applications is written by Manu Konchady. Rarely is so much learning displayed with so much grace and charm."}
                    (get-first-variant result-id)))))
+
+(deftest ^:integration sequence-with-empty-shuffle-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "sequence-with-empty-shuffle"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= "1." (get-first-variant result-id)))))
+
+(deftest ^:integration sequence-with-shuffle-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "sequence-with-shuffle"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (contains? #{"1 3 2." "1 2 3."} (get-first-variant result-id)))))
+
+(deftest ^:integration sequence-with-shuffle-and-empty-synonyms-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "sequence-with-shuffle-and-empty-synonyms"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (contains? #{"1 3 2." "1 2 3."} (get-first-variant result-id)))))
+
+(deftest ^:integration sequence-with-shuffle-and-synonyms-plan-generation
+  (let [data-file-id (data-files/store!
+                       {:filename "example-user/books.csv"
+                        :content  (slurp "test/resources/accelerated-text-data-files/example-user/books.csv")})
+        {{result-id :resultId} :body status :status}
+        (q "/nlg/" :post {:documentPlanId   "sequence-with-shuffle-and-synonyms"
+                          :readerFlagValues {}
+                          :dataId           data-file-id})]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (contains? #{"1 2 3 4."} (get-first-variant result-id)))))
