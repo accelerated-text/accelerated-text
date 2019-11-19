@@ -1,7 +1,6 @@
 (ns api.nlg.context
   (:require [acc-text.nlg.semantic-graph :as sg]
             [api.nlg.dictionary :as dictionary]
-            [api.utils :as utils]
             [clojure.string :as str]
             [data.entities.amr :as amr]))
 
@@ -11,17 +10,11 @@
        (map ::sg/value)
        (set)))
 
-(defn build-dictionary-for-profile [semantic-graph reader-profile]
+(defn build-dictionary-context [semantic-graph reader-profile]
   (reduce (fn [m value]
             (assoc m value (dictionary/search (str/lower-case value) reader-profile)))
           {}
           (get-values semantic-graph :dictionary-item)))
-
-(defn build-dictionary-context [semantic-graph reader-profiles]
-  (reduce (fn [m reader-profile]
-            (assoc m reader-profile (build-dictionary-for-profile semantic-graph reader-profile)))
-          {}
-          (set reader-profiles)))
 
 (defn build-amr-context [semantic-graph]
   (reduce (fn [m amr-id]
@@ -31,11 +24,8 @@
 
 (defn build-context
   ([semantic-graph]
-   (build-context semantic-graph (utils/gen-uuid)))
-  ([semantic-graph document-plan-id]
-   (build-context semantic-graph document-plan-id [:default]))
-  ([semantic-graph document-plan-id reader-profiles]
-   #::sg{:document-plan-id document-plan-id
-         :reader-profiles  (set reader-profiles)
-         :dictionary       (build-dictionary-context semantic-graph reader-profiles)
-         :amr              (build-amr-context semantic-graph)}))
+   (build-context semantic-graph :default))
+  ([semantic-graph reader-profile]
+   {:reader-profile reader-profile
+    :dictionary     (build-dictionary-context semantic-graph reader-profile)
+    :amr            (build-amr-context semantic-graph)}))
