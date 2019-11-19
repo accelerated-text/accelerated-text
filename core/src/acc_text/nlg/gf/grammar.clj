@@ -1,5 +1,4 @@
 (ns acc-text.nlg.gf.grammar
-<<<<<<< HEAD
   (:require [clojure.spec.alpha :as s]
             [clojure.string :as string]))
 
@@ -56,14 +55,18 @@
 
 ;; concrete
 
+(s/def ::body  (s/coll-of (s/or :literal string? :variable keyword?)))
+
 (s/def ::of ::module-name)
 
 (s/def ::function-name string?)
 
-(s/def ::lin-types (s/map-of #{"s" "n"} #{"Str" "Number"}))
+(s/def ::lin-types
+  (s/map-of ::category
+            (s/cat :var-name #{"s" "n"} :var-type #{"Str" "Number"})))
 
 (s/def ::lin-function (s/keys :req [::function-name ::arguments ::body]))
 
-(s/def ::lin string?)
+(s/def ::lins (s/coll-of ::lin-function))
 
-(s/def ::concrete-grammar (s/keys :req [::module-name ::of ::lin-types ::lin]))
+(s/def ::concrete-grammar (s/keys :req [::module-name ::of ::lin-types ::lins]))
