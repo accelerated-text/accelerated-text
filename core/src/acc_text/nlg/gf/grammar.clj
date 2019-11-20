@@ -73,7 +73,9 @@
   (s/map-of ::category
             (s/cat :var-name #{"s" "n"} :var-type #{"Str" "Number"})))
 
-(s/def ::lin-function (s/keys :req [::function-name ::arguments ::body]))
+(s/def ::syntax (short-string-gen))
+
+(s/def ::lin-function (s/keys :req [::function-name ::syntax]))
 
 (s/def ::lins (s/coll-of ::lin-function))
 
