@@ -5,7 +5,6 @@
             [clojure.string :as string]
             [clojure.java.io :as io]))
 
-
 (defn load-gf [fname]
   (slurp (io/file (format "test/resources/gf/%s" fname))))
 
@@ -23,4 +22,7 @@
 
 (deftest build-simple-concrete-grammar
   (is (= (load-gf "GoodBookEng.gf") (sut/concrete->gf #::grammar{:module-name "GoodTitle01"
-                                                                 :of          "GoodTitle"}))))
+                                                                 :of          "GoodTitle"
+                                                                 :lin-types   {:Sentence [:s :str]
+                                                                               :Data     [:s :str]
+                                                                               :Modifier [:s :str]}}))))

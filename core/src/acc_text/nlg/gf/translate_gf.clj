@@ -7,7 +7,7 @@
   (format "abstract %s = {\n%s\n}" name (string/join ";\n" body)))
 
 (defn wrap-concrete [name of body]
-  (format "concrete %s of %s = {\n%s\n}" name of body))
+  (format "concrete %s of %s = {\n%s\n}" name of (string/join ";\n" body)))
 
 (defn abstract->gf [{module-name :acc-text.nlg.gf.grammar/module-name
                      flags       :acc-text.nlg.gf.grammar/flags
@@ -23,6 +23,20 @@
                                                                                 (format "%s : %s -> %s;" name (string/join " -> " arguments) return)
                                                                                 (format "%s : %s;" name return))))))))
 
+;; concrete GoodBookEng of GoodBook = {
+;;   lincat
+;;     Sentence, Data, Modifier = {s : Str};
+
+;;   lin
+;;     GoodTitle m d = {s = m.s ++ d.s};
+;;     DataTitle = {s = "{{TITLE}}"};
+;;     GoodModifier = {s = "good" | "nice"};
+;; }
+
+
 (defn concrete->gf [{module-name :acc-text.nlg.gf.grammar/module-name
-                     of          :acc-text.nlg.gf.grammar/of}]
-  (wrap-concrete module-name of ""))
+                     of          :acc-text.nlg.gf.grammar/of
+                     lin-types   :acc-text.nlg.gf.grammar/lin-types}]
+  (wrap-concrete module-name of (list
+                                 (format "  lincat\n    %s" (string/join "\n    " (map (fn [[category [t T]]] (format "%s = {%s : %s};" (name category) (name t) (name T))) lin-types)))
+                                 )))
