@@ -1,22 +1,30 @@
+import pytest
 import server
 
-def test_compile_grammar():
+@pytest.fixture(scope="session")
+def authorship_grammar():
     with open("test_grammars/Authorship.gf", "r") as f:
         abstract = {"content": f.read()}
 
     with open("test_grammars/AuthorshipEng.gf", "r") as f:
         inst = {"content": f.read(), "key": "Eng"}
         
-    result = server.compile_grammar("Authorship", abstract, [inst])
+    return server.compile_grammar("Authorship", abstract, [inst])
+
+
+def test_compile_grammar(authorship_grammar):
+    result = authorship_grammar
     print(result)
     assert result
     langs = result.languages
     assert len(langs) == 1
     assert "AuthorshipEng" in langs
 
-    expressions = server.generate_expressions(result)
+
+def test_generation_results(authorship_grammar):
+    expressions = server.generate_expressions(authorship_grammar)
     results = list([(k, server.generate_variants(expressions, concrete))
-                    for k, concrete in result.languages.items()])
+                    for k, concrete in authorship_grammar.languages.items()])
     print(results)
 
     (_, r0) = results[0]
