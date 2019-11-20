@@ -27,6 +27,6 @@
                               :categories  (->> concepts (map get-category) (sort) (dedupe))
                               :functions   (map (fn [{id ::sg/id :as concept}]
                                                   (let [relations (get relation-map id)
-                                                        children (map (fn [{to ::sg/to}] (get concept-map to)) relations)]
+                                                        children (map #(get concept-map (::sg/to %)) relations)]
                                                     (build-function concept children)))
                                                 concepts)}))
