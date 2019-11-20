@@ -20,7 +20,7 @@ except ImportError:
 def compile_concrete_grammar(path, name, instances):
     for inst in instances:
         instance_path = "{path}/{name}{instance}.gf".format(
-                path=tmpdir,
+                path=path,
                 name=name,
                 instance=inst["key"]
         )
@@ -33,7 +33,7 @@ def compile_concrete_grammar(path, name, instances):
 def compile_grammar(name, abstract, instances):
     with TemporaryDirectory() as tmpdir:
         logger.info("Created temp dir: {}".format(tmpdir))
-        abstract_path = "{0}/{1}Abs.gf".format(tmpdir, name)
+        abstract_path = "{0}/{1}.gf".format(tmpdir, name)
         with open(abstract_path, "w") as f:
             logger.info("Wrote tmp file: {}".format(abstract_path))
             f.write(abstract["content"])
@@ -58,7 +58,7 @@ def compile_grammar(name, abstract, instances):
             return None
         else:
             logger.debug("Compiled successfuly! Message: {}".format(result))
-            grammar = pgf.readPGF("{0}/{1}Abs.pgf".format(tmpdir, name))
+            grammar = pgf.readPGF("{0}/{1}.pgf".format(tmpdir, name))
             logger.debug("Languages: {}".format(grammar.languages))
             return grammar
 
