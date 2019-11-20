@@ -15,6 +15,7 @@ test_front_end:
   stage: test
   image: node:11-slim
   retry: 2
+  when: manual
   cache:
     key: front-end-cache
     paths:
