@@ -1,4 +1,4 @@
-(ns acc-text.nlg.gf.translate-gf
+(ns acc-text.nlg.gf.grammar.gf
   (:require [acc-text.nlg.gf.grammar :as grammar]
             [clojure.string :as string]))
 
