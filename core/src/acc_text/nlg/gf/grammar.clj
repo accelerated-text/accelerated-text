@@ -45,7 +45,7 @@
 
 (s/def ::value (short-string-gen))
 
-(s/def ::role #{:literal :function})
+(s/def ::role #{:literal :function :operation})
 
 (s/def ::syntax (s/keys :req [::role ::value]))
 

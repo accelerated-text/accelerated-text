@@ -37,6 +37,7 @@
                                                                                #::grammar{:function-name "GoodModifier"
                                                                                           :syntax [#::grammar{:role :literal
                                                                                                               :value "good"}
-                                                                                                   ;; TODO: `OR` Operation goes here
+                                                                                                   #::grammar{:role :operation
+                                                                                                              :value "|"}
                                                                                                    #::grammar{:role :literal
                                                                                                               :value "nice"}]}]}))))
