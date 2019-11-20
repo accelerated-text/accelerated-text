@@ -25,4 +25,18 @@
                                                                  :of          "GoodBook"
                                                                  :lin-types   {:Sentence [:s :Str]
                                                                                :Data     [:s :Str]
-                                                                               :Modifier [:s :Str]}}))))
+                                                                               :Modifier [:s :Str]}
+                                                                 :lins        [#::grammar{:function-name "GoodTitle"
+                                                                                          :syntax [#::grammar{:role :function
+                                                                                                              :value "x1"}
+                                                                                                   #::grammar{:role :function
+                                                                                                              :value "x2"}]}
+                                                                               #::grammar{:function-name "DataTitle"
+                                                                                          :syntax [#::grammar{:role :literal
+                                                                                                              :value "{{TITLE}}"}]}
+                                                                               #::grammar{:function-name "GoodModifier"
+                                                                                          :syntax [#::grammar{:role :literal
+                                                                                                              :value "good"}
+                                                                                                   ;; TODO: `OR` Operation goes here
+                                                                                                   #::grammar{:role :literal
+                                                                                                              :value "nice"}]}]}))))
