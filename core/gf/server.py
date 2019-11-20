@@ -111,6 +111,18 @@ def json_response(fn):
         return [output]
     return wrapper
 
+def generate_variants(expressions, concrete_grammar):
+    return list([r
+                 for (_, e) in expressions
+                 for r in concrete_grammar.linearizeAll(e)])
+
+def generate_expressions(abstract_grammar):
+    logger.debug("Start category: {}".format(abstract_grammar.startCat))
+    expressions = list(grammar.generateAll(abstract_grammar.startCat))
+    logger.debug("Expressions: {}".format(expressions))
+    return expressions
+    
+
 
 @post_request
 @json_request
@@ -125,13 +137,9 @@ def application(environ, start_response, data):
         logger.info("Generating")
         results = []
         try:
-            logger.debug("Start category: {}".format(grammar.startCat))
-            expressions = list(grammar.generateAll(grammar.startCat))
-            lang = grammar.languages["grammar"]
-            logger.debug("Expressions: {}".format(expressions))
-            results = list([r
-                            for (_, e) in expressions
-                            for r in lang.linearizeAll(e)])
+            expressions = generate_expressions(grammar)
+            results = [(k, generate_variants(expressions, concrete))
+                        for k, concrete in grammar.languages]
         except Exception as ex:
             logger.exception(ex)
 

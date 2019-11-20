@@ -14,3 +14,17 @@ def test_compile_grammar():
     assert len(langs) == 1
     assert "GoodBookEng" in langs
 
+    expressions = server.generate_expressions(result)
+    results = list([(k, server.generate_variants(expressions, concrete))
+                    for k, concrete in result.languages])
+    print(results)
+
+    (_, r0) = results[0]
+    assert set(r0) == set(
+        "good {{TITLE}} is authored by {{AUTHOR}}",
+        "good {{TITLE}} is written by {{AUTHOR}}",
+        "{{AUTHOR}} is the author of excellent {{TITLE}}",
+        "{{AUTHOR}} is the author of good {{TITLE}}",
+    )
+               
+
