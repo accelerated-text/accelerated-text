@@ -1,7 +1,6 @@
 (ns acc-text.nlg.gf.grammar
   (:require [clojure.spec.alpha :as s]
-            [clojure.spec.gen.alpha :as gen]
-            [clojure.string :as string]))
+            [clojure.spec.gen.alpha :as gen]))
 
 (defn short-string [] (gen/such-that #(> 15 (count %) 0) (gen/string-alphanumeric)))
 
