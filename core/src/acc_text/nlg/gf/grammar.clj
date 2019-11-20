@@ -44,7 +44,11 @@
   (s/map-of ::category
             (s/cat :var-name #{:s :n} :var-type #{:str :number})))
 
-(s/def ::syntax (short-string-gen))
+(s/def ::value (short-string-gen))
+
+(s/def ::role #{:literal :function})
+
+(s/def ::syntax (s/keys :req [::role ::value]))
 
 (s/def ::lin-function (s/keys :req [::function-name ::syntax]))
 
