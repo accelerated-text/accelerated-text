@@ -1,45 +1,23 @@
 (ns acc-text.nlg.gf.grammar
   (:require [clojure.spec.alpha :as s]
-            [clojure.string :as string]))
+            [clojure.spec.gen.alpha :as gen]))
 
-(s/def ::label keyword?)
+(defn short-string [] (gen/such-that #(> 15 (count %) 0) (gen/string-alphanumeric)))
 
-(s/def ::category string?)
+(defn short-keyword-gen [] (s/with-gen keyword? #(gen/fmap keyword (short-string))))
 
-(s/def ::literal string?)
+(defn short-string-gen [] (s/with-gen string? short-string))
 
-(s/def ::value (s/or ::symbol ::literal))
-
-(s/def ::row (s/keys :req [::label ::symbol ::values]))
-
-(defn values->cf [values]
-  (string/join " " (map (fn [{literal :acc-text.nlg.gf.syntax/literal
-                              symbol  :acc-text.nlg.gf.syntax/category}]
-                          (if literal
-                            (format "\"%s\"" literal)
-                            symbol)) values)))
-
-(defn ->cf [rows]
-  (map (fn [{label :acc-text.nlg.gf.syntax/label
-             symbol :acc-text.nlg.gf.syntax/category
-             values :acc-text.nlg.gf.syntax/values}]
-         (format "%s. %s :== %s" label symbol (values->cf values))) rows))
-
-(s/fdef values->cf
-  :args (s/coll-of ::value :min-count 1)
-  :ret  string?)
-
-(s/fdef ->cf
-  :args (s/coll-of ::row :min-count 1)
-  :ret  string?)
 
 ;; common
 
-(s/def ::module-name  string?)
+(s/def ::module-name (short-string-gen))
+(s/def ::category (short-keyword-gen))
+
 
 ;; abstract
 
-(s/def ::flags (s/map-of ::label ::category))
+(s/def ::flags (s/map-of (short-keyword-gen) (short-keyword-gen)))
 
 (s/def ::categories (s/coll-of ::category :min-count 1 :gen-max 4 :kind set?))
 
@@ -55,12 +33,24 @@
 
 ;; concrete
 
+(s/def ::body (s/coll-of (s/or :literal (short-string-gen) :variable (short-keyword-gen))))
+
 (s/def ::of ::module-name)
 
-(s/def ::lin-types (s/map-of #{"s" "n"} #{"Str" "Number"}))
+(s/def ::function-name (short-string-gen))
 
-(s/def ::lin-function (s/keys :req [::name ::arguments ::body]))
+(s/def ::lin-types
+  (s/map-of ::category
+            (s/cat :var-name #{:s :n} :var-type #{:str :number})))
 
-(s/def ::lin string?)
+(s/def ::value (short-string-gen))
 
-(s/def ::concrete-grammar (s/keys :req [::module-name ::of ::lin-types ::lin]))
+(s/def ::role #{:literal :function})
+
+(s/def ::syntax (s/keys :req [::role ::value]))
+
+(s/def ::lin-function (s/keys :req [::function-name ::syntax]))
+
+(s/def ::lins (s/coll-of ::lin-function))
+
+(s/def ::concrete-grammar (s/keys :req [::module-name ::of ::lin-types ::lins]))

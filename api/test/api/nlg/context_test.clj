@@ -29,8 +29,5 @@
 (deftest ^:integration dictionary-building
   (let [document-plan (load-test-document-plan "author-amr-with-adj")
         semantic-graph (parser/document-plan->semantic-graph document-plan)]
-    (is (= {:default {"good"    ["excellent"]
-                      "written" ["authored"]}
-            :senior  {"good"    ["excellent"]
-                      "written" ["authored"]}}
-           (context/build-dictionary-context semantic-graph [:default :senior])))))
+    (is (= {"good"    ["excellent"]
+            "written" ["authored"]} (context/build-dictionary-context semantic-graph :default)))))
