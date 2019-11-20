@@ -118,8 +118,9 @@ def json_response(fn):
 def application(environ, start_response, data):
     abstract = data["abstract"]
     instances = data["instances"]
+    name = data["name"]
 
-    grammar = compile_grammar(abstract, instances)
+    grammar = compile_grammar(name, abstract, instances)
     if grammar:
         logger.info("Generating")
         results = []
