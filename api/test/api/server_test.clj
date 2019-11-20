@@ -1,7 +1,9 @@
 (ns api.server-test
   (:require [api.test-utils :refer [q]]
             [api.db-fixtures :as fixtures]
-            [clojure.test :refer [deftest is testing use-fixtures]]))
+            [clojure.test :refer [deftest is testing use-fixtures]]
+            [data.entities.data-files :as data-files]
+            [data.entities.document-plan :as dp]))
 
 (use-fixtures :each fixtures/clean-db)
 
@@ -15,9 +17,11 @@
       (is (= 200 status))
       (is (= "Failed to parse GraphQL query." message))))
   (testing "NLG endpoint test"
-    (let [{{result-id :resultId} :body status :status}
-          (q "/nlg/" :post {:dataId           "example-user/books.csv"
-                            :documentPlanId   "test"
+    (let [data-id (data-files/store! {:filename "example-user/test.csv" :content []})
+          document-plan-id (:id (dp/add-document-plan {:uid "test" :name "test" :documentPlan {}} "test"))
+          {{result-id :resultId} :body status :status}
+          (q "/nlg/" :post {:dataId           data-id
+                            :documentPlanId   document-plan-id
                             :readerFlagValues {}})]
       (is (= 200 status))
       (is (some? result-id)))))
