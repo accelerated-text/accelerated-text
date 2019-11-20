@@ -1,8 +1,11 @@
 (ns acc-text.nlg.gf.grammar.abstract
   (:require [acc-text.nlg.semantic-graph :as sg]))
 
-(defn build-grammar-function [{id ::sg/id type ::sg/type :as concept} relations]
-  #:acc-text.nlg.gf.grammar{:function-name (format "%s-%s" (name type) (name id))
+(defn concept->name [{id ::sg/id type ::sg/type}]
+  (format "%s-%s" (name type) (name id)))
+
+(defn build-grammar-function [{type ::sg/type :as concept} relations]
+  #:acc-text.nlg.gf.grammar{:function-name (concept->name concept)
                             :arguments     (map ::sg/role relations)
                             :return        type})
 
