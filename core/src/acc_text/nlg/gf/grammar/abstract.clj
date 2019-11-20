@@ -13,10 +13,10 @@
     :shuffle "Shuffle"
     :synonyms "Synonyms"))
 
-(defn build-function [{id ::sg/id :as concept} children]
+(defn build-grammar-function [{id ::sg/id :as concept} relations]
   (let [category (get-category concept)]
     #:acc-text.nlg.gf.grammar{:function-name (str category (name id))
-                              :arguments     (map get-category children)
+                              :arguments     (map (comp name ::sg/role) relations)
                               :return        category}))
 
 (defn build [name {relations ::sg/relations concepts ::sg/concepts}]
@@ -26,7 +26,5 @@
                               :flags       {:startcat (when (seq concepts) (get-category (first concepts)))}
                               :categories  (->> concepts (map get-category) (sort) (dedupe))
                               :functions   (map (fn [{id ::sg/id :as concept}]
-                                                  (let [relations (get relation-map id)
-                                                        children (map #(get concept-map (::sg/to %)) relations)]
-                                                    (build-function concept children)))
+                                                  (build-grammar-function concept (get relation-map id)))
                                                 concepts)}))
