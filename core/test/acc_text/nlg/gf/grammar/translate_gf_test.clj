@@ -21,8 +21,8 @@
                                                                                      :return "Modifier"}]}))))
 
 (deftest build-simple-concrete-grammar
-  (is (= (load-gf "GoodBookEng.gf") (sut/concrete->gf #::grammar{:module-name "GoodTitle01"
-                                                                 :of          "GoodTitle"
-                                                                 :lin-types   {:Sentence [:s :str]
-                                                                               :Data     [:s :str]
-                                                                               :Modifier [:s :str]}}))))
+  (is (= (load-gf "GoodBookEng.gf") (sut/concrete->gf #::grammar{:module-name "GoodBookEng"
+                                                                 :of          "GoodBook"
+                                                                 :lin-types   {:Sentence [:s :Str]
+                                                                               :Data     [:s :Str]
+                                                                               :Modifier [:s :Str]}}))))

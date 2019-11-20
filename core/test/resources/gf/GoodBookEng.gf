@@ -1,7 +1,8 @@
 concrete GoodBookEng of GoodBook = {
   lincat
-    Sentence, Data, Modifier = {s : Str};
-
+    Sentence = {s : Str};
+    Data = {s : Str};
+    Modifier = {s : Str};
   lin
     GoodTitle m d = {s = m.s ++ d.s};
     DataTitle = {s = "{{TITLE}}"};
