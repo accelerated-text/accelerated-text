@@ -7,6 +7,4 @@
                                           #:acc-text.nlg.semantic-graph{:id         :04
                                                                         :type       :dictionary-item
                                                                         :value      "good"
-                                                                        :attributes #:acc-text.nlg.semantic-graph{:name           "good"
-                                                                                                                  :reader-profile :default}
-                                                                        :members    ["excellent"]}]}
+                                                                        :attributes #:acc-text.nlg.semantic-graph{:name "good"}}]}

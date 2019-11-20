@@ -12,7 +12,7 @@
           "DataMod1. x03 ::= x04 \"{{title}}\";"
           "Item. x04 ::= \"excellent\";"
           "Item. x04 ::= \"good\";"]
-         (build-grammar "adjective-phrase-default" {:dictionary {"good" ["excellent"]}})))
+         (build-grammar "adjective-phrase" {:dictionary {"good" ["excellent"]}})))
   (is (= ["Document. S ::= x02;"
           "x02 ::= x03;"
           "AuthorV1. x03 ::= x05 \"is\" \"the author of\" x07;"
@@ -24,7 +24,7 @@
           "Item. x06 ::= \"good\";"
           "Data. x07 ::= \"{{title}}\";"]
          (build-grammar
-           "author-amr-with-adj-default"
+           "author-amr-with-adj"
            {:amr        {:author {:frames [{:syntax [{:pos :NP :value "Agent"}
                                                      {:pos :LEX :value "is"}
                                                      {:pos :LEX :value "the author of"}
@@ -39,11 +39,11 @@
   (is (= ["Document. S ::= x02;"
           "x02 ::= x03;"
           "Data. x03 ::= \"{{product-name}}\";"]
-         (build-grammar "simple-plan-default" {})))
+         (build-grammar "simple-plan" {})))
   (is (= ["Document. S ::= x02;"
           "x02 ::= x03;"
           "Quote. x03 ::= \"this is a very good book: {{TITLE}}\";"]
-         (build-grammar "single-quote-default" {}))))
+         (build-grammar "single-quote" {}))))
 
 (deftest quote-cases
   (is (= ["Document. S ::= x02;"

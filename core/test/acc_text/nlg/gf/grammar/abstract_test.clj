@@ -20,4 +20,4 @@
                                   #::grammar{:function-name "DictionaryItem04"
                                              :arguments     []
                                              :return        "DictionaryItem"}]}
-         (abstract-grammar/build "adjective-phrase" (utils/load-test-semantic-graph "adjective-phrase-default")))))
+         (abstract-grammar/build "adjective-phrase" (utils/load-test-semantic-graph "adjective-phrase")))))
