@@ -10,7 +10,7 @@
   (slurp (io/file (format "test/resources/gf/%s" fname))))
 
 (deftest build-simple-abstract-grammar
-  (is (= (load-gf "GoodBook.gf") (sut/abstract->gf #::grammar{:module-name "GoodTitle"
+  (is (= (load-gf "GoodBook.gf") (sut/abstract->gf #::grammar{:module-name "GoodBook"
                                                               :flags {:startcat "Sentence"}
                                                               :categories ["Sentence" "Data" "Modifier"]
                                                               :functions [#::grammar{:name "GoodTitle"

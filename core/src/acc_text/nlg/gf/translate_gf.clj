@@ -14,9 +14,9 @@
                      categories  :acc-text.nlg.gf.grammar/categories
                      functions   :acc-text.nlg.gf.grammar/functions}]
   (wrap-abstract module-name (list
-                              (format "flags %s" (string/join ", " (map (fn [[label category]] (format "%s = %s" (name label) category)) flags)))
-                              (format "cat\n%s" (string/join "; " categories))
-                              (format "fun\n%s;" (string/join ";\n" (for [{name      :acc-text.nlg.gf.grammar/name
+                              (format "  flags\n    %s" (string/join ", " (map (fn [[label category]] (format "%s = %s" (name label) category)) flags)))
+                              (format "  cat\n    %s" (string/join "; " categories))
+                              (format "  fun\n    %s;" (string/join ";\n    " (for [{name      :acc-text.nlg.gf.grammar/name
                                                                            arguments :acc-text.nlg.gf.grammar/arguments
                                                                            return    :acc-text.nlg.gf.grammar/return} functions]
                                                                       (if (seq arguments)
