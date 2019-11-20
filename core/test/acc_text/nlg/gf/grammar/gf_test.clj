@@ -28,9 +28,11 @@
                                                                                :Modifier [:s :Str]}
                                                                  :lins        [#::grammar{:function-name "GoodTitle"
                                                                                           :syntax [#::grammar{:role :function
-                                                                                                              :value "x1"}
+                                                                                                              :value "m"}
+                                                                                                   #::grammar{:role :operation
+                                                                                                              :value "++"}
                                                                                                    #::grammar{:role :function
-                                                                                                              :value "x2"}]}
+                                                                                                              :value "d"}]}
                                                                                #::grammar{:function-name "DataTitle"
                                                                                           :syntax [#::grammar{:role :literal
                                                                                                               :value "{{TITLE}}"}]}
