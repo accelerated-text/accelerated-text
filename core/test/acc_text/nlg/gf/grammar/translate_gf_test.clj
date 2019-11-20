@@ -1,4 +1,4 @@
-(ns acc-text.nlg.gf.translate-gf-test
+(ns acc-text.nlg.gf.grammar.translate-gf-test
   (:require [acc-text.nlg.gf.translate-gf :as sut]
             [acc-text.nlg.gf.grammar :as grammar]
             [clojure.test :refer [is deftest]]
