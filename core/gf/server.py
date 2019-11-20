@@ -117,11 +117,12 @@ def generate_variants(expressions, concrete_grammar):
                  for r in concrete_grammar.linearizeAll(e)])
 
 def generate_expressions(abstract_grammar):
-    logger.debug("Start category: {}".format(abstract_grammar.startCat))
-    expressions = list(grammar.generateAll(abstract_grammar.startCat))
+    start_cat = abstract_grammar.startCat
+    logger.debug("Start category: {}".format(start_cat))
+    expressions = list(abstract_grammar.generateAll(start_cat))
     logger.debug("Expressions: {}".format(expressions))
     return expressions
-    
+
 
 
 @post_request
@@ -139,7 +140,7 @@ def application(environ, start_response, data):
         try:
             expressions = generate_expressions(grammar)
             results = [(k, generate_variants(expressions, concrete))
-                        for k, concrete in grammar.languages]
+                        for k, concrete in grammar.languages.items()]
         except Exception as ex:
             logger.exception(ex)
 
