@@ -16,12 +16,12 @@
   (wrap-abstract module-name (list
                               (format "  flags\n    %s" (string/join ", " (map (fn [[label category]] (format "%s = %s" (name label) category)) flags)))
                               (format "  cat\n    %s" (string/join "; " categories))
-                              (format "  fun\n    %s;" (string/join ";\n    " (for [{name      :acc-text.nlg.gf.grammar/name
-                                                                           arguments :acc-text.nlg.gf.grammar/arguments
-                                                                           return    :acc-text.nlg.gf.grammar/return} functions]
-                                                                      (if (seq arguments)
-                                                                        (format "%s : %s -> %s" name (string/join " -> " arguments) return)
-                                                                        (format "%s : %s" name return))))))))
+                              (format "  fun\n    %s" (string/join "\n    " (for [{name      :acc-text.nlg.gf.grammar/name
+                                                                                   arguments :acc-text.nlg.gf.grammar/arguments
+                                                                                   return    :acc-text.nlg.gf.grammar/return} functions]
+                                                                              (if (seq arguments)
+                                                                                (format "%s : %s -> %s;" name (string/join " -> " arguments) return)
+                                                                                (format "%s : %s;" name return))))))))
 
 (defn concrete->gf [{module-name :acc-text.nlg.gf.grammar/module-name
                      of          :acc-text.nlg.gf.grammar/of}]
