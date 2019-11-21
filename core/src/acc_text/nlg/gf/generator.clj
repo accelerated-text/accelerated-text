@@ -10,9 +10,9 @@
                     :headers {"Content-type" "application/json"}
                     :body    (json/write-value-as-string {:name name
                                                           :abstract {:content (apply str abstract)}
-                                                          :concrete (map-indexed
-                                                                     (fn [idx c] {:key idx
-                                                                                  :content (apply str c)})
+                                                          :concrete (map
+                                                                     (fn [[idx c]] {:key idx
+                                                                                    :content (apply str c)})
                                                                      concrete)})}))
 
 
