@@ -7,6 +7,22 @@
        (map string/capitalize)
        (string/join "")))
 
+(defn cnf-form
+  "CNF - Conjunctive normal form
+  Assume that every function is connected by `AND` operator,
+  unless explicitly told otherwise"
+  [symbols]
+  (loop [[head & tail] symbols
+         results       []
+         prev          nil]
+    (let [operators #{"|" "++" nil}
+          result (if (or (contains? operators prev) (contains? operators head))
+                   (concat results [head])
+                   (concat results ["++" head]))]
+      (if (empty? tail)
+        result
+        (recur tail result head)))))
+
 (defn wrap-abstract [name body]
   (format "abstract %s = {\n%s\n}" (gf-name name) (string/join "\n" body)))
 
@@ -51,6 +67,7 @@
                               (format "%s %s" (gf-name name) category-args))]
     (format "%s = {s = %s};" function-definition (->> syntax
                                                       (map resolve-role)
+                                                      (cnf-form)
                                                       (string/join " ")))))
 
 (defn concrete->gf [{module-name ::grammar/module-name
