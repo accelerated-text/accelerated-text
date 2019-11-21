@@ -25,7 +25,7 @@
                                                           return    ::grammar/return} functions]
                                                      (if (seq arguments)
                                                        (format "%s : %s -> %s" (gf-name fn-name) (string/join " -> " arguments) return)
-                                                       (format "%s : %s" (gn-name fn-name) return)))))]))
+                                                       (format "%s : %s" (gf-name fn-name) return)))))]))
 
 (defn lin-function->gf [{name ::grammar/function-name syntax ::grammar/syntax}]
   (let [resolve-role  (fn [{role ::grammar/role value ::grammar/value}]
