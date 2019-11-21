@@ -16,7 +16,7 @@
 (defn abstract->gf [{module-name ::grammar/module-name
                      flags       ::grammar/flags
                      categories  ::grammar/categories
-                     functions   ::grammar/functions}]
+                     functions   ::grammar/functions :as x}]
   (wrap-abstract module-name [(format "  flags\n    %s;"
                                       (string/join ", " (map (fn [[label category]] (format "%s = %s" (name label) (gf-name category))) flags)))
                               (format "  cat\n    %s;" (string/join "; " (map gf-name categories)))
