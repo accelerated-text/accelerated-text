@@ -12,15 +12,15 @@
 
 (defn split-and-strip [grammar-body] (map string/trim (string/split grammar-body #"\n")))
 
-(defn sg->abstract-grammar-lines [sg-file-name grammar-name]
+(defn sg->abstract-grammar-lines [sg-file-name]
   (->> sg-file-name 
        (utils/load-test-semantic-graph)
-       (ag/build grammar-name)
+       (ag/build sg-file-name)
        (sut/abstract->gf)
        (split-and-strip)))
 
-(defn sg->concrete-grammar-lines [sg-file-name parent-name grammar-name data]
-  (-> (cg/build parent-name grammar-name
+(defn sg->concrete-grammar-lines [sg-file-name concrete-name data]
+  (-> (cg/build sg-file-name concrete-name
                 (utils/load-test-semantic-graph sg-file-name) data)
       (sut/concrete->gf)
       (split-and-strip)))
@@ -60,6 +60,6 @@
                                                                                                               :value "nice"}]}]}))))
 (deftest simple-plan->grammar
   (is (= (-> "SimplePlan.gf" load-gf split-and-strip)
-         (sg->abstract-grammar-lines "simple-plan" "SimplePlan")))
+         (sg->abstract-grammar-lines "simple-plan")))
   (is (= (-> "SimplePlanEng.gf" load-gf split-and-strip)
-         (sg->concrete-grammar-lines "simple-plan" "SimplePlan" "SimplePlanEng" {}))))
+         (sg->concrete-grammar-lines "simple-plan" "simple-plan-eng" {}))))

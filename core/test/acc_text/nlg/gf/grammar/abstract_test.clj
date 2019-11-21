@@ -5,7 +5,7 @@
             [clojure.test :refer [deftest is]]))
 
 (deftest abstract-grammar-building
-  (is (= #::grammar{:categories  [:data :dictionary-item :document-plan :segment]
+  (is (= #::grammar{:categories  #{:document-plan :segment :data}
                     :flags       {:startcat :document-plan}
                     :functions   [#::grammar{:arguments     [:segment]
                                              :function-name "document-plan-01"
@@ -13,7 +13,28 @@
                                   #::grammar{:arguments     [:instance]
                                              :function-name "segment-02"
                                              :return        :segment}
-                                  #::grammar{:arguments     [:modifier]
+                                  #::grammar{:arguments     []
+                                             :function-name "data-03"
+                                             :return        :data}]
+                    :module-name "simple-plan"}
+         (abstract-grammar/build "simple-plan" (utils/load-test-semantic-graph "simple-plan"))))
+
+
+  (is (= #::grammar{:categories  #{:document-plan :segment :data :dictionary-item}
+                    :flags       {:startcat :document-plan}
+                    :functions   [#::grammar{:arguments     [:segment]
+                                             :function-name "document-plan-01"
+                                             :return        :document-plan}
+                                  #::grammar{:arguments     [:instance]
+                                             :function-name "segment-02"
+                                             :return        :segment}
+                                  #::grammar{:arguments     [:data]
+                                             :function-name "data-03"
+                                             :return        :segment}
+                                  #::grammar{:arguments     [:dictionary-item]
+                                             :function-name "dictionary-item-04"
+                                             :return        :data}
+                                  #::grammar{:arguments     []
                                              :function-name "data-03"
                                              :return        :data}
                                   #::grammar{:arguments     []

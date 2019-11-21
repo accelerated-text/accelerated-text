@@ -1,10 +1,11 @@
-abstract Simpleplan = {
+abstract SimplePlan = {
  flags
   startcat = DocumentPlan;
  cat
-  Data; DocumentPlan; Segment;
+  DocumentPlan; Instance; Segment; Data;
  fun
   DocumentPlan01 : Segment -> DocumentPlan;
-  Segment02 : Instance -> Segment;
-  Data03 : Data;
+  Segment01 : Instance -> Segment;
+  Instance01 : Data -> Instance;
+  Data01 : Data;
 }
