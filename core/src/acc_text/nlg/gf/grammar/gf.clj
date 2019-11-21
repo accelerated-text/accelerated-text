@@ -2,27 +2,30 @@
   (:require [acc-text.nlg.gf.grammar :as grammar]
             [clojure.string :as string]))
 
+(defn gf-name [n]
+  (name n))
+
 (defn wrap-abstract [name body]
-  (format "abstract %s = {\n%s\n}" name (string/join "\n" body)))
+  (format "abstract %s = {\n%s\n}" (gf-name name) (string/join "\n" body)))
 
 (defn wrap-concrete [name of body]
-  (format "concrete %s of %s = {\n%s\n}" name of (string/join "\n" body)))
+  (format "concrete %s of %s = {\n%s\n}" (gf-name name) of (string/join "\n" body)))
 
 (defn abstract->gf [{module-name ::grammar/module-name
                      flags       ::grammar/flags
                      categories  ::grammar/categories
                      functions   ::grammar/functions}]
   (wrap-abstract module-name [(format "  flags\n    %s;"
-                                      (string/join ", " (map (fn [[label category]] (format "%s = %s" (name label) category)) flags)))
+                                      (string/join ", " (map (fn [[label category]] (format "%s = %s" (gf-name label) (gf-name category))) flags)))
                               (format "  cat\n    %s;" (string/join "; " categories))
                               (format "  fun\n    %s;"
                                       (string/join ";\n    "
-                                                   (for [{name      ::grammar/name
+                                                   (for [{fn-name      ::grammar/function-name
                                                           arguments ::grammar/arguments
                                                           return    ::grammar/return} functions]
                                                      (if (seq arguments)
-                                                       (format "%s : %s -> %s" name (string/join " -> " arguments) return)
-                                                       (format "%s : %s" name return)))))]))
+                                                       (format "%s : %s -> %s" (gf-name fn-name) (string/join " -> " arguments) return)
+                                                       (format "%s : %s" (gn-name fn-name) return)))))]))
 
 (defn lin-function->gf [{name ::grammar/function-name syntax ::grammar/syntax}]
   (let [resolve-role  (fn [{role ::grammar/role value ::grammar/value}]
@@ -48,7 +51,7 @@
   (wrap-concrete module-name of [(format "  lincat\n    %s"
                                          (string/join "\n    "
                                                       (map (fn [[category [t T]]]
-                                                             (format "%s = {%s : %s};" (name category) (name t) (name T)))
+                                                             (format "%s = {%s : %s};" (gf-name category) (gf-name t) (gf-name T)))
                                                            lin-types)))
                                  (format "  lin\n    %s"
                                          (string/join "\n    " (map lin-function->gf lins)))]))
