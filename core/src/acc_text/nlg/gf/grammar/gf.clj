@@ -3,7 +3,9 @@
             [clojure.string :as string]))
 
 (defn gf-name [n]
-  (name n))
+  (->> (string/split (name n) #"-")
+       (map string/capitalize)
+       (string/join "")))
 
 (defn wrap-abstract [name body]
   (format "abstract %s = {\n%s\n}" (gf-name name) (string/join "\n" body)))
@@ -17,15 +19,15 @@
                      functions   ::grammar/functions}]
   (wrap-abstract module-name [(format "  flags\n    %s;"
                                       (string/join ", " (map (fn [[label category]] (format "%s = %s" (gf-name label) (gf-name category))) flags)))
-                              (format "  cat\n    %s;" (string/join "; " categories))
+                              (format "  cat\n    %s;" (string/join "; " (map gf-name categories)))
                               (format "  fun\n    %s;"
                                       (string/join ";\n    "
                                                    (for [{fn-name      ::grammar/function-name
                                                           arguments ::grammar/arguments
                                                           return    ::grammar/return} functions]
                                                      (if (seq arguments)
-                                                       (format "%s : %s -> %s" (gf-name fn-name) (string/join " -> " arguments) return)
-                                                       (format "%s : %s" (gf-name fn-name) return)))))]))
+                                                       (format "%s : %s -> %s" (gf-name fn-name) (string/join " -> " (map gf-name arguments)) (gf-name return))
+                                                       (format "%s : %s" (gf-name fn-name) (gf-name return))))))]))
 
 (defn lin-function->gf [{name ::grammar/function-name syntax ::grammar/syntax}]
   (let [resolve-role  (fn [{role ::grammar/role value ::grammar/value}]
