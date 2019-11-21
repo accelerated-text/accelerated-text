@@ -10,8 +10,8 @@
                     :functions   [#::grammar{:arguments     [:segment]
                                              :function-name "document-plan-01"
                                              :return        :document-plan}
-                                  #::grammar{:arguments     [:instance]
-                                             :function-name "segment-02"
+                                  #::grammar{:arguments     [:data]
+                                             :function-name "segment-segment-02"
                                              :return        :segment}
                                   #::grammar{:arguments     []
                                              :function-name "data-03"
@@ -25,14 +25,11 @@
                     :functions   [#::grammar{:arguments     [:segment]
                                              :function-name "document-plan-01"
                                              :return        :document-plan}
-                                  #::grammar{:arguments     [:instance]
-                                             :function-name "segment-02"
-                                             :return        :segment}
                                   #::grammar{:arguments     [:data]
-                                             :function-name "data-03"
+                                             :function-name "segment-segment-02"
                                              :return        :segment}
                                   #::grammar{:arguments     [:dictionary-item]
-                                             :function-name "dictionary-item-04"
+                                             :function-name "instance-data-03"
                                              :return        :data}
                                   #::grammar{:arguments     []
                                              :function-name "data-03"
