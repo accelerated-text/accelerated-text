@@ -58,7 +58,6 @@
                                                                                                               :value "|"}
                                                                                                    #::grammar{:role :literal
                                                                                                               :value "nice"}]}]}))))
-
 (deftest simple-plan->grammar
   (is (= (-> "SimplePlan.gf" load-gf split-and-strip)
          (sg->abstract-grammar-lines "simple-plan" "SimplePlan")))
