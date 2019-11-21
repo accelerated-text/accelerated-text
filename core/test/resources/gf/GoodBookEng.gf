@@ -4,7 +4,7 @@ concrete GoodBookEng of GoodBook = {
     Data = {s : Str};
     Modifier = {s : Str};
   lin
-    GoodTitle m d = {s = m.s ++ d.s};
+    GoodTitle x0 x1 = {s = x0.s ++ x1.s};
     DataTitle = {s = "{{TITLE}}"};
     GoodModifier = {s = "good" | "nice"};
 }

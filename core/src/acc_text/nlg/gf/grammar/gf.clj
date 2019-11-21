@@ -30,15 +30,21 @@
                                                        (format "%s : %s" (gf-name fn-name) (gf-name return))))))]))
 
 (defn lin-function->gf [{name ::grammar/function-name syntax ::grammar/syntax}]
-  (let [resolve-role  (fn [{role ::grammar/role value ::grammar/value}]
+  (let [role-vars     (into {}
+                            (map-indexed (fn [idx v]
+                                           [v (format "x%d" idx)])
+                                         (->> syntax
+                                              (filter #(= (::grammar/role %) :function))
+                                              (map ::grammar/value))))
+        resolve-role  (fn [{role ::grammar/role value ::grammar/value}]
                         (case role
                           :literal (format "\"%s\"" value)
                           :operation value
-                          :function (format "%s.s" (gf-name value))))
+                          :function (format "%s.s" (get role-vars value))))
         category-args (->> syntax
                            (filter #(= (::grammar/role %) :function))
                            (map ::grammar/value)
-                           (map gf-name)
+                           (map #(get role-vars %))
                            (string/join " "))
         function-definition (if (empty? category-args)
                               (gf-name name)
@@ -54,7 +60,7 @@
   (wrap-concrete module-name of [(format "  lincat\n    %s"
                                          (string/join "\n    "
                                                       (map (fn [[category [t T]]]
-                                                             (format "%s = {%s : %s};" (gf-name category) (name t) (name T)))
+                                                             (format "%s = {%s : %s};" (gf-name category) (name t) (gf-name T)))
                                                            lin-types)))
                                  (format "  lin\n    %s"
                                          (string/join "\n    " (map lin-function->gf lins)))]))
