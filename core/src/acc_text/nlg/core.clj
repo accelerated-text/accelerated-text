@@ -17,7 +17,7 @@
                placeholders)))
 
 (defn generate-text [semantic-graph context data]
-  (let [parent-name "grammar"
+  (let [parent-name "Grammar"
         abstract (gf-grammar/abstract->gf
                   (abstract-grammar/build parent-name semantic-graph))
         concrete (gf-grammar/concrete->gf

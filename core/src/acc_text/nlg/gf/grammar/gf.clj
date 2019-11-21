@@ -18,7 +18,7 @@
                      categories  ::grammar/categories
                      functions   ::grammar/functions}]
   (wrap-abstract module-name [(format "  flags\n    %s;"
-                                      (string/join ", " (map (fn [[label category]] (format "%s = %s" (gf-name label) (gf-name category))) flags)))
+                                      (string/join ", " (map (fn [[label category]] (format "%s = %s" (name label) (gf-name category))) flags)))
                               (format "  cat\n    %s;" (string/join "; " (map gf-name categories)))
                               (format "  fun\n    %s;"
                                       (string/join ";\n    "

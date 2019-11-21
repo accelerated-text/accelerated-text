@@ -11,12 +11,12 @@
   (is (= (load-gf "GoodBook.gf") (sut/abstract->gf #::grammar{:module-name "GoodBook"
                                                               :flags {:startcat "Sentence"}
                                                               :categories ["Sentence" "Data" "Modifier"]
-                                                              :functions [#::grammar{:name "GoodTitle"
+                                                              :functions [#::grammar{:function-name "GoodTitle"
                                                                                      :arguments ["Modifier" "Data"]
                                                                                      :return "Sentence"}
-                                                                          #::grammar{:name "DataTitle"
+                                                                          #::grammar{:function-name "DataTitle"
                                                                                      :return "Data"}
-                                                                          #::grammar{:name "GoodModifier"
+                                                                          #::grammar{:function-name "GoodModifier"
                                                                                      :return "Modifier"}]}))))
 
 (deftest build-simple-concrete-grammar
