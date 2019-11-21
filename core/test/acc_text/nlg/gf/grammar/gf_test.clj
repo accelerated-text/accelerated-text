@@ -26,42 +26,38 @@
       (split-and-strip)))
 
 (deftest build-simple-abstract-grammar
-  (is (= (load-gf "GoodBook.gf")
-         (sut/abstract->gf #::grammar{:module-name "GoodBook"
-                                      :flags       {:startcat "Sentence"}
-                                      :categories  ["Sentence" "Data" "Modifier"]
-                                      :functions   [#::grammar{:function-name "GoodTitle"
-                                                               :arguments     ["Modifier" "Data"]
-                                                               :return        "Sentence"}
-                                                    #::grammar{:function-name "DataTitle"
-                                                               :return        "Data"}
-                                                    #::grammar{:function-name "GoodModifier"
-                                                               :return        "Modifier"}]}))))
+  (is (= (load-gf "GoodBook.gf") (sut/abstract->gf #::grammar{:module-name "good-book"
+                                                              :flags {:startcat "sentence"}
+                                                              :categories ["sentence" "data" "modifier"]
+                                                              :functions [#::grammar{:function-name "good-title"
+                                                                                     :arguments ["modifier" "data"]
+                                                                                     :return "sentence"}
+                                                                          #::grammar{:function-name "data-title"
+                                                                                     :return "data"}
+                                                                          #::grammar{:function-name "good-modifier"
+                                                                                     :return "modifier"}]}))))
 
 (deftest build-simple-concrete-grammar
-  (is (= (load-gf "GoodBookEng.gf")
-         (sut/concrete->gf #::grammar{:module-name "GoodBookEng"
-                                      :of          "GoodBook"
-                                      :lin-types   {:Sentence [:s :Str]
-                                                    :Data     [:s :Str]
-                                                    :Modifier [:s :Str]}
-                                      :lins        [#::grammar{:function-name "GoodTitle"
-                                                               :syntax        [#::grammar{:role  :function
-                                                                                          :value "Modifier"}
-                                                                               #::grammar{:role  :operation
-                                                                                          :value "++"}
-                                                                               #::grammar{:role  :function
-                                                                                          :value "Data"}]}
-                                                    #::grammar{:function-name "DataTitle"
-                                                               :syntax        [#::grammar{:role  :literal
-                                                                                          :value "{{TITLE}}"}]}
-                                                    #::grammar{:function-name "GoodModifier"
-                                                               :syntax        [#::grammar{:role  :literal
-                                                                                          :value "good"}
-                                                                               #::grammar{:role  :operation
-                                                                                          :value "|"}
-                                                                               #::grammar{:role  :literal
-                                                                                          :value "nice"}]}]}))))
+  (is (= (load-gf "GoodBookEng.gf") (sut/concrete->gf #::grammar{:module-name "good-book-eng"
+                                                                 :of          "good-book"
+                                                                 :lin-types   {:Sentence [:s :Str]
+                                                                               :Data     [:s :Str]
+                                                                               :Modifier [:s :Str]}
+                                                                 :lins        [#::grammar{:function-name "good-title"
+                                                                                          :syntax [#::grammar{:role :function
+                                                                                                              :value "modifier"}
+                                                                                                   #::grammar{:role :function
+                                                                                                              :value "data"}]}
+                                                                               #::grammar{:function-name "data-title"
+                                                                                          :syntax [#::grammar{:role :literal
+                                                                                                              :value "{{TITLE}}"}]}
+                                                                               #::grammar{:function-name "good-modifier"
+                                                                                          :syntax [#::grammar{:role :literal
+                                                                                                              :value "good"}
+                                                                                                   #::grammar{:role :operation
+                                                                                                              :value "|"}
+                                                                                                   #::grammar{:role :literal
+                                                                                                              :value "nice"}]}]}))))
 
 (deftest simple-plan->grammar
   (is (= (-> "SimplePlan.gf" load-gf split-and-strip)
