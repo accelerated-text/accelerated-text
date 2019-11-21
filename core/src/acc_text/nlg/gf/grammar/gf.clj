@@ -11,7 +11,7 @@
   (format "abstract %s = {\n%s\n}" (gf-name name) (string/join "\n" body)))
 
 (defn wrap-concrete [name of body]
-  (format "concrete %s of %s = {\n%s\n}" (gf-name name) of (string/join "\n" body)))
+  (format "concrete %s of %s = {\n%s\n}" (gf-name name) (gf-name of) (string/join "\n" body)))
 
 (defn abstract->gf [{module-name ::grammar/module-name
                      flags       ::grammar/flags
@@ -34,14 +34,15 @@
                         (case role
                           :literal (format "\"%s\"" value)
                           :operation value
-                          :function (format "%s.s" value)))
+                          :function (format "%s.s" (gf-name value))))
         category-args (->> syntax
                            (filter #(= (::grammar/role %) :function))
                            (map ::grammar/value)
+                           (map gf-name)
                            (string/join " "))
         function-definition (if (empty? category-args)
-                              name
-                              (format "%s %s" name category-args))]
+                              (gf-name name)
+                              (format "%s %s" (gf-name name) category-args))]
     (format "%s = {s = %s};" function-definition (->> syntax
                                                       (map resolve-role)
                                                       (string/join " ")))))
@@ -53,7 +54,7 @@
   (wrap-concrete module-name of [(format "  lincat\n    %s"
                                          (string/join "\n    "
                                                       (map (fn [[category [t T]]]
-                                                             (format "%s = {%s : %s};" (gf-name category) (gf-name t) (gf-name T)))
+                                                             (format "%s = {%s : %s};" (gf-name category) (name t) (name T)))
                                                            lin-types)))
                                  (format "  lin\n    %s"
                                          (string/join "\n    " (map lin-function->gf lins)))]))
