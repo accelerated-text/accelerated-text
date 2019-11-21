@@ -17,7 +17,7 @@
 
 (defn generate-text [semantic-graph context data]
   (let [parent-name (:acc-text.nlg.semantic-graph/id semantic-graph)
-        abstract (abstract-grammar/build semantic-graph)
+        abstract (abstract-grammar/build parent-name semantic-graph)
         concrete (concrete-grammar/build parent-name (format "%s-1" parent-name) semantic-graph context)]
     (->> (generator/generate parent-name abstract (list [1 concrete]))
        (map #(realize % data))

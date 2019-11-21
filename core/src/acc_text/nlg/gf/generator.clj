@@ -1,19 +1,23 @@
 (ns acc-text.nlg.gf.generator
   (:require [jsonista.core :as json]
-            [org.httpkit.client :as client]))
+            [org.httpkit.client :as client]
+            [clojure.tools.logging :as log]))
 
 (def read-mapper (json/object-mapper {:decode-key-fn true}))
 
 (defn compile-request [name abstract concrete]
-  @(client/request {:url     (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
-                    :method  :post
-                    :headers {"Content-type" "application/json"}
-                    :body    (json/write-value-as-string {:name name
-                                                          :abstract {:content (apply str abstract)}
-                                                          :concrete (map
-                                                                     (fn [[idx c]] {:key idx
-                                                                                    :content (apply str c)})
-                                                                     concrete)})}))
+  (let [request-url (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
+        request-content {:name name
+                         :abstract {:content (apply str abstract)}
+                         :concrete (map
+                                    (fn [[idx c]] {:key idx
+                                                   :content (apply str c)})
+                                    concrete)}]
+    (log/debugf "Posting content: %s\nto URL: %s" request-content request-url)
+    @(client/request {:url     request-url
+                      :method  :post
+                      :headers {"Content-type" "application/json"}
+                      :body    (json/write-value-as-string request-content)})))
 
 
 (defn flatten-results [results]
