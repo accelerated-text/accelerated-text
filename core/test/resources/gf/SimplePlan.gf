@@ -2,10 +2,9 @@ abstract SimplePlan = {
  flags
   startcat = DocumentPlan;
  cat
-  DocumentPlan; Instance; Segment; Data;
+  InstanceData; SegmentSegment; DocumentPlan; 
  fun
-  DocumentPlan01 : Segment -> DocumentPlan;
-  Segment01 : Instance -> Segment;
-  Instance01 : Data -> Instance;
-  Data01 : Data;
+  DocumentPlan01 : SegmentSegment -> DocumentPlan;
+  SegmentSegment02 : InstanceData -> SegmentSegment;
+  Data03 : InstanceData;
 }

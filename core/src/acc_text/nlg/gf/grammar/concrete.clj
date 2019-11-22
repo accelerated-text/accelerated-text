@@ -1,10 +1,12 @@
 (ns acc-text.nlg.gf.grammar.concrete
-  (:require [acc-text.nlg.gf.grammar.abstract :refer [concept->name]]
-            [acc-text.nlg.semantic-graph :as sg]
+  (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.gf.grammar :as grammar]
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]
             [acc-text.nlg.gf.string-utils :as su]))
+
+(defn concept->name [{id ::sg/id type ::sg/type}]
+  (format "%s-%s" (name type) (name id)))
 
 (defmulti build-lin (fn [{type ::sg/type} _ _ _] type))
 
