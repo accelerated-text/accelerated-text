@@ -14,8 +14,7 @@
                               frames)}))
 
 (defn list-amr-files []
-  (->> "amr"
-       (io/resource)
+  (->> (or (System/getenv "GRAMMAR_PATH") "resources/grammar")
        (io/file)
        (file-seq)
        (filter #(= ".yaml" (utils/get-ext %)))))
