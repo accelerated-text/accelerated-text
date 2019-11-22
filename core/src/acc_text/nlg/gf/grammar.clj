@@ -54,3 +54,11 @@
 (s/def ::lins (s/coll-of ::lin-function))
 
 (s/def ::concrete-grammar (s/keys :req [::module-name ::of ::lin-types ::lins]))
+
+(s/def ::syntax-var (s/keys :req [::module-name ::value ::role]))
+
+(s/def ::return ::syntax-var)
+
+(s/def ::syntax-vars (s/coll-of ::syntax-var :min-count 1 :gen-max 4))
+
+(s/def ::function-declaration (s/keys :req [::function-name ::syntax-vars ::return]))
