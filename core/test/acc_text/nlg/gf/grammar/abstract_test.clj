@@ -2,73 +2,81 @@
   (:require [acc-text.nlg.gf.grammar :as g]
             [acc-text.nlg.gf.grammar.abstract :as abstract-grammar]
             [acc-text.nlg.test-utils :as utils]
-            [clojure.test :refer [deftest is]]))
+            [clojure.test :refer [deftest is]]
+            [clojure.spec.test.alpha :as stest]))
+
+;;FIXME now check fails because SG spec allows empty relations
+;;(stest/check `abstract-grammar/build)
+
+(stest/instrument `abstract-grammar/build)
+
 
 (defn build-grammar [sg-name]
   (abstract-grammar/build sg-name (utils/load-test-semantic-graph sg-name)))
 
 (deftest simple-grammar-building
-  (is (= #::g{:categories  #{:document-plan :segment :data}
+  (is (= #::g{:categories  #{:document-plan :segment-segment :instance-data}
               :flags       {:startcat :document-plan}
-              :functions   [#::g{:arguments     [:segment]
+              :functions   [#::g{:arguments     [:segment-segment]
                                  :function-name "document-plan-01"
                                  :return        :document-plan}
-                            #::g{:arguments     [:data]
+                            #::g{:arguments     [:instance-data]
                                  :function-name "segment-segment-02"
-                                 :return        :segment}
+                                 :return        :segment-segment}
                             #::g{:arguments     []
                                  :function-name "data-03"
-                                 :return        :data}]
+                                 :return        :instance-data}]
               :module-name "simple-plan"}
          (build-grammar "simple-plan"))))
 
 (deftest adj-phrase-grammar-building
-  (is (= #::g{:categories  #{:document-plan :segment :data :dictionary-item}
-              :flags       {:startcat :document-plan}
-              :functions   [#::g{:arguments     [:segment]
-                                 :function-name "document-plan-01"
-                                 :return        :document-plan}
-                            #::g{:arguments     [:data]
-                                 :function-name "segment-segment-02"
-                                 :return        :segment}
-                            #::g{:arguments     [:dictionary-item]
-                                 :function-name "instance-data-03"
-                                 :return        :data}
-                            #::g{:arguments     []
-                                 :function-name "data-03"
-                                 :return        :data}
-                            #::g{:arguments     []
-                                 :function-name "dictionary-item-04"
-                                 :return        :dictionary-item}]
-              :module-name "adjective-phrase"}
-         (build-grammar "adjective-phrase"))))
+  (let [{cats ::g/categories
+         [dp seg instance-data data mod-dict] ::g/functions} (build-grammar "adjective-phrase")]
+    (is (= #{:instance-data :modifier-dictionary-item
+             :segment-segment :document-plan} cats))
+    (is (= #::g{:arguments     [:segment-segment]
+                :function-name "document-plan-01"
+                :return        :document-plan} dp))
+    (is (= #::g{:arguments     [:instance-data]
+                :function-name "segment-segment-02"
+                :return        :segment-segment} seg))
+    (is (= #::g{:arguments     [:modifier-dictionary-item]
+                :function-name "instance-data-03"
+                :return        :instance-data} instance-data))
+    (is (= #::g{:arguments     []
+                :function-name "data-03"
+                :return        :instance-data} data))
+    (is (= #::g{:arguments     []
+                :function-name "dictionary-item-04"
+                :return        :modifier-dictionary-item} mod-dict))))
 
 (deftest adj-mod-grammar-building
   (let [{cats ::g/categories
          [dp seg inst-amr arg0-data dict-fun data-auth dict-good data-title]
-         ::g/functions } (build-grammar "author-amr-with-adj")]
-    (is (= #{:amr :data :dictionary-item :document-plan :segment} cats))
-    (is (= #::g{:arguments     [:segment]
+         ::g/functions} (build-grammar "author-amr-with-adj")]
+    (is (= #{:instance-amr :modifier-dictionary-item :segment-segment :ARG1-data
+             :ARG0-data :document-plan :function-dictionary-item} cats))
+    (is (= #::g{:arguments     [:segment-segment]
                 :function-name "document-plan-01"
                 :return        :document-plan} dp))
-    (is (= #::g{:arguments     [:amr]
+    (is (= #::g{:arguments     [:instance-amr]
                 :function-name "segment-segment-02"
-                :return        :segment} seg))
-    (is (= #::g{:arguments     [:dictionary-item :data :data]
+                :return        :segment-segment} seg))
+    (is (= #::g{:arguments     [:function-dictionary-item :ARG0-data :ARG1-data]
                 :function-name "instance-amr-03"
-                :return        :amr} inst-amr))
-    (is (= #::g{:arguments     [:dictionary-item]
+                :return        :instance-amr} inst-amr))
+    (is (= #::g{:arguments     [:modifier-dictionary-item]
                 :function-name "ARG0-data-05"
-                :return        :data} arg0-data))
+                :return        :ARG0-data} arg0-data))
     (is (= #::g{:arguments     []
                 :function-name "dictionary-item-04"
-                :return        :dictionary-item} dict-fun))
+                :return        :function-dictionary-item} dict-fun))
     (is (= #::g{:arguments     []
                 :function-name "data-05"
-                :return        :data} data-auth))
+                :return        :ARG0-data} data-auth))
     (is (= #::g{:arguments     []
                 :function-name "dictionary-item-06"
-                :return        :dictionary-item} dict-good))
+                :return        :modifier-dictionary-item} dict-good))
     (is (= #::g{:arguments     []
                 :function-name "data-07"
-                :return        :data} data-title))))
+                :return        :ARG1-data} data-title))))

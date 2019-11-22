@@ -17,7 +17,7 @@
 
 ;; abstract
 
-(s/def ::flags (s/map-of (short-keyword-gen) (short-keyword-gen)))
+(s/def ::flags (s/map-of (short-keyword-gen) (short-keyword-gen) :min-count 1))
 
 (s/def ::categories (s/coll-of ::category :min-count 1 :gen-max 4 :kind set?))
 
