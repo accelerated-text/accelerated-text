@@ -1,0 +1,5 @@
+---
+includes:
+  - library/author.yaml
+  - library/release.yaml
+  - library/genre.yaml

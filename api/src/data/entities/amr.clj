@@ -1,5 +1,6 @@
 (ns data.entities.amr
   (:require [clojure.java.io :as io]
+            [clojure.string :as string]
             [data.utils :as utils]))
 
 (defn read-amr [f]
@@ -13,11 +14,19 @@
                                              (into {} (update instance :pos keyword)))})
                               frames)}))
 
+(defn list-package [package]
+  (let [abs-path (-> (io/file package)
+                     .getParent
+                     )
+        prepend-abs (fn [p] (string/join "/" [abs-path p]))]
+    (->> package
+         (utils/read-yaml)
+         :includes
+         (map prepend-abs)
+         (map io/file))))
+
 (defn list-amr-files []
-  (->> (or (System/getenv "GRAMMAR_PATH") "resources/grammar")
-       (io/file)
-       (file-seq)
-       (filter #(= ".yaml" (utils/get-ext %)))))
+  (list-package (or (System/getenv "GRAMMAR_PACKAGE") "test/resources/grammar/default.yaml")))
 
 (defn load-single [id]
   (when-let [f (some #(when (= (name id) (utils/get-name %)) %) (list-amr-files))]
