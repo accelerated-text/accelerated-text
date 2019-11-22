@@ -1,68 +1,74 @@
 (ns acc-text.nlg.gf.grammar.abstract-test
-  (:require [acc-text.nlg.gf.grammar :as grammar]
+  (:require [acc-text.nlg.gf.grammar :as g]
             [acc-text.nlg.gf.grammar.abstract :as abstract-grammar]
             [acc-text.nlg.test-utils :as utils]
             [clojure.test :refer [deftest is]]))
 
-(deftest abstract-grammar-building
-  (is (= #::grammar{:categories  #{:document-plan :segment :data}
-                    :flags       {:startcat :document-plan}
-                    :functions   [#::grammar{:arguments     [:segment]
-                                             :function-name "document-plan-01"
-                                             :return        :document-plan}
-                                  #::grammar{:arguments     [:data]
-                                             :function-name "segment-segment-02"
-                                             :return        :segment}
-                                  #::grammar{:arguments     []
-                                             :function-name "data-03"
-                                             :return        :data}]
-                    :module-name "simple-plan"}
-         (abstract-grammar/build "simple-plan" (utils/load-test-semantic-graph "simple-plan"))))
+(defn build-grammar [sg-name]
+  (abstract-grammar/build sg-name (utils/load-test-semantic-graph sg-name)))
 
+(deftest simple-grammar-building
+  (is (= #::g{:categories  #{:document-plan :segment :data}
+              :flags       {:startcat :document-plan}
+              :functions   [#::g{:arguments     [:segment]
+                                 :function-name "document-plan-01"
+                                 :return        :document-plan}
+                            #::g{:arguments     [:data]
+                                 :function-name "segment-segment-02"
+                                 :return        :segment}
+                            #::g{:arguments     []
+                                 :function-name "data-03"
+                                 :return        :data}]
+              :module-name "simple-plan"}
+         (build-grammar "simple-plan"))))
 
-  (is (= #::grammar{:categories  #{:document-plan :segment :data :dictionary-item}
-                    :flags       {:startcat :document-plan}
-                    :functions   [#::grammar{:arguments     [:segment]
-                                             :function-name "document-plan-01"
-                                             :return        :document-plan}
-                                  #::grammar{:arguments     [:data]
-                                             :function-name "segment-segment-02"
-                                             :return        :segment}
-                                  #::grammar{:arguments     [:dictionary-item]
-                                             :function-name "instance-data-03"
-                                             :return        :data}
-                                  #::grammar{:arguments     []
-                                             :function-name "data-03"
-                                             :return        :data}
-                                  #::grammar{:arguments     []
-                                             :function-name "dictionary-item-04"
-                                             :return        :dictionary-item}]
-                    :module-name "adjective-phrase"}
-         (abstract-grammar/build "adjective-phrase" (utils/load-test-semantic-graph "adjective-phrase"))))
-  (is (= #:acc-text.nlg.gf.grammar{:categories  [:amr :data :dictionary-item :document-plan :segment]
-                                   :flags       {:startcat :document-plan}
-                                   :functions   [#:acc-text.nlg.gf.grammar{:arguments     [:segment]
-                                                                           :function-name "document-plan-01"
-                                                                           :return        :document-plan}
-                                                 #:acc-text.nlg.gf.grammar{:arguments     [:instance]
-                                                                           :function-name "segment-02"
-                                                                           :return        :segment}
-                                                 #:acc-text.nlg.gf.grammar{:arguments     [:function
-                                                                                           :ARG0
-                                                                                           :ARG1]
-                                                                           :function-name "amr-03"
-                                                                           :return        :amr}
-                                                 #:acc-text.nlg.gf.grammar{:arguments     []
-                                                                           :function-name "dictionary-item-04"
-                                                                           :return        :dictionary-item}
-                                                 #:acc-text.nlg.gf.grammar{:arguments     [:modifier]
-                                                                           :function-name "data-05"
-                                                                           :return        :data}
-                                                 #:acc-text.nlg.gf.grammar{:arguments     []
-                                                                           :function-name "dictionary-item-06"
-                                                                           :return        :dictionary-item}
-                                                 #:acc-text.nlg.gf.grammar{:arguments     []
-                                                                           :function-name "data-07"
-                                                                           :return        :data}]
-                                   :module-name "adjective-phrase"}
-         (abstract-grammar/build "adjective-phrase" (utils/load-test-semantic-graph "author-amr-with-adj")))))
+(deftest adj-phrase-grammar-building
+  (is (= #::g{:categories  #{:document-plan :segment :data :dictionary-item}
+              :flags       {:startcat :document-plan}
+              :functions   [#::g{:arguments     [:segment]
+                                 :function-name "document-plan-01"
+                                 :return        :document-plan}
+                            #::g{:arguments     [:data]
+                                 :function-name "segment-segment-02"
+                                 :return        :segment}
+                            #::g{:arguments     [:dictionary-item]
+                                 :function-name "instance-data-03"
+                                 :return        :data}
+                            #::g{:arguments     []
+                                 :function-name "data-03"
+                                 :return        :data}
+                            #::g{:arguments     []
+                                 :function-name "dictionary-item-04"
+                                 :return        :dictionary-item}]
+              :module-name "adjective-phrase"}
+         (build-grammar "adjective-phrase"))))
+
+(deftest adj-mod-grammar-building
+  (let [{cats ::g/categories
+         [dp seg inst-amr arg0-data dict-fun data-auth dict-good data-title]
+         ::g/functions } (build-grammar "author-amr-with-adj")]
+    (is (= #{:amr :data :dictionary-item :document-plan :segment} cats))
+    (is (= #::g{:arguments     [:segment]
+                :function-name "document-plan-01"
+                :return        :document-plan} dp))
+    (is (= #::g{:arguments     [:amr]
+                :function-name "segment-segment-02"
+                :return        :segment} seg))
+    (is (= #::g{:arguments     [:dictionary-item :data :data]
+                :function-name "instance-amr-03"
+                :return        :amr} inst-amr))
+    (is (= #::g{:arguments     [:dictionary-item]
+                :function-name "ARG0-data-05"
+                :return        :data} arg0-data))
+    (is (= #::g{:arguments     []
+                :function-name "dictionary-item-04"
+                :return        :dictionary-item} dict-fun))
+    (is (= #::g{:arguments     []
+                :function-name "data-05"
+                :return        :data} data-auth))
+    (is (= #::g{:arguments     []
+                :function-name "dictionary-item-06"
+                :return        :dictionary-item} dict-good))
+    (is (= #::g{:arguments     []
+                :function-name "data-07"
+                :return        :data} data-title))))
