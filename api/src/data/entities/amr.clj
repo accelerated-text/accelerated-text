@@ -15,14 +15,11 @@
                               frames)}))
 
 (defn list-package [package]
-  (let [abs-path (-> (io/file package)
-                     .getParent
-                     )
-        prepend-abs (fn [p] (string/join "/" [abs-path p]))]
+  (let [abs-path (.getParent (io/file package))]
     (->> package
          (utils/read-yaml)
          :includes
-         (map prepend-abs)
+         (map (fn [p] (string/join "/" [abs-path p])))
          (map io/file))))
 
 (defn list-amr-files []
