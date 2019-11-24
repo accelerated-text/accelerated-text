@@ -13,7 +13,7 @@
                                     (fn [[idx c]] {:key idx
                                                    :content (apply str c)})
                                     concrete)}]
-    (log/debugf "Posting content: %s\nto URL: %s" request-content request-url)
+    (log/debugf "Compiling grammar via %s:\n%s\n%s" request-url abstract (-> concrete (first) (second)))
     @(client/request {:url     request-url
                       :method  :post
                       :headers {"Content-type" "application/json"}
