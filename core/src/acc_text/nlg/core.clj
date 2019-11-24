@@ -13,8 +13,8 @@
                placeholders)))
 
 (defn generate-text [semantic-graph context data]
-  (let [grammar (grammar/build :module :instance semantic-graph context)]
-    (->> (generator/generate "module" (grammar/->abstract grammar) (list [1 (grammar/->concrete grammar)]))
+  (let [grammar (grammar/build :grammar :grammar1 semantic-graph context)]
+    (->> (generator/generate "grammar" (grammar/->abstract grammar) (list [1 (grammar/->concrete grammar)]))
          (map #(realize % data))
          (map nlp/process-sentence)
          (map nlp/annotate))))

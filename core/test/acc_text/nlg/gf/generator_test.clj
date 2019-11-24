@@ -10,5 +10,5 @@
 (deftest ^:integration quote-cases
   (is (= ["He said: \"GO!\""]
          (let [semantic-graph (utils/load-test-semantic-graph "quote-quote")
-               grammar (grammar/build :module :instance semantic-graph {})]
+               grammar (grammar/build :grammar :grammar1 semantic-graph {})]
            (generate "module" (grammar/->abstract grammar) (list [1 (grammar/->concrete grammar)]))))))
