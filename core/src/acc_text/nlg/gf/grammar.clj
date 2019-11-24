@@ -34,21 +34,25 @@
         :ret ::grammar)
 
 (defn ->abstract [{::keys [module flags syntax]}]
-  (format "abstract %s = {\n\tflags\n\t\t%s;\n\tcat\n\t\t%s;\n\tfun\n\t\t%s;\n}"
+  (format "abstract %s = {\n    flags\n        %s;\n    cat\n        %s;\n    fun\n        %s;\n}"
           (name module)
-          (str/join ";\n\t\t" (map (fn [[flag val]]
-                                     (format "%s = %s" (name flag) val))
-                                   flags))
-          (str/join ";\n\t\t" (cons (:startcat flags) (mapcat ::function/args syntax)))
+          (->> flags
+               (map (fn [[flag val]]
+                      (format "%s = %s" (name flag) val)))
+               (str/join ";\n        "))
+          (->> syntax
+               (mapcat ::function/args)
+               (cons (:startcat flags))
+               (str/join ";\n        "))
           (->> syntax
                (map-indexed (fn [i {::function/keys [name args]}]
                               (format "Function%02d : %s"
                                       (inc i)
                                       (str/join " -> " (-> args (vec) (conj name))))))
-               (str/join ";\n\t\t"))))
+               (str/join ";\n        "))))
 
 (defn ->concrete [{::keys [instance module syntax]}]
-  (format "concrete %s of %s = {\n\tlincat\n\t\t%s;\n\tlin\n\t\t%s;\n}"
+  (format "concrete %s of %s = {\n    lincat\n        %s;\n    lin\n        %s;\n}"
           (name instance)
           (name module)
           (->> syntax
@@ -58,7 +62,7 @@
                               (str/join ", " (map ::function/name functions))
                               (name (nth ret 0))
                               (nth ret 1))))
-               (str/join ";\n\t\t"))
+               (str/join ";\n        "))
           (->> syntax
                (map-indexed (fn [i {::function/keys [args ret body]}]
                               (format "Function%02d %s= {%s = %s}"
@@ -72,4 +76,4 @@
                                                     :operator value
                                                     :function (format "%s.s" value))))
                                            (str/join " ")))))
-               (str/join ";\n\t\t"))))
+               (str/join ";\n        "))))
