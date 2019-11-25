@@ -85,7 +85,6 @@
     :exception pretty/exception}))
 
 (def app
-  (amr/initialize)
   (ring/ring-handler
    routes
    (swagger-ui/create-swagger-ui-handler
@@ -98,10 +97,11 @@
   (let [host (get conf :host "0.0.0.0")
         port (get conf :port 3001)]
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
+    (amr/initialize)
     (server/run-server
-      #'app {:port     port
-             :ip       host
-             :max-body Integer/MAX_VALUE})))
+     #'app {:port     port
+            :ip       host
+            :max-body Integer/MAX_VALUE})))
 
 (defstate http-server
   :start (start-http-server conf)
