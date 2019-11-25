@@ -2,7 +2,8 @@
   (:require [acc-text.nlg.gf.grammar.function :as function]
             [acc-text.nlg.semantic-graph :as sg]
             [clojure.spec.alpha :as s]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]))
 
 (s/def ::module keyword?)
 

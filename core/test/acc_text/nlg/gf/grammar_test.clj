@@ -67,6 +67,51 @@
                                                   {:type :literal :value "good"}]
                                            :ret  [:s "Str"]}]}
          (build-grammar "adjective-phrase" {:dictionary {"good" ["excellent"]}})))
+  (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
+                    :instance :instance
+                    :module   :module
+                    :syntax   [#::function{:name "DocumentPlan01"
+                                           :args ["Segment02"]
+                                           :body [{:type :function :value "Segment02"}]
+                                           :ret  [:s "Str"]}
+                               #::function{:name "Segment02"
+                                           :args ["Amr03"]
+                                           :body [{:type :function :value "Amr03"}]
+                                           :ret  [:s "Str"]}
+                               #::function{:name "Amr03"
+                                           :args []
+                                           :body [{:type  :operator
+                                                   :value "("}
+                                                  {:type  :literal
+                                                   :value "co-Agent"}
+                                                  {:type  :operator
+                                                   :value "++"}
+                                                  {:type  :literal
+                                                   :value "is"}
+                                                  {:type  :operator
+                                                   :value "++"}
+                                                  {:type  :literal
+                                                   :value "{{...}}"}
+                                                  {:type  :operator
+                                                   :value "++"}
+                                                  {:type  :literal
+                                                   :value "by"}
+                                                  {:type  :operator
+                                                   :value "++"}
+                                                  {:type  :literal
+                                                   :value "Agent"}
+                                                  {:type  :operator
+                                                   :value ")"}]
+                                           :ret  [:s "Str"]}]}
+         (build-grammar
+           "author-amr"
+           {:amr        {:author {:frames [{:syntax [{:pos :NP :value "co-Agent"}
+                                                     {:pos :LEX :value "is"}
+                                                     {:pos :VERB}
+                                                     {:pos :PREP :value "by"}
+                                                     {:pos :NP :value "Agent"}]}]}}
+            :dictionary {"good"    ["excellent"]
+                         "written" ["authored"]}})))
   (is (= #::grammar{:module   :module
                     :instance :instance
                     :flags    {:startcat "DocumentPlan01"}

@@ -121,12 +121,13 @@
                                (cond
                                  (contains? role-map role) {:type  :function
                                                             :value (get role-map role)}
+                                 (and (some? function-concept)
+                                      (= pos :VERB)) {:type  :function
+                                                      :value (concept->name function-concept)}
                                  (some? value) {:type  :literal
                                                 :value value}
-                                 (= pos :VERB) {:type  :function
-                                                :value (concept->name function-concept)}
                                  :else {:type  :literal
-                                        :value ""}))))))
+                                        :value "{{...}}"}))))))
      ::ret  [:s "Str"]}))
 
 (defmethod build :sequence [concept children _ _]
