@@ -130,7 +130,7 @@ def generate_expressions(abstract_grammar):
 @json_response
 def application(environ, start_response, data):
     abstract = data["abstract"]
-    instances = data["instances"]
+    instances = data["concrete"]
     name = data["name"]
 
     grammar = compile_grammar(name, abstract, instances)
