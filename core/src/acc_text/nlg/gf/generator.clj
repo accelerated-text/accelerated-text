@@ -15,14 +15,14 @@
                       (format "%s = %s" (name flag) val)))
                (str/join ";\n        "))
           (->> syntax
-               (mapcat :args)
+               (mapcat :params)
                (cons (:startcat flags))
                (str/join ";\n        "))
           (->> syntax
-               (map-indexed (fn [i {:keys [name args]}]
+               (map-indexed (fn [i {:keys [name params]}]
                               (format "Function%02d : %s"
                                       (inc i)
-                                      (str/join " -> " (-> args (vec) (conj name))))))
+                                      (str/join " -> " (-> params (vec) (conj name))))))
                (str/join ";\n        "))))
 
 (defn ->concrete [{::grammar/keys [instance module syntax]}]
@@ -38,10 +38,10 @@
                               (nth ret 1))))
                (str/join ";\n        "))
           (->> syntax
-               (map-indexed (fn [i {:keys [args ret body]}]
+               (map-indexed (fn [i {:keys [params ret body]}]
                               (format "Function%02d %s= {%s = %s}"
                                       (inc i)
-                                      (str/join (interleave args (repeat " ")))
+                                      (str/join (interleave params (repeat " ")))
                                       (name (nth ret 0))
                                       (if-not (seq body)
                                         "\"\""

@@ -17,13 +17,13 @@
 
 (s/def :function/name string?)
 
-(s/def :function/args (s/coll-of string?))
+(s/def :function/params (s/coll-of string?))
 
 (s/def :function/body (s/coll-of ::statement))
 
 (s/def :function/ret #{[:s "Str"]})
 
-(s/def ::function (s/keys :req-un [:function/name :function/args :function/body :function/ret]))
+(s/def ::function (s/keys :req-un [:function/name :function/params :function/body :function/ret]))
 
 (s/def ::syntax (s/coll-of ::function))
 

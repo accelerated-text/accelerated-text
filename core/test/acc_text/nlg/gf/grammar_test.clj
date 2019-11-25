@@ -13,82 +13,82 @@
   (is (= #::grammar{:module   :module
                     :instance :instance
                     :flags    {:startcat "DocumentPlan01"}
-                    :syntax   [{:name "DocumentPlan01"
-                                :args ["Segment02"]
-                                :body [{:type :function :value "Segment02"}]
-                                :ret  [:s "Str"]}
-                               {:name "Segment02"
-                                :args ["Data03"]
-                                :body [{:type :function :value "Data03"}]
-                                :ret  [:s "Str"]}
-                               {:name "Data03"
-                                :args []
-                                :body [{:type :literal :value "{{product-name}}"}]
-                                :ret  [:s "Str"]}]}
+                    :syntax   [{:name   "DocumentPlan01"
+                                :params ["Segment02"]
+                                :body   [{:type :function :value "Segment02"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Segment02"
+                                :params ["Data03"]
+                                :body   [{:type :function :value "Data03"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Data03"
+                                :params []
+                                :body   [{:type :literal :value "{{product-name}}"}]
+                                :ret    [:s "Str"]}]}
          (build-grammar "simple-plan" {})))
   (is (= #::grammar{:module   :module
                     :instance :instance
                     :flags    {:startcat "DocumentPlan01"}
-                    :syntax   [{:name "DocumentPlan01"
-                                :args ["Segment02"]
-                                :body [{:type :function :value "Segment02"}]
-                                :ret  [:s "Str"]}
-                               {:args ["Quote03"]
-                                :body [{:type :function :value "Quote03"}]
-                                :name "Segment02"
-                                :ret  [:s "Str"]}
-                               {:args []
-                                :body [{:type :literal :value "this is a very good book: {{TITLE}}"}]
-                                :name "Quote03"
-                                :ret  [:s "Str"]}]}
+                    :syntax   [{:name   "DocumentPlan01"
+                                :params ["Segment02"]
+                                :body   [{:type :function :value "Segment02"}]
+                                :ret    [:s "Str"]}
+                               {:params ["Quote03"]
+                                :body   [{:type :function :value "Quote03"}]
+                                :name   "Segment02"
+                                :ret    [:s "Str"]}
+                               {:params []
+                                :body   [{:type :literal :value "this is a very good book: {{TITLE}}"}]
+                                :name   "Quote03"
+                                :ret    [:s "Str"]}]}
          (build-grammar "single-quote" {})))
   (is (= #::grammar{:module   :module
                     :instance :instance
                     :flags    {:startcat "DocumentPlan01"}
-                    :syntax   [{:name "DocumentPlan01"
-                                :args ["Segment02"]
-                                :body [{:type :function :value "Segment02"}]
-                                :ret  [:s "Str"]}
-                               {:name "Segment02"
-                                :args ["Data03"]
-                                :body [{:type :function :value "Data03"}]
-                                :ret  [:s "Str"]}
-                               {:name "Data03"
-                                :args ["DictionaryItem04"]
-                                :body [{:type :function :value "DictionaryItem04"}
-                                       {:type :operator :value "++"}
-                                       {:type :literal :value "{{title}}"}]
-                                :ret  [:s "Str"]}
-                               {:name "DictionaryItem04"
-                                :args []
-                                :body [{:type :literal :value "excellent"}
-                                       {:type :operator :value "|"}
-                                       {:type :literal :value "good"}]
-                                :ret  [:s "Str"]}]}
+                    :syntax   [{:name   "DocumentPlan01"
+                                :params ["Segment02"]
+                                :body   [{:type :function :value "Segment02"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Segment02"
+                                :params ["Data03"]
+                                :body   [{:type :function :value "Data03"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Data03"
+                                :params ["DictionaryItem04"]
+                                :body   [{:type :function :value "DictionaryItem04"}
+                                         {:type :operator :value "++"}
+                                         {:type :literal :value "{{title}}"}]
+                                :ret    [:s "Str"]}
+                               {:name   "DictionaryItem04"
+                                :params []
+                                :body   [{:type :literal :value "excellent"}
+                                         {:type :operator :value "|"}
+                                         {:type :literal :value "good"}]
+                                :ret    [:s "Str"]}]}
          (build-grammar "adjective-phrase" {:dictionary {"good" ["excellent"]}})))
   (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
                     :instance :instance
                     :module   :module
-                    :syntax   [{:name "DocumentPlan01"
-                                :args ["Segment02"]
-                                :body [{:type :function :value "Segment02"}]
-                                :ret  [:s "Str"]}
-                               {:name "Segment02"
-                                :args ["Amr03"]
-                                :body [{:type :function :value "Amr03"}]
-                                :ret  [:s "Str"]}
-                               {:name "Amr03"
-                                :args []
-                                :body [{:type :literal :value "co-Agent"}
-                                       {:type :operator :value "++"}
-                                       {:type :literal :value "is"}
-                                       {:type :operator :value "++"}
-                                       {:type :literal :value "{{...}}"}
-                                       {:type :operator :value "++"}
-                                       {:type :literal :value "by"}
-                                       {:type :operator :value "++"}
-                                       {:type :literal :value "Agent"}]
-                                :ret  [:s "Str"]}]}
+                    :syntax   [{:name   "DocumentPlan01"
+                                :params ["Segment02"]
+                                :body   [{:type :function :value "Segment02"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Segment02"
+                                :params ["Amr03"]
+                                :body   [{:type :function :value "Amr03"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Amr03"
+                                :params []
+                                :body   [{:type :literal :value "co-Agent"}
+                                         {:type :operator :value "++"}
+                                         {:type :literal :value "is"}
+                                         {:type :operator :value "++"}
+                                         {:type :literal :value "{{...}}"}
+                                         {:type :operator :value "++"}
+                                         {:type :literal :value "by"}
+                                         {:type :operator :value "++"}
+                                         {:type :literal :value "Agent"}]
+                                :ret    [:s "Str"]}]}
          (build-grammar
            "author-amr"
            {:amr        {:author {:frames [{:syntax [{:pos :NP :value "co-Agent"}
@@ -101,62 +101,62 @@
   (is (= #::grammar{:module   :module
                     :instance :instance
                     :flags    {:startcat "DocumentPlan01"}
-                    :syntax   [{:name "DocumentPlan01"
-                                :args ["Segment02"]
-                                :body [{:type :function :value "Segment02"}]
-                                :ret  [:s "Str"]}
-                               {:name "Segment02"
-                                :args ["Amr03"]
-                                :body [{:type :function :value "Amr03"}]
-                                :ret  [:s "Str"]}
-                               {:name "Amr03"
-                                :args ["DictionaryItem04"
-                                       "Data05"
-                                       "Data07"]
-                                :body [{:type :operator :value "("}
-                                       {:type :function :value "Data05"}
-                                       {:type :operator :value "++"}
-                                       {:type :literal :value "is"}
-                                       {:type :operator :value "++"}
-                                       {:type :literal :value "the author of"}
-                                       {:type :operator :value "++"}
-                                       {:type :function :value "Data07"}
-                                       {:type :operator :value ")"}
-                                       {:type :operator :value "|"}
-                                       {:type :operator :value "("}
-                                       {:type :function :value "Data07"}
-                                       {:type :operator :value "++"}
-                                       {:type :literal :value "is"}
-                                       {:type :operator :value "++"}
-                                       {:type :function :value "DictionaryItem04"}
-                                       {:type :operator :value "++"}
-                                       {:type :literal :value "by"}
-                                       {:type :operator :value "++"}
-                                       {:type :function :value "Data05"}
-                                       {:type :operator :value ")"}]
-                                :ret  [:s "Str"]}
-                               {:name "DictionaryItem04"
-                                :args []
-                                :body [{:type :literal :value "authored"}
-                                       {:type :operator :value "|"}
-                                       {:type :literal :value "written"}]
-                                :ret  [:s "Str"]}
-                               {:name "Data05"
-                                :args ["DictionaryItem06"]
-                                :body [{:type :function :value "DictionaryItem06"}
-                                       {:type :operator :value "++"}
-                                       {:type :literal :value "{{authors}}"}]
-                                :ret  [:s "Str"]}
-                               {:name "DictionaryItem06"
-                                :args []
-                                :body [{:type :literal :value "excellent"}
-                                       {:type :operator :value "|"}
-                                       {:type :literal :value "good"}]
-                                :ret  [:s "Str"]}
-                               {:name "Data07"
-                                :args []
-                                :body [{:type :literal :value "{{title}}"}]
-                                :ret  [:s "Str"]}]}
+                    :syntax   [{:name   "DocumentPlan01"
+                                :params ["Segment02"]
+                                :body   [{:type :function :value "Segment02"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Segment02"
+                                :params ["Amr03"]
+                                :body   [{:type :function :value "Amr03"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Amr03"
+                                :params ["DictionaryItem04"
+                                         "Data05"
+                                         "Data07"]
+                                :body   [{:type :operator :value "("}
+                                         {:type :function :value "Data05"}
+                                         {:type :operator :value "++"}
+                                         {:type :literal :value "is"}
+                                         {:type :operator :value "++"}
+                                         {:type :literal :value "the author of"}
+                                         {:type :operator :value "++"}
+                                         {:type :function :value "Data07"}
+                                         {:type :operator :value ")"}
+                                         {:type :operator :value "|"}
+                                         {:type :operator :value "("}
+                                         {:type :function :value "Data07"}
+                                         {:type :operator :value "++"}
+                                         {:type :literal :value "is"}
+                                         {:type :operator :value "++"}
+                                         {:type :function :value "DictionaryItem04"}
+                                         {:type :operator :value "++"}
+                                         {:type :literal :value "by"}
+                                         {:type :operator :value "++"}
+                                         {:type :function :value "Data05"}
+                                         {:type :operator :value ")"}]
+                                :ret    [:s "Str"]}
+                               {:name   "DictionaryItem04"
+                                :params []
+                                :body   [{:type :literal :value "authored"}
+                                         {:type :operator :value "|"}
+                                         {:type :literal :value "written"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Data05"
+                                :params ["DictionaryItem06"]
+                                :body   [{:type :function :value "DictionaryItem06"}
+                                         {:type :operator :value "++"}
+                                         {:type :literal :value "{{authors}}"}]
+                                :ret    [:s "Str"]}
+                               {:name   "DictionaryItem06"
+                                :params []
+                                :body   [{:type :literal :value "excellent"}
+                                         {:type :operator :value "|"}
+                                         {:type :literal :value "good"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Data07"
+                                :params []
+                                :body   [{:type :literal :value "{{title}}"}]
+                                :ret    [:s "Str"]}]}
          (build-grammar
            "author-amr-with-adj"
            {:amr        {:author {:frames [{:syntax [{:pos :NP :value "Agent"}
@@ -173,27 +173,27 @@
   (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
                     :instance :instance
                     :module   :module
-                    :syntax   [{:args ["Segment02"]
-                                :body [{:type :function :value "Segment02"}]
-                                :name "DocumentPlan01"
-                                :ret  [:s "Str"]}
-                               {:args ["Sequence03"]
-                                :body [{:type :function :value "Sequence03"}]
-                                :name "Segment02"
-                                :ret  [:s "Str"]}
-                               {:args ["DictionaryItem04"
-                                       "Shuffle05"]
-                                :body [{:type :function :value "DictionaryItem04"}
-                                       {:type :operator :value "++"}
-                                       {:type :function :value "Shuffle05"}]
-                                :name "Sequence03"
-                                :ret  [:s "Str"]}
-                               {:args []
-                                :body [{:type :literal :value "1"}]
-                                :name "DictionaryItem04"
-                                :ret  [:s "Str"]}
-                               {:args []
-                                :body []
-                                :name "Shuffle05"
-                                :ret  [:s "Str"]}]}
+                    :syntax   [{:name   "DocumentPlan01"
+                                :params ["Segment02"]
+                                :body   [{:type :function :value "Segment02"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Segment02"
+                                :params ["Sequence03"]
+                                :body   [{:type :function :value "Sequence03"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Sequence03"
+                                :params ["DictionaryItem04"
+                                         "Shuffle05"]
+                                :body   [{:type :function :value "DictionaryItem04"}
+                                         {:type :operator :value "++"}
+                                         {:type :function :value "Shuffle05"}]
+                                :ret    [:s "Str"]}
+                               {:name   "DictionaryItem04"
+                                :params []
+                                :body   [{:type :literal :value "1"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Shuffle05"
+                                :params []
+                                :body   []
+                                :ret    [:s "Str"]}]}
          (build-grammar "sequence-with-empty-shuffle" {}))))
