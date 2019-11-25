@@ -11,4 +11,4 @@
   (is (= ["He said: \"GO!\""]
          (let [semantic-graph (utils/load-test-semantic-graph "quote-quote")
                grammar (grammar/build :grammar :grammar1 semantic-graph {})]
-           (generate "module" (grammar/->abstract grammar) (list [1 (grammar/->concrete grammar)]))))))
+           (generate "grammar" (grammar/->abstract grammar) (list [1 (grammar/->concrete grammar)]))))))
