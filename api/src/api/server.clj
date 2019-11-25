@@ -19,7 +19,8 @@
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.ring.middleware.exception :as exception]
             [reitit.ring.middleware.muuntaja :as muuntaja]
-            [reitit.dev.pretty :as pretty]))
+            [reitit.dev.pretty :as pretty]
+            [data.entities.amr :as amr]))
 
 (def headers {"Access-Control-Allow-Origin"  "*"
               "Access-Control-Allow-Headers" "content-type, *"
@@ -84,6 +85,7 @@
     :exception pretty/exception}))
 
 (def app
+  (amr/initialize)
   (ring/ring-handler
    routes
    (swagger-ui/create-swagger-ui-handler
