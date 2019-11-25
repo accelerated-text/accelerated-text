@@ -8,7 +8,6 @@
 (stest/instrument `grammar/build)
 
 (deftest ^:integration quote-cases
-  (is (= ["He said: \"GO!\""]
-         (let [semantic-graph (utils/load-test-semantic-graph "quote-quote")
-               grammar (grammar/build :grammar :grammar1 semantic-graph {})]
-           (generate "grammar" (grammar/->abstract grammar) (list [1 (grammar/->concrete grammar)]))))))
+  (is (= ["He said: \"GO!\""] (let [semantic-graph (utils/load-test-semantic-graph "quote-quote")
+                                    grammar (grammar/build :grammar :grammar1 semantic-graph {})]
+                                (generate grammar)))))
