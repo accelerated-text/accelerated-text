@@ -9,17 +9,17 @@
 
 (s/def ::flags (s/map-of #{:startcat} string? :min-count 1))
 
-(s/def :statement/type #{:operator :function :literal})
+(s/def :expression/type #{:operator :function :literal})
 
-(s/def :statement/value string?)
+(s/def :expression/value string?)
 
-(s/def ::statement (s/keys :req-un [:statement/type :statement/value]))
+(s/def ::expression (s/keys :req-un [:expression/type :expression/value]))
 
 (s/def :function/name string?)
 
 (s/def :function/params (s/coll-of string?))
 
-(s/def :function/body (s/coll-of ::statement))
+(s/def :function/body (s/coll-of ::expression))
 
 (s/def :function/ret #{[:s "Str"]})
 
