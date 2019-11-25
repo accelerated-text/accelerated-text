@@ -41,6 +41,8 @@
        (map (fn [{type :type text :text}]
           (case (keyword type)
             :WORD (str " " text)
-            :PUNCTUATION text)))
+            :PUNCTUATION (if (contains? #{\. \, \? \! \:} (first text))
+                           text
+                           (str " " text)))))
        (apply str)
        (string/trim)))
