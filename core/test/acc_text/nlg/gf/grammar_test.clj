@@ -11,9 +11,9 @@
   (grammar/build :module :instance (utils/load-test-semantic-graph semantic-graph-name) context))
 
 (deftest ^:integration grammar-building
-  (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
+  (is (= #::grammar{:module   :module
                     :instance :instance
-                    :module   :module
+                    :flags    {:startcat "DocumentPlan01"}
                     :syntax   [#::function{:name "DocumentPlan01"
                                            :args ["Segment02"]
                                            :body [{:type :function :value "Segment02"}]
@@ -27,9 +27,9 @@
                                            :body [{:type :literal :value "{{product-name}}"}]
                                            :ret  [:s "Str"]}]}
          (build-grammar "simple-plan" {})))
-  (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
+  (is (= #::grammar{:module   :module
                     :instance :instance
-                    :module   :module
+                    :flags    {:startcat "DocumentPlan01"}
                     :syntax   [#::function{:name "DocumentPlan01"
                                            :args ["Segment02"]
                                            :body [{:type :function :value "Segment02"}]
@@ -43,9 +43,9 @@
                                            :name "Quote03"
                                            :ret  [:s "Str"]}]}
          (build-grammar "single-quote" {})))
-  (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
+  (is (= #::grammar{:module   :module
                     :instance :instance
-                    :module   :module
+                    :flags    {:startcat "DocumentPlan01"}
                     :syntax   [#::function{:name "DocumentPlan01"
                                            :args ["Segment02"]
                                            :body [{:type :function :value "Segment02"}]
@@ -67,9 +67,9 @@
                                                   {:type :literal :value "good"}]
                                            :ret  [:s "Str"]}]}
          (build-grammar "adjective-phrase" {:dictionary {"good" ["excellent"]}})))
-  (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
+  (is (= #::grammar{:module   :module
                     :instance :instance
-                    :module   :module
+                    :flags    {:startcat "DocumentPlan01"}
                     :syntax   [#::function{:name "DocumentPlan01"
                                            :args ["Segment02"]
                                            :body [{:type :function :value "Segment02"}]
