@@ -80,9 +80,7 @@
                                            :ret  [:s "Str"]}
                                #::function{:name "Amr03"
                                            :args []
-                                           :body [{:type  :operator
-                                                   :value "("}
-                                                  {:type  :literal
+                                           :body [{:type  :literal
                                                    :value "co-Agent"}
                                                   {:type  :operator
                                                    :value "++"}
@@ -99,9 +97,7 @@
                                                   {:type  :operator
                                                    :value "++"}
                                                   {:type  :literal
-                                                   :value "Agent"}
-                                                  {:type  :operator
-                                                   :value ")"}]
+                                                   :value "Agent"}]
                                            :ret  [:s "Str"]}]}
          (build-grammar
            "author-amr"
@@ -183,4 +179,37 @@
                                                      {:pos :PREP :value "by"}
                                                      {:pos :NP :value "Agent"}]}]}}
             :dictionary {"good"    ["excellent"]
-                         "written" ["authored"]}}))))
+                         "written" ["authored"]}})))
+  (is (= #:acc-text.nlg.gf.grammar{:flags    {:startcat "DocumentPlan01"}
+                                   :instance :instance
+                                   :module   :module
+                                   :syntax   [#:acc-text.nlg.gf.grammar.function{:args ["Segment02"]
+                                                                                 :body [{:type  :function
+                                                                                         :value "Segment02"}]
+                                                                                 :name "DocumentPlan01"
+                                                                                 :ret  [:s "Str"]}
+                                              #:acc-text.nlg.gf.grammar.function{:args ["Sequence03"]
+                                                                                 :body [{:type  :function
+                                                                                         :value "Sequence03"}]
+                                                                                 :name "Segment02"
+                                                                                 :ret  [:s "Str"]}
+                                              #:acc-text.nlg.gf.grammar.function{:args ["DictionaryItem04"
+                                                                                        "Shuffle05"]
+                                                                                 :body [{:type  :function
+                                                                                         :value "DictionaryItem04"}
+                                                                                        {:type  :operator
+                                                                                         :value "++"}
+                                                                                        {:type  :function
+                                                                                         :value "Shuffle05"}]
+                                                                                 :name "Sequence03"
+                                                                                 :ret  [:s "Str"]}
+                                              #:acc-text.nlg.gf.grammar.function{:args []
+                                                                                 :body [{:type  :literal
+                                                                                         :value "1"}]
+                                                                                 :name "DictionaryItem04"
+                                                                                 :ret  [:s "Str"]}
+                                              #:acc-text.nlg.gf.grammar.function{:args []
+                                                                                 :body []
+                                                                                 :name "Shuffle05"
+                                                                                 :ret  [:s "Str"]}]}
+         (build-grammar "sequence-with-empty-shuffle" {}))))

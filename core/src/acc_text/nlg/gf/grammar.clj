@@ -70,11 +70,13 @@
                                       (inc i)
                                       (str/join (interleave args (repeat " ")))
                                       (name (nth ret 0))
-                                      (->> body
-                                           (map (fn [{:keys [type value]}]
-                                                  (case type
-                                                    :literal (format "\"%s\"" (str/replace value #"\"" "\\\\\""))
-                                                    :operator value
-                                                    :function (format "%s.s" value))))
-                                           (str/join " ")))))
+                                      (if-not (seq body)
+                                        "\"\""
+                                        (->> body
+                                             (map (fn [{:keys [type value]}]
+                                                    (case type
+                                                      :literal (format "\"%s\"" (str/replace value #"\"" "\\\\\""))
+                                                      :operator value
+                                                      :function (format "%s.s" value))))
+                                             (str/join " "))))))
                (str/join ";\n        "))))

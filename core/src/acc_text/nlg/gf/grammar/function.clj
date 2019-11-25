@@ -2,7 +2,8 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]
-            [clojure.spec.alpha :as s]))
+            [clojure.spec.alpha :as s]
+            [clojure.tools.logging :as log]))
 
 (s/def ::name string?)
 
@@ -27,16 +28,18 @@
        (name id)))
 
 (defn variants [xs]
-  (->> xs
-       (map (fn [x]
-              (concat [{:type  :operator
-                        :value "("}]
-                      x
-                      [{:type  :operator
-                        :value ")"}])))
-       (interpose {:type  :operator
-                   :value "|"})
-       (flatten)))
+  (if-not (< 1 (count xs))
+    (first xs)
+    (->> xs
+         (map (fn [x]
+                (concat [{:type  :operator
+                          :value "("}]
+                        x
+                        [{:type  :operator
+                          :value ")"}])))
+         (interpose {:type  :operator
+                     :value "|"})
+         (flatten))))
 
 (defmulti build (fn [concept _ _ _] (::sg/type concept)))
 
