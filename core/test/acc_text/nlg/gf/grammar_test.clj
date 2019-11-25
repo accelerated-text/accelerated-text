@@ -10,7 +10,7 @@
 (defn build-grammar [semantic-graph-name context]
   (grammar/build :module :instance (utils/load-test-semantic-graph semantic-graph-name) context))
 
-(deftest ^:integration grammar-building
+(deftest grammar-building
   (is (= #::grammar{:module   :module
                     :instance :instance
                     :flags    {:startcat "DocumentPlan01"}
