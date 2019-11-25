@@ -35,12 +35,10 @@
   (map read-amr (list-amr-files)))
 
 (defn initialize []
-  (map
-   (fn [f]
-     (let [{:keys [members]} (utils/read-yaml f)]
-       (dictionary/create-dictionary-item
-        {:key (utils/get-name f)
-         :name (utils/get-name f)
-         :phrases members})))
-   (list-amr-files)))
+  (doseq [f (list-amr-files)]
+   (let [{:keys [members]} (utils/read-yaml f)]
+     (dictionary/create-dictionary-item
+      {:key (utils/get-name f)
+       :name (utils/get-name f)
+       :phrases members}))))
 
