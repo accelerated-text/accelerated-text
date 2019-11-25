@@ -14,6 +14,7 @@
                                                    :content (apply str c)})
                                     concrete)}]
     (log/debugf "Compiling grammar via %s:\n%s\n%s" request-url abstract (-> concrete (first) (second)))
+    (log/tracef "Request:\n curl -X POST -H \"Content-Type: application/json\"  %s -d '%s'" request-url (json/write-value-as-string request-content))
     @(client/request {:url     request-url
                       :method  :post
                       :headers {"Content-type" "application/json"}
