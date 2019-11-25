@@ -26,6 +26,18 @@
             (str/join))
        (name id)))
 
+(defn variants [xs]
+  (->> xs
+       (map (fn [x]
+              (concat [{:type  :operator
+                        :value "("}]
+                      x
+                      [{:type  :operator
+                        :value ")"}])))
+       (interpose {:type  :operator
+                   :value "|"})
+       (flatten)))
+
 (defmulti build (fn [concept _ _ _] (::sg/type concept)))
 
 (defmethod build :document-plan [concept children _ _]
@@ -100,27 +112,21 @@
                          (zipmap relations children))]
     {::name (concept->name concept)
      ::args (map concept->name children)
-     ::body (flatten
-              (interpose {:type  :operator
-                          :value "|"}
-                         (for [syntax (->> (keyword value) (get amr) (:frames) (map :syntax))]
-                           (concat [{:type  :operator
-                                     :value "("}]
-                                   (interpose {:type  :operator
-                                               :value "++"}
-                                              (for [{value :value pos :pos} syntax]
-                                                (let [role (when value (str/lower-case value))]
-                                                  (cond
-                                                    (contains? role-map role) {:type  :function
-                                                                               :value (get role-map role)}
-                                                    (some? value) {:type  :literal
-                                                                   :value value}
-                                                    (= pos :VERB) {:type  :function
-                                                                   :value (concept->name function-concept)}
-                                                    :else {:type  :literal
-                                                           :value ""}))))
-                                   [{:type  :operator
-                                     :value ")"}]))))
+     ::body (variants
+              (for [syntax (->> (keyword value) (get amr) (:frames) (map :syntax))]
+                (interpose {:type  :operator
+                            :value "++"}
+                           (for [{value :value pos :pos} syntax]
+                             (let [role (when value (str/lower-case value))]
+                               (cond
+                                 (contains? role-map role) {:type  :function
+                                                            :value (get role-map role)}
+                                 (some? value) {:type  :literal
+                                                :value value}
+                                 (= pos :VERB) {:type  :function
+                                                :value (concept->name function-concept)}
+                                 :else {:type  :literal
+                                        :value ""}))))))
      ::ret  [:s "Str"]}))
 
 (defmethod build :sequence [concept children _ _]
@@ -136,19 +142,13 @@
 (defmethod build :shuffle [concept children _ _]
   {::name (concept->name concept)
    ::args (map concept->name children)
-   ::body (flatten
-            (interpose {:type  :operator
-                        :value "|"}
-                       (for [permutation (permutations children)]
-                         (concat [{:type  :operator
-                                   :value "("}]
-                                 (interpose {:type  :operator
-                                             :value "++"}
-                                            (for [child-concept permutation]
-                                              {:type  :function
-                                               :value (concept->name child-concept)}))
-                                 [{:type  :operator
-                                   :value ")"}]))))
+   ::body (variants
+            (for [permutation (permutations children)]
+              (interpose {:type  :operator
+                          :value "++"}
+                         (for [child-concept permutation]
+                           {:type  :function
+                            :value (concept->name child-concept)}))))
    ::ret  [:s "Str"]})
 
 (defmethod build :synonyms [concept children _ _]
