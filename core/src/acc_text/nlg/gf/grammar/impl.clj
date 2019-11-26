@@ -101,12 +101,14 @@
                (for [syntax (->> (keyword value) (get amr) (:frames) (map :syntax))]
                  (interpose {:type  :operator
                              :value "++"}
-                            (for [{value :value pos :pos} syntax]
-                              (let [role (when value (str/lower-case value))
-                                    literal-val {:type :literal :value value}]
+
+                            (for [{value :value pos :pos role :role} syntax]
+                              (let [literal-val {:type :literal :value value}]
                                 (cond
-                                  (contains? role-map role) {:type  :function
-                                                             :value (get role-map role)}
+                                  (contains? role-map (str/lower-case role)) {:type  :function
+                                                                              :value (get role-map (str/lower-case role))}
+                                  (some? role)               {:type  :literal
+                                                              :value (format "{{%s}}" role)}
                                   (and (some? function-concept)
                                        (= pos :VERB))       {:type  :function
                                                              :value (concept->name function-concept)}
@@ -116,6 +118,7 @@
                                   (some? value)             literal-val
                                   :else                     {:type  :literal
                                                              :value "{{...}}"}))))))
+
      :ret    [:s "Str"]}))
 
 (defmethod build-function :sequence [concept children _ _]
