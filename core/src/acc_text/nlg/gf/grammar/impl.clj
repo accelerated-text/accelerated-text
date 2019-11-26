@@ -105,8 +105,9 @@
                             (for [{value :value pos :pos role :role} syntax]
                               (let [literal-val {:type :literal :value value}]
                                 (cond
-                                  (contains? role-map (str/lower-case role)) {:type  :function
-                                                                              :value (get role-map (str/lower-case role))}
+                                  (and (some? role)
+                                       (contains? role-map (str/lower-case role))) {:type  :function
+                                                                                    :value (get role-map (str/lower-case role))}
                                   (some? role)               {:type  :literal
                                                               :value (format "{{%s}}" role)}
                                   (and (some? function-concept)
