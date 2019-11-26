@@ -13,7 +13,7 @@
                placeholders)))
 
 (defn generate-text [semantic-graph context data]
-  (->> (grammar/build :grammar :grammar1 semantic-graph context)
+  (->> (grammar/build :grammar :1 semantic-graph context)
        (generator/generate)
        (map #(realize % data))
        (map nlp/process-sentence)

@@ -39,7 +39,7 @@
 
 (defn ->concrete [{::grammar/keys [instance module syntax]}]
   (format "concrete %s of %s = {\n    lincat\n        %s;\n    lin\n        %s;\n}"
-          (name instance)
+          (str (name module) (name instance))
           (name module)
           (join-statements
             (map (fn [[ret functions]]
