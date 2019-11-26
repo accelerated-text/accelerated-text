@@ -14,11 +14,11 @@ frames:
       - pos: VERB
       - pos: NP
         value: Patient
-      - pos: PREP
-        value: "to into"
+      - pos: ADP
+        value: "into"
       - pos: NP
         value: Result
-      - pos: PREP
+      - pos: ADP
         value: "with"
       - pos: NP
         value: Instrument

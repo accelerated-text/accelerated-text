@@ -94,7 +94,7 @@
            {:amr        {:author {:frames [{:syntax [{:pos :NP :value "co-Agent"}
                                                      {:pos :LEX :value "is"}
                                                      {:pos :VERB}
-                                                     {:pos :PREP :value "by"}
+                                                     {:pos :ADP :value "by"}
                                                      {:pos :NP :value "Agent"}]}]}}
             :dictionary {"good"    ["excellent"]
                          "written" ["authored"]}})))
@@ -166,7 +166,7 @@
                                            {:syntax [{:pos :NP :value "co-Agent"}
                                                      {:pos :LEX :value "is"}
                                                      {:pos :VERB}
-                                                     {:pos :PREP :value "by"}
+                                                     {:pos :ADP :value "by"}
                                                      {:pos :NP :value "Agent"}]}]}}
             :dictionary {"good"    ["excellent"]
                          "written" ["authored"]}})))

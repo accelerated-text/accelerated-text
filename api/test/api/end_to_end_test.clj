@@ -87,7 +87,7 @@
   (let [{{result-id :resultId} :body status :status} (generate "cut-amr" "carol.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Carol cut envelope to into pieces with knife."} (get-variants result-id)))))
+    (is (= #{"Carol cut envelope into pieces with knife."} (get-variants result-id)))))
 
 (deftest ^:integration multiple-modifier-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "multiple-modifiers" "books.csv")]

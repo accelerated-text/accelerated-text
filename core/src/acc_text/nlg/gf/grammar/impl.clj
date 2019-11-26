@@ -89,12 +89,12 @@
   (let [function-concept (some (fn [[role concept]]
                                  (when (= :function role) concept))
                                (zipmap (map ::sg/role relations) children))
-        role-map (reduce (fn [m [{role ::sg/role {attr-name ::sg/name} ::sg/attributes} concept]]
-                           (cond-> m
-                                   (and (not= :function role)
-                                        (some? attr-name)) (assoc (str/lower-case attr-name) (concept->name concept))))
-                         {}
-                         (zipmap relations children))]
+        role-map         (reduce (fn [m [{role ::sg/role {attr-name ::sg/name} ::sg/attributes} concept]]
+                                   (cond-> m
+                                     (and (not= :function role)
+                                          (some? attr-name)) (assoc (str/lower-case attr-name) (concept->name concept))))
+                                 {}
+                                 (zipmap relations children))]
     {:name   (concept->name concept)
      :params (map concept->name children)
      :body   (variants
@@ -102,17 +102,20 @@
                  (interpose {:type  :operator
                              :value "++"}
                             (for [{value :value pos :pos} syntax]
-                              (let [role (when value (str/lower-case value))]
+                              (let [role (when value (str/lower-case value))
+                                    literal-val {:type :literal :value value}]
                                 (cond
                                   (contains? role-map role) {:type  :function
                                                              :value (get role-map role)}
                                   (and (some? function-concept)
-                                       (= pos :VERB)) {:type  :function
-                                                       :value (concept->name function-concept)}
-                                  (some? value) {:type  :literal
-                                                 :value value}
-                                  :else {:type  :literal
-                                         :value "{{...}}"}))))))
+                                       (= pos :VERB))       {:type  :function
+                                                             :value (concept->name function-concept)}
+                                  (= pos :ADP)              literal-val
+                                  ;;FIXME ideally we should not have entries which are not explicitly
+                                  ;;specified via POS or other means
+                                  (some? value)             literal-val
+                                  :else                     {:type  :literal
+                                                             :value "{{...}}"}))))))
      :ret    [:s "Str"]}))
 
 (defmethod build-function :sequence [concept children _ _]
