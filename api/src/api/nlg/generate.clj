@@ -1,6 +1,5 @@
 (ns api.nlg.generate
-  (:require [acc-text.nlg.semantic-graph :as sg]
-            [acc-text.nlg.utils.nlp :as nlp]
+  (:require [acc-text.nlg.utils.nlp :as nlp]
             [acc-text.nlg.core :as nlg]
             [api.nlg.context :as context]
             [api.nlg.parser :as parser]
@@ -29,21 +28,19 @@
                  reader-model))
     [:default]))
 
-(defn take-rand [coll]
-  (when (seq coll)
-    (rand-nth coll)))
-
 (defn generation-process [document-plan-id data-id reader-model]
   (try
     {:ready   true
      :results (let [{document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)
-                    row (nth (get-data data-id) (or data-sample-row 0))
                     semantic-graph (parser/document-plan->semantic-graph document-plan)
-                    context (context/build-context semantic-graph (get-reader-profiles reader-model))]
-                (map :text (-> semantic-graph
-                               (sg/build-instances context)
-                               (take-rand)
-                               (nlg/generate-text row))))}
+                    row (nth (get-data data-id) (or data-sample-row 0))]
+                (->> reader-model
+                     (get-reader-profiles)
+                     (map #(context/build-context semantic-graph %))
+                     (mapcat #(nlg/generate-text semantic-graph % row))
+                     (map :text)
+                     (sort)
+                     (dedupe)))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))

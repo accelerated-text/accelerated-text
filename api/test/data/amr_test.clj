@@ -19,7 +19,7 @@
                                            {:pos :VERB}
                                            {:pos :PREP :value "by"}
                                            {:pos :NP :value "Agent"}]}]}
-         (amr/read-amr (io/file "test/resources/amr/author.yaml"))))
+         (amr/read-amr (io/file "test/resources/grammar/library/author.yaml"))))
   (is (= {:id                 "see"
           :dictionary-item-id "see"
           :thematic-roles     [{:type "Agent"}
@@ -28,7 +28,7 @@
                                 :syntax   [{:pos :NP :value "Agent"}
                                            {:pos :VERB}
                                            {:pos :NP :value "co-Agent"}]}]}
-         (amr/read-amr (io/file "test/resources/amr/see.yaml"))))
+         (amr/read-amr (io/file "test/resources/grammar/other/see.yaml"))))
   (is (= {:id                 "provide"
           :dictionary-item-id "provide"
           :thematic-roles     [{:type "Agent"}
@@ -37,7 +37,7 @@
                                 :syntax   [{:pos :NP :value "Agent"}
                                            {:pos :VERB}
                                            {:pos :NP :value "co-Agent"}]}]}
-         (amr/read-amr (io/file "test/resources/amr/provide.yaml"))))
+         (amr/read-amr (io/file "test/resources/grammar/other/provide.yaml"))))
   (is (= {:id                 "cut"
           :dictionary-item-id "cut"
           :thematic-roles     [{:type "Agent"}
@@ -53,4 +53,4 @@
                                                 {:pos :NP :value "Result"}
                                                 {:pos :PREP :value "with"}
                                                 {:pos :NP :value "Instrument"}]}]}
-         (amr/read-amr (io/file "test/resources/amr/cut.yaml")))))
+         (amr/read-amr (io/file "test/resources/grammar/other/cut.yaml")))))

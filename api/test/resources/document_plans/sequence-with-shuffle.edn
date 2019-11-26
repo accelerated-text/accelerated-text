@@ -1,0 +1,17 @@
+{:type     "Document-plan"
+ :segments [{:children [{:children [{:name "1" :type "Dictionary-item" :srcId "UYT~/5vbM?m3}POw}jmC" :itemId "1"}
+                                    {:children [{:name   "2"
+                                                 :type   "Dictionary-item"
+                                                 :srcId  "Sa9s+@V/IZ=%8fRYh3T7"
+                                                 :itemId "2"}
+                                                {:name   "3"
+                                                 :type   "Dictionary-item"
+                                                 :srcId  "pK%$z^ZemYQVeIpN$mY!"
+                                                 :itemId "3"}]
+                                     :type     "Shuffle"
+                                     :srcId    "w|~H8)J2.ltrU4i:*i`C"}]
+                         :type     "Sequence"
+                         :srcId    "}(PEh$bT#d.PPsCBNpcu"}]
+             :type     "Segment"
+             :srcId    "WF64qq:sN@{B2T}4pB86"}]
+ :srcId    "k6pvY~%-?-!L~!A~)8AJ"}

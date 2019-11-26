@@ -1,73 +1,56 @@
 (ns acc-text.nlg.gf.grammar
-  (:require [acc-text.nlg.semantic-graph :as sg]
-            [acc-text.nlg.gf.string-utils :as su]
-            [clojure.math.combinatorics :refer [permutations]]
-            [clojure.spec.alpha :as s]
-            [clojure.string :as str]))
+  (:require [clojure.spec.alpha :as s]
+            [clojure.spec.gen.alpha :as gen]))
 
-(defn join-relation-ids [relations]
-  (->> relations
-       (map (comp #(str "x" %) name ::sg/to))
-       (str/join " ")))
+(defn short-string [] (gen/such-that #(> 15 (count %) 0) (gen/string-alphanumeric)))
 
-(defmulti build-fragment ::sg/type)
+(defn short-keyword-gen [] (s/with-gen keyword? #(gen/fmap keyword (short-string))))
 
-(defmethod build-fragment :document-plan [{relations ::sg/relations}]
-  (format "Document. S ::= %s;" (join-relation-ids relations)))
+(defn short-string-gen [] (s/with-gen string? short-string))
 
-(defmethod build-fragment :segment [{id ::sg/id relations ::sg/relations}]
-  (when (seq relations)
-    (format "Segment%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids relations))))
 
-(defmethod build-fragment :amr [{id ::sg/id value ::sg/value relations ::sg/relations {syntax ::sg/syntax} ::sg/attributes}]
-  (let [function (some (fn [{role ::sg/role to ::sg/to}]
-                         (when (= :function role) (name to)))
-                       relations)
-        name->id (reduce (fn [m {to ::sg/to role ::sg/role {attr-name ::sg/name} ::sg/attributes}]
-                           (cond-> m (and (not= :function role) (some? attr-name)) (assoc (str/lower-case attr-name) (str "x" (name to)))))
-                         {}
-                         relations)]
-    (for [[i instance] (zipmap (rest (range)) syntax)]
-      (format "%sV%s. x%s ::= %s;" (str/capitalize value) i (name id) (str/join " " (for [{value :value} instance]
-                                                                                      (or (get name->id (when value (str/lower-case value)))
-                                                                                          (when value (format "\"%s\"" value))
-                                                                                          (str "x" function))))))))
+;; common
 
-(defmethod build-fragment :data [{id ::sg/id value ::sg/value relations ::sg/relations}]
-  (if-not (seq relations)
-    (format "Data. x%s ::= \"{{%s}}\";" (name id) value)
-    (format "DataMod%d. x%s ::= %s \"{{%s}}\";" (count relations) (name id) (join-relation-ids relations) value)))
+(s/def ::module-name (short-string-gen))
+(s/def ::category (short-keyword-gen))
 
-(defmethod build-fragment :quote [{id ::sg/id value ::sg/value relations ::sg/relations}]
-  (if-not (seq relations)
-    (format "Quote. x%s ::= \"%s\";" (name id) (su/escape-string value))
-    (format "QuoteMod%d. x%s ::= x%s \"%s\";" (count relations) (name id) (join-relation-ids relations) (su/escape-string value))))
 
-(defmethod build-fragment :dictionary-item [{id ::sg/id members ::sg/members {attr-name ::sg/name} ::sg/attributes relations ::sg/relations}]
-  (for [value (set (cons attr-name members))]
-    (if-not (seq relations)
-      (format "Item. x%s ::= \"%s\";" (name id) value)
-      (format "ItemMod%d. x%s ::= \"%s\" %s;" (count relations) (name id) value (join-relation-ids relations) (su/escape-string value)))))
+;; abstract
 
-(defmethod build-fragment :sequence [{id ::sg/id relations ::sg/relations}]
-  (when (seq relations)
-    (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids relations))))
+(s/def ::flags (s/map-of (short-keyword-gen) (short-keyword-gen)))
 
-(defmethod build-fragment :shuffle [{id ::sg/id relations ::sg/relations}]
-  (for [p (permutations relations)]
-    (format "Sequence%d. x%s ::= %s;" (count relations) (name id) (join-relation-ids p))))
+(s/def ::categories (s/coll-of ::category :min-count 1 :gen-max 4 :kind set?))
 
-(defmethod build-fragment :synonyms [{id ::sg/id relations ::sg/relations}]
-  (for [{to ::sg/to} relations]
-    (format "Synonym. x%s ::= x%s;" (name id) (name to))))
+(s/def ::arguments (s/coll-of ::category :min-count 1 :gen-max 4))
 
-(defn build [{relations ::sg/relations concepts ::sg/concepts}]
-  (let [relation-map (group-by ::sg/from relations)]
-    (->> concepts
-         (map #(assoc % ::sg/relations (get relation-map (::sg/id %) [])))
-         (map build-fragment)
-         (flatten))))
+(s/def ::return ::category)
 
-(s/fdef build
-        :args (s/cat :semantic-graph ::sg/graph)
-        :ret (s/coll-of string? :min-count 2))
+(s/def ::function (s/keys :req [::name ::arguments ::return]))
+
+(s/def ::functions (s/coll-of ::function :min-count 1))
+
+(s/def ::abstract-grammar (s/keys :req [::module-name ::flags ::categories ::functions]))
+
+;; concrete
+
+(s/def ::body (s/coll-of (s/or :literal (short-string-gen) :variable (short-keyword-gen))))
+
+(s/def ::of ::module-name)
+
+(s/def ::function-name (short-string-gen))
+
+(s/def ::lin-types
+  (s/map-of ::category
+            (s/cat :var-name #{:s :n} :var-type #{:str :number})))
+
+(s/def ::value (short-string-gen))
+
+(s/def ::role #{:literal :function})
+
+(s/def ::syntax (s/keys :req [::role ::value]))
+
+(s/def ::lin-function (s/keys :req [::function-name ::syntax]))
+
+(s/def ::lins (s/coll-of ::lin-function))
+
+(s/def ::concrete-grammar (s/keys :req [::module-name ::of ::lin-types ::lins]))
