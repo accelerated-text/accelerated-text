@@ -1,0 +1,18 @@
+members:
+  - intended
+roles:
+  - agent
+  - patient
+frames:
+  - example: Book is intended for mature audiences
+    syntax:
+      - pos: NP
+        role: agent
+      - pos: LEX
+        value: is
+      - pos: VERB
+      - pos: LEX
+        value: for
+      - pos: LEX
+        role: patient
+        value: mature audiences
