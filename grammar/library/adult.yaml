@@ -1,20 +1,17 @@
 members:
-  - intention
+  - intended
 roles:
   - agent
   - patient
 frames:
   - example: Book is intended for mature audiences
-    params:
-      - polarity: -
-        tense: past
     syntax:
       - pos: NP
         role: agent
-      - pos: AUX
+      - pos: LEX
         value: is
       - pos: VERB
-      - pos: ADP
+      - pos: LEX
         value: for
       - pos: LEX
         role: patient
