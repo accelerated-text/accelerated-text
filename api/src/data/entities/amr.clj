@@ -23,7 +23,7 @@
          (map io/file))))
 
 (defn list-amr-files []
-  (list-package (or (System/getenv "GRAMMAR_PACKAGE") "test/resources/grammar/default.yaml")))
+  (list-package (or (System/getenv "GRAMMAR_PACKAGE") "../grammar/all.yaml")))
 
 (defn load-single [id]
   (when-let [f (some #(when (= (name id) (utils/get-name %)) %) (list-amr-files))]
