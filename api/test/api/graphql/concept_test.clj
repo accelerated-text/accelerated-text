@@ -1,10 +1,9 @@
 (ns api.graphql.concept-test
   (:require [api.test-utils :refer [q]]
             [api.db-fixtures :as db]
-            [clojure.test :refer [deftest is use-fixtures]]
-            [data.entities.amr :as amr]))
+            [clojure.test :refer [deftest is use-fixtures]]))
 
-(use-fixtures :each db/clean-db amr/initialize)
+(use-fixtures :each db/clean-db db/init-amr)
 
 (deftest ^:integration concepts-test
   (let [query "{concepts{id concepts{id label roles{id fieldType fieldLabel} dictionaryItem{name phrases{text}} helpText}}}"
