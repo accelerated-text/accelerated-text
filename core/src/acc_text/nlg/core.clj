@@ -1,6 +1,6 @@
 (ns acc-text.nlg.core
   (:require [acc-text.nlg.gf.generator :as generator]
-            [acc-text.nlg.gf.grammar.cf :as cf-grammar]
+            [acc-text.nlg.gf.grammar :as grammar]
             [acc-text.nlg.utils.nlp :as nlp]
             [clojure.string :as str]))
 
@@ -13,7 +13,7 @@
                placeholders)))
 
 (defn generate-text [semantic-graph context data]
-  (->> (cf-grammar/build semantic-graph context)
+  (->> (grammar/build :grammar :1 semantic-graph context)
        (generator/generate)
        (map #(realize % data))
        (map nlp/process-sentence)

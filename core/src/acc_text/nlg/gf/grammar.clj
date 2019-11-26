@@ -1,56 +1,40 @@
 (ns acc-text.nlg.gf.grammar
-  (:require [clojure.spec.alpha :as s]
-            [clojure.spec.gen.alpha :as gen]))
+  (:require [acc-text.nlg.gf.grammar.impl :as impl]
+            [acc-text.nlg.semantic-graph :as sg]
+            [clojure.spec.alpha :as s]))
 
-(defn short-string [] (gen/such-that #(> 15 (count %) 0) (gen/string-alphanumeric)))
+(s/def ::module keyword?)
 
-(defn short-keyword-gen [] (s/with-gen keyword? #(gen/fmap keyword (short-string))))
+(s/def ::instance keyword?)
 
-(defn short-string-gen [] (s/with-gen string? short-string))
+(s/def ::flags (s/map-of #{:startcat} string? :min-count 1))
 
+(s/def :expression/type #{:operator :function :literal})
 
-;; common
+(s/def :expression/value string?)
 
-(s/def ::module-name (short-string-gen))
-(s/def ::category (short-keyword-gen))
+(s/def ::expression (s/keys :req-un [:expression/type :expression/value]))
 
+(s/def :function/name string?)
 
-;; abstract
+(s/def :function/params (s/coll-of string?))
 
-(s/def ::flags (s/map-of (short-keyword-gen) (short-keyword-gen)))
+(s/def :function/body (s/coll-of ::expression))
 
-(s/def ::categories (s/coll-of ::category :min-count 1 :gen-max 4 :kind set?))
+(s/def :function/ret #{[:s "Str"]})
 
-(s/def ::arguments (s/coll-of ::category :min-count 1 :gen-max 4))
+(s/def ::function (s/keys :req-un [:function/name :function/params :function/body :function/ret]))
 
-(s/def ::return ::category)
+(s/def ::syntax (s/coll-of ::function))
 
-(s/def ::function (s/keys :req [::name ::arguments ::return]))
+(s/def ::grammar (s/keys :req [::module ::instance ::flags ::syntax]))
 
-(s/def ::functions (s/coll-of ::function :min-count 1))
+(defn build [module instance semantic-graph context]
+  (impl/build-grammar module instance semantic-graph context))
 
-(s/def ::abstract-grammar (s/keys :req [::module-name ::flags ::categories ::functions]))
-
-;; concrete
-
-(s/def ::body (s/coll-of (s/or :literal (short-string-gen) :variable (short-keyword-gen))))
-
-(s/def ::of ::module-name)
-
-(s/def ::function-name (short-string-gen))
-
-(s/def ::lin-types
-  (s/map-of ::category
-            (s/cat :var-name #{:s :n} :var-type #{:str :number})))
-
-(s/def ::value (short-string-gen))
-
-(s/def ::role #{:literal :function})
-
-(s/def ::syntax (s/keys :req [::role ::value]))
-
-(s/def ::lin-function (s/keys :req [::function-name ::syntax]))
-
-(s/def ::lins (s/coll-of ::lin-function))
-
-(s/def ::concrete-grammar (s/keys :req [::module-name ::of ::lin-types ::lins]))
+(s/fdef build
+        :args (s/cat :module ::module
+                     :instance ::instance
+                     :semantic-graph ::sg/graph
+                     :context map?)
+        :ret ::grammar)

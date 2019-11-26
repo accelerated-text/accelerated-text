@@ -7,8 +7,8 @@
 
 (s/def ::name (s/and string? #(not (string/blank? %))))
 
-(s/def ::type (s/or :valid #{:document-plan :segment :data :quote :dictionary-item}
-                    :invalid #{:amr :unknown}))
+(s/def ::type (s/or :valid #{:document-plan :segment :data :quote :dictionary-item :amr :shuffle :sequence}
+                    :invalid #{:unknown}))
 
 (s/def ::concept (s/keys :req [::id ::type]))
 
@@ -16,7 +16,7 @@
 
 (s/def ::role
   (s/or :core (s/with-gen keyword? #(gen/fmap (fn [idx] (keyword (str "ARG" (Math/abs ^Integer idx)))) (gen/int)))
-        :non-core #{:segment :instance :modifier}
+        :non-core #{:segment :instance :modifier :item}
         :invalid #{:unknown}))
 
 (s/def ::from keyword?)
@@ -33,17 +33,3 @@
 (s/def ::relations (s/coll-of ::relation))
 
 (s/def ::graph (s/keys :req [::relations ::concepts]))
-
-(s/def ::document-plan-id string?)
-
-(s/def ::dictionary map?)
-
-(s/def ::reader-profile keyword?)
-
-(s/def ::reader-profiles (s/coll-of ::reader-profile))
-
-(s/def ::amr map?)
-
-(s/def ::context (s/keys :req [::document-plan-id ::dictionary ::reader-profile ::amr]))
-
-(s/def ::instance (s/keys :req [::id ::context ::graph]))
