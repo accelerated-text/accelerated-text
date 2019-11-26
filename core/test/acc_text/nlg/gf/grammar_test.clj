@@ -91,11 +91,11 @@
                                 :ret    [:s "Str"]}]}
          (build-grammar
            "author-amr"
-           {:amr        {:author {:frames [{:syntax [{:pos :NP :value "co-Agent"}
+           {:amr        {:author {:frames [{:syntax [{:pos :NP :role "co-Agent"}
                                                      {:pos :LEX :value "is"}
                                                      {:pos :VERB}
                                                      {:pos :ADP :value "by"}
-                                                     {:pos :NP :value "Agent"}]}]}}
+                                                     {:pos :NP :role "Agent"}]}]}}
             :dictionary {"good"    ["excellent"]
                          "written" ["authored"]}})))
   (is (= #::grammar{:module   :module
@@ -159,15 +159,15 @@
                                 :ret    [:s "Str"]}]}
          (build-grammar
            "author-amr-with-adj"
-           {:amr        {:author {:frames [{:syntax [{:pos :NP :value "Agent"}
+           {:amr        {:author {:frames [{:syntax [{:pos :NP :role "Agent"}
                                                      {:pos :LEX :value "is"}
                                                      {:pos :LEX :value "the author of"}
-                                                     {:pos :NP :value "co-Agent"}]}
-                                           {:syntax [{:pos :NP :value "co-Agent"}
+                                                     {:pos :NP :role "co-Agent"}]}
+                                           {:syntax [{:pos :NP :role "co-Agent"}
                                                      {:pos :LEX :value "is"}
                                                      {:pos :VERB}
                                                      {:pos :ADP :value "by"}
-                                                     {:pos :NP :value "Agent"}]}]}}
+                                                     {:pos :NP :role "Agent"}]}]}}
             :dictionary {"good"    ["excellent"]
                          "written" ["authored"]}})))
   (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
