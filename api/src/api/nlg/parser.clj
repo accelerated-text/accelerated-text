@@ -78,6 +78,11 @@
                                 :role :modifier})
                         children)})
 
+(defmethod build-semantic-graph :Dictionary-item-modifier [node]
+  (-> node
+      (assoc :type "Dictionary-item")
+      (build-semantic-graph)))
+
 (defmethod build-semantic-graph :Sequence [{:keys [id children]}]
   #::sg{:concepts  [#::sg{:id   id
                           :type :sequence}]
@@ -105,10 +110,42 @@
                                 :role :synonym})
                         children)})
 
-(defmethod build-semantic-graph :Dictionary-item-modifier [node]
-  (-> node
-      (assoc :type "Dictionary-item")
-      (build-semantic-graph)))
+(defmethod build-semantic-graph :If-then-else [{:keys [id conditions]}]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :condition}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :statement})
+                        conditions)})
+
+(defmethod build-semantic-graph :If-condition [{id :id {predicate-id :id} :condition {expression-id :id} :thenExpression}]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :if-statement}]
+        :relations [#::sg{:from id
+                          :to   predicate-id
+                          :role :predicate}
+                    #::sg{:from id
+                          :to   expression-id
+                          :role :expression}]})
+
+(defmethod build-semantic-graph :Default-condition [{id :id {expression-id :id} :thenExpression}]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :default-statement}]
+        :relations [#::sg{:from id
+                          :to   expression-id
+                          :role :expression}]})
+
+(defmethod build-semantic-graph :Value-comparison [{:keys [id operator value1 value2]}]
+  #::sg{:concepts  [#::sg{:id    id
+                          :value operator
+                          :type  :comparator}]
+        :relations [#::sg{:from id
+                          :to   (:id value1)
+                          :role :comparable}
+                    #::sg{:from id
+                          :to   (:id value2)
+                          :role :comparable}]})
 
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
@@ -118,13 +155,21 @@
                                    (assoc role :children (list child)))
                                  (:roles node) (rest children)))
     :Dictionary-item-modifier (assoc node :child (first children))
+    :If-then-else (assoc node :conditions children)
+    :If-condition (assoc node :condition (first children) :thenExpression (second children))
+    :Default-condition (assoc node :thenExpression (first children))
+    :Value-comparison (assoc node :value1 (first children) :value2 (second children))
     (assoc node :children children)))
 
 (defn get-children [{type :type :as node}]
   (case (keyword type)
     :Document-plan (:segments node)
     :AMR (cons (:dictionaryItem node) (mapcat :children (:roles node)))
-    :Dictionary-item-modifier (some-> node :child vector)
+    :Dictionary-item-modifier [(:child node)]
+    :If-then-else (:conditions node)
+    :If-condition [(:condition node) (:thenExpression node)]
+    :Default-condition [(:thenExpression node)]
+    :Value-comparison [(:value1 node) (:value2 node)]
     (:children node)))
 
 (defn branch? [{type :type :as node}]
@@ -134,6 +179,10 @@
       :Document-plan (seq (:segments node))
       :AMR (or (some? (:dictionaryItem node)) (seq (:roles node)))
       :Dictionary-item-modifier (some? (:child node))
+      :If-then-else (seq (:conditions node))
+      :If-condition (some some? [(:condition node) (:thenExpression node)])
+      :Default-condition (some? (:thenExpression node))
+      :Value-comparison (some some? [(:value1 node) (:value2 node)])
       (seq (:children node)))))
 
 (defn make-zipper [root]
