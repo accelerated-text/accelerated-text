@@ -38,7 +38,7 @@
   (doseq [f (list-amr-files)]
     (let [{:keys [members]} (utils/read-yaml f)
           amr-key (utils/get-name f)]
-      (when-not (dictionary/read-dictionary-item amr-key)
+      (when-not (dictionary/get-dictionary-item amr-key)
         (dictionary/create-dictionary-item
          {:key amr-key
           :name amr-key

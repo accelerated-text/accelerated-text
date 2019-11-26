@@ -1,7 +1,8 @@
 (ns data.amr-test
   (:require [clojure.java.io :as io]
             [clojure.test :refer [deftest is]]
-            [data.entities.amr :as amr]))
+            [data.entities.amr :as amr]
+            [data.entities.dictionary :as dictionary]))
 
 (deftest amr-reading
   (is (= {:id                 "author"
@@ -54,3 +55,8 @@
                                                 {:pos :PREP :value "with"}
                                                 {:pos :NP :value "Instrument"}]}]}
          (amr/read-amr (io/file "test/resources/grammar/other/cut.yaml")))))
+
+(deftest ^:integration amr-init
+  (is (nil? (dictionary/get-dictionary-item "release")))
+  (amr/initialize)
+  (is (dictionary/get-dictionary-item "release")))
