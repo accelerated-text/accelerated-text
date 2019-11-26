@@ -3,7 +3,7 @@
             [jsonista.core :as json]
             [org.httpkit.client :as client]))
 
-(defn compile [module abstract-grammar concrete-grammar]
+(defn compile-request [module abstract-grammar concrete-grammar]
   (let [request-url (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
         request-content {:name     (name module)
                          :abstract {:content abstract-grammar}

@@ -58,7 +58,7 @@
                          syntax))))
 
 (defn generate [{::grammar/keys [module] :as grammar}]
-  (-> (service/compile module (->abstract grammar) (->concrete grammar))
+  (-> (service/compile-request module (->abstract grammar) (->concrete grammar))
       (get :body)
       (json/read-value utils/read-mapper)
       (get-in [:results 0 1])
