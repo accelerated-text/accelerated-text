@@ -118,7 +118,6 @@
                                   (some? value)             literal-val
                                   :else                     {:type  :literal
                                                              :value "{{...}}"}))))))
-
      :ret    [:s "Str"]}))
 
 (defmethod build-function :sequence [concept children _ _]

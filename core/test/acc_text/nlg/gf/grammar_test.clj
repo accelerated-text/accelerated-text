@@ -79,7 +79,7 @@
                                 :ret    [:s "Str"]}
                                {:name   "Amr03"
                                 :params []
-                                :body   [{:type :literal :value "co-Agent"}
+                                :body   [{:type :literal :value "{{co-Agent}}"}
                                          {:type :operator :value "++"}
                                          {:type :literal :value "is"}
                                          {:type :operator :value "++"}
@@ -87,7 +87,7 @@
                                          {:type :operator :value "++"}
                                          {:type :literal :value "by"}
                                          {:type :operator :value "++"}
-                                         {:type :literal :value "Agent"}]
+                                         {:type :literal :value "{{Agent}}"}]
                                 :ret    [:s "Str"]}]}
          (build-grammar
            "author-amr"
