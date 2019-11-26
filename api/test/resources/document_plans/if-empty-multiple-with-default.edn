@@ -1,0 +1,19 @@
+{:type     "Document-plan"
+ :segments [{:children [{:type       "If-then-else"
+                         :conditions [{:type           "If-condition"
+                                       :thenExpression {:type "Quote" :srcId "lES}(%R^#1zEpFd3Vcw" :text "some text"}
+                                       :condition      {:type     "Value-comparison"
+                                                        :srcId    "EX)|J$a]y7L0icb2/:Ij"
+                                                        :operator "="}}
+                                      {:type           "If-condition"
+                                       :thenExpression nil
+                                       :condition      {:type     "Value-comparison"
+                                                        :srcId    "n{TdK8oM!0gUniy.FTGw"
+                                                        :operator "="}}
+                                      {:type           "Default-condition"
+                                       :thenExpression {:type "Quote" :srcId "3Aa*8?Iii/Q7/P#Ghkn" :text "some text"}
+                                       :condition      true}]
+                         :srcId      "WF;;]?.W%TMW83H3HHN9"}]
+             :type     "Segment"
+             :srcId    "jy`}M]HI-`s~uoEESHG["}]
+ :srcId    "e67N6}91~Z8I8u*0JnXP"}
