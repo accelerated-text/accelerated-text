@@ -7,7 +7,7 @@ frames:
   - example: Harry sees Sally.
     syntax:
       - pos: NP
-        value: Agent
+        role: Agent
       - pos: VERB
       - pos: NP
-        value: co-Agent
+        role: co-Agent

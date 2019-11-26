@@ -7,7 +7,7 @@ frames:
   - example: X is the author of Y
     syntax:
       - pos: NP
-        value: Agent
+        role: Agent
       - pos: LEX
         value: is
       - pos: LEX
@@ -15,15 +15,15 @@ frames:
       - pos: ADP
         value: of
       - pos: NP
-        value: co-Agent
+        role: co-Agent
   - example: Y is written by X
     syntax:
       - pos: NP
-        value: co-Agent
+        role: co-Agent
       - pos: LEX
         value: is
       - pos: VERB
       - pos: ADP
         value: by
       - pos: NP
-        value: Agent
+        role: Agent
