@@ -12,7 +12,7 @@ frames:
         value: is
       - pos: LEX
         value: the author
-      - pos: PREP
+      - pos: ADP
         value: of
       - pos: NP
         value: co-Agent
@@ -23,7 +23,7 @@ frames:
       - pos: LEX
         value: is
       - pos: VERB
-      - pos: PREP
+      - pos: ADP
         value: by
       - pos: NP
         value: Agent

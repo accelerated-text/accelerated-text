@@ -11,7 +11,7 @@ frames:
       - pos: NP
         value: Theme
       - pos: VERB
-      - pos: PREP
+      - pos: ADP
         value: in
       - pos: NP
         value: Category

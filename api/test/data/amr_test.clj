@@ -17,7 +17,7 @@
                                 :syntax   [{:pos :NP :value "co-Agent"}
                                            {:pos :LEX :value "is"}
                                            {:pos :VERB}
-                                           {:pos :PREP :value "by"}
+                                           {:pos :ADP :value "by"}
                                            {:pos :NP :value "Agent"}]}]}
          (amr/read-amr (io/file "test/resources/grammar/library/author.yaml"))))
   (is (= {:id                 "see"
@@ -49,8 +49,8 @@
                                 :syntax        [{:pos :NP :value "Agent"}
                                                 {:pos :VERB}
                                                 {:pos :NP :value "Patient"}
-                                                {:pos :PREP :value "to into"}
+                                                {:pos :ADP :value "into"}
                                                 {:pos :NP :value "Result"}
-                                                {:pos :PREP :value "with"}
+                                                {:pos :ADP :value "with"}
                                                 {:pos :NP :value "Instrument"}]}]}
          (amr/read-amr (io/file "test/resources/grammar/other/cut.yaml")))))

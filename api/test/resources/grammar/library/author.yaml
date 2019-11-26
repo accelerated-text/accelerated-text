@@ -21,7 +21,7 @@ frames:
       - pos: LEX
         value: is
       - pos: VERB
-      - pos: PREP
+      - pos: ADP
         value: by
       - pos: NP
         value: Agent

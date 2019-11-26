@@ -12,14 +12,14 @@ frames:
       - pos: LEX
         value: was
       - pos: VERB
-      - pos: LEX
+      - pos: ADP
         value: in
       - pos: NP
         value: Date
   - example: Published in 2015
     syntax:
       - pos: VERB
-      - pos: LEX
+      - pos: ADP
         value: in
       - pos: NP
         value: Date
