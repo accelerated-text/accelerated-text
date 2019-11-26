@@ -3,9 +3,7 @@
             [acc-text.nlg.gf.service :as service]
             [acc-text.nlg.utils :as utils]
             [clojure.string :as str]
-            [clojure.tools.logging :as log]
-            [jsonista.core :as json]
-            [org.httpkit.client :as client]))
+            [jsonista.core :as json]))
 
 (defn join-statements [xs]
   (str/join ";\n        " xs))
