@@ -10,3 +10,5 @@ RUN clojure -R:test || true
 
 COPY ./api /usr/src/app
 COPY ./core /usr/src/core
+
+CMD ["clojure", "-m", "api.server"]
