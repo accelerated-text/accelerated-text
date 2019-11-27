@@ -89,36 +89,35 @@
   (let [function-concept (some (fn [[role concept]]
                                  (when (= :function role) concept))
                                (zipmap (map ::sg/role relations) children))
-        role-map         (reduce (fn [m [{role ::sg/role {attr-name ::sg/name} ::sg/attributes} concept]]
-                                   (cond-> m
-                                     (and (not= :function role)
-                                          (some? attr-name)) (assoc (str/lower-case attr-name) (concept->name concept))))
-                                 {}
-                                 (zipmap relations children))]
+        role-map (reduce (fn [m [{role ::sg/role {attr-name ::sg/name} ::sg/attributes} concept]]
+                           (cond-> m
+                                   (and (not= :function role)
+                                        (some? attr-name)) (assoc (str/lower-case attr-name) (concept->name concept))))
+                         {}
+                         (zipmap relations children))]
     {:name   (concept->name concept)
      :params (map concept->name children)
      :body   (variants
                (for [syntax (->> (keyword value) (get amr) (:frames) (map :syntax))]
                  (interpose {:type  :operator
                              :value "++"}
-
                             (for [{value :value pos :pos role :role} syntax]
-                              (let [literal-val {:type :literal :value value}]
+                              (let [role-key (when (some? role) (str/lower-case role))]
                                 (cond
-                                  (and (some? role)
-                                       (contains? role-map (str/lower-case role))) {:type  :function
-                                                                                    :value (get role-map (str/lower-case role))}
-                                  (some? role)               {:type  :literal
-                                                              :value (format "{{%s}}" role)}
+                                  (contains? role-map role-key) {:type  :function
+                                                                 :value (get role-map role-key)}
+                                  (some? role) {:type  :literal
+                                                :value (format "{{%s}}" role)}
                                   (and (some? function-concept)
-                                       (= pos :VERB))       {:type  :function
-                                                             :value (concept->name function-concept)}
-                                  (= pos :ADP)              literal-val
-                                  ;;FIXME ideally we should not have entries which are not explicitly
-                                  ;;specified via POS or other means
-                                  (some? value)             literal-val
-                                  :else                     {:type  :literal
-                                                             :value "{{...}}"}))))))
+                                       (= pos :VERB)) {:type  :function
+                                                       :value (concept->name function-concept)}
+                                  (or (= pos :ADP)
+                                      ;;FIXME ideally we should not have entries which are not explicitly
+                                      ;;specified via POS or other means
+                                      (some? value)) {:type  :literal
+                                                      :value value}
+                                  :else {:type  :literal
+                                         :value "{{...}}"}))))))
      :ret    [:s "Str"]}))
 
 (defmethod build-function :sequence [concept children _ _]
