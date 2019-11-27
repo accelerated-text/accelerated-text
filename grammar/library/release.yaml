@@ -10,7 +10,7 @@ frames:
       - pos: NP
         role: Object
       - pos: AUX
-        value: is
+        value: is # TODO: should be `was`
       - pos: VERB
       - pos: ADP
         value: in
