@@ -12,7 +12,12 @@
      :frames             (map (fn [{:keys [syntax example]}]
                                 {:examples [example]
                                  :syntax   (for [instance syntax]
-                                             (into {} (update instance :pos keyword)))})
+                                             (reduce-kv (fn [m k v]
+                                                          (assoc m k (cond-> v
+                                                                             (not (contains? #{:value :role} k))
+                                                                             (keyword))))
+                                                        {}
+                                                        (into {} instance)))})
                               frames)}))
 
 (defn list-package [package]
