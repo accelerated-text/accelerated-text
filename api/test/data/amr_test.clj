@@ -11,12 +11,12 @@
                                {:type "co-Agent"}]
           :frames             [{:examples ["X is the author of Y"]
                                 :syntax   [{:pos :NP :role "Agent"}
-                                           {:pos :LEX :value "is"}
+                                           {:pos :AUX :value "is"}
                                            {:pos :LEX :value "the author of"}
                                            {:pos :NP :role "co-Agent"}]}
                                {:examples ["Y is written by X"]
                                 :syntax   [{:pos :NP :role "co-Agent"}
-                                           {:pos :LEX :value "is"}
+                                           {:pos :AUX :value "is"}
                                            {:pos :VERB}
                                            {:pos :ADP :value "by"}
                                            {:pos :NP :role "Agent"}]}]}
@@ -62,7 +62,7 @@
           :frames             [{:examples ["Y was written by X"]
                                 :syntax   [{:pos  :NP
                                             :role "co-Agent"}
-                                           {:pos   :LEX
+                                           {:pos   :AUX
                                             :value "is"}
                                            {:pos    :VERB
                                             :number :singular
