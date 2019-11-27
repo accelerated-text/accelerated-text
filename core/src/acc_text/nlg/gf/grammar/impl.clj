@@ -23,6 +23,10 @@
                      :value "|"})
          (flatten))))
 
+(defn attach-selectors [m attrs]
+  (let [selectors (select-keys attrs [:tense :number])]
+    (cond-> m (not (empty? selectors)) (assoc :selectors selectors))))
+
 (defmulti build-function (fn [concept _ _ _] (::sg/type concept)))
 
 (defmethod build-function :document-plan [concept children _ _]
@@ -101,23 +105,25 @@
                (for [syntax (->> (keyword value) (get amr) (:frames) (map :syntax))]
                  (interpose {:type  :operator
                              :value "++"}
-                            (for [{value :value pos :pos role :role} syntax]
+                            (for [{value :value pos :pos role :role :as attrs} syntax]
                               (let [role-key (when (some? role) (str/lower-case role))]
-                                (cond
-                                  (contains? role-map role-key) {:type  :function
-                                                                 :value (get role-map role-key)}
-                                  (some? role) {:type  :literal
-                                                :value (format "{{%s}}" role)}
-                                  (and (some? function-concept)
-                                       (= pos :VERB)) {:type  :function
-                                                       :value (concept->name function-concept)}
-                                  (or (= pos :ADP)
-                                      ;;FIXME ideally we should not have entries which are not explicitly
-                                      ;;specified via POS or other means
-                                      (some? value)) {:type  :literal
-                                                      :value value}
-                                  :else {:type  :literal
-                                         :value "{{...}}"}))))))
+                                (attach-selectors
+                                  (cond
+                                    (contains? role-map role-key) {:type  :function
+                                                                   :value (get role-map role-key)}
+                                    (some? role) {:type  :literal
+                                                  :value (format "{{%s}}" role)}
+                                    (and (some? function-concept)
+                                         (= pos :VERB)) {:type  :function
+                                                         :value (concept->name function-concept)}
+                                    (or (= pos :ADP)
+                                        ;;FIXME ideally we should not have entries which are not explicitly
+                                        ;;specified via POS or other means
+                                        (some? value)) {:type  :literal
+                                                        :value value}
+                                    :else {:type  :literal
+                                           :value "{{...}}"})
+                                  attrs))))))
      :ret    [:s "Str"]}))
 
 (defmethod build-function :sequence [concept children _ _]
