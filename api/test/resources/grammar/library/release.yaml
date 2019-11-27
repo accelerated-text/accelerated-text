@@ -9,8 +9,8 @@ frames:
     syntax:
       - pos: NP
         role: Object
-      - pos: LEX
-        value: was
+      - pos: AUX
+        value: is
       - pos: VERB
       - pos: ADP
         value: in

@@ -8,7 +8,7 @@ frames:
     syntax:
       - pos: NP
         role: agent
-      - pos: LEX
+      - pos: AUX
         value: is
       - pos: VERB
       - pos: LEX
