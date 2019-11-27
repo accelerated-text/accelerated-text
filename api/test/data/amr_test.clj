@@ -6,7 +6,7 @@
 
 (deftest amr-reading
   (is (= {:id                 "author"
-          :dictionary-item-id "written"
+          :dictionary-item-id "author"
           :thematic-roles     [{:type "Agent"}
                                {:type "co-Agent"}]
           :frames             [{:examples ["X is the author of Y"]
@@ -47,14 +47,31 @@
                                {:type "Source"}
                                {:type "Result"}]
           :frames             [{:examples ["Carol cut the envelope into pieces with a knife."]
-                                :syntax        [{:pos :NP :role "Agent"}
-                                                {:pos :VERB}
-                                                {:pos :NP :role "Patient"}
-                                                {:pos :ADP :value "into"}
-                                                {:pos :NP :role "Result"}
-                                                {:pos :ADP :value "with"}
-                                                {:pos :NP :role "Instrument"}]}]}
-         (amr/read-amr (io/file "test/resources/grammar/other/cut.yaml")))))
+                                :syntax   [{:pos :NP :role "Agent"}
+                                           {:pos :VERB}
+                                           {:pos :NP :role "Patient"}
+                                           {:pos :ADP :value "into"}
+                                           {:pos :NP :role "Result"}
+                                           {:pos :ADP :value "with"}
+                                           {:pos :NP :role "Instrument"}]}]}
+         (amr/read-amr (io/file "test/resources/grammar/other/cut.yaml"))))
+  (is (= {:id                 "author-with-params"
+          :dictionary-item-id "author-with-params"
+          :thematic-roles     [{:type "Agent"}
+                               {:type "co-Agent"}]
+          :frames             [{:examples ["Y was written by X"]
+                                :syntax   [{:pos  :NP
+                                            :role "co-Agent"}
+                                           {:pos   :LEX
+                                            :value "is"}
+                                           {:pos    :VERB
+                                            :number :singular
+                                            :tense  :past}
+                                           {:pos   :ADP
+                                            :value "by"}
+                                           {:pos  :NP
+                                            :role "Agent"}]}]}
+         (amr/read-amr (io/file "test/resources/grammar/other/author-with-params.yaml")))))
 
 (deftest ^:integration amr-init
   (is (nil? (dictionary/get-dictionary-item "release")))

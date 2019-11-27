@@ -13,7 +13,9 @@
 
 (s/def :expression/value string?)
 
-(s/def ::expression (s/keys :req-un [:expression/type :expression/value]))
+(s/def :expression/selectors (s/map-of #{:tense :number} keyword?))
+
+(s/def ::expression (s/keys :req-un [:expression/type :expression/value :expression/selectors]))
 
 (s/def :function/name string?)
 

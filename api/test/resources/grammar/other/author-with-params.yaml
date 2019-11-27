@@ -1,0 +1,19 @@
+members:
+  - written
+roles:
+  - Agent
+  - co-Agent
+frames:
+  - example: Y was written by X
+    syntax:
+      - pos: NP
+        role: co-Agent
+      - pos: LEX
+        value: is
+      - pos: VERB
+        tense: past
+        number: singular
+      - pos: ADP
+        value: by
+      - pos: NP
+        role: Agent

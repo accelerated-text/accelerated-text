@@ -5,16 +5,20 @@
             [data.entities.dictionary :as dictionary]))
 
 (defn read-amr [f]
-  (let [{:keys [members roles frames]} (utils/read-yaml f)]
+  (let [{:keys [roles frames]} (utils/read-yaml f)]
     {:id                 (utils/get-name f)
      :dictionary-item-id (utils/get-name f)
      :thematic-roles     (map (fn [role] {:type role}) roles)
      :frames             (map (fn [{:keys [syntax example]}]
                                 {:examples [example]
                                  :syntax   (for [instance syntax]
-                                             (into {} (update instance :pos keyword)))})
+                                             (reduce-kv (fn [m k v]
+                                                          (assoc m k (cond-> v
+                                                                             (not (contains? #{:value :role} k))
+                                                                             (keyword))))
+                                                        {}
+                                                        (into {} instance)))})
                               frames)}))
-
 
 (defn list-package [package]
   (let [abs-path (.getParent (io/file package))]
@@ -40,7 +44,6 @@
           amr-key (utils/get-name f)]
       (when-not (dictionary/get-dictionary-item amr-key)
         (dictionary/create-dictionary-item
-         {:key amr-key
-          :name amr-key
-          :phrases members})))))
-
+          {:key     amr-key
+           :name    amr-key
+           :phrases members})))))

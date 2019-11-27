@@ -83,7 +83,7 @@
                                          {:type :operator :value "++"}
                                          {:type :literal :value "is"}
                                          {:type :operator :value "++"}
-                                         {:type :literal :value "{{...}}"}
+                                         {:type :literal :value "{{...}}" :selectors {:number :singular :tense :past}}
                                          {:type :operator :value "++"}
                                          {:type :literal :value "by"}
                                          {:type :operator :value "++"}
@@ -93,7 +93,9 @@
            "author-amr"
            {:amr        {:author {:frames [{:syntax [{:pos :NP :role "co-Agent"}
                                                      {:pos :LEX :value "is"}
-                                                     {:pos :VERB}
+                                                     {:pos    :VERB
+                                                      :tense  :past
+                                                      :number :singular}
                                                      {:pos :ADP :value "by"}
                                                      {:pos :NP :role "Agent"}]}]}}
             :dictionary {"good"    ["excellent"]
