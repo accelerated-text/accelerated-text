@@ -1,7 +1,7 @@
 (ns acc-text.nlg.conditions
   (:require [acc-text.nlg.semantic-graph :as sg]
-            [clojure.tools.logging :as log]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]))
 
 (defn operator->fn [x]
   (case x
@@ -39,12 +39,12 @@
               (let [comparator (get concept-map to)
                     comparables (map #(get concept-map (::sg/to %))
                                      (get relation-map to))]
-                (assoc m from (comparison
-                                (get comparator ::sg/value)
-                                (for [{::sg/keys [type value]} comparables]
-                                  (case type
-                                    :quote value
-                                    :data (get data value)
-                                    nil))))))
+                (assoc m from (when (every? #(contains? #{:data :quote} (::sg/type %)) comparables)
+                                (comparison
+                                  (get comparator ::sg/value)
+                                  (for [{::sg/keys [type value]} comparables]
+                                    (case type
+                                      :quote value
+                                      :data (get data value))))))))
             {}
             (filter #(= :predicate (::sg/role %)) relations))))
