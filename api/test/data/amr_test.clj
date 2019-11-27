@@ -6,7 +6,7 @@
 
 (deftest amr-reading
   (is (= {:id                 "author"
-          :dictionary-item-id "written"
+          :dictionary-item-id "author"
           :thematic-roles     [{:type "Agent"}
                                {:type "co-Agent"}]
           :frames             [{:examples ["X is the author of Y"]
