@@ -116,11 +116,8 @@
                                     (and (some? function-concept)
                                          (= pos :VERB)) {:type  :function
                                                          :value (concept->name function-concept)}
-                                    (or (= pos :ADP)
-                                        ;;FIXME ideally we should not have entries which are not explicitly
-                                        ;;specified via POS or other means
-                                        (some? value)) {:type  :literal
-                                                        :value value}
+                                    (some? value) {:type  :literal
+                                                   :value value}
                                     :else {:type  :literal
                                            :value "{{...}}"})
                                   attrs))))))
