@@ -13,7 +13,7 @@
 
 (s/def :expression/value string?)
 
-(s/def :expression/selectors (s/map-of keyword? keyword?))
+(s/def :expression/selectors (s/map-of #{:tense :number} keyword?))
 
 (s/def ::expression (s/keys :req-un [:expression/type :expression/value :expression/selectors]))
 
