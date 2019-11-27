@@ -115,7 +115,7 @@
                                                   :value (format "{{%s}}" role)}
 
                                     (= pos :AUX) {:type :function
-                                                  :value "(copola Sg)"}
+                                                  :value "(copula Sg)"}
                                     (and (some? function-concept)
                                          (= pos :VERB)) {:type  :function
                                                          :value (concept->name function-concept)}
