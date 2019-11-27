@@ -113,6 +113,9 @@
                                                                    :value (get role-map role-key)}
                                     (some? role) {:type  :literal
                                                   :value (format "{{%s}}" role)}
+
+                                    (= pos :AUX) {:type :function
+                                                  :value "(copola Sg)"}
                                     (and (some? function-concept)
                                          (= pos :VERB)) {:type  :function
                                                          :value (concept->name function-concept)}

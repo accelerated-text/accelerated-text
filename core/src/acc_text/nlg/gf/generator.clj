@@ -76,13 +76,14 @@
             "fun" (parse-fun syntax))))
 
 (defn ->concrete [{::grammar/keys [instance module syntax]}]
-  (format "concrete %s of %s = {%s\n}"
+  (format "concrete %s of %s = open %s in {%s\n}"
           (str (name module) (name instance))
           (name module)
+          "LangFunctionsEng"
           (join-body
-            "param" (parse-param syntax)
-            "lincat" (parse-lincat syntax)
-            "lin" (parse-lin syntax))))
+           "param" (parse-param syntax)
+           "lincat" (parse-lincat syntax)
+           "lin" (parse-lin syntax))))
 
 (defn generate [{::grammar/keys [module] :as grammar}]
   (-> (service/compile-request module (->abstract grammar) (->concrete grammar))
