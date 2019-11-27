@@ -5,34 +5,37 @@
             [clojure.string :as str]
             [jsonista.core :as json]))
 
-(defn join-statements [xs]
-  (str/join ";\n        " xs))
+(defn join-body [& args]
+  (->> args
+       (partition 2)
+       (filter (comp seq second))
+       (map #(format "\n    %s\n        %s;" (first %) (str/join ";\n        " (second %))))
+       (str/join)))
 
 (defn escape-string [s]
   (str/replace s #"\"" "\\\\\""))
 
-(defn ->abstract [{::grammar/keys [module flags syntax]}]
-  (format "abstract %s = {\n    flags\n        %s;\n    cat\n        %s;\n    fun\n        %s;\n}"
-          (name module)
-          (join-statements
-            (map (fn [[flag val]]
-                   (format "%s = %s" (name flag) val))
-                 flags))
-          (join-statements
-            (cons (:startcat flags) (mapcat :params syntax)))
-          (join-statements
-            (map-indexed (fn [i {:keys [name params]}]
-                           (format "Function%02d : %s"
-                                   (inc i)
-                                   (str/join " -> " (-> params (vec) (conj name)))))
-                         syntax))))
+(defn parse-flags [flags]
+  (map (fn [[flag val]]
+         (format "%s = %s" (name flag) val))
+       flags))
+
+(defn parse-cat [flags syntax]
+  (cons (:startcat flags) (mapcat :params syntax)))
+
+(defn parse-fun [syntax]
+  (map-indexed (fn [i {:keys [name params]}]
+                 (format "Function%02d : %s"
+                         (inc i)
+                         (str/join " -> " (-> params (vec) (conj name)))))
+               syntax))
 
 (defn get-selectors [syntax]
   (let [selectors (->> syntax (map :body) (apply concat) (map :selectors))
         initial-map (zipmap (mapcat keys selectors) (repeat #{}))]
     (apply merge-with conj initial-map selectors)))
 
-(defn parse-params [syntax]
+(defn parse-param [syntax]
   (map (fn [[k v]]
          (format "%s = %s"
                  (name k)
@@ -64,16 +67,22 @@
                          (if (seq body) (join-function-body body) "\"\"")))
                syntax))
 
+(defn ->abstract [{::grammar/keys [module flags syntax]}]
+  (format "abstract %s = {%s\n}"
+          (name module)
+          (join-body
+            "flags" (parse-flags flags)
+            "cat" (parse-cat flags syntax)
+            "fun" (parse-fun syntax))))
+
 (defn ->concrete [{::grammar/keys [instance module syntax]}]
   (format "concrete %s of %s = {%s\n}"
           (str (name module) (name instance))
           (name module)
-          (->> [["param" (parse-params syntax)]
-                ["lincat" (parse-lincat syntax)]
-                ["lin" (parse-lin syntax)]]
-               (filter (comp seq second))
-               (map #(format "\n    %s\n        %s;" (first %) (join-statements (second %))))
-               (str/join))))
+          (join-body
+            "param" (parse-param syntax)
+            "lincat" (parse-lincat syntax)
+            "lin" (parse-lin syntax))))
 
 (defn generate [{::grammar/keys [module] :as grammar}]
   (-> (service/compile-request module (->abstract grammar) (->concrete grammar))
