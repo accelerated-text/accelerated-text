@@ -24,8 +24,8 @@
          (flatten))))
 
 (defn attach-selectors [m attrs]
-  (let [selectors (select-keys attrs [:tense :number])]
-    (cond-> m (not (empty? selectors)) (assoc :selectors selectors))))
+  (let [selectors (->> (keys attrs) (remove #{:pos :role :value}) (select-keys attrs))]
+    (cond-> m (seq selectors) (assoc :selectors selectors))))
 
 (defmulti build-function (fn [concept _ _ _] (::sg/type concept)))
 
