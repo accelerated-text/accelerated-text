@@ -10,4 +10,6 @@ concrete LangFunctionsEng of LangFunctions = {
     mkCopula : Wrap -> {s : Str} -> Number -> Result = \s1,s2,n -> {
         s = s1.s ++ case n of { Sg => "is"; Pl => "are"} ++ s2.s;
     };
+
+    copula : Number -> Result = \n -> { s = case n of { Sg => "is"; Pl => "are" } };
 }
