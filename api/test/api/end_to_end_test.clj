@@ -68,8 +68,8 @@
   (let [{{result-id :resultId} :body status :status} (generate "author-amr" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Agent is the author of co - Agent."
-             "Co - Agent is {{...}} by Agent."} (get-variants result-id)))))
+    (is (= #{"{{ Agent }} is the author of {{ co - Agent }}."
+             "{{ co - Agent }} is {{...}} by {{ Agent }}."} (get-variants result-id)))))
 
 (deftest ^:integration single-quote-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "single-quote" "books.csv")]

@@ -8,18 +8,18 @@ frames:
   - example: The book was published in 2015
     syntax:
       - pos: NP
-        value: Object
+        role: Object
       - pos: LEX
         value: was
       - pos: VERB
       - pos: ADP
         value: in
       - pos: NP
-        value: Date
+        role: Date
   - example: Published in 2015
     syntax:
       - pos: VERB
       - pos: ADP
         value: in
       - pos: NP
-        value: Date
+        role: Date

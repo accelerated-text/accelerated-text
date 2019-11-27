@@ -9,12 +9,12 @@ frames:
       - pos: LEX
         value: This
       - pos: NP
-        value: Theme
+        role: Theme
       - pos: VERB
       - pos: ADP
         value: in
       - pos: NP
-        value: Category
+        role: Category
       - pos: LEX
         value: genre
     

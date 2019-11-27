@@ -10,34 +10,34 @@
           :thematic-roles     [{:type "Agent"}
                                {:type "co-Agent"}]
           :frames             [{:examples ["X is the author of Y"]
-                                :syntax   [{:pos :NP :value "Agent"}
+                                :syntax   [{:pos :NP :role "Agent"}
                                            {:pos :LEX :value "is"}
                                            {:pos :LEX :value "the author of"}
-                                           {:pos :NP :value "co-Agent"}]}
+                                           {:pos :NP :role "co-Agent"}]}
                                {:examples ["Y is written by X"]
-                                :syntax   [{:pos :NP :value "co-Agent"}
+                                :syntax   [{:pos :NP :role "co-Agent"}
                                            {:pos :LEX :value "is"}
                                            {:pos :VERB}
                                            {:pos :ADP :value "by"}
-                                           {:pos :NP :value "Agent"}]}]}
+                                           {:pos :NP :role "Agent"}]}]}
          (amr/read-amr (io/file "test/resources/grammar/library/author.yaml"))))
   (is (= {:id                 "see"
           :dictionary-item-id "see"
           :thematic-roles     [{:type "Agent"}
                                {:type "co-Agent"}]
           :frames             [{:examples ["Harry sees Sally."]
-                                :syntax   [{:pos :NP :value "Agent"}
+                                :syntax   [{:pos :NP :role "Agent"}
                                            {:pos :VERB}
-                                           {:pos :NP :value "co-Agent"}]}]}
+                                           {:pos :NP :role "co-Agent"}]}]}
          (amr/read-amr (io/file "test/resources/grammar/other/see.yaml"))))
   (is (= {:id                 "provide"
           :dictionary-item-id "provide"
           :thematic-roles     [{:type "Agent"}
                                {:type "co-Agent"}]
           :frames             [{:examples ["Nike provides comfort."]
-                                :syntax   [{:pos :NP :value "Agent"}
+                                :syntax   [{:pos :NP :role "Agent"}
                                            {:pos :VERB}
-                                           {:pos :NP :value "co-Agent"}]}]}
+                                           {:pos :NP :role "co-Agent"}]}]}
          (amr/read-amr (io/file "test/resources/grammar/other/provide.yaml"))))
   (is (= {:id                 "cut"
           :dictionary-item-id "cut"
@@ -47,13 +47,13 @@
                                {:type "Source"}
                                {:type "Result"}]
           :frames             [{:examples ["Carol cut the envelope into pieces with a knife."]
-                                :syntax        [{:pos :NP :value "Agent"}
+                                :syntax        [{:pos :NP :role "Agent"}
                                                 {:pos :VERB}
-                                                {:pos :NP :value "Patient"}
+                                                {:pos :NP :role "Patient"}
                                                 {:pos :ADP :value "into"}
-                                                {:pos :NP :value "Result"}
+                                                {:pos :NP :role "Result"}
                                                 {:pos :ADP :value "with"}
-                                                {:pos :NP :value "Instrument"}]}]}
+                                                {:pos :NP :role "Instrument"}]}]}
          (amr/read-amr (io/file "test/resources/grammar/other/cut.yaml")))))
 
 (deftest ^:integration amr-init

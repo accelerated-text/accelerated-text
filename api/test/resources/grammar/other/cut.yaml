@@ -10,15 +10,15 @@ frames:
   - example: Carol cut the envelope into pieces with a knife.
     syntax:
       - pos: NP
-        value: Agent
+        role: Agent
       - pos: VERB
       - pos: NP
-        value: Patient
+        role: Patient
       - pos: ADP
         value: "into"
       - pos: NP
-        value: Result
+        role: Result
       - pos: ADP
         value: "with"
       - pos: NP
-        value: Instrument
+        role: Instrument
