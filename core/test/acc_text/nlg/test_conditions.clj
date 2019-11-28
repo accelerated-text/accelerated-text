@@ -1,5 +1,6 @@
 (ns acc-text.nlg.test-conditions
   (:require [acc-text.nlg.conditions :as conditions]
+            [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.test-utils :as utils]
             [clojure.test :refer [deftest testing is are]]))
 
@@ -39,10 +40,56 @@
     (is (nil? (conditions/comparison nil [1 2 3])))
     (is (nil? (conditions/comparison "=" [])))))
 
-(deftest condition-evaluation
-  (is (= {:04 true} (conditions/evaluate-conditions
-                      (utils/load-test-semantic-graph "if-equal-condition")
-                      {"publishedDate" "2008"})))
-  (is (= {:04 false} (conditions/evaluate-conditions
-                       (utils/load-test-semantic-graph "if-equal-condition")
-                       {"publishedDate" "2009"}))))
+(deftest condition-selection
+  (is (= #::sg{:concepts  [#::sg{:id   :01
+                                 :type :document-plan}
+                           #::sg{:id   :02
+                                 :type :segment}
+                           #::sg{:id   :03
+                                 :type :condition}
+                           #::sg{:id   :04
+                                 :type :if-statement}
+                           #::sg{:id    :08
+                                 :type  :quote
+                                 :value "The book was published in 2008."}]
+               :relations [#::sg{:from :01
+                                 :role :segment
+                                 :to   :02}
+                           #::sg{:from :02
+                                 :role :instance
+                                 :to   :03}
+                           #::sg{:from :03
+                                 :role :statement
+                                 :to   :04}
+                           #::sg{:from :04
+                                 :role :expression
+                                 :to   :08}]}
+         (conditions/select
+           (utils/load-test-semantic-graph "if-equal-condition")
+           {"publishedDate" "2008"})))
+  (is (= #::sg{:concepts  [#::sg{:id   :01
+                                 :type :document-plan}
+                           #::sg{:id   :02
+                                 :type :segment}
+                           #::sg{:id   :03
+                                 :type :condition}
+                           #::sg{:id   :09
+                                 :type :default-statement}
+                           #::sg{:id    :10
+                                 :type  :quote
+                                 :value "The book was not published in 2008."}]
+               :relations [#::sg{:from :01
+                                 :role :segment
+                                 :to   :02}
+                           #::sg{:from :02
+                                 :role :instance
+                                 :to   :03}
+                           #::sg{:from :03
+                                 :role :statement
+                                 :to   :09}
+                           #::sg{:from :09
+                                 :role :expression
+                                 :to   :10}]}
+         (conditions/select
+           (utils/load-test-semantic-graph "if-equal-condition")
+           {"publishedDate" "2009"}))))
