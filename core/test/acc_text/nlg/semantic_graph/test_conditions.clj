@@ -66,7 +66,7 @@
                                  :to   :08}]}
          (conditions/select
            (utils/load-test-semantic-graph "if-equal-condition")
-           {"publishedDate" "2008"})))
+           {:publishedDate "2008"})))
   (is (= #::sg{:concepts  [#::sg{:id   :01
                                  :type :document-plan}
                            #::sg{:id   :02
@@ -92,4 +92,4 @@
                                  :to   :10}]}
          (conditions/select
            (utils/load-test-semantic-graph "if-equal-condition")
-           {"publishedDate" "2009"}))))
+           {:publishedDate "2009"}))))
