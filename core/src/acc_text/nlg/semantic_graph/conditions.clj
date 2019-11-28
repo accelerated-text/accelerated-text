@@ -53,7 +53,7 @@
     :default-statement true
     nil))
 
-(defn evaluate-conditions [{::sg/keys [concepts relations] :as semantic-graph} data]
+(defn evaluate-conditions [{::sg/keys [concepts relations]} data]
   (let [concept-map (zipmap (map ::sg/id concepts) concepts)
         relation-map (group-by ::sg/from relations)]
     (reduce (fn [m {id ::sg/id}]
@@ -65,13 +65,17 @@
             {}
             (filter #(= :condition (::sg/type %)) concepts))))
 
-(defn find-statement-ids [semantic-graph]
-  (sg-utils/find-child-ids semantic-graph (sg-utils/find-concept-ids semantic-graph :condition)))
-
-(defn select [{concepts ::sg/concepts :as semantic-graph} data]
+(defn get-truthful-statement-ids [semantic-graph data]
   (->> (evaluate-conditions semantic-graph data)
        (vals)
        (remove nil?)
+       (into #{})))
+
+(defn find-statement-ids [semantic-graph]
+  (sg-utils/find-child-ids semantic-graph (sg-utils/find-concept-ids semantic-graph :condition)))
+
+(defn select [semantic-graph data]
+  (->> (get-truthful-statement-ids semantic-graph data)
        (set/difference (find-statement-ids semantic-graph))
        (set/union (sg-utils/find-concept-ids semantic-graph :comparator))
        (sg-utils/prune-branches semantic-graph)))
