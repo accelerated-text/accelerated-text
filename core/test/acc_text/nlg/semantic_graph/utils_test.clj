@@ -4,10 +4,10 @@
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]))
 
-(deftest child-search
+(deftest descendant-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [parent-ids child-ids]
-      (= child-ids (sg-utils/find-children semantic-graph parent-ids))
+      (= child-ids (sg-utils/find-descendant-ids semantic-graph parent-ids))
       #{:01} #{:02 :03 :04 :05 :06 :07}
       #{:02} #{:03 :04 :05 :06 :07}
       #{:03} #{:04 :05 :06 :07}
