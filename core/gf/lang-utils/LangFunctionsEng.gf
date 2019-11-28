@@ -13,11 +13,10 @@ concrete LangFunctionsEng of LangFunctions = ResEng ** open CatEng in {
                   s = case t of {
                     VPres => case n of { Sg => "is"; Pl => "are" };
                     -- Don't know why, but `VPast` is missing
-                    -- VPast => case n of { Sg => "was"; Pl => "were"};
+                    VPast => case n of { Sg => "was"; Pl => "were"};
                     VPPart => case n of { Sg => "was"; Pl => "were"};
-                    VInf => "...";
-                    VPresPart => "..."
-                    
+                    VInf => "be";
+                    VPresPart => "being"
                   }
     };
 
