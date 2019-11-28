@@ -1,4 +1,4 @@
-concrete AuthorshipEng of Authorship = open LangFunctionsEng in {
+concrete AuthorshipEng of Authorship = open LangFunctionsEng, DictEng in {
   lincat
     Sentence, Author, Title, Quality, Event, ModifiedTitle = {s : Str};
 
@@ -8,6 +8,6 @@ concrete AuthorshipEng of Authorship = open LangFunctionsEng in {
     TitleWithAdv adv t = {s = adv.s ++ t.s};
     TitleData = {s = "{{TITLE}}"};
     AuthorData = {s = "{{AUTHOR}}"};
-    Wrote = {s = "authored" | "written"};
+    Wrote = { s = write_V.s ! VPast };
     Good = {s = "excellent" | "good"};
 }

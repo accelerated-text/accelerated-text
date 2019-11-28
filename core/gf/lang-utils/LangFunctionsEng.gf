@@ -1,6 +1,4 @@
-concrete LangFunctionsEng of LangFunctions = {
-  param
-    Number = Sg | Pl;
+concrete LangFunctionsEng of LangFunctions = open ResEng in {
   lincat
     Wrap = {s : Str};
   lin
