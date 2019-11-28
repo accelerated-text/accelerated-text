@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.set :as set]
-            [clojure.string :as str]
-            [clojure.tools.logging :as log]))
+            [clojure.string :as str]))
 
 (defn operator->fn [x]
   (case x
@@ -23,8 +22,8 @@
                          (catch Exception _)) (bigdec)))))
 
 (defn comparison [operator args]
-  (let [operator-fn (operator->fn (log/spy operator))
-        normalized-args (normalize (log/spy args))]
+  (let [operator-fn (operator->fn operator)
+        normalized-args (normalize args)]
     (when (and
             (seq args)
             (or
@@ -35,7 +34,7 @@
       (apply operator-fn normalized-args))))
 
 (defn evaluate-predicate [comparator-concept value-concepts data]
-  (when (every? #(contains? #{:data :quote} (::sg/type %)) (log/spy value-concepts))
+  (when (every? #(contains? #{:data :quote} (::sg/type %)) value-concepts)
     (comparison
       (get comparator-concept ::sg/value)
       (for [{::sg/keys [type value]} value-concepts]
