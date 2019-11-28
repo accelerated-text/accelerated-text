@@ -5,9 +5,15 @@ concrete LangFunctionsEng of LangFunctions = ResEng ** open CatEng in {
     Wrapper x = { s = x.s };
   oper
     Result : Type = { s : Str };
-    mkCopula : Wrap -> {s : Str} -> Number -> Result = \s1,s2,n -> {
-        s = s1.s ++ (copula n).s ++ s2.s;
+    
+    mkCopulaWTense : Wrap -> {s : Str} -> Number -> VForm -> Result = \s1,s2,n,t -> {
+        s = s1.s ++ (copula n t).s ++ s2.s;
     };
+    
+    mkCopula : Wrap -> {s : Str} -> Number -> Result = \s1,s2,n -> {
+        s = (mkCopulaWTense s1 s2 n VPres).s
+    };
+    
 
     copulaWTense : Number -> VForm -> Result = \n,t -> {
                   s = case t of {
