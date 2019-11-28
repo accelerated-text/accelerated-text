@@ -64938,4 +64938,6 @@ fun zoom_in_V : V;
 fun zoom_in_on_V2 : V2;
 fun zoom_off_V : V;
 fun zoom_out_V : V;
+
+fun author_V : V;
 }

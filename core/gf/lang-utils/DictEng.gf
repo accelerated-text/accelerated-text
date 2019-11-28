@@ -65028,4 +65028,6 @@ lin zoom_in_V = partV (mkV "zoom") "in";
 lin zoom_in_on_V2 = prepV2 (partV (mkV "zoom") "in") (mkPrep "on");
 lin zoom_off_V = partV (mkV "zoom") "off";
 lin zoom_out_V = partV (mkV "zoom") "out";
+
+lin author_V = mkVerb "author" "authors" "authored" "authored" "authoring";
 }

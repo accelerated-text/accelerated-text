@@ -1,4 +1,4 @@
-concrete LangFunctionsEng of LangFunctions = open ResEng in {
+concrete LangFunctionsEng of LangFunctions = ResEng ** open CatEng in {
   lincat
     Wrap = {s : Str};
   lin
@@ -10,4 +10,12 @@ concrete LangFunctionsEng of LangFunctions = open ResEng in {
     };
 
     copula : Number -> Result = \n -> { s = case n of { Sg => "is"; Pl => "are" } };
+
+    mkPassive : V -> Result = \w -> {
+        s = (copula Sg).s ++ (w.s ! VPPart);
+    };
+
+    mkPast : V -> Result = \w -> {
+        s = w.s ! VPPart;
+    };
 }
