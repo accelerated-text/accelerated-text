@@ -36,9 +36,17 @@ concrete LangFunctionsEng of LangFunctions = ResEng ** open CatEng in {
            copula : Number -> Result = copulaSimple;
     };
 
-    mkPassive : V -> Result = \w -> {
-        s = (copula Sg).s ++ (w.s ! VPPart);
+    mkPassive = overload {
+              mkPassive : V -> Result = \w -> {
+                     s = (copula Sg).s ++ (w.s ! VPPart);
+              };
+
+              mkPassive : V -> Number -> Result = \w,n -> {
+                     s = (copula n).s ++ (w.s ! VPPart);
+              };
     };
+
+    
 
     mkPast : V -> Result = \w -> {
         -- Should be:
