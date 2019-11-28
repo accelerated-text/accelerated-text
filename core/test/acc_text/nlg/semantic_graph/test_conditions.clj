@@ -1,6 +1,6 @@
 (ns acc-text.nlg.test-conditions
-  (:require [acc-text.nlg.conditions :as conditions]
-            [acc-text.nlg.semantic-graph :as sg]
+  (:require [acc-text.nlg.semantic-graph :as sg]
+            [acc-text.nlg.semantic-graph.conditions :as conditions]
             [acc-text.nlg.test-utils :as utils]
             [clojure.test :refer [deftest testing is are]]))
 

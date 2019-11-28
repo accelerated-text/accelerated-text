@@ -1,4 +1,4 @@
-(ns acc-text.nlg.conditions
+(ns acc-text.nlg.semantic-graph.conditions
   (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.set :as set]

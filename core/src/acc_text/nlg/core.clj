@@ -1,5 +1,5 @@
 (ns acc-text.nlg.core
-  (:require [acc-text.nlg.conditions :as conditions]
+  (:require [acc-text.nlg.semantic-graph.conditions :as conditions]
             [acc-text.nlg.gf.generator :as generator]
             [acc-text.nlg.gf.grammar :as grammar]
             [acc-text.nlg.utils.nlp :as nlp]
