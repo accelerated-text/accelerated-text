@@ -79,23 +79,22 @@
                                 :ret    [:s "Str"]}
                                {:name   "Amr03"
                                 :params []
-                                :body   [{:type :literal :value "{{co-Agent}}"}
+                                :body   [{:pos :NP :type :literal :value "{{co-Agent}}"}
+                                         {:type  :operator
+                                          :value "++"}
+                                         {:pos :LEX :type :literal :value "is"}
                                          {:type :operator :value "++"}
-                                         {:type :literal :value "is"}
+                                         {:pos       :VERB :type :literal :value "{{...}}"
+                                          :selectors {:number :singular :tense :past}}
                                          {:type :operator :value "++"}
-                                         {:type :literal :value "{{...}}" :selectors {:number :singular :tense :past}}
+                                         {:pos :ADP :type :literal :value "by"}
                                          {:type :operator :value "++"}
-                                         {:type :literal :value "by"}
-                                         {:type :operator :value "++"}
-                                         {:type :literal :value "{{Agent}}"}]
+                                         {:pos :NP :type :literal :value "{{Agent}}"}]
                                 :ret    [:s "Str"]}]}
          (build-grammar
            "author-amr"
-           {:amr        {:author {:frames [{:syntax [{:pos :NP :role "co-Agent"}
-                                                     {:pos :LEX :value "is"}
-                                                     {:pos    :VERB
-                                                      :tense  :past
-                                                      :number :singular}
+           {:amr        {:author {:frames [{:syntax [{:pos :NP :role "co-Agent"} {:pos :LEX :value "is"}
+                                                     {:pos :VERB :tense :past :number :singular}
                                                      {:pos :ADP :value "by"}
                                                      {:pos :NP :role "Agent"}]}]}}
             :dictionary {"good"    ["excellent"]
@@ -116,25 +115,25 @@
                                          "Data05"
                                          "Data07"]
                                 :body   [{:type :operator :value "("}
-                                         {:type :function :value "Data05"}
+                                         {:pos :NP :type :function :value "Data05"}
                                          {:type :operator :value "++"}
-                                         {:type :literal :value "is"}
+                                         {:pos :LEX :type :literal :value "is"}
                                          {:type :operator :value "++"}
-                                         {:type :literal :value "the author of"}
+                                         {:pos :LEX :type :literal :value "the author of"}
                                          {:type :operator :value "++"}
-                                         {:type :function :value "Data07"}
+                                         {:pos :NP :type :function :value "Data07"}
                                          {:type :operator :value ")"}
                                          {:type :operator :value "|"}
                                          {:type :operator :value "("}
-                                         {:type :function :value "Data07"}
+                                         {:pos :NP :type :function :value "Data07"}
                                          {:type :operator :value "++"}
-                                         {:type :literal :value "is"}
+                                         {:pos :LEX :type :literal :value "is"}
                                          {:type :operator :value "++"}
-                                         {:type :function :value "DictionaryItem04"}
+                                         {:pos :VERB :type :function :value "DictionaryItem04"}
                                          {:type :operator :value "++"}
-                                         {:type :literal :value "by"}
+                                         {:pos :ADP :type :literal :value "by"}
                                          {:type :operator :value "++"}
-                                         {:type :function :value "Data05"}
+                                         {:pos :NP :type :function :value "Data05"}
                                          {:type :operator :value ")"}]
                                 :ret    [:s "Str"]}
                                {:name   "DictionaryItem04"
