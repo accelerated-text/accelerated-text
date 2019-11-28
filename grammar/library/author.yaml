@@ -8,7 +8,7 @@ frames:
     syntax:
       - pos: NP
         role: Agent
-      - pos: LEX
+      - pos: AUX
         value: is
       - pos: LEX
         value: the author
@@ -20,7 +20,7 @@ frames:
     syntax:
       - pos: NP
         role: co-Agent
-      - pos: LEX
+      - pos: AUX
         value: is
       - pos: VERB
       - pos: ADP

@@ -107,20 +107,22 @@
                              :value "++"}
                             (for [{value :value pos :pos role :role :as attrs} syntax]
                               (let [role-key (when (some? role) (str/lower-case role))]
-                                (attach-selectors
-                                  (cond
-                                    (contains? role-map role-key) {:type  :function
-                                                                   :value (get role-map role-key)}
-                                    (some? role) {:type  :literal
-                                                  :value (format "{{%s}}" role)}
-                                    (and (some? function-concept)
-                                         (= pos :VERB)) {:type  :function
-                                                         :value (concept->name function-concept)}
-                                    (some? value) {:type  :literal
-                                                   :value value}
-                                    :else {:type  :literal
-                                           :value "{{...}}"})
-                                  attrs))))))
+                                (-> (cond
+                                      (contains? role-map role-key) {:type  :function
+                                                                     :value (get role-map role-key)}
+                                      (some? role) {:type  :literal
+                                                    :value (format "{{%s}}" role)}
+                                      (= pos :AUX) {:type  :function
+                                                    :value "(copula Sg)"}
+                                      (and (some? function-concept)
+                                           (= pos :VERB)) {:type  :function
+                                                           :value (concept->name function-concept)}
+                                      (some? value) {:type  :literal
+                                                     :value value}
+                                      :else {:type  :literal
+                                             :value "{{...}}"})
+                                    (attach-selectors attrs)
+                                    (assoc :pos pos)))))))
      :ret    [:s "Str"]}))
 
 (defmethod build-function :sequence [concept children _ _]

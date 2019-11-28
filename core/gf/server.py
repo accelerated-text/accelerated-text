@@ -32,21 +32,23 @@ def compile_concrete_grammar(path, name, instances):
 
 def compile_grammar(name, abstract, instances):
     with TemporaryDirectory() as tmpdir:
-        logger.info("Created temp dir: {}".format(tmpdir))
+        logger.debug("Created temp dir: {}".format(tmpdir))
         abstract_path = "{0}/{1}.gf".format(tmpdir, name)
         with open(abstract_path, "w") as f:
-            logger.info("Wrote tmp file: {}".format(abstract_path))
+            logger.debug("Wrote tmp file: {}".format(abstract_path))
             f.write(abstract["content"])
 
         concrete_grammars = list(compile_concrete_grammar(tmpdir, name, instances))
 
         logger.info("Compiling")
-        proc = subprocess.Popen(
-            "gf --output-dir={path} -make {abstract} {other}".format(
+        cmd = "gf -i /opt/gf/lang-utils/ --output-dir={path} -make {abstract} {other}".format(
                 abstract=abstract_path,
                 path=tmpdir,
                 other=" ".join(concrete_grammars)
-            ),
+        )
+        logger.debug("Compile command: {}".format(cmd))
+        proc = subprocess.Popen(
+            cmd,
             shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
@@ -134,6 +136,7 @@ def application(environ, start_response, data):
     name = data["name"]
 
     grammar = compile_grammar(name, abstract, instances)
+    logger.debug("Grammar: {}".format(grammar))
     if grammar:
         logger.info("Generating")
         results = []
