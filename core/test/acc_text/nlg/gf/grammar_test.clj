@@ -80,12 +80,10 @@
                                {:name   "Amr03"
                                 :params []
                                 :body   [{:pos :NP :type :literal :value "{{co-Agent}}"}
-                                         {:type  :operator
-                                          :value "++"}
+                                         {:type :operator :value "++"}
                                          {:pos :LEX :type :literal :value "is"}
                                          {:type :operator :value "++"}
-                                         {:pos       :VERB :type :literal :value "{{...}}"
-                                          :selectors {:number :singular :tense :past}}
+                                         {:pos :VERB :type :literal :value "{{...}}" :selectors {:number :singular :tense :past}}
                                          {:type :operator :value "++"}
                                          {:pos :ADP :type :literal :value "by"}
                                          {:type :operator :value "++"}
