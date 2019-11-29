@@ -1,5 +1,6 @@
 (ns acc-text.nlg.utils.nlp
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [clojure.tools.logging :as log]))
 
 (defn split-into-sentences [s]
   (str/split s #"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"))
@@ -20,7 +21,7 @@
 
 (defn wrap-sentence [s]
   (cond-> (str/trim s)
-          (re-find #"[.?!]\s+$" s) (str ".")))
+          (re-find #"[^.?!\s]\s*$" s) (str ".")))
 
 (defn process-sentence [s]
   (if-not (str/blank? s)
