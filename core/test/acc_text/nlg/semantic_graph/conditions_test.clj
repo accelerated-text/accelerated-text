@@ -1,4 +1,4 @@
-(ns acc-text.nlg.test-conditions
+(ns acc-text.nlg.semantic-graph.conditions-test
   (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.conditions :as conditions]
             [acc-text.nlg.test-utils :as utils]
