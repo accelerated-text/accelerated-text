@@ -1,16 +1,12 @@
-concrete LangFunctionsEng of LangFunctions = ResEng ** open CatEng in {
-  lincat
-    Wrap = {s : Str};
-  lin
-    Wrapper x = { s = x.s };
+concrete LangFunctionsEng of LangFunctionsAbs = ResEng ** open CatEng in {
   oper
     Result : Type = { s : Str };
     
-    mkCopulaWTense : Wrap -> {s : Str} -> Number -> VForm -> Result = \s1,s2,n,t -> {
-        s = s1.s ++ (copula n t).s ++ s2.s;
+    mkCopulaWTense : (_,_ : Str) -> Number -> VForm -> Result = \s1,s2,n,t -> {
+        s = s1 ++ (copula n t).s ++ s2;
     };
-    
-    mkCopula : Wrap -> {s : Str} -> Number -> Result = \s1,s2,n -> {
+
+    mkCopula : (_,_ : Str) -> Number -> Result = \s1,s2,n -> {
         s = (mkCopulaWTense s1 s2 n VPres).s
     };
     
