@@ -1,0 +1,36 @@
+{:type     "Document-plan"
+ :segments [{:children [{:type       "If-then-else"
+                         :conditions [{:type           "If-condition"
+                                       :thenExpression {:type  "Quote"
+                                                        :srcId ".c9eU7JbiewQerZ(1^8Z"
+                                                        :text  "The book was published in 2008 and is about Lucene"}
+                                       :condition      {:children [{:type     "Value-comparison"
+                                                                    :srcId    "Of4S163A*|Y*/4Lu}{yI"
+                                                                    :operator "="
+                                                                    :value2   {:type  "Quote"
+                                                                               :srcId "~*=~1)}MmZH/CRj%sm=F"
+                                                                               :text  "2008"}
+                                                                    :value1   {:name  "publishedDate"
+                                                                               :type  "Cell"
+                                                                               :srcId "fw17ttxYp_N#tR1MhAPd"}}
+                                                                   {:value    {:type  "Quote"
+                                                                               :srcId "uxL(#G@nl*5ZLz2c5AS}"
+                                                                               :text  "Lucene"}
+                                                                    :type     "Value-in"
+                                                                    :srcId    "400[`WO!@duPu0YZk?1v"
+                                                                    :list     {:name  "subtitle"
+                                                                               :type  "Cell"
+                                                                               :srcId "Q;]h]Dg4$[XJ^hU@2s91"}
+                                                                    :operator "in"}]
+                                                        :type     "And-or"
+                                                        :srcId    "$FvRNK]UN(Ew9`=9~Kw."
+                                                        :operator "and"}}
+                                      {:type           "Default-condition"
+                                       :thenExpression {:type  "Quote"
+                                                        :srcId "B0n0=x.iS%0YxhEu+tO2"
+                                                        :text  "The book was not published in 2008 or it is not about Lucene"}
+                                       :condition      true}]
+                         :srcId      "=V{K8mkN1m`cGuRV_C]?"}]
+             :type     "Segment"
+             :srcId    "a_W59$?Ta0:~RLf;ZjVd"}]
+ :srcId    "viw(+@DBr0Tp`CpPe"}

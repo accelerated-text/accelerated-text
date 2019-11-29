@@ -92,4 +92,64 @@
                                  :to   :10}]}
          (conditions/select
            (utils/load-test-semantic-graph "if-equal-condition")
-           {:publishedDate "2009"}))))
+           {:publishedDate "2009"})))
+  (is (= #::sg{:concepts  [#::sg{:id   :01
+                                 :type :document-plan}
+                           #::sg{:id   :02
+                                 :type :segment}
+                           #::sg{:id   :03
+                                 :type :condition}
+                           #::sg{:id   :04
+                                 :type :if-statement}
+                           #::sg{:id    :05
+                                 :type  :boolean
+                                 :value "and"}
+                           #::sg{:id    :12
+                                 :type  :quote
+                                 :value "The book was published in 2008 and is about Lucene"}]
+               :relations [#::sg{:from :01
+                                 :role :segment
+                                 :to   :02}
+                           #::sg{:from :02
+                                 :role :instance
+                                 :to   :03}
+                           #::sg{:from :03
+                                 :role :statement
+                                 :to   :04}
+                           #::sg{:from :04
+                                 :role :predicate
+                                 :to   :05}
+                           #::sg{:from :04
+                                 :role :expression
+                                 :to   :12}]}
+         (conditions/select
+           (utils/load-test-semantic-graph "if-with-and")
+           {:publishedDate "2008"
+            :subtitle      "Lucene, LingPipe, and Gate"})))
+  (is (= #::sg{:concepts  [#::sg{:id   :01
+                                 :type :document-plan}
+                           #::sg{:id   :02
+                                 :type :segment}
+                           #::sg{:id   :03
+                                 :type :condition}
+                           #::sg{:id   :13
+                                 :type :default-statement}
+                           #::sg{:id    :14
+                                 :type  :quote
+                                 :value "The book was not published in 2008 or it is not about Lucene"}]
+               :relations [#::sg{:from :01
+                                 :role :segment
+                                 :to   :02}
+                           #::sg{:from :02
+                                 :role :instance
+                                 :to   :03}
+                           #::sg{:from :03
+                                 :role :statement
+                                 :to   :13}
+                           #::sg{:from :13
+                                 :role :expression
+                                 :to   :14}]}
+         (conditions/select
+           (utils/load-test-semantic-graph "if-with-and")
+           {:publishedDate "2011"
+            :subtitle      "Developing Apps in the New World of Cloud Computing"}))))

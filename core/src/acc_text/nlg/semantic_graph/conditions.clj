@@ -2,7 +2,8 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.set :as set]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]))
 
 (defn operator->fn [x]
   (case x
@@ -12,6 +13,10 @@
     "<=" <=
     ">" >
     ">=" >=
+    "in" (fn [s subs] (str/includes? (str s) (str subs)))
+    "and" (fn [args] (every? true? args))
+    "or" (fn [args] (some true? args))
+    "not" (fn [[arg]] (not arg))
     nil))
 
 (defn normalize [xs]
@@ -27,29 +32,38 @@
     (when (and
             (seq args)
             (or
-              (contains? #{"=" "!="} operator)
+              (contains? #{"=" "!=" "in"} operator)
               (and
                 (contains? #{"<" "<=" ">" ">="} operator)
                 (every? number? normalized-args))))
       (apply operator-fn normalized-args))))
 
-(defn evaluate-predicate [comparator-concept value-concepts data]
-  (when (every? #(contains? #{:data :quote} (::sg/type %)) value-concepts)
-    (comparison
-      (get comparator-concept ::sg/value)
-      (for [{::sg/keys [type value]} value-concepts]
-        (case type
-          :quote value
-          :data (get data (keyword value)))))))
+(defmulti evaluate-predicate (fn [concept _ _ _] (::sg/type concept)))
 
-(defn evaluate-statement [{::sg/keys [id type]} concept-map relation-map data]
+(defmethod evaluate-predicate :comparator [{::sg/keys [id value]} concept-map relation-map data]
+  (let [value-concepts (map #(get concept-map (::sg/to %)) (get relation-map id))]
+    (when (every? #(contains? #{:data :quote} (::sg/type %)) value-concepts)
+      (log/spy (comparison value (for [{::sg/keys [type value]} value-concepts]
+                                     (case type
+                                       :quote value
+                                       :data (get data (keyword value)))))))))
+
+(defmethod evaluate-predicate :boolean [{::sg/keys [id value]} concept-map relation-map data]
+  (let [entity-concepts (map #(get concept-map (::sg/to %)) (get relation-map id))
+        operator-fn (operator->fn value)]
+    (when (every? #(contains? #{:boolean :comparator} (::sg/type %)) entity-concepts)
+      (operator-fn (map #(evaluate-predicate % concept-map relation-map data) entity-concepts)))))
+
+(defn get-predicate [{id ::sg/id} concept-map relation-map]
+  (->> (get relation-map id)
+       (some #(when (= :predicate (::sg/role %)) %))
+       (::sg/to)
+       (get concept-map)))
+
+(defn evaluate-statement [{type ::sg/type :as concept} concept-map relation-map data]
   (case type
-    :if-statement (let [predicate (some #(when (= :predicate (::sg/role %)) %) (get relation-map id))]
-                    (when (some? predicate)
-                      (evaluate-predicate (get concept-map (::sg/to predicate))
-                                          (map #(get concept-map (::sg/to %))
-                                               (get relation-map (::sg/to predicate)))
-                                          data)))
+    :if-statement (when-let [predicate (get-predicate concept concept-map relation-map)]
+                    (evaluate-predicate predicate concept-map relation-map data))
     :default-statement true
     nil))
 

@@ -147,6 +147,27 @@
                           :to   (:id value2)
                           :role :comparable}]})
 
+(defmethod build-semantic-graph :Value-in [{:keys [id operator value list]}]
+  #::sg{:concepts  [#::sg{:id    id
+                          :value operator
+                          :type  :comparator}]
+        :relations [#::sg{:from id
+                          :to   (:id list)
+                          :role :entity}
+                    #::sg{:from id
+                          :to   (:id value)
+                          :role :comparable}]})
+
+(defmethod build-semantic-graph :And-or [{:keys [id operator children]}]
+  #::sg{:concepts  [#::sg{:id    id
+                          :value operator
+                          :type  :boolean}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :input})
+                        children)})
+
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
     :Document-plan (assoc node :segments children)
@@ -159,6 +180,7 @@
     :If-condition (assoc node :condition (first children) :thenExpression (second children))
     :Default-condition (assoc node :thenExpression (first children))
     :Value-comparison (assoc node :value1 (first children) :value2 (second children))
+    :Value-in (assoc node :list (first children) :value (second children))
     (assoc node :children children)))
 
 (defn get-children [{type :type :as node}]
@@ -170,6 +192,7 @@
     :If-condition [(:condition node) (:thenExpression node)]
     :Default-condition [(:thenExpression node)]
     :Value-comparison [(:value1 node) (:value2 node)]
+    :Value-in [(:list node) (:value node)]
     (:children node)))
 
 (defn branch? [{type :type :as node}]
@@ -183,6 +206,7 @@
       :If-condition (some some? [(:condition node) (:thenExpression node)])
       :Default-condition (some? (:thenExpression node))
       :Value-comparison (some some? [(:value1 node) (:value2 node)])
+      :Value-in (some some? [(:list node) (:value node)])
       (seq (:children node)))))
 
 (defn make-zipper [root]

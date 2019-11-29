@@ -151,3 +151,9 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"The book was published in 2008."} (get-variants result-id)))))
+
+(deftest ^:integration if-with-and-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "if-with-and" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"The book was published in 2008 and is about Lucene."} (get-variants result-id)))))
