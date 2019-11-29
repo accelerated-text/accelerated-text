@@ -35,6 +35,8 @@ def test_generation_results(authorship_grammar):
         "excellent {{TITLE}} is written by {{AUTHOR}}",
         "{{AUTHOR}} is the author of excellent {{TITLE}}",
         "{{AUTHOR}} is the author of good {{TITLE}}",
+        "{{AUTHOR}} was authored by good {{TITLE}}",
+        "{{AUTHOR}} was authored by excellent {{TITLE}}",
     ])
                
 

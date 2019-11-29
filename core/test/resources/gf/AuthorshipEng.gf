@@ -1,13 +1,15 @@
-concrete AuthorshipEng of Authorship = open LangFunctionsEng in {
+concrete AuthorshipEng of Authorship = open LangFunctionsEng, DictEng in {
   lincat
     Sentence, Author, Title, Quality, Event, ModifiedTitle = {s : Str};
 
   lin
-    AuthorshipV1 a t e = {s = t.s ++ (copula Sg).s ++ e.s ++ "by" ++ a.s};
-    AuthorshipV2 a t = {s = (mkCopula a { s = "the author"}  Sg).s ++ "of" ++ t.s};
+    AuthorshipV1 a t e = {s = t.s ++ e.s ++ "by" ++ a.s};
+    AuthorshipV2 a t = {s = (mkCopula a.s "the author" Sg).s ++ "of" ++ t.s};
+    -- should be: AuthorshipV3 a t = {s = a.s ++ (copula Sg VPast).s ++ (mkPast author_V).s ++ "by" ++ t.s};
+    AuthorshipV3 a t = {s = a.s ++ (copula Sg VPPart).s ++ (mkPast author_V).s ++ "by" ++ t.s};
     TitleWithAdv adv t = {s = adv.s ++ t.s};
     TitleData = {s = "{{TITLE}}"};
     AuthorData = {s = "{{AUTHOR}}"};
-    Wrote = {s = "authored" | "written"};
+    Wrote = (mkPassive author_V) | (mkPassive write_V);
     Good = {s = "excellent" | "good"};
 }

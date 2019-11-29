@@ -18,6 +18,7 @@ abstract Authorship = {
   fun
     AuthorshipV1 : Author -> ModifiedTitle -> Event -> Sentence;
     AuthorshipV2 : Author -> ModifiedTitle -> Sentence;
+    AuthorshipV3 : Author -> ModifiedTitle -> Sentence;
     TitleWithAdv : Quality -> Title -> ModifiedTitle;
     Wrote : Event;
     Good : Quality;
