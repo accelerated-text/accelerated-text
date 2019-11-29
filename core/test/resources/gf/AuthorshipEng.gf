@@ -5,7 +5,6 @@ concrete AuthorshipEng of Authorship = open LangFunctionsEng, DictEng in {
   lin
     AuthorshipV1 a t e = {s = t.s ++ e.s ++ "by" ++ a.s};
     AuthorshipV2 a t = {s = (mkCopula a.s "the author" Sg).s ++ "of" ++ t.s};
-    -- should be: AuthorshipV3 a t = {s = a.s ++ (copula Sg VPast).s ++ (mkPast author_V).s ++ "by" ++ t.s};
     AuthorshipV3 a t = {s = a.s ++ (copula Sg VPast).s ++ (mkPast author_V).s ++ "by" ++ t.s};
     TitleWithAdv adv t = {s = adv.s ++ t.s};
     TitleData = {s = "{{TITLE}}"};
