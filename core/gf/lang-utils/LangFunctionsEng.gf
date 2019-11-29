@@ -14,10 +14,8 @@ concrete LangFunctionsEng of LangFunctionsAbs = ResEng ** open CatEng in {
     copulaWTense : Number -> VForm -> Result = \n,t -> {
                   s = case t of {
                     VPres => case n of { Sg => "is"; Pl => "are" };
-                    -- Don't know why, but `VPast` is missing
                     VPast => case n of { Sg => "was"; Pl => "were"};
-                    -- VPPart should be `been`
-                    VPPart => case n of { Sg => "was"; Pl => "were"};
+                    VPPart => "been";
                     VInf => "be";
                     VPresPart => "being"
                   }
@@ -38,16 +36,13 @@ concrete LangFunctionsEng of LangFunctionsAbs = ResEng ** open CatEng in {
               };
 
               mkPassive : V -> Number -> Result = \w,n -> {
-                     s = (copula n).s ++ (w.s ! VPPart);
+                     s = (copula n).s ++ (w.s ! VPast);
               };
     };
 
     
 
     mkPast : V -> Result = \w -> {
-        -- Should be:
-        -- s = w.s ! VPast;
-        -- but VPast is missing
-        s = w.s ! VPPart;
+        s = w.s ! VPast;
     };
 }
