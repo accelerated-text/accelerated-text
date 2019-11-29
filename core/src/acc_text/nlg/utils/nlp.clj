@@ -1,6 +1,5 @@
 (ns acc-text.nlg.utils.nlp
-  (:require [clojure.string :as str]
-            [clojure.tools.logging :as log]))
+  (:require [clojure.string :as str]))
 
 (defn split-into-sentences [s]
   (str/split s #"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"))

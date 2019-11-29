@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.set :as set]
-            [clojure.string :as str]
-            [clojure.tools.logging :as log]))
+            [clojure.string :as str]))
 
 (defn operator->fn [x]
   (case x
@@ -43,10 +42,10 @@
 (defmethod evaluate-predicate :comparator [{::sg/keys [id value]} concept-map relation-map data]
   (let [value-concepts (map #(get concept-map (::sg/to %)) (get relation-map id))]
     (when (every? #(contains? #{:data :quote} (::sg/type %)) value-concepts)
-      (log/spy (comparison value (for [{::sg/keys [type value]} value-concepts]
-                                     (case type
-                                       :quote value
-                                       :data (get data (keyword value)))))))))
+      (comparison value (for [{::sg/keys [type value]} value-concepts]
+                          (case type
+                            :quote value
+                            :data (get data (keyword value))))))))
 
 (defmethod evaluate-predicate :boolean [{::sg/keys [id value]} concept-map relation-map data]
   (let [entity-concepts (map #(get concept-map (::sg/to %)) (get relation-map id))
