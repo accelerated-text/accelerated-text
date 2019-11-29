@@ -2,9 +2,9 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.set :as set]))
 
-(defn find-concept-ids [{concepts ::sg/concepts} type]
+(defn find-concept-ids [{concepts ::sg/concepts} types]
   (->> concepts
-       (filter #(= type (::sg/type %)))
+       (filter #(contains? (set types) (::sg/type %)))
        (map ::sg/id)
        (into #{})))
 

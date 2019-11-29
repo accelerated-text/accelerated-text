@@ -85,10 +85,10 @@
        (into #{})))
 
 (defn find-statement-ids [semantic-graph]
-  (sg-utils/find-child-ids semantic-graph (sg-utils/find-concept-ids semantic-graph :condition)))
+  (sg-utils/find-child-ids semantic-graph (sg-utils/find-concept-ids semantic-graph #{:condition})))
 
 (defn select [semantic-graph data]
   (->> (get-truthful-statement-ids semantic-graph data)
        (set/difference (find-statement-ids semantic-graph))
-       (set/union (sg-utils/find-concept-ids semantic-graph :comparator))
+       (set/union (sg-utils/find-concept-ids semantic-graph #{:boolean :comparator}))
        (sg-utils/prune-branches semantic-graph)))
