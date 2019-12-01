@@ -90,4 +90,28 @@
          (conditions/select
            (utils/load-test-semantic-graph "if-with-and")
            {:publishedDate "2011"
-            :subtitle      "Developing Apps in the New World of Cloud Computing"}))))
+            :subtitle      "Developing Apps in the New World of Cloud Computing"})))
+  (is (= #::sg{:concepts  [#::sg{:id :01 :type :document-plan}
+                           #::sg{:id :02 :type :segment}
+                           #::sg{:id :03 :type :condition}
+                           #::sg{:id :10 :type :default-statement}
+                           #::sg{:id :11 :type :quote :value "The book is about computers"}]
+               :relations [#::sg{:from :01 :role :segment :to :02}
+                           #::sg{:from :02 :role :instance :to :03}
+                           #::sg{:from :03 :role :statement :to :10}
+                           #::sg{:from :10 :role :expression :to :11}]}
+         (conditions/select
+           (utils/load-test-semantic-graph "if-not")
+           {:categories "Computers"})))
+  (is (= #::sg{:concepts  [#::sg{:id :01 :type :document-plan}
+                           #::sg{:id :02 :type :segment}
+                           #::sg{:id :03 :type :condition}
+                           #::sg{:id :04 :type :if-statement}
+                           #::sg{:id :09 :type :quote :value "The book is not about computers"}]
+               :relations [#::sg{:from :01 :role :segment :to :02}
+                           #::sg{:from :02 :role :instance :to :03}
+                           #::sg{:from :03 :role :statement :to :04}
+                           #::sg{:from :04 :role :expression :to :09}]}
+         (conditions/select
+           (utils/load-test-semantic-graph "if-not")
+           {:categories "Business"}))))

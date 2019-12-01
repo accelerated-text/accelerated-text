@@ -168,6 +168,14 @@
                                 :role :input})
                         children)})
 
+(defmethod build-semantic-graph :Not [{id :id {child-id :id} :value}]
+  #::sg{:concepts  [#::sg{:id    id
+                          :value "not"
+                          :type  :boolean}]
+        :relations [#::sg{:from id
+                          :to   child-id
+                          :role :input}]})
+
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
     :Document-plan (assoc node :segments children)
@@ -181,6 +189,7 @@
     :Default-condition (assoc node :thenExpression (first children))
     :Value-comparison (assoc node :value1 (first children) :value2 (second children))
     :Value-in (assoc node :list (first children) :value (second children))
+    :Not (assoc node :value (first children))
     (assoc node :children children)))
 
 (defn get-children [{type :type :as node}]
@@ -193,6 +202,7 @@
     :Default-condition [(:thenExpression node)]
     :Value-comparison [(:value1 node) (:value2 node)]
     :Value-in [(:list node) (:value node)]
+    :Not [(:value node)]
     (:children node)))
 
 (defn branch? [{type :type :as node}]
@@ -207,6 +217,7 @@
       :Default-condition (some? (:thenExpression node))
       :Value-comparison (some some? [(:value1 node) (:value2 node)])
       :Value-in (some some? [(:list node) (:value node)])
+      :Not (some? (:value node))
       (seq (:children node)))))
 
 (defn make-zipper [root]
