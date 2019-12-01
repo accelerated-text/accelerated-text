@@ -15,7 +15,7 @@
     "in" (fn [s subs] (str/includes? (str s) (str subs)))
     "and" (fn [args] (every? true? args))
     "or" (fn [args] (some true? args))
-    "not" (fn [[arg]] (not arg))
+    "not" (fn [[arg]] (when (boolean? arg) (not arg)))
     "xor" (fn [args] (odd? (count (filter true? args))))
     nil))
 
