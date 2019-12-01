@@ -1,0 +1,35 @@
+{:type     "Document-plan"
+ :segments [{:children [{:type       "If-then-else"
+                         :conditions [{:type           "If-condition"
+                                       :thenExpression {:type  "Quote"
+                                                        :srcId "4*XvBq[.F1+t[FKMx#0"
+                                                        :text  "Either the book is written in English or it is less than 50 pages long"}
+                                       :condition      {:type   "Xor"
+                                                        :srcId  "N2yT4~gM=HsR[.|[O;yh"
+                                                        :value2 {:type     "Value-comparison"
+                                                                 :srcId    "slF^y{lJ9v@8hAsSa)ab"
+                                                                 :operator "<"
+                                                                 :value2   {:type  "Quote"
+                                                                            :srcId "Z2pDuJbN)W:?ll;E-}__"
+                                                                            :text  "50"}
+                                                                 :value1   {:name  "pageCount"
+                                                                            :type  "Cell"
+                                                                            :srcId "q~1!;C-Nwv7|IvRoW5Rs"}}
+                                                        :value1 {:type     "Value-comparison"
+                                                                 :srcId    "]nhg.$il}?#*4sr}tHBQ"
+                                                                 :operator "="
+                                                                 :value2   {:type  "Quote"
+                                                                            :srcId ";$OZ9OJ?NYC*PMi6u+/"
+                                                                            :text  "en"}
+                                                                 :value1   {:name  "language"
+                                                                            :type  "Cell"
+                                                                            :srcId "Z4KP=[1=^8}_Ij+L]s"}}}}
+                                      {:type           "Default-condition"
+                                       :thenExpression {:type  "Quote"
+                                                        :srcId ")v2aq:-M#qUN8)Ra8sJ"
+                                                        :text  "Either the book is written in English and it is less than 50 pages long or it is not written in English nor it is less than 50 pages long"}
+                                       :condition      true}]
+                         :srcId      "%=7C9:{mPC$h^n-m(3eK"}]
+             :type     "Segment"
+             :srcId    "h[C33iZCXRanz0@w%Un"}]
+ :srcId    "3El.Z|dwv:BxAYh-VU6m"}

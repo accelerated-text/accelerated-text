@@ -163,3 +163,9 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"The book is about computers."} (get-variants result-id)))))
+
+(deftest ^:integration if-xor-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "if-xor" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Either the book is written in English or it is less than 50 pages long."} (get-variants result-id)))))

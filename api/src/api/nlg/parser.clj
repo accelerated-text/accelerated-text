@@ -176,6 +176,17 @@
                           :to   child-id
                           :role :input}]})
 
+(defmethod build-semantic-graph :Xor [{:keys [id value1 value2]}]
+  #::sg{:concepts  [#::sg{:id    id
+                          :value "xor"
+                          :type  :boolean}]
+        :relations [#::sg{:from id
+                          :to   (:id value1)
+                          :role :input}
+                    #::sg{:from id
+                          :to   (:id value2)
+                          :role :input}]})
+
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
     :Document-plan (assoc node :segments children)
@@ -190,6 +201,7 @@
     :Value-comparison (assoc node :value1 (first children) :value2 (second children))
     :Value-in (assoc node :list (first children) :value (second children))
     :Not (assoc node :value (first children))
+    :Xor (assoc node :value1 (first children) :value2 (second children))
     (assoc node :children children)))
 
 (defn get-children [{type :type :as node}]
@@ -203,6 +215,7 @@
     :Value-comparison [(:value1 node) (:value2 node)]
     :Value-in [(:list node) (:value node)]
     :Not [(:value node)]
+    :Xor [(:value1 node) (:value2 node)]
     (:children node)))
 
 (defn branch? [{type :type :as node}]
@@ -213,11 +226,12 @@
       :AMR (or (some? (:dictionaryItem node)) (seq (:roles node)))
       :Dictionary-item-modifier (some? (:child node))
       :If-then-else (seq (:conditions node))
-      :If-condition (some some? [(:condition node) (:thenExpression node)])
+      :If-condition (or (some? (:condition node)) (some? (:thenExpression node)))
       :Default-condition (some? (:thenExpression node))
-      :Value-comparison (some some? [(:value1 node) (:value2 node)])
-      :Value-in (some some? [(:list node) (:value node)])
+      :Value-comparison (or (some? (:value1 node)) (some? (:value2 node)))
+      :Value-in (or (some? (:list node)) (some? (:value node)))
       :Not (some? (:value node))
+      :Xor (or (some? (:value1 node)) (some? (:value2 node)))
       (seq (:children node)))))
 
 (defn make-zipper [root]

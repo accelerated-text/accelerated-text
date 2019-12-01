@@ -114,4 +114,30 @@
                            #::sg{:from :04 :role :expression :to :09}]}
          (conditions/select
            (utils/load-test-semantic-graph "if-not")
-           {:categories "Business"}))))
+           {:categories "Business"})))
+  (is (= #::sg{:concepts  [#::sg{:id :01 :type :document-plan}
+                           #::sg{:id :02 :type :segment}
+                           #::sg{:id :03 :type :condition}
+                           #::sg{:id :04 :type :if-statement}
+                           #::sg{:id :12 :type :quote :value "Either the book is written in English or it is less than 50 pages long"}]
+               :relations [#::sg{:from :01 :role :segment :to :02}
+                           #::sg{:from :02 :role :instance :to :03}
+                           #::sg{:from :03 :role :statement :to :04}
+                           #::sg{:from :04 :role :expression :to :12}]}
+         (conditions/select
+           (utils/load-test-semantic-graph "if-xor")
+           {:language  "en"
+            :pageCount "430"})))
+  (is (= #::sg{:concepts  [#::sg{:id :01 :type :document-plan}
+                           #::sg{:id :02 :type :segment}
+                           #::sg{:id :03 :type :condition}
+                           #::sg{:id :13 :type :default-statement}
+                           #::sg{:id :14 :type :quote :value "Either the book is written in English and it is less than 50 pages long or it is not written in English nor it is less than 50 pages long"}]
+               :relations [#::sg{:from :01 :role :segment :to :02}
+                           #::sg{:from :02 :role :instance :to :03}
+                           #::sg{:from :03 :role :statement :to :13}
+                           #::sg{:from :13 :role :expression :to :14}]}
+         (conditions/select
+           (utils/load-test-semantic-graph "if-xor")
+           {:language  "en"
+            :pageCount "25"}))))

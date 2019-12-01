@@ -16,6 +16,7 @@
     "and" (fn [args] (every? true? args))
     "or" (fn [args] (some true? args))
     "not" (fn [[arg]] (not arg))
+    "xor" (fn [args] (odd? (count (filter true? args))))
     nil))
 
 (defn normalize [xs]
