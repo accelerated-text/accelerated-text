@@ -41,18 +41,18 @@
 (defmulti evaluate-predicate (fn [concept _ _ _] (::sg/type concept)))
 
 (defmethod evaluate-predicate :comparator [{::sg/keys [id value]} concept-map relation-map data]
-  (let [value-concepts (map #(get concept-map (::sg/to %)) (get relation-map id))]
-    (when (every? #(contains? #{:data :quote} (::sg/type %)) value-concepts)
-      (comparison value (for [{::sg/keys [type value]} value-concepts]
+  (let [child-concepts (map #(get concept-map (::sg/to %)) (get relation-map id))]
+    (when (every? #(contains? #{:data :quote} (::sg/type %)) child-concepts)
+      (comparison value (for [{::sg/keys [type value]} child-concepts]
                           (case type
                             :quote value
                             :data (get data (keyword value))))))))
 
 (defmethod evaluate-predicate :boolean [{::sg/keys [id value]} concept-map relation-map data]
-  (let [entity-concepts (map #(get concept-map (::sg/to %)) (get relation-map id))
+  (let [child-concepts (map #(get concept-map (::sg/to %)) (get relation-map id))
         operator-fn (operator->fn value)]
-    (when (every? #(contains? #{:boolean :comparator} (::sg/type %)) entity-concepts)
-      (operator-fn (map #(evaluate-predicate % concept-map relation-map data) entity-concepts)))))
+    (when (every? #(contains? #{:boolean :comparator} (::sg/type %)) child-concepts)
+      (operator-fn (map #(evaluate-predicate % concept-map relation-map data) child-concepts)))))
 
 (defn get-predicate [{id ::sg/id} concept-map relation-map]
   (->> (get relation-map id)
