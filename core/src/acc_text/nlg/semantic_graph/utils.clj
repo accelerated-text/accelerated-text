@@ -23,12 +23,28 @@
         (let [child-ids (->> ids (mapcat relation-map) (map ::sg/to) (into #{}))]
           (recur child-ids (set/union descendant-ids child-ids)))))))
 
+(defn get-child-with-relation [{::sg/keys [concepts relations]} {id ::sg/id} role]
+  (let [concept-map (zipmap (map ::sg/id concepts) concepts)
+        relation-map (group-by ::sg/from relations)]
+    (->> (get relation-map id)
+         (some #(when (= role (::sg/role %)) %))
+         (::sg/to)
+         (get concept-map))))
+
+(defn get-children [{::sg/keys [concepts relations]} {id ::sg/id}]
+  (let [concept-map (zipmap (map ::sg/id concepts) concepts)
+        relation-map (group-by ::sg/from relations)]
+    (map #(get concept-map (::sg/to %)) (get relation-map id))))
+
+(defn get-concepts-with-type [{concepts ::sg/concepts} type]
+  (filter #(= type (::sg/type %)) concepts))
+
 (defn prune-branches [semantic-graph ids]
-  (let [ids-incl-children (set/union (set ids) (find-descendant-ids semantic-graph ids))]
+  (let [ids-incl-descendants (set/union (set ids) (find-descendant-ids semantic-graph ids))]
     (-> semantic-graph
         (update ::sg/concepts (fn [concepts]
-                                (remove #(contains? ids-incl-children (::sg/id %))
+                                (remove #(contains? ids-incl-descendants (::sg/id %))
                                         concepts)))
         (update ::sg/relations (fn [relations]
-                                 (remove #(contains? ids-incl-children (::sg/to %))
+                                 (remove #(contains? ids-incl-descendants (::sg/to %))
                                          relations))))))
