@@ -30,7 +30,7 @@
   (let [operator-fn (operator->fn operator)
         normalized-args (normalize args)]
     (when (and
-            (seq args)
+            (< 1 (count args))
             (or
               (contains? #{"=" "!=" "in"} operator)
               (and
