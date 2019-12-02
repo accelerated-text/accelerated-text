@@ -37,7 +37,6 @@
       ">=" ["1.99" 2]
       ">=" [1.99 "2"]))
   (testing "Edge cases"
-    (is (nil? (conditions/comparison nil [1 2 3])))
     (is (nil? (conditions/comparison "=" [])))))
 
 (deftest condition-selection

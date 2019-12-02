@@ -135,6 +135,6 @@
                                             relation-map (group-by ::sg/from relations)]
                                         (map (fn [{id ::sg/id :as concept}]
                                                (let [relations (get relation-map id)
-                                                     children (map #(get concept-map (::sg/to %)) relations)]
+                                                     children (map (comp concept-map ::sg/to) relations)]
                                                  (build-function concept children relations context)))
                                              concepts))})

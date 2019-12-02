@@ -2,7 +2,8 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.set :as set]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]))
 
 (defn operator->fn [x]
   (case x
@@ -16,8 +17,7 @@
     "and" (fn [args] (every? true? args))
     "or" (fn [args] (some true? args))
     "not" (fn [[arg]] (when (boolean? arg) (not arg)))
-    "xor" (fn [args] (odd? (count (filter true? args))))
-    nil))
+    "xor" (fn [args] (odd? (count (filter true? args))))))
 
 (defn normalize [xs]
   (->> xs
@@ -40,7 +40,8 @@
 
 (defmulti evaluate-predicate (fn [concept _ _ _] (::sg/type concept)))
 
-(defmethod evaluate-predicate :comparator [{::sg/keys [id value]} concept-map relation-map data]
+(defmethod evaluate-predicate :comparator [{::sg/keys [id value] :as concept} concept-map relation-map data]
+  #_(log/debug concept)
   (let [child-concepts (map #(get concept-map (::sg/to %)) (get relation-map id))]
     (when (every? #(contains? #{:data :quote} (::sg/type %)) child-concepts)
       (comparison value (for [{::sg/keys [type value]} child-concepts]
@@ -48,7 +49,8 @@
                             :quote value
                             :data (get data (keyword value))))))))
 
-(defmethod evaluate-predicate :boolean [{::sg/keys [id value]} concept-map relation-map data]
+(defmethod evaluate-predicate :boolean [{::sg/keys [id value] :as concept} concept-map relation-map data]
+  (log/debug concept)
   (let [child-concepts (map #(get concept-map (::sg/to %)) (get relation-map id))
         operator-fn (operator->fn value)]
     (when (every? #(contains? #{:boolean :comparator} (::sg/type %)) child-concepts)
