@@ -154,10 +154,51 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Child in blockly document plan"}
 
+          {:db/ident       :blockly/condition
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Condition in blockly document plan"}
+
+          {:db/ident       :blockly/then-expression
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Then expression in blockly document plan"}
+
+          {:db/ident       :blockly/list
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "List in blockly document plan"}
+
+          {:db/ident       :blockly/value
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Value in blockly document plan"}
+
+          {:db/ident       :blockly/value-1
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Value 1 in blockly document plan"}
+
+          {:db/ident       :blockly/value–2
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Value 2 in blockly document plan"}
+
           {:db/ident       :blockly/item-id
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Dictionary item related to the concept"}
+
+          {:db/ident       :blockly/operator
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Operator related to value comparison"}
 
           {:db/ident       :blockly/segments
            :db/valueType   :db.type/ref
@@ -170,6 +211,12 @@
            :db/isComponent true
            :db/cardinality :db.cardinality/many
            :db/doc         "Children of the blockly item"}
+
+          {:db/ident       :blockly/conditions
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Conditions of the blockly item"}
 
           {:db/ident       :blockly/hasChildren
            :db/valueType   :db.type/boolean

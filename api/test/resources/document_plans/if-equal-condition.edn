@@ -1,0 +1,22 @@
+{:type     "Document-plan"
+ :segments [{:children [{:type       "If-then-else"
+                         :conditions [{:type           "If-condition"
+                                       :thenExpression {:type  "Quote"
+                                                        :srcId "xoSh-:33]5iqp*EIB)VD"
+                                                        :text  "The book was published in 2008."}
+                                       :condition      {:type     "Value-comparison"
+                                                        :srcId    "8Z0Xh2%clk7OoRQN[8-"
+                                                        :operator "="
+                                                        :value2   {:type "Quote" :srcId "1Gd]eER|McH8)l1:lV!t" :text "2008"}
+                                                        :value1   {:name  "publishedDate"
+                                                                   :type  "Cell"
+                                                                   :srcId "^Ilrp-d4rK0f9RdF6aC"}}}
+                                      {:type           "Default-condition"
+                                       :thenExpression {:type  "Quote"
+                                                        :srcId "Cv{khL=(v%ekZ6Ur#g+T"
+                                                        :text  "The book was not published in 2008."}
+                                       :condition      true}]
+                         :srcId      "Q{VG6ofttRnlNla^OE]W"}]
+             :type     "Segment"
+             :srcId    "O?}9s0iRTIiZ|i{6{6iv"}]
+ :srcId    "0t]ZkfM*wde=U+xLL?hu"}

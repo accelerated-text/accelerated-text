@@ -19,7 +19,8 @@
   (str/join [(str/capitalize head) (apply str tail)]))
 
 (defn wrap-sentence [s]
-  (str (str/trim s) "."))
+  (cond-> (str/trim s)
+          (re-find #"[^.?!\s]\s*$" s) (str ".")))
 
 (defn process-sentence [s]
   (if-not (str/blank? s)

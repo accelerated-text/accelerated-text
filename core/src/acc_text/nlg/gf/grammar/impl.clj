@@ -29,17 +29,7 @@
 
 (defmulti build-function (fn [concept _ _ _] (::sg/type concept)))
 
-(defmethod build-function :document-plan [concept children _ _]
-  {:name   (concept->name concept)
-   :params (map concept->name children)
-   :body   (interpose {:type  :operator
-                       :value "++"}
-                      (for [child-concept children]
-                        {:type  :function
-                         :value (concept->name child-concept)}))
-   :ret    [:s "Str"]})
-
-(defmethod build-function :segment [concept children _ _]
+(defmethod build-function :default [concept children _ _]
   {:name   (concept->name concept)
    :params (map concept->name children)
    :body   (interpose {:type  :operator
@@ -125,16 +115,6 @@
                                     (assoc :pos pos)))))))
      :ret    [:s "Str"]}))
 
-(defmethod build-function :sequence [concept children _ _]
-  {:name   (concept->name concept)
-   :params (map concept->name children)
-   :body   (interpose {:type  :operator
-                       :value "++"}
-                      (for [child-concept children]
-                        {:type  :function
-                         :value (concept->name child-concept)}))
-   :ret    [:s "Str"]})
-
 (defmethod build-function :shuffle [concept children _ _]
   {:name   (concept->name concept)
    :params (map concept->name children)
@@ -165,6 +145,6 @@
                                             relation-map (group-by ::sg/from relations)]
                                         (map (fn [{id ::sg/id :as concept}]
                                                (let [relations (get relation-map id)
-                                                     children (map #(get concept-map (::sg/to %)) relations)]
+                                                     children (map (comp concept-map ::sg/to) relations)]
                                                  (build-function concept children relations context)))
                                              concepts))})

@@ -145,3 +145,27 @@
     (is (some? result-id))
     (is (= #{"1 2 3 4." "1 2 3 5." "1 2 4 3." "1 2 5 3." "1 3 2 4." "1 3 2 5."
              "1 3 4 2." "1 3 5 2." "1 4 2 3." "1 4 3 2." "1 5 2 3." "1 5 3 2."} (get-variants result-id)))))
+
+(deftest ^:integration if-equal-condition-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "if-equal-condition" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"The book was published in 2008."} (get-variants result-id)))))
+
+(deftest ^:integration if-with-and-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "if-with-and" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"The book was published in 2008 and is about Lucene."} (get-variants result-id)))))
+
+(deftest ^:integration if-not-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "if-not" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"The book is about computers."} (get-variants result-id)))))
+
+(deftest ^:integration if-xor-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "if-xor" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Either the book is written in English or it is less than 50 pages long."} (get-variants result-id)))))
