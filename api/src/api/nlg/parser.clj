@@ -293,14 +293,14 @@
 
 (defn document-plan->semantic-graph [root]
   (loop [zipper (-> root (preprocess) (make-zipper))
-         amr #::sg{:relations [] :concepts []}
+         graph #::sg{:relations [] :concepts []}
          variables {}]
     (if (or (zip/end? zipper) (empty? root))
-      amr
+      (update graph ::sg/relations #(remove (fn [{to ::sg/to}] (nil? to)) %))
       (let [{:keys [id name type] :as node} (zip/node zipper)]
         (recur
           (zip/next zipper)
-          (merge-with concat amr (build-semantic-graph node variables))
+          (merge-with concat graph (build-semantic-graph node variables))
           (cond-> variables
                   (= "Define-var" type) ((partial merge-with concat) {name [id]})))))))
 
