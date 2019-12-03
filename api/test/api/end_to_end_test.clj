@@ -182,14 +182,20 @@
     (is (some? result-id))
     (is (= #{"X." "Y."} (get-variants result-id)))))
 
-(deftest ^:integration variable-undefined
+(deftest ^:integration variable-undefined-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "variable-undefined" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{""} (get-variants result-id)))))
 
-(deftest ^:integration variable-unused
+(deftest ^:integration variable-unused-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "variable-unused" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"Some text."} (get-variants result-id)))))
+
+(deftest ^:integration modifier-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "modifier" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Nice text."} (get-variants result-id)))))

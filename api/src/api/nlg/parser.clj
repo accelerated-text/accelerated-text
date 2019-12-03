@@ -35,18 +35,17 @@
   #::sg{:concepts  [#::sg{:id    id
                           :type  :amr
                           :value conceptId}]
-        :relations (->> roles
-                        (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
-                                       (when (not= type "placeholder")
-                                         #::sg{:from       id
-                                               :to         child-id
-                                               :role       (keyword (str "ARG" index))
-                                               :attributes #::sg{:name name}})))
-                        (cons (when (and (some? dictionaryItem) (not= (:type dictionaryItem) "placeholder"))
-                                #::sg{:from id
-                                      :to   (:id dictionaryItem)
-                                      :role :function}))
-                        (remove nil?))})
+        :relations (cons (when (not= (:type dictionaryItem) "placeholder")
+                           #::sg{:from id
+                                 :to   (:id dictionaryItem)
+                                 :role :function})
+                         (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
+                                        (when (not= type "placeholder")
+                                          #::sg{:from       id
+                                                :to         child-id
+                                                :role       (keyword (str "ARG" index))
+                                                :attributes #::sg{:name name}}))
+                                      roles))})
 
 (defmethod build-semantic-graph :Cell [{:keys [id name children]} _]
   #::sg{:concepts  [#::sg{:id    id
@@ -79,10 +78,26 @@
                                 :role :modifier})
                         children)})
 
-(defmethod build-semantic-graph :Dictionary-item-modifier [node variables]
-  (-> node
-      (assoc :type "Dictionary-item")
-      (build-semantic-graph variables)))
+(defmethod build-semantic-graph :Dictionary-item-modifier [{:keys [id itemId name children]} _]
+  #::sg{:concepts  [#::sg{:id         id
+                          :type       :dictionary-item
+                          :value      itemId
+                          :attributes #::sg{:name name}}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :modifier})
+                        children)})
+
+(defmethod build-semantic-graph :Modifier [{:keys [id modifier child]} _]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :modifier}]
+        :relations [#::sg{:from id
+                          :to   (:id child)
+                          :role :instance}
+                    #::sg{:from (:id child)
+                          :to   (:id modifier)
+                          :role :modifier}]})
 
 (defmethod build-semantic-graph :Sequence [{:keys [id children]} _]
   #::sg{:concepts  [#::sg{:id   id
@@ -220,6 +235,7 @@
     :Not (assoc node :value (first children))
     :Xor (assoc node :value1 (first children) :value2 (second children))
     :Define-var (assoc node :value (first children))
+    :Modifier (assoc node :modifier (first children) :child (second children))
     (assoc node :children children)))
 
 (defn get-children [{type :type :as node}]
@@ -235,6 +251,7 @@
     :Not [(:value node)]
     :Xor [(:value1 node) (:value2 node)]
     :Define-var [(:value node)]
+    :Modifier [(:modifier node) (:child node)]
     (:children node)))
 
 (defn branch? [{type :type :as node}]
@@ -252,6 +269,7 @@
       :Not (some? (:value node))
       :Xor (or (some? (:value1 node)) (some? (:value2 node)))
       :Define-var (some? (:value node))
+      :Modifier (or (some? (:modifier node)) (some? (:child node)))
       (seq (:children node)))))
 
 (defn make-zipper [root]
@@ -274,9 +292,7 @@
       (if-not (and (= "Dictionary-item-modifier" type) (some? child))
         (cond-> node (seq modifiers) (-> (make-node (concat (get-children node) modifiers))
                                          (preprocess-node index)))
-        (recur (zip/next zipper) (conj modifiers (-> node
-                                                     (dissoc :child)
-                                                     (assoc :type "Dictionary-item"))))))))
+        (recur (zip/next zipper) (conj modifiers (dissoc node :child)))))))
 
 (defn preprocess-node [node index]
   (-> node (nil->placeholder) (rearrange-modifiers index) (gen-id index)))
@@ -296,7 +312,7 @@
          graph #::sg{:relations [] :concepts []}
          variables {}]
     (if (or (zip/end? zipper) (empty? root))
-      (update graph ::sg/relations #(remove (fn [{to ::sg/to}] (nil? to)) %))
+      (update graph ::sg/relations #(remove (fn [{::sg/keys [from to]}] (some nil? [from to])) %))
       (let [{:keys [id name type] :as node} (zip/node zipper)]
         (recur
           (zip/next zipper)

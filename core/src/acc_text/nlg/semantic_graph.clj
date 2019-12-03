@@ -8,7 +8,7 @@
 (s/def ::name (s/and string? #(not (string/blank? %))))
 
 (s/def ::type #{:document-plan :segment :data :quote :dictionary-item :amr :shuffle :sequence :condition :if-statement
-                :default-statement :comparator :boolean :variable :reference})
+                :default-statement :comparator :boolean :variable :reference :modifier})
 
 (s/def ::concept (s/keys :req [::id ::type]))
 
