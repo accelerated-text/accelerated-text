@@ -58,10 +58,10 @@
 
 (defn evaluate-conditions [semantic-graph data]
   (reduce (fn [m {id ::sg/id :as condition-concept}]
-            (assoc m id (->> (some (fn [{id ::sg/id :as statement-concept}]
-                                     (when (true? (evaluate-statement statement-concept semantic-graph data))
-                                       id))
-                                   (sg-utils/get-children semantic-graph condition-concept)))))
+            (assoc m id (some (fn [{id ::sg/id :as statement-concept}]
+                                (when (true? (evaluate-statement statement-concept semantic-graph data))
+                                  id))
+                              (sg-utils/get-children semantic-graph condition-concept))))
           {}
           (sg-utils/get-concepts-with-type semantic-graph :condition)))
 
