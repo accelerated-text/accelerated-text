@@ -175,3 +175,9 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"Some text."} (get-variants result-id)))))
+
+(deftest ^:integration variable-multi-def-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "variable-multi-def" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"X." "Y."} (get-variants result-id)))))

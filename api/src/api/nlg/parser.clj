@@ -198,11 +198,11 @@
 (defmethod build-semantic-graph :Get-var [{:keys [id name]} variables]
   #::sg{:concepts  [#::sg{:id   id
                           :type :reference}]
-        :relations (map (fn [[_ variable-id]]
+        :relations (map (fn [variable-id]
                           #::sg{:from id
                                 :to   variable-id
                                 :role :pointer})
-                        (select-keys variables [name]))})
+                        (get variables name))})
 
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
@@ -301,7 +301,8 @@
         (recur
           (zip/next zipper)
           (merge-with concat amr (build-semantic-graph node variables))
-          (cond-> variables (= "Define-var" type) (assoc name id)))))))
+          (cond-> variables
+                  (= "Define-var" type) ((partial merge-with concat) {name [id]})))))))
 
 (s/fdef document-plan->semantic-graph
         :args (s/cat :document-plan map?)

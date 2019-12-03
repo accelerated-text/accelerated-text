@@ -137,6 +137,16 @@
                          :value (concept->name child-concept)}))
    :ret    [:s "Str"]})
 
+(defmethod build-function :reference [concept children _ _]
+  {:name   (concept->name concept)
+   :params (map concept->name children)
+   :body   (interpose {:type  :operator
+                       :value "|"}
+                      (for [child-concept children]
+                        {:type  :function
+                         :value (concept->name child-concept)}))
+   :ret    [:s "Str"]})
+
 (defn build-grammar [module instance {::sg/keys [concepts relations]} context]
   #:acc-text.nlg.gf.grammar{:module   module
                             :instance instance
