@@ -80,3 +80,12 @@
            (sg-utils/prune-branches semantic-graph #{:03})))
     (is (= semantic-graph
            (sg-utils/prune-branches semantic-graph #{:08})))))
+
+(deftest unrelated-branch-pruning
+  (let [semantic-graph (utils/load-test-semantic-graph "variable-unused")]
+    (is (= #::sg{:concepts  [#::sg{:id :01 :type :document-plan}
+                             #::sg{:id :04 :type :segment}
+                             #::sg{:id :05 :type :quote :value "some text"}]
+                 :relations [#::sg{:from :01 :role :segment :to :04}
+                             #::sg{:from :04 :role :instance :to :05}]}
+           (sg-utils/prune-unrelated-branches semantic-graph)))))

@@ -48,3 +48,7 @@
         (update ::sg/relations (fn [relations]
                                  (remove #(contains? ids-incl-descendants (::sg/to %))
                                          relations))))))
+
+(defn prune-unrelated-branches [{::sg/keys [concepts relations] :as semantic-graph}]
+  (prune-branches semantic-graph (set/difference (into #{} (map ::sg/id (rest concepts)))
+                                                 (into #{} (map ::sg/to relations)))))

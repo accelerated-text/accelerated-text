@@ -187,3 +187,9 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{""} (get-variants result-id)))))
+
+(deftest ^:integration variable-unused
+  (let [{{result-id :resultId} :body status :status} (generate "variable-unused" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Some text."} (get-variants result-id)))))
