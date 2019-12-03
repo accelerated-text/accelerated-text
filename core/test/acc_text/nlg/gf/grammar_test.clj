@@ -195,4 +195,28 @@
                                 :params []
                                 :body   []
                                 :ret    [:s "Str"]}]}
-         (build-grammar "sequence-with-empty-shuffle" {}))))
+         (build-grammar "sequence-with-empty-shuffle" {})))
+  (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
+                    :instance :instance
+                    :module   :module
+                    :syntax   [{:body   [{:type :function :value "Segment04"}]
+                                :name   "DocumentPlan01"
+                                :params ["Segment04"]
+                                :ret    [:s "Str"]}
+                               {:body   [{:type :function :value "Quote03"}]
+                                :name   "Variable02"
+                                :params ["Quote03"]
+                                :ret    [:s "Str"]}
+                               {:body   [{:type :literal :value "some text"}]
+                                :name   "Quote03"
+                                :params []
+                                :ret    [:s "Str"]}
+                               {:body   [{:type :function :value "Reference05"}]
+                                :name   "Segment04"
+                                :params ["Reference05"]
+                                :ret    [:s "Str"]}
+                               {:body   [{:type :function :value "Variable02"}]
+                                :name   "Reference05"
+                                :params ["Variable02"]
+                                :ret    [:s "Str"]}]}
+         (build-grammar "variable" {}))))

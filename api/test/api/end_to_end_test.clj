@@ -169,3 +169,9 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"Either the book is written in English or it is less than 50 pages long."} (get-variants result-id)))))
+
+(deftest ^:integration variable-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "variable" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Some text."} (get-variants result-id)))))
