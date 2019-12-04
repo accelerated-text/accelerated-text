@@ -42,9 +42,9 @@
                                 :name   "Quote03"
                                 :ret    [:s "Str"]}]}
          (build-grammar "single-quote" {})))
-  (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
+  (is (= #::grammar{:module   :module
                     :instance :instance
-                    :module   :module
+                    :flags    {:startcat "DocumentPlan01"}
                     :syntax   [{:body   [{:type :function :value "Segment02"}]
                                 :name   "DocumentPlan01"
                                 :params ["Segment02"]
@@ -68,9 +68,9 @@
                                 :params []
                                 :ret    [:s "Str"]}]}
          (build-grammar "adjective-phrase" {:dictionary {"good" ["excellent"]}})))
-  (is (= #::grammar{:flags    {:startcat "DocumentPlan01"}
+  (is (= #::grammar{:module   :module
                     :instance :instance
-                    :module   :module
+                    :flags    {:startcat "DocumentPlan01"}
                     :syntax   [{:name   "DocumentPlan01"
                                 :params ["Segment02"]
                                 :body   [{:type :function :value "Segment02"}]
