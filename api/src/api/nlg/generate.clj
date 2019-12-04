@@ -36,7 +36,7 @@
                     row (nth (get-data data-id) (or data-sample-row 0))]
                 (->> reader-model
                      (get-reader-profiles)
-                     (map #(context/build-context semantic-graph %))
+                     (map (partial context/build-context semantic-graph))
                      (mapcat #(nlg/generate-text semantic-graph % row))
                      (map :text)
                      (sort)

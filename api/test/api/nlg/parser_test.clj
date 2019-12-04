@@ -40,4 +40,4 @@
           {concepts ::sg/concepts relations ::sg/relations} (parser/document-plan->semantic-graph root)]
       (is (set/subset? #{:data :dictionary-item} (set (map ::sg/type concepts))))
       (is (set/subset? #{:modifier} (set (map ::sg/role relations))))
-      (is (= 2 (count relations))))))
+      (is (= 3 (count relations))))))

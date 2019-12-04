@@ -1,5 +1,6 @@
 (ns api.nlg.parser
   (:require [acc-text.nlg.semantic-graph :as sg]
+            [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.spec.alpha :as s]
             [clojure.zip :as zip]))
 
@@ -8,8 +9,9 @@
 (defmethod build-semantic-graph :default [{:keys [id type]} _]
   (throw (Exception. (format "Unknown node type for node id %s: %s" id type))))
 
-(defmethod build-semantic-graph :placeholder [_ _]
-  #::sg{:concepts  []
+(defmethod build-semantic-graph :placeholder [{id :id} _]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :placeholder}]
         :relations []})
 
 (defmethod build-semantic-graph :Document-plan [{:keys [id segments]} _]
@@ -35,54 +37,59 @@
   #::sg{:concepts  [#::sg{:id    id
                           :type  :amr
                           :value conceptId}]
-        :relations (->> roles
-                        (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
-                                       (when (not= type "placeholder")
-                                         #::sg{:from       id
-                                               :to         child-id
-                                               :role       (keyword (str "ARG" index))
-                                               :attributes #::sg{:name name}})))
-                        (cons (when (and (some? dictionaryItem) (not= (:type dictionaryItem) "placeholder"))
-                                #::sg{:from id
-                                      :to   (:id dictionaryItem)
-                                      :role :function}))
-                        (remove nil?))})
+        :relations (cons #::sg{:from id
+                               :to   (:id dictionaryItem)
+                               :role :function}
+                         (map-indexed (fn [index {[{child-id :id}] :children name :name}]
+                                        #::sg{:from       id
+                                              :to         child-id
+                                              :role       (keyword (str "ARG" index))
+                                              :attributes #::sg{:name name}})
+                                      roles))})
 
-(defmethod build-semantic-graph :Cell [{:keys [id name children]} _]
+(defmethod build-semantic-graph :Cell [{:keys [id name]} _]
   #::sg{:concepts  [#::sg{:id    id
                           :type  :data
                           :value name}]
-        :relations (map (fn [{child-id :id}]
-                          #::sg{:from id
-                                :to   child-id
-                                :role :modifier})
-                        children)})
+        :relations []})
 
-(defmethod build-semantic-graph :Quote [{:keys [id text children]} _]
+(defmethod build-semantic-graph :Quote [{:keys [id text]} _]
   #::sg{:concepts  [#::sg{:id    id
                           :type  :quote
                           :value text}]
-        :relations (map (fn [{child-id :id}]
-                          #::sg{:from id
-                                :to   child-id
-                                :role :modifier})
-                        children)})
+        :relations []})
 
-(defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name children]} _]
+(defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name]} _]
   #::sg{:concepts  [#::sg{:id         id
                           :type       :dictionary-item
                           :value      itemId
                           :attributes #::sg{:name name}}]
-        :relations (map (fn [{child-id :id}]
-                          #::sg{:from id
-                                :to   child-id
-                                :role :modifier})
-                        children)})
+        :relations []})
 
-(defmethod build-semantic-graph :Dictionary-item-modifier [node variables]
-  (-> node
-      (assoc :type "Dictionary-item")
-      (build-semantic-graph variables)))
+(defmethod build-semantic-graph :Dictionary-item-modifier [{:keys [id itemId name]} _]
+  #::sg{:concepts  [#::sg{:id         id
+                          :type       :dictionary-item
+                          :value      itemId
+                          :attributes #::sg{:name name}}]
+        :relations []})
+
+(defmethod build-semantic-graph :Cell-modifier [{:keys [id name]} _]
+  #::sg{:concepts  [#::sg{:id    id
+                          :type  :data
+                          :value name}]
+        :relations []})
+
+(defmethod build-semantic-graph :Modifier [{:keys [id child modifiers]} _]
+  #::sg{:concepts  [#::sg{:id   id
+                          :type :modifier}]
+        :relations (cons #::sg{:from id
+                               :to   (:id child)
+                               :role :child}
+                         (map (fn [{modifier-id :id}]
+                                #::sg{:from id
+                                      :to   modifier-id
+                                      :role :modifier})
+                              modifiers))})
 
 (defmethod build-semantic-graph :Sequence [{:keys [id children]} _]
   #::sg{:concepts  [#::sg{:id   id
@@ -212,6 +219,8 @@
                                    (assoc role :children (list child)))
                                  (:roles node) (rest children)))
     :Dictionary-item-modifier (assoc node :child (first children))
+    :Cell-modifier (assoc node :child (first children))
+    :Modifier (-> node (dissoc :modifier) (assoc :child (first children) :modifiers (rest children)))
     :If-then-else (assoc node :conditions children)
     :If-condition (assoc node :condition (first children) :thenExpression (second children))
     :Default-condition (assoc node :thenExpression (first children))
@@ -227,6 +236,8 @@
     :Document-plan (:segments node)
     :AMR (cons (:dictionaryItem node) (mapcat :children (:roles node)))
     :Dictionary-item-modifier [(:child node)]
+    :Cell-modifier [(:child node)]
+    :Modifier (cons (:child node) (or (when (some? (:modifier node)) [(:modifier node)]) (:modifiers node)))
     :If-then-else (:conditions node)
     :If-condition [(:condition node) (:thenExpression node)]
     :Default-condition [(:thenExpression node)]
@@ -244,6 +255,8 @@
       :Document-plan (seq (:segments node))
       :AMR (or (some? (:dictionaryItem node)) (seq (:roles node)))
       :Dictionary-item-modifier (some? (:child node))
+      :Cell-modifier (some? (:child node))
+      :Modifier (or (some? (:child node)) (some? (:modifier node)) (seq (:modifiers node)))
       :If-then-else (seq (:conditions node))
       :If-condition (or (some? (:condition node)) (some? (:thenExpression node)))
       :Default-condition (some? (:thenExpression node))
@@ -271,12 +284,13 @@
   (loop [zipper (make-zipper node)
          modifiers []]
     (let [{:keys [type child] :as node} (zip/node zipper)]
-      (if-not (and (= "Dictionary-item-modifier" type) (some? child))
-        (cond-> node (seq modifiers) (-> (make-node (concat (get-children node) modifiers))
-                                         (preprocess-node index)))
-        (recur (zip/next zipper) (conj modifiers (-> node
-                                                     (dissoc :child)
-                                                     (assoc :type "Dictionary-item"))))))))
+      (if-not (and (contains? #{"Dictionary-item-modifier" "Cell-modifier"} type) (some? child))
+        (if (seq modifiers)
+          (-> {:type "Modifier"}
+              (make-node (cons node modifiers))
+              (preprocess-node index))
+          node)
+        (recur (zip/next zipper) (conj modifiers (dissoc node :child)))))))
 
 (defn preprocess-node [node index]
   (-> node (nil->placeholder) (rearrange-modifiers index) (gen-id index)))
@@ -291,12 +305,18 @@
           (zip/next)
           (recur (inc index))))))
 
+(defn postprocess [semantic-graph]
+  (-> semantic-graph
+      (sg-utils/prune-nil-relations)
+      (sg-utils/prune-concepts-by-type :placeholder)
+      (sg-utils/prune-unrelated-branches)))
+
 (defn document-plan->semantic-graph [root]
   (loop [zipper (-> root (preprocess) (make-zipper))
          graph #::sg{:relations [] :concepts []}
          variables {}]
     (if (or (zip/end? zipper) (empty? root))
-      (update graph ::sg/relations #(remove (fn [{to ::sg/to}] (nil? to)) %))
+      (postprocess graph)
       (let [{:keys [id name type] :as node} (zip/node zipper)]
         (recur
           (zip/next zipper)

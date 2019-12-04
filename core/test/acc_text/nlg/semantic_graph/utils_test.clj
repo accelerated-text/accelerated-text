@@ -8,8 +8,8 @@
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [types ids]
       (= ids (sg-utils/find-concept-ids semantic-graph types))
-      #{:dictionary-item} #{:04 :06}
-      #{:data} #{:05 :07}
+      #{:dictionary-item} #{:04 :07}
+      #{:data} #{:06 :08}
       #{:amr} #{:03}
       #{:sequence} #{})))
 
@@ -19,8 +19,8 @@
       (= child-ids (sg-utils/find-child-ids semantic-graph parent-ids))
       #{:01} #{:02}
       #{:02} #{:03}
-      #{:03} #{:04 :05 :07}
-      #{:04 :05} #{:06}
+      #{:03} #{:04 :05 :08}
+      #{:04 :05} #{:06 :07}
       #{:06 :07} #{}
       #{:08} #{}
       #{} #{})))
@@ -29,19 +29,20 @@
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [parent-ids descendant-ids]
       (= descendant-ids (sg-utils/find-descendant-ids semantic-graph parent-ids))
-      #{:01} #{:02 :03 :04 :05 :06 :07}
-      #{:02} #{:03 :04 :05 :06 :07}
-      #{:03} #{:04 :05 :06 :07}
-      #{:04 :05} #{:06}
+      #{:01} #{:02 :03 :04 :05 :06 :07 :08}
+      #{:02} #{:03 :04 :05 :06 :07 :08}
+      #{:03} #{:04 :05 :06 :07 :08}
+      #{:04 :05} #{:06 :07}
       #{:06 :07} #{}
       #{:08} #{}
+      #{:09} #{}
       #{} #{})))
 
 (deftest child-with-relation-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [concept role child]
       (= child (sg-utils/get-child-with-relation semantic-graph concept role))
-      #::sg{:id :05 :type :data :value "authors"} :modifier #::sg{:attributes #::sg{:name "good"} :id :06 :type :dictionary-item :value "good"}
+      #::sg{:id :05 :type :data :value "authors"} :modifier #::sg{:attributes #::sg{:name "good"} :id :07 :type :dictionary-item :value "good"}
       #::sg{:id :02 :type :segment} :function nil)))
 
 (deftest child-concept-search
@@ -49,16 +50,16 @@
     (are [concept children]
       (= children (sg-utils/get-children semantic-graph concept))
       #::sg{:id :03 :type :amr :value "author"} [#::sg{:id :04 :type :dictionary-item :value "written" :attributes #::sg{:name "written"}}
-                                                 #::sg{:id :05 :type :data :value "authors"}
-                                                 #::sg{:id :07 :type :data :value "title"}]
+                                                 #::sg{:id :05 :type :modifier}
+                                                 #::sg{:id :08 :type :data :value "title"}]
       #::sg{:id :07 :type :data :value "title"} [])))
 
 (deftest concept-with-type-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [type concepts]
       (= concepts (sg-utils/get-concepts-with-type semantic-graph type))
-      :data [#::sg{:id :05 :type :data :value "authors"}
-             #::sg{:id :07 :type :data :value "title"}]
+      :data [#::sg{:id :06 :type :data :value "authors"}
+             #::sg{:id :08 :type :data :value "title"}]
       :boolean [])))
 
 (deftest graph-pruning
@@ -79,7 +80,7 @@
                                    :to   :02}]}
            (sg-utils/prune-branches semantic-graph #{:03})))
     (is (= semantic-graph
-           (sg-utils/prune-branches semantic-graph #{:08})))))
+           (sg-utils/prune-branches semantic-graph #{:09})))))
 
 (deftest unrelated-branch-pruning
   (let [semantic-graph (utils/load-test-semantic-graph "variable-unused")]

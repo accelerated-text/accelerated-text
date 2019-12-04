@@ -178,6 +178,12 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Value in blockly document plan"}
 
+          {:db/ident       :blockly/modifier
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Modifier in blockly document plan"}
+
           {:db/ident       :blockly/value-1
            :db/valueType   :db.type/ref
            :db/isComponent true

@@ -8,7 +8,7 @@
 (s/def ::name (s/and string? #(not (string/blank? %))))
 
 (s/def ::type #{:document-plan :segment :data :quote :dictionary-item :amr :shuffle :sequence :condition :if-statement
-                :default-statement :comparator :boolean :variable :reference})
+                :default-statement :comparator :boolean :variable :reference :modifier})
 
 (s/def ::concept (s/keys :req [::id ::type]))
 
@@ -16,8 +16,8 @@
 
 (s/def ::role
   (s/or :core (s/with-gen keyword? #(gen/fmap (fn [idx] (keyword (str "ARG" (Math/abs ^Integer idx)))) (gen/int)))
-        :non-core #{:segment :instance :modifier :item :statement :predicate :comparable :expression :entity :input
-                    :definition :pointer}))
+        :non-core #{:segment :instance :modifier :child :item :statement :predicate :comparable :expression :entity
+                    :input :definition :pointer}))
 
 (s/def ::from keyword?)
 (s/def ::to keyword?)

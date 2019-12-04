@@ -6,10 +6,11 @@
                                                                         :role       :ARG0
                                                                         :attributes #:acc-text.nlg.semantic-graph{:name "agent"}}
                                           #:acc-text.nlg.semantic-graph{:from       :03
-                                                                        :to         :07
+                                                                        :to         :08
                                                                         :role       :ARG1
                                                                         :attributes #:acc-text.nlg.semantic-graph{:name "co-agent"}}
-                                          #:acc-text.nlg.semantic-graph{:from :05 :to :06 :role :modifier}]
+                                          #:acc-text.nlg.semantic-graph{:from :05 :to :06 :role :child}
+                                          #:acc-text.nlg.semantic-graph{:from :05 :to :07 :role :modifier}]
                               :concepts  [#:acc-text.nlg.semantic-graph{:id :01 :type :document-plan}
                                           #:acc-text.nlg.semantic-graph{:id :02 :type :segment}
                                           #:acc-text.nlg.semantic-graph{:id :03 :type :amr :value "author"}
@@ -17,9 +18,10 @@
                                                                         :type       :dictionary-item
                                                                         :value      "written"
                                                                         :attributes #:acc-text.nlg.semantic-graph{:name "written"}}
-                                          #:acc-text.nlg.semantic-graph{:id :05 :type :data :value "authors"}
-                                          #:acc-text.nlg.semantic-graph{:id         :06
+                                          #:acc-text.nlg.semantic-graph{:id :05 :type :modifier}
+                                          #:acc-text.nlg.semantic-graph{:id :06 :type :data :value "authors"}
+                                          #:acc-text.nlg.semantic-graph{:id         :07
                                                                         :type       :dictionary-item
                                                                         :value      "good"
                                                                         :attributes #:acc-text.nlg.semantic-graph{:name "good"}}
-                                          #:acc-text.nlg.semantic-graph{:id :07 :type :data :value "title"}]}
+                                          #:acc-text.nlg.semantic-graph{:id :08 :type :data :value "title"}]}

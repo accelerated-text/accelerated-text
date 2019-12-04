@@ -23,6 +23,11 @@
                      :value "|"})
          (flatten))))
 
+(defn get-child-with-role [concepts relations role]
+  (some (fn [[relation concept]]
+          (when (= role (::sg/role relation)) concept))
+        (zipmap relations concepts)))
+
 (defn attach-selectors [m attrs]
   (let [selectors (->> (keys attrs) (remove #{:pos :role :value}) (select-keys attrs))]
     (cond-> m (seq selectors) (assoc :selectors selectors))))
@@ -39,50 +44,47 @@
                          :value (concept->name child-concept)}))
    :ret    [:s "Str"]})
 
-(defmethod build-function :data [{value ::sg/value :as concept} children _ _]
+(defmethod build-function :data [{value ::sg/value :as concept} _ _ _]
   {:name   (concept->name concept)
-   :params (map concept->name children)
-   :body   (interpose {:type  :operator
-                       :value "++"}
-                      (concat
-                        (for [child-concept children]
-                          {:type  :function
-                           :value (concept->name child-concept)})
-                        [{:type  :literal
-                          :value (format "{{%s}}" value)}]))
+   :params []
+   :body   [{:type  :literal
+             :value (format "{{%s}}" value)}]
    :ret    [:s "Str"]})
 
-(defmethod build-function :quote [{value ::sg/value :as concept} children _ _]
+(defmethod build-function :quote [{value ::sg/value :as concept} _ _ _]
   {:name   (concept->name concept)
-   :params (map concept->name children)
-   :body   (interpose {:type  :operator
-                       :value "++"}
-                      (concat
-                        (for [child-concept children]
-                          {:type  :function
-                           :value (concept->name child-concept)})
-                        [{:type  :literal
-                          :value value}]))
+   :params []
+   :body   [{:type  :literal
+             :value value}]
    :ret    [:s "Str"]})
 
-(defmethod build-function :dictionary-item [{::sg/keys [value attributes] :as concept} children _ {dictionary :dictionary}]
+(defmethod build-function :dictionary-item [{::sg/keys [value attributes] :as concept} _ _ {dictionary :dictionary}]
   {:name   (concept->name concept)
-   :params (map concept->name children)
+   :params []
    :body   (interpose {:type  :operator
                        :value "|"}
-                      (concat
-                        (for [value (set (cons (::sg/name attributes) (get dictionary value)))]
-                          {:type  :literal
-                           :value value})
-                        (for [child-concept children]
-                          {:type  :function
-                           :value (concept->name child-concept)})))
+                      (for [value (set (cons (::sg/name attributes) (get dictionary value)))]
+                        {:type  :literal
+                         :value value}))
    :ret    [:s "Str"]})
 
+(defmethod build-function :modifier [concept children relations _]
+  (let [child-concept (get-child-with-role children relations :child)
+        modifier-concepts (remove #(= (::sg/id child-concept) (::sg/id %)) children)]
+    {:name   (concept->name concept)
+     :params (map concept->name children)
+     :body   (interpose {:type  :operator
+                         :value "++"}
+                        (cond-> (map (fn [modifier-concept]
+                                       {:type  :function
+                                        :value (concept->name modifier-concept)})
+                                     modifier-concepts)
+                                (some? child-concept) (concat [{:type  :function
+                                                                :value (concept->name child-concept)}])))
+     :ret    [:s "Str"]}))
+
 (defmethod build-function :amr [{value ::sg/value :as concept} children relations {amr :amr}]
-  (let [function-concept (some (fn [[role concept]]
-                                 (when (= :function role) concept))
-                               (zipmap (map ::sg/role relations) children))
+  (let [function-concept (get-child-with-role children relations :function)
         role-map (reduce (fn [m [{role ::sg/role {attr-name ::sg/name} ::sg/attributes} concept]]
                            (cond-> m
                                    (and (not= :function role)
