@@ -11,9 +11,13 @@
             [data.entities.result :as results]))
 
 (s/def ::documentPlanId string?)
+(s/def ::key string?)
 (s/def ::dataId string?)
+(s/def ::dataRow (s/map-of string? string?))
+(s/def ::dataRows (s/map-of ::key ::dataRow))
 (s/def ::readerFlagValues (s/map-of string? boolean?))
-(s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId ::readerFlagValues]))
+(s/def ::generate-req (s/keys :req-un [::documentPlanId ::readerFlagValues ::dataId]))
+(s/def ::generate-bulk (s/keys :req-un [::documentPlanId ::readerFlagValues ::dataRows]))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
@@ -28,27 +32,37 @@
                  reader-model))
     [:default]))
 
-(defn generation-process [document-plan-id data-id reader-model]
+(defn generate-row [semantic-graph contexts [row-key data]]
+  {row-key (->> contexts
+                (mapcat #(nlg/generate-text semantic-graph % data))
+                (map :text)
+                (sort)
+                (dedupe))})
+
+(defn generation-process [document-plan rows reader-model]
   (try
     {:ready   true
-     :results (let [{document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)
-                    semantic-graph (parser/document-plan->semantic-graph document-plan)
-                    row (nth (get-data data-id) (or data-sample-row 0))]
-                (->> reader-model
-                     (get-reader-profiles)
-                     (map (partial context/build-context semantic-graph))
-                     (mapcat #(nlg/generate-text semantic-graph % row))
-                     (map :text)
-                     (sort)
-                     (dedupe)))}
+     :results (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
+                    contexts (->> reader-model
+                                  (get-reader-profiles)
+                                  (map #(context/build-context semantic-graph %)))]
+                (map #(generate-row semantic-graph contexts %) rows))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
 
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues}]
+  (let [result-id (utils/gen-uuid)
+        {document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)
+        row (nth (get-data data-id) (or data-sample-row 0))]
+    (results/store-status result-id {:ready false})
+    (results/rewrite result-id (generation-process document-plan {:sample row} reader-model))
+    {:status 200
+     :body   {:resultId result-id}}))
+
+(defn generate-bulk [{document-plan-id :documentPlanId reader-model :readerFlagValues rows :dataRow}]
   (let [result-id (utils/gen-uuid)]
     (results/store-status result-id {:ready false})
-    (results/rewrite result-id (generation-process document-plan-id data-id reader-model))
     {:status 200
      :body   {:resultId result-id}}))
 
@@ -62,14 +76,14 @@
           :children    [{:type     "PARAGRAPH"
                          :id       (utils/gen-uuid)
                          :children (vec
-                                     (for [sentence (nlp/split-into-sentences r)]
-                                       {:type     "SENTENCE"
-                                        :id       (utils/gen-uuid)
-                                        :children (vec
-                                                    (for [token (nlp/tokenize sentence)]
-                                                      {:type (nlp/token-type token)
-                                                       :id   (utils/gen-uuid)
-                                                       :text token}))}))}]})
+                                    (for [sentence (nlp/split-into-sentences r)]
+                                      {:type     "SENTENCE"
+                                       :id       (utils/gen-uuid)
+                                       :children (vec
+                                                  (for [token (nlp/tokenize sentence)]
+                                                    {:type (nlp/token-type token)
+                                                     :id   (utils/gen-uuid)
+                                                     :text token}))}))}]})
        results))
 
 (defn read-result [{:keys [path-params]}]
@@ -81,7 +95,7 @@
                   :totalCount (count results)
                   :ready      ready
                   :updatedAt  updatedAt
-                  :variants   (wrap-to-annotated-text results)}}
+                  :variants   (wrap-to-annotated-text (get :sample results))}}
         {:status 404})
       (catch Exception e
         (log/errorf "Failed to read result with id `%s`: %s"
