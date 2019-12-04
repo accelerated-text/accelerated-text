@@ -199,3 +199,9 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"Nice text."} (get-variants result-id)))))
+
+(deftest ^:integration cell-modifier-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "modifier-cell" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Computers book."} (get-variants result-id)))))

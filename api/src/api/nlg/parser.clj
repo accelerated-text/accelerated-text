@@ -89,6 +89,16 @@
                                 :role :modifier})
                         children)})
 
+(defmethod build-semantic-graph :Cell-modifier [{:keys [id name children]} _]
+  #::sg{:concepts  [#::sg{:id    id
+                          :type  :data
+                          :value name}]
+        :relations (map (fn [{child-id :id}]
+                          #::sg{:from id
+                                :to   child-id
+                                :role :modifier})
+                        children)})
+
 (defmethod build-semantic-graph :Modifier [{:keys [id modifier child]} _]
   #::sg{:concepts  [#::sg{:id   id
                           :type :modifier}]
@@ -227,6 +237,8 @@
                                    (assoc role :children (list child)))
                                  (:roles node) (rest children)))
     :Dictionary-item-modifier (assoc node :child (first children))
+    :Cell-modifier (assoc node :child (first children))
+    :Modifier (assoc node :modifier (first children) :child (second children))
     :If-then-else (assoc node :conditions children)
     :If-condition (assoc node :condition (first children) :thenExpression (second children))
     :Default-condition (assoc node :thenExpression (first children))
@@ -235,7 +247,6 @@
     :Not (assoc node :value (first children))
     :Xor (assoc node :value1 (first children) :value2 (second children))
     :Define-var (assoc node :value (first children))
-    :Modifier (assoc node :modifier (first children) :child (second children))
     (assoc node :children children)))
 
 (defn get-children [{type :type :as node}]
@@ -243,6 +254,8 @@
     :Document-plan (:segments node)
     :AMR (cons (:dictionaryItem node) (mapcat :children (:roles node)))
     :Dictionary-item-modifier [(:child node)]
+    :Cell-modifier [(:child node)]
+    :Modifier [(:modifier node) (:child node)]
     :If-then-else (:conditions node)
     :If-condition [(:condition node) (:thenExpression node)]
     :Default-condition [(:thenExpression node)]
@@ -251,7 +264,6 @@
     :Not [(:value node)]
     :Xor [(:value1 node) (:value2 node)]
     :Define-var [(:value node)]
-    :Modifier [(:modifier node) (:child node)]
     (:children node)))
 
 (defn branch? [{type :type :as node}]
@@ -261,6 +273,8 @@
       :Document-plan (seq (:segments node))
       :AMR (or (some? (:dictionaryItem node)) (seq (:roles node)))
       :Dictionary-item-modifier (some? (:child node))
+      :Cell-modifier (some? (:child node))
+      :Modifier (or (some? (:modifier node)) (some? (:child node)))
       :If-then-else (seq (:conditions node))
       :If-condition (or (some? (:condition node)) (some? (:thenExpression node)))
       :Default-condition (some? (:thenExpression node))
@@ -269,7 +283,6 @@
       :Not (some? (:value node))
       :Xor (or (some? (:value1 node)) (some? (:value2 node)))
       :Define-var (some? (:value node))
-      :Modifier (or (some? (:modifier node)) (some? (:child node)))
       (seq (:children node)))))
 
 (defn make-zipper [root]
@@ -289,7 +302,7 @@
   (loop [zipper (make-zipper node)
          modifiers []]
     (let [{:keys [type child] :as node} (zip/node zipper)]
-      (if-not (and (= "Dictionary-item-modifier" type) (some? child))
+      (if-not (and (contains? #{"Dictionary-item-modifier" "Cell-modifier"}  type) (some? child))
         (cond-> node (seq modifiers) (-> (make-node (concat (get-children node) modifiers))
                                          (preprocess-node index)))
         (recur (zip/next zipper) (conj modifiers (dissoc node :child)))))))
