@@ -40,12 +40,11 @@
         :relations (cons #::sg{:from id
                                :to   (:id dictionaryItem)
                                :role :function}
-                         (map-indexed (fn [index {[{child-id :id type :type}] :children name :name}]
-                                        (when (not= type "placeholder")
-                                          #::sg{:from       id
-                                                :to         child-id
-                                                :role       (keyword (str "ARG" index))
-                                                :attributes #::sg{:name name}}))
+                         (map-indexed (fn [index {[{child-id :id}] :children name :name}]
+                                        #::sg{:from       id
+                                              :to         child-id
+                                              :role       (keyword (str "ARG" index))
+                                              :attributes #::sg{:name name}})
                                       roles))})
 
 (defmethod build-semantic-graph :Cell [{:keys [id name]} _]
