@@ -16,8 +16,8 @@
 
 (s/def ::role
   (s/or :core (s/with-gen keyword? #(gen/fmap (fn [idx] (keyword (str "ARG" (Math/abs ^Integer idx)))) (gen/int)))
-        :non-core #{:segment :instance :modifier :item :statement :predicate :comparable :expression :entity :input
-                    :definition :pointer}))
+        :non-core #{:segment :instance :modifier :child :item :statement :predicate :comparable :expression :entity
+                    :input :definition :pointer}))
 
 (s/def ::from keyword?)
 (s/def ::to keyword?)

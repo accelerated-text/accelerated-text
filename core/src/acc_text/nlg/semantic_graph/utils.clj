@@ -49,6 +49,18 @@
                                  (remove #(contains? ids-incl-descendants (::sg/to %))
                                          relations))))))
 
+(defn prune-concepts-by-type [semantic-graph type]
+  (->> (get-concepts-with-type semantic-graph type)
+       (map ::sg/id)
+       (into #{})
+       (prune-branches semantic-graph)))
+
+(defn prune-nil-relations [semantic-graph]
+  (update semantic-graph ::sg/relations (fn [relations]
+                                          (remove (fn [{::sg/keys [from to]}]
+                                                    (or (nil? from) (nil? to)))
+                                                  relations))))
+
 (defn prune-unrelated-branches [{::sg/keys [concepts relations] :as semantic-graph}]
   (prune-branches semantic-graph (set/difference (into #{} (map ::sg/id (rest concepts)))
                                                  (into #{} (map ::sg/to relations)))))
