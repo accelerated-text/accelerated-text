@@ -256,7 +256,18 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Text to be conveyed"}
 
-          {:db/ident       :results/results
+          {:db/ident       :result/key
            :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Key mapping results to item"}
+
+          {:db/ident       :result/variants
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Variants of text"}
+          
+          {:db/ident       :results/results
+           :db/valueType   :db.type/tuple
+           :db/tupleAttrs [:result/key :result/variants]
            :db/cardinality :db.cardinality/many
            :db/doc         "Text that was generated"}]]}}
