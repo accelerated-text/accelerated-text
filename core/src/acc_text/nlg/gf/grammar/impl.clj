@@ -9,20 +9,6 @@
             (str/join))
        (name id)))
 
-(defn variants [xs]
-  (if-not (< 1 (count xs))
-    (first xs)
-    (->> xs
-         (map (fn [x]
-                (concat [{:type  :operator
-                          :value "("}]
-                        x
-                        [{:type  :operator
-                          :value ")"}])))
-         (interpose {:type  :operator
-                     :value "|"})
-         (flatten))))
-
 (defn get-child-with-role [concepts relations role]
   (some (fn [[relation concept]]
           (when (= role (::sg/role relation)) concept))
@@ -37,11 +23,9 @@
 (defmethod build-function :default [concept children _ _]
   {:name   (concept->name concept)
    :params (map concept->name children)
-   :body   (interpose {:type  :operator
-                       :value "++"}
-                      (for [child-concept children]
-                        {:type  :function
-                         :value (concept->name child-concept)}))
+   :body   (for [child-concept children]
+             {:type  :function
+              :value (concept->name child-concept)})
    :ret    [:s "Str"]})
 
 (defmethod build-function :data [{value ::sg/value :as concept} _ _ _]
@@ -61,11 +45,9 @@
 (defmethod build-function :dictionary-item [{::sg/keys [value attributes] :as concept} _ _ {dictionary :dictionary}]
   {:name   (concept->name concept)
    :params []
-   :body   (interpose {:type  :operator
-                       :value "|"}
-                      (for [value (set (cons (::sg/name attributes) (get dictionary value)))]
-                        {:type  :literal
-                         :value value}))
+   :body   (for [value (set (cons (::sg/name attributes) (get dictionary value)))]
+             [{:type  :literal
+               :value value}])
    :ret    [:s "Str"]})
 
 (defmethod build-function :modifier [concept children relations _]
@@ -73,14 +55,12 @@
         modifier-concepts (remove #(= (::sg/id child-concept) (::sg/id %)) children)]
     {:name   (concept->name concept)
      :params (map concept->name children)
-     :body   (interpose {:type  :operator
-                         :value "++"}
-                        (cond-> (map (fn [modifier-concept]
-                                       {:type  :function
-                                        :value (concept->name modifier-concept)})
-                                     modifier-concepts)
-                                (some? child-concept) (concat [{:type  :function
-                                                                :value (concept->name child-concept)}])))
+     :body   (cond-> (map (fn [modifier-concept]
+                            {:type  :function
+                             :value (concept->name modifier-concept)})
+                          modifier-concepts)
+                     (some? child-concept) (concat [{:type  :function
+                                                     :value (concept->name child-concept)}]))
      :ret    [:s "Str"]}))
 
 (defmethod build-function :amr [{value ::sg/value :as concept} children relations {amr :amr}]
@@ -93,60 +73,50 @@
                          (zipmap relations children))]
     {:name   (concept->name concept)
      :params (map concept->name children)
-     :body   (variants
-               (for [syntax (->> (keyword value) (get amr) (:frames) (map :syntax))]
-                 (interpose {:type  :operator
-                             :value "++"}
-                            (for [{value :value pos :pos role :role :as attrs} syntax]
-                              (let [role-key (when (some? role) (str/lower-case role))]
-                                (-> (cond
-                                      (contains? role-map role-key) {:type  :function
-                                                                     :value (get role-map role-key)}
-                                      (some? role) {:type  :literal
-                                                    :value (format "{{%s}}" role)}
-                                      (= pos :AUX) {:type  :function
-                                                    :value "(copula Sg)"}
-                                      (and (some? function-concept)
-                                           (= pos :VERB)) {:type  :function
-                                                           :value (concept->name function-concept)}
-                                      (some? value) {:type  :literal
-                                                     :value value}
-                                      :else {:type  :literal
-                                             :value "{{...}}"})
-                                    (attach-selectors attrs)
-                                    (assoc :pos pos)))))))
+     :body   (for [syntax (->> (keyword value) (get amr) (:frames) (map :syntax))]
+               (for [{value :value pos :pos role :role :as attrs} syntax]
+                 (let [role-key (when (some? role) (str/lower-case role))]
+                   (-> (cond
+                         (contains? role-map role-key) {:type  :function
+                                                        :value (get role-map role-key)}
+                         (some? role) {:type  :literal
+                                       :value (format "{{%s}}" role)}
+                         (= pos :AUX) {:type  :function
+                                       :value "(copula Sg)"}
+                         (and (some? function-concept)
+                              (= pos :VERB)) {:type  :function
+                                              :value (concept->name function-concept)}
+                         (some? value) {:type  :literal
+                                        :value value}
+                         :else {:type  :literal
+                                :value "{{...}}"})
+                       (attach-selectors attrs)
+                       (assoc :pos pos)))))
      :ret    [:s "Str"]}))
 
 (defmethod build-function :shuffle [concept children _ _]
   {:name   (concept->name concept)
    :params (map concept->name children)
-   :body   (variants
-             (for [permutation (permutations children)]
-               (interpose {:type  :operator
-                           :value "++"}
-                          (for [child-concept permutation]
-                            {:type  :function
-                             :value (concept->name child-concept)}))))
+   :body   (for [permutation (filter seq (permutations children))]
+             (for [child-concept permutation]
+               {:type  :function
+                :value (concept->name child-concept)}))
    :ret    [:s "Str"]})
 
 (defmethod build-function :synonyms [concept children _ _]
   {:name   (concept->name concept)
    :params (map concept->name children)
-   :body   (interpose {:type  :operator
-                       :value "|"}
-                      (for [child-concept children]
-                        {:type  :function
-                         :value (concept->name child-concept)}))
+   :body   (for [child-concept children]
+             [{:type  :function
+               :value (concept->name child-concept)}])
    :ret    [:s "Str"]})
 
 (defmethod build-function :reference [concept children _ _]
   {:name   (concept->name concept)
    :params (map concept->name children)
-   :body   (interpose {:type  :operator
-                       :value "|"}
-                      (for [child-concept children]
-                        {:type  :function
-                         :value (concept->name child-concept)}))
+   :body   (for [child-concept children]
+             [{:type  :function
+               :value (concept->name child-concept)}])
    :ret    [:s "Str"]})
 
 (defn build-grammar [module instance {::sg/keys [concepts relations]} context]

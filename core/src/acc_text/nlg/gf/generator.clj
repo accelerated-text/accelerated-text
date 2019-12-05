@@ -2,6 +2,7 @@
   (:require [acc-text.nlg.gf.grammar :as grammar]
             [acc-text.nlg.gf.service :as service]
             [acc-text.nlg.utils :as utils]
+            [clojure.spec.alpha :as s]
             [clojure.string :as str]
             [jsonista.core :as json]))
 
@@ -50,13 +51,30 @@
                  (nth ret 1)))
        (group-by :ret syntax)))
 
+(declare join-function-body)
+
+(defn join-expression [expr]
+  (if (sequential? expr)
+    (cond->> (join-function-body expr)
+             (< 1 (count expr)) (format "(%s)"))
+    (let [{:keys [type value]} expr]
+      (case type
+        :literal (format "\"%s\"" (escape-string value))
+        :function (format "%s.s" value)))))
+
+(defn get-operator [expr next-expr]
+  (when (some? next-expr)
+    (if (some sequential? [expr next-expr])
+      "|"
+      "++")))
+
 (defn join-function-body [body]
-  (str/join " " (map (fn [{:keys [type value]}]
-                       (case type
-                         :literal (format "\"%s\"" (escape-string value))
-                         :operator value
-                         :function (format "%s.s" value)))
-                     body)))
+  (str/join " " (map (fn [expr next-expr]
+                       (let [operator (get-operator expr next-expr)]
+                         (cond-> (join-expression expr)
+                                 (some? operator) (str " " operator))))
+                     body
+                     (concat (rest body) [nil]))))
 
 (defn parse-lin [syntax]
   (map-indexed (fn [i {:keys [params ret body]}]
@@ -81,9 +99,9 @@
           (name module)
           "LangFunctionsEng"
           (join-body
-           "param" (parse-param syntax)
-           "lincat" (parse-lincat syntax)
-           "lin" (parse-lin syntax))))
+            "param" (parse-param syntax)
+            "lincat" (parse-lincat syntax)
+            "lin" (parse-lin syntax))))
 
 (defn generate [{::grammar/keys [module] :as grammar}]
   (-> (service/compile-request module (->abstract grammar) (->concrete grammar))
@@ -92,3 +110,7 @@
       (get-in [:results 0 1])
       (sort)
       (dedupe)))
+
+(s/fdef generate
+        :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar)
+        :ret (s/coll-of string?))
