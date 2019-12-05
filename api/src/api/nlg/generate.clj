@@ -34,11 +34,11 @@
 
 (defn generate-row [semantic-graph contexts [row-key data]]
   "Results in tuple (key, results), because datomic needs in this way"
-  (row-key (->> contexts
+  [row-key (->> contexts
                 (mapcat #(nlg/generate-text semantic-graph % data))
                 (map :text)
                 (sort)
-                (dedupe))))
+                (dedupe))])
 
 (defn generation-process [document-plan rows reader-model]
   (try
@@ -96,8 +96,10 @@
                   :totalCount (count (flatten results)) ;; Each key has N results. So flatten and count total
                   :ready      ready
                   :updatedAt  updatedAt
-                  :variants   (wrap-to-annotated-text (flatten ;; Don't care about any bulk keys at the moment
-                                                       (map second results)))}}
+                  :variants   (wrap-to-annotated-text (if (seq results)
+                                                        (flatten ;; Don't care about any bulk keys at the moment
+                                                          (map second (log/spyf :debug "Giving results: %s" results)))
+                                                        [""]))}}
         {:status 404})
       (catch Exception e
         (log/errorf "Failed to read result with id `%s`: %s"
