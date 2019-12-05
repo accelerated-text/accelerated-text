@@ -71,10 +71,27 @@
         pairs   (map #(interleave header %) data)]
     (doall (map #(apply array-map %) pairs))))
 
+(defn node-name [node]
+  (keyword 
+    (format "%s.%s.%s"
+            (name (:acc-text.nlg.semantic-graph/id node))
+            (name (:acc-text.nlg.semantic-graph/type node))
+            (or (:acc-text.nlg.semantic-graph/value node)
+                "-"))))
+
 (defn plan-graph [semantic-graph]
-  (apply uber/graph (for [{{name ::sg/name} ::sg/attributes
-                           from             ::sg/from
-                           to               ::sg/to} (::sg/relations semantic-graph)]
-                      [from to {:name name}])))
+  (let [concepts (group-by :acc-text.nlg.semantic-graph/id (:acc-text.nlg.semantic-graph/concepts semantic-graph))]
+    (apply uber/graph (for [{role ::sg/role
+                             from ::sg/from
+                             to   ::sg/to} (::sg/relations semantic-graph)]
+                        [(-> concepts
+                             (get from)
+                             (first)
+                             (node-name))
+                         (-> concepts
+                             (get to)
+                             (first)
+                             (node-name))
+                         {:name role}]))))
 
 (defn vizgraph [uber-graph] (uber/viz-graph uber-graph))
