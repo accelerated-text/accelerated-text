@@ -2,6 +2,7 @@
   (:require [acc-text.nlg.gf.grammar :as grammar]
             [acc-text.nlg.gf.service :as service]
             [acc-text.nlg.utils :as utils]
+            [clojure.spec.alpha :as s]
             [clojure.string :as str]
             [jsonista.core :as json]))
 
@@ -109,3 +110,7 @@
       (get-in [:results 0 1])
       (sort)
       (dedupe)))
+
+(s/fdef generate
+        :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar)
+        :ret (s/coll-of string?))

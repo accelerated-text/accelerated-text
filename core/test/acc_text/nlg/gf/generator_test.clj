@@ -5,7 +5,7 @@
             [clojure.spec.test.alpha :as stest]
             [clojure.test :refer [deftest is]]))
 
-(stest/instrument `grammar/build)
+(stest/instrument `grammar/build `generate)
 
 (deftest ^:integration quote-cases
   (is (= ["He said: \"GO!\""] (let [semantic-graph (utils/load-test-semantic-graph "quote-quote")
