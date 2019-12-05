@@ -13,6 +13,8 @@
 (s/def ::documentPlanId string?)
 (s/def ::key string?)
 (s/def ::dataId string?)
+(s/def ::format #{"raw" "dropoff" "annotated"}) ;; reitit does not convert these to keys
+(s/def ::format-query (s/keys :opt-un [::format]))
 (s/def ::dataRow (s/map-of string? string?))
 (s/def ::dataRows (s/map-of ::key ::dataRow))
 (s/def ::readerFlagValues (s/map-of string? boolean?))
@@ -61,9 +63,12 @@
     {:status 200
      :body   {:resultId result-id}}))
 
-(defn generate-bulk [{document-plan-id :documentPlanId reader-model :readerFlagValues rows :dataRow}]
-  (let [result-id (utils/gen-uuid)]
+(defn generate-bulk [{document-plan-id :documentPlanId reader-model :readerFlagValues rows :dataRows}]
+  (let [result-id (utils/gen-uuid)
+        {document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)]
+    (log/debugf "Bulk Generate request, data: %s" rows)
     (results/store-status result-id {:ready false})
+    (results/rewrite result-id (generation-process document-plan rows reader-model))
     {:status 200
      :body   {:resultId result-id}}))
 
@@ -87,8 +92,22 @@
                                                      :text token}))}))}]})
        results))
 
-(defn read-result [{:keys [path-params]}]
-  (let [request-id (:id path-params)]
+(defn annotated-text-format [results]
+  (->> results
+       (map second)
+       (flatten) ;; Don't care about any bulk keys at the moment
+       (wrap-to-annotated-text)))
+
+(defn raw-format [results] results)
+
+(defn standoff-format [results]) ;; TODO
+
+(defn read-result [{{:keys [path query]} :parameters}]
+  (let [request-id (:id path)
+        format-fn  (case (keyword (get query :format))
+                     :raw      raw-format
+                     :standoff standoff-format
+                     annotated-text-format)]
     (try
       (if-let [{:keys [results ready updatedAt]} (results/fetch request-id)]
         {:status 200
@@ -96,10 +115,7 @@
                   :totalCount (count (flatten results)) ;; Each key has N results. So flatten and count total
                   :ready      ready
                   :updatedAt  updatedAt
-                  :variants   (wrap-to-annotated-text (if (seq results)
-                                                        (flatten ;; Don't care about any bulk keys at the moment
-                                                          (map second (log/spyf :debug "Giving results: %s" results)))
-                                                        [""]))}}
+                  :variants   (format-fn results)}}
         {:status 404})
       (catch Exception e
         (log/errorf "Failed to read result with id `%s`: %s"

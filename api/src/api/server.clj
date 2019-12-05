@@ -71,7 +71,13 @@
                                 :handler (fn [{{body :body} :parameters}]
                                            (generate/generate-bulk body))}
                      :options cors-handler}]
-    ["/nlg/:id"     {:get     generate/read-result
+    ["/nlg/:id"     {:get     {:parameters {:query ::generate/format-query
+                                            :path  {:id string?}}
+                               :coercion   reitit.coercion.spec/coercion
+                               :summary    "Get NLG result"
+                               :middleware [muuntaja/format-request-middleware
+                                            coercion/coerce-request-middleware]
+                               :handler    generate/read-result} 
                      :delete  generate/delete-result
                      :options cors-handler}]
     ["/accelerated-text-data-files/" {:post (fn [request]
