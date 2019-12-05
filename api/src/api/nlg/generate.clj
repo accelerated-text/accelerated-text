@@ -104,7 +104,7 @@
 
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)
-        format-fn  (case (keyword (get query :format))
+        format-fn  (case (keyword (:format query))
                      :raw      raw-format
                      :standoff standoff-format
                      annotated-text-format)]
