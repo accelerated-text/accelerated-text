@@ -49,7 +49,8 @@
                     contexts (->> reader-model
                                   (get-reader-profiles)
                                   (map #(context/build-context semantic-graph %)))]
-                (map #(generate-row semantic-graph contexts %) rows))}
+                (doall ;; We need to make it non-lazy, because otherwise we never catch error
+                 (map #(generate-row semantic-graph contexts %) rows)))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))

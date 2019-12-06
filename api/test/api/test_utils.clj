@@ -35,7 +35,7 @@
   ([uri method body]
    (q uri method body {}))
   ([uri method body query]
-   (log/debugf "Doing request %s to URL: %s" method uri)
+   (log/debugf "Doing request %s to URL: %s Body: %s" method uri body)
    (log/spyf :debug "Response: %s"
              (-> {:uri uri :request-method method :body body :query-params query}
                  (assoc :headers headers)
