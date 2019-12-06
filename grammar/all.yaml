@@ -7,3 +7,4 @@ includes:
   - other/cut.yaml
   - other/see.yaml
   - other/provide.yaml
+  - other/object-description.yaml
