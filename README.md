@@ -68,7 +68,7 @@ Based on it will generate text to be used in business reports, e-commerce platfo
 
 Accelerated Text provides a web based **Document Plan** builder, where 
 * the logical structure of the document is defined, 
-* communication goals are expresed, 
+* communication goals are expressed, 
 * data usage within a text is defined.
 
 Document Plans and the connected data are used by Accelerated Text's Natural Language Generation engine 
