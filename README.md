@@ -60,11 +60,11 @@ Tables, charts, pictures are all useful in undestanding our data but often we ne
 Accelerated Text can work with all sorts of data:
 
 * descriptions of business metrics, 
-* metadata describing interactions with the customers, 
+* customer interaction data, 
 * product attributes, 
 * financial metrics.
 
-Based on it will generate text to be used in business reports, e-commerce platforms or your customer support system.
+With Accelerated Text you can use such data and generate text for your business reports, your e-commerce platform, or your customer support system.
 
 Accelerated Text provides a web based **Document Plan** builder, where 
 * the logical structure of the document is defined, 
@@ -72,25 +72,25 @@ Accelerated Text provides a web based **Document Plan** builder, where
 * data usage within a text is defined.
 
 Document Plans and the connected data are used by Accelerated Text's Natural Language Generation engine 
-to produce multiple variations of the text exactly exactly expressing what was intended to bo communicated to the readers.
+to produce multiple variations of the text exactly expressing what was intended to be communicated to the readers.
 
 ## Philosophy
 
 > Whereof one cannot speak thereof one must be silent <br>
 >   -- _Wittgenstein_
 
-Natural language generation is a broad domain with applications in chat-bots, story generation, and data description to name a few. 
-Accelerated Text focuses on applying NLG technology to solve your "data to text" needs.
+Natural language generation is a broad domain with applications in chat-bots, story generation, and data descriptions to name a few. 
+Accelerated Text focuses on applying NLG technology to solve your *data to text* needs.
 
 Data descriptions require precision. 
-For example, a text describing weather conditions can not invent things beyond what it was provided: Temperature: -1C, Humidity: 40%, Wind: 10km/h. 
-A generated text can only state those facts. The expression of an individual fact - temperature - could vary. 
+For example, a text describing weather conditions can not invent things beyond what it was provided with: Temperature: -1C, Humidity: 40%, Wind: 10km/h. 
+The generated text can only state those facts. The expression of an individual fact - temperature - could vary. 
 It could result in a "it is cold", or "it is just below freezing", or "-1C" but this fact will be stated because it is in the data. 
-A "data to text" system is also not one to elaborate on a story about the serenity of the freezing lake - again, it was not in the supplied data.
+A data to text system is also not the one to elaborate on a story adding something about the serenity of the freezing lake - again, it was not in the supplied data.
 
 Accelerated Text follows the principle of this strict adherence to the data-bound text generation. 
-Via its user interface it provides instruments to define how the data should be translated into descriptive text. 
-This description - a document plan - is executed by its natural language generation engine to produce texts that vary in structure and wording but are always and only about the data provided.
+Via its user interface it provides instruments to define how the data should be translated into a descriptive text. 
+This description - a document plan - is executed by natural language generation engine to produce texts that vary in structure and wording but are always and only about the data provided.
 
 ## Key Features
 
