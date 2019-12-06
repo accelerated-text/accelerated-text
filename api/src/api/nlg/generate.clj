@@ -98,7 +98,8 @@
        (flatten) ;; Don't care about any bulk keys at the moment
        (wrap-to-annotated-text)))
 
-(defn raw-format [results] results)
+(defn raw-format [results]
+  (into {} results))
 
 (defn standoff-format [results]) ;; TODO
 
