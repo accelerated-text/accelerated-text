@@ -13,7 +13,7 @@
 (s/def ::documentPlanId string?)
 (s/def ::key string?)
 (s/def ::dataId string?)
-(s/def ::format #{"raw" "dropoff" "annotated"}) ;; reitit does not convert these to keys
+(s/def ::format #{"raw" "dropoff" "annotated"})             ;; reitit does not convert these to keys
 (s/def ::format-query (s/keys :opt-un [::format]))
 (s/def ::dataRow (s/map-of string? string?))
 (s/def ::dataRows (s/map-of ::key ::dataRow))
@@ -24,20 +24,9 @@
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
-(defn get-reader-profiles [reader-model]
-  (or
-    (seq
-      (reduce-kv (fn [acc k v]
-                   (cond-> acc
-                           (true? v) (conj k)))
-                 []
-                 reader-model))
-    [:default]))
-
-(defn generate-row [semantic-graph contexts [row-key data]]
+(defn generate-row [semantic-graph context [row-key data]]
   "Results in tuple (key, results), because datomic needs in this way"
-  [row-key (->> contexts
-                (mapcat #(nlg/generate-text semantic-graph % data))
+  [row-key (->> (nlg/generate-text semantic-graph context data)
                 (map :text)
                 (sort)
                 (dedupe))])
@@ -46,11 +35,8 @@
   (try
     {:ready   true
      :results (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
-                    contexts (->> reader-model
-                                  (get-reader-profiles)
-                                  (map #(context/build-context semantic-graph %)))]
-                (doall ;; We need to make it non-lazy, because otherwise we never catch error
-                 (map #(generate-row semantic-graph contexts %) rows)))}
+                    context (context/build-context semantic-graph reader-model)]
+                (doall (map #(generate-row semantic-graph context %) rows)))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
@@ -83,38 +69,38 @@
           :children    [{:type     "PARAGRAPH"
                          :id       (utils/gen-uuid)
                          :children (vec
-                                    (for [sentence (nlp/split-into-sentences r)]
-                                      {:type     "SENTENCE"
-                                       :id       (utils/gen-uuid)
-                                       :children (vec
-                                                  (for [token (nlp/tokenize sentence)]
-                                                    {:type (nlp/token-type token)
-                                                     :id   (utils/gen-uuid)
-                                                     :text token}))}))}]})
+                                     (for [sentence (nlp/split-into-sentences r)]
+                                       {:type     "SENTENCE"
+                                        :id       (utils/gen-uuid)
+                                        :children (vec
+                                                    (for [token (nlp/tokenize sentence)]
+                                                      {:type (nlp/token-type token)
+                                                       :id   (utils/gen-uuid)
+                                                       :text token}))}))}]})
        results))
 
 (defn annotated-text-format [results]
   (->> results
        (map second)
-       (flatten) ;; Don't care about any bulk keys at the moment
+       (flatten)                                            ;; Don't care about any bulk keys at the moment
        (wrap-to-annotated-text)))
 
 (defn raw-format [results]
   (into {} results))
 
-(defn standoff-format [results]) ;; TODO
+(defn standoff-format [results])                            ;; TODO
 
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)
-        format-fn  (case (keyword (:format query))
-                     :raw      raw-format
-                     :standoff standoff-format
-                     annotated-text-format)]
+        format-fn (case (keyword (:format query))
+                    :raw raw-format
+                    :standoff standoff-format
+                    annotated-text-format)]
     (try
       (if-let [{:keys [results ready updatedAt]} (results/fetch request-id)]
         {:status 200
          :body   {:offset     0
-                  :totalCount (count (flatten results)) ;; Each key has N results. So flatten and count total
+                  :totalCount (count (flatten results))     ;; Each key has N results. So flatten and count total
                   :ready      ready
                   :updatedAt  updatedAt
                   :variants   (format-fn results)}}
