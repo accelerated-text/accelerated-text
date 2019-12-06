@@ -5,7 +5,16 @@
             [datomic.api :as d]
             [mount.core :refer [defstate]]
             [data.datomic.utils :as utils :refer [remove-nil-vals]]
-            [data.datomic.blockly :as blockly]))
+            [data.datomic.blockly :as blockly]
+            [jsonista.core :as json]))
+
+(def read-mapper (json/object-mapper {:decode-key-fn true}))
+
+(defn encode-results [results]
+  (map json/write-value-as-string results))
+
+(defn decode-results [results]
+  (map #(json/read-value % read-mapper) results))
 
 (defstate conn
   :start (utils/get-conn conf))
@@ -88,7 +97,7 @@
        :ready   (:results/ready entity)
        :error   (:results/error entity)
        :message (:results/message entity)
-       :results (:results/results entity)})))
+       :results (decode-results (:results/results entity))})))
 
 (defmethod pull-entity :default [resource-type key]
   (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'" resource-type key)
@@ -150,7 +159,7 @@
                        {:db/id           [:results/id key]
                         :results/ready   (:ready data-item)
                         :results/error   (:error data-item)
-                        :results/results (:results data-item)
+                        :results/results (encode-results (:results data-item))
                         :results/message (:message data-item)})]))
 
 (defmethod update! :dictionary-combined [resource-type key data-item]

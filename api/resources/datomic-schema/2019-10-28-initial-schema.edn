@@ -255,7 +255,7 @@
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Text to be conveyed"}
-
+          
           {:db/ident       :results/results
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/many

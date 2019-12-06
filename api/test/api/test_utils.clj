@@ -4,7 +4,8 @@
             [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.string :as string]
-            [jsonista.core :as json])
+            [jsonista.core :as json]
+            [clojure.tools.logging :as log])
   (:import (java.io PushbackReader)
            (org.httpkit BytesInputStream)))
 
@@ -25,12 +26,23 @@
   (let [content (json/write-value-as-string body)]
     (BytesInputStream. (.getBytes content) (count content))))
 
-(defn q [uri method body]
-  (-> {:uri uri :request-method method :body body}
-      (assoc :headers headers)
-      (update :body encode)
-      (server/app)
-      (update :body #(json/read-value % utils/read-mapper))))
+(defn handle-http-error [{:keys [status body] :as resp}]
+  (when-not (= 200 status)
+    (log/errorf "Error: %s" body))
+  resp)
+
+(defn q
+  ([uri method body]
+   (q uri method body {}))
+  ([uri method body query]
+   (log/debugf "Doing request %s to URL: %s Body: %s" method uri body)
+   (log/spyf :debug "Response: %s"
+             (-> {:uri uri :request-method method :body body :query-params query}
+                 (assoc :headers headers)
+                 (update :body encode)
+                 (server/app)
+                 (update :body #(json/read-value % utils/read-mapper))
+                 (handle-http-error)))))
 
 (defn load-test-document-plan [filename]
   (with-open [r (io/reader (format "test/resources/document_plans/%s.edn" filename))]
