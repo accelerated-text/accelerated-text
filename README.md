@@ -15,7 +15,7 @@
 ----
 
 *A picture is worth a thousand words.* Or is it? 
-Tables, charts, pictures are all useful in undestanding our data but often we need a description; a story to tell us what are we looking at. 
+Tables, charts, pictures are all useful in undestanding our data but often we need a description – a story to tell us what are we looking at. 
 **Accelerated Text** is a natural language generation tool which allows you to define data descriptions and then generates multiple versions of those descriptions varying in wording and structure.
 
 
@@ -64,12 +64,12 @@ Accelerated Text can work with all sorts of data:
 * product attributes, 
 * financial metrics.
 
-With Accelerated Text you can use such data and generate text for your business reports, your e-commerce platform, or your customer support system.
+With Accelerated Text you can use such data to generate text for your business reports, your e-commerce platform or your customer support system.
 
 Accelerated Text provides a web based **Document Plan** builder, where 
 * the logical structure of the document is defined, 
 * communication goals are expressed, 
-* data usage within a text is defined.
+* data usage within text is defined.
 
 Document Plans and the connected data are used by Accelerated Text's Natural Language Generation engine 
 to produce multiple variations of the text exactly expressing what was intended to be communicated to the readers.
@@ -83,14 +83,13 @@ Natural language generation is a broad domain with applications in chat-bots, st
 Accelerated Text focuses on applying NLG technology to solve your *data to text* needs.
 
 Data descriptions require precision. 
-For example, a text describing weather conditions can not invent things beyond what it was provided with: Temperature: -1C, Humidity: 40%, Wind: 10km/h. 
-The generated text can only state those facts. The expression of an individual fact - temperature - could vary. 
-It could result in a "it is cold", or "it is just below freezing", or "-1C" but this fact will be stated because it is in the data. 
-A data to text system is also not the one to elaborate on a story adding something about the serenity of the freezing lake - again, it was not in the supplied data.
+For example, generated text describing weather conditions should not contain things beyond those provided in the initial data – temperature: -1C, humidity: 40%, wind: 10km/h. 
+Despite this, the expression of an individual fact – temperature – could vary. It could result in "it is cold", or "it is just below freezing", or "-1C", but this fact *will* be stated because it is present in the data. 
+A data to text system is also not the one to elaborate on a story adding something about the serenity of some freezing lake – again, it was not in the supplied data.
 
 Accelerated Text follows the principle of this strict adherence to the data-bound text generation. 
 Via its user interface it provides instruments to define how the data should be translated into a descriptive text. 
-This description - a document plan - is executed by natural language generation engine to produce texts that vary in structure and wording but are always and only about the data provided.
+This description – a document plan – is executed by natural language generation engine to produce texts that vary in structure and wording but are always and only about the data provided.
 
 ## Key Features
 
@@ -98,7 +97,7 @@ This description - a document plan - is executed by natural language generation 
 * **Data samples** can be uploaded as CSV files to be used when building Document Plans.
 * **Text structure variations** to provide richer reading experience going beyond rigid template generated text.
 * **Vocabulary control** to match the language style of each of your reader groups.
-* **Build-in rule engine** to allow the control of what is said based on the different values of the data points.
+* **Build-in rule engine** to allow the control of what is said based on the different values of data points.
 * **Live preview** to see variations of generated text.
 
 
@@ -106,9 +105,7 @@ This description - a document plan - is executed by natural language generation 
 
 ### Running
 
-If you want to start tinkering and run it based on the latest code in the repository, first make sure that you have [make](https://www.gnu.org/software/make/) installed 
-
-Then clone the project and run
+If you want to start tinkering and run it based on the latest code in the repository, first make sure that you have [make](https://www.gnu.org/software/make/) installed, then clone the project and run
 
 ```
 make run-dev-env
@@ -124,20 +121,21 @@ For full information on Deployment, visit [Deployment Section](docs/deployment.m
 
 #### Create Document Plan
 
-Follow the step by step guide bellow to create a very simple document plan which
-generates book authorship sentences.
-
+Follow the step by step guide bellow to create a very simple document plan which generates book authorship sentences.
 
 | View | Step |
 | ------ | ------ |
-| <img src="docs/assets/create-plan.png" width="300"/> | Firstly a new document plan has to be created. The application starts with a _Create Plan_ button in its workspace. |
-| <img src="docs/assets/empty-doc-plan.png" width="200"/> | You get an initial empty plan. |
-| <img src="docs/assets/csv-file-selection.png" width="200"/> | You'll need to select a CSV file to provide data for the natural language generation. Select a _books.csv_ file. |
-| <img src="docs/assets/amr.png" width="300"/> | The central part of the plan is the _Abstract Meaning Representation_ element which defines the message to be communicated. Select _Author_ from the AMR section. |
-| <img src="docs/assets/search-authors.png" width="300"/> | Then we need to select from where in our book store data we'll have the _Author_ field. |
-| <img src="docs/assets/search-title.png" width="300"/> | Same for _Title_ field. |
-| <img src="docs/assets/complete-plan.png" width="300"/> | That's it, the plan is ready and should look like in the picture to the right. |
-| <img src="docs/assets/generation-results.png" width="300"/> | _Text Analysis_ section shows text variations generated by the natural language generation engine. |
+| <img src="docs/assets/create-plan.png" width="300"/> | Press _Create a new document plan_ in the upper left corner of the screen. |
+| <img src="docs/assets/empty-doc-plan.png" width="200"/> | Make sure that an empty document plan similar to the one pictured on the left has appeared in the workspace. |
+| <img src="docs/assets/csv-file-selection.png" width="200"/> | Select bundled sample _books.csv_ file in Data section on the right. |
+| <img src="docs/assets/text-segment.png" width="200"/> | Select _Text Segment_ block by pressing left mouse button on it. |
+| <img src="docs/assets/quick-menu.png" width="300"/> | Open block search menu by pressing "CTRL + ,". |
+| <img src="docs/assets/author-amr-block-search.png" width="300"/> | Type "author" and select pink _Abstract Meaning Representation_ block. |
+| <img src="docs/assets/amr.png" width="300"/> | Press on newly appeared "author" block and open search menu again ("CTRL + ,"). |
+| <img src="docs/assets/search-authors.png" width="300"/> | Select green "authors" data block which is our _Agent_ in this case. |
+| <img src="docs/assets/search-title.png" width="300"/> | Repeat the same process to select "title" data block which will represent _Co-Agent_. |
+| <img src="docs/assets/complete-plan.png" width="300"/> | The plan is ready by now and should look like the picture on the left. |
+| <img src="docs/assets/generation-results.png" width="300"/> | Navigate to _Text Analysis_ section to see text variations generated by the natural language generation engine. |
 
 #### GraphQL API use
 
