@@ -25,7 +25,6 @@
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
 (defn generate-row [semantic-graph context [row-key data]]
-  "Results in tuple (key, results), because datomic needs in this way"
   [row-key (->> (nlg/generate-text semantic-graph context data)
                 (map :text)
                 (sort)
@@ -52,7 +51,7 @@
 
 (defn generate-bulk [{document-plan-id :documentPlanId reader-model :readerFlagValues rows :dataRows}]
   (let [result-id (utils/gen-uuid)
-        {document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)]
+        {document-plan :documentPlan} (dp/get-document-plan document-plan-id)]
     (log/debugf "Bulk Generate request, data: %s" rows)
     (results/store-status result-id {:ready false})
     (results/rewrite result-id (generation-process document-plan rows reader-model))
@@ -88,7 +87,7 @@
 (defn raw-format [results]
   (into {} results))
 
-(defn standoff-format [results])                            ;; TODO
+(defn standoff-format [_])                                  ;; TODO
 
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)

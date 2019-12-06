@@ -1,7 +1,6 @@
 (ns api.end-to-end-test
   (:require [api.db-fixtures :as fixtures]
-            [api.test-utils :refer [q load-test-document-plan rebuild-sentence]]
-            [clojure.string :as str]
+            [api.test-utils :refer [q load-test-document-plan]]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
