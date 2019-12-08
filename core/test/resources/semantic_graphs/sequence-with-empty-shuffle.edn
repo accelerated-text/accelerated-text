@@ -1,12 +1,9 @@
-#:acc-text.nlg.semantic-graph{:relations [#:acc-text.nlg.semantic-graph{:from :01 :to :02 :role :segment}
-                                          #:acc-text.nlg.semantic-graph{:from :02 :to :03 :role :instance}
-                                          #:acc-text.nlg.semantic-graph{:from :03 :to :04 :role :item}
-                                          #:acc-text.nlg.semantic-graph{:from :03 :to :05 :role :item}]
-                              :concepts  [#:acc-text.nlg.semantic-graph{:id :01 :type :document-plan}
-                                          #:acc-text.nlg.semantic-graph{:id :02 :type :segment}
-                                          #:acc-text.nlg.semantic-graph{:id :03 :type :sequence}
-                                          #:acc-text.nlg.semantic-graph{:id         :04
-                                                                        :type       :dictionary-item
-                                                                        :value      "1"
-                                                                        :attributes #:acc-text.nlg.semantic-graph{:name "1"}}
-                                          #:acc-text.nlg.semantic-graph{:id :05 :type :shuffle}]}
+#:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :02 :role :segment}
+                                          {:from :02 :to :03 :role :instance}
+                                          {:from :03 :to :04 :role :item}
+                                          {:from :03 :to :05 :role :item}]
+                              :concepts  [{:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :sequence}
+                                          {:id :04 :type :dictionary-item :value "1"}
+                                          {:id :05 :type :shuffle}]}

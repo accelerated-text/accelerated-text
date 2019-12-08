@@ -1,23 +1,19 @@
-#:acc-text.nlg.semantic-graph{:relations [#:acc-text.nlg.semantic-graph{:from :01 :to :02 :role :segment}
-                                          #:acc-text.nlg.semantic-graph{:from :02 :to :03 :role :instance}
-                                          #:acc-text.nlg.semantic-graph{:from :03 :to :04 :role :statement}
-                                          #:acc-text.nlg.semantic-graph{:from :03 :to :09 :role :statement}
-                                          #:acc-text.nlg.semantic-graph{:from :04 :to :05 :role :predicate}
-                                          #:acc-text.nlg.semantic-graph{:from :04 :to :08 :role :expression}
-                                          #:acc-text.nlg.semantic-graph{:from :05 :to :06 :role :comparable}
-                                          #:acc-text.nlg.semantic-graph{:from :05 :to :07 :role :comparable}
-                                          #:acc-text.nlg.semantic-graph{:from :09 :to :10 :role :expression}]
-                              :concepts  [#:acc-text.nlg.semantic-graph{:id :01 :type :document-plan}
-                                          #:acc-text.nlg.semantic-graph{:id :02 :type :segment}
-                                          #:acc-text.nlg.semantic-graph{:id :03 :type :condition}
-                                          #:acc-text.nlg.semantic-graph{:id :04 :type :if-statement}
-                                          #:acc-text.nlg.semantic-graph{:id :05 :value "=" :type :comparator}
-                                          #:acc-text.nlg.semantic-graph{:id :06 :type :data :value "publishedDate"}
-                                          #:acc-text.nlg.semantic-graph{:id :07 :type :quote :value "2008"}
-                                          #:acc-text.nlg.semantic-graph{:id    :08
-                                                                        :type  :quote
-                                                                        :value "The book was published in 2008."}
-                                          #:acc-text.nlg.semantic-graph{:id :09 :type :default-statement}
-                                          #:acc-text.nlg.semantic-graph{:id    :10
-                                                                        :type  :quote
-                                                                        :value "The book was not published in 2008."}]}
+#:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :02 :role :segment}
+                                          {:from :02 :to :03 :role :instance}
+                                          {:from :03 :to :04 :role :statement}
+                                          {:from :03 :to :09 :role :statement}
+                                          {:from :04 :to :05 :role :predicate}
+                                          {:from :04 :to :08 :role :expression}
+                                          {:from :05 :to :06 :role :comparable}
+                                          {:from :05 :to :07 :role :comparable}
+                                          {:from :09 :to :10 :role :expression}]
+                              :concepts  [{:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :condition}
+                                          {:id :04 :type :if-statement}
+                                          {:id :05 :type :comparator :value "="}
+                                          {:id :06 :type :data :value "publishedDate"}
+                                          {:id :07 :type :quote :value "2008"}
+                                          {:id :08 :type :quote :value "The book was published in 2008."}
+                                          {:id :09 :type :default-statement}
+                                          {:id :10 :type :quote :value "The book was not published in 2008."}]}

@@ -1,12 +1,9 @@
-#:acc-text.nlg.semantic-graph{:relations [#:acc-text.nlg.semantic-graph{:from :01, :to :02, :role :segment}
-                                          #:acc-text.nlg.semantic-graph{:from :02, :to :03, :role :instance}
-                                          #:acc-text.nlg.semantic-graph{:from :03, :to :04, :role :child}
-                                          #:acc-text.nlg.semantic-graph{:from :03, :to :05, :role :modifier}],
-                              :concepts  [#:acc-text.nlg.semantic-graph{:id :01, :type :document-plan}
-                                          #:acc-text.nlg.semantic-graph{:id :02, :type :segment}
-                                          #:acc-text.nlg.semantic-graph{:id :03, :type :modifier}
-                                          #:acc-text.nlg.semantic-graph{:id :04, :type :data, :value "title"}
-                                          #:acc-text.nlg.semantic-graph{:id         :05,
-                                                                        :type       :dictionary-item,
-                                                                        :value      "NN-good",
-                                                                        :attributes #:acc-text.nlg.semantic-graph{:name "good"}}]}
+#:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :02 :role :segment}
+                                          {:from :02 :to :03 :role :instance}
+                                          {:from :03 :to :04 :role :child}
+                                          {:from :03 :to :05 :role :modifier}]
+                              :concepts  [{:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :modifier}
+                                          {:id :04 :type :data :value "title"}
+                                          {:id :05 :type :dictionary-item :value "good"}]}

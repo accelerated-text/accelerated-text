@@ -1,7 +1,7 @@
 (ns acc-text.nlg.semantic-graph.conditions
-  (:require [acc-text.nlg.semantic-graph :as sg]
-            [acc-text.nlg.semantic-graph.utils :as sg-utils]
+  (:require [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.set :as set]
+            [clojure.spec.alpha :as s]
             [clojure.string :as str]))
 
 (defn operator->fn [x]
@@ -33,23 +33,23 @@
                                            (every? number? normalized-args))))
       (apply operator-fn normalized-args))))
 
-(defmulti evaluate-predicate (fn [concept _ _] (::sg/type concept)))
+(defmulti evaluate-predicate (fn [concept _ _] (:type concept)))
 
-(defmethod evaluate-predicate :comparator [{operator ::sg/value :as concept} semantic-graph data]
+(defmethod evaluate-predicate :comparator [{operator :value :as concept} semantic-graph data]
   (let [child-concepts (sg-utils/get-children semantic-graph concept)]
-    (when (every? #(contains? #{:data :quote} (::sg/type %)) child-concepts)
-      (comparison operator (for [{::sg/keys [type value]} child-concepts]
+    (when (every? #(contains? #{:data :quote} (:type %)) child-concepts)
+      (comparison operator (for [{:keys [type value]} child-concepts]
                              (case type
                                :quote value
                                :data (get data (keyword value))))))))
 
-(defmethod evaluate-predicate :boolean [{operator ::sg/value :as concept} semantic-graph data]
+(defmethod evaluate-predicate :boolean [{operator :value :as concept} semantic-graph data]
   (let [child-concepts (sg-utils/get-children semantic-graph concept)
         operator-fn (operator->fn operator)]
-    (when (every? #(contains? #{:boolean :comparator} (::sg/type %)) child-concepts)
+    (when (every? #(contains? #{:boolean :comparator} (:type %)) child-concepts)
       (operator-fn (map #(evaluate-predicate % semantic-graph data) child-concepts)))))
 
-(defn evaluate-statement [{type ::sg/type :as concept} semantic-graph data]
+(defn evaluate-statement [{type :type :as concept} semantic-graph data]
   (case type
     :if-statement (when-let [predicate-concept (sg-utils/get-child-with-relation semantic-graph concept :predicate)]
                     (evaluate-predicate predicate-concept semantic-graph data))
@@ -57,8 +57,8 @@
     nil))
 
 (defn evaluate-conditions [semantic-graph data]
-  (reduce (fn [m {id ::sg/id :as condition-concept}]
-            (assoc m id (some (fn [{id ::sg/id :as statement-concept}]
+  (reduce (fn [m {id :id :as condition-concept}]
+            (assoc m id (some (fn [{id :id :as statement-concept}]
                                 (when (true? (evaluate-statement statement-concept semantic-graph data))
                                   id))
                               (sg-utils/get-children semantic-graph condition-concept))))
@@ -81,3 +81,8 @@
        (set/difference (find-statement-ids semantic-graph))
        (set/union (sg-utils/find-concept-ids semantic-graph #{:boolean :comparator}))
        (sg-utils/prune-branches semantic-graph)))
+
+(s/fdef select
+        :args (s/cat :semantic-graph :acc-text.nlg.semantic-graph/graph
+                     :data map?)
+        :ret :acc-text.nlg.semantic-graph/graph)

@@ -66,7 +66,7 @@
                                 :name   "DictionaryItem05"
                                 :params []
                                 :ret    [:s "Str"]}]}
-         (build-grammar "adjective-phrase" {:dictionary {"good" ["excellent"]}})))
+         (build-grammar "adjective-phrase" {})))
   (is (= #::grammar{:module   :module
                     :instance :instance
                     :flags    {:startcat "DocumentPlan01"}
@@ -118,8 +118,7 @@
                                 :name   "Amr03"
                                 :params ["DictionaryItem04" "Modifier05" "Data08"]
                                 :ret    [:s "Str"]}
-                               {:body   [[{:type :literal :value "authored"}]
-                                         [{:type :literal :value "written"}]]
+                               {:body   [[{:type :literal :value "written"}]]
                                 :name   "DictionaryItem04"
                                 :params []
                                 :ret    [:s "Str"]}
@@ -132,8 +131,7 @@
                                 :name   "Data06"
                                 :params []
                                 :ret    [:s "Str"]}
-                               {:body   [[{:type :literal :value "excellent"}]
-                                         [{:type :literal :value "good"}]]
+                               {:body   [[{:type :literal :value "good"}]]
                                 :name   "DictionaryItem07"
                                 :params []
                                 :ret    [:s "Str"]}
@@ -152,8 +150,7 @@
                                                      {:pos :VERB}
                                                      {:pos :ADP :value "by"}
                                                      {:pos :NP :role "Agent"}]}]}}
-            :dictionary {"good"    ["excellent"]
-                         "written" ["authored"]}})))
+            :dictionary {}})))
   (is (= #::grammar{:module   :module
                     :instance :instance
                     :flags    {:startcat "DocumentPlan01"}

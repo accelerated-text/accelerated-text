@@ -1,7 +1,0 @@
-#:acc-text.nlg.semantic-graph{:relations [#:acc-text.nlg.semantic-graph{:from :01 :to :02 :role :segment}
-                                          #:acc-text.nlg.semantic-graph{:from :02 :to :03 :role :instance}]
-                              :concepts  [#:acc-text.nlg.semantic-graph{:id :01 :type :document-plan}
-                                          #:acc-text.nlg.semantic-graph{:id :02 :type :segment}
-                                          #:acc-text.nlg.semantic-graph{:id    :03
-                                                                        :type  :quote
-                                                                        :value "He said: \"GO!\""}]}

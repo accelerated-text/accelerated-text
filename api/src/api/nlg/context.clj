@@ -6,8 +6,8 @@
 
 (defn get-values [semantic-graph type]
   (->> (get semantic-graph ::sg/concepts)
-       (filter #(= (::sg/type %) type))
-       (map ::sg/value)
+       (filter #(= type (:type %)))
+       (map :value)
        (set)))
 
 (defn build-dictionary-context [semantic-graph reader-profile]
