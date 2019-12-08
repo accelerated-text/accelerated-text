@@ -59,20 +59,20 @@ Tables, charts, pictures are all useful in undestanding our data but often we ne
 
 Accelerated Text can work with all sorts of data:
 
-* descriptions of business metrics, 
-* customer interaction data, 
-* product attributes, 
-* financial metrics.
+* descriptions of business metrics
+* customer interaction data
+* product attributes
+* financial metrics
 
 With Accelerated Text you can use such data to generate text for your business reports, your e-commerce platform or your customer support system.
 
-Accelerated Text provides a web based **Document Plan** builder, where 
-* the logical structure of the document is defined, 
-* communication goals are expressed, 
-* data usage within text is defined.
+Accelerated Text provides a web based **Document Plan** builder, where: 
+* the logical structure of the document is defined
+* communication goals are expressed
+* data usage within text is defined
 
 Document Plans and the connected data are used by Accelerated Text's Natural Language Generation engine 
-to produce multiple variations of the text exactly expressing what was intended to be communicated to the readers.
+to produce multiple variations of text exactly expressing what was intended to be communicated to the readers.
 
 ## Philosophy
 
@@ -139,7 +139,7 @@ Follow the step by step guide bellow to create a very simple document plan which
 
 #### GraphQL API
 
-You should have running accelerated text environment and simple document plan created by now, if not, please check out previous sections.
+You should have running accelerated text environment and simple document plan created by now, if not, please refer to previous sections.
  
 Here we will describe Accelerated Text GraphQL API usage in order to fetch generated texts. For this purpose we will need to pass two bits of information to the NLG backend: *document plan identifier* and *data item identifier*.
 
@@ -247,62 +247,57 @@ You should get generated text with annotations (data is truncated):
 
 #### Clojure API use
 
-Accelerated Text UI helps with creating document plan and testing it with sample data. 
+Accelerated Text UI helps with creating document plans and testing them with sample data. 
 Accelerated Text's generation functionality can be used directly from the Clojure code.
 
 Lets say you have a book data limited to the author and the book title:
 
-| title                       | author        |
+| title                       | authors       |
 | -----                       | ------        |
 | Frankenstein                | M. W. Shelley |
 | Dracula                     | Bram Stoker   |
 | The Island of Doctor Moreau | H.G. Wells    |
 
-When working via UI this data needs to be uploaded as the CSV. To use it in the code we'll have to represent as a Clojure map. 
+When working via UI this data needs to be uploaded as the CSV. To use it in the code we'll have to represent it as a Clojure map. 
 
 ```
 (def data
-  [{:title "Frankenstein"
-    :author "M. W. Shelley"}
-   {:title "Dracula"
-    :author "Bram Stoker"}
-   {:title "The Island of Doctor Moreau"
-    :author "H.G. Wells"}])
+  [{:title   "Frankenstein"
+    :authors "M. W. Shelley"}
+   {:title   "Dracula"
+    :authors "Bram Stoker"}
+   {:title   "The Island of Doctor Moreau"
+    :authors "H.G. Wells"}])
 ```
 
 Second component needed for generation is the plan itself. In UI it has a nice representation in visual blocks, and is persisted in the structure like this:
 
 ```
-(def document-plan 
-  {:type "Document-plan"
-  :segments
-  [{:type "Segment"
-    :textType "description"
-    :children
-    [{:type "AMR"
-      :conceptId "author"
-      :dictionaryItem {:itemId "written"
-                        :name "written"
-                        :type "Dictionary-item"}
-      :roles [{:name "Agent"
-                :children [{:type "Thematic-role"
-                            :children [{:type "Cell"
-                                        :name "author"}]}]}
-              {:name "co-Agent"
-                :children [{:type "Thematic-role"
-                            :children [{:type "Cell"
-                                        :name "title"}]}]}]}]}]})
+(def document-plan
+  {:type     "Document-plan"
+   :segments [{:type     "Segment"
+               :children [{:type           "AMR"
+                           :conceptId      "author"
+                           :dictionaryItem {:type   "Dictionary-item"
+                                            :itemId "author"
+                                            :name   "author"}
+                           :roles          [{:name     "agent"
+                                             :children [{:name "authors"
+                                                         :type "Cell"}]}
+                                            {:name     "co-agent"
+                                             :children [{:name "title"
+                                                         :type "Cell"}]}
+                                            {:name "theme" :children [nil]}]}]}]})
 ```
 
 With those two in place we can generate the text:
 
 ```
-(api.nlg.generator.planner-ng/render-dp document-plan data {})
+(map (partial api.nlg.generate/generate document-plan) data)
 =>
-("The Island of Doctor Moreau is written by H.G. Wells"))
-("Frankenstein is done by M. W. Shelley."
- "Dracula is done by Bram Stoker."
- "The Island of Doctor Moreau is written by H.G. Wells.")
+(("Frankenstein is written by M. W. Shelley." "M. W. Shelley is the author of Frankenstein.")
+ ("Bram Stoker is the author of Dracula." "Dracula is written by Bram Stoker.")
+ ("H.G. Wells is the author of The Island of Doctor Moreau." "The Island of Doctor Moreau is written by H.G. Wells."))
 ```
 
 

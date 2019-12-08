@@ -29,19 +29,24 @@
                  reader-model))
     [:default]))
 
+(defn generate
+  ([document-plan row] (generate document-plan row {:default true}))
+  ([document-plan row reader-model]
+   (let [semantic-graph (parser/document-plan->semantic-graph document-plan)]
+     (->> reader-model
+          (get-reader-profiles)
+          (map (partial context/build-context semantic-graph))
+          (mapcat #(nlg/generate-text semantic-graph % row))
+          (map :text)
+          (sort)
+          (dedupe)))))
+
 (defn generation-process [document-plan-id data-id reader-model]
   (try
     {:ready   true
      :results (let [{document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)
-                    semantic-graph (parser/document-plan->semantic-graph document-plan)
                     row (nth (get-data data-id) (or data-sample-row 0))]
-                (->> reader-model
-                     (get-reader-profiles)
-                     (map (partial context/build-context semantic-graph))
-                     (mapcat #(nlg/generate-text semantic-graph % row))
-                     (map :text)
-                     (sort)
-                     (dedupe)))}
+                (generate document-plan row reader-model))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
