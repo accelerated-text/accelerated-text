@@ -45,9 +45,11 @@
 (defmethod build-function :dictionary-item [{::sg/keys [value attributes] :as concept} _ _ {dictionary :dictionary}]
   {:name   (concept->name concept)
    :params []
-   :body   (for [value (set (cons (::sg/name attributes) (get dictionary value)))]
+   :body   (for [dict-value (let [dict-entry (get dictionary value)]
+                              (set (cond-> dict-entry
+                                           (empty? dict-entry) (cons (::sg/name attributes)))))]
              [{:type  :literal
-               :value value}])
+               :value dict-value}])
    :ret    [:s "Str"]})
 
 (defmethod build-function :modifier [concept children relations _]
