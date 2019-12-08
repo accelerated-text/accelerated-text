@@ -79,4 +79,4 @@
                               {:name role}])
                            relations))))
 
-(defn vizgraph [uber-graph] (uber/viz-graph uber-graph))
+(defn vizgraph [semantic-graph] (uber/viz-graph (plan-graph semantic-graph)))
