@@ -25,7 +25,7 @@
 (def headers {"Access-Control-Allow-Origin"  "*"
               "Access-Control-Allow-Headers" "content-type, *"
               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
-              "Content-Type" "application/json"})
+              "Content-Type"                 "application/json"})
 
 (defn health [_] {:status 200, :body "Ok"})
 
@@ -45,53 +45,53 @@
 
 (def routes
   (ring/router
-   [["/_graphql"    {:post {:handler (fn [{raw :body}]
-                                       (let [body (utils/read-json-is raw)]
-                                         {:status 200
-                                          :body (graphql/handle body)}))
-                            :summary "GraphQL endpoint"}
-                     :options cors-handler}]
-    ["/nlg/" {:post    {:parameters {:body ::generate/generate-req}
-                        :responses  {200 {:body {:resultId string?}}}
-                        :summary    "Registers document plan for generation"
-                        :coercion   reitit.coercion.spec/coercion
-                        :middleware [muuntaja/format-request-middleware
-                                     coercion/coerce-request-middleware
-                                     coercion/coerce-response-middleware]
-                        :handler    (fn [{{body :body} :parameters}]
-                                      (generate/generate-request body))}
-              :options cors-handler}]
-    ["/nlg/:id"     {:get     generate/read-result
-                     :delete  generate/delete-result
-                     :options cors-handler}]
-    ["/accelerated-text-data-files/" {:post (fn [request]
-                                              (let [{params :params} (multipart-handler request)
-                                                    id (data-files/store! (get params "file"))]
-                                                {:status 200
-                                                 :body {:message "Succesfully uploaded file" :id id}}))}]
-    ["/swagger.json" {:get {:no-doc true
-                            :swagger {:info {:title "nlg-api"
-                                             :description "api description"}}
-                            :handler (swagger/create-swagger-handler)}}]
-    ["/health"       {:get health}]]
-   {:data {
-           :muuntaja m/instance
-           :middleware [swagger/swagger-feature
-                        muuntaja/format-negotiate-middleware
-                        parameters/parameters-middleware
-                        wrap-response
-                        muuntaja/format-response-middleware
-                        exception/exception-middleware]}
-    :exception pretty/exception}))
+    [["/_graphql" {:post    {:handler (fn [{raw :body}]
+                                        (let [body (utils/read-json-is raw)]
+                                          {:status 200
+                                           :body   (graphql/handle body)}))
+                             :summary "GraphQL endpoint"}
+                   :options cors-handler}]
+     ["/nlg/" {:post    {:parameters {:body ::generate/generate-req}
+                         :responses  {200 {:body {:resultId string?}}}
+                         :summary    "Registers document plan for generation"
+                         :coercion   reitit.coercion.spec/coercion
+                         :middleware [muuntaja/format-request-middleware
+                                      coercion/coerce-request-middleware
+                                      coercion/coerce-response-middleware]
+                         :handler    (fn [{{body :body} :parameters}]
+                                       (generate/generate-request body))}
+               :options cors-handler}]
+     ["/nlg/:id" {:get     generate/read-result
+                  :delete  generate/delete-result
+                  :options cors-handler}]
+     ["/accelerated-text-data-files/" {:post (fn [request]
+                                               (let [{params :params} (multipart-handler request)
+                                                     id (data-files/store! (get params "file"))]
+                                                 {:status 200
+                                                  :body   {:message "Succesfully uploaded file" :id id}}))}]
+     ["/swagger.json" {:get {:no-doc  true
+                             :swagger {:info {:title       "nlg-api"
+                                              :description "api description"}}
+                             :handler (swagger/create-swagger-handler)}}]
+     ["/health" {:get health}]]
+    {:data      {
+                 :muuntaja   m/instance
+                 :middleware [swagger/swagger-feature
+                              muuntaja/format-negotiate-middleware
+                              parameters/parameters-middleware
+                              wrap-response
+                              muuntaja/format-response-middleware
+                              exception/exception-middleware]}
+     :exception pretty/exception}))
 
 (def app
   (ring/ring-handler
-   routes
-   (swagger-ui/create-swagger-ui-handler
-    {:path "/"
-     :config {:validatorUrl nil
-              :operationsSorter "alpha"}})
-   (ring/create-default-handler)))
+    routes
+    (swagger-ui/create-swagger-ui-handler
+      {:path   "/"
+       :config {:validatorUrl     nil
+                :operationsSorter "alpha"}})
+    (ring/create-default-handler)))
 
 (defn start-http-server [conf]
   (let [host (get conf :host "0.0.0.0")
@@ -99,13 +99,13 @@
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
     (amr/initialize)
     (server/run-server
-     #'app {:port     port
-            :ip       host
-            :max-body Integer/MAX_VALUE})))
+      #'app {:port     port
+             :ip       host
+             :max-body Integer/MAX_VALUE})))
 
 (defstate http-server
-  :start (start-http-server conf)
-  :stop (http-server :timeout 100))
+          :start (start-http-server conf)
+          :stop (http-server :timeout 100))
 
 (defn -main [& _]
   (mount/start))
