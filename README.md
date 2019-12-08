@@ -155,7 +155,7 @@ curl -X POST -H "Content-Type: application/json" \
 
 This will return a list of document plans:
 
-```
+```json
 {
   "data": {
     "documentPlans": {
@@ -184,8 +184,8 @@ curl -XPOST -H "Content-Type: application/json" \
 
 A result id is returned:
 
-```
-{"resultId" : "6f26099d-429d-41e9-9800-83ab58c59ddd"}
+```json
+{"resultId": "6f26099d-429d-41e9-9800-83ab58c59ddd"}
 ```
 
 With this a final request can be made to fetch the results. Note that it can be done repeatedly with high performance, since the text generation is not happening at this stage.
@@ -196,7 +196,7 @@ curl -XGET -H "Content-Type: application/json" http://localhost:3001/nlg/6f26099
 
 You should get generated text with annotations (data is truncated):
 
-```
+```json
 {
    "offset":0,
    "totalCount":2,
@@ -260,7 +260,7 @@ Lets say you have a book data limited to the author and the book title:
 
 When working via UI this data needs to be uploaded as the CSV. To use it in the code we'll have to represent it as a Clojure map. 
 
-```
+```clojure
 (def data
   [{:title   "Frankenstein"
     :authors "M. W. Shelley"}
@@ -272,7 +272,7 @@ When working via UI this data needs to be uploaded as the CSV. To use it in the 
 
 Second component needed for generation is the plan itself. In UI it has a nice representation in visual blocks, and is persisted in the structure like this:
 
-```
+```clojure
 (def document-plan
   {:type     "Document-plan"
    :segments [{:type     "Segment"
@@ -292,7 +292,7 @@ Second component needed for generation is the plan itself. In UI it has a nice r
 
 With those two in place we can generate the text:
 
-```
+```clojure
 (map (partial api.nlg.generate/generate document-plan) data)
 =>
 (("Frankenstein is written by M. W. Shelley." "M. W. Shelley is the author of Frankenstein.")
