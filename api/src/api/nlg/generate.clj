@@ -16,7 +16,7 @@
 (s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId ::readerFlagValues]))
 
 (defn get-data [data-id]
-  (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
+  (doall (utils/csv-to-map (data-files/read-data-file-content nil data-id))))
 
 (defn get-reader-profiles [reader-model]
   (or

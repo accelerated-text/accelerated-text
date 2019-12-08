@@ -24,8 +24,8 @@
 
 (defn store-data-file [filename]
   (data-files/store!
-    {:filename (format "example-user/%s" filename)
-     :content  (slurp (format "test/resources/accelerated-text-data-files/example-user/%s" filename))}))
+    {:filename filename
+     :content  (slurp (format "test/resources/accelerated-text-data-files/%s" filename))}))
 
 (defn generate [document-plan-id filename]
   (q "/nlg/" :post {:documentPlanId   (add-document-plan document-plan-id)

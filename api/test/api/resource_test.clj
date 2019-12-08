@@ -23,7 +23,7 @@
                                          :accept-language "en-US,en;q=0.5",
                                          :accept          "*/*",
                                          :dnt             "1"}
-                 :body                  "{\"documentPlanId\":\"070cd048-b2b9-4890-bdcc-4420ac449c86\",\"readerFlagValues\":{},\"dataId\":\"example-user/books.csv\"}",
+                 :body                  "{\"documentPlanId\":\"070cd048-b2b9-4890-bdcc-4420ac449c86\",\"readerFlagValues\":{},\"dataId\":\"books.csv\"}",
                  :pathParameters        {}}
         input-stream (BufferedInputStream. (ByteArrayInputStream. (.getBytes (json/write-value-as-string request))))]
     (is (some? (resource/decode-input input-stream true)))))

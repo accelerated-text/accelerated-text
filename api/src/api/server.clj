@@ -51,16 +51,16 @@
                                           :body (graphql/handle body)}))
                             :summary "GraphQL endpoint"}
                      :options cors-handler}]
-    ["/nlg/"        {:post   {:parameters {:body ::generate/generate-req}
-                              :responses {200 {:body {:resultId string?}}}
-                              :summary "Registers document plan for generation"
-                              :coercion reitit.coercion.spec/coercion
-                              :middleware [muuntaja/format-request-middleware
-                                           coercion/coerce-request-middleware
-                                           coercion/coerce-response-middleware]
-                              :handler (fn [{{body :body} :parameters}]
-                                         (generate/generate-request body))}
-                     :options cors-handler}]
+    ["/nlg/" {:post    {:parameters {:body ::generate/generate-req}
+                        :responses  {200 {:body {:resultId string?}}}
+                        :summary    "Registers document plan for generation"
+                        :coercion   reitit.coercion.spec/coercion
+                        :middleware [muuntaja/format-request-middleware
+                                     coercion/coerce-request-middleware
+                                     coercion/coerce-response-middleware]
+                        :handler    (fn [{{body :body} :parameters}]
+                                      (generate/generate-request body))}
+              :options cors-handler}]
     ["/nlg/:id"     {:get     generate/read-result
                      :delete  generate/delete-result
                      :options cors-handler}]
