@@ -13,7 +13,8 @@
 (s/def ::documentPlanId string?)
 (s/def ::dataId string?)
 (s/def ::readerFlagValues (s/map-of string? boolean?))
-(s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId ::readerFlagValues]))
+(s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId]
+                              :opt-un [::readerFlagValues]))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content nil data-id))))
