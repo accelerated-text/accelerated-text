@@ -284,10 +284,17 @@ Second component needed for generation is the plan itself. In UI it has a nice r
                                             {:name "theme" :children [nil]}]}]}]})
 ```
 
-With those two in place we can generate the text:
+State needs to be initialized
 
 ```clojure
-(map (partial api.nlg.generate/generate document-plan) data)
+(require '[mount.core :as mount])
+(mount/start-without #'api.server/http-server #'data.datomic.impl/conn)
+```
+
+With all those those in place we can generate text:
+
+```clojure
+(map (partial api.nlg.generate/generate-row document-plan) data)
 =>
 (("Frankenstein is written by M. W. Shelley." "M. W. Shelley is the author of Frankenstein.")
  ("Bram Stoker is the author of Dracula." "Dracula is written by Bram Stoker.")
