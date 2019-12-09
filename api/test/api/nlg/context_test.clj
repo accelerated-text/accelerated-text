@@ -30,4 +30,4 @@
   (let [document-plan (load-test-document-plan "author-amr-with-adj")
         semantic-graph (parser/document-plan->semantic-graph document-plan)]
     (is (= {"good"    ["excellent"]
-            "written" ["authored"]} (context/build-dictionary-context semantic-graph :default)))))
+            "written" ["authored"]} (context/build-dictionary-context semantic-graph {:default true})))))

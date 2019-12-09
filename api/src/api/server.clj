@@ -45,44 +45,60 @@
 
 (def routes
   (ring/router
-    [["/_graphql" {:post    {:handler (fn [{raw :body}]
-                                        (let [body (utils/read-json-is raw)]
-                                          {:status 200
-                                           :body   (graphql/handle body)}))
-                             :summary "GraphQL endpoint"}
-                   :options cors-handler}]
-     ["/nlg/" {:post    {:parameters {:body ::generate/generate-req}
-                         :responses  {200 {:body {:resultId string?}}}
-                         :summary    "Registers document plan for generation"
-                         :coercion   reitit.coercion.spec/coercion
-                         :middleware [muuntaja/format-request-middleware
-                                      coercion/coerce-request-middleware
-                                      coercion/coerce-response-middleware]
-                         :handler    (fn [{{body :body} :parameters}]
-                                       (generate/generate-request body))}
-               :options cors-handler}]
-     ["/nlg/:id" {:get     generate/read-result
-                  :delete  generate/delete-result
-                  :options cors-handler}]
-     ["/accelerated-text-data-files/" {:post (fn [request]
-                                               (let [{params :params} (multipart-handler request)
-                                                     id (data-files/store! (get params "file"))]
-                                                 {:status 200
-                                                  :body   {:message "Succesfully uploaded file" :id id}}))}]
-     ["/swagger.json" {:get {:no-doc  true
-                             :swagger {:info {:title       "nlg-api"
-                                              :description "api description"}}
-                             :handler (swagger/create-swagger-handler)}}]
-     ["/health" {:get health}]]
-    {:data      {
-                 :muuntaja   m/instance
-                 :middleware [swagger/swagger-feature
-                              muuntaja/format-negotiate-middleware
-                              parameters/parameters-middleware
-                              wrap-response
-                              muuntaja/format-response-middleware
-                              exception/exception-middleware]}
-     :exception pretty/exception}))
+   [["/_graphql"    {:post {:handler (fn [{raw :body}]
+                                       (let [body (utils/read-json-is raw)]
+                                         {:status 200
+                                          :body (graphql/handle body)}))
+                            :summary "GraphQL endpoint"}
+                     :options cors-handler}]
+    ["/nlg/"        {:post   {:parameters {:body ::generate/generate-req}
+                              :responses  {200 {:body {:resultId string?}}}
+                              :summary    "Registers document plan for generation"
+                              :coercion   reitit.coercion.spec/coercion
+                              :middleware [muuntaja/format-request-middleware
+                                           coercion/coerce-request-middleware
+                                           coercion/coerce-response-middleware]
+                              :handler (fn [{{body :body} :parameters}]
+                                         (generate/generate-request body))}
+                     :options cors-handler}]
+    ["/nlg/_bulk/"   {:post    {:parameters {:body ::generate/generate-bulk}
+                                :responses  {200 {:body {:resultId string?}}}
+                                :summary    "Bulk generation"
+                                :coercion   reitit.coercion.spec/coercion
+                                :middleware [muuntaja/format-request-middleware
+                                             coercion/coerce-request-middleware
+                                             coercion/coerce-response-middleware]
+                                :handler (fn [{{body :body} :parameters}]
+                                           (generate/generate-bulk body))}
+                     :options cors-handler}]
+    ["/nlg/:id"     {:get     {:parameters {:query ::generate/format-query
+                                            :path  {:id string?}}
+                               :coercion   reitit.coercion.spec/coercion
+                               :summary    "Get NLG result"
+                               :middleware [muuntaja/format-request-middleware
+                                            coercion/coerce-request-middleware]
+                               :handler    generate/read-result}
+                     :delete  generate/delete-result
+                     :options cors-handler}]
+    ["/accelerated-text-data-files/" {:post (fn [request]
+                                              (let [{params :params} (multipart-handler request)
+                                                    id (data-files/store! (get params "file"))]
+                                                {:status 200
+                                                 :body {:message "Succesfully uploaded file" :id id}}))}]
+    ["/swagger.json" {:get {:no-doc true
+                            :swagger {:info {:title "nlg-api"
+                                             :description "api description"}}
+                            :handler (swagger/create-swagger-handler)}}]
+    ["/health"       {:get health}]]
+   {:data {
+           :muuntaja m/instance
+           :middleware [swagger/swagger-feature
+                        muuntaja/format-negotiate-middleware
+                        parameters/parameters-middleware
+                        wrap-response
+                        muuntaja/format-response-middleware
+                        exception/exception-middleware]}
+    :exception pretty/exception}))
 
 (def app
   (ring/ring-handler
