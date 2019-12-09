@@ -40,7 +40,7 @@
                                     [{:children
                                              [{:type           "AMR" :srcId "W}lSg%-S(rQ*nmVp3fFV"
                                                :conceptId      "author"
-                                               :dictionaryItem {:name "author" :type "Dictionary-item" :srcId "jirq-V{WgCd+u[sdVWpd" :itemId "author"}
+                                               :dictionaryItem {:name "author" :type "Dictionary-item" :srcId "jirq-V{WgCd+u[sdVWpd" :itemId "VB-author"}
                                                :roles          [{:name     "agent"
                                                                  :children [{:name  "authors"
                                                                              :type  "Cell"
@@ -59,7 +59,7 @@
 
       (let [{doc-plan :documentPlan} (document-plan/get-document-plan id)]
         (is (= {:segments [{:children [{:conceptId      "author"
-                                        :dictionaryItem {:itemId "author"
+                                        :dictionaryItem {:itemId "VB-author"
                                                          :name   "author"
                                                          :srcId  "jirq-V{WgCd+u[sdVWpd"
                                                          :type   "Dictionary-item"}
@@ -88,7 +88,7 @@
                                                    :name   "good"
                                                    :type   "Dictionary-item-modifier"
                                                    :srcId  "hy-Io!DlnURxCO!v3`^["
-                                                   :itemId "good"}]
+                                                   :itemId "NN-good"}]
                                        :type     "Segment"
                                        :srcId    "ujW*X(khAvxZNh!jF8c8"}]
                            :type     "Document-plan" :srcId "xlp%{tSm4kq9Y?|jz(7e"}}
@@ -101,7 +101,7 @@
       (is (= {:segments [{:children [{:child  {:name  "title"
                                                :srcId "k1*3(#7IWxHal=%)AdyQ"
                                                :type  "Cell"}
-                                      :itemId "good"
+                                      :itemId "NN-good"
                                       :name   "good"
                                       :srcId  "hy-Io!DlnURxCO!v3`^["
                                       :type   "Dictionary-item-modifier"}]

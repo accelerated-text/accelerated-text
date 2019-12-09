@@ -9,7 +9,7 @@
     (let [root {:segments [{:children [{:child  {:name "title" :type "Cell"}
                                         :name   "good"
                                         :type   "Dictionary-item-modifier"
-                                        :itemId "good"}]
+                                        :itemId "NN-good"}]
                             :type     "Segment"}]
                 :type     "Document-plan"}
           {::sg/keys [concepts relations]} (parser/document-plan->semantic-graph root)]

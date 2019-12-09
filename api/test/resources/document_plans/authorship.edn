@@ -4,7 +4,7 @@
                          :dictionaryItem {:name   "author",
                                           :type   "Dictionary-item",
                                           :srcId  "jirq-V{WgCd+u[sdVWpd",
-                                          :itemId "author"},
+                                          :itemId "VB-author"},
                          :roles          [{:name     "agent",
                                            :children [{:name  "authors",
                                                        :type  "Cell",
