@@ -59,16 +59,18 @@
                      :value text}]
         :relations []})
 
-(defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId]} _]
-  #::sg{:concepts  [{:id    id
-                     :type  :dictionary-item
-                     :value itemId}]
+(defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name]} _]
+  #::sg{:concepts  [{:id         id
+                     :type       :dictionary-item
+                     :value      itemId
+                     :attributes {:name name}}]
         :relations []})
 
-(defmethod build-semantic-graph :Dictionary-item-modifier [{:keys [id itemId]} _]
-  #::sg{:concepts  [{:id    id
-                     :type  :dictionary-item
-                     :value itemId}]
+(defmethod build-semantic-graph :Dictionary-item-modifier [{:keys [id itemId name]} _]
+  #::sg{:concepts  [{:id         id
+                     :type       :dictionary-item
+                     :value      itemId
+                     :attributes {:name name}}]
         :relations []})
 
 (defmethod build-semantic-graph :Cell-modifier [{:keys [id name]} _]

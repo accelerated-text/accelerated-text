@@ -42,12 +42,12 @@
              :value value}]
    :ret    [:s "Str"]})
 
-(defmethod build-function :dictionary-item [{value :value :as concept} _ _ {dictionary :dictionary}]
+(defmethod build-function :dictionary-item [{value :value {name :name} :attributes :as concept} _ _ {dictionary :dictionary}]
   {:name   (concept->name concept)
    :params []
    :body   (for [dict-value (let [dict-entry (get dictionary value)]
                               (set (cond->> dict-entry
-                                            (empty? dict-entry) (cons value))))]
+                                            (empty? dict-entry) (cons (or name value)))))]
              [{:type  :literal
                :value dict-value}])
    :ret    [:s "Str"]})
