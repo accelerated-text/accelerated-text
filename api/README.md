@@ -1,20 +1,18 @@
 # About
 
-API for generating text
-
-## Envirinoment vars
-
-Set the following environment vars for `make` commands to work
-
-NLG_AWS_DEFAULT_REGION
-NLG_AWS_ACCESS_KEY_ID
-NLG_AWS_SECRET_ACCESS_KEY
+This module provides API access to the text generation functionality defined in Accelerated Text `core` module. 
+It also ensures connectivity to all the data bases which provide data for the text generation. This way `core`
+is completely separated from the data storage mechanics.
 
 ## Running locally
 
+Start one of the database servers we support [*Datomic*](https://docs.datomic.com/on-prem/get-datomic.html) or 
+[*DynamoDB*](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html). 
+Once it is running start API server with the following command
+
 - `make run-local-server`
 
-Should be reachable via `http://localhost:8080/`
+After execution API will be reachable via `http://localhost:8080/`
 
 # graphql-api
 
@@ -57,12 +55,3 @@ Calling backend via API Gateway:
            :connection "keep-alive"},
  :status 200}
 ```
-
-
-## Deploying
-
-- `make deploy`
-
-## More info
-
-Check `Makefile` file
