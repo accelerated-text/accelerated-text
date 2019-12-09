@@ -1,0 +1,13 @@
+members:
+roles:
+  - Attribute
+  - Part
+frames:
+  - example: Elastic band at cuffs.
+    syntax:
+      - pos: NP
+        role: Attribute
+      - pos: ADP
+        value: "at"
+      - pos: NP
+        role: Part

@@ -1,0 +1,26 @@
+members:
+roles:
+  - Object
+  - DefiningProperty
+  - Attribute
+frames:
+  - example: Short dress in woven fabric with a smocked mock turtleneck and smocked yoke.
+    syntax:
+      - pos: NP
+        role: Object
+      - pos: ADP
+        value: "in"
+      - pos: NP
+        role: DefiningProperty
+      - pos: ADP
+        value: "with"
+      - pos: NP
+        role: Attribute
+  - example: Short dress in woven fabric.
+    syntax:
+      - pos: NP
+        role: Object
+      - pos: ADP
+        value: "in"
+      - pos: NP
+        role: DefiningProperty
