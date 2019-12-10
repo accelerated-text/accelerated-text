@@ -18,8 +18,7 @@
              io.rkn/conformity                {:mvn/version "0.5.1"}
              org.clojure/clojure              {:mvn/version "1.10.1"}
              org.clojure/data.csv             {:mvn/version "0.1.4"}
-             org.clojure/tools.logging        {:mvn/version "0.5.0"}
-             ubergraph                        {:mvn/version "0.8.1"}}
+             org.clojure/tools.logging        {:mvn/version "0.5.0"}}
  :paths     ["src" "resources"]
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://repo.clojars.org/"}}

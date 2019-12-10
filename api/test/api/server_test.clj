@@ -17,7 +17,7 @@
       (is (= 200 status))
       (is (= "Failed to parse GraphQL query." message))))
   (testing "NLG endpoint test"
-    (let [data-id (data-files/store! {:filename "example-user/test.csv" :content "test\n1"})
+    (let [data-id (data-files/store! {:filename "test.csv" :content "test\n1"})
           document-plan-id (:id (dp/add-document-plan {:uid "test" :name "test" :documentPlan {}} "test"))
           {{result-id :resultId} :body status :status}
           (q "/nlg/" :post {:dataId           data-id

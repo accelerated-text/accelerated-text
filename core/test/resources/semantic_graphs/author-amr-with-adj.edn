@@ -1,27 +1,15 @@
-#:acc-text.nlg.semantic-graph{:relations [#:acc-text.nlg.semantic-graph{:from :01 :to :02 :role :segment}
-                                          #:acc-text.nlg.semantic-graph{:from :02 :to :03 :role :instance}
-                                          #:acc-text.nlg.semantic-graph{:from :03 :to :04 :role :function}
-                                          #:acc-text.nlg.semantic-graph{:from       :03
-                                                                        :to         :05
-                                                                        :role       :ARG0
-                                                                        :attributes #:acc-text.nlg.semantic-graph{:name "agent"}}
-                                          #:acc-text.nlg.semantic-graph{:from       :03
-                                                                        :to         :08
-                                                                        :role       :ARG1
-                                                                        :attributes #:acc-text.nlg.semantic-graph{:name "co-agent"}}
-                                          #:acc-text.nlg.semantic-graph{:from :05 :to :06 :role :child}
-                                          #:acc-text.nlg.semantic-graph{:from :05 :to :07 :role :modifier}]
-                              :concepts  [#:acc-text.nlg.semantic-graph{:id :01 :type :document-plan}
-                                          #:acc-text.nlg.semantic-graph{:id :02 :type :segment}
-                                          #:acc-text.nlg.semantic-graph{:id :03 :type :amr :value "author"}
-                                          #:acc-text.nlg.semantic-graph{:id         :04
-                                                                        :type       :dictionary-item
-                                                                        :value      "written"
-                                                                        :attributes #:acc-text.nlg.semantic-graph{:name "written"}}
-                                          #:acc-text.nlg.semantic-graph{:id :05 :type :modifier}
-                                          #:acc-text.nlg.semantic-graph{:id :06 :type :data :value "authors"}
-                                          #:acc-text.nlg.semantic-graph{:id         :07
-                                                                        :type       :dictionary-item
-                                                                        :value      "good"
-                                                                        :attributes #:acc-text.nlg.semantic-graph{:name "good"}}
-                                          #:acc-text.nlg.semantic-graph{:id :08 :type :data :value "title"}]}
+#:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :02 :role :segment}
+                                          {:from :02 :to :03 :role :instance}
+                                          {:from :03 :to :04 :role :function}
+                                          {:from :03 :to :05 :role :ARG0 :attributes {:name "agent"}}
+                                          {:from :03 :to :08 :role :ARG1 :attributes {:name "co-agent"}}
+                                          {:from :05 :to :06 :role :child}
+                                          {:from :05 :to :07 :role :modifier}]
+                              :concepts  [{:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :amr :value "author"}
+                                          {:id :04 :type :dictionary-item :value "written"}
+                                          {:id :05 :type :modifier}
+                                          {:id :06 :type :data :value "authors"}
+                                          {:id :07 :type :dictionary-item :value "good"}
+                                          {:id :08 :type :data :value "title"}]}

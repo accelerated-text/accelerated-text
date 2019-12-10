@@ -25,7 +25,7 @@
 (def headers {"Access-Control-Allow-Origin"  "*"
               "Access-Control-Allow-Headers" "content-type, *"
               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
-              "Content-Type" "application/json"})
+              "Content-Type"                 "application/json"})
 
 (defn health [_] {:status 200, :body "Ok"})
 
@@ -77,7 +77,7 @@
                                :summary    "Get NLG result"
                                :middleware [muuntaja/format-request-middleware
                                             coercion/coerce-request-middleware]
-                               :handler    generate/read-result} 
+                               :handler    generate/read-result}
                      :delete  generate/delete-result
                      :options cors-handler}]
     ["/accelerated-text-data-files/" {:post (fn [request]
@@ -102,12 +102,12 @@
 
 (def app
   (ring/ring-handler
-   routes
-   (swagger-ui/create-swagger-ui-handler
-    {:path "/"
-     :config {:validatorUrl nil
-              :operationsSorter "alpha"}})
-   (ring/create-default-handler)))
+    routes
+    (swagger-ui/create-swagger-ui-handler
+      {:path   "/"
+       :config {:validatorUrl     nil
+                :operationsSorter "alpha"}})
+    (ring/create-default-handler)))
 
 (defn start-http-server [conf]
   (let [host (get conf :host "0.0.0.0")
@@ -115,13 +115,13 @@
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
     (amr/initialize)
     (server/run-server
-     #'app {:port     port
-            :ip       host
-            :max-body Integer/MAX_VALUE})))
+      #'app {:port     port
+             :ip       host
+             :max-body Integer/MAX_VALUE})))
 
 (defstate http-server
-  :start (start-http-server conf)
-  :stop (http-server :timeout 100))
+          :start (start-http-server conf)
+          :stop (http-server :timeout 100))
 
 (defn -main [& _]
   (mount/start))

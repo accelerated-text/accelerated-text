@@ -1,8 +1,8 @@
 (ns acc-text.nlg.semantic-graph.utils-test
-  (:require [clojure.test :refer [deftest is are]]
+  (:require [acc-text.nlg.semantic-graph :as sg]
+            [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [acc-text.nlg.test-utils :as utils]
-            [acc-text.nlg.semantic-graph :as sg]
-            [acc-text.nlg.semantic-graph.utils :as sg-utils]))
+            [clojure.test :refer [deftest is are]]))
 
 (deftest concept-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
@@ -42,24 +42,24 @@
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [concept role child]
       (= child (sg-utils/get-child-with-relation semantic-graph concept role))
-      #::sg{:id :05 :type :data :value "authors"} :modifier #::sg{:attributes #::sg{:name "good"} :id :07 :type :dictionary-item :value "good"}
-      #::sg{:id :02 :type :segment} :function nil)))
+      {:id :05 :type :data :value "authors"} :modifier {:id :07 :type :dictionary-item :value "good"}
+      {:id :02 :type :segment} :function nil)))
 
 (deftest child-concept-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [concept children]
       (= children (sg-utils/get-children semantic-graph concept))
-      #::sg{:id :03 :type :amr :value "author"} [#::sg{:id :04 :type :dictionary-item :value "written" :attributes #::sg{:name "written"}}
-                                                 #::sg{:id :05 :type :modifier}
-                                                 #::sg{:id :08 :type :data :value "title"}]
-      #::sg{:id :07 :type :data :value "title"} [])))
+      {:id :03 :type :amr :value "author"} [{:id :04 :type :dictionary-item :value "written"}
+                                            {:id :05 :type :modifier}
+                                            {:id :08 :type :data :value "title"}]
+      {:id :07 :type :data :value "title"} [])))
 
 (deftest concept-with-type-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [type concepts]
       (= concepts (sg-utils/get-concepts-with-type semantic-graph type))
-      :data [#::sg{:id :06 :type :data :value "authors"}
-             #::sg{:id :08 :type :data :value "title"}]
+      :data [{:id :06 :type :data :value "authors"}
+             {:id :08 :type :data :value "title"}]
       :boolean [])))
 
 (deftest graph-pruning
@@ -67,26 +67,22 @@
     (is (= #::sg{:concepts  []
                  :relations []}
            (sg-utils/prune-branches semantic-graph #{:01})))
-    (is (= #::sg{:concepts  [#::sg{:id   :01
-                                   :type :document-plan}]
+    (is (= #::sg{:concepts  [{:id   :01
+                              :type :document-plan}]
                  :relations []}
            (sg-utils/prune-branches semantic-graph #{:02})))
-    (is (= #::sg{:concepts  [#::sg{:id   :01
-                                   :type :document-plan}
-                             #::sg{:id   :02
-                                   :type :segment}]
-                 :relations [#::sg{:from :01
-                                   :role :segment
-                                   :to   :02}]}
+    (is (= #::sg{:concepts  [{:id :01 :type :document-plan}
+                             {:id :02 :type :segment}]
+                 :relations [{:from :01 :to :02 :role :segment}]}
            (sg-utils/prune-branches semantic-graph #{:03})))
     (is (= semantic-graph
            (sg-utils/prune-branches semantic-graph #{:09})))))
 
 (deftest unrelated-branch-pruning
   (let [semantic-graph (utils/load-test-semantic-graph "variable-unused")]
-    (is (= #::sg{:concepts  [#::sg{:id :01 :type :document-plan}
-                             #::sg{:id :04 :type :segment}
-                             #::sg{:id :05 :type :quote :value "some text"}]
-                 :relations [#::sg{:from :01 :role :segment :to :04}
-                             #::sg{:from :04 :role :instance :to :05}]}
+    (is (= #::sg{:concepts  [{:id :01 :type :document-plan}
+                             {:id :04 :type :segment}
+                             {:id :05 :type :quote :value "some text"}]
+                 :relations [{:from :01 :to :04 :role :segment}
+                             {:from :04 :to :05 :role :instance}]}
            (sg-utils/prune-unrelated-branches semantic-graph)))))

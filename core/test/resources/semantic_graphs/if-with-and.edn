@@ -1,31 +1,27 @@
-#:acc-text.nlg.semantic-graph{:relations [#:acc-text.nlg.semantic-graph{:from :01, :to :02, :role :segment}
-                                          #:acc-text.nlg.semantic-graph{:from :02, :to :03, :role :instance}
-                                          #:acc-text.nlg.semantic-graph{:from :03, :to :04, :role :statement}
-                                          #:acc-text.nlg.semantic-graph{:from :03, :to :13, :role :statement}
-                                          #:acc-text.nlg.semantic-graph{:from :04, :to :05, :role :predicate}
-                                          #:acc-text.nlg.semantic-graph{:from :04, :to :12, :role :expression}
-                                          #:acc-text.nlg.semantic-graph{:from :05, :to :06, :role :input}
-                                          #:acc-text.nlg.semantic-graph{:from :05, :to :09, :role :input}
-                                          #:acc-text.nlg.semantic-graph{:from :06, :to :07, :role :comparable}
-                                          #:acc-text.nlg.semantic-graph{:from :06, :to :08, :role :comparable}
-                                          #:acc-text.nlg.semantic-graph{:from :09, :to :10, :role :entity}
-                                          #:acc-text.nlg.semantic-graph{:from :09, :to :11, :role :comparable}
-                                          #:acc-text.nlg.semantic-graph{:from :13, :to :14, :role :expression}],
-                              :concepts  [#:acc-text.nlg.semantic-graph{:id :01, :type :document-plan}
-                                          #:acc-text.nlg.semantic-graph{:id :02, :type :segment}
-                                          #:acc-text.nlg.semantic-graph{:id :03, :type :condition}
-                                          #:acc-text.nlg.semantic-graph{:id :04, :type :if-statement}
-                                          #:acc-text.nlg.semantic-graph{:id :05, :value "and", :type :boolean}
-                                          #:acc-text.nlg.semantic-graph{:id :06, :value "=", :type :comparator}
-                                          #:acc-text.nlg.semantic-graph{:id :07, :type :data, :value "publishedDate"}
-                                          #:acc-text.nlg.semantic-graph{:id :08, :type :quote, :value "2008"}
-                                          #:acc-text.nlg.semantic-graph{:id :09, :value "in", :type :comparator}
-                                          #:acc-text.nlg.semantic-graph{:id :10, :type :data, :value "subtitle"}
-                                          #:acc-text.nlg.semantic-graph{:id :11, :type :quote, :value "Lucene"}
-                                          #:acc-text.nlg.semantic-graph{:id    :12,
-                                                                        :type  :quote,
-                                                                        :value "The book was published in 2008 and is about Lucene"}
-                                          #:acc-text.nlg.semantic-graph{:id :13, :type :default-statement}
-                                          #:acc-text.nlg.semantic-graph{:id    :14,
-                                                                        :type  :quote,
-                                                                        :value "The book was not published in 2008 or it is not about Lucene"}]}
+#:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :02 :role :segment}
+                                          {:from :02 :to :03 :role :instance}
+                                          {:from :03 :to :04 :role :statement}
+                                          {:from :03 :to :13 :role :statement}
+                                          {:from :04 :to :05 :role :predicate}
+                                          {:from :04 :to :12 :role :expression}
+                                          {:from :05 :to :06 :role :input}
+                                          {:from :05 :to :09 :role :input}
+                                          {:from :06 :to :07 :role :comparable}
+                                          {:from :06 :to :08 :role :comparable}
+                                          {:from :09 :to :10 :role :entity}
+                                          {:from :09 :to :11 :role :comparable}
+                                          {:from :13 :to :14 :role :expression}]
+                              :concepts  [{:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :condition}
+                                          {:id :04 :type :if-statement}
+                                          {:id :05 :type :boolean :value "and"}
+                                          {:id :06 :type :comparator :value "="}
+                                          {:id :07 :type :data :value "publishedDate"}
+                                          {:id :08 :type :quote :value "2008"}
+                                          {:id :09 :type :comparator :value "in"}
+                                          {:id :10 :type :data :value "subtitle"}
+                                          {:id :11 :type :quote :value "Lucene"}
+                                          {:id :12 :type :quote :value "The book was published in 2008 and is about Lucene"}
+                                          {:id :13 :type :default-statement}
+                                          {:id :14 :type :quote :value "The book was not published in 2008 or it is not about Lucene"}]}

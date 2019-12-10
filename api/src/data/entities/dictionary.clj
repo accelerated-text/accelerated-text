@@ -36,9 +36,9 @@
 
 (defn create-dictionary-item [{:keys [key name phrases partOfSpeech]}]
   (when-not (str/blank? name)
-    (db/write! dictionary-combined-db key {:name          name
-                                            :partOfSpeech partOfSpeech
-                                            :phrases      (map #(text->phrase % key :YES) phrases)})))
+    (db/write! dictionary-combined-db key {:name         name
+                                           :partOfSpeech partOfSpeech
+                                           :phrases      (map #(text->phrase % key :YES) phrases)})))
 
 (defn delete-dictionary-item [key]
   (db/delete! dictionary-combined-db key))

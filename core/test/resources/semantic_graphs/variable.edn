@@ -1,9 +1,9 @@
-#:acc-text.nlg.semantic-graph{:relations [#:acc-text.nlg.semantic-graph{:from :01, :to :04, :role :segment}
-                                          #:acc-text.nlg.semantic-graph{:from :02, :to :03, :role :definition}
-                                          #:acc-text.nlg.semantic-graph{:from :04, :to :05, :role :instance}
-                                          #:acc-text.nlg.semantic-graph{:from :05, :to :02, :role :pointer}],
-                              :concepts  [#:acc-text.nlg.semantic-graph{:id :01, :type :document-plan}
-                                          #:acc-text.nlg.semantic-graph{:id :02, :type :variable}
-                                          #:acc-text.nlg.semantic-graph{:id :03, :type :quote, :value "some text"}
-                                          #:acc-text.nlg.semantic-graph{:id :04, :type :segment}
-                                          #:acc-text.nlg.semantic-graph{:id :05, :type :reference}]}
+#:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :04 :role :segment}
+                                          {:from :02 :to :03 :role :definition}
+                                          {:from :04 :to :05 :role :instance}
+                                          {:from :05 :to :02 :role :pointer}]
+                              :concepts  [{:id :01 :type :document-plan}
+                                          {:id :02 :type :variable}
+                                          {:id :03 :type :quote :value "some text"}
+                                          {:id :04 :type :segment}
+                                          {:id :05 :type :reference}]}

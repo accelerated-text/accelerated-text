@@ -1,35 +1,37 @@
 (ns acc-text.nlg.semantic-graph
-  (:require [clojure.spec.alpha :as s]
-            [clojure.spec.gen.alpha :as gen]
-            [clojure.string :as string]))
+  (:require [clojure.spec.alpha :as s]))
 
-(s/def ::id keyword?)
+(s/def :acc-text.nlg.semantic-graph.concept/id keyword?)
 
-(s/def ::name (s/and string? #(not (string/blank? %))))
+(s/def :acc-text.nlg.semantic-graph.relation/from keyword?)
 
-(s/def ::type #{:document-plan :segment :data :quote :dictionary-item :amr :shuffle :sequence :condition :if-statement
-                :default-statement :comparator :boolean :variable :reference :modifier})
+(s/def :acc-text.nlg.semantic-graph.relation/to keyword?)
 
-(s/def ::concept (s/keys :req [::id ::type]))
+(s/def :acc-text.nlg.semantic-graph.relation.attributes/name string?)
 
-(s/def ::concepts (s/coll-of ::concept :min-count 1))
+(s/def :acc-text.nlg.semantic-graph.relation/attributes
+  (s/keys :opt-un [:acc-text.nlg.semantic-graph.relation.attributes/name]))
 
-(s/def ::role
-  (s/or :core (s/with-gen keyword? #(gen/fmap (fn [idx] (keyword (str "ARG" (Math/abs ^Integer idx)))) (gen/int)))
+(s/def :acc-text.nlg.semantic-graph.concept/type
+  #{:document-plan :segment :data :quote :dictionary-item :amr :shuffle :sequence :condition :if-statement
+    :default-statement :comparator :boolean :variable :reference :modifier})
+
+(s/def ::concepts
+  (s/coll-of
+    (s/keys :req-un [:acc-text.nlg.semantic-graph.concept/id
+                     :acc-text.nlg.semantic-graph.concept/type])))
+
+(s/def :acc-text.nlg.semantic-graph.relation/role
+  (s/or :core (s/and keyword? #(or (= :function %) (re-matches #"^ARG\d+$" (name %))))
         :non-core #{:segment :instance :modifier :child :item :statement :predicate :comparable :expression :entity
                     :input :definition :pointer}))
 
-(s/def ::from keyword?)
-(s/def ::to keyword?)
+(s/def ::relations
+  (s/coll-of
+    (s/keys :req-un [:acc-text.nlg.semantic-graph.relation/from
+                     :acc-text.nlg.semantic-graph.relation/to
+                     :acc-text.nlg.semantic-graph.relation/role]
+            :opt-un [:acc-text.nlg.semantic-graph.relation/attributes])))
 
-(s/def ::attributes
-  (s/or :has-attrs (s/keys :req [::name])
-        :no-attrs nil?))
-
-(s/def ::relation
-  (s/keys :req [::from ::to ::role]
-          :opt [::attributes]))
-
-(s/def ::relations (s/coll-of ::relation))
-
-(s/def ::graph (s/keys :req [::relations ::concepts]))
+(s/def ::graph
+  (s/keys :req [::relations ::concepts]))

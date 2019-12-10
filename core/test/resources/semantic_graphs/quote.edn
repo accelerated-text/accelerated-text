@@ -2,4 +2,4 @@
                                           {:from :02 :to :03 :role :instance}]
                               :concepts  [{:id :01 :type :document-plan}
                                           {:id :02 :type :segment}
-                                          {:id :03 :type :amr :value "author"}]}
+                                          {:id :03 :type :quote :value "He said: \"GO!\""}]}

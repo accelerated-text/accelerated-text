@@ -1,8 +1,8 @@
 (ns api.nlg.parser-test
   (:require [acc-text.nlg.semantic-graph :as sg]
             [api.nlg.parser :as parser]
-            [clojure.test :refer [deftest testing is]]
-            [clojure.set :as set]))
+            [clojure.set :as set]
+            [clojure.test :refer [deftest testing is]]))
 
 (deftest document-plan-parsing
   (testing "Simple document plan parsing"
@@ -12,9 +12,9 @@
                                         :itemId "NN-good"}]
                             :type     "Segment"}]
                 :type     "Document-plan"}
-          {concepts ::sg/concepts relations ::sg/relations} (parser/document-plan->semantic-graph root)]
-      (is (set/subset? #{:document-plan :segment :data :dictionary-item} (set (map ::sg/type concepts))))
-      (is (set/subset? #{:segment :instance :modifier} (set (map ::sg/role relations))))))
+          {::sg/keys [concepts relations]} (parser/document-plan->semantic-graph root)]
+      (is (set/subset? #{:document-plan :segment :data :dictionary-item} (set (map :type concepts))))
+      (is (set/subset? #{:segment :instance :modifier} (set (map :role relations))))))
   (testing "AMR parsing"
     (let [root {:roles          [{:children [{:name "authors" :type "Cell"}]
                                   :name     "agent"}
@@ -26,9 +26,9 @@
                                  :itemId "written"}
                 :type           "AMR"
                 :conceptId      "author"}
-          {concepts ::sg/concepts relations ::sg/relations} (parser/document-plan->semantic-graph root)]
-      (is (set/subset? #{:amr :data :dictionary-item} (set (map ::sg/type concepts))))
-      (is (set/subset? #{:function :ARG0 :ARG1} (set (map ::sg/role relations))))))
+          {::sg/keys [concepts relations]} (parser/document-plan->semantic-graph root)]
+      (is (set/subset? #{:amr :data :dictionary-item} (set (map :type concepts))))
+      (is (set/subset? #{:function :ARG0 :ARG1} (set (map :role relations))))))
   (testing "Modifier parsing"
     (let [root {:name   "good"
                 :type   "Dictionary-item-modifier"
@@ -37,7 +37,7 @@
                          :child  {:name "authors" :type "Cell"}
                          :itemId "famous"}
                 :itemId "good"}
-          {concepts ::sg/concepts relations ::sg/relations} (parser/document-plan->semantic-graph root)]
-      (is (set/subset? #{:data :dictionary-item} (set (map ::sg/type concepts))))
-      (is (set/subset? #{:modifier} (set (map ::sg/role relations))))
+          {::sg/keys [concepts relations]} (parser/document-plan->semantic-graph root)]
+      (is (set/subset? #{:data :dictionary-item} (set (map :type concepts))))
+      (is (set/subset? #{:modifier} (set (map :role relations))))
       (is (= 3 (count relations))))))

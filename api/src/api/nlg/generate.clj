@@ -18,24 +18,30 @@
 (s/def ::dataRow (s/map-of string? string?))
 (s/def ::dataRows (s/map-of ::key ::dataRow))
 (s/def ::readerFlagValues (s/map-of string? boolean?))
-(s/def ::generate-req (s/keys :req-un [::documentPlanId ::readerFlagValues ::dataId]))
-(s/def ::generate-bulk (s/keys :req-un [::documentPlanId ::readerFlagValues ::dataRows]))
+(s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId]
+                              :opt-un [::readerFlagValues]))
+(s/def ::generate-bulk (s/keys :req-un [::documentPlanId ::dataRows]
+                               :opt-un [::readerFlagValues]))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
-(defn generate-row [semantic-graph context [row-key data]]
-  [row-key (->> (nlg/generate-text semantic-graph context data)
-                (map :text)
-                (sort)
-                (dedupe))])
+(defn generate-text
+  ([document-plan data] (generate-text document-plan data {:default true}))
+  ([document-plan data reader-model]
+   (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
+         context (context/build-context semantic-graph reader-model)]
+     (->> (nlg/generate-text semantic-graph context data)
+          (map :text)
+          (sort)
+          (dedupe)))))
 
 (defn generation-process [document-plan rows reader-model]
   (try
     {:ready   true
-     :results (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
-                    context (context/build-context semantic-graph reader-model)]
-                (doall (map #(generate-row semantic-graph context %) rows)))}
+     :results (doall (map (fn [[row-key data]]
+                            [row-key (generate-text document-plan data reader-model)])
+                          rows))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))

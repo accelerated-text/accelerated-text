@@ -1,11 +1,9 @@
 (ns api.utils
-  (:require [acc-text.nlg.semantic-graph :as sg]
-            [clojure.data.csv :as csv]
+  (:require [clojure.data.csv :as csv]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [clojure.walk :as walk]
-            [jsonista.core :as json]
-            [ubergraph.core :as uber])
+            [jsonista.core :as json])
   (:import (java.net URLDecoder)
            (java.nio.charset Charset)
            (java.util UUID)))
@@ -66,32 +64,7 @@
   (when-not f
     (log/warnf "CSV is NULL" f))
   (let [raw-csv (csv/read-csv (or f ""))
-        header  (->> raw-csv (first) (map keyword) (vec))
-        data    (rest raw-csv)
-        pairs   (map #(interleave header %) data)]
+        header (->> raw-csv (first) (map keyword) (vec))
+        data (rest raw-csv)
+        pairs (map #(interleave header %) data)]
     (doall (map #(apply array-map %) pairs))))
-
-(defn node-name [node]
-  (keyword 
-    (format "%s.%s.%s"
-            (name (:acc-text.nlg.semantic-graph/id node))
-            (name (:acc-text.nlg.semantic-graph/type node))
-            (or (:acc-text.nlg.semantic-graph/value node)
-                "-"))))
-
-(defn plan-graph [semantic-graph]
-  (let [concepts (group-by :acc-text.nlg.semantic-graph/id (:acc-text.nlg.semantic-graph/concepts semantic-graph))]
-    (apply uber/graph (for [{role ::sg/role
-                             from ::sg/from
-                             to   ::sg/to} (::sg/relations semantic-graph)]
-                        [(-> concepts
-                             (get from)
-                             (first)
-                             (node-name))
-                         (-> concepts
-                             (get to)
-                             (first)
-                             (node-name))
-                         {:name role}]))))
-
-(defn vizgraph [uber-graph] (uber/viz-graph uber-graph))

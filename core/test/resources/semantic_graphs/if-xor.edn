@@ -1,31 +1,27 @@
-#:acc-text.nlg.semantic-graph{:relations [#:acc-text.nlg.semantic-graph{:from :01, :to :02, :role :segment}
-                                          #:acc-text.nlg.semantic-graph{:from :02, :to :03, :role :instance}
-                                          #:acc-text.nlg.semantic-graph{:from :03, :to :04, :role :statement}
-                                          #:acc-text.nlg.semantic-graph{:from :03, :to :13, :role :statement}
-                                          #:acc-text.nlg.semantic-graph{:from :04, :to :05, :role :predicate}
-                                          #:acc-text.nlg.semantic-graph{:from :04, :to :12, :role :expression}
-                                          #:acc-text.nlg.semantic-graph{:from :05, :to :06, :role :input}
-                                          #:acc-text.nlg.semantic-graph{:from :05, :to :09, :role :input}
-                                          #:acc-text.nlg.semantic-graph{:from :06, :to :07, :role :comparable}
-                                          #:acc-text.nlg.semantic-graph{:from :06, :to :08, :role :comparable}
-                                          #:acc-text.nlg.semantic-graph{:from :09, :to :10, :role :comparable}
-                                          #:acc-text.nlg.semantic-graph{:from :09, :to :11, :role :comparable}
-                                          #:acc-text.nlg.semantic-graph{:from :13, :to :14, :role :expression}],
-                              :concepts  [#:acc-text.nlg.semantic-graph{:id :01, :type :document-plan}
-                                          #:acc-text.nlg.semantic-graph{:id :02, :type :segment}
-                                          #:acc-text.nlg.semantic-graph{:id :03, :type :condition}
-                                          #:acc-text.nlg.semantic-graph{:id :04, :type :if-statement}
-                                          #:acc-text.nlg.semantic-graph{:id :05, :value "xor", :type :boolean}
-                                          #:acc-text.nlg.semantic-graph{:id :06, :value "=", :type :comparator}
-                                          #:acc-text.nlg.semantic-graph{:id :07, :type :data, :value "language"}
-                                          #:acc-text.nlg.semantic-graph{:id :08, :type :quote, :value "en"}
-                                          #:acc-text.nlg.semantic-graph{:id :09, :value "<", :type :comparator}
-                                          #:acc-text.nlg.semantic-graph{:id :10, :type :data, :value "pageCount"}
-                                          #:acc-text.nlg.semantic-graph{:id :11, :type :quote, :value "50"}
-                                          #:acc-text.nlg.semantic-graph{:id    :12,
-                                                                        :type  :quote,
-                                                                        :value "Either the book is written in English or it is less than 50 pages long"}
-                                          #:acc-text.nlg.semantic-graph{:id :13, :type :default-statement}
-                                          #:acc-text.nlg.semantic-graph{:id    :14,
-                                                                        :type  :quote,
-                                                                        :value "Either the book is written in English and it is less than 50 pages long or it is not written in English nor it is less than 50 pages long"}]}
+#:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :02 :role :segment}
+                                          {:from :02 :to :03 :role :instance}
+                                          {:from :03 :to :04 :role :statement}
+                                          {:from :03 :to :13 :role :statement}
+                                          {:from :04 :to :05 :role :predicate}
+                                          {:from :04 :to :12 :role :expression}
+                                          {:from :05 :to :06 :role :input}
+                                          {:from :05 :to :09 :role :input}
+                                          {:from :06 :to :07 :role :comparable}
+                                          {:from :06 :to :08 :role :comparable}
+                                          {:from :09 :to :10 :role :comparable}
+                                          {:from :09 :to :11 :role :comparable}
+                                          {:from :13 :to :14 :role :expression}]
+                              :concepts  [{:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :condition}
+                                          {:id :04 :type :if-statement}
+                                          {:id :05 :type :boolean :value "xor"}
+                                          {:id :06 :type :comparator :value "="}
+                                          {:id :07 :type :data :value "language"}
+                                          {:id :08 :type :quote :value "en"}
+                                          {:id :09 :type :comparator :value "<"}
+                                          {:id :10 :type :data :value "pageCount"}
+                                          {:id :11 :type :quote :value "50"}
+                                          {:id :12 :type :quote :value "Either the book is written in English or it is less than 50 pages long"}
+                                          {:id :13 :type :default-statement}
+                                          {:id :14 :type :quote :value "Either the book is written in English and it is less than 50 pages long or it is not written in English nor it is less than 50 pages long"}]}

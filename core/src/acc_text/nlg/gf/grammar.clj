@@ -9,25 +9,29 @@
 
 (s/def ::flags (s/map-of #{:startcat} string? :min-count 1))
 
-(s/def :expression/type #{:function :literal})
+(s/def :acc-text.nlg.grammar.expression/type #{:function :literal})
 
-(s/def :expression/value string?)
+(s/def :acc-text.nlg.grammar.expression/value string?)
 
-(s/def :expression/selectors (s/map-of #{:tense :number} keyword?))
+(s/def :acc-text.nlg.grammar.expression/selectors (s/map-of #{:tense :number} keyword?))
 
-(s/def ::expression (s/keys :req-un [:expression/type :expression/value]
-                            :opt-un [:expression/selectors]))
+(s/def ::expression (s/keys :req-un [:acc-text.nlg.grammar.expression/type
+                                     :acc-text.nlg.grammar.expression/value]
+                            :opt-un [:acc-text.nlg.grammar.expression/selectors]))
 
-(s/def :function/name string?)
+(s/def :acc-text.nlg.grammar.function/name string?)
 
-(s/def :function/params (s/coll-of string?))
+(s/def :acc-text.nlg.grammar.function/params (s/coll-of string?))
 
-(s/def :function/body (s/* (s/or :expression ::expression
-                                 :nested-expression (s/coll-of ::expression))))
+(s/def :acc-text.nlg.grammar.function/body (s/* (s/or :expression ::expression
+                                                      :nested-expression (s/coll-of ::expression))))
 
-(s/def :function/ret #{[:s "Str"]})
+(s/def :acc-text.nlg.grammar.function/ret #{[:s "Str"]})
 
-(s/def ::function (s/keys :req-un [:function/name :function/params :function/body :function/ret]))
+(s/def ::function (s/keys :req-un [:acc-text.nlg.grammar.function/name
+                                   :acc-text.nlg.grammar.function/params
+                                   :acc-text.nlg.grammar.function/body
+                                   :acc-text.nlg.grammar.function/ret]))
 
 (s/def ::syntax (s/coll-of ::function))
 
