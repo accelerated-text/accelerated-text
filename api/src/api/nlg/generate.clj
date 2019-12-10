@@ -26,8 +26,8 @@
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
-(defn generate-row
-  ([document-plan data] (generate-row document-plan data {:default true}))
+(defn generate-text
+  ([document-plan data] (generate-text document-plan data {:default true}))
   ([document-plan data reader-model]
    (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)]
@@ -40,7 +40,7 @@
   (try
     {:ready   true
      :results (doall (map (fn [[row-key data]]
-                            [row-key (generate-row document-plan data reader-model)])
+                            [row-key (generate-text document-plan data reader-model)])
                           rows))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
