@@ -1,0 +1,4 @@
+site_Name: Accelerated Text
+nav:
+    - Home: ../README.md
+    - Deployment: deployment.md
