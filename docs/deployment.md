@@ -23,6 +23,10 @@ This project consists of serveral independant parts which are combined together 
 
 Database part. Either [DynamoDB](https://aws.amazon.com/dynamodb/) (which can be simply launched on AWS), or [Datomic](https://www.datomic.com/) can be used.
 
+Control which database to use via `DB_IMPLEMENTATION` environment variable:
+* datomic - for Datomic
+* dynamodb - for DynamoDB
+
 ### GF
 
 (core/gf/Dockerfile)
