@@ -8,6 +8,10 @@ nav:
     - Deployment: deployment.md
     - NLG Api: nlg-api.md
     - Contributing: contributing.md
+markdown_extensions:
+    - toc
+    - tables
+    - meta
 plugins:
     - search
 theme: readthedocs
