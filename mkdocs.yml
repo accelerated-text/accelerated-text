@@ -1,6 +1,7 @@
 site_name: Accelerated Text
+docs_dir: .
 nav:
-    - Home: index.md
-    - Deployment: deployment.md
-    - NLG Api: nlg-api.md
+    - Home: README.md
+    - Deployment: docs/deployment.md
+    - NLG Api: docs/nlg-api.md
 theme: readthedocs
