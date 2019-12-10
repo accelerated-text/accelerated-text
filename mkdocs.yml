@@ -1,4 +1,5 @@
-site_Name: Accelerated Text
+site_name: Accelerated Text
 nav:
     - Home: ../README.md
     - Deployment: deployment.md
+theme: readthedocs
