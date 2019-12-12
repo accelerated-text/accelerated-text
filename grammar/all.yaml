@@ -1,5 +1,6 @@
 ---
 includes:
+  - clothing/dress.yaml
   - library/author.yaml
   - library/release.yaml
   - library/genre.yaml

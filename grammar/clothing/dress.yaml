@@ -1,0 +1,59 @@
+members:
+  - made
+roles:
+  - Attribute
+  - Object
+  - Material
+frames:
+  - example: This short Just In Time Fashions Dress is made of Polyster.
+    syntax:
+      - pos: AUX
+        value: "This"
+      - pos: NP
+        role: Attribute
+      - pos: NP
+        role: Object
+      - pos: AUX
+        value: "is"
+      - pos: VERB
+        value: "made"
+      - pos: NP
+        role: Material
+  - example: The short Just In Time Fashions Dress is made of Polyster.
+    syntax:
+      - pos: AUX
+        value: "The"
+      - pos: NP
+        role: Attribute
+      - pos: NP
+        role: Object
+      - pos: AUX
+        value: "is"
+      - pos: ADP
+        value: "all"
+      - pos: ADP
+        value: "in"
+      - pos: NP
+        role: Material
+  - example: Just In Time Fashions Dress is a short dress and is made of Polyster.
+    syntax:
+      - pos: NP
+        role: Object
+      - pos: AUX
+        value: "is"
+      - pos: ADP
+        value: "a"
+      - pos: NP
+        role: Attribute
+      - pos: AUX
+        value: "dress"
+      - pos: AUX
+        value: "and"
+      - pos: AUX
+        value: "is"
+      - pos: AUX
+        value: "made"
+      - pos: AUX
+        value: "of"
+      - pos: NP
+        role: Material
