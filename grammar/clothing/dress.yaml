@@ -7,7 +7,7 @@ roles:
 frames:
   - example: This short Just In Time Fashions Dress is made of Polyster.
     syntax:
-      - pos: AUX
+      - pos: LEX
         value: "This"
       - pos: NP
         role: Attribute
@@ -21,15 +21,14 @@ frames:
         role: Material
   - example: The short Just In Time Fashions Dress is made of Polyster.
     syntax:
-      - pos: AUX
+      - pos: LEX
         value: "The"
       - pos: NP
         role: Attribute
       - pos: NP
         role: Object
       - pos: AUX
-        value: "is"
-      - pos: ADP
+      - pos: LEX
         value: "all"
       - pos: ADP
         value: "in"
@@ -40,20 +39,18 @@ frames:
       - pos: NP
         role: Object
       - pos: AUX
-        value: "is"
-      - pos: ADP
+      - pos: LEX 
         value: "a"
       - pos: NP
         role: Attribute
-      - pos: AUX
+      - pos: LEX
         value: "dress"
-      - pos: AUX
+      - pos: LEX
         value: "and"
       - pos: AUX
-        value: "is"
-      - pos: AUX
+      - pos: LEX 
         value: "made"
-      - pos: AUX
+      - pos: LEX
         value: "of"
       - pos: NP
         role: Material

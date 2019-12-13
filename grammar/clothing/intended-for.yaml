@@ -1,0 +1,16 @@
+members:
+  - intended
+  - best
+roles:
+  - Gender
+frames:
+  - example: This dress is intended for girls.
+    syntax:
+      - pos: LEX
+        value: "This"
+      - pos: LEX
+        value: "dress"
+      - pos: AUX
+      - pos: VERB
+      - pos: NP
+        role: Gender

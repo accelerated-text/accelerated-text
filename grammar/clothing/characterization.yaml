@@ -1,0 +1,23 @@
+members:
+  - features
+  - has
+  -
+roles:
+  - Pattern
+  - Style
+frames:
+  - example: It features self design pattern in a Western Wear style.
+    syntax:
+      - pos: LEX
+        value: "It"
+      - pos: VERB
+      - pos: NP
+        role: Pattern
+      - pos: LEX
+        value: "design"
+      - pos: LEX
+        value: "in"
+      - pos: LEX
+        value: "a"
+      - pos: NP
+        role: Style
