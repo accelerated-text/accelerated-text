@@ -1,8 +1,9 @@
 (ns api.ddb-fixtures
-  (:require [clojure.tools.logging :as log]
+  (:require [api.server :as server]
+            [clojure.tools.logging :as log]
+            [data.datomic.impl]
             [data.ddb.impl :as ddb]
             [mount.core :as mount]
-            [api.server :as server]
             [taoensso.faraday :as far]))
 
 (defn tables [client-ops]

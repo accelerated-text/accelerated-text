@@ -1,6 +1,10 @@
 (ns api.datomic-fixtures
   (:require [api.config]
+            [data.datomic.impl]
             [data.entities.data-files]
+            [data.entities.dictionary]
+            [data.entities.document-plan]
+            [data.entities.result]
             [datomic.api :as d]
             [mount.core :as mount])
   (:import (java.util UUID)))
