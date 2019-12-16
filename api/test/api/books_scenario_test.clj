@@ -1,9 +1,11 @@
 (ns api.books-scenario-test
   (:require [clojure.test :refer [deftest is use-fixtures]]
             [api.db-fixtures :as db]
+            [api.utils :refer [read-mapper]]
             [api.server :refer [app]]
-            [jsonista.core :as json]
-            [api.utils :refer [read-mapper]])
+            [clojure.pprint :as pprint]
+            [data.datomic.impl]
+            [jsonista.core :as json])
   (:import (java.io ByteArrayInputStream)))
 
 (use-fixtures :each db/clean-db)
@@ -186,7 +188,7 @@
                  :totalCount]]
                (-> resp :body keys-in)))
         (let [resp (call (assoc-in req9 [:body :variables :id] data-file-id))]
-          (clojure.pprint/pprint resp)
+          (pprint/pprint resp)
           (is (= [[:data
                    :getDataFile
                    :__typename]
