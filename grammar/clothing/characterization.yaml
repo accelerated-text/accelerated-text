@@ -22,3 +22,5 @@ frames:
         role: Style
       - pos: LEX
         value: "style"
+      - pos: LEX
+        value: "."

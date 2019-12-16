@@ -16,3 +16,5 @@ frames:
         value: "for"
       - pos: NP
         role: Gender
+      - pos: LEX
+        value: "."
