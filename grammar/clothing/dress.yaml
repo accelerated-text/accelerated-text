@@ -19,6 +19,8 @@ frames:
         value: "made"
       - pos: NP
         role: Material
+      - pos: LEX
+        value: "."
   - example: The short Just In Time Fashions Dress is made of Polyster.
     syntax:
       - pos: LEX
@@ -34,6 +36,8 @@ frames:
         value: "in"
       - pos: NP
         role: Material
+      - pos: LEX
+        value: "."
   - example: Just In Time Fashions Dress is a short dress and is made of Polyster.
     syntax:
       - pos: NP
@@ -54,3 +58,5 @@ frames:
         value: "of"
       - pos: NP
         role: Material
+      - pos: LEX
+        value: "."
