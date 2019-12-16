@@ -12,5 +12,7 @@ frames:
         value: "dress"
       - pos: AUX
       - pos: VERB
+      - pos: ADP
+        value: "for"
       - pos: NP
         role: Gender
