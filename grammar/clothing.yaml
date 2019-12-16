@@ -1,0 +1,5 @@
+---
+includes:
+  - clothing/dress.yaml
+  - clothing/intended-for.yaml
+  - clothing/characterization.yaml
