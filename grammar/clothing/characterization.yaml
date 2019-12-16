@@ -1,7 +1,6 @@
 members:
   - features
   - has
-  -
 roles:
   - Pattern
   - Style
