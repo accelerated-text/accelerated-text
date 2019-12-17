@@ -2,7 +2,8 @@
   (:require [data.datomic.impl :as datomic]
             [data.ddb.impl :as ddb]
             [data.protocol :as protocol]
-            [data.utils :as utils]))
+            [data.utils :as utils]
+            [clojure.tools.logging :as log]))
 
 (defn read! [db-client key] (protocol/read-item db-client key))
 (defn write!
