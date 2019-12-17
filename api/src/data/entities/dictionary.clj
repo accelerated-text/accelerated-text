@@ -13,7 +13,7 @@
 
 (defn get-default-flags []
   (->> (list-readers)
-       (map (fn [r] {(keyword (:id r)) :DONT_CARE}))
+       (map (fn [[flag _]] {flag :DONT_CARE}))
        (into {})))
 
 (defn get-reader [key]
