@@ -24,4 +24,4 @@
    (case (:db-implementation config)
      :dynamodb (ddb/db-access resource-type config)
      :datomic (datomic/db-access resource-type config)
-     (ddb/db-access resource-type config))))
+     (datomic/db-access resource-type config))))
