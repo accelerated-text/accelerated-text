@@ -31,15 +31,15 @@
        (resolve-as)))
 
 (defn get-document-plan [_ args _]
-  (if-let [id (when-not (str/blank? (:id args)) (:id args))
-           name (when-not (str/blank? (:name args)) (:name args))
-           document-plan (cond
-                           (some? id) (dp/get-document-plan id)
-                           (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans)))]
-    (resolve-as (translate-dp/dp->schema document-plan))
-    (if (or id name)
-      (resolve-as-not-found-document-plan (or id name))
-      (resolve-as-id-not-provided))))
+  (let [id (when-not (str/blank? (:id args)) (:id args))
+        name (when-not (str/blank? (:name args)) (:name args))
+        document-plan (cond
+                        (some? id) (dp/get-document-plan id)
+                        (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans)))]
+    (cond
+      (some? document-plan) (resolve-as (translate-dp/dp->schema document-plan))
+      (or id name) (resolve-as-not-found-document-plan (or id name))
+      :else (resolve-as-id-not-provided))))
 
 (defn update-document-plan [_ {:keys [id] :as args} _]
   (if-let [document-plan (dp/update-document-plan id (translate-dp/schema->dp args))]
