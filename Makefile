@@ -29,9 +29,9 @@ test-gf-service:
 	docker build -t gf-test -f core/gf/Dockerfile.test . && docker run -it gf-test
 
 run-dev-env:
-	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml -f docker-compose.mocks.yml down && \
-	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml -f docker-compose.mocks.yml build && \
-	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml -f docker-compose.mocks.yml up --remove-orphans
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml down && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml build && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml up --remove-orphans
 
 run-dev-api:
 	docker-compose -p dev -f docker-compose.yml down && \
