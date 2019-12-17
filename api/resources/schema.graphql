@@ -291,7 +291,8 @@ type Query {
     ):  DocumentPlanResults!
 
     documentPlan(
-        id:                 ID!
+        id:                 ID
+        name:               String
     ):  DocumentPlan
 
     ### AMR
