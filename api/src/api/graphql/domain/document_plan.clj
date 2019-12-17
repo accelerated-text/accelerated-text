@@ -4,12 +4,10 @@
             [data.entities.document-plan :as dp]))
 
 (defn- resolve-as-not-found-document-plan [id]
-  (resolve-as nil {:message (format "Cannot find document plan with id `%s`." id)}))
+  (resolve-as nil {:message (format "Cannot find document plan `%s`." id)}))
 
-(defn get-document-plan [_ {:keys [id]} _]
-  (if-let [document-plan (dp/get-document-plan id)]
-    (resolve-as (translate-dp/dp->schema document-plan))
-    (resolve-as-not-found-document-plan id)))
+(defn- resolve-as-id-not-provided []
+  (resolve-as nil {:message "Either document plan `id` or `name` must be provided."}))
 
 (defn delete-document-plan [_ {:keys [id]} _]
   (dp/delete-document-plan id)
@@ -30,6 +28,15 @@
        (dp/add-document-plan)
        (translate-dp/dp->schema)
        (resolve-as)))
+
+(defn get-document-plan [_ {:keys [id name]} _]
+  (if-let [document-plan (cond
+                           (some? id) (dp/get-document-plan id)
+                           (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans)))]
+    (resolve-as (translate-dp/dp->schema document-plan))
+    (if (or id name)
+      (resolve-as-not-found-document-plan (or id name))
+      (resolve-as-id-not-provided))))
 
 (defn update-document-plan [_ {:keys [id] :as args} _]
   (if-let [document-plan (dp/update-document-plan id (translate-dp/schema->dp args))]
