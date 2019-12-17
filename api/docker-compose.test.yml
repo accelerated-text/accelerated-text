@@ -1,16 +1,10 @@
 version: '3.4'
 
 services:
-  localstack:
-    image: localstack/localstack:0.10.4
-    environment:
-      - SERVICES=dynamodb
   api:
     build:
       context: ../
       dockerfile: api/Dockerfile
-    depends_on:
-      - localstack
     environment:
       DYNAMODB_ENDPOINT: http://localstack:4569
       GF_ENDPOINT: http://gf:8000
