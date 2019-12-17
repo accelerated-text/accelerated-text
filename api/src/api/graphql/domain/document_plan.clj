@@ -1,5 +1,6 @@
 (ns api.graphql.domain.document-plan
   (:require [api.graphql.translate.document-plan :as translate-dp]
+            [clojure.string :as str]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.entities.document-plan :as dp]))
 
@@ -29,8 +30,10 @@
        (translate-dp/dp->schema)
        (resolve-as)))
 
-(defn get-document-plan [_ {:keys [id name]} _]
-  (if-let [document-plan (cond
+(defn get-document-plan [_ args _]
+  (if-let [id (when-not (str/blank? (:id args)) (:id args))
+           name (when-not (str/blank? (:name args)) (:name args))
+           document-plan (cond
                            (some? id) (dp/get-document-plan id)
                            (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans)))]
     (resolve-as (translate-dp/dp->schema document-plan))
