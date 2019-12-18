@@ -129,7 +129,9 @@
                           :document-plan/document-plan   (prepare-document-plan (:documentPlan data-item))
                           :document-plan/updated-at      current-ts
                           :document-plan/data-sample-row (:dataSampleRow data-item)
-                          :document-plan/update-count    (inc (:updateCount original))})])
+                          :document-plan/update-count    (if (some? (:updateCount original))
+                                                           (inc (:updateCount original))
+                                                           0)})])
     (pull-entity conn key)))
 
 (defn delete [conn key]

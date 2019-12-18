@@ -14,19 +14,15 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Content of the Data File"}]
 
-         [{:db/ident       :reader-flag/default
+         [{:db/ident       :reader-flag/name
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
-           :db/doc         "Is Default reader-flag"}
-          {:db/ident       :reader-flag/senior
+           :db/doc         "Reader flag name"}
+          {:db/ident       :reader-flag/value
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
-           :db/doc         "Is senior reader-flag"}
-          {:db/ident       :reader-flag/junior
-           :db/valueType   :db.type/keyword
-           :db/cardinality :db.cardinality/one
-           :db/doc         "Is junior reader-flag"}]
+           :db/doc         "Reader flag value"}]
 
          [{:db/ident       :phrase/id
            :db/unique      :db.unique/identity
@@ -40,7 +36,7 @@
           {:db/ident       :phrase/flags
            :db/valueType   :db.type/ref
            :db/isComponent true
-           :db/cardinality :db.cardinality/one
+           :db/cardinality :db.cardinality/many
            :db/doc         "Phrases associated with the dictionary-item"}]
 
          [{:db/ident       :dictionary-combined/id
@@ -259,4 +255,9 @@
           {:db/ident       :results/results
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/many
-           :db/doc         "Text that was generated"}]]}}
+           :db/doc         "Text that was generated"}
+
+          {:db/ident       :results/ts
+           :db/valueType   :db.type/long
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Timestamp of the result"}]]}}

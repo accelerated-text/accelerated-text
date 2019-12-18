@@ -5,6 +5,7 @@
             [datomic.api :as d]
             [mount.core :refer [defstate]]
             [data.datomic.utils :as utils :refer [remove-nil-vals]]
+            [data.utils :refer [ts-now]]
             [data.datomic.blockly :as blockly]
             [jsonista.core :as json]))
 
@@ -26,20 +27,22 @@
                       :data-file/filename (:filename data-item)
                       :data-file/content  (:content data-item)}]))
 
+(defn prepare-reader-flags [flags]
+  (for [[flag value] flags]
+    {:reader-flag/name  flag
+     :reader-flag/value value}))
+
 (defn prepare-dictionary-item [key data-item]
   {:db/id                            [:dictionary-combined/id key]
    :dictionary-combined/id           key
    :dictionary-combined/name         (:name data-item)
    :dictionary-combined/partOfSpeech (:partOfSpeech data-item)
-   :dictionary-combined/phrases
-                                     (->> (:phrases data-item)
-                                          (map (fn [phrase]
+   :dictionary-combined/phrases      (->> (:phrases data-item)
+                                          (map (fn [{:keys [id text flags]}]
                                                  (remove-nil-vals
-                                                   {:phrase/id    (:id phrase)
-                                                    :phrase/text  (:text phrase)
-                                                    :phrase/flags (let [flgs (:flags phrase)]
-                                                                    (when flgs
-                                                                      {:reader-flag/default (:default flgs)}))})))
+                                                   {:phrase/id    id
+                                                    :phrase/text  text
+                                                    :phrase/flags (prepare-reader-flags flags)})))
                                           (remove empty?))})
 
 (defmethod transact-item :dictionary-combined [_ key data-item]
@@ -50,7 +53,8 @@
 
 (defmethod transact-item :results [_ key data-item]
   @(d/transact conn [(remove-nil-vals
-                       {:results/id key
+                       {:results/id    key
+                        :results/ts    (ts-now)
                         :results/ready (:ready data-item)})]))
 
 (defmethod transact-item :default [resource-type key _]
@@ -70,6 +74,17 @@
        :filename (:data-file/filename data-file)
        :content  (:data-file/content data-file)})))
 
+(defn restore-reader-flags [flags]
+  (into {} (for [{:reader-flag/keys [name value]} flags]
+             [name value])))
+
+(defmethod pull-entity :reader-flag [_ key]
+  (:reader-flag/value (ffirst (d/q '[:find (pull ?e [*])
+                                     :in $ ?key
+                                     :where [?e :reader-flag/name ?key]]
+                                   (d/db conn)
+                                   key))))
+
 (defmethod pull-entity :dictionary-combined [_ key]
   (let [dictionary-entry (ffirst (d/q '[:find (pull ?e [*])
                                         :in $ ?key
@@ -81,19 +96,21 @@
        :name    (:dictionary-combined/name dictionary-entry)
        :phrases (map (fn [phrase] {:id    (:phrase/id phrase)
                                    :text  (:phrase/text phrase)
-                                   :flags {:default (:reader-flag/default (:phrase/flags phrase))}})
+                                   :flags (restore-reader-flags (:phrase/flags phrase))})
                      (:dictionary-combined/phrases dictionary-entry))})))
 
-
-
 (defmethod pull-entity :results [_ key]
-  (let [entity (ffirst (d/q '[:find (pull ?e [*])
-                              :where
-                              [?e :results/id ?key]]
-                            (d/db conn)
-                            key))]
+  (let [entity (->> (d/q '[:find (pull ?e [*])
+                           :where
+                           [?e :results/id ?key]]
+                         (d/db conn)
+                         key)
+                    (flatten)
+                    (filter (comp (partial = key) :results/id))
+                    (sort-by :results/ts #(compare %2 %1))
+                    (first))]
     (when entity
-      {:id      (:results/id key)
+      {:id      key
        :ready   (:results/ready entity)
        :error   (:results/error entity)
        :message (:results/message entity)
@@ -115,22 +132,23 @@
                    :content  (:data-file/content df)}) (take limit resp))))
 
 (defmethod pull-n :reader-flag [_ limit]
-  (take limit (first (d/q '[:find (pull ?e [*])
-                            :where [?e :reader-flag/default]]
-                          (d/db conn)))))
+  (restore-reader-flags
+    (take limit (first (d/q '[:find (pull ?e [*])
+                              :where [?e :reader-flag/value]]
+                            (d/db conn))))))
 
 (defmethod pull-n :dictionary-combined [_ limit]
-  (map (fn [item]
-         {:key          (:dictionary-combined/id item)
-          :name         (:dictionary-combined/name item)
-          :partOfSpeech (:dictionary-combined/partOfSpeech item)
-          :phrases      (map (fn [phrase] {:id    (:phrase/id phrase)
-                                           :text  (:phrase/text phrase)
-                                           :flags {:default (:reader-flag/default (:phrase/flags phrase))}})
-                             (:dictionary-combined/phrases item))})
-       (take limit (first (d/q '[:find (pull ?e [*])
-                                 :where [?e :dictionary-combined/id]]
-                               (d/db conn))))))
+  (take limit (map (fn [[item]]
+                     {:key          (:dictionary-combined/id item)
+                      :name         (:dictionary-combined/name item)
+                      :partOfSpeech (:dictionary-combined/partOfSpeech item)
+                      :phrases      (map (fn [phrase] {:id    (:phrase/id phrase)
+                                                       :text  (:phrase/text phrase)
+                                                       :flags (restore-reader-flags (:phrase/flags phrase))})
+                                         (:dictionary-combined/phrases item))})
+                   (d/q '[:find (pull ?e [*])
+                          :where [?e :dictionary-combined/id]]
+                        (d/db conn)))))
 
 (defmethod pull-n :default [resource-type limit]
   (log/warnf "Default implementation of list-items for the '%s' with key '%s'" resource-type limit)
@@ -160,7 +178,8 @@
                         :results/ready   (:ready data-item)
                         :results/error   (:error data-item)
                         :results/results (encode-results (:results data-item))
-                        :results/message (:message data-item)})]))
+                        :results/message (:message data-item)
+                        :results/ts      (ts-now)})]))
 
 (defmethod update! :dictionary-combined [resource-type key data-item]
   (let [val [(remove-nil-vals (prepare-dictionary-item key data-item))]]

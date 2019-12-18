@@ -8,7 +8,7 @@
   (str (UUID/randomUUID)))
 
 (defn ts-now []
-  (int (.getEpochSecond (Instant/now))))
+  (long (.getEpochSecond (Instant/now))))
 
 (defn read-yaml [^File f]
   (yaml/parse-string (slurp f)))

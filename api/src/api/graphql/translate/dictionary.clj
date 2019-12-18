@@ -3,19 +3,20 @@
             [clojure.tools.logging :as log]
             [data.entities.amr :as amr]))
 
-(defn reader-flag->schema [flag]
-  flag)
+(defn reader-flag->schema [[k _]]
+  {:id   (name k)
+   :name (name k)})
 
 (defn reader-flags->schema [flags]
-  {:flags flags
-   :id    "???"})
+  {:flags (map reader-flag->schema flags)
+   :id    "default"})
 
 (defn reader-flag-usage->schema [id [k v]]
   (log/debugf "Got: k=%s v=%s" k v)
-  (reader-flag->schema {:usage v
-                        :id    (format "%s/%s" id (name k))
-                        :flag  {:name (name k)
-                                :id   (name k)}}))
+  {:usage v
+   :id    (format "%s/%s" id (name k))
+   :flag  {:id   (name k)
+           :name (name k)}})
 
 (defn phrase->schema [{:keys [id text flags] :as phrase}]
   (log/tracef "Phrase: %s" phrase)
