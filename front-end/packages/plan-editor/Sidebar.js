@@ -4,7 +4,6 @@ import AmrConcepts          from '../amr-concepts/AmrConcepts';
 import composeContexts      from '../compose-contexts/';
 import DataManager          from '../data-manager/DataManager';
 import Dictionary           from '../dictionary/Dictionary';
-import FakeShop             from '../fake-shop/SidebarItem';
 import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
 import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 import ReaderConfiguration  from '../reader/Configuration';
@@ -37,13 +36,6 @@ export default composeContexts({
         </SidebarItem>
         <SidebarItem title="Reader">
             <ReaderConfiguration />
-        </SidebarItem>
-        <SidebarItem isExpanded title="Publish to the shop">
-            <FakeShop
-                dataFile={ file }
-                plan={ plan }
-                planLoading={ loading }
-            />
         </SidebarItem>
         <SidebarItem title="Text Analysis">
             <VariantReview />
