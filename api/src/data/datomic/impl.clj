@@ -5,6 +5,7 @@
             [datomic.api :as d]
             [mount.core :refer [defstate]]
             [data.datomic.utils :as utils :refer [remove-nil-vals]]
+            [data.utils :refer [ts-now]]
             [data.datomic.blockly :as blockly]
             [jsonista.core :as json]))
 
@@ -53,6 +54,7 @@
 (defmethod transact-item :results [_ key data-item]
   @(d/transact conn [(remove-nil-vals
                        {:results/id    key
+                        :results/ts    (ts-now)
                         :results/ready (:ready data-item)})]))
 
 (defmethod transact-item :default [resource-type key _]
@@ -98,13 +100,17 @@
                      (:dictionary-combined/phrases dictionary-entry))})))
 
 (defmethod pull-entity :results [_ key]
-  (let [entity (ffirst (d/q '[:find (pull ?e [*])
-                              :where
-                              [?e :results/id ?key]]
-                            (d/db conn)
-                            key))]
+  (let [entity (->> (d/q '[:find (pull ?e [*])
+                           :where
+                           [?e :results/id ?key]]
+                         (d/db conn)
+                         key)
+                    (flatten)
+                    (filter (comp (partial = key) :results/id))
+                    (sort-by :results/ts #(compare %2 %1))
+                    (first))]
     (when entity
-      {:id      (:results/id entity)
+      {:id      key
        :ready   (:results/ready entity)
        :error   (:results/error entity)
        :message (:results/message entity)
@@ -172,7 +178,8 @@
                         :results/ready   (:ready data-item)
                         :results/error   (:error data-item)
                         :results/results (encode-results (:results data-item))
-                        :results/message (:message data-item)})]))
+                        :results/message (:message data-item)
+                        :results/ts      (ts-now)})]))
 
 (defmethod update! :dictionary-combined [resource-type key data-item]
   (let [val [(remove-nil-vals (prepare-dictionary-item key data-item))]]
