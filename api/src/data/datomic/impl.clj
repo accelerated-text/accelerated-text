@@ -138,17 +138,17 @@
                             (d/db conn))))))
 
 (defmethod pull-n :dictionary-combined [_ limit]
-  (map (fn [item]
-         {:key          (:dictionary-combined/id item)
-          :name         (:dictionary-combined/name item)
-          :partOfSpeech (:dictionary-combined/partOfSpeech item)
-          :phrases      (map (fn [phrase] {:id    (:phrase/id phrase)
-                                           :text  (:phrase/text phrase)
-                                           :flags (restore-reader-flags (:phrase/flags phrase))})
-                             (:dictionary-combined/phrases item))})
-       (take limit (first (d/q '[:find (pull ?e [*])
-                                 :where [?e :dictionary-combined/id]]
-                               (d/db conn))))))
+  (take limit (map (fn [[item]]
+                     {:key          (:dictionary-combined/id item)
+                      :name         (:dictionary-combined/name item)
+                      :partOfSpeech (:dictionary-combined/partOfSpeech item)
+                      :phrases      (map (fn [phrase] {:id    (:phrase/id phrase)
+                                                       :text  (:phrase/text phrase)
+                                                       :flags (restore-reader-flags (:phrase/flags phrase))})
+                                         (:dictionary-combined/phrases item))})
+                   (d/q '[:find (pull ?e [*])
+                          :where [?e :dictionary-combined/id]]
+                        (d/db conn)))))
 
 (defmethod pull-n :default [resource-type limit]
   (log/warnf "Default implementation of list-items for the '%s' with key '%s'" resource-type limit)
