@@ -104,7 +104,7 @@
                             (d/db conn)
                             key))]
     (when entity
-      {:id      (:results/id key)
+      {:id      (:results/id entity)
        :ready   (:results/ready entity)
        :error   (:results/error entity)
        :message (:results/message entity)
