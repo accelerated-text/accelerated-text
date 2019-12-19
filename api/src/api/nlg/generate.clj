@@ -118,16 +118,15 @@
                     request-id (utils/get-stack-trace e))
         (error-response e)))))
 
-(defn delete-result [{:keys [path-params]}]
-  (let [request-id (:id path-params)]
-    (try
-      (if-let [item (results/fetch request-id)]
-        (do
-          (results/delete request-id)
-          {:status 200
-           :body   item})
-        {:status 404})
-      (catch Exception e
-        (log/errorf "Failed to delete result with id `%s`: %s"
-                    request-id (utils/get-stack-trace e))
-        (error-response e)))))
+(defn delete-result [{{request-id :id} :path-params}]
+  (try
+    (if-let [item (results/fetch request-id)]
+      (do
+        (results/delete request-id)
+        {:status 200
+         :body   item})
+      {:status 404})
+    (catch Exception e
+      (log/errorf "Failed to delete result with id `%s`: %s"
+                  request-id (utils/get-stack-trace e))
+      (error-response e))))
