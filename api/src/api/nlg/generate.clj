@@ -73,15 +73,13 @@
           :references  []
           :children    [{:type     "PARAGRAPH"
                          :id       (utils/gen-uuid)
-                         :children (vec
-                                     (for [sentence (nlp/split-into-sentences r)]
-                                       {:type     "SENTENCE"
-                                        :id       (utils/gen-uuid)
-                                        :children (vec
-                                                    (for [token (nlp/tokenize sentence)]
-                                                      {:type (nlp/token-type token)
-                                                       :id   (utils/gen-uuid)
-                                                       :text token}))}))}]})
+                         :children (for [sentence (nlp/split-into-sentences r)]
+                                     {:type     "SENTENCE"
+                                      :id       (utils/gen-uuid)
+                                      :children (for [token (nlp/tokenize sentence)]
+                                                  {:type (nlp/token-type token)
+                                                   :id   (utils/gen-uuid)
+                                                   :text token})})}]})
        results))
 
 (defn annotated-text-format [results]
