@@ -93,6 +93,11 @@
 
 (defn standoff-format [_])                                  ;; TODO
 
+(defn error-response [exception]
+  {:status 500
+   :body   {:error   true
+            :message (.getMessage exception)}})
+
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)
         format-fn (case (keyword (:format query))
@@ -111,9 +116,7 @@
       (catch Exception e
         (log/errorf "Failed to read result with id `%s`: %s"
                     request-id (utils/get-stack-trace e))
-        {:status 500
-         :body   {:error   true
-                  :message (.getMessage e)}}))))
+        (error-response e)))))
 
 (defn delete-result [{:keys [path-params]}]
   (let [request-id (:id path-params)]
@@ -127,6 +130,4 @@
       (catch Exception e
         (log/errorf "Failed to delete result with id `%s`: %s"
                     request-id (utils/get-stack-trace e))
-        {:status 500
-         :body   {:error   true
-                  :message (.getMessage e)}}))))
+        (error-response e)))))
