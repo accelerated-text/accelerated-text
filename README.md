@@ -29,6 +29,10 @@ Tables, charts, pictures are all useful in undestanding our data but often we ne
       Philosophy
     </a>
     <span> • </span>
+    <a href="#demo">
+      Demo
+    </a>
+    <span> • </span>    
     <a href="#getting-started">
       Getting Started
     </a>
@@ -90,6 +94,10 @@ A data to text system is also not the one to elaborate on a story adding somethi
 Accelerated Text follows the principle of this strict adherence to the data-bound text generation. 
 Via its user interface it provides instruments to define how the data should be translated into a descriptive text. 
 This description – a document plan – is executed by natural language generation engine to produce texts that vary in structure and wording but are always and only about the data provided.
+
+## Demo
+
+An illustration of how Accelerated Text could be used to provde descriptions for the items in e-commerce platform can be found at the following repository https://github.com/tokenmill/reaction-acc-text-demo
 
 ## Key Features
 
