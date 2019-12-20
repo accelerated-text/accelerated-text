@@ -97,7 +97,7 @@ This description – a document plan – is executed by natural language generat
 
 ## Demo
 
-An illustration of how Accelerated Text could be used to provde descriptions for the items in e-commerce platform can be found at the following repository https://github.com/tokenmill/reaction-acc-text-demo
+For a demonstration of how Accelerated Text can be used to provide descriptions for various items in an e-commerce platform (https://www.reactioncommerce.com/) please check the following repository: https://github.com/tokenmill/reaction-acc-text-demo.
 
 ## Key Features
 
