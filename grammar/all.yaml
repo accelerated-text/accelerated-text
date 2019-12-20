@@ -9,3 +9,4 @@ includes:
   - other/provide.yaml
   - other/object-description.yaml
   - other/attribute-at.yaml
+  - concept-net/at-location.yaml
