@@ -8,7 +8,7 @@ frames:
         value: "There"
       - pos: AUX
       - pos: DET
-      - pos: LEX
+      - pos: NP
         value: "place"
       - pos: ADP
         value: "in"

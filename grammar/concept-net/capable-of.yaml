@@ -1,0 +1,10 @@
+members:
+  - serves
+roles:
+  - capability
+frames:
+  - example: serves Chinese food
+    syntax:
+      - pos: VERB
+      - pos: NP
+        role: capability
