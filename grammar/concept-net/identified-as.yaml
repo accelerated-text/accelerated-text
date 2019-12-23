@@ -1,0 +1,12 @@
+members:
+  - named
+  - called 
+roles:
+  - id
+frames:
+  - example: is named Blue Space
+    syntax:
+      - pos: AUX
+      - pos: VERB
+      - pos: NP
+        role: id

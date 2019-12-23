@@ -1,5 +1,4 @@
-{:deps      {acceleratedtext/openccg          {:mvn/version "0.10.5"}
-             ccg-kit                          {:local/root "../core"}
+{:deps      {ccg-kit                          {:local/root "../core"}
              ch.qos.logback/logback-classic   {:mvn/version "1.2.3"}
              clj-commons/clj-yaml             {:mvn/version "0.7.0"}
              com.taoensso/faraday             {:git/url "https://github.com/tokenmill/faraday.git"
