@@ -15,9 +15,32 @@ steps:
      projectName: $(Build.Repository.Name)
      dockerComposeCommand: build
 
+- task: DockerCompose@0
+  displayName: Build Eval compose file
+  inputs:
+    dockerComposeFile: docker-compose.yml
+    additionalDockerComposeFiles: docker-compose.eval.yml
+    projectName: $(Build.Repository.Name)
+    qualifyImageNames: true
+    outputDockerComposeFile: $(Build.StagingDirectory)/docker-compose.eval-full.yml
+
+-  task: DockerCompose@0
+   displayName: Build Eval tests dependencies
+   inputs:
+     dockerComposeFile: $(Build.StagingDirectory)/docker-compose.eval-full.yml
+     projectName: $(Build.Repository.Name)
+     dockerComposeCommand: build
+
 -  task: DockerCompose@0
    displayName: Run Integration tests
    inputs:
      dockerComposeFile: api/docker-compose.test.yml
      projectName: $(Build.Repository.Name)
      dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from api
+
+-  task: DockerCompose@0
+   displayName: Run Eval
+   inputs:
+     dockerComposeFile: $(Build.StagingDirectory)/docker-compose.eval-full.yml
+     projectName: $(Build.Repository.Name)
+     dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from eval
