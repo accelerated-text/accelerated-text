@@ -27,6 +27,8 @@ jobs:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+      - checkout: self
+        submodules: true
       - task: DockerCompose@0
         displayName: Build Eval
         inputs:
