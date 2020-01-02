@@ -1,0 +1,3 @@
+[submodule "eval/e2e-metrics"]
+	path = eval/e2e-metrics
+	url = https://github.com/tuetschek/e2e-metrics.git
