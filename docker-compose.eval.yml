@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  eval:
+    build:
+      context: eval
+      dockerfile: Dockerfile
+    environment:
+      ACC_TEXT_URL: http://acc-text-api:3001/
