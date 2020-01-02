@@ -1,4 +1,5 @@
 import sys
+import os
 import csv
 import random
 
@@ -12,7 +13,7 @@ from itertools import dropwhile, takewhile, groupby
 from metrics.pymteval import BLEUScore
 
 DOCUMENT_PLAN_ID="2abf24fc-a52f-42b6-875d-8a41562fcc38"
-NLG_ENDPOINT="http://localhost:3001/nlg"
+NLG_ENDPOINT="{}/nlg".format(os.getenv("ACC_TEXT_URL", "http://localhost:3001"))
 
 
 def bleu_score(data):

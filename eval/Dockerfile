@@ -6,6 +6,6 @@ RUN pip install --no-cache-dir requests future
 
 COPY . .
 
-ENTRYPOINT [ "/bin/sh", "entrypoint.sh" ]
+ENTRYPOINT [ "/bin/bash", "entrypoint.sh" ]
 
 CMD [ "python", "./eval.py" ]

@@ -6,4 +6,4 @@ services:
       context: eval
       dockerfile: Dockerfile
     environment:
-      ACC_TEXT_URL: http://acc-text-api:3001/
+      ACC_TEXT_URL: http://acc-text-api:3001
