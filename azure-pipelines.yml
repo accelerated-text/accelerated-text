@@ -11,6 +11,8 @@ steps:
 -  task: DockerCompose@0
    displayName: Build Integration tests dependencies
    inputs:
+     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+     azureContainerRegistry: $(azureContainerRegistry)
      dockerComposeFile: api/docker-compose.test.yml
      projectName: $(Build.Repository.Name)
      dockerComposeCommand: build
@@ -18,6 +20,8 @@ steps:
 - task: DockerCompose@0
   displayName: Build Eval compose file
   inputs:
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureContainerRegistry: $(azureContainerRegistry)
     dockerComposeFile: docker-compose.yml
     additionalDockerComposeFiles: docker-compose.eval.yml
     projectName: $(Build.Repository.Name)
@@ -27,6 +31,8 @@ steps:
 -  task: DockerCompose@0
    displayName: Build Eval tests dependencies
    inputs:
+     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+     azureContainerRegistry: $(azureContainerRegistry)
      dockerComposeFile: $(Build.StagingDirectory)/docker-compose.eval-full.yml
      projectName: $(Build.Repository.Name)
      dockerComposeCommand: build
@@ -34,6 +40,8 @@ steps:
 -  task: DockerCompose@0
    displayName: Run Integration tests
    inputs:
+     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+     azureContainerRegistry: $(azureContainerRegistry)
      dockerComposeFile: api/docker-compose.test.yml
      projectName: $(Build.Repository.Name)
      dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from api
@@ -41,6 +49,8 @@ steps:
 -  task: DockerCompose@0
    displayName: Run Eval
    inputs:
+     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+     azureContainerRegistry: $(azureContainerRegistry)
      dockerComposeFile: $(Build.StagingDirectory)/docker-compose.eval-full.yml
      projectName: $(Build.Repository.Name)
      dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from eval
