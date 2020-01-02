@@ -12,7 +12,7 @@ from itertools import dropwhile, takewhile, groupby
 
 from metrics.pymteval import BLEUScore
 
-DOCUMENT_PLAN_ID="ccb07f44-92d4-4c22-9c0c-f55940a2601f"
+DOCUMENT_PLAN_ID=os.getenv("DOCUMENT_PLAN_ID", None)
 NLG_ENDPOINT="{}/nlg".format(os.getenv("ACC_TEXT_URL", "http://localhost:3001"))
 
 
@@ -61,6 +61,11 @@ def group_data(data):
     
 
 if __name__ == "__main__":
+    if DOCUMENT_PLAN_ID is None:
+        sys.exit("We're missing ENV variable: DOCUMENT_PLAN_ID")
+    else:
+        print("Using DocumentPlan: {}".format(DOCUMENT_PLAN_ID))
+        
     ref = []
     data_rows = {}
 
