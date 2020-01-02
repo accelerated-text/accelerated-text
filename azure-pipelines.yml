@@ -5,7 +5,7 @@ pr:
 - master
 
 jobs:
-  - job: Integration Testing
+  - job: integration_tests
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -23,7 +23,7 @@ jobs:
           projectName: $(Build.Repository.Name)
           dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from api
 
-  - job: Evaluation
+  - job: eval
     pool:
       vmImage: 'ubuntu-latest'
     steps:
