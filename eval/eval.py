@@ -12,7 +12,7 @@ from itertools import dropwhile, takewhile, groupby
 
 from metrics.pymteval import BLEUScore
 
-DOCUMENT_PLAN_ID=os.getenv("DOCUMENT_PLAN_ID", None)
+DOCUMENT_PLAN_ID=os.getenv("DOCUMENT_PLAN_ID", None).strip("\"")
 NLG_ENDPOINT="{}/nlg".format(os.getenv("ACC_TEXT_URL", "http://localhost:3001"))
 
 
