@@ -40,7 +40,7 @@ jobs:
       - script:
           npm install
       - script:
-          npm test --silent
+          npm test
       
   - job: integration_tests
     pool:
