@@ -5,6 +5,43 @@ pr:
 - master
 
 jobs:
+  - job: unit_test_backend
+    pool:
+      vmImage: 'ubuntu-latest'
+    container: clojure:tools-deps-alpine
+    steps:
+      - script: |
+          cd core
+          clojure -Sdeps -A:test -e integration
+
+      - script: |
+          cd api
+          clojure -Sdeps -A:test -e integration
+
+  - job: lint_backend
+    pool:
+      vmImage: 'ubuntu-latest'
+    container: borkdude/clj-kondo
+    steps:
+      - script: |
+          cd api
+          clj-kondo --lint src test
+      - script: |
+          cd core
+          clj-kondo --lint src test
+
+  - job: test_frontend
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '11'
+      - script:
+          npm install
+      - script:
+          npm test --silent
+      
   - job: integration_tests
     pool:
       vmImage: 'ubuntu-latest'

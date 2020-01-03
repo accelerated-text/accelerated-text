@@ -11,21 +11,21 @@ cache:
     - ./api/.m2/repository
     - ./api/.gitlibs
 
-test_front_end:
-  stage: test
-  image: node:11-slim
-  retry: 2
-  when: manual
-  cache:
-    key: front-end-cache
-    paths:
-      - ./front-end/node_modules/
-  before_script:
-    - apt-get update -qq && apt-get install -y -qq build-essential chromium libatk-bridge2.0-0 libgtk-3-0 rsync
-  script:
-    - make test
-  tags:
-    - front-end
+# test_front_end:
+#   stage: test
+#   image: node:11-slim
+#   retry: 2
+#   when: manual
+#   cache:
+#     key: front-end-cache
+#     paths:
+#       - ./front-end/node_modules/
+#   before_script:
+#     - apt-get update -qq && apt-get install -y -qq build-essential chromium libatk-bridge2.0-0 libgtk-3-0 rsync
+#   script:
+#     - make test
+#   tags:
+#     - front-end
 
 job_npm_audit:
   image: node:11-slim
@@ -37,32 +37,3 @@ job_npm_audit:
     - make npm-audit
   tags:
     - front-end
-
-lint_api_and_core:
-  stage: lint
-  image: borkdude/clj-kondo
-  cache: {}
-  when: always
-  script:
-    - cd api
-    - clj-kondo --lint src test
-    - cd ..
-    - clj-kondo --lint core/src
-
-unit_test_core:
-  stage: test
-  image: clojure:tools-deps-alpine
-  when: always
-  script:
-    - cd core
-    - export GITLIBS="../api/.gitlibs/"
-    - clojure -Sdeps '{:mvn/local-repo "../api/.m2/repository"}' -A:test -e integration
-
-unit_test_api:
-  stage: test
-  image: clojure:tools-deps-alpine
-  when: always
-  script:
-    - cd api
-    - export GITLIBS=".gitlibs/"
-    - clojure -Sdeps '{:mvn/local-repo "./.m2/repository"}' -A:test -e integration
