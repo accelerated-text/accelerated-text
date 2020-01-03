@@ -21,7 +21,7 @@ jobs:
   - job: lint_backend
     pool:
       vmImage: 'ubuntu-latest'
-    container: borkdude/clj-kondo
+    container: borkdude/clj-kondo:latest
     steps:
       - script: |
           cd api
