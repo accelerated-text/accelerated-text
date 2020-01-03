@@ -73,15 +73,13 @@
           :references  []
           :children    [{:type     "PARAGRAPH"
                          :id       (utils/gen-uuid)
-                         :children (vec
-                                     (for [sentence (nlp/split-into-sentences r)]
-                                       {:type     "SENTENCE"
-                                        :id       (utils/gen-uuid)
-                                        :children (vec
-                                                    (for [token (nlp/tokenize sentence)]
-                                                      {:type (nlp/token-type token)
-                                                       :id   (utils/gen-uuid)
-                                                       :text token}))}))}]})
+                         :children (for [sentence (nlp/split-into-sentences r)]
+                                     {:type     "SENTENCE"
+                                      :id       (utils/gen-uuid)
+                                      :children (for [token (nlp/tokenize sentence)]
+                                                  {:type (nlp/token-type token)
+                                                   :id   (utils/gen-uuid)
+                                                   :text token})})}]})
        results))
 
 (defn annotated-text-format [results]
@@ -94,6 +92,11 @@
   (into {} results))
 
 (defn standoff-format [_])                                  ;; TODO
+
+(defn error-response [exception]
+  {:status 500
+   :body   {:error   true
+            :message (.getMessage exception)}})
 
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)
@@ -113,22 +116,17 @@
       (catch Exception e
         (log/errorf "Failed to read result with id `%s`: %s"
                     request-id (utils/get-stack-trace e))
-        {:status 500
-         :body   {:error   true
-                  :message (.getMessage e)}}))))
+        (error-response e)))))
 
-(defn delete-result [{:keys [path-params]}]
-  (let [request-id (:id path-params)]
-    (try
-      (if-let [item (results/fetch request-id)]
-        (do
-          (results/delete request-id)
-          {:status 200
-           :body   item})
-        {:status 404})
-      (catch Exception e
-        (log/errorf "Failed to delete result with id `%s`: %s"
-                    request-id (utils/get-stack-trace e))
-        {:status 500
-         :body   {:error   true
-                  :message (.getMessage e)}}))))
+(defn delete-result [{{request-id :id} :path-params}]
+  (try
+    (if-let [item (results/fetch request-id)]
+      (do
+        (results/delete request-id)
+        {:status 200
+         :body   item})
+      {:status 404})
+    (catch Exception e
+      (log/errorf "Failed to delete result with id `%s`: %s"
+                  request-id (utils/get-stack-trace e))
+      (error-response e))))
