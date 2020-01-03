@@ -103,8 +103,8 @@
             "lincat" (parse-lincat syntax)
             "lin" (parse-lin syntax))))
 
-(defn generate [{::grammar/keys [module] :as grammar}]
-  (-> (service/compile-request module (->abstract grammar) (->concrete grammar))
+(defn generate [{::grammar/keys [module instance] :as grammar}]
+  (-> (service/compile-request module instance (->abstract grammar) (->concrete grammar))
       (get :body)
       (json/read-value utils/read-mapper)
       (get-in [:results 0 1])
