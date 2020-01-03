@@ -43,6 +43,12 @@ run-dev-api-with-mocks:
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.mocks.yml build && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.mocks.yml up --remove-orphans
 
+run-eval:
+	git submodule update --init --recursive && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml down && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml build && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml up --remove-orphans --abort-on-container-exit --exit-code-from eval
+
 run-front-end-dev:
 	ACC_TEXT_API_URL=http://0.0.0.0:3001 \
 	ACC_TEXT_GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
