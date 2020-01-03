@@ -44,6 +44,7 @@ run-dev-api-with-mocks:
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.mocks.yml up --remove-orphans
 
 run-eval:
+	git submodule init && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml down && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml build && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml up --remove-orphans --abort-on-container-exit --exit-code-from eval
