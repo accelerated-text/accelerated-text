@@ -9,12 +9,12 @@ jobs:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-      - script: |
-          curl -s "https://get.sdkman.io" | bash
+      # - script: |
+      #     curl -s "https://get.sdkman.io" | bash
 
-      - script: |
-          source "$HOME/.sdkman/bin/sdkman-init.sh"
-          sdk install java
+      # - script: |
+      #     source "$HOME/.sdkman/bin/sdkman-init.sh"
+      #     sdk install java
 
       - script: |
           curl -O https://download.clojure.org/install/linux-install-1.10.1.492.sh
