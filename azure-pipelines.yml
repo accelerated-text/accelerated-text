@@ -10,10 +10,10 @@ jobs:
       vmImage: 'ubuntu-latest'
     steps:
       - script: |
-          curl -s "https://get.sdkman.io" | sudo bash
+          curl -s "https://get.sdkman.io" | bash
 
       - script: |
-          sudo source "$HOME/.sdkman/bin/sdkman-init.sh"
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
           sudo sdk install java
 
       - script: |
