@@ -13,7 +13,7 @@ jobs:
           curl -s "https://get.sdkman.io" | sudo bash
 
       - script: |
-          source "$HOME/.sdkman/bin/sdkman-init.sh"
+          sudo source "$HOME/.sdkman/bin/sdkman-init.sh"
           sudo sdk install java
 
       - script: |
