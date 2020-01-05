@@ -33,7 +33,9 @@ jobs:
           chmod +x linux-install-1.10.1.492.sh
           sudo ./linux-install-1.10.1.492.sh
       - script: |
-          sudo bash <(curl -s https://raw.githubusercontent.com/borkdude/clj-kondo/master/script/install-clj-kondo)
+          curl -O https://raw.githubusercontent.com/borkdude/clj-kondo/master/script/install-clj-kondo
+          chmod +x install-clj-kondo
+          sudo ./install-clj-kondo
       - script: |
           cd api
           clj-kondo --lint src test
