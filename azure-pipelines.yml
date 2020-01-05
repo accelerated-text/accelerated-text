@@ -10,13 +10,10 @@ jobs:
       vmImage: 'ubuntu-latest'
     steps:
       - script: |
-          sudo add-apt-repository ppa:openjdk-r/ppa
-          sudo apt-get update -q
-          sudo apt install -y openjdk-11-jdk
+          curl -s "https://get.sdkman.io" | sudo bash
 
       - script: |
-          sudo sh -c 'for bin in /usr/lib/jvm/jdk-11/bin/*; do update-alternatives --install /usr/bin/$(basename $bin)'
-          sudo sh -c 'for bin in /usr/lib/jvm/jdk-11/bin/*; do update-alternatives --set $(basename $bin) $bin; done'
+          sudo sdk install java
 
       - script: |
           curl -O https://download.clojure.org/install/linux-install-1.10.1.492.sh
