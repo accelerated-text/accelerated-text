@@ -23,11 +23,11 @@ jobs:
 
       - script: |
           cd core
-          clojure -Sdeps -A:test -e integration
+          clj -Sdeps -A:test -e integration
 
       - script: |
           cd api
-          clojure -Sdeps -A:test -e integration
+          clj -Sdeps -A:test -e integration
 
   - job: lint_backend
     pool:
