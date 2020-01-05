@@ -55,9 +55,9 @@ jobs:
       - task: NodeTool@0
         inputs:
           versionSpec: '11'
-      - script:
+      - script: |
+          cd front-end
           npm install
-      - script:
           npm test
       
   - job: integration_tests
