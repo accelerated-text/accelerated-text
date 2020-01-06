@@ -50,8 +50,7 @@ jobs:
           versionSpec: '11'
       - script: |
           cd front-end
-          npm install
-          npm test
+          make test
       
   - job: integration_tests
     pool:
