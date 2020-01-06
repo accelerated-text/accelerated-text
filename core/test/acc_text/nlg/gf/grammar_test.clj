@@ -9,6 +9,25 @@
 (defn build-grammar [semantic-graph-name context]
   (grammar/build :module :instance (utils/load-test-semantic-graph semantic-graph-name) context))
 
+(deftest gf-grammar-building
+  (is (= #::grammar{:module   :module
+                    :instance :instance
+                    :flags    {:startcat "DocumentPlan01"}
+                    :syntax   [{:name   "DocumentPlan01"
+                                :params ["Segment02"]
+                                :body   [{:type :function :value "Segment02"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Segment02"
+                                :params ["Data03"]
+                                :body   [{:type :function :value "Data03"}]
+                                :ret    [:s "Str"]}
+                               {:name   "GF02"
+                                :params []
+                                :body   [{:type :gf :value "AtLocation" :params {:location "location"
+                                                                                 :name "venue"}}]
+                                :ret    [:s "Str"]}]}
+         (build-grammar "simple-gf" {}))))
+
 (deftest grammar-building
   (is (= #::grammar{:module   :module
                     :instance :instance
