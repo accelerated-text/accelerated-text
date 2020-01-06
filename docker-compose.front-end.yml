@@ -12,4 +12,3 @@ services:
       MOCK_SHOP_API_URL: http://0:0:0:0:8090
     volumes:
       - ./api/resources/schema.graphql:/usr/src/app/packages/graphql/schema.graphql
-      - ./docs/getting-started.md:/usr/src/app/packages/help/getting-started.md
