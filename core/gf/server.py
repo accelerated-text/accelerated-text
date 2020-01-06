@@ -41,7 +41,7 @@ def compile_grammar(name, abstract, instances):
         concrete_grammars = list(compile_concrete_grammar(tmpdir, name, instances))
 
         logger.info("Compiling")
-        cmd = "gf -i /opt/gf/lang-utils/ --output-dir={path} -make {abstract} {other}".format(
+        cmd = "gf -i /opt/gf/lang-utils/ -i /opt/gf/concept-net/ --output-dir={path} -make {abstract} {other}".format(
                 abstract=abstract_path,
                 path=tmpdir,
                 other=" ".join(concrete_grammars)
