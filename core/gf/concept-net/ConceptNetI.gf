@@ -1,11 +1,11 @@
 incomplete concrete ConceptNetI of ConceptNet = open Syntax, LexConceptNet in {
   lincat
-    Message = Text ;
+    Message = Cl ;
     Venue = NP ;
     Location = NP ;
 
   lin
-    AtLocation v l = mkSentence (mkCl place_N) (mkAdv in_Prep l) (mkNP v named_V2);
+    AtLocation v l = mkAtLocation v (mkAdv in_Prep l) ;
     VenueArg = venue_ARG ;
     LocationArg = location_ARG ;
 }
