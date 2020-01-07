@@ -53,11 +53,11 @@
 
 (declare join-function-body)
 
-(defn join-expression [expr params]
+(defn join-expression [expr]
   (if (sequential? expr)
-    (cond->> (join-function-body expr params)
+    (cond->> (join-function-body expr)
              (< 1 (count expr)) (format "(%s)"))
-    (let [{:keys [type value]} expr]
+    (let [{:keys [type value params]} expr]
       (case type
         :literal (format "\"%s\"" (escape-string value))
         :function (format "%s.s" value)
@@ -69,10 +69,10 @@
       "|"
       "++")))
 
-(defn join-function-body [body params]
+(defn join-function-body [body]
   (str/join " " (map (fn [expr next-expr]
                        (let [operator (get-operator expr next-expr)]
-                         (cond-> (join-expression expr params)
+                         (cond-> (join-expression expr)
                                  (some? operator) (str " " operator))))
                      body
                      (concat (rest body) [nil]))))

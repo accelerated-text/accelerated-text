@@ -23,7 +23,8 @@
                                 :ret    [:s "Str"]}
                                {:name   "Amr03"
                                 :params ["DictionaryItem04" "Quote05" "Quote06"]
-                                :body   [[{:type :gf :value "AtLocation"}]]
+                                :body   [[{:type :gf :value "AtLocation"
+                                           :params ["DictionaryItem04" "Quote05" "Quote06"]}]]
                                 :ret    [:s "Str"]}
                                {:name   "DictionaryItem04"
                                 :params []
@@ -40,7 +41,7 @@
                                 :ret    [:s "Str"]}]}
          (build-grammar
            "location-amr"
-           {:amr        {:at-location {:frames [{:syntax [{:type :gf :value "AtLocation"}]}]}}
+           {:amr        {:at-location {:frames [{:syntax [{:type :gf :value "AtLocation" :roles ["name" "location"]}]}]}}
             :dictionary {"at-location" ["place" "venue"]}}))))
 
 (deftest grammar-building

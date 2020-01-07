@@ -8,3 +8,6 @@ frames:
     syntax:
       - type: gf
         value: AtLocation
+        roles:
+          - name
+          - location
