@@ -83,7 +83,7 @@
                          (inc i)
                          (str/join (interleave params (repeat " ")))
                          (name (nth ret 0))
-                         (if (seq body) (join-function-body body params) "\"\"")))
+                         (if (seq body) (join-function-body body) "\"\"")))
                syntax))
 
 (defn ->abstract [{::grammar/keys [module flags syntax]}]
