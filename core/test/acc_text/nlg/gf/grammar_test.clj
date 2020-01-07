@@ -18,15 +18,30 @@
                                 :body   [{:type :function :value "Segment02"}]
                                 :ret    [:s "Str"]}
                                {:name   "Segment02"
-                                :params ["Data03"]
-                                :body   [{:type :function :value "Data03"}]
+                                :params ["Amr03"]
+                                :body   [{:type :function :value "Amr03"}]
                                 :ret    [:s "Str"]}
-                               {:name   "GF02"
+                               {:name   "Amr03"
+                                :params ["DictionaryItem04" "Quote05" "Quote06"]
+                                :body   [[{:type :gf :value "AtLocation"}]]
+                                :ret    [:s "Str"]}
+                               {:name   "DictionaryItem04"
                                 :params []
-                                :body   [{:type :gf :value "AtLocation" :params {:location "location"
-                                                                                 :name "venue"}}]
+                                :body   [[{:type :literal :value "place"}]
+                                         [{:type :literal :value "venue"}]]
+                                :ret    [:s "Str"]}
+                               {:name   "Quote05"
+                                :params []
+                                :body   [{:type :literal :value "Alimentum"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Quote06"
+                                :params []
+                                :body   [{:type :literal :value "city centre"}]
                                 :ret    [:s "Str"]}]}
-         (build-grammar "simple-gf" {}))))
+         (build-grammar
+           "location-amr"
+           {:amr        {:at-location {:frames [{:syntax [{:type :gf :value "AtLocation"}]}]}}
+            :dictionary {"at-location" ["place" "venue"]}}))))
 
 (deftest grammar-building
   (is (= #::grammar{:module   :module
