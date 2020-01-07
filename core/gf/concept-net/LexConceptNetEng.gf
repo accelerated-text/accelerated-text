@@ -7,8 +7,8 @@ instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng in {
     location_ARG = mkNP the_Det (mkN "{{location}}") ;
 
     mkSentence = overload {
-              mkSentence : N -> Adv -> NP -> Result = \w1,w2,w3  -> mkCl (mkNP w1) (mkNP w3 w2) ;
+              mkSentence : N -> Adv -> VP -> Result = \w1,w2,w3  -> mkCl (mkNP w1) (mkVP w3 w2) ;
     };
 
-    mkAtLocation : NP -> Adv -> Cl = \v,l -> mkSentence place_N l (mkNP v named_V2) ;
+    mkAtLocation : NP -> Adv -> Cl = \v,l -> mkSentence place_N l (mkVP named_V2 v) ;
 }
