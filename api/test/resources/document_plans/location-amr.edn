@@ -1,0 +1,19 @@
+{:type     "Document-plan"
+ :segments [{:children [{:roles          [{:children [{:type  "Quote"
+                                                       :srcId "uf:[gtVTc!uQe%WeEy${"
+                                                       :text  "Alimentum"}]
+                                           :name     "name"}
+                                          {:children [{:type  "Quote"
+                                                       :srcId "#UU2hr35[NTazfg6d7JV"
+                                                       :text  "city centre"}]
+                                           :name     "location"}]
+                         :dictionaryItem {:name   "at-location"
+                                          :type   "Dictionary-item"
+                                          :srcId  "5SgtK-{hj)?WV7+(Y=o."
+                                          :itemId "at-location"}
+                         :type           "AMR"
+                         :srcId          "Bu~!.wu`aau*X?Kca^2B"
+                         :conceptId      "at-location"}]
+             :type     "Segment"
+             :srcId    "5h957b7[5;yOW^=~2x[A"}]
+ :srcId    "CJ*//Sz(JnX?Kt).0!j/"}
