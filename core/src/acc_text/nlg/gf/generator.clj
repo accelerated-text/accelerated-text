@@ -53,14 +53,15 @@
 
 (declare join-function-body)
 
-(defn join-expression [expr]
+(defn join-expression [expr params]
   (if (sequential? expr)
-    (cond->> (join-function-body expr)
+    (cond->> (join-function-body expr params)
              (< 1 (count expr)) (format "(%s)"))
     (let [{:keys [type value]} expr]
       (case type
         :literal (format "\"%s\"" (escape-string value))
-        :function (format "%s.s" value)))))
+        :function (format "%s.s" value)
+        :gf (format "%s %s" value (str/join (interleave params (repeat " "))))))))
 
 (defn get-operator [expr next-expr]
   (when (some? next-expr)
@@ -68,10 +69,10 @@
       "|"
       "++")))
 
-(defn join-function-body [body]
+(defn join-function-body [body params]
   (str/join " " (map (fn [expr next-expr]
                        (let [operator (get-operator expr next-expr)]
-                         (cond-> (join-expression expr)
+                         (cond-> (join-expression expr params)
                                  (some? operator) (str " " operator))))
                      body
                      (concat (rest body) [nil]))))
@@ -82,7 +83,7 @@
                          (inc i)
                          (str/join (interleave params (repeat " ")))
                          (name (nth ret 0))
-                         (if (seq body) (join-function-body body) "\"\"")))
+                         (if (seq body) (join-function-body body params) "\"\"")))
                syntax))
 
 (defn ->abstract [{::grammar/keys [module flags syntax]}]
