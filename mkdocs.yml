@@ -1,7 +1,7 @@
 site_name: Accelerated Text
 docs_dir: docs
 nav:
-    - Home: ../README.md
+    - Home: README.md
     - Data Formats:
         - Annotated Text JSON (ATJ) format: annotated-text-json.md
         - Blockly Workspace JSON (BWJ) format: blockly-workspace-json.md
