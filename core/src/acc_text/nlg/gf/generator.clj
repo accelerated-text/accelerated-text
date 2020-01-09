@@ -57,10 +57,11 @@
   (if (sequential? expr)
     (cond->> (join-function-body expr)
              (< 1 (count expr)) (format "(%s)"))
-    (let [{:keys [type value]} expr]
+    (let [{:keys [type value params]} expr]
       (case type
         :literal (format "\"%s\"" (escape-string value))
-        :function (format "%s.s" value)))))
+        :function (format "%s.s" value)
+        :gf (format "%s %s" value (str/join (interleave params (repeat " "))))))))
 
 (defn get-operator [expr next-expr]
   (when (some? next-expr)

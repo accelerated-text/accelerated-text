@@ -1,17 +1,13 @@
 members:
+  - place
 roles:
-  - address
+  - name
+  - location
 frames:
   - example: There is a place in the city center
     syntax:
-      - pos: LEX
-        value: "There"
-      - pos: AUX
-      - pos: DET
-      - pos: NP
-        value: "place"
-      - pos: ADP
-        value: "in"
-      - pos: DET
-      - pos: NP
-        role: address
+      - type: gf
+        value: AtLocation
+        roles:
+          - name
+          - location

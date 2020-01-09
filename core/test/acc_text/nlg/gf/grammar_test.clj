@@ -9,6 +9,41 @@
 (defn build-grammar [semantic-graph-name context]
   (grammar/build :module :instance (utils/load-test-semantic-graph semantic-graph-name) context))
 
+(deftest gf-grammar-building
+  (is (= #::grammar{:module   :module
+                    :instance :instance
+                    :flags    {:startcat "DocumentPlan01"}
+                    :syntax   [{:name   "DocumentPlan01"
+                                :params ["Segment02"]
+                                :body   [{:type :function :value "Segment02"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Segment02"
+                                :params ["Amr03"]
+                                :body   [{:type :function :value "Amr03"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Amr03"
+                                :params ["DictionaryItem04" "Quote05" "Quote06"]
+                                :body   [[{:type :gf :value "AtLocation"
+                                           :params ["DictionaryItem04" "Quote05" "Quote06"]}]]
+                                :ret    [:s "Str"]}
+                               {:name   "DictionaryItem04"
+                                :params []
+                                :body   [[{:type :literal :value "place"}]
+                                         [{:type :literal :value "venue"}]]
+                                :ret    [:s "Str"]}
+                               {:name   "Quote05"
+                                :params []
+                                :body   [{:type :literal :value "Alimentum"}]
+                                :ret    [:s "Str"]}
+                               {:name   "Quote06"
+                                :params []
+                                :body   [{:type :literal :value "city centre"}]
+                                :ret    [:s "Str"]}]}
+         (build-grammar
+           "location-amr"
+           {:amr        {:at-location {:frames [{:syntax [{:type :gf :value "AtLocation" :roles ["name" "location"]}]}]}}
+            :dictionary {"at-location" ["place" "venue"]}}))))
+
 (deftest grammar-building
   (is (= #::grammar{:module   :module
                     :instance :instance
