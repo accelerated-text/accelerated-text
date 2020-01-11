@@ -3,5 +3,4 @@ interface LexConceptNet = open Syntax in {
     place_N : N ;
     location_ARG : NP ;
     venue_ARG : NP ;
-    place_phrase : Cl ;
 }

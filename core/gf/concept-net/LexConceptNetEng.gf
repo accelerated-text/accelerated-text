@@ -1,7 +1,5 @@
 instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng in {
   oper
-    Result : Type = Cl ;
-
 
     place_N = mkN ("place" | "venue" | "arena") ;
     place_Cl = (mkCl (mkCN place_N));
@@ -18,27 +16,17 @@ instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng in {
     in_loc = SyntaxEng.mkAdv in_Prep location_ARG;
 
     -- There is a place in the LOCATION
-    place_in_location = mkCN (mkCN place_N in_loc) venue_NP;
+    place_in_location = mkCl (mkCN (mkCN place_N in_loc) venue_NP);
     -- In the LOCATION there is a place
-    in_location_place = mkS in_loc (mkS present_simultaneous_temp positivePol place_Cl); 
+    place_ven_Cl = mkCl (mkCN place_N venue_NP); 
+    in_location_place = mkS in_loc (mkS present_simultaneous_temp positivePol place_ven_Cl);
 
     -- VENUE in the LOCATION
-    venue_in_location = mkCN venue_CN in_loc;
+    venue_in_location = mkCl (mkCN venue_CN in_loc);
 
+    x1 = mkUtt place_in_location;
+    x2 = mkUtt in_location_place;
+    x3 = mkUtt venue_in_location;
 
-    place_phrase = mkCl place_in_location;
-    in_loc_phrase = mkCl venue_in_location;
-
-    mkSentence = overload {
-              mkSentence : N -> Adv -> VP -> Result = \w1,w2,w3  -> mkCl (mkSC (mkS (mkCl w1))) (mkVP w3 w2) ;
-
-    };
-
-    mkAtLocation : NP -> Adv -> Cl = \v,l -> mkSentence place_N l (mkVP (mkV2 "name") v) ;
-
+    atLocation = x1 | x2 | x3 ;
 }
-
--- Lang> p "in the city there is a city"
--- PhrUtt NoPConj (UttS
--- (AdvS (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN city_N))) (UseCl (TTAnt TPres ASimul) PPos (ExistNP (DetCN (DetQuant IndefArt NumSg) (UseN city_N))))))
--- NoVoc
