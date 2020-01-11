@@ -8,7 +8,6 @@ instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng in {
     venue_CN = mkCN venue_N;
     venue_ARG = mkNP venue_N ;
     venue_NP = venue_ARG;
-    venue_A = mkA "{{venue}}";
 
     present_simultaneous_temp = mkTemp presentTense simultaneousAnt;
 
