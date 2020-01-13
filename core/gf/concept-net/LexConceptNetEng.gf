@@ -1,12 +1,12 @@
 instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng in {
   oper
 
-    venue_ARG = "[VENUE_ARG]";
+    venue_name_ARG = "[VENUE_NAME_ARG]";
     location_ARG = "[LOCATION_ARG]";
 
     place_N = mkN ("place" | "venue" | "arena") ;
 
-    venue_N = mkN venue_ARG;
+    venue_N = mkN venue_name_ARG;
     venue_CN = mkCN venue_N;
     venue_NP = mkNP venue_N;
     location_NP = mkNP the_Det (mkN location_ARG) ;
