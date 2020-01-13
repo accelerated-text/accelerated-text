@@ -97,7 +97,7 @@
   (format "concrete %s of %s = open %s in {%s\n}"
           (str (name module) (name instance))
           (name module)
-          "LangFunctionsEng"
+          "LangFunctionsEng, ConceptNetEng"
           (join-body
             "param" (parse-param syntax)
             "lincat" (parse-lincat syntax)
