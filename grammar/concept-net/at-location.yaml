@@ -1,4 +1,5 @@
 members:
+  - place
 roles:
   - venue_name
   - location
@@ -7,3 +8,6 @@ frames:
     syntax:
       - type: gf
         value: atLocation
+        roles:
+          - name
+          - location

@@ -5,6 +5,53 @@ pr:
 - master
 
 jobs:
+  - job: unit_test_backend
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - script: |
+          curl -O https://download.clojure.org/install/linux-install-1.10.1.492.sh
+          chmod +x linux-install-1.10.1.492.sh
+          sudo ./linux-install-1.10.1.492.sh
+
+      - script: |
+          cd core
+          clojure -A:test -e integration
+
+      - script: |
+          cd api
+          clojure -A:test -e integration
+
+  - job: lint_backend
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - script: |
+          curl -O https://download.clojure.org/install/linux-install-1.10.1.492.sh
+          chmod +x linux-install-1.10.1.492.sh
+          sudo ./linux-install-1.10.1.492.sh
+      - script: |
+          curl -O https://raw.githubusercontent.com/borkdude/clj-kondo/master/script/install-clj-kondo
+          chmod +x install-clj-kondo
+          sudo ./install-clj-kondo
+      - script: |
+          cd api
+          clj-kondo --lint src test
+      - script: |
+          cd core
+          clj-kondo --lint src test
+
+  - job: test_frontend
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '11'
+      - script: |
+          cd front-end
+          make test
+      
   - job: integration_tests
     pool:
       vmImage: 'ubuntu-latest'

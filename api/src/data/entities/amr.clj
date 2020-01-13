@@ -14,7 +14,7 @@
                                  :syntax   (for [instance syntax]
                                              (reduce-kv (fn [m k v]
                                                           (assoc m k (cond-> v
-                                                                             (not (contains? #{:value :role} k))
+                                                                             (not (contains? #{:value :role :roles} k))
                                                                              (keyword))))
                                                         {}
                                                         (into {} instance)))})

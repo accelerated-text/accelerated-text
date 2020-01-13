@@ -1,0 +1,17 @@
+site_name: Accelerated Text
+docs_dir: docs
+nav:
+    - Home: README.md
+    - Data Formats:
+        - Annotated Text JSON (ATJ) format: annotated-text-json.md
+        - Blockly Workspace JSON (BWJ) format: blockly-workspace-json.md
+    - Deployment: deployment.md
+    - NLG Api: nlg-api.md
+    - Contributing: contributing.md
+markdown_extensions:
+    - toc
+    - tables
+    - meta
+plugins:
+    - search
+theme: readthedocs
