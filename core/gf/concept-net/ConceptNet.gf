@@ -1,9 +1,7 @@
 abstract ConceptNet = {
-    flags startcat = Message ;
+    flags startcat = Message;
     cat
-      Message ; Location ; Venue ;
+      Message; 
     fun
-      AtLocation : Venue -> Location -> Message ;
-      VenueArg : Venue ;
-      LocationArg : Location ;
+      AtLocation : Message;
 }

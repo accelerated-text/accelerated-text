@@ -5,11 +5,10 @@ instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng in {
     location_ARG = "[LOCATION_ARG]";
 
     place_N = mkN ("place" | "venue" | "arena") ;
+
     venue_N = mkN venue_ARG;
     venue_CN = mkCN venue_N;
     venue_NP = mkNP venue_N;
-
-
     location_NP = mkNP the_Det (mkN location_ARG) ;
 
     present_simultaneous_temp = mkTemp presentTense simultaneousAnt;
