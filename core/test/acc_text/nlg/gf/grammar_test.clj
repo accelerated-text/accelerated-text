@@ -113,12 +113,12 @@
                                 :name   "Segment02"
                                 :params ["Amr03"]
                                 :ret    [:s "Str"]}
-                               {:body   [[{:pos :NP :type :literal :value "{{co-Agent}}"}
-                                          {:pos :LEX :type :literal :value "is"}
-                                          {:pos       :VERB :type :literal :value "{{...}}"
+                               {:body   [[{:type :literal :value "{{co-Agent}}"}
+                                          {:type :literal :value "is"}
+                                          {:type :literal :value "{{...}}"
                                            :selectors {:number :singular :tense :past}}
-                                          {:pos :ADP :type :literal :value "by"}
-                                          {:pos :NP :type :literal :value "{{Agent}}"}]]
+                                          {:type :literal :value "by"}
+                                          {:type :literal :value "{{Agent}}"}]]
                                 :name   "Amr03"
                                 :params []
                                 :ret    [:s "Str"]}]}
@@ -141,15 +141,15 @@
                                 :name   "Segment02"
                                 :params ["Amr03"]
                                 :ret    [:s "Str"]}
-                               {:body   [[{:pos :NP :type :function :value "Modifier05"}
-                                          {:pos :LEX :type :literal :value "is"}
-                                          {:pos :LEX :type :literal :value "the author of"}
-                                          {:pos :NP :type :function :value "Data08"}]
-                                         [{:pos :NP :type :function :value "Data08"}
-                                          {:pos :LEX :type :literal :value "is"}
-                                          {:pos :VERB :type :function :value "DictionaryItem04"}
-                                          {:pos :ADP :type :literal :value "by"}
-                                          {:pos :NP :type :function :value "Modifier05"}]]
+                               {:body   [[{:type :function :value "Modifier05"}
+                                          {:type :literal :value "is"}
+                                          {:type :literal :value "the author of"}
+                                          {:type :function :value "Data08"}]
+                                         [{:type :function :value "Data08"}
+                                          {:type :literal :value "is"}
+                                          {:type :function :value "DictionaryItem04"}
+                                          {:type :literal :value "by"}
+                                          {:type :function :value "Modifier05"}]]
                                 :name   "Amr03"
                                 :params ["DictionaryItem04" "Modifier05" "Data08"]
                                 :ret    [:s "Str"]}
