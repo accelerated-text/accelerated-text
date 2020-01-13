@@ -1,7 +1,8 @@
 (ns acc-text.nlg.gf.grammar.impl
   (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.math.combinatorics :refer [permutations]]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]))
 
 (defn concept->name [{:keys [id type]}]
   (str (->> (str/split (name type) #"-")
@@ -83,7 +84,9 @@
                                                         :value (get role-map role-key)}
                          (= :gf type) {:type   :gf
                                        :value  value
-                                       :params (cons (concept->name function-concept) (map role-map roles))}
+                                       :params
+                                       (cons (concept->name function-concept) (map role-map roles))
+                                       #_(when function-concept (cons (concept->name function-concept) (map role-map roles)))}
                          (some? role) {:type  :literal
                                        :value (format "{{%s}}" role)}
                          (= pos :AUX) {:type  :function

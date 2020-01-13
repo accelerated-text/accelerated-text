@@ -13,12 +13,12 @@
                                 (generate grammar)))))
 
 (deftest ^:integration at-location
-  (is (= ["There is a place in the [LOCATION_ARG]"]
-         (generate (grammar/build :AtLoc :1 (utils/single-amr-doc-plan "at-location")
-                                  {:amr
-                                   {:at-location
-                                    {:frames
-                                     [{:examples ["There is a place in the city center"]
-                                       :syntax
-                                       [{:type :function :value "atLocation"}]}]}}
-                                   :dictionary {}})))))
+  (is (get (set (generate (grammar/build :AtLoc :1 (utils/load-test-semantic-graph "location-amr")
+                                         {:amr
+                                          {:at-location
+                                           {:frames
+                                            [{:examples ["There is a place in the city center"]
+                                              :syntax
+                                              [{:type :gf :value "AtLocation"}]}]}}
+                                          :dictionary {}})))
+           "there is a [VENUE_NAME_ARG] in the [LOCATION_ARG]")))

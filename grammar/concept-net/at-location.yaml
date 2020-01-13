@@ -1,13 +1,13 @@
 members:
   - place
 roles:
-  - venue_name
-  - location
+  - ARG0
+  - ARG1
 frames:
   - example: There is a place in the city center, KFC
     syntax:
       - type: gf
-        value: atLocation
+        value: AtLocation
         roles:
-          - name
-          - location
+          - ARG0
+          - ARG1
