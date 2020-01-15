@@ -1,8 +1,7 @@
 (ns acc-text.nlg.gf.grammar.impl
   (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.math.combinatorics :refer [permutations]]
-            [clojure.string :as str]
-            [clojure.tools.logging :as log]))
+            [clojure.string :as str]))
 
 (defn concept->name [{:keys [id type]}]
   (str (->> (str/split (name type) #"-")
