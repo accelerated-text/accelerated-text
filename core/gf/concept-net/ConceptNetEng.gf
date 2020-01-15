@@ -2,4 +2,4 @@
 
 concrete ConceptNetEng of ConceptNet = ConceptNetI with 
          (Syntax = SyntaxEng),
-         (LexConceptNet = LexConceptNetEng) ;
+         (LexConceptNet = LexConceptNetEng);
