@@ -1,4 +1,7 @@
 interface LexConceptNet = open Syntax in {
   oper
-    place_N : N ;
+    locationDictionary : N;
+    locationData: N;
+    objectRef: N;
+    atLocation: Utt;
 }
