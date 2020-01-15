@@ -18,3 +18,4 @@ api/libsunec.so
 .nrepl-port
 **/.clj-kondo/.cache/*
 *.gfo
+*.pgf
