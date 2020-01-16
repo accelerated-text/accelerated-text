@@ -83,7 +83,9 @@
                                                         :value (get role-map role-key)}
                          (= :gf type) {:type   :gf
                                        :value  value
-                                       :params (cons (concept->name function-concept) (map role-map roles))}
+                                       :params
+                                       (cons (concept->name function-concept) (map role-map roles))
+                                       #_(when function-concept (cons (concept->name function-concept) (map role-map roles)))}
                          (some? role) {:type  :literal
                                        :value (format "{{%s}}" role)}
                          (= pos :AUX) {:type  :function

@@ -61,7 +61,8 @@
       (case type
         :literal (format "\"%s\"" (escape-string value))
         :function (format "%s.s" value)
-        :gf (format "%s %s" value (str/join (interleave params (repeat " "))))))))
+        :gf #_(format "%s.s" value)
+        (format "%s %s.s" value (str/join (interleave params (repeat " "))))))))
 
 (defn get-operator [expr next-expr]
   (when (some? next-expr)
@@ -98,7 +99,7 @@
   (format "concrete %s of %s = open %s in {%s\n}"
           (str (name module) (name instance))
           (name module)
-          "LangFunctionsEng"
+          "LangFunctionsEng, ConceptNetEng"
           (join-body
             "param" (parse-param syntax)
             "lincat" (parse-lincat syntax)
