@@ -31,12 +31,10 @@ instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng, Utils
     -- Has Property
     -- --
 
-    -- mkCl 	NP -> A -> Cl she is old
-
-
     object_Pron = mkN "it";
     propertyValue = positivePol;
     propertyName_A = mkA "[FF]";
+
     itHas = mkS presentSimTemp propertyValue (mkCl (mkNP object_Pron) propertyName_A);
 
     hasProperty = mkUtt itHas;
