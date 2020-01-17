@@ -3,7 +3,7 @@ resource UtilsEng = open SyntaxEng in {
   -- Takes in a noun and produces 'in the NOUN'
   oper mkInAdv : N -> Adv = \noun -> SyntaxEng.mkAdv in_Prep (mkNP the_Det noun);
 
-  oper mkPresentSimTemp = mkTemp presentTense simultaneousAnt;
+  oper presentSimTemp = mkTemp presentTense simultaneousAnt;
 
   -- Takes in noung for a reference place and a thing in that reference place
   -- produces 'There is X in Y'

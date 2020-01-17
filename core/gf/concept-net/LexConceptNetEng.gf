@@ -1,6 +1,10 @@
 instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng, UtilsEng, DictConceptNetEng in {
   oper
 
+    -- --
+    -- At Location
+    -- --
+
     objectRef_N = mkN objectRef;
     locationData_N = mkN objectRef;
     locationDictionary_N = mkN locationDictionary;
@@ -13,8 +17,8 @@ instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng, Utils
     -- In the LOCATION there is a place
     in_location_place =
     mkUtt (mkS (mkInAdv locationData_N)
-               (mkS mkPresentSimTemp positivePol
-                                     (mkThereIsAThing locationDictionary_N objectRef_N)));
+               (mkS presentSimTemp positivePol
+                                   (mkThereIsAThing locationDictionary_N objectRef_N)));
 
     -- VENUE in the LOCATION
     venue_in_location =
@@ -22,4 +26,16 @@ instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng, Utils
                            (mkInAdv locationData_N));
 
     atLocation = place_in_location | in_location_place | venue_in_location;
+
+    -- --
+    -- Has Property
+    -- --
+
+    object_Pron = mkN "it";
+    propertyValue = positivePol;
+    propertyName_A = mkA "[FF]";
+
+    itHas = mkS presentSimTemp propertyValue (mkCl (mkNP object_Pron) propertyName_A);
+
+    hasProperty = mkUtt itHas;
 }
