@@ -11,6 +11,10 @@
                                       :name         "cut"
                                       :phrases      ["cut"]
                                       :partOfSpeech :VB})
+  (dictionary/create-dictionary-item {:key          "at-location"
+                                      :name         "at-location"
+                                      :phrases      ["arena" "place" "venue"]
+                                      :partOfSpeech :NOUN})
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -64,8 +68,8 @@
 
 (deftest ^:integration authorship-document-plan-bulk-generation
   (let [data {"9780307743657" {:title "The Shinning" :author "Stephen King"}
-              "9780575099999" {:title "Horns"        :author "Joe Hill"}
-              "9780099765219" {:title "Fight Club"   :author "Chuck Palahniuk"}}
+              "9780575099999" {:title "Horns" :author "Joe Hill"}
+              "9780099765219" {:title "Fight Club" :author "Chuck Palahniuk"}}
         {{result-id :resultId} :body status :status} (generate-bulk "authorship" data)]
     (is (= 200 status))
     (is (some? result-id))
@@ -221,3 +225,15 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"Computers book."} (-> result-id (get-variants) :sample)))))
+
+(deftest ^:integration location-amr-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "location-amr" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"In the city centre there is a place Alimentum."
+             "In the city centre there is a venue Alimentum."
+             "In the city centre there is an arena Alimentum."
+             "There is a place in the city centre Alimentum."
+             "There is a venue in the city centre Alimentum."
+             "There is an Alimentum in the city centre."
+             "There is an arena in the city centre Alimentum."} (-> result-id (get-variants) :sample)))))

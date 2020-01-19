@@ -23,26 +23,31 @@
                                 :ret    [:s "Str"]}
                                {:name   "Amr03"
                                 :params ["DictionaryItem04" "Quote05" "Quote06"]
-                                :body   [[{:type :gf :value "AtLocation"
+                                :body   [[{:type   :gf
+                                           :value  "atLocation"
                                            :params ["DictionaryItem04" "Quote05" "Quote06"]}]]
                                 :ret    [:s "Str"]}
                                {:name   "DictionaryItem04"
                                 :params []
                                 :body   [[{:type :literal :value "place"}]
-                                         [{:type :literal :value "venue"}]]
-                                :ret    [:s "Str"]}
+                                         [{:type :literal :value "venue"}]
+                                         [{:type :literal :value "arena"}]]
+                                :ret    [:s "N"]}
                                {:name   "Quote05"
                                 :params []
-                                :body   [{:type :literal :value "Alimentum"}]
-                                :ret    [:s "Str"]}
+                                :body   [{:type :literal :value "city centre"}]
+                                :ret    [:s "N"]}
                                {:name   "Quote06"
                                 :params []
-                                :body   [{:type :literal :value "city centre"}]
-                                :ret    [:s "Str"]}]}
+                                :body   [{:type :literal :value "Alimentum"}]
+                                :ret    [:s "N"]}]}
          (build-grammar
            "location-amr"
-           {:amr        {:at-location {:frames [{:syntax [{:type :gf :value "AtLocation" :roles ["name" "location"]}]}]}}
-            :dictionary {"at-location" ["place" "venue"]}}))))
+           {:amr        {:at-location {:frames [{:syntax [{:type  :gf
+                                                           :value "atLocation"
+                                                           :roles ["objectRef" "locationData"]
+                                                           :ret   ["N" "N" "N"]}]}]}}
+            :dictionary {"at-location" ["arena" "place" "venue"]}}))))
 
 (deftest grammar-building
   (is (= #::grammar{:module   :module
@@ -115,7 +120,7 @@
                                 :ret    [:s "Str"]}
                                {:body   [[{:type :literal :value "{{co-Agent}}"}
                                           {:type :literal :value "is"}
-                                          {:type :literal :value "{{...}}"
+                                          {:type      :literal :value "{{...}}"
                                            :selectors {:number :singular :tense :past}}
                                           {:type :literal :value "by"}
                                           {:type :literal :value "{{Agent}}"}]]

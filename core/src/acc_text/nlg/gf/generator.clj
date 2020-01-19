@@ -53,16 +53,16 @@
 
 (declare join-function-body)
 
-(defn join-expression [expr]
+(defn join-expression [expr ret]
   (if (sequential? expr)
-    (cond->> (join-function-body expr)
+    (cond->> (join-function-body expr ret)
              (< 1 (count expr)) (format "(%s)"))
     (let [{:keys [type value params]} expr]
       (case type
-        :literal (format "\"%s\"" (escape-string value))
+        :literal (cond->> (format "\"%s\"" (escape-string value))
+                          (not= "Str" (second ret)) (format "(mk%s %s)" (second ret)))
         :function (format "%s.s" value)
-        :gf #_(format "%s.s" value)
-        (format "%s %s.s" value (str/join (interleave params (repeat " "))))))))
+        :gf (format "(%s %s).s" value (str/join " " (map #(str % ".s") (filter some? params))))))))
 
 (defn get-operator [expr next-expr]
   (when (some? next-expr)
@@ -70,10 +70,10 @@
       "|"
       "++")))
 
-(defn join-function-body [body]
+(defn join-function-body [body ret]
   (str/join " " (map (fn [expr next-expr]
                        (let [operator (get-operator expr next-expr)]
-                         (cond-> (join-expression expr)
+                         (cond-> (join-expression expr ret)
                                  (some? operator) (str " " operator))))
                      body
                      (concat (rest body) [nil]))))
@@ -84,7 +84,7 @@
                          (inc i)
                          (str/join (interleave params (repeat " ")))
                          (name (nth ret 0))
-                         (if (seq body) (join-function-body body) "\"\"")))
+                         (if (seq body) (join-function-body body ret) "\"\"")))
                syntax))
 
 (defn ->abstract [{::grammar/keys [module flags syntax]}]
@@ -99,7 +99,7 @@
   (format "concrete %s of %s = open %s in {%s\n}"
           (str (name module) (name instance))
           (name module)
-          "LangFunctionsEng, ConceptNetEng"
+          "LangFunctionsEng, ConceptNetEng, SyntaxEng, ParadigmsEng"
           (join-body
             "param" (parse-param syntax)
             "lincat" (parse-lincat syntax)
