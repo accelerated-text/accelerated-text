@@ -1,6 +1,9 @@
 interface DictConceptNet = open Syntax in {
   oper
-    locationDictionary : Str;
     locationData: Str;
+    nearData: Str;
+
+    nearDictionary: Str;
+    locationDictionary : Str;
     objectRef: Str;
 }

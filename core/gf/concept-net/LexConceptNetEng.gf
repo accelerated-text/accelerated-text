@@ -6,7 +6,7 @@ instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng, Utils
     -- --
 
     objectRef_N = mkN objectRef;
-    locationData_N = mkN objectRef;
+    locationData_N = mkN locationData;
     locationDictionary_N = mkN locationDictionary;
 
     -- There is a place in the LOCATION
@@ -26,6 +26,14 @@ instance LexConceptNetEng of LexConceptNet = open SyntaxEng, ParadigmsEng, Utils
                            (mkInAdv locationData_N));
 
     atLocation = place_in_location | in_location_place | venue_in_location;
+
+    -- Near
+
+    placeNear_NP = mkNP the_Det (mkN nearData);
+    sconjNear_Adv = SyntaxEng.mkAdv (mkPrep nearDictionary) placeNear_NP;
+    fullLocation_Adv = SyntaxEng.mkAdv (mkConj ",") (mkInAdv locationData_N) sconjNear_Adv;
+
+    atLocationNear = mkUtt (mkCN locationDictionary_N fullLocationAdv);
 
     -- --
     -- Has Property

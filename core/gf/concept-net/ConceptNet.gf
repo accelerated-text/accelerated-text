@@ -4,5 +4,6 @@ abstract ConceptNet = {
     cat Message;
 
     fun AtLocation : Message;
+    fun AtLocationNear : Message;
     fun HasProperty: Message;
 }
