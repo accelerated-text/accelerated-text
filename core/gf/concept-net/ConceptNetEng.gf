@@ -11,7 +11,7 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng in {
     -- In the LOCATION there is a place
     in_location_place : N -> N -> N -> SS =
         \locationDictionary,locationData,objectRef ->
-            {s = (mkUtt (mkS (mkInAdv locationData) (mkS mkPresentSimTemp positivePol (mkThereIsAThing locationDictionary objectRef)))).s} ;
+            {s = (mkUtt (mkS (mkInAdv locationData) (mkS presentSimTemp positivePol (mkThereIsAThing locationDictionary objectRef)))).s} ;
 
     -- VENUE in the LOCATION
     venue_in_location : N -> N -> N -> SS =
@@ -25,11 +25,11 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng in {
   oper -- hasProperty
 
     itHas : A -> N -> SS =
-      \propertyName,object ->
-        mkS presentSimTemp positivePol (mkCl (mkNP object) propertyName) ;
+        \propertyName,object ->
+            (mkS presentSimTemp positivePol (mkCl (mkNP object) propertyName)) ;
 
     hasProperty : A -> N -> SS =
-      \lexicon,arg0 ->
-        (mkUtt (itHas lexicon arg0)) ;
+        \lexicon,arg0 ->
+            (mkUtt (itHas lexicon arg0)) ;
 
 }
