@@ -6,3 +6,4 @@ includes:
   - library/genre.yaml
   - other/cut.yaml
   - other/see.yaml
+  - concept-net/at-location.yaml

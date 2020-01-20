@@ -1,0 +1,14 @@
+members:
+  - property
+roles:
+  - object
+frames:
+  - example: It has property
+    syntax:
+      - type: gf
+        value: hasProperty
+        roles:
+          - object
+        ret:
+          - A
+          - N
