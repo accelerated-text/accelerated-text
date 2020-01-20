@@ -10,6 +10,9 @@ includes:
   - other/object-description.yaml
   - other/attribute-at.yaml
   - concept-net/at-location.yaml
+  - concept-net/at-location-bleu.yaml
+  - concept-net/has-property.yaml
+  - concept-net/located-near.yaml
   - concept-net/capable-of.yaml
   - concept-net/identified-as.yaml
   - concept-net/is-a.yaml

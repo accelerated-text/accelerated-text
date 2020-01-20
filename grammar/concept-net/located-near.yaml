@@ -3,17 +3,20 @@ members:
   - venue
   - arena
 roles:
-  - objectRef
   - locationData
+  - nearDictionary
+  - nearData
 frames:
-  - example: There is a place in the city center, KFC
+  - example: Venue in the city centre, near the KFC.
     syntax:
       - type: gf
-        value: atLocation
+        value: locatedNear
         roles:
-          - objectRef
           - locationData
+          - nearDictionary
+          - nearData
         ret:
           - N
           - N
+          - Prep
           - N
