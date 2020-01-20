@@ -4,23 +4,23 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng in {
     SS : Type = {s : Str} ;
 
     -- There is a place in the LOCATION
-    place_in_location : N -> N -> N -> SS =
+    placeInLocation : N -> N -> N -> SS =
         \locationDictionary,locationData,objectRef ->
-            {s = (mkUtt (mkThereIsAThing (mkCN locationDictionary (mkInAdv locationData)) objectRef)).s} ;
+            (mkUtt (mkThereIsAThing (mkCN locationDictionary (mkInAdv locationData)) objectRef)) ;
 
     -- In the LOCATION there is a place
-    in_location_place : N -> N -> N -> SS =
+    inLocationPlace : N -> N -> N -> SS =
         \locationDictionary,locationData,objectRef ->
-            {s = (mkUtt (mkS (mkInAdv locationData) (mkS presentSimTemp positivePol (mkThereIsAThing locationDictionary objectRef)))).s} ;
+            (mkUtt (mkS (mkInAdv locationData) (mkS presentSimTemp positivePol (mkThereIsAThing locationDictionary objectRef)))) ;
 
     -- VENUE in the LOCATION
-    venue_in_location : N -> N -> N -> SS =
+    venueInLocation : N -> N -> N -> SS =
         \locationDictionary,locationData,objectRef ->
-            {s = (mkUtt (mkThereIsAThing objectRef (mkInAdv locationData))).s} ;
+            (mkUtt (mkThereIsAThing objectRef (mkInAdv locationData))) ;
 
     atLocation : N -> N -> N -> SS =
         \lexicon,arg0,arg1 ->
-            ((place_in_location lexicon arg0 arg1) | (in_location_place lexicon arg0 arg1) | (venue_in_location lexicon arg0 arg1)) ;
+            ((placeInLocation lexicon arg0 arg1) | (inLocationPlace lexicon arg0 arg1) | (venueInLocation lexicon arg0 arg1)) ;
 
   oper -- hasProperty
 
