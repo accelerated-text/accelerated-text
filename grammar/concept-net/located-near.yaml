@@ -3,6 +3,7 @@ members:
   - venue
   - arena
 roles:
+  - objectRef
   - locationData
   - nearDictionary
   - nearData
@@ -12,10 +13,12 @@ frames:
       - type: gf
         value: locatedNear
         roles:
+          - objectRef
           - locationData
           - nearDictionary
           - nearData
         ret:
+          - N
           - N
           - N
           - Prep
