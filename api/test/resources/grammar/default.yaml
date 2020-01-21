@@ -7,3 +7,4 @@ includes:
   - other/cut.yaml
   - other/see.yaml
   - concept-net/at-location.yaml
+  - concept-net/located-near.yaml
