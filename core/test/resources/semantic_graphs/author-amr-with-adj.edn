@@ -1,8 +1,8 @@
 #:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :02 :role :segment}
                                           {:from :02 :to :03 :role :instance}
-                                          {:from :03 :to :04 :role :function}
-                                          {:from :03 :to :05 :role :ARG0 :attributes {:name "agent"}}
-                                          {:from :03 :to :08 :role :ARG1 :attributes {:name "co-agent"}}
+                                          {:from :03 :to :04 :role :ARG0 :attributes {:name "lexicon"}}
+                                          {:from :03 :to :05 :role :ARG1 :attributes {:name "agent"}}
+                                          {:from :03 :to :08 :role :ARG2 :attributes {:name "co-agent"}}
                                           {:from :05 :to :06 :role :child}
                                           {:from :05 :to :07 :role :modifier}]
                               :concepts  [{:id :01 :type :document-plan}

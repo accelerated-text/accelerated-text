@@ -1,6 +1,5 @@
-members:
-  - written
 roles:
+  - lexicon
   - Agent
   - co-Agent
 frames:
@@ -21,6 +20,7 @@ frames:
       - pos: AUX
         value: is
       - pos: VERB
+        role: lexicon
       - pos: ADP
         value: by
       - pos: NP

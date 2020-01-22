@@ -22,12 +22,6 @@
     (resolve-as (translate-dict/dictionary-item->schema item))
     (resolve-as-not-found-dict-item id)))
 
-(defn ref-dictionary-item [_ _ {:keys [dictionaryItem]}]
-  (log/debugf "Fetching ref dictionary item: %s" dictionaryItem)
-  (if-let [item (dict-entity/get-dictionary-item dictionaryItem)]
-    (resolve-as (translate-dict/dictionary-item->schema item))
-    (resolve-as-not-found-dict-item dictionaryItem)))
-
 (defn create-dictionary-item [_ {item-name :name pos :partOfSpeech phrases :phrases} _]
   (-> {:key          (cond->> item-name (some? pos) (str (name pos) "-"))
        :name         item-name

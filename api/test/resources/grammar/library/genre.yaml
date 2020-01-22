@@ -1,6 +1,5 @@
-members:
-  - is
 roles:
+  - lexicon
   - Theme
   - Category
 frames:
@@ -11,6 +10,7 @@ frames:
       - pos: NP
         role: Theme
       - pos: VERB
+        role: lexicon
       - pos: ADP
         value: in
       - pos: NP

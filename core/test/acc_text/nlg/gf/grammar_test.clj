@@ -45,9 +45,9 @@
            "location-amr"
            {:amr        {:at-location {:frames [{:syntax [{:type  :gf
                                                            :value "atLocation"
-                                                           :roles ["objectRef" "locationData"]
+                                                           :roles ["lexicon" "objectRef" "locationData"]
                                                            :ret   ["N" "N" "N"]}]}]}}
-            :dictionary {"at-location" ["arena" "place" "venue"]}}))))
+            :dictionary {"place" ["arena" "place" "venue"]}}))))
 
 (deftest grammar-building
   (is (= #::grammar{:module   :module
@@ -187,7 +187,7 @@
                                                      {:pos :NP :role "co-Agent"}]}
                                            {:syntax [{:pos :NP :role "co-Agent"}
                                                      {:pos :LEX :value "is"}
-                                                     {:pos :VERB}
+                                                     {:pos :VERB :role "lexicon"}
                                                      {:pos :ADP :value "by"}
                                                      {:pos :NP :role "Agent"}]}]}}
             :dictionary {}})))
