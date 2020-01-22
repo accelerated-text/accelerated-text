@@ -3,10 +3,10 @@
             [api.db-fixtures :as db]
             [clojure.test :refer [deftest is use-fixtures]]))
 
-(use-fixtures :each db/clean-db db/init-amr)
+(use-fixtures :each db/clean-db)
 
 (deftest ^:integration concepts-test
-  (let [query "{concepts{id concepts{id label roles{id fieldType fieldLabel} dictionaryItem{name phrases{text}} helpText}}}"
+  (let [query "{concepts{id concepts{id label roles{id fieldType fieldLabel} helpText}}}"
         {{{{:keys [id concepts]} :concepts} :data errors :errors} :body} (q "/_graphql" :post {:query query})]
     (is (nil? errors))
     (is (seq concepts))

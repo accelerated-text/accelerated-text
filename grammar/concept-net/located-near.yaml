@@ -1,8 +1,5 @@
-members:
-  - place
-  - venue
-  - arena
 roles:
+  - lexicon
   - objectRef
   - locationData
   - nearDictionary
@@ -13,6 +10,7 @@ frames:
       - type: gf
         value: locatedNear
         roles:
+          - lexicon
           - objectRef
           - locationData
           - nearDictionary

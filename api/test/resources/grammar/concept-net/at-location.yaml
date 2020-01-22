@@ -1,8 +1,5 @@
-members:
-  - place
-  - venue
-  - arena
 roles:
+  - lexicon
   - objectRef
   - locationData
 frames:
@@ -11,6 +8,7 @@ frames:
       - type: gf
         value: atLocation
         roles:
+          - lexicon
           - objectRef
           - locationData
         ret:

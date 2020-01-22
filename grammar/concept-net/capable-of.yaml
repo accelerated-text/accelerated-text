@@ -1,10 +1,10 @@
-members:
-  - serves
 roles:
+  - lexicon
   - capability
 frames:
   - example: serves Chinese food
     syntax:
       - pos: VERB
+        role: lexicon
       - pos: NP
         role: capability

@@ -37,10 +37,8 @@
                                                    :deletePhrase             :delete-phrase
                                                    :updatePhraseDefaultUsage :update-phrase-default-usage
                                                    :updateReaderFlagUsage    :update-reader-flag-usage
-                                                   :createDataFile           :create-data-file}
-                                        :Concept  {:dictionaryItem :ref-dictionary-item}}})
+                                                   :createDataFile           :create-data-file}}})
       (util/attach-resolvers {:dictionary                  #'dictionary-domain/dictionary
-                              :ref-dictionary-item         #'dictionary-domain/ref-dictionary-item
                               :dictionary-item             #'dictionary-domain/dictionary-item
                               :create-dictionary-item      #'dictionary-domain/create-dictionary-item
                               :delete-dictionary-item      #'dictionary-domain/delete-dictionary-item

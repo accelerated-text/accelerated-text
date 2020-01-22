@@ -191,7 +191,6 @@ type ThematicRole {
 type Concept {
     id:                ID!
     label:             String!
-    dictionaryItem:    DictionaryItem!
     roles:             [ ThematicRole! ]
     helpText:          String!
 }

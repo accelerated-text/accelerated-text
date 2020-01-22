@@ -1,6 +1,5 @@
-members:
-  - see
 roles:
+  - lexicon
   - Agent
   - co-Agent
 frames:
@@ -9,5 +8,6 @@ frames:
       - pos: NP
         role: Agent
       - pos: VERB
+        role: lexicon
       - pos: NP
         role: co-Agent

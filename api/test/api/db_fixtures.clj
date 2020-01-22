@@ -1,11 +1,6 @@
 (ns api.db-fixtures
-  (:require [api.datomic-fixtures :as datomic]
-            [data.entities.amr :as amr]))
+  (:require [api.datomic-fixtures :as datomic]))
 
 (defn clean-db [f]
   (when-not (System/getProperty "skip-datomic")
     (datomic/datomix-fixture f)))
-
-(defn init-amr [f]
-  (amr/initialize)
-  (f))

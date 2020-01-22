@@ -3,7 +3,9 @@
             [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]]
+            [clojure.java.io :as io])
+  (:import (java.io File)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
 (defstate dictionary-combined-db :start (db/db-access :dictionary-combined conf))
@@ -45,3 +47,18 @@
 
 (defn update-dictionary-item [item]
   (db/update! dictionary-combined-db (:key item) (dissoc item :key)))
+
+(defn list-dict-files []
+  (filter #(.isFile ^File %) (file-seq (io/file (or (System/getenv "DICT_PATH") "../grammar/dictionary")))))
+
+(defn initialize []
+  (doseq [f (list-dict-files)]
+    (let [{:keys [phrases partOfSpeech name]} (utils/read-yaml f)
+          filename (utils/get-name f)]
+      (when-not (get-dictionary-item filename)
+        (create-dictionary-item
+          {:key          filename
+           :name         (or name filename)
+           :phrases      phrases
+           :partOfSpeech (when (some? partOfSpeech)
+                           (keyword partOfSpeech))})))))

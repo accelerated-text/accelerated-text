@@ -7,14 +7,31 @@
             [data.entities.dictionary :as dictionary]))
 
 (defn prepare-environment [f]
-  (dictionary/create-dictionary-item {:key          "cut"
-                                      :name         "cut"
-                                      :phrases      ["cut"]
-                                      :partOfSpeech :VB})
-  (dictionary/create-dictionary-item {:key          "at-location"
-                                      :name         "at-location"
-                                      :phrases      ["arena" "place" "venue"]
-                                      :partOfSpeech :NOUN})
+  (doseq [item [{:key          "cut"
+                 :name         "cut"
+                 :phrases      ["cut"]
+                 :partOfSpeech :VB}
+                {:key          "see"
+                 :name         "see"
+                 :phrases      ["see"]
+                 :partOfSpeech :VB}
+                {:key          "place"
+                 :name         "place"
+                 :phrases      ["arena" "place" "venue"]
+                 :partOfSpeech :NN}
+                {:key          "written"
+                 :name         "written"
+                 :phrases      ["written"]
+                 :partOfSpeech :VB}
+                {:key          "is"
+                 :name         "is"
+                 :phrases      ["is"]
+                 :partOfSpeech :VB}
+                {:key          "release"
+                 :name         "release"
+                 :phrases      ["publised" "released"]
+                 :partOfSpeech :VB}]]
+    (dictionary/create-dictionary-item item))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -88,7 +105,7 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"{{Agent}} is the author of {{co-Agent}}."
-             "{{co-Agent}} is {{...}} by {{Agent}}."} (-> result-id (get-variants) :sample)))))
+             "{{co-Agent}} is {{lexicon}} by {{Agent}}."} (-> result-id (get-variants) :sample)))))
 
 (deftest ^:integration single-quote-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "single-quote" "books.csv")]
