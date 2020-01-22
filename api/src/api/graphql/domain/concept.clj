@@ -3,10 +3,11 @@
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.entities.amr :as amr-entity]))
 
-(defn list-concepts [_ _ _]
+(defn list-concepts [_ {:keys [kind]} _]
   (resolve-as
     {:id       "concepts"
      :concepts (->> (amr-entity/load-all)
+                    (remove #(not= (:kind %) (or kind "Str")))
                     (map concept-translate/amr->schema)
                     (sort-by :id))}))
 

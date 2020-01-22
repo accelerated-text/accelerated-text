@@ -30,6 +30,7 @@ export default Block({
     domToMutation( xmlElement ) {
 
         this.conceptId =        xmlElement.getAttribute( 'concept_id' );
+        this.kind =             xmlElement.getAttribute( 'kind' );
         this.conceptLabel =     xmlElement.getAttribute( 'concept_label' );
         this.roles =            JSON.parse( xmlElement.getAttribute( 'roles' ));
 
@@ -45,6 +46,7 @@ export default Block({
         return mount(
             <mutation
                 concept_id={ this.conceptId }
+                kind={ this.kind }
                 concept_label={ this.conceptLabel }
                 roles={ JSON.stringify( this.roles ) }
             />
@@ -59,6 +61,7 @@ export default Block({
             type:               json.type,
             srcId:              json.srcId,
             conceptId:          this.conceptId,
+            kind:               this.kind,
             roles: this.roles.map( role => ({
                 name:           role.id,
                 children:       [ json[role.id] ],

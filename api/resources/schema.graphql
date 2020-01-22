@@ -190,6 +190,7 @@ type ThematicRole {
 
 type Concept {
     id:                ID!
+    kind:              String
     label:             String!
     roles:             [ ThematicRole! ]
     helpText:          String!
@@ -295,7 +296,10 @@ type Query {
     ):  DocumentPlan
 
     ### AMR
-    concepts:               Concepts!
+    concepts(
+        kind:               String
+    ): Concepts!
+
     concept(
         id:                 ID!
     ):  Concept

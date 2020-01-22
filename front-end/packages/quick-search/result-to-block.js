@@ -7,10 +7,11 @@ import getType              from './get-type';
 
 
 const getProps = {
-    [B.AMR.type]: ({ concept, dictionaryItemId, text }) => ({
+    [B.AMR.type]: ({ concept, dictionaryItemId, text, kind }) => ({
         mutation: {
             concept_id:     concept.id,
             concept_label:  concept.label,
+            kind:           concept.kind,
             roles:          JSON.stringify( concept.roles ),
         },
         values: {

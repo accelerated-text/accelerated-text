@@ -138,6 +138,11 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Concept ID of the blockly item when it is AMR"}
 
+          {:db/ident       :blockly/kind
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Kind of the blockly item when it is AMR"}
+
           {:db/ident       :blockly/dictionary-item
            :db/valueType   :db.type/ref
            :db/isComponent true

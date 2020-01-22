@@ -5,6 +5,7 @@
 
 (deftest amr-reading
   (is (= {:id             "author"
+          :kind           "Str"
           :thematic-roles [{:type "lexicon"}
                            {:type "Agent"}
                            {:type "co-Agent"}]
@@ -21,6 +22,7 @@
                                        {:pos :NP :role "Agent"}]}]}
          (amr/read-amr (io/file "test/resources/grammar/library/author.yaml"))))
   (is (= {:id             "see"
+          :kind           "Str"
           :thematic-roles [{:type "lexicon"}
                            {:type "Agent"}
                            {:type "co-Agent"}]
@@ -30,6 +32,7 @@
                                        {:pos :NP :role "co-Agent"}]}]}
          (amr/read-amr (io/file "test/resources/grammar/other/see.yaml"))))
   (is (= {:id             "cut"
+          :kind           "Str"
           :thematic-roles [{:type "lexicon"}
                            {:type "Agent"}
                            {:type "Patient"}

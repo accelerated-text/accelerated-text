@@ -22,9 +22,10 @@ export const ThematicRole = ( fieldLabel, fieldType ) => ({
 });
 
 
-export const Concept = ( label, dictItemName, roles ) => ({
+export const Concept = ( label, dictItemName, kind, roles ) => ({
     __typename:     'Concept',
     id:             label,
+    kind,
     label,
     helpText:       HELP_TEXT,
     roles: Object.entries( roles )
@@ -48,11 +49,11 @@ export const EMPTY_CONCEPTS = {
 
 export default {
     concepts: Concepts([
-        [ 'See', 'sees', {
+        [ 'See', 'sees', 'Str', {
             agent:      NlgTypes.TEXT,
             coAgent:    NlgTypes.TEXT,
         }],
-        [ 'Arrive', 'arrived', {
+        [ 'Arrive', 'arrived', 'Str', {
             agent:      NlgTypes.TEXT,
             atPlace:    NlgTypes.TEXT,
             onTime:     NlgTypes.TEXT,

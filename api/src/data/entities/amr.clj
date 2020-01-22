@@ -4,19 +4,20 @@
             [data.utils :as utils]))
 
 (defn read-amr [f]
-  (let [{:keys [roles frames]} (utils/read-yaml f)]
-    {:id                 (utils/get-name f)
-     :thematic-roles     (map (fn [role] {:type role}) roles)
-     :frames             (map (fn [{:keys [syntax example]}]
-                                {:examples [example]
-                                 :syntax   (for [instance syntax]
-                                             (reduce-kv (fn [m k v]
-                                                          (assoc m k (cond-> v
-                                                                             (not (contains? #{:value :role :roles :ret} k))
-                                                                             (keyword))))
-                                                        {}
-                                                        (into {} instance)))})
-                              frames)}))
+  (let [{:keys [roles frames kind]} (utils/read-yaml f)]
+    {:id             (utils/get-name f)
+     :kind           (or kind "Str")
+     :thematic-roles (map (fn [role] {:type role}) roles)
+     :frames         (map (fn [{:keys [syntax example]}]
+                            {:examples [example]
+                             :syntax   (for [instance syntax]
+                                         (reduce-kv (fn [m k v]
+                                                      (assoc m k (cond-> v
+                                                                         (not (contains? #{:value :role :roles :ret} k))
+                                                                         (keyword))))
+                                                    {}
+                                                    (into {} instance)))})
+                          frames)}))
 
 (defn list-package [package]
   (let [abs-path (.getParent (io/file package))]
