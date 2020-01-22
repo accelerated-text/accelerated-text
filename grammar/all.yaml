@@ -3,7 +3,6 @@ includes:
   - library/author.yaml
   - library/release.yaml
   - library/genre.yaml
-  - library/adult.yaml
   - other/cut.yaml
   - other/see.yaml
   - other/provide.yaml
