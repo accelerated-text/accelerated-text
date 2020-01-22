@@ -6,6 +6,7 @@
             [api.utils :as utils]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
+            [data.entities.dictionary :as dictionary]
             [mount.core :refer [defstate] :as mount]
             [org.httpkit.server :as server]
             [ring.middleware.multipart-params :as multipart-params]
@@ -19,8 +20,7 @@
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.ring.middleware.exception :as exception]
             [reitit.ring.middleware.muuntaja :as muuntaja]
-            [reitit.dev.pretty :as pretty]
-            [data.entities.amr :as amr]))
+            [reitit.dev.pretty :as pretty]))
 
 (def headers {"Access-Control-Allow-Origin"  "*"
               "Access-Control-Allow-Headers" "content-type, *"
@@ -113,7 +113,7 @@
   (let [host (get conf :host "0.0.0.0")
         port (get conf :port 3001)]
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
-    (amr/initialize)
+    (dictionary/initialize)
     (server/run-server
       #'app {:port     port
              :ip       host

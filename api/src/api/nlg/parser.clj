@@ -2,7 +2,8 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.spec.alpha :as s]
-            [clojure.zip :as zip]))
+            [clojure.zip :as zip]
+            [clojure.tools.logging :as log]))
 
 (defmulti build-semantic-graph (fn [node _] (-> node (get :type) (keyword))))
 
@@ -33,19 +34,16 @@
                            :role :instance})
                         children)})
 
-(defmethod build-semantic-graph :AMR [{:keys [id conceptId roles dictionaryItem]} _]
+(defmethod build-semantic-graph :AMR [{:keys [id conceptId roles]} _]
   #::sg{:concepts  [{:id    id
                      :type  :amr
                      :value conceptId}]
-        :relations (cons {:from id
-                          :to   (:id dictionaryItem)
-                          :role :function}
-                         (map-indexed (fn [index {[{child-id :id}] :children name :name}]
-                                        {:from       id
-                                         :to         child-id
-                                         :role       (keyword (str "ARG" index))
-                                         :attributes {:name name}})
-                                      roles))})
+        :relations (map-indexed (fn [index {[{child-id :id}] :children name :name}]
+                                  {:from       id
+                                   :to         child-id
+                                   :role       (keyword (str "ARG" index))
+                                   :attributes {:name name}})
+                                roles)})
 
 (defmethod build-semantic-graph :Cell [{:keys [id name]} _]
   #::sg{:concepts  [{:id    id
@@ -214,10 +212,7 @@
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
     :Document-plan (assoc node :segments children)
-    :AMR (assoc node :dictionaryItem (first children)
-                     :roles (map (fn [role child]
-                                   (assoc role :children (list child)))
-                                 (:roles node) (rest children)))
+    :AMR (assoc node :roles (map (fn [role child] (assoc role :children (list child))) (:roles node) children))
     :Dictionary-item-modifier (assoc node :child (first children))
     :Cell-modifier (assoc node :child (first children))
     :Modifier (-> node (dissoc :modifier) (assoc :child (first children) :modifiers (rest children)))
@@ -234,7 +229,7 @@
 (defn get-children [{type :type :as node}]
   (case (keyword type)
     :Document-plan (:segments node)
-    :AMR (cons (:dictionaryItem node) (mapcat :children (:roles node)))
+    :AMR (mapcat :children (:roles node))
     :Dictionary-item-modifier [(:child node)]
     :Cell-modifier [(:child node)]
     :Modifier (cons (:child node) (or (when (some? (:modifier node)) [(:modifier node)]) (:modifiers node)))
@@ -253,7 +248,7 @@
     (map? node)
     (case (keyword type)
       :Document-plan (seq (:segments node))
-      :AMR (or (some? (:dictionaryItem node)) (seq (:roles node)))
+      :AMR (seq (:roles node))
       :Dictionary-item-modifier (some? (:child node))
       :Cell-modifier (some? (:child node))
       :Modifier (or (some? (:child node)) (some? (:modifier node)) (seq (:modifiers node)))
