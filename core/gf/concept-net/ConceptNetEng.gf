@@ -1,4 +1,4 @@
-resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng in {
+resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
 
   oper -- atLocation
     SS : Type = {s : Str} ;
@@ -46,4 +46,19 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng in {
                     (inLocationPlace lexicon (fullLocation_Adv arg0 arg2 arg3) arg1) |
                     (venueInLocation lexicon (fullLocation_Adv arg0 arg2 arg3) arg1))) ;
 
+
+  oper -- capableOf 'Something that A can typically do is B.'
+
+    capableOfImpl : V2 -> NP -> VP =
+                    \action, result -> (mkVP action result);
+
+    capableOf = overload {
+      capableOf : V2 -> N -> A -> SS = 
+                  \action, result, modifier ->
+                  (mkUtt (capableOfImpl action (mkNP (mkCN modifier result)))) ;
+
+      capableOf : V2 -> NP -> SS = 
+                  \action, result ->
+                  (mkUtt (capableOfImpl action result)) ;
+    };
 }
