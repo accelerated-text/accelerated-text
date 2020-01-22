@@ -1,15 +1,16 @@
 {:type     "Document-plan"
- :segments [{:children [{:roles          [{:children [{:name "authors" :type "Cell" :srcId "6+b4:7?Eidl#OMi5G]cG"}]
-                                           :name     "agent"}
-                                          {:children [{:name "title" :type "Cell" :srcId "n]$Ig`-?el^UBvctXUg^"}]
-                                           :name     "co-agent"}]
-                         :dictionaryItem {:name   "written"
-                                          :type   "Dictionary-item"
-                                          :srcId  "($Ykt=!3nGr[iDL}YoQ^"
-                                          :itemId "written"}
-                         :type           "AMR"
-                         :srcId          "69w`xMlz0`Xn9O+wqh%B"
-                         :conceptId      "author"}
+ :segments [{:children [{:roles     [{:children [{:name   "written"
+                                                  :type   "Dictionary-item"
+                                                  :srcId  "($Ykt=!3nGr[iDL}YoQ^"
+                                                  :itemId "written"}]
+                                      :name     "lexicon"}
+                                     {:children [{:name "authors" :type "Cell" :srcId "6+b4:7?Eidl#OMi5G]cG"}]
+                                      :name     "agent"}
+                                     {:children [{:name "title" :type "Cell" :srcId "n]$Ig`-?el^UBvctXUg^"}]
+                                      :name     "co-agent"}]
+                         :type      "AMR"
+                         :srcId     "69w`xMlz0`Xn9O+wqh%B"
+                         :conceptId "author"}
                         {:type "Quote" :srcId "s#7*mkTU/1u-yD.x3)ZD" :text "."}]
              :type     "Segment"
              :srcId    "H]z-i=K*]fU+{n?Pm+"}

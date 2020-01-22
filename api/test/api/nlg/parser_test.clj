@@ -16,19 +16,20 @@
       (is (set/subset? #{:document-plan :segment :data :dictionary-item} (set (map :type concepts))))
       (is (set/subset? #{:segment :instance :modifier} (set (map :role relations))))))
   (testing "AMR parsing"
-    (let [root {:roles          [{:children [{:name "authors" :type "Cell"}]
+    (let [root {:roles          [{:children [{:name   "written"
+                                              :type   "Dictionary-item"
+                                              :itemId "written"}]
+                                  :name "lexicon"}
+                                 {:children [{:name "authors" :type "Cell"}]
                                   :name     "agent"}
                                  {:children [{:name "title" :type "Cell"}]
                                   :name     "co-agent"}
                                  {:children [nil] :name "theme"}]
-                :dictionaryItem {:name   "written"
-                                 :type   "Dictionary-item"
-                                 :itemId "written"}
                 :type           "AMR"
                 :conceptId      "author"}
           {::sg/keys [concepts relations]} (parser/document-plan->semantic-graph root)]
       (is (set/subset? #{:amr :data :dictionary-item} (set (map :type concepts))))
-      (is (set/subset? #{:function :ARG0 :ARG1} (set (map :role relations))))))
+      (is (set/subset? #{:ARG0 :ARG1 :ARG2} (set (map :role relations))))))
   (testing "Modifier parsing"
     (let [root {:name   "good"
                 :type   "Dictionary-item-modifier"
