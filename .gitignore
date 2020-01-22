@@ -19,3 +19,4 @@ api/libsunec.so
 **/.clj-kondo/.cache/*
 *.gfo
 *.pgf
+eval/
