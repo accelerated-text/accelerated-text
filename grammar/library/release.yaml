@@ -1,7 +1,5 @@
-members:
-  - published
-  - released
 roles:
+  - lexicon
   - Object
   - Date
 frames:
@@ -12,6 +10,7 @@ frames:
       - pos: AUX
         value: is # TODO: should be `was`
       - pos: VERB
+        role: lexicon
       - pos: ADP
         value: in
       - pos: NP
@@ -19,6 +18,7 @@ frames:
   - example: Published in 2015
     syntax:
       - pos: VERB
+        role: lexicon
       - pos: ADP
         value: in
       - pos: NP
