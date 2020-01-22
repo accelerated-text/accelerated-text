@@ -25,12 +25,6 @@ export default Block({
             type:           'field_label',
             name:           'conceptLabel',
         }],
-        message1:           'lexicon %1',
-        args1: [{
-            type:           'input_value',
-            name:           'dictionaryItem',
-            check:          T.TEXT,
-        }],
     },
 
     domToMutation( xmlElement ) {
@@ -65,7 +59,6 @@ export default Block({
             type:               json.type,
             srcId:              json.srcId,
             conceptId:          this.conceptId,
-            dictionaryItem:     json.dictionaryItem,
             roles: this.roles.map( role => ({
                 name:           role.id,
                 children:       [ json[role.id] ],
