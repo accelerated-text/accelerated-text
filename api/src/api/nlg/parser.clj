@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.spec.alpha :as s]
-            [clojure.zip :as zip]
-            [clojure.tools.logging :as log]))
+            [clojure.zip :as zip]))
 
 (defmulti build-semantic-graph (fn [node _] (-> node (get :type) (keyword))))
 
