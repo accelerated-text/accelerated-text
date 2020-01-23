@@ -2,7 +2,7 @@
   (:require [clojure.string :as string]))
 
 (defn- role->schema [{type :type}]
-  {:fieldType  [:STRING :LIST]
+  {:fieldType  ["Str" "List"]
    :id         (string/lower-case type)
    :fieldLabel type})
 
