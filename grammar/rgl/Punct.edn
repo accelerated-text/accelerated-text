@@ -1,0 +1,6 @@
+{:type "Punct",
+ :description "",
+ :functions
+ [{:function "exclMarkPunct", :type ["Punct"], :example "yes!"}
+  {:function "fullStopPunct", :type ["Punct"], :example "yes."}
+  {:function "questMarkPunct", :type ["Punct"], :example "yes?"}]}

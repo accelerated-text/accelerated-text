@@ -1,7 +1,9 @@
+name: authorship
+kind: Str
 roles:
-  - lexicon
-  - objectRef
-  - locationData
+  - lexicon: N
+  - objectRef: N
+  - locationData: N
 frames:
   - example: There is a place in the city center, KFC
     syntax:
@@ -11,7 +13,3 @@ frames:
           - lexicon
           - objectRef
           - locationData
-        ret:
-          - N
-          - N
-          - N

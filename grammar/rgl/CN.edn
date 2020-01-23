@@ -1,0 +1,44 @@
+{:type "CN",
+ :description "common noun (without determiner)",
+ :functions
+ [{:function "mkCN", :type ["N" "CN"], :example "house"}
+  {:function "mkCN",
+   :type ["N2" "NP" "CN"],
+   :example "mother of the king"}
+  {:function "mkCN",
+   :type ["N3" "NP" "NP" "CN"],
+   :example "distance from this city to Paris"}
+  {:function "mkCN", :type ["N2" "CN"], :example "mother"}
+  {:function "mkCN", :type ["N3" "CN"], :example "distance"}
+  {:function "mkCN", :type ["A" "N" "CN"], :example "big house"}
+  {:function "mkCN", :type ["A" "CN" "CN"], :example "big blue house"}
+  {:function "mkCN", :type ["AP" "N" "CN"], :example "very big house"}
+  {:function "mkCN",
+   :type ["AP" "CN" "CNvery"],
+   :example "big blue house"}
+  {:function "mkCN",
+   :type ["N" "RS" "CN"],
+   :example "man that she loves"}
+  {:function "mkCN",
+   :type ["CN" "RS" "CN"],
+   :example "old man that she loves"}
+  {:function "mkCN",
+   :type ["N" "Adv" "CN"],
+   :example "house on the hill"}
+  {:function "mkCN",
+   :type ["CN" "Adv" "CN"],
+   :example "big house on the hill"}
+  {:function "mkCN",
+   :type ["CN" "S" "CN"],
+   :example "rule that she sleeps"}
+  {:function "mkCN",
+   :type ["CN" "QS" "CN"],
+   :example "question if she sleeps"}
+  {:function "mkCN",
+   :type ["CN" "VP" "CN"],
+   :example "reason to sleep"}
+  {:function "mkCN",
+   :type ["CN" "SC" "CN"],
+   :example "reason to sleep"}
+  {:function "mkCN", :type ["N" "NP" "CN"], :example "king John"}
+  {:function "mkCN", :type ["CN" "NP" "CN"], :example "old king John"}]}

@@ -1,0 +1,4 @@
+{:type "VQ",
+ :description "question-complement verb",
+ :functions
+ [{:function "mkVQ", :type ["V" "VQ"], :example "e.g. wonder (QS)"}]}

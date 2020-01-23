@@ -1,0 +1,16 @@
+{:type "V",
+ :description "one-place verb",
+ :functions
+ [{:function "mkV", :type ["Str" "V"], :example "make verb"}
+  {:function "mkV",
+   :type ["Str" "V" "V"],
+   :example "fix compound, e.g. under+take"}
+  {:function "partV",
+   :type ["V" "Str" "V"],
+   :example "with particle, e.g. switch + on"}
+  {:function "reflV",
+   :type ["V" "V"],
+   :example "reflexive e.g. behave oneself"}
+  {:function "us_britishV",
+   :type ["Str" "V"],
+   :example "travel - traveled/travelled"}]}

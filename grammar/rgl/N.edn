@@ -1,0 +1,10 @@
+{:type "N",
+ :description "common noun",
+ :functions
+ [{:function "mkN", :type ["Str" "N"], :example "make noun"}
+  {:function "mkN",
+   :type ["Gender" "N" "N"],
+   :example "default nonhuman"}
+  {:function "mkN",
+   :type ["Str" "N" "N"],
+   :example "e.g. baby + boom"}]}

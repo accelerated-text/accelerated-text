@@ -1,0 +1,15 @@
+{:type "VV",
+ :description "verb-phrase-complement verb",
+ :functions
+ [{:function "mkVV", :type ["V" "VV"], :example "e.g. want (to VP)"}
+  {:function "auxVV", :type ["V" "VV"], :example "e.g. must (VP)"}
+  {:function "infVV",
+   :type ["V" "VV"],
+   :example "e.g. must (VP) (old name of auxVV)"}
+  {:function "ingVV", :type ["V" "VV"], :example "e.g. start (VPing)"}
+  {:function "can8know_VV",
+   :type ["VV"],
+   :example "to be able to sleep"}
+  {:function "can_VV", :type ["VV"], :example "to be able to sleep"}
+  {:function "must_VV", :type ["VV"], :example "have to"}
+  {:function "want_VV", :type ["VV"], :example "to want to sleep"}]}

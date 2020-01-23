@@ -1,0 +1,16 @@
+{:type "A",
+ :description "one-place adjective",
+ :functions
+ [{:function "mkA", :type ["Str" "A"], :example "make adjective"}
+  {:function "compoundA",
+   :type ["A" "A"],
+   :example "force comparison with more/most"}
+  {:function "simpleA",
+   :type ["A" "A"],
+   :example "force comparison with -er,-est"}
+  {:function "irregAdv",
+   :type ["A" "Str" "A"],
+   :example "adverb irreg, e.g. \"fast\""}
+  {:function "invarA",
+   :type ["Str" "A"],
+   :example "adjective that does not vary in morphology"}]}

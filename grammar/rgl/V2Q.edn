@@ -1,0 +1,6 @@
+{:type "V2Q",
+ :description "verb with NP and Q complement",
+ :functions
+ [{:function "mkV2Q",
+   :type ["V" "Prep" "V2Q"],
+   :example "e.g. ask (NP) (QS)"}]}

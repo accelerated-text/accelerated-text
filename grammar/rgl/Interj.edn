@@ -1,0 +1,4 @@
+{:type "Interj",
+ :description "interjection",
+ :functions
+ [{:function "mkInterj", :type ["Str" "Interj"], :example "-"}]}

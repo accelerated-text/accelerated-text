@@ -1,0 +1,10 @@
+{:type "Digits",
+ :description "cardinal or ordinal in digits",
+ :functions
+ [{:function "mkDigits",
+   :type ["Str" "Digits"],
+   :example "35 (from string \"35\"; ; range 1-9999999)"}
+  {:function "mkDigits", :type ["Dig" "Digits"], :example "4"}
+  {:function "mkDigits",
+   :type ["Dig" "Digits" "Digits"],
+   :example "1,233,486"}]}
