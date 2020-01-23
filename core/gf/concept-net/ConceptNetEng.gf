@@ -41,10 +41,10 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
             (SyntaxEng.mkAdv (mkConj ",") (mkInAdv locationData_N) (SyntaxEng.mkAdv nearDictionary_Prep (mkNP the_Det nearData_N))) ;
 
     locatedNear : N -> N -> N -> Prep -> N -> SS =
-        \lexicon,arg0,arg1,arg2,arg3 ->
-            (mkUtt ((placeInLocation lexicon (fullLocation_Adv arg0 arg2 arg3) arg1) |
-                    (inLocationPlace lexicon (fullLocation_Adv arg0 arg2 arg3) arg1) |
-                    (venueInLocation lexicon (fullLocation_Adv arg0 arg2 arg3) arg1))) ;
+        \lexicon,location,venue,nearDictionary,nearData->
+            (mkUtt ((placeInLocation lexicon (fullLocation_Adv location nearDictionary nearData) venue) |
+                    (inLocationPlace lexicon (fullLocation_Adv location nearDictionary nearData) venue) |
+                    (venueInLocation lexicon (fullLocation_Adv location nearDictionary nearData) venue))) ;
 
 
   oper -- capableOf 'Something that A can typically do is B.'
@@ -55,10 +55,12 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
     capableOf = overload {
       capableOf : V2 -> N -> A -> SS = 
                   \action, result, modifier ->
-                  (mkUtt (capableOfImpl action (mkNP (mkCN modifier result)))) ;
+                  (mkS presentSimTemp positivePol
+                       (mkCl (capableOfImpl action (mkNP (mkCN modifier result)))));
 
       capableOf : V2 -> NP -> SS = 
                   \action, result ->
-                  (mkUtt (capableOfImpl action result)) ;
+                  (mkS presentSimTemp positivePol
+                       (mkCl (capableOfImpl action result))) ;
     };
 }
