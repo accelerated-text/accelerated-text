@@ -67,30 +67,29 @@
 
 (defmethod build-function :amr [{value :value :as concept} children relations {amr :amr}]
   (let [role-map (reduce (fn [m [{{attr-name :name} :attributes} concept]]
-                           (cond-> m (some? attr-name) (assoc (str/lower-case attr-name) (concept->name concept))))
+                           (cond-> m (some? attr-name) (assoc attr-name (concept->name concept))))
                          {}
                          (zipmap relations children))]
     {:name   (concept->name concept)
      :params (map concept->name children)
      :body   (for [syntax (->> (keyword value) (get amr) (:frames) (map :syntax))]
                (for [{:keys [value pos role roles type] :as attrs} syntax]
-                 (let [role-key (when (some? role) (str/lower-case role))]
-                   (-> (cond
-                         (contains? role-map role-key) {:type  :function
-                                                        :value (get role-map role-key)}
-                         (= :gf type) {:type   :gf
-                                       :value  value
-                                       :params (map (comp role-map str/lower-case) roles)}
-                         (some? role) {:type  :literal
-                                       :value (format "{{%s}}" role)}
-                         (= pos :AUX) {:type  :function
-                                       :value "(copula Sg)"}
-                         (some? value) {:type  :literal
-                                        :value value}
-                         :else {:type  :literal
-                                :value "{{...}}"})
-                       (attach-selectors attrs)
-                       (cond-> (when (some? pos)) (assoc :pos pos))))))
+                 (-> (cond
+                       (contains? role-map role) {:type  :function
+                                                  :value (get role-map role)}
+                       (= :gf type) {:type   :gf
+                                     :value  value
+                                     :params (map role-map roles)}
+                       (some? role) {:type  :literal
+                                     :value (format "{{%s}}" role)}
+                       (= pos :AUX) {:type  :function
+                                     :value "(copula Sg)"}
+                       (some? value) {:type  :literal
+                                      :value value}
+                       :else {:type  :literal
+                              :value "{{...}}"})
+                     (attach-selectors attrs)
+                     (cond-> (when (some? pos)) (assoc :pos pos)))))
      :ret    [:s "Str"]}))
 
 (defmethod build-function :shuffle [concept children _ _]
@@ -124,11 +123,11 @@
                   children (map (comp concept-map :to) relations)
                   role-map (reduce (fn [m [{{attr-name :name} :attributes} concept]]
                                      (cond-> m
-                                             (some? attr-name) (assoc (str/lower-case attr-name) (concept->name concept))))
+                                             (some? attr-name) (assoc attr-name (concept->name concept))))
                                    {}
                                    (zipmap relations children))
                   {:keys [ret roles]} (-> amr (get (keyword value)) (:frames) (first) (:syntax) (first))]
-              (cond-> m (seq ret) (merge (zipmap (map (comp role-map str/lower-case) roles) ret)))))
+              (cond-> m (seq ret) (merge (zipmap (map role-map roles) ret)))))
           {}
           (filter #(= :amr (:type %)) (vals concept-map))))
 

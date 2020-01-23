@@ -3,7 +3,7 @@
 
 (defn- role->schema [{type :type}]
   {:fieldType  ["Str" "List"]
-   :id         (string/lower-case type)
+   :id         type
    :fieldLabel type})
 
 (defn- frames->help-text [frames]
