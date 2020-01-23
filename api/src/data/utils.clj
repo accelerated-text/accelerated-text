@@ -1,6 +1,8 @@
 (ns data.utils
-  (:require [clj-yaml.core :as yaml])
-  (:import (java.io File)
+  (:require [clj-yaml.core :as yaml]
+            [clojure.edn :as edn]
+            [clojure.java.io :as io])
+  (:import (java.io File PushbackReader)
            (java.util UUID)
            (java.time Instant)))
 
@@ -12,6 +14,10 @@
 
 (defn read-yaml [^File f]
   (yaml/parse-string (slurp f)))
+
+(defn read-edn [^File f]
+  (with-open [rdr (io/reader f)]
+    (edn/read (PushbackReader. rdr))))
 
 (defn get-ext [^File f]
   (let [filename (.getName f)
