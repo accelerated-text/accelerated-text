@@ -11,13 +11,6 @@ enum Usage {
     DONT_CARE
 }
 
-enum BlocklyFieldType {
-    BOOLEAN
-    DEFINITION
-    LIST
-    STRING
-}
-
 #   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
 enum PartOfSpeech {
     CC      # conjunction, coordinating  and, or, but
@@ -184,7 +177,7 @@ type ReaderFlagUsage {
 
 type ThematicRole {
     id:                ID!
-    fieldType:         [ BlocklyFieldType! ]
+    fieldType:         [ String! ]
     fieldLabel:        String!
 }
 
