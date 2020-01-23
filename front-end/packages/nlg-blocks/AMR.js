@@ -37,6 +37,8 @@ export default Block({
         this.getField( 'conceptLabel' )
             .setValue( this.conceptLabel );
 
+        this.setOutput( true, this.kind );
+
         this.roles.forEach( role =>
             appendLabeledValue( this, role.id, role.fieldLabel, role.fieldType )
         );
