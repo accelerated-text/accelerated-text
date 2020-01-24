@@ -6,23 +6,23 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
     -- There is a place in the LOCATION
     placeInLocation : N -> Adv -> N -> SS =
         \locationDictionary_N,locationData_Adv,objectRef_N ->
-            (mkUtt (mkThereIsAThing (mkCN locationDictionary_N locationData_Adv) objectRef_N)) ;
+            (mkS (mkThereIsAThing (mkCN locationDictionary_N locationData_Adv) objectRef_N)) ;
 
     -- In the LOCATION there is a place
     inLocationPlace : N -> Adv -> N -> SS =
         \locationDictionary_N,locationData_Adv,objectRef_N ->
-            (mkUtt (mkS locationData_Adv (mkS presentSimTemp positivePol (mkThereIsAThing locationDictionary_N objectRef_N)))) ;
+            (mkS locationData_Adv (mkS presentSimTemp positivePol (mkThereIsAThing locationDictionary_N objectRef_N))) ;
 
     -- VENUE in the LOCATION
     venueInLocation : N -> Adv -> N -> SS =
         \locationDictionary_N,locationData_Adv,objectRef_N ->
-            (mkUtt (mkThereIsAThing objectRef_N locationData_Adv)) ;
+            (mkS (mkThereIsAThing objectRef_N locationData_Adv)) ;
 
     atLocation : N -> N -> N -> SS =
-        \lexicon,arg0,arg1 ->
-            ((placeInLocation lexicon (mkInAdv arg0) arg1) |
-             (inLocationPlace lexicon (mkInAdv arg0) arg1) |
-             (venueInLocation lexicon (mkInAdv arg0) arg1)) ;
+        \lexicon,location,venue ->
+            (placeInLocation lexicon (mkInAdv location) venue) |
+            (inLocationPlace lexicon (mkInAdv location) venue) |
+            (venueInLocation lexicon (mkInAdv location) venue) ;
 
   oper -- hasProperty
 
@@ -37,9 +37,9 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
 
     locatedNear : N -> N -> N -> Prep -> N -> SS =
         \lexicon,location,venue,nearDictionary,nearData->
-            (mkUtt ((placeInLocation lexicon (fullLocation_Adv location nearDictionary nearData) venue) |
-                    (inLocationPlace lexicon (fullLocation_Adv location nearDictionary nearData) venue) |
-                    (venueInLocation lexicon (fullLocation_Adv location nearDictionary nearData) venue))) ;
+              (placeInLocation lexicon (fullLocation_Adv location nearDictionary nearData) venue) |
+              (inLocationPlace lexicon (fullLocation_Adv location nearDictionary nearData) venue) |
+              (venueInLocation lexicon (fullLocation_Adv location nearDictionary nearData) venue) ;
 
 
   oper -- capableOf 'Something that A can typically do is B.'
