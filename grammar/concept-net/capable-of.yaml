@@ -1,10 +1,18 @@
 roles:
-  - lexicon
-  - capability
+  - action
+  - result
+  - modifier
 frames:
   - example: serves Chinese food
     syntax:
-      - pos: VERB
-        role: lexicon
-      - pos: NP
-        role: capability
+      - type: gf
+        value: capableOf
+        roles:
+          - action
+          - result
+          - modifier
+        ret:
+          - V2
+          - N
+          - A
+
