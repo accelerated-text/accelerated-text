@@ -201,6 +201,7 @@ type DocumentPlan {
     id:                ID!
     uid:               ID!
     name:              String!
+    kind:              String
     blocklyXml:        String!
     documentPlan:      String!
     dataSampleId:      ID
@@ -214,6 +215,7 @@ type DocumentPlanResults {
     items:             [ DocumentPlan! ]
     offset:            Int!
     limit:             Int!
+    kind:              String
     totalCount:        Int!
 }
 
@@ -281,11 +283,13 @@ type Query {
     documentPlans(
         offset:             Int
         limit:              Int
+        kind:               String
     ):  DocumentPlanResults!
 
     documentPlan(
         id:                 ID
         name:               String
+        kind:               String
     ):  DocumentPlan
 
     ### AMR
@@ -329,6 +333,7 @@ type Mutation {
     createDocumentPlan(
         uid:                ID!
         name:               String!
+        kind:               String
         blocklyXml:         String!
         documentPlan:       String!
         dataSampleId:       ID
@@ -343,6 +348,7 @@ type Mutation {
         id:                 ID!
         uid:                ID
         name:               String
+        kind:               String
         blocklyXml:         String
         documentPlan:       String
         dataSampleId:       ID

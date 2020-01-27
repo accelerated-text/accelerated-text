@@ -82,6 +82,11 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Name of the document plan"}
 
+          {:db/ident       :document-plan/kind
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Kind of the document plan"}
+
           {:db/ident       :document-plan/blockly-xml
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one

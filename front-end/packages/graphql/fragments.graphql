@@ -55,6 +55,7 @@ fragment documentPlanFields on DocumentPlan {
   id
   uid
   name
+  kind
   blocklyXml
   documentPlan
   dataSampleId

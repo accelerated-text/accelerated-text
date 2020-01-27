@@ -40,6 +40,7 @@ mutation deleteDictionaryItem(
 mutation createDocumentPlan(
   $uid:             ID!
   $name:            String!
+  $kind:            String
   $blocklyXml:      String!
   $documentPlan:    String!
   $dataSampleId:    ID
@@ -48,6 +49,7 @@ mutation createDocumentPlan(
   createDocumentPlan(
     uid:            $uid
     name:           $name
+    kind:           $kind
     blocklyXml:     $blocklyXml
     documentPlan:   $documentPlan
     dataSampleId:   $dataSampleId
@@ -69,6 +71,7 @@ mutation updateDocumentPlan(
   $id:              ID!
   $uid:             ID
   $name:            String
+  $kind:            String
   $blocklyXml:      String
   $documentPlan:    String
   $dataSampleId:    ID
@@ -78,6 +81,7 @@ mutation updateDocumentPlan(
     id:             $id
     uid:            $uid
     name:           $name
+    kind:           $kind
     blocklyXml:     $blocklyXml
     documentPlan:   $documentPlan
     dataSampleId:   $dataSampleId

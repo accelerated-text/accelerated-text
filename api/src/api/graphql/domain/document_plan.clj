@@ -14,12 +14,13 @@
   (dp/delete-document-plan id)
   (resolve-as true))
 
-(defn list-document-plans [_ {:keys [offset limit] :or {offset 0 limit 20}} _]
-  (let [items (dp/list-document-plans)]
+(defn list-document-plans [_ {:keys [offset limit kind] :or {offset 0 limit 20 kind "Document"}} _]
+  (let [items (dp/list-document-plans kind)]
     (resolve-as {:items      (->> items
                                   (drop offset)
                                   (take limit)
                                   (map translate-dp/dp->schema))
+                 :kind       kind
                  :limit      limit
                  :offset     offset
                  :totalCount (count items)})))

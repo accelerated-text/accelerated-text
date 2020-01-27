@@ -6,8 +6,11 @@
 
 (defstate document-plans-db :start (db/db-access :blockly conf))
 
-(defn list-document-plans []
-  (db/scan! document-plans-db {}))
+(defn list-document-plans
+  ([]
+   (db/scan! document-plans-db {}))
+  ([kind]
+   (filter #(= kind (:kind %)) (db/scan! document-plans-db {}))))
 
 (defn get-document-plan [document-plan-id]
   (db/read! document-plans-db document-plan-id))

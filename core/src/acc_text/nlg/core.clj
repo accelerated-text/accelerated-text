@@ -3,7 +3,8 @@
             [acc-text.nlg.gf.grammar :as grammar]
             [acc-text.nlg.semantic-graph.conditions :as conditions]
             [acc-text.nlg.utils.nlp :as nlp]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]))
 
 (defn realize [text placeholders]
   (when-not (str/blank? text)
