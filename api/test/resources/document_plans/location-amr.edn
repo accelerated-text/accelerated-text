@@ -7,11 +7,11 @@
                                      {:children [{:type  "Quote"
                                                   :srcId "uf:[gtVTc!uQe%WeEy${"
                                                   :text  "city centre"}]
-                                      :name     "objectref"}
+                                      :name     "objectRef"}
                                      {:children [{:type  "Quote"
                                                   :srcId "#UU2hr35[NTazfg6d7JV"
                                                   :text  "Alimentum"}]
-                                      :name     "locationdata"}]
+                                      :name     "locationData"}]
                          :type      "AMR"
                          :srcId     "Bu~!.wu`aau*X?Kca^2B"
                          :conceptId "at-location"}]

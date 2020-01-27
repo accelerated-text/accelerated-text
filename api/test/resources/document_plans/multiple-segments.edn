@@ -5,9 +5,9 @@
                                                   :itemId "written"}]
                                       :name     "lexicon"}
                                      {:children [{:name "authors" :type "Cell" :srcId "6+b4:7?Eidl#OMi5G]cG"}]
-                                      :name     "agent"}
+                                      :name     "Agent"}
                                      {:children [{:name "title" :type "Cell" :srcId "n]$Ig`-?el^UBvctXUg^"}]
-                                      :name     "co-agent"}]
+                                      :name     "co-Agent"}]
                          :type      "AMR"
                          :srcId     "69w`xMlz0`Xn9O+wqh%B"
                          :conceptId "author"}

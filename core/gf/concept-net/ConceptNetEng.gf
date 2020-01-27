@@ -20,9 +20,9 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng in {
 
     atLocation : N -> N -> N -> SS =
         \lexicon,arg0,arg1 ->
-            ((placeInLocation lexicon (mkInAdv arg0) arg1) |
-             (inLocationPlace lexicon (mkInAdv arg0) arg1) |
-             (venueInLocation lexicon (mkInAdv arg0) arg1)) ;
+            (mkUtt ((placeInLocation lexicon (mkInAdv arg0) arg1) |
+                    (inLocationPlace lexicon (mkInAdv arg0) arg1) |
+                    (venueInLocation lexicon (mkInAdv arg0) arg1))) ;
 
   oper -- hasProperty
 

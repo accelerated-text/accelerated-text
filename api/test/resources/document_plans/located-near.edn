@@ -2,13 +2,13 @@
  :segments [{:children [{:roles     [{:children [{:name "place" :type "Dictionary-item" :srcId "=D!?B.R!Mq_cHMN(cpq?" :itemId "place"}]
                                       :name     "lexicon"}
                                      {:children [{:type "Quote" :srcId "g+RA25Wx:5jQS(WQjz_Y" :text "city centre"}]
-                                      :name     "objectref"}
+                                      :name     "objectRef"}
                                      {:children [{:type "Quote" :srcId "=Zj[8Jk7Qh%}92o)|1Ri" :text "Alimentum"}]
-                                      :name     "locationdata"}
+                                      :name     "locationData"}
                                      {:children [{:type "Quote" :srcId "7|z/T!t-bq6faKY~klX(" :text "near"}]
-                                      :name     "neardictionary"}
+                                      :name     "nearDictionary"}
                                      {:children [{:type "Quote" :srcId "_cs$ku*Udq?mK1$TQ{?g" :text "KFC"}]
-                                      :name     "neardata"}]
+                                      :name     "nearData"}]
                          :type      "AMR"
                          :srcId     "mR#QB3NK1!wZTZ?#Q+#g"
                          :conceptId "located-near"}]
