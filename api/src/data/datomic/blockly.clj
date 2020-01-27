@@ -112,9 +112,9 @@
       (remove-nil-vals (dp->dp document-plan)))))
 
 (defn scan [conn]
-  (let [resp (first (d/q '[:find (pull ?e [*])
-                           :where [?e :document-plan/id]]
-                         (d/db conn)))]
+  (let [resp (map first (d/q '[:find (pull ?e [*])
+                               :where [?e :document-plan/id]]
+                             (d/db conn)))]
     (map (fn [document-plan] (dp->dp document-plan)) resp)))
 
 (defn update! [conn key data-item]
