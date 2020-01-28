@@ -3,6 +3,8 @@
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]))
 
+(def data-types #{:data :dictionary-item :quote})
+
 (defn concept->name [{:keys [id type]}]
   (str (->> (str/split (name type) #"-")
             (map str/capitalize)
@@ -18,6 +20,38 @@
   (let [selectors (->> (keys attrs) (remove #{:pos :role :roles :ret :value :type}) (select-keys attrs))]
     (cond-> m (seq selectors) (assoc :selectors selectors))))
 
+(defn replace-placeholders [text placeholders]
+  (when-not (str/blank? text)
+    (reduce-kv (fn [s k v]
+                 (let [pattern (re-pattern (format "(?i)\\{\\{%s\\}\\}" (name k)))]
+                   (str/replace s pattern v)))
+               text
+               placeholders)))
+
+(defmulti build-variable (fn [concept _] (:type concept)))
+
+(defmethod build-variable :data [{value :value :as concept} {:keys [data types]}]
+  (let [name (concept->name concept)]
+    {:name  name
+     :value [(get data (keyword value))]
+     :type  (get types name "Str")}))
+
+(defmethod build-variable :quote [{value :value :as concept} {:keys [data types]}]
+  (let [name (concept->name concept)]
+    {:name  name
+     :value [(replace-placeholders value data)]
+     :type  (get types name "Str")}))
+
+(defmethod build-variable :dictionary-item [{value :value {item-name :name} :attributes :as concept} {:keys [types dictionary]}]
+  (let [name (concept->name concept)
+        dict-entry (get dictionary value)]
+    {:name  name
+     :value (-> dict-entry
+                (cond->> (empty? dict-entry) (cons (or item-name value)))
+                (distinct)
+                (into []))
+     :type  (get types name "Str")}))
+
 (defmulti build-function (fn [concept _ _ _] (:type concept)))
 
 (defmethod build-function :default [concept children _ _]
@@ -27,30 +61,6 @@
              {:type  :function
               :value (concept->name child-concept)})
    :ret    [:s "Str"]})
-
-(defmethod build-function :data [{value :value :as concept} _ _ {types :types}]
-  {:name   (concept->name concept)
-   :params []
-   :body   [{:type  :literal
-             :value (format "{{%s}}" value)}]
-   :ret    [:s (get types (concept->name concept) "Str")]})
-
-(defmethod build-function :quote [{value :value :as concept} _ _ {types :types}]
-  {:name   (concept->name concept)
-   :params []
-   :body   [{:type  :literal
-             :value value}]
-   :ret    [:s (get types (concept->name concept) "Str")]})
-
-(defmethod build-function :dictionary-item [{value :value {name :name} :attributes :as concept} _ _ {:keys [types dictionary]}]
-  {:name   (concept->name concept)
-   :params []
-   :body   (for [dict-value (let [dict-entry (get dictionary value)]
-                              (set (cond->> dict-entry
-                                            (empty? dict-entry) (cons (or name value)))))]
-             [{:type  :literal
-               :value dict-value}])
-   :ret    [:s (get types (concept->name concept) "Str")]})
 
 (defmethod build-function :modifier [concept children relations _]
   (let [child-concept (get-child-with-role children relations :child)
@@ -133,15 +143,18 @@
           (filter #(= :amr (:type %)) (vals concept-map))))
 
 (defn build-grammar [module instance {::sg/keys [concepts relations]} context]
-  #:acc-text.nlg.gf.grammar{:module   module
-                            :instance instance
-                            :flags    {:startcat (concept->name (first concepts))}
-                            :syntax   (let [concept-map (zipmap (map :id concepts) concepts)
-                                            relation-map (group-by :from relations)
-                                            type-map (find-types concept-map relation-map context)
-                                            context (assoc context :types type-map)]
-                                        (map (fn [{id :id :as concept}]
-                                               (let [relations (get relation-map id)
-                                                     children (map (comp concept-map :to) relations)]
-                                                 (build-function concept children relations context)))
-                                             concepts))})
+  (let [concept-map (zipmap (map :id concepts) concepts)
+        relation-map (group-by :from relations)
+        context (assoc context :types (find-types concept-map relation-map context))
+        {function-concepts :fn variable-concepts :var} (group-by (fn [{concept-type :type}]
+                                                                   (if (contains? data-types concept-type) :var :fn))
+                                                                 concepts)]
+    #:acc-text.nlg.gf.grammar{:module    module
+                              :instance  instance
+                              :flags     {:startcat (concept->name (first concepts))}
+                              :variables (map #(build-variable % context) variable-concepts)
+                              :functions (map (fn [{id :id :as concept}]
+                                                (let [relations (get relation-map id)
+                                                      children (map (comp concept-map :to) relations)]
+                                                  (build-function concept children relations context)))
+                                              function-concepts)}))

@@ -3,39 +3,51 @@
             [acc-text.nlg.semantic-graph :as sg]
             [clojure.spec.alpha :as s]))
 
-(s/def ::module keyword?)
+(s/def ::module string?)
 
-(s/def ::instance keyword?)
+(s/def ::instance string?)
 
 (s/def ::flags (s/map-of #{:startcat} string? :min-count 1))
 
-(s/def :acc-text.nlg.grammar.expression/type #{:function :literal})
+(s/def :acc-text.nlg.gf.grammar.expression/type #{:function :literal :gf})
 
-(s/def :acc-text.nlg.grammar.expression/value string?)
+(s/def :acc-text.nlg.gf.grammar.expression/value string?)
 
-(s/def :acc-text.nlg.grammar.expression/selectors (s/map-of #{:tense :number} keyword?))
+(s/def :acc-text.nlg.gf.grammar.expression/selectors (s/map-of #{:tense :number} keyword?))
 
-(s/def ::expression (s/keys :req-un [:acc-text.nlg.grammar.expression/type
-                                     :acc-text.nlg.grammar.expression/value]
-                            :opt-un [:acc-text.nlg.grammar.expression/selectors]))
+(s/def ::expression (s/keys :req-un [:acc-text.nlg.gf.grammar.expression/type
+                                     :acc-text.nlg.gf.grammar.expression/value]
+                            :opt-un [:acc-text.nlg.gf.grammar.expression/selectors]))
 
-(s/def :acc-text.nlg.grammar.function/name string?)
+(s/def :acc-text.nlg.gf.grammar.function/name string?)
 
-(s/def :acc-text.nlg.grammar.function/params (s/coll-of string?))
+(s/def :acc-text.nlg.gf.grammar.function/params (s/coll-of string?))
 
-(s/def :acc-text.nlg.grammar.function/body (s/* (s/or :expression ::expression
-                                                      :nested-expression (s/coll-of ::expression))))
+(s/def :acc-text.nlg.gf.grammar.function/body (s/* (s/or :expression ::expression
+                                                         :nested-expression (s/coll-of ::expression))))
 
-(s/def :acc-text.nlg.grammar.function/ret #{[:s "Str"]})
+(s/def :acc-text.nlg.gf.grammar.function/ret #{[:s "Str"]})
 
-(s/def ::function (s/keys :req-un [:acc-text.nlg.grammar.function/name
-                                   :acc-text.nlg.grammar.function/params
-                                   :acc-text.nlg.grammar.function/body
-                                   :acc-text.nlg.grammar.function/ret]))
+(s/def ::function (s/keys :req-un [:acc-text.nlg.gf.grammar.function/name
+                                   :acc-text.nlg.gf.grammar.function/params
+                                   :acc-text.nlg.gf.grammar.function/body
+                                   :acc-text.nlg.gf.grammar.function/ret]))
 
-(s/def ::syntax (s/coll-of ::function))
+(s/def ::functions (s/coll-of ::function))
 
-(s/def ::grammar (s/keys :req [::module ::instance ::flags ::syntax]))
+(s/def :acc-text.nlg.gf.grammar.variable/name string?)
+
+(s/def :acc-text.nlg.gf.grammar.variable/value (s/coll-of string?))
+
+(s/def :acc-text.nlg.gf.grammar.variable/type string?)
+
+(s/def ::variable (s/keys :req-un [:acc-text.nlg.gf.grammar.variable/name
+                                   :acc-text.nlg.gf.grammar.variable/value
+                                   :acc-text.nlg.gf.grammar.variable/type]))
+
+(s/def ::variables (s/coll-of ::variable))
+
+(s/def ::grammar (s/keys :req [::module ::instance ::flags ::variables ::functions]))
 
 (defn build [module instance semantic-graph context]
   (impl/build-grammar module instance semantic-graph context))
