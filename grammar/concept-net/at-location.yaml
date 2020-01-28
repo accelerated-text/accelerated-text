@@ -1,5 +1,3 @@
-name: authorship
-kind: Str
 roles:
   - lexicon
   - objectRef
@@ -13,3 +11,7 @@ frames:
           - lexicon
           - objectRef
           - locationData
+        ret:
+          - N
+          - N
+          - N

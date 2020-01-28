@@ -12,3 +12,15 @@ services:
       MOCK_SHOP_API_URL: http://0:0:0:0:8090
     volumes:
       - ./api/resources/schema.graphql:/usr/src/app/packages/graphql/schema.graphql
+  front-end-rgl:
+    build:
+      context: front-end/
+      dockerfile: Dockerfile
+    ports: ["8081:8080"]
+    environment:
+      ACC_TEXT_API_URL: http://0.0.0.0:3001
+      ACC_TEXT_GRAPHQL_URL: http://0.0.0.0:3001/_graphql
+      MOCK_SHOP_API_URL: http://0:0:0:0:8090
+    volumes:
+      - ./api/resources/schema.graphql:/usr/src/app/packages/graphql/schema.graphql
+      - ./front-end/packages/plan-editor/RglSidebar.js:/usr/src/app/packages/plan-editor/Sidebar.js

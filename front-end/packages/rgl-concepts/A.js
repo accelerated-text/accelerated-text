@@ -11,8 +11,8 @@ import { Error, Loading }   from '../ui-messages/';
 import LabelWithStatus      from '../label-with-status/LabelWithStatus';
 import { concepts }         from '../graphql/queries.graphql';
 
-import ConceptRow           from './ConceptRow';
-import S                    from './AmrConcepts.sass';
+import ConceptRow           from '../amr-concepts/ConceptRow';
+import S                    from '../amr-concepts/AmrConcepts.sass';
 
 
 const sortByLabel =         sortBy( compose( toLower, prop( 'label' )));
@@ -54,7 +54,7 @@ export default composeQueries({
                     <Loading />
                 </MessageTr>
             : concepts
-                ? sortByLabel( concepts.Str ).map( concept =>
+                ? sortByLabel( concepts.A ).map( concept =>
                     <ConceptRow key={ concept.id } concept={ concept } />
                 )
                 : <MessageTr>
