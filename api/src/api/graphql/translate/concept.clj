@@ -3,7 +3,7 @@
 
 (defn- role->schema [{type :type}]
   {:fieldType  [:STRING :LIST]
-   :id         (string/lower-case type)
+   :id         type
    :fieldLabel type})
 
 (defn- frames->help-text [frames]
@@ -13,7 +13,7 @@
        (string/join "\n\n")))
 
 (defn amr->schema [{:keys [id thematic-roles frames label]}]
-  {:id             id
-   :roles          (map role->schema thematic-roles)
-   :helpText       (frames->help-text frames)
-   :label          (or label id)})
+  {:id       id
+   :roles    (map role->schema thematic-roles)
+   :helpText (frames->help-text frames)
+   :label    (or label id)})
