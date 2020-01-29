@@ -121,21 +121,27 @@
             "lin" (parse-lin functions))))
 
 (defn ->interface [{::grammar/keys [instance module variables]}]
-  (format "interface %sLex = {\n  oper\n    %s ;\n}"
+  (format "interface %sLex = {%s\n}"
           module
-          (->> variables
-               (map (fn [{:keys [name type]}]
-                      (str name " : " type)))
-               (str/join " ;\n    "))))
+          (if (seq variables)
+            (format "\n  oper\n    %s ;"
+                    (->> variables
+                         (map (fn [{:keys [name type]}]
+                                (str name " : " type)))
+                         (str/join " ;\n    ")))
+            "")))
 
 (defn ->resource [{::grammar/keys [instance module variables]}]
-  (format "resource %sLex%s = open SyntaxEng, ParadigmsEng in {\n  oper\n    %s ;\n}"
+  (format "resource %sLex%s = open SyntaxEng, ParadigmsEng in {%s\n}"
           module
           instance
-          (->> variables
-               (map (fn [{:keys [name type value]}]
-                      (str name " : " type " = " (join-value type value))))
-               (str/join " ;\n    "))))
+          (if (seq variables)
+            (format "\n  oper\n    %s ;"
+                    (->> variables
+                         (map (fn [{:keys [name type value]}]
+                                (str name " : " type " = " (join-value type value))))
+                         (str/join " ;\n    ")))
+            "")))
 
 (defn ->concrete [{::grammar/keys [instance module]}]
   (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s);"

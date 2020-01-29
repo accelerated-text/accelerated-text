@@ -9,7 +9,7 @@
 
 (deftest ^:integration quote-cases
   (is (= ["He said: \"GO!\""] (let [semantic-graph (utils/load-test-semantic-graph "quote")
-                                    grammar (grammar/build "Grammar" "1" semantic-graph {})]
+                                    grammar (grammar/build "Default" "Instance" semantic-graph {})]
                                 (generate grammar)))))
 
 (deftest ^:integration at-location
