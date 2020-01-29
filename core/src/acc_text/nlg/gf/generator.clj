@@ -109,7 +109,7 @@
             "cat" (parse-cat flags functions)
             "fun" (parse-fun functions))))
 
-(defn ->incomplete [{::grammar/keys [instance module functions]}]
+(defn ->incomplete [{::grammar/keys [module functions]}]
   (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"
           module
           module
@@ -120,7 +120,7 @@
             "lincat" (parse-lincat functions)
             "lin" (parse-lin functions))))
 
-(defn ->interface [{::grammar/keys [instance module variables]}]
+(defn ->interface [{::grammar/keys [module variables]}]
   (format "interface %sLex = {%s\n}"
           module
           (if (seq variables)
