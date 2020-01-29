@@ -24,9 +24,14 @@
                                            :value "Amr03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Amr03"
-                                 :params ["DictionaryItem04" "Quote05" "Quote06"]
-                                 :body   [[{:params ["DictionaryItem04" "Quote05" "Quote06"]
-                                            :type   :gf
+                                 :params []
+                                 :body   [[{:type   :operation
+                                            :params [{:type  :variable
+                                                      :value "DictionaryItem04"}
+                                                     {:type  :variable
+                                                      :value "Quote05"}
+                                                     {:type  :variable
+                                                      :value "Quote06"}]
                                             :value  "atLocation"}]]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "DictionaryItem04"
@@ -56,8 +61,8 @@
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
-                                 :params ["Data03"]
-                                 :body   [{:type  :function
+                                 :params []
+                                 :body   [{:type  :variable
                                            :value "Data03"}]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "Data03"
@@ -73,8 +78,8 @@
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
-                                 :params ["Quote03"]
-                                 :body   [{:type  :function
+                                 :params []
+                                 :body   [{:type  :variable
                                            :value "Quote03"}]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "Quote03"
@@ -95,10 +100,10 @@
                                            :value "Modifier03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Modifier03"
-                                 :params ["Data04" "DictionaryItem05"]
-                                 :body   [{:type  :function
+                                 :params []
+                                 :body   [{:type  :variable
                                            :value "DictionaryItem05"}
-                                          {:type  :function
+                                          {:type  :variable
                                            :value "Data04"}]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "Data04"
@@ -159,20 +164,20 @@
                                            :value "Amr03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Amr03"
-                                 :params ["DictionaryItem04" "Modifier05" "Data08"]
+                                 :params ["Modifier05"]
                                  :body   [[{:type  :function
                                             :value "Modifier05"}
                                            {:type  :literal
                                             :value "is"}
                                            {:type  :literal
                                             :value "the author of"}
-                                           {:type  :function
+                                           {:type  :variable
                                             :value "Data08"}]
-                                          [{:type  :function
+                                          [{:type  :variable
                                             :value "Data08"}
                                            {:type  :literal
                                             :value "is"}
-                                           {:type  :function
+                                           {:type  :variable
                                             :value "DictionaryItem04"}
                                            {:type  :literal
                                             :value "by"}
@@ -180,10 +185,10 @@
                                             :value "Modifier05"}]]
                                  :ret    [:s "Str"]}
                                 {:name   "Modifier05"
-                                 :params ["Data06" "DictionaryItem07"]
-                                 :body   [{:type  :function
+                                 :params []
+                                 :body   [{:type  :variable
                                            :value "DictionaryItem07"}
-                                          {:type  :function
+                                          {:type  :variable
                                            :value "Data06"}]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "DictionaryItem04"
@@ -225,8 +230,8 @@
                                            :value "Sequence03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Sequence03"
-                                 :params ["DictionaryItem04" "Shuffle05"]
-                                 :body   [{:type  :function
+                                 :params ["Shuffle05"]
+                                 :body   [{:type  :variable
                                            :value "DictionaryItem04"}
                                           {:type  :function
                                            :value "Shuffle05"}]
@@ -248,8 +253,8 @@
                                            :value "Segment04"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Variable02"
-                                 :params ["Quote03"]
-                                 :body   [{:type  :function
+                                 :params []
+                                 :body   [{:type  :variable
                                            :value "Quote03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment04"

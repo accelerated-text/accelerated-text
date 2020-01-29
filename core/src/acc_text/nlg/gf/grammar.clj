@@ -9,15 +9,20 @@
 
 (s/def ::flags (s/map-of #{:startcat} string? :min-count 1))
 
-(s/def :acc-text.nlg.gf.grammar.expression/type #{:function :literal :gf})
+(s/def :acc-text.nlg.gf.grammar.expression/type #{:variable :function :literal :operation})
 
 (s/def :acc-text.nlg.gf.grammar.expression/value string?)
+
+(s/def :acc-text.nlg.gf.grammar.expression/params (s/coll-of
+                                                    (s/keys :req-un [:acc-text.nlg.gf.grammar.expression/type
+                                                                     :acc-text.nlg.gf.grammar.expression/value])))
 
 (s/def :acc-text.nlg.gf.grammar.expression/selectors (s/map-of #{:tense :number} keyword?))
 
 (s/def ::expression (s/keys :req-un [:acc-text.nlg.gf.grammar.expression/type
                                      :acc-text.nlg.gf.grammar.expression/value]
-                            :opt-un [:acc-text.nlg.gf.grammar.expression/selectors]))
+                            :opt-un [:acc-text.nlg.gf.grammar.expression/selectors
+                                     :acc-text.nlg.gf.grammar.expression/params]))
 
 (s/def :acc-text.nlg.gf.grammar.function/name string?)
 
