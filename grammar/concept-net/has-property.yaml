@@ -5,7 +5,7 @@ roles:
 frames:
   - example: It has holes. It does not have holes.
     syntax:
-      - type: gf
+      - type: oper
         value: hasProperty
         roles:
           - object

@@ -7,7 +7,7 @@ roles:
 frames:
   - example: Venue in the city centre, near the KFC.
     syntax:
-      - type: gf
+      - type: oper
         value: locatedNear
         roles:
           - lexicon

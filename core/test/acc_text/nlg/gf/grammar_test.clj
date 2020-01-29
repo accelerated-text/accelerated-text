@@ -45,7 +45,7 @@
                                  :value ["Alimentum"]}]}
          (build-grammar
            "location-amr"
-           {:amr        {:at-location {:frames [{:syntax [{:type  :gf
+           {:amr        {:at-location {:frames [{:syntax [{:type  :oper
                                                            :value "atLocation"
                                                            :roles ["lexicon" "objectRef" "locationData"]
                                                            :ret   ["N" "N" "N"]}]}]}}

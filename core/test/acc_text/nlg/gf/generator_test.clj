@@ -22,7 +22,7 @@
           "there is an arena in the city centre Alimentum"]
          (generate (grammar/build "AtLoc" "1" (utils/load-test-semantic-graph "location-amr")
                                   {:amr        {:at-location
-                                                {:frames [{:syntax [{:type  :gf
+                                                {:frames [{:syntax [{:type  :oper
                                                                      :value "atLocation"
                                                                      :roles ["lexicon" "objectRef" "locationData"]
                                                                      :ret   ["N" "N" "N"]}]}]}}
