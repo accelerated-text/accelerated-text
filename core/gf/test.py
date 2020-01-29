@@ -1,6 +1,9 @@
 import pytest
 import server
-import json
+import logging
+
+logger = logging.getLogger("GF")
+logger.setLevel(logging.DEBUG)
 
 
 @pytest.fixture()
@@ -22,12 +25,6 @@ def test_compile_grammar(api_post):
     data = api_post
     content = data["content"]
     name = data["module"]
-    grammar = server.compile_grammar(name, content)
-    print(grammar)
-    assert grammar
-    expressions = server.generate_expressions(grammar)
-    results = [(k, server.generate_variants(expressions, concrete))
-               for k, concrete in grammar.languages.items()]
-
-    print(results)
+    results = server.generate_results(name, content)
+    print("Results: {}".format(results))
     assert len(results) > 0
