@@ -16,35 +16,18 @@ try:
 except ImportError:
     logger.exception("Failed to import module 'pgf'. It's GrammaticalFramework runtime library which needs to be compiled and installed")
 
-
-def compile_concrete_grammar(path, name, instances):
-    for inst in instances:
-        instance_path = "{path}/{name}{instance}.gf".format(
-                path=path,
-                name=name,
-                instance=inst["key"]
-        )
-        with open(instance_path, "w") as f:
-            f.write(inst["content"])
-            yield instance_path
-
-
-
-def compile_grammar(name, abstract, instances):
+def compile_grammar(name, content):
     with TemporaryDirectory() as tmpdir:
         logger.debug("Created temp dir: {}".format(tmpdir))
-        abstract_path = "{0}/{1}.gf".format(tmpdir, name)
-        with open(abstract_path, "w") as f:
-            logger.debug("Wrote tmp file: {}".format(abstract_path))
-            f.write(abstract["content"])
-
-        concrete_grammars = list(compile_concrete_grammar(tmpdir, name, instances))
-
+        files = ["{0}/{1}.gf".format(tmpdir, k) for k in content.keys()]
+        for k, v in content.items():
+            with open("{0}/{1}.gf".format(tmpdir, k), "w") as f:
+                f.write(v)
+        
         logger.info("Compiling")
-        cmd = "gf -i /opt/gf/lang-utils/ -i /opt/gf/concept-net/ --output-dir={path} -make {abstract} {other}".format(
-                abstract=abstract_path,
+        cmd = "gf -i /opt/gf/lang-utils/ -i /opt/gf/concept-net/ --output-dir={path} -make {files}".format(
                 path=tmpdir,
-                other=" ".join(concrete_grammars)
+                files=" ".join(files)
         )
         logger.debug("Compile command: {}".format(cmd))
         proc = subprocess.Popen(
@@ -60,7 +43,7 @@ def compile_grammar(name, abstract, instances):
             return None
         else:
             logger.debug("Compiled successfuly! Message: {}".format(result))
-            grammar = pgf.readPGF("{0}/{1}.pgf".format(tmpdir, name))
+            grammar = pgf.readPGF("{0}/{1}LexInstance.pgf".format(tmpdir, name))
             logger.debug("Languages: {}".format(grammar.languages))
             return grammar
 
@@ -126,16 +109,13 @@ def generate_expressions(abstract_grammar):
     return expressions
 
 
-
 @post_request
 @json_request
 @json_response
 def application(environ, start_response, data):
-    abstract = data["abstract"]
-    instances = data["concrete"]
-    name = data["name"]
-
-    grammar = compile_grammar(name, abstract, instances)
+    content = data["content"]
+    name = data["module"]
+    grammar = compile_grammar(name, content)
     logger.debug("Grammar: {}".format(grammar))
     if grammar:
         logger.info("Generating")
