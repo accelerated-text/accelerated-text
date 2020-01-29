@@ -11,8 +11,8 @@ frames:
         value: locatedNear
         roles:
           - lexicon
-          - objectRef
           - locationData
+          - objectRef
           - nearDictionary
           - nearData
         ret:
