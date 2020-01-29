@@ -85,14 +85,14 @@
 
 (defmethod build-function :amr [{value :value :as concept} children relations {amr :amr}]
   (let [role-map (reduce (fn [m [{{attr-name :name} :attributes} concept]]
-                           (cond-> m (some? attr-name) (assoc (str/lower-case attr-name) concept)))
+                           (cond-> m (some? attr-name) (assoc attr-name concept)))
                          {}
                          (zipmap relations children))]
     {:name   (concept->name concept)
      :params (get-params children)
      :body   (for [syntax (->> (keyword value) (get amr) (:frames) (map :syntax))]
                (for [{:keys [value pos role roles type] :as attrs} syntax]
-                 (let [role-key (when (some? role) (str/lower-case role))]
+                 (let [role-key (when (some? role) role)]
                    (-> (cond
                          (contains? role-map role-key) (let [role-concept (get role-map role-key)]
                                                          {:type  (get-type role-concept)
@@ -100,7 +100,7 @@
                          (= :oper type) {:type   :operation
                                          :value  value
                                          :params (map (fn [role]
-                                                        (let [role-concept (get role-map (str/lower-case role))]
+                                                        (let [role-concept (get role-map role)]
                                                           {:type  (get-type role-concept)
                                                            :value (concept->name role-concept)}))
                                                       roles)}
@@ -147,11 +147,11 @@
                   children (map (comp concept-map :to) relations)
                   role-map (reduce (fn [m [{{attr-name :name} :attributes} concept]]
                                      (cond-> m
-                                             (some? attr-name) (assoc (str/lower-case attr-name) (concept->name concept))))
+                                             (some? attr-name) (assoc attr-name (concept->name concept))))
                                    {}
                                    (zipmap relations children))
                   {:keys [ret roles]} (-> amr (get (keyword value)) (:frames) (first) (:syntax) (first))]
-              (cond-> m (seq ret) (merge (zipmap (map (comp role-map str/lower-case) roles) ret)))))
+              (cond-> m (seq ret) (merge (zipmap (map role-map roles) ret)))))
           {}
           (filter #(= :amr (:type %)) (vals concept-map))))
 

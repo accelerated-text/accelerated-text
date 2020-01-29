@@ -6,11 +6,11 @@
                                                   :type   "Dictionary-item"
                                                   :srcId  "jirq-V{WgCd+u[sdVWpd"
                                                   :itemId "VB-author"}]}
-                                     {:name     "agent"
+                                     {:name     "Agent"
                                       :children [{:name  "authors"
                                                   :type  "Cell"
                                                   :srcId "uakxT`=!W@8/xV#^orHk"}]}
-                                     {:name     "co-agent"
+                                     {:name     "co-Agent"
                                       :children [{:name "title" :type "Cell" :srcId "X_CwogT+.Z)N@;Mhz.j/"}]}
                                      {:name "theme" :children [nil]}]}]
              :type     "Segment"
