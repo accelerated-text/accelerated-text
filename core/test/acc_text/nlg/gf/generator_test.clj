@@ -22,8 +22,28 @@
           "there is an arena in the city centre Alimentum"]
          (generate (grammar/build "AtLoc" "1" (utils/load-test-semantic-graph "location-amr")
                                   {:amr        {:at-location
-                                                {:frames [{:syntax [{:type  :gf
+                                                {:frames [{:syntax [{:type  :oper
                                                                      :value "atLocation"
                                                                      :roles ["lexicon" "objectRef" "locationData"]
                                                                      :ret   ["N" "N" "N"]}]}]}}
                                    :dictionary {"place" ["arena" "place" "venue"]}})))))
+
+(deftest ^:integration polarity
+  (is (= ["KFC is family-friendly"]
+         (generate (grammar/build "HasProperty" "Pos" (utils/load-test-semantic-graph "has-property")
+                                  {:amr  {:has-property
+                                          {:frames [{:syntax [{:type  :oper
+                                                               :value "hasProperty"
+                                                               :roles ["object" "property" "polarity"]
+                                                               :ret   ["N" "A" "Pol"]}]}]}}
+                                   :data {:name           "KFC"
+                                          :familyFriendly "true"}}))))
+  (is (= ["KFC isn't family-friendly"]
+         (generate (grammar/build "HasProperty" "Neg" (utils/load-test-semantic-graph "has-property")
+                                  {:amr  {:has-property
+                                          {:frames [{:syntax [{:type  :oper
+                                                               :value "hasProperty"
+                                                               :roles ["object" "property" "polarity"]
+                                                               :ret   ["N" "A" "Pol"]}]}]}}
+                                   :data {:name           "KFC"
+                                          :familyFriendly "false"}})))))

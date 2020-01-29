@@ -1,14 +1,17 @@
 roles:
-  - lexicon
   - object
+  - property
+  - polarity
 frames:
-  - example: It has property
+  - example: It has holes. It does not have holes.
     syntax:
-      - type: gf
+      - type: oper
         value: hasProperty
         roles:
-          - lexicon
           - object
+          - property
+          - polarity
         ret:
-          - A
           - N
+          - A
+          - Pol

@@ -97,13 +97,13 @@
                          (contains? role-map role-key) (let [role-concept (get role-map role-key)]
                                                          {:type  (get-type role-concept)
                                                           :value (concept->name role-concept)})
-                         (= :gf type) {:type   :operation
-                                       :value  value
-                                       :params (map (fn [role]
-                                                      (let [role-concept (get role-map (str/lower-case role))]
-                                                        {:type  (get-type role-concept)
-                                                         :value (concept->name role-concept)}))
-                                                    roles)}
+                         (= :oper type) {:type   :operation
+                                         :value  value
+                                         :params (map (fn [role]
+                                                        (let [role-concept (get role-map (str/lower-case role))]
+                                                          {:type  (get-type role-concept)
+                                                           :value (concept->name role-concept)}))
+                                                      roles)}
                          (some? role) {:type  :literal
                                        :value (format "{{%s}}" role)}
                          (= pos :AUX) {:type  :function

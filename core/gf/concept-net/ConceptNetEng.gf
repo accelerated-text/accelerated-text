@@ -26,8 +26,8 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
 
   oper -- hasProperty
 
-    hasProperty : A -> N -> SS = \propertyName,object ->
-                (mkS presentSimTemp positivePol (mkCl (mkNP object) propertyName));
+    hasProperty : N -> A -> Pol ->  SS = \object, propertyName, polarity ->
+                (mkS presentSimTemp polarity (mkCl (mkNP object) propertyName));
 
   oper -- locatedNear
 
