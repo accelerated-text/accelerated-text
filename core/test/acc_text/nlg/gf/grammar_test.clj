@@ -7,10 +7,10 @@
 (stest/instrument `grammar/build)
 
 (defn build-grammar [semantic-graph-name context]
-  (grammar/build "Grammar" "Instance" (utils/load-test-semantic-graph semantic-graph-name) context))
+  (grammar/build "Default" "Instance" (utils/load-test-semantic-graph semantic-graph-name) context))
 
 (deftest gf-grammar-building
-  (is (= #::grammar{:module    "Grammar"
+  (is (= #::grammar{:module    "Default"
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
@@ -52,7 +52,7 @@
             :dictionary {"place" ["arena" "place" "venue"]}}))))
 
 (deftest grammar-building
-  (is (= #::grammar{:module    "Grammar"
+  (is (= #::grammar{:module    "Default"
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
@@ -69,7 +69,7 @@
                                  :type  "Str"
                                  :value ["product"]}]}
          (build-grammar "simple-plan" {:data {:product-name "product"}})))
-  (is (= #::grammar{:module    "Grammar"
+  (is (= #::grammar{:module    "Default"
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
@@ -86,7 +86,7 @@
                                  :type  "Str"
                                  :value ["this is a very good book: Building Search Applications"]}]}
          (build-grammar "single-quote" {:data {:title "Building Search Applications"}})))
-  (is (= #::grammar{:module    "Grammar"
+  (is (= #::grammar{:module    "Default"
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
@@ -113,7 +113,7 @@
                                  :type  "Str"
                                  :value ["good"]}]}
          (build-grammar "adjective-phrase" {:data {:title "Building Search Applications"}})))
-  (is (= #::grammar{:module    "Grammar"
+  (is (= #::grammar{:module    "Default"
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
@@ -150,7 +150,7 @@
                                                      {:pos :NP :role "Agent"}]}]}}
             :dictionary {"good"    ["excellent"]
                          "written" ["authored"]}})))
-  (is (= #::grammar{:module    "Grammar"
+  (is (= #::grammar{:module    "Default"
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
@@ -217,7 +217,7 @@
             :data {:authors "Manu Konchady"
                    :title   "Building Search Applications"}})))
   (is (= #::grammar{:instance  "Instance"
-                    :module    "Grammar"
+                    :module    "Default"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
                                  :params ["Segment02"]
@@ -244,7 +244,7 @@
                                  :type  "Str"
                                  :value ["1"]}]}
          (build-grammar "sequence-with-empty-shuffle" {})))
-  (is (= #::grammar{:module    "Grammar"
+  (is (= #::grammar{:module    "Default"
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"

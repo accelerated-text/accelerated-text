@@ -7,6 +7,6 @@
 
 (defn generate-text [semantic-graph {data :data :as context}]
   (let [pruned-sg (conditions/select semantic-graph data)]
-    (->> (grammar/build "Grammar" "Instance" pruned-sg context)
+    (->> (grammar/build "Default" "Instance" pruned-sg context)
          (generator/generate)
          (map (comp nlp/annotate nlp/process-sentence)))))

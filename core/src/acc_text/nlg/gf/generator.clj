@@ -10,7 +10,7 @@
   (->> args
        (partition 2)
        (filter (comp seq second))
-       (map #(format "\n    %s\n        %s;" (first %) (str/join ";\n        " (second %))))
+       (map #(format "\n    %s\n        %s ;" (first %) (str/join " ;\n        " (second %))))
        (str/join)))
 
 (defn escape-string [s]
@@ -21,35 +21,35 @@
          (format "%s = %s" (name flag) val))
        flags))
 
-(defn parse-cat [flags syntax]
-  (cons (:startcat flags) (mapcat :params syntax)))
+(defn parse-cat [flags functions]
+  (cons (:startcat flags) (mapcat :params functions)))
 
-(defn parse-fun [syntax]
+(defn parse-fun [functions]
   (map-indexed (fn [i {:keys [name params]}]
                  (format "Function%02d : %s"
                          (inc i)
                          (str/join " -> " (-> params (vec) (conj name)))))
-               syntax))
+               functions))
 
-(defn get-selectors [syntax]
-  (let [selectors (->> syntax (map :body) (apply concat) (map :selectors))
+(defn get-selectors [functions]
+  (let [selectors (->> functions (map :body) (apply concat) (map :selectors))
         initial-map (zipmap (mapcat keys selectors) (repeat #{}))]
     (apply merge-with conj initial-map selectors)))
 
-(defn parse-param [syntax]
+(defn parse-param [functions]
   (map (fn [[k v]]
          (format "%s = %s"
                  (name k)
                  (str/join " | " (sort (map name v)))))
-       (get-selectors syntax)))
+       (get-selectors functions)))
 
-(defn parse-lincat [syntax]
+(defn parse-lincat [functions]
   (map (fn [[ret functions]]
          (format "%s = {%s: %s}"
                  (str/join ", " (map :name functions))
                  (name (nth ret 0))
                  (nth ret 1)))
-       (group-by :ret syntax)))
+       (group-by :ret functions)))
 
 (declare join-function-body)
 
@@ -59,10 +59,19 @@
              (< 1 (count expr)) (format "(%s)"))
     (let [{:keys [type value params]} expr]
       (case type
+        :variable value
         :literal (cond->> (format "\"%s\"" (escape-string value))
                           (not= "Str" (second ret)) (format "(mk%s %s)" (second ret)))
         :function (format "%s.s" value)
-        :gf (format "(%s %s).s" value (str/join " " (map #(str % ".s") (filter some? params))))))))
+        :operation (->> params
+                        (filter (comp some? :value))
+                        (map (fn [{:keys [type value]}]
+                               (case type
+                                 :literal (format "\"%s\"" (escape-string value))
+                                 :function (format "%s.s" value)
+                                 :variable value)))
+                        (str/join " ")
+                        (format "(%s %s).s" value))))))
 
 (defn get-operator [expr next-expr]
   (when (some? next-expr)
@@ -78,35 +87,72 @@
                      body
                      (concat (rest body) [nil]))))
 
-(defn parse-lin [syntax]
+(defn join-value [type value]
+  (str/join " | " (if (not= type "Str")
+                    (map #(format "mk%s \"%s\"" type (escape-string %)) value)
+                    (map #(format "\"%s\"" (escape-string %)) value))))
+
+(defn parse-lin [functions]
   (map-indexed (fn [i {:keys [params ret body]}]
                  (format "Function%02d %s= {%s = %s}"
                          (inc i)
                          (str/join (interleave params (repeat " ")))
                          (name (nth ret 0))
                          (if (seq body) (join-function-body body ret) "\"\"")))
-               syntax))
+               functions))
 
-(defn ->abstract [{::grammar/keys [module flags syntax]}]
+(defn ->abstract [{::grammar/keys [module flags functions]}]
   (format "abstract %s = {%s\n}"
-          (name module)
+          module
           (join-body
             "flags" (parse-flags flags)
-            "cat" (parse-cat flags syntax)
-            "fun" (parse-fun syntax))))
+            "cat" (parse-cat flags functions)
+            "fun" (parse-fun functions))))
 
-(defn ->concrete [{::grammar/keys [instance module syntax]}]
-  (format "concrete %s of %s = open %s in {%s\n}"
-          (str (name module) (name instance))
-          (name module)
+(defn ->incomplete [{::grammar/keys [instance module functions]}]
+  (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"
+          module
+          module
+          module
           "LangFunctionsEng, ConceptNetEng, SyntaxEng, ParadigmsEng"
           (join-body
-            "param" (parse-param syntax)
-            "lincat" (parse-lincat syntax)
-            "lin" (parse-lin syntax))))
+            "param" (parse-param functions)
+            "lincat" (parse-lincat functions)
+            "lin" (parse-lin functions))))
+
+(defn ->interface [{::grammar/keys [instance module variables]}]
+  (format "interface %sLex = {\n  oper\n    %s ;\n}"
+          module
+          (->> variables
+               (map (fn [{:keys [name type]}]
+                      (str name " : " type)))
+               (str/join " ;\n    "))))
+
+(defn ->resource [{::grammar/keys [instance module variables]}]
+  (format "resource %sLex%s = open SyntaxEng, ParadigmsEng in {\n  oper\n    %s ;\n}"
+          module
+          instance
+          (->> variables
+               (map (fn [{:keys [name type value]}]
+                      (str name " : " type " = " (join-value type value))))
+               (str/join " ;\n    "))))
+
+(defn ->concrete [{::grammar/keys [instance module]}]
+  (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s);"
+          module
+          instance
+          module
+          module
+          module
+          module
+          instance))
 
 (defn generate [{::grammar/keys [module instance] :as grammar}]
-  (-> (service/compile-request module instance (->abstract grammar) (->concrete grammar))
+  (-> (service/compile-request module instance {(str module)                (->abstract grammar)
+                                                (str module "Body")         (->incomplete grammar)
+                                                (str module "Lex")          (->interface grammar)
+                                                (str module "Lex" instance) (->resource grammar)
+                                                (str module instance)       (->concrete grammar)})
       (get :body)
       (json/read-value utils/read-mapper)
       (get-in [:results 0 1])

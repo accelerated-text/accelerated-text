@@ -9,7 +9,7 @@
 
 (deftest ^:integration quote-cases
   (is (= ["He said: \"GO!\""] (let [semantic-graph (utils/load-test-semantic-graph "quote")
-                                    grammar (grammar/build :grammar :1 semantic-graph {})]
+                                    grammar (grammar/build "Grammar" "1" semantic-graph {})]
                                 (generate grammar)))))
 
 (deftest ^:integration at-location
@@ -20,7 +20,7 @@
           "there is a venue in the city centre Alimentum"
           "there is an Alimentum in the city centre"
           "there is an arena in the city centre Alimentum"]
-         (generate (grammar/build :AtLoc :1 (utils/load-test-semantic-graph "location-amr")
+         (generate (grammar/build "AtLoc" "1" (utils/load-test-semantic-graph "location-amr")
                                   {:amr        {:at-location
                                                 {:frames [{:syntax [{:type  :gf
                                                                      :value "atLocation"
