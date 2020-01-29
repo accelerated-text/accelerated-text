@@ -1,7 +1,7 @@
 roles:
   - lexicon
-  - objectRef
   - locationData
+  - objectRef
 frames:
   - example: There is a place in the city center, KFC
     syntax:
@@ -9,8 +9,8 @@ frames:
         value: atLocation
         roles:
           - lexicon
-          - objectRef
           - locationData
+          - objectRef
         ret:
           - N
           - N

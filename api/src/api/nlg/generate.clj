@@ -31,7 +31,7 @@
   ([document-plan data reader-model]
    (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)]
-     (->> (nlg/generate-text semantic-graph context data)
+     (->> (nlg/generate-text semantic-graph (assoc context :data  data))
           (map :text)
           (sort)
           (dedupe)))))
