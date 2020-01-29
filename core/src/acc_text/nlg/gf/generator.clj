@@ -31,6 +31,19 @@
                          (str/join " -> " (-> params (vec) (conj name)))))
                functions))
 
+(defn join-value [type value]
+  (->> value
+       (map #(if (not= type "Str")
+               (format "mk%s \"%s\"" type (escape-string %))
+               (format "\"%s\"" (escape-string %))))
+       (str/join " | ")))
+
+(defn parse-oper [variables]
+  (map (fn [{:keys [name type value]}]
+         (cond-> (str name " : " type)
+                 (some? value) (str " = " (join-value type value))))
+       variables))
+
 (defn get-selectors [functions]
   (let [selectors (->> functions (map :body) (apply concat) (map :selectors))
         initial-map (zipmap (mapcat keys selectors) (repeat #{}))]
@@ -87,11 +100,6 @@
                      body
                      (concat (rest body) [nil]))))
 
-(defn join-value [type value]
-  (str/join " | " (if (not= type "Str")
-                    (map #(format "mk%s \"%s\"" type (escape-string %)) value)
-                    (map #(format "\"%s\"" (escape-string %)) value))))
-
 (defn parse-lin [functions]
   (map-indexed (fn [i {:keys [params ret body]}]
                  (format "Function%02d %s= {%s = %s}"
@@ -123,25 +131,15 @@
 (defn ->interface [{::grammar/keys [module variables]}]
   (format "interface %sLex = {%s\n}"
           module
-          (if (seq variables)
-            (format "\n  oper\n    %s ;"
-                    (->> variables
-                         (map (fn [{:keys [name type]}]
-                                (str name " : " type)))
-                         (str/join " ;\n    ")))
-            "")))
+          (join-body
+            "oper" (parse-oper (map #(dissoc % :value) variables)))))
 
 (defn ->resource [{::grammar/keys [instance module variables]}]
   (format "resource %sLex%s = open SyntaxEng, ParadigmsEng in {%s\n}"
           module
           instance
-          (if (seq variables)
-            (format "\n  oper\n    %s ;"
-                    (->> variables
-                         (map (fn [{:keys [name type value]}]
-                                (str name " : " type " = " (join-value type value))))
-                         (str/join " ;\n    ")))
-            "")))
+          (join-body
+            "oper" (parse-oper variables))))
 
 (defn ->concrete [{::grammar/keys [instance module]}]
   (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s);"
