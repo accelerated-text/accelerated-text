@@ -33,9 +33,12 @@
 
 (defn join-value [type value]
   (->> value
-       (map #(if (not= type "Str")
-               (format "mk%s \"%s\"" type (escape-string %))
-               (format "\"%s\"" (escape-string %))))
+       (map #(case type
+               "Str" (format "\"%s\"" (escape-string %))
+               "Pol" (if (Boolean/valueOf ^String %)
+                       "positivePol"
+                       "negativePol")
+               (format "mk%s \"%s\"" type (escape-string %))))
        (str/join " | ")))
 
 (defn parse-oper [variables]
