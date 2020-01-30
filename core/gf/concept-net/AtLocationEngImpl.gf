@@ -24,10 +24,16 @@ resource AtLocationEngImpl = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) 
           \lexicon,location,venue ->
               (placeInLocation lexicon (mkInAdv location) venue) |
               (inLocationPlace lexicon (mkInAdv location) venue) |
-              (venueInLocation lexicon (mkInAdv location) venue) ;
+              (venueInLocation lexicon (mkInAdv location) venue)
+              ;
 
-      atLocation_S : N -> N -> S =
-          \location, venue -> (mkS (mkThereIsAThing venue (mkInAdv location)));
+      -- atLocation_S : N -> N -> S =
+      --    \location, venue -> (mkS (mkThereIsAThing venue (mkInAdv location)));
+
+      atLocation_S : N -> N -> N -> A -> S =
+          \lexicon, location, venue, venueMod ->
+            (mkS (mkThereIsAThing (mkCN lexicon (mkInAdv location))
+                                  venueMod venue)) ;
     };
 
 

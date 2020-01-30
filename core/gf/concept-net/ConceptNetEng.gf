@@ -2,11 +2,6 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
 
   oper SS : Type = {s : Str} ;
 
-  oper -- hasProperty
-
-    hasProperty : N -> A -> Pol ->  SS = \object, propertyName, polarity ->
-                (mkS presentSimTemp polarity (mkCl (mkNP object) propertyName));
-
   oper -- capableOf 'Something that A can typically do is B.'
 
     capableOfImpl : V2 -> NP -> VP =

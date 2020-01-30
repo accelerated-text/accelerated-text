@@ -11,5 +11,7 @@ resource UtilsEng = open SyntaxEng in {
     mkThereIsAThing : N -> N -> Cl = \descriptionN,thingN -> mkCl (mkCN descriptionN (mkNP thingN));
     mkThereIsAThing : CN -> N -> Cl = \descriptionCN,thingN -> mkCl (mkCN descriptionCN (mkNP thingN));
     mkThereIsAThing : N -> Adv -> Cl = \descriptionN,thingAdv -> mkCl (mkCN (mkCN descriptionN) thingAdv);
+    mkThereIsAThing : CN -> A-> N -> Cl = \descriptionCN, mod, thingCN ->
+      mkCl (mkCN descriptionCN (mkNP (mkCN mod thingCN)));
   };
 }

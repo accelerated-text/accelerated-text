@@ -5,6 +5,6 @@ resource DefaultLexInstance = open SyntaxEng, ParadigmsEng in {
         Data06 : N = mkN "Alimentum" ;
         Data08 : N = mkN "Alimentum" ;
         Quote09 : A = mkA "FF" ;
-        Data10 : Pol = negativePol ;
+        Data10 : Pol = positivePol;
 }
 
