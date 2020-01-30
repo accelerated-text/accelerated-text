@@ -11,6 +11,11 @@ from backports.tempfile import TemporaryDirectory
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("GF")
 
+
+class GFError(RuntimeError):
+    pass
+
+
 try:
     import pgf
 except ImportError:
@@ -43,12 +48,12 @@ def compile_grammar(name, content):
 
         if proc.returncode != 0:
             logger.error(error)
-            return None
+            return None, error
         else:
             logger.debug("Compiled successfuly! Message: {}".format(result))
             grammar = pgf.readPGF("{0}/{1}.pgf".format(tmpdir, name))
             logger.debug("Languages: {}".format(grammar.languages))
-            return grammar
+            return grammar, None
 
 
 def response_404(environ, start_response):
@@ -114,18 +119,15 @@ def generate_expressions(abstract_grammar):
 
 
 def generate_results(name, content):
-    grammar = compile_grammar(name, content)
+    (grammar, error) = compile_grammar(name, content)
     logger.debug("Grammar: {}".format(grammar))
     if grammar:
         logger.info("Generating")
-        try:
-            expressions = generate_expressions(grammar)
-            return [(k, generate_variants(expressions, concrete))
-                    for k, concrete in grammar.languages.items()]
-        except Exception as ex:
-            logger.exception(ex)
-        
-    return []
+        expressions = generate_expressions(grammar)
+        return [(k, generate_variants(expressions, concrete))
+                for k, concrete in grammar.languages.items()]
+    else:
+        raise GFError(error)
 
 
 @post_request
@@ -134,8 +136,15 @@ def generate_results(name, content):
 def application(environ, start_response, data):
     content = data["content"]
     name = data["module"]
-    results = generate_results(name, content)
-    return {"results": results}
+    try:
+        results = generate_results(name, content)
+        return {"results": results}
+    except GFError as error:
+        return {"error": error.message}
+    except Exception as ex:
+        logger.exception(ex)
+        return {"error": str(ex)}
+
 
 
 def main(args):
