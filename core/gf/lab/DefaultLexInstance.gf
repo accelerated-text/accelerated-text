@@ -7,3 +7,4 @@ resource DefaultLexInstance = open SyntaxEng, ParadigmsEng in {
         Quote09 : A = mkA "FF" ;
         Data10 : Pol = negativePol ;
 }
+

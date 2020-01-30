@@ -19,11 +19,16 @@ resource AtLocationEngImpl = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) 
         \locationDictionary_N,locationData_Adv,objectRef_N ->
             (mkS (mkThereIsAThing objectRef_N locationData_Adv)) ;
 
-    atLocation : N -> N -> N -> SS =
-        \lexicon,location,venue ->
-            (placeInLocation lexicon (mkInAdv location) venue) |
-            (inLocationPlace lexicon (mkInAdv location) venue) |
-            (venueInLocation lexicon (mkInAdv location) venue) ;
+    atLocation_S = overload {
+      atLocation_S : N -> N -> N -> S =
+          \lexicon,location,venue ->
+              (placeInLocation lexicon (mkInAdv location) venue) |
+              (inLocationPlace lexicon (mkInAdv location) venue) |
+              (venueInLocation lexicon (mkInAdv location) venue) ;
+
+      atLocation_S : N -> N -> S =
+          \location, venue -> (mkS (mkThereIsAThing venue (mkInAdv location)));
+    };
 
 
   oper -- locatedNear
