@@ -6,7 +6,7 @@
 (defn list-concepts [_ _ _]
   (resolve-as
     {:id       "concepts"
-     :concepts (->> (amr-entity/load-all)
+     :concepts (->> (amr-entity/list-amrs)
                     (map concept-translate/amr->schema)
                     (sort-by :id))}))
 
@@ -14,6 +14,6 @@
   (resolve-as nil {:message (format "Cannot find concept with id `%s`." id)}))
 
 (defn get-concept [_ {:keys [id]} _]
-  (if-let [amr (amr-entity/load-single id)]
+  (if-let [amr (amr-entity/get-amr id)]
     (resolve-as (concept-translate/amr->schema amr))
     (resolve-as-not-found-concept id)))

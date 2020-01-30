@@ -89,7 +89,7 @@
 (defmethod transact-item :amr [_ key data-item]
   (try
     @(d/transact conn [(remove-nil-vals (dissoc (prepare-amr key data-item) :db/id))])
-    (assoc data-item :key key)
+    (assoc data-item :id key)
     (catch Exception e (.printStackTrace e))))
 
 (defmethod transact-item :default [resource-type key _]
