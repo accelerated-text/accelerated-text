@@ -12,8 +12,8 @@
        (flatten)
        (string/join "\n\n")))
 
-(defn amr->schema [{:keys [id thematic-roles frames label]}]
+(defn amr->schema [{:keys [id roles frames label]}]
   {:id       id
-   :roles    (map role->schema thematic-roles)
+   :roles    (map role->schema roles)
    :helpText (frames->help-text frames)
    :label    (or label id)})
