@@ -1,70 +1,64 @@
 import pytest
+import spacy
 
-from collections import Counter, defaultdict
-
-from src import insert, replace, remove, OpRejected, tokenize, ngram, get_pos_signature
+from src.utils import *
 
 
 @pytest.fixture(scope="session")
 def triplets():
-    with open("data/text_raw.txt", "r") as f:
-        return Counter(ngram([t.replace(".", "").strip()
-                              for t in tokenize(f.read())], n=3))
+    return load_example_triplets()
 
 
-def test_insert_between_4(triplets):
-    tokens = ["located", "in", "{area}", "near"]
-    result = insert(tokens, 2, triplets)
+@pytest.fixture(scope="session")
+def nlp():
+    return spacy.load("en", parser=False, entity=False)
+
+
+@pytest.mark.parametrize(
+    "tokens,pos,expected",
+    [
+        (["located", "in", "{area}", "near"], 2, ["located", "in", "the", "{area}", "near"]),
+        (["located", "in", "{area}"], 2, ["located", "in", "the", "{area}"]),
+    ],
+)
+def test_inserts(triplets, tokens, pos, expected):
+    result = insert(tokens, pos, triplets)
     print("Final result: {}".format(result))
-    assert result == ["located", "in", "the", "{area}", "near"]
+    assert result == expected
 
 
-def test_insert_between_3(triplets):
-    tokens = ["located", "in", "{area}"]
-    result = insert(tokens, 2, triplets)
+@pytest.mark.parametrize(
+    "tokens,pos,expected",
+    [
+        (["in", "the", "{area}"], 0, ["in", "the", "{area}"]),
+        (["located", "in", "the", "{area}"], 2, ["located", "in", "the", "{area}"]),
+    ],
+)
+def test_replace(tokens, pos, expected, triplets):
+    result = replace(tokens, pos, triplets)
+
     print("Final result: {}".format(result))
-    assert result == ["located", "in", "the", "{area}"]
+    assert result == expected
 
 
-def test_replace(triplets):
-    tokens = ["in", "the", "{area}"]
-    result = replace(tokens, 0, triplets)
-
-    print("Final result: {}".format(result))
-    assert result == ["in", "the", "{area}"]
-
-
-def test_insert_case_1(triplets):
+def test_insert_validate(triplets, nlp):
     tokens = ["located", "in", "the", "{area}"]
 
     with pytest.raises(OpRejected):
-        insert(tokens, 2, triplets)
+        validate(tokens, insert(tokens, 2, triplets), nlp)
 
 
-def test_replace_case_1(triplets):
+def test_pos_signature(nlp):
     tokens = ["located", "in", "the", "{area}"]
-    result = replace(tokens, 2, triplets)
-
-    print("Final result: {}".format(result))
-    assert result != ["located", "in", "in", "{area}"]
-
-def test_replace_case_2(triplets):
-    tokens = ["restaurant", "called", "{name}", "located", "in", "{area}", "is", "not", "family-friendly"]
-    result = replace(tokens, 6, triplets)
-
-    print("Final result: {}".format(result))
-
-
-def test_pos_signature():
-    tokens = ["located", "in", "the", "{area}"]
-    result = get_pos_signature(tokens)
+    result = get_pos_signature(tokens, nlp)
     print(result)
     assert result == ["VERB", "ADP", "VARIABLE"]
 
-def test_pos_case_1():
+
+def test_pos_case_1(nlp):
     t1 = ["named", "{name}", "located", "in", "{area}", "is", "a", "not", "family-friendly"]
     t2 = ["named", "{name}", "located", "in", "{area}", "is", "a", "family-friendly"]
 
-    assert get_pos_signature(t1) != get_pos_signature(t2)
+    assert get_pos_signature(t1, nlp) != get_pos_signature(t2, nlp)
 
     
