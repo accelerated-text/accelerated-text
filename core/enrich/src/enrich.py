@@ -44,7 +44,9 @@ class Enricher(object):
             else:
                 op = random.choice([insert, remove, replace])
             try:
+                prev_result = result
                 result = op(result, pos, self.triplets)
+                validate(prev_result, result, self.nlp)
                 logger.debug("Using op: {0} on pos: {1}".format(op, pos))
                 logger.debug("-> {}".format(result))
                 iters += 1
