@@ -61,20 +61,31 @@
            :db/cardinality :db.cardinality/many
            :db/doc         "Phrases associated with the dictionary-item"}]
 
+         [{:db/ident       :param/type
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Type of operation param"}
+
+          {:db/ident       :param/role
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Name of AMR role"}]
+
          [{:db/ident       :syntax/role
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Name of AMR frame syntax item role"}
 
-          {:db/ident       :syntax/roles
-           :db/valueType   :db.type/string
+          {:db/ident       :syntax/params
+           :db/valueType   :db.type/ref
+           :db/isComponent true
            :db/cardinality :db.cardinality/many
-           :db/doc         "Role names of AMR frame syntax item"}
+           :db/doc         "Roles associated with AMR entity"}
 
           {:db/ident       :syntax/ret
            :db/valueType   :db.type/string
-           :db/cardinality :db.cardinality/many
-           :db/doc         "Role types of AMR frame syntax item"}
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Return type of AMR frame syntax item"}
 
           {:db/ident       :syntax/value
            :db/valueType   :db.type/string

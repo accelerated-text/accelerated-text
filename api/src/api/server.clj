@@ -5,6 +5,7 @@
             [api.nlg.generate :as generate]
             [api.utils :as utils]
             [clojure.tools.logging :as log]
+            [data.entities.amr :as amr]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
             [mount.core :refer [defstate] :as mount]
@@ -113,6 +114,7 @@
   (let [host (get conf :host "0.0.0.0")
         port (get conf :port 3001)]
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
+    (amr/initialize)
     (dictionary/initialize)
     (server/run-server
       #'app {:port     port

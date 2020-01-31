@@ -15,40 +15,42 @@
   (when-not (str/blank? id)
     (db/read! amr-db id)))
 
-(defn write-amr [{id :id :as amr}]
-  (when (some? id)
-    (db/write! amr-db id amr)))
-
 (defn delete-amr [id]
   (db/delete! amr-db id))
 
-(defn update-amr [{id :id :as amr}]
-  (db/update! amr-db id (dissoc amr :id)))
+(defn write-amr [{id :id :as amr}]
+  (when (get-amr id)
+    (delete-amr id))
+  (db/write! amr-db id amr))
+
+(defn grammar-package []
+  (io/file (or (System/getenv "GRAMMAR_PACKAGE") "../grammar/concept-net.yaml")))
 
 (defn read-amr [f]
   (let [{:keys [roles frames]} (utils/read-yaml f)]
     {:id     (utils/get-name f)
-     :roles  (map (fn [role] {:type role}) roles)
+     :roles  (map #(cond
+                     (string? %) {:type %}
+                     (map? %) (select-keys % [:type :input :label])) roles)
      :frames (map (fn [{:keys [syntax example]}]
                     {:examples [example]
                      :syntax   (for [instance syntax]
                                  (reduce-kv (fn [m k v]
-                                              (assoc m k (cond-> v
-                                                                 (not (contains? #{:value :role :roles :ret} k))
-                                                                 (keyword))))
+                                              (assoc m k (cond->> v
+                                                                  (contains? #{:pos :type} k) (keyword)
+                                                                  (= :params k) (map #(select-keys % [:role :type])))))
                                             {}
                                             (into {} instance)))})
                   frames)}))
 
-(defn list-package [package]
-  (let [abs-path (.getParent (io/file package))]
-    (->> package
-         (utils/read-yaml)
-         (:includes)
-         (map (fn [p] (io/file (str/join "/" [abs-path p])))))))
-
-(defn list-amr-files []
-  (list-package (or (System/getenv "GRAMMAR_PACKAGE") "../grammar/concept-net.yaml")))
+(defn list-amr-files
+  ([] (list-amr-files (grammar-package)))
+  ([package]
+   (let [parent (.getParent (io/file package))]
+     (->> package
+          (utils/read-yaml)
+          (:includes)
+          (map (partial io/file parent))))))
 
 (defn initialize []
   (doseq [{id :id :as amr} (map read-amr (list-amr-files))]

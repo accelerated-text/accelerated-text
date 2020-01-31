@@ -57,16 +57,24 @@
                         :results/ts    (ts-now)
                         :results/ready (:ready data-item)})]))
 
+(defn prepare-amr-syntax-params [params]
+  (->> params
+       (map (fn [{:keys [type role]}]
+              (remove-nil-vals
+                {:param/type type
+                 :param/role role})))
+       (remove empty?)))
+
 (defn prepare-amr-syntax [syntax]
   (->> syntax
-       (map (fn [{:keys [role ret value roles pos type]}]
+       (map (fn [{:keys [role ret value params pos type]}]
               (remove-nil-vals
-                {:syntax/role  role
-                 :syntax/ret   ret
-                 :syntax/value value
-                 :syntax/roles roles
-                 :syntax/pos   pos
-                 :syntax/type  type})))
+                {:syntax/role   role
+                 :syntax/ret    ret
+                 :syntax/value  value
+                 :syntax/pos    pos
+                 :syntax/type   type
+                 :syntax/params (prepare-amr-syntax-params params)})))
        (remove empty?)))
 
 (defn prepare-amr [key {:keys [roles frames]}]
@@ -164,12 +172,16 @@
                     {:examples (:frame/examples frame)
                      :syntax   (map (fn [syntax]
                                       (remove-nil-vals
-                                        {:role  (:syntax/role syntax)
-                                         :ret   (:syntax/ret syntax)
-                                         :value (:syntax/value syntax)
-                                         :roles (:syntax/roles syntax)
-                                         :pos   (:syntax/pos syntax)
-                                         :type  (:syntax/type syntax)}))
+                                        {:role   (:syntax/role syntax)
+                                         :ret    (:syntax/ret syntax)
+                                         :value  (:syntax/value syntax)
+                                         :params (seq (map (fn [param]
+                                                             (remove-nil-vals
+                                                               {:type (:param/type param)
+                                                                :role (:param/role param)}))
+                                                           (:syntax/params syntax)))
+                                         :pos    (:syntax/pos syntax)
+                                         :type   (:syntax/type syntax)}))
                                     (:frame/syntax frame))}))
                 (:amr/frames amr-entity))})
 
@@ -236,6 +248,10 @@
 
 (defmethod delete :dictionary-combined [_ key]
   @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]])
+  nil)
+
+(defmethod delete :amr [_ key]
+  @(d/transact conn [[:db.fn/retractEntity [:amr/id key]]])
   nil)
 
 (defmethod delete :default [resource-type opts]

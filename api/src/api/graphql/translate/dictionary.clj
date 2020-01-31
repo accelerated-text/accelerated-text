@@ -1,7 +1,6 @@
 (ns api.graphql.translate.dictionary
   (:require [api.graphql.translate.concept :as translate-concept]
-            [clojure.tools.logging :as log]
-            [data.entities.amr :as amr]))
+            [clojure.tools.logging :as log]))
 
 (defn reader-flag->schema [[k _]]
   {:id   (name k)
@@ -35,4 +34,7 @@
      :partOfSpeech part-of-speech
      :concept      (when (= part-of-speech "VB")
                      (translate-concept/amr->schema
-                       (amr/load-single :author)))}))
+                       {:id     "PLACEHOLDER"
+                        :label  ""
+                        :roles  []
+                        :frames []}))}))
