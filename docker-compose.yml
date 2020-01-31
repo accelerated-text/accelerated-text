@@ -18,3 +18,9 @@ services:
       context: .
       dockerfile: core/gf/Dockerfile
     ports: ["8001:8000"]
+
+  enrich:
+    build:
+      context: .
+      dockerfile: core/enrich/Dockerfile
+    ports: ["8002:8000"]
