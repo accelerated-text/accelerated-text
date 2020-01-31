@@ -24,7 +24,7 @@
   (db/write! amr-db id amr))
 
 (defn grammar-package []
-  (io/file (or (System/getenv "GRAMMAR_PACKAGE") "../grammar/concept-net.yaml")))
+  (io/file (or (System/getenv "GRAMMAR_PACKAGE") "grammar/concept-net.yaml")))
 
 (defn read-amr [f]
   (let [{:keys [roles frames]} (utils/read-yaml f)]

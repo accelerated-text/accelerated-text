@@ -49,7 +49,7 @@
   (db/update! dictionary-combined-db (:key item) (dissoc item :key)))
 
 (defn list-dict-files []
-  (filter #(.isFile ^File %) (file-seq (io/file (or (System/getenv "DICT_PATH") "../grammar/dictionary")))))
+  (filter #(.isFile ^File %) (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))))
 
 (defn initialize []
   (doseq [f (list-dict-files)]

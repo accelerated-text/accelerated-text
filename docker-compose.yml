@@ -12,7 +12,7 @@ services:
       GRAMMAR_PACKAGE: "/opt/grammar/concept-net.yaml"
       DICT_PATH: "/opt/grammar/dictionary"
     volumes:
-      - ./grammar:/opt/grammar
+      - ./api/grammar:/opt/grammar
   gf:
     build:
       context: .
