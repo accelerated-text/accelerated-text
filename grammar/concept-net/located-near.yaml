@@ -9,15 +9,15 @@ frames:
     syntax:
       - type: oper
         value: locatedNear
-        roles:
-          - lexicon
-          - locationData
-          - objectRef
-          - nearDictionary
-          - nearData
-        ret:
-          - N
-          - N
-          - N
-          - Prep
-          - N
+        ret: S
+        params:
+          - role: lexicon
+            type: N
+          - role: locationData
+            type: N
+          - role: objectRef
+            type: N
+          - role: nearDictionary
+            type: Prep
+          - role: nearData
+            type: N

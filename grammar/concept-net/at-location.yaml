@@ -7,11 +7,11 @@ frames:
     syntax:
       - type: oper
         value: atLocation
-        roles:
-          - lexicon
-          - locationData
-          - objectRef
-        ret:
-          - N
-          - N
-          - N
+        ret: S
+        params:
+          - role: lexicon
+            type: N
+          - role: locationData
+            type: N
+          - role: objectRef
+            type: N

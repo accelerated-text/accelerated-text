@@ -7,11 +7,11 @@ frames:
     syntax:
       - type: oper
         value: hasProperty
-        roles:
-          - object
-          - property
-          - polarity
-        ret:
-          - N
-          - A
-          - Pol
+        ret: S
+        params:
+          - role: object
+            type: N
+          - role: property
+            type: A
+          - role: polarity
+            type: Pol
