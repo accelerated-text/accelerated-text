@@ -4,11 +4,9 @@ abstract Default = {
     cat
         DocumentPlan01 ;
         Segment02 ;
-        
         AtLocationSnt ;
         HasPropertySnt ;
-        PropertyMod ;
-        
+        HasPropertyMod ;
         LocationDict ;
         LocationData ;
         VenueData ;
@@ -17,13 +15,13 @@ abstract Default = {
         Function01 : Segment02 -> DocumentPlan01 ;
 
         Function02 : AtLocationSnt -> HasPropertySnt -> Segment02 ;
-        Function021 : AtLocationSnt -> Segment02 ;
+        Function021 : AtLocationSnt -> HasPropertMod -> Segment02 ;
 
         Function03 : LocationDict -> LocationData -> VenueData -> AtLocationSnt ;
         Function031 : LocationDict -> LocationData -> VenueData -> PropertyMod -> AtLocationSnt ;
         Function04 : HasPropertySnt ;
 
-        FunctionAMRHasProp : Property -> Polarity -> PropertyMod;
+        FunctionAMRHasProp : Property -> Polarity -> HasPropertyMod;
 
         D01 : LocationDict ;
         D02 : LocationData ;
@@ -31,4 +29,3 @@ abstract Default = {
         D04 : Polarity;
         D05 : Property;
 }
-

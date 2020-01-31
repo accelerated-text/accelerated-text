@@ -9,8 +9,8 @@ incomplete concrete DefaultBody of Default = open DefaultLex, LangFunctionsEng, 
     lin
         Function01 Segment02 = {s = Segment02.s} ;
 
-        Function02 atLocAMR hasPropAMR = {s = atLocAMR.s ++ "." ++ hasPropAMR.s} ;
-        Function021 atLocAMR = {s = atLocAMR.s} ;
+        Function02 atLocSnt hasPropSnt = {s = atLocSnt.s ++ "." ++ hasPropSnt.s} ;
+        Function021 atLocSnt hasPropMod = {s = atLocSnt.s} ;
 
         Function03 loc area venue = atLocation_S loc area venue ;
         Function031 loc area venue mod = atLocation_S loc area venue mod;

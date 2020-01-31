@@ -24,8 +24,7 @@ resource AtLocationEngImpl = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) 
           \lexicon,location,venue ->
               (placeInLocation lexicon (mkInAdv location) venue) |
               (inLocationPlace lexicon (mkInAdv location) venue) |
-              (venueInLocation lexicon (mkInAdv location) venue)
-              ;
+              (venueInLocation lexicon (mkInAdv location) venue) ;
 
       -- atLocation_S : N -> N -> S =
       --    \location, venue -> (mkS (mkThereIsAThing venue (mkInAdv location)));
@@ -33,9 +32,14 @@ resource AtLocationEngImpl = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) 
       atLocation_S : N -> N -> N -> A -> S =
           \lexicon, location, venue, venueMod ->
             (mkS (mkThereIsAThing (mkCN lexicon (mkInAdv location))
-                                  venueMod venue)) ;
-    };
+                    venueMod venue)) ;
 
+      };
+
+    -- KFC is in the city
+    atLocationX : NP -> N -> Cl =
+      \subject, object ->
+      (mkCl subject (mkInAdv object));
 
   oper -- locatedNear
 
@@ -48,6 +52,4 @@ resource AtLocationEngImpl = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) 
               (placeInLocation lexicon (fullLocation_Adv location nearDictionary nearData) venue) |
               (inLocationPlace lexicon (fullLocation_Adv location nearDictionary nearData) venue) |
               (venueInLocation lexicon (fullLocation_Adv location nearDictionary nearData) venue) ;
-
-
 }
