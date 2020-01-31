@@ -16,7 +16,7 @@
        (remove #(contains? data-types (:type %)))
        (map concept->name)))
 
-(defn get-type [{concept-type :type}]
+(defn get-kind [{concept-type :type}]
   (if (contains? data-types concept-type) :variable :function))
 
 (defn get-child-with-role [concepts relations role]
@@ -25,7 +25,7 @@
         (zipmap relations concepts)))
 
 (defn attach-selectors [m attrs]
-  (let [selectors (->> (keys attrs) (remove #{:pos :role :roles :ret :value :type}) (select-keys attrs))]
+  (let [selectors (->> (keys attrs) (remove #{:pos :role :params :ret :value :type}) (select-keys attrs))]
     (cond-> m (seq selectors) (assoc :selectors selectors))))
 
 (defn replace-placeholders [text placeholders]
@@ -66,7 +66,7 @@
   {:name   (concept->name concept)
    :params (get-params children)
    :body   (for [child-concept children]
-             {:type  (get-type child-concept)
+             {:kind  (get-kind child-concept)
               :value (concept->name child-concept)})
    :ret    [:s "Str"]})
 
@@ -76,10 +76,10 @@
     {:name   (concept->name concept)
      :params (get-params children)
      :body   (cond-> (map (fn [modifier-concept]
-                            {:type  (get-type modifier-concept)
+                            {:kind  (get-kind modifier-concept)
                              :value (concept->name modifier-concept)})
                           modifier-concepts)
-                     (some? child-concept) (concat [{:type  (get-type child-concept)
+                     (some? child-concept) (concat [{:kind  (get-kind child-concept)
                                                      :value (concept->name child-concept)}]))
      :ret    [:s "Str"]}))
 
@@ -90,27 +90,27 @@
                          (zipmap relations children))]
     {:name   (concept->name concept)
      :params (get-params children)
-     :body   (for [syntax (->> (keyword value) (get amr) (:frames) (map :syntax))]
-               (for [{:keys [value pos role roles type] :as attrs} syntax]
+     :body   (for [syntax (->> (get amr value) (:frames) (map :syntax))]
+               (for [{:keys [value pos role params type] :as attrs} syntax]
                  (let [role-key (when (some? role) role)]
                    (-> (cond
                          (contains? role-map role-key) (let [role-concept (get role-map role-key)]
-                                                         {:type  (get-type role-concept)
+                                                         {:kind  (get-kind role-concept)
                                                           :value (concept->name role-concept)})
-                         (= :oper type) {:type   :operation
+                         (= :oper type) {:kind   :operation
                                          :value  value
-                                         :params (map (fn [role]
+                                         :params (map (fn [{:keys [role]}]
                                                         (let [role-concept (get role-map role)]
-                                                          {:type  (get-type role-concept)
+                                                          {:kind  (get-kind role-concept)
                                                            :value (concept->name role-concept)}))
-                                                      roles)}
-                         (some? role) {:type  :literal
+                                                      params)}
+                         (some? role) {:kind  :literal
                                        :value (format "{{%s}}" role)}
-                         (= pos :AUX) {:type  :function
+                         (= pos :AUX) {:kind  :function
                                        :value "(copula Sg)"}
-                         (some? value) {:type  :literal
+                         (some? value) {:kind  :literal
                                         :value value}
-                         :else {:type  :literal
+                         :else {:kind  :literal
                                 :value "{{...}}"})
                        (attach-selectors attrs)
                        (cond-> (when (some? pos)) (assoc :pos pos))))))
@@ -121,7 +121,7 @@
    :params (get-params children)
    :body   (for [permutation (filter seq (permutations children))]
              (for [child-concept permutation]
-               {:type  (get-type child-concept)
+               {:kind  (get-kind child-concept)
                 :value (concept->name child-concept)}))
    :ret    [:s "Str"]})
 
@@ -129,7 +129,7 @@
   {:name   (concept->name concept)
    :params (get-params children)
    :body   (for [child-concept children]
-             [{:type  (get-type child-concept)
+             [{:kind  (get-kind child-concept)
                :value (concept->name child-concept)}])
    :ret    [:s "Str"]})
 
@@ -137,7 +137,7 @@
   {:name   (concept->name concept)
    :params (get-params children)
    :body   (for [child-concept children]
-             [{:type  (get-type child-concept)
+             [{:kind  (get-kind child-concept)
                :value (concept->name child-concept)}])
    :ret    [:s "Str"]})
 
@@ -150,8 +150,11 @@
                                              (some? attr-name) (assoc attr-name (concept->name concept))))
                                    {}
                                    (zipmap relations children))
-                  {:keys [ret roles]} (-> amr (get (keyword value)) (:frames) (first) (:syntax) (first))]
-              (cond-> m (seq ret) (merge (zipmap (map role-map roles) ret)))))
+                  params (->> (get amr value) (:frames) (mapcat :syntax) (mapcat :params) (distinct))]
+              (cond-> m
+                      (seq params) (merge (zipmap
+                                            (map (comp role-map :role) params)
+                                            (map :type params))))))
           {}
           (filter #(= :amr (:type %)) (vals concept-map))))
 
