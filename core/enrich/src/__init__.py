@@ -65,7 +65,7 @@ def middle(k1, k2, triplets):
 
 
 def window(lefts, rights, triplets):
-    print("Lefts: {0}, Rights: {1}".format(lefts, rights))
+    logger.debug("Lefts: {0}, Rights: {1}".format(lefts, rights))
     if len(lefts) == 1 and len(rights) == 1:
         return middle(lefts[0], rights[0], triplets)
     elif len(lefts) == 0 and len(rights) == 1:
@@ -77,30 +77,30 @@ def window(lefts, rights, triplets):
     elif len(lefts) == 2 and len(rights) == 0:
         return left_pair(lefts[0], lefts[1], triplets)
     else:
-        print("Lefts: {0}, Rights: {1}".format(lefts, rights))
+        logger.debug("Lefts: {0}, Rights: {1}".format(lefts, rights))
         results = defaultdict(list)
         middle_results = [(k, v)
                           for (k, v) in middle(lefts[-1], rights[0], triplets)
                           if k not in lefts+rights]
-        print("Middle results: {}".format(middle_results))
+        logger.debug("Middle results: {}".format(middle_results))
         for (m, p) in middle_results:
             results[m].append(p)
             
         if len(lefts) == 2:
-            print("Handling left: {}".format(lefts))
+            logger.debug("Handling left: {}".format(lefts))
             left_results = [(k, v)
                             for (k, v) in left_pair(lefts[0], lefts[1], triplets)
                             if k != rights[0]]
-            print("Left results: {}".format(left_results))
+            logger.debug("Left results: {}".format(left_results))
             for (l, p) in left_results:
                 results[l].append(p)
                 
         if len(rights) == 2:
-            print("Handling right: {}".format(rights))
+            logger.debug("Handling right: {}".format(rights))
             right_results = [(k, v)
                              for (k, v) in right_pair(rights[0], rights[1], triplets)
                              if k != lefts[-1]]
-            print("Right results: {0}, lefts: {1}".format(right_results, lefts[-1]))
+            logger.debug("Right results: {0}, lefts: {1}".format(right_results, lefts[-1]))
             for (r, p) in right_results:
                 results[r].append(p)
 
@@ -159,7 +159,7 @@ def insert(t, pos, triplets):
         raise OpRejected("Couldn't insert anything")
     else:
         (m, _) = results[0]
-        print("Left side: {0}, Right side: {1}, Variants: {2}".format(t[:pos], t[pos:], results))
+        logger.debug("Left side: {0}, Right side: {1}, Variants: {2}".format(t[:pos], t[pos:], results))
         return validate(t, t[:pos] + [m] + t[pos:])
 
 
