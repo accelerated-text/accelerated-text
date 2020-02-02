@@ -77,6 +77,7 @@ fragment conceptFields on Concept {
   id
   kind
   label
+  name
   helpText
   roles {
     ...thematicRoleFields

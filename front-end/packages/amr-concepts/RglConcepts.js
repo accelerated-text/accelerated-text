@@ -11,11 +11,8 @@ import { Error, Loading }   from '../ui-messages/';
 import LabelWithStatus      from '../label-with-status/LabelWithStatus';
 import { concepts }         from '../graphql/queries.graphql';
 
-import ConceptRow           from '../amr-concepts/ConceptRow';
-import S                    from '../amr-concepts/AmrConcepts.sass';
-
-
-const sortByLabel =         sortBy( compose( toLower, prop( 'label' )));
+import RglConceptRow        from './RglConceptRow';
+import S                    from './AmrConcepts.sass';
 
 const MessageTr = ({ children }) =>
     <tr><td colspan="3">{ children }</td></tr>;
@@ -31,19 +28,6 @@ export default composeQueries({
     },
 }) =>
     <table className={ S.className }>
-        <thead>
-            <tr>
-                <th className={ S.block } />
-                <th className={ S.name } >name</th>
-                <th className={ S.about } >
-                    <LabelWithStatus
-                        error={ error }
-                        label="about"
-                        loading={ loading }
-                    />
-                </th>
-            </tr>
-        </thead>
         <tbody>
             { error
                 ? <MessageTr>
@@ -54,11 +38,11 @@ export default composeQueries({
                     <Loading />
                 </MessageTr>
             : concepts
-                ? sortByLabel( concepts.Ord ).map( concept =>
-                    <ConceptRow key={ concept.id } concept={ concept } />
+                ? concepts.rgl.map( concept =>
+                    <RglConceptRow key={ concept.id } concept={ concept } />
                 )
                 : <MessageTr>
-                    <Error message="No Concepts found. Please contact your system administrator." />
+                    <Error message="No concepts found. Please contact your system administrator." />
                 </MessageTr>
             }
         </tbody>

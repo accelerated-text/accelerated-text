@@ -7,11 +7,13 @@
 (defn read-rgl [f]
   (let [instance (utils/read-edn f)]
     (for [{:keys [function type example]} (:functions instance)]
-      (let [roles (subvec type 0 (dec (count type)))]
+      (let [roles (subvec type 0 (dec (count type)))
+            ret (last type)]
         {:id             (str function "/" (str/join "->" type))
          :kind           (last type)
          :thematic-roles (map (fn [role] {:type role}) roles)
-         :label          (str/join " -> " type)
+         :label          function
+         :name           (str/join " -> " type)
          :frames         [{:examples [example]
                            :syntax   [{:type  "gf"
                                        :value function

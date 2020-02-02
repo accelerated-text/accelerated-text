@@ -54,11 +54,11 @@ export default composeQueries({
                     <Loading />
                 </MessageTr>
             : concepts
-                ? sortByLabel( concepts.Str ).map( concept =>
+                ? sortByLabel( concepts.amr ).map( concept =>
                     <ConceptRow key={ concept.id } concept={ concept } />
                 )
                 : <MessageTr>
-                    <Error message="No Concepts found. Please contact your system administrator." />
+                    <Error message="No concepts found. Please contact your system administrator." />
                 </MessageTr>
             }
         </tbody>
