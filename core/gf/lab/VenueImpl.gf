@@ -1,39 +1,38 @@
-incomplete concrete VenueImpl of Venue = open
-  AtLocationEngImpl, HasPropertyEngImpl,
+--# -path=../concept-net:../lang-utils
+concrete VenueImpl of Venue = open
+  AtLocationEngImpl, HasPropertyEngImpl, UtilsEng,
   SyntaxEng, ParadigmsEng in {
 
   lincat
     DocumentPlan01, Segment02 = {s: Str};
-    AtLocation, IsA, HasProperty = S;
-    ObjectRole, LocationRole, PropertyNameRole = N;
+    AtLocation, HasProperty = S;
+    VenueRole, LocationRole = N;
+    PropertyNameRole = A;
     PropertyPolarityRole = Pol;
 
+    HasPropertyCompl = AP;
+    LocationRoleObj = Adv;
+    VenueRoleSubj = CN;
+  lin
     Doc seg = {s = seg.s};
-    Seg location isA hasProp = {s =
-                                  location.s ++ "."
-                                  isA.s ++ "."
-                                  hasPorp.s ++ "."};
+    Seg location hasProp = {s = location.s ++ "." ++ hasProp.s ++ "."};
 
-    AtLocation_Complete objectSubj locationObj = atLocationX objectSubj locationObj;
+    AtLocation_Complete venueSubj locationObj = atLocationX venueSubj locationObj;
 
-    IsA_Complete objectSubj = isA objectSubj;
+    HasProperty_Complete venueSubj propName polarity =
+      hasProperty venueSubj propName polarity;
 
-    HasProperty_Complete objectSubj propertyCompl = hasProperty objectSubj propertyCompl;
+    HasProperty_Complement propertyName propertyPolarity =
+      hasProp_Compl propertyName propertyPolarity;
 
-    HasProperty_Complement :
-      PropertyNameRole -> PropertyPolarityRole -> HasPropertyCompl;
+    VenueRole_Subject1 venueRole = hasProp_Mod1 venueRole;
 
-    ObjectRole_Subject :
-      ObjectRole -> ObjectRoleSubj;
+    VenueRole_Subject2 venueRole property = hasProp_Mod2 venueRole property;
 
-    ObjectRole_Subject :
-      ObjectRole -> HasPropertyCompl -> ObjectRoleSubj;
+    LocationRole_Object location = atLocationY location;
 
-    LocationRole_Object :
-      LocationRole -> LocationRoleObj;
-
-    ObjectData = mkN "Aromi";
-    LocationData = mkN "place";
-    PropertyNameData = mkN "family-friendly";
+    VenueData = mkN "Aromi";
+    LocationData = mkN "riverside";
+    PropertyNameData = mkA  "family-friendly";
     PropertyPolarityData = negativePol;
 }

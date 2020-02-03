@@ -4,36 +4,35 @@ abstract Venue = {
     -- document
     DocumentPlan01; Segment02;
     -- AMRs
-    AtLocation; IsA; HasProperty;
+    AtLocation; HasProperty;
     -- Roles
-    ObjectRole; LocationRole; PropertyNameRole; PropertyPolarityRole;
+    VenueRole; LocationRole; PropertyNameRole; PropertyPolarityRole;
+    -- Parts
+    VenueRoleSubj; HasPropertyCompl; LocationRoleObj;
 
   fun
     Doc : Segment02 -> DocumentPlan01;
-    Seg : AtLocation -> IsA -> HasProperty -> Segment02;
+    Seg : AtLocation -> HasProperty -> Segment02;
 
     AtLocation_Complete :
-      ObjectRoleSubj -> LocationRoleObj ->  AtLocation;
-
-    IsA_Complete :
-      ObjectRoleSubj -> IsA;
+      VenueRoleSubj -> LocationRoleObj ->  AtLocation;
 
     HasProperty_Complete :
-      ObjectRoleSubj -> HasPropertyCompl -> HasProperty;
+      VenueRoleSubj -> PropertyNameRole -> PropertyPolarityRole -> HasProperty;
 
     HasProperty_Complement :
       PropertyNameRole -> PropertyPolarityRole -> HasPropertyCompl;
 
-    ObjectRole_Subject :
-      ObjectRole -> ObjectRoleSubj;
+    VenueRole_Subject1 :
+      VenueRole -> VenueRoleSubj;
 
-    ObjectRole_Subject :
-      ObjectRole -> HasPropertyCompl -> ObjectRoleSubj;
+    VenueRole_Subject2 :
+      VenueRole -> HasPropertyCompl -> VenueRoleSubj;
 
     LocationRole_Object :
       LocationRole -> LocationRoleObj;
 
-    ObjectData : ObjectRole;
+    VenueData : VenueRole;
     LocationData : LocationRole;
     PropertyNameData : PropertyNameRole;
     PropertyPolarityData : PropertyPolarityRole;

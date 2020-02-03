@@ -37,9 +37,11 @@ resource AtLocationEngImpl = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) 
       };
 
     -- KFC is in the city
-    atLocationX : NP -> N -> Cl =
+    atLocationX :  CN -> Adv -> S =
       \subject, object ->
-      (mkCl subject (mkInAdv object));
+      (mkS (mkCl (mkCN subject object)));
+
+    atLocationY : N -> Adv = \subject -> mkInAdv subject;
 
   oper -- locatedNear
 
