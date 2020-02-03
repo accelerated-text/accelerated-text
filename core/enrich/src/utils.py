@@ -40,7 +40,14 @@ def load_example_triplets():
 
 
 def tokenize(text):
-    return [t for t in re.split(r"\s", text)
+    def split_token_further(t):
+        buff = re.split(r"[.,:!?]", t)
+        for b in buff:
+            yield b
+
+    return [ts
+            for ts in split_token_further(t)
+            for t in re.split(r"\s", text)
             if t.strip() != ""]
 
 
