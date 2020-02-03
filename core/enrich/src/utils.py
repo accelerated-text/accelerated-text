@@ -46,8 +46,8 @@ def tokenize(text):
             yield b
 
     return [ts
-            for ts in split_token_further(t)
             for t in re.split(r"\s", text)
+            for ts in split_token_further(t)
             if t.strip() != ""]
 
 
