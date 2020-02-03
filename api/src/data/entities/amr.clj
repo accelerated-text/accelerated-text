@@ -1,5 +1,6 @@
 (ns data.entities.amr
   (:require [api.config :refer [conf]]
+            [clj-yaml.core :as yaml]
             [clojure.java.io :as io]
             [clojure.string :as str]
             [data.db :as db]
@@ -26,12 +27,10 @@
 (defn grammar-package []
   (io/file (or (System/getenv "GRAMMAR_PACKAGE") "grammar/concept-net.yaml")))
 
-(defn read-amr [f]
-  (let [{:keys [roles frames]} (utils/read-yaml f)]
-    {:id     (utils/get-name f)
-     :roles  (map #(cond
-                     (string? %) {:type %}
-                     (map? %) (select-keys % [:type :input :label])) roles)
+(defn read-amr [id content]
+  (let [{:keys [roles frames]} (yaml/parse-string content)]
+    {:id     id
+     :roles  (map (fn [role] {:type role}) roles)
      :frames (map (fn [{:keys [syntax example]}]
                     {:examples [example]
                      :syntax   (for [instance syntax]
@@ -48,10 +47,11 @@
   ([package]
    (let [parent (.getParent (io/file package))]
      (->> package
-          (utils/read-yaml)
+          (slurp)
+          (yaml/parse-string)
           (:includes)
           (map (partial io/file parent))))))
 
 (defn initialize []
-  (doseq [{id :id :as amr} (map read-amr (list-amr-files))]
+  (doseq [{id :id :as amr} (map #(read-amr (utils/get-name %) (slurp %)) (list-amr-files))]
     (when-not (get-amr id) (write-amr amr))))
