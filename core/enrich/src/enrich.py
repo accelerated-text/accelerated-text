@@ -40,8 +40,9 @@ class Enricher(object):
         result = tokens
         prev_result = result
         iters = 0
+        retries = 0
         orig_len = len(tokens)
-        while iters < max_iters:
+        while iters < max_iters and retries < 5:
             pos = random.randint(0, len(tokens) - 1)
             if len(result) < 3:
                 op = random.choice([insert])
@@ -58,8 +59,10 @@ class Enricher(object):
                 logger.debug("Using op: {0} on pos: {1}".format(op, pos))
                 logger.debug("-> {}".format(result))
                 iters += 1
+                retries = 0
             except OpRejected:
                 logger.debug("Op Rejected.")
+                retries += 1
                 result = prev_result
 
         return self._decode(" ".join(result), context)

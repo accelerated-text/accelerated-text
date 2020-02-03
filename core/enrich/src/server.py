@@ -74,7 +74,7 @@ def json_response(fn):
 def application(environ, start_response, data, enricher=None):
     text = data["text"]
     context = data["context"]
-    result = enricher.enrich(text, context, max_iters=5)
+    result = enricher.enrich(text, context, max_iters=50)
     return {"result": result}
 
 
