@@ -4,7 +4,8 @@
             [acc-text.nlg.utils :as utils]
             [clojure.spec.alpha :as s]
             [clojure.string :as str]
-            [jsonista.core :as json]))
+            [jsonista.core :as json]
+            [clojure.tools.logging :as log]))
 
 (defn join-body [& args]
   (->> args
@@ -154,18 +155,20 @@
           module
           instance))
 
+(defn grammar->content [{::grammar/keys [module instance] :as grammar}]
+  {(str module)                (->abstract grammar)
+   (str module "Body")         (->incomplete grammar)
+   (str module "Lex")          (->interface grammar)
+   (str module "Lex" instance) (->resource grammar)
+   (str module instance)       (->concrete grammar)})
+
 (defn generate [{::grammar/keys [module instance] :as grammar}]
-  (-> (service/compile-request module instance {(str module)                (->abstract grammar)
-                                                (str module "Body")         (->incomplete grammar)
-                                                (str module "Lex")          (->interface grammar)
-                                                (str module "Lex" instance) (->resource grammar)
-                                                (str module instance)       (->concrete grammar)})
-      (get :body)
-      (json/read-value utils/read-mapper)
-      (get-in [:results 0 1])
-      (sort)
-      (dedupe)))
+  (let [{body :body} (service/compile-request module instance (grammar->content grammar))
+        {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
+    (if (some? error)
+      (log/error error)
+      (sort (dedupe results)))))
 
 (s/fdef generate
         :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar)
-        :ret (s/coll-of string?))
+        :ret (s/nilable (s/coll-of string?)))
