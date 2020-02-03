@@ -23,14 +23,18 @@ class Enricher(object):
         self.triplets = load_example_triplets()
 
     def _encode(self, text, context):
+        if context is None:
+            return text
         logger.info("Pre-encode: {}".format(text))
         return multi_replace(context, text)
 
     def _decode(self, text, context):
+        if context is None:
+            return text
         logger.info("Pre-decode: {}".format(text))
         return multi_replace(inverse_dict(context), text)
 
-    def enrich(self, sent, context, max_iters=3):
+    def enrich(self, sent, context=None, max_iters=3):
         tokens = tokenize(self._encode(sent, context))
         result = tokens
         iters = 0
