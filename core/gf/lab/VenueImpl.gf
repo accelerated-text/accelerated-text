@@ -35,4 +35,5 @@ concrete VenueImpl of Venue = open
     LocationData = mkN "riverside";
     PropertyNameData = mkA  "family-friendly";
     PropertyPolarityData = negativePol;
+    PropertyPredetData = not_Predet;
 }

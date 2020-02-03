@@ -6,7 +6,7 @@ abstract Venue = {
     -- AMRs
     AtLocation; HasProperty;
     -- Roles
-    VenueRole; LocationRole; PropertyNameRole; PropertyPolarityRole;
+    VenueRole; LocationRole; PropertyNameRole; PropertyPolarityRole; PropertyPredetRole;
     -- Parts
     VenueRoleSubj; HasPropertyCompl; LocationRoleObj;
 
@@ -36,4 +36,5 @@ abstract Venue = {
     LocationData : LocationRole;
     PropertyNameData : PropertyNameRole;
     PropertyPolarityData : PropertyPolarityRole;
+    PropertyPredetData : PropertyPredetRole;
 }
