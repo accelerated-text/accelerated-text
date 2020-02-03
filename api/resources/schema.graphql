@@ -329,6 +329,15 @@ type Mutation {
         id:                 ID!
     ): Boolean!
 
+    addConcept(
+        id:                 String!
+        content:            String!
+    ): Concept!
+
+    deleteConcept(
+        id:                 String!
+    ): Boolean!
+
     createDocumentPlan(
         uid:                ID!
         name:               String!

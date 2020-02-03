@@ -74,16 +74,16 @@
   (if (sequential? expr)
     (cond->> (join-function-body expr ret)
              (< 1 (count expr)) (format "(%s)"))
-    (let [{:keys [type value params]} expr]
-      (case type
+    (let [{:keys [kind value params]} expr]
+      (case kind
         :variable value
         :literal (cond->> (format "\"%s\"" (escape-string value))
                           (not= "Str" (second ret)) (format "(mk%s %s)" (second ret)))
         :function (format "%s.s" value)
         :operation (->> params
                         (filter (comp some? :value))
-                        (map (fn [{:keys [type value]}]
-                               (case type
+                        (map (fn [{:keys [kind value]}]
+                               (case kind
                                  :literal (format "\"%s\"" (escape-string value))
                                  :function (format "%s.s" value)
                                  :variable value)))

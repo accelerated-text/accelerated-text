@@ -15,23 +15,23 @@
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
                                  :params ["Segment02"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
                                  :params ["Amr03"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Amr03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Amr03"
                                  :params []
-                                 :body   [[{:type   :operation
-                                            :params [{:type  :variable
+                                 :body   [[{:params [{:kind  :variable
                                                       :value "DictionaryItem04"}
-                                                     {:type  :variable
-                                                      :value "Quote05"}
-                                                     {:type  :variable
-                                                      :value "Quote06"}]
+                                                     {:kind  :variable
+                                                      :value "Quote06"}
+                                                     {:kind  :variable
+                                                      :value "Quote05"}]
+                                            :kind   :operation
                                             :value  "atLocation"}]]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "DictionaryItem04"
@@ -39,16 +39,18 @@
                                  :value ["arena" "place" "venue"]}
                                 {:name  "Quote05"
                                  :type  "N"
-                                 :value ["city centre"]}
+                                 :value ["Alimentum"]}
                                 {:name  "Quote06"
                                  :type  "N"
-                                 :value ["Alimentum"]}]}
+                                 :value ["city centre"]}]}
          (build-grammar
            "location-amr"
-           {:amr        {:at-location {:frames [{:syntax [{:type  :oper
-                                                           :value "atLocation"
-                                                           :roles ["lexicon" "objectRef" "locationData"]
-                                                           :ret   ["N" "N" "N"]}]}]}}
+           {:amr        {"at-location" {:frames [{:syntax [{:type   :oper
+                                                            :value  "atLocation"
+                                                            :ret    "S"
+                                                            :params [{:role "lexicon" :type "N"}
+                                                                     {:role "locationData" :type "N"}
+                                                                     {:role "objectRef" :type "N"}]}]}]}}
             :dictionary {"place" ["arena" "place" "venue"]}}))))
 
 (deftest grammar-building
@@ -57,12 +59,12 @@
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
                                  :params ["Segment02"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
                                  :params []
-                                 :body   [{:type  :variable
+                                 :body   [{:kind  :variable
                                            :value "Data03"}]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "Data03"
@@ -74,12 +76,12 @@
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
                                  :params ["Segment02"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
                                  :params []
-                                 :body   [{:type  :variable
+                                 :body   [{:kind  :variable
                                            :value "Quote03"}]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "Quote03"
@@ -91,19 +93,19 @@
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
                                  :params ["Segment02"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
                                  :params ["Modifier03"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Modifier03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Modifier03"
                                  :params []
-                                 :body   [{:type  :variable
+                                 :body   [{:kind  :variable
                                            :value "DictionaryItem05"}
-                                          {:type  :variable
+                                          {:kind  :variable
                                            :value "Data04"}]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "Data04"
@@ -118,36 +120,36 @@
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
                                  :params ["Segment02"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
                                  :params ["Amr03"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Amr03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Amr03"
                                  :params []
-                                 :body   [[{:type  :literal
+                                 :body   [[{:kind  :literal
                                             :value "{{co-Agent}}"}
-                                           {:type  :literal
+                                           {:kind  :literal
                                             :value "is"}
                                            {:selectors {:number :singular
                                                         :tense  :past}
-                                            :type      :literal
+                                            :kind      :literal
                                             :value     "{{...}}"}
-                                           {:type  :literal
+                                           {:kind  :literal
                                             :value "by"}
-                                           {:type  :literal
+                                           {:kind  :literal
                                             :value "{{Agent}}"}]]
                                  :ret    [:s "Str"]}]
                     :variables []}
          (build-grammar
            "author-amr"
-           {:amr        {:author {:frames [{:syntax [{:pos :NP :role "co-Agent"} {:pos :LEX :value "is"}
-                                                     {:pos :VERB :tense :past :number :singular}
-                                                     {:pos :ADP :value "by"}
-                                                     {:pos :NP :role "Agent"}]}]}}
+           {:amr        {"author" {:frames [{:syntax [{:pos :NP :role "co-Agent"} {:pos :LEX :value "is"}
+                                                      {:pos :VERB :tense :past :number :singular}
+                                                      {:pos :ADP :value "by"}
+                                                      {:pos :NP :role "Agent"}]}]}}
             :dictionary {"good"    ["excellent"]
                          "written" ["authored"]}})))
   (is (= #::grammar{:module    "Default"
@@ -155,40 +157,40 @@
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
                                  :params ["Segment02"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
                                  :params ["Amr03"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Amr03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Amr03"
                                  :params ["Modifier05"]
-                                 :body   [[{:type  :function
+                                 :body   [[{:kind  :function
                                             :value "Modifier05"}
-                                           {:type  :literal
+                                           {:kind  :literal
                                             :value "is"}
-                                           {:type  :literal
+                                           {:kind  :literal
                                             :value "the author of"}
-                                           {:type  :variable
+                                           {:kind  :variable
                                             :value "Data08"}]
-                                          [{:type  :variable
+                                          [{:kind  :variable
                                             :value "Data08"}
-                                           {:type  :literal
+                                           {:kind  :literal
                                             :value "is"}
-                                           {:type  :variable
+                                           {:kind  :variable
                                             :value "DictionaryItem04"}
-                                           {:type  :literal
+                                           {:kind  :literal
                                             :value "by"}
-                                           {:type  :function
+                                           {:kind  :function
                                             :value "Modifier05"}]]
                                  :ret    [:s "Str"]}
                                 {:name   "Modifier05"
                                  :params []
-                                 :body   [{:type  :variable
+                                 :body   [{:kind  :variable
                                            :value "DictionaryItem07"}
-                                          {:type  :variable
+                                          {:kind  :variable
                                            :value "Data06"}]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "DictionaryItem04"
@@ -205,15 +207,15 @@
                                  :value ["Building Search Applications"]}]}
          (build-grammar
            "author-amr-with-adj"
-           {:amr  {:author {:frames [{:syntax [{:pos :NP :role "Agent"}
-                                               {:pos :LEX :value "is"}
-                                               {:pos :LEX :value "the author of"}
-                                               {:pos :NP :role "co-Agent"}]}
-                                     {:syntax [{:pos :NP :role "co-Agent"}
-                                               {:pos :LEX :value "is"}
-                                               {:pos :VERB :role "lexicon"}
-                                               {:pos :ADP :value "by"}
-                                               {:pos :NP :role "Agent"}]}]}}
+           {:amr  {"author" {:frames [{:syntax [{:pos :NP :role "Agent"}
+                                                {:pos :LEX :value "is"}
+                                                {:pos :LEX :value "the author of"}
+                                                {:pos :NP :role "co-Agent"}]}
+                                      {:syntax [{:pos :NP :role "co-Agent"}
+                                                {:pos :LEX :value "is"}
+                                                {:pos :VERB :role "lexicon"}
+                                                {:pos :ADP :value "by"}
+                                                {:pos :NP :role "Agent"}]}]}}
             :data {:authors "Manu Konchady"
                    :title   "Building Search Applications"}})))
   (is (= #::grammar{:instance  "Instance"
@@ -221,19 +223,19 @@
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
                                  :params ["Segment02"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
                                  :params ["Sequence03"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Sequence03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Sequence03"
                                  :params ["Shuffle05"]
-                                 :body   [{:type  :variable
+                                 :body   [{:kind  :variable
                                            :value "DictionaryItem04"}
-                                          {:type  :function
+                                          {:kind  :function
                                            :value "Shuffle05"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Shuffle05"
@@ -249,22 +251,22 @@
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
                                  :params ["Segment04"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Segment04"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Variable02"
                                  :params []
-                                 :body   [{:type  :variable
+                                 :body   [{:kind  :variable
                                            :value "Quote03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment04"
                                  :params ["Reference05"]
-                                 :body   [{:type  :function
+                                 :body   [{:kind  :function
                                            :value "Reference05"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Reference05"
                                  :params ["Variable02"]
-                                 :body   [[{:type  :function
+                                 :body   [[{:kind  :function
                                             :value "Variable02"}]]
                                  :ret    [:s "Str"]}]
                     :variables [{:name  "Quote03"

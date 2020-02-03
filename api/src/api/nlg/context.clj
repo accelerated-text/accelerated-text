@@ -32,7 +32,7 @@
 
 (defn build-amr-context [semantic-graph]
   (reduce (fn [m amr-id]
-            (assoc m (keyword amr-id) (amr/load-single amr-id)))
+            (assoc m amr-id (amr/get-amr amr-id)))
           {}
           (get-values semantic-graph :amr)))
 

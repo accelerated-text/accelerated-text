@@ -57,6 +57,49 @@
                         :results/ts    (ts-now)
                         :results/ready (:ready data-item)})]))
 
+(defn prepare-amr-syntax-params [params]
+  (->> params
+       (map (fn [{:keys [type role]}]
+              (remove-nil-vals
+                {:param/type type
+                 :param/role role})))
+       (remove empty?)))
+
+(defn prepare-amr-syntax [syntax]
+  (->> syntax
+       (map (fn [{:keys [role ret value params pos type]}]
+              (remove-nil-vals
+                {:syntax/role   role
+                 :syntax/ret    ret
+                 :syntax/value  value
+                 :syntax/pos    pos
+                 :syntax/type   type
+                 :syntax/params (prepare-amr-syntax-params params)})))
+       (remove empty?)))
+
+(defn prepare-amr [key {:keys [roles frames]}]
+  {:db/id      [:amr/id key]
+   :amr/id     key
+   :amr/roles  (->> roles
+                    (map (fn [{:keys [type label input]}]
+                           (remove-nil-vals
+                             {:role/type  type
+                              :role/label label
+                              :role/input input})))
+                    (remove empty?))
+   :amr/frames (->> frames
+                    (map (fn [{:keys [examples syntax]}]
+                           (remove-nil-vals
+                             {:frame/examples (seq examples)
+                              :frame/syntax   (prepare-amr-syntax syntax)})))
+                    (remove empty?))})
+
+(defmethod transact-item :amr [_ key data-item]
+  (try
+    @(d/transact conn [(remove-nil-vals (dissoc (prepare-amr key data-item) :db/id))])
+    (assoc data-item :id key)
+    (catch Exception e (.printStackTrace e))))
+
 (defmethod transact-item :default [resource-type key _]
   (log/warnf "Default implementation of transact-item for the '%s' with key '%s'" resource-type key)
   (throw (RuntimeException. (format "DATOMIC TRANSACT-ITEM FOR '%s' NOT IMPLEMENTED" resource-type))))
@@ -116,6 +159,40 @@
        :message (:results/message entity)
        :results (decode-results (:results/results entity))})))
 
+(defn read-amr-entity [amr-entity]
+  {:id     (:amr/id amr-entity)
+   :roles  (map (fn [role]
+                  (remove-nil-vals
+                    {:type  (:role/type role)
+                     :label (:role/label role)
+                     :input (:role/input role)}))
+                (:amr/roles amr-entity))
+   :frames (map (fn [frame]
+                  (remove-nil-vals
+                    {:examples (:frame/examples frame)
+                     :syntax   (map (fn [syntax]
+                                      (remove-nil-vals
+                                        {:role   (:syntax/role syntax)
+                                         :ret    (:syntax/ret syntax)
+                                         :value  (:syntax/value syntax)
+                                         :params (seq (map (fn [param]
+                                                             (remove-nil-vals
+                                                               {:type (:param/type param)
+                                                                :role (:param/role param)}))
+                                                           (:syntax/params syntax)))
+                                         :pos    (:syntax/pos syntax)
+                                         :type   (:syntax/type syntax)}))
+                                    (:frame/syntax frame))}))
+                (:amr/frames amr-entity))})
+
+(defmethod pull-entity :amr [_ key]
+  (let [amr-entity (ffirst (d/q '[:find (pull ?e [*])
+                                  :in $ ?key
+                                  :where [?e :amr/id ?key]]
+                                (d/db conn)
+                                key))]
+    (cond-> amr-entity (some? amr-entity) (read-amr-entity))))
+
 (defmethod pull-entity :default [resource-type key]
   (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'" resource-type key)
   (throw (RuntimeException. (format "DATOMIC PULL-ENTITY FOR '%s' NOT IMPLEMENTED" resource-type))))
@@ -150,6 +227,13 @@
                           :where [?e :dictionary-combined/id]]
                         (d/db conn)))))
 
+(defmethod pull-n :amr [_ limit]
+  (take limit (map (fn [[item]]
+                     (read-amr-entity item))
+                   (d/q '[:find (pull ?e [*])
+                          :where [?e :amr/id]]
+                        (d/db conn)))))
+
 (defmethod pull-n :default [resource-type limit]
   (log/warnf "Default implementation of list-items for the '%s' with key '%s'" resource-type limit)
   (throw (RuntimeException. (format "DATOMIC PULL-N FOR '%s' NOT IMPLEMENTED" resource-type))))
@@ -164,6 +248,10 @@
 
 (defmethod delete :dictionary-combined [_ key]
   @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]])
+  nil)
+
+(defmethod delete :amr [_ key]
+  @(d/transact conn [[:db.fn/retractEntity [:amr/id key]]])
   nil)
 
 (defmethod delete :default [resource-type opts]
