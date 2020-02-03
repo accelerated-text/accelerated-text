@@ -62,3 +62,8 @@ def test_pos_case_1(nlp):
     assert get_pos_signature(t1, nlp) != get_pos_signature(t2, nlp)
 
     
+def test_inside_check():
+    s1 = ["three", "four"]
+    s2 = ["one", "two", "three", "four", "five"]
+
+    assert inside(s1, s2)

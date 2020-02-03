@@ -21,6 +21,7 @@ class Enricher(object):
     def __init__(self):
         self.nlp = spacy.load("en", parser=False, entity=False)
         self.triplets = load_example_triplets()
+        self.seqs = list(load_seq())
 
     def _encode(self, text, context):
         if context is None:
@@ -37,6 +38,7 @@ class Enricher(object):
     def enrich(self, sent, context=None, max_iters=3):
         tokens = tokenize(self._encode(sent, context))
         result = tokens
+        prev_result = result
         iters = 0
         orig_len = len(tokens)
         while iters < max_iters:
@@ -51,10 +53,13 @@ class Enricher(object):
                 prev_result = result
                 result = op(result, pos, self.triplets)
                 validate(prev_result, result, self.nlp)
+                if not inside(result, self.seqs):
+                    raise OpRejected("'{}': Such result doesn't exist in our dataset. Consider it incorrect".format(result))
                 logger.debug("Using op: {0} on pos: {1}".format(op, pos))
                 logger.debug("-> {}".format(result))
                 iters += 1
             except OpRejected:
                 logger.debug("Op Rejected.")
+                result = prev_result
 
         return self._decode(" ".join(result), context)

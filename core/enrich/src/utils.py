@@ -12,10 +12,31 @@ class OpRejected(RuntimeError):
     pass
 
 
+def sliding_window(lst, n):
+    for i in range(0, len(lst) - n):
+        yield lst[i:i+n]
+
+
+def inside(lst1, lst2):
+    cond = lambda subset: subset == lst1
+    n = len(lst1)
+    for subset in sliding_window(lst2, n):
+        if subset == lst1:
+            return True
+
+    return False
+    
+
+
+def load_seq():
+    with open("data/text_raw.txt", "r") as f:
+        return [t.replace(".", "").strip()
+                for t in tokenize(f.read())]
+
+
 def load_example_triplets():
     with open("data/text_raw.txt", "r") as f:
-        return Counter(ngram([t.replace(".", "").strip()
-                              for t in tokenize(f.read())], n=3))
+        return Counter(ngram(load_seq(), n=3))
 
 
 def tokenize(text):
