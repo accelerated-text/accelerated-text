@@ -1,0 +1,11 @@
+roles:
+  - lexicon
+  - id
+frames:
+  - example: is named Blue Space
+    syntax:
+      - pos: AUX
+      - pos: VERB
+        role: lexicon
+      - pos: NP
+        role: id
