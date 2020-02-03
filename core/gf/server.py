@@ -143,7 +143,7 @@ def application(environ, start_response, data):
         return {"error": error.message}
     except Exception as ex:
         logger.exception(ex)
-        return {"error": str(ex)}
+        return {"error": str(ex).strip()}
 
 
 
