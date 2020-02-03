@@ -2,10 +2,12 @@
   (:require [api.config :refer [conf]]
             [clj-yaml.core :as yaml]
             [clojure.java.io :as io]
+            [clojure.set :as set]
             [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]]
+            [clojure.tools.logging :as log]))
 
 (defstate amr-db :start (db/db-access :amr conf))
 
@@ -52,6 +54,21 @@
           (:includes)
           (map (partial io/file parent))))))
 
+(defn valid? [{:keys [roles frames]}]
+  (->> frames
+       (mapcat :syntax)
+       (mapcat (fn [{:keys [role params]}]
+                 (cond
+                   (some? role) [role]
+                   (some? params) (map :role params)
+                   :else [])))
+       (set)
+       (set/superset? (set (map :type roles)))))
+
 (defn initialize []
+  (log/debug "Initializing AMRs...")
   (doseq [{id :id :as amr} (map #(read-amr (utils/get-name %) (slurp %)) (list-amr-files))]
-    (when-not (get-amr id) (write-amr amr))))
+    (cond
+      (some? (get-amr id)) (log/warnf "AMR with id `%s` is already present and will be skipped." id)
+      (not (valid? amr)) (log/warnf "AMR with id `%s` is not valid and will be skipped." id)
+      :else (write-amr amr))))
