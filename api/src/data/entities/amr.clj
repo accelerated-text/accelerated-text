@@ -26,9 +26,6 @@
     (delete-amr id))
   (db/write! amr-db id amr))
 
-(defn grammar-package []
-  (io/file (or (System/getenv "GRAMMAR_PACKAGE") "grammar/concept-net.yaml")))
-
 (defn read-amr [id content]
   (let [{:keys [roles frames]} (yaml/parse-string content)]
     {:id     id
@@ -44,17 +41,7 @@
                                             (into {} instance)))})
                   frames)}))
 
-(defn list-amr-files
-  ([] (list-amr-files (grammar-package)))
-  ([package]
-   (let [parent (.getParent (io/file package))]
-     (->> package
-          (slurp)
-          (yaml/parse-string)
-          (:includes)
-          (map (partial io/file parent))))))
-
-(defn valid? [{:keys [roles frames]}]
+(defn valid-amr? [{:keys [roles frames]}]
   (->> frames
        (mapcat :syntax)
        (mapcat (fn [{:keys [role params]}]
@@ -65,12 +52,26 @@
        (set)
        (set/superset? (set (map :type roles)))))
 
-(defn initialize []
-  (log/debug "Initializing AMRs...")
-  (doseq [{id :id :as amr} (map #(read-amr (utils/get-name %) (slurp %)) (list-amr-files))]
-    (if-not (valid? amr)
-      (log/warnf "AMR with id `%s` is not valid and will be skipped." id)
-      (do
-        (when (get-amr id)
-          (log/warnf "AMR with id `%s` is already present and will be overwritten." id))
-        (write-amr amr)))))
+(defn grammar-package []
+  (io/file (or (System/getenv "GRAMMAR_PACKAGE") "grammar/concept-net.yaml")))
+
+(defn list-amr-files
+  ([] (list-amr-files (grammar-package)))
+  ([package]
+   (let [parent (.getParent (io/file package))]
+     (->> package
+          (slurp)
+          (yaml/parse-string)
+          (:includes)
+          (map (partial io/file parent))))))
+
+(defn initialize
+  ([] (initialize (list-amr-files)))
+  ([files]
+   (doseq [{id :id :as amr} (map #(read-amr (utils/get-name %) (slurp %)) files)]
+     (if-not (valid-amr? amr)
+       (log/warnf "AMR with id `%s` is not valid and will be skipped." id)
+       (do
+         (when (get-amr id)
+           (log/warnf "AMR with id `%s` is already present and will be overwritten." id))
+         (write-amr amr))))))

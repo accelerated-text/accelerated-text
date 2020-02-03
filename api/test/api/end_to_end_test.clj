@@ -5,7 +5,9 @@
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
-            [data.entities.amr :as amr]))
+            [data.entities.amr :as amr]
+            [clojure.java.io :as io])
+  (:import (java.io File)))
 
 (defn prepare-environment [f]
   (doseq [item [{:key "cut" :name "cut" :phrases ["cut"] :partOfSpeech :VB}
@@ -15,54 +17,10 @@
                 {:key "is" :name "is" :phrases ["is"] :partOfSpeech :VB}
                 {:key "release" :name "release" :phrases ["publised" "released"] :partOfSpeech :VB}]]
     (dictionary/create-dictionary-item item))
-  (doseq [item [{:id     "author"
-                 :roles  [{:type "lexicon"} {:type "Agent"} {:type "co-Agent"}]
-                 :frames [{:syntax [{:pos :NP :role "Agent"}
-                                    {:pos :AUX :value "is"}
-                                    {:pos :LEX :value "the author"}
-                                    {:pos :ADP :value "of"}
-                                    {:pos :NP :role "co-Agent"}]}
-                          {:syntax [{:pos :NP :role "co-Agent"}
-                                    {:pos :AUX :value "is"}
-                                    {:pos :VERB :role "lexicon"}
-                                    {:pos :ADP :value "by"}
-                                    {:pos :NP :role "Agent"}]}]}
-                {:id     "cut"
-                 :roles  [{:type "lexicon"} {:type "Agent"} {:type "Patient"} {:type "Instrument"} {:type "Source"} {:type "Result"}]
-                 :frames [{:syntax [{:pos :NP :role "Agent"}
-                                    {:pos :VERB :role "lexicon"}
-                                    {:pos :NP :role "Patient"}
-                                    {:pos :ADP :value "into"}
-                                    {:pos :NP :role "Result"}
-                                    {:pos :ADP :value "with"}
-                                    {:pos :NP :role "Instrument"}]}]}
-                {:id     "at-location"
-                 :roles  [{:type "lexicon"} {:type "locationData"} {:type "objectRef"}]
-                 :frames [{:syntax [{:type   :oper
-                                     :value  "atLocation"
-                                     :ret    "S"
-                                     :params [{:role "lexicon" :type "N"}
-                                              {:role "locationData" :type "N"}
-                                              {:role "objectRef" :type "N"}]}]}]}
-                {:id     "located-near"
-                 :roles  [{:type "lexicon"} {:type "objectRef"} {:type "locationData"} {:type "nearDictionary"} {:type "nearData"}]
-                 :frames [{:syntax [{:type   :oper
-                                     :value  "locatedNear"
-                                     :ret    "S"
-                                     :params [{:role "lexicon" :type "N"}
-                                              {:role "locationData" :type "N"}
-                                              {:role "objectRef" :type "N"}
-                                              {:role "nearDictionary" :type "Prep"}
-                                              {:role "nearData" :type "N"}]}]}
-                          {:syntax [{:type   :oper
-                                     :value  "locatedNear"
-                                     :ret    "S"
-                                     :params [{:role "lexicon" :type "N"}
-                                              {:role "locationData" :type "N"}
-                                              {:role "objectRef" :type "N"}
-                                              {:role "nearDictionary" :type "Prep"}
-                                              {:role "nearData" :type "N"}]}]}]}]]
-    (amr/write-amr item))
+  (->> (io/file "test/resources/amr")
+       (file-seq)
+       (remove #(.isDirectory ^File %))
+       (amr/initialize))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
