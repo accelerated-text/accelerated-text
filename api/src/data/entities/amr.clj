@@ -68,7 +68,9 @@
 (defn initialize []
   (log/debug "Initializing AMRs...")
   (doseq [{id :id :as amr} (map #(read-amr (utils/get-name %) (slurp %)) (list-amr-files))]
-    (cond
-      (some? (get-amr id)) (log/warnf "AMR with id `%s` is already present and will be skipped." id)
-      (not (valid? amr)) (log/warnf "AMR with id `%s` is not valid and will be skipped." id)
-      :else (write-amr amr))))
+    (if-not (valid? amr)
+      (log/warnf "AMR with id `%s` is not valid and will be skipped." id)
+      (do
+        (when (get-amr id)
+          (log/warnf "AMR with id `%s` is already present and will be overwritten." id))
+        (write-amr amr)))))
