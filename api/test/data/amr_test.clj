@@ -1,6 +1,5 @@
 (ns data.amr-test
-  (:require [clojure.java.io :as io]
-            [clojure.test :refer [deftest is]]
+  (:require [clojure.test :refer [deftest is]]
             [data.entities.amr :as amr]))
 
 (deftest amr-reading
@@ -19,7 +18,7 @@
                                {:pos :VERB :role "lexicon"}
                                {:pos :ADP :value "by"}
                                {:pos :NP :role "Agent"}]}]}
-         (amr/read-amr "author" (slurp (io/file "test/resources/grammar/library/author.yaml")))))
+         (amr/read-amr "author" (slurp "test/resources/amr/author.yaml"))))
   (is (= {:id     "see"
           :roles  [{:type "lexicon"}
                    {:type "Agent"}
@@ -28,7 +27,7 @@
                     :syntax   [{:pos :NP :role "Agent"}
                                {:pos :VERB :role "lexicon"}
                                {:pos :NP :role "co-Agent"}]}]}
-         (amr/read-amr "see" (slurp (io/file "test/resources/grammar/other/see.yaml")))))
+         (amr/read-amr "see" (slurp "test/resources/amr/see.yaml"))))
   (is (= {:id     "cut"
           :roles  [{:type "lexicon"}
                    {:type "Agent"}
@@ -43,4 +42,5 @@
                                {:pos :ADP :value "into"}
                                {:pos :NP :role "Result"}
                                {:pos :ADP :value "with"}
-         (amr/read-amr "cut" (slurp (io/file "test/resources/grammar/other/cut.yaml"))))))
+                               {:pos :NP :role "Instrument"}]}]}
+         (amr/read-amr "cut" (slurp "test/resources/amr/cut.yaml")))))
