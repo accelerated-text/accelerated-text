@@ -1,16 +1,17 @@
 roles:
-  - address
+  - lexicon
+  - locationData
+  - objectRef
 frames:
-  - example: There is a place in the city center
+  - example: There is a place in the city center, KFC
     syntax:
-      - pos: LEX
-        value: "There"
-      - pos: AUX
-      - pos: DET
-      - pos: NP
-        value: "place"
-      - pos: ADP
-        value: "in"
-      - pos: DET
-      - pos: NP
-        role: address
+      - type: oper
+        value: atLocation
+        ret: S
+        params:
+          - role: lexicon
+            type: N
+          - role: locationData
+            type: N
+          - role: objectRef
+            type: N
