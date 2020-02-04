@@ -1,5 +1,9 @@
 resource UtilsEng = open SyntaxEng in {
 
+  -- Create a NP from a noun and its modifier
+  oper mkAMod : Det -> A -> N -> NP = \det, mod, noun ->
+         (mkNP det (mkCN mod noun));
+
   -- Takes in a noun and produces 'in the NOUN'
   oper mkInAdv : N -> Adv = \noun -> SyntaxEng.mkAdv in_Prep (mkNP the_Det noun);
 
