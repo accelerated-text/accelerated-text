@@ -33,7 +33,7 @@
   ([document-plan data reader-model enrich]
    (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)
-         enrich-data (into {}  (map (fn [[k v]] {v (format "{%s}" k)}) data))
+         enrich-data (into {} (map (fn [[k v]] {v (format "{%s}" (name k))}) data))
          enrich-fn (if enrich
                      (partial nlg/enrich-text enrich-data)
                      (fn [text] {:original text}))]
