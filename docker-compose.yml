@@ -8,6 +8,7 @@ services:
     ports: ["3001:3001"]
     environment:
       GF_ENDPOINT: http://gf:8000
+      ENRICH_ENDPOINT: http://enrich:8000
       DB_IMPLEMENTATION: datomic
       GRAMMAR_PACKAGE: "/opt/grammar/all.yaml"
       DICT_PATH: "/opt/grammar/dictionary"
