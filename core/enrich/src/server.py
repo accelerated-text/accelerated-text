@@ -54,7 +54,6 @@ def json_response(fn):
         try:
             response = fn(environ, start_response, *args)
         except Exception as ex:
-            raise ex
             response = {"error": True, "message": str(ex)}
 
         output = json.dumps(response).encode("UTF-8")
