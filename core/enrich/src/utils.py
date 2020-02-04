@@ -25,7 +25,7 @@ def inside(lst1, lst2):
             return True
 
     return False
-    
+
 
 
 def load_seq():
@@ -46,7 +46,7 @@ def tokenize(text):
             yield b
 
     return [ts
-            for t in re.split(r"\s", text)
+            for t in re.split(r"\s", text.lower())
             for ts in split_token_further(t)
             if t.strip() != ""]
 
