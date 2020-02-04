@@ -42,11 +42,11 @@
           (enrich-fn data)))))
 
 
-(defn generation-process [document-plan rows reader-model]
+(defn generation-process [document-plan rows reader-model enrich]
   (try
     {:ready   true
      :results (doall (map (fn [[row-key data]]
-                            [row-key (generate-text document-plan data reader-model)])
+                            [row-key (generate-text document-plan data reader-model enrich)])
                           rows))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
