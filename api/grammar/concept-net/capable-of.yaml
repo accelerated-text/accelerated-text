@@ -1,0 +1,17 @@
+roles:
+  - action
+  - result
+  - modifier
+frames:
+  - example: serves Chinese food
+    syntax:
+      - type: oper
+        value: capableOf
+        ret: S
+        params:
+          - role: action
+            type: V2
+          - role: result
+            type: N
+          - role: modifier
+            type: A

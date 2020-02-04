@@ -1,0 +1,9 @@
+roles:
+  - hyponym
+frames:
+  - example: is a family friendly pub
+    syntax:
+      - pos: AUX
+      - pos: DET
+      - pos: NP
+        role: hyponym

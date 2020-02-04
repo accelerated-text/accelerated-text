@@ -1,9 +1,0 @@
----
-includes:
-  - library/author.yaml
-  - library/genre.yaml
-  - library/release.yaml
-  - other/cut.yaml
-  - other/see.yaml
-  - concept-net/at-location.yaml
-  - concept-net/located-near.yaml

@@ -4,34 +4,23 @@
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
-            [data.entities.dictionary :as dictionary]))
+            [data.entities.dictionary :as dictionary]
+            [data.entities.amr :as amr]
+            [clojure.java.io :as io])
+  (:import (java.io File)))
 
 (defn prepare-environment [f]
-  (doseq [item [{:key          "cut"
-                 :name         "cut"
-                 :phrases      ["cut"]
-                 :partOfSpeech :VB}
-                {:key          "see"
-                 :name         "see"
-                 :phrases      ["see"]
-                 :partOfSpeech :VB}
-                {:key          "place"
-                 :name         "place"
-                 :phrases      ["arena" "place" "venue"]
-                 :partOfSpeech :NN}
-                {:key          "written"
-                 :name         "written"
-                 :phrases      ["written"]
-                 :partOfSpeech :VB}
-                {:key          "is"
-                 :name         "is"
-                 :phrases      ["is"]
-                 :partOfSpeech :VB}
-                {:key          "release"
-                 :name         "release"
-                 :phrases      ["publised" "released"]
-                 :partOfSpeech :VB}]]
+  (doseq [item [{:key "cut" :name "cut" :phrases ["cut"] :partOfSpeech :VB}
+                {:key "see" :name "see" :phrases ["see"] :partOfSpeech :VB}
+                {:key "place" :name "place" :phrases ["arena" "place" "venue"] :partOfSpeech :NN}
+                {:key "written" :name "written" :phrases ["written"] :partOfSpeech :VB}
+                {:key "is" :name "is" :phrases ["is"] :partOfSpeech :VB}
+                {:key "release" :name "release" :phrases ["publised" "released"] :partOfSpeech :VB}]]
     (dictionary/create-dictionary-item item))
+  (->> (io/file "test/resources/amr")
+       (file-seq)
+       (remove #(.isDirectory ^File %))
+       (amr/initialize))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)

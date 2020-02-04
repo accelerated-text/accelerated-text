@@ -13,7 +13,7 @@ services:
       DICT_PATH: "/opt/grammar/dictionary"
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
-      - ./test/resources/grammar:/opt/grammar
+      - ./grammar:/opt/grammar
   gf:
     build:
       context: ../

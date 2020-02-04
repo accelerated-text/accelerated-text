@@ -1,6 +1,7 @@
 (ns api.datomic-fixtures
   (:require [api.config]
             [data.datomic.impl]
+            [data.entities.amr]
             [data.entities.data-files]
             [data.entities.dictionary]
             [data.entities.document-plan]
@@ -26,6 +27,7 @@
            {:start (fn []
                      {:db-implementation :datomic})}})
         (mount/only #{#'api.config/conf
+                      #'data.entities.amr/amr-db
                       #'data.entities.data-files/data-files-db
                       #'data.entities.document-plan/document-plans-db
                       #'data.entities.dictionary/reader-flags-db

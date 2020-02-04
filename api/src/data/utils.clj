@@ -1,5 +1,4 @@
 (ns data.utils
-  (:require [clj-yaml.core :as yaml])
   (:import (java.io File)
            (java.util UUID)
            (java.time Instant)))
@@ -9,9 +8,6 @@
 
 (defn ts-now []
   (long (.getEpochSecond (Instant/now))))
-
-(defn read-yaml [^File f]
-  (yaml/parse-string (slurp f)))
 
 (defn get-ext [^File f]
   (let [filename (.getName f)
