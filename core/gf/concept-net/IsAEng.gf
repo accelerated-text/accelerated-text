@@ -1,6 +1,5 @@
 resource IsAEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
 
-  -- X is Y
   oper XisY : NP -> NP -> S = \x, y-> mkS (mkCl x y);
 
   oper
