@@ -121,12 +121,16 @@
             "cat" (parse-cat flags functions)
             "fun" (parse-fun functions))))
 
+(def imports ["LangFunctionsEng" "SyntaxEng" "ParadigmsEng"
+              "AtLocationEng" "CapableOfEng" "HasAEng"
+              "HasPropertyEng" "IsAEng" "LocatedNearEng" "MadeOfEng"])
+
 (defn ->incomplete [{::grammar/keys [module functions]}]
   (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"
           module
           module
           module
-          "LangFunctionsEng, ConceptNetEng, SyntaxEng, ParadigmsEng"
+          (str/join ", " imports)
           (join-body
             "param" (parse-param functions)
             "lincat" (parse-lincat functions)

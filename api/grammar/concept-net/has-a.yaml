@@ -1,14 +1,14 @@
 roles:
   - Subject
-  - Attribute
+  - Object
 frames:
-  - example: T1000 is a kettle
+  - example: A car has an engine
     syntax:
       - type: oper
-        value: isA_S
+        value: hasA_S
         ret: S
         params:
           - role: Subject
             type: N
-          - role: Attribute
+          - role: Object
             type: N
