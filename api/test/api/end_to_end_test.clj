@@ -282,7 +282,6 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"Restaurant located in city center"
-             "Restaurant in the city center"
              "Restaurant at the city center"
              "Restaurant at city center"
              "Restaurant is located city center"
