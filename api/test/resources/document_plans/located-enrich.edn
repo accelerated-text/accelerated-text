@@ -1,13 +1,16 @@
 {:type     "Document-plan"
- :segments [{:children [{:roles     [{:children [{:type "Quote" :srcId "=Zj[8Jk7Qh%}92o)|1Ri" :text "located"}]
-                                      :name     "objectRef"}
-                                     {:children [{:type "Quote" :srcId "=Zj[8Jk7Qh%}92o)|1Ri" :text "in"}]
+ :segments [{:children [{:roles     [{:children [{:name   "place"
+                                                  :type   "Dictionary-item"
+                                                  :srcId  "5SgtK-{hj)?WV7+(Y=o."
+                                                  :itemId "place"}]
+                                      :name     "lexicon"}
+                                     {:children [{:type "Quote" :srcId "=Zj[8Jk7Qh%}92o)|1Ri" :text "Alimentum"}]
                                       :name     "objectRef"}
                                      {:children [{:name "area" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa3"}]
                                       :name     "locationData"}]
                          :type      "AMR"
                          :srcId     "mR#QB3NK1!wZTZ?#Q+#g"
-                         :conceptId "located-enrich"}]
+                         :conceptId "at-location"}]
              :type     "Segment"
              :srcId    "?Z/-L4HuT10K|n(:~7XH"}]
  :srcId    "/K/t|A:RgNKh6!-BVeYi"}
