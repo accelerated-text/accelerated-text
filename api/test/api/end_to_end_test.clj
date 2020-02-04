@@ -72,6 +72,14 @@
    (map :original)
    (set)))
 
+(defn get-enriched-results [result-id]
+  (->>
+   result-id
+   (get-variants)
+   :sample
+   (map :enriched)
+   (set)))
+
 (deftest ^:integration single-element-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "title-only" "books.csv")]
     (is (= 200 status))
@@ -276,4 +284,4 @@
     (is (= #{"Located in city center"
              "Located in the city center"
              "Located at the city center"
-             "Located at city center"} (get-original-results result-id)))))
+             "Located at city center"} (get-enriched-results result-id)))))
