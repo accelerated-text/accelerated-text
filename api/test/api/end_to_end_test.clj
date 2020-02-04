@@ -285,4 +285,6 @@
              "Restaurant at the city center"
              "Restaurant at city center"
              "Restaurant is located city center"
-             "Restaurant in the city center"} (get-enriched-results result-id)))))
+             "Restaurant in the city center"
+             "Is a restaurant located in city center"
+             "Is a restaurant located in the city center"} (get-enriched-results result-id)))))
