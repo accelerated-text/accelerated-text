@@ -11,6 +11,8 @@ resource IsAEng = open ParadigmsEng, SyntaxEng in {
 
       -- T1000 is a red kettle
       isA_S : N -> A -> N -> S = \subject, amod, attribute ->
-        XisY (mkNP subject) (mkNP a_Det attribute) ;
-      };
+        XisY (mkNP subject) (mkNP a_Det (mkCN amod attribute));
+
+      isA_S : NP -> NP -> S = \subject, attribute -> XisY subject attribute;
+    };
 }
