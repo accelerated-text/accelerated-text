@@ -4,3 +4,4 @@ includes:
   - concept-net/capable-of.yaml
   - concept-net/has-property.yaml
   - concept-net/located-near.yaml
+  - concept-net/is-a.yaml
