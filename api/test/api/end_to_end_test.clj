@@ -74,11 +74,11 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"Building Search Applications is author by Manu Konchady."
-             "Manu Konchady is the author of Building Search Applications."} (-> result-id
-                                                                                 (get-variants)
-                                                                                 :sample
-                                                                                 (map :original)
-                                                                                 (set))))))
+             "Manu Konchady is the author of Building Search Applications."} (->> result-id
+                                                                                  (get-variants)
+                                                                                  :sample
+                                                                                  (map :original)
+                                                                                  (set))))))
 
 (deftest ^:integration authorship-document-plan-bulk-generation
   (let [data {"9780307743657" {:title "The Shinning" :author "Stephen King"}
@@ -265,13 +265,10 @@
              "There is an arena in the city centre , near the KFC Alimentum."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration enriched-results-generation
-  (let [{{result-id :resultId} :body status :status} (generate "located-near" "books.csv")]
+  (let [{{result-id :resultId} :body status :status} (generate-enriched "located-enrich" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"In the city centre , near the KFC there is a place Alimentum."
-             "In the city centre , near the KFC there is a venue Alimentum."
-             "In the city centre , near the KFC there is an arena Alimentum."
-             "There is a place in the city centre , near the KFC Alimentum."
-             "There is a venue in the city centre , near the KFC Alimentum."
-             "There is an Alimentum in the city centre , near the KFC."
-             "There is an arena in the city centre , near the KFC Alimentum."} (->> result-id (get-variants) :sample (map :enriched))))))
+    (is (= #{"Located in city center"
+             "Located in the city center"
+             "Located at the city center"
+             "Located at city center"} (->> result-id (get-variants) :sample (map :enriched))))))
