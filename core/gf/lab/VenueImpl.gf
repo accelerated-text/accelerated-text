@@ -10,19 +10,22 @@ concrete VenueImpl of Venue = open
     PropertyNameRole = A;
     PropertyPolarityRole = Pol;
 
-    HasPropertyCompl = AP;
+    HasPropertyAcl = AP;
     LocationRoleObj = Adv;
     VenueRoleSubj = CN;
   lin
     Doc seg = {s = seg.s};
-    Seg location hasProp = {s = location.s ++ "." ++ hasProp.s ++ "."};
+    -- Aromi is located in the city. Aromi is FF.
+    Seg_Sentences location hasProp = {s = location.s ++ "." ++ hasProp.s ++ "."};
+    -- Family-friendly Aromi is located in the city.
+    Seg_Phrases venue location = subjectCopulaObject venue location;
 
     AtLocation_Complete venueSubj locationObj = atLocationX venueSubj locationObj;
 
     HasProperty_Complete venueSubj propName polarity =
       hasProperty venueSubj propName polarity;
 
-    HasProperty_Complement propertyName propertyPolarity =
+    HasProperty_Acl propertyName propertyPolarity =
       hasProp_Compl propertyName propertyPolarity;
 
     VenueRole_Subject1 venueRole = hasProp_Mod1 venueRole;

@@ -5,13 +5,16 @@ resource UtilsEng = open SyntaxEng in {
 
   oper presentSimTemp = mkTemp presentTense simultaneousAnt;
 
-  -- Takes in noung for a reference place and a thing in that reference place
-  -- produces 'There is X in Y'
+       -- Takes in noung for a reference place and a thing in that reference place
+       -- produces 'There is X in Y'
   oper mkThereIsAThing = overload {
-    mkThereIsAThing : N -> N -> Cl = \descriptionN,thingN -> mkCl (mkCN descriptionN (mkNP thingN));
-    mkThereIsAThing : CN -> N -> Cl = \descriptionCN,thingN -> mkCl (mkCN descriptionCN (mkNP thingN));
-    mkThereIsAThing : N -> Adv -> Cl = \descriptionN,thingAdv -> mkCl (mkCN (mkCN descriptionN) thingAdv);
-    mkThereIsAThing : CN -> A-> N -> Cl = \descriptionCN, mod, thingCN ->
-      mkCl (mkCN descriptionCN (mkNP (mkCN mod thingCN)));
-  };
+         mkThereIsAThing : N -> N -> Cl = \descriptionN,thingN -> mkCl (mkCN descriptionN (mkNP thingN));
+         mkThereIsAThing : CN -> N -> Cl = \descriptionCN,thingN -> mkCl (mkCN descriptionCN (mkNP thingN));
+         mkThereIsAThing : N -> Adv -> Cl = \descriptionN,thingAdv -> mkCl (mkCN (mkCN descriptionN) thingAdv);
+         mkThereIsAThing : CN -> A-> N -> Cl = \descriptionCN, mod, thingCN ->
+           mkCl (mkCN descriptionCN (mkNP (mkCN mod thingCN)));
+         };
+
+  oper subjectCopulaObject : CN -> Adv -> S = \subject, object ->
+         mkS (mkCl (mkCN subject object));
 }
