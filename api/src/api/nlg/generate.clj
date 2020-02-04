@@ -94,7 +94,7 @@
   (->> results
        (map second)
        (flatten)                                            ;; Don't care about any bulk keys at the moment
-       :original
+       (map :original)
        (wrap-to-annotated-text)))
 
 (defn raw-format [results]
