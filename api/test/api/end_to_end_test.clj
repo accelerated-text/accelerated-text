@@ -281,7 +281,7 @@
   (let [{{result-id :resultId} :body status :status} (generate-enriched "located-enrich" "restaurants.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Located in city center"
-             "Located in the city center"
-             "Located at the city center"
-             "Located at city center"} (get-enriched-results result-id)))))
+    (is (= #{"Restaurant located in city center"
+             "Restaurant in the city center"
+             "Restaurant at the city center"
+             "Restaurant at city center"} (get-enriched-results result-id)))))
