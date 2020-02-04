@@ -46,6 +46,12 @@
                           :readerFlagValues {}
                           :dataRows         rows}))
 
+(defn generate-enriched [document-plan-id filename]
+  (q "/nlg/" :post {:documentPlanId   (add-document-plan document-plan-id)
+                    :readerFlagValues {}
+                    :dataId           (store-data-file filename)
+                    :enrich           true}))
+
 (defn wait-for-results [result-id]
   (while (false? (get-in (q (str "/nlg/" result-id) :get nil {:format "raw"}) [:body :ready]))
     (Thread/sleep 100)))
@@ -61,7 +67,7 @@
   (let [{{result-id :resultId} :body status :status} (generate "title-only" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Building Search Applications."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"Building Search Applications."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration authorship-document-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "authorship" "books.csv")]
@@ -70,7 +76,9 @@
     (is (= #{"Building Search Applications is author by Manu Konchady."
              "Manu Konchady is the author of Building Search Applications."} (-> result-id
                                                                                  (get-variants)
-                                                                                 :sample)))))
+                                                                                 :sample
+                                                                                 (map :original)
+                                                                                 (set))))))
 
 (deftest ^:integration authorship-document-plan-bulk-generation
   (let [data {"9780307743657" {:title "The Shinning" :author "Stephen King"}
@@ -87,56 +95,56 @@
   (let [{{result-id :resultId} :body status :status} (generate "adjective-phrase" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Good Building Search Applications."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"Good Building Search Applications."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration author-amr-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "author-amr" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"{{Agent}} is the author of {{co-Agent}}."
-             "{{co-Agent}} is {{lexicon}} by {{Agent}}."} (->> result-id (get-variants) :sample (map :original))))))
+             "{{co-Agent}} is {{lexicon}} by {{Agent}}."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration single-quote-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "single-quote" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"This is a very good book: Building Search Applications."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"This is a very good book: Building Search Applications."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration single-modifier-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "single-modifier" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Good."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"Good."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration complex-amr-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "cut-amr" "carol.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Carol cut envelope into pieces with knife."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"Carol cut envelope into pieces with knife."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration multiple-modifier-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "multiple-modifiers" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Noted author Manu Konchady."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"Noted author Manu Konchady."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration sequence-block-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "sequence-block" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"1 2 3."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"1 2 3."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration random-sequence-block-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "random-sequence-block" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"1 2 3." "1 3 2." "2 1 3." "2 3 1." "3 2 1." "3 1 2."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"1 2 3." "1 3 2." "2 1 3." "2 3 1." "3 2 1." "3 1 2."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration one-of-synonyms-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "one-of-synonyms" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Good." "Excellent."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"Good." "Excellent."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration multiple-segments-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "multiple-segments" "books.csv")]
@@ -151,44 +159,44 @@
   (let [{{result-id :resultId} :body status :status} (generate "sequence-with-empty-shuffle" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"1."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"1."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration sequence-with-shuffle-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "sequence-with-shuffle" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"1 3 2." "1 2 3."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"1 3 2." "1 2 3."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration sequence-with-shuffle-and-empty-synonyms-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "sequence-with-shuffle-and-empty-synonyms" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"1 3 2." "1 2 3."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"1 3 2." "1 2 3."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration sequence-with-shuffle-and-synonyms-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "sequence-with-shuffle-and-synonyms" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"1 2 3 4." "1 2 3 5." "1 2 4 3." "1 2 5 3." "1 3 2 4." "1 3 2 5."
-             "1 3 4 2." "1 3 5 2." "1 4 2 3." "1 4 3 2." "1 5 2 3." "1 5 3 2."} (->> result-id (get-variants) :sample (map :original))))))
+             "1 3 4 2." "1 3 5 2." "1 4 2 3." "1 4 3 2." "1 5 2 3." "1 5 3 2."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration if-equal-condition-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "if-equal-condition" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"The book was published in 2008."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"The book was published in 2008."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration if-with-and-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "if-with-and" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"The book was published in 2008 and is about Lucene."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"The book was published in 2008 and is about Lucene."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration if-not-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "if-not" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"The book is about computers."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"The book is about computers."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration if-xor-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "if-xor" "books.csv")]
@@ -200,37 +208,37 @@
   (let [{{result-id :resultId} :body status :status} (generate "variable" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Some text."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"Some text."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration variable-multi-def-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "variable-multi-def" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"X." "Y."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"X." "Y."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration variable-undefined-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "variable-undefined" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{""} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{""} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration variable-unused-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "variable-unused" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Some text."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"Some text."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration modifier-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "modifier" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Nice text."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"Nice text."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration cell-modifier-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "modifier-cell" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"Computers book."} (->> result-id (get-variants) :sample (map :original))))))
+    (is (= #{"Computers book."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration location-amr-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "location-amr" "books.csv")]
@@ -242,7 +250,7 @@
              "There is a place in the city centre Alimentum."
              "There is a venue in the city centre Alimentum."
              "There is an Alimentum in the city centre."
-             "There is an arena in the city centre Alimentum."} (->> result-id (get-variants) :sample (map :original))))))
+             "There is an arena in the city centre Alimentum."} (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration located-near-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "located-near" "books.csv")]
@@ -254,4 +262,16 @@
              "There is a place in the city centre , near the KFC Alimentum."
              "There is a venue in the city centre , near the KFC Alimentum."
              "There is an Alimentum in the city centre , near the KFC."
-             "There is an arena in the city centre , near the KFC Alimentum."} (->> result-id (get-variants) :sample (map :original))))))
+             "There is an arena in the city centre , near the KFC Alimentum."} (->> result-id (get-variants) :sample (map :original) (set))))))
+
+(deftest ^:integration enriched-results-generation
+  (let [{{result-id :resultId} :body status :status} (generate "located-near" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"In the city centre , near the KFC there is a place Alimentum."
+             "In the city centre , near the KFC there is a venue Alimentum."
+             "In the city centre , near the KFC there is an arena Alimentum."
+             "There is a place in the city centre , near the KFC Alimentum."
+             "There is a venue in the city centre , near the KFC Alimentum."
+             "There is an Alimentum in the city centre , near the KFC."
+             "There is an arena in the city centre , near the KFC Alimentum."} (->> result-id (get-variants) :sample (map :enriched))))))
