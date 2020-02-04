@@ -73,12 +73,16 @@
                                :handler    (fn [{{body :body} :parameters}]
                                              (generate/generate-bulk body))}
                      :options cors-handler}]
-    ["/accelerated-text-data-files/" {:post (fn [request]
-                                              (let [{params :params} (multipart-handler request)
-                                                    id (data-files/store! (get params "file"))]
-                                                {:status 200
-                                                 :body {:message "Succesfully uploaded file" :id id}}))}]
-    ["/amr/:id" {:post (fn [{{id :id} :path-params body :body}]
+     ["/nlg/:id" {:get     {:parameters {:query ::generate/format-query
+                                         :path  {:id string?}}
+                            :coercion   reitit.coercion.spec/coercion
+                            :summary    "Get NLG result"
+                            :middleware [muuntaja/format-request-middleware
+                                         coercion/coerce-request-middleware]
+                            :handler    generate/read-result}
+                  :delete  generate/delete-result
+                  :options cors-handler}]
+     ["/amr/:id" {:post (fn [{{id :id} :path-params body :body}]
                           (let [body (slurp body)
                                 amr (amr/read-amr id body)]
                             (if-not (amr/valid-amr? amr)
@@ -88,6 +92,11 @@
                                 (amr/write-amr amr)
                                 {:status 200
                                  :body   {:message "Succesfully added AMR" :id id}}))))}]
+     ["/accelerated-text-data-files/" {:post (fn [request]
+                                               (let [{params :params} (multipart-handler request)
+                                                     id (data-files/store! (get params "file"))]
+                                                 {:status 200
+                                                  :body {:message "Succesfully uploaded file" :id id}}))}]
     ["/swagger.json" {:get {:no-doc true
                             :swagger {:info {:title "nlg-api"
                                              :description "api description"}}
