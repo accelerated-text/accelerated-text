@@ -4,6 +4,7 @@
             [api.graphql.core :as graphql]
             [api.nlg.generate :as generate]
             [api.utils :as utils]
+            [api.error :as errors]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
@@ -18,7 +19,6 @@
             [muuntaja.core :as m]
             [reitit.ring.coercion :as coercion]
             [reitit.ring.middleware.parameters :as parameters]
-            [reitit.ring.middleware.exception :as exception]
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [reitit.dev.pretty :as pretty]))
 
@@ -26,6 +26,7 @@
               "Access-Control-Allow-Headers" "content-type, *"
               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
               "Content-Type"                 "application/json"})
+
 
 (defn health [_] {:status 200, :body "Ok"})
 
@@ -97,7 +98,7 @@
                         parameters/parameters-middleware
                         wrap-response
                         muuntaja/format-response-middleware
-                        exception/exception-middleware]}
+                        errors/exception-middleware]}
     :exception pretty/exception}))
 
 (def app
