@@ -13,5 +13,4 @@ resource IsAEng = open ParadigmsEng, SyntaxEng in {
       isA_S : N -> A -> N -> S = \subject, amod, attribute ->
         XisY (mkNP subject) (mkNP a_Det attribute) ;
       };
-
 }
