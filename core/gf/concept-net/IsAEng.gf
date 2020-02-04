@@ -1,6 +1,5 @@
-resource IsAEng = open ParadigmsEng, SyntaxEng in {
+resource IsAEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
 
-  -- X is Y
   oper XisY : NP -> NP -> S = \x, y-> mkS (mkCl x y);
 
   oper
@@ -11,6 +10,12 @@ resource IsAEng = open ParadigmsEng, SyntaxEng in {
 
       -- T1000 is a red kettle
       isA_S : N -> A -> N -> S = \subject, amod, attribute ->
-        XisY (mkNP subject) (mkNP a_Det attribute) ;
-      };
+        XisY (mkNP subject) (mkAMod a_Det amod attribute);
+
+      -- A fearsome T1000 is a red kettle
+      isA_S : A -> N -> A -> N -> S = \smod, subject, amod, attribute ->
+        XisY (mkAMod a_Det smod subject) (mkAMod a_Det amod attribute);
+
+      isA_S : NP -> NP -> S = \subject, attribute -> XisY subject attribute;
+    };
 }
