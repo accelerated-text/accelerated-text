@@ -73,8 +73,8 @@ def json_response(fn):
 @inject_enricher
 def application(environ, start_response, data, enricher=None):
     text = data["text"]
-    context = data["context"]
-    result = enricher.enrich(text, context, max_iters=50).strip()
+    context = data["context"].lower()
+    result = enricher.enrich(text, context, max_iters=50).strip().capitalize()
     return {"result": result}
 
 
