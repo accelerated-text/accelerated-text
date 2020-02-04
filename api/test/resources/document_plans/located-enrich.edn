@@ -1,16 +1,9 @@
-{:type     "Document-plan"
- :segments [{:children [{:roles     [{:children [{:name   "place"
-                                                  :type   "Dictionary-item"
-                                                  :srcId  "5SgtK-{hj)?WV7+(Y=o."
-                                                  :itemId "place"}]
-                                      :name     "lexicon"}
-                                     {:children [{:type "Quote" :srcId "=Zj[8Jk7Qh%}92o)|1Ri" :text "Alimentum"}]
-                                      :name     "objectRef"}
-                                     {:children [{:name "area" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa3"}]
-                                      :name     "locationData"}]
-                         :type      "AMR"
-                         :srcId     "mR#QB3NK1!wZTZ?#Q+#g"
-                         :conceptId "at-location"}]
-             :type     "Segment"
-             :srcId    "?Z/-L4HuT10K|n(:~7XH"}]
- :srcId    "/K/t|A:RgNKh6!-BVeYi"}
+{:type "Document-plan",
+ :segments [{:children [{:children [{:type "Quote", :srcId "eVN.9n80V_ztY_sS7cp@", :text "located"}
+                                    {:type "Quote", :srcId "_Pw4;cncJ?**T[(4%9gd", :text "in"}
+                                    {:name "area" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa3"}],
+                         :type "Sequence",
+                         :srcId "DW!w}gyjw90W`4|+uCsQ"}],
+             :type "Segment",
+             :srcId "fvPPK:iAzhvufv^7;s.B"}],
+ :srcId "SPm7#O/kQkP`6qS!)Kx@"}
