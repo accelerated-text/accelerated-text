@@ -1,17 +1,17 @@
 roles:
-  - action
-  - result
-  - modifier
+  - Subject
+  - Verb
+  - Object
 frames:
-  - example: serves Chinese food
+  - example: Restaurant serves food
     syntax:
       - type: oper
         value: capableOf
         ret: S
         params:
-          - role: action
-            type: V2
-          - role: result
+          - role: Subject
             type: N
-          - role: modifier
-            type: A
+          - role: Verb
+            type: V2
+          - role: Object
+            type: N
