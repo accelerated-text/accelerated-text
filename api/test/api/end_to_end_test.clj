@@ -153,7 +153,7 @@
     ;; Spaces before dot - our generation bug at the moment, TODO: fix it
     (is (= #{"Manu Konchady is the author of Building Search Applications . Rarely is so much learning displayed with so much grace and charm."
              "Building Search Applications is written by Manu Konchady . Rarely is so much learning displayed with so much grace and charm."}
-           (-> result-id (get-variants) :sample (map :original) (set))))))
+           (->> result-id (get-variants) :sample (map :original) (set))))))
 
 (deftest ^:integration sequence-with-empty-shuffle-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "sequence-with-empty-shuffle" "books.csv")]
