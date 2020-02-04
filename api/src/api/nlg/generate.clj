@@ -27,19 +27,21 @@
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
+
 (defn generate-text
   ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
   ([document-plan data reader-model enrich]
    (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)
          enrich-fn (if enrich
-                     nlg/enrich-text
-                     (fn [_ text] {:original text}))]
+                     (partial nlg/enrich-text data)
+                     (fn [text] {:original text}))]
      (->> (nlg/generate-text semantic-graph (assoc context :data  data))
           (map :text)
           (sort)
           (dedupe)
-          (enrich-fn data)))))
+          (utils/inspect-results)
+          (map enrich-fn)))))
 
 
 (defn generation-process [document-plan rows reader-model enrich]

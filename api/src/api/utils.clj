@@ -68,3 +68,8 @@
         data (rest raw-csv)
         pairs (map #(interleave header %) data)]
     (doall (map #(apply array-map %) pairs))))
+
+(defn inspect-results
+  [results]
+  (log/debugf "Results count: %d" (count results))
+  results)
