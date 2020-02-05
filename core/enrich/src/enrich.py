@@ -26,13 +26,13 @@ class Enricher(object):
     def _encode(self, text, context):
         if context is None:
             return text
-        logger.info("Pre-encode: {}".format(text))
-        return multi_replace(context, text)
+        logger.info("Pre-encode: {0}, Context: {1}".format(text, context))
+        return multi_replace(context, text).lower()
 
     def _decode(self, text, context):
         if context is None:
             return text
-        logger.info("Pre-decode: {}".format(text))
+        logger.info("Pre-decode: {0}, Context: {1}".format(text, context))
         return multi_replace(inverse_dict(context), text)
 
     def enrich(self, sent, context=None, max_iters=3):
