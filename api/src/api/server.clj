@@ -4,6 +4,7 @@
             [api.graphql.core :as graphql]
             [api.nlg.generate :as generate]
             [api.utils :as utils]
+            [api.error :as errors]
             [clojure.tools.logging :as log]
             [data.entities.amr :as amr]
             [data.entities.data-files :as data-files]
@@ -19,7 +20,6 @@
             [muuntaja.core :as m]
             [reitit.ring.coercion :as coercion]
             [reitit.ring.middleware.parameters :as parameters]
-            [reitit.ring.middleware.exception :as exception]
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [reitit.dev.pretty :as pretty]))
 
@@ -27,6 +27,7 @@
               "Access-Control-Allow-Headers" "content-type, *"
               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
               "Content-Type"                 "application/json"})
+
 
 (defn health [_] {:status 200, :body "Ok"})
 
@@ -81,11 +82,6 @@
                             :handler    generate/read-result}
                   :delete  generate/delete-result
                   :options cors-handler}]
-     ["/accelerated-text-data-files/" {:post (fn [request]
-                                               (let [{params :params} (multipart-handler request)
-                                                     id (data-files/store! (get params "file"))]
-                                                 {:status 200
-                                                  :body   {:message "Succesfully uploaded file" :id id}}))}]
      ["/amr/:id" {:post (fn [{{id :id} :path-params body :body}]
                           (let [body (slurp body)
                                 amr (amr/read-amr id body)]
@@ -96,20 +92,25 @@
                                 (amr/write-amr amr)
                                 {:status 200
                                  :body   {:message "Succesfully added AMR" :id id}}))))}]
-     ["/swagger.json" {:get {:no-doc  true
-                             :swagger {:info {:title       "nlg-api"
-                                              :description "api description"}}
-                             :handler (swagger/create-swagger-handler)}}]
-     ["/health" {:get health}]]
-    {:data      {
-                 :muuntaja   m/instance
-                 :middleware [swagger/swagger-feature
-                              muuntaja/format-negotiate-middleware
-                              parameters/parameters-middleware
-                              wrap-response
-                              muuntaja/format-response-middleware
-                              exception/exception-middleware]}
-     :exception pretty/exception}))
+     ["/accelerated-text-data-files/" {:post (fn [request]
+                                               (let [{params :params} (multipart-handler request)
+                                                     id (data-files/store! (get params "file"))]
+                                                 {:status 200
+                                                  :body {:message "Succesfully uploaded file" :id id}}))}]
+    ["/swagger.json" {:get {:no-doc true
+                            :swagger {:info {:title "nlg-api"
+                                             :description "api description"}}
+                            :handler (swagger/create-swagger-handler)}}]
+    ["/health"       {:get health}]]
+   {:data {
+           :muuntaja m/instance
+           :middleware [swagger/swagger-feature
+                        muuntaja/format-negotiate-middleware
+                        parameters/parameters-middleware
+                        wrap-response
+                        muuntaja/format-response-middleware
+                        errors/exception-middleware]}
+    :exception pretty/exception}))
 
 (def app
   (ring/ring-handler
