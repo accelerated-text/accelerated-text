@@ -67,12 +67,20 @@ def test_pos_case_1(nlp):
 
     assert get_pos_signature(t1, nlp) != get_pos_signature(t2, nlp)
 
+
+def test_pos_case_2(nlp):
+    t1 = ["{name}", "located", "in", "{area}"]
+    t2 = ["{name}", "in", "the", "{area}"]
+
+    assert get_pos_signature(t1, nlp) != get_pos_signature(t2, nlp)
+
     
 def test_inside_check():
     s1 = ["three", "four"]
     s2 = ["one", "two", "three", "four", "five"]
 
     assert inside(s1, s2)
+
 
 def test_sentence_format():
     text = "test Text goes Here"
@@ -84,8 +92,9 @@ class TestFullEnrich(object):
     def test_full_sentence_enrich_1(self, enricher):
         text = "Alimentum located in city center"
         accepted_results = set([
-            "Alimentum is located in the city center",
+            "Alimentum is located in the city center.",
+            "Alimentum is in the city center",
         ])
         for _ in range(0, 50):
             result = enricher.enrich(text, context={"city center": "{area}", "Alimentum": "{name}"}, max_iters=50)
-            assert result in accepted_results
+            assert format_result(result) in accepted_results
