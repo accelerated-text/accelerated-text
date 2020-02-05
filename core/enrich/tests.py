@@ -2,6 +2,7 @@ import pytest
 import spacy
 
 from src.utils import *
+from src.enrich import Enricher
 
 
 @pytest.fixture(scope="session")
@@ -12,6 +13,11 @@ def triplets():
 @pytest.fixture(scope="session")
 def nlp():
     return spacy.load("en", parser=False, entity=False)
+
+@pytest.fixture(scope="session")
+def enricher():
+    e = Enricher()
+    return e
 
 
 @pytest.mark.parametrize(
@@ -71,3 +77,15 @@ def test_inside_check():
 def test_sentence_format():
     text = "test Text goes Here"
     assert format_result(text) == "Test Text goes Here."
+
+
+@pytest.mark.full_test
+class TestFullEnrich(object):
+    def test_full_sentence_enrich_1(self, enricher):
+        text = "Alimentum located in city center"
+        accepted_results = set([
+            "Alimentum is located in the city center",
+        ])
+        for _ in range(0, 50):
+            result = enricher.enrich(text, context={"city center": "{area}", "Alimentum": "{name}"}, max_iters=50)
+            assert result in accepted_results
