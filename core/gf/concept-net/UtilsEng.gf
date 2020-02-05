@@ -1,5 +1,19 @@
 resource UtilsEng = open SyntaxEng in {
 
+  -- Combine modifiers
+  oper combineMods = overload {
+         combineMods : AP -> AP -> AP = \x, y -> mkAP and_Conj (mkListAP x y);
+         combineMods : AP -> ListAP -> AP = \x, xs -> mkAP and_Conj (mkListAP x xs);
+         };
+
+  -- Create a NP from a noun and its modifier
+  oper mkAMod = overload {
+         mkAMod : Det -> A -> N -> NP = \det, mod, noun ->
+           (mkNP det (mkCN mod noun));
+         mkAMod : Det -> AP -> N -> NP = \det, mod, noun ->
+           (mkNP det (mkCN mod noun));
+         };
+
   -- Takes in a noun and produces 'in the NOUN'
   oper mkInAdv : N -> Adv = \noun -> SyntaxEng.mkAdv in_Prep (mkNP the_Det noun);
 
