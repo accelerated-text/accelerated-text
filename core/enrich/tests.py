@@ -67,3 +67,7 @@ def test_inside_check():
     s2 = ["one", "two", "three", "four", "five"]
 
     assert inside(s1, s2)
+
+def test_sentence_format():
+    text = "test Text goes Here"
+    assert format_result(text) == "Test Text goes Here."

@@ -6,6 +6,7 @@ from wsgiref.util import setup_testing_defaults
 from wsgiref.simple_server import make_server
 
 from src.enrich import Enricher
+from src.utils import format_result
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("Enrich")
@@ -74,8 +75,8 @@ def json_response(fn):
 def application(environ, start_response, data, enricher=None):
     text = data["text"].lower()
     context = data["context"]
-    result = enricher.enrich(text, context, max_iters=50).strip().capitalize()
-    return {"result": result}
+    result = enricher.enrich(text, context, max_iters=50)
+    return {"result": format_result(result)}
 
 
 def main(args):

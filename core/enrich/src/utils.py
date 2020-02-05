@@ -4,6 +4,7 @@ import re
 import spacy
 
 from collections import Counter, defaultdict
+from functools import reduce
 
 logger = logging.getLogger("Utils")
 
@@ -219,3 +220,17 @@ def replace(t, pos, triplets):
         (m, _) = results[0]
         new[pos] = m
         return new
+
+
+def format_result(text):
+    def strip(t):
+        return t.strip()
+    
+    def capitalize_first(t):
+        return t[0].upper() + t[1:]
+
+    def end_with_dot(t):
+        return t + "."
+
+    pipeline = [strip, capitalize_first, end_with_dot]
+    return reduce(lambda t, fn: fn(t), pipeline, text)
