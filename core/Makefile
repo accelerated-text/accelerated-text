@@ -12,3 +12,7 @@ integration-tests:
 .PHONY: gf
 gf:
 	/usr/bin/gf -i gf/lang-utils
+
+
+rm-gfo:
+	find . -name "*.gfo" -exec rm -rf {} \;
