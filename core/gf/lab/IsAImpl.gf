@@ -1,3 +1,4 @@
+--# -path=../concept-net
 concrete IsAImpl of IsA = open IsAEng, ParadigmsEng, SyntaxEng, UtilsEng in {
   lincat Message = S;
          SubjectLex, AttributeLex = N;

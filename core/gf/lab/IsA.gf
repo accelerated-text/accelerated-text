@@ -11,7 +11,6 @@ abstract IsA = {
 
     ModifiedSubject : SubjectModifier -> SubjectLex -> Subject;
 
-
     ModifiedAttribute : AttributeModifierLex -> AttributeLex -> Attribute;
 
     SimpleSubject : SubjectLex -> Subject;
