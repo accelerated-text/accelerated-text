@@ -91,7 +91,7 @@ def test_sentence_format():
 
 @pytest.mark.full_test
 class TestFullEnrich(object):
-    @pytest.mark.parametrize("execution_number", range(10))
+    @pytest.mark.parametrize("execution_number", range(20))
     def test_full_sentence_enrich_1(self, enricher, execution_number):
         print(execution_number)
         text = "Alimentum located in city center"
@@ -101,5 +101,6 @@ class TestFullEnrich(object):
             "Alimentum located in the city center.",
             "Alimentum is located in city center.",
         ])
-        result = enricher.enrich(text, context={"city center": "{area}", "Alimentum": "{name}"}, max_iters=50)
-        assert format_result(result) in accepted_results
+        result = format_result(enricher.enrich(text, context={"city center": "{area}", "Alimentum": "{name}"}, max_iters=50))
+        assert result != "Alimentum located in city center.", "Sentence is not enriched"
+        assert result in accepted_results

@@ -48,8 +48,8 @@ class Enricher(object):
             pos = random.randint(0, len(tokens) - 1)
             if len(result) < 3:
                 op = random.choice([insert])
-            elif len(result) <= orig_len:
-                op = random.choice([insert, replace])
+            # elif len(result) <= orig_len:
+            #     op = random.choice([insert, replace])
             else:
                 op = random.choice([insert, remove, replace])
             try:
