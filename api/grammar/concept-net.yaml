@@ -2,5 +2,8 @@
 includes:
   - concept-net/at-location.yaml
   - concept-net/capable-of.yaml
+  - concept-net/has-a.yaml
   - concept-net/has-property.yaml
+  - concept-net/is-a.yaml
   - concept-net/located-near.yaml
+  - concept-net/made-of.yaml
