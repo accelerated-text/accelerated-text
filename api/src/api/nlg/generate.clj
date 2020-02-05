@@ -34,9 +34,9 @@
    (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)
          enrich-data (into {} (map (fn [[k v]] {v (format "{%s}" (name k))}) data))
-         enrich-fn (if enrich
-                     (partial nlg/enrich-text enrich-data)
-                     (fn [text] {:original text}))]
+         enrich-fn (fn [text]
+                     (cond-> {:original text}
+                       enrich (assoc :enriched (nlg/enrich-text enrich-data text))))]
      (->> (nlg/generate-text semantic-graph (assoc context :data  data))
           (map :text)
           (sort)

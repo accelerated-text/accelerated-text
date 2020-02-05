@@ -12,8 +12,4 @@
 
 (defn enrich-text
   [context text]
-  (let [result (enrich/enrich-request context text)]
-    (when (get result :error false)
-      {:original text})
-    {:original text
-     :enriched (:result result)}))
+  (enrich/enrich-request context text))
