@@ -174,12 +174,12 @@ def get_pos_signature(tokens, nlp=None):
 def grammatically_valid_pos(pos):
     pairs = list(ngram(pos, n=2))
     if any([p1 == "DET" and p2 == "VERB" for (p1, p2) in pairs]):
-        print("DET before VERB")
+        logger.debug("DET before VERB")
         return False
 
     if any([(p1 == "ADV" and p2 == "ADP") or (p1 == "ADP" and p2 == "ADV")
             for (p1, p2) in pairs]):
-        print("ADV and ADP in pair")
+        logger.debug("ADV and ADP in pair")
         return False
     return True
 
@@ -203,7 +203,6 @@ def validate(original, new, nlp):
         raise OpRejected("Lexical Structure changed too much")
 
     if not grammatically_valid_pos(new_pos):
-        print("Pos: {}".format(new_pos))
         raise OpRejected("Invalid gramatical structure")
 
     return new
