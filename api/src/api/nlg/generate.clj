@@ -91,11 +91,16 @@
                                                    :text token})})}]})
        results))
 
+(defn transform-results
+  [results]
+  (mapcat (fn [{:keys [enriched original]}]
+                 [(format "Original: %s " original) (format "Enriched: %s" enriched)]) results))
+
 (defn annotated-text-format [results]
   (->> results
        (map second)
-       (flatten)                                            ;; Don't care about any bulk keys at the moment
-       (map :original)
+       (flatten) ;; Don't care about any bulk keys at the moment
+       (transform-results)
        (wrap-to-annotated-text)))
 
 (defn raw-format [results]
