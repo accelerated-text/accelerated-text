@@ -97,12 +97,13 @@
       "++")))
 
 (defn join-function-body [body ret]
-  (str/join " " (map (fn [expr next-expr]
-                       (let [operator (get-operator expr next-expr)]
-                         (cond-> (join-expression expr ret)
-                                 (some? operator) (str " " operator))))
-                     body
-                     (concat (rest body) [nil]))))
+  (cond->> (str/join " " (map (fn [expr next-expr]
+                                (let [operator (get-operator expr next-expr)]
+                                  (cond-> (join-expression expr ret)
+                                          (some? operator) (str " " operator))))
+                              body
+                              (concat (rest body) [nil])))
+           (not= "Str" (second ret)) (format "mk%s (%s)" (second ret))))
 
 (defn parse-lin [functions]
   (map-indexed (fn [i {:keys [params ret body]}]

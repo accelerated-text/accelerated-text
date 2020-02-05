@@ -255,3 +255,11 @@
              "There is a venue in the city centre , near the KFC Alimentum."
              "There is an Alimentum in the city centre , near the KFC."
              "There is an arena in the city centre , near the KFC Alimentum."} (-> result-id (get-variants) :sample)))))
+
+(deftest ^:integration gf-amr-modifier-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "gf-amr-modifier" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"In the city centre there is a place named Alimentum."
+             "There is a place in the city centre named Alimentum."
+             "There is a named Alimentum in the city centre."} (-> result-id (get-variants) :sample)))))

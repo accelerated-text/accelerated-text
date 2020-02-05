@@ -70,10 +70,11 @@
               :value (concept->name child-concept)})
    :ret    [:s "Str"]})
 
-(defmethod build-function :modifier [concept children relations _]
-  (let [child-concept (get-child-with-role children relations :child)
+(defmethod build-function :modifier [concept children relations {types :types}]
+  (let [name (concept->name concept)
+        child-concept (get-child-with-role children relations :child)
         modifier-concepts (remove #(= (:id child-concept) (:id %)) children)]
-    {:name   (concept->name concept)
+    {:name   name
      :params (get-params children)
      :body   (cond-> (map (fn [modifier-concept]
                             {:kind  (get-kind modifier-concept)
@@ -81,7 +82,7 @@
                           modifier-concepts)
                      (some? child-concept) (concat [{:kind  (get-kind child-concept)
                                                      :value (concept->name child-concept)}]))
-     :ret    [:s "Str"]}))
+     :ret    [:s (get types name "Str")]}))
 
 (defmethod build-function :amr [{value :value :as concept} children relations {amr :amr}]
   (let [role-map (reduce (fn [m [{{attr-name :name} :attributes} concept]]

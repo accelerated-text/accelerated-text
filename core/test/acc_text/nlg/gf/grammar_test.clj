@@ -272,4 +272,55 @@
                     :variables [{:name  "Quote03"
                                  :type  "Str"
                                  :value ["some text"]}]}
-         (build-grammar "variable" {}))))
+         (build-grammar "variable" {})))
+  (is (= #::grammar{:flags     {:startcat "DocumentPlan01"}
+                    :functions [{:body   [{:kind  :function
+                                           :value "Segment02"}]
+                                 :name   "DocumentPlan01"
+                                 :params ["Segment02"]
+                                 :ret    [:s "Str"]}
+                                {:body   [{:kind  :function
+                                           :value "Amr03"}]
+                                 :name   "Segment02"
+                                 :params ["Amr03"]
+                                 :ret    [:s "Str"]}
+                                {:body   [[{:kind   :operation
+                                            :params [{:kind  :variable
+                                                      :value "Quote04"}
+                                                     {:kind  :variable
+                                                      :value "Quote05"}
+                                                     {:kind  :function
+                                                      :value "Modifier06"}]
+                                            :value  "atLocation"}]]
+                                 :name   "Amr03"
+                                 :params ["Modifier06"]
+                                 :ret    [:s "Str"]}
+                                {:body   [{:kind  :variable
+                                           :value "DictionaryItem08"}
+                                          {:kind  :variable
+                                           :value "Quote07"}]
+                                 :name   "Modifier06"
+                                 :params []
+                                 :ret    [:s "N"]}]
+                    :instance  "Instance"
+                    :module    "Default"
+                    :variables [{:name  "Quote04"
+                                 :type  "N"
+                                 :value ["place"]}
+                                {:name  "Quote05"
+                                 :type  "N"
+                                 :value ["city centre"]}
+                                {:name  "Quote07"
+                                 :type  "Str"
+                                 :value ["Alimentum"]}
+                                {:name  "DictionaryItem08"
+                                 :type  "Str"
+                                 :value ["named"]}]}
+         (build-grammar
+           "gf-amr-modifier"
+           {:amr {"at-location" {:frames [{:syntax [{:type   :oper
+                                                     :value  "atLocation"
+                                                     :ret    "S"
+                                                     :params [{:type "N" :role "lexicon"}
+                                                              {:type "N" :role "locationData"}
+                                                              {:type "N" :role "objectRef"}]}]}]}}}))))

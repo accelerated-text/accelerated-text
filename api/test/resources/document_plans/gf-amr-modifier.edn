@@ -1,0 +1,17 @@
+{:type     "Document-plan"
+ :segments [{:children [{:roles     [{:children [{:type "Quote" :srcId "Mr$)o_k2Fj0Er|I_!Na[" :text "place"}]
+                                      :name     "lexicon"}
+                                     {:children [{:type "Quote" :srcId "2GAC?i~EU(C++KZ8}LH:" :text "city centre"}]
+                                      :name     "locationData"}
+                                     {:children [{:name   "named"
+                                                  :type   "Dictionary-item-modifier"
+                                                  :srcId  "QF70;)uFpgpIRm#zDDJ"
+                                                  :child  {:type "Quote" :srcId "WGoNbqYPL2z@OebRJ^zp" :text "Alimentum"}
+                                                  :itemId "named"}]
+                                      :name     "objectRef"}]
+                         :type      "AMR"
+                         :srcId     "/;3I~SX^VSP8nT[qq6t5"
+                         :conceptId "at-location"}]
+             :type     "Segment"
+             :srcId    "nk/$ev7W[7S@=:m%H8OE"}]
+ :srcId    "YMkMYSDXq/^!bYMiP%dK"}

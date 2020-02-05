@@ -1,0 +1,15 @@
+#:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :02 :role :segment}
+                                          {:from :02 :to :03 :role :instance}
+                                          {:from :03 :to :04 :role :ARG0 :attributes {:name "lexicon"}}
+                                          {:from :03 :to :05 :role :ARG1 :attributes {:name "locationData"}}
+                                          {:from :03 :to :06 :role :ARG2 :attributes {:name "objectRef"}}
+                                          {:from :06 :to :07 :role :child}
+                                          {:from :06 :to :08 :role :modifier}]
+                              :concepts  [{:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :amr :value "at-location"}
+                                          {:id :04 :type :quote :value "place"}
+                                          {:id :05 :type :quote :value "city centre"}
+                                          {:id :06 :type :modifier}
+                                          {:id :07 :type :quote :value "Alimentum"}
+                                          {:id :08 :type :dictionary-item :value "named" :attributes {:name "named"}}]}
