@@ -10,5 +10,5 @@
                                            :type       :dictionary-item
                                            :value      "place"
                                            :attributes {:name "place"}}
-                                          {:id :05 :type :quote :value "city centre"}
-                                          {:id :06 :type :quote :value "Alimentum"}]}
+                                          {:id :05 :type :quote :value "Alimentum"}
+                                          {:id :06 :type :quote :value "city centre"}]}

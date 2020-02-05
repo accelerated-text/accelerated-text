@@ -1,0 +1,17 @@
+roles:
+  - Object
+  - Property
+  - Polarity
+frames:
+  - example: It has holes. It does not have holes.
+    syntax:
+      - type: oper
+        value: hasProperty
+        ret: S
+        params:
+          - role: Object
+            type: N
+          - role: Property
+            type: A
+          - role: Polarity
+            type: Pol

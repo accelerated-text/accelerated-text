@@ -8,6 +8,14 @@ echo "Waiting for ${ACC_TEXT_URL}/health"
 
 while [[ "$(curl --insecure -s -o /dev/null -w ''%{http_code}'' ${ACC_TEXT_URL}/health)" != "200" ]]; do sleep 1; done
 
+echo "Uploading required AMRs"
+
+for f in data/*.yaml; do
+  filepath=$(basename -- "$f")
+  filename="${filepath%.*}"
+  curl -XPOST ${ACC_TEXT_URL}/amr/${filename} -H 'Content-Type: application/yaml' -d @${f}
+done
+
 echo "Uploading data to: ${ACC_TEXT_URL}"
 
 

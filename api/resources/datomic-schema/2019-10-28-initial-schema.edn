@@ -61,6 +61,91 @@
            :db/cardinality :db.cardinality/many
            :db/doc         "Phrases associated with the dictionary-item"}]
 
+         [{:db/ident       :param/type
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Type of operation param"}
+
+          {:db/ident       :param/role
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Name of AMR role"}]
+
+         [{:db/ident       :syntax/role
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Name of AMR frame syntax item role"}
+
+          {:db/ident       :syntax/params
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Roles associated with AMR entity"}
+
+          {:db/ident       :syntax/ret
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Return type of AMR frame syntax item"}
+
+          {:db/ident       :syntax/value
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Value of AMR frame syntax item"}
+
+          {:db/ident       :syntax/pos
+           :db/valueType   :db.type/keyword
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Part of speech tag of AMR frame syntax item"}
+
+          {:db/ident       :syntax/type
+           :db/valueType   :db.type/keyword
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Type of AMR frame syntax item"}]
+
+         [{:db/ident       :frame/examples
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Examples of AMR frame"}
+
+          {:db/ident       :frame/syntax
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "AMR frame syntax"}]
+
+         [{:db/ident       :role/type
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Type of AMR role"}
+
+          {:db/ident       :role/label
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Label of AMR role"}
+
+          {:db/ident       :role/input
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Allowed input types for AMR role"}]
+
+         [{:db/ident       :amr/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of AMR entity"}
+
+          {:db/ident       :amr/roles
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Roles associated with AMR entity"}
+
+          {:db/ident       :amr/frames
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Frames associated with AMR entity"}]
+
          [{:db/ident       :document-plan/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
@@ -251,7 +336,7 @@
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Text to be conveyed"}
-          
+
           {:db/ident       :results/results
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/many

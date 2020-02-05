@@ -1,0 +1,17 @@
+roles:
+  - Subject
+  - Verb
+  - Object
+frames:
+  - example: Restaurant serves food
+    syntax:
+      - type: oper
+        value: capableOf
+        ret: S
+        params:
+          - role: Subject
+            type: N
+          - role: Verb
+            type: V2
+          - role: Object
+            type: N

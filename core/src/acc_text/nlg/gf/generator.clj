@@ -4,7 +4,8 @@
             [acc-text.nlg.utils :as utils]
             [clojure.spec.alpha :as s]
             [clojure.string :as str]
-            [jsonista.core :as json]))
+            [jsonista.core :as json]
+            [clojure.tools.logging :as log]))
 
 (defn join-body [& args]
   (->> args
@@ -73,16 +74,16 @@
   (if (sequential? expr)
     (cond->> (join-function-body expr ret)
              (< 1 (count expr)) (format "(%s)"))
-    (let [{:keys [type value params]} expr]
-      (case type
+    (let [{:keys [kind value params]} expr]
+      (case kind
         :variable value
         :literal (cond->> (format "\"%s\"" (escape-string value))
                           (not= "Str" (second ret)) (format "(mk%s %s)" (second ret)))
         :function (format "%s.s" value)
         :operation (->> params
                         (filter (comp some? :value))
-                        (map (fn [{:keys [type value]}]
-                               (case type
+                        (map (fn [{:keys [kind value]}]
+                               (case kind
                                  :literal (format "\"%s\"" (escape-string value))
                                  :function (format "%s.s" value)
                                  :variable value)))
@@ -120,12 +121,17 @@
             "cat" (parse-cat flags functions)
             "fun" (parse-fun functions))))
 
+(def imports ["LangFunctionsEng" "SyntaxEng" "ParadigmsEng"
+              "AtLocationEng" "CapableOfEng" "HasAEng"
+              "HasPropertyEng" "IsAEng" "LocatedNearEng"
+              "MadeOfEng" "HasAEng"])
+
 (defn ->incomplete [{::grammar/keys [module functions]}]
   (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"
           module
           module
           module
-          "LangFunctionsEng, ConceptNetEng, SyntaxEng, ParadigmsEng"
+          (str/join ", " imports)
           (join-body
             "param" (parse-param functions)
             "lincat" (parse-lincat functions)
@@ -154,18 +160,20 @@
           module
           instance))
 
+(defn grammar->content [{::grammar/keys [module instance] :as grammar}]
+  {(str module)                (->abstract grammar)
+   (str module "Body")         (->incomplete grammar)
+   (str module "Lex")          (->interface grammar)
+   (str module "Lex" instance) (->resource grammar)
+   (str module instance)       (->concrete grammar)})
+
 (defn generate [{::grammar/keys [module instance] :as grammar}]
-  (-> (service/compile-request module instance {(str module)                (->abstract grammar)
-                                                (str module "Body")         (->incomplete grammar)
-                                                (str module "Lex")          (->interface grammar)
-                                                (str module "Lex" instance) (->resource grammar)
-                                                (str module instance)       (->concrete grammar)})
-      (get :body)
-      (json/read-value utils/read-mapper)
-      (get-in [:results 0 1])
-      (sort)
-      (dedupe)))
+  (let [{body :body} (service/compile-request module instance (grammar->content grammar))
+        {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
+    (if (some? error)
+      (log/error error)
+      (sort (dedupe results)))))
 
 (s/fdef generate
         :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar)
-        :ret (s/coll-of string?))
+        :ret (s/nilable (s/coll-of string?)))
