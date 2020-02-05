@@ -1,4 +1,4 @@
-resource UtilsEng = open SyntaxEng in {
+resource UtilsEng = open SyntaxEng, ParadigmsEng, (R=ResEng) in {
 
   oper subjectCopulaObject : CN -> Adv -> S = \subject, object ->
          mkS (mkCl (mkCN subject object));
@@ -31,5 +31,4 @@ resource UtilsEng = open SyntaxEng in {
          mkThereIsAThing : CN -> A-> N -> Cl = \descriptionCN, mod, thingCN ->
            mkCl (mkCN descriptionCN (mkNP (mkCN mod thingCN)));
          };
-  };
 }
