@@ -166,18 +166,46 @@ def get_pos_signature(tokens, nlp=None):
                 prev = "placeholder_end"
             else:
                 prev = None
-                if p not in ["DET", "AUX"]:
+                if p not in ["AUX"]:
                     yield p
 
     return list(gen())
 
+def grammatically_valid_pos(pos):
+    pairs = list(ngram(pos, n=2))
+    if any([p1 == "DET" and p2 == "VERB" for (p1, p2) in pairs]):
+        print("DET before VERB")
+        return False
+
+    if any([(p1 == "ADV" and p2 == "ADP") or (p1 == "ADP" and p2 == "ADV")
+            for (p1, p2) in pairs]):
+        print("ADV and ADP in pair")
+        return False
+    return True
+
+def compare_pos_signatures(left, right):
+    def filter_fn(p):
+        return p not in ["DET", "ADV"]
+
+    left_side = list(filter(filter_fn, left))
+    right_side = list(filter(filter_fn, right))
+    return left_side == right_side
+
 
 def validate(original, new, nlp):
     if sum([1 for t in original if is_placeholder(t)]) != sum([1 for t in new if is_placeholder(t)]):
-        raise OpRejected("New placeholders introduced")
+        raise OpRejected("New placeholders introduced or removed")
 
-    if get_pos_signature(original, nlp) != get_pos_signature(new, nlp):
+    orig_pos = get_pos_signature(original, nlp)
+    new_pos = get_pos_signature(new, nlp)
+
+    if not compare_pos_signatures(orig_pos, new_pos):
         raise OpRejected("Lexical Structure changed too much")
+
+    if not grammatically_valid_pos(new_pos):
+        print("Pos: {}".format(new_pos))
+        raise OpRejected("Invalid gramatical structure")
+
     return new
 
 

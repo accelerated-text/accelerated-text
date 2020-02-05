@@ -2,6 +2,8 @@ import logging
 import random
 import re
 
+from copy import copy
+
 from src.utils import *
 
 
@@ -42,7 +44,7 @@ class Enricher(object):
         iters = 0
         retries = 0
         orig_len = len(tokens)
-        while iters < max_iters and retries < 5:
+        while iters < max_iters and retries < 10:
             pos = random.randint(0, len(tokens) - 1)
             if len(result) < 3:
                 op = random.choice([insert])
@@ -51,11 +53,11 @@ class Enricher(object):
             else:
                 op = random.choice([insert, remove, replace])
             try:
-                prev_result = result
+                prev_result = copy(result)
                 result = op(result, pos, self.triplets)
                 validate(prev_result, result, self.nlp)
-                if not inside(result, self.seqs):
-                    raise OpRejected("'{}': Such result doesn't exist in our dataset. Consider it incorrect".format(result))
+                # if not inside(result, self.seqs):
+                #     raise OpRejected("'{}': Such result doesn't exist in our dataset. Consider it incorrect".format(result))
                 logger.debug("Using op: {0} on pos: {1}".format(op, pos))
                 logger.debug("-> {}".format(result))
                 iters += 1
