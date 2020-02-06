@@ -14,5 +14,6 @@ gf:
 	/usr/bin/gf -i gf/lang-utils
 
 
-rm-gfo:
+clean-gf-comple-files:
 	find . -name "*.gfo" -exec rm -rf {} \;
+	find . -name "*.pgf" -exec rm -rf {} \;
