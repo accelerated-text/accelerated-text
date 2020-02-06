@@ -51,7 +51,9 @@ def split_with_delimiter(text, delimiters):
     buff = StringIO()
     for c in text:
         if c in delimiters:
-            yield get_result(buff)
+            result = get_result(buff)
+            if result.strip() != "":
+                yield result
             yield c
         else:
             buff.write(c)
@@ -199,6 +201,26 @@ def grammatically_valid_pos(pos):
         logger.debug("DET before ADP")
         return False
 
+    if any([p1 == "DET" and p2 == "AUX" for (p1, p2) in pairs]):
+        logger.debug("DET before AUX")
+        return False
+
+    if any([p1 == "ADV" and p2 == "PRON" for (p1, p2) in pairs]):
+        logger.debug("ADV before PRON")
+        return False
+
+    if any([p1 == "ADJ" and p2 == "PRON" for (p1, p2) in pairs]):
+        logger.debug("ADJ before PRON")
+        return False
+
+    if any([p1 == "DET" and p2 == "PRON" for (p1, p2) in pairs]):
+        logger.debug("DET before PRON")
+        return False
+
+    if any([p1 == "DET" and p2 == "ADJ" for (p1, p2) in pairs]):
+        logger.debug("DET before ADJ")
+        return False
+
     if any([(p1 == "ADV" and p2 == "ADP") or (p1 == "ADP" and p2 == "ADV")
             for (p1, p2) in pairs]):
         logger.debug("ADV and ADP in pair")
@@ -207,7 +229,7 @@ def grammatically_valid_pos(pos):
 
 def compare_pos_signatures(left, right):
     def filter_fn(p):
-        return p not in ["DET", "ADV", "AUX"]
+        return p not in ["DET", "ADV", "AUX", "ADJ"]
 
     left_side = list(filter(filter_fn, left))
     right_side = list(filter(filter_fn, right))
@@ -217,7 +239,7 @@ def compare_pos_signatures(left, right):
 def validate(original, new, nlp):
     placeholders_original = sum([1 for t in original if is_placeholder(t)])
     placeholders_new = sum([1 for t in new if is_placeholder(t)])
-    print("Orig: {0}, New: {1}".format(placeholders_original, placeholders_new))
+    logger.debug("Orig: {0}, New: {1}".format(placeholders_original, placeholders_new))
     if placeholders_original != placeholders_new :
         raise OpRejected("New placeholders introduced or removed")
 
@@ -286,6 +308,9 @@ def format_result(text):
 
     def end_with_dot(t):
         return t + "."
+
+    def remove_whitespace_after_punct(t):
+        return t.sub(r"(\s)([.,!?:])", "\2", t)
 
     pipeline = [strip, capitalize_first, end_with_dot]
     return reduce(lambda t, fn: fn(t), pipeline, text)

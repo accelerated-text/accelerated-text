@@ -89,6 +89,16 @@ def test_pos_case_2(nlp):
 
     assert get_pos_signature(t1, nlp) != get_pos_signature(t2, nlp)
 
+
+def test_gramatical_structure_case_1(nlp):
+    tokens = ["{name}", "is", "in", "the", "in", "our", "beautiful", "{area}"]
+    pos = get_pos_signature(tokens, nlp)
+    print(pos)
+    assert not grammatically_valid_pos(pos)
+
+    with pytest.raises(OpRejected):
+        validate(tokens, tokens, nlp)
+
     
 def test_inside_check():
     s1 = ["three", "four"]

@@ -1,6 +1,8 @@
 import random
 import logging
 
+from copy import copy
+
 from src.utils import validate
 
 logger = logging.getLogger(__name__)
@@ -20,10 +22,9 @@ def random_op(ctx, tokens, pos):
 
 
 def apply_op(ctx, tokens, pos, op):
-    prev = tokens
-    new = op(tokens, pos)
+    prev = copy(tokens)
+    new = op(copy(tokens), pos)
     logger.debug("Applying: {0} pos: {1}. Prev: {2}, New: {3}".format(op, pos, prev, new))
-    print("Applying: {0} pos: {1}. Prev: {2}, New: {3}".format(op, pos, prev, new))
     return (ctx, new, prev)
 
 
