@@ -48,7 +48,7 @@ class Enricher(object):
     def remove(self, tokens, pos):
         return remove(tokens, pos)
 
-    def enrich(self, sent, context=None, max_iters=3, max_retries=10):
+    def enrich(self, sent, context=None, max_iters=5, max_retries=15):
         tokens = tokenize(self._encode(sent, context))
         result = tokens
         iters = 0
@@ -66,11 +66,11 @@ class Enricher(object):
             try:
                 result = reduce(lambda acc, p: p(*acc), pipe, (self, result))
             except OpRejected as rj:
-                print("Rejected because: {}".format(rj))
+                logger.debug("Rejected because: {}".format(rj))
                 retries += 1
             else:
                 iters += 1
                 retries = 0
-                print("Passed: {}".format(result))
+                logger.debug("Passed: {}".format(result))
 
         return self._decode(" ".join(result), context)
