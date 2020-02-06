@@ -7,6 +7,6 @@ resource HasAEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
         (mkS
           (mkCl (mkNP a_Det subject)
                 have_V2
-                (mkNP a_Det object) ;
+                (mkNP a_Det object)));
 
 }
