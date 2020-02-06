@@ -193,7 +193,10 @@ def compare_pos_signatures(left, right):
 
 
 def validate(original, new, nlp):
-    if sum([1 for t in original if is_placeholder(t)]) != sum([1 for t in new if is_placeholder(t)]):
+    placeholders_original = sum([1 for t in original if is_placeholder(t)])
+    placeholders_new = sum([1 for t in new if is_placeholder(t)])
+    print("Orig: {0}, New: {1}".format(placeholders_original, placeholders_new))
+    if placeholders_original != placeholders_new :
         raise OpRejected("New placeholders introduced or removed")
 
     orig_pos = get_pos_signature(original, nlp)
@@ -221,9 +224,9 @@ def insert(t, pos, triplets):
         return t[:pos] + [m] + t[pos:]
 
 
-def remove(t, pos, triplets):
+def remove(t, pos):
     if is_placeholder(t[pos]):
-        raise OpRejected()
+        raise OpRejected("Don't remove placeholders")
 
     result = t
     del result[pos]
@@ -233,18 +236,19 @@ def remove(t, pos, triplets):
 def replace(t, pos, triplets):
     if is_placeholder(t[pos]):
         # Don't replace placeholders
-        raise OpRejected()
+        raise OpRejected("Don't replace placeholders")
 
     new = t
     
     left_side = t[:pos][-2:]
     right_side = t[pos+1:][:2]
+    current = t[pos]
     
     results = window(left_side, right_side, triplets)
     if len(results) == 0:
-        raise OpRejected()
+        raise OpRejected("Nothing to replace")
     else:
-        (m, _) = results[0]
+        (m, _) = list([(m, p) for m, p in results if m != current])[0]
         new[pos] = m
         return new
 

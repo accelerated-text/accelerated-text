@@ -25,6 +25,7 @@ def enricher():
     [
         (["located", "in", "{area}", "near"], 2, ["located", "in", "the", "{area}", "near"]),
         (["located", "in", "{area}"], 2, ["located", "in", "the", "{area}"]),
+        (["{name}", "located", "in", "{area}"], 1, ["{name}", "is", "located", "in", "{area}"])
     ],
 )
 def test_inserts(triplets, tokens, pos, expected):
@@ -36,8 +37,8 @@ def test_inserts(triplets, tokens, pos, expected):
 @pytest.mark.parametrize(
     "tokens,pos,expected",
     [
-        (["in", "the", "{area}"], 0, ["in", "the", "{area}"]),
-        (["located", "in", "the", "{area}"], 2, ["located", "in", "the", "{area}"]),
+        (["in", "the", "{area}"], 0, ["on", "the", "{area}"]),
+        (["located", "in", "the", "{area}"], 2, ["located", "in", "riverside", "{area}"]),
     ],
 )
 def test_replace(tokens, pos, expected, triplets):
@@ -54,6 +55,12 @@ def test_insert_validate(triplets, nlp):
         result = insert(tokens, 2, triplets)
         print(result)
         validate(tokens, result, nlp)
+
+def test_placeholder_validate(triplets, nlp):
+     orig = ["{name}", "is", "a", "in", "the", "{area}"]
+     new =  ["{name}", "is", "a", "the", "{eat_type}", "{area}"]
+     with pytest.raises(OpRejected):
+         validate(orig, new, nlp)
 
 
 def test_pos_signature(nlp):
@@ -101,6 +108,6 @@ class TestFullEnrich(object):
             "Alimentum located in the city center.",
             "Alimentum is located in city center.",
         ])
-        result = format_result(enricher.enrich(text, context={"city center": "{area}", "Alimentum": "{name}"}, max_iters=50))
+        result = format_result(enricher.enrich(text, context={"city center": "{area}", "Alimentum": "{name}", "restaurant": "{eat_type}"}, max_iters=50))
         assert result != "Alimentum located in city center.", "Sentence is not enriched"
         assert result in accepted_results
