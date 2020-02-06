@@ -116,11 +116,12 @@
               (= 2 (count modifiers)) (format "(mkAP and_Conj (mkListAP %s %s))" (first modifiers) (second modifiers))
               :else (format
                       "(mkAP and_Conj %s)"
-                      (loop [[mod & mods] (drop 2 modifiers)
-                             body (format "(mkListAP %s %s)" (first modifiers) (second modifiers))]
-                        (if-not (some? mod)
-                          body
-                          (recur mods (format "(mkListAP %s %s)" mod body))))))
+                      (let [modifiers (reverse modifiers)]
+                        (loop [[mod & mods] (drop 2 modifiers)
+                               body (format "(mkListAP %s %s)" (second modifiers) (first modifiers))]
+                          (if-not (some? mod)
+                            body
+                            (recur mods (format "(mkListAP %s %s)" mod body)))))))
             concept)))
 
 (defn parse-lin [functions]
