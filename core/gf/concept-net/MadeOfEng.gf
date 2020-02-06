@@ -2,7 +2,7 @@ resource MadeOfEng = open ParadigmsEng, ConstructorsEng, SyntaxEng in {
 
   oper -- refrigerator is made of steel
 
-    madeOf : N -> N -> S =
+    madeOf : CN -> CN -> S =
       \subject,object ->
         (mkS
           (mkCl

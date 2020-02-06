@@ -9,6 +9,6 @@ frames:
         ret: S
         params:
           - role: Subject
-            type: N
+            type: CN
           - role: Attribute
-            type: N
+            type: CN
