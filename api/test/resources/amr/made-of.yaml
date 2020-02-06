@@ -1,0 +1,14 @@
+roles:
+  - Subject
+  - Object
+frames:
+  - example: Refrigerator is made of steel
+    syntax:
+      - type: oper
+        value: madeOf
+        ret: S
+        params:
+          - role: Subject
+            type: CN
+          - role: Object
+            type: CN

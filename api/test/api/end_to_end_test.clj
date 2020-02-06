@@ -260,6 +260,4 @@
   (let [{{result-id :resultId} :body status :status} (generate "gf-amr-modifier" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"In the city centre there is a place named Alimentum."
-             "There is a place in the city centre named Alimentum."
-             "There is a named Alimentum in the city centre."} (-> result-id (get-variants) :sample)))))
+    (is (= #{"Old and dirty refrigerator is made of steel."} (-> result-id (get-variants) :sample)))))

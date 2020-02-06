@@ -1,17 +1,21 @@
 {:type     "Document-plan"
- :segments [{:children [{:roles     [{:children [{:type "Quote" :srcId "Mr$)o_k2Fj0Er|I_!Na[" :text "place"}]
-                                      :name     "lexicon"}
-                                     {:children [{:type "Quote" :srcId "2GAC?i~EU(C++KZ8}LH:" :text "city centre"}]
-                                      :name     "locationData"}
-                                     {:children [{:name   "named"
+ :segments [{:children [{:roles     [{:children [{:name   "old"
                                                   :type   "Dictionary-item-modifier"
-                                                  :srcId  "QF70;)uFpgpIRm#zDDJ"
-                                                  :child  {:type "Quote" :srcId "WGoNbqYPL2z@OebRJ^zp" :text "Alimentum"}
-                                                  :itemId "named"}]
-                                      :name     "objectRef"}]
+                                                  :srcId  "4Mb|GvkCJy]gj2)IOv@r"
+                                                  :child  {:name   "dirty"
+                                                           :type   "Dictionary-item-modifier"
+                                                           :srcId  "kQ.BkqVDXw4/aAJWqYv"
+                                                           :child  {:type  "Quote"
+                                                                    :srcId "5BcfVJ~`Q_Z;t(1UShn"
+                                                                    :text  "refrigerator"}
+                                                           :itemId "dirty"}
+                                                  :itemId "old"}]
+                                      :name     "Subject"}
+                                     {:children [{:type "Quote" :srcId "wqHu6%d3GbkTsG4?Bg+_" :text "steel"}]
+                                      :name     "Object"}]
                          :type      "AMR"
-                         :srcId     "/;3I~SX^VSP8nT[qq6t5"
-                         :conceptId "at-location"}]
+                         :srcId     "!gH62C@-pXm8z^c0OA8W"
+                         :conceptId "made-of"}]
              :type     "Segment"
-             :srcId    "nk/$ev7W[7S@=:m%H8OE"}]
- :srcId    "YMkMYSDXq/^!bYMiP%dK"}
+             :srcId    "7*)y=P1LqIk5fFa!xVd("}]
+ :srcId    "IDC=hVSH*YQ0eEqmIZ+w"}
