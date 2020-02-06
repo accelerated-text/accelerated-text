@@ -26,6 +26,8 @@
 
 (s/def :acc-text.nlg.gf.grammar.function/name string?)
 
+(s/def :acc-text.nlg.gf.grammar.function/type keyword?)
+
 (s/def :acc-text.nlg.gf.grammar.function/params (s/coll-of string?))
 
 (s/def :acc-text.nlg.gf.grammar.function/body (s/* (s/or :expression ::expression
@@ -34,6 +36,7 @@
 (s/def :acc-text.nlg.gf.grammar.function/ret #{[:s "Str"]})
 
 (s/def ::function (s/keys :req-un [:acc-text.nlg.gf.grammar.function/name
+                                   :acc-text.nlg.gf.grammar.function/type
                                    :acc-text.nlg.gf.grammar.function/params
                                    :acc-text.nlg.gf.grammar.function/body
                                    :acc-text.nlg.gf.grammar.function/ret]))

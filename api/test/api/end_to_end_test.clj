@@ -277,6 +277,12 @@
              "There is an Alimentum in the city centre , near the KFC."
              "There is an arena in the city centre , near the KFC Alimentum."} (get-original-results result-id)))))
 
+(deftest ^:integration gf-amr-modifier-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "gf-amr-modifier" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Old and dirty refrigerator is made of steel."} (get-original-results result-id)))))
+
 (deftest ^:integration enriched-results-generation
   (let [{{result-id :resultId} :body status :status} (generate-enriched "located-enrich" "restaurants.csv")]
     (is (= 200 status))

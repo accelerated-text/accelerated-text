@@ -14,16 +14,19 @@
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
+                                 :type   :document-plan
                                  :params ["Segment02"]
                                  :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
+                                 :type   :segment
                                  :params ["Amr03"]
                                  :body   [{:kind  :function
                                            :value "Amr03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Amr03"
+                                 :type   :amr
                                  :params []
                                  :body   [[{:params [{:kind  :variable
                                                       :value "DictionaryItem04"}
@@ -58,11 +61,13 @@
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
+                                 :type   :document-plan
                                  :params ["Segment02"]
                                  :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
+                                 :type   :segment
                                  :params []
                                  :body   [{:kind  :variable
                                            :value "Data03"}]
@@ -75,11 +80,13 @@
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
+                                 :type   :document-plan
                                  :params ["Segment02"]
                                  :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
+                                 :type   :segment
                                  :params []
                                  :body   [{:kind  :variable
                                            :value "Quote03"}]
@@ -92,16 +99,19 @@
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
+                                 :type   :document-plan
                                  :params ["Segment02"]
                                  :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
+                                 :type   :segment
                                  :params ["Modifier03"]
                                  :body   [{:kind  :function
                                            :value "Modifier03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Modifier03"
+                                 :type   :modifier
                                  :params []
                                  :body   [{:kind  :variable
                                            :value "DictionaryItem05"}
@@ -119,16 +129,19 @@
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
+                                 :type   :document-plan
                                  :params ["Segment02"]
                                  :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
+                                 :type   :segment
                                  :params ["Amr03"]
                                  :body   [{:kind  :function
                                            :value "Amr03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Amr03"
+                                 :type   :amr
                                  :params []
                                  :body   [[{:kind  :literal
                                             :value "{{co-Agent}}"}
@@ -156,16 +169,19 @@
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
+                                 :type   :document-plan
                                  :params ["Segment02"]
                                  :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
+                                 :type   :segment
                                  :params ["Amr03"]
                                  :body   [{:kind  :function
                                            :value "Amr03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Amr03"
+                                 :type   :amr
                                  :params ["Modifier05"]
                                  :body   [[{:kind  :function
                                             :value "Modifier05"}
@@ -187,6 +203,7 @@
                                             :value "Modifier05"}]]
                                  :ret    [:s "Str"]}
                                 {:name   "Modifier05"
+                                 :type   :modifier
                                  :params []
                                  :body   [{:kind  :variable
                                            :value "DictionaryItem07"}
@@ -222,16 +239,19 @@
                     :module    "Default"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
+                                 :type   :document-plan
                                  :params ["Segment02"]
                                  :body   [{:kind  :function
                                            :value "Segment02"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment02"
+                                 :type   :segment
                                  :params ["Sequence03"]
                                  :body   [{:kind  :function
                                            :value "Sequence03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Sequence03"
+                                 :type   :sequence
                                  :params ["Shuffle05"]
                                  :body   [{:kind  :variable
                                            :value "DictionaryItem04"}
@@ -239,6 +259,7 @@
                                            :value "Shuffle05"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Shuffle05"
+                                 :type   :shuffle
                                  :params []
                                  :body   []
                                  :ret    [:s "Str"]}]
@@ -250,21 +271,25 @@
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
+                                 :type   :document-plan
                                  :params ["Segment04"]
                                  :body   [{:kind  :function
                                            :value "Segment04"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Variable02"
+                                 :type   :variable
                                  :params []
                                  :body   [{:kind  :variable
                                            :value "Quote03"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Segment04"
+                                 :type   :segment
                                  :params ["Reference05"]
                                  :body   [{:kind  :function
                                            :value "Reference05"}]
                                  :ret    [:s "Str"]}
                                 {:name   "Reference05"
+                                 :type   :reference
                                  :params ["Variable02"]
                                  :body   [[{:kind  :function
                                             :value "Variable02"}]]
@@ -272,4 +297,59 @@
                     :variables [{:name  "Quote03"
                                  :type  "Str"
                                  :value ["some text"]}]}
-         (build-grammar "variable" {}))))
+         (build-grammar "variable" {})))
+  (is (= #::grammar{:flags     {:startcat "DocumentPlan01"}
+                    :functions [{:body   [{:kind  :function
+                                           :value "Segment02"}]
+                                 :name   "DocumentPlan01"
+                                 :type   :document-plan
+                                 :params ["Segment02"]
+                                 :ret    [:s "Str"]}
+                                {:body   [{:kind  :function
+                                           :value "Amr03"}]
+                                 :name   "Segment02"
+                                 :type   :segment
+                                 :params ["Amr03"]
+                                 :ret    [:s "Str"]}
+                                {:body   [[{:kind   :operation
+                                            :params [{:kind  :function
+                                                      :value "Modifier04"}
+                                                     {:kind  :variable
+                                                      :value "Quote08"}]
+                                            :value  "madeOf"}]]
+                                 :name   "Amr03"
+                                 :type   :amr
+                                 :params ["Modifier04"]
+                                 :ret    [:s "Str"]}
+                                {:body   [{:kind  :variable
+                                           :value "DictionaryItem06"}
+                                          {:kind  :variable
+                                           :value "DictionaryItem07"}
+                                          {:kind  :variable
+                                           :value "Quote05"}]
+                                 :name   "Modifier04"
+                                 :type   :modifier
+                                 :params []
+                                 :ret    [:s "CN"]}]
+                    :instance  "Instance"
+                    :module    "Default"
+                    :variables [{:name  "Quote05"
+                                 :type  "N"
+                                 :value ["refrigerator"]}
+                                {:name  "DictionaryItem06"
+                                 :type  "A"
+                                 :value ["old" "outdated"]}
+                                {:name  "DictionaryItem07"
+                                 :type  "A"
+                                 :value ["dirty"]}
+                                {:name  "Quote08"
+                                 :type  "CN"
+                                 :value ["steel"]}]}
+         (build-grammar
+           "gf-amr-modifier"
+           {:dictionary {"old" ["old" "outdated"]}
+            :amr        {"made-of" {:frames [{:syntax [{:ret    "S"
+                                                        :value  "madeOf"
+                                                        :params [{:type "CN" :role "Subject"}
+                                                                 {:type "CN" :role "Object"}]
+                                                        :type   :oper}]}]}}}))))
