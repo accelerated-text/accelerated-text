@@ -20,6 +20,12 @@ def enricher():
     return e
 
 
+def test_tokenize():
+    text = "Hello world, how are you?"
+    result = tokenize(text)
+    assert result == ["hello", "world", ",", "how", "are", "you", "?"]
+
+
 @pytest.mark.parametrize(
     "tokens,pos,expected",
     [
@@ -94,6 +100,18 @@ def test_inside_check():
 def test_sentence_format():
     text = "test Text goes Here"
     assert format_result(text) == "Test Text goes Here."
+
+
+def test_split_with_delim():
+    text = "Hello, world! How are you?"
+    results = list(split_with_delimiter(text, ".,!?"))
+
+    assert results[0] == "Hello"
+    assert results[1] == ","
+    assert results[2] == "world"
+    assert results[3] == "!"
+    assert results[4] == "How are you"
+    assert results[5] == "?"
 
 
 @pytest.mark.full_test

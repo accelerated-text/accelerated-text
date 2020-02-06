@@ -3,6 +3,7 @@ import re
 
 import spacy
 
+from io import StringIO
 from collections import Counter, defaultdict
 from functools import reduce
 
@@ -40,16 +41,30 @@ def load_example_triplets():
         return Counter(ngram(load_seq(), n=3))
 
 
-def tokenize(text):
-    def split_token_further(t):
-        buff = re.split(r"[.,:!?]", t)
-        for b in buff:
-            yield b
+def split_with_delimiter(text, delimiters):
+    def get_result(b):
+        result = b.getvalue().strip()
+        b.truncate(0)
+        b.seek(0)
+        return result
+        
+    buff = StringIO()
+    for c in text:
+        if c in delimiters:
+            yield get_result(buff)
+            yield c
+        else:
+            buff.write(c)
 
+    if buff.tell() > 0:
+        yield get_result(buff)
+
+
+def tokenize(text):
     return [ts
             for t in re.split(r"\s", text.lower())
-            for ts in split_token_further(t)
-            if t.strip() != ""]
+            for ts in split_with_delimiter(t, ".,:!?")
+            if ts.strip() != ""]
 
 
 def ngram(g, n):
@@ -148,6 +163,10 @@ def is_placeholder(t):
     return t.startswith("{")
 
 
+def filter_placeholders(lst):
+    return list([(m, p) for (m, p) in lst if not is_placeholder(m)])
+
+
 def get_pos_signature(tokens, nlp=None):
     doc = nlp(" ".join(tokens))
     pattern = [(t.text, t.pos_) for t in doc]
@@ -166,8 +185,7 @@ def get_pos_signature(tokens, nlp=None):
                 prev = "placeholder_end"
             else:
                 prev = None
-                if p not in ["AUX"]:
-                    yield p
+                yield p
 
     return list(gen())
 
@@ -175,6 +193,10 @@ def grammatically_valid_pos(pos):
     pairs = list(ngram(pos, n=2))
     if any([p1 == "DET" and p2 == "VERB" for (p1, p2) in pairs]):
         logger.debug("DET before VERB")
+        return False
+
+    if any([p1 == "DET" and p2 == "ADP" for (p1, p2) in pairs]):
+        logger.debug("DET before ADP")
         return False
 
     if any([(p1 == "ADV" and p2 == "ADP") or (p1 == "ADP" and p2 == "ADV")
@@ -185,7 +207,7 @@ def grammatically_valid_pos(pos):
 
 def compare_pos_signatures(left, right):
     def filter_fn(p):
-        return p not in ["DET", "ADV"]
+        return p not in ["DET", "ADV", "AUX"]
 
     left_side = list(filter(filter_fn, left))
     right_side = list(filter(filter_fn, right))
@@ -215,7 +237,7 @@ def insert(t, pos, triplets):
     left_side = t[max(0, pos-2):pos]
     right_side = t[pos:pos+2]
 
-    results = window(left_side, right_side, triplets)
+    results = filter_placeholders(window(left_side, right_side, triplets))
     if len(results) == 0:
         raise OpRejected("Couldn't insert anything")
     else:
@@ -234,7 +256,8 @@ def remove(t, pos):
 
 
 def replace(t, pos, triplets):
-    if is_placeholder(t[pos]):
+    current = t[pos]
+    if is_placeholder(current):
         # Don't replace placeholders
         raise OpRejected("Don't replace placeholders")
 
@@ -242,13 +265,14 @@ def replace(t, pos, triplets):
     
     left_side = t[:pos][-2:]
     right_side = t[pos+1:][:2]
-    current = t[pos]
     
-    results = window(left_side, right_side, triplets)
+    results = [(m, p)
+               for (m, p) in filter_placeholders(window(left_side, right_side, triplets))
+               if m != current]
     if len(results) == 0:
         raise OpRejected("Nothing to replace")
     else:
-        (m, _) = list([(m, p) for m, p in results if m != current])[0]
+        (m, _) = results[0]
         new[pos] = m
         return new
 
