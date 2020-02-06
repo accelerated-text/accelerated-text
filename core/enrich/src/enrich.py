@@ -59,6 +59,7 @@ class Enricher(object):
             pipeline.random_op,
             pipeline.apply_op,
             pipeline.apply_validation,
+            pipeline.optimize,
             pipeline.get_result
         ]
         

@@ -3,7 +3,7 @@ import logging
 
 from copy import copy
 
-from src.utils import validate
+from src.utils import validate, optimize_grammar
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +31,11 @@ def apply_op(ctx, tokens, pos, op):
 def apply_validation(ctx, new, prev):
     validate(prev, new, ctx.nlp)
     return (ctx, new)
+
+
+def optimize(ctx, new):
+    return (ctx, optimize_grammar(new, ctx.nlp))
+
 
 def get_result(ctx, new):
     return new

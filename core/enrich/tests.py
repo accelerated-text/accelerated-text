@@ -124,9 +124,15 @@ def test_split_with_delim():
     assert results[5] == "?"
 
 
+def test_optimize(nlp):
+    tokens = ["is", "a", "{eat_type}", "is", "located", "in", "the" "{area}"]
+    result = optimize_grammar(tokens, nlp)
+    assert result == ["is", "a", "{eat_type}", "located", "in", "the" "{area}"]
+
+
 @pytest.mark.full_test
 class TestFullEnrich(object):
-    @pytest.mark.parametrize("execution_number", range(20))
+    @pytest.mark.parametrize("execution_number", range(5))
     def test_full_sentence_enrich_1(self, enricher, execution_number):
         print(execution_number)
         text = "Alimentum located in city center"
@@ -140,7 +146,7 @@ class TestFullEnrich(object):
         assert result != "Alimentum located in city center.", "Sentence is not enriched"
         assert result in accepted_results
 
-    @pytest.mark.parametrize("execution_number", range(20))
+    @pytest.mark.parametrize("execution_number", range(5))
     def test_full_sentence_enrich_2(self, enricher, execution_number):
         print(execution_number)
         text = "Alimentum is restaurant near Burger King"
@@ -165,3 +171,28 @@ class TestFullEnrich(object):
         result = format_result(enricher.enrich(text, context={"Starbucks": "{name}", "coffee shop": "{eat_type}"}, max_iters=50))
         assert result != "Starbucks is coffee shop", "Sentence is not enriched"
         assert result in accepted_results
+
+    @pytest.mark.parametrize("execution_number", range(5))
+    def test_full_sentence_enrich_4(self, enricher, execution_number):
+        print(execution_number)
+        text = "restaurant located in city center"
+        accepted_results = set([
+            "Restaurant located in the city center.",
+            "Restaurant is located in the city center.",
+            "This establishment is located in the city center.",
+            "This restaurant is located in the city center.",
+            "Is a restaurant located in the city center.",
+            "Is a restaurant located in city center.",
+            "Friendly restaurant located in the city center.",
+            "Friendly restaurant located on the city center.",
+            "Is a friendly restaurant located in the city center.",
+            "Is a friendly restaurant located on the city center.",
+            "This restaurant is located in city center.",
+            "Is a restaurant providing in the city center.",
+            "A restaurant is located in the city center.",
+        ])
+        result = format_result(enricher.enrich(text, context={"city center": "{area}", "restaurant": "{eat_type}"}, max_iters=50))
+        assert result != "Restaurant located in city center", "Sentence is not enriched"
+        assert result in accepted_results
+
+        

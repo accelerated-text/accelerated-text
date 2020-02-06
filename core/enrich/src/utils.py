@@ -196,6 +196,10 @@ def grammatically_valid_pos(pos):
     if any([p1 == "DET" and p2 == "DET" for (p1, p2) in pairs]):
         logger.debug("DET before DET")
         return False
+
+    if any([p1 == "AUX" and p2 == "AUX" for (p1, p2) in pairs]):
+        logger.debug("AUX before AUX")
+        return False
     
     if any([p1 == "DET" and p2 == "VERB" for (p1, p2) in pairs]):
         logger.debug("DET before VERB")
@@ -217,12 +221,20 @@ def grammatically_valid_pos(pos):
         logger.debug("ADJ before PRON")
         return False
 
+    if any([p1 == "ADJ" and p2 == "DET" for (p1, p2) in pairs]):
+        logger.debug("ADJ before DET")
+        return False
+
     if any([p1 == "DET" and p2 == "PRON" for (p1, p2) in pairs]):
         logger.debug("DET before PRON")
         return False
 
     if any([p1 == "DET" and p2 == "ADJ" for (p1, p2) in pairs]):
         logger.debug("DET before ADJ")
+        return False
+
+    if any([p1 == "ADP" and p2 == "AUX" for (p1, p2) in pairs]):
+        logger.debug("ADP before AUX")
         return False
 
     if any([(p1 == "ADV" and p2 == "ADP") or (p1 == "ADP" and p2 == "ADV")
@@ -298,9 +310,58 @@ def replace(t, pos, triplets):
     if len(results) == 0:
         raise OpRejected("Nothing to replace")
     else:
-        (m, _) = results[0]
+        (m, p) = results[0]
+        logger.debug("{0} -> {1} in Sentence: {2}. P={3}".format(current, m, t, p))
+        if p < 0.20:
+            raise OpRejected("Probability of this change is too low ({0})".format(p))
+        print("{0} -> {1} in Sentence: {2}. P={3}".format(current, m, t, p))
         new[pos] = m
         return new
+
+
+def knuth_morris_pratt(source, pattern):
+    '''Yields all starting positions of copies of the pattern in the text.
+Calling conventions are similar to string.find, but its arguments can be
+lists or iterators, not just strings, it returns all matches, not just
+the first one, and it does not need the whole text in memory at once.
+Whenever it yields, it will have read the text exactly up to and including
+the match that caused the yield.'''
+
+    # allow indexing into pattern and protect against change during yield
+    pattern = list(pattern)
+
+    # build table of shift amounts
+    shifts = [1] * (len(pattern) + 1)
+    shift = 1
+    for pos in range(len(pattern)):
+        while shift <= pos and pattern[pos] != pattern[pos-shift]:
+            shift += shifts[pos-shift]
+        shifts[pos+1] = shift
+
+    # do the actual search
+    startPos = 0
+    matchLen = 0
+    for c in source:
+        while matchLen == len(pattern) or \
+              matchLen >= 0 and pattern[matchLen] != c:
+            startPos += shifts[matchLen]
+            matchLen -= shifts[matchLen]
+        matchLen += 1
+        if matchLen == len(pattern):
+            yield startPos
+
+
+def optimize_grammar(tokens, nlp):
+    def case_1(t):
+        pos = get_pos_signature(tokens, nlp)
+        example = ["AUX", "DET", "VARIABLE", "AUX", "VERB"]
+        for match_position in knuth_morris_pratt(pos, example):
+            # Our defined pattern starts at `match_position`
+            # we want to remove second AUX, which is 4th token
+            return case_1(remove(t, match_position + 3))
+        return t
+
+    return reduce(lambda acc, p: p(acc), [case_1], tokens)
 
 
 def format_result(text):
