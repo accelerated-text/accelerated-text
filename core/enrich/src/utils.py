@@ -193,6 +193,10 @@ def get_pos_signature(tokens, nlp=None):
 
 def grammatically_valid_pos(pos):
     pairs = list(ngram(pos, n=2))
+    if any([p1 == "DET" and p2 == "DET" for (p1, p2) in pairs]):
+        logger.debug("DET before DET")
+        return False
+    
     if any([p1 == "DET" and p2 == "VERB" for (p1, p2) in pairs]):
         logger.debug("DET before VERB")
         return False

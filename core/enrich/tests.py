@@ -136,6 +136,32 @@ class TestFullEnrich(object):
             "Alimentum located in the city center.",
             "Alimentum is located in city center.",
         ])
-        result = format_result(enricher.enrich(text, context={"city center": "{area}", "Alimentum": "{name}", "restaurant": "{eat_type}"}, max_iters=50))
+        result = format_result(enricher.enrich(text, context={"city center": "{area}", "Alimentum": "{name}"}, max_iters=50))
         assert result != "Alimentum located in city center.", "Sentence is not enriched"
+        assert result in accepted_results
+
+    @pytest.mark.parametrize("execution_number", range(20))
+    def test_full_sentence_enrich_2(self, enricher, execution_number):
+        print(execution_number)
+        text = "Alimentum is restaurant near Burger King"
+        accepted_results = set([
+            "Alimentum is a restaurant near Burger King.",
+            "Alimentum is a restaurant near the Burger King.",
+            "Alimentum is friendly restaurant near the Burger King.",
+            "Alimentum is restaurant near the Burger King.",
+            "Alimentum a restaurant near the Burger King.",
+        ])
+        result = format_result(enricher.enrich(text, context={"Burger King": "{near}", "Alimentum": "{name}", "restaurant": "{eat_type}"}, max_iters=50))
+        assert result != "Alimentum is restaurant near Burger King.", "Sentence is not enriched"
+        assert result in accepted_results
+
+    @pytest.mark.parametrize("execution_number", range(5))
+    def test_full_sentence_enrich_3(self, enricher, execution_number):
+        print(execution_number)
+        text = "Starbucks is coffee shop"
+        accepted_results = set([
+            "Starbucks is a coffee shop."
+        ])
+        result = format_result(enricher.enrich(text, context={"Starbucks": "{name}", "coffee shop": "{eat_type}"}, max_iters=50))
+        assert result != "Starbucks is coffee shop", "Sentence is not enriched"
         assert result in accepted_results
