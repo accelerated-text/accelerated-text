@@ -233,7 +233,7 @@
   (let [{{result-id :resultId} :body status :status} (generate "variable-undefined" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{""} (get-original-results result-id)))))
+    (is (= #{} (get-original-results result-id)))))
 
 (deftest ^:integration variable-unused-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "variable-unused" "books.csv")]
