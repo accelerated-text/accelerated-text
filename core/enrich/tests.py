@@ -25,7 +25,6 @@ def test_tokenize():
     result = tokenize(text)
     assert result == ["hello", "world", ",", "how", "are", "you", "?"]
 
-
 @pytest.mark.parametrize(
     "tokens,pos,expected",
     [
@@ -98,12 +97,10 @@ def test_gramatical_structure_case_1(nlp):
 
     with pytest.raises(OpRejected):
         validate(tokens, tokens, nlp)
-
     
 def test_inside_check():
     s1 = ["three", "four"]
     s2 = ["one", "two", "three", "four", "five"]
-
     assert inside(s1, s2)
 
 
@@ -203,5 +200,3 @@ class TestFullEnrich(object):
         result = format_result(enricher.enrich(text, context={"city center": "{area}", "restaurant": "{eat_type}"}, max_iters=50))
         assert result != "Restaurant located in city center", "Sentence is not enriched"
         assert result in accepted_results
-
-        

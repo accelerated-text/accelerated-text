@@ -267,7 +267,6 @@ def validate(original, new, nlp):
 
     if not grammatically_valid_pos(new_pos):
         raise OpRejected("Invalid gramatical structure")
-
     return new
 
 
@@ -282,7 +281,6 @@ def insert(t, pos, triplets):
         (m, _) = results[0]
         logger.debug("Left side: {0}, Right side: {1}, Variants: {2}".format(t[:pos], t[pos:], results))
         return t[:pos] + [m] + t[pos:]
-
 
 def remove(t, pos):
     if is_placeholder(t[pos]):
@@ -314,11 +312,10 @@ def replace(t, pos, triplets):
         logger.debug("{0} -> {1} in Sentence: {2}. P={3}".format(current, m, t, p))
         if p < 0.20:
             raise OpRejected("Probability of this change is too low ({0})".format(p))
-        print("{0} -> {1} in Sentence: {2}. P={3}".format(current, m, t, p))
         new[pos] = m
         return new
 
-
+ 
 def knuth_morris_pratt(source, pattern):
     '''Yields all starting positions of copies of the pattern in the text.
 Calling conventions are similar to string.find, but its arguments can be
@@ -369,8 +366,8 @@ def optimize_grammar(tokens, nlp):
         return t
 
     return reduce(lambda acc, p: p(acc), [case_1, case_2], tokens)
-
-
+  
+ 
 def format_result(text):
     def strip(t):
         return t.strip()

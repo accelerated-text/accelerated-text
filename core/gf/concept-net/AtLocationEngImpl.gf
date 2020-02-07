@@ -1,7 +1,8 @@
-resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
+resource AtLocationEngImpl = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
+
+  oper SS : Type = {s : Str} ;
 
   oper -- atLocation
-    SS : Type = {s : Str} ;
 
     -- There is a place in the LOCATION
     placeInLocation : N -> Adv -> N -> SS =
@@ -18,16 +19,29 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
         \locationDictionary_N,locationData_Adv,objectRef_N ->
             (mkS (mkThereIsAThing objectRef_N locationData_Adv)) ;
 
-    atLocation : N -> N -> N -> SS =
-        \lexicon,location,venue ->
-            (placeInLocation lexicon (mkInAdv location) venue) |
-            (inLocationPlace lexicon (mkInAdv location) venue) |
-            (venueInLocation lexicon (mkInAdv location) venue) ;
+    atLocation_S = overload {
+      atLocation_S : N -> N -> N -> S =
+          \lexicon,location,venue ->
+              (placeInLocation lexicon (mkInAdv location) venue) |
+              (inLocationPlace lexicon (mkInAdv location) venue) |
+              (venueInLocation lexicon (mkInAdv location) venue) ;
 
-  oper -- hasProperty
+      -- atLocation_S : N -> N -> S =
+      --    \location, venue -> (mkS (mkThereIsAThing venue (mkInAdv location)));
 
-    hasProperty : N -> A -> Pol ->  SS = \object, propertyName, polarity ->
-                (mkS presentSimTemp polarity (mkCl (mkNP object) propertyName));
+      atLocation_S : N -> N -> N -> A -> S =
+          \lexicon, location, venue, venueMod ->
+            (mkS (mkThereIsAThing (mkCN lexicon (mkInAdv location))
+                    venueMod venue)) ;
+
+      };
+
+    -- KFC is in the city
+    atLocationX :  CN -> Adv -> S =
+      \subject, object ->
+      (mkS (mkCl (mkCN subject object)));
+
+    atLocationY : N -> Adv = \subject -> mkInAdv subject;
 
   oper -- locatedNear
 
@@ -40,22 +54,4 @@ resource ConceptNetEng = open SyntaxEng, ParadigmsEng, UtilsEng, (R=ResEng) in {
               (placeInLocation lexicon (fullLocation_Adv location nearDictionary nearData) venue) |
               (inLocationPlace lexicon (fullLocation_Adv location nearDictionary nearData) venue) |
               (venueInLocation lexicon (fullLocation_Adv location nearDictionary nearData) venue) ;
-
-
-  oper -- capableOf 'Something that A can typically do is B.'
-
-    capableOfImpl : V2 -> NP -> VP =
-                    \action, result -> (mkVP action result);
-
-    capableOf = overload {
-      capableOf : V2 -> N -> A -> SS = 
-                  \action, result, modifier ->
-                  (mkS presentSimTemp positivePol
-                       (mkCl (capableOfImpl action (mkNP (mkCN modifier result)))));
-
-      capableOf : V2 -> NP -> SS = 
-                  \action, result ->
-                  (mkS presentSimTemp positivePol
-                       (mkCl (capableOfImpl action result))) ;
-    };
 }
