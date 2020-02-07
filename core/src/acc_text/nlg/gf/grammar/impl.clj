@@ -1,7 +1,8 @@
 (ns acc-text.nlg.gf.grammar.impl
   (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.math.combinatorics :refer [permutations]]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]))
 
 (def data-types #{:data :dictionary-item :quote})
 
@@ -64,16 +65,19 @@
 
 (defmethod build-function :default [concept children _ _]
   {:name   (concept->name concept)
+   :type   (:type concept)
    :params (get-params children)
    :body   (for [child-concept children]
              {:kind  (get-kind child-concept)
               :value (concept->name child-concept)})
    :ret    [:s "Str"]})
 
-(defmethod build-function :modifier [concept children relations _]
-  (let [child-concept (get-child-with-role children relations :child)
+(defmethod build-function :modifier [concept children relations {types :types}]
+  (let [name (concept->name concept)
+        child-concept (get-child-with-role children relations :child)
         modifier-concepts (remove #(= (:id child-concept) (:id %)) children)]
-    {:name   (concept->name concept)
+    {:name   name
+     :type   :modifier
      :params (get-params children)
      :body   (cond-> (map (fn [modifier-concept]
                             {:kind  (get-kind modifier-concept)
@@ -81,7 +85,7 @@
                           modifier-concepts)
                      (some? child-concept) (concat [{:kind  (get-kind child-concept)
                                                      :value (concept->name child-concept)}]))
-     :ret    [:s "Str"]}))
+     :ret    [:s (get types name "Str")]}))
 
 (defmethod build-function :amr [{value :value :as concept} children relations {amr :amr}]
   (let [role-map (reduce (fn [m [{{attr-name :name} :attributes} concept]]
@@ -89,6 +93,7 @@
                          {}
                          (zipmap relations children))]
     {:name   (concept->name concept)
+     :type   :amr
      :params (get-params children)
      :body   (for [syntax (->> (get amr value) (:frames) (map :syntax))]
                (for [{:keys [value pos role params type] :as attrs} syntax]
@@ -118,6 +123,7 @@
 
 (defmethod build-function :shuffle [concept children _ _]
   {:name   (concept->name concept)
+   :type   :shuffle
    :params (get-params children)
    :body   (for [permutation (filter seq (permutations children))]
              (for [child-concept permutation]
@@ -127,6 +133,7 @@
 
 (defmethod build-function :synonyms [concept children _ _]
   {:name   (concept->name concept)
+   :type   :synonyms
    :params (get-params children)
    :body   (for [child-concept children]
              [{:kind  (get-kind child-concept)
@@ -135,11 +142,33 @@
 
 (defmethod build-function :reference [concept children _ _]
   {:name   (concept->name concept)
+   :type   :reference
    :params (get-params children)
    :body   (for [child-concept children]
              [{:kind  (get-kind child-concept)
                :value (concept->name child-concept)}])
    :ret    [:s "Str"]})
+
+(defn add-child-types [parent-types child-concepts concept-map relation-map]
+  (->> child-concepts
+       (remove #(contains? data-types (:type %)))
+       (map (fn [{:keys [id type] :as concept}]
+              (let [concept-name (concept->name concept)
+                    relations (get relation-map id)
+                    children (map (comp concept-map :to) relations)]
+                (case type
+                  :modifier (let [parent-type (get parent-types concept-name)
+                                  child-concept (get-child-with-role children relations :child)
+                                  modifier-concepts (remove #(= (:id child-concept) (:id %)) children)]
+                              (case parent-type
+                                "CN" (-> (map concept->name modifier-concepts)
+                                         (zipmap (repeat "A"))
+                                         (assoc (concept->name child-concept) "N"))
+                                (log/errorf "Type inference not implemented for concept type `%s` with parent type `%s`"
+                                            (name type) parent-type)))
+                  (log/errorf "Type inference not implemented for concept type `%s`"
+                              (name type))))))
+       (apply merge parent-types)))
 
 (defn find-types [concept-map relation-map {amr :amr}]
   (reduce (fn [m {:keys [id value]}]
@@ -152,9 +181,10 @@
                                    (zipmap relations children))
                   params (->> (get amr value) (:frames) (mapcat :syntax) (mapcat :params) (distinct))]
               (cond-> m
-                      (seq params) (merge (zipmap
-                                            (map (comp role-map :role) params)
-                                            (map :type params))))))
+                      (seq params) (merge (-> (zipmap
+                                                (map (comp role-map :role) params)
+                                                (map :type params))
+                                              (add-child-types children concept-map relation-map))))))
           {}
           (filter #(= :amr (:type %)) (vals concept-map))))
 

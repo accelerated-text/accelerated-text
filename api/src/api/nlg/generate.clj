@@ -27,9 +27,7 @@
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
-
 (defn filter-empty [text] (not= "" text))
-
 
 (defn generate-text
   ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
@@ -47,7 +45,6 @@
           (filter filter-empty)
           (utils/inspect-results)
           (map enrich-fn)))))
-
 
 (defn generation-process [document-plan rows reader-model enrich]
   (try

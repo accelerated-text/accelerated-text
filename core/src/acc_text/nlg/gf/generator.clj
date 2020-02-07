@@ -39,7 +39,8 @@
                "Pol" (if (Boolean/valueOf ^String %)
                        "positivePol"
                        "negativePol")
-               (format "mk%s \"%s\"" type (escape-string %))))
+               "CN" (format "(mkCN (mkN \"%s\"))" (escape-string %))
+               (format "(mk%s \"%s\")" type (escape-string %))))
        (str/join " | ")))
 
 (defn parse-oper [variables]
@@ -104,13 +105,36 @@
                      body
                      (concat (rest body) [nil]))))
 
+(defn join-modifier-body [body _]
+  (let [concept (:value (last body))
+        modifiers (->> (subvec (vec body) 0 (dec (count body)))
+                       (map :value)
+                       (map #(format "(mkAP %s)" %)))]
+    (format "(mkCN %s %s)"
+            (cond
+              (= 1 (count modifiers)) (first modifiers)
+              (= 2 (count modifiers)) (format "(mkAP and_Conj (mkListAP %s %s))" (first modifiers) (second modifiers))
+              :else (format
+                      "(mkAP and_Conj %s)"
+                      (let [modifiers (reverse modifiers)]
+                        (loop [[mod & mods] (drop 2 modifiers)
+                               body (format "(mkListAP %s %s)" (second modifiers) (first modifiers))]
+                          (if-not (some? mod)
+                            body
+                            (recur mods (format "(mkListAP %s %s)" mod body)))))))
+            concept)))
+
 (defn parse-lin [functions]
-  (map-indexed (fn [i {:keys [params ret body]}]
+  (map-indexed (fn [i {:keys [params ret body type]}]
                  (format "Function%02d %s= {%s = %s}"
                          (inc i)
                          (str/join (interleave params (repeat " ")))
                          (name (nth ret 0))
-                         (if (seq body) (join-function-body body ret) "\"\"")))
+                         (if (seq body)
+                           (cond
+                             (and (= "CN" (second ret)) (= :modifier type)) (join-modifier-body body ret)
+                             :else (join-function-body body ret))
+                           "\"\"")))
                functions))
 
 (defn ->abstract [{::grammar/keys [module flags functions]}]
@@ -121,12 +145,17 @@
             "cat" (parse-cat flags functions)
             "fun" (parse-fun functions))))
 
+(def imports ["LangFunctionsEng" "SyntaxEng" "ParadigmsEng"
+              "AtLocationEng" "CapableOfEng" "HasAEng"
+              "HasPropertyEng" "IsAEng" "LocatedNearEng"
+              "MadeOfEng" "HasAEng"])
+
 (defn ->incomplete [{::grammar/keys [module functions]}]
   (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"
           module
           module
           module
-          "LangFunctionsEng, ConceptNetEng, SyntaxEng, ParadigmsEng"
+          (str/join ", " imports)
           (join-body
             "param" (parse-param functions)
             "lincat" (parse-lincat functions)

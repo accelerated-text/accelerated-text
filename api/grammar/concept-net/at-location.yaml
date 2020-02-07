@@ -10,8 +10,8 @@ frames:
         ret: S
         params:
           - role: lexicon
-            type: N
+            type: CN
           - role: locationData
-            type: N
+            type: CN
           - role: objectRef
-            type: N
+            type: CN

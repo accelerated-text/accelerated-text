@@ -1,14 +1,14 @@
 roles:
   - Subject
-  - Attribute
+  - Object
 frames:
-  - example: T1000 is a kettle
+  - example: Refrigerator is made of steel
     syntax:
       - type: oper
-        value: isA_S
+        value: madeOf
         ret: S
         params:
           - role: Subject
             type: CN
-          - role: Attribute
+          - role: Object
             type: CN
