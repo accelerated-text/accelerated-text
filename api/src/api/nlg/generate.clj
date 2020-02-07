@@ -28,6 +28,9 @@
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
 
+(defn filter-empty [text] (not= "" text))
+
+
 (defn generate-text
   ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
   ([document-plan data reader-model enrich]
@@ -41,6 +44,7 @@
           (map :text)
           (sort)
           (dedupe)
+          (filter filter-empty)
           (utils/inspect-results)
           (map enrich-fn)))))
 

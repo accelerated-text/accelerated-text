@@ -361,7 +361,14 @@ def optimize_grammar(tokens, nlp):
             return case_1(remove(t, match_position + 3))
         return t
 
-    return reduce(lambda acc, p: p(acc), [case_1], tokens)
+    def case_2(t):
+        pos = get_pos_signature(tokens, nlp)
+        if pos[-1] in ["ADV", "ADJ", "DET", "AUX", "SCONJ"]:
+            # If sentence is ending with these, it is likelly incorrect
+            return case_2(remove(t, len(pos)-1))
+        return t
+
+    return reduce(lambda acc, p: p(acc), [case_1, case_2], tokens)
 
 
 def format_result(text):

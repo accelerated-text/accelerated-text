@@ -43,8 +43,8 @@ def test_inserts(triplets, tokens, pos, expected):
 @pytest.mark.parametrize(
     "tokens,pos,expected",
     [
-        (["in", "the", "{area}"], 0, ["on", "the", "{area}"]),
-        (["located", "in", "the", "{area}"], 2, ["located", "in", "riverside", "{area}"]),
+        (["on", "the", "{area}"], 0, ["in", "the", "{area}"]),
+        (["located", "in", "riverside", "{area}"], 2, ["located", "in", "the", "{area}"]),
     ],
 )
 def test_replace(tokens, pos, expected, triplets):
@@ -124,10 +124,16 @@ def test_split_with_delim():
     assert results[5] == "?"
 
 
-def test_optimize(nlp):
-    tokens = ["is", "a", "{eat_type}", "is", "located", "in", "the" "{area}"]
+def test_optimize_case_1(nlp):
+    tokens = ["is", "a", "{eat_type}", "is", "located", "in", "the", "{area}"]
     result = optimize_grammar(tokens, nlp)
-    assert result == ["is", "a", "{eat_type}", "located", "in", "the" "{area}"]
+    assert result == ["is", "a", "{eat_type}", "located", "in", "the", "{area}"]
+
+
+def test_optimize_case_2(nlp):
+    tokens = ["is", "a", "{eat_type}", "located", "in", "the", "{area}", "near"]
+    result = optimize_grammar(tokens, nlp)
+    assert result == ["is", "a", "{eat_type}", "located", "in", "the", "{area}"]
 
 
 @pytest.mark.full_test
