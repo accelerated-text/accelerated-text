@@ -30,6 +30,11 @@
 
 (defn filter-empty [text] (not= "" text))
 
+(defn merge-enrich-dupes [{:keys [original enriched] :as data}]
+  (if (= original enriched)
+    {:original original}
+    data))
+
 
 (defn generate-text
   ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
@@ -46,7 +51,8 @@
           (dedupe)
           (filter filter-empty)
           (utils/inspect-results)
-          (map enrich-fn)))))
+          (map enrich-fn)
+          (map merge-enrich-dupes)))))
 
 
 (defn generation-process [document-plan rows reader-model enrich]
