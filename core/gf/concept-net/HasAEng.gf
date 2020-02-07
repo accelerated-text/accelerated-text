@@ -7,6 +7,13 @@ resource HasAEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
         (mkS
           (mkCl (mkNP a_Det subject)
                 have_V2
-                (mkNP a_Det object)));
+             (mkNP a_Det object)));
 
+    hasA_NP : CN -> CN -> NP =
+      \subject, object ->
+      (mkNP
+         (mkNP a_Det subject)
+         (SyntaxEng.mkAdv
+            (mkPrep "with")
+            (mkNP a_Det object))) ;
 }
