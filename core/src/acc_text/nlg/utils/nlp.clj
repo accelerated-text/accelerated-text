@@ -25,10 +25,19 @@
   (cond-> (str/trim s)
           (re-find #"[^.?!\s]\s*$" s) (str ".")))
 
+
+(defn rebuild-sentences [tokens]
+  (->> (str/join " "  tokens)
+       (split-into-sentences)
+       (map #(str/replace % #"\s(?:[.,!:?])" "")) ; Remove whitespace before punct
+       (map str/trim)
+       (map process-sentence)
+       (str/join " ")))
+
 (defn process-sentence [s]
   (if-not (str/blank? s)
     (wrap-sentence
-      (capitalize-first-word s))
+     (capitalize-first-word s))
     ""))
 
 (defn annotate [text]

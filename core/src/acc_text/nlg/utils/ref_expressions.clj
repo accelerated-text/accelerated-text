@@ -13,3 +13,25 @@
        (vec)
        (filter filter-by-refs-count)
        (map second)))
+
+(defn add-replace-token
+  [idx]
+  [idx "it"])
+
+(defn apply-ref-expressions
+  [text]
+  (let [tokens (nlp/tokenize text)
+        refs (identify-potential-refs tokens)
+        smap (->> refs
+                  (map rest)
+                  (mapcat identity)
+                  (map first)
+                  (map add-replace-token)
+                  (into {}))]
+    (nlp/rebuild-sentences
+     (map-indexed (fn
+                    [idx v]
+                    (if (contains? smap idx)
+                      (get smap idx)
+                      v))
+                  tokens))))

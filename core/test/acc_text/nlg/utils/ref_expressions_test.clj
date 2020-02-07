@@ -9,3 +9,7 @@
          (-> (nlp/tokenize "Alimentum is nice. Alimentum serves good food.")
              (r/identify-potential-refs)
              (first)))))
+
+(deftest test-replace-refs
+  (is (= "Alimentum is nice. It serves good food. Starbucks provides coffee. Its coffee is awesome."
+         (r/apply-ref-expressions "Alimentum is nice. It serves good food. Starbucks provides coffee. Starbucks coffee is awesome."))))
