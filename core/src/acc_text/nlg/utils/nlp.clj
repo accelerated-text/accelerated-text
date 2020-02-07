@@ -13,6 +13,9 @@
 (defn word? [s]
   (some? (re-seq #"\w" s)))
 
+(defn starts-with-capital? [[s & _]]
+  (and (Character/isLetter s)  (= (str s) (str/upper-case s))))
+
 (defn token-type [token] (if (word? token) "WORD" "PUNCTUATION"))
 
 (defn capitalize-first-word [[head & tail]]
