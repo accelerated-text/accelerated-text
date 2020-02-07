@@ -104,7 +104,10 @@
 (defn transform-results
   [results]
   (mapcat (fn [{:keys [enriched original]}]
-                 [(format "Original: %s " original) (format "Enriched: %s" enriched)]) results))
+            (if enriched
+              [(format "Original: %s " original) (format "Enriched: %s" enriched)]
+              [original]))
+          results))
 
 (defn annotated-text-format [results]
   (->> results
