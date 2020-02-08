@@ -4,7 +4,9 @@
             [api.graphql.core :as graphql]
             [api.nlg.generate :as generate]
             [api.utils :as utils]
+            [api.error :as errors]
             [clojure.tools.logging :as log]
+            [data.entities.amr :as amr]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
             [mount.core :refer [defstate] :as mount]
@@ -18,7 +20,6 @@
             [muuntaja.core :as m]
             [reitit.ring.coercion :as coercion]
             [reitit.ring.middleware.parameters :as parameters]
-            [reitit.ring.middleware.exception :as exception]
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [reitit.dev.pretty :as pretty]))
 
@@ -26,6 +27,7 @@
               "Access-Control-Allow-Headers" "content-type, *"
               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
               "Content-Type"                 "application/json"})
+
 
 (defn health [_] {:status 200, :body "Ok"})
 
@@ -45,46 +47,56 @@
 
 (def routes
   (ring/router
-   [["/_graphql"    {:post {:handler (fn [{raw :body}]
-                                       (let [body (utils/read-json-is raw)]
-                                         {:status 200
-                                          :body (graphql/handle body)}))
-                            :summary "GraphQL endpoint"}
-                     :options cors-handler}]
-    ["/nlg/"        {:post   {:parameters {:body ::generate/generate-req}
-                              :responses  {200 {:body {:resultId string?}}}
-                              :summary    "Registers document plan for generation"
-                              :coercion   reitit.coercion.spec/coercion
-                              :middleware [muuntaja/format-request-middleware
-                                           coercion/coerce-request-middleware
-                                           coercion/coerce-response-middleware]
-                              :handler (fn [{{body :body} :parameters}]
-                                         (generate/generate-request body))}
-                     :options cors-handler}]
-    ["/nlg/_bulk/"   {:post    {:parameters {:body ::generate/generate-bulk}
-                                :responses  {200 {:body {:resultId string?}}}
-                                :summary    "Bulk generation"
-                                :coercion   reitit.coercion.spec/coercion
-                                :middleware [muuntaja/format-request-middleware
-                                             coercion/coerce-request-middleware
-                                             coercion/coerce-response-middleware]
-                                :handler (fn [{{body :body} :parameters}]
-                                           (generate/generate-bulk body))}
-                     :options cors-handler}]
-    ["/nlg/:id"     {:get     {:parameters {:query ::generate/format-query
-                                            :path  {:id string?}}
+    [["/_graphql" {:post    {:handler (fn [{raw :body}]
+                                        (let [body (utils/read-json-is raw)]
+                                          {:status 200
+                                           :body   (graphql/handle body)}))
+                             :summary "GraphQL endpoint"}
+                   :options cors-handler}]
+     ["/nlg/" {:post    {:parameters {:body ::generate/generate-req}
+                         :responses  {200 {:body {:resultId string?}}}
+                         :summary    "Registers document plan for generation"
+                         :coercion   reitit.coercion.spec/coercion
+                         :middleware [muuntaja/format-request-middleware
+                                      coercion/coerce-request-middleware
+                                      coercion/coerce-response-middleware]
+                         :handler    (fn [{{body :body} :parameters}]
+                                       (generate/generate-request body))}
+               :options cors-handler}]
+     ["/nlg/_bulk/" {:post    {:parameters {:body ::generate/generate-bulk}
+                               :responses  {200 {:body {:resultId string?}}}
+                               :summary    "Bulk generation"
                                :coercion   reitit.coercion.spec/coercion
-                               :summary    "Get NLG result"
                                :middleware [muuntaja/format-request-middleware
-                                            coercion/coerce-request-middleware]
-                               :handler    generate/read-result}
-                     :delete  generate/delete-result
+                                            coercion/coerce-request-middleware
+                                            coercion/coerce-response-middleware]
+                               :handler    (fn [{{body :body} :parameters}]
+                                             (generate/generate-bulk body))}
                      :options cors-handler}]
-    ["/accelerated-text-data-files/" {:post (fn [request]
-                                              (let [{params :params} (multipart-handler request)
-                                                    id (data-files/store! (get params "file"))]
-                                                {:status 200
-                                                 :body {:message "Succesfully uploaded file" :id id}}))}]
+     ["/nlg/:id" {:get     {:parameters {:query ::generate/format-query
+                                         :path  {:id string?}}
+                            :coercion   reitit.coercion.spec/coercion
+                            :summary    "Get NLG result"
+                            :middleware [muuntaja/format-request-middleware
+                                         coercion/coerce-request-middleware]
+                            :handler    generate/read-result}
+                  :delete  generate/delete-result
+                  :options cors-handler}]
+     ["/amr/:id" {:post (fn [{{id :id} :path-params body :body}]
+                          (let [body (slurp body)
+                                amr (amr/read-amr id body)]
+                            (if-not (amr/valid-amr? amr)
+                              {:status 400
+                               :body   {:message "Provided AMR is not valid" :id id}}
+                              (do
+                                (amr/write-amr amr)
+                                {:status 200
+                                 :body   {:message "Succesfully added AMR" :id id}}))))}]
+     ["/accelerated-text-data-files/" {:post (fn [request]
+                                               (let [{params :params} (multipart-handler request)
+                                                     id (data-files/store! (get params "file"))]
+                                                 {:status 200
+                                                  :body {:message "Succesfully uploaded file" :id id}}))}]
     ["/swagger.json" {:get {:no-doc true
                             :swagger {:info {:title "nlg-api"
                                              :description "api description"}}
@@ -97,7 +109,7 @@
                         parameters/parameters-middleware
                         wrap-response
                         muuntaja/format-response-middleware
-                        exception/exception-middleware]}
+                        errors/exception-middleware]}
     :exception pretty/exception}))
 
 (def app
@@ -113,6 +125,7 @@
   (let [host (get conf :host "0.0.0.0")
         port (get conf :port 3001)]
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
+    (amr/initialize)
     (dictionary/initialize)
     (server/run-server
       #'app {:port     port
@@ -120,8 +133,8 @@
              :max-body Integer/MAX_VALUE})))
 
 (defstate http-server
-          :start (start-http-server conf)
-          :stop (http-server :timeout 100))
+  :start (start-http-server conf)
+  :stop (http-server :timeout 100))
 
 (defn -main [& _]
   (mount/start))

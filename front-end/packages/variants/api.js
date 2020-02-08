@@ -29,6 +29,7 @@ export const getVariants = async ({ dataId, documentPlanId, readerFlagValues }) 
         dataId,
         documentPlanId,
         readerFlagValues,
+        enrich: true,
     });
 
     return new Promise(( resolve, reject ) =>

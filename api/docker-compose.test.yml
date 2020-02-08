@@ -10,11 +10,17 @@ services:
       GF_ENDPOINT: http://gf:8000
       GRAMMAR_PACKAGE: "/opt/grammar/all.yaml"
       RGL_GRAMMAR_PACKAGE: "/opt/grammar/rgl.yaml"
+      ENRICH_ENDPOINT: "http://enrich:8000"
       DICT_PATH: "/opt/grammar/dictionary"
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
-      - ./test/resources/grammar:/opt/grammar
+      - ./grammar:/opt/grammar
   gf:
     build:
       context: ../
       dockerfile: core/gf/Dockerfile
+  enrich:
+    build:
+      context: ../
+      dockerfile: core/enrich/Dockerfile
+    ports: ["8002:8000"]

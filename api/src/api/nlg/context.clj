@@ -33,7 +33,17 @@
 
 (defn build-amr-context [semantic-graph]
   (reduce (fn [m amr-id]
-            (assoc m (keyword amr-id) (or (amr/load-single amr-id) (rgl/load-single amr-id))))
+            (assoc m amr-id (-> (amr/get-amr amr-id)
+                                (or (rgl/load-single amr-id))
+                                (update :roles vec)
+                                (update :frames (partial mapv (fn [frames]
+                                                                (-> frames
+                                                                    (dissoc :examples)
+                                                                    (update :syntax (fn [syntax]
+                                                                                      (mapv #(cond-> %
+                                                                                                     :params
+                                                                                                     (update :params vec))
+                                                                                            syntax))))))))))
           {}
           (get-values semantic-graph :amr)))
 

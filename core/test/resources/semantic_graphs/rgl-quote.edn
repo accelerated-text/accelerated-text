@@ -1,0 +1,35 @@
+#:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :02 :role :segment}
+                                          {:from :02 :to :03 :role :instance}
+                                          {:from :03 :to :04 :role :ARG0 :attributes {:name "(Tense)"}}
+                                          {:from :04 :to :05 :role :ARG0 :attributes {:name "NP"}}
+                                          {:from :04 :to :08 :role :ARG1 :attributes {:name "VP"}}
+                                          {:from :05 :to :06 :role :ARG0 :attributes {:name "N"}}
+                                          {:from :06 :to :07 :role :ARG0 :attributes {:name "Str"}}
+                                          {:from :08 :to :09 :role :ARG0 :attributes {:name "VP"}}
+                                          {:from :08 :to :13 :role :ARG1 :attributes {:name "Adv"}}
+                                          {:from :09 :to :10 :role :ARG0 :attributes {:name "V2"}}
+                                          {:from :10 :to :11 :role :ARG0 :attributes {:name "V"}}
+                                          {:from :11 :to :12 :role :ARG0 :attributes {:name "Str"}}
+                                          {:from :13 :to :14 :role :ARG0 :attributes {:name "Prep"}}
+                                          {:from :13 :to :16 :role :ARG1 :attributes {:name "NP"}}
+                                          {:from :14 :to :15 :role :ARG0 :attributes {:name "Str"}}
+                                          {:from :16 :to :17 :role :ARG0 :attributes {:name "N"}}
+                                          {:from :17 :to :18 :role :ARG0 :attributes {:name "Str"}}]
+                              :concepts  [{:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :amr :value "mkS/(Tense)->(Ant)->(Pol)->Cl->S" :attributes {:kind "S"}}
+                                          {:id :04 :type :amr :value "mkCl/NP->VP->Cl" :attributes {:kind "Cl"}}
+                                          {:id :05 :type :amr :value "mkNP/N->NP" :attributes {:kind "NP"}}
+                                          {:id :06 :type :amr :value "mkN/Str->N" :attributes {:kind "N"}}
+                                          {:id :07 :type :quote :value "refrigerator"}
+                                          {:id :08 :type :amr :value "mkVP/VP->Adv->VP" :attributes {:kind "VP"}}
+                                          {:id :09 :type :amr :value "passiveVP/V2->VP" :attributes {:kind "VP"}}
+                                          {:id :10 :type :amr :value "mkV2/V->V2" :attributes {:kind "V2"}}
+                                          {:id :11 :type :amr :value "mkV/Str->V" :attributes {:kind "V"}}
+                                          {:id :12 :type :quote :value "produce"}
+                                          {:id :13 :type :amr :value "mkAdv/Prep->NP->Adv" :attributes {:kind "Adv"}}
+                                          {:id :14 :type :amr :value "mkPrep/Str->Prep" :attributes {:kind "Prep"}}
+                                          {:id :15 :type :quote :value "of"}
+                                          {:id :16 :type :amr :value "mkNP/N->NP" :attributes {:kind "NP"}}
+                                          {:id :17 :type :amr :value "mkN/Str->N" :attributes {:kind "N"}}
+                                          {:id :18 :type :quote :value "steel"}]}

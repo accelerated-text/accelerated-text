@@ -5,7 +5,7 @@
             [data.entities.rgl :as rgl-entity]))
 
 (defn list-concepts [_ _ _]
-  (let [amr-concepts (map concept-translate/amr->schema (amr-entity/load-all))
+  (let [amr-concepts (sort-by :id (map concept-translate/amr->schema (amr-entity/list-amrs)))
         rgl-concepts (map concept-translate/amr->schema (rgl-entity/load-all))]
     (resolve-as
       {:id       "concepts"
@@ -13,10 +13,20 @@
        :amr      amr-concepts
        :rgl      rgl-concepts})))
 
+(defn add-concept [_ {:keys [id content]} _]
+  (resolve-as
+    (->> (amr-entity/read-amr id content)
+         (amr-entity/write-amr)
+         (concept-translate/amr->schema))))
+
+(defn delete-concept [_ {id :id} _]
+  (amr-entity/delete-amr id)
+  (resolve-as true))
+
 (defn- resolve-as-not-found-concept [id]
   (resolve-as nil {:message (format "Cannot find concept with id `%s`." id)}))
 
 (defn get-concept [_ {:keys [id]} _]
-  (if-let [concept (or (amr-entity/load-single id) (rgl-entity/load-single id))]
+  (if-let [concept (or (amr-entity/get-amr id) (rgl-entity/load-single id))]
     (resolve-as (concept-translate/amr->schema concept))
     (resolve-as-not-found-concept id)))

@@ -2,10 +2,10 @@
                          :srcId     "+4aj[AsVqyyGbR]YG)21"
                          :conceptId "cut"
                          :roles     [{:name "lexicon" :children [{:name "cut" :type "Dictionary-item" :srcId "jvO!f+4P;9a~8Um=n:8a" :itemId "cut"}]}
-                                     {:name "agent" :children [{:name "Agent" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa1"}]}
-                                     {:name "patient" :children [{:name "Patient" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa2"}]}
-                                     {:name "result" :children [{:name "Result" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa3"}]}
-                                     {:name "instrument" :children [{:name "Instrument" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa4"}]}]}]
+                                     {:name "Agent" :children [{:name "Agent" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa1"}]}
+                                     {:name "Patient" :children [{:name "Patient" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa2"}]}
+                                     {:name "Result" :children [{:name "Result" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa3"}]}
+                                     {:name "Instrument" :children [{:name "Instrument" :type "Cell" :srcId "Xq46`Z`#:X`htt=*%wa4"}]}]}]
              :type     "Segment"
              :srcId    "d3z(xMQN@;2nrQ?2{5i2"}]
  :type     "Document-plan"

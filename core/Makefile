@@ -12,3 +12,8 @@ integration-tests:
 .PHONY: gf
 gf:
 	/usr/bin/gf -i gf/lang-utils
+
+
+clean-gf-comple-files:
+	find . -name "*.gfo" -exec rm -rf {} \;
+	find . -name "*.pgf" -exec rm -rf {} \;

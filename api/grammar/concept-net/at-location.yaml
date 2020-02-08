@@ -1,0 +1,17 @@
+roles:
+  - lexicon
+  - locationData
+  - objectRef
+frames:
+  - example: There is a place in the city center, KFC
+    syntax:
+      - type: oper
+        value: atLocation
+        ret: S
+        params:
+          - role: lexicon
+            type: CN
+          - role: locationData
+            type: CN
+          - role: objectRef
+            type: CN

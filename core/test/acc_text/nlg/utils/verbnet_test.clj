@@ -3,7 +3,7 @@
             [clojure.test :refer [deftest is]]))
 
 (deftest test-verbnet-xml-parsing
-  (let [{:keys [members thematic-roles frames]}
+  (let [{:keys [members roles frames]}
         (vn/xml->vclass "test/resources/verbnet/battle.xml")
         {:keys [description examples syntax semantics]} (first frames)
         syntax-2 (-> frames second :syntax)]
@@ -24,7 +24,7 @@
                                    {:value "+" :type "organization"}]}]}
             {:type "Co-Agent"}
             {:type "Theme"}]
-           thematic-roles))
+           roles))
     (is (= {:descriptionNumber "8.1" :primary "NP V PP.co-agent"
             :secondary         "PP; with-PP" :xtag "0.2"}
            description))

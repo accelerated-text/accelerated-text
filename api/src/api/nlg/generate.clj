@@ -13,54 +13,63 @@
 (s/def ::documentPlanId string?)
 (s/def ::key string?)
 (s/def ::dataId string?)
+(s/def ::enrich boolean?)
 (s/def ::format #{"raw" "dropoff" "annotated"})             ;; reitit does not convert these to keys
 (s/def ::format-query (s/keys :opt-un [::format]))
 (s/def ::dataRow (s/map-of string? string?))
 (s/def ::dataRows (s/map-of ::key ::dataRow))
 (s/def ::readerFlagValues (s/map-of string? boolean?))
 (s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId]
-                              :opt-un [::readerFlagValues]))
+                              :opt-un [::readerFlagValues ::enrich]))
 (s/def ::generate-bulk (s/keys :req-un [::documentPlanId ::dataRows]
-                               :opt-un [::readerFlagValues]))
+                               :opt-un [::readerFlagValues ::enrich]))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
+
 (defn generate-text
-  ([document-plan data] (generate-text document-plan data {:default true}))
-  ([document-plan data reader-model]
+  ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
+  ([document-plan data reader-model enrich]
    (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
-         context (context/build-context semantic-graph reader-model)]
-     (->> (nlg/generate-text semantic-graph context data)
+         context (context/build-context semantic-graph reader-model)
+         enrich-data (into {} (map (fn [[k v]] {v (format "{%s}" (name k))}) data))
+         enrich-fn (fn [text]
+                     (cond-> {:original text}
+                       enrich (assoc :enriched (nlg/enrich-text enrich-data text))))]
+     (->> (nlg/generate-text semantic-graph (assoc context :data  data))
           (map :text)
           (sort)
-          (dedupe)))))
+          (dedupe)
+          (utils/inspect-results)
+          (map enrich-fn)))))
 
-(defn generation-process [document-plan rows reader-model]
+
+(defn generation-process [document-plan rows reader-model enrich]
   (try
     {:ready   true
      :results (doall (map (fn [[row-key data]]
-                            [row-key (generate-text document-plan data reader-model)])
+                            [row-key (generate-text document-plan data reader-model enrich)])
                           rows))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
 
-(defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues}]
+(defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues enrich :enrich}]
   (let [result-id (utils/gen-uuid)
         {document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)
         row (nth (get-data data-id) (or data-sample-row 0))]
     (results/store-status result-id {:ready false})
-    (results/rewrite result-id (generation-process document-plan {:sample row} reader-model))
+    (results/rewrite result-id (generation-process document-plan {:sample row} reader-model enrich))
     {:status 200
      :body   {:resultId result-id}}))
 
-(defn generate-bulk [{document-plan-id :documentPlanId reader-model :readerFlagValues rows :dataRows}]
+(defn generate-bulk [{document-plan-id :documentPlanId reader-model :readerFlagValues rows :dataRows enrich :enrich}]
   (let [result-id (utils/gen-uuid)
         {document-plan :documentPlan} (dp/get-document-plan document-plan-id)]
     (log/debugf "Bulk Generate request, data: %s" rows)
     (results/store-status result-id {:ready false})
-    (results/rewrite result-id (generation-process document-plan rows reader-model))
+    (results/rewrite result-id (generation-process document-plan rows reader-model enrich))
     {:status 200
      :body   {:resultId result-id}}))
 
@@ -82,10 +91,16 @@
                                                    :text token})})}]})
        results))
 
+(defn transform-results
+  [results]
+  (mapcat (fn [{:keys [enriched original]}]
+                 [(format "Original: %s " original) (format "Enriched: %s" enriched)]) results))
+
 (defn annotated-text-format [results]
   (->> results
        (map second)
-       (flatten)                                            ;; Don't care about any bulk keys at the moment
+       (flatten) ;; Don't care about any bulk keys at the moment
+       (transform-results)
        (wrap-to-annotated-text)))
 
 (defn raw-format [results]

@@ -29,6 +29,8 @@
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
                                                    :updateDictionaryItem     :update-dictionary-item
+                                                   :addConcept               :add-concept
+                                                   :deleteConcept            :delete-concept
                                                    :createDocumentPlan       :create-document-plan
                                                    :deleteDocumentPlan       :delete-document-plan
                                                    :updateDocumentPlan       :update-document-plan
@@ -58,6 +60,8 @@
                               :synonyms                    #'thesaurus-domain/synonyms
                               :concepts                    #'concept-domain/list-concepts
                               :concept                     #'concept-domain/get-concept
+                              :add-concept                 #'concept-domain/add-concept
+                              :delete-concept              #'concept-domain/delete-concept
                               :list-data-files             #'data-domain/list-data-files
                               :get-data-file               #'data-domain/get-data-file
                               :create-data-file            #'data-domain/create-data-file})

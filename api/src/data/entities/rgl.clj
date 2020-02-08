@@ -9,15 +9,16 @@
     (for [{:keys [function type example]} (:functions instance)]
       (let [roles (subvec type 0 (dec (count type)))
             ret (last type)]
-        {:id             (str function "/" (str/join "->" type))
-         :kind           (last type)
-         :thematic-roles (map (fn [role] {:type role}) roles)
-         :label          function
-         :name           (str/join " -> " type)
-         :frames         [{:examples [example]
-                           :syntax   [{:type  "gf"
-                                       :value function
-                                       :roles roles}]}]}))))
+        {:id     (str function "/" (str/join "->" type))
+         :kind   (last type)
+         :roles  (map (fn [role] {:type role}) roles)
+         :label  function
+         :name   (str/join " -> " type)
+         :frames [{:examples [example]
+                   :syntax   [{:type   :oper
+                               :value  function
+                               :ret    ret
+                               :params (map (fn [role] {:type role}) roles)}]}]}))))
 
 (defn list-package [package]
   (let [abs-path (.getParent (io/file package))]

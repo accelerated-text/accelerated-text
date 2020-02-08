@@ -5,12 +5,12 @@
                                                   :itemId "place"}]
                                       :name     "lexicon"}
                                      {:children [{:type  "Quote"
-                                                  :srcId "uf:[gtVTc!uQe%WeEy${"
-                                                  :text  "city centre"}]
-                                      :name     "objectRef"}
-                                     {:children [{:type  "Quote"
                                                   :srcId "#UU2hr35[NTazfg6d7JV"
                                                   :text  "Alimentum"}]
+                                      :name     "objectRef"}
+                                     {:children [{:type  "Quote"
+                                                  :srcId "uf:[gtVTc!uQe%WeEy${"
+                                                  :text  "city centre"}]
                                       :name     "locationData"}]
                          :type      "AMR"
                          :srcId     "Bu~!.wu`aau*X?Kca^2B"

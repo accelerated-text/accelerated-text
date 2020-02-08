@@ -22,6 +22,7 @@
           {{result-id :resultId} :body status :status}
           (q "/nlg/" :post {:dataId           data-id
                             :documentPlanId   document-plan-id
-                            :readerFlagValues {}})]
+                            :readerFlagValues {}
+                            :enrich           false})]
       (is (= 200 status))
       (is (some? result-id)))))

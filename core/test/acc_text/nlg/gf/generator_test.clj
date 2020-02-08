@@ -9,7 +9,7 @@
 
 (deftest ^:integration quote-cases
   (is (= ["He said: \"GO!\""] (let [semantic-graph (utils/load-test-semantic-graph "quote")
-                                    grammar (grammar/build :grammar :1 semantic-graph {})]
+                                    grammar (grammar/build "Default" "Instance" semantic-graph {})]
                                 (generate grammar)))))
 
 (deftest ^:integration at-location
@@ -20,10 +20,36 @@
           "there is a venue in the city centre Alimentum"
           "there is an Alimentum in the city centre"
           "there is an arena in the city centre Alimentum"]
-         (generate (grammar/build :AtLoc :1 (utils/load-test-semantic-graph "location-amr")
-                                  {:amr        {:at-location
-                                                {:frames [{:syntax [{:type  :gf
-                                                                     :value "atLocation"
-                                                                     :roles ["lexicon" "objectRef" "locationData"]
-                                                                     :ret   ["N" "N" "N"]}]}]}}
+         (generate (grammar/build "AtLoc" "1" (utils/load-test-semantic-graph "location-amr")
+                                  {:amr        {"at-location"
+                                                {:frames [{:syntax [{:type   :oper
+                                                                     :value  "atLocation"
+                                                                     :ret    "S"
+                                                                     :params [{:role "lexicon" :type "N"}
+                                                                              {:role "locationData" :type "N"}
+                                                                              {:role "objectRef" :type "N"}]}]}]}}
                                    :dictionary {"place" ["arena" "place" "venue"]}})))))
+
+(deftest ^:integration polarity
+  (is (= ["KFC is family-friendly"]
+         (generate (grammar/build "HasProperty" "Pos" (utils/load-test-semantic-graph "has-property")
+                                  {:amr  {"has-property"
+                                          {:frames [{:syntax [{:type   :oper
+                                                               :value  "hasProperty"
+                                                               :ret    "S"
+                                                               :params [{:role "object" :type "N"}
+                                                                        {:role "property" :type "A"}
+                                                                        {:role "polarity" :type "Pol"}]}]}]}}
+                                   :data {:name           "KFC"
+                                          :familyFriendly "true"}}))))
+  (is (= ["KFC isn't family-friendly"]
+         (generate (grammar/build "HasProperty" "Neg" (utils/load-test-semantic-graph "has-property")
+                                  {:amr  {"has-property"
+                                          {:frames [{:syntax [{:type   :oper
+                                                               :value  "hasProperty"
+                                                               :ret    "S"
+                                                               :params [{:role "object" :type "N"}
+                                                                        {:role "property" :type "A"}
+                                                                        {:role "polarity" :type "Pol"}]}]}]}}
+                                   :data {:name           "KFC"
+                                          :familyFriendly "false"}})))))

@@ -1,36 +1,78 @@
 (ns data.entities.amr
-  (:require [clojure.java.io :as io]
-            [clojure.string :as string]
-            [data.utils :as utils]))
+  (:require [api.config :refer [conf]]
+            [clj-yaml.core :as yaml]
+            [clojure.java.io :as io]
+            [clojure.set :as set]
+            [clojure.string :as str]
+            [data.db :as db]
+            [data.utils :as utils]
+            [mount.core :refer [defstate]]
+            [clojure.tools.logging :as log]))
 
-(defn read-amr [f]
-  (let [{:keys [roles frames kind]} (utils/read-yaml f)]
-    {:id             (utils/get-name f)
-     :kind           (or kind "Str")
-     :thematic-roles (map (fn [role] {:type role}) roles)
-     :frames         (map (fn [{:keys [syntax example]}]
-                            {:examples [example]
-                             :syntax   (for [instance syntax]
-                                         (reduce-kv (fn [m k v]
-                                                      (assoc m k (cond-> v
-                                                                         (not (contains? #{:value :role :roles :ret} k))
-                                                                         (keyword))))
-                                                    {}
-                                                    (into {} instance)))})
-                          frames)}))
+(defstate amr-db :start (db/db-access :amr conf))
 
-(defn list-package [package]
-  (let [abs-path (.getParent (io/file package))]
-    (->> package
-         (utils/read-yaml)
-         (:includes)
-         (map (fn [p] (io/file (string/join "/" [abs-path p])))))))
+(defn list-amrs []
+  (db/list! amr-db 100))
 
-(defn list-amr-files []
-  (list-package (or (System/getenv "GRAMMAR_PACKAGE") "../grammar/all.yaml")))
+(defn get-amr [id]
+  (when-not (str/blank? id)
+    (db/read! amr-db id)))
 
-(defn load-single [id]
-  (when-let [f (some #(when (= (name id) (utils/get-name %)) %) (list-amr-files))]
-    (read-amr f)))
+(defn delete-amr [id]
+  (db/delete! amr-db id))
 
-(defn load-all [] (map read-amr (list-amr-files)))
+(defn write-amr [{id :id :as amr}]
+  (when (get-amr id)
+    (delete-amr id))
+  (db/write! amr-db id amr))
+
+(defn read-amr [id content]
+  (let [{:keys [roles frames kind]} (yaml/parse-string content)]
+    {:id     id
+     :kind   (or kind "Str")
+     :roles  (map (fn [role] {:type role}) roles)
+     :frames (map (fn [{:keys [syntax example]}]
+                    {:examples [example]
+                     :syntax   (for [instance syntax]
+                                 (reduce-kv (fn [m k v]
+                                              (assoc m k (cond->> v
+                                                                  (contains? #{:pos :type} k) (keyword)
+                                                                  (= :params k) (map #(select-keys % [:role :type])))))
+                                            {}
+                                            (into {} instance)))})
+                  frames)}))
+
+(defn valid-amr? [{:keys [roles frames]}]
+  (->> frames
+       (mapcat :syntax)
+       (mapcat (fn [{:keys [role params]}]
+                 (cond
+                   (some? role) [role]
+                   (some? params) (map :role params)
+                   :else [])))
+       (set)
+       (set/superset? (set (map :type roles)))))
+
+(defn grammar-package []
+  (io/file (or (System/getenv "GRAMMAR_PACKAGE") "grammar/concept-net.yaml")))
+
+(defn list-amr-files
+  ([] (list-amr-files (grammar-package)))
+  ([package]
+   (let [parent (.getParent (io/file package))]
+     (->> package
+          (slurp)
+          (yaml/parse-string)
+          (:includes)
+          (map (partial io/file parent))))))
+
+(defn initialize
+  ([] (initialize (list-amr-files)))
+  ([files]
+   (doseq [{id :id :as amr} (map #(read-amr (utils/get-name %) (slurp %)) files)]
+     (if-not (valid-amr? amr)
+       (log/warnf "AMR with id `%s` is not valid and will be skipped." id)
+       (do
+         (when (get-amr id)
+           (log/warnf "AMR with id `%s` is already present and will be overwritten." id))
+         (write-amr amr))))))

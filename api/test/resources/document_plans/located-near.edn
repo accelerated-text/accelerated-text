@@ -1,9 +1,9 @@
 {:type     "Document-plan"
  :segments [{:children [{:roles     [{:children [{:name "place" :type "Dictionary-item" :srcId "=D!?B.R!Mq_cHMN(cpq?" :itemId "place"}]
                                       :name     "lexicon"}
-                                     {:children [{:type "Quote" :srcId "g+RA25Wx:5jQS(WQjz_Y" :text "city centre"}]
-                                      :name     "objectRef"}
                                      {:children [{:type "Quote" :srcId "=Zj[8Jk7Qh%}92o)|1Ri" :text "Alimentum"}]
+                                      :name     "objectRef"}
+                                     {:children [{:type "Quote" :srcId "g+RA25Wx:5jQS(WQjz_Y" :text "city centre"}]
                                       :name     "locationData"}
                                      {:children [{:type "Quote" :srcId "7|z/T!t-bq6faKY~klX(" :text "near"}]
                                       :name     "nearDictionary"}

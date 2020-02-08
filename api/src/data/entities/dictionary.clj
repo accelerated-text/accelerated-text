@@ -1,5 +1,6 @@
 (ns data.entities.dictionary
   (:require [api.config :refer [conf]]
+            [clj-yaml.core :as yaml]
             [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
@@ -49,11 +50,11 @@
   (db/update! dictionary-combined-db (:key item) (dissoc item :key)))
 
 (defn list-dict-files []
-  (filter #(.isFile ^File %) (file-seq (io/file (or (System/getenv "DICT_PATH") "../grammar/dictionary")))))
+  (filter #(.isFile ^File %) (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))))
 
 (defn initialize []
   (doseq [f (list-dict-files)]
-    (let [{:keys [phrases partOfSpeech name]} (utils/read-yaml f)
+    (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
           filename (utils/get-name f)]
       (when-not (get-dictionary-item filename)
         (create-dictionary-item
