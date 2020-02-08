@@ -17,3 +17,9 @@ export-document-plan:
 	     -H "Content-Type: application/json" \
 	     -d "{\"query\": \"{documentPlan(id:\\\"$(id)\\\",name:\\\"$(name)\\\",kind:\\\"Document\\\"){id uid name kind blocklyXml documentPlan}}\"}" | \
 	jq -r '.data.documentPlan'
+
+export-amr:
+	curl -s -X POST http://localhost:3001/_graphql \
+	     -H "Content-Type: application/json" \
+	     -d "{\"query\": \"{documentPlan(id:\\\"$(id)\\\",name:\\\"$(name)\\\",kind:\\\"AMR\\\"){id uid name kind blocklyXml documentPlan}}\"}" | \
+	jq -r '.data.documentPlan'
