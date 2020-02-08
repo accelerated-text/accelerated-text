@@ -35,8 +35,8 @@ query listDataFiles {
 
 ### Document plans -------------------------------------------------------------
 
-query documentPlans {
-  documentPlans {
+query documentPlans( $kind: String! = "Document" ) {
+  documentPlans( kind: $kind ) {
     offset
     totalCount
     limit
@@ -46,7 +46,6 @@ query documentPlans {
     }
   }
 }
-
 
 ### Thesaurus ------------------------------------------------------------------
 
@@ -109,9 +108,6 @@ query concepts {
         ...conceptFields
     }
     amr {
-        ...conceptFields
-    }
-    rgl {
         ...conceptFields
     }
   }
