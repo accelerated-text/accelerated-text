@@ -1,10 +1,10 @@
 (ns api.graphql.translate.concept
   (:require [clojure.string :as string]))
 
-(defn- role->schema [{type :type}]
+(defn- role->schema [{:keys [type label]}]
   {:fieldType  ["Str" "List" type]
    :id         type
-   :fieldLabel type})
+   :fieldLabel (or label type)})
 
 (defn- frames->help-text [frames]
   (->> frames

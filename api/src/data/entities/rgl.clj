@@ -11,7 +11,7 @@
             ret (last type)]
         {:id     (str function "/" (str/join "->" type))
          :kind   (last type)
-         :roles  (map (fn [role] {:type role}) roles)
+         :roles  (map (fn [role] {:type (str/replace role #"[()]" "") :label role}) roles)
          :label  function
          :name   (str/join " -> " type)
          :frames [{:examples [example]
