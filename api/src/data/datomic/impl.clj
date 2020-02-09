@@ -5,7 +5,7 @@
             [datomic.api :as d]
             [mount.core :refer [defstate]]
             [data.datomic.utils :as utils :refer [remove-nil-vals]]
-            [data.utils :refer [ts-now]]
+            [data.utils :refer [ts-now gen-uuid]]
             [data.datomic.blockly :as blockly]
             [jsonista.core :as json]))
 
@@ -17,8 +17,7 @@
 (defn decode-results [results]
   (map #(json/read-value % read-mapper) results))
 
-(defstate conn
-  :start (utils/get-conn conf))
+(defstate conn :start (utils/get-conn conf))
 
 (defmulti transact-item (fn [resource-type _ _] resource-type))
 
@@ -29,7 +28,8 @@
 
 (defn prepare-reader-flags [flags]
   (for [[flag value] flags]
-    {:reader-flag/name  flag
+    {:reader-flag/id    (gen-uuid)
+     :reader-flag/name  flag
      :reader-flag/value value}))
 
 (defn prepare-dictionary-item [key data-item]
