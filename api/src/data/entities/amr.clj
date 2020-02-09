@@ -1,5 +1,6 @@
 (ns data.entities.amr
-  (:require [api.nlg.parser :refer [document-plan->semantic-graph]]
+  (:require [acc-text.nlg.semantic-graph :as sg]
+            [api.nlg.parser :refer [document-plan->semantic-graph]]
             [data.entities.document-plan :as dp]))
 
 (defn document-plan->amr [{:keys [id name documentPlan]}]

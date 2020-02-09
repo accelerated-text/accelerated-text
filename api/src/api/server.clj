@@ -6,7 +6,6 @@
             [api.utils :as utils]
             [api.error :as errors]
             [clojure.tools.logging :as log]
-            [data.entities.amr :as amr]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
             [mount.core :refer [defstate] :as mount]
