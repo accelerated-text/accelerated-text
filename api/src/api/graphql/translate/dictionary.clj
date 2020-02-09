@@ -7,7 +7,7 @@
    :name (name k)})
 
 (defn reader-flags->schema [flags]
-  {:flags (map reader-flag->schema flags)
+  {:flags (map reader-flag->schema (dissoc flags :default))
    :id    "default"})
 
 (defn reader-flag-usage->schema [id [k v]]

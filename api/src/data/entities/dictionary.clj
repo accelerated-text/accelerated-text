@@ -15,9 +15,8 @@
   (db/list! reader-flags-db 100))
 
 (defn get-default-flags []
-  (->> (list-readers)
-       (map (fn [[flag _]] {flag :DONT_CARE}))
-       (into {})))
+  {:English :YES
+   :German  :NO})
 
 (defn get-reader [key]
   (db/read! reader-flags-db key))

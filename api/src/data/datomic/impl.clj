@@ -210,9 +210,9 @@
 
 (defmethod pull-n :reader-flag [_ limit]
   (restore-reader-flags
-    (take limit (first (d/q '[:find (pull ?e [*])
-                              :where [?e :reader-flag/value]]
-                            (d/db conn))))))
+    (take limit (map first (d/q '[:find (pull ?e [*])
+                                  :where [?e :reader-flag/value]]
+                                (d/db conn))))))
 
 (defmethod pull-n :dictionary-combined [_ limit]
   (take limit (map (fn [[item]]
