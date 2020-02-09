@@ -270,12 +270,12 @@
                         :results/ts      (ts-now)})]))
 
 (defmethod update! :dictionary-combined [resource-type key data-item]
-  (let [val [(remove-nil-vals (prepare-dictionary-item key data-item))]]
-    (try
-      @(d/transact conn val)
-      (catch Exception e
-        (log/errorf "Error %s with data %s" e val)))
-    (pull-entity resource-type key)))
+  (try
+    @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]])
+    @(d/transact conn [(remove-nil-vals (dissoc (prepare-dictionary-item key data-item) :db/id))])
+    (catch Exception e
+      (log/errorf "Error %s with data %s" e val)))
+  (pull-entity resource-type key))
 
 (defmethod update! :default [resource-type key data]
   (log/errorf "Default UPDATE for %s with key %s and %s" resource-type key data)

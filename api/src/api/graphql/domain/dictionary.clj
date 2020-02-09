@@ -80,7 +80,7 @@
 (defn delete-phrase [_ {:keys [id]} _]
   (if-let [item (dict-entity/get-dictionary-item (get-parent-id id))]
     (-> item
-        (update :phrases #(remove (fn [phrase] (= id (:id phrase)))))
+        (update :phrases #(remove (fn [phrase] (= id (:id phrase))) %))
         (dict-entity/update-dictionary-item)
         (translate-dict/dictionary-item->schema)
         (resolve-as))
