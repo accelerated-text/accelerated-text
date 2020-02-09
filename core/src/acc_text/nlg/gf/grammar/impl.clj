@@ -194,7 +194,7 @@
 (defn build-grammar [module instance {::sg/keys [concepts relations]} context]
   (let [concept-map (zipmap (map :id concepts) concepts)
         relation-map (group-by :from relations)
-        context (assoc context :types {} (find-types concept-map relation-map context))
+        context (assoc context :types (find-types concept-map relation-map context))
         {function-concepts :fn variable-concepts :var} (group-by (fn [{concept-type :type}]
                                                                    (if (contains? data-types concept-type) :var :fn))
                                                                  concepts)]

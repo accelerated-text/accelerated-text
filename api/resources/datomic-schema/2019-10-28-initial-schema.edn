@@ -134,6 +134,11 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Public Id of AMR entity"}
 
+          {:db/ident       :amr/kind
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Kind of AMR entity"}
+
           {:db/ident       :amr/roles
            :db/valueType   :db.type/ref
            :db/isComponent true

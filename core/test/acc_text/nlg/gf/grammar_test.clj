@@ -353,7 +353,152 @@
                                                         :params [{:type "CN" :role "Subject"}
                                                                  {:type "CN" :role "Object"}]
                                                         :type   :oper}]}]}}})))
-  (is (= {}
+  (is (= '#:acc-text.nlg.gf.grammar{:flags     {:startcat "DocumentPlan01"}
+                                    :functions ({:body   ({:kind  :function
+                                                           :value "Segment02"})
+                                                 :name   "DocumentPlan01"
+                                                 :params ("Segment02")
+                                                 :ret    [:s
+                                                          "Str"]
+                                                 :type   :document-plan}
+                                                {:body   ({:kind  :function
+                                                           :value "Amr03"})
+                                                 :name   "Segment02"
+                                                 :params ("Amr03")
+                                                 :ret    [:s
+                                                          "Str"]
+                                                 :type   :segment}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :function
+                                                                      :value "Amr04"})
+                                                            :value  "mkS"}))
+                                                 :name   "Amr03"
+                                                 :params ("Amr04")
+                                                 :ret    [:s
+                                                          "S"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :function
+                                                                      :value "Amr05"}
+                                                                     {:kind  :function
+                                                                      :value "Amr08"})
+                                                            :value  "mkCl"}))
+                                                 :name   "Amr04"
+                                                 :params ("Amr05"
+                                                           "Amr08")
+                                                 :ret    [:s
+                                                          "Cl"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :function
+                                                                      :value "Amr06"})
+                                                            :value  "mkNP"}))
+                                                 :name   "Amr05"
+                                                 :params ("Amr06")
+                                                 :ret    [:s
+                                                          "NP"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :variable
+                                                                      :value "Quote07"})
+                                                            :value  "mkN"}))
+                                                 :name   "Amr06"
+                                                 :params ()
+                                                 :ret    [:s
+                                                          "N"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :function
+                                                                      :value "Amr09"}
+                                                                     {:kind  :function
+                                                                      :value "Amr13"})
+                                                            :value  "mkVP"}))
+                                                 :name   "Amr08"
+                                                 :params ("Amr09"
+                                                           "Amr13")
+                                                 :ret    [:s
+                                                          "VP"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :function
+                                                                      :value "Amr10"})
+                                                            :value  "passiveVP"}))
+                                                 :name   "Amr09"
+                                                 :params ("Amr10")
+                                                 :ret    [:s
+                                                          "VP"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :function
+                                                                      :value "Amr11"})
+                                                            :value  "mkV2"}))
+                                                 :name   "Amr10"
+                                                 :params ("Amr11")
+                                                 :ret    [:s
+                                                          "V2"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :variable
+                                                                      :value "Quote12"})
+                                                            :value  "mkV"}))
+                                                 :name   "Amr11"
+                                                 :params ()
+                                                 :ret    [:s
+                                                          "V"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :function
+                                                                      :value "Amr14"}
+                                                                     {:kind  :function
+                                                                      :value "Amr16"})
+                                                            :value  "mkAdv"}))
+                                                 :name   "Amr13"
+                                                 :params ("Amr14"
+                                                           "Amr16")
+                                                 :ret    [:s
+                                                          "Adv"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :variable
+                                                                      :value "Quote15"})
+                                                            :value  "mkPrep"}))
+                                                 :name   "Amr14"
+                                                 :params ()
+                                                 :ret    [:s
+                                                          "Prep"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :function
+                                                                      :value "Amr17"})
+                                                            :value  "mkNP"}))
+                                                 :name   "Amr16"
+                                                 :params ("Amr17")
+                                                 :ret    [:s
+                                                          "NP"]
+                                                 :type   :amr}
+                                                {:body   (({:kind   :operation
+                                                            :params ({:kind  :variable
+                                                                      :value "Quote18"})
+                                                            :value  "mkN"}))
+                                                 :name   "Amr17"
+                                                 :params ()
+                                                 :ret    [:s
+                                                          "N"]
+                                                 :type   :amr})
+                                    :instance  "Instance"
+                                    :module    "Default"
+                                    :variables ({:name  "Quote07"
+                                                 :type  "Str"
+                                                 :value ["refrigerator"]}
+                                                {:name  "Quote12"
+                                                 :type  "Str"
+                                                 :value ["produce"]}
+                                                {:name  "Quote15"
+                                                 :type  "Str"
+                                                 :value ["of"]}
+                                                {:name  "Quote18"
+                                                 :type  "Str"
+                                                 :value ["steel"]})}
          (build-grammar
            "rgl-quote"
            {:dictionary {}

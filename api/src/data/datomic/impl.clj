@@ -18,7 +18,7 @@
   (map #(json/read-value % read-mapper) results))
 
 (defstate conn
-  :start (utils/get-conn conf))
+          :start (utils/get-conn conf))
 
 (defmulti transact-item (fn [resource-type _ _] resource-type))
 
@@ -77,9 +77,10 @@
                  :syntax/params (prepare-amr-syntax-params params)})))
        (remove empty?)))
 
-(defn prepare-amr [key {:keys [roles frames]}]
+(defn prepare-amr [key {:keys [kind roles frames]}]
   {:db/id      [:amr/id key]
    :amr/id     key
+   :amr/kind   kind
    :amr/roles  (->> roles
                     (map (fn [{:keys [type label input]}]
                            (remove-nil-vals
@@ -161,6 +162,7 @@
 
 (defn read-amr-entity [amr-entity]
   {:id     (:amr/id amr-entity)
+   :kind   (:amr/kind amr-entity)
    :roles  (map (fn [role]
                   (remove-nil-vals
                     {:type  (:role/type role)

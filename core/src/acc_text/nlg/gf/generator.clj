@@ -63,35 +63,34 @@
 
 (defn parse-lincat [functions]
   (map (fn [[ret functions]]
-         (format "%s = %s"
+         (format "%s = {%s: %s}"
                  (str/join ", " (map :name functions))
+                 (name (nth ret 0))
                  (nth ret 1)))
        (group-by :ret functions)))
 
 (declare join-function-body)
 
-(defn join-expression [type expr ret]
+(defn join-expression [expr ret]
   (if (sequential? expr)
-    (cond->> (join-function-body type expr ret)
+    (cond->> (join-function-body expr ret)
              (< 1 (count expr)) (format "(%s)"))
     (let [{:keys [kind value params]} expr]
       (case kind
         :variable value
         :literal (cond->> (format "\"%s\"" (escape-string value))
                           (not= "Str" (second ret)) (format "(mk%s %s)" (second ret)))
-        :function (cond->> value
-                           (= "mkAdv" value) (str "ParadigmsEng.")
-                           (and (= :segment type)
-                                (str/includes? value "Amr")) (format "%s.s"))
+        :function (format "%s.s" value)
         :operation (->> params
                         (filter (comp some? :value))
                         (map (fn [{:keys [kind value]}]
                                (case kind
                                  :literal (format "\"%s\"" (escape-string value))
-                                 :function (format "%s" value)
+                                 :function (format "%s.s" value)
                                  :variable value)))
                         (str/join " ")
-                        (format "(%s %s)" value))))))
+                        (format "(%s %s).s" (cond->> value
+                                                   (= "mkAdv" value) (str "ParadigmsEng."))))))))
 
 (defn get-operator [expr next-expr]
   (when (some? next-expr)
@@ -99,10 +98,10 @@
       "|"
       "++")))
 
-(defn join-function-body [type body ret]
+(defn join-function-body [body ret]
   (str/join " " (map (fn [expr next-expr]
                        (let [operator (get-operator expr next-expr)]
-                         (cond-> (join-expression type expr ret)
+                         (cond-> (join-expression expr ret)
                                  (some? operator) (str " " operator))))
                      body
                      (concat (rest body) [nil]))))
@@ -128,13 +127,14 @@
 
 (defn parse-lin [functions]
   (map-indexed (fn [i {:keys [params ret body type]}]
-                 (format "Function%02d %s= %s"
+                 (format "Function%02d %s= {%s = %s}"
                          (inc i)
                          (str/join (interleave params (repeat " ")))
+                         (name (nth ret 0))
                          (if (seq body)
                            (cond
                              (and (= "CN" (second ret)) (= :modifier type)) (join-modifier-body body ret)
-                             :else (join-function-body type body ret))
+                             :else (join-function-body body ret))
                            "\"\"")))
                functions))
 
@@ -146,7 +146,10 @@
             "cat" (parse-cat flags functions)
             "fun" (parse-fun functions))))
 
-(def imports ["ParadigmsEng" "ConstructorsEng" "SyntaxEng"])
+(def imports ["ParadigmsEng" "ConstructorsEng" "LangFunctionsEng"
+              "SyntaxEng" "ParadigmsEng"  "AtLocationEng"
+              "CapableOfEng" "HasAEng"  "HasPropertyEng" "IsAEng"
+              "LocatedNearEng" "MadeOfEng" "HasAEng" "ResEng"])
 
 (defn ->incomplete [{::grammar/keys [module functions]}]
   (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"
