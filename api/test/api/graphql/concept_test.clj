@@ -8,7 +8,7 @@
   (doseq [[id path] [["author" "test/resources/amr/author.yaml"]
                      ["cut" "test/resources/amr/cut.yaml"]
                      ["see" "test/resources/amr/see.yaml"]]]
-    (amr/write-amr (amr/read-amr id (slurp path))))
+    (amr/write-amr (amr/document-plan->amr id (slurp path))))
   (f))
 
 (use-fixtures :each db/clean-db prepare-environment)
@@ -40,7 +40,7 @@
                               :variables {:id      id
                                           :content content}})]
     (is (nil? errors))
-    (is (= (amr/read-amr id content) (amr/get-amr id)))))
+    (is (= (amr/document-plan->amr id content) (amr/get-amr id)))))
 
 (deftest ^:integration delete-concept
   (let [id "author"

@@ -19,7 +19,7 @@
                                {:pos :VERB :role "lexicon"}
                                {:pos :ADP :value "by"}
                                {:pos :NP :role "Agent"}]}]}
-         (amr/read-amr "author" (slurp "test/resources/amr/author.yaml"))))
+         (amr/document-plan->amr "author" (slurp "test/resources/amr/author.yaml"))))
   (is (= {:id     "see"
           :kind   "Str"
           :roles  [{:type "lexicon"}
@@ -29,7 +29,7 @@
                     :syntax   [{:pos :NP :role "Agent"}
                                {:pos :VERB :role "lexicon"}
                                {:pos :NP :role "co-Agent"}]}]}
-         (amr/read-amr "see" (slurp "test/resources/amr/see.yaml"))))
+         (amr/document-plan->amr "see" (slurp "test/resources/amr/see.yaml"))))
   (is (= {:id     "cut"
           :kind   "Str"
           :roles  [{:type "lexicon"}
@@ -46,4 +46,4 @@
                                {:pos :NP :role "Result"}
                                {:pos :ADP :value "with"}
                                {:pos :NP :role "Instrument"}]}]}
-         (amr/read-amr "cut" (slurp "test/resources/amr/cut.yaml")))))
+         (amr/document-plan->amr "cut" (slurp "test/resources/amr/cut.yaml")))))

@@ -82,16 +82,6 @@
                             :handler    generate/read-result}
                   :delete  generate/delete-result
                   :options cors-handler}]
-     ["/amr/:id" {:post (fn [{{id :id} :path-params body :body}]
-                          (let [body (slurp body)
-                                amr (amr/read-amr id body)]
-                            (if-not (amr/valid-amr? amr)
-                              {:status 400
-                               :body   {:message "Provided AMR is not valid" :id id}}
-                              (do
-                                (amr/write-amr amr)
-                                {:status 200
-                                 :body   {:message "Succesfully added AMR" :id id}}))))}]
      ["/accelerated-text-data-files/" {:post (fn [request]
                                                (let [{params :params} (multipart-handler request)
                                                      id (data-files/store! (get params "file"))]
@@ -125,7 +115,6 @@
   (let [host (get conf :host "0.0.0.0")
         port (get conf :port 3001)]
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
-    (amr/initialize)
     (dictionary/initialize)
     (server/run-server
       #'app {:port     port

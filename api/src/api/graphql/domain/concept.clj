@@ -13,16 +13,6 @@
        :amr      amr-concepts
        :rgl      rgl-concepts})))
 
-(defn add-concept [_ {:keys [id content]} _]
-  (resolve-as
-    (->> (amr-entity/read-amr id content)
-         (amr-entity/write-amr)
-         (concept-translate/amr->schema))))
-
-(defn delete-concept [_ {id :id} _]
-  (amr-entity/delete-amr id)
-  (resolve-as true))
-
 (defn- resolve-as-not-found-concept [id]
   (resolve-as nil {:message (format "Cannot find concept with id `%s`." id)}))
 
