@@ -78,7 +78,7 @@ export default PlanActions( composeContexts({
                     ? <Error message="Loading error! Please refresh the page." />
                 : noPlans
                     ? <button
-                        children="➕ New RGL function"
+                        children="➕ New AMR"
                         className={ QA.BTN_NEW_PLAN }
                         onClick={ this.onClickNew }
                     />

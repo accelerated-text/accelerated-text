@@ -20,7 +20,7 @@ export default class OnboardCode extends Component {
     render = () =>
         <div className={ S.className }>
             <button
-                children="Create a new RGL function"
+                children="Create a new Abstract Meaning Representation"
                 className={ QA.ADD_EXAMPLE }
                 onClick={ this.onClick }
             />
