@@ -14,7 +14,7 @@ logger = logging.getLogger("Enrich")
 
 def multi_replace(d, text):
   regex = re.compile("(%s)" % "|".join(map(re.escape, d.keys())))
-  return regex.sub(lambda mo: d[mo.string[mo.start():mo.end()]], text)
+  return regex.sub(lambda mo: d[mo.string[mo.start():mo.end()]], text, re.IGNORECASE)
 
 
 def inverse_dict(d):

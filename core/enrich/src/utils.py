@@ -378,8 +378,8 @@ def format_result(text):
     def end_with_dot(t):
         return t + "."
 
-    def remove_whitespace_after_punct(t):
-        return t.sub(r"(\s)([.,!?:])", "\2", t)
+    def remove_whitespace_before_punct(t):
+        return re.sub(r"(\s)([.,!?:])", r"\2", t)
 
-    pipeline = [strip, capitalize_first, end_with_dot]
+    pipeline = [strip, capitalize_first, remove_whitespace_before_punct, end_with_dot]
     return reduce(lambda t, fn: fn(t), pipeline, text)
