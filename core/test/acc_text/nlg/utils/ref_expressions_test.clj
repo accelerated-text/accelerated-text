@@ -5,11 +5,11 @@
 
 
 (deftest test-identify-refs
-  (is (= [[0 "Alimentum"] [4 "Alimentum"]]
-         (-> (nlp/tokenize "Alimentum is nice. Alimentum serves good food.")
+  (is (= [[4 "Alimentum"] [13 "Alimentum"]]
+         (-> (nlp/tokenize "Alimentum is nice. Alimentum serves good food. We will eat at Alimentum.")
              (r/identify-potential-refs)
              (first)))))
 
 (deftest test-replace-refs
-  (is (= "Alimentum is nice. It serves good food. Starbucks provides coffee. Its coffee is awesome."
-         (r/apply-ref-expressions :en "Alimentum is nice. It serves good food. Starbucks provides coffee. Starbucks coffee is awesome."))))
+  (is (= "Alimentum is nice. It serves good food. Starbucks provides coffee. Its coffee is awesome. We're going to drink coffee at Starbucks."
+         (r/apply-ref-expressions :en "Alimentum is nice. It serves good food. Starbucks provides coffee. Starbucks coffee is awesome. We're going to drink coffee at Starbucks."))))

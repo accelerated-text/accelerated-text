@@ -12,7 +12,8 @@
        (group-by second)
        (vec)
        (filter filter-by-refs-count)
-       (map second)))
+       (map second)
+       (map rest)))
 
 (defn add-replace-token-en
   [[idx value]]
@@ -31,7 +32,6 @@
   (let [tokens (nlp/tokenize text)
         refs (identify-potential-refs tokens)
         smap (->> refs
-                  (map rest)
                   (mapcat identity)
                   (map (partial add-replace-token lang))
                   (into {}))]
