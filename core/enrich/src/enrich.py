@@ -13,12 +13,12 @@ logger = logging.getLogger("Enrich")
 
 
 def multi_replace(d, text):
-  regex = re.compile("(%s)" % "|".join(map(re.escape, d.keys())))
-  return regex.sub(lambda mo: d[mo.string[mo.start():mo.end()]], text, re.IGNORECASE)
+    regex = re.compile("(%s)" % "|".join(map(re.escape, [str(k) for k in d.keys()])), re.IGNORECASE)
+    return regex.sub(lambda mo: d[mo.string[mo.start():mo.end()]], text)
 
 
 def inverse_dict(d):
-    return dict([(v, k) for (k, v) in d.items()])
+    return CaseInsensitiveDict([(v, k.value) for (k, v) in d.items()])
 
 
 class Enricher(object):
@@ -49,7 +49,8 @@ class Enricher(object):
         return remove(tokens, pos)
 
     def enrich(self, sent, context=None, max_iters=5, max_retries=15):
-        tokens = tokenize(self._encode(sent, context))
+        ctx = CaseInsensitiveDict(context)
+        tokens = tokenize(self._encode(sent, ctx))
         result = tokens
         iters = 0
         retries = 0
@@ -74,4 +75,4 @@ class Enricher(object):
                 retries = 0
                 logger.debug("Passed: {}".format(result))
 
-        return self._decode(" ".join(result), context)
+        return self._decode(" ".join(result), ctx)

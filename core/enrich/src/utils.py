@@ -4,7 +4,7 @@ import re
 import spacy
 
 from io import StringIO
-from collections import Counter, defaultdict
+from collections import Counter, defaultdict, MutableMapping
 from functools import reduce
 
 logger = logging.getLogger("Utils")
@@ -383,3 +383,47 @@ def format_result(text):
 
     pipeline = [strip, capitalize_first, remove_whitespace_before_punct, end_with_dot]
     return reduce(lambda t, fn: fn(t), pipeline, text)
+
+
+class CaseInsensitiveKey(object):
+    def __init__(self, value):
+        if isinstance(value, CaseInsensitiveKey):
+            self.value = value.value
+        else:
+            self.value = value
+        
+    def __eq__(self, other):
+        if isinstance(other, CaseInsensitiveKey):
+            return self.value.lower() == other
+        else:
+            return self.value.lower() == other.lower()
+
+    def __hash__(self):
+        return hash(repr(self))
+
+    def __repr__(self):
+        return self.value.lower()
+
+
+class CaseInsensitiveDict(MutableMapping):
+    def __init__(self, *args, **kwargs):
+        self.store = dict()
+        self.update(dict(*args, **kwargs))
+
+    def __getitem__(self, key):
+        return self.store[self.__keytransform__(key)]
+
+    def __setitem__(self, key, value):
+        self.store[self.__keytransform__(key)] = value
+
+    def __delitem__(self, key):
+        del self.store[self.__keytransform__(key)]
+
+    def __iter__(self):
+        return iter(self.store)
+
+    def __len__(self):
+        return len(self.store)
+
+    def __keytransform__(self, key):
+        return CaseInsensitiveKey(key)
