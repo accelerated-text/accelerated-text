@@ -27,6 +27,11 @@
   (cond-> (str/trim s)
           (re-find #"[^.?!\s]\s*$" s) (str ".")))
 
+(defn process-sentence [s]
+  (if-not (str/blank? s)
+    (wrap-sentence
+     (capitalize-first-word s))
+    ""))
 
 (defn rebuild-sentences [tokens]
   (->> (str/join " "  tokens)
@@ -36,12 +41,6 @@
        (map process-sentence)
        (str/join " ")))
 
-(defn process-sentence [s]
-  (if-not (str/blank? s)
-    (wrap-sentence
-     (capitalize-first-word s))
-    ""))
-
 (defn annotate [text]
   {:text   text
    :tokens (loop [[token & tokens] (tokenize-incl-space text)
@@ -50,5 +49,5 @@
              (if (nil? token)
                annotations
                (recur tokens (+ idx (count token)) (cond-> annotations
-                                                           (re-matches #"[^\s]+" token) (conj {:text token
-                                                                                               :idx  idx})))))})
+                                                     (re-matches #"[^\s]+" token) (conj {:text token
+                                                                                         :idx  idx})))))})
