@@ -68,7 +68,7 @@ mkCN N3 -> CN distance
 mkCN A -> N -> CN big house
 mkCN A -> CN -> CN big blue house
 mkCN AP -> N -> CN very big house
-mkCN AP -> CN -> CNvery big blue house
+mkCN AP -> CN -> CN very big blue house
 mkCN N -> RS -> CN man that she loves
 mkCN CN -> RS -> CN old man that she loves
 mkCN N -> Adv -> CN house on the hill

@@ -14,8 +14,8 @@
   {:function "mkCN", :type ["A" "CN" "CN"], :example "big blue house"}
   {:function "mkCN", :type ["AP" "N" "CN"], :example "very big house"}
   {:function "mkCN",
-   :type ["AP" "CN" "CNvery"],
-   :example "big blue house"}
+   :type ["AP" "CN" "CN"],
+   :example "very big blue house"}
   {:function "mkCN",
    :type ["N" "RS" "CN"],
    :example "man that she loves"}
