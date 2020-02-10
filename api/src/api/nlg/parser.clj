@@ -201,8 +201,9 @@
                      :role :definition}]})
 
 (defmethod build-semantic-graph :Get-var [{:keys [id name]} variables]
-  #::sg{:concepts  [{:id   id
-                     :type :reference}]
+  #::sg{:concepts  [{:id         id
+                     :type       :reference
+                     :attributes {:name name}}]
         :relations (map (fn [variable-id]
                           {:from id
                            :to   variable-id

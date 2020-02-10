@@ -18,7 +18,10 @@
                    :syntax   [{:type   :oper
                                :value  function
                                :ret    ret
-                               :params (map (fn [role] {:type role}) roles)}]}]}))))
+                               :params (map (fn [role index]
+                                              {:id   (format "ARG%d" index)
+                                               :type role})
+                                            roles (range))}]}]}))))
 
 (defn list-package [package]
   (let [abs-path (.getParent (io/file package))]

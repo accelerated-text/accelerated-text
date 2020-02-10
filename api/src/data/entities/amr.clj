@@ -8,14 +8,25 @@
     {:id             id
      :label          name
      :kind           "Str"
-     :roles          (let [reference-ids (->> concepts
-                                              (filter #(= :reference (:type %)))
-                                              (map :id)
-                                              (set))]
-                       (->> relations
-                            (filter #(contains? reference-ids (:to %)))
-                            (map (fn [relation]
-                                   {:type (get-in relation [:attributes :name])}))))
+     :roles          (let [concept-names (reduce (fn [m {to :to {name :name} :attributes}]
+                                                   (cond-> m
+                                                           (some? name) (assoc to name)))
+                                                 {}
+                                                 relations)]
+                       (loop [[reference & rs] (filter #(= :reference (:type %)) concepts)
+                              index 0
+                              names #{}
+                              roles []]
+                         (if-not (some? reference)
+                           roles
+                           (let [{id :id {name :name} :attributes} reference]
+                             (recur
+                               rs
+                               (inc index)
+                               (conj names name)
+                               (cond-> roles
+                                       (not (contains? names name)) (conj {:id   (format "ARG%d" index)
+                                                                           :type (get concept-names id)})))))))
      :semantic-graph semantic-graph}))
 
 (defn get-amr [id]
