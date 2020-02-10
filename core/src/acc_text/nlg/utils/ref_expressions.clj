@@ -15,7 +15,7 @@
        (map second)))
 
 (defn add-replace-token
-  [idx]
+  [[idx value]]
   [idx "it"])
 
 (defn apply-ref-expressions
@@ -25,7 +25,6 @@
         smap (->> refs
                   (map rest)
                   (mapcat identity)
-                  (map first)
                   (map add-replace-token)
                   (into {}))]
     (nlp/rebuild-sentences
