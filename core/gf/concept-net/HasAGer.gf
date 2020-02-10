@@ -12,4 +12,12 @@ resource HasAGer = open ParadigmsGer, SyntaxGer, UtilsGer in {
       hasA_S : A -> N -> A -> N -> S = \smod, subject, omod, object ->
        XhasY (mkAMod a_Det smod subject) (mkAMod a_Det omod object);
       };
+
+    hasA_NP : CN -> CN -> NP =
+      \subject, object ->
+      (mkNP
+         (mkNP a_Det subject)
+         (SyntaxGer.mkAdv
+            (mkPrep "mit" dative)
+            (mkNP a_Det object))) ;
 }
