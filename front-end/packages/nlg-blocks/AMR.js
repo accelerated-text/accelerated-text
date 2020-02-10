@@ -65,7 +65,6 @@ export default Block({
             kind:               this.kind,
             roles: this.roles.map( role => ({
                 name:           role.id,
-                type:           role.fieldType,
                 label:          role.fieldLabel,
                 children:       [ json[role.id] ],
             })),
