@@ -57,7 +57,11 @@
 (deftest ^:integration nested-amr
   (let [ctx {:amr  {"has-a"
                     {:frames
-                     [{:syntax [{:ret    "NP" :value "hasA_NP"
+                     [{:syntax [{:ret    "S" :value "hasA_S"
+                                 :params [{:type "CN" :role "Subject"}
+                                          {:type "CN" :role "Object"}]
+                                 :type   :oper}]}
+                      {:syntax [{:ret    "NP" :value "hasA_NP"
                                  :params [{:type "CN" :role "Subject"}
                                           {:type "CN" :role "Object"}]
                                  :type   :oper}]}]}

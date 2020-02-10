@@ -87,6 +87,19 @@
                                                      :value (concept->name child-concept)}]))
      :ret    [:s (get types name "Str")]}))
 
+(defn syntax-suitable-for-role
+  "Take the set of AMR syntax variants and return only those suitable for a given role"
+  [role amr]
+  (->> amr
+       :frames
+       (map :syntax)
+       (filter (fn [[body-start & body]]
+                   (if (and (= "Subject" role)
+                            (nil? body))
+                     (not (= "S" (:ret body-start)))
+                     (or (not (nil? body))
+                         (= "S" (:ret body-start))))))))
+
 (defmethod build-function :amr
   [{value :value :as concept} children
    from-relations {{to-relation-role :name} :attributes} {amr :amr}]
@@ -94,13 +107,10 @@
                             (cond-> m (some? attr-name) (assoc attr-name concept)))
                           {}
                           (zipmap from-relations children))]
-     (prn "Concept: " concept)
-     (prn "To-rel: " to-relation-role)
      {:name   (concept->name concept)
       :type   :amr
       :params (get-params children)
-      :body   (for [syntax (->> (get amr value) (:frames) (map :syntax))]
-                ;;turint daugiau nei vieną sintaksę, viskas susimergina į vieną body
+      :body   (for [syntax (->> (get amr value) (syntax-suitable-for-role to-relation-role))]
                 (for [{:keys [value pos role params type] :as attrs} syntax]
                   (let [role-key (when (some? role) role)]
                     (-> (cond

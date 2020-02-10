@@ -371,10 +371,10 @@
                                                   :params [{:type "CN" :role "Subject"}
                                                            {:type "CN" :role "Object"}]
                                                   :type   :oper}]}
-                                       #_{:syntax {:ret    "S" :value "hasA_S"
-                                                 :params [{:type "CN" :role "Subject"}
-                                                          {:type "CN" :role "Object"}]
-                                                 :type   :oper}}]}
+                                       {:syntax [{:ret    "S" :value "hasA_S"
+                                                  :params [{:type "CN" :role "Subject"}
+                                                           {:type "CN" :role "Object"}]
+                                                  :type   :oper}]}]}
                        "capable-of" {:frames
                                      [{:syntax
                                        [{:ret    "S" :value "capableOf"
