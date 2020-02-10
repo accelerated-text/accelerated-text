@@ -213,6 +213,10 @@ def grammatically_valid_pos(pos):
         logger.debug("DET before AUX")
         return False
 
+    if any([p1 == "DET" and p2 == "SCONJ" for (p1, p2) in pairs]):
+        logger.debug("DET before SCONJ")
+        return False
+
     if any([p1 == "ADV" and p2 == "PRON" for (p1, p2) in pairs]):
         logger.debug("ADV before PRON")
         return False
