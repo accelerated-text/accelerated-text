@@ -125,7 +125,9 @@
                                  :type  "Str"
                                  :value ["good"]}]}
          (build-grammar "adjective-phrase" {:data {:title "Building Search Applications"}})))
-  (is (= #::grammar{:module    "Default"
+
+  ;; commented out selectors
+  #_(is (= #::grammar{:module    "Default"
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
@@ -353,3 +355,53 @@
                                                         :params [{:type "CN" :role "Subject"}
                                                                  {:type "CN" :role "Object"}]
                                                         :type   :oper}]}]}}}))))
+
+(deftest nested-amr-to-grammar
+  (let [{variables            ::grammar/variables
+         ;;ignore doc and segment parts
+         [_ _ capableOf hasA] ::grammar/functions}
+        (build-grammar
+         "nested-amr"
+         {:dictionary {"water" ["water" "H2O"]
+                       "boil"  ["boil"]}
+          :data       {:Make "T1000"
+                       :Type "kettle"}
+          :amr        {"has-a"       {:frames
+                                      [{:syntax [{:ret    "NP" :value "hasA_NP"
+                                                  :params [{:type "CN" :role "Subject"}
+                                                           {:type "CN" :role "Object"}]
+                                                  :type   :oper}]}
+                                       #_{:syntax {:ret    "S" :value "hasA_S"
+                                                 :params [{:type "CN" :role "Subject"}
+                                                          {:type "CN" :role "Object"}]
+                                                 :type   :oper}}]}
+                       "capable-of" {:frames
+                                     [{:syntax
+                                       [{:ret    "S" :value "capableOf"
+                                         :params [{:type "NP" :role "Subject"}
+                                                  {:type "V2" :role "Verb"}
+                                                  {:type "CN" :role "Object"}]
+                                         :type   :oper}]}]}}})]
+    (is (= {:name "Amr03" :type :amr :params ["Amr04"]
+            :body
+            [[{:kind  :operation
+               :value "capableOf"
+               :params
+               [{:kind :function :value "Amr04"}
+                {:kind :variable :value "DictionaryItem07"}
+                {:kind :variable :value "DictionaryItem08"}]}]]
+            :ret  [:s "Str"]}
+           capableOf))
+    (is (= {:name "Amr04" :type :amr :params []
+            :body [[{:kind  :operation
+                     :value "hasA_NP"
+                     :params
+                     [{:kind :variable :value "Data05"}
+                      {:kind :variable :value "Data06"}]}]]
+            :ret  "NP"}
+           hasA))
+    (is (= [{:name "Data05" :value ["T1000"] :type "CN"}
+            {:name "Data06" :value ["kettle"] :type "CN"}
+            {:name "DictionaryItem07" :value ["boil"] :type "V2"}
+            {:name "DictionaryItem08" :value ["water" "H2O"] :type "CN"}]
+           variables))))

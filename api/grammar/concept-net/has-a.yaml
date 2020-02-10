@@ -5,8 +5,8 @@ frames:
   - example: A car has an engine
     syntax:
       - type: oper
-        value: hasA_S
-        ret: S
+        value: hasA_NP
+        ret: NP
         params:
           - role: Subject
             type: CN

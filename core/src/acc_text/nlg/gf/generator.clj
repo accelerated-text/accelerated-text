@@ -7,6 +7,9 @@
             [jsonista.core :as json]
             [clojure.tools.logging :as log]))
 
+(defn s-ret? [ret] (coll? ret))
+(defn f-param? [function-name] (str/starts-with? function-name "Amr"))
+
 (defn join-body [& args]
   (->> args
        (partition 2)
@@ -63,10 +66,16 @@
 
 (defn parse-lincat [functions]
   (map (fn [[ret functions]]
-         (format "%s = {%s: %s}"
-                 (str/join ", " (map :name functions))
-                 (name (nth ret 0))
-                 (nth ret 1)))
+         (if (s-ret? ret)
+           ;;the case when we have [s: Str]
+           (format "%s = {%s: %s}"
+                   (str/join ", " (map :name functions))
+                   (name (nth ret 0))
+                   (nth ret 1))
+           ;;when ret is some Phrase
+           (format "%s = %s"
+                   (str/join ", " (map :name functions))
+                   ret)))
        (group-by :ret functions)))
 
 (declare join-function-body)
@@ -81,15 +90,20 @@
         :literal (cond->> (format "\"%s\"" (escape-string value))
                           (not= "Str" (second ret)) (format "(mk%s %s)" (second ret)))
         :function (format "%s.s" value)
-        :operation (->> params
-                        (filter (comp some? :value))
-                        (map (fn [{:keys [kind value]}]
-                               (case kind
-                                 :literal (format "\"%s\"" (escape-string value))
-                                 :function (format "%s.s" value)
-                                 :variable value)))
-                        (str/join " ")
-                        (format "(%s %s).s" value))))))
+        :operation (let [flin (->> params
+                                   (filter (comp some? :value))
+                                   (map (fn [{:keys [kind value]}]
+                                          (case kind
+                                            :literal (format "\"%s\""
+                                                             (escape-string value))
+                                            :function
+                                            (format "%s%s"
+                                                    value
+                                                    (if (f-param? value) "" ".s"))
+                                            :variable value)))
+                                   (str/join " ")
+                                   (format "(%s %s)" value))]
+                     (str flin (if (s-ret? ret) ".s" "")))))))
 
 (defn get-operator [expr next-expr]
   (when (some? next-expr)
@@ -126,15 +140,24 @@
 
 (defn parse-lin [functions]
   (map-indexed (fn [i {:keys [params ret body type]}]
-                 (format "Function%02d %s= {%s = %s}"
-                         (inc i)
-                         (str/join (interleave params (repeat " ")))
-                         (name (nth ret 0))
-                         (if (seq body)
-                           (cond
-                             (and (= "CN" (second ret)) (= :modifier type)) (join-modifier-body body ret)
-                             :else (join-function-body body ret))
-                           "\"\"")))
+                 (if (s-ret? ret)
+                   (format "Function%02d %s= {%s = %s}"
+                           (inc i)
+                           (str/join (interleave params (repeat " ")))
+                           (name (nth ret 0))
+                           (if (seq body)
+                             (cond
+                               (and (= "CN" (second ret)) (= :modifier type)) (join-modifier-body body ret)
+                               :else (join-function-body body ret))
+                             "\"\""))
+                   (format "Function%02d %s= %s"
+                           (inc i)
+                           (str/join (interleave params (repeat " ")))
+                           (if (seq body)
+                             (cond
+                               (and (= "CN" (second ret)) (= :modifier type)) (join-modifier-body body ret)
+                               :else (join-function-body body ret))
+                             "\"\""))))
                functions))
 
 (defn ->abstract [{::grammar/keys [module flags functions]}]

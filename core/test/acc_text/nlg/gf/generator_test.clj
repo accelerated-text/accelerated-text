@@ -53,3 +53,25 @@
                                                                         {:role "polarity" :type "Pol"}]}]}]}}
                                    :data {:name           "KFC"
                                           :familyFriendly "false"}})))))
+
+(deftest ^:integration nested-amr
+  (let [ctx {:amr  {"has-a"
+                    {:frames
+                     [{:syntax [{:ret    "NP" :value "hasA_NP"
+                                 :params [{:type "CN" :role "Subject"}
+                                          {:type "CN" :role "Object"}]
+                                 :type   :oper}]}]}
+                    "capable-of"
+                    {:frames
+                     [{:syntax
+                       [{:ret    "S" :value "capableOf"
+                         :params [{:type "NP" :role "Subject"}
+                                  {:type "V2" :role "Verb"}
+                                  {:type "CN" :role "Object"}]
+                         :type   :oper}]}]}}
+             :data {:Make "T1000" :Type "power"}}]
+    (is (= ["a T1000 with a power boils water"]
+           (generate
+            (grammar/build "Nested" "AMR"
+                           (utils/load-test-semantic-graph "nested-amr")
+                           ctx))))))

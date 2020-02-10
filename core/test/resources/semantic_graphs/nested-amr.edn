@@ -1,0 +1,39 @@
+#:acc-text.nlg.semantic-graph
+{:relations
+ ({:role :segment :from :01 :to :02}
+  {:role :instance :from :02 :to :03}
+  {:role :ARG0
+   :from :03
+   :attributes {:name "Subject"}
+   :to :04}
+  {:role :ARG1
+   :from :03
+   :attributes {:name "Verb"}
+   :to :07}
+  {:role :ARG2
+   :from :03
+   :attributes {:name "Object"}
+   :to :08}
+  {:role :ARG0
+   :from :04
+   :attributes {:name "Subject"}
+   :to :05}
+  {:role :ARG1
+   :from :04
+   :attributes {:name "Object"}
+   :to :06})
+ :concepts
+ ({:type :document-plan :id :01}
+  {:type :segment :id :02}
+  {:value "capable-of" :type :amr :id :03}
+  {:value "has-a" :type :amr :id :04}
+  {:value "Make" :type :data :id :05}
+  {:value "Type" :type :data :id :06}
+  {:value "NN-boil"
+   :type :dictionary-item
+   :id :07
+   :attributes {:name "boil"}}
+  {:value "water"
+   :type :dictionary-item
+   :id :08
+   :attributes {:name "water"}})}
