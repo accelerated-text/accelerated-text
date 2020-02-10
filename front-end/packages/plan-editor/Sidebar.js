@@ -34,7 +34,7 @@ export default composeContexts({
         >
             <DataManager plan={ plan } />
         </SidebarItem>
-        <SidebarItem title="Reader">
+        <SidebarItem title="Language">
             <ReaderConfiguration />
         </SidebarItem>
         <SidebarItem title="Text Analysis">
