@@ -28,6 +28,19 @@ export default composeQueries({
     },
 }) =>
     <table className={ S.className }>
+        <thead>
+            <tr>
+                <th className={ S.block } />
+                <th className={ S.name } >name</th>
+                <th className={ S.about } >
+                    <LabelWithStatus
+                        error={ error }
+                        label="about"
+                        loading={ loading }
+                    />
+                </th>
+            </tr>
+        </thead>
         <tbody>
             { error
                 ? <MessageTr>
