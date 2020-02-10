@@ -16,14 +16,15 @@
 
 (defn add-replace-token-en
   [[idx value]]
-  [idx "it"])
+  (cond
+    (nlp/ends-with-s? value) [idx "its"]
+    :else [idx "it"]))
 
 (defn add-replace-token
   [lang args]
   (case lang
     :en (add-replace-token-en args)
     (add-replace-token-en args)))
-
 
 (defn apply-ref-expressions
   [lang text]
@@ -32,7 +33,7 @@
         smap (->> refs
                   (map rest)
                   (mapcat identity)
-                  (map (partial lang add-replace-token))
+                  (map (partial add-replace-token lang))
                   (into {}))]
     (nlp/rebuild-sentences
      (map-indexed (fn

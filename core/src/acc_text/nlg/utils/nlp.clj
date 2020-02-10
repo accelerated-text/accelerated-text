@@ -13,6 +13,8 @@
 (defn word? [s]
   (some? (re-seq #"\w" s)))
 
+(defn ends-with-s? [token] (= "s" (str (last token))))
+
 (defn starts-with-capital? [[s & _]]
   (and (Character/isLetter s)  (= (str s) (str/upper-case s))))
 
