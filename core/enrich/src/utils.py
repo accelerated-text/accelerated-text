@@ -3,6 +3,7 @@ import re
 
 import spacy
 
+from io import StringIO
 from collections import Counter, defaultdict
 from functools import reduce
 
@@ -40,16 +41,32 @@ def load_example_triplets():
         return Counter(ngram(load_seq(), n=3))
 
 
-def tokenize(text):
-    def split_token_further(t):
-        buff = re.split(r"[.,:!?]", t)
-        for b in buff:
-            yield b
+def split_with_delimiter(text, delimiters):
+    def get_result(b):
+        result = b.getvalue().strip()
+        b.truncate(0)
+        b.seek(0)
+        return result
+        
+    buff = StringIO()
+    for c in text:
+        if c in delimiters:
+            result = get_result(buff)
+            if result.strip() != "":
+                yield result
+            yield c
+        else:
+            buff.write(c)
 
+    if buff.tell() > 0:
+        yield get_result(buff)
+
+
+def tokenize(text):
     return [ts
             for t in re.split(r"\s", text.lower())
-            for ts in split_token_further(t)
-            if t.strip() != ""]
+            for ts in split_with_delimiter(t, ".,:!?")
+            if ts.strip() != ""]
 
 
 def ngram(g, n):
@@ -148,6 +165,10 @@ def is_placeholder(t):
     return t.startswith("{")
 
 
+def filter_placeholders(lst):
+    return list([(m, p) for (m, p) in lst if not is_placeholder(m)])
+
+
 def get_pos_signature(tokens, nlp=None):
     doc = nlp(" ".join(tokens))
     pattern = [(t.text, t.pos_) for t in doc]
@@ -166,18 +187,86 @@ def get_pos_signature(tokens, nlp=None):
                 prev = "placeholder_end"
             else:
                 prev = None
-                if p not in ["DET", "AUX"]:
-                    yield p
+                yield p
 
     return list(gen())
 
+def grammatically_valid_pos(pos):
+    pairs = list(ngram(pos, n=2))
+    if any([p1 == "DET" and p2 == "DET" for (p1, p2) in pairs]):
+        logger.debug("DET before DET")
+        return False
+
+    if any([p1 == "AUX" and p2 == "AUX" for (p1, p2) in pairs]):
+        logger.debug("AUX before AUX")
+        return False
+    
+    if any([p1 == "DET" and p2 == "VERB" for (p1, p2) in pairs]):
+        logger.debug("DET before VERB")
+        return False
+
+    if any([p1 == "DET" and p2 == "ADP" for (p1, p2) in pairs]):
+        logger.debug("DET before ADP")
+        return False
+
+    if any([p1 == "DET" and p2 == "AUX" for (p1, p2) in pairs]):
+        logger.debug("DET before AUX")
+        return False
+
+    if any([p1 == "ADV" and p2 == "PRON" for (p1, p2) in pairs]):
+        logger.debug("ADV before PRON")
+        return False
+
+    if any([p1 == "ADJ" and p2 == "PRON" for (p1, p2) in pairs]):
+        logger.debug("ADJ before PRON")
+        return False
+
+    if any([p1 == "ADJ" and p2 == "DET" for (p1, p2) in pairs]):
+        logger.debug("ADJ before DET")
+        return False
+
+    if any([p1 == "DET" and p2 == "PRON" for (p1, p2) in pairs]):
+        logger.debug("DET before PRON")
+        return False
+
+    if any([p1 == "DET" and p2 == "ADJ" for (p1, p2) in pairs]):
+        logger.debug("DET before ADJ")
+        return False
+
+    if any([p1 == "ADP" and p2 == "AUX" for (p1, p2) in pairs]):
+        logger.debug("ADP before AUX")
+        return False
+
+    if any([(p1 == "ADV" and p2 == "ADP") or (p1 == "ADP" and p2 == "ADV")
+            for (p1, p2) in pairs]):
+        logger.debug("ADV and ADP in pair")
+        return False
+    return True
+
+def compare_pos_signatures(left, right):
+    def filter_fn(p):
+        return p not in ["DET", "ADV", "AUX", "ADJ"]
+
+    left_side = list(filter(filter_fn, left))
+    right_side = list(filter(filter_fn, right))
+    return left_side == right_side
+
 
 def validate(original, new, nlp):
-    if sum([1 for t in original if is_placeholder(t)]) != sum([1 for t in new if is_placeholder(t)]):
-        raise OpRejected("New placeholders introduced")
+    placeholders_original = sum([1 for t in original if is_placeholder(t)])
+    placeholders_new = sum([1 for t in new if is_placeholder(t)])
+    logger.debug("Orig: {0}, New: {1}".format(placeholders_original, placeholders_new))
+    if placeholders_original != placeholders_new :
+        raise OpRejected("New placeholders introduced or removed")
 
-    if get_pos_signature(original, nlp) != get_pos_signature(new, nlp):
+    orig_pos = get_pos_signature(original, nlp)
+    new_pos = get_pos_signature(new, nlp)
+
+    if not compare_pos_signatures(orig_pos, new_pos):
         raise OpRejected("Lexical Structure changed too much")
+
+    if not grammatically_valid_pos(new_pos):
+        raise OpRejected("Invalid gramatical structure")
     return new
 
 
@@ -185,7 +274,7 @@ def insert(t, pos, triplets):
     left_side = t[max(0, pos-2):pos]
     right_side = t[pos:pos+2]
 
-    results = window(left_side, right_side, triplets)
+    results = filter_placeholders(window(left_side, right_side, triplets))
     if len(results) == 0:
         raise OpRejected("Couldn't insert anything")
     else:
@@ -193,10 +282,9 @@ def insert(t, pos, triplets):
         logger.debug("Left side: {0}, Right side: {1}, Variants: {2}".format(t[:pos], t[pos:], results))
         return t[:pos] + [m] + t[pos:]
 
-
-def remove(t, pos, triplets):
+def remove(t, pos):
     if is_placeholder(t[pos]):
-        raise OpRejected()
+        raise OpRejected("Don't remove placeholders")
 
     result = t
     del result[pos]
@@ -204,24 +292,82 @@ def remove(t, pos, triplets):
 
 
 def replace(t, pos, triplets):
-    if is_placeholder(t[pos]):
+    current = t[pos]
+    if is_placeholder(current):
         # Don't replace placeholders
-        raise OpRejected()
+        raise OpRejected("Don't replace placeholders")
 
     new = t
     
     left_side = t[:pos][-2:]
     right_side = t[pos+1:][:2]
     
-    results = window(left_side, right_side, triplets)
+    results = [(m, p)
+               for (m, p) in filter_placeholders(window(left_side, right_side, triplets))
+               if m != current]
     if len(results) == 0:
-        raise OpRejected()
+        raise OpRejected("Nothing to replace")
     else:
-        (m, _) = results[0]
+        (m, p) = results[0]
+        logger.debug("{0} -> {1} in Sentence: {2}. P={3}".format(current, m, t, p))
+        if p < 0.20:
+            raise OpRejected("Probability of this change is too low ({0})".format(p))
         new[pos] = m
         return new
 
+ 
+def knuth_morris_pratt(source, pattern):
+    '''Yields all starting positions of copies of the pattern in the text.
+Calling conventions are similar to string.find, but its arguments can be
+lists or iterators, not just strings, it returns all matches, not just
+the first one, and it does not need the whole text in memory at once.
+Whenever it yields, it will have read the text exactly up to and including
+the match that caused the yield.'''
 
+    # allow indexing into pattern and protect against change during yield
+    pattern = list(pattern)
+
+    # build table of shift amounts
+    shifts = [1] * (len(pattern) + 1)
+    shift = 1
+    for pos in range(len(pattern)):
+        while shift <= pos and pattern[pos] != pattern[pos-shift]:
+            shift += shifts[pos-shift]
+        shifts[pos+1] = shift
+
+    # do the actual search
+    startPos = 0
+    matchLen = 0
+    for c in source:
+        while matchLen == len(pattern) or \
+              matchLen >= 0 and pattern[matchLen] != c:
+            startPos += shifts[matchLen]
+            matchLen -= shifts[matchLen]
+        matchLen += 1
+        if matchLen == len(pattern):
+            yield startPos
+
+
+def optimize_grammar(tokens, nlp):
+    def case_1(t):
+        pos = get_pos_signature(tokens, nlp)
+        example = ["AUX", "DET", "VARIABLE", "AUX", "VERB"]
+        for match_position in knuth_morris_pratt(pos, example):
+            # Our defined pattern starts at `match_position`
+            # we want to remove second AUX, which is 4th token
+            return case_1(remove(t, match_position + 3))
+        return t
+
+    def case_2(t):
+        pos = get_pos_signature(tokens, nlp)
+        if pos[-1] in ["ADV", "ADJ", "DET", "AUX", "SCONJ"]:
+            # If sentence is ending with these, it is likelly incorrect
+            return case_2(remove(t, len(pos)-1))
+        return t
+
+    return reduce(lambda acc, p: p(acc), [case_1, case_2], tokens)
+  
+ 
 def format_result(text):
     def strip(t):
         return t.strip()
@@ -231,6 +377,9 @@ def format_result(text):
 
     def end_with_dot(t):
         return t + "."
+
+    def remove_whitespace_after_punct(t):
+        return t.sub(r"(\s)([.,!?:])", "\2", t)
 
     pipeline = [strip, capitalize_first, end_with_dot]
     return reduce(lambda t, fn: fn(t), pipeline, text)

@@ -2,7 +2,11 @@ import logging
 import random
 import re
 
+from copy import copy
+from functools import reduce
+
 from src.utils import *
+from src import pipeline
 
 
 logger = logging.getLogger("Enrich")
@@ -35,34 +39,39 @@ class Enricher(object):
         logger.info("Pre-decode: {0}, Context: {1}".format(text, context))
         return multi_replace(inverse_dict(context), text)
 
-    def enrich(self, sent, context=None, max_iters=3):
+    def insert(self, tokens, pos):
+        return insert(tokens, pos, self.triplets)
+
+    def replace(self, tokens, pos):
+        return replace(tokens, pos, self.triplets)
+
+    def remove(self, tokens, pos):
+        return remove(tokens, pos)
+
+    def enrich(self, sent, context=None, max_iters=5, max_retries=15):
         tokens = tokenize(self._encode(sent, context))
         result = tokens
-        prev_result = result
         iters = 0
         retries = 0
-        orig_len = len(tokens)
-        while iters < max_iters and retries < 5:
-            pos = random.randint(0, len(tokens) - 1)
-            if len(result) < 3:
-                op = random.choice([insert])
-            elif len(result) <= orig_len:
-                op = random.choice([insert, replace])
-            else:
-                op = random.choice([insert, remove, replace])
+
+        pipe = [
+            pipeline.random_pos,
+            pipeline.random_op,
+            pipeline.apply_op,
+            pipeline.apply_validation,
+            pipeline.optimize,
+            pipeline.get_result
+        ]
+        
+        while iters < max_iters and retries < max_retries:
             try:
-                prev_result = result
-                result = op(result, pos, self.triplets)
-                validate(prev_result, result, self.nlp)
-                if not inside(result, self.seqs):
-                    raise OpRejected("'{}': Such result doesn't exist in our dataset. Consider it incorrect".format(result))
-                logger.debug("Using op: {0} on pos: {1}".format(op, pos))
-                logger.debug("-> {}".format(result))
+                result = reduce(lambda acc, p: p(*acc), pipe, (self, result))
+            except OpRejected as rj:
+                logger.debug("Rejected because: {}".format(rj))
+                retries += 1
+            else:
                 iters += 1
                 retries = 0
-            except OpRejected:
-                logger.debug("Op Rejected.")
-                retries += 1
-                result = prev_result
+                logger.debug("Passed: {}".format(result))
 
         return self._decode(" ".join(result), context)
