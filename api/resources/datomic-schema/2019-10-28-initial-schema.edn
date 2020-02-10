@@ -218,6 +218,11 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Type of the blockly item"}
 
+          {:db/ident       :blockly/label
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Label of the blockly item"}
+
           {:db/ident       :blockly/name
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
