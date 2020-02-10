@@ -31,7 +31,7 @@ class Enricher(object):
         if context is None:
             return text
         logger.info("Pre-encode: {0}, Context: {1}".format(text, context))
-        return multi_replace(context, text).lower()
+        return multi_replace(context, text)
 
     def _decode(self, text, context):
         if context is None:

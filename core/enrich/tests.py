@@ -209,5 +209,5 @@ class TestFullEnrich(object):
             "The restaurant Alimentum is located in the city center. Alimentum is located near Burger King."
         ])
         result = format_result(enricher.enrich(text, context={"Alimentum": "{name}", "restaurant": "{eat_type}"}, max_iters=50))
-        assert result != "Restaurant Alimentum located city center. Alimentum is near Burger King", "Sentence is not enriched"
+        assert result != "Restaurant Alimentum located city center. Alimentum is near Burger King.", "Sentence is not enriched"
         assert result in accepted_results

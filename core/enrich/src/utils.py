@@ -64,7 +64,7 @@ def split_with_delimiter(text, delimiters):
 
 def tokenize(text):
     return [ts
-            for t in re.split(r"\s", text.lower())
+            for t in re.split(r"\s", text)
             for ts in split_with_delimiter(t, ".,:!?")
             if ts.strip() != ""]
 
