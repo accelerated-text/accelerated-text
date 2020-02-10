@@ -1,8 +1,7 @@
 {:type "Adv",
  :description "verb-phrase-modifying adverb",
  :functions
- [{:function "mkAdv", :type ["Str" "Adv"], :example "e.g. today"}
-  {:function "everywhere_Adv", :type ["Adv"], :example "everywhere"}
+ [{:function "everywhere_Adv", :type ["Adv"], :example "everywhere"}
   {:function "here7from_Adv", :type ["Adv"], :example "from here"}
   {:function "here7to_Adv", :type ["Adv"], :example "to here"}
   {:function "here_Adv", :type ["Adv"], :example "here"}

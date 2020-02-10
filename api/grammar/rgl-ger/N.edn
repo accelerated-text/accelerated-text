@@ -1,0 +1,26 @@
+{:type "N",
+ :description "",
+ :functions
+ [{:function "mkN",
+   :type ["(Stufe"],
+   :example ": Str) -> N \tdie Stufe-Stufen, der Tisch-Tische"}
+  {:function "mkN",
+   :type ["Bilder"],
+   :example "Bilder : Str) -> Gender -> N \tsg and pl nom, and gender"}
+  {:function "mkN",
+   :type ["(Frau"],
+   :example ": Str) -> Gender -> N \tmasc: e, neutr: er, fem: en"}
+  {:function "mkN",
+   :type ["x6"],
+   :example
+   "1,_,_,_,_,x6 : Str) -> Gender -> N \tworst case: mann, mann, manne, mannes, männer, männern"}
+  {:function "mkN",
+   :type ["Str" "N" "N"],
+   :example "Auto + Fahrer -> Autofahrer"}
+  {:function "mkN",
+   :type ["N" "N" "N"],
+   :example "Freiheit + Kampf -> Freiheitskampf"}
+  {:function "changeCompoundN",
+   :type ["Str" "N" "N"],
+   :example "kyrko + kyrka_N"}
+  {:function "dative_eN", :type ["N" "N"], :example "-"}]}

@@ -25,3 +25,6 @@
 
 (defn list-amrs []
   (map document-plan->amr (dp/list-document-plans "AMR")))
+
+(defn list-rgls []
+  (map document-plan->amr (dp/list-document-plans "RGL")))

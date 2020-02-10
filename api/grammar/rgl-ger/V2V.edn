@@ -1,0 +1,10 @@
+{:type "V2V",
+ :description "",
+ :functions
+ [{:function "mkV2V", :type ["V" "V2V"], :example "-"}
+  {:function "mkV2V", :type ["V" "Prep" "V2V"], :example "-"}
+  {:function "auxV2V", :type ["V" "V2V"], :example "-"}
+  {:function "auxV2V", :type ["V" "Prep" "V2V"], :example "-"}
+  {:function "subjV2V",
+   :type ["V2V" "V2V"],
+   :example "force subject-control"}]}

@@ -1,0 +1,6 @@
+{:type "AdN",
+ :description "numeral-modifying adverb",
+ :functions
+ [{:function "mkAdN",
+   :type ["Str" "AdN"],
+   :example "e.g. approximately"}]}

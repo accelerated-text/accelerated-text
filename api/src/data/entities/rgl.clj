@@ -28,7 +28,7 @@
          (map (fn [p] (io/file (string/join "/" [abs-path p])))))))
 
 (defn list-rgl-files []
-  (list-package (or (System/getenv "RGL_GRAMMAR_PACKAGE") "../grammar/rgl.yaml")))
+  (list-package (or (System/getenv "RGL_GRAMMAR_PACKAGE") "grammar/rgl.yaml")))
 
 (defn load-all []
   (mapcat read-rgl (list-rgl-files)))

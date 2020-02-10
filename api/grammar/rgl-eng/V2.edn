@@ -4,5 +4,4 @@
  [{:function "mkV2", :type ["V" "V2"], :example "transitive, e.g. hit"}
   {:function "mkV2",
    :type ["V" "Prep" "V2"],
-   :example "with preposiiton, e.g. believe in"}
-  {:function "have_V2", :type ["V2"], :example "to have it"}]}
+   :example "with preposiiton, e.g. believe in"}]}

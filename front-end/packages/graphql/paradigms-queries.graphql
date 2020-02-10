@@ -35,7 +35,7 @@ query listDataFiles {
 
 ### Document plans -------------------------------------------------------------
 
-query documentPlans( $kind: String! = "RGL" ) {
+query documentPlans( $kind: String! = "AMR" ) {
     documentPlans( kind: $kind ) {
         offset
         totalCount
@@ -107,7 +107,13 @@ query concepts {
         concepts {
             ...conceptFields
         }
-        rgl {
+        paradigms {
+            ...conceptFields
+        }
+        paradigmsEng {
+            ...conceptFields
+        }
+        paradigmsGer {
             ...conceptFields
         }
     }

@@ -1,0 +1,10 @@
+{:type "V2",
+ :description "",
+ :functions
+ [{:function "mkV2", :type ["V" "V2"], :example "direct object"}
+  {:function "mkV2",
+   :type ["V" "Prep" "V2"],
+   :example "preposition for complement"}
+  {:function "mkV2",
+   :type ["V" "Case" "V2"],
+   :example "just case for complement"}]}

@@ -1,12 +1,7 @@
 {:type "Prep",
  :description "preposition, or just case",
  :functions
- [{:function "mkPrep",
-   :type ["Str" "Prep"],
-   :example "e.g. \"in front of\""}
-  {:function "mkPost", :type ["Str" "Prep"], :example "e.g. \"ago\""}
-  {:function "noPrep", :type ["Prep"], :example "no preposition"}
-  {:function "above_Prep", :type ["Prep"], :example "above it"}
+ [{:function "above_Prep", :type ["Prep"], :example "above it"}
   {:function "after_Prep", :type ["Prep"], :example "after it"}
   {:function "before_Prep", :type ["Prep"], :example "before it"}
   {:function "behind_Prep", :type ["Prep"], :example "behind it"}

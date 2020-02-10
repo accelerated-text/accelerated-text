@@ -1,8 +1,7 @@
 {:type "AdA",
  :description "adjective-modifying adverb",
  :functions
- [{:function "mkAdA", :type ["Str" "AdA"], :example "e.g. quite"}
-  {:function "almost_AdA", :type ["AdA"], :example "almost red"}
+ [{:function "almost_AdA", :type ["AdA"], :example "almost red"}
   {:function "quite_Adv", :type ["AdA"], :example "quite"}
   {:function "so_AdA", :type ["AdA"], :example "so warm"}
   {:function "too_AdA", :type ["AdA"], :example "too warm"}

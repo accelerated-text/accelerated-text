@@ -1,0 +1,26 @@
+---
+includes:
+  - rgl-ger/V3.edn
+  - rgl-ger/VA.edn
+  - rgl-ger/N3.edn
+  - rgl-ger/VV.edn
+  - rgl-ger/VQ.edn
+  - rgl-ger/A2.edn
+  - rgl-ger/V.edn
+  - rgl-ger/V2.edn
+  - rgl-ger/V2A.edn
+  - rgl-ger/Prep.edn
+  - rgl-ger/N.edn
+  - rgl-ger/Adv.edn
+  - rgl-ger/A.edn
+  - rgl-ger/Interj.edn
+  - rgl-ger/N2.edn
+  - rgl-ger/PN.edn
+  - rgl-ger/V2V.edn
+  - rgl-ger/Type.edn
+  - rgl-ger/Number.edn
+  - rgl-ger/Case.edn
+  - rgl-ger/Gender.edn
+  - rgl-ger/V2S.edn
+  - rgl-ger/VS.edn
+  - rgl-ger/V2Q.edn

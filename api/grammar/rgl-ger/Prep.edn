@@ -1,0 +1,34 @@
+{:type "Prep",
+ :description "",
+ :functions
+ [{:function "mkPrep",
+   :type ["Str" "Case" "Prep"],
+   :example "e.g. \"durch\" + accusative"}
+  {:function "mkPrep",
+   :type ["Case" "Str" "Prep"],
+   :example "postposition"}
+  {:function "mkPrep",
+   :type ["Str" "Case" "Str" "Prep"],
+   :example "both sides"}
+  {:function "accPrep",
+   :type ["Prep"],
+   :example "no string, just accusative case"}
+  {:function "datPrep",
+   :type ["Prep"],
+   :example "no string, just dative case"}
+  {:function "genPrep",
+   :type ["Prep"],
+   :example "no string, just genitive case"}
+  {:function "von_Prep", :type ["Prep"], :example "von + dative"}
+  {:function "zu_Prep",
+   :type ["Prep"],
+   :example "zu + dative, with contractions zum, zur"}
+  {:function "anDat_Prep",
+   :type ["Prep"],
+   :example "an + dative, with contraction am"}
+  {:function "inDat_Prep",
+   :type ["Prep"],
+   :example "in + dative, with contraction ins"}
+  {:function "inAcc_Prep",
+   :type ["Prep"],
+   :example "in + accusative, with contraction im"}]}

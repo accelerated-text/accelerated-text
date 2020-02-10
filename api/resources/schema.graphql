@@ -195,6 +195,9 @@ type Concepts {
     concepts:          [ Concept! ]
     amr:               [ Concept! ]
     rgl:               [ Concept! ]
+    paradigms:         [ Concept! ]
+    paradigmsEng:      [ Concept! ]
+    paradigmsGer:      [ Concept! ]
 }
 
 

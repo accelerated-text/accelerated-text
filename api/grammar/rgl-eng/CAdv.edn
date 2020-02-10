@@ -1,0 +1,6 @@
+{:type "CAdv",
+ :description "comparative adverb",
+ :functions
+ [{:function "mkCAdv",
+   :type ["Str" "Str" "Str" "CAdv"],
+   :example "more than/no more than"}]}

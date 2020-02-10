@@ -1,9 +1,6 @@
 {:type "CAdv",
  :description "comparative adverb",
  :functions
- [{:function "mkCAdv",
-   :type ["Str" "Str" "Str" "CAdv"],
-   :example "more than/no more than"}
-  {:function "as_CAdv", :type ["CAdv"], :example "as"}
+ [{:function "as_CAdv", :type ["CAdv"], :example "as"}
   {:function "less_CAdv", :type ["CAdv"], :example "less"}
   {:function "more_CAdv", :type ["CAdv"], :example "more"}]}

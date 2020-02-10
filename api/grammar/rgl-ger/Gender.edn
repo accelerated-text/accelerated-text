@@ -1,0 +1,6 @@
+{:type "Gender",
+ :description "",
+ :functions
+ [{:function "masculine", :type ["Gender"], :example "-"}
+  {:function "feminine", :type ["Gender"], :example "-"}
+  {:function "neuter", :type ["Gender"], :example "-"}]}

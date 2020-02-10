@@ -1,0 +1,16 @@
+{:type "A",
+ :description "",
+ :functions
+ [{:function "mkA",
+   :type ["Str" "A"],
+   :example "regular adjective, works for most cases"}
+  {:function "mkA",
+   :type ["beste"],
+   :example "besser,beste : Str) -> A \tirregular comparison"}
+  {:function "mkA",
+   :type ["beste"],
+   :example
+   "gute,besser,beste : Str) -> A \tirregular positive if ending added"}
+  {:function "invarA",
+   :type ["Str" "A"],
+   :example "invariable, e.g. prima"}]}
