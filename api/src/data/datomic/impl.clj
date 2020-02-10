@@ -5,7 +5,7 @@
             [datomic.api :as d]
             [mount.core :refer [defstate]]
             [data.datomic.utils :as utils :refer [remove-nil-vals]]
-            [data.utils :refer [ts-now]]
+            [data.utils :refer [ts-now gen-uuid]]
             [data.datomic.blockly :as blockly]
             [jsonista.core :as json]))
 
@@ -17,8 +17,7 @@
 (defn decode-results [results]
   (map #(json/read-value % read-mapper) results))
 
-(defstate conn
-  :start (utils/get-conn conf))
+(defstate conn :start (utils/get-conn conf))
 
 (defmulti transact-item (fn [resource-type _ _] resource-type))
 
@@ -29,7 +28,8 @@
 
 (defn prepare-reader-flags [flags]
   (for [[flag value] flags]
-    {:reader-flag/name  flag
+    {:reader-flag/id    (gen-uuid)
+     :reader-flag/name  flag
      :reader-flag/value value}))
 
 (defn prepare-dictionary-item [key data-item]
@@ -210,9 +210,9 @@
 
 (defmethod pull-n :reader-flag [_ limit]
   (restore-reader-flags
-    (take limit (first (d/q '[:find (pull ?e [*])
-                              :where [?e :reader-flag/value]]
-                            (d/db conn))))))
+    (take limit (map first (d/q '[:find (pull ?e [*])
+                                  :where [?e :reader-flag/value]]
+                                (d/db conn))))))
 
 (defmethod pull-n :dictionary-combined [_ limit]
   (take limit (map (fn [[item]]
@@ -270,12 +270,12 @@
                         :results/ts      (ts-now)})]))
 
 (defmethod update! :dictionary-combined [resource-type key data-item]
-  (let [val [(remove-nil-vals (prepare-dictionary-item key data-item))]]
-    (try
-      @(d/transact conn val)
-      (catch Exception e
-        (log/errorf "Error %s with data %s" e val)))
-    (pull-entity resource-type key)))
+  (try
+    @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]])
+    @(d/transact conn [(remove-nil-vals (dissoc (prepare-dictionary-item key data-item) :db/id))])
+    (catch Exception e
+      (log/errorf "Error %s with data %s" e val)))
+  (pull-entity resource-type key))
 
 (defmethod update! :default [resource-type key data]
   (log/errorf "Default UPDATE for %s with key %s and %s" resource-type key data)

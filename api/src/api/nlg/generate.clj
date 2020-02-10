@@ -27,6 +27,12 @@
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
+(defn filter-empty [text] (not= "" text))
+
+(defn merge-enrich-dupes [{:keys [original enriched] :as data}]
+  (if (= original enriched)
+    {:original original}
+    data))
 
 (defn generate-text
   ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
@@ -41,9 +47,10 @@
           (map :text)
           (sort)
           (dedupe)
+          (filter filter-empty)
           (utils/inspect-results)
-          (map enrich-fn)))))
-
+          (map enrich-fn)
+          (map merge-enrich-dupes)))))
 
 (defn generation-process [document-plan rows reader-model enrich]
   (try
@@ -91,16 +98,25 @@
                                                    :text token})})}]})
        results))
 
+(defn prepend-lang-flag
+  [text]
+  ;; TODO: Harcoded EN flag at the moment. Should use flag of language used
+  (format "🇬🇧 %s" text))
+
 (defn transform-results
   [results]
   (mapcat (fn [{:keys [enriched original]}]
-                 [(format "Original: %s " original) (format "Enriched: %s" enriched)]) results))
+            (if enriched
+              [(format "📔\t%s " original) (format "📙\t%s" enriched)]
+              [original]))
+          results))
 
 (defn annotated-text-format [results]
   (->> results
        (map second)
        (flatten) ;; Don't care about any bulk keys at the moment
        (transform-results)
+       (map prepend-lang-flag)
        (wrap-to-annotated-text)))
 
 (defn raw-format [results]

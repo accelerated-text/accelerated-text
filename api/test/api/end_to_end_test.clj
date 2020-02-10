@@ -233,7 +233,7 @@
   (let [{{result-id :resultId} :body status :status} (generate "variable-undefined" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{""} (get-original-results result-id)))))
+    (is (= #{} (get-original-results result-id)))))
 
 (deftest ^:integration variable-unused-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "variable-unused" "books.csv")]
@@ -287,11 +287,4 @@
   (let [{{result-id :resultId} :body status :status} (generate-enriched "located-enrich" "restaurants.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    ;; (is (= #{"Restaurant located in city center"
-    ;;          "Restaurant at the city center"
-    ;;          "Restaurant at city center"
-    ;;          "Restaurant is located city center"
-    ;;          "Restaurant in the city center"
-    ;;          "Is a restaurant located in city center"
-    ;;          "Is a restaurant located in the city center"} (get-enriched-results result-id)))
-    ))
+    (is (not= "Restaurant located in city center" (first (get-enriched-results result-id))))))
