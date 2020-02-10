@@ -1,9 +1,20 @@
 (ns acc-text.nlg.utils.ref-expressions
-  (:require [acc-text.nlg.utils.nlp :as nlp]))
+  (:require [acc-text.nlg.utils.nlp :as nlp]
+            [clojure.tools.logging :as log]))
 
 (defn filter-by-refs-count
   [[k refs]]
   (>= (count refs) 2))
+
+(defn filter-last-location-token
+  [all-tokens group]
+  (filter (fn [[idx token]]
+            (let [next-token (nth all-tokens (inc idx) "$")]
+              (log/tracef "Idx: %s Token: %s Next Token: %s" idx token next-token)
+              (cond
+                (= "." next-token) false ;; If it's last word in sentence, don't create ref.
+                :else              true)))
+          group))
 
 (defn identify-potential-refs
   [tokens]
@@ -13,7 +24,8 @@
        (vec)
        (filter filter-by-refs-count)
        (map second)
-       (map rest)))
+       (map rest)
+       (map (partial filter-last-location-token tokens))))
 
 (defn add-replace-token-en
   [[idx value]]

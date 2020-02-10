@@ -5,7 +5,7 @@
 
 
 (deftest test-identify-refs
-  (is (= [[4 "Alimentum"] [13 "Alimentum"]]
+  (is (= [[4 "Alimentum"]]
          (-> (nlp/tokenize "Alimentum is nice. Alimentum serves good food. We will eat at Alimentum.")
              (r/identify-potential-refs)
              (first)))))
