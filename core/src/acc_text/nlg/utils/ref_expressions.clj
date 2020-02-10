@@ -31,7 +31,7 @@
   [[idx value]]
   (cond
     (nlp/ends-with-s? value) [idx "its"]
-    :else [idx "it"]))
+    :else                    [idx "it"]))
 
 (defn add-replace-token
   [lang args]
