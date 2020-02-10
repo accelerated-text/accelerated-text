@@ -23,7 +23,7 @@ def enricher():
 def test_tokenize():
     text = "Hello world, how are you?"
     result = tokenize(text)
-    assert result == ["hello", "world", ",", "how", "are", "you", "?"]
+    assert result == ["Hello", "world", ",", "how", "are", "you", "?"]
 
 @pytest.mark.parametrize(
     "tokens,pos,expected",
