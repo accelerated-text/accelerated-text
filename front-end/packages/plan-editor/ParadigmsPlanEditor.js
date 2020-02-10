@@ -58,9 +58,9 @@ export default PlanActions( composeContexts({
                         workspaceXml={ plan.blocklyXml }
                     />
                 : loading
-                    ? <Loading className={ S.item } message="Loading RGL." />
+                    ? <Loading className={ S.item } message="Loading morphologies." />
                 : error
-                    ? <Error className={ S.item } message="Error loading RGL." />
+                    ? <Error className={ S.item } message="Error loading morphologies." />
                     : <OnboardCode onCreateXml={ this.onCreateXml } />
             }</div>
         );

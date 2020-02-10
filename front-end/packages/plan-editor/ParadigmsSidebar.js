@@ -26,14 +26,14 @@ export default composeContexts({
     },
 }) =>
     <Sidebar className={ className }>
-        <SidebarItem title="RGL">
-            <ParadigmsConcepts />
-        </SidebarItem>
-        <SidebarItem title="English Morphology">
+        <SidebarItem title="English">
             <ParadigmsEngConcepts />
         </SidebarItem>
-        <SidebarItem title="German Morphology">
+        <SidebarItem title="German">
             <ParadigmsGerConcepts />
+        </SidebarItem>
+        <SidebarItem title="RGL">
+            <ParadigmsConcepts />
         </SidebarItem>
         <SidebarItem title="Dictionary">
             <Dictionary />

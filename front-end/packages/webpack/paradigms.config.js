@@ -51,7 +51,7 @@ export default ({
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title:      'Paradigm Editor',
+            title:      'AMR Editor',
         }),
         ...( mode === 'production'
             ? [ new MiniCssExtractPlugin() ]

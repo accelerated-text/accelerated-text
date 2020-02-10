@@ -21,7 +21,7 @@ export default composeContexts({
                 className={ S.logo }
                 onClick={ closeAll }
                 src="/accelerated-text-logo.png"
-                title="Paradigm Editor"
+                title="AMR Editor"
             />
         </div>
         <div className={ S.center }>

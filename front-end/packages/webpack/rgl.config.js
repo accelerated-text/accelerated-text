@@ -51,7 +51,7 @@ export default ({
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title:      'AMR Editor',
+            title:      'RGL Editor',
         }),
         ...( mode === 'production'
             ? [ new MiniCssExtractPlugin() ]
