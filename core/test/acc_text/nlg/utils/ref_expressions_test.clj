@@ -1,4 +1,4 @@
-(ns acc-text.nlg.ref-expressions-test
+(ns acc-text.nlg.utils.ref-expressions-test
   (:require [clojure.test :refer [deftest is]]
             [acc-text.nlg.utils.ref-expressions :as r]
             [acc-text.nlg.utils.nlp :as nlp]))
