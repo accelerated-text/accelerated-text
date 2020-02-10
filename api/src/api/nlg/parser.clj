@@ -38,7 +38,7 @@
                      :type       :amr
                      :value      conceptId
                      :attributes {:kind kind}}]
-        :relations (map-indexed (fn [index {[{child-id :id}] :children name :name}]
+        :relations (map-indexed (fn [index {[{child-id :id}] :children name :label}]
                                   {:from       id
                                    :to         child-id
                                    :role       (keyword (str "ARG" index))
