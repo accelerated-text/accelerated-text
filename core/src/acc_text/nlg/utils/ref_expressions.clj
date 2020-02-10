@@ -3,7 +3,7 @@
             [clojure.tools.logging :as log]))
 
 (defn filter-by-refs-count
-  [[k refs]]
+  [[_ refs]]
   (>= (count refs) 2))
 
 (defn filter-last-location-token
