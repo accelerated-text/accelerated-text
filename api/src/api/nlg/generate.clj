@@ -102,7 +102,7 @@
   [results]
   (mapcat (fn [{:keys [enriched original]}]
             (if enriched
-              [(format "Original: %s " original) (format "Enriched: %s" enriched)]
+              [(format ":book:\t%s " original) (format ":orange_book:\t%s" enriched)]
               [original]))
           results))
 
