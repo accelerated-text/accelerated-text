@@ -12,4 +12,4 @@
 
 (deftest test-replace-refs
   (is (= "Alimentum is nice. It serves good food. Starbucks provides coffee. Its coffee is awesome."
-         (r/apply-ref-expressions "Alimentum is nice. It serves good food. Starbucks provides coffee. Starbucks coffee is awesome."))))
+         (r/apply-ref-expressions "Alimentum is nice. It serves good food. Starbucks provides coffee. It coffee is awesome."))))
