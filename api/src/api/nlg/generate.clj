@@ -1,6 +1,7 @@
 (ns api.nlg.generate
   (:require [acc-text.nlg.utils.nlp :as nlp]
             [acc-text.nlg.core :as nlg]
+            [acc-text.nlg.utils.ref-expressions :as ref-expr]
             [api.nlg.context :as context]
             [api.nlg.parser :as parser]
             [api.utils :as utils]
@@ -48,6 +49,7 @@
           (sort)
           (dedupe)
           (filter filter-empty)
+          (map (partial ref-expr/apply-ref-expressions :en))
           (utils/inspect-results)
           (map enrich-fn)
           (map merge-enrich-dupes)))))
