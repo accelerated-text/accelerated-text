@@ -14,18 +14,25 @@
        (filter filter-by-refs-count)
        (map second)))
 
-(defn add-replace-token
+(defn add-replace-token-en
   [[idx value]]
   [idx "it"])
 
+(defn add-replace-token
+  [lang args]
+  (case lang
+    :en (add-replace-token-en args)
+    (add-replace-token-en args)))
+
+
 (defn apply-ref-expressions
-  [text]
+  [lang text]
   (let [tokens (nlp/tokenize text)
         refs (identify-potential-refs tokens)
         smap (->> refs
                   (map rest)
                   (mapcat identity)
-                  (map add-replace-token)
+                  (map (partial lang add-replace-token))
                   (into {}))]
     (nlp/rebuild-sentences
      (map-indexed (fn
