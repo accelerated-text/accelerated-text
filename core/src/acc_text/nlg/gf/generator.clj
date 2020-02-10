@@ -171,7 +171,8 @@
 (def imports ["LangFunctionsEng" "SyntaxEng" "ParadigmsEng"
               "AtLocationEng" "CapableOfEng" "HasAEng"
               "HasPropertyEng" "IsAEng" "LocatedNearEng"
-              "MadeOfEng" "HasAEng"])
+              "MadeOfEng" "HasAEng"
+              "DefineObject"])
 
 (defn ->incomplete [{::grammar/keys [module functions]}]
   (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"

@@ -1,7 +1,4 @@
-resource UtilsGer = open SyntaxGer in {
-  oper
-    mkAMod : Det -> A -> N -> NP = \det, mod, noun ->
-      (mkNP det (mkCN mod noun));
+resource UtilsLav = open SyntaxLav, ParadigmsLav, (R=ResLav) in {
 
   -- Combine modifiers
   oper combineMods = overload {

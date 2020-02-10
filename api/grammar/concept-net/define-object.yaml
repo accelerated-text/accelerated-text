@@ -1,0 +1,17 @@
+roles:
+  - Item
+  - Type
+  - SuitableFor
+frames:
+  - example: T1000 is an low power fridge suitable for small kitchen  
+    syntax:
+      - type: oper
+        value: characterization
+        ret: S
+        params:
+          - role: Item
+            type: CN
+          - role: Type
+            type: CN
+          - role: SuitableFor
+            type: CN
