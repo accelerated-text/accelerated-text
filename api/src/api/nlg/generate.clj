@@ -98,6 +98,11 @@
                                                    :text token})})}]})
        results))
 
+(defn prepend-lang-flag
+  [text]
+  ;; TODO: Harcoded EN flag at the moment. Should use flag of language used
+  (format "🇬🇧 %s" text))
+
 (defn transform-results
   [results]
   (mapcat (fn [{:keys [enriched original]}]
@@ -111,6 +116,7 @@
        (map second)
        (flatten) ;; Don't care about any bulk keys at the moment
        (transform-results)
+       (map prepend-lang-flag)
        (wrap-to-annotated-text)))
 
 (defn raw-format [results]
