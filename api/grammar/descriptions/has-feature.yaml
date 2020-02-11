@@ -1,0 +1,17 @@
+roles:
+  - Subject
+  - Attribute
+  - Benefit
+frames:
+  - example: Auto-complete allows for fast typing
+    syntax:
+      - type: oper
+        value: allowsFor
+        ret: S
+        params:
+          - role: Subject
+            type: CN
+          - role: Attribute
+            type: CN
+          - role: Benefit
+            type: CN

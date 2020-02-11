@@ -5,5 +5,6 @@ includes:
   - concept-net/has-property.yaml
   - concept-net/is-a.yaml
   - concept-net/made-of.yaml
+  - descriptions/has-feature.yaml
   - descriptions/define-object.yaml
   - descriptions/maintenance.yaml

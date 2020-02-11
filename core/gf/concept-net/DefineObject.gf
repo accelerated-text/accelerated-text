@@ -1,7 +1,7 @@
 resource DefineObject = open
-  ParadigmsEng, SyntaxEng, UtilsEng, BaseDictionaryEng in {
+  ParadigmsEst, SyntaxEst, UtilsEst, BaseDictionaryEst in {
   -- for X
-  oper forPrep : CN -> Adv = \x -> (SyntaxEng.mkAdv for_Prep (mkNP x));
+  oper forPrep : CN -> Adv = \x -> (SyntaxEst.mkAdv for_Prep (mkNP x));
 
 
   oper forObject : A2 -> CN -> AP = \for, object ->
