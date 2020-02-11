@@ -16,7 +16,6 @@
 
 (defn get-default-flags []
   {:English  :YES
-   :German   :NO
    :Estonian :NO})
 
 (defn get-reader [key]

@@ -7,7 +7,7 @@
 
 (defn generate-text [semantic-graph {data :data :as context} lang]
   (->> (grammar/build "Default" "Instance" (conditions/select semantic-graph data) context)
-       (generator/generate)
+       (generator/generate lang)
        (map (comp nlp/annotate nlp/process-sentence))))
 
 (defn enrich-text

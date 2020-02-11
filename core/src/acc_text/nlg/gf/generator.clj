@@ -168,18 +168,20 @@
             "cat" (parse-cat flags functions)
             "fun" (parse-fun functions))))
 
-(def imports ["LangFunctionsEng" "SyntaxEng" "ParadigmsEng"
-              "AtLocationEng" "CapableOfEng" "HasAEng"
-              "HasPropertyEng" "IsAEng" "LocatedNearEng"
-              "MadeOfEng" "HasAEng"
-              "DefineObjectEng" "MaintenanceEng" "HasFeaturesEng"])
+(defn get-imports [lang]
+  (concat ["LangFunctionsEng"]
+          (for [import ["Syntax%s" "Paradigms%s" "CapableOf%s"
+                        "HasProperty%s" "IsA%s" "HasA%s"
+                        "Maintenance%s" "DefineObject%s" "HasFeatures%s"
+                        "MadeOf%s" "HasA%s"]]
+            (format import lang))))
 
-(defn ->incomplete [{::grammar/keys [module functions]}]
+(defn ->incomplete [lang {::grammar/keys [module functions]}]
   (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"
           module
           module
           module
-          (str/join ", " imports)
+          (str/join ", " (get-imports lang))
           (join-body
             "param" (parse-param functions)
             "lincat" (parse-lincat functions)
@@ -191,14 +193,17 @@
           (join-body
             "oper" (parse-oper (map #(dissoc % :value) variables)))))
 
-(defn ->resource [{::grammar/keys [instance module variables]}]
-  (format "resource %sLex%s = open SyntaxEng, ParadigmsEng in {%s\n}"
+(defn ->resource [lang {::grammar/keys [instance module variables]}]
+  (format "resource %sLex%s = open Syntax%s, Paradigms%s, BaseDictionary%s in {%s\n}"
           module
-          instance
+          lang
+          lang
+          lang
+          lang
           (join-body
             "oper" (parse-oper variables))))
 
-(defn ->concrete [{::grammar/keys [instance module]}]
+(defn ->concrete [lang {::grammar/keys [instance module]}]
   (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s);"
           module
           instance
@@ -206,22 +211,33 @@
           module
           module
           module
-          instance))
+          lang))
 
-(defn grammar->content [{::grammar/keys [module instance] :as grammar}]
-  {(str module)                (->abstract grammar)
-   (str module "Body")         (->incomplete grammar)
-   (str module "Lex")          (->interface grammar)
-   (str module "Lex" instance) (->resource grammar)
-   (str module instance)       (->concrete grammar)})
+(defn grammar->content [lang {::grammar/keys [module instance] :as grammar}]
+  {(str module)            (->abstract grammar)
+   (str module "Body")     (->incomplete lang grammar)
+   (str module "Lex")      (->interface grammar)
+   (str module "Lex" lang) (->resource lang grammar)
+   (str module instance)   (->concrete lang grammar)})
 
-(defn generate [{::grammar/keys [module instance] :as grammar}]
-  (let [{body :body} (service/compile-request module instance (grammar->content grammar))
-        {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
-    (if (some? error)
-      (log/error error)
-      (sort (dedupe results)))))
+(defn translate-reader-model [x]
+  (case x
+    :en "Eng"
+    :de "Ger"
+    :ee "Est"
+    :lv "Lat"))
+
+(defn generate
+  ([grammar]
+   (generate :en grammar))
+  ([lang {::grammar/keys [module instance] :as grammar}]
+   (let [lang (translate-reader-model lang)]
+     (let [{body :body} (service/compile-request lang module instance (grammar->content lang grammar))
+           {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
+       (if (some? error)
+         (log/error error)
+         (sort (dedupe results)))))))
 
 (s/fdef generate
-        :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar)
+        :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar :reader-model map?)
         :ret (s/nilable (s/coll-of string?)))

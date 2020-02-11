@@ -23,7 +23,7 @@
 (s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId]
                               :opt-un [::readerFlagValues ::enrich]))
 (s/def ::generate-bulk (s/keys :req-un [::documentPlanId ::dataRows]
-                               :opt-un [::readerFlagValues ::enrich]))
+                               :opt-un [::readerFlagVaElues ::enrich]))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
