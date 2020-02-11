@@ -15,6 +15,7 @@ resource DefineObject = open
          (mkCl
             (mkNP a_Det subject)
             (mkNP
+               the_Det
                (mkCN
                   attribute
                   (forObject suitable amod)))));
