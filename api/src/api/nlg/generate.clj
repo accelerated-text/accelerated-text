@@ -160,8 +160,7 @@
                     :standoff standoff-format
                     annotated-text-format)]
     (try
-      (if-let [{:keys [results ready updatedAt]} dummy-response ;; (results/fetch request-id)
-               ]
+      (if-let [{:keys [results ready updatedAt]} (results/fetch request-id)]
         {:status 200
          :body   {:offset     0
                   :totalCount (count (flatten results)) ;; Each key has N results. So flatten and count total
