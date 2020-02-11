@@ -39,8 +39,8 @@
 
 (defn build-context
   ([semantic-graph]
-   (build-context semantic-graph {:default true}))
-  ([semantic-graph reader-model]
+   (build-context semantic-graph {:reader-model {:default true}}))
+  ([semantic-graph {reader-model :reader-model}]
    (let [reader-profiles (get-reader-profiles reader-model)]
      {:dictionary (build-dictionary-context semantic-graph reader-profiles)
       :amr        (build-amr-context semantic-graph)})))

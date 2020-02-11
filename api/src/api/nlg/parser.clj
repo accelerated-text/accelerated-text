@@ -200,15 +200,15 @@
                      :to   child-id
                      :role :definition}]})
 
-(defmethod build-semantic-graph :Get-var [{:keys [id name]} variables]
+(defmethod build-semantic-graph :Get-var [{id :id var-id :name} {variables :vars variable-names :var-names}]
   #::sg{:concepts  [{:id         id
                      :type       :reference
-                     :attributes {:name name}}]
-        :relations (map (fn [variable-id]
+                     :attributes {:name (get variable-names var-id)}}]
+        :relations (map (fn [var-id]
                           {:from id
-                           :to   variable-id
+                           :to   var-id
                            :role :pointer})
-                        (get variables name))})
+                        (get variables var-id))})
 
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
@@ -307,19 +307,26 @@
       (sg-utils/prune-concepts-by-type :placeholder)
       (sg-utils/prune-unrelated-branches)))
 
-(defn document-plan->semantic-graph [root]
-  (loop [zipper (-> root (preprocess) (make-zipper))
-         graph #::sg{:relations [] :concepts []}
-         variables {}]
-    (if (or (zip/end? zipper) (empty? root))
-      (postprocess graph)
-      (let [{:keys [id name type] :as node} (zip/node zipper)]
-        (recur
-          (zip/next zipper)
-          (merge-with concat graph (build-semantic-graph node variables))
-          (cond-> variables
-                  (= "Define-var" type) ((partial merge-with concat) {name [id]})))))))
+(def merge-with-concat (partial merge-with concat))
+
+(defn document-plan->semantic-graph
+  ([root] (document-plan->semantic-graph root {}))
+  ([root {variable-names :var-names}]
+   (loop [zipper (-> root (preprocess) (make-zipper))
+          graph #::sg{:relations [] :concepts []}
+          variables {}]
+     (if (or (zip/end? zipper) (empty? root))
+       (postprocess graph)
+       (let [{:keys [id name type] :as node} (zip/node zipper)]
+         (recur
+           (zip/next zipper)
+           (merge-with concat graph (build-semantic-graph
+                                      node
+                                      {:vars      variables
+                                       :var-names variable-names}))
+           (cond-> variables
+                   (= "Define-var" type) (merge-with-concat {name [id]}))))))))
 
 (s/fdef document-plan->semantic-graph
-        :args (s/cat :document-plan map?)
+        :args (s/cat :document-plan map? :metadata map?)
         :ret ::sg/graph)

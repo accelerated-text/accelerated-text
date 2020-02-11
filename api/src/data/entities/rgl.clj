@@ -5,23 +5,22 @@
             [clojure.string :as str]))
 
 (defn read-rgl [f]
-  (let [instance (utils/read-edn f)]
-    (for [{:keys [function type example]} (:functions instance)]
-      (let [roles (subvec type 0 (dec (count type)))
-            ret (last type)]
-        {:id     (str function "/" (str/join "->" type))
-         :kind   (last type)
-         :roles  (map (fn [role] {:type (str/replace role #"[()]" "") :label role}) roles)
-         :label  function
-         :name   (str/join " -> " type)
-         :frames [{:examples [example]
-                   :syntax   [{:type   :oper
-                               :value  function
-                               :ret    ret
-                               :params (map (fn [role index]
-                                              {:id   (format "ARG%d" index)
-                                               :type role})
-                                            roles (range))}]}]}))))
+  (for [{{:keys [function type example]} :functions} (utils/read-edn f)]
+    (let [roles (subvec type 0 (dec (count type)))
+          ret (last type)]
+      {:id     (str function "/" (str/join "->" type))
+       :kind   (last type)
+       :roles  (map (fn [role] {:type (str/replace role #"[()]" "") :label role}) roles)
+       :label  function
+       :name   (str/join " -> " type)
+       :frames [{:examples [example]
+                 :syntax   [{:type   :oper
+                             :value  function
+                             :ret    ret
+                             :params (map (fn [role index]
+                                            {:id   (format "ARG%d" index)
+                                             :type role})
+                                          roles (range))}]}]})))
 
 (defn list-package [package]
   (let [abs-path (.getParent (io/file package))]
