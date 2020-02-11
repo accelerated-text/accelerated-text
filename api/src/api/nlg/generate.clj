@@ -38,7 +38,12 @@
 (defn generate-text
   ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
   ([document-plan data reader-model enrich]
-   (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
+   (let [languages      (cond-> []
+                          (get reader-model "English"  false)    (conj :en)
+                          (get reader-model "German"   false)    (conj :de)
+                          (get reader-model "Estonian" false)    (conj :est)
+                          (get reader-model "Latvian"  false)    (conj :lv))
+         semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)
          ref-expr-fn (partial ref-expr/apply-ref-expressions :en)
          enrich-data (into {} (map (fn [[k v]] {v (format "{%s}" (name k))}) data))
@@ -46,6 +51,8 @@
                      (cond-> {:original (ref-expr-fn text)}
                        enrich (assoc :enriched (ref-expr-fn
                                                 (nlg/enrich-text enrich-data text)))))]
+     (log/debugf "Languages: %s" languages)
+     (log/debugf "Reader Model: %s" reader-model)
      (->> (nlg/generate-text semantic-graph (assoc context :data  data))
           (map :text)
           (sort)
@@ -153,7 +160,8 @@
                     :standoff standoff-format
                     annotated-text-format)]
     (try
-      (if-let [{:keys [results ready updatedAt]} (results/fetch request-id)]
+      (if-let [{:keys [results ready updatedAt]} dummy-response ;; (results/fetch request-id)
+               ]
         {:status 200
          :body   {:offset     0
                   :totalCount (count (flatten results)) ;; Each key has N results. So flatten and count total
