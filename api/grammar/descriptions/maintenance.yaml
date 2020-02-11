@@ -1,0 +1,14 @@
+roles:
+  - Action
+  - Instrument
+frames:
+  - example: Cleaning is easy with the removable filter
+    syntax:
+      - type: oper
+        value: maintenance
+        ret: S
+        params:
+          - role: Action
+            type: CN
+          - role: Instrument
+            type: CN
