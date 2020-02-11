@@ -7,10 +7,11 @@ resource MaintenanceEst = open
 
        -- Cleaning is easy with removable filter
   oper
-    maintenance : CN -> CN -> S = \subject, object ->
-      (mkS
-         (mkCl
-            (mkNP subject)
-            (mkNP (mkCN (mkN "easy") (withSomething object)))));
+    maintenance : CN -> CN -> Text = \subject, object ->
+      (mkText
+        (mkS
+          (mkCl
+             (mkNP subject)
+             (mkNP (mkCN (mkN "easy") (withSomething object))))));
 
 }

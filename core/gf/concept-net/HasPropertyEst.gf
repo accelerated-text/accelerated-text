@@ -1,4 +1,4 @@
-resource HasPropertyEng = open SyntaxEng, ParadigmsEng, UtilsEng in {
+resource HasPropertyEst = open SyntaxEst, ParadigmsEst, UtilsEst in {
 
   oper -- hasProperty
 

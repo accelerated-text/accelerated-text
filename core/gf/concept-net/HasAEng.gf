@@ -2,12 +2,13 @@ resource HasAEng = open ParadigmsEng, SyntaxEng, UtilsEng, BaseDictionaryEng in 
 
   oper -- A car has an engine
 
-    hasA_S : CN -> CN -> S =
+    hasA_S : CN -> CN -> Text =
       \subject,object ->
-        (mkS
-          (mkCl (mkNP the_Det subject)
-                have_V2
-             (mkNP a_Det object)));
+        (mkText
+          (mkS
+            (mkCl (mkNP the_Det subject)
+                  have_V2
+               (mkNP a_Det object))));
 
     hasA_NP : CN -> CN -> NP =
       \subject, object ->

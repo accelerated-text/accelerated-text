@@ -1,6 +1,6 @@
 resource combined = open CapableOfEng, HasAEng, ParadigmsEng, SyntaxEng in {
 
-  oper allInOne : CN -> CN -> V2 -> CN -> S =
+  oper allInOne : CN -> CN -> V2 -> CN -> Text =
          \subject, objectAttr, verb, objectAction ->
 
          (capableOf

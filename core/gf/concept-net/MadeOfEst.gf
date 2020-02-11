@@ -2,12 +2,13 @@ resource MadeOfEst = open ParadigmsEst, ConstructorsEst, SyntaxEst, BaseDictiona
 
   oper -- refrigerator is made of steel
 
-    madeOf : CN -> CN -> S =
+    madeOf : CN -> CN -> Text =
       \subject,object ->
-      (mkS
-         (mkCl
-            (mkNP subject)
-            (mkVP
-               (passiveVP make)
-               (ConstructorsEst.mkAdv from_Prep (mkNP object)))));
+      (mkText
+        (mkS
+          (mkCl
+             (mkNP subject)
+             (mkVP
+                (passiveVP make)
+                (ConstructorsEst.mkAdv from_Prep (mkNP object))))));
 }

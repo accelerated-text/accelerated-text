@@ -8,10 +8,11 @@ resource HasFeaturesEng = open
 
   -- The kettle features auto switch-off, this allows for the safe operation
   oper
-    allowsFor : CN -> CN -> CN -> S =
+    allowsFor : CN -> CN -> CN -> Text =
       \owner, subject, object ->
-      (mkS
-         (mkConj ",")
-         (itHasX owner subject)
-         (thisAllowsFor object));
+      (mkText
+        (mkS
+          (mkConj ",")
+          (itHasX owner subject)
+          (thisAllowsFor object)));
 }
