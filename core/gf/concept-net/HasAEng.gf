@@ -5,7 +5,7 @@ resource HasAEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
     hasA_S : CN -> CN -> S =
       \subject,object ->
         (mkS
-          (mkCl (mkNP a_Det subject)
+          (mkCl (mkNP the_Det subject)
                 have_V2
              (mkNP a_Det object)));
 

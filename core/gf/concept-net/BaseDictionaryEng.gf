@@ -11,11 +11,10 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   kitchen : CN = mkCN (mkN "kitchen");
   toaster : CN = mkCN (mkN "toaster");
   water : CN = mkCN (mkN "water");
-  low_power : AP = mkAP (mkA "low power");
   cleaning : CN = mkCN (mkN "cleaning");
   safeOp : CN = mkCN (mkN "safe operation");
 
-
+  low_power : AP = mkAP (mkA "low power");
   average_size: AP = mkAP (mkA "average size");
   standard : AP = mkAP (mkA "standard");
   fast : AP = mkAP (mkA "fast");
