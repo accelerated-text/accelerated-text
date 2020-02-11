@@ -12,10 +12,17 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   toaster : CN = mkCN (mkN "toaster");
   water : CN = mkCN (mkN "water");
   lowPower : AP = mkAP (mkA "low power");
-  avgSize : AP = mkAP (mkA "average size");
-  standard : AP = mkAP (mkA "standard");
   cleaning : CN = mkCN (mkN "cleaning");
   safeOp : CN = mkCN (mkN "safe operation");
+
+
+  avgSize : AP = mkAP (mkA "average size");
+  standard : AP = mkAP (mkA "standard");
+  fast : AP = mkAP (mkA "fast");
+
+  make : V2 = mkV2 (mkV "make" "made" "made");
+
+  of_Prep : Prep = mkPrep "of";
 
   toasterWithMods : CN = mkCN (combineMods lowPower avgSize) toaster;
   kitchenWithMods : CN = mkCN standard kitchen;

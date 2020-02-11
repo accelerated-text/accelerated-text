@@ -9,13 +9,14 @@ resource DefineObject = open
 
   -- T1000 is an average size, low power toaster suitable for the standard kitchen
   oper
-    characterization : CN -> CN -> CN -> S =
+    characterization : CN -> CN -> CN -> Text =
       \subject,attribute,amod ->
-      (mkS
-         (mkCl
-            (mkNP subject)
-            (mkNP
-               (mkCN
-                  attribute
-                  (forObject suitable amod)))));
+      (mkText 
+         (mkS
+            (mkCl
+               (mkNP subject)
+               (mkNP
+                  (mkCN
+                     attribute
+                     (forObject suitable amod))))));
 }
