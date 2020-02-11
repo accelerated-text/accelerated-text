@@ -57,6 +57,7 @@
                   (mapcat identity)
                   (map (partial add-replace-token lang))
                   (into {}))]
+    (log/tracef "Smap: %s" smap)
     (nlp/rebuild-sentences
      (map-indexed (fn
                     [idx v]
