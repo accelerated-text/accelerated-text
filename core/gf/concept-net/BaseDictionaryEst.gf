@@ -18,6 +18,8 @@ resource BaseDictionaryEst = open ResEst, ParadigmsEst, SyntaxEst, UtilsEst in {
     fridge : CN =  mkCN (mkN "külmik");
     steel : CN =  mkCN (mkN "terasest");
     removable_filter : CN = mkCN (mkN "eemaldatav filter");
+    small : AP = mkAP (mkA "väike");
+    regular : AP = mkAP (mkA "regulaarne");
 
     easy_N : N = mkN "lihtne";
 

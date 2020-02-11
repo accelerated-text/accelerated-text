@@ -25,6 +25,8 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   average_size: AP = mkAP (mkA "average size");
   standard : AP = mkAP (mkA "standard");
   fast : AP = mkAP (mkA "fast");
+  small : AP = mkAP (mkA "small");
+  regular : AP = mkAP (mkA "regular");
 
   make : V2 = mkV2 (mkV "make" "made" "made");
 
