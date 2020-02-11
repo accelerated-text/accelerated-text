@@ -23,7 +23,7 @@ def enricher():
 def test_tokenize():
     text = "Hello world, how are you?"
     result = tokenize(text)
-    assert result == ["hello", "world", ",", "how", "are", "you", "?"]
+    assert result == ["Hello", "world", ",", "how", "are", "you", "?"]
 
 @pytest.mark.parametrize(
     "tokens,pos,expected",
@@ -200,3 +200,31 @@ class TestFullEnrich(object):
         result = format_result(enricher.enrich(text, context={"city center": "{area}", "restaurant": "{eat_type}"}, max_iters=50))
         assert result != "Restaurant located in city center", "Sentence is not enriched"
         assert result in accepted_results
+
+    @pytest.mark.parametrize("execution_number", range(5))
+    def test_full_sentence_enrich_5(self, enricher, execution_number):
+        print(execution_number)
+        text = "Restaurant Alimentum located city center. Alimentum is near Burger King"
+        first_part = set([
+            "The restaurant Alimentum is located city center",
+            "The restaurant Alimentum is located in the city center",
+            "The restaurant Alimentum is located in city center",
+            "The restaurant Alimentum is in city center",
+
+            "Restaurant Alimentum is located city center",
+            "Restaurant Alimentum is located in the city center",
+            "Restaurant Alimentum is located in city center",
+            "Restaurant Alimentum is in city center",
+        ])
+
+        second_part = set([
+            "Alimentum is near Burger King",
+            "Alimentum is located near Burger King",
+            "Alimentum is near the Burger King",
+        ])
+
+        result = format_result(enricher.enrich(text, context={"Alimentum": "{name}", "restaurant": "{eat_type}"}, max_iters=50))
+        assert result != "Restaurant Alimentum located city center. Alimentum is near Burger King.", "Sentence is not enriched"
+        (part_1, part_2, _) = result.split(".")
+        assert part_1.strip() in first_part
+        assert part_2.strip() in second_part

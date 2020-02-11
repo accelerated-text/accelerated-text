@@ -5,13 +5,18 @@
   (str/split s #"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"))
 
 (defn tokenize [s]
-  (map first (re-seq #"((:(\w|[_-])+:)|([\w+'`]+|[^\s\w+'`]+))" s)))
+  (map first (re-seq #"((:(\w|[_-])+:)|(\{\{(\w|[_-])+\}\})|([\w+'`]+|[^\s\w+'`]+))" s)))
 
 (defn tokenize-incl-space [s]
   (map first (re-seq #"([\w+'`]+|[\s]+|[^\s\w+'`]+)" s)))
 
 (defn word? [s]
   (some? (re-seq #"\w" s)))
+
+(defn ends-with-s? [token] (= "s" (str (last token))))
+
+(defn starts-with-capital? [[s & _]]
+  (and (Character/isLetter s)  (= (str s) (str/upper-case s))))
 
 (defn token-type [token] (if (word? token) "WORD" "PUNCTUATION"))
 
@@ -25,8 +30,21 @@
 (defn process-sentence [s]
   (if-not (str/blank? s)
     (wrap-sentence
-      (capitalize-first-word s))
+     (capitalize-first-word s))
     ""))
+
+
+(defn clean-whitespace-before-punct
+  [text]
+  (str/replace text #"\s(?:[.,!:?])" #(str/trim %1)))
+
+(defn rebuild-sentences [tokens]
+  (->> (str/join " "  tokens)
+       (split-into-sentences)
+       (map clean-whitespace-before-punct)
+       (map str/trim)
+       (map process-sentence)
+       (str/join " ")))
 
 (defn annotate [text]
   {:text   text
@@ -36,5 +54,5 @@
              (if (nil? token)
                annotations
                (recur tokens (+ idx (count token)) (cond-> annotations
-                                                           (re-matches #"[^\s]+" token) (conj {:text token
-                                                                                               :idx  idx})))))})
+                                                     (re-matches #"[^\s]+" token) (conj {:text token
+                                                                                         :idx  idx})))))})
