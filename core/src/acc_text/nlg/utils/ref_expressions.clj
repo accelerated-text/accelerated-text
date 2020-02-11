@@ -33,10 +33,20 @@
     (nlp/ends-with-s? value) [idx "its"]
     :else                    [idx "it"]))
 
+(defn add-replace-token-ee
+  [[idx value]]
+  [idx "see"])
+
+(defn add-replace-token-de
+  [[idx value]]
+  [idx "es"])
+
 (defn add-replace-token
   [lang args]
   (case lang
     :en (add-replace-token-en args)
+    :de (add-replace-token-de args)
+    :ee (add-replace-token-ee args)
     nil))
 
 (defn apply-ref-expressions
