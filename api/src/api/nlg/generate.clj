@@ -41,7 +41,7 @@
    (let [languages      (cond-> []
                           (get reader-model "English"  false)    (conj :en)
                           (get reader-model "German"   false)    (conj :de)
-                          (get reader-model "Estonian" false)    (conj :est)
+                          (get reader-model "Estonian" false)    (conj :ee)
                           (get reader-model "Latvian"  false)    (conj :lv))
          semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)
@@ -116,16 +116,20 @@
        results))
 
 (defn prepend-lang-flag
-  [text]
-  ;; TODO: Harcoded EN flag at the moment. Should use flag of language used
-  (format "🇬🇧 %s" text))
+  [text lang]
+  (format "%s %s" (case lang
+                    :en "🇬🇧"
+                    :de "🇩🇪"
+                    :ee "🇪🇪"
+                    :lv "🇱🇻"
+                    "🏳️") text))
 
 (defn transform-results
   [results]
-  (mapcat (fn [{:keys [enriched original]}]
+  (mapcat (fn [{:keys [enriched original lang]}]
             (if enriched
-              [(format "📔\t%s " original) (format "📙\t%s" enriched)]
-              [original]))
+              [(prepend-lang-flag (format "📔\t%s " original) lang) (prepend-lang-flag (format "📙\t%s" enriched) lang)]
+              [(prepend-lang-flag original lang)]))
           results))
 
 (defn annotated-text-format [results]
@@ -133,7 +137,6 @@
        (map second)
        (flatten) ;; Don't care about any bulk keys at the moment
        (transform-results)
-       (map prepend-lang-flag)
        (wrap-to-annotated-text)))
 
 (defn raw-format [results]
@@ -149,9 +152,10 @@
 
 (def dummy-response
   {:ready true
-   :results [[:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence one . Test sentence Two .")}]]
+   :results [[:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence one . Test sentence Two .") :lang :lv}]]
              [:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence 12.3 one . Test sentence Two .")
-                       :enriched (ref-expr/apply-ref-expressions :en "Test sentence one. Test sentence Two. Test sentence four. A very very long fith sentence test goes here. Test sentence six.")}]]]})
+                       :enriched (ref-expr/apply-ref-expressions :en "Test sentence one. Test sentence Two. Test sentence four. A very very long fith sentence test goes here. Test sentence six.")
+                       :lang :de}]]]})
 
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)
