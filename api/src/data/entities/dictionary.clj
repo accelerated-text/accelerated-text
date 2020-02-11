@@ -15,8 +15,9 @@
   (db/list! reader-flags-db 100))
 
 (defn get-default-flags []
-  {:English :YES
-   :German  :NO})
+  {:English  :YES
+   :German   :NO
+   :Estonian :NO})
 
 (defn get-reader [key]
   (db/read! reader-flags-db key))
