@@ -50,8 +50,7 @@
          (dedupe)
          (filter filter-empty)
          (utils/inspect-results)
-         (map enrich-fn)
-         (map merge-enrich-dupes))))
+         (map enrich-fn))))
 
 
 (defn generate-text
