@@ -1,6 +1,7 @@
 (ns api.nlg.generate
   (:require [acc-text.nlg.utils.nlp :as nlp]
             [acc-text.nlg.core :as nlg]
+            [acc-text.nlg.utils.ref-expressions :as ref-expr]
             [api.nlg.context :as context]
             [api.nlg.parser :as parser]
             [api.utils :as utils]
@@ -39,10 +40,12 @@
   ([document-plan data reader-model enrich]
    (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)
+         ref-expr-fn (partial ref-expr/apply-ref-expressions :en)
          enrich-data (into {} (map (fn [[k v]] {v (format "{%s}" (name k))}) data))
          enrich-fn (fn [text]
-                     (cond-> {:original text}
-                       enrich (assoc :enriched (nlg/enrich-text enrich-data text))))]
+                     (cond-> {:original (ref-expr-fn text)}
+                       enrich (assoc :enriched (ref-expr-fn
+                                                (nlg/enrich-text enrich-data text)))))]
      (->> (nlg/generate-text semantic-graph (assoc context :data  data))
           (map :text)
           (sort)

@@ -163,9 +163,8 @@
   (let [{{result-id :resultId} :body status :status} (generate "multiple-segments" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    ;; Spaces before dot - our generation bug at the moment, TODO: fix it
-    (is (= #{"Manu Konchady is the author of Building Search Applications . Rarely is so much learning displayed with so much grace and charm."
-             "Building Search Applications is written by Manu Konchady . Rarely is so much learning displayed with so much grace and charm."}
+    (is (= #{"Manu Konchady is the author of Building Search Applications. Rarely is so much learning displayed with so much grace and charm."
+             "Building Search Applications is written by Manu Konchady. Rarely is so much learning displayed with so much grace and charm."}
            (get-original-results result-id)))))
 
 (deftest ^:integration sequence-with-empty-shuffle-plan-generation
@@ -269,13 +268,13 @@
   (let [{{result-id :resultId} :body status :status} (generate "located-near" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
-    (is (= #{"In the city centre , near the KFC there is a place Alimentum."
-             "In the city centre , near the KFC there is a venue Alimentum."
-             "In the city centre , near the KFC there is an arena Alimentum."
-             "There is a place in the city centre , near the KFC Alimentum."
-             "There is a venue in the city centre , near the KFC Alimentum."
-             "There is an Alimentum in the city centre , near the KFC."
-             "There is an arena in the city centre , near the KFC Alimentum."} (get-original-results result-id)))))
+    (is (= #{"In the city centre, near the KFC there is a place Alimentum."
+             "In the city centre, near the KFC there is a venue Alimentum."
+             "In the city centre, near the KFC there is an arena Alimentum."
+             "There is a place in the city centre, near the KFC Alimentum."
+             "There is a venue in the city centre, near the KFC Alimentum."
+             "There is an Alimentum in the city centre, near the KFC."
+             "There is an arena in the city centre, near the KFC Alimentum."} (get-original-results result-id)))))
 
 (deftest ^:integration gf-amr-modifier-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "gf-amr-modifier" "books.csv")]
