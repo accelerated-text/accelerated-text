@@ -1,4 +1,4 @@
-resource HasAEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
+resource HasAEng = open ParadigmsEng, SyntaxEng, UtilsEng, BaseDictionaryEng in {
 
   oper -- A car has an engine
 
@@ -14,6 +14,6 @@ resource HasAEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
       (mkNP
          (mkNP a_Det subject)
          (SyntaxEng.mkAdv
-            (mkPrep "with")
+            with_Prep
             (mkNP a_Det object))) ;
 }

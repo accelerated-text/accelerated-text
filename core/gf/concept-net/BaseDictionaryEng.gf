@@ -12,7 +12,10 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   toaster : CN = mkCN (mkN "toaster");
   water : CN = mkCN (mkN "water");
   cleaning : CN = mkCN (mkN "cleaning");
-  safeOp : CN = mkCN (mkN "safe operation");
+  safe_peration : CN = mkCN (mkN "safe operation");
+  auto_switch : CN =  mkCN (mkN "auto switch-off");
+  kettle : CN =  mkCN (mkN "kettle");
+  fridge : CN =  mkCN (mkN "fridge");
 
   low_power : AP = mkAP (mkA "low power");
   average_size: AP = mkAP (mkA "average size");
@@ -22,6 +25,7 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   make : V2 = mkV2 (mkV "make" "made" "made");
 
   of_Prep : Prep = mkPrep "of";
+  with_Prep : Prep = mkPrep "with";
 
   -- for dev
   toasterWithMods : CN = mkCN (combineMods low_power average_size) toaster;
