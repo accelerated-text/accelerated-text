@@ -18,19 +18,19 @@ resource BaseDictionaryEst = open ResEst, ParadigmsEst, SyntaxEst, UtilsEst in {
     fridge : CN =  mkCN (mkN "külmik");
     steel : CN =  mkCN (mkN "terasest");
     removable_filter : CN = mkCN (mkN "eemaldatav filter");
-    small : AP = mkAP (mkA "väike");
-    regular : AP = mkAP (mkA "regulaarne");
+    small : A = (mkA "väike");
+    regular : A = (mkA "regulaarne");
 
     easy_N : N = mkN "lihtne";
 
-    low_power : AP = mkAP (mkA "väike võimsus");
-    average_size : AP = mkAP (mkA "keskmine suurus");
-    standard : AP = mkAP (mkA "standard");
-    fast : AP = mkAP (mkA "kiire");
+    low_power : A = (mkA "väike võimsus");
+    average_size : A = (mkA "keskmine suurus");
+    standard : A = (mkA "standard");
+    fast : A = (mkA "kiire");
 
     make : V2 = mkV2 (mkV "tegema");
 
     -- for dev
-    toasterWithMods : CN = mkCN (combineMods low_power average_size) toaster;
-    kitchenWithMods : CN = mkCN standard kitchen;
+    -- toasterWithMods : CN = mkCN (combineMods low_power average_size) toaster;
+    -- kitchenWithMods : CN = mkCN standard kitchen;
 }

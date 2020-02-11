@@ -55,10 +55,7 @@
   (let [name (concept->name concept)
         dict-entry (get dictionary value)]
     {:name  name
-     :value (-> dict-entry
-                (cond->> (empty? dict-entry) (cons (or item-name value)))
-                (distinct)
-                (into []))
+     :value [value]
      :type  (get types name "Str")}))
 
 (defmulti build-function (fn [concept _ _ _ _] (:type concept)))

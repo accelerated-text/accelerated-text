@@ -21,12 +21,12 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
 
   easy_N : N = mkN "easy";
 
-  low_power : AP = mkAP (mkA "low power");
-  average_size: AP = mkAP (mkA "average size");
-  standard : AP = mkAP (mkA "standard");
-  fast : AP = mkAP (mkA "fast");
-  small : AP = mkAP (mkA "small");
-  regular : AP = mkAP (mkA "regular");
+  low_power : A = (mkA "low power");
+  average_size: A = (mkA "average size");
+  standard : A = (mkA "standard");
+  fast : A = (mkA "fast");
+  small : A = (mkA "small");
+  regular : A = (mkA "regular");
 
   make : V2 = mkV2 (mkV "make" "made" "made");
 
@@ -34,6 +34,6 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   with_Prep : Prep = mkPrep "with";
 
   -- for dev
-  toasterWithMods : CN = mkCN (combineMods low_power average_size) toaster;
-  kitchenWithMods : CN = mkCN standard kitchen;
+  -- toasterWithMods : CN = mkCN (combineMods low_power average_size) toaster;
+  -- kitchenWithMods : CN = mkCN standard kitchen;
 }

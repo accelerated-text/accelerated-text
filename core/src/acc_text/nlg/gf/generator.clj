@@ -7,7 +7,13 @@
             [jsonista.core :as json]
             [clojure.tools.logging :as log]))
 
+(def dictionary #{"allows"  "removable_filter"  "auto_switch"  "standard"
+                  "this" "safe_peration" "cleaning" "water" "fridge"
+                  "small" "low_power" "of_Prep" "make" "toaster"
+                  "fast" "suitable" "with_Prep" "steel" "regular" "kitchen"
+                  "t1000" "kettle" "average_size" "features" "easy_N"})
 (defn s-ret? [ret] (coll? ret))
+
 (defn f-param? [function-name] (str/starts-with? function-name "Amr"))
 
 (defn join-body [& args]
@@ -37,13 +43,15 @@
 
 (defn join-value [type value]
   (->> value
-       (map #(case type
-               "Str" (format "\"%s\"" (escape-string %))
-               "Pol" (if (Boolean/valueOf ^String %)
-                       "positivePol"
-                       "negativePol")
-               "CN" (format "(mkCN (mkN \"%s\"))" (escape-string %))
-               (format "(mk%s \"%s\")" type (escape-string %))))
+       (map #(if (contains? dictionary %)
+               %
+               (case type
+                 "Str" (format "\"%s\"" (escape-string %))
+                 "Pol" (if (Boolean/valueOf ^String %)
+                         "positivePol"
+                         "negativePol")
+                 "CN" (format "(mkCN (mkN \"%s\"))" (escape-string %))
+                 (format "(mk%s \"%s\")" type (escape-string %)))))
        (str/join " | ")))
 
 (defn parse-oper [variables]
