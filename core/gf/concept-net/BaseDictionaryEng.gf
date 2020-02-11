@@ -16,6 +16,10 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   auto_switch : CN =  mkCN (mkN "auto switch-off");
   kettle : CN =  mkCN (mkN "kettle");
   fridge : CN =  mkCN (mkN "fridge");
+  steel : CN =  mkCN (mkN "steel");
+  removable_filter : CN = mkCN (mkN "removable filter");
+
+  easy_N : N = mkN "easy";
 
   low_power : AP = mkAP (mkA "low power");
   average_size: AP = mkAP (mkA "average size");

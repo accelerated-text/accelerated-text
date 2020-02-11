@@ -1,11 +1,11 @@
-resource Maintenance = open
-  ParadigmsEng, SyntaxEng, BaseDictionaryEng in {
+resource MaintenanceEst = open
+  ParadigmsEst, SyntaxEst, BaseDictionaryEst in {
 
   oper withSomething : CN -> Adv =
          \thing ->
-         (SyntaxEng.mkAdv with_Prep (mkNP the_Det thing));
+         (SyntaxEst.mkAdv with_Prep (mkNP the_Det thing));
 
-  -- Cleaning is easy with removable filter
+       -- Cleaning is easy with removable filter
   oper
     maintenance : CN -> CN -> S = \subject, object ->
       (mkS

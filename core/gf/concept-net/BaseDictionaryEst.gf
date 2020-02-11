@@ -16,6 +16,10 @@ resource BaseDictionaryEst = open ResEst, ParadigmsEst, SyntaxEst, UtilsEst in {
     auto_switch : CN =  mkCN (mkN "automaatne väljalülitamin");
     kettle : CN =  mkCN (mkN "veekeetja");
     fridge : CN =  mkCN (mkN "külmik");
+    steel : CN =  mkCN (mkN "terasest");
+    removable_filter : CN = mkCN (mkN "eemaldatav filter");
+
+    easy_N : N = mkN "lihtne";
 
     low_power : AP = mkAP (mkA "väike võimsus");
     average_size : AP = mkAP (mkA "keskmine suurus");
