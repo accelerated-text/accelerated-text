@@ -13,3 +13,8 @@
 (deftest test-replace-refs
   (is (= "Alimentum is nice. It serves good food. Starbucks provides coffee. Its coffee is awesome. We're going to drink coffee at Starbucks."
          (r/apply-ref-expressions :en "Alimentum is nice. It serves good food. Starbucks provides coffee. Starbucks coffee is awesome. We're going to drink coffee at Starbucks."))))
+
+
+(deftest test-dont-replace-refs-in-unsupported-languages
+  (is (= "Alimentum is nice. Alimentum serves good food."
+         (r/apply-ref-expressions :lat "Alimentum is nice. Alimentum serves good food."))))

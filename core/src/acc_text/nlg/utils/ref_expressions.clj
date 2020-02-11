@@ -37,7 +37,7 @@
   [lang args]
   (case lang
     :en (add-replace-token-en args)
-    (add-replace-token-en args)))
+    nil))
 
 (defn apply-ref-expressions
   [lang text]
