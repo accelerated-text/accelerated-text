@@ -172,7 +172,7 @@
               "AtLocationEng" "CapableOfEng" "HasAEng"
               "HasPropertyEng" "IsAEng" "LocatedNearEng"
               "MadeOfEng" "HasAEng"
-              "DefineObject" "Maintenance" "HasFeatures"])
+              "DefineObjectEng" "Maintenance" "HasFeatures"])
 
 (defn ->incomplete [{::grammar/keys [module functions]}]
   (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"
