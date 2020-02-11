@@ -44,7 +44,7 @@
                     (cond-> {:original (ref-expr-fn text) :lang lang}
                       enrich (assoc :enriched (ref-expr-fn
                                                (nlg/enrich-text enrich-data text)))))]
-    (->> (nlg/generate-text semantic-graph context)
+    (->> (nlg/generate-text semantic-graph context lang)
          (map :text)
          (sort)
          (dedupe)
