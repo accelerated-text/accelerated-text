@@ -11,12 +11,12 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   kitchen : CN = mkCN (mkN "kitchen");
   toaster : CN = mkCN (mkN "toaster");
   water : CN = mkCN (mkN "water");
-  lowPower : AP = mkAP (mkA "low power");
+  low_power : AP = mkAP (mkA "low power");
   cleaning : CN = mkCN (mkN "cleaning");
   safeOp : CN = mkCN (mkN "safe operation");
 
 
-  avgSize : AP = mkAP (mkA "average size");
+  average_size: AP = mkAP (mkA "average size");
   standard : AP = mkAP (mkA "standard");
   fast : AP = mkAP (mkA "fast");
 
@@ -24,6 +24,7 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
 
   of_Prep : Prep = mkPrep "of";
 
-  toasterWithMods : CN = mkCN (combineMods lowPower avgSize) toaster;
+  -- for dev
+  toasterWithMods : CN = mkCN (combineMods low_power average_size) toaster;
   kitchenWithMods : CN = mkCN standard kitchen;
 }
