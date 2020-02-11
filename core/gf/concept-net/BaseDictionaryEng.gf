@@ -20,7 +20,7 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   standard : AP = mkAP (mkA "standard");
   fast : AP = mkAP (mkA "fast");
 
-  make : V2 = mkV2 (mkV "make");
+  make : V2 = mkV2 (mkV "make" "made" "made");
 
   of_Prep : Prep = mkPrep "of";
 

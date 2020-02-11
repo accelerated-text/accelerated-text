@@ -1,4 +1,4 @@
-resource MadeOfEng = open ParadigmsEng, ConstructorsEng, SyntaxEng in {
+resource MadeOfEng = open ParadigmsEng, ConstructorsEng, SyntaxEng, BaseDictionaryEng in {
 
   oper -- refrigerator is made of steel
 
@@ -8,7 +8,6 @@ resource MadeOfEng = open ParadigmsEng, ConstructorsEng, SyntaxEng in {
           (mkCl
             (mkNP subject)
             (mkVP
-              (passiveVP (mkV2 (mkV "make" "made" "made")))
-              (ConstructorsEng.mkAdv (mkPrep "of") (mkNP object))))) ;
-
+              (passiveVP make)
+              (ConstructorsEng.mkAdv of_Prep (mkNP object)))));
 }
