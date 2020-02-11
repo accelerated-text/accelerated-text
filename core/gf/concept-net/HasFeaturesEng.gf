@@ -1,4 +1,4 @@
-resource HasFeatures = open
+resource HasFeaturesEng = open
   ParadigmsEng, SyntaxEng, UtilsEng, (R=ResEng), BaseDictionaryEng in {
 
   oper itHasX : CN -> CN -> S = \parent, hasX -> (mkS (mkCl (mkNP parent) features (mkNP hasX)));
