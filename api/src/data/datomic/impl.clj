@@ -108,6 +108,7 @@
 
 (defmethod pull-entity :data-files [_ key]
   (let [data-file (ffirst (d/q '[:find (pull ?e [*])
+                                 :in $ ?key
                                  :where
                                  [?e :data-file/id ?key]]
                                (d/db conn)
