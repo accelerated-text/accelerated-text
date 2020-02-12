@@ -5,7 +5,7 @@
             [clojure.string :as str]))
 
 (defn read-rgl [f]
-  (for [{{:keys [function type example]} :functions} (utils/read-edn f)]
+  (for [{:keys [function type example]} (:functions (utils/read-edn f))]
     (let [roles (subvec type 0 (dec (count type)))
           ret (last type)]
       {:id     (str function "/" (str/join "->" type))
