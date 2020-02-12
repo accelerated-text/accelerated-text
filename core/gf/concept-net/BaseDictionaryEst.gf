@@ -4,6 +4,7 @@ resource BaseDictionaryEst = open ResEst, ParadigmsEst, SyntaxEst, UtilsEst in {
     suitable : A2 = mkA2 (mkA ("sobivad")) for_Prep;
     allows: V2 = mkV2 (mkV "lube") for_Prep;
     features: V2 = mkV2 (mkV "näojooned");
+    includes: V2 = mkV2 (mkV "sisaldama");
 
     this: CN = mkCN (mkN "see");
 
@@ -16,10 +17,12 @@ resource BaseDictionaryEst = open ResEst, ParadigmsEst, SyntaxEst, UtilsEst in {
     auto_switch : CN =  mkCN (mkN "automaatne väljalülitamin");
     kettle : CN =  mkCN (mkN "veekeetja");
     fridge : CN =  mkCN (mkN "külmik");
+    door: CN =  mkCN (mkN "uks");
     steel : CN =  mkCN (mkN "terasest");
+    wood : CN =  mkCN (mkN "puit");
     removable_filter : CN = mkCN (mkN "eemaldatav filter");
-    small : A = (mkA "väike");
-    regular : A = (mkA "regulaarne");
+    package : CN = mkCN (mkN "pakett");
+    interior_use : CN = mkCN (mkN "siseruumides kasutamiseks");
 
     easy_N : N = mkN "lihtne";
 
@@ -27,6 +30,8 @@ resource BaseDictionaryEst = open ResEst, ParadigmsEst, SyntaxEst, UtilsEst in {
     average_size : A = (mkA "keskmine suurus");
     standard : A = (mkA "standard");
     fast : A = (mkA "kiire");
+    small : A = (mkA "väike");
+    regular : A = (mkA "regulaarne");
 
     make : V2 = mkV2 (mkV "tegema");
 

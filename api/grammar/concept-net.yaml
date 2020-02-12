@@ -8,3 +8,4 @@ includes:
   - descriptions/has-feature.yaml
   - descriptions/define-object.yaml
   - descriptions/maintenance.yaml
+  - descriptions/includes.yaml

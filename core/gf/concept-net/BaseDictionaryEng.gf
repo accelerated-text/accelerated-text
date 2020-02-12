@@ -4,6 +4,7 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   suitable : A2 = mkA2 (mkA ("suitable" | "good")) for_Prep;
   allows: V2 = mkV2 (mkV ("allow" | "enable")) for_Prep;
   features: V2 = mkV2 (mkV "feature");
+  includes: V2 = mkV2 (mkV ("include" | "contain" ));
 
   this: CN = mkCN (mkN "this");
 
@@ -16,8 +17,12 @@ resource BaseDictionaryEng = open ParadigmsEng, SyntaxEng, UtilsEng in {
   auto_switch : CN =  mkCN (mkN "auto switch-off");
   kettle : CN =  mkCN (mkN "kettle");
   fridge : CN =  mkCN (mkN "fridge");
+  door: CN =  mkCN (mkN "door");
   steel : CN =  mkCN (mkN "steel");
+  wood : CN =  mkCN (mkN "wood");
   removable_filter : CN = mkCN (mkN "removable filter");
+  package : CN = mkCN (mkN "package");
+  interior_use : CN = mkCN (mkN "interior use");
 
   easy_N : N = mkN "easy";
 
