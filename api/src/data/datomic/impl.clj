@@ -201,9 +201,9 @@
 (defmulti pull-n (fn [resource-type _] resource-type))
 
 (defmethod pull-n :data-files [_ limit]
-  (let [resp (first (d/q '[:find (pull ?e [*])
-                           :where [?e :data-file/id]]
-                         (d/db conn)))]
+  (let [resp (map first (d/q '[:find (pull ?e [*])
+                               :where [?e :data-file/id]]
+                             (d/db conn)))]
 
     (map (fn [df] {:id       (:data-file/id df)
                    :filename (:data-file/filename df)
