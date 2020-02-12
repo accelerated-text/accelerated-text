@@ -5,10 +5,6 @@
             [data.entities.amr :as amr]))
 
 (defn prepare-environment [f]
-  (doseq [[id path] [["author" "test/resources/amr/author.yaml"]
-                     ["cut" "test/resources/amr/cut.yaml"]
-                     ["see" "test/resources/amr/see.yaml"]]]
-    (amr/write-amr (amr/document-plan->amr id (slurp path))))
   (f))
 
 (use-fixtures :each db/clean-db prepare-environment)
@@ -30,17 +26,6 @@
     (is (nil? errors))
     (is (seq concepts))
     (is (= "concepts" id))))
-
-(deftest ^:integration add-concept
-  (let [id "author"
-        content (slurp "test/resources/amr/author.yaml")
-        query "mutation addConcept($id:String! $content:String!){addConcept(id:$id content:$content){id label roles{id fieldType fieldLabel} helpText}}}"
-        {{errors :errors} :body}
-        (q "/_graphql" :post {:query     query
-                              :variables {:id      id
-                                          :content content}})]
-    (is (nil? errors))
-    (is (= (amr/document-plan->amr id content) (amr/get-amr id)))))
 
 (deftest ^:integration delete-concept
   (let [id "author"

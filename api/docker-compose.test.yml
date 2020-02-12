@@ -8,8 +8,8 @@ services:
     environment:
       DYNAMODB_ENDPOINT: http://localstack:4569
       GF_ENDPOINT: http://gf:8000
-      GRAMMAR_PACKAGE: "/opt/grammar/all.yaml"
-      RGL_GRAMMAR_PACKAGE: "/opt/grammar/rgl.yaml"
+      GRAMMAR_PACKAGE: "/opt/grammar/library"
+      GRAMMAR_PARADIGMS: "/opt/grammar/paradigms"
       ENRICH_ENDPOINT: "http://enrich:8000"
       DICT_PATH: "/opt/grammar/dictionary"
     command: ["clojure", "-A:dev:test", "-i", "integration"]

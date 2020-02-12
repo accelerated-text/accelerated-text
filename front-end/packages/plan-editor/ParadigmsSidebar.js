@@ -2,7 +2,10 @@ import { h }                from 'preact';
 
 import ParadigmsConcepts    from '../amr-concepts/ParadigmsConcepts';
 import ParadigmsEngConcepts from '../amr-concepts/ParadigmsEngConcepts';
+import ParadigmsEstConcepts from '../amr-concepts/ParadigmsEstConcepts';
 import ParadigmsGerConcepts from '../amr-concepts/ParadigmsGerConcepts';
+import ParadigmsLavConcepts from '../amr-concepts/ParadigmsLavConcepts';
+import ParadigmsRusConcepts from '../amr-concepts/ParadigmsRusConcepts';
 import composeContexts      from '../compose-contexts/';
 import DataManager          from '../data-manager/DataManager';
 import Dictionary           from '../dictionary/Dictionary';
@@ -29,8 +32,17 @@ export default composeContexts({
         <SidebarItem title="English">
             <ParadigmsEngConcepts />
         </SidebarItem>
+        <SidebarItem title="Estonian">
+            <ParadigmsEstConcepts />
+        </SidebarItem>
         <SidebarItem title="German">
             <ParadigmsGerConcepts />
+        </SidebarItem>
+        <SidebarItem title="Latvian">
+            <ParadigmsLavConcepts />
+        </SidebarItem>
+        <SidebarItem title="Russian">
+            <ParadigmsRusConcepts />
         </SidebarItem>
         <SidebarItem title="RGL">
             <ParadigmsConcepts />

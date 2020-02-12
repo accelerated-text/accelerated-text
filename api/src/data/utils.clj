@@ -1,6 +1,5 @@
 (ns data.utils
-  (:require [clj-yaml.core :as yaml]
-            [clojure.edn :as edn]
+  (:require [clojure.edn :as edn]
             [clojure.java.io :as io])
   (:import (java.io File PushbackReader)
            (java.util UUID)
@@ -11,9 +10,6 @@
 
 (defn ts-now []
   (long (.getEpochSecond (Instant/now))))
-
-(defn read-yaml [^File f]
-  (yaml/parse-string (slurp f)))
 
 (defn read-edn [^File f]
   (with-open [rdr (io/reader f)]
@@ -28,4 +24,18 @@
 (defn get-name [^File f]
   (let [filename (.getName f)
         index (.lastIndexOf filename ".")]
-    (cond-> filename (not= index -1) (subs 0 index))))
+    (cond-> filename
+            (not= index -1) (subs 0 index))))
+
+(defn list-files [path]
+  (->> path
+       (io/file)
+       (file-seq)
+       (filter #(.isFile ^File %))))
+
+(defn list-directories [path]
+  (->> path
+       (io/file)
+       (file-seq)
+       (filter #(.isDirectory ^File %))
+       (rest)))

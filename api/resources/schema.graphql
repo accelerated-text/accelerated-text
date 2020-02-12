@@ -196,8 +196,11 @@ type Concepts {
     amr:               [ Concept! ]
     rgl:               [ Concept! ]
     paradigms:         [ Concept! ]
-    paradigmsEng:      [ Concept! ]
-    paradigmsGer:      [ Concept! ]
+    ParadigmsEng:      [ Concept! ]
+    ParadigmsGer:      [ Concept! ]
+    ParadigmsEst:      [ Concept! ]
+    ParadigmsLav:      [ Concept! ]
+    ParadigmsRus:      [ Concept! ]
 }
 
 

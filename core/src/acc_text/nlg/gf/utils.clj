@@ -1,6 +1,5 @@
 (ns acc-text.nlg.gf.utils
-  (:require [clojure.java.io :as io]
-            [clojure.pprint :refer [pprint]]
+  (:require [clojure.pprint :refer [pprint]]
             [clojure.string :as str]))
 
 (defn get-rgl-functions-from-resource [& paths]
@@ -26,6 +25,7 @@
               (let [[{:keys [type description]}] instances]
                 {:type        type
                  :description description
+                 :module      "Constructors"
                  :functions   (into [] (mapcat :functions instances))})))
        (sort-by :type)
        (into [])))

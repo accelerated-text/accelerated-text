@@ -110,10 +110,19 @@ query concepts {
         paradigms {
             ...conceptFields
         }
-        paradigmsEng {
+        ParadigmsEng {
             ...conceptFields
         }
-        paradigmsGer {
+        ParadigmsEst {
+            ...conceptFields
+        }
+        ParadigmsGer {
+            ...conceptFields
+        }
+        ParadigmsLav {
+            ...conceptFields
+        }
+        ParadigmsRus {
             ...conceptFields
         }
     }
