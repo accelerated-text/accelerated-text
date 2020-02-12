@@ -11,7 +11,8 @@
                   "this" "safe_peration" "cleaning" "water" "fridge"
                   "small" "low_power" "of_Prep" "make" "toaster"
                   "fast" "suitable" "with_Prep" "steel" "regular" "kitchen"
-                  "t1000" "kettle" "average_size" "features" "easy_N"})
+                  "t1000" "kettle" "average_size" "features" "easy_N"
+                  "includes" "package"})
 (defn s-ret? [ret] (coll? ret))
 
 (defn f-param? [function-name] (str/starts-with? function-name "Amr"))
@@ -181,6 +182,7 @@
           (for [import ["Syntax%s" "Paradigms%s" "CapableOf%s"
                         "HasProperty%s" "IsA%s" "HasA%s"
                         "Maintenance%s" "DefineObject%s" "HasFeatures%s"
+                        "Includes%s"
                         "MadeOf%s" "HasA%s"]]
             (format import lang))))
 

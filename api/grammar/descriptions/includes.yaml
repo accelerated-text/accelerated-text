@@ -1,0 +1,11 @@
+roles:
+  - Object
+frames:
+  - example: A book includes pages
+    syntax:
+      - type: oper
+        value: included
+        ret: S
+        params:
+          - role: Object
+            type: CN
