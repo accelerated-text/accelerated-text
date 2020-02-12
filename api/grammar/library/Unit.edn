@@ -1,0 +1,14 @@
+{:type "Unit",
+ :description "",
+ :module "Constructors",
+ :functions
+ [{:function "n1_Unit", :type ["Unit"], :example "one"}
+  {:function "n2_Unit", :type ["Unit"], :example "two"}
+  {:function "n3_Unit", :type ["Unit"], :example "three"}
+  {:function "n4_Unit", :type ["Unit"], :example "four"}
+  {:function "n5_Unit", :type ["Unit"], :example "five"}
+  {:function "n6_Unit", :type ["Unit"], :example "six"}
+  {:function "n7_Unit", :type ["Unit"], :example "seven"}
+  {:function "n8_Unit", :type ["Unit"], :example "eight"}
+  {:function "n9_Unit", :type ["Unit"], :example "nine"}
+  {:function "lets_Utt", :type ["VP" "Utt"], :example "let's sleep"}]}

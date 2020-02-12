@@ -1,0 +1,5 @@
+{:type "VQ",
+ :description "question-complement verb",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkVQ", :type ["V" "VQ"], :example "e.g. wonder (QS)"}]}

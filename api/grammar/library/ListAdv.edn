@@ -1,0 +1,10 @@
+{:type "ListAdv",
+ :description "",
+ :module "Constructors",
+ :functions
+ [{:function "mkListAdv",
+   :type ["Adv" "Adv" "ListAdv"],
+   :example "list of two"}
+  {:function "mkListAdv",
+   :type ["Adv" "ListAdv" "ListAdv"],
+   :example "list of more"}]}

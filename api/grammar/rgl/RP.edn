@@ -1,7 +1,0 @@
-{:type "RP",
- :description "relative pronoun",
- :functions
- [{:function "mkRP",
-   :type ["Prep" "NP" "RP" "RP"],
-   :example "all the cities in which"}
-  {:function "which_RP", :type ["RP"], :example "which"}]}

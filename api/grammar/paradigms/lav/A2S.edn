@@ -1,0 +1,5 @@
+{:type "A2S",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkA2S", :type ["A" "Prep" "A2S"], :example "-"}]}

@@ -1,0 +1,4 @@
+{:type "Adv",
+ :description "",
+ :module "ParadigmsRus",
+ :functions [{:function "mkAdv", :type ["Str" "Adv"], :example "-"}]}

@@ -1,0 +1,6 @@
+{:type "VV",
+ :description "",
+ :module "ParadigmsGer",
+ :functions
+ [{:function "mkVV", :type ["V" "VV"], :example "with zu"}
+  {:function "auxVV", :type ["V" "VV"], :example "without zu"}]}

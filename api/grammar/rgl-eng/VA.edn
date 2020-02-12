@@ -1,4 +1,0 @@
-{:type "VA",
- :description "adjective-complement verb",
- :functions
- [{:function "mkVA", :type ["V" "VA"], :example "e.g. become (AP)"}]}

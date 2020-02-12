@@ -1,9 +1,0 @@
-{:type "ListNP",
- :description "",
- :functions
- [{:function "mkListNP",
-   :type ["NP" "NP" "ListNP"],
-   :example "list of two"}
-  {:function "mkListNP",
-   :type ["NP" "ListNP" "ListNP"],
-   :example "list of more"}]}

@@ -1,0 +1,12 @@
+{:type "V2V",
+ :description "verb with NP and V complement",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkV2V", :type ["Str" "V2V"], :example "-"}
+  {:function "mkV2V", :type ["V" "V2V"], :example "-"}
+  {:function "mkV2V",
+   :type ["V" "Prep" "Prep" "V2V"],
+   :example "e.g. want (noPrep NP) (to VP)"}
+  {:function "ingV2V",
+   :type ["V" "Prep" "Prep" "V2V"],
+   :example "e.g. prevent (noPrep NP) (from VP-ing)"}]}

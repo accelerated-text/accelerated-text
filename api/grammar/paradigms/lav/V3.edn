@@ -1,0 +1,6 @@
+{:type "V3",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkV3", :type ["V" "V3"], :example "-"}
+  {:function "mkV3", :type ["V" "Prep" "Prep" "V3"], :example "-"}]}

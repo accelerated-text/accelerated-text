@@ -1,0 +1,9 @@
+{:type "Number",
+ :description "",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "singular", :type ["Number"], :example "-"}
+  {:function "plural", :type ["Number"], :example "-"}
+  {:function "npNumber",
+   :type ["NP" "Number"],
+   :example "exctract the number of a noun phrase"}]}

@@ -1,5 +1,0 @@
-{:type "VA",
- :description "",
- :functions
- [{:function "mkVA", :type ["V" "VA"], :example "-"}
-  {:function "mkVA", :type ["V" "Prep" "VA"], :example "-"}]}

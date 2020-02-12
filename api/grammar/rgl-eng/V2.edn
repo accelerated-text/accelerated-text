@@ -1,7 +1,0 @@
-{:type "V2",
- :description "two-place verb",
- :functions
- [{:function "mkV2", :type ["V" "V2"], :example "transitive, e.g. hit"}
-  {:function "mkV2",
-   :type ["V" "Prep" "V2"],
-   :example "with preposiiton, e.g. believe in"}]}

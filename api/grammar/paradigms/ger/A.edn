@@ -1,0 +1,17 @@
+{:type "A",
+ :description "",
+ :module "ParadigmsGer",
+ :functions
+ [{:function "mkA",
+   :type ["Str" "A"],
+   :example "regular adjective, works for most cases"}
+  {:function "mkA",
+   :type ["Str" "Str" "Str" "A"],
+   :example "irregular comparison (gut, besser, beste)"}
+  {:function "mkA",
+   :type ["Str" "Str" "Str" "Str" "A"],
+   :example
+   "irregular positive if ending added (gut, gute, besser, beste)"}
+  {:function "invarA",
+   :type ["Str" "A"],
+   :example "invariable, e.g. prima"}]}

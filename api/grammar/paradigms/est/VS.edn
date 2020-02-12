@@ -1,0 +1,6 @@
+{:type "VS",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkVS", :type ["V" "VS"], :example "-"}
+  {:function "mkVS", :type ["Str" "VS"], :example "-"}]}

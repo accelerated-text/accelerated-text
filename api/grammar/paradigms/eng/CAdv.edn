@@ -1,0 +1,7 @@
+{:type "CAdv",
+ :description "comparative adverb",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkCAdv",
+   :type ["Str" "Str" "Str" "CAdv"],
+   :example "more than/no more than"}]}

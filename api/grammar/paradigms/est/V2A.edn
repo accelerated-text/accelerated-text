@@ -1,0 +1,10 @@
+{:type "V2A",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkV2A",
+   :type ["V" "Prep" "Prep" "V2A"],
+   :example "e.g. \"värvima\" genitive translative"}
+  {:function "mkV2A",
+   :type ["Str" "V2A"],
+   :example "string, default cases genitive and translative"}]}

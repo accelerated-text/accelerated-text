@@ -1,0 +1,17 @@
+{:type "Conj",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkConj",
+   :type ["Str" "Conj"],
+   :example "just one word, default number Sg: e.g. \"ja\""}
+  {:function "mkConj",
+   :type ["Str" "Number" "Conj"],
+   :example "--just one word + number: e.g. \"ja\" Pl -"}
+  {:function "mkConj",
+   :type ["Str" "Str" "Conj"],
+   :example "--two words, default number: e.g. \"nii\" \"kui\" -"}
+  {:function "mkConj",
+   :type ["Str" "Str" "Number" "Conj"],
+   :example "--two words + number: e.g. \"nii\" \"kui\" Pl -"}
+  {:function "mkPConj", :type ["Str" "PConj"], :example "-"}]}

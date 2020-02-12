@@ -1,0 +1,20 @@
+{:type "N",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkN",
+   :type ["Str" "N"],
+   :example "predictable nouns, covers 90%"}
+  {:function "mkN",
+   :type ["Str" "Str" "N"],
+   :example "sg nom,gen: unpredictable stem vowel (tukk, tuku)"}
+  {:function "mkN",
+   :type ["Str" "Str" "Str" "N"],
+   :example "sg nom,gen,part (tukk, tuku, tukku)"}
+  {:function "mkN",
+   :type ["Str" "Str" "Str" "Str" "N"],
+   :example "sg nom,gen,part, pl.part (pank, panga, panka, panku)"}
+  {:function "mkN",
+   :type ["Str" "Str" "Str" "Str" "Str" "Str" "N"],
+   :example
+   "worst case, 6 forms (oun, ouna, ouna, ounasse, ounte, ounu)"}]}

@@ -1,0 +1,7 @@
+{:type "SSlash",
+ :description "",
+ :module "Constructors",
+ :functions
+ [{:function "mkSSlash",
+   :type ["Temp" "Pol" "ClSlash" "SSlash"],
+   :example "she hadn't seen"}]}

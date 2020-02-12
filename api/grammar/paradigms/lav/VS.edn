@@ -1,0 +1,6 @@
+{:type "VS",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkVS", :type ["V" "Subj" "VS"], :example "-"}
+  {:function "mkVS", :type ["V" "Subj" "Case" "VS"], :example "-"}]}

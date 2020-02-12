@@ -1,7 +1,0 @@
-{:type "N2",
- :description "",
- :functions
- [{:function "mkN2", :type ["N" "N2"], :example "noun + von"}
-  {:function "mkN2",
-   :type ["N" "Prep" "N2"],
-   :example "noun + other preposition"}]}

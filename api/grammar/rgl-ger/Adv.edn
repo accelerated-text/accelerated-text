@@ -1,6 +1,0 @@
-{:type "Adv",
- :description "",
- :functions
- [{:function "mkAdv",
-   :type ["Str" "Adv"],
-   :example "adverbs have just one form anyway"}]}

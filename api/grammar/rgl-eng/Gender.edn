@@ -1,5 +1,0 @@
-{:type "Gender",
- :description "",
- :functions
- [{:function "human", :type ["Gender"], :example "-"}
-  {:function "nonhuman", :type ["Gender"], :example "-"}]}

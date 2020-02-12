@@ -1,0 +1,5 @@
+{:type "V2S",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "mkV2S", :type ["V" "Str" "Case" "V2S"], :example "-"}]}

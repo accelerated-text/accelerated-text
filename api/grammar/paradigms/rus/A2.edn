@@ -1,0 +1,7 @@
+{:type "A2",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "mkA2",
+   :type ["A" "Str" "Case" "A2"],
+   :example "\"делим на\""}]}

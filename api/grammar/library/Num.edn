@@ -1,0 +1,16 @@
+{:type "Num",
+ :description "number determining element",
+ :module "Constructors",
+ :functions
+ [{:function "mkNum",
+   :type ["Str" "Num"],
+   :example "thirty-five (given by \"35\"; range 1-999)"}
+  {:function "mkNum", :type ["Numeral" "Num"], :example "..."}
+  {:function "mkNum", :type ["Digits" "Num"], :example "21"}
+  {:function "mkNum", :type ["Digit" "Num"], :example "five"}
+  {:function "mkNum", :type ["Card" "Num"], :example "almost five"}
+  {:function "mkNum",
+   :type ["AdN" "Card" "Num"],
+   :example "almost five"}
+  {:function "pluralNum", :type ["Num"], :example "plural"}
+  {:function "singularNum", :type ["Num"], :example "singular"}]}

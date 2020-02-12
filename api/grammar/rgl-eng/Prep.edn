@@ -1,8 +1,0 @@
-{:type "Prep",
- :description "preposition, or just case",
- :functions
- [{:function "mkPrep",
-   :type ["Str" "Prep"],
-   :example "e.g. \"in front of\""}
-  {:function "mkPost", :type ["Str" "Prep"], :example "e.g. \"ago\""}
-  {:function "noPrep", :type ["Prep"], :example "no preposition"}]}

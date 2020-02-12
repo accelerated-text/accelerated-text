@@ -1,5 +1,0 @@
-{:type "Type",
- :description "",
- :functions
- [{:function "Gender", :type ["Type"], :example "-"}
-  {:function "Number", :type ["Type"], :example "-"}]}

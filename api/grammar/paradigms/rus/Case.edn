@@ -1,0 +1,10 @@
+{:type "Case",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "nominative", :type ["Case"], :example "-"}
+  {:function "genitive", :type ["Case"], :example "-"}
+  {:function "dative", :type ["Case"], :example "-"}
+  {:function "accusative", :type ["Case"], :example "-"}
+  {:function "instructive", :type ["Case"], :example "-"}
+  {:function "prepositional", :type ["Case"], :example "-"}]}

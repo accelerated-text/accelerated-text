@@ -1,0 +1,6 @@
+{:type "VQ",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkVQ", :type ["V" "VQ"], :example "-"}
+  {:function "mkVQ", :type ["V" "Case" "VQ"], :example "-"}]}

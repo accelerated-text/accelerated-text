@@ -52,7 +52,7 @@ export default composeQueries({
                     <Loading />
                 </MessageTr>
             : concepts
-                ? concepts.ParadigmsGer.map( concept =>
+                ? concepts.ParadigmsRus.map( concept =>
                     <ConceptRow key={ concept.id } concept={ concept } />
                 )
                 : <MessageTr>

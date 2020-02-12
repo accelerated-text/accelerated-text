@@ -1,6 +1,0 @@
-{:type "Comp",
- :description "complement of copula, such as AP",
- :functions
- [{:function "mkComp", :type ["AP" "Comp"], :example "to be old"}
-  {:function "mkComp", :type ["NP" "Comp"], :example "to be this man"}
-  {:function "mkComp", :type ["Adv" "Comp"], :example "to be here"}]}

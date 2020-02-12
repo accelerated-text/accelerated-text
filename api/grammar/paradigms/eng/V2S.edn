@@ -1,0 +1,7 @@
+{:type "V2S",
+ :description "verb with NP and S complement",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkV2S",
+   :type ["V" "Prep" "V2S"],
+   :example "e.g. tell (NP) (that S)"}]}

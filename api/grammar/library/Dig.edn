@@ -1,0 +1,14 @@
+{:type "Dig",
+ :description "",
+ :module "Constructors",
+ :functions
+ [{:function "n0_Dig", :type ["Dig"], :example "0"}
+  {:function "n1_Dig", :type ["Dig"], :example "1"}
+  {:function "n2_Dig", :type ["Dig"], :example "2"}
+  {:function "n3_Dig", :type ["Dig"], :example "3"}
+  {:function "n4_Dig", :type ["Dig"], :example "4"}
+  {:function "n5_Dig", :type ["Dig"], :example "5"}
+  {:function "n6_Dig", :type ["Dig"], :example "6"}
+  {:function "n7_Dig", :type ["Dig"], :example "7"}
+  {:function "n8_Dig", :type ["Dig"], :example "8"}
+  {:function "n9_Dig", :type ["Dig"], :example "9"}]}

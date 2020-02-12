@@ -1,0 +1,6 @@
+{:type "V2S",
+ :description "",
+ :module "ParadigmsGer",
+ :functions
+ [{:function "mkV2S", :type ["V" "V2S"], :example "-"}
+  {:function "mkV2S", :type ["V" "Prep" "V2S"], :example "-"}]}

@@ -1,0 +1,16 @@
+{:type "Str",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkNumReg",
+   :type ["Str" "Str" "Number" "Str"],
+   :example "{ s : DForm => CardOrd => Gender => Case => Str }"}
+  {:function "mkNumSpec",
+   :type ["Str" "Str" "Str" "Str" "Number" "Str"],
+   :example "{ s : DForm => CardOrd => Gender => Case => Str }"}
+  {:function "simts",
+   :type ["Str"],
+   :example "CardOrd => Gender => Number => Case => Str"}
+  {:function "tuukstotis",
+   :type ["Str"],
+   :example "CardOrd => Gender => Number => Case => Str"}]}

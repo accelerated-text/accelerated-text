@@ -1,0 +1,7 @@
+{:type "Gender",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "masculine", :type ["Gender"], :example "-"}
+  {:function "feminine", :type ["Gender"], :example "-"}
+  {:function "neuter", :type ["Gender"], :example "-"}]}

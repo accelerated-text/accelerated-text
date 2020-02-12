@@ -1,0 +1,11 @@
+{:type "Phr",
+ :description "phrase in a text",
+ :module "Constructors",
+ :functions
+ [{:function "mkPhr",
+   :type ["(PConj)" "Utt" "(Voc)" "Phr"],
+   :example "but sleep, my friend"}
+  {:function "mkPhr", :type ["S" "Phr"], :example "she won't sleep"}
+  {:function "mkPhr", :type ["Cl" "Phr"], :example "she sleeps"}
+  {:function "mkPhr", :type ["QS" "Phr"], :example "would she sleep"}
+  {:function "mkPhr", :type ["Imp" "Phr"], :example "sleep"}]}

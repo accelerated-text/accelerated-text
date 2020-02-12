@@ -1,0 +1,26 @@
+{:type "N",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "mkN", :type ["Str" "N"], :example "-"}
+  {:function "mkN", :type ["Str" "Animacy" "N"], :example "-"}
+  {:function "mkN",
+   :type
+   ["Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Gender"
+    "Animacy"
+    "N"],
+   :example
+   "nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl"}]}

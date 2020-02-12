@@ -1,0 +1,6 @@
+{:type "Number",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "singular", :type ["Number"], :example "-"}
+  {:function "plural", :type ["Number"], :example "-"}]}

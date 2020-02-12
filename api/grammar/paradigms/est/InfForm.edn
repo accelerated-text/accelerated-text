@@ -1,0 +1,17 @@
+{:type "InfForm",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "infDa", :type ["InfForm"], :example "e.g. \"lugeda\""}
+  {:function "infDes", :type ["InfForm"], :example "e.g. \"lugedes\""}
+  {:function "infMa", :type ["InfForm"], :example "e.g. \"lugema\""}
+  {:function "infMas", :type ["InfForm"], :example "e.g. \"lugemas\""}
+  {:function "infMaks",
+   :type ["InfForm"],
+   :example "e.g. \"lugemaks\""}
+  {:function "infMast",
+   :type ["InfForm"],
+   :example "e.g. \"lugemast\""}
+  {:function "infMata",
+   :type ["InfForm"],
+   :example "e.g. \"lugemata\""}]}

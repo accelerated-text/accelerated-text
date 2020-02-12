@@ -1,9 +1,0 @@
-{:type "ListRS",
- :description "",
- :functions
- [{:function "mkListRS",
-   :type ["RS" "RS" "ListRS"],
-   :example "list of two"}
-  {:function "mkListRS",
-   :type ["RS" "ListRS" "ListRS"],
-   :example "list of more"}]}

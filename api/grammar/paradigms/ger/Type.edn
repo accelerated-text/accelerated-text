@@ -1,0 +1,7 @@
+{:type "Type",
+ :description "",
+ :module "ParadigmsGer",
+ :functions
+ [{:function "Gender", :type ["Type"], :example "-"}
+  {:function "Case", :type ["Type"], :example "-"}
+  {:function "Number", :type ["Type"], :example "-"}]}

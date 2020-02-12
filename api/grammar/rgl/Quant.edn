@@ -1,9 +1,0 @@
-{:type "Quant",
- :description "quantifier ('nucleus' of Det)",
- :functions
- [{:function "a_Quant", :type ["Quant"], :example "a house"}
-  {:function "mkQuant", :type ["Pron" "Quant"], :example "my house"}
-  {:function "no_Quant", :type ["Quant"], :example "no house"}
-  {:function "that_Quant", :type ["Quant"], :example "that house"}
-  {:function "the_Quant", :type ["Quant"], :example "the house"}
-  {:function "this_Quant", :type ["Quant"], :example "this house"}]}

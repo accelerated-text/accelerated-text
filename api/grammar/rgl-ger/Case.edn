@@ -1,8 +1,0 @@
-{:type "Case",
- :description "",
- :functions
- [{:function "nominative", :type ["Case"], :example "-"}
-  {:function "accusative", :type ["Case"], :example "-"}
-  {:function "dative", :type ["Case"], :example "-"}
-  {:function "genitive", :type ["Case"], :example "-"}
-  {:function "vonDat_Case", :type ["Case"], :example "-"}]}

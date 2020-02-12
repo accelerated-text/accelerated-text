@@ -1,5 +1,0 @@
-{:type "Number",
- :description "",
- :functions
- [{:function "singular", :type ["Number"], :example "-"}
-  {:function "plural", :type ["Number"], :example "-"}]}

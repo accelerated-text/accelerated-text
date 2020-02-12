@@ -1,6 +1,0 @@
-{:type "Tense",
- :description "tense",
- :functions
- [{:function "futureTense", :type ["Tense"], :example "she will sleep"}
-  {:function "pastTense", :type ["Tense"], :example "she slept"}
-  {:function "presentTense", :type ["Tense"], :example "she sleeps"}]}

@@ -1,0 +1,20 @@
+{:type "A",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkA",
+   :type ["Str" "A"],
+   :example "regular noun made into adjective"}
+  {:function "mkA",
+   :type ["N" "A"],
+   :example "any noun made into adjective"}
+  {:function "mkA",
+   :type ["N" "Infl" "A"],
+   :example "noun made into adjective, agreement type specified"}
+  {:function "mkA",
+   :type ["N" "Str" "Str" "A"],
+   :example "deviating comparison forms (parem, parim)"}
+  {:function "invA",
+   :type ["Str" "A"],
+   :example
+   "invariable adjectives, such as genitive attributes ; no agreement to head, no comparison forms."}]}

@@ -1,3 +1,0 @@
-{:type "VS",
- :description "",
- :functions [{:function "mkVS", :type ["V" "VS"], :example "-"}]}

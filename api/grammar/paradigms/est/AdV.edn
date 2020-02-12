@@ -1,0 +1,4 @@
+{:type "AdV",
+ :description "",
+ :module "ParadigmsEst",
+ :functions [{:function "mkAdV", :type ["Str" "AdV"], :example "-"}]}

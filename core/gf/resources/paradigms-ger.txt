@@ -1,128 +1,128 @@
 // Type
-Gender 	Type 	-
-Case 	Type 	-
-Number 	Type 	-
+Gender Type -
+Case Type -
+Number Type -
 
 // Gender
-masculine 	Gender 	-
-feminine 	Gender 	-
-neuter 	Gender 	-
+masculine Gender -
+feminine Gender -
+neuter Gender -
 
 // Case
-nominative 	Case 	-
-accusative 	Case 	-
-dative 	Case 	-
-genitive 	Case 	-
-vonDat_Case 	Case 	-
+nominative Case -
+accusative Case -
+dative Case -
+genitive Case -
+vonDat_Case Case -
 
 // Number
-singular 	Number 	-
-plural 	Number 	-
+singular Number -
+plural Number -
 
 // N
-mkN 	(Stufe : Str) -> N 	die Stufe-Stufen, der Tisch-Tische
-mkN 	(Bild,Bilder : Str) -> Gender -> N 	sg and pl nom, and gender
-mkN 	(Frau : Str) -> Gender -> N 	masc: e, neutr: er, fem: en
-mkN 	(x1,_,_,_,_,x6 : Str) -> Gender -> N 	worst case: mann, mann, manne, mannes, männer, männern
-mkN 	Str -> N -> N 	Auto + Fahrer -> Autofahrer
-mkN 	N -> N -> N 	Freiheit + Kampf -> Freiheitskampf
-changeCompoundN 	Str -> N -> N 	kyrko + kyrka_N
-dative_eN 	N -> N 	-
+mkN Str -> N die Stufe-Stufen, der Tisch-Tische
+mkN Str -> Str -> Gender -> N sg and pl nom, and gender
+mkN Str -> Gender -> N masc: e, neutr: er, fem: en
+mkN Str -> Str -> Str -> Str -> Str -> Str -> Gender -> N worst case: mann, mann, manne, mannes, männer, männern
+mkN Str -> N -> N Auto + Fahrer -> Autofahrer
+mkN N -> N -> N Freiheit + Kampf -> Freiheitskampf
+changeCompoundN Str -> N -> N kyrko + kyrka_N
+dative_eN N -> N -
 
 // N2
-mkN2 	N -> N2 	noun + von
-mkN2 	N -> Prep -> N2 	noun + other preposition
+mkN2 N -> N2 noun + von
+mkN2 N -> Prep -> N2 noun + other preposition
 
 // N3
-mkN3 	N -> Prep -> Prep -> N3 	noun + two prepositions
+mkN3 N -> Prep -> Prep -> N3 noun + two prepositions
 
 // PN
-mkPN 	Str -> PN 	regular name with genitive in "s", masculine
-mkPN 	Str -> Gender -> PN 	regular name with genitive in "s"
-mkPN 	(nom,gen : Str) -> Gender -> PN 	name with other genitive
-mkPN 	(nom,acc,dat,gen : Str) -> Gender -> PN 	name with all case forms
-mkPN 	N -> PN 	use the singular forms of a noun
+mkPN Str -> PN regular name with genitive in "s", masculine
+mkPN Str -> Gender -> PN regular name with genitive in "s"
+mkPN Str -> Str -> Gender -> PN name with other genitive (nom, gen)
+mkPN Str -> Str -> Str -> Str -> Gender -> PN name with all case forms (nom, acc, dat, gen)
+mkPN N -> PN use the singular forms of a noun
 
 // A
-mkA 	Str -> A 	regular adjective, works for most cases
-mkA 	(gut,besser,beste : Str) -> A 	irregular comparison
-mkA 	(gut,gute,besser,beste : Str) -> A 	irregular positive if ending added
-invarA 	Str -> A 	invariable, e.g. prima
+mkA Str -> A regular adjective, works for most cases
+mkA Str -> Str -> Str -> A irregular comparison (gut, besser, beste)
+mkA Str -> Str -> Str -> Str -> A irregular positive if ending added (gut, gute, besser, beste)
+invarA Str -> A invariable, e.g. prima
 
 // A2
-mkA2 	A -> Prep -> A2 	e.g. teilbar + durch
+mkA2 A -> Prep -> A2 e.g. teilbar + durch
 
 // Adv
-mkAdv 	Str -> Adv 	adverbs have just one form anyway
+mkAdv Str -> Adv adverbs have just one form anyway
 
 // Prep
-mkPrep 	Str -> Case -> Prep 	e.g. "durch" + accusative
-mkPrep 	Case -> Str -> Prep 	postposition
-mkPrep 	Str -> Case -> Str -> Prep 	both sides
-accPrep 	Prep 	no string, just accusative case
-datPrep 	Prep 	no string, just dative case
-genPrep 	Prep 	no string, just genitive case
-von_Prep 	Prep 	von + dative
-zu_Prep 	Prep 	zu + dative, with contractions zum, zur
-anDat_Prep 	Prep 	an + dative, with contraction am
-inDat_Prep 	Prep 	in + dative, with contraction ins
-inAcc_Prep 	Prep 	in + accusative, with contraction im
+mkPrep Str -> Case -> Prep e.g. "durch" + accusative
+mkPrep Case -> Str -> Prep postposition
+mkPrep Str -> Case -> Str -> Prep both sides
+accPrep Prep no string, just accusative case
+datPrep Prep no string, just dative case
+genPrep Prep no string, just genitive case
+von_Prep Prep von + dative
+zu_Prep Prep zu + dative, with contractions zum, zur
+anDat_Prep Prep an + dative, with contraction am
+inDat_Prep Prep in + dative, with contraction ins
+inAcc_Prep Prep in + accusative, with contraction im
 
 // V
-mkV 	(führen : Str) -> V 	regular verb
-mkV 	(sehen,sieht,sah,sähe,gesehen : Str) -> V 	irregular verb theme
-mkV 	(geben, gibt, gib, gab, gäbe, gegeben : Str) -> V 	worst-case verb
-mkV 	Str -> V -> V 	movable prefix, e.g. auf+fassen, or fix prefix if one of be,er,ge,ver,zer
-no_geV 	V -> V 	no participle "ge", e.g. "bedeuten"
-fixprefixV 	Str -> V -> V 	add prefix such as "be"; implies no_ge
-seinV 	V -> V 	force "sein" as auxiliary
-habenV 	V -> V 	force "haben" as auxiliary
-reflV 	V -> Case -> V 	reflexive, with case
-compoundV 	Str -> V -> V 	verb with a separate "particle", e.g. "Trinkgeld geben"
+mkV Str -> V regular verb
+mkV Str -> Str -> Str -> Str -> Str -> V irregular verb theme (sehen, sieht, sah, sähe, gesehen)
+mkV Str -> Str -> Str -> Str -> Str -> Str -> V worst-case verb (geben, gibt, gib, gab, gäbe, gegeben)
+mkV Str -> V -> V movable prefix, e.g. auf+fassen, or fix prefix if one of be, er, ge, ver, zer
+no_geV V -> V no participle "ge", e.g. "bedeuten"
+fixprefixV Str -> V -> V add prefix such as "be"; implies no_ge
+seinV V -> V force "sein" as auxiliary
+habenV V -> V force "haben" as auxiliary
+reflV V -> Case -> V reflexive, with case
+compoundV Str -> V -> V verb with a separate "particle", e.g. "Trinkgeld geben"
 
 // V2
-mkV2 	V -> V2 	direct object
-mkV2 	V -> Prep -> V2 	preposition for complement
-mkV2 	V -> Case -> V2 	just case for complement
+mkV2 V -> V2 direct object
+mkV2 V -> Prep -> V2 preposition for complement
+mkV2 V -> Case -> V2 just case for complement
 
 // V3
-accdatV3 	V -> V3 	geben + dat(c2) + acc(c3) (Eng: no prepositions)
-dirV3 	V -> Prep -> V3 	senden + acc + nach (preposition on second arg)
-mkV3 	V -> V3 	geben + dat(c3) + acc(c2) (Eng: give sth to-sb)
-mkV3 	V -> Prep -> Prep -> V3 	sprechen + mit + über
+accdatV3 V -> V3 geben + dat(c2) + acc(c3) (Eng: no prepositions)
+dirV3 V -> Prep -> V3 senden + acc + nach (preposition on second arg)
+mkV3 V -> V3 geben + dat(c3) + acc(c2) (Eng: give sth to-sb)
+mkV3 V -> Prep -> Prep -> V3 sprechen + mit + über
 
 // VS
-mkVS 	V -> VS 	-
+mkVS V -> VS -
 
 // V2V
-mkV2V 	V -> V2V 	-
-mkV2V 	V -> Prep -> V2V 	-
-auxV2V 	V -> V2V 	-
-auxV2V 	V -> Prep -> V2V 	-
-subjV2V 	V2V -> V2V 	force subject-control
+mkV2V V -> V2V -
+mkV2V V -> Prep -> V2V -
+auxV2V V -> V2V -
+auxV2V V -> Prep -> V2V -
+subjV2V V2V -> V2V force subject-control
 
 // V2A
-mkV2A 	V -> V2A 	-
-mkV2A 	V -> Prep -> V2A 	-
+mkV2A V -> V2A -
+mkV2A V -> Prep -> V2A -
 
 // V2S
-mkV2S 	V -> V2S 	-
-mkV2S 	V -> Prep -> V2S 	-
+mkV2S V -> V2S -
+mkV2S V -> Prep -> V2S -
 
 // V2Q
-mkV2Q 	V -> V2Q 	-
-mkV2Q 	V -> Prep -> V2Q 	-
+mkV2Q V -> V2Q -
+mkV2Q V -> Prep -> V2Q -
 
 // VV
-mkVV 	V -> VV 	with zu
-auxVV 	V -> VV 	without zu
+mkVV V -> VV with zu
+auxVV V -> VV without zu
 
 // VA
-mkVA 	V -> VA 	-
-mkVA 	V -> Prep -> VA 	-
+mkVA V -> VA -
+mkVA V -> Prep -> VA -
 
 // VQ
-mkVQ 	V -> VQ 	-
+mkVQ V -> VQ -
 
 // Interj
-mkInterj 	Str -> Interj 	-
+mkInterj Str -> Interj -

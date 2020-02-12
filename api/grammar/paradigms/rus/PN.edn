@@ -1,0 +1,8 @@
+{:type "PN",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "mkPN",
+   :type ["Str" "Gender" "Number" "Animacy" "PN"],
+   :example "\"Иван\", \"Маша\""}
+  {:function "nounPN", :type ["N" "PN"], :example "-"}]}

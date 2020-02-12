@@ -1,9 +1,0 @@
-{:type "N2",
- :description "relational noun",
- :functions
- [{:function "mkN2",
-   :type ["N" "N2"],
-   :example "e.g. wife of (default prep. to)"}
-  {:function "mkN2",
-   :type ["N" "Prep" "N2"],
-   :example "e.g. access to"}]}

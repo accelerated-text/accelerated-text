@@ -1,0 +1,16 @@
+{:type "Prep",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "prePrep",
+   :type ["Case" "Str" "Prep"],
+   :example "preposition, e.g. abessive \"ilma\""}
+  {:function "postPrep",
+   :type ["Case" "Str" "Prep"],
+   :example "postposition, e.g. genitive \"taga\""}
+  {:function "postGenPrep",
+   :type ["Str" "Prep"],
+   :example "genitive postposition, e.g. \"taga\""}
+  {:function "casePrep",
+   :type ["Case" "Prep"],
+   :example "just case, e.g. adessive"}]}

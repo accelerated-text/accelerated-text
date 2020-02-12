@@ -1,0 +1,8 @@
+{:type "V3",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "mkV3",
+   :type ["V" "Str" "Str" "Case" "Case" "V3"],
+   :example "\"сложить письмо в конверт\""}
+  {:function "tvDirDir", :type ["V" "V3"], :example "-"}]}

@@ -15,8 +15,6 @@ import ConceptRow           from './RglConceptRow';
 import S                    from './AmrConcepts.sass';
 
 
-const sortByLabel =         sortBy( compose( toLower, prop( 'label' )));
-
 const MessageTr = ({ children }) =>
     <tr><td colspan="3">{ children }</td></tr>;
 
@@ -54,7 +52,7 @@ export default composeQueries({
                     <Loading />
                 </MessageTr>
             : concepts
-                ? sortByLabel( concepts.paradigmsEng ).map( concept =>
+                ? concepts.ParadigmsEng.map( concept =>
                     <ConceptRow key={ concept.id } concept={ concept } />
                 )
                 : <MessageTr>

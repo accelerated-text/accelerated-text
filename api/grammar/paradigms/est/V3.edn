@@ -1,0 +1,17 @@
+{:type "V3",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkV3",
+   :type ["V" "Prep" "Prep" "V3"],
+   :example "e.g. rääkima, allative, elative"}
+  {:function "mkV3", :type ["V" "V3"], :example "-"}
+  {:function "mkV3",
+   :type ["Str" "V3"],
+   :example "string, default cases accusative + allative"}
+  {:function "dirV3",
+   :type ["V" "Case" "V3"],
+   :example "liigutama, (accusative), illative"}
+  {:function "dirdirV3",
+   :type ["V" "V3"],
+   :example "andma, (accusative), (allative)"}]}

@@ -1,0 +1,4 @@
+{:type "VS",
+ :description "",
+ :module "ParadigmsGer",
+ :functions [{:function "mkVS", :type ["V" "VS"], :example "-"}]}

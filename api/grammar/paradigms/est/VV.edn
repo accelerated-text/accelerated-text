@@ -1,0 +1,9 @@
+{:type "VV",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkVV", :type ["V" "VV"], :example "e.g. \"hakkama\""}
+  {:function "mkVV", :type ["Str" "VV"], :example "-"}
+  {:function "mkVVf",
+   :type ["V" "InfForm" "VV"],
+   :example "e.g. \"hakkama\" infMa"}]}

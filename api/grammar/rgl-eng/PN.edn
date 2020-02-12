@@ -1,3 +1,0 @@
-{:type "PN",
- :description "proper name",
- :functions [{:function "mkPN", :type ["Str" "PN"], :example "-"}]}

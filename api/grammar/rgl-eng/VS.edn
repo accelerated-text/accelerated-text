@@ -1,6 +1,0 @@
-{:type "VS",
- :description "sentence-complement verb",
- :functions
- [{:function "mkVS",
-   :type ["V" "VS"],
-   :example "sentence-compl e.g. say (that S)"}]}

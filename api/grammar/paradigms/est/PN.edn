@@ -1,0 +1,10 @@
+{:type "PN",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkPN",
+   :type ["Str" "PN"],
+   :example "predictable noun made into name"}
+  {:function "mkPN",
+   :type ["N" "PN"],
+   :example "any noun made into name"}]}

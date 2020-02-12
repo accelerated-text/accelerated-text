@@ -1,0 +1,4 @@
+{:type "VS",
+ :description "",
+ :module "ParadigmsRus",
+ :functions [{:function "mkVS", :type ["V" "VS"], :example "-"}]}

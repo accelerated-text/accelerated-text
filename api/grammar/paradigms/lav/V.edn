@@ -1,0 +1,14 @@
+{:type "V",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkV", :type ["Str" "V"], :example "-"}
+  {:function "mkV", :type ["Str" "Case" "V"], :example "-"}
+  {:function "mkV", :type ["Str" "Conjugation" "V"], :example "-"}
+  {:function "mkV",
+   :type ["Str" "Conjugation" "Case" "V"],
+   :example "-"}
+  {:function "mkV", :type ["Str" "Str" "Str" "V"], :example "-"}
+  {:function "mkV",
+   :type ["Str" "Str" "Str" "Case" "V"],
+   :example "-"}]}

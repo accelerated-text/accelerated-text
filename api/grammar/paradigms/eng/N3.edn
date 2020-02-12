@@ -1,0 +1,7 @@
+{:type "N3",
+ :description "three-place relational noun",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkN3",
+   :type ["N" "Prep" "Prep" "N3"],
+   :example "e.g. connection from x to y"}]}

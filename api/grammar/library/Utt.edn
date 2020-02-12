@@ -1,0 +1,21 @@
+{:type "Utt",
+ :description "sentence, question, word...",
+ :module "Constructors",
+ :functions
+ [{:function "mkUtt", :type ["S" "Utt"], :example "she slept"}
+  {:function "mkUtt", :type ["Cl" "Utt"], :example "she sleeps"}
+  {:function "mkUtt", :type ["QS" "Utt"], :example "who didn't sleep"}
+  {:function "mkUtt", :type ["QCl" "Utt"], :example "who sleeps"}
+  {:function "mkUtt",
+   :type ["(ImpForm)" "(Pol)" "Imp" "Utt"],
+   :example "don't be men"}
+  {:function "mkUtt", :type ["IP" "Utt"], :example "who"}
+  {:function "mkUtt", :type ["IAdv" "Utt"], :example "why"}
+  {:function "mkUtt", :type ["NP" "Utt"], :example "this man"}
+  {:function "mkUtt", :type ["Adv" "Utt"], :example "here"}
+  {:function "mkUtt", :type ["VP" "Utt"], :example "to sleep"}
+  {:function "mkUtt", :type ["CN" "Utt"], :example "beer"}
+  {:function "mkUtt", :type ["AP" "Utt"], :example "good"}
+  {:function "mkUtt", :type ["Card" "Utt"], :example "five"}
+  {:function "no_Utt", :type ["Utt"], :example "no"}
+  {:function "yes_Utt", :type ["Utt"], :example "yes"}]}

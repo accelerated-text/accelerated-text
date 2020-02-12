@@ -1,0 +1,10 @@
+{:type "N2",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkN2",
+   :type ["N" "N2"],
+   :example "relational noun with genitive"}
+  {:function "mkN2",
+   :type ["N" "Prep" "N2"],
+   :example "relational noun another prep."}]}

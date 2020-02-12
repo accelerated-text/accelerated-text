@@ -1,6 +1,0 @@
-{:type "N3",
- :description "",
- :functions
- [{:function "mkN3",
-   :type ["N" "Prep" "Prep" "N3"],
-   :example "noun + two prepositions"}]}

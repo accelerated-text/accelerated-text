@@ -1,4 +1,0 @@
-{:type "AdV",
- :description "adverb directly attached to verb",
- :functions
- [{:function "always_AdV", :type ["AdV"], :example "always"}]}

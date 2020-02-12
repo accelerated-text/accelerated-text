@@ -1,0 +1,19 @@
+{:type "PN",
+ :description "",
+ :module "ParadigmsGer",
+ :functions
+ [{:function "mkPN",
+   :type ["Str" "PN"],
+   :example "regular name with genitive in \"s\", masculine"}
+  {:function "mkPN",
+   :type ["Str" "Gender" "PN"],
+   :example "regular name with genitive in \"s\""}
+  {:function "mkPN",
+   :type ["Str" "Str" "Gender" "PN"],
+   :example "name with other genitive (nom, gen)"}
+  {:function "mkPN",
+   :type ["Str" "Str" "Str" "Str" "Gender" "PN"],
+   :example "name with all case forms (nom, acc, dat, gen)"}
+  {:function "mkPN",
+   :type ["N" "PN"],
+   :example "use the singular forms of a noun"}]}

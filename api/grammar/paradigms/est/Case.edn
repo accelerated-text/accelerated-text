@@ -1,0 +1,26 @@
+{:type "Case",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "nominative", :type ["Case"], :example "e.g. \"karp\""}
+  {:function "genitive", :type ["Case"], :example "e.g. \"karbi\""}
+  {:function "partitive", :type ["Case"], :example "e.g. \"karpi\""}
+  {:function "illative",
+   :type ["Case"],
+   :example "e.g. \"karbisse/karpi\""}
+  {:function "inessive", :type ["Case"], :example "e.g. \"karbis\""}
+  {:function "elative", :type ["Case"], :example "e.g. \"karbist\""}
+  {:function "allative", :type ["Case"], :example "e.g. \"karbile\""}
+  {:function "adessive", :type ["Case"], :example "e.g. \"karbil\""}
+  {:function "ablative", :type ["Case"], :example "e.g. \"karbilt\""}
+  {:function "translative",
+   :type ["Case"],
+   :example "e.g. \"karbiks\""}
+  {:function "terminative",
+   :type ["Case"],
+   :example "e.g. \"karbini\""}
+  {:function "essive", :type ["Case"], :example "e.g. \"karbina\""}
+  {:function "abessive", :type ["Case"], :example "e.g. \"karbita\""}
+  {:function "comitative",
+   :type ["Case"],
+   :example "e.g. \"karbiga\""}]}

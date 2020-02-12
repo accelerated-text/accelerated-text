@@ -1,0 +1,8 @@
+{:type "Ord",
+ :description "ordinal number (used in Det)",
+ :module "Constructors",
+ :functions
+ [{:function "mkOrd", :type ["Numeral" "Ord"], :example "twentieth"}
+  {:function "mkOrd", :type ["Digits" "Ord"], :example "51st"}
+  {:function "mkOrd", :type ["Digit" "Ord"], :example "fifth"}
+  {:function "mkOrd", :type ["A" "Ord"], :example "smallest"}]}

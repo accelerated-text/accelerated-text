@@ -1,0 +1,19 @@
+{:type "S",
+ :description "declarative sentence",
+ :module "Constructors",
+ :functions
+ [{:function "mkS",
+   :type ["(Tense)" "(Ant)" "(Pol)" "Cl" "S"],
+   :example "she wouldn't have slept"}
+  {:function "mkS",
+   :type ["Temp" "Pol" "Cl" "S"],
+   :example "she wouldn't have slept"}
+  {:function "mkS",
+   :type ["Conj" "S" "S" "S"],
+   :example "she sleeps and I run"}
+  {:function "mkS",
+   :type ["Conj" "ListS" "S"],
+   :example "she sleeps, I run and you walk"}
+  {:function "mkS",
+   :type ["Adv" "S" "S"],
+   :example "today she sleeps"}]}

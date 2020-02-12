@@ -1,0 +1,5 @@
+{:type "Interj",
+ :description "",
+ :module "ParadigmsGer",
+ :functions
+ [{:function "mkInterj", :type ["Str" "Interj"], :example "-"}]}

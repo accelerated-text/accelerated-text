@@ -1,6 +1,0 @@
-{:type "N3",
- :description "three-place relational noun",
- :functions
- [{:function "mkN3",
-   :type ["N" "Prep" "Prep" "N3"],
-   :example "e.g. connection from x to y"}]}

@@ -1,0 +1,6 @@
+{:type "Type",
+ :description "",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "Gender", :type ["Type"], :example "-"}
+  {:function "Number", :type ["Type"], :example "-"}]}

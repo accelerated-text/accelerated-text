@@ -1,0 +1,79 @@
+// Type
+Gender Type -
+Case Type -
+Number Type -
+
+// Gender
+masculine Gender -
+feminine Gender -
+neuter Gender -
+
+// Case
+nominative Case -
+genitive Case -
+dative Case -
+accusative Case -
+instructive Case -
+prepositional Case -
+
+// Number
+singular Number -
+plural Number -
+
+// N
+mkN Str -> N -
+mkN Str -> Animacy -> N -
+mkN Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Gender -> Animacy -> N nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl
+
+// N2
+mkN2 N -> N2 -
+mkN2 N -> Prep -> N2 -
+
+// N3
+mkN3 N -> Prep -> Prep -> N3 -
+
+// PN
+mkPN Str -> Gender -> Number -> Animacy -> PN "Иван", "Маша"
+nounPN N -> PN -
+
+// A
+mkA Str -> A positive
+mkA Str -> Str -> A positive, comparative
+
+// A2
+mkA2 A -> Str -> Case -> A2 "делим на"
+
+// Adv
+mkAdv Str -> Adv -
+
+// Prep
+mkPrep Str -> Case -> Prep as in German
+
+// V
+mkV Aspect -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> V presSg1, presSg2, presSg3, presPl1, presPl2, presPl3, pastSgMasc, imp, inf
+
+// V2
+mkV2 V -> Str -> Case -> V2 "войти в дом"; "в", accusative
+dirV2 V -> V2 "видеть", "любить"
+
+// V3
+mkV3 V -> Str -> Str -> Case -> Case -> V3 "сложить письмо в конверт"
+tvDirDir V -> V3 -
+
+// VS
+mkVS V -> VS -
+
+// VQ
+mkVQ V -> VQ -
+
+// V2V
+mkV2V V -> Str -> Case -> V2V -
+
+// V2S
+mkV2S V -> Str -> Case -> V2S -
+
+// V2Q
+mkV2Q V -> Str -> Case -> V2Q -
+
+// V2A
+mkV2A V -> Str -> Case -> V2A -
