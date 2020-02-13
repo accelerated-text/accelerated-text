@@ -38,17 +38,17 @@
 
 (defn generate [document-plan-id filename]
   (q "/nlg/" :post {:documentPlanId   (add-document-plan document-plan-id)
-                    :readerFlagValues {}
+                    :readerFlagValues {:English true}
                     :dataId           (store-data-file filename)}))
 
 (defn generate-bulk [document-plan-id rows]
   (q "/nlg/_bulk/" :post {:documentPlanId   (add-document-plan document-plan-id)
-                          :readerFlagValues {}
+                          :readerFlagValues {:English true}
                           :dataRows         rows}))
 
 (defn generate-enriched [document-plan-id filename]
   (q "/nlg/" :post {:documentPlanId   (add-document-plan document-plan-id)
-                    :readerFlagValues {}
+                    :readerFlagValues {:English true}
                     :dataId           (store-data-file filename)
                     :enrich           true}))
 
