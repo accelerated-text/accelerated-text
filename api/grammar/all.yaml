@@ -14,4 +14,3 @@ includes:
   - concept-net/capable-of.yaml
   - concept-net/identified-as.yaml
   - concept-net/is-a.yaml
-  - concept-net/define-object.yaml

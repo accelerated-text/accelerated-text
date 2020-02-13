@@ -7,11 +7,9 @@
             [jsonista.core :as json]
             [clojure.tools.logging :as log]))
 
-(def dictionary #{"allows"  "removable_filter"  "auto_switch"  "standard"
-                  "this" "safe_peration" "cleaning" "water" "fridge"
-                  "small" "low_power" "of_Prep" "make" "toaster"
-                  "fast" "suitable" "with_Prep" "steel" "regular" "kitchen"
-                  "t1000" "kettle" "average_size" "features" "easy_N"
+(def dictionary #{"allows"  "standard"
+                  "this" "small" "of_Prep" "make" "fast" "suitable" "with_Prep" 
+                  "regular" "features" "easy_N"
                   "includes" "package"})
 (defn s-ret? [ret] (coll? ret))
 

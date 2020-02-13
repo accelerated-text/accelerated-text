@@ -1,6 +1,5 @@
 resource CapableOfEng = open ParadigmsEng, SyntaxEng in {
-
-  oper -- Kettle boils water
+  oper
 
     capableOf = overload {
       capableOf : CN -> V2 -> CN -> Text =
