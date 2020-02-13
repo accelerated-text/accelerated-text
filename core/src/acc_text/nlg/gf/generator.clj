@@ -178,7 +178,7 @@
 (defn get-imports [lang]
   (concat ["LangFunctionsEng"]
           (for [import ["Syntax%s" "Paradigms%s" "CapableOf%s" "MadeOf%s"
-                        "HasProperty%s" "IsA%s" "HasA%s" "AtLocation%s"]]
+                        "HasProperty%s" "IsA%s" "HasA%s" "AtLocation%s" "LocatedNear%s"]]
             (format import lang))))
 
 (defn ->incomplete [lang {::grammar/keys [module functions]}]
