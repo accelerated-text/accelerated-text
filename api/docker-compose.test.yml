@@ -12,9 +12,11 @@ services:
       GRAMMAR_PARADIGMS: "/opt/grammar/paradigms"
       ENRICH_ENDPOINT: "http://enrich:8000"
       DICT_PATH: "/opt/grammar/dictionary"
+      DOCUMENT_PLANS: "/opt/document-plans"
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
       - ./grammar:/opt/grammar
+      - ./test/resources/document_plans_new:/opt/document-plans
   gf:
     build:
       context: ../

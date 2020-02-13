@@ -1,6 +1,7 @@
 (ns data.utils
   (:require [clojure.edn :as edn]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [jsonista.core :as json])
   (:import (java.io File PushbackReader)
            (java.util UUID)
            (java.time Instant)))
@@ -11,9 +12,16 @@
 (defn ts-now []
   (long (.getEpochSecond (Instant/now))))
 
+(def object-mapper
+  (json/object-mapper {:decode-key-fn true}))
+
 (defn read-edn [^File f]
   (with-open [rdr (io/reader f)]
     (edn/read (PushbackReader. rdr))))
+
+(defn read-json [^File f]
+  (with-open [f (io/reader f)]
+    (json/read-value f object-mapper)))
 
 (defn get-ext [^File f]
   (let [filename (.getName f)

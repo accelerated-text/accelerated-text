@@ -13,8 +13,10 @@ services:
       GRAMMAR_PACKAGE: "/opt/grammar/library"
       GRAMMAR_PARADIGMS: "/opt/grammar/paradigms"
       DICT_PATH: "/opt/grammar/dictionary"
+      DOCUMENT_PLANS: "/opt/document-plans"
     volumes:
       - ./api/grammar:/opt/grammar
+      - ./api/test/resources/document_plans_new:/opt/document-plans
   gf:
     build:
       context: .

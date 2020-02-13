@@ -8,6 +8,7 @@
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
+            [data.entities.document-plan :as document-plan]
             [mount.core :refer [defstate] :as mount]
             [org.httpkit.server :as server]
             [ring.middleware.multipart-params :as multipart-params]
@@ -114,6 +115,7 @@
   (let [host (get conf :host "0.0.0.0")
         port (get conf :port 3001)]
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
+    (document-plan/initialize)
     (dictionary/initialize)
     (server/run-server
       #'app {:port     port

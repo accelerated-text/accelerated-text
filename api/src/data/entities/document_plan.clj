@@ -36,3 +36,10 @@
                 (assoc m var-id var-name))
               {}
               vars))))
+
+(defn document-plan-path []
+  (or (System/getenv "DOCUMENT_PLANS") "test/resources/document_plans_new"))
+
+(defn initialize []
+  (doseq [{id :id :as dp} (->> (document-plan-path) (utils/list-files) (map utils/read-json))]
+    (add-document-plan dp id)))
