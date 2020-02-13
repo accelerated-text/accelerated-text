@@ -177,7 +177,7 @@
 
 (defn get-imports [lang]
   (concat ["LangFunctionsEng"]
-          (for [import ["Syntax%s" "Paradigms%s" "CapableOf%s"
+          (for [import ["Syntax%s" "Paradigms%s" "CapableOf%s" "MadeOf%s"
                         "HasProperty%s" "IsA%s" "HasA%s" "AtLocation%s"]]
             (format import lang))))
 

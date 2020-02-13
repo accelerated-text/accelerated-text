@@ -257,12 +257,8 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"In the city centre there is a place Alimentum."
-             "In the city centre there is a venue Alimentum."
-             "In the city centre there is an arena Alimentum."
              "There is a place in the city centre Alimentum."
-             "There is a venue in the city centre Alimentum."
-             "There is an Alimentum in the city centre."
-             "There is an arena in the city centre Alimentum."} (get-original-results result-id)))))
+             "There is an Alimentum in the city centre."} (get-original-results result-id)))))
 
 (deftest ^:integration located-near-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "located-near" "books.csv")]
