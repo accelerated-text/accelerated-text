@@ -34,11 +34,11 @@
     :else                    [idx "it"]))
 
 (defn add-replace-token-ee
-  [[idx value]]
+  [[idx _]]
   [idx "see"])
 
 (defn add-replace-token-de
-  [[idx value]]
+  [[idx _]]
   [idx "es"])
 
 (defn add-replace-token

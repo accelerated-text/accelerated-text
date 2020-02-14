@@ -198,7 +198,7 @@
           (join-body
             "oper" (parse-oper (map #(dissoc % :value) variables)))))
 
-(defn ->resource [lang {::grammar/keys [instance module variables]}]
+(defn ->resource [lang {::grammar/keys [module variables]}]
   (format "resource %sLex%s = open Syntax%s, Paradigms%s, BaseDictionary%s in {%s\n}"
           module
           lang
@@ -236,12 +236,12 @@
   ([grammar]
    (generate :en grammar))
   ([lang {::grammar/keys [module instance] :as grammar}]
-   (let [lang (translate-reader-model lang)]
-     (let [{body :body} (service/compile-request lang module instance (grammar->content lang grammar))
+   (let [lang (translate-reader-model lang)
+           {body :body} (service/compile-request lang module instance (grammar->content lang grammar))
            {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
        (if (some? error)
          (log/error error)
-         (sort (dedupe results)))))))
+         (sort (dedupe results))))))
 
 (s/fdef generate
         :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar :reader-model map?)

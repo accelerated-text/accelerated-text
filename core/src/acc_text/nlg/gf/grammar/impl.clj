@@ -51,9 +51,8 @@
      :value [(replace-placeholders value data)]
      :type  (get types name "Str")}))
 
-(defmethod build-variable :dictionary-item [{value :value {item-name :name} :attributes :as concept} {:keys [types dictionary]}]
-  (let [name (concept->name concept)
-        dict-entry (get dictionary value)]
+(defmethod build-variable :dictionary-item [{value :value :as concept} {:keys [types]}]
+  (let [name (concept->name concept)]
     {:name  name
      :value [value]
      :type  (get types name "Str")}))
@@ -108,7 +107,7 @@
       :type   :amr
       :params (get-params children)
       :body   (for [syntax (->> (get amr value) (syntax-suitable-for-role to-relation-role))]
-                (for [{:keys [value pos role params type] :as attrs} syntax]
+                (for [{:keys [value pos role params type]} syntax]
                   (let [role-key (when (some? role) role)]
                     (-> (cond
                           (contains? role-map role-key) (let [role-concept (get role-map role-key)]
