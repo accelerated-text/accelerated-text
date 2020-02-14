@@ -4,8 +4,8 @@ resource IncludesEng = open ParadigmsEng, SyntaxEng, UtilsEng, BaseDictionaryEng
 
   oper
     -- The package includes X.
-    included : CN -> Text =
-      \subject ->
+    included : CN -> CN -> Text =
+      \subject, package ->
       (wrapInText
          (mkCl
             (mkNP the_Det package)
