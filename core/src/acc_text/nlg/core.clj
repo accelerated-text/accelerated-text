@@ -12,5 +12,4 @@
 
 (defn enrich-text
   [context text]
-  (:result
-   (enrich/enrich-request context text)))
+  (get (enrich/enrich-request context text) :result ""))
