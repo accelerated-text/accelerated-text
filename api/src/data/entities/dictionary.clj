@@ -5,8 +5,7 @@
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]
-            [clojure.java.io :as io]
-            [clojure.tools.logging :as log])
+            [clojure.java.io :as io])
   (:import (java.io File)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
