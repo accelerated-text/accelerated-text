@@ -107,7 +107,7 @@ export default ChildComponent =>
                     const dataFile = await client.query({
                         fetchPolicy:        'network-only',
                         query:              getDataFile,
-                        variables: { id:    id },
+                        variables: { id },
                     });
                     if( dataFile.data ) {
                         this.props.onUploadDone();
