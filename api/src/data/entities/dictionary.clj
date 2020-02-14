@@ -56,7 +56,6 @@
   (doseq [f (list-dict-files)]
     (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
           filename (utils/get-name f)]
-      (log/debugf "Loading file: %s" filename)
       (when-not (get-dictionary-item filename)
         (create-dictionary-item
           {:key          filename
