@@ -5,7 +5,8 @@
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [clojure.tools.logging :as log])
   (:import (java.io File)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
@@ -55,6 +56,7 @@
   (doseq [f (list-dict-files)]
     (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
           filename (utils/get-name f)]
+      (log/debugf "Loading file: %s" filename)
       (when-not (get-dictionary-item filename)
         (create-dictionary-item
           {:key          filename
