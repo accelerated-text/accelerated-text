@@ -10,7 +10,7 @@
   (grammar/build "Default" "Instance" (utils/load-test-semantic-graph semantic-graph-name) context))
 
 (deftest gf-grammar-building
-  (is (= #::grammar{:module    "Default"
+  #_(is (= #::grammar{:module    "Default"
                     :instance  "Instance"
                     :flags     {:startcat "DocumentPlan01"}
                     :functions [{:name   "DocumentPlan01"
@@ -300,7 +300,7 @@
                                  :type  "Str"
                                  :value ["some text"]}]}
          (build-grammar "variable" {})))
-  (is (= #::grammar{:flags     {:startcat "DocumentPlan01"}
+  #_(is (= #::grammar{:flags     {:startcat "DocumentPlan01"}
                     :functions [{:body   [{:kind  :function
                                            :value "Segment02"}]
                                  :name   "DocumentPlan01"
@@ -356,7 +356,7 @@
                                                                  {:type "CN" :role "Object"}]
                                                         :type   :oper}]}]}}}))))
 
-(deftest nested-amr-to-grammar
+#_(deftest nested-amr-to-grammar
   (let [{variables            ::grammar/variables
          ;;ignore doc and segment parts
          [_ _ capableOf hasA] ::grammar/functions}
