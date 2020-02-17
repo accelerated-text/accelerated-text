@@ -6,6 +6,11 @@
            (java.util UUID)
            (java.time Instant)))
 
+(def char-list (map char (concat (range 65 91) (range 97 123))))
+
+(defn gen-rand-str [len]
+  (apply str (take len (repeatedly #(rand-nth char-list)))))
+
 (defn gen-uuid []
   (str (UUID/randomUUID)))
 
