@@ -86,7 +86,7 @@ mkA2 A -> Prep -> A2 e.g. "vihane" (postGenPrep "peale")
 
 // V
 mkV Str -> V predictable verbs, covers 90 %
-mkV Str -> V ma infinitive, da infinitive (lugema, lugeda)
+mkV Str -> Str -> V ma infinitive, da infinitive (lugema, lugeda)
 mkV Str -> Str -> Str -> V ma, da, present sg 3 (lugema, lugeda, loeb)
 mkV Str -> Str -> Str -> Str -> V --ma, da, pres sg 3, pres passive - (lugema, lugeda, loeb, loetakse)
 mkV Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> V worst-case verb, 8 forms (tegema, teha, teeb, tehakse, tehke, tegi, teinud, tehtud
@@ -95,7 +95,7 @@ caseV Case -> V -> V deviating subj. case, e.g. allative "meeldima"
 vOlema V the verb "be"
 vMinema V the verb "go"
 
-// v2
+// V2
 mkV2 Str -> V2 predictable direct transitive
 mkV2 V -> V2 direct transitive
 mkV2 V -> Case -> V2 complement just case

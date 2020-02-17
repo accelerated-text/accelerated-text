@@ -27,6 +27,7 @@
            {:start (fn []
                      {:db-implementation :datomic})}})
         (mount/only #{#'api.config/conf
+                      #'data.entities.rgl/rgl-db
                       #'data.entities.data-files/data-files-db
                       #'data.entities.document-plan/document-plans-db
                       #'data.entities.dictionary/reader-flags-db

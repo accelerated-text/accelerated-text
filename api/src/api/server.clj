@@ -8,6 +8,7 @@
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
+            [data.entities.rgl :as rgl]
             [data.entities.document-plan :as document-plan]
             [mount.core :refer [defstate] :as mount]
             [org.httpkit.server :as server]
@@ -117,6 +118,7 @@
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
     (document-plan/initialize)
     (dictionary/initialize)
+    (rgl/initialize)
     (server/run-server
       #'app {:port     port
              :ip       host

@@ -2,7 +2,5 @@
  :description "",
  :module "ParadigmsLav",
  :functions
- [{:function nil, :type ["mkV2"], :example "V2 V -> V2 -"}
-  {:function nil, :type ["mkV2"], :example "V2 V -> Prep -> V2 -"}
-  {:function "mkV2", :type ["V" "V2"], :example "-"}
+ [{:function "mkV2", :type ["V" "V2"], :example "-"}
   {:function "mkV2", :type ["V" "Prep" "V2"], :example "-"}]}

@@ -27,6 +27,6 @@
   (resolve-as nil {:message (format "Cannot find concept with id `%s`." id)}))
 
 (defn get-concept [_ {:keys [id]} _]
-  (if-let [concept (or (amr-entity/get-amr id) (rgl-entity/find-single id))]
+  (if-let [concept (or (amr-entity/get-amr id) (rgl-entity/get-rgl id))]
     (resolve-as (concept-translate/amr->schema concept))
     (resolve-as-not-found-concept id)))

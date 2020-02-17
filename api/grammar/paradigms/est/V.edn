@@ -6,7 +6,7 @@
    :type ["Str" "V"],
    :example "predictable verbs, covers 90 %"}
   {:function "mkV",
-   :type ["Str" "V"],
+   :type ["Str" "Str" "V"],
    :example "ma infinitive, da infinitive (lugema, lugeda)"}
   {:function "mkV",
    :type ["Str" "Str" "Str" "V"],

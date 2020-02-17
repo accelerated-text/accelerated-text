@@ -1,6 +1,26 @@
 (ns data.entities.rgl
-  (:require [clojure.string :as str]
-            [data.utils :as utils]))
+  (:require [api.config :refer [conf]]
+            [clojure.string :as str]
+            [data.db :as db]
+            [data.utils :as utils]
+            [mount.core :refer [defstate]]))
+
+(defstate rgl-db :start (db/db-access :rgl conf))
+
+(defn list-rgls []
+  (db/list! rgl-db 100))
+
+(defn get-rgl [id]
+  (when-not (str/blank? id)
+    (db/read! rgl-db id)))
+
+(defn delete-rgl [id]
+  (db/delete! rgl-db id))
+
+(defn write-rgl [{id :id :as entity}]
+  (when (get-rgl id)
+    (delete-rgl id))
+  (db/write! rgl-db id entity))
 
 (defn rgl-package-path []
   (or (System/getenv "GRAMMAR_PACKAGE") "grammar/library"))
@@ -39,5 +59,8 @@
   ([path]
    (mapcat read-library (utils/list-directories path))))
 
-(defn find-single [id]
-  (some #(when (= id (:id %)) %) (concat (read-library) (read-paradigms))))
+(defn initialize
+  ([] (initialize (concat (read-library) (read-paradigms))))
+  ([entities]
+   (doseq [entity entities]
+     (write-rgl entity))))

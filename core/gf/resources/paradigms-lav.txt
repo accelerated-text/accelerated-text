@@ -71,8 +71,6 @@ mkV Str -> Str -> Str -> V -
 mkV Str -> Str -> Str -> Case -> V -
 
 // V2
---mkV2 V -> V2 -
---mkV2 V -> Prep -> V2 -
 mkV2 V -> V2 -
 mkV2 V -> Prep -> V2 -
 
