@@ -34,9 +34,9 @@
                                                                      :label name})))))))}))
 
 (defn get-amr [id]
-  (-> id
-      (dp/get-document-plan)
-      (document-plan->amr)))
+  (some-> id
+          (dp/get-document-plan)
+          (document-plan->amr)))
 
 (defn list-amrs []
   (map document-plan->amr (dp/list-document-plans "AMR")))

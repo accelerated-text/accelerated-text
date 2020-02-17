@@ -33,7 +33,10 @@
 
 (defn build-amr-context [semantic-graph]
   (reduce (fn [m amr-id]
-            (assoc m amr-id (or (amr/get-amr amr-id) (rgl/get-rgl amr-id))))
+            (let [{sg :semantic-graph :as amr} (or (amr/get-amr amr-id) (rgl/get-rgl amr-id))]
+              (cond-> m
+                      (some? amr) (-> (assoc amr-id amr)
+                                      (cond-> (some? sg) (merge (build-amr-context sg)))))))
           {}
           (get-values semantic-graph :amr)))
 
