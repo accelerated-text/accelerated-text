@@ -45,7 +45,6 @@ def generate_results(data):
 
     return results["variants"]
 
-
 def load_data():
     with open("data/devset.csv", "r") as f:
         reader = csv.DictReader(f)
@@ -76,7 +75,7 @@ if __name__ == "__main__":
         data_rows[idx] = data
 
     results = generate_results(data_rows)
-    pairs = list([(ref[int(k)], random.choice(r))
+    pairs = list([(ref[int(k)], random.choice(r["original"]))
                   for k, r in results.items()])
 
     score = bleu_score(pairs)
