@@ -13,7 +13,7 @@ echo "Uploading required AMRs"
 for f in data/*.yaml; do
   filepath=$(basename -- "$f")
   filename="${filepath%.*}"
-  curl -XPOST ${ACC_TEXT_URL}/amr/${filename} -H 'Content-Type: application/yaml' -d @${f}
+  curl -XPOST ${ACC_TEXT_URL}/amr/${filename} -H 'Content-Type: application/yaml' --data-binary @${f}
 done
 
 echo "Uploading data to: ${ACC_TEXT_URL}"

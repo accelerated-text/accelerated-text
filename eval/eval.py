@@ -30,7 +30,7 @@ def not_empty_line(x):
 def generate_results(data):
     req = {
         "documentPlanId": DOCUMENT_PLAN_ID,
-        "readerFlagValues": {},
+        "readerFlagValues": {"English": True},
         "dataRows": data
     }
 
@@ -44,7 +44,6 @@ def generate_results(data):
     )).json()
 
     return results["variants"]
-
 
 def load_data():
     with open("data/devset.csv", "r") as f:
@@ -76,7 +75,7 @@ if __name__ == "__main__":
         data_rows[idx] = data
 
     results = generate_results(data_rows)
-    pairs = list([(ref[int(k)], random.choice(r))
+    pairs = list([(ref[int(k)], random.choice(r["original"]))
                   for k, r in results.items()])
 
     score = bleu_score(pairs)
