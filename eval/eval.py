@@ -74,9 +74,17 @@ if __name__ == "__main__":
         ref.append(refs)
         data_rows[idx] = data
 
-    results = generate_results(data_rows)
-    pairs = list([(ref[int(k)], random.choice(r["original"]))
-                  for k, r in results.items()])
+    results = dict(generate_results(data_rows))
+    
+    original_pairs = list([(ref[int(k)], random.choice(r)["original"])
+                           for k, r in results.items()])
 
-    score = bleu_score(pairs)
-    print("BLEU score: {0:.4f}".format(score))
+    enriched_pairs = list([(ref[int(k)], random.choice(r)["enriched"])
+                           for k, r in results.items()])
+
+    
+    score = bleu_score(original_pairs)
+    print("original BLEU score: {0:.4f}".format(score))
+
+    score = bleu_score(enriched_pairs)
+    print("enriched BLEU score: {0:.4f}".format(score))
