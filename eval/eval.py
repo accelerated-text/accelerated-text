@@ -31,7 +31,8 @@ def generate_results(data):
     req = {
         "documentPlanId": DOCUMENT_PLAN_ID,
         "readerFlagValues": {"English": True},
-        "dataRows": data
+        "dataRows": data,
+        "enrich": True
     }
 
     resp = requests.post("{url}/_bulk/".format(url=NLG_ENDPOINT), json=req)
@@ -42,6 +43,8 @@ def generate_results(data):
         url=NLG_ENDPOINT,
         result_id=result_id
     )).json()
+
+    print("Results: {}".format(results))
 
     return results["variants"]
 
@@ -79,12 +82,13 @@ if __name__ == "__main__":
     original_pairs = list([(ref[int(k)], random.choice(r)["original"])
                            for k, r in results.items()])
 
-    enriched_pairs = list([(ref[int(k)], random.choice(r)["enriched"])
-                           for k, r in results.items()])
-
-    
     score = bleu_score(original_pairs)
     print("original BLEU score: {0:.4f}".format(score))
 
+    enriched_pairs = list([(ref[int(k)], random.choice([(v["enriched"] if "enriched" in v else v["original"])
+                                                        for v in r]))
+                           for k, r in results.items()])
+
+    
     score = bleu_score(enriched_pairs)
     print("enriched BLEU score: {0:.4f}".format(score))

@@ -73,3 +73,5 @@
   [results]
   (log/debugf "Results count: %d" (count results))
   results)
+
+(defn key-to-keyword [pairs] (map (fn [[k v]] [(keyword k) v]) pairs))
