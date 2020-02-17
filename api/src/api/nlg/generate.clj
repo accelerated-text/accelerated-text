@@ -1,6 +1,5 @@
 (ns api.nlg.generate
-  (:require [acc-text.nlg.utils.nlp :as nlp]
-            [acc-text.nlg.core :as nlg]
+  (:require [acc-text.nlg.core :as nlg]
             [acc-text.nlg.utils.ref-expressions :as ref-expr]
             [api.nlg.context :as context]
             [api.nlg.parser :as parser]
@@ -30,30 +29,46 @@
 
 (defn filter-empty [text] (not= "" text))
 
-(defn merge-enrich-dupes [{:keys [original enriched] :as data}]
+(defn merge-enrich-dupes [{:keys [original enriched lang] :as data}]
   (if (= original enriched)
-    {:original original}
+    {:original original :lang lang}
     data))
+
+
+(defn generate-text-for-language
+  [semantic-graph context enrich lang]
+  (let [ref-expr-fn (partial ref-expr/apply-ref-expressions lang)
+        enrich-data (into {} (map (fn [[k v]] {v (format "{%s}" (name k))}) (:data context)))
+        enrich-fn (fn [text]
+                    (cond-> {:original (ref-expr-fn text) :lang lang}
+                      enrich (assoc :enriched (ref-expr-fn
+                                               (nlg/enrich-text enrich-data text)))))]
+    (->> (nlg/generate-text semantic-graph context lang)
+         (map :text)
+         (sort)
+         (dedupe)
+         (filter filter-empty)
+         (utils/inspect-results)
+         (map enrich-fn)
+         (map merge-enrich-dupes))))
+
 
 (defn generate-text
   ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
   ([document-plan data reader-model enrich]
-   (let [semantic-graph (parser/document-plan->semantic-graph document-plan)
+   (let [languages      (cond-> []
+                          (get reader-model "English"  false)    (conj :en)
+                          (get reader-model "German"   false)    (conj :de)
+                          (get reader-model "Estonian" false)    (conj :ee)
+                          (get reader-model "Latvian"  false)    (conj :lv))
+         semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)
-         ref-expr-fn (partial ref-expr/apply-ref-expressions :en)
-         enrich-data (into {} (map (fn [[k v]] {v (format "{%s}" (name k))}) data))
-         enrich-fn (fn [text]
-                     (cond-> {:original (ref-expr-fn text)}
-                       enrich (assoc :enriched (ref-expr-fn
-                                                (nlg/enrich-text enrich-data text)))))]
-     (->> (nlg/generate-text semantic-graph (assoc context :data  data))
-          (map :text)
-          (sort)
-          (dedupe)
-          (filter filter-empty)
-          (utils/inspect-results)
-          (map enrich-fn)
-          (map merge-enrich-dupes)))))
+         generate-fn (partial generate-text-for-language semantic-graph (assoc context :data data) enrich)]
+     (log/debugf "Languages: %s" languages)
+     (log/debugf "Reader Model: %s" reader-model)
+     (->> languages
+          (map generate-fn)
+          (mapcat identity)))))
 
 (defn generation-process [document-plan rows reader-model enrich]
   (try
@@ -92,26 +107,38 @@
           :references  []
           :children    [{:type     "PARAGRAPH"
                          :id       (utils/gen-uuid)
-                         :children (for [sentence (nlp/split-into-sentences r)]
-                                     {:type     "SENTENCE"
-                                      :id       (utils/gen-uuid)
-                                      :children (for [token (nlp/tokenize sentence)]
-                                                  {:type (nlp/token-type token)
-                                                   :id   (utils/gen-uuid)
-                                                   :text token})})}]})
+                         :children [{:type "SENTENCE"
+                                     :id   (utils/gen-uuid)
+                                     :children [{:type "WORD"
+                                                 :id   (utils/gen-uuid)
+                                                 :text r}]}]
+                         ;; TODO: This was the logic:
+                         ;; (for [sentence (nlp/split-into-sentences r)]
+                                   ;;   {:type     "SENTENCE"
+                                   ;;    :id       (utils/gen-uuid)
+                                   ;;    :children (for [token (nlp/tokenize sentence)]
+                                   ;;                {:type (nlp/token-type token)
+                                   ;;                 :id   (utils/gen-uuid)
+                                   ;;                 :text token})})
+                         }]})
        results))
 
 (defn prepend-lang-flag
-  [text]
-  ;; TODO: Harcoded EN flag at the moment. Should use flag of language used
-  (format "🇬🇧 %s" text))
+  [text lang]
+  (log/debugf "Result lang: %s" lang)
+  (format "%s %s" (case (keyword lang)
+                    :en "🇬🇧"
+                    :de "🇩🇪"
+                    :ee "🇪🇪"
+                    :lv "🇱🇻"
+                    "🏳️") text))
 
 (defn transform-results
   [results]
-  (mapcat (fn [{:keys [enriched original]}]
+  (mapcat (fn [{:keys [enriched original lang]}]
             (if enriched
-              [(format "📔\t%s " original) (format "📙\t%s" enriched)]
-              [original]))
+              [(prepend-lang-flag (format "📔\t%s " original) lang) (prepend-lang-flag (format "📙\t%s" enriched) lang)]
+              [(prepend-lang-flag original lang)]))
           results))
 
 (defn annotated-text-format [results]
@@ -119,7 +146,6 @@
        (map second)
        (flatten) ;; Don't care about any bulk keys at the moment
        (transform-results)
-       (map prepend-lang-flag)
        (wrap-to-annotated-text)))
 
 (defn raw-format [results]
@@ -132,6 +158,14 @@
    :body   {:error   true
             :message (.getMessage exception)}})
 
+
+(def dummy-response
+  {:ready true
+   :results [[:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence one . Test sentence Two .") :lang :lv}]]
+             [:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence 12.3 one . Test sentence Two .")
+                       :enriched (ref-expr/apply-ref-expressions :en "Test sentence one. Test sentence Two. Test sentence four. A very very long fith sentence test goes here. Test sentence six.")
+                       :lang :de}]]]})
+
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)
         format-fn (case (keyword (:format query))
@@ -142,7 +176,7 @@
       (if-let [{:keys [results ready updatedAt]} (results/fetch request-id)]
         {:status 200
          :body   {:offset     0
-                  :totalCount (count (flatten results))     ;; Each key has N results. So flatten and count total
+                  :totalCount (count (flatten results)) ;; Each key has N results. So flatten and count total
                   :ready      ready
                   :updatedAt  updatedAt
                   :variants   (format-fn results)}}

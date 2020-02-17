@@ -33,11 +33,21 @@
     (nlp/ends-with-s? value) [idx "its"]
     :else                    [idx "it"]))
 
+(defn add-replace-token-ee
+  [[idx _]]
+  [idx "see"])
+
+(defn add-replace-token-de
+  [[idx _]]
+  [idx "es"])
+
 (defn add-replace-token
   [lang args]
   (case lang
     :en (add-replace-token-en args)
-    (add-replace-token-en args)))
+    :de (add-replace-token-de args)
+    :ee (add-replace-token-ee args)
+    nil))
 
 (defn apply-ref-expressions
   [lang text]
@@ -47,6 +57,7 @@
                   (mapcat identity)
                   (map (partial add-replace-token lang))
                   (into {}))]
+    (log/tracef "Smap: %s" smap)
     (nlp/rebuild-sentences
      (map-indexed (fn
                     [idx v]

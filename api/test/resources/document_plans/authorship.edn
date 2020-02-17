@@ -5,7 +5,7 @@
                                       :children [{:name   "author"
                                                   :type   "Dictionary-item"
                                                   :srcId  "jirq-V{WgCd+u[sdVWpd"
-                                                  :itemId "VB-author"}]}
+                                                  :itemId "author"}]}
                                      {:name     "Agent"
                                       :children [{:name  "authors"
                                                   :type  "Cell"

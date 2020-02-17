@@ -1,12 +1,23 @@
 resource CapableOfEng = open ParadigmsEng, SyntaxEng in {
+  oper
 
-  oper -- Kettle boils water
+    capableOf = overload {
+      capableOf : CN -> V2 -> CN -> Text =
+        \subject,verb,object ->
+        (mkText
+          (mkS
+            (mkCl (mkNP subject)
+               verb
+               (mkNP object)))) ;
 
-    capableOf : CN -> V2 -> CN -> S =
-      \subject,verb,object ->
-        (mkS
-          (mkCl (mkNP subject)
-                verb
-                (mkNP object))) ;
+      capableOf : NP -> V2 -> CN -> Text =
+        \subject,verb,object ->
+        (mkText
+          (mkS
+            (mkCl subject
+               verb
+               (mkNP object)))) ;
+
+      };
 
 }

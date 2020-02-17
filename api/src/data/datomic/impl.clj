@@ -108,6 +108,7 @@
 
 (defmethod pull-entity :data-files [_ key]
   (let [data-file (ffirst (d/q '[:find (pull ?e [*])
+                                 :in $ ?key
                                  :where
                                  [?e :data-file/id ?key]]
                                (d/db conn)
@@ -200,9 +201,9 @@
 (defmulti pull-n (fn [resource-type _] resource-type))
 
 (defmethod pull-n :data-files [_ limit]
-  (let [resp (first (d/q '[:find (pull ?e [*])
-                           :where [?e :data-file/id]]
-                         (d/db conn)))]
+  (let [resp (map first (d/q '[:find (pull ?e [*])
+                               :where [?e :data-file/id]]
+                             (d/db conn)))]
 
     (map (fn [df] {:id       (:data-file/id df)
                    :filename (:data-file/filename df)

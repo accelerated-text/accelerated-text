@@ -38,17 +38,17 @@
 
 (defn generate [document-plan-id filename]
   (q "/nlg/" :post {:documentPlanId   (add-document-plan document-plan-id)
-                    :readerFlagValues {}
+                    :readerFlagValues {:English true}
                     :dataId           (store-data-file filename)}))
 
 (defn generate-bulk [document-plan-id rows]
   (q "/nlg/_bulk/" :post {:documentPlanId   (add-document-plan document-plan-id)
-                          :readerFlagValues {}
+                          :readerFlagValues {:English true}
                           :dataRows         rows}))
 
 (defn generate-enriched [document-plan-id filename]
   (q "/nlg/" :post {:documentPlanId   (add-document-plan document-plan-id)
-                    :readerFlagValues {}
+                    :readerFlagValues {:English true}
                     :dataId           (store-data-file filename)
                     :enrich           true}))
 
@@ -257,24 +257,16 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"In the city centre there is a place Alimentum."
-             "In the city centre there is a venue Alimentum."
-             "In the city centre there is an arena Alimentum."
              "There is a place in the city centre Alimentum."
-             "There is a venue in the city centre Alimentum."
-             "There is an Alimentum in the city centre."
-             "There is an arena in the city centre Alimentum."} (get-original-results result-id)))))
+             "There is an Alimentum in the city centre."} (get-original-results result-id)))))
 
 (deftest ^:integration located-near-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "located-near" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"In the city centre, near the KFC there is a place Alimentum."
-             "In the city centre, near the KFC there is a venue Alimentum."
-             "In the city centre, near the KFC there is an arena Alimentum."
              "There is a place in the city centre, near the KFC Alimentum."
-             "There is a venue in the city centre, near the KFC Alimentum."
-             "There is an Alimentum in the city centre, near the KFC."
-             "There is an arena in the city centre, near the KFC Alimentum."} (get-original-results result-id)))))
+             "There is an Alimentum in the city centre, near the KFC."} (get-original-results result-id)))))
 
 (deftest ^:integration gf-amr-modifier-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "gf-amr-modifier" "books.csv")]

@@ -5,7 +5,7 @@
   (str/split s #"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"))
 
 (defn tokenize [s]
-  (map first (re-seq #"((:(\w|[_-])+:)|(\{\{(\w|[_-])+\}\})|([\w+'`]+|[^\s\w+'`]+))" s)))
+  (map first (re-seq #"((\w+[.,-_ÄäÖöÜü]\w+)|(:(\w|[_-])+:)|(\{\{(\w|[_-])+\}\})|([\w+'`]+|[^\s\w+'`]+))" s)))
 
 (defn tokenize-incl-space [s]
   (map first (re-seq #"([\w+'`]+|[\s]+|[^\s\w+'`]+)" s)))
