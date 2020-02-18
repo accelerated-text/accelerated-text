@@ -1,23 +1,13 @@
 '{:amr {"MEYhpJOiWRenjbXs"                               {:id             "MEYhpJOiWRenjbXs",
                                                           :label          "Subject is ... of object",
                                                           :kind           "Str",
-                                                          :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from :01,
-                                                                                                                     :to   :02,
-                                                                                                                     :role :segment}
-                                                                                                                    {:from :01,
-                                                                                                                     :to   :15,
-                                                                                                                     :role :segment}
-                                                                                                                    {:from :02,
-                                                                                                                     :to   :03,
-                                                                                                                     :role :instance}
+                                                          :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from :01, :to :02, :role :segment}
+                                                                                                                    {:from :02, :to :03, :role :instance}
                                                                                                                     {:from       :03,
                                                                                                                      :to         :04,
                                                                                                                      :role       :ARG0,
                                                                                                                      :attributes {:name "Subject"}}
-                                                                                                                    {:from       :03,
-                                                                                                                     :to         :06,
-                                                                                                                     :role       :ARG1,
-                                                                                                                     :attributes {:name "Verb"}}
+                                                                                                                    {:from :03, :to :06, :role :ARG1, :attributes {:name "Verb"}}
                                                                                                                     {:from       :03,
                                                                                                                      :to         :09,
                                                                                                                      :role       :ARG2,
@@ -26,161 +16,27 @@
                                                                                                                      :to         :11,
                                                                                                                      :role       :ARG3,
                                                                                                                      :attributes {:name "Object"}}
-                                                                                                                    {:from       :03,
-                                                                                                                     :to         :13,
-                                                                                                                     :role       :ARG4,
-                                                                                                                     :attributes {:name "N.2"}}
-                                                                                                                    {:from       :04,
-                                                                                                                     :to         :05,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Str"}}
-                                                                                                                    {:from       :06,
-                                                                                                                     :to         :07,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "V"}}
-                                                                                                                    {:from       :07,
-                                                                                                                     :to         :08,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Str"}}
-                                                                                                                    {:from       :09,
-                                                                                                                     :to         :10,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Str"}}
-                                                                                                                    {:from       :11,
-                                                                                                                     :to         :12,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Str"}}
-                                                                                                                    {:from       :13,
-                                                                                                                     :to         :14,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Str"}}
-                                                                                                                    {:from :15,
-                                                                                                                     :to   :16,
-                                                                                                                     :role :instance}
-                                                                                                                    {:from       :16,
-                                                                                                                     :to         :17,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Subject"}}
-                                                                                                                    {:from       :16,
-                                                                                                                     :to         :19,
-                                                                                                                     :role       :ARG1,
-                                                                                                                     :attributes {:name "Verb"}}
-                                                                                                                    {:from       :16,
-                                                                                                                     :to         :22,
-                                                                                                                     :role       :ARG2,
-                                                                                                                     :attributes {:name "Attribute"}}
-                                                                                                                    {:from       :16,
-                                                                                                                     :to         :25,
-                                                                                                                     :role       :ARG3,
-                                                                                                                     :attributes {:name "Object"}}
-                                                                                                                    {:from       :16,
-                                                                                                                     :to         :27,
-                                                                                                                     :role       :ARG4,
-                                                                                                                     :attributes {:name "N.2"}}
-                                                                                                                    {:from       :17,
-                                                                                                                     :to         :18,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Str"}}
-                                                                                                                    {:from       :19,
-                                                                                                                     :to         :20,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "V"}}
-                                                                                                                    {:from       :20,
-                                                                                                                     :to         :21,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Str"}}
-                                                                                                                    {:from       :22,
-                                                                                                                     :to         :23,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Str"}}
-                                                                                                                    {:from       :22,
-                                                                                                                     :to         :24,
-                                                                                                                     :role       :ARG1,
-                                                                                                                     :attributes {:name "Case"}}
-                                                                                                                    {:from       :25,
-                                                                                                                     :to         :26,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Str"}}
-                                                                                                                    {:from       :27,
-                                                                                                                     :to         :28,
-                                                                                                                     :role       :ARG0,
-                                                                                                                     :attributes {:name "Str"}}),
+                                                                                                                    {:from :03, :to :13, :role :ARG4, :attributes {:name "N.2"}}
+                                                                                                                    {:from :04, :to :05, :role :ARG0, :attributes {:name "Str"}}
+                                                                                                                    {:from :06, :to :07, :role :ARG0, :attributes {:name "V"}}
+                                                                                                                    {:from :07, :to :08, :role :ARG0, :attributes {:name "Str"}}
+                                                                                                                    {:from :09, :to :10, :role :ARG0, :attributes {:name "Str"}}
+                                                                                                                    {:from :11, :to :12, :role :ARG0, :attributes {:name "Str"}}
+                                                                                                                    {:from :13, :to :14, :role :ARG0, :attributes {:name "Str"}}),
                                                                                                         :concepts  ({:id :01, :type :document-plan}
                                                                                                                     {:id :02, :type :segment}
-                                                                                                                    {:id    :03,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "pNnEMETVbhvMuVDF"}
-                                                                                                                    {:id    :04,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsEng.mkN/Str->N"}
-                                                                                                                    {:id         :05,
-                                                                                                                     :type       :reference,
-                                                                                                                     :attributes {:name "Subject"}}
-                                                                                                                    {:id    :06,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsEng.mkV2/V->V2"}
-                                                                                                                    {:id    :07,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsEng.mkV/Str->V"}
-                                                                                                                    {:id         :08,
-                                                                                                                     :type       :reference,
-                                                                                                                     :attributes {:name "Verb"}}
-                                                                                                                    {:id    :09,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsEng.mkPrep/Str->Prep"}
+                                                                                                                    {:id :03, :type :amr, :value "pNnEMETVbhvMuVDF"}
+                                                                                                                    {:id :04, :type :amr, :value "ParadigmsEng.mkN/Str->N"}
+                                                                                                                    {:id :05, :type :reference, :attributes {:name "Subject"}}
+                                                                                                                    {:id :06, :type :amr, :value "ParadigmsEng.mkV2/V->V2"}
+                                                                                                                    {:id :07, :type :amr, :value "ParadigmsEng.mkV/Str->V"}
+                                                                                                                    {:id :08, :type :reference, :attributes {:name "Verb"}}
+                                                                                                                    {:id :09, :type :amr, :value "ParadigmsEng.mkPrep/Str->Prep"}
                                                                                                                     {:id :10, :type :quote, :value "of"}
-                                                                                                                    {:id    :11,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsEng.mkA/Str->A"}
-                                                                                                                    {:id         :12,
-                                                                                                                     :type       :reference,
-                                                                                                                     :attributes {:name "Attribute"}}
-                                                                                                                    {:id    :13,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsEng.mkN/Str->N"}
-                                                                                                                    {:id         :14,
-                                                                                                                     :type       :reference,
-                                                                                                                     :attributes {:name "Object"}}
-                                                                                                                    {:id :15, :type :segment}
-                                                                                                                    {:id    :16,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "pNnEMETVbhvMuVDF"}
-                                                                                                                    {:id    :17,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsGer.mkN/Str->N"}
-                                                                                                                    {:id         :18,
-                                                                                                                     :type       :reference,
-                                                                                                                     :attributes {:name "Subject"}}
-                                                                                                                    {:id    :19,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsGer.mkV2/V->V2"}
-                                                                                                                    {:id    :20,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsGer.mkV/Str->V"}
-                                                                                                                    {:id         :21,
-                                                                                                                     :type       :reference,
-                                                                                                                     :attributes {:name "Verb"}}
-                                                                                                                    {:id    :22,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsGer.mkPrep/Str->Case->Prep"}
-                                                                                                                    {:id    :23,
-                                                                                                                     :type  :quote,
-                                                                                                                     :value "aus"}
-                                                                                                                    {:id    :24,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsGer.dative/Case"}
-                                                                                                                    {:id    :25,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsGer.mkA/Str->A"}
-                                                                                                                    {:id         :26,
-                                                                                                                     :type       :reference,
-                                                                                                                     :attributes {:name "Attribute"}}
-                                                                                                                    {:id    :27,
-                                                                                                                     :type  :amr,
-                                                                                                                     :value "ParadigmsGer.mkN/Str->N"}
-                                                                                                                    {:id         :28,
-                                                                                                                     :type       :reference,
-                                                                                                                     :attributes {:name "Object"}})},
+                                                                                                                    {:id :11, :type :amr, :value "ParadigmsEng.mkA/Str->A"}
+                                                                                                                    {:id :12, :type :reference, :attributes {:name "Attribute"}}
+                                                                                                                    {:id :13, :type :amr, :value "ParadigmsEng.mkN/Str->N"}
+                                                                                                                    {:id :14, :type :reference, :attributes {:name "Object"}})},
                                                           :roles          [{:id "ARG0", :type "Str", :label "Subject"}
                                                                            {:id "ARG1", :type "Str", :label "Verb"}
                                                                            {:id "ARG2", :type "Str", :label "Attribute"}
