@@ -203,30 +203,33 @@
 
 (defmulti build-operation (fn [concept _ _ _ _] (:type concept)))
 
-(defmethod build-operation :document-plan [{id :id :as concept} concept-map relation-map roles rgl-ops]
+(defmethod build-operation :document-plan [{id :id :as concept} concept-map relation-map role-map rgl-ops]
   (interpose {:type  :operator
               :value "|"}
-             (map #(build-operation % concept-map relation-map roles rgl-ops)
-                  (get-children id concept-map relation-map))))
+             (mapcat #(build-operation % concept-map relation-map role-map rgl-ops)
+                     (get-children id concept-map relation-map))))
 
-(defmethod build-operation :segment [{id :id :as concept} concept-map relation-map roles rgl-ops]
+(defmethod build-operation :segment [{id :id :as concept} concept-map relation-map role-map rgl-ops]
   (interpose {:type  :operator
               :value "|"}
-             (map #(build-operation % concept-map relation-map roles rgl-ops)
+             (map #(build-operation % concept-map relation-map role-map rgl-ops)
                   (get-children id concept-map relation-map))))
 
-(defmethod build-operation :amr [{:keys [id value] :as concept} concept-map relation-map roles rgl-ops]
-  {:type     :operation
-   :value    (if (contains? rgl-ops value)
-               (let [{:keys [module label]} (get rgl-ops value)]
-                 (format "%s.%s" module label))
-               value)
-   :children (map #(build-operation % concept-map relation-map roles rgl-ops)
-                  (get-children id concept-map relation-map))})
+(defmethod build-operation :amr [{:keys [id value] :as concept} concept-map relation-map role-map rgl-ops]
+  (let [{:keys [module label kind]} (get rgl-ops value)]
+    {:type     :operation
+     :value    (if (and (some? module) (some? label))
+                 (format "%s.%s" module label)
+                 value)
+     :kind     (or kind "Text")
+     :children (map #(build-operation % concept-map relation-map role-map rgl-ops)
+                    (get-children id concept-map relation-map))}))
 
-(defmethod build-operation :reference [{{name :name} :attributes} _ _ _ _]
-  {:type  :argument
-   :value name})
+(defmethod build-operation :reference [{{name :name} :attributes} _ _ role-map _]
+  (let [{:keys [type id]} (get role-map name)]
+    {:value id
+     :kind  type
+     :type  :argument}))
 
 (defmethod build-operation :quote [{value :value} _ _ _ _]
   {:type  :literal
@@ -238,8 +241,12 @@
     (for [{name :id roles :roles {::sg/keys [concepts relations]} :semantic-graph} amr-ops]
       (let [concept-map (zipmap (map :id concepts) concepts)
             relation-map (group-by :from relations)
+            role-map (zipmap (map :label roles) roles)
             root-concept (first concepts)]
-        (build-operation root-concept concept-map relation-map roles rgl-ops)))))
+        {:id    name
+         :roles roles
+         :kind  "Text"
+         :body  (build-operation root-concept concept-map relation-map role-map rgl-ops)}))))
 
 (defn build-grammar [module instance {::sg/keys [concepts relations]} context]
   (let [concept-map (zipmap (map :id concepts) concepts)
