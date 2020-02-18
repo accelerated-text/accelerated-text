@@ -28,6 +28,9 @@
   (with-open [f (io/reader f)]
     (json/read-value f object-mapper)))
 
+(defn read-json-str [s]
+  (json/read-value s object-mapper))
+
 (defn get-ext [^File f]
   (let [filename (.getName f)
         index (.lastIndexOf filename ".")]
