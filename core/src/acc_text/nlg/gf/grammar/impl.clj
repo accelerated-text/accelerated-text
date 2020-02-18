@@ -124,7 +124,7 @@
                                           (attach-selectors attrs)
                                           (cond-> (when (some? pos)) (assoc :pos pos))))))
                  (some? semantic-graph) (->> roles
-                                             (map (comp concept->name role-map :label))
+                                             (map (comp #(hash-map :kind :variable :value %) concept->name role-map :label))
                                              (assoc {:kind :operation :value id} :params)
                                              (vector))))
      :ret    [:s (or (:kind (get amr value)) "Str")]}))
