@@ -53,7 +53,7 @@
                   frames)}))
 
 (defn grammar-package []
-  (io/file (or (System/getenv "GRAMMAR_PACKAGE") "grammar/concept-net.yaml")))
+  (io/file (or (System/getenv "AMR_GRAMMAR") "grammar/concept-net.yaml")))
 
 (defn list-amr-files
   ([] (list-amr-files (grammar-package)))
