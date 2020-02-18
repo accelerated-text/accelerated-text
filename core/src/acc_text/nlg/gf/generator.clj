@@ -90,13 +90,16 @@
                                  :variable value)))
                         (str/join " ")
                         (format "(%s %s).s" (cond->> value
-                                                   (= "mkAdv" value) (str "ParadigmsEng."))))))))
+                                                     (= "mkAdv" value) (str "ParadigmsEng."))))))))
 
 (defn get-operator [expr next-expr]
   (when (some? next-expr)
     (if (some sequential? [expr next-expr])
       "|"
       "++")))
+
+(defn join-operation-body [op]
+  "(SyntaxEng.mkText (SyntaxEng.mkCl (ParadigmsEng.mkN \"noun\")))")
 
 (defn join-function-body [body ret]
   (str/join " " (map (fn [expr next-expr]
@@ -147,12 +150,13 @@
             "fun" (parse-fun functions))))
 
 (def imports ["ParadigmsEng" "ConstructorsEng" "LangFunctionsEng"
-              "SyntaxEng" "ParadigmsEng"  "AtLocationEng"
-              "CapableOfEng" "HasAEng"  "HasPropertyEng" "IsAEng"
+              "SyntaxEng" "ParadigmsEng" "AtLocationEng"
+              "CapableOfEng" "HasAEng" "HasPropertyEng" "IsAEng"
               "LocatedNearEng" "MadeOfEng" "HasAEng" "ResEng"])
 
 (defn ->incomplete [{::grammar/keys [module functions]}]
-  (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"
+  (format "incomplete concrete %sBody of %s = open %sLex, %sOps, %s in {%s\n}"
+          module
           module
           module
           module
@@ -175,6 +179,18 @@
           (join-body
             "oper" (parse-oper variables))))
 
+(defn ->operations [{::grammar/keys [module operations]}]
+  (format "resource %sOps = open SyntaxEng, ParadigmsEng in {%s\n}"
+          module
+          (join-body
+            "oper" (for [{:keys [id kind roles body]} operations]
+                     (format
+                       "%s : %s = \\%s -> %s"
+                       id
+                       (str/join " -> " (conj (mapv :type roles) kind))
+                       (str/join "," (mapv :id roles))
+                       (join-operation-body body))))))
+
 (defn ->concrete [{::grammar/keys [instance module]}]
   (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s);"
           module
@@ -189,6 +205,7 @@
   {(str module)                (->abstract grammar)
    (str module "Body")         (->incomplete grammar)
    (str module "Lex")          (->interface grammar)
+   (str module "Ops")          (->operations grammar)
    (str module "Lex" instance) (->resource grammar)
    (str module instance)       (->concrete grammar)})
 
