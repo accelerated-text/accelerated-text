@@ -208,27 +208,27 @@
 
 (defmulti build-operation (fn [concept _ _ _ _] (:type concept)))
 
-(defmethod build-operation :document-plan [{id :id :as concept} concept-map relation-map role-map rgl-ops]
+(defmethod build-operation :document-plan [concept concept-map relation-map role-map rgl-ops]
   (interpose {:type  :operator
               :value "|"}
              (mapcat #(build-operation % concept-map relation-map role-map rgl-ops)
-                     (get-children id concept-map relation-map))))
+                     (get-children (:id concept) concept-map relation-map))))
 
-(defmethod build-operation :segment [{id :id :as concept} concept-map relation-map role-map rgl-ops]
+(defmethod build-operation :segment [concept concept-map relation-map role-map rgl-ops]
   (interpose {:type  :operator
               :value "|"}
              (map #(build-operation % concept-map relation-map role-map rgl-ops)
-                  (get-children id concept-map relation-map))))
+                  (get-children (:id concept) concept-map relation-map))))
 
-(defmethod build-operation :amr [{:keys [id value] :as concept} concept-map relation-map role-map rgl-ops]
-  (let [{:keys [module label kind]} (get rgl-ops value)]
+(defmethod build-operation :amr [concept concept-map relation-map role-map rgl-ops]
+  (let [{:keys [module label kind]} (get rgl-ops (:value concept))]
     {:type     :operation
      :value    (if (and (some? module) (some? label))
                  (format "%s.%s" module label)
-                 value)
+                 (:value concept))
      :kind     (or kind "Text")
      :children (map #(build-operation % concept-map relation-map role-map rgl-ops)
-                    (get-children id concept-map relation-map))}))
+                    (get-children (:id concept) concept-map relation-map))}))
 
 (defmethod build-operation :reference [{{name :name} :attributes} _ _ role-map _]
   (let [{:keys [type id]} (get role-map name)]

@@ -1,6 +1,0 @@
----
-includes:
-  - library/author.yaml
-  - library/adult.yaml
-  - library/release.yaml
-  - library/genre.yaml

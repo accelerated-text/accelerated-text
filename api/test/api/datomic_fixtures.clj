@@ -5,6 +5,7 @@
             [data.entities.data-files]
             [data.entities.dictionary]
             [data.entities.document-plan]
+            [data.entities.rgl]
             [data.entities.result]
             [datomic.api :as d]
             [mount.core :as mount])

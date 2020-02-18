@@ -1,7 +1,7 @@
 roles:
-  - lexicon
-  - locationData
-  - objectRef
+- lexicon
+- locationData
+- objectRef
 frames:
   - example: There is a place in the city center, KFC
     syntax:
@@ -10,8 +10,8 @@ frames:
         ret: S
         params:
           - role: lexicon
-            type: N
+            type: CN
           - role: locationData
-            type: N
+            type: CN
           - role: objectRef
-            type: N
+            type: CN

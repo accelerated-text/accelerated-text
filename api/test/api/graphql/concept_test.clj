@@ -1,13 +1,9 @@
 (ns api.graphql.concept-test
   (:require [api.test-utils :refer [q]]
             [api.db-fixtures :as db]
-            [clojure.test :refer [deftest is use-fixtures]]
-            [data.entities.amr :as amr]))
+            [clojure.test :refer [deftest is use-fixtures]]))
 
-(defn prepare-environment [f]
-  (f))
-
-(use-fixtures :each db/clean-db prepare-environment)
+(use-fixtures :each db/clean-db)
 
 (deftest ^:integration get-concept
   (let [query "{concept(id:\"%s\"){id label roles{id fieldType fieldLabel} helpText}}}"
@@ -26,11 +22,3 @@
     (is (nil? errors))
     (is (seq concepts))
     (is (= "concepts" id))))
-
-(deftest ^:integration delete-concept
-  (let [id "author"
-        query "mutation deleteConcept($id:String!){deleteConcept(id:$id)}}"
-        {{errors :errors} :body} (q "/_graphql" :post {:query     query
-                                                       :variables {:id id}})]
-    (is (nil? errors))
-    (is (nil? (amr/get-amr id)))))

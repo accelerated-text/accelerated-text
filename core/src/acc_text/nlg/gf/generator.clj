@@ -7,7 +7,7 @@
             [jsonista.core :as json]
             [clojure.tools.logging :as log]))
 
-(def dictionary #{"allows"  "standard"
+(def dictionary #{"allows" "standard"
                   "this" "small" "of_Prep" "make" "fast" "suitable" "with_Prep"
                   "regular" "features" "easy_N"
                   "includes" "package"})
@@ -196,6 +196,7 @@
           module
           module
           module
+          module
           (str/join ", " (get-imports lang))
           (join-body
             "param" (parse-param functions)
@@ -260,11 +261,11 @@
    (generate :en grammar))
   ([lang {::grammar/keys [module instance] :as grammar}]
    (let [lang (translate-reader-model lang)
-           {body :body} (service/compile-request lang module instance (grammar->content lang grammar))
-           {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
-       (if (some? error)
-         (log/error error)
-         (sort (dedupe results))))))
+         {body :body} (service/compile-request lang module instance (grammar->content lang grammar))
+         {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
+     (if (some? error)
+       (log/error error)
+       (sort (dedupe results))))))
 
 (s/fdef generate
         :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar :reader-model map?)

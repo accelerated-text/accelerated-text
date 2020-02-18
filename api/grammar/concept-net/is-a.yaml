@@ -1,0 +1,14 @@
+roles:
+  - Subject
+  - Attribute
+frames:
+  - example: T1000 is a kettle
+    syntax:
+      - type: oper
+        value: isA_S
+        ret: S
+        params:
+          - role: Subject
+            type: CN
+          - role: Attribute
+            type: CN
