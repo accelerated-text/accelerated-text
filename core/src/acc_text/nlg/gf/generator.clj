@@ -7,6 +7,14 @@
             [jsonista.core :as json]
             [clojure.tools.logging :as log]))
 
+(def dictionary #{"allows"  "standard"
+                  "this" "small" "of_Prep" "make" "fast" "suitable" "with_Prep"
+                  "regular" "features" "easy_N"
+                  "includes" "package"})
+(defn s-ret? [ret] (coll? ret))
+
+(defn f-param? [function-name] (str/starts-with? function-name "Amr"))
+
 (defn join-body [& args]
   (->> args
        (partition 2)
@@ -34,13 +42,15 @@
 
 (defn join-value [type value]
   (->> value
-       (map #(case type
-               "Str" (format "\"%s\"" (escape-string %))
-               "Pol" (if (Boolean/valueOf ^String %)
-                       "positivePol"
-                       "negativePol")
-               "CN" (format "(mkCN (mkN \"%s\"))" (escape-string %))
-               (format "(mk%s \"%s\")" type (escape-string %))))
+       (map #(if (contains? dictionary %)
+               %
+               (case type
+                 "Str" (format "\"%s\"" (escape-string %))
+                 "Pol" (if (Boolean/valueOf ^String %)
+                         "positivePol"
+                         "negativePol")
+                 "CN" (format "(mkCN (mkN \"%s\"))" (escape-string %))
+                 (format "(mk%s \"%s\")" type (escape-string %)))))
        (str/join " | ")))
 
 (defn parse-oper [variables]
@@ -63,10 +73,16 @@
 
 (defn parse-lincat [functions]
   (map (fn [[ret functions]]
-         (format "%s = {%s: %s}"
-                 (str/join ", " (map :name functions))
-                 (name (nth ret 0))
-                 (nth ret 1)))
+         (if (s-ret? ret)
+           ;;the case when we have [s: Str]
+           (format "%s = {%s: %s}"
+                   (str/join ", " (map :name functions))
+                   (name (nth ret 0))
+                   (nth ret 1))
+           ;;when ret is some Phrase
+           (format "%s = %s"
+                   (str/join ", " (map :name functions))
+                   ret)))
        (group-by :ret functions)))
 
 (declare join-function-body)
@@ -81,16 +97,20 @@
         :literal (cond->> (format "\"%s\"" (escape-string value))
                           (not= "Str" (second ret)) (format "(mk%s %s)" (second ret)))
         :function (format "%s.s" value)
-        :operation (->> params
-                        (filter (comp some? :value))
-                        (map (fn [{:keys [kind value]}]
-                               (case kind
-                                 :literal (format "\"%s\"" (escape-string value))
-                                 :function (format "%s.s" value)
-                                 :variable value)))
-                        (str/join " ")
-                        (format "(%s %s).s" (cond->> value
-                                                     (= "mkAdv" value) (str "ParadigmsEng."))))))))
+        :operation (let [flin (->> params
+                                   (filter (comp some? :value))
+                                   (map (fn [{:keys [kind value]}]
+                                          (case kind
+                                            :literal (format "\"%s\""
+                                                             (escape-string value))
+                                            :function
+                                            (format "%s%s"
+                                                    value
+                                                    (if (f-param? value) "" ".s"))
+                                            :variable value)))
+                                   (str/join " ")
+                                   (format "(%s %s)" value))]
+                     (str flin (if (s-ret? ret) ".s" "")))))))
 
 (defn get-operator [expr next-expr]
   (when (some? next-expr)
@@ -136,15 +156,24 @@
 
 (defn parse-lin [functions]
   (map-indexed (fn [i {:keys [params ret body type]}]
-                 (format "Function%02d %s= {%s = %s}"
-                         (inc i)
-                         (str/join (interleave params (repeat " ")))
-                         (name (nth ret 0))
-                         (if (seq body)
-                           (cond
-                             (and (= "CN" (second ret)) (= :modifier type)) (join-modifier-body body ret)
-                             :else (join-function-body body ret))
-                           "\"\"")))
+                 (if (s-ret? ret)
+                   (format "Function%02d %s= {%s = %s}"
+                           (inc i)
+                           (str/join (interleave params (repeat " ")))
+                           (name (nth ret 0))
+                           (if (seq body)
+                             (cond
+                               (and (= "CN" (second ret)) (= :modifier type)) (join-modifier-body body ret)
+                               :else (join-function-body body ret))
+                             "\"\""))
+                   (format "Function%02d %s= %s"
+                           (inc i)
+                           (str/join (interleave params (repeat " ")))
+                           (if (seq body)
+                             (cond
+                               (and (= "CN" (second ret)) (= :modifier type)) (join-modifier-body body ret)
+                               :else (join-function-body body ret))
+                             "\"\""))))
                functions))
 
 (defn ->abstract [{::grammar/keys [module flags functions]}]
@@ -155,18 +184,19 @@
             "cat" (parse-cat flags functions)
             "fun" (parse-fun functions))))
 
-(def imports ["ParadigmsEng" "ConstructorsEng" "LangFunctionsEng"
-              "SyntaxEng" "ParadigmsEng" "AtLocationEng"
-              "CapableOfEng" "HasAEng" "HasPropertyEng" "IsAEng"
-              "LocatedNearEng" "MadeOfEng" "HasAEng" "ResEng"])
+(defn get-imports [lang]
+  (concat ["LangFunctionsEng"]
+          (for [import ["Syntax%s" "Paradigms%s" "CapableOf%s" "MadeOf%s"
+                        "HasProperty%s" "IsA%s" "HasA%s" "AtLocation%s" "LocatedNear%s"
+                        "Includes%s"]]
+            (format import lang))))
 
-(defn ->incomplete [{::grammar/keys [module functions]}]
+(defn ->incomplete [lang {::grammar/keys [module functions]}]
   (format "incomplete concrete %sBody of %s = open %sLex, %sOps, %s in {%s\n}"
           module
           module
           module
-          module
-          (str/join ", " imports)
+          (str/join ", " (get-imports lang))
           (join-body
             "param" (parse-param functions)
             "lincat" (parse-lincat functions)
@@ -178,12 +208,25 @@
           (join-body
             "oper" (parse-oper (map #(dissoc % :value) variables)))))
 
-(defn ->resource [{::grammar/keys [instance module variables]}]
-  (format "resource %sLex%s = open SyntaxEng, ParadigmsEng in {%s\n}"
+(defn ->resource [lang {::grammar/keys [module variables]}]
+  (format "resource %sLex%s = open Syntax%s, Paradigms%s, BaseDictionary%s in {%s\n}"
           module
-          instance
+          lang
+          lang
+          lang
+          lang
           (join-body
             "oper" (parse-oper variables))))
+
+(defn ->concrete [lang {::grammar/keys [instance module]}]
+  (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s);"
+          module
+          instance
+          module
+          module
+          module
+          module
+          lang))
 
 (defn ->operations [{::grammar/keys [module operations]}]
   (format "resource %sOps = open SyntaxEng, ParadigmsEng in {%s\n}"
@@ -197,31 +240,32 @@
                        (str/join "," (mapv :id roles))
                        (join-operation-body body))))))
 
-(defn ->concrete [{::grammar/keys [instance module]}]
-  (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s);"
-          module
-          instance
-          module
-          module
-          module
-          module
-          instance))
+(defn grammar->content [lang {::grammar/keys [module instance] :as grammar}]
+  {(str module)            (->abstract grammar)
+   (str module "Body")     (->incomplete lang grammar)
+   (str module "Lex")      (->interface grammar)
+   (str module "Lex" lang) (->resource lang grammar)
+   (str module "Ops")      (->operations grammar)
+   (str module instance)   (->concrete lang grammar)})
 
-(defn grammar->content [{::grammar/keys [module instance] :as grammar}]
-  {(str module)                (->abstract grammar)
-   (str module "Body")         (->incomplete grammar)
-   (str module "Lex")          (->interface grammar)
-   (str module "Ops")          (->operations grammar)
-   (str module "Lex" instance) (->resource grammar)
-   (str module instance)       (->concrete grammar)})
+(defn translate-reader-model [x]
+  (case x
+    :en "Eng"
+    :de "Ger"
+    :ee "Est"
+    :lv "Lat"))
 
-(defn generate [{::grammar/keys [module instance] :as grammar}]
-  (let [{body :body} (service/compile-request module instance (grammar->content grammar))
-        {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
-    (if (some? error)
-      (log/error error)
-      (sort (dedupe results)))))
+(defn generate
+  ([grammar]
+   (generate :en grammar))
+  ([lang {::grammar/keys [module instance] :as grammar}]
+   (let [lang (translate-reader-model lang)
+           {body :body} (service/compile-request lang module instance (grammar->content lang grammar))
+           {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
+       (if (some? error)
+         (log/error error)
+         (sort (dedupe results))))))
 
 (s/fdef generate
-        :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar)
+        :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar :reader-model map?)
         :ret (s/nilable (s/coll-of string?)))

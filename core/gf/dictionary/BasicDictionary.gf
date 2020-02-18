@@ -1,0 +1,3 @@
+abstract BasicDictionary = Cat ** {
+}
+

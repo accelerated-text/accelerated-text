@@ -30,7 +30,7 @@ def not_empty_line(x):
 def generate_results(data):
     req = {
         "documentPlanId": DOCUMENT_PLAN_ID,
-        "readerFlagValues": {},
+        "readerFlagValues": {"English": True},
         "dataRows": data
     }
 

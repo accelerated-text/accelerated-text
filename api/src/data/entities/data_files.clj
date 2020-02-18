@@ -3,6 +3,7 @@
             [clojure.data.csv :as csv]
             [data.db :as db]
             [data.utils :as utils]
+            [clojure.tools.logging :as log]
             [mount.core :refer [defstate]]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
@@ -11,6 +12,7 @@
   "Expected keys are :filename and :content everything else is optional"
   [data-file]
   (let [id (utils/gen-uuid)]
+    (log/debugf "Storing: %s with id: %s" data-file id)
     (db/write! data-files-db id data-file)
     id))
 
@@ -33,9 +35,7 @@
        :recordCount  (count records)})))
 
 (defn listing [offset limit recordOffset recordLimit]
-  (let [data-files (->> (db/list! data-files-db Integer/MAX_VALUE)
-                        (drop offset)
-                        (take limit))]
+  (let [data-files (db/list! data-files-db Integer/MAX_VALUE)]
     {:dataFiles  (map (fn [{id :id}]
                         (fetch id recordOffset recordLimit))
                       (->> data-files (drop offset) (take limit)))

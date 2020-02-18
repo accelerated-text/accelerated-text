@@ -71,7 +71,7 @@ export default ChildComponent =>
                 });
 
                 try {
-                    await uploadToS3( fileKey, inputFile );
+                    const { id } = await uploadToS3( fileKey, inputFile );
                     this.onUploadFileSuccess();
                     const { data, error } =
                         await client.query({
@@ -84,8 +84,9 @@ export default ChildComponent =>
 
                     const isInList = getFileById(
                         data.listDataFiles,
-                        fileKey,
+                        id,
                     );
+                  
                     const currentPlan = getPlanByUid(
                         this.props.documentPlans.plans,
                         plan.uid,
@@ -95,10 +96,10 @@ export default ChildComponent =>
                         throw Error( 'Failed to update the data file list.' );
                     } else if( ! currentPlan ) {
                         throw Error( 'Document plan is gone' );
-                    } else if( currentPlan.dataSampleId !== fileKey ) {
+                    } else if( currentPlan.dataSampleId !== id ) {
                         this.props.onUpdatePlan({
                             ...currentPlan,
-                            dataSampleId:   fileKey,
+                            dataSampleId:   id,
                             dataSampleRow:  0,
                         });
                     }
@@ -106,7 +107,7 @@ export default ChildComponent =>
                     const dataFile = await client.query({
                         fetchPolicy:        'network-only',
                         query:              getDataFile,
-                        variables: { id:    fileKey },
+                        variables: { id },
                     });
                     if( dataFile.data ) {
                         this.props.onUploadDone();
