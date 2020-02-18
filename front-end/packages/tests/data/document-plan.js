@@ -21,7 +21,7 @@ export const createDocumentPlan = ( prefix = 'tests-data-document-plan' ) => {
         dataSampleId:       DATA_FILES[0].id,
         dataSampleRow:      0,
         name,
-        kind:               'Document'
+        kind:               'Document',
         updateCount:        1,
         updatedAt:          +new Date,
 

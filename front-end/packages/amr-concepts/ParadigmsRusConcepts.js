@@ -1,10 +1,4 @@
 import { h }                from 'preact';
-import {
-    compose,
-    prop,
-    sortBy,
-    toLower,
-}                           from 'ramda';
 
 import { composeQueries  }  from '../graphql';
 import { Error, Loading }   from '../ui-messages/';

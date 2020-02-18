@@ -91,12 +91,14 @@ export const Voc =          'Voc';
 
 export const ATOMIC_VALUE = [ BOOLEAN, STRING ];
 export const TEXT =         [ LIST, STRING ];
-export const AMR =          [ A, A2, AP, AdA, AdN, AdNalmost, AdNat, AdV, Adv, Ant, CAdv,
-                              CN, CNvery, Card, Cl, ClSlash, Comp, Conj, Det, Dig, Digits,
-                              Gender, IAdv, IComp, IDet, IP, IQuant, Imp, ImpForm, Interj,
-                              ListAP, ListAdv, ListNP, ListRS, ListS, N, N2, N3, NP, Num,
-                              Number, Numeral, Ord, PConj, PN, Phr, Pol, Predet, Prep, Pron,
-                              Punct, QCl, QS, Quant, RCl, RP, RS, S, SC, SSlash, Sub100,
-                              Sub1000, Subj, Temp, Tense, Text, Type, Unit, Utt, V, V2,
-                              V2A, V2Q, V2S, V2V, V3, VA, VP, VPSlash, VQ, VS, VV, Voc ];
-export const AMR_OR_TEXT =   TEXT.concat(AMR);
+export const AMR =          [
+    A, A2, AP, AdA, AdN, AdNalmost, AdNat, AdV, Adv, Ant, CAdv,
+    CN, CNvery, Card, Cl, ClSlash, Comp, Conj, Det, Dig, Digits,
+    Gender, IAdv, IComp, IDet, IP, IQuant, Imp, ImpForm, Interj,
+    ListAP, ListAdv, ListNP, ListRS, ListS, N, N2, N3, NP, Num,
+    Number, Numeral, Ord, PConj, PN, Phr, Pol, Predet, Prep, Pron,
+    Punct, QCl, QS, Quant, RCl, RP, RS, S, SC, SSlash, Sub100,
+    Sub1000, Subj, Temp, Tense, Text, Type, Unit, Utt, V, V2,
+    V2A, V2Q, V2S, V2V, V3, VA, VP, VPSlash, VQ, VS, VV, Voc,
+];
+export const AMR_OR_TEXT =   TEXT.concat( AMR );

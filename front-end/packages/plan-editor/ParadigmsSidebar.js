@@ -7,14 +7,11 @@ import ParadigmsGerConcepts from '../amr-concepts/ParadigmsGerConcepts';
 import ParadigmsLavConcepts from '../amr-concepts/ParadigmsLavConcepts';
 import ParadigmsRusConcepts from '../amr-concepts/ParadigmsRusConcepts';
 import composeContexts      from '../compose-contexts/';
-import DataManager          from '../data-manager/DataManager';
 import Dictionary           from '../dictionary/Dictionary';
 import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
 import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
-import ReaderConfiguration  from '../reader/Configuration';
 import Sidebar              from '../sidebar/Sidebar';
 import SidebarItem          from '../sidebar/Item';
-import VariantReview        from '../variant-review/VariantReview';
 
 
 export default composeContexts({
