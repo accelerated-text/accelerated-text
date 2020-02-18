@@ -1,6 +1,6 @@
 {:type "VP",
  :description "verb phrase",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "mkVP", :type ["V" "VP"], :example "to sleep"}
   {:function "mkVP", :type ["V2" "NP" "VP"], :example "to love him"}

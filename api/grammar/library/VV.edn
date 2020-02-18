@@ -1,6 +1,6 @@
 {:type "VV",
  :description "verb-phrase-complement verb",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "can8know_VV",
    :type ["VV"],

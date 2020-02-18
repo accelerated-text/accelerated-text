@@ -1,6 +1,6 @@
 {:type "Adv",
  :description "verb-phrase-modifying adverb",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "everywhere_Adv", :type ["Adv"], :example "everywhere"}
   {:function "here7from_Adv", :type ["Adv"], :example "from here"}

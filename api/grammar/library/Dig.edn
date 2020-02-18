@@ -1,6 +1,6 @@
 {:type "Dig",
  :description "",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "n0_Dig", :type ["Dig"], :example "0"}
   {:function "n1_Dig", :type ["Dig"], :example "1"}

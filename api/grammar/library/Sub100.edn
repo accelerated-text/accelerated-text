@@ -1,6 +1,6 @@
 {:type "Sub100",
  :description "",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "mkSub100", :type ["Unit" "Sub100"], :example "eight"}
   {:function "mkSub100",

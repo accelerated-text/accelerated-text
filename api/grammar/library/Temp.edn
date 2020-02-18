@@ -1,6 +1,6 @@
 {:type "Temp",
  :description "temporal and aspectual features",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "mkTemp",
    :type ["Tense" "Ant" "Temp"],

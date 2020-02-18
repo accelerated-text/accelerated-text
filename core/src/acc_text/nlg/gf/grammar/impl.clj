@@ -106,32 +106,38 @@
      {:name   (concept->name concept)
       :type   :amr
       :params (get-params children)
-      :body   (for [syntax (->> (get amr value) (syntax-suitable-for-role to-relation-role))]
-                (for [{:keys [value pos role params type]} syntax]
-                  (let [role-key (when (some? role) role)]
-                    (-> (cond
-                          (contains? role-map role-key) (let [role-concept (get role-map role-key)]
-                                                          {:kind  (get-kind role-concept)
-                                                           :value (concept->name role-concept)})
-                          (= :oper type)
-                          {:kind   :operation
-                           :value  value
-                           :params (map (fn [{:keys [role]}]
-                                          (let [role-concept (get role-map role)]
-                                            {:kind  (get-kind role-concept)
-                                             :value (concept->name role-concept)}))
-                                        params)}
-
-                          (some? role) {:kind  :literal
-                                        :value (format "{{%s}}" role)}
-                          (= pos :AUX) {:kind  :function
-                                        :value "(copula Sg)"}
-                          (some? value) {:kind  :literal
-                                         :value value}
-                          :else {:kind  :literal
-                                 :value "{{...}}"})
-                        #_(attach-selectors attrs)
-                        (cond-> (when (some? pos)) (assoc :pos pos))))))
+      :body   (let [{:keys [id frames roles semantic-graph]} (get amr value)]
+                (cond
+                  (some? frames) (for [syntax (map :syntax frames)]
+                                   (for [{:keys [value pos role params type] :as attrs} syntax]
+                                     (let [role-key (when (some? role) role)]
+                                       (-> (cond
+                                             (contains? role-map role-key) (let [role-concept (get role-map role-key)]
+                                                                             {:kind  (get-kind role-concept)
+                                                                              :value (concept->name role-concept)})
+                                             (= :oper type) {:kind   :operation
+                                                             :value  value
+                                                             :params (->> params
+                                                                          (map (fn [{:keys [role type]}]
+                                                                                 (when-let [role-concept (or (get role-map role)
+                                                                                                             (get role-map type))]
+                                                                                   {:kind  (get-kind role-concept)
+                                                                                    :value (concept->name role-concept)})))
+                                                                          (remove nil?))}
+                                             (some? role) {:kind  :literal
+                                                           :value (format "{{%s}}" role)}
+                                             (= pos :AUX) {:kind  :function
+                                                           :value "(copula Sg)"}
+                                             (some? value) {:kind  :literal
+                                                            :value value}
+                                             :else {:kind  :literal
+                                                    :value "{{...}}"})
+                                           (attach-selectors attrs)
+                                           (cond-> (when (some? pos)) (assoc :pos pos))))))
+                  (some? semantic-graph) (->> roles
+                                              (map (comp #(hash-map :kind :variable :value %) concept->name role-map :label))
+                                              (assoc {:kind :operation :value id} :params)
+                                              (vector))))
       :ret     (if (= "Subject" to-relation-role) "NP" [:s "Str"])}))
 
 (defmethod build-function :shuffle [concept children _ _ _]

@@ -1,6 +1,6 @@
 {:type "ListNP",
  :description "",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "mkListNP",
    :type ["NP" "NP" "ListNP"],

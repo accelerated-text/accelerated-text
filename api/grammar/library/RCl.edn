@@ -1,6 +1,6 @@
 {:type "RCl",
  :description "relative clause, with all tenses",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "mkRCl",
    :type ["RP" "VP" "RCl"],

@@ -19,7 +19,7 @@
                                                       {:var-names (dp/get-variable-names entity)})]
     {:id             id
      :label          name
-     :kind           "Str"
+     :kind           "Text"
      :semantic-graph semantic-graph
      :roles          (let [relation-names (get-relation-names semantic-graph)]
                        (loop [[reference & rs] (filter #(= :reference (:type %)) concepts)

@@ -1,6 +1,6 @@
 {:type "ListRS",
  :description "",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "mkListRS",
    :type ["RS" "RS" "ListRS"],

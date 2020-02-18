@@ -1,6 +1,6 @@
 {:type "AdN",
  :description "numeral-modifying adverb",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "almost_AdN", :type ["AdNalmost"], :example "eight"}
   {:function "at_least_AdN", :type ["AdNat"], :example "least eight"}

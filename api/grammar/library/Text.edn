@@ -1,6 +1,6 @@
 {:type "Text",
  :description "text consisting of several phrases",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "emptyText", :type ["Text"], :example "(empty text)"}
   {:function "mkText",

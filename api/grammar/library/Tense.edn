@@ -1,6 +1,6 @@
 {:type "Tense",
  :description "tense",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "futureTense", :type ["Tense"], :example "she will sleep"}
   {:function "pastTense", :type ["Tense"], :example "she slept"}

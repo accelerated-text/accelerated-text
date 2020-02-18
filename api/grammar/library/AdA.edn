@@ -1,6 +1,6 @@
 {:type "AdA",
  :description "adjective-modifying adverb",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "almost_AdA", :type ["AdA"], :example "almost red"}
   {:function "quite_Adv", :type ["AdA"], :example "quite"}

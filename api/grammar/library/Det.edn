@@ -1,6 +1,6 @@
 {:type "Det",
  :description "determiner phrase",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "aPl_Det", :type ["Det"], :example "women"}
   {:function "aSg_Det", :type ["Det"], :example "a woman"}

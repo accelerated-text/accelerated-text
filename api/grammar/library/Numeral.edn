@@ -1,6 +1,6 @@
 {:type "Numeral",
  :description "cardinal or ordinal in words",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "mkNumeral",
    :type ["Unit" "Numeral"],

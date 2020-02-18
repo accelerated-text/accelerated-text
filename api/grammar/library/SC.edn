@@ -1,6 +1,6 @@
 {:type "SC",
  :description "embedded sentence or question",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "mkSC", :type ["S" "SC"], :example "that she sleeps"}
   {:function "mkSC", :type ["QS" "SC"], :example "who sleeps"}

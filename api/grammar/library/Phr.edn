@@ -1,6 +1,6 @@
 {:type "Phr",
  :description "phrase in a text",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "mkPhr",
    :type ["(PConj)" "Utt" "(Voc)" "Phr"],

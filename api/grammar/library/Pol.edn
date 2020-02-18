@@ -1,6 +1,6 @@
 {:type "Pol",
  :description "polarity",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "negativePol",
    :type ["Pol"],

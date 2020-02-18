@@ -1,6 +1,6 @@
 {:type "PConj",
  :description "phrase-beginning conjunction",
- :module "Constructors",
+ :module "SyntaxEng",
  :functions
  [{:function "but_PConj", :type ["PConj"], :example "but"}
   {:function "mkPConj", :type ["Conj" "PConj"], :example "and now"}
