@@ -99,7 +99,13 @@
       "++")))
 
 (defn join-operation-body [op]
-  "(SyntaxEng.mkText (SyntaxEng.mkCl (ParadigmsEng.mkN \"noun\")))")
+  (->> op
+       (map (fn [{:keys [type value children]}]
+              (case type
+                :argument value
+                :operation (format "(%s %s)" value (join-operation-body children))
+                :literal (format "\"%s\"" (escape-string value)))))
+       (str/join " ")))
 
 (defn join-function-body [body ret]
   (str/join " " (map (fn [expr next-expr]
