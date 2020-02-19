@@ -54,7 +54,7 @@
 (defmethod build-variable :dictionary-item [{value :value :as concept} {:keys [dictionary types]}]
   (let [name (concept->name concept)]
     {:name  name
-     :value (or (get dictionary value) (when (some? value) [value]))
+     :value (or (seq (get dictionary value)) (when (some? value) [value]))
      :type  (get types name "Str")}))
 
 (defmulti build-function (fn [concept _ _ _ _] (:type concept)))
