@@ -1,0 +1,7 @@
+{:type "Adv",
+ :description "",
+ :module "ParadigmsGer",
+ :functions
+ [{:function "mkAdv",
+   :type ["Str" "Adv"],
+   :example "adverbs have just one form anyway"}]}

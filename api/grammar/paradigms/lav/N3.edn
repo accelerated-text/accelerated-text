@@ -1,0 +1,5 @@
+{:type "N3",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkN3", :type ["N" "Prep" "Prep" "N3"], :example "-"}]}

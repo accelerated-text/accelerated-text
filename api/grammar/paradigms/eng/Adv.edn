@@ -1,0 +1,5 @@
+{:type "Adv",
+ :description "verb-phrase-modifying adverb",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkAdv", :type ["Str" "Adv"], :example "e.g. today"}]}

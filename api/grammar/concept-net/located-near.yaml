@@ -1,9 +1,9 @@
 roles:
-  - lexicon
-  - objectRef
-  - locationData
-  - nearDictionary
-  - nearData
+- lexicon
+- objectRef
+- locationData
+- nearDictionary
+- nearData
 frames:
   - example: Venue in the city centre, near the KFC.
     syntax:

@@ -1,0 +1,4 @@
+{:type "AV",
+ :description "",
+ :module "ParadigmsLav",
+ :functions [{:function "mkAV", :type ["A" "AV"], :example "-"}]}

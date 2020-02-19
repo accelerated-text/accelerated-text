@@ -10,10 +10,14 @@ services:
       GF_ENDPOINT: http://gf:8000
       ENRICH_ENDPOINT: http://enrich:8000
       DB_IMPLEMENTATION: datomic
-      GRAMMAR_PACKAGE: "/opt/grammar/concept-net.yaml"
+      GRAMMAR_PACKAGE: "/opt/grammar/library"
+      GRAMMAR_PARADIGMS: "/opt/grammar/paradigms"
+      AMR_GRAMMAR: "/opt/grammar/concept-net.yaml"
       DICT_PATH: "/opt/grammar/dictionary"
+      DOCUMENT_PLANS: "/opt/document-plans"
     volumes:
       - ./api/grammar:/opt/grammar
+      - ./api/test/resources/document_plans_new:/opt/document-plans
   gf:
     build:
       context: .

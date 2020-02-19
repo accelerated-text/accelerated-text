@@ -1,0 +1,10 @@
+{:type "IDet",
+ :description "interrogative determiner",
+ :module "SyntaxEng",
+ :functions
+ [{:function "mkIDet",
+   :type ["IQuant" "Num" "IDet"],
+   :example "which houses"}
+  {:function "mkIDet", :type ["IQuant" "IDet"], :example "which house"}
+  {:function "whichPl_IDet", :type ["IDet"], :example "which houses"}
+  {:function "which_IDet", :type ["IDet"], :example "which house"}]}

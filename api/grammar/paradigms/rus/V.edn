@@ -1,0 +1,19 @@
+{:type "V",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "mkV",
+   :type
+   ["Aspect"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "Str"
+    "V"],
+   :example
+   "presSg1, presSg2, presSg3, presPl1, presPl2, presPl3, pastSgMasc, imp, inf"}]}

@@ -2,7 +2,8 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [api.nlg.dictionary :as dictionary]
             [clojure.string :as str]
-            [data.entities.amr :as amr]))
+            [data.entities.amr :as amr]
+            [data.entities.rgl :as rgl]))
 
 (defn get-reader-profiles [reader-model]
   (or
@@ -32,14 +33,17 @@
 
 (defn build-amr-context [semantic-graph]
   (reduce (fn [m amr-id]
-            (assoc m amr-id (amr/get-amr amr-id)))
+            (let [{sg :semantic-graph :as amr} (or (amr/get-amr amr-id) (rgl/get-rgl amr-id))]
+              (cond-> m
+                      (some? amr) (-> (assoc amr-id amr)
+                                      (cond-> (some? sg) (merge (build-amr-context sg)))))))
           {}
           (get-values semantic-graph :amr)))
 
 (defn build-context
   ([semantic-graph]
-   (build-context semantic-graph {:default true}))
-  ([semantic-graph reader-model]
+   (build-context semantic-graph {:reader-model {:default true}}))
+  ([semantic-graph {reader-model :reader-model}]
    (let [reader-profiles (get-reader-profiles reader-model)]
      {:dictionary (build-dictionary-context semantic-graph reader-profiles)
       :amr        (build-amr-context semantic-graph)})))

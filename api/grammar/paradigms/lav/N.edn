@@ -1,0 +1,18 @@
+{:type "N",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkN", :type ["Str" "N"], :example "-"}
+  {:function "mkN", :type ["Str" "Bool" "N"], :example "-"}
+  {:function "mkN", :type ["Str" "Gender" "N"], :example "-"}
+  {:function "mkN", :type ["Str" "Declension" "N"], :example "-"}
+  {:function "mkN", :type ["Str" "Gender" "Bool" "N"], :example "-"}
+  {:function "mkN",
+   :type ["Str" "Declension" "Bool" "N"],
+   :example "-"}
+  {:function "mkN",
+   :type ["Str" "Gender" "Declension" "N"],
+   :example "-"}
+  {:function "mkN",
+   :type ["Str" "Gender" "Declension" "Bool" "N"],
+   :example "-"}]}

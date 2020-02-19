@@ -1,0 +1,26 @@
+{:type "N",
+ :description "",
+ :module "ParadigmsGer",
+ :functions
+ [{:function "mkN",
+   :type ["Str" "N"],
+   :example "die Stufe-Stufen, der Tisch-Tische"}
+  {:function "mkN",
+   :type ["Str" "Str" "Gender" "N"],
+   :example "sg and pl nom, and gender"}
+  {:function "mkN",
+   :type ["Str" "Gender" "N"],
+   :example "masc: e, neutr: er, fem: en"}
+  {:function "mkN",
+   :type ["Str" "Str" "Str" "Str" "Str" "Str" "Gender" "N"],
+   :example "worst case: mann, mann, manne, mannes, männer, männern"}
+  {:function "mkN",
+   :type ["Str" "N" "N"],
+   :example "Auto + Fahrer -> Autofahrer"}
+  {:function "mkN",
+   :type ["N" "N" "N"],
+   :example "Freiheit + Kampf -> Freiheitskampf"}
+  {:function "changeCompoundN",
+   :type ["Str" "N" "N"],
+   :example "kyrko + kyrka_N"}
+  {:function "dative_eN", :type ["N" "N"], :example "-"}]}

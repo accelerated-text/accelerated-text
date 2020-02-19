@@ -30,11 +30,14 @@ export default Block({
     domToMutation( xmlElement ) {
 
         this.conceptId =        xmlElement.getAttribute( 'concept_id' );
+        this.kind =             xmlElement.getAttribute( 'kind' );
         this.conceptLabel =     xmlElement.getAttribute( 'concept_label' );
         this.roles =            JSON.parse( xmlElement.getAttribute( 'roles' ));
 
         this.getField( 'conceptLabel' )
             .setValue( this.conceptLabel );
+
+        this.setOutput( true, this.kind );
 
         this.roles.forEach( role =>
             appendLabeledValue( this, role.id, role.fieldLabel, role.fieldType )
@@ -59,8 +62,10 @@ export default Block({
             type:               json.type,
             srcId:              json.srcId,
             conceptId:          this.conceptId,
+            kind:               this.kind,
             roles: this.roles.map( role => ({
                 name:           role.id,
+                label:          role.fieldLabel,
                 children:       [ json[role.id] ],
             })),
         };

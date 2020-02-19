@@ -1,21 +1,23 @@
-{:type     "Document-plan"
- :segments [{:children [{:roles     [{:children [{:name   "old"
-                                                  :type   "Dictionary-item-modifier"
-                                                  :srcId  "4Mb|GvkCJy]gj2)IOv@r"
-                                                  :child  {:name   "dirty"
-                                                           :type   "Dictionary-item-modifier"
-                                                           :srcId  "kQ.BkqVDXw4/aAJWqYv"
-                                                           :child  {:type  "Quote"
-                                                                    :srcId "5BcfVJ~`Q_Z;t(1UShn"
-                                                                    :text  "refrigerator"}
-                                                           :itemId "dirty"}
-                                                  :itemId "old"}]
-                                      :name     "Subject"}
-                                     {:children [{:type "Quote" :srcId "wqHu6%d3GbkTsG4?Bg+_" :text "steel"}]
-                                      :name     "Object"}]
-                         :type      "AMR"
-                         :srcId     "!gH62C@-pXm8z^c0OA8W"
-                         :conceptId "made-of"}]
-             :type     "Segment"
-             :srcId    "7*)y=P1LqIk5fFa!xVd("}]
- :srcId    "IDC=hVSH*YQ0eEqmIZ+w"}
+{:type     "Document-plan",
+ :segments [{:children [{:roles     [{:children [{:name   "old",
+                                                  :type   "Dictionary-item-modifier",
+                                                  :srcId  "uATJ%Pj?(bhmnSKVEnL9",
+                                                  :child  {:name   "dirty",
+                                                           :type   "Dictionary-item-modifier",
+                                                           :srcId  "|(CQUUVyK{AgGOerwFTE",
+                                                           :child  {:type  "Quote",
+                                                                    :srcId "f]n`Q.u,(5:I#*^4OVh?",
+                                                                    :text  "refrigerator"},
+                                                           :itemId "dirty"},
+                                                  :itemId "old"}],
+                                      :name     "Subject",
+                                      :label    "Subject"}
+                                     {:children [{:type "Quote", :srcId "UcFZdW%xXbU27.|i`0!q", :text "steel"}],
+                                      :name     "Object",
+                                      :label    "Object"}],
+                         :type      "AMR",
+                         :srcId     ";CEmqt-icXf88s5#*n4E",
+                         :conceptId "made-of"}],
+             :type     "Segment",
+             :srcId    ",Lx%BKOW+x1Ef~^KaQyA"}],
+ :srcId    "@;lO1Xx5o9x[:V(BG2^*"}

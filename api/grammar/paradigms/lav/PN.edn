@@ -1,0 +1,6 @@
+{:type "PN",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkN", :type ["Str" "PN"], :example "-"}
+  {:function "mkN", :type ["Str" "Number" "PN"], :example "-"}]}

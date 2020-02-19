@@ -1,0 +1,7 @@
+{:type "Prep",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "mkPrep",
+   :type ["Str" "Case" "Prep"],
+   :example "as in German"}]}

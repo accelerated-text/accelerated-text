@@ -1,0 +1,6 @@
+{:type "Type",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "Number", :type ["Type"], :example "-"}
+  {:function "Case", :type ["Type"], :example "-"}]}

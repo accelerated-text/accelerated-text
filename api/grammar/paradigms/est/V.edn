@@ -1,0 +1,27 @@
+{:type "V",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkV",
+   :type ["Str" "V"],
+   :example "predictable verbs, covers 90 %"}
+  {:function "mkV",
+   :type ["Str" "Str" "V"],
+   :example "ma infinitive, da infinitive (lugema, lugeda)"}
+  {:function "mkV",
+   :type ["Str" "Str" "Str" "V"],
+   :example "ma, da, present sg 3 (lugema, lugeda, loeb)"}
+  {:function "mkV",
+   :type ["Str" "Str" "Str" "Str" "V"],
+   :example
+   "--ma, da, pres sg 3, pres passive - (lugema, lugeda, loeb, loetakse)"}
+  {:function "mkV",
+   :type ["Str" "Str" "Str" "Str" "Str" "Str" "Str" "Str" "V"],
+   :example
+   "worst-case verb, 8 forms (tegema, teha, teeb, tehakse, tehke, tegi, teinud, tehtud"}
+  {:function "mkV", :type ["V" "Str" "V"], :example "multi-word verbs"}
+  {:function "caseV",
+   :type ["Case" "V" "V"],
+   :example "deviating subj. case, e.g. allative \"meeldima\""}
+  {:function "vOlema", :type ["V"], :example "the verb \"be\""}
+  {:function "vMinema", :type ["V"], :example "the verb \"go\""}]}

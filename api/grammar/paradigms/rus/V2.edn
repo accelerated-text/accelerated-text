@@ -1,0 +1,10 @@
+{:type "V2",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "mkV2",
+   :type ["V" "Str" "Case" "V2"],
+   :example "\"войти в дом\"; \"в\", accusative"}
+  {:function "dirV2",
+   :type ["V" "V2"],
+   :example "\"видеть\", \"любить\""}]}

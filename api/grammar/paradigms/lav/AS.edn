@@ -1,0 +1,4 @@
+{:type "AS",
+ :description "",
+ :module "ParadigmsLav",
+ :functions [{:function "mkAS", :type ["A" "AS"], :example "-"}]}

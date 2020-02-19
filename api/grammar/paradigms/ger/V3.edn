@@ -1,0 +1,16 @@
+{:type "V3",
+ :description "",
+ :module "ParadigmsGer",
+ :functions
+ [{:function "accdatV3",
+   :type ["V" "V3"],
+   :example "geben + dat(c2) + acc(c3) (Eng: no prepositions)"}
+  {:function "dirV3",
+   :type ["V" "Prep" "V3"],
+   :example "senden + acc + nach (preposition on second arg)"}
+  {:function "mkV3",
+   :type ["V" "V3"],
+   :example "geben + dat(c3) + acc(c2) (Eng: give sth to-sb)"}
+  {:function "mkV3",
+   :type ["V" "Prep" "Prep" "V3"],
+   :example "sprechen + mit + über"}]}

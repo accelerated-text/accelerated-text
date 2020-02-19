@@ -1,0 +1,22 @@
+{:type "ClSlash",
+ :description "",
+ :module "SyntaxEng",
+ :functions
+ [{:function "mkClSlash",
+   :type ["NP" "VPSlash" "ClSlash"],
+   :example "whom does she see"}
+  {:function "mkClSlash",
+   :type ["NP" "V2" "ClSlash"],
+   :example "whom does she see"}
+  {:function "mkClSlash",
+   :type ["NP" "VV" "V2" "ClSlash"],
+   :example "whom does she want to see"}
+  {:function "mkClSlash",
+   :type ["Cl" "Prep" "ClSlash"],
+   :example "whom does she sleep with"}
+  {:function "mkClSlash",
+   :type ["ClSlash" "Adv" "ClSlash"],
+   :example "whom does she see today"}
+  {:function "mkClSlash",
+   :type ["NP" "VS" "SSlash" "ClSlash"],
+   :example "whom does she know that we hadn't seen"}]}

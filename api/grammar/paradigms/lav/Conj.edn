@@ -1,0 +1,13 @@
+{:type "Conj",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkConj", :type ["Str" "Conj"], :example "-"}
+  {:function "mkConj", :type ["Str" "Number" "Conj"], :example "-"}
+  {:function "mkConj", :type ["Str" "Str" "Conj"], :example "-"}
+  {:function "mkConj",
+   :type ["Str" "Str" "Number" "Conj"],
+   :example "-"}
+  {:function "mk2Conj",
+   :type ["Str" "Str" "Number" "Conj"],
+   :example "-"}]}

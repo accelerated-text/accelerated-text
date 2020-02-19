@@ -1,0 +1,5 @@
+{:type "A2",
+ :description "two-place adjective",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkA2", :type ["A" "Prep" "A2"], :example "absent from"}]}

@@ -4,10 +4,7 @@
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
-            [data.entities.dictionary :as dictionary]
-            [data.entities.amr :as amr]
-            [clojure.java.io :as io])
-  (:import (java.io File)))
+            [data.entities.dictionary :as dictionary]))
 
 (defn prepare-environment [f]
   (doseq [item [{:key "cut" :name "cut" :phrases ["cut"] :partOfSpeech :VB}
@@ -17,10 +14,6 @@
                 {:key "is" :name "is" :phrases ["is"] :partOfSpeech :VB}
                 {:key "release" :name "release" :phrases ["publised" "released"] :partOfSpeech :VB}]]
     (dictionary/create-dictionary-item item))
-  (->> (io/file "test/resources/amr")
-       (file-seq)
-       (remove #(.isDirectory ^File %))
-       (amr/initialize))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -265,7 +258,7 @@
              "There is an arena in the city centre Alimentum."} (get-original-results result-id)))))
 
 (deftest ^:integration located-near-plan-generation
-  (let [{{result-id :resultId} :body status :status} (generate "located-near" "books.csv")]
+  (let [{{result-id :resultId} :body status :status} (generate "located-near-amr" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"In the city centre, near the KFC there is a place Alimentum."

@@ -1,0 +1,5 @@
+{:type "AdA",
+ :description "adjective-modifying adverb",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkAdA", :type ["Str" "AdA"], :example "e.g. quite"}]}

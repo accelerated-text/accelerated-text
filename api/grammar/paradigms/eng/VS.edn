@@ -1,0 +1,7 @@
+{:type "VS",
+ :description "sentence-complement verb",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkVS",
+   :type ["V" "VS"],
+   :example "sentence-compl e.g. say (that S)"}]}

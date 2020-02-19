@@ -1,0 +1,5 @@
+{:type "V2V",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkV2V", :type ["V" "Prep" "V2V"], :example "-"}]}

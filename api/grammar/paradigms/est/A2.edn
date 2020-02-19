@@ -1,0 +1,7 @@
+{:type "A2",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkA2",
+   :type ["A" "Prep" "A2"],
+   :example "e.g. \"vihane\" (postGenPrep \"peale\")"}]}

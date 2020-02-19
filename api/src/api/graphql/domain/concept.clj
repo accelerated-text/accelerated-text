@@ -1,29 +1,32 @@
 (ns api.graphql.domain.concept
   (:require [api.graphql.translate.concept :as concept-translate]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-            [data.entities.amr :as amr-entity]))
+            [data.entities.amr :as amr-entity]
+            [data.entities.rgl :as rgl-entity]))
 
 (defn list-concepts [_ _ _]
-  (resolve-as
-    {:id       "concepts"
-     :concepts (->> (amr-entity/list-amrs)
-                    (map concept-translate/amr->schema)
-                    (sort-by :id))}))
-
-(defn add-concept [_ {:keys [id content]} _]
-  (resolve-as
-    (->> (amr-entity/read-amr id content)
-         (amr-entity/write-amr)
-         (concept-translate/amr->schema))))
-
-(defn delete-concept [_ {id :id} _]
-  (amr-entity/delete-amr id)
-  (resolve-as true))
+  (let [amr-concepts (sort-by :id (map concept-translate/amr->schema (amr-entity/list-amrs)))
+        paradigms (sort-by :id (map concept-translate/amr->schema (amr-entity/list-rgls)))
+        rgl-library (map concept-translate/amr->schema (rgl-entity/read-library))
+        rgl-paradigms-raw (rgl-entity/read-paradigms)
+        rgl-paradigms (map concept-translate/amr->schema rgl-paradigms-raw)]
+    (resolve-as
+      (merge
+        (->> rgl-paradigms-raw
+             (group-by :module)
+             (reduce-kv (fn [m k v]
+                          (assoc m (keyword k) (map concept-translate/amr->schema v)))
+                        {}))
+        {:id        "concepts"
+         :concepts  (concat amr-concepts paradigms rgl-library rgl-paradigms)
+         :amr       amr-concepts
+         :rgl       rgl-library
+         :paradigms paradigms}))))
 
 (defn- resolve-as-not-found-concept [id]
   (resolve-as nil {:message (format "Cannot find concept with id `%s`." id)}))
 
 (defn get-concept [_ {:keys [id]} _]
-  (if-let [amr (amr-entity/get-amr id)]
-    (resolve-as (concept-translate/amr->schema amr))
+  (if-let [concept (or (amr-entity/get-amr id) (rgl-entity/get-rgl id))]
+    (resolve-as (concept-translate/amr->schema concept))
     (resolve-as-not-found-concept id)))

@@ -8,17 +8,20 @@ services:
     environment:
       DYNAMODB_ENDPOINT: http://localstack:4569
       GF_ENDPOINT: http://gf:8000
-      ENRICH_ENDPOINT: http://enrich:8000
-      GRAMMAR_PACKAGE: "/opt/grammar/default.yaml"
+      GRAMMAR_PACKAGE: "/opt/grammar/library"
+      GRAMMAR_PARADIGMS: "/opt/grammar/paradigms"
+      ENRICH_ENDPOINT: "http://enrich:8000"
+      AMR_GRAMMAR: "/opt/grammar/all.yaml"
       DICT_PATH: "/opt/grammar/dictionary"
+      DOCUMENT_PLANS: "/opt/document-plans"
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
       - ./grammar:/opt/grammar
+      - ./test/resources/document_plans_new:/opt/document-plans
   gf:
     build:
       context: ../
       dockerfile: core/gf/Dockerfile
-
   enrich:
     build:
       context: ../

@@ -1,0 +1,140 @@
+// Type
+Number Type -
+Case Type -
+
+// Number
+singular Number -
+plural Number -
+
+// Case
+nominative Case e.g. "karp"
+genitive Case e.g. "karbi"
+partitive Case e.g. "karpi"
+illative Case e.g. "karbisse/karpi"
+inessive Case e.g. "karbis"
+elative Case e.g. "karbist"
+allative Case e.g. "karbile"
+adessive Case e.g. "karbil"
+ablative Case e.g. "karbilt"
+translative Case e.g. "karbiks"
+terminative Case e.g. "karbini"
+essive Case e.g. "karbina"
+abessive Case e.g. "karbita"
+comitative Case e.g. "karbiga"
+
+// InfForm
+infDa InfForm e.g. "lugeda"
+infDes InfForm e.g. "lugedes"
+infMa InfForm e.g. "lugema"
+infMas InfForm e.g. "lugemas"
+infMaks InfForm e.g. "lugemaks"
+infMast InfForm e.g. "lugemast"
+infMata InfForm e.g. "lugemata"
+
+// Prep
+prePrep Case -> Str -> Prep preposition, e.g. abessive "ilma"
+postPrep Case -> Str -> Prep postposition, e.g. genitive "taga"
+postGenPrep Str -> Prep genitive postposition, e.g. "taga"
+casePrep Case -> Prep just case, e.g. adessive
+
+// Adv
+mkAdv Str -> Adv -
+
+// AdV
+mkAdV Str -> AdV -
+
+// AdN
+mkAdN Str -> AdN -
+
+// AdA
+mkAdA Str -> AdA -
+
+// Conj
+mkConj Str -> Conj just one word, default number Sg: e.g. "ja"
+mkConj Str -> Number -> Conj --just one word + number: e.g. "ja" Pl -
+mkConj Str -> Str -> Conj --two words, default number: e.g. "nii" "kui" -
+mkConj Str -> Str -> Number -> Conj --two words + number: e.g. "nii" "kui" Pl -
+mkPConj Str -> PConj -
+
+// N
+mkN Str -> N predictable nouns, covers 90%
+mkN Str -> Str -> N sg nom,gen: unpredictable stem vowel (tukk, tuku)
+mkN Str -> Str -> Str -> N sg nom,gen,part (tukk, tuku, tukku)
+mkN Str -> Str -> Str -> Str -> N sg nom,gen,part, pl.part (pank, panga, panka, panku)
+mkN Str -> Str -> Str -> Str -> Str -> Str -> N worst case, 6 forms (oun, ouna, ouna, ounasse, ounte, ounu)
+
+// N2
+mkN2 N -> N2 relational noun with genitive
+mkN2 N -> Prep -> N2 relational noun another prep.
+
+// N3
+mkN3 N -> Prep -> Prep -> N3 relation with two complements
+
+// PN
+mkPN Str -> PN predictable noun made into name
+mkPN N -> PN any noun made into name
+
+// A
+mkA Str -> A regular noun made into adjective
+mkA N -> A any noun made into adjective
+mkA N -> Infl -> A noun made into adjective, agreement type specified
+mkA N -> Str -> Str -> A deviating comparison forms (parem, parim)
+invA Str -> A invariable adjectives, such as genitive attributes ; no agreement to head, no comparison forms.
+
+// A2
+mkA2 A -> Prep -> A2 e.g. "vihane" (postGenPrep "peale")
+
+// V
+mkV Str -> V predictable verbs, covers 90 %
+mkV Str -> Str -> V ma infinitive, da infinitive (lugema, lugeda)
+mkV Str -> Str -> Str -> V ma, da, present sg 3 (lugema, lugeda, loeb)
+mkV Str -> Str -> Str -> Str -> V --ma, da, pres sg 3, pres passive - (lugema, lugeda, loeb, loetakse)
+mkV Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> V worst-case verb, 8 forms (tegema, teha, teeb, tehakse, tehke, tegi, teinud, tehtud
+mkV V -> Str -> V multi-word verbs
+caseV Case -> V -> V deviating subj. case, e.g. allative "meeldima"
+vOlema V the verb "be"
+vMinema V the verb "go"
+
+// V2
+mkV2 Str -> V2 predictable direct transitive
+mkV2 V -> V2 direct transitive
+mkV2 V -> Case -> V2 complement just case
+mkV2 V -> Prep -> V2 complement pre/postposition
+
+// V3
+mkV3 V -> Prep -> Prep -> V3 e.g. rääkima, allative, elative
+mkV3 V -> V3 -
+mkV3 Str -> V3 string, default cases accusative + allative
+dirV3 V -> Case -> V3 liigutama, (accusative), illative
+dirdirV3 V -> V3 andma, (accusative), (allative)
+
+// VS
+mkVS V -> VS -
+mkVS Str -> VS -
+
+// V2S
+mkV2S V -> Prep -> V2S e.g. "ütlema" allative
+mkV2S Str -> V2S --default (mkV foo) allative -
+
+// VV
+mkVV V -> VV e.g. "hakkama"
+mkVV Str -> VV -
+mkVVf V -> InfForm -> VV e.g. "hakkama" infMa
+
+// V2V
+mkV2V V -> Prep -> V2V e.g. "käskima" adessive
+mkV2V Str -> V2V e.g. "käskima" adessive
+mkV2Vf V -> Prep -> InfForm -> V2V e.g. "keelama" partitive infMast
+
+// VA
+mkVA V -> Prep -> VA e.g. "muutuma" translative
+mkVA Str -> VA string, default case
+
+// V2A
+mkV2A V -> Prep -> Prep -> V2A e.g. "värvima" genitive translative
+mkV2A Str -> V2A string, default cases genitive and translative
+
+// VQ
+mkVQ V -> VQ -
+mkVQ Str -> VQ -
+mkV2Q V -> Prep -> V2Q e.g. "küsima" ablative

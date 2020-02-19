@@ -5,6 +5,7 @@
             [data.entities.data-files]
             [data.entities.dictionary]
             [data.entities.document-plan]
+            [data.entities.rgl]
             [data.entities.result]
             [datomic.api :as d]
             [mount.core :as mount])
@@ -27,7 +28,7 @@
            {:start (fn []
                      {:db-implementation :datomic})}})
         (mount/only #{#'api.config/conf
-                      #'data.entities.amr/amr-db
+                      #'data.entities.rgl/rgl-db
                       #'data.entities.data-files/data-files-db
                       #'data.entities.document-plan/document-plans-db
                       #'data.entities.dictionary/reader-flags-db

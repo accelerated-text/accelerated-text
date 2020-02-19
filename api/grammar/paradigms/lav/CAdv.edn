@@ -1,0 +1,7 @@
+{:type "CAdv",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkCAdv",
+   :type ["Str" "Str" "Degree" "CAdv"],
+   :example "-"}]}

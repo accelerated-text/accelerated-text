@@ -1,0 +1,34 @@
+{:type "Adv",
+ :description "verb-phrase-modifying adverb",
+ :module "SyntaxEng",
+ :functions
+ [{:function "everywhere_Adv", :type ["Adv"], :example "everywhere"}
+  {:function "here7from_Adv", :type ["Adv"], :example "from here"}
+  {:function "here7to_Adv", :type ["Adv"], :example "to here"}
+  {:function "here_Adv", :type ["Adv"], :example "here"}
+  {:function "mkAdv", :type ["A" "Adv"], :example "warmly"}
+  {:function "mkAdv",
+   :type ["Prep" "NP" "Adv"],
+   :example "in the house"}
+  {:function "mkAdv",
+   :type ["Subj" "S" "Adv"],
+   :example "when she sleeps"}
+  {:function "mkAdv",
+   :type ["CAdv" "A" "NP" "Adv"],
+   :example "more warmly than he"}
+  {:function "mkAdv",
+   :type ["CAdv" "A" "S" "Adv"],
+   :example "more warmly than he runs"}
+  {:function "mkAdv",
+   :type ["AdA" "Adv" "Adv"],
+   :example "very warmly"}
+  {:function "mkAdv",
+   :type ["Conj" "Adv" "Adv" "Adv"],
+   :example "here and now"}
+  {:function "mkAdv",
+   :type ["Conj" "ListAdv" "Adv"],
+   :example "with her, here and now"}
+  {:function "somewhere_Adv", :type ["Adv"], :example "somewhere"}
+  {:function "there7from_Adv", :type ["Adv"], :example "from there"}
+  {:function "there7to_Adv", :type ["Adv"], :example "there"}
+  {:function "there_Adv", :type ["Adv"], :example "there"}]}

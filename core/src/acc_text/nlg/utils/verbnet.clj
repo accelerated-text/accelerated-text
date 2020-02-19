@@ -79,7 +79,7 @@
                                    #(or (nil? %) (empty? %))
                                    (process-xml xml))))
 
-(defmethod process-section :THEMROLES [xml] {:thematic-roles (process-xml xml)})
+(defmethod process-section :THEMROLES [xml] {:roles (process-xml xml)})
 
 (defmethod process-section :default [_] nil)
 

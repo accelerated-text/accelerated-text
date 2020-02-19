@@ -1,0 +1,9 @@
+{:type "Case",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "nominative", :type ["Case"], :example "-"}
+  {:function "genitive", :type ["Case"], :example "-"}
+  {:function "dative", :type ["Case"], :example "-"}
+  {:function "accusative", :type ["Case"], :example "-"}
+  {:function "locative", :type ["Case"], :example "-"}]}

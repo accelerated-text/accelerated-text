@@ -1,7 +1,7 @@
 roles:
-  - lexicon
-  - locationData
-  - objectRef
+- lexicon
+- locationData
+- objectRef
 frames:
   - example: There is a place in the city center, KFC
     syntax:

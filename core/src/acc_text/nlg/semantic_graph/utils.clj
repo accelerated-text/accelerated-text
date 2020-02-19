@@ -66,10 +66,12 @@
                                                  (into #{} (map :to relations)))))
 
 (defn node-name [{:keys [id type value]}]
-  (-> "%s.%s %s"
-      (format (name id) (name type) (str value))
-      (str/trim)
-      (keyword)))
+  (if (= type :quote)
+    value
+    (-> "%s.%s %s"
+        (format (name id) (name type) (str value))
+        (str/trim)
+        (keyword))))
 
 (defn plan-graph [{::sg/keys [concepts relations]}]
   (let [concepts (zipmap (map :id concepts) concepts)]

@@ -55,6 +55,7 @@ fragment documentPlanFields on DocumentPlan {
   id
   uid
   name
+  kind
   blocklyXml
   documentPlan
   dataSampleId
@@ -74,7 +75,9 @@ fragment thematicRoleFields on ThematicRole {
 
 fragment conceptFields on Concept {
   id
+  kind
   label
+  name
   helpText
   roles {
     ...thematicRoleFields

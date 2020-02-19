@@ -1,0 +1,22 @@
+{:type "Numeral",
+ :description "cardinal or ordinal in words",
+ :module "SyntaxEng",
+ :functions
+ [{:function "mkNumeral",
+   :type ["Unit" "Numeral"],
+   :example "eight (coerce 1..9)"}
+  {:function "mkNumeral",
+   :type ["Sub100" "Numeral"],
+   :example "twenty-five (coerce 1..99)"}
+  {:function "mkNumeral",
+   :type ["Sub1000" "Numeral"],
+   :example "nine hundred and ..."}
+  {:function "mkNumeral",
+   :type ["Sub1000" "Sub1000" "Numeral"],
+   :example "nine hundred and ..."}
+  {:function "mkNumeral",
+   :type ["Str" "Numeral"],
+   :example "thirty-five (given by \"35\"; range 1-999)"}
+  {:function "thousandfoldNumeral",
+   :type ["Sub1000" "Numeral"],
+   :example "nine hundred and ..."}]}

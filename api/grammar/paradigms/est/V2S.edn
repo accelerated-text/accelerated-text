@@ -1,0 +1,10 @@
+{:type "V2S",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkV2S",
+   :type ["V" "Prep" "V2S"],
+   :example "e.g. \"ütlema\" allative"}
+  {:function "mkV2S",
+   :type ["Str" "V2S"],
+   :example "--default (mkV foo) allative -"}]}

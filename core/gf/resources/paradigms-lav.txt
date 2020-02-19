@@ -1,0 +1,141 @@
+// Gender
+masculine Gender -
+feminine Gender -
+
+// Number
+singular Number -
+plural Number -
+
+// Case
+nominative Case -
+genitive Case -
+dative Case -
+accusative Case -
+locative Case -
+
+// Conjugation
+second_conjugation Conjugation -
+third_conjugation Conjugation -
+
+// Voice
+active_voice Voice -
+passive_voice Voice -
+
+// N
+mkN Str -> N -
+mkN Str -> Bool -> N -
+mkN Str -> Gender -> N -
+mkN Str -> Declension -> N -
+mkN Str -> Gender -> Bool -> N -
+mkN Str -> Declension -> Bool -> N -
+mkN Str -> Gender -> Declension -> N -
+mkN Str -> Gender -> Declension -> Bool -> N -
+
+// PN
+mkN Str -> PN -
+mkN Str -> Number -> PN -
+
+// N2
+mkN2 N -> Prep -> N2 -
+mkN2 N -> Prep -> Bool -> N2 -
+
+// N3
+mkN3 N -> Prep -> Prep -> N3 -
+
+// A
+mkA Str -> A -
+mkA Str -> AType -> A -
+mkA V -> Voice -> A -
+
+// AS
+mkAS A -> AS -
+
+// AV
+mkAV A -> AV -
+
+// A2
+mkA2 A -> Prep -> A2 -
+
+// A2S
+mkA2S A -> Prep -> A2S -
+
+// A2V
+mkA2V A -> Prep -> A2V -
+
+// V
+mkV Str -> V -
+mkV Str -> Case -> V -
+mkV Str -> Conjugation -> V -
+mkV Str -> Conjugation -> Case -> V -
+mkV Str -> Str -> Str -> V -
+mkV Str -> Str -> Str -> Case -> V -
+
+// V2
+mkV2 V -> V2 -
+mkV2 V -> Prep -> V2 -
+
+// VS
+mkVS V -> Subj -> VS -
+mkVS V -> Subj -> Case -> VS -
+
+// VQ
+mkVQ V -> VQ -
+mkVQ V -> Case -> VQ -
+
+// VV
+mkVV V -> VV -
+mkVV V -> Case -> VV -
+
+// V3
+mkV3 V -> V3 -
+mkV3 V -> Prep -> Prep -> V3 -
+
+// VA
+mkVA V -> VA -
+
+// V2A
+mkV2A V -> Prep -> V2A -
+
+// V2Q
+mkV2Q V -> Prep -> V2Q -
+
+// V2V
+mkV2V V -> Prep -> V2V -
+
+// V2S
+mkV2S V -> Subj -> Prep -> V2S -
+
+// Prep
+mkPrep Str -> Case -> Case -> Prep -
+mkPrep Case -> Prep -
+nom_Prep Prep -
+gen_Prep Prep -
+dat_Prep Prep -
+acc_Prep Prep -
+loc_Prep Prep -
+
+// Adv
+mkAdv Str -> Adv -
+mkAdV Str -> AdV -
+
+// AdA
+mkAdA Str -> AdA -
+
+// AdN
+mkAdN Str -> AdN -
+
+// CAdv
+mkCAdv Str -> Str -> Degree -> CAdv -
+
+// Conj
+mkConj Str -> Conj -
+mkConj Str -> Number -> Conj -
+mkConj Str -> Str -> Conj -
+mkConj Str -> Str -> Number -> Conj -
+mk2Conj Str -> Str -> Number -> Conj -
+
+// Str
+mkNumReg Str -> Str -> Number -> Str { s : DForm => CardOrd => Gender => Case => Str }
+mkNumSpec Str -> Str -> Str -> Str -> Number -> Str { s : DForm => CardOrd => Gender => Case => Str }
+simts Str CardOrd => Gender => Number => Case => Str
+tuukstotis Str CardOrd => Gender => Number => Case => Str

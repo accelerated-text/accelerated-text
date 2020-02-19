@@ -1,0 +1,15 @@
+{:type "IAdv",
+ :description "interrogative adverb",
+ :module "SyntaxEng",
+ :functions
+ [{:function "how8much_IAdv", :type ["IAdv"], :example "how much"}
+  {:function "how_IAdv", :type ["IAdv"], :example "how"}
+  {:function "mkIAdv",
+   :type ["Prep" "IP" "IAdv"],
+   :example "in which city"}
+  {:function "mkIAdv",
+   :type ["IAdv" "Adv" "IAdv"],
+   :example "where in Paris"}
+  {:function "when_IAdv", :type ["IAdv"], :example "when"}
+  {:function "where_IAdv", :type ["IAdv"], :example "where"}
+  {:function "why_IAdv", :type ["IAdv"], :example "why"}]}

@@ -1,0 +1,9 @@
+{:type "VQ",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkVQ", :type ["V" "VQ"], :example "-"}
+  {:function "mkVQ", :type ["Str" "VQ"], :example "-"}
+  {:function "mkV2Q",
+   :type ["V" "Prep" "V2Q"],
+   :example "e.g. \"küsima\" ablative"}]}

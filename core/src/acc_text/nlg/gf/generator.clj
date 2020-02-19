@@ -7,8 +7,8 @@
             [jsonista.core :as json]
             [clojure.tools.logging :as log]))
 
-(def dictionary #{"allows"  "standard"
-                  "this" "small" "of_Prep" "make" "fast" "suitable" "with_Prep" 
+(def dictionary #{"allows" "standard"
+                  "this" "small" "of_Prep" "make" "fast" "suitable" "with_Prep"
                   "regular" "features" "easy_N"
                   "includes" "package"})
 (defn s-ret? [ret] (coll? ret))
@@ -118,6 +118,15 @@
       "|"
       "++")))
 
+(defn join-operation-body [op]
+  (->> op
+       (map (fn [{:keys [type value children]}]
+              (case type
+                :argument value
+                :operation (format "(%s %s)" value (join-operation-body children))
+                :literal (format "\"%s\"" (escape-string value)))))
+       (str/join " ")))
+
 (defn join-function-body [body ret]
   (str/join " " (map (fn [expr next-expr]
                        (let [operator (get-operator expr next-expr)]
@@ -183,7 +192,8 @@
             (format import lang))))
 
 (defn ->incomplete [lang {::grammar/keys [module functions]}]
-  (format "incomplete concrete %sBody of %s = open %sLex, %s in {%s\n}"
+  (format "incomplete concrete %sBody of %s = open %sLex, %sOps, %s in {%s\n}"
+          module
           module
           module
           module
@@ -219,15 +229,28 @@
           module
           lang))
 
+(defn ->operations [{::grammar/keys [module operations]}]
+  (format "resource %sOps = open SyntaxEng, ParadigmsEng in {%s\n}"
+          module
+          (join-body
+            "oper" (for [{:keys [id kind roles body]} operations]
+                     (format
+                       "%s : %s = \\%s -> %s"
+                       id
+                       (str/join " -> " (conj (mapv :type roles) kind))
+                       (str/join "," (mapv :id roles))
+                       (join-operation-body body))))))
+
 (defn grammar->content [lang {::grammar/keys [module instance] :as grammar}]
   {(str module)            (->abstract grammar)
    (str module "Body")     (->incomplete lang grammar)
    (str module "Lex")      (->interface grammar)
    (str module "Lex" lang) (->resource lang grammar)
+   (str module "Ops")      (->operations grammar)
    (str module instance)   (->concrete lang grammar)})
 
-(defn translate-reader-model [x]
-  (case x
+(defn translate-reader-model [lang]
+  (case lang
     :en "Eng"
     :de "Ger"
     :ee "Est"
@@ -238,11 +261,11 @@
    (generate :en grammar))
   ([lang {::grammar/keys [module instance] :as grammar}]
    (let [lang (translate-reader-model lang)
-           {body :body} (service/compile-request lang module instance (grammar->content lang grammar))
-           {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
-       (if (some? error)
-         (log/error error)
-         (sort (dedupe results))))))
+         {body :body} (service/compile-request lang module instance (grammar->content lang grammar))
+         {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
+     (if (some? error)
+       (log/error error)
+       (sort (dedupe results))))))
 
 (s/fdef generate
         :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar :reader-model map?)

@@ -1,0 +1,6 @@
+{:type "Voice",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "active_voice", :type ["Voice"], :example "-"}
+  {:function "passive_voice", :type ["Voice"], :example "-"}]}

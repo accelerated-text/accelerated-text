@@ -11,13 +11,6 @@ enum Usage {
     DONT_CARE
 }
 
-enum BlocklyFieldType {
-    BOOLEAN
-    DEFINITION
-    LIST
-    STRING
-}
-
 #   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
 enum PartOfSpeech {
     CC      # conjunction, coordinating  and, or, but
@@ -184,13 +177,15 @@ type ReaderFlagUsage {
 
 type ThematicRole {
     id:                ID!
-    fieldType:         [ BlocklyFieldType! ]
+    fieldType:         [ String! ]
     fieldLabel:        String!
 }
 
 type Concept {
     id:                ID!
+    kind:              String
     label:             String!
+    name:              String!
     roles:             [ ThematicRole! ]
     helpText:          String!
 }
@@ -198,6 +193,14 @@ type Concept {
 type Concepts {
     id:                ID!
     concepts:          [ Concept! ]
+    amr:               [ Concept! ]
+    rgl:               [ Concept! ]
+    paradigms:         [ Concept! ]
+    ParadigmsEng:      [ Concept! ]
+    ParadigmsGer:      [ Concept! ]
+    ParadigmsEst:      [ Concept! ]
+    ParadigmsLav:      [ Concept! ]
+    ParadigmsRus:      [ Concept! ]
 }
 
 
@@ -207,6 +210,7 @@ type DocumentPlan {
     id:                ID!
     uid:               ID!
     name:              String!
+    kind:              String
     blocklyXml:        String!
     documentPlan:      String!
     dataSampleId:      ID
@@ -220,6 +224,7 @@ type DocumentPlanResults {
     items:             [ DocumentPlan! ]
     offset:            Int!
     limit:             Int!
+    kind:              String
     totalCount:        Int!
 }
 
@@ -287,15 +292,20 @@ type Query {
     documentPlans(
         offset:             Int
         limit:              Int
+        kind:               String
     ):  DocumentPlanResults!
 
     documentPlan(
         id:                 ID
         name:               String
+        kind:               String
     ):  DocumentPlan
 
     ### AMR
-    concepts:               Concepts!
+    concepts(
+        kind:               String
+    ): Concepts!
+
     concept(
         id:                 ID!
     ):  Concept
@@ -341,6 +351,7 @@ type Mutation {
     createDocumentPlan(
         uid:                ID!
         name:               String!
+        kind:               String
         blocklyXml:         String!
         documentPlan:       String!
         dataSampleId:       ID
@@ -355,6 +366,7 @@ type Mutation {
         id:                 ID!
         uid:                ID
         name:               String
+        kind:               String
         blocklyXml:         String
         documentPlan:       String
         dataSampleId:       ID

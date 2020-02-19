@@ -19,6 +19,7 @@ export default ({ concept }) =>
                     mutation={{
                         concept_id:     concept.id,
                         concept_label:  concept.label,
+                        kind:           concept.kind,
                         roles:          JSON.stringify( concept.roles ),
                     }}
                 />

@@ -1,0 +1,7 @@
+{:type "A",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkA", :type ["Str" "A"], :example "-"}
+  {:function "mkA", :type ["Str" "AType" "A"], :example "-"}
+  {:function "mkA", :type ["V" "Voice" "A"], :example "-"}]}

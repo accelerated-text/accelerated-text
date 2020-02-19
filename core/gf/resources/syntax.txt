@@ -1,0 +1,603 @@
+// AP - adjectival phrase
+comparAP A -> AP warmer
+mkAP A -> AP warm
+mkAP A -> NP -> AP warmer than Paris
+mkAP A2 -> NP -> AP married to her
+mkAP A2 -> AP married
+mkAP AP -> S -> AP it is good that she sleeps
+mkAP AP -> QS -> AP it is uncertain who sleeps
+mkAP AP -> VP -> AP she is ready to sleep
+mkAP AP -> SC -> AP she is ready to sleep
+mkAP AdA -> A -> AP very old
+mkAP AdA -> AP -> AP very very old
+mkAP Conj -> AP -> AP -> AP old or young
+mkAP Conj -> ListAP -> AP old, big and warm
+mkAP Ord -> AP oldest
+mkAP CAdv -> AP -> NP -> AP as old as she
+reflAP A2 -> AP married to itself
+
+// AdA - adjective-modifying adverb
+almost_AdA AdA almost red
+quite_Adv AdA quite
+so_AdA AdA so warm
+too_AdA AdA too warm
+very_AdA AdA very warm
+
+// AdN - numeral-modifying adverb
+almost_AdN AdNalmost eight
+at_least_AdN AdNat least eight
+at_most_AdN AdNat most eight
+mkAdN CAdv -> AdN more than eight
+
+// AdV - adverb directly attached to verb
+always_AdV AdV always
+
+// Adv - verb-phrase-modifying adverb
+everywhere_Adv Adv everywhere
+here7from_Adv Adv from here
+here7to_Adv Adv to here
+here_Adv Adv here
+mkAdv A -> Adv warmly
+mkAdv Prep -> NP -> Adv in the house
+mkAdv Subj -> S -> Adv when she sleeps
+mkAdv CAdv -> A -> NP -> Adv more warmly than he
+mkAdv CAdv -> A -> S -> Adv more warmly than he runs
+mkAdv AdA -> Adv -> Adv very warmly
+mkAdv Conj -> Adv -> Adv -> Adv here and now
+mkAdv Conj -> ListAdv -> Adv with her, here and now
+somewhere_Adv Adv somewhere
+there7from_Adv Adv from there
+there7to_Adv Adv there
+there_Adv Adv there
+
+// Ant - anteriority
+anteriorAnt Ant she has slept
+simultaneousAnt Ant she sleeps
+
+// CAdv - comparative adverb
+as_CAdv CAdv as
+less_CAdv CAdv less
+more_CAdv CAdv more
+
+// CN - common noun (without determiner)
+mkCN N -> CN house
+mkCN N2 -> NP -> CN mother of the king
+mkCN N3 -> NP -> NP -> CN distance from this city to Paris
+mkCN N2 -> CN mother
+mkCN N3 -> CN distance
+mkCN A -> N -> CN big house
+mkCN A -> CN -> CN big blue house
+mkCN AP -> N -> CN very big house
+mkCN AP -> CN -> CN very big blue house
+mkCN N -> RS -> CN man that she loves
+mkCN CN -> RS -> CN old man that she loves
+mkCN N -> Adv -> CN house on the hill
+mkCN CN -> Adv -> CN big house on the hill
+mkCN CN -> S -> CN rule that she sleeps
+mkCN CN -> QS -> CN question if she sleeps
+mkCN CN -> VP -> CN reason to sleep
+mkCN CN -> SC -> CN reason to sleep
+mkCN N -> NP -> CN king John
+mkCN CN -> NP -> CN old king John
+
+// Card - cardinal number
+mkCard Str -> Card thirty-five (given as "35"; range 1-999)
+mkCard Numeral -> Card seven
+mkCard Digits -> Card 51
+mkCard AdN -> Card -> Card almost fifty
+
+// Cl - declarative clause, with all tenses
+genericCl VP -> Cl one sleeps
+mkCl NP -> V -> Cl she sleeps
+mkCl NP -> V2 -> NP -> Cl she loves him
+mkCl NP -> V3 -> NP -> NP -> Cl she sends it to him
+mkCl NP -> VV -> VP -> Cl she wants to sleep
+mkCl NP -> VS -> S -> Cl she says that I sleep
+mkCl NP -> VQ -> QS -> Cl she wonders who sleeps
+mkCl NP -> VA -> A -> Cl she becomes old
+mkCl NP -> VA -> AP -> Cl she becomes very old
+mkCl NP -> V2A -> NP -> A -> Cl she paints it red
+mkCl NP -> V2A -> NP -> AP -> Cl she paints it red
+mkCl NP -> V2S -> NP -> S -> Cl she answers to him that we sleep
+mkCl NP -> V2Q -> NP -> QS -> Cl she asks him who sleeps
+mkCl NP -> V2V -> NP -> VP -> Cl she begs him to sleep
+mkCl NP -> VPSlash -> NP -> Cl she begs him to sleep here
+mkCl NP -> A -> Cl she is old
+mkCl NP -> A -> NP -> Cl she is older than he
+mkCl NP -> A2 -> NP -> Cl she is married to him
+mkCl NP -> AP -> Cl she is very old
+mkCl NP -> NP -> Cl she is the woman
+mkCl NP -> N -> Cl she is a woman
+mkCl NP -> CN -> Cl she is an old woman
+mkCl NP -> Adv -> Cl she is here
+mkCl NP -> VP -> Cl she always sleeps
+mkCl N -> Cl there is a house
+mkCl CN -> Cl there is an old house
+mkCl NP -> Cl there are many houses
+mkCl NP -> RS -> Cl it is she that sleeps
+mkCl Adv -> S -> Cl it is here that she sleeps
+mkCl V -> Cl it rains
+mkCl VP -> Cl it is raining
+mkCl SC -> VP -> Cl that she sleeps is good
+
+// ClSlash
+mkClSlash NP -> VPSlash -> ClSlash whom does she see
+mkClSlash NP -> V2 -> ClSlash whom does she see
+mkClSlash NP -> VV -> V2 -> ClSlash whom does she want to see
+mkClSlash Cl -> Prep -> ClSlash whom does she sleep with
+mkClSlash ClSlash -> Adv -> ClSlash whom does she see today
+mkClSlash NP -> VS -> SSlash -> ClSlash whom does she know that we hadn't seen
+
+// Comp - complement of copula, such as AP
+mkComp AP -> Comp to be old
+mkComp NP -> Comp to be this man
+mkComp Adv -> Comp to be here
+
+// Conj - conjunction
+and_Conj Conj here and now
+both7and_DConj Conj both here and there
+either7or_DConj Conj either here or there
+if_then_Conj Conj if here then there
+or_Conj Conj here or there
+
+// Det - determiner phrase
+aPl_Det Det women
+aSg_Det Det a woman
+a_Det Det a house
+every_Det Det every woman
+few_Det Det few women
+many_Det Det many houses
+mkDet Quant -> Det this
+mkDet Quant -> Card -> Det these five
+mkDet Quant -> Ord -> Det the fifth
+mkDet Quant -> Num -> Ord -> Det the five best
+mkDet Quant -> Num -> Det these
+mkDet Card -> Det five
+mkDet Digits -> Det 51
+mkDet Numeral -> Det five
+mkDet Pron -> Det my
+mkDet Pron -> Num -> Det my five
+much_Det Det much wine
+somePl_Det Det some women
+someSg_Det Det some wine
+that_Det Det that woman
+thePl_Det Det the houses
+theSg_Det Det the house
+the_Det Det the house
+these_Det Det these women
+this_Det Det this woman
+those_Det Det those women
+
+// Dig
+n0_Dig Dig 0
+n1_Dig Dig 1
+n2_Dig Dig 2
+n3_Dig Dig 3
+n4_Dig Dig 4
+n5_Dig Dig 5
+n6_Dig Dig 6
+n7_Dig Dig 7
+n8_Dig Dig 8
+n9_Dig Dig 9
+
+// Digits - cardinal or ordinal in digits
+mkDigits Str -> Digits 35 (from string "35"; ; range 1-9999999)
+mkDigits Dig -> Digits 4
+mkDigits Dig -> Digits -> Digits 1,233,486
+
+// IAdv - interrogative adverb
+how8much_IAdv IAdv how much
+how_IAdv IAdv how
+mkIAdv Prep -> IP -> IAdv in which city
+mkIAdv IAdv -> Adv -> IAdv where in Paris
+when_IAdv IAdv when
+where_IAdv IAdv where
+why_IAdv IAdv why
+
+// IComp - interrogative complement of copula
+mkIComp IAdv -> IComp where (is it)
+mkIComp IP -> IComp who (is it)
+how8many_IDet IDet how many houses
+
+// IDet - interrogative determiner
+mkIDet IQuant -> Num -> IDet which houses
+mkIDet IQuant -> IDet which house
+whichPl_IDet IDet which houses
+which_IDet IDet which house
+
+// IP - interrogative pronoun
+mkIP IDet -> CN -> IP which five big cities
+mkIP IDet -> N -> IP which five cities
+mkIP IDet -> IP which five
+mkIP IQuant -> CN -> IP which big city
+mkIP IQuant -> Num -> CN -> IP which five big cities
+mkIP IQuant -> N -> IP which city
+mkIP IP -> Adv -> IP who in Paris
+whatPl_IP IP what
+whatSg_IP IP what
+what_IP IP what
+whoPl_IP IP who
+whoSg_IP IP who
+who_IP IP who
+
+// IQuant
+which_IQuant IQuant which house
+
+// Imp - imperative
+mkImp VP -> Imp come to my house
+mkImp V -> Imp come
+mkImp V2 -> NP -> Imp buy it
+
+// ImpForm
+pluralImpForm ImpForm be men
+politeImpForm ImpForm be a man
+singularImpForm ImpForm be a man
+
+// ListAP
+mkListAP AP -> AP -> ListAP list of two
+mkListAP AP -> ListAP -> ListAP list of more
+
+// ListAdv
+mkListAdv Adv -> Adv -> ListAdv list of two
+mkListAdv Adv -> ListAdv -> ListAdv list of more
+
+// ListNP
+mkListNP NP -> NP -> ListNP list of two
+mkListNP NP -> ListNP -> ListNP list of more
+
+// ListRS
+mkListRS RS -> RS -> ListRS list of two
+mkListRS RS -> ListRS -> ListRS list of more
+
+// ListS
+mkListS S -> S -> ListS list of two
+mkListS S -> ListS -> ListS list of more
+
+// NP - noun phrase (subject or object)
+everybody_NP NP everybody
+everything_NP NP everything
+he_NP NP he
+i_NP NP I
+it_NP NP it
+mkNP Quant -> N -> NP this man
+mkNP Quant -> CN -> NP this old man
+mkNP Quant -> Num -> CN -> NP these five old men
+mkNP Quant -> Num -> N -> NP these five men
+mkNP Det -> CN -> NP the five old men
+mkNP Det -> N -> NP the five men
+mkNP Numeral -> CN -> NP five old men
+mkNP Numeral -> N -> NP five men
+mkNP Digits -> CN -> NP 51 old men
+mkNP Digits -> N -> NP 51 men
+mkNP Card -> CN -> NP forty-five old men
+mkNP Card -> N -> NP forty-five men
+mkNP Pron -> CN -> NP my old man
+mkNP Pron -> N -> NP my man
+mkNP PN -> NP Paris
+mkNP Pron -> NP we
+mkNP Quant -> NP this
+mkNP Quant -> Num -> NP these five
+mkNP Det -> NP the five best
+mkNP CN -> NP old beer
+mkNP N -> NP beer
+mkNP Predet -> NP -> NP only this woman
+mkNP NP -> V2 -> NP the man seen
+mkNP NP -> Adv -> NP Paris today
+mkNP NP -> RS -> NP John, that walks ...
+mkNP Conj -> NP -> NP -> NP this woman or John
+mkNP Conj -> ListNP -> NP this woman, John or I
+nobody_NP NP nobody
+nothing_NP NP nothing
+she_NP NP she
+somebody_NP NP somebody
+something_NP NP something
+that_NP NP that
+these_NP NP these
+they_NP NP they
+this_NP NP this
+those_NP NP those
+we_NP NP we
+youPl_NP NP you
+youPol_NP NP you
+you_NP NP you
+
+// Num - number determining element
+mkNum Str -> Num thirty-five (given by "35"; range 1-999)
+mkNum Numeral -> Num ...
+mkNum Digits -> Num 21
+mkNum Digit -> Num five
+mkNum Card -> Num almost five
+mkNum AdN -> Card -> Num almost five
+pluralNum Num plural
+singularNum Num singular
+
+// Numeral - cardinal or ordinal in words
+mkNumeral Unit -> Numeral eight (coerce 1..9)
+mkNumeral Sub100 -> Numeral twenty-five (coerce 1..99)
+mkNumeral Sub1000 -> Numeral nine hundred and ...
+mkNumeral Sub1000 -> Sub1000 -> Numeral nine hundred and ...
+mkNumeral Str -> Numeral thirty-five (given by "35"; range 1-999)
+thousandfoldNumeral Sub1000 -> Numeral nine hundred and ...
+
+// Ord - ordinal number (used in Det)
+mkOrd Numeral -> Ord twentieth
+mkOrd Digits -> Ord 51st
+mkOrd Digit -> Ord fifth
+mkOrd A -> Ord smallest
+
+// PConj - phrase-beginning conjunction
+but_PConj PConj but
+mkPConj Conj -> PConj and now
+otherwise_PConj PConj otherwise
+therefore_PConj PConj therefore
+
+// Phr - phrase in a text
+mkPhr (PConj) -> Utt -> (Voc) -> Phr but sleep, my friend
+mkPhr S -> Phr she won't sleep
+mkPhr Cl -> Phr she sleeps
+mkPhr QS -> Phr would she sleep
+mkPhr Imp -> Phr sleep
+
+// Pol - polarity
+negativePol Pol she doesn't sleep
+positivePol Pol she sleeps
+
+// Predet - predeterminer (prefixed Quant)
+all_Predet Predet all the men
+most_Predet Predet most
+not_Predet Predet not everybody
+only_Predet Predet only
+
+// Prep - preposition, or just case
+above_Prep Prep above it
+after_Prep Prep after it
+before_Prep Prep before it
+behind_Prep Prep behind it
+between_Prep Prep between you and me
+by8agent_Prep Prep by it
+by8means_Prep Prep by it
+during_Prep Prep during it
+except_Prep Prep except it
+for_Prep Prep for it
+from_Prep Prep from it
+in8front_Prep Prep in front of it
+in_Prep Prep in it
+on_Prep Prep on it
+part_Prep Prep of it
+possess_Prep Prep of it
+through_Prep Prep through it
+to_Prep Prep to it
+under_Prep Prep under it
+with_Prep Prep with it
+without_Prep Prep without it
+
+// Pron - personal pronoun
+he_Pron Pron he
+i_Pron Pron I
+it_Pron Pron it
+she_Pron Pron she
+they_Pron Pron they
+we_Pron Pron we
+youPl_Pron Pron you
+youPol_Pron Pron you
+youSg_Pron Pron you
+
+// Punct
+exclMarkPunct Punct yes!
+fullStopPunct Punct yes.
+questMarkPunct Punct yes?
+
+// QCl - question clause, with all tenses
+mkQCl Cl -> QCl does she sleep
+mkQCl IP -> VP -> QCl who always sleeps
+mkQCl IP -> V -> QCl who sleeps
+mkQCl IP -> V2 -> NP -> QCl who loves her
+mkQCl IP -> V3 -> NP -> NP -> QCl who sends it to her
+mkQCl IP -> VV -> VP -> QCl who wants to sleep
+mkQCl IP -> VS -> S -> QCl who says that I sleep
+mkQCl IP -> VQ -> QS -> QCl who wonders who sleeps
+mkQCl IP -> VA -> A -> QCl who becomes old
+mkQCl IP -> VA -> AP -> QCl who becomes very old
+mkQCl IP -> V2A -> NP -> A -> QCl who paints it red
+mkQCl IP -> V2A -> NP -> AP -> QCl who paints it very red
+mkQCl IP -> V2S -> NP -> S -> QCl who answers to him that we sleep
+mkQCl IP -> V2Q -> NP -> QS -> QCl who asks him who sleeps
+mkQCl IP -> V2V -> NP -> VP -> QCl who begs him to sleep
+mkQCl IP -> A -> QCl who is old
+mkQCl IP -> A -> NP -> QCl who is older than he
+mkQCl IP -> A2 -> NP -> QCl who is married to him
+mkQCl IP -> AP -> QCl who is very old
+mkQCl IP -> NP -> QCl who is the woman
+mkQCl IP -> N -> QCl who is a woman
+mkQCl IP -> CN -> QCl who is an old woman
+mkQCl IP -> Adv -> QCl who is here
+mkQCl IP -> NP -> V2 -> QCl who is her
+mkQCl IP -> ClSlash -> QCl whom does she love today
+mkQCl IAdv -> Cl -> QCl why does she sleep
+mkQCl Prep -> IP -> Cl -> QCl with whom does she sleep
+mkQCl IAdv -> NP -> QCl where is she
+mkQCl IComp -> NP -> QCl who is this man
+mkQCl IP -> QCl which city is there
+
+// QS - question
+mkQS (Tense) -> (Ant) -> (Pol) -> QCl -> QS who wouldn't have slept
+mkQS Cl -> QS does she sleep
+
+// Quant - quantifier ('nucleus' of Det)
+a_Quant Quant a house
+mkQuant Pron -> Quant my house
+no_Quant Quant no house
+that_Quant Quant that house
+the_Quant Quant the house
+this_Quant Quant this house
+
+// RCl - relative clause, with all tenses
+mkRCl RP -> VP -> RCl woman that always sleeps
+mkRCl RP -> V -> RCl woman that sleeps
+mkRCl RP -> V2 -> NP -> RCl woman that loves him
+mkRCl RP -> V3 -> NP -> NP -> RCl woman that sends it to him
+mkRCl RP -> VV -> VP -> RCl woman that wants to sleep
+mkRCl RP -> VS -> S -> RCl woman that says that I sleep
+mkRCl RP -> VQ -> QS -> RCl woman that wonders who sleeps
+mkRCl RP -> VA -> A -> RCl woman that becomes old
+mkRCl RP -> VA -> AP -> RCl woman that becomes very old
+mkRCl RP -> V2A -> NP -> A -> RCl woman that paints it red
+mkRCl RP -> V2A -> NP -> AP -> RCl woman that paints it very red
+mkRCl RP -> V2S -> NP -> S -> RCl woman that answers to him that we sleep
+mkRCl RP -> V2Q -> NP -> QS -> RCl woman that asks him who sleeps
+mkRCl RP -> V2V -> NP -> VP -> RCl woman that begs him to sleep
+mkRCl RP -> A -> RCl woman that is old
+mkRCl RP -> A -> NP -> RCl woman that is older than he
+mkRCl RP -> A2 -> NP -> RCl woman that is married to him
+mkRCl RP -> AP -> RCl woman that is very old
+mkRCl RP -> NP -> RCl woman that is the woman
+mkRCl RP -> N -> RCl student that is a woman
+mkRCl RP -> CN -> RCl student that is an old woman
+mkRCl RP -> Adv -> RCl woman that is here
+mkRCl RP -> NP -> V2 -> RCl woman that we love
+mkRCl RP -> ClSlash -> RCl woman that she loves today
+mkRCl Cl -> RCl such that she loves him
+
+// RP - relative pronoun
+mkRP Prep -> NP -> RP -> RP all the cities in which
+which_RP RP which
+
+// RS - relative
+mkRS (Tense) -> (Ant) -> (Pol) -> RCl -> RS woman that wouldn't have slept
+mkRS Temp -> (Pol) -> RCl -> RS that wouldn't have slept
+mkRS Conj -> RS -> RS -> RS woman that sleeps or that we love
+mkRS Conj -> ListRS -> RS who sleeps, whom I see and who sleeps
+
+// S - declarative sentence
+mkS (Tense) -> (Ant) -> (Pol) -> Cl -> S she wouldn't have slept
+mkS Temp -> Pol -> Cl -> S she wouldn't have slept
+mkS Conj -> S -> S -> S she sleeps and I run
+mkS Conj -> ListS -> S she sleeps, I run and you walk
+mkS Adv -> S -> S today she sleeps
+
+// SC - embedded sentence or question
+mkSC S -> SC that she sleeps
+mkSC QS -> SC who sleeps
+mkSC VP -> SC to sleep
+
+// SSlash
+mkSSlash Temp -> Pol -> ClSlash -> SSlash she hadn't seen
+
+// Sub100
+mkSub100 Unit -> Sub100 eight
+mkSub100 Unit -> Unit -> Sub100 ...
+tenfoldSub100 Unit -> Sub100 eight
+
+// Sub1000
+mkSub1000 Sub100 -> Sub1000 ...
+mkSub1000 Unit -> Sub1000 nine hundred
+mkSub1000 Unit -> Sub100 -> Sub1000 nine hundred and ...
+
+// Subj - subjunction
+although_Subj Subj although she sleeps
+because_Subj Subj because she sleeps
+if_Subj Subj if she sleeps
+that_Subj Subj that she sleeps
+when_Subj Subj when she sleeps
+
+// Temp - temporal and aspectual features
+mkTemp Tense -> Ant -> Temp e.g. past + anterior
+conditionalTense Tense she would sleep
+
+// Tense - tense
+futureTense Tense she will sleep
+pastTense Tense she slept
+presentTense Tense she sleeps
+
+// Text - text consisting of several phrases
+emptyText Text (empty text)
+mkText Phr -> (Punct) -> (Text) -> Text does she sleep? yes.
+mkText Utt -> (Punct) -> (Text) -> Text Does she sleep? Yes.
+mkText S -> Text she slept.
+mkText Cl -> Text she sleeps.
+mkText QS -> Text did she sleep?
+mkText (Pol) -> Imp -> Text don't sleep!
+mkText Text -> Text -> Text where? here. when? now!
+
+// Unit
+n1_Unit Unit one
+n2_Unit Unit two
+n3_Unit Unit three
+n4_Unit Unit four
+n5_Unit Unit five
+n6_Unit Unit six
+n7_Unit Unit seven
+n8_Unit Unit eight
+n9_Unit Unit nine
+lets_Utt VP -> Utt let's sleep
+
+// Utt - sentence, question, word...
+mkUtt S -> Utt she slept
+mkUtt Cl -> Utt she sleeps
+mkUtt QS -> Utt who didn't sleep
+mkUtt QCl -> Utt who sleeps
+mkUtt (ImpForm) -> (Pol) -> Imp -> Utt don't be men
+mkUtt IP -> Utt who
+mkUtt IAdv -> Utt why
+mkUtt NP -> Utt this man
+mkUtt Adv -> Utt here
+mkUtt VP -> Utt to sleep
+mkUtt CN -> Utt beer
+mkUtt AP -> Utt good
+mkUtt Card -> Utt five
+no_Utt Utt no
+yes_Utt Utt yes
+
+// V2 - two-place verb
+have_V2 V2 to have it
+
+// VP - verb phrase
+mkVP V -> VP to sleep
+mkVP V2 -> NP -> VP to love him
+mkVP V3 -> NP -> NP -> VP to send it to him
+mkVP VV -> VP -> VP to want to sleep
+mkVP VS -> S -> VP to know that she sleeps
+mkVP VQ -> QS -> VP to wonder who sleeps
+mkVP VA -> AP -> VP to become red
+mkVP V2A -> NP -> AP -> VP to paint it red
+mkVP V2S -> NP -> S -> VP to answer to him that she sleeps
+mkVP V2Q -> NP -> QS -> VP to ask him who sleeps
+mkVP V2V -> NP -> VP -> VP to beg him to sleep
+mkVP A -> VP to be old
+mkVP A -> NP -> VP to be older than he
+mkVP A2 -> NP -> VP to be married to him
+mkVP AP -> VP to be very old
+mkVP N -> VP to be a woman
+mkVP CN -> VP to be an old woman
+mkVP NP -> VP to be the woman
+mkVP Adv -> VP to be here
+mkVP VP -> Adv -> VP to sleep here
+mkVP AdV -> VP -> VP to always sleep
+
+// VPSlash - verb phrase missing complement
+mkVP VPSlash -> NP -> VP to paint it black
+mkVP VPSlash -> VP to paint itself black
+mkVP Comp -> VP to be warm
+passiveVP V2 -> VP to be loved
+passiveVP V2 -> NP -> VP to be loved by her
+progressiveVP VP -> VP to be sleeping
+reflexiveVP V2 -> VP to love itself
+reflexiveVP VPSlash -> VP paint itself black
+mkVPSlash V2 -> VPSlash whom does she see
+mkVPSlash V3 -> NP -> VPSlash whom does she send it to
+mkVPSlash V2A -> AP -> VPSlash whom does she paint red
+mkVPSlash V2Q -> QS -> VPSlash whom does she ask where I sleep
+mkVPSlash V2S -> S -> VPSlash whom does she answer that I sleep to
+mkVPSlash V2V -> VP -> VPSlash whom does she beg to sleep
+mkVPSlash VV -> VPSlash -> VPSlash whom does she want to see
+mkVPSlash V2V -> NP -> VPSlash -> VPSlash whom does she beg me to see
+
+// VV - verb-phrase-complement verb
+can8know_VV VV to be able to sleep
+can_VV VV to be able to sleep
+must_VV VV have to
+want_VV VV to want to sleep
+
+// Voc - vocative or "please"
+mkVoc NP -> Voc yes, my friend
+please_Voc Voc please

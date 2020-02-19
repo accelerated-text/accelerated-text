@@ -1,0 +1,6 @@
+{:type "N2",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "mkN2", :type ["N" "N2"], :example "-"}
+  {:function "mkN2", :type ["N" "Prep" "N2"], :example "-"}]}

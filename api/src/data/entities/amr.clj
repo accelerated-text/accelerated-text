@@ -1,35 +1,46 @@
 (ns data.entities.amr
-  (:require [api.config :refer [conf]]
+  (:require [acc-text.nlg.semantic-graph :as sg]
+            [api.nlg.parser :refer [document-plan->semantic-graph]]
             [clj-yaml.core :as yaml]
             [clojure.java.io :as io]
-            [clojure.set :as set]
-            [clojure.string :as str]
-            [data.db :as db]
-            [data.utils :as utils]
-            [mount.core :refer [defstate]]
-            [clojure.tools.logging :as log]))
+            [data.entities.document-plan :as dp]
+            [data.utils :as utils]))
 
-(defstate amr-db :start (db/db-access :amr conf))
+(defn get-relation-names [{relations ::sg/relations}]
+  (reduce (fn [m {concept-id :to {name :name} :attributes}]
+            (cond-> m
+                    (some? name) (assoc concept-id name)))
+          {}
+          relations))
 
-(defn list-amrs []
-  (db/list! amr-db 100))
-
-(defn get-amr [id]
-  (when-not (str/blank? id)
-    (db/read! amr-db id)))
-
-(defn delete-amr [id]
-  (db/delete! amr-db id))
-
-(defn write-amr [{id :id :as amr}]
-  (when (get-amr id)
-    (delete-amr id))
-  (db/write! amr-db id amr))
+(defn document-plan->amr [{:keys [id name documentPlan] :as entity}]
+  (let [{concepts ::sg/concepts :as semantic-graph} (document-plan->semantic-graph
+                                                      documentPlan
+                                                      {:var-names (dp/get-variable-names entity)})]
+    {:id             id
+     :label          name
+     :kind           "Str"
+     :semantic-graph semantic-graph
+     :roles          (let [relation-names (get-relation-names semantic-graph)]
+                       (loop [[reference & rs] (filter #(= :reference (:type %)) concepts)
+                              index 0 vars #{} roles []]
+                         (if-not (some? reference)
+                           roles
+                           (let [{id :id {name :name} :attributes} reference]
+                             (recur
+                               rs
+                               (inc index)
+                               (conj vars name)
+                               (cond-> roles
+                                       (nil? (get vars name)) (conj {:id    (format "ARG%d" index)
+                                                                     :type  (get relation-names id)
+                                                                     :label name})))))))}))
 
 (defn read-amr [id content]
-  (let [{:keys [roles frames]} (yaml/parse-string content)]
+  (let [{:keys [roles kind frames]} (yaml/parse-string content)]
     {:id     id
      :roles  (map (fn [role] {:type role}) roles)
+     :kind   (or kind "Str")
      :frames (map (fn [{:keys [syntax example]}]
                     {:examples [example]
                      :syntax   (for [instance syntax]
@@ -41,19 +52,8 @@
                                             (into {} instance)))})
                   frames)}))
 
-(defn valid-amr? [{:keys [roles frames]}]
-  (->> frames
-       (mapcat :syntax)
-       (mapcat (fn [{:keys [role params]}]
-                 (cond
-                   (some? role) [role]
-                   (some? params) (map :role params)
-                   :else [])))
-       (set)
-       (set/superset? (set (map :type roles)))))
-
 (defn grammar-package []
-  (io/file (or (System/getenv "GRAMMAR_PACKAGE") "grammar/concept-net.yaml")))
+  (io/file (or (System/getenv "AMR_GRAMMAR") "grammar/concept-net.yaml")))
 
 (defn list-amr-files
   ([] (list-amr-files (grammar-package)))
@@ -65,13 +65,14 @@
           (:includes)
           (map (partial io/file parent))))))
 
-(defn initialize
-  ([] (initialize (list-amr-files)))
-  ([files]
-   (doseq [{id :id :as amr} (map #(read-amr (utils/get-name %) (slurp %)) files)]
-     (if-not (valid-amr? amr)
-       (log/warnf "AMR with id `%s` is not valid and will be skipped." id)
-       (do
-         (when (get-amr id)
-           (log/warnf "AMR with id `%s` is already present and will be overwritten." id))
-         (write-amr amr))))))
+(defn get-amr [id]
+  (or (some-> id (dp/get-document-plan) (document-plan->amr))
+      (some #(when (= id (:id %)) %) (map #(read-amr (utils/get-name %) (slurp %)) (list-amr-files "grammar/all.yaml")))))
+
+(defn list-amrs []
+  (concat
+    (map document-plan->amr (dp/list-document-plans "AMR"))
+    (map #(read-amr (utils/get-name %) (slurp %)) (list-amr-files))))
+
+(defn list-rgls []
+  (map document-plan->amr (dp/list-document-plans "RGL")))

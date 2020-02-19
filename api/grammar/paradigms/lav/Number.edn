@@ -1,0 +1,6 @@
+{:type "Number",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "singular", :type ["Number"], :example "-"}
+  {:function "plural", :type ["Number"], :example "-"}]}

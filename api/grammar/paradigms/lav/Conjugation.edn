@@ -1,0 +1,6 @@
+{:type "Conjugation",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "second_conjugation", :type ["Conjugation"], :example "-"}
+  {:function "third_conjugation", :type ["Conjugation"], :example "-"}]}

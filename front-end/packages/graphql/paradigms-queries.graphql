@@ -1,0 +1,129 @@
+#import "./fragments.graphql"
+
+
+### Data files -----------------------------------------------------------------
+
+query getDataFile( $id: ID! ) {
+    getDataFile( id: $id ) {
+        id
+        fileName
+        fieldNames
+        records {
+            id
+            fields {
+                id
+                fieldName
+                value
+            }
+        }
+    }
+}
+
+query listDataFiles {
+    listDataFiles {
+        offset
+        totalCount
+        limit
+        dataFiles {
+            id
+            fileName
+            fieldNames
+        }
+    }
+}
+
+
+### Document plans -------------------------------------------------------------
+
+query documentPlans( $kind: String! = "AMR" ) {
+    documentPlans( kind: $kind ) {
+        offset
+        totalCount
+        limit
+        kind
+        items {
+            ...documentPlanFields
+        }
+    }
+}
+
+### Thesaurus ------------------------------------------------------------------
+
+query searchThesaurus( $query: String! ) {
+    searchThesaurus( query: $query ) {
+        offset
+        totalCount
+        words {
+            ...wordFields
+        }
+    }
+}
+
+query synonyms( $wordId: ID! ) {
+    synonyms( wordId: $wordId ) {
+        synonyms {
+            ...wordFields
+        }
+    }
+}
+
+
+### Reader ---------------------------------------------------------------------
+
+query readerFlags {
+    readerFlags {
+        id
+        flags {
+            ...readerFlagFields
+        }
+    }
+}
+
+
+### Dictionary -----------------------------------------------------------------
+
+query dictionary {
+    dictionary {
+        offset
+        totalCount
+        items {
+            ...dictionaryItemFields
+        }
+    }
+}
+
+query dictionaryItem( $id: ID! ) {
+    dictionaryItem( id: $id ) {
+        ...dictionaryItemFields
+    }
+}
+
+
+### AMR ------------------------------------------------------------------------
+
+query concepts {
+    concepts {
+        id
+        concepts {
+            ...conceptFields
+        }
+        paradigms {
+            ...conceptFields
+        }
+        ParadigmsEng {
+            ...conceptFields
+        }
+        ParadigmsEst {
+            ...conceptFields
+        }
+        ParadigmsGer {
+            ...conceptFields
+        }
+        ParadigmsLav {
+            ...conceptFields
+        }
+        ParadigmsRus {
+            ...conceptFields
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{:type "RS",
+ :description "relative",
+ :module "SyntaxEng",
+ :functions
+ [{:function "mkRS",
+   :type ["(Tense)" "(Ant)" "(Pol)" "RCl" "RS"],
+   :example "woman that wouldn't have slept"}
+  {:function "mkRS",
+   :type ["Temp" "(Pol)" "RCl" "RS"],
+   :example "that wouldn't have slept"}
+  {:function "mkRS",
+   :type ["Conj" "RS" "RS" "RS"],
+   :example "woman that sleeps or that we love"}
+  {:function "mkRS",
+   :type ["Conj" "ListRS" "RS"],
+   :example "who sleeps, whom I see and who sleeps"}]}

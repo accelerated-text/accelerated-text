@@ -1,0 +1,10 @@
+{:type "AdN",
+ :description "numeral-modifying adverb",
+ :module "SyntaxEng",
+ :functions
+ [{:function "almost_AdN", :type ["AdNalmost"], :example "eight"}
+  {:function "at_least_AdN", :type ["AdNat"], :example "least eight"}
+  {:function "at_most_AdN", :type ["AdNat"], :example "most eight"}
+  {:function "mkAdN",
+   :type ["CAdv" "AdN"],
+   :example "more than eight"}]}

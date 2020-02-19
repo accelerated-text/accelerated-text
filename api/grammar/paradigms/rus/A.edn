@@ -1,0 +1,8 @@
+{:type "A",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "mkA", :type ["Str" "A"], :example "positive"}
+  {:function "mkA",
+   :type ["Str" "Str" "A"],
+   :example "positive, comparative"}]}

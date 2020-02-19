@@ -1,0 +1,34 @@
+{:type "V",
+ :description "",
+ :module "ParadigmsGer",
+ :functions
+ [{:function "mkV", :type ["Str" "V"], :example "regular verb"}
+  {:function "mkV",
+   :type ["Str" "Str" "Str" "Str" "Str" "V"],
+   :example "irregular verb theme (sehen, sieht, sah, sähe, gesehen)"}
+  {:function "mkV",
+   :type ["Str" "Str" "Str" "Str" "Str" "Str" "V"],
+   :example "worst-case verb (geben, gibt, gib, gab, gäbe, gegeben)"}
+  {:function "mkV",
+   :type ["Str" "V" "V"],
+   :example
+   "movable prefix, e.g. auf+fassen, or fix prefix if one of be, er, ge, ver, zer"}
+  {:function "no_geV",
+   :type ["V" "V"],
+   :example "no participle \"ge\", e.g. \"bedeuten\""}
+  {:function "fixprefixV",
+   :type ["Str" "V" "V"],
+   :example "add prefix such as \"be\"; implies no_ge"}
+  {:function "seinV",
+   :type ["V" "V"],
+   :example "force \"sein\" as auxiliary"}
+  {:function "habenV",
+   :type ["V" "V"],
+   :example "force \"haben\" as auxiliary"}
+  {:function "reflV",
+   :type ["V" "Case" "V"],
+   :example "reflexive, with case"}
+  {:function "compoundV",
+   :type ["Str" "V" "V"],
+   :example
+   "verb with a separate \"particle\", e.g. \"Trinkgeld geben\""}]}

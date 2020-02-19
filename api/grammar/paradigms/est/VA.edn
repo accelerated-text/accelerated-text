@@ -1,0 +1,10 @@
+{:type "VA",
+ :description "",
+ :module "ParadigmsEst",
+ :functions
+ [{:function "mkVA",
+   :type ["V" "Prep" "VA"],
+   :example "e.g. \"muutuma\" translative"}
+  {:function "mkVA",
+   :type ["Str" "VA"],
+   :example "string, default case"}]}

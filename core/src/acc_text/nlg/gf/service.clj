@@ -12,6 +12,7 @@
     (log/debugf "** Concrete **\n%s" (get content (str module instance)))
     (log/debugf "** Lex interface **\n%s\n" (get content (str module "Lex")))
     (log/debugf "** Lex data **\n%s\n" (get content (str module "Lex" lang)))
+    (log/debugf "** Ops **\n%s\n" (get content (str module "Ops")))
     (log/tracef "Request:\n curl -X POST -H \"Content-Type: application/json\"  %s -d '%s'"
                 request-url (json/write-value-as-string request-content))
     @(client/request {:url     request-url

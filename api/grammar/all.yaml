@@ -1,16 +1,12 @@
 ---
 includes:
-  - library/author.yaml
-  - library/release.yaml
-  - library/genre.yaml
+  - concept-net/at-location.yaml
+  - concept-net/capable-of.yaml
+  - concept-net/has-a.yaml
+  - concept-net/has-property.yaml
+  - concept-net/is-a.yaml
+  - concept-net/located-near.yaml
+  - concept-net/made-of.yaml
+  - other/author.yaml
   - other/cut.yaml
   - other/see.yaml
-  - other/provide.yaml
-  - other/object-description.yaml
-  - other/attribute-at.yaml
-  - concept-net/at-location.yaml
-  - concept-net/has-property.yaml
-  - concept-net/located-near.yaml
-  - concept-net/capable-of.yaml
-  - concept-net/identified-as.yaml
-  - concept-net/is-a.yaml

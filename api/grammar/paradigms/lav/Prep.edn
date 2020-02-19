@@ -1,0 +1,13 @@
+{:type "Prep",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkPrep",
+   :type ["Str" "Case" "Case" "Prep"],
+   :example "-"}
+  {:function "mkPrep", :type ["Case" "Prep"], :example "-"}
+  {:function "nom_Prep", :type ["Prep"], :example "-"}
+  {:function "gen_Prep", :type ["Prep"], :example "-"}
+  {:function "dat_Prep", :type ["Prep"], :example "-"}
+  {:function "acc_Prep", :type ["Prep"], :example "-"}
+  {:function "loc_Prep", :type ["Prep"], :example "-"}]}

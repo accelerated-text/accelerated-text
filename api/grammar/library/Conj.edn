@@ -1,0 +1,15 @@
+{:type "Conj",
+ :description "conjunction",
+ :module "SyntaxEng",
+ :functions
+ [{:function "and_Conj", :type ["Conj"], :example "here and now"}
+  {:function "both7and_DConj",
+   :type ["Conj"],
+   :example "both here and there"}
+  {:function "either7or_DConj",
+   :type ["Conj"],
+   :example "either here or there"}
+  {:function "if_then_Conj",
+   :type ["Conj"],
+   :example "if here then there"}
+  {:function "or_Conj", :type ["Conj"], :example "here or there"}]}

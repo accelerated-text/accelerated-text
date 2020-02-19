@@ -1,0 +1,6 @@
+{:type "Adv",
+ :description "",
+ :module "ParadigmsLav",
+ :functions
+ [{:function "mkAdv", :type ["Str" "Adv"], :example "-"}
+  {:function "mkAdV", :type ["Str" "AdV"], :example "-"}]}
