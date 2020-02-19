@@ -74,6 +74,7 @@
   (try
     {:ready   true
      :results (doall (map (fn [[row-key data]]
+                            (log/debugf "Generating result for row-key: %s, data: %s" row-key data)
                             [row-key (generate-text document-plan data reader-model enrich)])
                           rows))}
     (catch Exception e
@@ -92,9 +93,9 @@
 (defn generate-bulk [{document-plan-id :documentPlanId reader-model :readerFlagValues rows :dataRows enrich :enrich}]
   (let [result-id (utils/gen-uuid)
         {document-plan :documentPlan} (dp/get-document-plan document-plan-id)]
-    (log/debugf "Bulk Generate request, data: %s" rows)
+    (log/tracef "Bulk Generate request, data: %s" rows)
     (results/store-status result-id {:ready false})
-    (results/rewrite result-id (generation-process document-plan rows reader-model enrich))
+    (results/rewrite result-id (generation-process document-plan (into {} (map (fn [[row-key row-values]] {row-key (into {} (utils/key-to-keyword row-values))}) rows)) reader-model enrich))
     {:status 200
      :body   {:resultId result-id}}))
 
