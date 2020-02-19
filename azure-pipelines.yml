@@ -52,7 +52,7 @@ jobs:
           cd front-end
           make test
       
-  - job: integration_tests
+  - job: api_integration_tests
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -69,6 +69,25 @@ jobs:
           dockerComposeFile: api/docker-compose.test.yml
           projectName: $(Build.Repository.Name)
           dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from api
+
+
+  - job: core_integration_tests
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: DockerCompose@0
+        displayName: Build Integration tests dependencies
+        inputs:
+          dockerComposeFile: core/docker-compose.test.yml
+          projectName: $(Build.Repository.Name)
+          dockerComposeCommand: build
+
+      - task: DockerCompose@0
+        displayName: Run Integration tests
+        inputs:
+          dockerComposeFile: core/docker-compose.test.yml
+          projectName: $(Build.Repository.Name)
+          dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from core
 
   - job: eval
     pool:
