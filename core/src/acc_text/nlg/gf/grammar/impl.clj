@@ -99,10 +99,13 @@
 (defmethod build-function :amr
   [{value :value :as concept} children
    from-relations {{to-relation-role :name} :attributes} {amr :amr}]
-  (let [role-map (log/spy (reduce (fn [m [{{attr-name :name} :attributes} concept]]
-                                    (cond-> m (some? attr-name) (assoc attr-name concept)))
-                                  {}
-                                  (zipmap from-relations children)))]
+  (let [role-map (reduce (fn [m [{{attr-name :name label :label} :attributes} concept]]
+                           (cond
+                             (some? label) (assoc m label concept)
+                             (some? attr-name) (assoc m attr-name concept)
+                             :else m))
+                         {}
+                         (zipmap from-relations children))]
     {:name   (concept->name concept)
      :type   :amr
      :params (get-params children)

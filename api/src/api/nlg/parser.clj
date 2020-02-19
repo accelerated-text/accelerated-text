@@ -34,14 +34,14 @@
                         children)})
 
 (defmethod build-semantic-graph :AMR [{:keys [id conceptId roles]} _]
-  #::sg{:concepts  [{:id         id
-                     :type       :amr
-                     :value      conceptId}]
-        :relations (map-indexed (fn [index {[{child-id :id}] :children label :label name :name}]
+  #::sg{:concepts  [{:id    id
+                     :type  :amr
+                     :value conceptId}]
+        :relations (map-indexed (fn [index {[{child-id :id}] :children name :name label :label}]
                                   {:from       id
                                    :to         child-id
                                    :role       (keyword (str "ARG" index))
-                                   :attributes {:name (or label name)}})
+                                   :attributes {:name name :label label}})
                                 roles)})
 
 (defmethod build-semantic-graph :Cell [{:keys [id name]} _]

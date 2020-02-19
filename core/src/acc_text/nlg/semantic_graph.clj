@@ -15,9 +15,11 @@
 (s/def :acc-text.nlg.semantic-graph.relation/to keyword?)
 
 (s/def :acc-text.nlg.semantic-graph.relation.attributes/name string?)
+(s/def :acc-text.nlg.semantic-graph.relation.attributes/label string?)
 
 (s/def :acc-text.nlg.semantic-graph.relation/attributes
-  (s/keys :opt-un [:acc-text.nlg.semantic-graph.relation.attributes/name]))
+  (s/keys :opt-un [:acc-text.nlg.semantic-graph.relation.attributes/name
+                   :acc-text.nlg.semantic-graph.relation.attributes/label]))
 
 (s/def :acc-text.nlg.semantic-graph.concept/type
   #{:document-plan :segment :data :quote :dictionary-item :amr :shuffle :sequence :condition :if-statement
