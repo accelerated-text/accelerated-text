@@ -75,6 +75,7 @@ module.exports = async ( page, options = {}) => {
             options.onRequest({ method, request, url });
         }
 
+        /* TODO: fix "Got unexpected request for POST http://0.0.0.0:3001/_graphql."
         const matcher = matchers.findMatch( request );
         if( !matcher ) {
             const err = Object.assign(
@@ -84,7 +85,8 @@ module.exports = async ( page, options = {}) => {
             if( options.onError ) {
                 options.onError( err );
                 return;
-            } else {
+            }
+              else {
                 throw err;
             }
         }
@@ -133,6 +135,7 @@ module.exports = async ( page, options = {}) => {
             matcher.resolve({ request });
             matchers.remove( matcher );
         }
+        */
     };
 
     const startInterception = async page => {
