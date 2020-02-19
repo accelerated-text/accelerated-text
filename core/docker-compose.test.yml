@@ -7,8 +7,14 @@ services:
       dockerfile: core/Dockerfile
     environment:
       GF_ENDPOINT: http://gf:8000
+      ENRICH_ENDPOINT: http://enrich:8000
     command: ["clojure", "-A:test", "-i:integration"]
   gf:
     build:
       context: ../
       dockerfile: core/gf/Dockerfile
+
+  enrich:
+    build:
+      context: ../
+      dockerfile: core/enrich/Dockerfile
