@@ -79,12 +79,12 @@
     (is (some? result-id))
     (is (= #{"Building Search Applications."} (get-original-results result-id)))))
 
-#_(deftest ^:integration authorship-document-plan-generation
-    (let [{{result-id :resultId} :body status :status} (generate "authorship" "books.csv")]
-      (is (= 200 status))
-      (is (some? result-id))
-      (is (= #{"Building Search Applications is author by Manu Konchady."
-               "Manu Konchady is the author of Building Search Applications."} (get-original-results result-id)))))
+(deftest ^:integration authorship-document-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "authorship" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Building Search Applications is author by Manu Konchady."
+             "Manu Konchady is the author of Building Search Applications."} (get-original-results result-id)))))
 
 (deftest ^:integration authorship-document-plan-bulk-generation
   (let [data {"9780307743657" {:title "The Shinning" :author "Stephen King"}
@@ -122,11 +122,11 @@
     (is (some? result-id))
     (is (= #{"Good."} (get-original-results result-id)))))
 
-#_(deftest ^:integration complex-amr-plan-generation
-    (let [{{result-id :resultId} :body status :status} (generate "cut-amr" "carol.csv")]
-      (is (= 200 status))
-      (is (some? result-id))
-      (is (= #{"Carol cut envelope into pieces with knife."} (get-original-results result-id)))))
+(deftest ^:integration complex-amr-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "cut-amr" "carol.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Carol cut envelope into pieces with knife."} (get-original-results result-id)))))
 
 (deftest ^:integration multiple-modifier-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "multiple-modifiers" "books.csv")]
@@ -152,13 +152,13 @@
     (is (some? result-id))
     (is (= #{"Good." "Excellent."} (get-original-results result-id)))))
 
-#_(deftest ^:integration multiple-segments-plan-generation
-    (let [{{result-id :resultId} :body status :status} (generate "multiple-segments" "books.csv")]
-      (is (= 200 status))
-      (is (some? result-id))
-      (is (= #{"Manu Konchady is the author of Building Search Applications. Rarely is so much learning displayed with so much grace and charm."
-               "Building Search Applications is written by Manu Konchady. Rarely is so much learning displayed with so much grace and charm."}
-             (get-original-results result-id)))))
+(deftest ^:integration multiple-segments-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "multiple-segments" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Manu Konchady is the author of Building Search Applications. Rarely is so much learning displayed with so much grace and charm."
+             "Building Search Applications is written by Manu Konchady. Rarely is so much learning displayed with so much grace and charm."}
+           (get-original-results result-id)))))
 
 (deftest ^:integration sequence-with-empty-shuffle-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "sequence-with-empty-shuffle" "books.csv")]
@@ -245,21 +245,29 @@
     (is (some? result-id))
     (is (= #{"Computers book."} (get-original-results result-id)))))
 
-#_(deftest ^:integration location-amr-plan-generation
-    (let [{{result-id :resultId} :body status :status} (generate "location-amr" "books.csv")]
-      (is (= 200 status))
-      (is (some? result-id))
-      (is (= #{"In the city centre there is a place Alimentum."
-               "There is a place in the city centre Alimentum."
-               "There is an Alimentum in the city centre."} (get-original-results result-id)))))
+(deftest ^:integration location-amr-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "location-amr" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"In the city centre there is a place Alimentum."
+             "In the city centre there is a venue Alimentum."
+             "In the city centre there is an arena Alimentum."
+             "There is a place in the city centre Alimentum."
+             "There is a venue in the city centre Alimentum."
+             "There is an Alimentum in the city centre."
+             "There is an arena in the city centre Alimentum."} (get-original-results result-id)))))
 
-#_(deftest ^:integration located-near-plan-generation
-    (let [{{result-id :resultId} :body status :status} (generate "located-near" "books.csv")]
-      (is (= 200 status))
-      (is (some? result-id))
-      (is (= #{"In the city centre, near the KFC there is a place Alimentum."
-               "There is a place in the city centre, near the KFC Alimentum."
-               "There is an Alimentum in the city centre, near the KFC."} (get-original-results result-id)))))
+(deftest ^:integration located-near-plan-generation
+  (let [{{result-id :resultId} :body status :status} (generate "located-near-amr" "books.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"In the city centre, near the KFC there is a place Alimentum."
+             "In the city centre, near the KFC there is a venue Alimentum."
+             "In the city centre, near the KFC there is an arena Alimentum."
+             "There is a place in the city centre, near the KFC Alimentum."
+             "There is a venue in the city centre, near the KFC Alimentum."
+             "There is an Alimentum in the city centre, near the KFC."
+             "There is an arena in the city centre, near the KFC Alimentum."} (get-original-results result-id)))))
 
 (deftest ^:integration gf-amr-modifier-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "gf-amr-modifier" "books.csv")]

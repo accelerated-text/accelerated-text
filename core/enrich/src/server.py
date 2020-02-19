@@ -75,7 +75,9 @@ def json_response(fn):
 def application(environ, start_response, data, enricher=None):
     text = data["text"].strip(".")
     context = data["context"]
-    result = enricher.enrich(text, context, max_iters=50)
+    filtered_context = dict([{k: v} for k, v in context.items()
+                             if v is not None and v.strip() != ""])
+    result = enricher.enrich(text, filtered_context, max_iters=50)
     return {"result": format_result(result)}
 
 

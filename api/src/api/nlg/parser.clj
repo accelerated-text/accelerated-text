@@ -37,11 +37,11 @@
   #::sg{:concepts  [{:id         id
                      :type       :amr
                      :value      conceptId}]
-        :relations (map-indexed (fn [index {[{child-id :id}] :children name :label}]
+        :relations (map-indexed (fn [index {[{child-id :id}] :children label :label name :name}]
                                   {:from       id
                                    :to         child-id
                                    :role       (keyword (str "ARG" index))
-                                   :attributes {:name name}})
+                                   :attributes {:name (or label name)}})
                                 roles)})
 
 (defmethod build-semantic-graph :Cell [{:keys [id name]} _]

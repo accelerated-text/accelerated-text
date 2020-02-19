@@ -40,7 +40,9 @@
                     :operations []
                     :variables  [{:name  "DictionaryItem04"
                                   :type  "N"
-                                  :value ["place"]}
+                                  :value ["arena"
+                                          "place"
+                                          "venue"]}
                                  {:name  "Quote05"
                                   :type  "N"
                                   :value ["Alimentum"]}
@@ -306,7 +308,8 @@
                                   :value ["refrigerator"]}
                                  {:name  "DictionaryItem06"
                                   :type  "A"
-                                  :value ["old"]}
+                                  :value ["old"
+                                          "outdated"]}
                                  {:name  "DictionaryItem07"
                                   :type  "A"
                                   :value ["dirty"]}

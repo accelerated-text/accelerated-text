@@ -11,7 +11,9 @@ frames:
       - pos: AUX
         value: is
       - pos: LEX
-        value: the author of
+        value: the author
+      - pos: ADP
+        value: of
       - pos: NP
         role: co-Agent
   - example: Y is written by X

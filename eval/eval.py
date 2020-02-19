@@ -31,7 +31,8 @@ def generate_results(data):
     req = {
         "documentPlanId": DOCUMENT_PLAN_ID,
         "readerFlagValues": {"English": True},
-        "dataRows": data
+        "dataRows": data,
+        "enrich": True
     }
 
     resp = requests.post("{url}/_bulk/".format(url=NLG_ENDPOINT), json=req)
@@ -43,8 +44,9 @@ def generate_results(data):
         result_id=result_id
     )).json()
 
-    return results["variants"]
+    print("Results: {}".format(results))
 
+    return results["variants"]
 
 def load_data():
     with open("data/devset.csv", "r") as f:
@@ -75,9 +77,18 @@ if __name__ == "__main__":
         ref.append(refs)
         data_rows[idx] = data
 
-    results = generate_results(data_rows)
-    pairs = list([(ref[int(k)], random.choice(r))
-                  for k, r in results.items()])
+    results = dict(generate_results(data_rows))
+    
+    original_pairs = list([(ref[int(k)], random.choice(r)["original"])
+                           for k, r in results.items()])
 
-    score = bleu_score(pairs)
-    print("BLEU score: {0:.4f}".format(score))
+    score = bleu_score(original_pairs)
+    print("original BLEU score: {0:.4f}".format(score))
+
+    enriched_pairs = list([(ref[int(k)], random.choice([(v["enriched"] if "enriched" in v else v["original"])
+                                                        for v in r]))
+                           for k, r in results.items()])
+
+    
+    score = bleu_score(enriched_pairs)
+    print("enriched BLEU score: {0:.4f}".format(score))

@@ -29,7 +29,7 @@
   {:value "has-a" :type :amr :id :04}
   {:value "Make" :type :data :id :05}
   {:value "Type" :type :data :id :06}
-  {:value "NN-boil"
+  {:value "boil"
    :type :dictionary-item
    :id :07
    :attributes {:name "boil"}}
