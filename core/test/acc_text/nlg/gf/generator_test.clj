@@ -74,7 +74,7 @@
                                         {:type "CN" :role "Object"}]
                                :type   :oper}]}]}}
              :data       {:Make "T1000" :Type "power"}
-             :dictionary {"NN-boil" ["boil"]}}]
+             :dictionary {"boil" ["boil"]}}]
     (is (= ["a T1000 with a power boils water."]
            (generate
              (grammar/build "Nested" "AMR"
