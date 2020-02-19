@@ -249,8 +249,8 @@
    (str module "Ops")      (->operations grammar)
    (str module instance)   (->concrete lang grammar)})
 
-(defn translate-reader-model [x]
-  (case x
+(defn translate-reader-model [lang]
+  (case lang
     :en "Eng"
     :de "Ger"
     :ee "Est"
