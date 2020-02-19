@@ -1,8 +1,7 @@
 (ns acc-text.nlg.gf.grammar
   (:require [acc-text.nlg.gf.grammar.impl :as impl]
             [acc-text.nlg.semantic-graph :as sg]
-            [clojure.spec.alpha :as s]
-            [clojure.tools.logging :as log]))
+            [clojure.spec.alpha :as s]))
 
 (s/def ::module string?)
 
