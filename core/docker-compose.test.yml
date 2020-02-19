@@ -13,7 +13,6 @@ services:
     build:
       context: ../
       dockerfile: core/gf/Dockerfile
-
   enrich:
     build:
       context: ../
