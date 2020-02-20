@@ -4,7 +4,7 @@
 
 (def word? (s/and string? (complement str/blank?)))
 
-(s/def ::base-form word?)
+(s/def ::key word?)
 
 (s/def ::pos #{:n :v :a})
 
@@ -19,5 +19,5 @@
 (s/def ::inflections (s/map-of (s/tuple ::case ::number)
                           word?))
 
-(s/def ::word-def (s/keys :req [::base-form ::pos ::language]
+(s/def ::word-def (s/keys :req [::key ::pos ::language]
                                :opt [::gender ::inflections]))
