@@ -52,11 +52,8 @@
                                             (into {} instance)))})
                   frames)}))
 
-(defn grammar-package []
-  (io/file (or (System/getenv "AMR_GRAMMAR") "grammar/concept-net.yaml")))
-
 (defn list-amr-files
-  ([] (list-amr-files (grammar-package)))
+  ([] (list-amr-files "grammar/all.yaml"))
   ([package]
    (let [parent (.getParent (io/file package))]
      (->> package
@@ -67,12 +64,10 @@
 
 (defn get-amr [id]
   (or (some-> id (dp/get-document-plan) (document-plan->amr))
-      (some #(when (= id (:id %)) %) (map #(read-amr (utils/get-name %) (slurp %)) (list-amr-files "grammar/all.yaml")))))
+      (some #(when (= id (:id %)) %) (map #(read-amr (utils/get-name %) (slurp %)) (list-amr-files)))))
 
 (defn list-amrs []
-  (concat
-    (map document-plan->amr (dp/list-document-plans "AMR"))
-    (map #(read-amr (utils/get-name %) (slurp %)) (list-amr-files))))
+  (map document-plan->amr (dp/list-document-plans "AMR")))
 
 (defn list-rgls []
   (map document-plan->amr (dp/list-document-plans "RGL")))

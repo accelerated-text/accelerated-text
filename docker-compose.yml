@@ -12,9 +12,8 @@ services:
       DB_IMPLEMENTATION: datomic
       GRAMMAR_PACKAGE: "/opt/grammar/library"
       GRAMMAR_PARADIGMS: "/opt/grammar/paradigms"
-      AMR_GRAMMAR: "/opt/grammar/concept-net.yaml"
       DICT_PATH: "/opt/grammar/dictionary"
-      DOCUMENT_PLANS: "/opt/document-plans"
+      DOCUMENT_PLANS: "/opt/document-plans/concept-net"
     volumes:
       - ./api/grammar:/opt/grammar
       - ./api/test/resources/document_plans_new:/opt/document-plans
