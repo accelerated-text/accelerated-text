@@ -396,7 +396,7 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Key for word in dictionary"}
           
-          {:db/ident       :dictionary-multilang/partOfSpeech
+          {:db/ident       :dictionary-multilang/pos
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
            :db/doc         "Part of speech tag"}
@@ -420,6 +420,11 @@
            :db/valueType   :db.type/ref
            :db/cardinality :db.cardinality/many
            :db/doc         "Tenses for word"}
+
+          {:db/ident       :dictionary-multilang/gender
+           :db/valueType   :db.type/ref
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Gender for word"}
 
           {:db/ident       :inflection/key
            :db/valueType   :db.type/ref
@@ -467,5 +472,9 @@
           {:db/ident       :tense/future}
           {:db/ident       :tense/plu-perfect}
           {:db/ident       :tense/future-perfect}
+
+          {:db/ident       :gender/m}
+          {:db/ident       :gender/f}
+          {:db/ident       :gender/n}
           ]}]}}
 
