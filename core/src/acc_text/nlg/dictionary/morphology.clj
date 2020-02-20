@@ -4,19 +4,20 @@
 
 (def word? (s/and string? (complement str/blank?)))
 
-(s/def :morph/base-form word?)
+(s/def ::base-form word?)
 
-(s/def :morph/pos #{:n :v :a})
+(s/def ::pos #{:n :v :a})
 
-(s/def :morph/gender #{:f :m :n})
+(s/def ::gender #{:f :m :n})
 
-(s/def :morph/case #{:nom :gen :dat :acc :inc :loc :voc})
+(s/def ::language keyword?)
 
-(s/def :morph/number #{:sg :pl})
+(s/def ::case #{:nom :gen :dat :acc :inc :loc :voc})
 
-(s/def :morph/inflections (s/map-of (s/tuple :morph/case :morph/number)
+(s/def ::number #{:sg :pl})
+
+(s/def ::inflections (s/map-of (s/tuple ::case ::number)
                           word?))
 
-(s/def :morph/word-def (s/keys :req [:morph/base-form :morph/pos]
-                               :opt [:morph/gender :morph/inflections]))
-
+(s/def ::word-def (s/keys :req [::base-form ::pos ::language]
+                               :opt [::gender ::inflections]))
