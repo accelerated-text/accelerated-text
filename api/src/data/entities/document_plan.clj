@@ -38,7 +38,7 @@
               vars))))
 
 (defn document-plan-path []
-  (or (System/getenv "DOCUMENT_PLANS") "grammar/document_plans"))
+  (or (System/getenv "DOCUMENT_PLANS") "grammar/document-plans"))
 
 (defn initialize []
   (doseq [{id :id :as dp} (->> (document-plan-path) (utils/list-files) (map utils/read-json))]
