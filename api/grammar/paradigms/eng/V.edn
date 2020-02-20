@@ -2,7 +2,18 @@
  :description "one-place verb",
  :module "ParadigmsEng",
  :functions
- [{:function "mkV", :type ["Str" "V"], :example "make verb"}
+ [{:function "mkV",
+   :type ["Str" "V"],
+   :example "regular, incl. cry-cries, kiss-kisses etc"}
+  {:function "mkV",
+   :type ["Str" "Str" "V"],
+   :example "reg. with consonant duplication (stop, stopped)"}
+  {:function "mkV",
+   :type ["Str" "Str" "Str" "V"],
+   :example "ordinary irregular (drink, drank, drunk)"}
+  {:function "mkV",
+   :type ["Str" "Str" "Str" "Str" "Str" "V"],
+   :example "totally irregular (go, goes, went, gone, going)"}
   {:function "mkV",
    :type ["Str" "V" "V"],
    :example "fix compound, e.g. under+take"}

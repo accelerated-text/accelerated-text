@@ -2,7 +2,15 @@
  :description "one-place adjective",
  :module "ParadigmsEng",
  :functions
- [{:function "mkA", :type ["Str" "A"], :example "make adjective"}
+ [{:function "mkA",
+   :type ["Str" "A"],
+   :example "regular adj, incl. happy-happier, rude-ruder"}
+  {:function "mkA",
+   :type ["Str" "Str" "A"],
+   :example "irreg. comparative (fat, fatter)"}
+  {:function "mkA",
+   :type ["Str" "Str" "Str" "Str" "A"],
+   :example "completely irreg. (good, better, best, well)"}
   {:function "compoundA",
    :type ["A" "A"],
    :example "force comparison with more/most"}
