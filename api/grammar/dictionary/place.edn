@@ -1,0 +1,15 @@
+[{:key "place"
+  :pos :n
+  :language :en
+  :domain "restaurant"
+  :gender :m
+  :inflections {[:nom :sg] "place"
+                [:nom :pl] "places"}}
+
+ {:key "place"
+  :pos :n
+  :language :de
+  :domain "restaurant"
+  :gender :m
+  :inflections {[:nom :sg] "platz"
+                [:nom :pl] "plätze"}}]
