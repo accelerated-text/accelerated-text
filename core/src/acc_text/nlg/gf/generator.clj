@@ -234,12 +234,18 @@
           module
           (join-body
             "oper" (for [{:keys [id kind roles body]} operations]
-                     (format
-                       "%s : %s = \\%s -> %s"
-                       id
-                       (str/join " -> " (conj (mapv :type roles) kind))
-                       (str/join "," (mapv :id roles))
-                       (join-operation-body body))))))
+                     (if (seq roles)
+                       (format
+                         "%s : %s = \\%s -> %s"
+                         id
+                         (str/join " -> " (conj (mapv :type roles) kind))
+                         (str/join "," (mapv :id roles))
+                         (join-operation-body body))
+                       (format
+                         "%s : %s = %s"
+                         id
+                         (str/join " -> " (conj (mapv :type roles) kind))
+                         (join-operation-body body)))))))
 
 (defn grammar->content [lang {::grammar/keys [module instance] :as grammar}]
   {(str module)            (->abstract grammar)
