@@ -5,11 +5,14 @@
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [clojure.edn :as edn])
   (:import (java.io File)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
 (defstate dictionary-combined-db :start (db/db-access :dictionary-combined conf))
+(defstate dictionary-multilang-db :start (db/db-access :dictionary-multilang conf))
+
 
 (defn list-readers []
   (db/list! reader-flags-db 100))
@@ -51,14 +54,19 @@
 (defn list-dict-files []
   (filter #(.isFile ^File %) (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))))
 
+(defn initialize-multilang []
+  (let [word-def (edn/read-string (slurp (io/file "grammar/dictionary/place.edn")))]
+    (doseq [word word-def]
+      (db/write! dictionary-multilang-db (:key word) word))))
+
 (defn initialize []
   (doseq [f (list-dict-files)]
     (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
           filename (utils/get-name f)]
       (when-not (get-dictionary-item filename)
         (create-dictionary-item
-          {:key          filename
-           :name         (or name filename)
-           :phrases      phrases
-           :partOfSpeech (when (some? partOfSpeech)
-                           (keyword partOfSpeech))})))))
+         {:key          filename
+          :name         (or name filename)
+          :phrases      phrases
+          :partOfSpeech (when (some? partOfSpeech)
+                          (keyword partOfSpeech))})))))
