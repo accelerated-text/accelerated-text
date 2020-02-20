@@ -42,4 +42,4 @@
 
 (defn initialize []
   (doseq [{id :id :as dp} (->> (document-plan-path) (utils/list-files) (map utils/read-json))]
-    (-> dp (update :documentPlan utils/read-json-str) (add-document-plan id))))
+    (add-document-plan dp id)))
