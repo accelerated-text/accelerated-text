@@ -3,6 +3,7 @@
             [api.nlg.parser :refer [document-plan->semantic-graph]]
             [clj-yaml.core :as yaml]
             [clojure.java.io :as io]
+            [clojure.string :as str]
             [data.entities.document-plan :as dp]
             [data.utils :as utils]))
 
@@ -33,8 +34,10 @@
                                (conj vars name)
                                (cond-> roles
                                        (nil? (get vars name)) (conj {:id    (format "ARG%d" index)
-                                                                     :type  (get relation-names id)
-                                                                     :label name})))))))}))
+                                                                     :label name
+                                                                     :type  (-> (get relation-names id)
+                                                                                (str/split #"/")
+                                                                                (last))})))))))}))
 
 (defn read-amr [id content]
   (let [{:keys [roles kind frames]} (yaml/parse-string content)]
