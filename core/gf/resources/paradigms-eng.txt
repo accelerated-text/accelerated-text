@@ -1,5 +1,7 @@
 // A - one-place adjective
-mkA Str -> A make adjective
+mkA Str -> A regular adj, incl. happy-happier, rude-ruder
+mkA Str -> Str -> A irreg. comparative (fat, fatter)
+mkA Str -> Str -> Str -> Str -> A completely irreg. (good, better, best, well)
 compoundA A -> A force comparison with more/most
 simpleA A -> A force comparison with -er,-est
 irregAdv A -> Str -> A adverb irreg, e.g. "fast"
@@ -31,7 +33,9 @@ nonhuman Gender -
 mkInterj Str -> Interj -
 
 // N - common noun
-mkN Str -> N make noun
+mkN Str -> N plural s, incl. flash-flashes, fly-flies
+mkN Str -> Str -> N irregular plural (man, men)
+mkN Str -> Str -> Str -> Str -> N irregular genitives (man, men, man's, men's)
 mkN Gender -> N -> N default nonhuman
 mkN Str -> N -> N e.g. baby + boom
 
@@ -60,7 +64,10 @@ Gender Type -
 Number Type -
 
 // V - one-place verb
-mkV Str -> V make verb
+mkV Str -> V regular, incl. cry-cries, kiss-kisses etc
+mkV Str -> Str -> V reg. with consonant duplication (stop, stopped)
+mkV Str -> Str -> Str -> V ordinary irregular (drink, drank, drunk)
+mkV Str -> Str -> Str -> Str -> Str -> V totally irregular (go, goes, went, gone, going)
 mkV Str -> V -> V fix compound, e.g. under+take
 partV V -> Str -> V with particle, e.g. switch + on
 reflV V -> V reflexive e.g. behave oneself

@@ -1,9 +1,10 @@
 (ns api.graphql.translate.concept
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [data.utils :as utils]))
 
 (defn- role->schema [{:keys [type label]}]
-  {:id         (->> [label type] (filter some?) (str/join "/"))
-   :fieldType  (cond-> ["Str" "List"] (some? type) (conj type))
+  {:id         (utils/gen-rand-str 16)
+   :fieldType  (cond-> ["List" "Str"] (some? type) (conj type))
    :fieldLabel (or label type "")})
 
 (defn- frames->help-text [frames]

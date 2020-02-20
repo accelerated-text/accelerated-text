@@ -2,7 +2,15 @@
  :description "common noun",
  :module "ParadigmsEng",
  :functions
- [{:function "mkN", :type ["Str" "N"], :example "make noun"}
+ [{:function "mkN",
+   :type ["Str" "N"],
+   :example "plural s, incl. flash-flashes, fly-flies"}
+  {:function "mkN",
+   :type ["Str" "Str" "N"],
+   :example "irregular plural (man, men)"}
+  {:function "mkN",
+   :type ["Str" "Str" "Str" "Str" "N"],
+   :example "irregular genitives (man, men, man's, men's)"}
   {:function "mkN",
    :type ["Gender" "N" "N"],
    :example "default nonhuman"}
