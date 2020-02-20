@@ -6,7 +6,7 @@
 
 (s/def ::key word?)
 
-(s/def ::sense (s/coll-of number? :min-count 1))
+(s/def ::sense (s/coll-of keyword? :min-count 1))
 
 (s/def ::defintion string?)
 
@@ -25,7 +25,15 @@
 (s/def ::number #{:sg :pl})
 
 (s/def ::inflections (s/map-of (s/tuple ::case ::number)
-                          word?))
+                               word?))
+
+(s/def ::tenses (s/map-of
+                 #{:present :imperfect :perfect :future :plu-perfect :future-perfect}
+                 word?))
 
 (s/def ::word-def (s/keys :req [::key ::pos ::language]
-                          :opt [::sense ::definition ::gender ::inflections]))
+                          :opt [::sense ::definition]))
+
+(s/def ::verb-def (s/merge ::word-def (s/keys :req [::tenses])))
+
+(s/def ::noun-def (s/merge ::word-def (s/keys :req [::inflections ::gender])))
