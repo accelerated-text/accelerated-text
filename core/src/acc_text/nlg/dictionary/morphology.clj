@@ -4,7 +4,6 @@
 
 (def word? (s/and string? (complement str/blank?)))
 
-
 (s/def ::key word?)
 
 (s/def ::sense (s/coll-of number? :min-count 1))
@@ -30,4 +29,3 @@
 
 (s/def ::word-def (s/keys :req [::key ::pos ::language]
                           :opt [::sense ::definition ::gender ::inflections]))
-
