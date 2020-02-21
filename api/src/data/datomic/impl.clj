@@ -57,18 +57,21 @@
                         :results/ts    (ts-now)
                         :results/ready (:ready data-item)})]))
 
-(defmethod transact-item :dictionary-multilang [_ key {:keys [key language pos definition inflections gender tenses senses]}]
+(defn prepare-multilang-dict [{:keys [key language pos definition inflections gender tenses senses]}]
+  {:db/id                            [:dictionary-multilang/key key]
+   :dictionary-multilang/key         key
+   :dictionary-multilang/language    language
+   :dictionary-multilang/pos         pos
+   :dictionary-multilang/gender      gender
+   :dictionary-multilang/senses      senses
+   :dictionary-multilang/tenses      (map (fn [{:keys [key value]}] {:tense/key   key
+                                                                     :tense/value value}) tenses)
+   :dictionary-multilang/inflections (map (fn [{:keys [key value]}] {:inflection/key   key
+                                                                     :inflection/value value}) inflections)})
+
+(defmethod transact-item :dictionary-multilang [_ key data-item]
   @(d/transact conn [(remove-nil-vals
-                      {:db/id                            [:dictionary-multilang/key key]
-                       :dictionary-multilang/key         key
-                       :dictionary-multilang/language    language
-                       :dictionary-multilang/pos         pos
-                       :dictionary-multilang/gender      gender
-                       :dictionary-multilang/senses      senses
-                       :dictionary-multilang/tenses      (map (fn [{:keys [key value]}] {:tense/key   key
-                                                                                         :tense/value value}) tenses)
-                       :dictionary-multilang/inflections (map (fn [{:keys [key value]}] {:inflection/key   key
-                                                                                         :inflection/value value}) inflections)})]))
+                      (prepare-multilang-dict data-item))]))
 
 (defn prepare-rgl-syntax-params [params]
   (->> params

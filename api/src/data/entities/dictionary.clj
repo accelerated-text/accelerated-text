@@ -54,10 +54,12 @@
 (defn list-dict-files []
   (filter #(.isFile ^File %) (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))))
 
+(defn create-multilang-dict-item [key data]
+  (db/write! dictionary-multilang-db key data))
+
 (defn initialize-multilang []
   (let [word-def (edn/read-string (slurp (io/file "grammar/dictionary/place.edn")))]
-    (doseq [word word-def]
-      (db/write! dictionary-multilang-db (:key word) word))))
+    (doseq [word word-def] (create-multilang-dict-item (:key word) word))))
 
 (defn initialize []
   (doseq [f (list-dict-files)]
