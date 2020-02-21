@@ -56,8 +56,8 @@
        (filter #(.isFile ^File %))
        (filter #(str/ends-with? (.getName %) "yaml"))))
 
-(defn create-multilang-dict-item [key data]
-  (db/write! dictionary-multilang-db key data))
+(defn create-multilang-dict-item [data]
+  (db/write! dictionary-multilang-db (utils/gen-uuid) data))
 
 (defn search-multilang-dict [key sense]
   (db/scan! dictionary-multilang-db {:key key :sense sense}))
@@ -68,7 +68,7 @@
        (filter #(str/ends-with? (.getName %) "edn"))
        (map #(edn/read-string (slurp (io/file %))))
        (flatten)
-       (map #(create-multilang-dict-item (utils/gen-uuid) %))))
+       (map #(create-multilang-dict-item %))))
 
 (defn initialize []
   (do

@@ -17,24 +17,21 @@
                 {:key "release" :name "release" :phrases ["publised" "released"] :partOfSpeech :VB}]]
     (dictionary/create-dictionary-item item))
 
-  (dictionary/create-multilang-dict-item
-    (utils/gen-uuid)
-    #::m{:key "place"
-         :pos      :n
-         :language :eng
-         :gender   :m
-         :senses   [:restaurant]
-         :inflections {:nom-sg "place"
-                       :nom-pl "places"}})
-  (dictionary/create-multilang-dict-item
-   (utils/gen-uuid)
-   #::m{:key "place"
-        :pos      :n
-        :language :ger
-        :gender   :m
-        :senses   [:restaurant]
-        :inflections {:nom-sg "platz"
-                      :nom-pl "plätze"}})
+  (doseq [item [#::m{:key "place"
+                     :pos      :n
+                     :language :eng
+                     :gender   :m
+                     :senses   [:restaurant]
+                     :inflections {:nom-sg "place"
+                                   :nom-pl "places"}}
+                #::m{:key "place"
+                     :pos      :n
+                     :language :ger
+                     :gender   :m
+                     :senses   [:restaurant]
+                     :inflections {:nom-sg "platz"
+                                   :nom-pl "plätze"}}]]
+    (dictionary/create-multilang-dict-item item))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
