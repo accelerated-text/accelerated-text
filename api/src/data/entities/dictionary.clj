@@ -59,6 +59,9 @@
 (defn create-multilang-dict-item [key data]
   (db/write! dictionary-multilang-db key data))
 
+(defn search-multilang-dict [key sense]
+  (db/scan! dictionary-multilang-db {:key key :sense sense}))
+
 (defn initialize-multilang []
   (let [word-def (edn/read-string (slurp (io/file "grammar/dictionary/place.edn")))]
     (doseq [word word-def] (create-multilang-dict-item (utils/gen-uuid) word))))
@@ -66,6 +69,7 @@
 (defn initialize []
   (do
     (initialize-multilang)
+    (printf "Search result: %s" (pr-str (search-multilang-dict "place" :restaurant)))
     (doseq [f (list-dict-files)]
       (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
             filename (utils/get-name f)]

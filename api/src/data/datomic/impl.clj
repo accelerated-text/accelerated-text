@@ -290,6 +290,14 @@
   (log/warnf "Default implementation of SCAN for the '%s' with key '%s'" resource-type opts)
   (throw (RuntimeException. (format "DATOMIC SCAN FOR '%s' NOT IMPLEMENTED" resource-type))))
 
+(defmethod scan :dictionary-multilang [_ {:keys [key sense]}]
+  (d/q '[:find (pull ?e [*])
+         :in $  [?sense ?key]
+         :where [?s :dictionary-multilang/senses ?sense]
+                [?e :dictionary-multilang/key ?key]]
+       (d/db conn)
+       [sense key]))
+
 (defmulti delete (fn [resource-type _] resource-type))
 
 (defmethod delete :dictionary-combined [_ key]
