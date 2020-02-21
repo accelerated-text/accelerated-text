@@ -20,11 +20,9 @@
                     :fin :fra :ger :ita :lat :lit
                     :por :slv :spa :swe :tha :tur})
 
-(s/def ::case #{:nom :gen :dat :acc :inc :loc :voc})
+(s/def ::inflection-variants #{:nom-sg :nom-pl :gen-sg :gen-pl})
 
-(s/def ::number #{:sg :pl})
-
-(s/def ::inflections (s/map-of (s/tuple ::case ::number)
+(s/def ::inflections (s/map-of ::inflection-variants
                                word?))
 
 (s/def ::tenses (s/map-of

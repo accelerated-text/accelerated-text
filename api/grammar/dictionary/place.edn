@@ -3,13 +3,13 @@
                                       :language :eng
                                       :senses [:restaurant]
                                       :gender :m
-                                      :inflections {[:nom :sg] "place"
-                                                    [:nom :pl] "places"}}
+                                      :inflections {:nom-sg "place"
+                                                    :nom-pl "places"}}
 
  '#acc-text.nlg.dictionary.morphology{:key "place"
                                       :pos :n
                                       :language :ger
                                       :senses [:restaurant]
                                       :gender :m
-                                      :inflections {[:nom :sg] "platz"
-                                                    [:nom :pl] "plätze"}}]
+                                      :inflections {:nom-sg "platz"
+                                                    :nom-pl "plätze"}}]

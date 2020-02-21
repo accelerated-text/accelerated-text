@@ -38,6 +38,6 @@
                                   :pos :n
                                   :language :eng
                                   :gender :m
-                                  :inflections {[:nom :sg] "dog"
-                                                [:nom :pl] "dogs"}})))
+                                  :inflections {:nom-sg "dog"
+                                                :nom-pl "dogs"}})))
 
