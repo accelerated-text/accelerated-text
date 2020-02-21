@@ -70,8 +70,10 @@
                                                                      :inflection/value value}) inflections)})
 
 (defmethod transact-item :dictionary-multilang [_ key data-item]
-  @(d/transact conn [(remove-nil-vals
-                      (prepare-multilang-dict data-item))]))
+  (try
+    @(d/transact conn [(remove-nil-vals
+                        (prepare-multilang-dict data-item))])
+    (catch Exception e (.printStackTrace e))))
 
 (defn prepare-rgl-syntax-params [params]
   (->> params

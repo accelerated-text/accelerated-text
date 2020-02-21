@@ -52,7 +52,9 @@
   (db/update! dictionary-combined-db (:key item) (dissoc item :key)))
 
 (defn list-dict-files []
-  (filter #(.isFile ^File %) (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))))
+  (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
+       (filter #(.isFile ^File %))
+       (filter #(str/ends-with? (.getName %) "yaml"))))
 
 (defn create-multilang-dict-item [key data]
   (db/write! dictionary-multilang-db key data))
@@ -62,13 +64,14 @@
     (doseq [word word-def] (create-multilang-dict-item (:key word) word))))
 
 (defn initialize []
-  (doseq [f (list-dict-files)]
-    (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
-          filename (utils/get-name f)]
-      (when-not (get-dictionary-item filename)
-        (create-dictionary-item
-         {:key          filename
-          :name         (or name filename)
-          :phrases      phrases
-          :partOfSpeech (when (some? partOfSpeech)
-                          (keyword partOfSpeech))})))))
+  (do
+      (doseq [f (list-dict-files)]
+        (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
+              filename (utils/get-name f)]
+          (when-not (get-dictionary-item filename)
+            (create-dictionary-item
+             {:key          filename
+              :name         (or name filename)
+              :phrases      phrases
+              :partOfSpeech (when (some? partOfSpeech)
+                              (keyword partOfSpeech))}))))))
