@@ -2,6 +2,7 @@
   (:require [api.db-fixtures :as fixtures]
             [api.test-utils :refer [q load-test-document-plan]]
             [clojure.test :refer [deftest is use-fixtures]]
+            [data.utils :as utils]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
@@ -15,6 +16,25 @@
                 {:key "is" :name "is" :phrases ["is"] :partOfSpeech :VB}
                 {:key "release" :name "release" :phrases ["publised" "released"] :partOfSpeech :VB}]]
     (dictionary/create-dictionary-item item))
+
+  (dictionary/create-multilang-dict-item
+    (utils/gen-uuid)
+    #::m{:key "place"
+         :pos      :n
+         :language :eng
+         :gender   :m
+         :senses   [:restaurant]
+         :inflections {:nom-sg "place"
+                       :nom-pl "places"}})
+  (dictionary/create-multilang-dict-item
+   (utils/gen-uuid)
+   #::m{:key "place"
+        :pos      :n
+        :language :ger
+        :gender   :m
+        :senses   [:restaurant]
+        :inflections {:nom-sg "platz"
+                      :nom-pl "plätze"}})
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -283,11 +303,5 @@
     (is (not= "Restaurant located in city center" (first (get-enriched-results result-id))))))
 
 (deftest ^:integration multilang-dict
-  (dictionary/create-multilang-dict-item
-   (utils/gen-uuid)
-   #::m{:key "place"
-        :pos      :n
-        :language :eng
-        :gender   :m
-        :inflections {[:nom :sg] "place"
-                      [:nom :pl] "places"}}))
+  (let [search-results (dictionary/search-multilang-dict "place" :restaurant)]
+    (is (= 2 (count search-results)))))

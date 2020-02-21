@@ -73,7 +73,6 @@
 (defn initialize []
   (do
     (doall (initialize-multilang))
-    (printf "Search result: %s" (pr-str (search-multilang-dict "place" :restaurant)))
     (doseq [f (list-dict-files)]
       (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
             filename (utils/get-name f)]
