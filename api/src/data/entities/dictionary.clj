@@ -63,12 +63,16 @@
   (db/scan! dictionary-multilang-db {:key key :sense sense}))
 
 (defn initialize-multilang []
-  (let [word-def (edn/read-string (slurp (io/file "grammar/dictionary/place.edn")))]
-    (doseq [word word-def] (create-multilang-dict-item (utils/gen-uuid) word))))
+  (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
+       (filter #(.isFile ^File %))
+       (filter #(str/ends-with? (.getName %) "edn"))
+       (map #(edn/read-string (slurp (io/file %))))
+       (flatten)
+       (map #(create-multilang-dict-item (utils/gen-uuid) %))))
 
 (defn initialize []
   (do
-    (initialize-multilang)
+    (doall (initialize-multilang))
     (printf "Search result: %s" (pr-str (search-multilang-dict "place" :restaurant)))
     (doseq [f (list-dict-files)]
       (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))

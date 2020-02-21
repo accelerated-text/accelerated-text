@@ -4,7 +4,8 @@
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
-            [data.entities.dictionary :as dictionary]))
+            [data.entities.dictionary :as dictionary]
+            [acc-text.nlg.dictionary.morphology :as m]))
 
 (defn prepare-environment [f]
   (doseq [item [{:key "cut" :name "cut" :phrases ["cut"] :partOfSpeech :VB}
@@ -280,3 +281,13 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (not= "Restaurant located in city center" (first (get-enriched-results result-id))))))
+
+(deftest ^:integration multilang-dict
+  (dictionary/create-multilang-dict-item
+   (utils/gen-uuid)
+   #::m{:key "place"
+        :pos      :n
+        :language :eng
+        :gender   :m
+        :inflections {[:nom :sg] "place"
+                      [:nom :pl] "places"}}))
