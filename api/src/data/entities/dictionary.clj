@@ -61,17 +61,18 @@
 
 (defn initialize-multilang []
   (let [word-def (edn/read-string (slurp (io/file "grammar/dictionary/place.edn")))]
-    (doseq [word word-def] (create-multilang-dict-item (:key word) word))))
+    (doseq [word word-def] (create-multilang-dict-item (utils/gen-uuid) word))))
 
 (defn initialize []
   (do
-      (doseq [f (list-dict-files)]
-        (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
-              filename (utils/get-name f)]
-          (when-not (get-dictionary-item filename)
-            (create-dictionary-item
-             {:key          filename
-              :name         (or name filename)
-              :phrases      phrases
-              :partOfSpeech (when (some? partOfSpeech)
-                              (keyword partOfSpeech))}))))))
+    (initialize-multilang)
+    (doseq [f (list-dict-files)]
+      (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
+            filename (utils/get-name f)]
+        (when-not (get-dictionary-item filename)
+          (create-dictionary-item
+           {:key          filename
+            :name         (or name filename)
+            :phrases      phrases
+            :partOfSpeech (when (some? partOfSpeech)
+                            (keyword partOfSpeech))}))))))

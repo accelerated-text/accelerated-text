@@ -19,6 +19,8 @@
                          :table-key  :id}
    :dictionary-combined {:table-name "dictionary-combined"
                          :table-key  :key}
+   :dictionary-multilang {:table-name "dictionary-multilang"
+                          :table-key  :key}
    :phrase-usage        {:table-name "phrase-usage-model"
                          :table-key  :prim-kvs}
    :phrase              {:table-name "phrase"
