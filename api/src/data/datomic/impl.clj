@@ -57,6 +57,24 @@
                         :results/ts    (ts-now)
                         :results/ready (:ready data-item)})]))
 
+(defn prepare-inflections [inflections]
+  (->> inflections
+       (map (fn [{:keys [key value]}]
+              (remove-nil-vals
+               {:inflection/id    (gen-uuid)
+               :inflection/key   key
+               :inflection/value value})))
+       (remove nil?)))
+
+(defn prepare-tenses [tenses]
+  (->> tenses
+       (map (fn [{:keys [key value]}]
+              (remove-nil-vals
+               {:tense/id    (gen-uuid)
+                :tense/key   key
+                :tenses/value value})))
+       (remove nil?)))
+
 (defn prepare-multilang-dict [id {:keys [key language pos definition inflections gender tenses senses]}]
   {:db/id                            [:dictionary-multilang/id id]
    :dictionary-multilang/id          id
@@ -65,17 +83,13 @@
    :dictionary-multilang/pos         pos
    :dictionary-multilang/gender      gender
    :dictionary-multilang/senses      senses
-   :dictionary-multilang/tenses      (map (fn [{:keys [key value]}] {:tense/key   key
-                                                                     :tense/value value}) tenses)
-   ;; :dictionary-multilang/inflections (map (fn [{:keys [key value]}] {:inflection/key   key
-   ;;                                                                   :inflection/value value}) inflections)
-   :dictionary-multilang/inflections []
-   })
+   :dictionary-multilang/tenses      (prepare-tenses tenses)
+   :dictionary-multilang/inflections (prepare-inflections inflections)})
 
 (defmethod transact-item :dictionary-multilang [_ key data-item]
   (try
     @(d/transact conn [(remove-nil-vals
-                        (log/spyf "MultiLang Dict: %s" (dissoc (prepare-multilang-dict key data-item) :db/id)))])
+                        (dissoc (prepare-multilang-dict key data-item) :db/id))])
     (catch Exception e (.printStackTrace e))))
 
 (defn prepare-rgl-syntax-params [params]

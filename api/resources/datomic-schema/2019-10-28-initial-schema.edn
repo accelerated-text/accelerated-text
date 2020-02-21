@@ -407,7 +407,7 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Part of speech tag"}
 
-          {:db/ident       :dictionary-multilang/languageq
+          {:db/ident       :dictionary-multilang/language
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
            :db/doc         "Language"}
@@ -432,6 +432,12 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Gender for word"}
 
+          {:db/ident       :inflection/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of inflectionq item"}
+
           {:db/ident       :inflection/key
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
@@ -442,6 +448,12 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Value for inflection"}
 
+          {:db/ident       :tense/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of tense item"}
+          
           {:db/ident       :tense/key
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
