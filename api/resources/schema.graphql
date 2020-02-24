@@ -159,6 +159,34 @@ type DictionaryItem {
     concept:            Concept
 }
 
+type DictionaryItemMultilang {
+    id:                 ID!
+    key:                String!
+    gender:             String!
+    pos:                PartOfSpeech
+    language:           String!
+    senses:             [ Sense! ]
+    tenses:             [ Tense ]
+    inflections:        [ Inflection ]
+}
+
+type Sense {
+     id:                ID!
+     name:              String!
+}
+
+type Tense {
+     id:                ID!
+     key:               String!
+     value:             String!
+}
+
+type Inflection {
+     id:                ID!
+     key:               String!
+     value:             String!
+}
+
 type Phrase {
     id:                 ID!
     text:               String!
@@ -281,6 +309,11 @@ type Query {
     ### Dictionary
 
     dictionary:             DictionaryResults!
+
+    searchDictionaryMultilang(
+        key:                String!
+        sense:              String!
+    ): [ DictionaryItemMultilang ]
 
     dictionaryItem(
         id:                 ID!
