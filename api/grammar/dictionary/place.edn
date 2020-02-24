@@ -1,4 +1,4 @@
-['#acc-text.nlg.dictionary.morphology{:key "place"
+[#:acc-text.nlg.dictionary.morphology{:key "place"
                                       :pos :n
                                       :language :eng
                                       :senses [:restaurant]
@@ -6,7 +6,7 @@
                                       :inflections {:nom-sg "place"
                                                     :nom-pl "places"}}
 
- '#acc-text.nlg.dictionary.morphology{:key "place"
+ #:acc-text.nlg.dictionary.morphology{:key "place"
                                       :pos :n
                                       :language :ger
                                       :senses [:restaurant]

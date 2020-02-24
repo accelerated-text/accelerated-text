@@ -6,9 +6,17 @@
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.entities.dictionary :as dict-entity]))
 
+;; (defn dictionary [_ _ _]
+;;   (->> (dict-entity/list-dictionary)
+;;        (map translate-dict/dictionary-item->schema)
+;;        (sort-by :name)
+;;        (translate-core/paginated-response)
+;;        (resolve-as)))
+
 (defn dictionary [_ _ _]
-  (->> (dict-entity/list-dictionary)
-       (map translate-dict/dictionary-item->schema)
+  (->> (dict-entity/list-multilang-dict 100)
+       (group-by :key)
+       (map #(apply translate-dict/multilang-dict-item->original-schema %))
        (sort-by :name)
        (translate-core/paginated-response)
        (resolve-as)))

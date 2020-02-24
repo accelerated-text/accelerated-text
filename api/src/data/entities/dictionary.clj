@@ -7,7 +7,8 @@
             [data.utils :as utils]
             [mount.core :refer [defstate]]
             [clojure.java.io :as io]
-            [clojure.edn :as edn])
+            [clojure.edn :as edn]
+            [acc-text.nlg.dictionary.morphology :as morphology])
   (:import (java.io File)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
@@ -57,9 +58,14 @@
        (filter #(.isFile ^File %))
        (filter #(str/ends-with? (.getName %) "yaml"))))
 
-(defn create-multilang-dict-item [data]
-  (log/debugf "Creating multilang dict item: %s" data)
-  (db/write! dictionary-multilang-db (utils/gen-uuid) data))
+(defn create-multilang-dict-item [{::morphology/keys [key language gender pos senses tenses inflections]}]
+  (db/write! dictionary-multilang-db (utils/gen-uuid) {:key         key
+                                                       :language    language
+                                                       :gender      gender
+                                                       :pos         pos
+                                                       :senses      senses
+                                                       :tenses      tenses
+                                                       :inflections inflections}))
 
 (defn search-multilang-dict [key sense]
   (db/scan! dictionary-multilang-db {:key key :sense sense}))

@@ -55,3 +55,46 @@
    :senses        (map (fn [sense] {:id (utils/gen-uuid)  :name (name sense)}) senses)
    :tenses        (map (fn [tense] {:id (:tense/id tense) :key (name (:tense/key tense)) :value (:tense/value tense)}) tenses)
    :inflections   (map (fn [inflection] {:id (:inflection/id inflection) :key (name (:inflection/key inflection)) :value (:inflection/value inflection)}) inflections)})
+
+
+(defn build-lang-user-flags [translations lang]
+  (map (fn [[k v]]
+         {:id   (utils/gen-uuid)
+          :flag {:id   k
+                 :name k}
+          :usage (if (= v lang)
+                   "YES"
+                   "NO")})
+       translations))
+
+(defn get-default-tense [tenses]
+  (let [value-map (into {} (map (fn [tense] {(:tense/key tense) (:tense/value tense)}) tenses))]
+    (get value-map :present "")))
+
+(defn get-default-inflection [inflections]
+  (let [value-map (into {} (map (fn [infl] {(:inflection/key infl) (:inflection/value infl)}) inflections))]
+    (get value-map :nom-sg "")))
+
+
+(defn multilang-dict-item->original-schema [key items]
+  (let [pos (:pos (first items))
+        lang-translation {"English"    :eng
+                          "German"     :ger
+                          "Estonian"   :est
+                          "Latvian"    :lat
+                          "Lithuanian" :lit}]
+    {:id           key
+     :name         key
+     :partOfSpeech (case pos
+                     :n "NN"
+                     (name pos))
+     :phrases      (map (fn [{:keys [language inflections tenses]}]
+                          {:defaultUsage    "YES"
+                           :id              (utils/gen-uuid)
+                           :readerFlagUsage (build-lang-user-flags lang-translation language)
+                           :text            (cond
+                                              (not-empty inflections) (get-default-inflection inflections)
+                                              (not-empty tenses)       (get-default-tense tenses)
+                                              :else "")})
+                        items)}))
+  
