@@ -61,18 +61,18 @@
   (->> inflections
        (map (fn [{:keys [key value]}]
               (remove-nil-vals
-               {:inflection/id    (gen-uuid)
-               :inflection/key   key
-               :inflection/value value})))
+               {:dictionary-multilang/inflection-id    (gen-uuid)
+                :dictionary-multilang/inflection-key   key
+                :dictionary-multilang/inflection-value value})))
        (remove nil?)))
 
 (defn prepare-tenses [tenses]
   (->> tenses
        (map (fn [{:keys [key value]}]
               (remove-nil-vals
-               {:tense/id    (gen-uuid)
-                :tense/key   key
-                :tenses/value value})))
+               {:dictionary-multilang/tense-id     (gen-uuid)
+                :dictionary-multilang/tense-key    key
+                :dictionary-multilang/tenses-value value})))
        (remove nil?)))
 
 (defn prepare-multilang-dict [id {:keys [key language pos definition inflections gender tenses senses]}]
@@ -85,6 +85,10 @@
    :dictionary-multilang/senses      senses
    :dictionary-multilang/tenses      (prepare-tenses tenses)
    :dictionary-multilang/inflections (prepare-inflections inflections)})
+
+(defn read-multilang-dict-item [item]
+  (log/debugf "Multilang dict item: %item")
+  item)
 
 (defmethod transact-item :dictionary-multilang [_ key data-item]
   (try
@@ -275,7 +279,7 @@
 
 
 (defmethod pull-n :dictionary-multilang [_ limit]
-  (take limit (map (fn [[item]] item)
+  (take limit (map (fn [[item]] (read-multilang-dict-item item))
                    (d/q '[:find (pull ?e [*])
                           :where [?e :dictionary-multilang/id]]
                         (d/db conn)))))
@@ -298,12 +302,17 @@
   (throw (RuntimeException. (format "DATOMIC SCAN FOR '%s' NOT IMPLEMENTED" resource-type))))
 
 (defmethod scan :dictionary-multilang [_ {:keys [key sense]}]
-  (d/q '[:find (pull ?e [*])
-         :in $  [?sense ?key]
-         :where [?s :dictionary-multilang/senses ?sense]
-                [?e :dictionary-multilang/key ?key]]
+  (map (fn [[item]] (read-multilang-dict-item item))
+       ;; (d/q '[:find (pull ?e [*])
+       ;;        :in $  [?sense ?key]
+       ;;        :where [?s :dictionary-multilang/senses ?sense]
+       ;;               [?e :dictionary-multilang/key ?key]]
+       (d/q    '[:find ?e
+                 :in   $ [?sense ?key]
+                 :where [?s :dictionary-multilang/senses ?sense]
+                        [?e :dictionary-multilang/key ?key]]
        (d/db conn)
-       [sense key]))
+       [sense key])))
 
 (defmulti delete (fn [resource-type _] resource-type))
 

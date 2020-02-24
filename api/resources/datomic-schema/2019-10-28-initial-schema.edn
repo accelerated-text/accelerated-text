@@ -432,34 +432,34 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Gender for word"}
 
-          {:db/ident       :inflection/id
+          {:db/ident       :dictionary-multilang/inflection-id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Public Id of inflectionq item"}
 
-          {:db/ident       :inflection/key
+          {:db/ident       :dictionary-multilang/inflection-key
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
            :db/doc         "Key for inflection"}
 
-          {:db/ident       :inflection/value
+          {:db/ident       :dictionary-multilang/inflection-value
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Value for inflection"}
 
-          {:db/ident       :tense/id
+          {:db/ident       :dictionary-multilang/tense-id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Public Id of tense item"}
           
-          {:db/ident       :tense/key
+          {:db/ident       :dictionary-multilang/tense-key
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
            :db/doc         "Key for tense"}
 
-          {:db/ident       :tense/value
+          {:db/ident       :dictionary-multilang/tense-value
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Value for tense"}]]}}
