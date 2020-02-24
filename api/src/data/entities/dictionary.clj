@@ -2,6 +2,7 @@
   (:require [api.config :refer [conf]]
             [clj-yaml.core :as yaml]
             [clojure.string :as str]
+            [clojure.tools.logging :as log]
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]
@@ -57,6 +58,7 @@
        (filter #(str/ends-with? (.getName %) "yaml"))))
 
 (defn create-multilang-dict-item [data]
+  (log/debugf "Creating multilang dict item: %s" data)
   (db/write! dictionary-multilang-db (utils/gen-uuid) data))
 
 (defn search-multilang-dict [key sense]
