@@ -44,9 +44,14 @@
   (log/debugf "MultilangDictItem: %s" dict-item)
   {:id            id
    :key           key
-   :pos           pos
+   :pos           (case pos
+                    :n "NN"
+                    (name pos))
    :language      (name language)
-   :gender        gender
+   :gender        (case gender
+                    :m  "M"
+                    :f  "F"
+                    :n  "N")
    :senses        (map (fn [sense] {:id (utils/gen-uuid)  :name (name sense)}) senses)
    :tenses        (map (fn [tense] {:id (:tense/id tense) :key (name (:tense/key tense)) :value (:tense/value tense)}) tenses)
    :inflections   (map (fn [inflection] {:id (:inflection/id inflection) :key (name (:inflection/key inflection)) :value (:inflection/value inflection)}) inflections)})

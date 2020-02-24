@@ -168,7 +168,7 @@ type DictionaryItem {
 type DictionaryItemMultilang {
     id:                 ID!
     key:                String!
-    gender:             String!
+    gender:             Gender!
     pos:                PartOfSpeech
     language:           String!
     senses:             [ Sense! ]
