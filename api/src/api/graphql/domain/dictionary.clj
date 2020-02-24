@@ -24,10 +24,16 @@
 (defn- resolve-as-not-found-dict-item [id]
   (resolve-as nil {:message (format "Cannot find dictionary item with id `%s`." id)}))
 
+;; (defn dictionary-item [_ {id :id :as args} _]
+;;   (log/debugf "Fetching dictionary item with args: %s" args)
+;;   (if-let [item (dict-entity/get-dictionary-item id)]
+;;     (resolve-as (translate-dict/dictionary-item->schema item))
+;;     (resolve-as-not-found-dict-item id)))
+
 (defn dictionary-item [_ {id :id :as args} _]
   (log/debugf "Fetching dictionary item with args: %s" args)
-  (if-let [item (dict-entity/get-dictionary-item id)]
-    (resolve-as (translate-dict/dictionary-item->schema item))
+  (if-let [items (dict-entity/get-multidict-items id)]
+    (resolve-as (translate-dict/multilang-dict-item->original-schema id item))
     (resolve-as-not-found-dict-item id)))
 
 (defn create-dictionary-item [_ {item-name :name pos :partOfSpeech phrases :phrases} _]

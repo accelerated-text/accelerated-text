@@ -31,12 +31,18 @@
           {}
           (get-values semantic-graph :dictionary-item)))
 
+(defn build-multilang-dictionary-context [semantic-graph]
+  (reduce (fn [m value]
+            (assoc m value (dictionary/get-dict-item-by-language (str/lower-case value))))
+          {}
+          (get-values semantic-graph :dictionary-item)))
+
 (defn build-amr-context [semantic-graph]
   (reduce (fn [m amr-id]
             (let [{sg :semantic-graph :as amr} (or (amr/get-amr amr-id) (rgl/get-rgl amr-id))]
               (cond-> m
-                      (some? amr) (-> (assoc amr-id amr)
-                                      (cond-> (some? sg) (merge (build-amr-context sg)))))))
+                (some? amr) (-> (assoc amr-id amr)
+                                (cond-> (some? sg) (merge (build-amr-context sg)))))))
           {}
           (get-values semantic-graph :amr)))
 
@@ -45,5 +51,6 @@
    (build-context semantic-graph {:reader-model {:default true}}))
   ([semantic-graph {reader-model :reader-model}]
    (let [reader-profiles (get-reader-profiles reader-model)]
-     {:dictionary (build-dictionary-context semantic-graph reader-profiles)
+     {;; :dictionary (build-dictionary-context semantic-graph reader-profiles)
+      :dictionary-multilang (build-multilang-dictionary-context semantic-graph)
       :amr        (build-amr-context semantic-graph)})))

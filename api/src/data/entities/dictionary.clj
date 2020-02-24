@@ -67,6 +67,9 @@
                                                        :tenses      tenses
                                                        :inflections inflections}))
 
+(defn get-multidict-items [key]
+  (db/read! dictionary-multilang-db key))
+
 (defn search-multilang-dict [key sense]
   (db/scan! dictionary-multilang-db {:key key :sense sense}))
 

@@ -35,6 +35,10 @@
     data))
 
 
+(defn context-by-lang [context lang]
+  (assoc context :dictionary (into {} (map (fn [[k v]] {k (get v lang)})
+                                           (:dictionary-multilang context)))))
+
 (defn generate-text-for-language
   [semantic-graph context enrich lang]
   (let [ref-expr-fn (partial ref-expr/apply-ref-expressions lang)
@@ -43,7 +47,7 @@
                     (cond-> {:original (ref-expr-fn text) :lang lang}
                       enrich (assoc :enriched (ref-expr-fn
                                                (nlg/enrich-text enrich-data text)))))]
-    (->> (nlg/generate-text semantic-graph context lang)
+    (->> (nlg/generate-text semantic-graph (context-by-lang context lang) lang)
          (map :text)
          (sort)
          (dedupe)
