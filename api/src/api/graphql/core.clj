@@ -25,7 +25,8 @@
                                                    :concepts        :concepts
                                                    :concept         :concept
                                                    :searchThesaurus :search-thesaurus
-                                                   :synonyms        :synonyms}
+                                                   :synonyms        :synonyms
+                                                   :searchDictionaryMultilang :search-dict-multi}
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
                                                    :updateDictionaryItem     :update-dictionary-item
@@ -49,6 +50,7 @@
                               :update-phrase-default-usage #'dictionary-domain/update-phrase-default-usage
                               :update-reader-flag-usage    #'dictionary-domain/update-reader-flag-usage
                               :reader-flags                #'dictionary-domain/reader-flags
+                              :search-dict-multi           #'dictionary-domain/search-dict-multilang
                               :document-plan               #'document-plan-domain/get-document-plan
                               :document-plans              #'document-plan-domain/list-document-plans
                               :create-document-plan        #'document-plan-domain/add-document-plan

@@ -1,6 +1,7 @@
 (ns api.graphql.translate.dictionary
   (:require [api.graphql.translate.concept :as translate-concept]
-            [clojure.tools.logging :as log]))
+            [clojure.tools.logging :as log]
+            [data.utils :as utils]))
 
 (defn reader-flag->schema [[k _]]
   {:id   (name k)
@@ -38,3 +39,14 @@
                         :label  ""
                         :roles  []
                         :frames []}))}))
+
+(defn multilang-dict-item->schema [{:keys [id key pos gender language senses inflections tenses] :as dict-item}]
+  (log/debugf "MultilangDictItem: %s" dict-item)
+  {:id            id
+   :key           key
+   :pos           pos
+   :language      (name language)
+   :gender        gender
+   :senses        (map (fn [sense] {:id (utils/gen-uuid)  :name (name sense)}) senses)
+   :tenses        (map (fn [tense] {:id (:tense/id tense) :key (name (:tense/key tense)) :value (:tense/value tense)}) tenses)
+   :inflections   (map (fn [inflection] {:id (:inflection/id inflection) :key (name (:inflection/key inflection)) :value (:inflection/value inflection)}) inflections)})

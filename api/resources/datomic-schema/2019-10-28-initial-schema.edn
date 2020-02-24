@@ -420,11 +420,13 @@
           {:db/ident       :dictionary-multilang/inflections
            :db/valueType   :db.type/ref
            :db/cardinality :db.cardinality/many
+           :db/isComponent true
            :db/doc         "Inflections for word"}
 
           {:db/ident       :dictionary-multilang/tenses
            :db/valueType   :db.type/ref
            :db/cardinality :db.cardinality/many
+           :db/isComponent true
            :db/doc         "Tenses for word"}
 
           {:db/ident       :dictionary-multilang/gender
@@ -436,7 +438,7 @@
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Public Id of inflectionq item"}
+           :db/doc         "Public Id of inflection item"}
 
           {:db/ident       :inflection/key
            :db/valueType   :db.type/keyword

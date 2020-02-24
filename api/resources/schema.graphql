@@ -11,6 +11,12 @@ enum Usage {
     DONT_CARE
 }
 
+enum Gender {
+     M
+     F
+     N
+}
+
 #   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
 enum PartOfSpeech {
     CC      # conjunction, coordinating  and, or, but

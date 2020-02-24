@@ -59,7 +59,7 @@
 
 (defn prepare-inflections [inflections]
   (->> inflections
-       (map (fn [{:keys [key value]}]
+       (map (fn [[key value]]
               (remove-nil-vals
                {:inflection/id    (gen-uuid)
                 :inflection/key   key
@@ -68,7 +68,7 @@
 
 (defn prepare-tenses [tenses]
   (->> tenses
-       (map (fn [{:keys [key value]}]
+       (map (fn [[key value]]
               (remove-nil-vals
                {:tense/id     (gen-uuid)
                 :tense/key    key
@@ -86,15 +86,24 @@
    :dictionary-multilang/tenses      (prepare-tenses tenses)
    :dictionary-multilang/inflections (prepare-inflections inflections)})
 
+(defn read-inflection [inflection]
+  (log/debugf "Inflection: %s" inflection)
+  inflection)
+
+(defn read-tense [tense]
+  (log/debugf "Tense: %s" tense)
+  tense)
+
 (defn read-multilang-dict-item [item]
   (log/spyf "Multilang dict item: %s"
-            {:key         (:dictionary-multilang/key item)
+            {:id          (:dictionary-multilang/id item)
+             :key         (:dictionary-multilang/key item)
              :language    (:dictionary-multilang/language item)
              :pos         (:dictionary-multilang/pos item)
              :gender      (:dictionary-multilang/gender item)
              :senses      (:dictionary-multilang/senses item)
-             :tenses      (:dictionary-multilang/tenses item)
-             :inflections (:dictionary-multilang/inflections item)}))
+             :tenses      (map read-tense (:dictionary-multilang/tenses item))
+             :inflections (map read-inflection (:dictionary-multilang/inflections item))}))
 
 (defmethod transact-item :dictionary-multilang [_ key data-item]
   (try
@@ -318,14 +327,11 @@
 
 (defmethod scan :dictionary-multilang [_ {:keys [key sense]}]
   (map (fn [[item]] (read-multilang-dict-item item))
-       ;; (d/q '[:find (pull ?e [*])
-       ;;        :in $  [?sense ?key]
-       ;;        :where [?s :dictionary-multilang/senses ?sense]
-       ;;               [?e :dictionary-multilang/key ?key]]
-       (d/q    '[:find ?e
-                 :in   $ [?sense ?key]
-                 :where [?s :dictionary-multilang/senses ?sense]
-                        [?e :dictionary-multilang/key ?key]]
+       (d/q '[:find (pull ?e [*])
+              :in $  [?sense ?key]
+              :where [?s :dictionary-multilang/senses ?sense]
+                     [?e :dictionary-multilang/key ?key]]
+       
        (d/db conn)
        [sense key])))
 

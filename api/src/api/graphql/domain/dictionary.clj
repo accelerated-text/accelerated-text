@@ -111,3 +111,8 @@
            (translate-dict/reader-flag-usage->schema phrase-id)
            (resolve-as)))
     (resolve-as-not-found-dict-item (get-parent-id id))))
+
+
+(defn search-dict-multilang [_ {:keys [key sense]} _]
+  (->> (dict-entity/search-multilang-dict key (keyword sense))
+       (map translate-dict/multilang-dict-item->schema)))
