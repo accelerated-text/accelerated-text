@@ -249,6 +249,15 @@
                             key))]
     (cond-> entity (some? entity) (read-rgl-entity))))
 
+(defmethod pull-entity :dictionary-multilang [_ key]
+  (map
+   (fn [[item]] (read-multilang-dict-item item))
+   (d/q '[:find (pull ?e [*])
+          :in $ ?key
+          :where [?e :dictionary-multilang/key ?key]]
+        (d/db conn)
+        key)))
+
 (defmethod pull-entity :default [resource-type key]
   (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'" resource-type key)
   (throw (RuntimeException. (format "DATOMIC PULL-ENTITY FOR '%s' NOT IMPLEMENTED" resource-type))))
