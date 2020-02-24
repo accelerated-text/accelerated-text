@@ -61,18 +61,18 @@
   (->> inflections
        (map (fn [{:keys [key value]}]
               (remove-nil-vals
-               {:dictionary-multilang/inflection-id    (gen-uuid)
-                :dictionary-multilang/inflection-key   key
-                :dictionary-multilang/inflection-value value})))
+               {:inflection/id    (gen-uuid)
+                :inflection/key   key
+                :inflection/value value})))
        (remove nil?)))
 
 (defn prepare-tenses [tenses]
   (->> tenses
        (map (fn [{:keys [key value]}]
               (remove-nil-vals
-               {:dictionary-multilang/tense-id     (gen-uuid)
-                :dictionary-multilang/tense-key    key
-                :dictionary-multilang/tenses-value value})))
+               {:tense/id     (gen-uuid)
+                :tense/key    key
+                :tense/value  value})))
        (remove nil?)))
 
 (defn prepare-multilang-dict [id {:keys [key language pos definition inflections gender tenses senses]}]
@@ -87,8 +87,14 @@
    :dictionary-multilang/inflections (prepare-inflections inflections)})
 
 (defn read-multilang-dict-item [item]
-  (log/debugf "Multilang dict item: %item")
-  item)
+  (log/spyf "Multilang dict item: %s"
+            {:key         (:dictionary-multilang/key item)
+             :language    (:dictionary-multilang/language item)
+             :pos         (:dictionary-multilang/pos item)
+             :gender      (:dictionary-multilang/gender item)
+             :senses      (:dictionary-multilang/senses item)
+             :tenses      (:dictionary-multilang/tenses item)
+             :inflections (:dictionary-multilang/inflections item)}))
 
 (defmethod transact-item :dictionary-multilang [_ key data-item]
   (try
