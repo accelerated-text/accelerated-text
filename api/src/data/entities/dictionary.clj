@@ -64,6 +64,9 @@
 (defn search-multilang-dict [key sense]
   (db/scan! dictionary-multilang-db {:key key :sense sense}))
 
+(defn list-multilang-dict [limit]
+  (db/list! dictionary-multilang-db limit))
+
 (defn initialize-multilang []
   (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
        (filter #(.isFile ^File %))

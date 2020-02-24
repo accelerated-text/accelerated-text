@@ -300,5 +300,7 @@
     (is (not= "Restaurant located in city center" (first (get-enriched-results result-id))))))
 
 (deftest ^:integration multilang-dict
-  (let [search-results (dictionary/search-multilang-dict "place" :restaurant)]
+  (let [list-results   (dictionary/list-multilang-dict 100)
+        search-results (dictionary/search-multilang-dict "place" :restaurant)]
+    (is (= 2 (count list-results)))
     (is (= 2 (count search-results)))))

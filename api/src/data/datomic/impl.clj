@@ -273,6 +273,13 @@
                           :where [?e :dictionary-combined/id]]
                         (d/db conn)))))
 
+
+(defmethod pull-n :dictionary-multilang [_ limit]
+  (take limit (map (fn [[item]] item)
+                   (d/q '[:find (pull ?e [*])
+                          :where [?e :dictionary-multilang/id]]
+                        (d/db conn)))))
+
 (defmethod pull-n :rgl [_ limit]
   (take limit (map (fn [[item]]
                      (read-rgl-entity item))
