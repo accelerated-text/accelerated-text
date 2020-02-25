@@ -40,13 +40,18 @@
                         :roles  []
                         :frames []}))}))
 
+(defn pos->schema [pos]
+  (case pos
+    :n "NN"
+    :adv "RB"
+    :adj "JJ"
+    (name pos)))
+
 (defn multilang-dict-item->schema [{:keys [id key pos gender language senses inflections tenses] :as dict-item}]
   (log/debugf "MultilangDictItem: %s" dict-item)
   {:id            id
    :key           key
-   :pos           (case pos
-                    :n "NN"
-                    (name pos))
+   :pos           (pos->schema pos)
    :language      (name language)
    :gender        (case gender
                     :m  "M"
@@ -76,18 +81,15 @@
     (get value-map :nom-sg "")))
 
 
-(defn multilang-dict-item->original-schema [key items]
-  (let [pos (:pos (first items))
-        lang-translation {"English"    :eng
+(defn multilang-dict-item->original-schema [{:keys [key pos]} items]
+  (let [lang-translation {"English"    :eng
                           "German"     :ger
                           "Estonian"   :est
                           "Latvian"    :lat
                           "Lithuanian" :lit}]
     {:id           key
      :name         key
-     :partOfSpeech (case pos
-                     :n "NN"
-                     (name pos))
+     :partOfSpeech (pos->schema pos)
      :phrases      (map (fn [{:keys [language inflections tenses]}]
                           {:defaultUsage    "YES"
                            :id              (utils/gen-uuid)
@@ -97,4 +99,4 @@
                                               (not-empty tenses)       (get-default-tense tenses)
                                               :else "")})
                         items)}))
-  
+

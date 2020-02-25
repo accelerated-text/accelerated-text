@@ -15,7 +15,7 @@
 
 (defn dictionary [_ _ _]
   (->> (dict-entity/list-multilang-dict 100)
-       (group-by :key)
+       (group-by #(select-keys % [:key :pos]))
        (map #(apply translate-dict/multilang-dict-item->original-schema %))
        (sort-by :name)
        (translate-core/paginated-response)
@@ -127,6 +127,6 @@
     (resolve-as-not-found-dict-item (get-parent-id id))))
 
 
-(defn search-dict-multilang [_ {:keys [key sense]} _]
-  (->> (dict-entity/search-multilang-dict key (keyword sense))
+(defn search-dict-multilang [_ {:keys [key pos senses]} _]
+  (->> (dict-entity/search-multilang-dict key pos (map #(keyword %) senses))
        (map translate-dict/multilang-dict-item->schema)))
