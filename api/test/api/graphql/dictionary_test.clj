@@ -6,6 +6,29 @@
 
 (use-fixtures :each fixtures/clean-db)
 
+
+
+(deftest ^:integration query-dict-items
+  (dict-entity/create-multilang-dict-item #:acc-text.nlg.dictionary.morphology{:key "place"
+                                                                               :pos      :n
+                                                                               :language :eng
+                                                                               :gender   :m
+                                                                               :sense    :restaurant
+                                                                               :inflections {:nom-sg "place"
+                                                                                             :nom-pl "places"}})
+  (dict-entity/create-multilang-dict-item #:acc-text.nlg.dictionary.morphology{:key "place"
+                                                                               :pos      :n
+                                                                               :language :ger
+                                                                               :gender   :m
+                                                                               :sense    :restaurant
+                                                                               :inflections {:nom-sg "platz"
+                                                                                             :nom-pl "plätze"}})
+  (let [query "{dictionary{items{name partOfSpeech phrases{id text defaultUsage readerFlagUsage{id usage flag{id name}}}}}}"
+        {{{{items :items} :dictionary} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query})]
+    (is (nil? errors))
+    (is (> 0 (count items)))))
+
 #_(deftest ^:integration full-query-test
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
         {{errors :errors} :body}
