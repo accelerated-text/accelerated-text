@@ -76,6 +76,9 @@
 
 (defn initialize []
   (doall
+   (db/write! reader-flags-db "English" "YES")
+   (db/write! reader-flags-db "Estonian" "NO")
+   (db/write! reader-flags-db "German" "NO")
    (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
         (filter #(.isFile ^File %))
         (filter #(str/ends-with? (.getName %) "edn"))

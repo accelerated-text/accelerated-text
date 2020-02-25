@@ -26,11 +26,14 @@
                       :data-file/filename (:filename data-item)
                       :data-file/content  (:content data-item)}]))
 
+(defn prepare-reader-flag [flag value]
+  {:reader-flag/id    (gen-uuid)
+   :reader-flag/name  flag
+   :reader-flag/value value})
+
 (defn prepare-reader-flags [flags]
   (for [[flag value] flags]
-    {:reader-flag/id    (gen-uuid)
-     :reader-flag/name  flag
-     :reader-flag/value value}))
+    (prepare-reader-flag flag value)))
 
 (defn prepare-dictionary-item [key data-item]
   {:db/id                            [:dictionary-combined/id key]
@@ -40,9 +43,9 @@
    :dictionary-combined/phrases      (->> (:phrases data-item)
                                           (map (fn [{:keys [id text flags]}]
                                                  (remove-nil-vals
-                                                   {:phrase/id    id
-                                                    :phrase/text  text
-                                                    :phrase/flags (prepare-reader-flags flags)})))
+                                                  {:phrase/id    id
+                                                   :phrase/text  text
+                                                   :phrase/flags (prepare-reader-flags flags)})))
                                           (remove empty?))})
 
 (defmethod transact-item :dictionary-combined [_ key data-item]
@@ -113,13 +116,19 @@
                         (dissoc (prepare-multilang-dict key data-item) :db/id))])
     (catch Exception e (.printStackTrace e))))
 
+(defmethod transact-item :reader-flag [_ key value]
+  (try
+    @(d/transact conn [(remove-nil-vals
+                        (dissoc (prepare-reader-flag key value) :db/id))])
+    (catch Exception e (.printStackTrace e))))
+
 (defn prepare-rgl-syntax-params [params]
   (->> params
        (map (fn [{:keys [id type role]}]
               (remove-nil-vals
-                {:param/id   id
-                 :param/type type
-                 :param/role role})))
+               {:param/id   id
+                :param/type type
+                :param/role role})))
        (remove empty?)))
 
 (defn prepare-rgl-syntax [syntax]
