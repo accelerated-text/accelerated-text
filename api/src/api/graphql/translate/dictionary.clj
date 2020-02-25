@@ -98,5 +98,10 @@
                                               (not-empty inflections) (get-default-inflection inflections)
                                               (not-empty tenses)       (get-default-tense tenses)
                                               :else "")})
-                        items)}))
-
+                        items)
+     :concept      (when (= pos :v)
+                     (translate-concept/amr->schema
+                      {:id     "PLACEHOLDER"
+                       :label  ""
+                       :roles  []
+                       :frames []}))}))
