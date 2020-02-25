@@ -18,14 +18,14 @@
                                                      :pos      :n
                                                      :language :eng
                                                      :gender   :m
-                                                     :sense    :restaurant
+                                                     :sense    :basic
                                                      :inflections {:nom-sg "place"
                                                                    :nom-pl "places"}}
                 #:acc-text.nlg.dictionary.morphology{:key "place"
                                                      :pos      :n
                                                      :language :ger
                                                      :gender   :m
-                                                     :sense    :restaurant
+                                                     :sense    :basic
                                                      :inflections {:nom-sg "platz"
                                                                    :nom-pl "plätze"}}
                 (simple-verb "cut" :eng)

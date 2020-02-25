@@ -27,7 +27,7 @@
         {{{{items :items} :dictionary} :data errors :errors} :body}
         (q "/_graphql" :post {:query query})]
     (is (nil? errors))
-    (is (> 0 (count items)))))
+    (is (< 0 (count items)))))
 
 #_(deftest ^:integration full-query-test
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
