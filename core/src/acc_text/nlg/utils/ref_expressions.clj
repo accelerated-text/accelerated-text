@@ -20,11 +20,9 @@
   (->> (map-indexed vector tokens)
        (filter #(nlp/starts-with-capital? (second %)))
        (group-by second)
-       (vec)
        (filter filter-by-refs-count)
-       (map second)
-       (map rest)
-       (map (partial filter-last-location-token tokens))))
+       (map (comp rest second))
+       (mapcat (partial filter-last-location-token tokens))))
 
 (defn add-replace-token-en
   [[idx value]]
@@ -53,7 +51,6 @@
   (let [tokens (nlp/tokenize text)
         refs (log/spy (identify-potential-refs tokens))
         smap (->> refs
-                  (mapcat identity)
                   (map (partial add-replace-token lang))
                   (into {}))]
     (log/debugf "Smap: %s" smap)
