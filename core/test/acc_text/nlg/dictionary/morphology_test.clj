@@ -16,7 +16,7 @@
     ;;word definitions with optional parts
     (is (s/valid? ::m/word-def #::m{:key "dog"
                                     :definition "Canis lupus familiaris"
-                                    :sense [:base :other]
+                                    :sense :base
                                     :pos :n
                                     :language :eng}))))
 
