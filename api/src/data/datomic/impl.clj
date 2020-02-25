@@ -75,14 +75,14 @@
                 :tense/value  value})))
        (remove nil?)))
 
-(defn prepare-multilang-dict [id {:keys [key language pos definition inflections gender tenses senses]}]
+(defn prepare-multilang-dict [id {:keys [key language pos definition inflections gender tenses sense]}]
   {:db/id                            [:dictionary-multilang/id id]
    :dictionary-multilang/id          id
    :dictionary-multilang/key         key
    :dictionary-multilang/language    language
    :dictionary-multilang/pos         pos
    :dictionary-multilang/gender      gender
-   :dictionary-multilang/senses      senses
+   :dictionary-multilang/sense       sense
    :dictionary-multilang/tenses      (prepare-tenses tenses)
    :dictionary-multilang/inflections (prepare-inflections inflections)})
 
@@ -101,7 +101,7 @@
              :language    (:dictionary-multilang/language item)
              :pos         (:dictionary-multilang/pos item)
              :gender      (:dictionary-multilang/gender item)
-             :senses      (:dictionary-multilang/senses item)
+             :sense       (:dictionary-multilang/sense item)
              :tenses      (map read-tense (:dictionary-multilang/tenses item))
              :inflections (map read-inflection (:dictionary-multilang/inflections item))}))
 
@@ -325,15 +325,14 @@
   (log/warnf "Default implementation of SCAN for the '%s' with key '%s'" resource-type opts)
   (throw (RuntimeException. (format "DATOMIC SCAN FOR '%s' NOT IMPLEMENTED" resource-type))))
 
-(defmethod scan :dictionary-multilang [_ {:keys [key sense]}]
+(defmethod scan :dictionary-multilang [_ {:keys [key senses]}]
   (map (fn [[item]] (read-multilang-dict-item item))
        (d/q '[:find (pull ?e [*])
-              :in $  [?sense ?key]
-              :where [?s :dictionary-multilang/senses ?sense]
+              :in $  [?senses ?key]
+              :where [?s :dictionary-multilang/sense ?senses]
                      [?e :dictionary-multilang/key ?key]]
-       
        (d/db conn)
-       [sense key])))
+       [senses key])))
 
 (defmulti delete (fn [resource-type _] resource-type))
 

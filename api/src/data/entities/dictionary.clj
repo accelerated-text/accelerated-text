@@ -58,20 +58,20 @@
        (filter #(.isFile ^File %))
        (filter #(str/ends-with? (.getName %) "yaml"))))
 
-(defn create-multilang-dict-item [{::morphology/keys [key language gender pos senses tenses inflections]}]
+(defn create-multilang-dict-item [{::morphology/keys [key language gender pos sense tenses inflections]}]
   (db/write! dictionary-multilang-db (utils/gen-uuid) {:key         key
                                                        :language    language
                                                        :gender      gender
                                                        :pos         pos
-                                                       :senses      senses
+                                                       :sense       sense
                                                        :tenses      tenses
                                                        :inflections inflections}))
 
 (defn get-multidict-items [key]
   (db/read! dictionary-multilang-db key))
 
-(defn search-multilang-dict [key sense]
-  (db/scan! dictionary-multilang-db {:key key :sense sense}))
+(defn search-multilang-dict [key senses]
+  (db/scan! dictionary-multilang-db {:key key :senses senses}))
 
 (defn list-multilang-dict [limit]
   (db/list! dictionary-multilang-db limit))

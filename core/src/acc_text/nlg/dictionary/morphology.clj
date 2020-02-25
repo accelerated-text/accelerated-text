@@ -6,7 +6,7 @@
 
 (s/def ::key word?)
 
-(s/def ::sense (s/coll-of keyword? :min-count 1))
+(s/def ::sense keyword?)
 
 (s/def ::defintion string?)
 
