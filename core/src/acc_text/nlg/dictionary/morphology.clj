@@ -26,7 +26,7 @@
                                word?))
 
 (s/def ::tenses (s/map-of
-                 #{:present :imperfect :perfect :future :plu-perfect :future-perfect}
+                 #{:present :present-cont :past :imperfect :perfect :future :plu-perfect :future-perfect}
                  word?))
 
 (s/def ::word-def (s/keys :req [::key ::pos ::language]
