@@ -185,10 +185,9 @@
             "fun" (parse-fun functions))))
 
 (defn get-imports [lang]
-  (concat ["LangFunctionsEng"]
-          (for [import ["Syntax%s" "Paradigms%s" "CapableOf%s" "MadeOf%s"
-                        "HasProperty%s" "IsA%s" "HasA%s" "AtLocation%s" "LocatedNear%s"
-                        "Includes%s"]]
+  (concat ["LangFunctionsEng" "CapableOfEng" "MadeOfEng" "HasPropertyEng"
+           "IsAEng" "HasAEng" "AtLocationEng" "LocatedNearEng" "IncludesEng"]
+          (for [import ["Syntax%s" "Paradigms%s"]]
             (format import lang))))
 
 (defn ->incomplete [lang {::grammar/keys [module functions]}]
@@ -229,8 +228,8 @@
           module
           lang))
 
-(defn ->operations [{::grammar/keys [module operations]}]
-  (format "resource %sOps = open SyntaxEng, ParadigmsEng in {%s\n}"
+(defn ->operations [lang {::grammar/keys [module operations]}]
+  (format "resource %sOps = open Syntax%s, Paradigms%s in {%s\n}"
           module
           (join-body
             "oper" (for [{:keys [id kind roles body]} operations]
@@ -252,7 +251,7 @@
    (str module "Body")     (->incomplete lang grammar)
    (str module "Lex")      (->interface grammar)
    (str module "Lex" lang) (->resource lang grammar)
-   (str module "Ops")      (->operations grammar)
+   (str module "Ops")      (->operations lang grammar)
    (str module instance)   (->concrete lang grammar)})
 
 (defn translate-reader-model [lang]
