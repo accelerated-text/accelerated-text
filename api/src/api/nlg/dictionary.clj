@@ -22,6 +22,9 @@
   (filter-by-profile (get-phrases key) reader-profile))
 
 (defn get-dict-item-by-language [key]
-  (->> (dict-entity/search-multilang-dict key [:basic])
-       (map #({(:language %) %}))
-       (into {})))
+  ;; TODO: these should come from outside, don't hardcode
+  (let [pos :n
+        senses [:basic]]
+    (->> (dict-entity/search-multilang-dict key pos senses)
+         (map #({(:language %) %}))
+         (into {}))))

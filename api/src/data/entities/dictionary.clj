@@ -70,8 +70,8 @@
 (defn get-multidict-items [key]
   (db/read! dictionary-multilang-db key))
 
-(defn search-multilang-dict [key senses]
-  (db/scan! dictionary-multilang-db {:key key :senses senses}))
+(defn search-multilang-dict [key pos senses]
+  (db/scan! dictionary-multilang-db {:key key :pos pos :senses senses}))
 
 (defn list-multilang-dict [limit]
   (db/list! dictionary-multilang-db limit))
