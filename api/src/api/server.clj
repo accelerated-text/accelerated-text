@@ -86,7 +86,6 @@
      ["/accelerated-text-data-files/" {:post (fn [request]
                                                (let [{params :params} (multipart-handler request)
                                                      id (data-files/store! (get params "file"))]
-                                                 
                                                  {:status 200
                                                   :body {:message "Succesfully uploaded file" :id id}}))}]
     ["/swagger.json" {:get {:no-doc true

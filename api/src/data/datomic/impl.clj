@@ -328,11 +328,12 @@
 (defmethod scan :dictionary-multilang [_ {:keys [key senses]}]
   (map (fn [[item]] (read-multilang-dict-item item))
        (d/q '[:find (pull ?e [*])
-              :in $  [?senses ?key]
-              :where [?s :dictionary-multilang/sense ?senses]
-                     [?e :dictionary-multilang/key ?key]]
+              :in $  [?key ?senses]
+              :where [?e :dictionary-multilang/key ?key]
+                     [?e :dictionary-multilang/sense ?sense]
+                     [(contains? ?senses ?sense)]]
        (d/db conn)
-       [senses key])))
+       [key (set senses)])))
 
 (defmulti delete (fn [resource-type _] resource-type))
 
