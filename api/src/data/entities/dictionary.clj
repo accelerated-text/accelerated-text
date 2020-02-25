@@ -75,9 +75,10 @@
   (db/list! dictionary-multilang-db limit))
 
 (defn initialize []
-  (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
-       (filter #(.isFile ^File %))
-       (filter #(str/ends-with? (.getName %) "edn"))
-       (map #(edn/read-string (slurp (io/file %))))
-       (flatten)
-       (map #(create-multilang-dict-item %))))
+  (doall
+   (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
+        (filter #(.isFile ^File %))
+        (filter #(str/ends-with? (.getName %) "edn"))
+        (map #(edn/read-string (slurp (io/file %))))
+        (flatten)
+        (map #(create-multilang-dict-item %)))))
