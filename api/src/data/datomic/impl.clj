@@ -84,7 +84,8 @@
    :dictionary-multilang/gender      gender
    :dictionary-multilang/sense       sense
    :dictionary-multilang/tenses      (prepare-tenses tenses)
-   :dictionary-multilang/inflections (prepare-inflections inflections)})
+   :dictionary-multilang/inflections (prepare-inflections inflections)
+   :dictionary-multilang/definition  definition})
 
 (defn read-inflection [inflection]
   (log/debugf "Inflection: %s" inflection)
@@ -101,6 +102,7 @@
              :language    (:dictionary-multilang/language item)
              :pos         (:dictionary-multilang/pos item)
              :gender      (:dictionary-multilang/gender item)
+             :definition  (:dictionary-multilang/definition item)
              :sense       (:dictionary-multilang/sense item)
              :tenses      (map read-tense (:dictionary-multilang/tenses item))
              :inflections (map read-inflection (:dictionary-multilang/inflections item))}))

@@ -434,6 +434,11 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Gender for word"}
 
+          {:db/ident       :dictionary-multilang/definition
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Define dictionary item"}
+
           {:db/ident       :inflection/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
