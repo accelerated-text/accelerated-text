@@ -6,7 +6,7 @@
 
 (use-fixtures :each fixtures/clean-db)
 
-(deftest ^:integration full-query-test
+#_(deftest ^:integration full-query-test
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
         {{errors :errors} :body}
         (q "/_graphql" :post {:query query :variables {:name "test-phrase2", :partOfSpeech "VB"}})]
@@ -18,7 +18,7 @@
       (is (nil? errors))
       (is (seq items)))))
 
-(deftest ^:integration create-dict-item-test
+#_(deftest ^:integration create-dict-item-test
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech}}"
         {{{{:keys [name partOfSpeech]} :createDictionaryItem} :data errors :errors} :body}
         (q "/_graphql" :post {:query query :variables {:name "test-phrase2", :partOfSpeech "VB"}})]
@@ -27,7 +27,7 @@
     (is (= "VB" partOfSpeech))
     (dict-entity/delete-dictionary-item "VB-test-phrase2")))
 
-(deftest ^:integration delete-dict-item-test
+#_(deftest ^:integration delete-dict-item-test
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
         {{{{:keys [id]} :createDictionaryItem} :data errors :errors} :body}
         (q "/_graphql" :post {:query query :variables {:name "test-phrase2", :partOfSpeech "VB"}})]
@@ -41,7 +41,7 @@
       (is (true? response))
       (is (nil? (dict-entity/get-dictionary-item "VB-test-phrase"))))))
 
-(deftest ^:integration create-phrase-test
+#_(deftest ^:integration create-phrase-test
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
         {{{{:keys [id]} :createDictionaryItem} :data errors :errors} :body}
         (q "/_graphql" :post {:query query :variables {:name "test-phrase2", :partOfSpeech "VB"}})]
@@ -57,7 +57,7 @@
       (is (seq phrases))
       (is (contains? (set (map :text phrases)) "t3")))))
 
-(deftest ^:integration get-dictionary-item-test
+#_(deftest ^:integration get-dictionary-item-test
   (let [create-dictionary-item-query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
         {{{{:keys [id]} :createDictionaryItem} :data} :body}
         (q "/_graphql" :post {:query create-dictionary-item-query :variables {:name "test-phrase", :partOfSpeech "VB"}})
@@ -77,7 +77,7 @@
     (is (= (set [{:text "see"}]) (set phrases)))
     (is (some? (:id concept)))))
 
-(deftest ^:integration list-dictionary-phrases-test
+#_(deftest ^:integration list-dictionary-phrases-test
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
         {{{{:keys [id]} :createDictionaryItem} :data errors :errors} :body}
         (q "/_graphql" :post {:query query :variables {:name "test-phrase", :partOfSpeech "VB"}})
@@ -105,7 +105,7 @@
         (is (= 2 (count phrases))))
       (is (= items (sort-by :name (shuffle items)))))))
 
-(deftest ^:integration update-phrase-test
+#_(deftest ^:integration update-phrase-test
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
         {{{{:keys [id]} :createDictionaryItem} :data} :body}
         (q "/_graphql" :post {:query query :variables {:name "test-phrase", :partOfSpeech "VB"}})
@@ -124,7 +124,7 @@
     (is (nil? errors))
     (is (= "t2-updated" text))))
 
-(deftest ^:integration update-phrase-default-usage-test
+#_(deftest ^:integration update-phrase-default-usage-test
   (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
         {{{{:keys [id]} :createDictionaryItem} :data} :body}
         (q "/_graphql" :post {:query query :variables {:name "test-phrase", :partOfSpeech "VB"}})
