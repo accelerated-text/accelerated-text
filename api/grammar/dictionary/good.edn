@@ -1,18 +1,21 @@
-[#:acc-text.nlg.dictionary.morphology{:key "good"
+[#:acc-text.nlg.dictionary.morphology{:key "good_1"
                                       :pos :n
                                       :language :eng
                                       :sense    :basic
                                       :gender   :n
+                                      :definition "Good"
                                       :inflections {:nom-sg "good"}}
- #:acc-text.nlg.dictionary.morphology{:key "good"
+ #:acc-text.nlg.dictionary.morphology{:key "good_2"
                                       :pos :adj
                                       :language :eng
                                       :sense    :basic
                                       :gender   :n
+                                      :definition "Good"
                                       :inflections {:nom-sg "good"}}
- #:acc-text.nlg.dictionary.morphology{:key "good"
+ #:acc-text.nlg.dictionary.morphology{:key "good_3"
                                       :pos :adv
                                       :language :eng
                                       :sense    :basic
                                       :gender   :n
+                                      :definition "Good"
                                       :inflections {:nom-sg "good"}}]
