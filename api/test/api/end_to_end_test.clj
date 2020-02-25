@@ -2,7 +2,6 @@
   (:require [api.db-fixtures :as fixtures]
             [api.test-utils :refer [q load-test-document-plan]]
             [clojure.test :refer [deftest is use-fixtures]]
-            [data.utils :as utils]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
@@ -305,6 +304,6 @@
 
 (deftest ^:integration multilang-dict
   (let [list-results   (dictionary/list-multilang-dict 100)
-        search-results (dictionary/search-multilang-dict "place" [:basic])]
+        search-results (dictionary/search-multilang-dict "place" :n [:basic])]
     (is (= 2 (count list-results)))
     (is (= 2 (count search-results)))))

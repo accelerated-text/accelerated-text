@@ -2,7 +2,6 @@
   (:require [api.config :refer [conf]]
             [clj-yaml.core :as yaml]
             [clojure.string :as str]
-            [clojure.tools.logging :as log]
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]
@@ -76,24 +75,10 @@
 (defn list-multilang-dict [limit]
   (db/list! dictionary-multilang-db limit))
 
-(defn initialize-multilang []
+(defn initialize []
   (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
        (filter #(.isFile ^File %))
        (filter #(str/ends-with? (.getName %) "edn"))
        (map #(edn/read-string (slurp (io/file %))))
        (flatten)
        (map #(create-multilang-dict-item %))))
-
-(defn initialize []
-  (do
-    (doall (initialize-multilang))
-    (doseq [f (list-dict-files)]
-      (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
-            filename (utils/get-name f)]
-        (when-not (get-dictionary-item filename)
-          (create-dictionary-item
-           {:key          filename
-            :name         (or name filename)
-            :phrases      phrases
-            :partOfSpeech (when (some? partOfSpeech)
-                            (keyword partOfSpeech))}))))))

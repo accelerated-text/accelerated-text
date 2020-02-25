@@ -26,5 +26,5 @@
   (let [pos :n
         senses [:basic]]
     (->> (dict-entity/search-multilang-dict key pos senses)
-         (map #({(:language %) %}))
+         (map (fn [item] {(:language item) item}))
          (into {}))))
