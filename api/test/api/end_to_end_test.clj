@@ -4,8 +4,7 @@
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
-            [data.entities.dictionary :as dictionary]
-            [acc-text.nlg.dictionary.morphology :as m]))
+            [data.entities.dictionary :as dictionary]))
 
 (defn simple-verb [key lang]
   #:acc-text.nlg.dictionary.morphology{:key         key

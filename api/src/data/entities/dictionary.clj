@@ -1,6 +1,5 @@
 (ns data.entities.dictionary
   (:require [api.config :refer [conf]]
-            [clj-yaml.core :as yaml]
             [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
