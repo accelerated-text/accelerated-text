@@ -8,29 +8,33 @@
             [data.entities.dictionary :as dictionary]
             [acc-text.nlg.dictionary.morphology :as m]))
 
-(defn prepare-environment [f]
-  (doseq [item [{:key "cut" :name "cut" :phrases ["cut"] :partOfSpeech :VB}
-                {:key "see" :name "see" :phrases ["see"] :partOfSpeech :VB}
-                {:key "place" :name "place" :phrases ["arena" "place" "venue"] :partOfSpeech :NN}
-                {:key "written" :name "written" :phrases ["written"] :partOfSpeech :VB}
-                {:key "is" :name "is" :phrases ["is"] :partOfSpeech :VB}
-                {:key "release" :name "release" :phrases ["publised" "released"] :partOfSpeech :VB}]]
-    (dictionary/create-dictionary-item item))
+(defn simple-verb [key lang]
+  #:acc-text.nlg.dictionary.morphology{:key         key
+                                       :pos         :v
+                                       :language    lang
+                                       :sense       :basic
+                                       :tenses      {:present key}})
 
+(defn prepare-environment [f]
   (doseq [item [#:acc-text.nlg.dictionary.morphology{:key "place"
                                                      :pos      :n
                                                      :language :eng
                                                      :gender   :m
-                                                     :senses   [:restaurant]
+                                                     :sense    :restaurant
                                                      :inflections {:nom-sg "place"
                                                                    :nom-pl "places"}}
                 #:acc-text.nlg.dictionary.morphology{:key "place"
                                                      :pos      :n
                                                      :language :ger
                                                      :gender   :m
-                                                     :senses   [:restaurant]
+                                                     :sense    :restaurant
                                                      :inflections {:nom-sg "platz"
-                                                                   :nom-pl "plätze"}}]]
+                                                                   :nom-pl "plätze"}}
+                (simple-verb "cut" :eng)
+                (simple-verb "see" :eng)
+                (simple-verb "written" :eng)
+                (simple-verb "is" :eng)
+                (simple-verb "release" :eng)]]
     (dictionary/create-multilang-dict-item item))
   (f))
 
