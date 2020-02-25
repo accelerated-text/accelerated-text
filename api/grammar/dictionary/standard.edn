@@ -1,7 +1,14 @@
-[#:acc-text.nlg.dictionary.morphology{:key "standard"
+[#:acc-text.nlg.dictionary.morphology{:key "standard_1"
+                                      :pos :n
+                                      :language :eng
+                                      :sense    :basic
+                                      :gender   :n
+                                      :definition "Offers high standard"
+                                      :inflections {:nom-sg "standard"}}
+ #:acc-text.nlg.dictionary.morphology{:key "standard_2"
                                       :pos :adj
                                       :language :eng
                                       :sense    :basic
                                       :gender   :n
-                                      :definition "Standard"
-                                      :inflections {:nom-sg "standard"}}]
+                                      :definition "The standard rate"
+                                      :tenses {:present "standard"}}]

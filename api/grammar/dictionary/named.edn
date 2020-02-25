@@ -3,4 +3,5 @@
                                       :language :eng
                                       :sense    :basic
                                       :gender   :m
-                                      :inflections {:nom-sg "named"}}]
+                                      :tenses   {:present "name"
+                                                 :past    "named"}}]
