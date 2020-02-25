@@ -396,12 +396,12 @@
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Public Id of dictionary item"}
-          
+
           {:db/ident       :dictionary-multilang/key
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Key for word in dictionary"}
-          
+
           {:db/ident       :dictionary-multilang/pos
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
@@ -412,9 +412,9 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Language"}
 
-          {:db/ident       :dictionary-multilang/senses
+          {:db/ident       :dictionary-multilang/sense
            :db/valueType   :db.type/keyword
-           :db/cardinality :db.cardinality/many
+           :db/cardinality :db.cardinality/one
            :db/doc         "Domain for word"}
 
           {:db/ident       :dictionary-multilang/inflections
@@ -455,7 +455,7 @@
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Public Id of tense item"}
-          
+
           {:db/ident       :tense/key
            :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one

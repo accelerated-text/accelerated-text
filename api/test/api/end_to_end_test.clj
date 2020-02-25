@@ -301,6 +301,6 @@
 
 (deftest ^:integration multilang-dict
   (let [list-results   (dictionary/list-multilang-dict 100)
-        search-results (dictionary/search-multilang-dict "place" :restaurant)]
+        search-results (dictionary/search-multilang-dict "place" [:basic])]
     (is (= 2 (count list-results)))
     (is (= 2 (count search-results)))))

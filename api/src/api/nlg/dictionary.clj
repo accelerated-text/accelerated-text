@@ -22,9 +22,6 @@
   (filter-by-profile (get-phrases key) reader-profile))
 
 (defn get-dict-item-by-language [key]
-  (->> (dict-entity/search-multilang-dict
-        key
-        :restaurant ;; TODO: this domain key shouldn't be hardcoded
-        )
+  (->> (dict-entity/search-multilang-dict key [:basic])
        (map #({(:language %) %}))
        (into {})))

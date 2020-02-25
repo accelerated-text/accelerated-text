@@ -1,7 +1,7 @@
 [#:acc-text.nlg.dictionary.morphology{:key "place"
                                       :pos :n
                                       :language :eng
-                                      :senses [:restaurant]
+                                      :senses :basic
                                       :gender :m
                                       :inflections {:nom-sg "place"
                                                     :nom-pl "places"}}
@@ -9,7 +9,7 @@
  #:acc-text.nlg.dictionary.morphology{:key "place"
                                       :pos :n
                                       :language :ger
-                                      :senses [:restaurant]
+                                      :senses :basic
                                       :gender :m
                                       :inflections {:nom-sg "platz"
                                                     :nom-pl "plätze"}}]
