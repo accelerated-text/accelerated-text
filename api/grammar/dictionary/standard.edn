@@ -1,0 +1,7 @@
+[#:acc-text.nlg.dictionary.morphology{:key "standard"
+                                      :pos :adj
+                                      :language :eng
+                                      :sense    :basic
+                                      :gender   :n
+                                      :definition "Standard"
+                                      :inflections {:nom-sg "standard"}}]

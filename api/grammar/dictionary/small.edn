@@ -1,0 +1,7 @@
+[#:acc-text.nlg.dictionary.morphology{:key "small"
+                                      :pos :adv
+                                      :language :eng
+                                      :sense    :basic
+                                      :gender   :n
+                                      :definition "Small"
+                                      :inflections {:nom-sg "small"}}]

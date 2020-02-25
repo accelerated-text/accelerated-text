@@ -1,0 +1,16 @@
+[#:acc-text.nlg.dictionary.morphology{:key "author_1"
+                                      :pos :v
+                                      :language :eng
+                                      :sense    :basic
+                                      :gender   :n
+                                      :definition "this book is authored by"
+                                      :tenses {:present "author"
+                                               :past    "authored"}}
+ #:acc-text.nlg.dictionary.morphology{:key "author_2"
+                                      :pos :n
+                                      :language :eng
+                                      :sense    :basic
+                                      :gender   :m
+                                      :definition "he is the author"
+                                      :inflections {:nom-sg "author"
+                                                    :nom-pl "authors"}}]

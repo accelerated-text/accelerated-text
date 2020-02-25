@@ -1,0 +1,6 @@
+[#:acc-text.nlg.dictionary.morphology{:key "named"
+                                      :pos :adj
+                                      :language :eng
+                                      :sense    :basic
+                                      :gender   :m
+                                      :inflections {:nom-sg "named"}}]
