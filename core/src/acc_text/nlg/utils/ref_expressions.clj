@@ -11,9 +11,8 @@
   (filter (fn [[idx token]]
             (let [next-token (nth all-tokens (inc idx) "$")]
               (log/tracef "Idx: %s Token: %s Next Token: %s" idx token next-token)
-              (cond
-                (= "." next-token) false ;; If it's last word in sentence, don't create ref.
-                :else              true)))
+              ;; If it's last word in sentence, don't create ref.
+              (not (= "." next-token))))
           group))
 
 (defn identify-potential-refs
@@ -52,12 +51,12 @@
 (defn apply-ref-expressions
   [lang text]
   (let [tokens (nlp/tokenize text)
-        refs (identify-potential-refs tokens)
+        refs (log/spy (identify-potential-refs tokens))
         smap (->> refs
                   (mapcat identity)
                   (map (partial add-replace-token lang))
                   (into {}))]
-    (log/tracef "Smap: %s" smap)
+    (log/debugf "Smap: %s" smap)
     (nlp/rebuild-sentences
      (map-indexed (fn
                     [idx v]

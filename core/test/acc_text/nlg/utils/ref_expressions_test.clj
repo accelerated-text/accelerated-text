@@ -18,3 +18,11 @@
 (deftest test-dont-replace-refs-in-unsupported-languages
   (is (= "Alimentum is nice. Alimentum serves good food."
          (r/apply-ref-expressions :lat "Alimentum is nice. Alimentum serves good food."))))
+
+(deftest the-it-case
+  #_(is (= "A T1000 is shiny. It makes noise."
+         (r/apply-ref-expressions
+          :en "A T1000 is shiny. The T1000 makes noise.")))
+  #_(is (= "The T1000 is shiny. It makes noise."
+         (r/apply-ref-expressions
+          :en "The T1000 is shiny. The T1000 makes noise."))))
