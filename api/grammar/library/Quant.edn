@@ -1,6 +1,5 @@
 {:type "Quant",
  :description "quantifier ('nucleus' of Det)",
- :module "Constructors",
  :functions
  [{:function "a_Quant", :type ["Quant"], :example "a house"}
   {:function "mkQuant", :type ["Pron" "Quant"], :example "my house"}

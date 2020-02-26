@@ -1,6 +1,5 @@
 {:type "RP",
  :description "relative pronoun",
- :module "Constructors",
  :functions
  [{:function "mkRP",
    :type ["Prep" "NP" "RP" "RP"],

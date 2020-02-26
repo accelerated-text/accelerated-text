@@ -1,6 +1,5 @@
 {:type "ListNP",
  :description "",
- :module "Constructors",
  :functions
  [{:function "mkListNP",
    :type ["NP" "NP" "ListNP"],

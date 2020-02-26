@@ -1,6 +1,5 @@
 {:type "ListRS",
  :description "",
- :module "Constructors",
  :functions
  [{:function "mkListRS",
    :type ["RS" "RS" "ListRS"],

@@ -1,6 +1,5 @@
 {:type "ListAP",
  :description "",
- :module "Constructors",
  :functions
  [{:function "mkListAP",
    :type ["AP" "AP" "ListAP"],

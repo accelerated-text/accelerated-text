@@ -1,6 +1,5 @@
 {:type "Conj",
  :description "conjunction",
- :module "Constructors",
  :functions
  [{:function "and_Conj", :type ["Conj"], :example "here and now"}
   {:function "both7and_DConj",

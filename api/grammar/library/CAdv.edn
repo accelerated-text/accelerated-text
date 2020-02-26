@@ -1,6 +1,5 @@
 {:type "CAdv",
  :description "comparative adverb",
- :module "Constructors",
  :functions
  [{:function "as_CAdv", :type ["CAdv"], :example "as"}
   {:function "less_CAdv", :type ["CAdv"], :example "less"}

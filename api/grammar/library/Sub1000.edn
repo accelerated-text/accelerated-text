@@ -1,6 +1,5 @@
 {:type "Sub1000",
  :description "",
- :module "Constructors",
  :functions
  [{:function "mkSub1000", :type ["Sub100" "Sub1000"], :example "..."}
   {:function "mkSub1000",

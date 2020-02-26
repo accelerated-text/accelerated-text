@@ -1,6 +1,5 @@
 {:type "Imp",
  :description "imperative",
- :module "Constructors",
  :functions
  [{:function "mkImp", :type ["VP" "Imp"], :example "come to my house"}
   {:function "mkImp", :type ["V" "Imp"], :example "come"}

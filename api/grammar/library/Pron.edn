@@ -1,6 +1,5 @@
 {:type "Pron",
  :description "personal pronoun",
- :module "Constructors",
  :functions
  [{:function "he_Pron", :type ["Pron"], :example "he"}
   {:function "i_Pron", :type ["Pron"], :example "I"}

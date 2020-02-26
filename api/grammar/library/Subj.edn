@@ -1,6 +1,5 @@
 {:type "Subj",
  :description "subjunction",
- :module "Constructors",
  :functions
  [{:function "although_Subj",
    :type ["Subj"],

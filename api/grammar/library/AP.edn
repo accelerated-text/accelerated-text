@@ -1,6 +1,5 @@
 {:type "AP",
  :description "adjectival phrase",
- :module "Constructors",
  :functions
  [{:function "comparAP", :type ["A" "AP"], :example "warmer"}
   {:function "mkAP", :type ["A" "AP"], :example "warm"}

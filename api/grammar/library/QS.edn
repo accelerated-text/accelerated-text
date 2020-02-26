@@ -1,6 +1,5 @@
 {:type "QS",
  :description "question",
- :module "Constructors",
  :functions
  [{:function "mkQS",
    :type ["(Tense)" "(Ant)" "(Pol)" "QCl" "QS"],

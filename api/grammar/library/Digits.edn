@@ -1,6 +1,5 @@
 {:type "Digits",
  :description "cardinal or ordinal in digits",
- :module "Constructors",
  :functions
  [{:function "mkDigits",
    :type ["Str" "Digits"],
