@@ -1,4 +1,4 @@
-(ns acc-text.nlg.utils.ref-expressions
+(ns acc-text.nlp.ref-expressions
   (:require [acc-text.nlg.utils.nlp :as nlp]
             [clojure.tools.logging :as log]))
 
