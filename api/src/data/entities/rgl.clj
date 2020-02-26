@@ -23,7 +23,7 @@
   (db/write! rgl-db id entity))
 
 (defn rgl-package-path []
-  (or (System/getenv "GRAMMAR_PACKAGE") "grammar/library"))
+  (or (System/getenv "GRAMMAR_PACKAGE") "grammar/syntax"))
 
 (defn rgl-paradigms-path []
   (or (System/getenv "GRAMMAR_PARADIGMS") "grammar/paradigms"))
