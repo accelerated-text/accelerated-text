@@ -1,0 +1,83 @@
+{:type "Cl",
+ :description "declarative clause, with all tenses",
+ :functions
+ [{:function "genericCl", :type ["VP" "Cl"], :example "one sleeps"}
+  {:function "mkCl", :type ["NP" "V" "Cl"], :example "she sleeps"}
+  {:function "mkCl",
+   :type ["NP" "V2" "NP" "Cl"],
+   :example "she loves him"}
+  {:function "mkCl",
+   :type ["NP" "V3" "NP" "NP" "Cl"],
+   :example "she sends it to him"}
+  {:function "mkCl",
+   :type ["NP" "VV" "VP" "Cl"],
+   :example "she wants to sleep"}
+  {:function "mkCl",
+   :type ["NP" "VS" "S" "Cl"],
+   :example "she says that I sleep"}
+  {:function "mkCl",
+   :type ["NP" "VQ" "QS" "Cl"],
+   :example "she wonders who sleeps"}
+  {:function "mkCl",
+   :type ["NP" "VA" "A" "Cl"],
+   :example "she becomes old"}
+  {:function "mkCl",
+   :type ["NP" "VA" "AP" "Cl"],
+   :example "she becomes very old"}
+  {:function "mkCl",
+   :type ["NP" "V2A" "NP" "A" "Cl"],
+   :example "she paints it red"}
+  {:function "mkCl",
+   :type ["NP" "V2A" "NP" "AP" "Cl"],
+   :example "she paints it red"}
+  {:function "mkCl",
+   :type ["NP" "V2S" "NP" "S" "Cl"],
+   :example "she answers to him that we sleep"}
+  {:function "mkCl",
+   :type ["NP" "V2Q" "NP" "QS" "Cl"],
+   :example "she asks him who sleeps"}
+  {:function "mkCl",
+   :type ["NP" "V2V" "NP" "VP" "Cl"],
+   :example "she begs him to sleep"}
+  {:function "mkCl",
+   :type ["NP" "VPSlash" "NP" "Cl"],
+   :example "she begs him to sleep here"}
+  {:function "mkCl", :type ["NP" "A" "Cl"], :example "she is old"}
+  {:function "mkCl",
+   :type ["NP" "A" "NP" "Cl"],
+   :example "she is older than he"}
+  {:function "mkCl",
+   :type ["NP" "A2" "NP" "Cl"],
+   :example "she is married to him"}
+  {:function "mkCl",
+   :type ["NP" "AP" "Cl"],
+   :example "she is very old"}
+  {:function "mkCl",
+   :type ["NP" "NP" "Cl"],
+   :example "she is the woman"}
+  {:function "mkCl", :type ["NP" "N" "Cl"], :example "she is a woman"}
+  {:function "mkCl",
+   :type ["NP" "CN" "Cl"],
+   :example "she is an old woman"}
+  {:function "mkCl", :type ["NP" "Adv" "Cl"], :example "she is here"}
+  {:function "mkCl",
+   :type ["NP" "VP" "Cl"],
+   :example "she always sleeps"}
+  {:function "mkCl", :type ["N" "Cl"], :example "there is a house"}
+  {:function "mkCl",
+   :type ["CN" "Cl"],
+   :example "there is an old house"}
+  {:function "mkCl",
+   :type ["NP" "Cl"],
+   :example "there are many houses"}
+  {:function "mkCl",
+   :type ["NP" "RS" "Cl"],
+   :example "it is she that sleeps"}
+  {:function "mkCl",
+   :type ["Adv" "S" "Cl"],
+   :example "it is here that she sleeps"}
+  {:function "mkCl", :type ["V" "Cl"], :example "it rains"}
+  {:function "mkCl", :type ["VP" "Cl"], :example "it is raining"}
+  {:function "mkCl",
+   :type ["SC" "VP" "Cl"],
+   :example "that she sleeps is good"}]}

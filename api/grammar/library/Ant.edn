@@ -1,6 +1,0 @@
-{:type "Ant",
- :description "anteriority",
- :module "SyntaxEng",
- :functions
- [{:function "anteriorAnt", :type ["Ant"], :example "she has slept"}
-  {:function "simultaneousAnt", :type ["Ant"], :example "she sleeps"}]}

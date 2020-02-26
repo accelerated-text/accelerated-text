@@ -23,7 +23,7 @@
 
 (s/def :acc-text.nlg.semantic-graph.concept/type
   #{:document-plan :segment :data :quote :dictionary-item :amr :shuffle :sequence :condition :if-statement
-    :default-statement :comparator :boolean :variable :reference :modifier})
+    :default-statement :comparator :boolean :variable :reference :modifier :constant})
 
 (s/def ::concepts
   (s/coll-of

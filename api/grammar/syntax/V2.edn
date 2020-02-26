@@ -1,0 +1,4 @@
+{:type "V2",
+ :description "two-place verb",
+ :functions
+ [{:function "have_V2", :type ["V2"], :example "to have it"}]}

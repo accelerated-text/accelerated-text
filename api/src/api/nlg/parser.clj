@@ -4,6 +4,8 @@
             [clojure.spec.alpha :as s]
             [clojure.zip :as zip]))
 
+(def constants #{"*Description" "*Language"})
+
 (defmulti build-semantic-graph (fn [node _] (-> node (get :type) (keyword))))
 
 (defmethod build-semantic-graph :default [{:keys [id type]} _]
@@ -200,14 +202,15 @@
                      :role :definition}]})
 
 (defmethod build-semantic-graph :Get-var [{id :id var-id :name} {variables :vars variable-names :var-names}]
-  #::sg{:concepts  [{:id         id
-                     :type       :reference
-                     :attributes {:name (get variable-names var-id)}}]
-        :relations (map (fn [var-id]
-                          {:from id
-                           :to   var-id
-                           :role :pointer})
-                        (get variables var-id))})
+  (let [name (get variable-names var-id)]
+    #::sg{:concepts  [{:id         id
+                       :type       (if (contains? constants name) :constant :reference)
+                       :attributes {:name name}}]
+          :relations (map (fn [var-id]
+                            {:from id
+                             :to   var-id
+                             :role :pointer})
+                          (get variables var-id))}))
 
 (defn make-node [{type :type :as node} children]
   (case (keyword type)

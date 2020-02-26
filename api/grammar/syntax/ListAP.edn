@@ -1,0 +1,9 @@
+{:type "ListAP",
+ :description "",
+ :functions
+ [{:function "mkListAP",
+   :type ["AP" "AP" "ListAP"],
+   :example "list of two"}
+  {:function "mkListAP",
+   :type ["AP" "ListAP" "ListAP"],
+   :example "list of more"}]}
