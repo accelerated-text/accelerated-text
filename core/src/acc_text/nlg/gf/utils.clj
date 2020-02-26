@@ -33,4 +33,3 @@
 (defn spit-rgl-functions [fns output-path]
   (doseq [{type :type :as f} fns]
     (spit (format (str output-path "/%s.edn") type) (with-out-str (pprint f)))))
-
