@@ -38,9 +38,10 @@
 (defn translate-lang [l]
   (case l
     :en "Eng"
-    :de "Ger"
     :ee "Est"
-    :lv "Lat"))
+    :de "Ger"
+    :lv "Lav"
+    :ru "Rus"))
 
 (defmethod evaluate-predicate :comparator [{operator :value :as concept} semantic-graph data]
   (let [child-concepts (sg-utils/get-children semantic-graph concept)]

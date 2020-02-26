@@ -255,9 +255,10 @@
 (defn translate-reader-model [lang]
   (case lang
     :en "Eng"
-    :de "Ger"
     :ee "Est"
-    :lv "Lat"))
+    :de "Ger"
+    :lv "Lav"
+    :ru "Rus"))
 
 (defn generate
   ([grammar]
