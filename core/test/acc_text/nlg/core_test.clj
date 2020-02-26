@@ -2,7 +2,7 @@
   (:require [acc-text.nlg.core :as core]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.test-utils :as test-utils]
-            [clojure.test :refer [deftest is]]))
+            [clojure.test :refer [deftest is are]]))
 
 (deftest context-selection
   (let [context {:amr {"nMMpkQyRnXGQPcZT" {:id             "nMMpkQyRnXGQPcZT"
@@ -86,3 +86,13 @@
                                                                           :from       :14
                                                                           :role       :ARG0
                                                                           :to         :15})}}}}))))
+
+(deftest multi-language-generation
+  (let [semantic-graph (test-utils/load-test-semantic-graph "language-test")
+        context (test-utils/load-test-context "language-test")]
+    (are [lang result] (= result (map :text (core/generate-text semantic-graph context lang)))
+                       :en ["There is a text."]
+                       :ee ["On olemas text."]
+                       :de ["Es gibt einen text."]
+                       :lv ["Ir text."]
+                       :ru ["Существует text."])))
