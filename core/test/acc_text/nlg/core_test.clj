@@ -87,7 +87,7 @@
                                                                           :role       :ARG0
                                                                           :to         :15})}}}}))))
 
-(deftest multi-language-generation
+(deftest ^:integration multi-language-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "language-test")
         context (test-utils/load-test-context "language-test")]
     (are [lang result] (= result (map :text (core/generate-text semantic-graph context lang)))
