@@ -47,6 +47,7 @@
     :adj "JJ"
     :v   "VB"
     :v2  "VB"
+    :sconj "IN"
     (name pos)))
 
 (defn multilang-dict-item->schema [{:keys [id key pos gender language senses inflections tenses] :as dict-item}]

@@ -1,0 +1,7 @@
+[#:acc-text.nlg.dictionary.morphology{:key "near"
+                                      :pos :sconj
+                                      :language :eng
+                                      :sense    :basic
+                                      :gender   :n
+                                      :definition "It is near KFC"
+                                      :inflections {:nom-sg "near"}}]
