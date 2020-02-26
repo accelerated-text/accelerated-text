@@ -184,19 +184,14 @@
             "cat" (parse-cat flags functions)
             "fun" (parse-fun functions))))
 
-(defn get-imports [lang]
-  (concat ["LangFunctionsEng" "CapableOfEng" "MadeOfEng" "HasPropertyEng"
-           "IsAEng" "HasAEng" "AtLocationEng" "LocatedNearEng" "IncludesEng"]
-          (for [import ["Syntax%s" "Paradigms%s"]]
-            (format import lang))))
-
 (defn ->incomplete [lang {::grammar/keys [module functions]}]
-  (format "incomplete concrete %sBody of %s = open %sLex, %sOps, %s in {%s\n}"
+  (format "incomplete concrete %sBody of %s = open Constructors, %sLex, %sOps, %s in {%s\n}"
           module
           module
           module
           module
-          (str/join ", " (get-imports lang))
+          (str/join ", " ["LangFunctionsEng" "CapableOfEng" "MadeOfEng" "HasPropertyEng"
+                          "IsAEng" "HasAEng" "AtLocationEng" "LocatedNearEng" "IncludesEng"])
           (join-body
             "param" (parse-param functions)
             "lincat" (parse-lincat functions)
@@ -209,9 +204,8 @@
             "oper" (parse-oper (map #(dissoc % :value) variables)))))
 
 (defn ->resource [lang {::grammar/keys [module variables]}]
-  (format "resource %sLex%s = open Syntax%s, Paradigms%s, BaseDictionary%s in {%s\n}"
+  (format "resource %sLex%s = open Syntax%s, Paradigms%s, BaseDictionaryEng in {%s\n}"
           module
-          lang
           lang
           lang
           lang
@@ -219,18 +213,22 @@
             "oper" (parse-oper variables))))
 
 (defn ->concrete [lang {::grammar/keys [instance module]}]
-  (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s);"
+  (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s),\n  (Constructors=Constructors%s);"
           module
           instance
           module
           module
           module
           module
+          lang
           lang))
 
 (defn ->operations [lang {::grammar/keys [module operations]}]
-  (format "resource %sOps = open Syntax%s, Paradigms%s in {%s\n}"
+  (format "resource %sOps = open (Constructors=Constructors%s), Syntax%s, Paradigms%s in {%s\n}"
           module
+          lang
+          lang
+          lang
           (join-body
             "oper" (for [{:keys [id kind roles body]} operations]
                      (if (seq roles)
