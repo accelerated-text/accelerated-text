@@ -1,6 +1,6 @@
 {:type "ListS",
  :description "",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "mkListS",
    :type ["S" "S" "ListS"],

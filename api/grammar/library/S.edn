@@ -1,6 +1,6 @@
 {:type "S",
  :description "declarative sentence",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "mkS",
    :type ["(Tense)" "(Ant)" "(Pol)" "Cl" "S"],

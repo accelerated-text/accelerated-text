@@ -1,6 +1,6 @@
 {:type "RS",
  :description "relative",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "mkRS",
    :type ["(Tense)" "(Ant)" "(Pol)" "RCl" "RS"],

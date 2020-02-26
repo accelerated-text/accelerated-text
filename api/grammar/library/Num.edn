@@ -1,6 +1,6 @@
 {:type "Num",
  :description "number determining element",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "mkNum",
    :type ["Str" "Num"],

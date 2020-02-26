@@ -1,6 +1,6 @@
 {:type "Punct",
  :description "",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "exclMarkPunct", :type ["Punct"], :example "yes!"}
   {:function "fullStopPunct", :type ["Punct"], :example "yes."}

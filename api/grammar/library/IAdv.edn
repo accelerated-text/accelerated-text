@@ -1,6 +1,6 @@
 {:type "IAdv",
  :description "interrogative adverb",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "how8much_IAdv", :type ["IAdv"], :example "how much"}
   {:function "how_IAdv", :type ["IAdv"], :example "how"}

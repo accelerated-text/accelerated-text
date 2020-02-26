@@ -1,6 +1,6 @@
 {:type "ImpForm",
  :description "",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "pluralImpForm", :type ["ImpForm"], :example "be men"}
   {:function "politeImpForm", :type ["ImpForm"], :example "be a man"}

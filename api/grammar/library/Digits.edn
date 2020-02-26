@@ -1,6 +1,6 @@
 {:type "Digits",
  :description "cardinal or ordinal in digits",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "mkDigits",
    :type ["Str" "Digits"],

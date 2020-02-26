@@ -1,6 +1,6 @@
 {:type "IComp",
  :description "interrogative complement of copula",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "mkIComp",
    :type ["IAdv" "IComp"],

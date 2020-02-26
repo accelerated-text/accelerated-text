@@ -1,6 +1,6 @@
 {:type "SSlash",
  :description "",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "mkSSlash",
    :type ["Temp" "Pol" "ClSlash" "SSlash"],

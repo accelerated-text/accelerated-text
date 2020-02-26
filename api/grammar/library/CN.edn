@@ -1,6 +1,6 @@
 {:type "CN",
  :description "common noun (without determiner)",
- :module "SyntaxEng",
+ :module "Constructors",
  :functions
  [{:function "mkCN", :type ["N" "CN"], :example "house"}
   {:function "mkCN",
