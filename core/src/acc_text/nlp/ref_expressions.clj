@@ -1,6 +1,7 @@
 (ns acc-text.nlp.ref-expressions
   (:require [acc-text.nlg.utils.nlp :as nlp]
-            [clojure.tools.logging :as log]))
+            [clojure.tools.logging :as log]
+            [clojure.string :as string]))
 
 (defn filter-by-refs-count
   [[_ refs]]
@@ -15,36 +16,27 @@
               (not (= "." next-token))))
           group))
 
+(defn referent? [token] (nlp/starts-with-capital? token))
+
 (defn identify-potential-refs
   [tokens]
   (->> (map-indexed vector tokens)
-       (filter #(nlp/starts-with-capital? (second %)))
+       (filter #(referent? (second %)))
        (group-by second)
        (filter filter-by-refs-count)
        (map (comp rest second))
        (mapcat (partial filter-last-location-token tokens))))
 
-(defn add-replace-token-en
-  [[idx value]]
-  (cond
-    (nlp/ends-with-s? value) [idx "its"]
-    :else                    [idx "it"]))
+(defmulti add-replace-token (fn [lang _] lang))
 
-(defn add-replace-token-ee
-  [[idx _]]
-  [idx "see"])
+(defmethod add-replace-token :en [_ [idx value]]
+  (if (nlp/ends-with-s? value) [idx "its"] [idx "it"]))
 
-(defn add-replace-token-de
-  [[idx _]]
-  [idx "es"])
+(defmethod add-replace-token :ee [_ [idx _]] [idx "see"])
 
-(defn add-replace-token
-  [lang args]
-  (case lang
-    :en (add-replace-token-en args)
-    :de (add-replace-token-de args)
-    :ee (add-replace-token-ee args)
-    nil))
+(defmethod add-replace-token :de [_ [idx _]] [idx "es"])
+
+(defmethod add-replace-token :default [_ _] nil)
 
 (defn apply-ref-expressions
   [lang text]
