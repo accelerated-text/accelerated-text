@@ -64,7 +64,7 @@ export default Block({
             conceptId:          this.conceptId,
             kind:               this.kind,
             roles: this.roles.map( role => ({
-                name:           role.id,
+                name:           role.fieldType.slice(-1)[0],
                 label:          role.fieldLabel,
                 children:       [ json[role.id] ],
             })),

@@ -12,9 +12,9 @@
     (is (= "author" id))
     (is (= "author" label))
     (is (= "X is the author of Y\n\nY is written by X" helpText))
-    (is (= [{:id "lexicon" :fieldLabel "lexicon" :fieldType ["Str" "List" "lexicon"]}
-            {:id "Agent" :fieldLabel "Agent" :fieldType ["Str" "List" "Agent"]}
-            {:id "co-Agent" :fieldLabel "co-Agent" :fieldType ["Str" "List" "co-Agent"]}] roles))))
+    (is (= [{:fieldLabel "lexicon" :fieldType ["List" "Str" "lexicon"]}
+            {:fieldLabel "Agent" :fieldType ["List" "Str" "Agent"]}
+            {:fieldLabel "co-Agent" :fieldType ["List" "Str" "co-Agent"]}] (map #(dissoc % :id) roles)))))
 
 (deftest ^:integration get-concepts
   (let [query "{concepts{id concepts{id label roles{id fieldType fieldLabel} helpText}}}"

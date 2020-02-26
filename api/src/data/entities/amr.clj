@@ -33,8 +33,8 @@
                                (conj vars name)
                                (cond-> roles
                                        (nil? (get vars name)) (conj {:id    (format "ARG%d" index)
-                                                                     :type  (get relation-names id)
-                                                                     :label name})))))))}))
+                                                                     :label name
+                                                                     :type  (get relation-names id)})))))))}))
 
 (defn read-amr [id content]
   (let [{:keys [roles kind frames]} (yaml/parse-string content)]
