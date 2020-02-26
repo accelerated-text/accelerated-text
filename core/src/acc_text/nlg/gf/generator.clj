@@ -184,7 +184,7 @@
             "cat" (parse-cat flags functions)
             "fun" (parse-fun functions))))
 
-(defn ->incomplete [lang {::grammar/keys [module functions]}]
+(defn ->incomplete [{::grammar/keys [module functions]}]
   (format "incomplete concrete %sBody of %s = open Constructors, %sLex, %sOps, %s in {%s\n}"
           module
           module
@@ -246,7 +246,7 @@
 
 (defn grammar->content [lang {::grammar/keys [module instance] :as grammar}]
   {(str module)            (->abstract grammar)
-   (str module "Body")     (->incomplete lang grammar)
+   (str module "Body")     (->incomplete grammar)
    (str module "Lex")      (->interface grammar)
    (str module "Lex" lang) (->resource lang grammar)
    (str module "Ops")      (->operations lang grammar)
