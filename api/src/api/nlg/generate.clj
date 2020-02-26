@@ -133,7 +133,7 @@
                     :de "🇩🇪"
                     :ee "🇪🇪"
                     :lv "🇱🇻"
-                    :ru "\uD83C\uDDF7\uD83C\uDDFA"
+                    :ru "🇷🇺"
                     "🏳️") text))
 
 (defn transform-results
