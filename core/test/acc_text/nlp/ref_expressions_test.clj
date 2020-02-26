@@ -1,7 +1,7 @@
 (ns acc-text.nlp.ref-expressions-test
   (:require [clojure.test :refer [deftest is]]
             [acc-text.nlp.ref-expressions :as r]
-            [acc-text.nlg.utils.nlp :as nlp]))
+            [acc-text.nlp.utils :as nlp]))
 
 
 (deftest test-identify-refs

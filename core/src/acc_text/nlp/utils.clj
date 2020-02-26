@@ -1,6 +1,5 @@
-(ns acc-text.nlg.utils.nlp
-  (:require [clojure.string :as str]
-            [clojure.string :as string]))
+(ns acc-text.nlp.utils
+  (:require [clojure.string :as str]))
 
 (defn split-into-sentences [s]
   (str/split s #"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"))
@@ -33,7 +32,6 @@
     (wrap-sentence
      (capitalize-first-word s))
     ""))
-
 
 (defn clean-whitespace-before-punct
   [text]

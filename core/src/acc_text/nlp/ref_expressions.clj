@@ -1,5 +1,5 @@
 (ns acc-text.nlp.ref-expressions
-  (:require [acc-text.nlg.utils.nlp :as nlp]
+  (:require [acc-text.nlp.utils :as nlp]
             [clojure.tools.logging :as log]))
 
 (defn filter-by-refs-count [[_ refs]] (>= (count refs) 2))
