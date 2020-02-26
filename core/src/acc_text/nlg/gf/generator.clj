@@ -185,7 +185,7 @@
             "fun" (parse-fun functions))))
 
 (defn ->incomplete [{::grammar/keys [module functions]}]
-  (format "incomplete concrete %sBody of %s = open Constructors, %sLex, %sOps, %s in {%s\n}"
+  (format "incomplete concrete %sBody of %s = open Syntax, %sLex, %sOps, %s in {%s\n}"
           module
           module
           module
@@ -213,21 +213,19 @@
             "oper" (parse-oper variables))))
 
 (defn ->concrete [lang {::grammar/keys [instance module]}]
-  (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s),\n  (Constructors=Constructors%s),\n  (Syntax=Syntax%s);"
+  (format "concrete %s%s of %s = %sBody with \n  (Syntax=Syntax%s),\n  (%sLex = %sLex%s);"
           module
           instance
           module
           module
+          lang
           module
           module
-          lang
-          lang
           lang))
 
 (defn ->operations [lang {::grammar/keys [module operations]}]
-  (format "resource %sOps = open (Constructors=Constructors%s), Syntax%s, Paradigms%s in {%s\n}"
+  (format "resource %sOps = open Syntax%s, Paradigms%s in {%s\n}"
           module
-          lang
           lang
           lang
           (join-body

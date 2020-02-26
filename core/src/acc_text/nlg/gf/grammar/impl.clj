@@ -231,9 +231,10 @@
 (defmethod build-operation :amr [concept concept-map relation-map role-map rgl-ops]
   (let [{:keys [module label kind]} (get rgl-ops (:value concept))]
     {:type     :operation
-     :value    (if (and (some? module) (some? label))
-                 (format "%s.%s" module label)
-                 (:value concept))
+     :value    (cond
+                 (and (some? module) (some? label)) (str module "." label)
+                 (some? label) label
+                 :else (:value concept))
      :kind     (or kind "Text")
      :children (map #(build-operation % concept-map relation-map role-map rgl-ops)
                     (get-children (:id concept) concept-map relation-map))}))

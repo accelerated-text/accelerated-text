@@ -25,7 +25,7 @@
               (let [[{:keys [type description]}] instances]
                 {:type        type
                  :description description
-                 :module      "Constructors"
+                 :module      "Syntax"
                  :functions   (into [] (mapcat :functions instances))})))
        (sort-by :type)
        (into [])))
