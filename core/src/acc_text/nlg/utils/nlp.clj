@@ -1,5 +1,6 @@
 (ns acc-text.nlg.utils.nlp
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [clojure.string :as string]))
 
 (defn split-into-sentences [s]
   (str/split s #"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"))
@@ -39,7 +40,9 @@
   (str/replace text #"\s(?:[.,!:?])" #(str/trim %1)))
 
 (defn rebuild-sentences [tokens]
-  (->> (str/join " "  tokens)
+  (->> tokens
+       (remove str/blank?)
+       (str/join " " )
        (split-into-sentences)
        (map clean-whitespace-before-punct)
        (map str/trim)

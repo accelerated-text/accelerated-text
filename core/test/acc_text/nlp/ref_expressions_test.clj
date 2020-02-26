@@ -19,10 +19,6 @@
   (is (= "Alimentum is nice. Alimentum serves good food."
          (r/apply-ref-expressions :lat "Alimentum is nice. Alimentum serves good food."))))
 
-;; (deftest the-it-case
-;;   (is (= "A T1000 is shiny. It makes noise."
-;;          (r/apply-ref-expressions
-;;           :en "A T1000 is shiny. The T1000 makes noise.")))
-;;   (is (= "The T1000 is shiny. It makes noise."
-;;          (r/apply-ref-expressions
-;;           :en "The T1000 is shiny. The T1000 makes noise."))))
+(deftest the-it-case
+  (is (= "The T1000 is shiny. It makes noise."
+         (r/apply-ref-expressions :en "The T1000 is shiny. The T1000 makes noise."))))

@@ -1,11 +1,8 @@
 (ns acc-text.nlp.ref-expressions
   (:require [acc-text.nlg.utils.nlp :as nlp]
-            [clojure.tools.logging :as log]
-            [clojure.string :as string]))
+            [clojure.tools.logging :as log]))
 
-(defn filter-by-refs-count
-  [[_ refs]]
-  (>= (count refs) 2))
+(defn filter-by-refs-count [[_ refs]] (>= (count refs) 2))
 
 (defn filter-last-location-token
   [all-tokens group]
@@ -38,18 +35,31 @@
 
 (defmethod add-replace-token :default [_ _] nil)
 
+(defn check-for-dupes
+  "If we have replacement tokens which are exact same in a row [it, it] then mark the next one
+  for deletion"
+  [replace-tokens]
+  (if (= 1 (count replace-tokens))
+    replace-tokens
+    (loop [[[_ token1 :as t1] [idx2 token2 :as t2] & tokens] replace-tokens
+           deduped []]
+      (if (empty? t2)
+        (concat deduped [t1])
+        (if (= token1 token2)
+          (recur tokens (concat deduped [t1 [idx2 :delete]]))
+          (recur tokens deduped))))))
+
 (defn apply-ref-expressions
   [lang text]
   (let [tokens (nlp/tokenize text)
-        refs (log/spy (identify-potential-refs tokens))
-        smap (->> refs
+        smap (->> tokens
+                  (identify-potential-refs)
                   (map (partial add-replace-token lang))
+                  (check-for-dupes)
                   (into {}))]
-    (log/debugf "Smap: %s" smap)
     (nlp/rebuild-sentences
-     (map-indexed (fn
-                    [idx v]
-                    (if (contains? smap idx)
-                      (get smap idx)
-                      v))
+     (map-indexed (fn [idx v]
+                    (cond (= :delete (get smap idx)) ""
+                          (contains? smap idx) (get smap idx)
+                          :else v))
                   tokens))))
