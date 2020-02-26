@@ -213,13 +213,14 @@
             "oper" (parse-oper variables))))
 
 (defn ->concrete [lang {::grammar/keys [instance module]}]
-  (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s),\n  (Constructors=Constructors%s);"
+  (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s),\n  (Constructors=Constructors%s),\n  (Syntax=Syntax%s);"
           module
           instance
           module
           module
           module
           module
+          lang
           lang
           lang))
 
