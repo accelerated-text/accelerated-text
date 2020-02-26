@@ -1,6 +1,6 @@
 (ns api.nlg.generate
   (:require [acc-text.nlg.core :as nlg]
-            [acc-text.nlg.utils.ref-expressions :as ref-expr]
+            [acc-text.nlp.ref-expressions :as ref-expr]
             [api.nlg.context :as context]
             [api.nlg.parser :as parser]
             [api.utils :as utils]
