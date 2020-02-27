@@ -184,20 +184,14 @@
             "cat" (parse-cat flags functions)
             "fun" (parse-fun functions))))
 
-(defn get-imports [lang]
-  (concat ["LangFunctionsEng"]
-          (for [import ["Syntax%s" "Paradigms%s" "CapableOf%s" "MadeOf%s"
-                        "HasProperty%s" "IsA%s" "HasA%s" "AtLocation%s" "LocatedNear%s"
-                        "Includes%s"]]
-            (format import lang))))
-
-(defn ->incomplete [lang {::grammar/keys [module functions]}]
-  (format "incomplete concrete %sBody of %s = open %sLex, %sOps, %s in {%s\n}"
+(defn ->incomplete [{::grammar/keys [module functions]}]
+  (format "incomplete concrete %sBody of %s = open Syntax, %sLex, %sOps, %s in {%s\n}"
           module
           module
           module
           module
-          (str/join ", " (get-imports lang))
+          (str/join ", " ["LangFunctionsEng" "CapableOfEng" "MadeOfEng" "HasPropertyEng"
+                          "IsAEng" "HasAEng" "AtLocationEng" "LocatedNearEng" "IncludesEng"])
           (join-body
             "param" (parse-param functions)
             "lincat" (parse-lincat functions)
@@ -210,9 +204,8 @@
             "oper" (parse-oper (map #(dissoc % :value) variables)))))
 
 (defn ->resource [lang {::grammar/keys [module variables]}]
-  (format "resource %sLex%s = open Syntax%s, Paradigms%s, BaseDictionary%s in {%s\n}"
+  (format "resource %sLex%s = open Syntax%s, Paradigms%s, BaseDictionaryEng in {%s\n}"
           module
-          lang
           lang
           lang
           lang
@@ -220,18 +213,21 @@
             "oper" (parse-oper variables))))
 
 (defn ->concrete [lang {::grammar/keys [instance module]}]
-  (format "concrete %s%s of %s = %sBody with \n  (%sLex = %sLex%s);"
+  (format "concrete %s%s of %s = %sBody with \n  (Syntax=Syntax%s),\n  (%sLex = %sLex%s);"
           module
           instance
           module
           module
+          lang
           module
           module
           lang))
 
-(defn ->operations [{::grammar/keys [module operations]}]
-  (format "resource %sOps = open SyntaxEng, ParadigmsEng in {%s\n}"
+(defn ->operations [lang {::grammar/keys [module operations]}]
+  (format "resource %sOps = open Syntax%s, Paradigms%s in {%s\n}"
           module
+          lang
+          lang
           (join-body
             "oper" (for [{:keys [id kind roles body]} operations]
                      (if (seq roles)
@@ -249,18 +245,19 @@
 
 (defn grammar->content [lang {::grammar/keys [module instance] :as grammar}]
   {(str module)            (->abstract grammar)
-   (str module "Body")     (->incomplete lang grammar)
+   (str module "Body")     (->incomplete grammar)
    (str module "Lex")      (->interface grammar)
    (str module "Lex" lang) (->resource lang grammar)
-   (str module "Ops")      (->operations grammar)
+   (str module "Ops")      (->operations lang grammar)
    (str module instance)   (->concrete lang grammar)})
 
 (defn translate-reader-model [lang]
   (case lang
     :en "Eng"
-    :de "Ger"
     :ee "Est"
-    :lv "Lat"))
+    :de "Ger"
+    :lv "Lav"
+    :ru "Rus"))
 
 (defn generate
   ([grammar]

@@ -1,0 +1,9 @@
+{:type "ListS",
+ :description "",
+ :functions
+ [{:function "mkListS",
+   :type ["S" "S" "ListS"],
+   :example "list of two"}
+  {:function "mkListS",
+   :type ["S" "ListS" "ListS"],
+   :example "list of more"}]}

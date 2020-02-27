@@ -1,0 +1,9 @@
+{:type "VV",
+ :description "verb-phrase-complement verb",
+ :functions
+ [{:function "can8know_VV",
+   :type ["VV"],
+   :example "to be able to sleep"}
+  {:function "can_VV", :type ["VV"], :example "to be able to sleep"}
+  {:function "must_VV", :type ["VV"], :example "have to"}
+  {:function "want_VV", :type ["VV"], :example "to want to sleep"}]}

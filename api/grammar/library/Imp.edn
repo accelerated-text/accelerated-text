@@ -1,7 +1,0 @@
-{:type "Imp",
- :description "imperative",
- :module "SyntaxEng",
- :functions
- [{:function "mkImp", :type ["VP" "Imp"], :example "come to my house"}
-  {:function "mkImp", :type ["V" "Imp"], :example "come"}
-  {:function "mkImp", :type ["V2" "NP" "Imp"], :example "buy it"}]}

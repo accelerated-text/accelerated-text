@@ -1,0 +1,6 @@
+{:type "SC",
+ :description "embedded sentence or question",
+ :functions
+ [{:function "mkSC", :type ["S" "SC"], :example "that she sleeps"}
+  {:function "mkSC", :type ["QS" "SC"], :example "who sleeps"}
+  {:function "mkSC", :type ["VP" "SC"], :example "to sleep"}]}

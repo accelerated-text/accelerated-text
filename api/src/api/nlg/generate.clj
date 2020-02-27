@@ -1,6 +1,6 @@
 (ns api.nlg.generate
   (:require [acc-text.nlg.core :as nlg]
-            [acc-text.nlg.utils.ref-expressions :as ref-expr]
+            [acc-text.nlp.ref-expressions :as ref-expr]
             [api.nlg.context :as context]
             [api.nlg.parser :as parser]
             [api.utils :as utils]
@@ -60,11 +60,12 @@
 (defn generate-text
   ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
   ([document-plan data reader-model enrich]
-   (let [languages      (cond-> []
-                          (get reader-model "English"  false)    (conj :en)
-                          (get reader-model "German"   false)    (conj :de)
-                          (get reader-model "Estonian" false)    (conj :ee)
-                          (get reader-model "Latvian"  false)    (conj :lv))
+   (let [languages (cond-> []
+                           (get reader-model "English" false) (conj :en)
+                           (get reader-model "Estonian" false) (conj :ee)
+                           (get reader-model "German" false) (conj :de)
+                           (get reader-model "Latvian" false) (conj :lv)
+                           (get reader-model "Russian" false) (conj :ru))
          semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)
          generate-fn (partial generate-text-for-language semantic-graph (assoc context :data data) enrich)]
@@ -112,19 +113,19 @@
           :references  []
           :children    [{:type     "PARAGRAPH"
                          :id       (utils/gen-uuid)
-                         :children [{:type "SENTENCE"
-                                     :id   (utils/gen-uuid)
+                         :children [{:type     "SENTENCE"
+                                     :id       (utils/gen-uuid)
                                      :children [{:type "WORD"
                                                  :id   (utils/gen-uuid)
                                                  :text r}]}]
                          ;; TODO: This was the logic:
                          ;; (for [sentence (nlp/split-into-sentences r)]
-                                   ;;   {:type     "SENTENCE"
-                                   ;;    :id       (utils/gen-uuid)
-                                   ;;    :children (for [token (nlp/tokenize sentence)]
-                                   ;;                {:type (nlp/token-type token)
-                                   ;;                 :id   (utils/gen-uuid)
-                                   ;;                 :text token})})
+                         ;;   {:type     "SENTENCE"
+                         ;;    :id       (utils/gen-uuid)
+                         ;;    :children (for [token (nlp/tokenize sentence)]
+                         ;;                {:type (nlp/token-type token)
+                         ;;                 :id   (utils/gen-uuid)
+                         ;;                 :text token})})
                          }]})
        results))
 
@@ -136,6 +137,7 @@
                     :de "🇩🇪"
                     :ee "🇪🇪"
                     :lv "🇱🇻"
+                    :ru "🇷🇺"
                     "🏳️") text))
 
 (defn transform-results
@@ -149,7 +151,7 @@
 (defn annotated-text-format [results]
   (->> results
        (map second)
-       (flatten) ;; Don't care about any bulk keys at the moment
+       (flatten)                                            ;; Don't care about any bulk keys at the moment
        (transform-results)
        (wrap-to-annotated-text)))
 
@@ -165,11 +167,11 @@
 
 
 (def dummy-response
-  {:ready true
+  {:ready   true
    :results [[:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence one . Test sentence Two .") :lang :lv}]]
              [:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence 12.3 one . Test sentence Two .")
                        :enriched (ref-expr/apply-ref-expressions :en "Test sentence one. Test sentence Two. Test sentence four. A very very long fith sentence test goes here. Test sentence six.")
-                       :lang :de}]]]})
+                       :lang     :de}]]]})
 
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)
@@ -181,7 +183,7 @@
       (if-let [{:keys [results ready updatedAt]} (results/fetch request-id)]
         {:status 200
          :body   {:offset     0
-                  :totalCount (count (flatten results)) ;; Each key has N results. So flatten and count total
+                  :totalCount (count (flatten results))     ;; Each key has N results. So flatten and count total
                   :ready      ready
                   :updatedAt  updatedAt
                   :variants   (format-fn results)}}
