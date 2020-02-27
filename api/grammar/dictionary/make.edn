@@ -1,6 +1,6 @@
 [#:acc-text.nlg.dictionary.morphology{:key "make"
                                       :pos :v
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :n
                                       :definition "Made in UK"

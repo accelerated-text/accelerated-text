@@ -16,9 +16,7 @@
 
 (s/def ::gender #{:f :m :n})
 
-(s/def ::language #{:bul :cat :chi :dut :eng :est
-                    :fin :fra :ger :ita :lat :lit
-                    :por :slv :spa :swe :tha :tur})
+(s/def ::language #{:en :de :ee :lt :lv})
 
 (s/def ::inflection-variants #{:nom-sg :nom-pl :gen-sg :gen-pl})
 

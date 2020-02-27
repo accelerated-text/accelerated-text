@@ -1,6 +1,6 @@
 [#:acc-text.nlg.dictionary.morphology{:key "property"
                                       :pos :n
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :m
                                       :definition ""

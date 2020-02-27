@@ -1,6 +1,6 @@
 [#:acc-text.nlg.dictionary.morphology{:key "author_1"
                                       :pos :v
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :n
                                       :definition "this book is authored by"
@@ -8,7 +8,7 @@
                                                :past    "authored"}}
  #:acc-text.nlg.dictionary.morphology{:key "author_2"
                                       :pos :n
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :m
                                       :definition "he is the author"

@@ -53,6 +53,7 @@
 
 (defmethod build-variable :dictionary-item [{value :value :as concept} {:keys [dictionary types]}]
   (let [name (concept->name concept)]
+    (log/debugf "Dictionary: %s Value: %s" dictionary value)
     {:name  name
      :value (or (seq (get dictionary value)) (when (some? value) [value]))
      :type  (get types name "Str")}))

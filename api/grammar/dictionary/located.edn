@@ -1,6 +1,6 @@
 [#:acc-text.nlg.dictionary.morphology{:key "located"
                                       :pos :v
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :n
                                       :definition "It is located on the riverside"

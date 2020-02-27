@@ -1,6 +1,6 @@
 [#:acc-text.nlg.dictionary.morphology{:key "named"
                                       :pos :adj
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :m
                                       :tenses   {:present "name"

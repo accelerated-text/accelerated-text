@@ -1,6 +1,6 @@
 [#:acc-text.nlg.dictionary.morphology{:key "publish"
                                       :pos :v
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :n
                                       :definition "The book has been published"

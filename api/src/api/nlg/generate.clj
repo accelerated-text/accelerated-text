@@ -36,8 +36,8 @@
 
 
 (defn context-by-lang [context lang]
-  (assoc context :dictionary (into {} (map (fn [[k v]] {k (get v lang)})
-                                           (:dictionary-multilang context)))))
+  (log/spyf "Context by lang: %s" (assoc context :dictionary (into {} (map (fn [[k v]] {k (get v lang)})
+                                                                           (:dictionary-multilang context))))))
 
 (defn generate-text-for-language
   [semantic-graph context enrich lang]
@@ -69,6 +69,7 @@
          semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)
          generate-fn (partial generate-text-for-language semantic-graph (assoc context :data data) enrich)]
+     (log/debugf "Context: %s" context)
      (log/debugf "Languages: %s" languages)
      (log/debugf "Reader Model: %s" reader-model)
      (->> languages

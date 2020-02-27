@@ -1,6 +1,6 @@
 [#:acc-text.nlg.dictionary.morphology{:key "place"
                                       :pos :n
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :m
                                       :inflections {:nom-sg "place"
@@ -8,7 +8,7 @@
 
  #:acc-text.nlg.dictionary.morphology{:key "place"
                                       :pos :n
-                                      :language :ger
+                                      :language :de
                                       :sense    :basic
                                       :gender :m
                                       :inflections {:nom-sg "platz"

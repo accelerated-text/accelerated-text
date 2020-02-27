@@ -1,20 +1,20 @@
 [#:acc-text.nlg.dictionary.morphology{:key "good_1"
                                       :pos :n
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :n
                                       :definition "Good"
                                       :inflections {:nom-sg "good"}}
  #:acc-text.nlg.dictionary.morphology{:key "good_2"
                                       :pos :adj
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :n
                                       :definition "Good"
                                       :inflections {:nom-sg "good"}}
  #:acc-text.nlg.dictionary.morphology{:key "good_3"
                                       :pos :adv
-                                      :language :eng
+                                      :language :en
                                       :sense    :basic
                                       :gender   :n
                                       :definition "Good"
