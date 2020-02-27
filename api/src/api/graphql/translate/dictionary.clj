@@ -85,11 +85,12 @@
 
 
 (defn multilang-dict-item->original-schema [{:keys [key pos]} items]
-  (let [lang-translation {"English"    :eng
-                          "German"     :ger
-                          "Estonian"   :est
-                          "Latvian"    :lat
-                          "Lithuanian" :lit}]
+  (let [lang-translation {"English"    :en
+                          "German"     :de
+                          "Estonian"   :ee
+                          "Latvian"    :lv
+                          "Lithuanian" :lt
+                          "Russian"    :ru}]
     {:id           key
      :name         key
      :partOfSpeech (pos->schema pos)
