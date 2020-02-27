@@ -337,16 +337,28 @@
   (log/warnf "Default implementation of SCAN for the '%s' with key '%s'" resource-type opts)
   (throw (RuntimeException. (format "DATOMIC SCAN FOR '%s' NOT IMPLEMENTED" resource-type))))
 
+(defn query-multilang-dictionary
+  ([key] ;; Hackish way, but at the time system is built this way
+   (d/q '[:find (pull ?e [*])
+          :in $ ?key
+          :where [?e :dictionary-multilang/key ?key]]
+            (d/db conn)
+            key))
+  ([key pos senses]
+   (d/q '[:find (pull ?e [*])
+          :in $  [?key ?pos ?senses]
+          :where [?e :dictionary-multilang/key ?key]
+                 [?e :dictionary-multilang/pos ?pos]
+                 [?e :dictionary-multilang/sense ?sense]
+                 [(contains? ?senses ?sense)]]
+            (d/db conn)
+            [key pos (set senses)])))
+
 (defmethod scan :dictionary-multilang [_ {:keys [key pos senses]}]
   (map (fn [[item]] (read-multilang-dict-item item))
-       (d/q '[:find (pull ?e [*])
-              :in $  [?key ?pos ?senses]
-              :where [?e :dictionary-multilang/key ?key]
-                     [?e :dictionary-multilang/pos ?pos]
-                     [?e :dictionary-multilang/sense ?sense]
-                     [(contains? ?senses ?sense)]]
-       (d/db conn)
-       [key pos (set senses)])))
+       (if (and (some? pos) (some? senses))
+         (query-multilang-dictionary key pos senses)
+         (query-multilang-dictionary key))))
 
 (defmulti delete (fn [resource-type _] resource-type))
 
