@@ -10,21 +10,19 @@
 
 (s/def ::defintion string?)
 
-(s/def ::pos #{:a2 :adn :adv :cadv :interj :n3 :number
-               :v2a :v2q :v2v :va :vq :vv :ada :a
-               :n2 :n :pn :type :v2 :v2s :v3 :v :vs})
+(s/def ::pos #{"A" "A2" "Adv"
+               "N" "N2" "N3"
+               "PN"
+               "V" "V0" "V2" "V3" "V2A" "V2Q" "V2S" "V2V" "VA" "VP" "VQ" "VS" "VV" })
 
 (s/def ::gender #{:f :m :n})
 
 (s/def ::language #{:en :de :ee :lt :lv})
 
-(s/def ::inflection-variants #{:nom-sg :nom-pl :gen-sg :gen-pl})
-
-(s/def ::inflections (s/map-of ::inflection-variants
-                               word?))
+(s/def ::inflections (s/map-of #{:nom-sg :nom-pl :gen-sg :gen-pl} word?))
 
 (s/def ::tenses (s/map-of
-                 #{:present :present-cont :past :imperfect :perfect :future :plu-perfect :future-perfect}
+                 #{:conditional-tense :future-tense :past-tense :present-tense}
                  word?))
 
 (s/def ::word-def (s/keys :req [::key ::pos ::language]
