@@ -6,13 +6,6 @@
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.entities.dictionary :as dict-entity]))
 
-;; (defn dictionary [_ _ _]
-;;   (->> (dict-entity/list-dictionary)
-;;        (map translate-dict/dictionary-item->schema)
-;;        (sort-by :name)
-;;        (translate-core/paginated-response)
-;;        (resolve-as)))
-
 (defn dictionary [_ _ _]
   (->> (dict-entity/list-multilang-dict 100)
        (group-by #(select-keys % [:key :pos]))
@@ -23,12 +16,6 @@
 
 (defn- resolve-as-not-found-dict-item [id]
   (resolve-as nil {:message (format "Cannot find dictionary item with id `%s`." id)}))
-
-;; (defn dictionary-item [_ {id :id :as args} _]
-;;   (log/debugf "Fetching dictionary item with args: %s" args)
-;;   (if-let [item (dict-entity/get-dictionary-item id)]
-;;     (resolve-as (translate-dict/dictionary-item->schema item))
-;;     (resolve-as-not-found-dict-item id)))
 
 (defn dictionary-item [_ {id :id :as args} _]
   (log/debugf "Fetching dictionary item with args: %s" args)
