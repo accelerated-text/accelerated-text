@@ -1,8 +1,8 @@
 [#:acc-text.nlg.dictionary.morphology{:key "make"
-                                      :pos :v
-                                      :language :en
+                                      :pos "V2"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :n
                                       :definition "Made in UK"
-                                      :tenses    {:present "make"
-                                                  :past     "made"}}]
+                                      :tenses    {:present-tense "make"
+                                                  :past-tense     "made"}}]

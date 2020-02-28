@@ -1,8 +1,8 @@
 [#:acc-text.nlg.dictionary.morphology{:key "provide"
-                                      :pos :v
-                                      :language :en
+                                      :pos "V2"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :n
                                       :definition "I see you"
-                                      :tenses    {:present "provide"
-                                                  :past     "provided"}}]
+                                      :tenses    {:present-tense "provide"
+                                                  :past-tense    "provided"}}]

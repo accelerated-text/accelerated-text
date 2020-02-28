@@ -1,8 +1,8 @@
 [#:acc-text.nlg.dictionary.morphology{:key "write"
-                                      :pos :v
-                                      :language :en
+                                      :pos "V2"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :n
                                       :definition "The book is written"
-                                      :tenses    {:present "write"
-                                                  :past "written"}}]
+                                      :tenses    {:present-tense "write"
+                                                  :past-tense    "written"}}]

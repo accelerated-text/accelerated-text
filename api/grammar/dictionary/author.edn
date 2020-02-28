@@ -1,14 +1,14 @@
 [#:acc-text.nlg.dictionary.morphology{:key "author_1"
-                                      :pos :v
-                                      :language :en
+                                      :pos "V2"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :n
                                       :definition "this book is authored by"
                                       :tenses {:present "author"
                                                :past    "authored"}}
  #:acc-text.nlg.dictionary.morphology{:key "author_2"
-                                      :pos :n
-                                      :language :en
+                                      :pos "N"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :m
                                       :definition "he is the author"

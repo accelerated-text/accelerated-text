@@ -1,14 +1,14 @@
 [#:acc-text.nlg.dictionary.morphology{:key "place"
-                                      :pos :n
-                                      :language :en
+                                      :pos "N"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :m
                                       :inflections {:nom-sg "place"
                                                     :nom-pl "places"}}
 
  #:acc-text.nlg.dictionary.morphology{:key "place"
-                                      :pos :n
-                                      :language :de
+                                      :pos "N"
+                                      :language "Ger"
                                       :sense    :basic
                                       :gender :m
                                       :inflections {:nom-sg "platz"

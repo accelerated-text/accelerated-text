@@ -1,6 +1,6 @@
 [#:acc-text.nlg.dictionary.morphology{:key "fast"
-                                      :pos :adv
-                                      :language :en
+                                      :pos "Adv"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :n
                                       :definition "Fast"

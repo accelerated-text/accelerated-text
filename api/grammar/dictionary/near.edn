@@ -1,6 +1,6 @@
 [#:acc-text.nlg.dictionary.morphology{:key "near"
-                                      :pos :sconj
-                                      :language :en
+                                      :pos "SConj"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :n
                                       :definition "It is near KFC"

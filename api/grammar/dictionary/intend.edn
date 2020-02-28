@@ -1,7 +1,7 @@
 #:acc-text.nlg.dictionary.morphology{:key "intend"
-                                     :pos :adj
-                                     :language :en
+                                     :pos "A"
+                                     :language "Eng"
                                      :sense    :basic
                                      :gender   :n
                                      :definition ""
-                                     :tenses {:present "intend" :past "intended"}}
+                                     :tenses {:present-tense "intend" :past-tense "intended"}}

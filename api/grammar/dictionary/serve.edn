@@ -1,8 +1,8 @@
 [#:acc-text.nlg.dictionary.morphology{:key "serve"
-                                      :pos :v
-                                      :language :en
+                                      :pos "V2"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :n
                                       :definition ""
-                                      :tenses    {:present "serve"
-                                                  :past     "served"}}]
+                                      :tenses    {:present-tense "serve"
+                                                  :past-tense    "served"}}]

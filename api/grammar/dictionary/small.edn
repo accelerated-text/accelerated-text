@@ -1,6 +1,6 @@
 [#:acc-text.nlg.dictionary.morphology{:key "small"
-                                      :pos :adv
-                                      :language :en
+                                      :pos "Adv"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :n
                                       :definition "Small"

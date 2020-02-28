@@ -1,7 +1,7 @@
 [#:acc-text.nlg.dictionary.morphology{:key "named"
-                                      :pos :adj
-                                      :language :en
+                                      :pos "A"
+                                      :language "Eng"
                                       :sense    :basic
                                       :gender   :m
-                                      :tenses   {:present "name"
-                                                 :past    "named"}}]
+                                      :tenses   {:present-tense "name"
+                                                 :past-tense    "named"}}]
