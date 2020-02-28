@@ -2,7 +2,7 @@
   (:require [api.graphql.translate.concept :as translate-concept]
             [clojure.tools.logging :as log]
             [data.utils :as utils]
-            [data.entities.dictionary :as dict-ent]))
+            [data.entities.dictionary :as dict-entity]))
 
 (defn reader-flag->schema [[k _]]
   {:id   (name k)
@@ -73,7 +73,7 @@
 (defn multilang-dict-item->original-schema [{:keys [key pos]} items]
   {:id           key
    :name         key
-   :partOfSpeech (pos->schema pos)
+   :partOfSpeech pos
    :phrases      (map (fn [{:keys [language inflections tenses]}]
                         {:defaultUsage    "YES"
                          :id              (utils/gen-uuid)
