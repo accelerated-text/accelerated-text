@@ -61,7 +61,6 @@
    :tenses        (map (fn [tense] {:id (:tense/id tense) :key (name (:tense/key tense)) :value (:tense/value tense)}) tenses)
    :inflections   (map (fn [inflection] {:id (:inflection/id inflection) :key (name (:inflection/key inflection)) :value (:inflection/value inflection)}) inflections)})
 
-
 (defn build-lang-user-flags [translations lang]
   (map (fn [[k v]]
          {:id   (utils/gen-uuid)
@@ -79,7 +78,6 @@
 (defn get-default-inflection [inflections]
   (let [value-map (into {} (map (fn [infl] {(:inflection/key infl) (:inflection/value infl)}) inflections))]
     (get value-map :nom-sg "")))
-
 
 (defn multilang-dict-item->original-schema [{:keys [key pos]} items]
   (let [lang-translation {"English"    :en
