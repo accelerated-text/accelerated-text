@@ -4,8 +4,8 @@
                                       :sense    :basic
                                       :gender   :n
                                       :definition "this book is authored by"
-                                      :tenses {:present "author"
-                                               :past    "authored"}}
+                                      :tenses {:present-tense "author"
+                                               :past-tense    "authored"}}
  #:acc-text.nlg.dictionary.morphology{:key "author_2"
                                       :pos "N"
                                       :language "Eng"
