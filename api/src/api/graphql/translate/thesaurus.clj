@@ -3,20 +3,25 @@
             [clojure.string :as string]
             [data.wordnet :as wn]))
 
+(def pos-dict
+  {"N" "NN"
+   "V" "VB"
+   "V2" "VB"
+   "V3" "VB"
+   "V2A" "VB"
+   "A"   "Adj"})
+
+(def pos-dict-inverse
+  (into {} (map (fn [[k v]] {v k}) pos-dict)))
+
 (defn search-thesaurus [query part-of-speech]
   (let [words (mapcat wn/synonyms (if (some? part-of-speech)
-                                    (wn/lookup-words query (keyword part-of-speech))
+                                    (wn/lookup-words query (keyword (get pos-dict part-of-speech part-of-speech)))
                                     (wn/lookup-words query)))]
     {:words      (map (fn [{:keys [pos lemma]}]
                         {:id           (format "%s-%s" (name pos) (string/replace lemma #" " "-"))
-                         :partOfSpeech (name pos)
-                         :text         lemma
-                         :concept      (when (= (name pos) "VB")
-                                         (translate-concept/amr->schema
-                                           {:id     "PLACEHOLDER"
-                                            :label  ""
-                                            :roles  []
-                                            :frames []}))})
+                         :partOfSpeech (get pos-dict-inverse (name pos) (name pos))
+                         :text         lemma})
                       words)
      :offset     0
      :limit      (count words)
@@ -27,11 +32,5 @@
         root-word (string/join " " tokens)]
     {:rootWord {:id           word-id
                 :partOfSpeech pos
-                :text         root-word
-                :concept      (when (= pos "VB")
-                                (translate-concept/amr->schema
-                                  {:id     "PLACEHOLDER"
-                                   :label  ""
-                                   :roles  []
-                                   :frames []}))}
+                :text         root-word}
      :synonyms (:words (search-thesaurus root-word pos))}))
