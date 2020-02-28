@@ -2,7 +2,7 @@
   (:require [api.nlg.context :as context]
             [api.db-fixtures :as fixtures]
             [api.nlg.parser :as parser]
-            [api.test-utils :refer [q load-test-document-plan]]
+            [api.test-utils :refer [load-test-document-plan]]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.dictionary :as dictionary]
             [clojure.tools.logging :as log]))

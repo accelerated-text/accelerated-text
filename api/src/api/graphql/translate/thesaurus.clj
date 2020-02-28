@@ -1,6 +1,5 @@
 (ns api.graphql.translate.thesaurus
-  (:require [api.graphql.translate.concept :as translate-concept]
-            [clojure.string :as string]
+  (:require [clojure.string :as string]
             [data.wordnet :as wn]))
 
 (defn search-thesaurus [query part-of-speech]
