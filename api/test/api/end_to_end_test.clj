@@ -8,31 +8,31 @@
 
 (defn simple-verb [key lang]
   #:acc-text.nlg.dictionary.morphology{:key         key
-                                       :pos         :v
+                                       :pos         "V2"
                                        :language    lang
                                        :sense       :basic
                                        :tenses      {:present key}})
 
 (defn prepare-environment [f]
   (doseq [item [#:acc-text.nlg.dictionary.morphology{:key "place"
-                                                     :pos      :n
-                                                     :language :eng
+                                                     :pos      "N"
+                                                     :language "Eng"
                                                      :gender   :m
                                                      :sense    :basic
                                                      :inflections {:nom-sg "place"
                                                                    :nom-pl "places"}}
                 #:acc-text.nlg.dictionary.morphology{:key "place"
-                                                     :pos      :n
-                                                     :language :ger
+                                                     :pos      "N"
+                                                     :language "Ger"
                                                      :gender   :m
                                                      :sense    :basic
                                                      :inflections {:nom-sg "platz"
                                                                    :nom-pl "plätze"}}
-                (simple-verb "cut" :eng)
-                (simple-verb "see" :eng)
-                (simple-verb "written" :eng)
-                (simple-verb "is" :eng)
-                (simple-verb "release" :eng)]]
+                (simple-verb "cut" "Eng")
+                (simple-verb "see" "Eng")
+                (simple-verb "written" "Eng")
+                (simple-verb "is" "Eng")
+                (simple-verb "release" "Eng")]]
     (dictionary/create-multilang-dict-item item))
   (f))
 
