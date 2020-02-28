@@ -82,8 +82,8 @@
   {:db/id                            [:dictionary-multilang/id id]
    :dictionary-multilang/id          id
    :dictionary-multilang/key         key
-   :dictionary-multilang/language    language
-   :dictionary-multilang/pos         pos
+   :dictionary-multilang/language    (keyword language)
+   :dictionary-multilang/pos         (keyword pos)
    :dictionary-multilang/gender      gender
    :dictionary-multilang/sense       sense
    :dictionary-multilang/tenses      (prepare-tenses tenses)

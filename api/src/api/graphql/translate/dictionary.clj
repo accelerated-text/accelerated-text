@@ -77,7 +77,7 @@
    :phrases      (map (fn [{:keys [language inflections tenses]}]
                         {:defaultUsage    "YES"
                          :id              (utils/gen-uuid)
-                         :readerFlagUsage (build-lang-user-flags lang-translation language)
+                         :readerFlagUsage (build-lang-user-flags language)
                          :text            (cond
                                             (not-empty inflections) (get-default-inflection inflections)
                                             (not-empty tenses)       (get-default-tense tenses)
