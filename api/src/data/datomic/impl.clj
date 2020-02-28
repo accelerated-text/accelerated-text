@@ -357,7 +357,7 @@
 (defmethod scan :dictionary-multilang [_ {:keys [key pos senses]}]
   (map (fn [[item]] (read-multilang-dict-item item))
        (if (and (some? pos) (some? senses))
-         (query-multilang-dictionary key pos senses)
+         (query-multilang-dictionary key (keyword pos) senses)
          (query-multilang-dictionary key))))
 
 (defmulti delete (fn [resource-type _] resource-type))

@@ -4,7 +4,8 @@
             [api.nlg.parser :as parser]
             [api.test-utils :refer [q load-test-document-plan]]
             [clojure.test :refer [deftest is use-fixtures]]
-            [data.entities.dictionary :as dictionary]))
+            [data.entities.dictionary :as dictionary]
+            [clojure.tools.logging :as log]))
 
 (defn prepare-environment [f]
   (doseq [item [#:acc-text.nlg.dictionary.morphology{:key "good"
@@ -35,6 +36,7 @@
   (let [document-plan (load-test-document-plan "author-amr-with-adj")
         semantic-graph (parser/document-plan->semantic-graph document-plan)
         context (context/build-multilang-dictionary-context semantic-graph {:default true})]
+    (log/debugf "Context: %s" context)
     (is (= ["good"] (->> (get context "good")
                          :Eng
                          :inflections

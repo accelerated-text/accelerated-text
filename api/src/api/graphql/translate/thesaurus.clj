@@ -3,24 +3,13 @@
             [clojure.string :as string]
             [data.wordnet :as wn]))
 
-(def pos-dict
-  {"N" "NN"
-   "V" "VB"
-   "V2" "VB"
-   "V3" "VB"
-   "V2A" "VB"
-   "A"   "Adj"})
-
-(def pos-dict-inverse
-  (into {} (map (fn [[k v]] {v k}) pos-dict)))
-
 (defn search-thesaurus [query part-of-speech]
   (let [words (mapcat wn/synonyms (if (some? part-of-speech)
-                                    (wn/lookup-words query (keyword (get pos-dict part-of-speech part-of-speech)))
+                                    (wn/lookup-words query part-of-speech)
                                     (wn/lookup-words query)))]
     {:words      (map (fn [{:keys [pos lemma]}]
                         {:id           (format "%s-%s" (name pos) (string/replace lemma #" " "-"))
-                         :partOfSpeech (get pos-dict-inverse (name pos) (name pos))
+                         :partOfSpeech pos
                          :text         lemma})
                       words)
      :offset     0

@@ -3,7 +3,7 @@
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]))
 
 (defn search-thesaurus [_ {:keys [query partOfSpeech]} _]
-  (resolve-as (translate/search-thesaurus query partOfSpeech)))
+  (resolve-as (translate/search-thesaurus query (name partOfSpeech))))
 
 (defn synonyms [_ {:keys [wordId]} _]
   (resolve-as (translate/synonyms wordId)))
