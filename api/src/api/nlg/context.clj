@@ -21,16 +21,6 @@
        (map :value)
        (set)))
 
-(defn build-dictionary-context [semantic-graph reader-profiles]
-  (reduce (fn [m value]
-            (assoc m value (->> reader-profiles
-                                (mapcat #(dictionary/search (str/lower-case value) %))
-                                (into #{})
-                                (sort)
-                                (vec))))
-          {}
-          (get-values semantic-graph :dictionary-item)))
-
 (defn build-multilang-dictionary-context [semantic-graph _]
   (reduce (fn [m value]
             (assoc m value (dictionary/get-dict-item-by-language (str/lower-case value))))
