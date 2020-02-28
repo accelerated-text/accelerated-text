@@ -83,9 +83,8 @@
   (db/list! dictionary-multilang-db limit))
 
 (defn initialize []
-  (db/write! reader-flags-db :English  :YES)
-  (db/write! reader-flags-db :Estonian :NO)
-  (db/write! reader-flags-db :German :NO)
+  (doseq [[flag value] (get-default-flags)]
+    (db/write! reader-flags-db flag value))
   (doall
    (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
         (filter #(.isFile ^File %))
