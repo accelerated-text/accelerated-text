@@ -251,20 +251,11 @@
    (str module "Ops")      (->operations lang grammar)
    (str module instance)   (->concrete lang grammar)})
 
-(defn translate-reader-model [lang]
-  (case lang
-    :en "Eng"
-    :ee "Est"
-    :de "Ger"
-    :lv "Lav"
-    :ru "Rus"))
-
 (defn generate
   ([grammar]
    (generate :en grammar))
   ([lang {::grammar/keys [module instance] :as grammar}]
-   (let [lang (translate-reader-model lang)
-         {body :body} (service/compile-request lang module instance (grammar->content lang grammar))
+   (let [{body :body} (service/compile-request lang module instance (grammar->content lang grammar))
          {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
      (if (some? error)
        (log/error error)

@@ -18,7 +18,7 @@
 
 (defn generate-text [semantic-graph {data :data :as context} lang]
   (->> (grammar/build "Default" "Instance" (conditions/select semantic-graph data) (select-context context {:lang lang}))
-       (generator/generate lang)
+       (generator/generate (name lang))
        (map (comp nlp/annotate nlp/process-sentence))))
 
 (defn enrich-text

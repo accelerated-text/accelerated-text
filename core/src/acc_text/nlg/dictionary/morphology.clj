@@ -17,7 +17,7 @@
 
 (s/def ::gender #{:f :m :n})
 
-(s/def ::language #{:en :de :ee :lt :lv})
+(s/def ::language #{"Eng" "Ger" "Est" "Lit" "Lat" "Rus"})
 
 (s/def ::inflections (s/map-of #{:nom-sg :nom-pl :gen-sg :gen-pl} word?))
 

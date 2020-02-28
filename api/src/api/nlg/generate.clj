@@ -61,11 +61,12 @@
   ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
   ([document-plan data reader-model enrich]
    (let [languages (cond-> []
-                           (get reader-model "English" false) (conj :en)
-                           (get reader-model "Estonian" false) (conj :ee)
-                           (get reader-model "German" false) (conj :de)
-                           (get reader-model "Latvian" false) (conj :lv)
-                           (get reader-model "Russian" false) (conj :ru))
+                           (get reader-model "English" false) (conj :Eng)
+                           (get reader-model "Estonian" false) (conj :Est)
+                           (get reader-model "German" false) (conj :Ger)
+                           (get reader-model "Latvian" false) (conj :Lat)
+                           (get reader-model "Lithuanian" false) (conj :Lit)
+                           (get reader-model "Russian" false) (conj :Rus))
          semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph reader-model)
          generate-fn (partial generate-text-for-language semantic-graph (assoc context :data data) enrich)]
@@ -134,11 +135,11 @@
   [text lang]
   (log/debugf "Result lang: %s" lang)
   (format "%s %s" (case (keyword lang)
-                    :en "🇬🇧"
-                    :de "🇩🇪"
-                    :ee "🇪🇪"
-                    :lv "🇱🇻"
-                    :ru "🇷🇺"
+                    :Eng "🇬🇧"
+                    :Ger "🇩🇪"
+                    :Est "🇪🇪"
+                    :Lat "🇱🇻"
+                    :Rus "🇷🇺"
                     "🏳️") text))
 
 (defn transform-results
@@ -166,13 +167,6 @@
    :body   {:error   true
             :message (.getMessage exception)}})
 
-
-(def dummy-response
-  {:ready   true
-   :results [[:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence one . Test sentence Two .") :lang :lv}]]
-             [:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence 12.3 one . Test sentence Two .")
-                       :enriched (ref-expr/apply-ref-expressions :en "Test sentence one. Test sentence Two. Test sentence four. A very very long fith sentence test goes here. Test sentence six.")
-                       :lang     :de}]]]})
 
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)
