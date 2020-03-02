@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.set :as set]
             [clojure.spec.alpha :as s]
-            [clojure.string :as str]
-            [clojure.tools.logging :as log]))
+            [clojure.string :as str]))
 
 (defn operator->fn [x]
   (case x
