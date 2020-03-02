@@ -1,5 +1,6 @@
 {:type "VPSlash",
  :description "verb phrase missing complement",
+ :module "Syntax",
  :functions
  [{:function "mkVP",
    :type ["VPSlash" "NP" "VP"],

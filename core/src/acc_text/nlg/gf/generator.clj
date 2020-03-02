@@ -224,8 +224,9 @@
           lang))
 
 (defn ->operations [lang {::grammar/keys [module operations]}]
-  (format "resource %sOps = open Syntax%s, Paradigms%s in {%s\n}"
+  (format "resource %sOps = open (Syntax=Syntax%s), Syntax%s, Paradigms%s in {%s\n}"
           module
+          lang
           lang
           lang
           (join-body

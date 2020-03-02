@@ -1,5 +1,6 @@
 {:type "NP",
  :description "noun phrase (subject or object)",
+ :module "Syntax",
  :functions
  [{:function "everybody_NP", :type ["NP"], :example "everybody"}
   {:function "everything_NP", :type ["NP"], :example "everything"}

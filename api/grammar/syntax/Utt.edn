@@ -1,5 +1,6 @@
 {:type "Utt",
  :description "sentence, question, word...",
+ :module "Syntax",
  :functions
  [{:function "mkUtt", :type ["S" "Utt"], :example "she slept"}
   {:function "mkUtt", :type ["Cl" "Utt"], :example "she sleeps"}

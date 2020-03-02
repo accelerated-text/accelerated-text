@@ -1,5 +1,6 @@
 {:type "Dig",
  :description "",
+ :module "Syntax",
  :functions
  [{:function "n0_Dig", :type ["Dig"], :example "0"}
   {:function "n1_Dig", :type ["Dig"], :example "1"}

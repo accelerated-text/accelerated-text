@@ -1,5 +1,6 @@
 {:type "IDet",
  :description "interrogative determiner",
+ :module "Syntax",
  :functions
  [{:function "mkIDet",
    :type ["IQuant" "Num" "IDet"],

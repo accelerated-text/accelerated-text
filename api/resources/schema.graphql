@@ -139,7 +139,7 @@ type ReaderFlags {
 type ReaderFlag {
     id:                 ID!
     name:               String!
-    defaultUsage        Usage!
+    defaultUsage:       Usage!
 }
 
 
