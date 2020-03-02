@@ -2,9 +2,10 @@
   (:require [api.graphql.translate.concept :as translate-concept]
             [clojure.tools.logging :as log]))
 
-(defn reader-flag->schema [[k _]]
-  {:id   (name k)
-   :name (name k)})
+(defn reader-flag->schema [[k u]]
+  {:id           (name k)
+   :name         (name k)
+   :defaultUsage u})
 
 (defn reader-flags->schema [flags]
   {:flags (map reader-flag->schema (dissoc flags :default))
