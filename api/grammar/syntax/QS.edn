@@ -1,5 +1,6 @@
 {:type "QS",
  :description "question",
+ :module "Syntax",
  :functions
  [{:function "mkQS",
    :type ["(Tense)" "(Ant)" "(Pol)" "QCl" "QS"],

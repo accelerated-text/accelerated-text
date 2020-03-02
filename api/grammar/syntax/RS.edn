@@ -1,5 +1,6 @@
 {:type "RS",
  :description "relative",
+ :module "Syntax",
  :functions
  [{:function "mkRS",
    :type ["(Tense)" "(Ant)" "(Pol)" "RCl" "RS"],

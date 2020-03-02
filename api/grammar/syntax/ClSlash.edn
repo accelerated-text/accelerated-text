@@ -1,5 +1,6 @@
 {:type "ClSlash",
  :description "",
+ :module "Syntax",
  :functions
  [{:function "mkClSlash",
    :type ["NP" "VPSlash" "ClSlash"],

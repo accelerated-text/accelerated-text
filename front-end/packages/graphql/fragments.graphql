@@ -15,6 +15,7 @@ fragment wordFields on Word {
 fragment readerFlagFields on ReaderFlag {
   id
   name
+  defaultUsage
 }
 
 ### Dictionary -----------------------------------------------------------------

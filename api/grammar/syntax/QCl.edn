@@ -1,5 +1,6 @@
 {:type "QCl",
  :description "question clause, with all tenses",
+ :module "Syntax",
  :functions
  [{:function "mkQCl", :type ["Cl" "QCl"], :example "does she sleep"}
   {:function "mkQCl",
