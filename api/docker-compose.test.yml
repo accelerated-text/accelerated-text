@@ -17,7 +17,7 @@ services:
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
       - ./grammar:/opt/grammar
-      - ./test/resources/document_plans_new:/opt/document-plans
+      - ./grammar/document-plans:/opt/document-plans
   gf:
     build:
       context: ../
