@@ -1,8 +1,0 @@
-{:type "Pol",
- :description "polarity",
- :module "SyntaxEng",
- :functions
- [{:function "negativePol",
-   :type ["Pol"],
-   :example "she doesn't sleep"}
-  {:function "positivePol", :type ["Pol"], :example "she sleeps"}]}

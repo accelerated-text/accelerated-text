@@ -1,0 +1,28 @@
+{:type "Prep",
+ :description "preposition, or just case",
+ :functions
+ [{:function "above_Prep", :type ["Prep"], :example "above it"}
+  {:function "after_Prep", :type ["Prep"], :example "after it"}
+  {:function "before_Prep", :type ["Prep"], :example "before it"}
+  {:function "behind_Prep", :type ["Prep"], :example "behind it"}
+  {:function "between_Prep",
+   :type ["Prep"],
+   :example "between you and me"}
+  {:function "by8agent_Prep", :type ["Prep"], :example "by it"}
+  {:function "by8means_Prep", :type ["Prep"], :example "by it"}
+  {:function "during_Prep", :type ["Prep"], :example "during it"}
+  {:function "except_Prep", :type ["Prep"], :example "except it"}
+  {:function "for_Prep", :type ["Prep"], :example "for it"}
+  {:function "from_Prep", :type ["Prep"], :example "from it"}
+  {:function "in8front_Prep",
+   :type ["Prep"],
+   :example "in front of it"}
+  {:function "in_Prep", :type ["Prep"], :example "in it"}
+  {:function "on_Prep", :type ["Prep"], :example "on it"}
+  {:function "part_Prep", :type ["Prep"], :example "of it"}
+  {:function "possess_Prep", :type ["Prep"], :example "of it"}
+  {:function "through_Prep", :type ["Prep"], :example "through it"}
+  {:function "to_Prep", :type ["Prep"], :example "to it"}
+  {:function "under_Prep", :type ["Prep"], :example "under it"}
+  {:function "with_Prep", :type ["Prep"], :example "with it"}
+  {:function "without_Prep", :type ["Prep"], :example "without it"}]}

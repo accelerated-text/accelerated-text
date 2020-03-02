@@ -79,25 +79,26 @@
        (remove empty?)))
 
 (defn prepare-rgl [key {:keys [name label module kind roles frames]}]
-  {:db/id      [:rgl/id key]
-   :rgl/id     key
-   :rgl/kind   kind
-   :rgl/roles  (->> roles
-                    (map (fn [{:keys [type label input]}]
-                           (remove-nil-vals
-                             {:role/type  type
-                              :role/label label
-                              :role/input input})))
-                    (remove empty?))
-   :rgl/label  label
-   :rgl/name   name
-   :rgl/module module
-   :rgl/frames (->> frames
-                    (map (fn [{:keys [examples syntax]}]
-                           (remove-nil-vals
-                             {:frame/examples (seq examples)
-                              :frame/syntax   (prepare-rgl-syntax syntax)})))
-                    (remove empty?))})
+  (remove-nil-vals
+    {:db/id      [:rgl/id key]
+     :rgl/id     key
+     :rgl/kind   kind
+     :rgl/roles  (->> roles
+                      (map (fn [{:keys [type label input]}]
+                             (remove-nil-vals
+                               {:role/type  type
+                                :role/label label
+                                :role/input input})))
+                      (remove empty?))
+     :rgl/label  label
+     :rgl/name   name
+     :rgl/module module
+     :rgl/frames (->> frames
+                      (map (fn [{:keys [examples syntax]}]
+                             (remove-nil-vals
+                               {:frame/examples (seq examples)
+                                :frame/syntax   (prepare-rgl-syntax syntax)})))
+                      (remove empty?))}))
 
 (defmethod transact-item :rgl [_ key data-item]
   (try

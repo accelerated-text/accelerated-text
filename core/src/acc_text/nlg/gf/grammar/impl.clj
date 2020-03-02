@@ -219,8 +219,8 @@
 (defmethod build-operation :document-plan [concept concept-map relation-map role-map rgl-ops]
   (interpose {:type  :operator
               :value "|"}
-             (mapcat #(build-operation % concept-map relation-map role-map rgl-ops)
-                     (get-children (:id concept) concept-map relation-map))))
+             (map #(build-operation % concept-map relation-map role-map rgl-ops)
+                  (get-children (:id concept) concept-map relation-map))))
 
 (defmethod build-operation :segment [concept concept-map relation-map role-map rgl-ops]
   (interpose {:type  :operator
@@ -231,12 +231,21 @@
 (defmethod build-operation :amr [concept concept-map relation-map role-map rgl-ops]
   (let [{:keys [module label kind]} (get rgl-ops (:value concept))]
     {:type     :operation
-     :value    (if (and (some? module) (some? label))
-                 (format "%s.%s" module label)
-                 (:value concept))
+     :value    (cond
+                 (and (some? module) (some? label)) (str module "." label)
+                 (some? label) label
+                 :else (:value concept))
      :kind     (or kind "Text")
      :children (map #(build-operation % concept-map relation-map role-map rgl-ops)
                     (get-children (:id concept) concept-map relation-map))}))
+
+(defmethod build-operation :condition [concept concept-map relation-map role-map rgl-ops]
+  (map #(build-operation % concept-map relation-map role-map rgl-ops)
+       (get-children (:id concept) concept-map relation-map)))
+
+(defmethod build-operation :if-statement [concept concept-map relation-map role-map rgl-ops]
+  (map #(build-operation % concept-map relation-map role-map rgl-ops)
+       (get-children (:id concept) concept-map relation-map)))
 
 (defmethod build-operation :reference [{{name :name} :attributes} _ _ role-map _]
   (let [{:keys [type id]} (get role-map name)]
@@ -259,7 +268,7 @@
         {:id    name
          :roles roles
          :kind  "Text"
-         :body  (build-operation root-concept concept-map relation-map role-map rgl-ops)}))))
+         :body  (flatten (build-operation root-concept concept-map relation-map role-map rgl-ops))}))))
 
 (defn build-grammar [module instance {::sg/keys [concepts relations]} context]
   (let [concept-map (zipmap (map :id concepts) concepts)

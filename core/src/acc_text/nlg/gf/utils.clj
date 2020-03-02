@@ -25,7 +25,7 @@
               (let [[{:keys [type description]}] instances]
                 {:type        type
                  :description description
-                 :module      "Constructors"
+                 :module      "Syntax"
                  :functions   (into [] (mapcat :functions instances))})))
        (sort-by :type)
        (into [])))
@@ -33,4 +33,3 @@
 (defn spit-rgl-functions [fns output-path]
   (doseq [{type :type :as f} fns]
     (spit (format (str output-path "/%s.edn") type) (with-out-str (pprint f)))))
-

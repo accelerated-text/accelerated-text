@@ -1,0 +1,5 @@
+{:type "Voc",
+ :description "vocative or \"please\"",
+ :functions
+ [{:function "mkVoc", :type ["NP" "Voc"], :example "yes, my friend"}
+  {:function "please_Voc", :type ["Voc"], :example "please"}]}
