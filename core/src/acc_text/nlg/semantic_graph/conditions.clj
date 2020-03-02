@@ -59,7 +59,7 @@
     (when (every? #(contains? #{:boolean :comparator} (:type %)) child-concepts)
       (operator-fn (map #(evaluate-predicate % semantic-graph data) child-concepts)))))
 
-(defmethod evaluate-predicate :data [{value :value :as concept} semantic-graph data]
+(defmethod evaluate-predicate :data [{value :value} _ data]
   (let [result (get data value)]
     (if (some? result)
       (if (sg-utils/is-boolean-string? result)
