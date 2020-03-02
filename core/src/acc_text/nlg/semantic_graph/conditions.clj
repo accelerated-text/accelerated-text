@@ -2,7 +2,8 @@
   (:require [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.set :as set]
             [clojure.spec.alpha :as s]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]))
 
 (defn operator->fn [x]
   (case x
@@ -59,6 +60,10 @@
     (when (every? #(contains? #{:boolean :comparator} (:type %)) child-concepts)
       (operator-fn (map #(evaluate-predicate % semantic-graph data) child-concepts)))))
 
+(defmethod evaluate-predicate :data [{value :value :as concept} semantic-graph data]
+  (log/debugf "Data: %s" value)
+  true)
+
 (defn evaluate-statement [{type :type :as concept} semantic-graph data]
   (case type
     :if-statement (when-let [predicate-concept (sg-utils/get-child-with-relation semantic-graph concept :predicate)]
@@ -89,7 +94,7 @@
 (defn select [semantic-graph data]
   (->> (get-truthful-statement-ids semantic-graph data)
        (set/difference (find-statement-ids semantic-graph))
-       (set/union (sg-utils/find-concept-ids semantic-graph #{:boolean :comparator}))
+       (set/union (sg-utils/find-concept-ids semantic-graph #{:boolean :comparator :data}))
        (sg-utils/prune-branches semantic-graph)))
 
 (s/fdef select
