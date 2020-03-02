@@ -10,6 +10,15 @@
        (map :id)
        (into #{})))
 
+(defn find-data-predicate-concept-ids [{concepts ::sg/concepts relations ::sg/relations}]
+  (let [concepts-under-predicate (->> relations
+                                      (filter #(= :predicate (:role %)))
+                                      (map #(:to %)))]
+    (->> concepts
+         (filter #(= :data (:type %)))
+         (map :id)
+         (filter #(contains? (set concepts-under-predicate) %))))) 
+
 (defn find-child-ids [{relations ::sg/relations} ids]
   (let [relation-map (group-by :from relations)]
     (->> ids
