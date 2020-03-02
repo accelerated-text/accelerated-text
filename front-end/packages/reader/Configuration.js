@@ -35,11 +35,18 @@ export default composeQueries({
                     ? <Error message={ error } />
                 : loading
                     ? <Loading />
-                : sortFlags( readerFlags ).map( flag =>
+                : sortFlags( readerFlags )
+                   .map(flag => {
+                     if(!(flag.id in flagValues) && flag.defaultUsage == "YES"){
+                       flagValues[flag.id] = true;
+                     }
+                     return flag;
+                   })
+                   .map( flag =>
                     <FlagValue
                         key={ flag.id }
                         flag={ flag }
-                        isChecked={ flagValues[flag.id] || flag.defaultUsage == "YES" }
+                        isChecked={ flagValues[flag.id] }
                         onChange={ onToggleFlag }
                     />
                 )
