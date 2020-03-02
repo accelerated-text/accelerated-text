@@ -63,7 +63,9 @@
 (defmethod evaluate-predicate :data [{value :value :as concept} semantic-graph data]
   (let [result (get data value)]
     (if (some? result)
-      true
+      (if (sg-utils/is-boolean-string? result)
+        (sg-utils/eval-boolean-string result)
+        true)
       false)))
 
 (defn evaluate-statement [{type :type :as concept} semantic-graph data]

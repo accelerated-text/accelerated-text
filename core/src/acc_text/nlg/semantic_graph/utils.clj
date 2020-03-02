@@ -82,3 +82,13 @@
                            relations))))
 
 (defn vizgraph [semantic-graph] (uber/viz-graph (plan-graph semantic-graph)))
+
+(def boolean-strings
+  {"true"  true
+   "false" false
+   "yes"   true
+   "no"    false
+   "1"     true
+   "0"     false})
+(defn is-boolean-string? [value] (->> (str/lower-case value) (contains? (set (keys boolean-strings)))))
+(defn eval-boolean-string [value] (->> (str/lower-case value) (get boolean-strings)))
