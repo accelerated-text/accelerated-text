@@ -1,5 +1,6 @@
 {:type "Cl",
  :description "declarative clause, with all tenses",
+ :module "Syntax",
  :functions
  [{:function "genericCl", :type ["VP" "Cl"], :example "one sleeps"}
   {:function "mkCl", :type ["NP" "V" "Cl"], :example "she sleeps"}

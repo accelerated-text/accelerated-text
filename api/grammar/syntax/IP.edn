@@ -1,5 +1,6 @@
 {:type "IP",
  :description "interrogative pronoun",
+ :module "Syntax",
  :functions
  [{:function "mkIP",
    :type ["IDet" "CN" "IP"],

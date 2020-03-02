@@ -1,5 +1,6 @@
 {:type "ListS",
  :description "",
+ :module "Syntax",
  :functions
  [{:function "mkListS",
    :type ["S" "S" "ListS"],

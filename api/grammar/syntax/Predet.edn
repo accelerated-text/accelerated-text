@@ -1,5 +1,6 @@
 {:type "Predet",
  :description "predeterminer (prefixed Quant)",
+ :module "Syntax",
  :functions
  [{:function "all_Predet", :type ["Predet"], :example "all the men"}
   {:function "most_Predet", :type ["Predet"], :example "most"}
