@@ -146,12 +146,12 @@
     (is (= #::sg{:concepts  [{:id :01 :type :document-plan}
                              {:id :02 :type :segment}
                              {:id :03 :type :condition}
-                             {:id :04 :type :if-statement}
+                             {:id :07 :type :default-statement}
                              {:id :08 :type :quote :value "The book was not published."}]
                  :relations [{:from :01 :role :segment :to :02}
                              {:from :02 :role :instance :to :03}
-                             {:from :03 :role :statement :to :04}
-                             {:from :04 :role :expression :to :08}]}
+                             {:from :03 :role :statement :to :07}
+                             {:from :07 :role :expression :to :08}]}
            (conditions/select (utils/load-test-semantic-graph "if-with-data") {}))))
   (testing "Filled data"
     (is (= #::sg{:concepts  [{:id :01 :type :document-plan}

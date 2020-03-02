@@ -61,8 +61,10 @@
       (operator-fn (map #(evaluate-predicate % semantic-graph data) child-concepts)))))
 
 (defmethod evaluate-predicate :data [{value :value :as concept} semantic-graph data]
-  (log/debugf "Data: %s" value)
-  true)
+  (let [result (get data value)]
+    (if (some? result)
+      true
+      false)))
 
 (defn evaluate-statement [{type :type :as concept} semantic-graph data]
   (case type
