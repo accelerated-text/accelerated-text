@@ -1,5 +1,6 @@
 {:type "Card",
  :description "cardinal number",
+ :module "Syntax",
  :functions
  [{:function "mkCard",
    :type ["Str" "Card"],

@@ -1,5 +1,6 @@
 {:type "Subj",
  :description "subjunction",
+ :module "Syntax",
  :functions
  [{:function "although_Subj",
    :type ["Subj"],

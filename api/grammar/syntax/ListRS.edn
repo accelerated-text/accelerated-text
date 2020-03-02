@@ -1,5 +1,6 @@
 {:type "ListRS",
  :description "",
+ :module "Syntax",
  :functions
  [{:function "mkListRS",
    :type ["RS" "RS" "ListRS"],
