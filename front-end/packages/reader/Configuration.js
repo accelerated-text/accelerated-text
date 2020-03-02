@@ -39,7 +39,7 @@ export default composeQueries({
                     <FlagValue
                         key={ flag.id }
                         flag={ flag }
-                        isChecked={ flagValues[flag.id] }
+                        isChecked={ flagValues[flag.id] || flag.defaultUsage == "YES" }
                         onChange={ onToggleFlag }
                     />
                 )
