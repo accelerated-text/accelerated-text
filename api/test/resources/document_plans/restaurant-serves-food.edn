@@ -1,0 +1,19 @@
+{:type "Document-plan"
+ :segments [{:children [{:roles [{:children [{:name "name" :type "Cell" :srcId "xE{k_c?SMWSyJ3Ve%Jqa"}] :name "Subject" :label "Subject"}
+                                 {:children [{:type "Quote" :srcId "6X)DS$!|*PBIUoGnAwrS" :text "serves"}] :name "Verb" :label "Verb"}
+                                 {:children [{:type "If-then-else"
+                                              :conditions [{:type "If-condition"
+                                                            :thenExpression {:children [{:name "food" :type "Cell" :srcId "UG1[Xn/.wv-8tq-i~nmJ"}                                                                                                              {:type "Quote" :srcId "azF$@8eyrcM}r9~-)x}Y" :text "food"}]
+                                                                             :type "Sequence"
+                                                                             :srcId "I_K^5e{4xta3L(9Zo58B"}
+                                                            :condition {:name "food" :type "Cell" :srcId "gM9(Du3fx?5qn`%HP;eQ"}}
+                                                           {:type "Default-condition"
+                                                            :thenExpression {:type "Quote" :srcId "cGW^v73GvZGA:!EtR{f/" :text "food"}}]
+                                              :srcId ";p-M!1U?:T:$@SJcxx7["}] :name "Object" :label "Object"}]
+                         :type "AMR"
+                         :srcId "td86]}yV*``_qj3O;|B"
+                         :conceptId "capable-of"
+                         :kind "Str"}]
+             :type "Segment"
+             :srcId "sn#g:ZHw2M{[dZo9xexE"}]
+ :srcId "5cuZMnsOvjZLg8fGJ}!|"}

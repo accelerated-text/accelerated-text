@@ -280,3 +280,10 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (not= "Restaurant located in city center" (first (get-enriched-results result-id))))))
+
+(deftest ^:integration restaurant-if-inside-amr
+  (let [{{result-id :resultId} :body status :status} (generate "restaurant-serves-food" "restaurants.csv")]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"Alimentum serves food."
+             "Panda serves chinese food."} get-original-results result-id))))

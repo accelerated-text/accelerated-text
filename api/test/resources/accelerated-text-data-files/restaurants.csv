@@ -1,2 +1,3 @@
-"name","area","eat_type"
-"Alimentum","city center","restaurant"
+"name","area","eat_type","food"
+"Alimentum","city center","restaurant",
+"Panda","riverside","restaurant","chinese"
