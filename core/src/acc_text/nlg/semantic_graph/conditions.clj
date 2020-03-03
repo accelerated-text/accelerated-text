@@ -2,7 +2,8 @@
   (:require [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.set :as set]
             [clojure.spec.alpha :as s]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]))
 
 (defn operator->fn [x]
   (case x
@@ -61,6 +62,7 @@
 
 (defmethod evaluate-predicate :data [{value :value} _ data]
   (let [result (get data value)]
+    (log/debugf "Executing plain IF on: %s (boolean string? %s)" result (sg-utils/is-boolean-string? result))
     (if (some? result)
       (if (sg-utils/is-boolean-string? result)
         (sg-utils/eval-boolean-string result)
