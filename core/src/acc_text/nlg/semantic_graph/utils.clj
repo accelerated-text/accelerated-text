@@ -2,6 +2,7 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.set :as set]
             [clojure.string :as str]
+            [clojure.tools.logging :as log]
             [ubergraph.core :as uber]))
 
 (defn find-concept-ids [{concepts ::sg/concepts} types]
@@ -73,6 +74,19 @@
 (defn prune-unrelated-branches [{::sg/keys [concepts relations] :as semantic-graph}]
   (prune-branches semantic-graph (set/difference (into #{} (map :id (rest concepts)))
                                                  (into #{} (map :to relations)))))
+
+(defn remove-condition-nodes [semantic-graph]
+  (let [ids-for-removal (->> semantic-graph
+                             ::sg/concepts
+                             (filter #(contains? #{:condition :if-statement :default-statement} (:type %)))
+                             (map :id)
+                             set)]
+    (log/debugf "Ids for removal: %s" (pr-str ids-for-removal))
+    (-> semantic-graph
+        (update ::sg/concepts (fn [concepts]
+                                (remove #(contains? ids-for-removal (:id %)) concepts)))
+        (update ::sg/relations (fn [relations]
+                                 relations)))))
 
 (defn node-name [{:keys [id type value]}]
   (if (= type :quote)

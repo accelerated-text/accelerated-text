@@ -99,7 +99,8 @@
        (set/difference (find-statement-ids semantic-graph))
        (set/union (sg-utils/find-concept-ids semantic-graph #{:boolean :comparator}))
        (set/union (sg-utils/find-data-predicate-concept-ids semantic-graph))
-       (sg-utils/prune-branches semantic-graph)))
+       (sg-utils/prune-branches semantic-graph)
+       (sg-utils/remove-condition-nodes)))
 
 (s/fdef select
         :args (s/cat :semantic-graph :acc-text.nlg.semantic-graph/graph
