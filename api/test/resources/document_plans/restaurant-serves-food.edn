@@ -1,6 +1,6 @@
 {:type "Document-plan"
  :segments [{:children [{:roles [{:children [{:name "name" :type "Cell" :srcId "xE{k_c?SMWSyJ3Ve%Jqa"}] :name "Subject" :label "Subject"}
-                                 {:children [{:name "serves" :type "Dictionary-item" :srcId "(Lw$JGF,EV=o#3^$Auys" :itemId "serves"}] :name "Verb" :label "Verb"}
+                                 {:children [{:name "serve" :type "Dictionary-item" :srcId "(Lw$JGF,EV=o#3^$Auys" :itemId "serve"}] :name "Verb" :label "Verb"}
                                  {:children [{:type "If-then-else"
                                               :conditions [{:type "If-condition"
                                                             :thenExpression {:children [{:name "food"
