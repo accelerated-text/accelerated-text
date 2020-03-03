@@ -18,21 +18,27 @@
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
 
-(defn add-document-plan [document-plan-id]
-  (:id (dp/add-document-plan {:uid          document-plan-id
-                              :name         document-plan-id
-                              :documentPlan (load-test-document-plan document-plan-id)}
-                             document-plan-id)))
+(defn add-document-plan
+  ([document-plan-id]
+   (add-document-plan document-plan-id)
+   [document-plan-id sample-row]
+   (:id (dp/add-document-plan {:uid          document-plan-id
+                               :name         document-plan-id
+                               :documentPlan (assoc (load-test-document-plan document-plan-id) :dataSampleRow sample-row)}
+                              document-plan-id))))
 
 (defn store-data-file [filename]
   (data-files/store!
     {:filename filename
      :content  (slurp (format "test/resources/accelerated-text-data-files/%s" filename))}))
 
-(defn generate [document-plan-id filename]
-  (q "/nlg/" :post {:documentPlanId   (add-document-plan document-plan-id)
-                    :readerFlagValues {:English true}
-                    :dataId           (store-data-file filename)}))
+(defn generate
+  ([document-plan-id filename]
+   (generate document-plan-id filename 0)
+   [document-plan-id filename row-id]
+   (q "/nlg/" :post {:documentPlanId   (add-document-plan document-plan-id row-id)
+                     :readerFlagValues {:English true}
+                     :dataId           (store-data-file filename)})))
 
 (defn generate-bulk [document-plan-id rows]
   (q "/nlg/_bulk/" :post {:documentPlanId   (add-document-plan document-plan-id)
@@ -282,8 +288,14 @@
     (is (not= "Restaurant located in city center" (first (get-enriched-results result-id))))))
 
 (deftest ^:integration restaurant-if-inside-amr
-  (let [{{result-id :resultId} :body status :status} (generate "restaurant-serves-food" "restaurants.csv")]
-    (is (= 200 status))
-    (is (some? result-id))
-    (is (= #{"Alimentum serves food."
-             "Panda serves chinese food."} (get-original-results result-id)))))
+  (testing "If true branch"
+    (let [{{result-id :resultId} :body status :status} (generate "restaurant-serves-food" "restaurants.csv" 0)]
+      (is (= 200 status))
+      (is (some? result-id))
+      (is (= #{"Alimentum serves food."} (get-original-results result-id)))))
+
+  (testing "If false branch"
+    (let [{{result-id :resultId} :body status :status} (generate "restaurant-serves-food" "restaurants.csv" 1)]
+      (is (= 200 status))
+      (is (some? result-id))
+      (is (= #{"Panda serves chinese food."} (get-original-results result-id))))))
