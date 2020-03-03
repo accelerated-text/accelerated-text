@@ -62,7 +62,6 @@
 
 (defmethod evaluate-predicate :data [{value :value} _ data]
   (let [result (get data value)]
-    (log/debugf "Executing plain IF on: %s" result)
     (if (some? result)
       (if (sg-utils/is-boolean-string? result)
         (sg-utils/eval-boolean-string result)
