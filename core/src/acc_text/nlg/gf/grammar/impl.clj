@@ -52,24 +52,9 @@
      :type  (get types name "Str")}))
 
 (defmethod build-variable :dictionary-item [{value :value :as concept} {:keys [dictionary types]}]
-  (let [name (concept->name concept)
-        {:keys [tenses inflections]} (get dictionary value)
-        _ (log/tracef "Tenses: %s Inflections: %s" (pr-str tenses) (pr-str inflections))
-        default-tense (when (some? tenses)
-                        (->> tenses
-                             (map (fn [item] {(:tense/key item) (:tense/value item)}))
-                             (into {})
-                             :present))
-        default-inflection (when (some? inflections)
-                             (->> inflections
-                                  (map (fn [item] {(:inflection/key item) (:inflection/value item)}))
-                                  (into {})
-                                  :nom-sg))]
-    (log/debugf "Dictionary: %s Value: %s" dictionary value)
+  (let [name (concept->name concept)]
     {:name  name
-     :value (or (when (some? default-tense) [default-tense])
-                (when (some? default-inflection) [default-inflection])
-                (when (some? value) [value]))
+     :value (or (seq (get dictionary value)) (when (some? value) [value]))
      :type  (get types name "Str")}))
 
 (defmulti build-function (fn [concept _ _ _ _] (:type concept)))
