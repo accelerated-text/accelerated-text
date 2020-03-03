@@ -286,4 +286,4 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"Alimentum serves food."
-             "Panda serves chinese food."} get-original-results result-id))))
+             "Panda serves chinese food."} (get-original-results result-id)))))
