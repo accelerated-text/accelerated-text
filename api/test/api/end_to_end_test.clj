@@ -74,11 +74,11 @@
 
 (defn get-enriched-results [result-id]
   (->>
-    result-id
-    (get-variants)
-    :sample
-    (map :enriched)
-    (set)))
+   result-id
+   (get-variants)
+   :sample
+   (map :enriched)
+   (set)))
 
 (deftest ^:integration single-element-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "title-only" "books.csv")]
