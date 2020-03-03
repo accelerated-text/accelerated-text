@@ -3,8 +3,7 @@
             [acc-text.nlg.dictionary.item :as dictionary-item]
             [data.entities.amr :as amr]
             [data.entities.rgl :as rgl]
-            [data.entities.dictionary :as dict-entity]
-            [clojure.tools.logging :as log]))
+            [data.entities.dictionary :as dict-entity]))
 
 (defn get-values [semantic-graph type]
   (->> (get semantic-graph ::sg/concepts)

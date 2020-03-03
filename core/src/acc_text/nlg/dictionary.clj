@@ -1,7 +1,6 @@
 (ns acc-text.nlg.dictionary
   (:require [acc-text.nlg.dictionary.item :as dictionary-item]
-            [clojure.spec.alpha :as s]
-            [clojure.string :as str]))
+            [clojure.spec.alpha :as s]))
 
 (s/def ::item (s/keys :req [::dictionary-item/key
                             ::dictionary-item/category

@@ -1,6 +1,6 @@
 (ns data.dictionary-test
   (:require [api.db-fixtures :as fixtures]
-            [clojure.test :refer [deftest is use-fixtures testing]]
+            [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.dictionary :as dictionary]))
 
 (def test-dictionary-items #{#:acc-text.nlg.dictionary.item{:key      "place_1_N"
