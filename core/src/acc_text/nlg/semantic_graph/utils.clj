@@ -96,9 +96,7 @@
                                    (->> relations
                                         (remove (fn [{:keys [from to]}] (or (contains? ids-for-removal from)
                                                                             (contains? ids-for-removal to))))
-                                        (cons {:from (:from start-node)
-                                               :to   (:to   end-node)
-                                               :role :instance})
+                                        (cons (assoc start-node :to (:to end-node)))
                                         (sort-by :from))))))))
 
 (defn node-name [{:keys [id type value]}]
