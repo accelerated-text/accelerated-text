@@ -98,7 +98,8 @@
                                                                             (contains? ids-for-removal to))))
                                         (cons {:from (:from start-node)
                                                :to   (:to   end-node)
-                                               :role :instance}))))))))
+                                               :role :instance})
+                                        (sort-by :from))))))))
 
 (defn node-name [{:keys [id type value]}]
   (if (= type :quote)
