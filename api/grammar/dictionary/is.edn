@@ -1,8 +1,0 @@
-[#:acc-text.nlg.dictionary.morphology{:key "is"
-                                      :pos "V2"
-                                      :language "Eng"
-                                      :sense    :basic
-                                      :gender   :n
-                                      :definition "He is running"
-                                      :tenses    {:present-tense "is"
-                                                  :past-tense     "was"}}]

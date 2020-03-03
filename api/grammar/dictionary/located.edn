@@ -1,8 +1,0 @@
-[#:acc-text.nlg.dictionary.morphology{:key "located"
-                                      :pos "V2"
-                                      :language "Eng"
-                                      :sense    :basic
-                                      :gender   :n
-                                      :definition "It is located on the riverside"
-                                      :tenses {:present-tense "locate"
-                                               :past-tense    "located"}}]

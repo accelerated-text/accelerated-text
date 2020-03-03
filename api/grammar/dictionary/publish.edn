@@ -1,8 +1,0 @@
-[#:acc-text.nlg.dictionary.morphology{:key "publish"
-                                      :pos "V2"
-                                      :language "Eng"
-                                      :sense    :basic
-                                      :gender   :n
-                                      :definition "The book has been published"
-                                      :tenses    {:present-tense "publish"
-                                                  :past-tense    "published"}}]

@@ -1,8 +1,0 @@
-[#:acc-text.nlg.dictionary.morphology{:key "see"
-                                      :pos "V2"
-                                      :language "Eng"
-                                      :sense    :basic
-                                      :gender   :n
-                                      :definition "I see you"
-                                      :tenses    {:present-tense "see"
-                                                  :past-tense    "saw"}}]

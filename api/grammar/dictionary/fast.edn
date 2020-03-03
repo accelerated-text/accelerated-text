@@ -1,7 +1,0 @@
-[#:acc-text.nlg.dictionary.morphology{:key "fast"
-                                      :pos "Adv"
-                                      :language "Eng"
-                                      :sense    :basic
-                                      :gender   :n
-                                      :definition "Fast"
-                                      :inflections {:nom-sg "fast"}}]

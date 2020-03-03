@@ -1,8 +1,0 @@
-[#:acc-text.nlg.dictionary.morphology{:key "property"
-                                      :pos "N"
-                                      :language "Eng"
-                                      :sense    :basic
-                                      :gender   :m
-                                      :definition ""
-                                      :inflections {:nom-sg "property"
-                                                    :nom-pl "properties"}}]
