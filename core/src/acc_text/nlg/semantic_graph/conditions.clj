@@ -59,6 +59,14 @@
     (when (every? #(contains? #{:boolean :comparator} (:type %)) child-concepts)
       (operator-fn (map #(evaluate-predicate % semantic-graph data) child-concepts)))))
 
+(defmethod evaluate-predicate :data [{value :value} _ data]
+  (let [result (get data value)]
+    (if (some? result)
+      (if (sg-utils/is-boolean-string? result)
+        (sg-utils/eval-boolean-string result)
+        true)
+      false)))
+
 (defn evaluate-statement [{type :type :as concept} semantic-graph data]
   (case type
     :if-statement (when-let [predicate-concept (sg-utils/get-child-with-relation semantic-graph concept :predicate)]
@@ -90,6 +98,7 @@
   (->> (get-truthful-statement-ids semantic-graph data)
        (set/difference (find-statement-ids semantic-graph))
        (set/union (sg-utils/find-concept-ids semantic-graph #{:boolean :comparator}))
+       (set/union (sg-utils/find-data-predicate-concept-ids semantic-graph))
        (sg-utils/prune-branches semantic-graph)))
 
 (s/fdef select

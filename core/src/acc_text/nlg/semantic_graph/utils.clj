@@ -10,6 +10,15 @@
        (map :id)
        (into #{})))
 
+(defn find-data-predicate-concept-ids [{concepts ::sg/concepts relations ::sg/relations}]
+  (let [concepts-under-predicate (->> relations
+                                      (filter #(= :predicate (:role %)))
+                                      (map #(:to %)))]
+    (->> concepts
+         (filter #(= :data (:type %)))
+         (map :id)
+         (filter #(contains? (set concepts-under-predicate) %))))) 
+
 (defn find-child-ids [{relations ::sg/relations} ids]
   (let [relation-map (group-by :from relations)]
     (->> ids
@@ -82,3 +91,13 @@
                            relations))))
 
 (defn vizgraph [semantic-graph] (uber/viz-graph (plan-graph semantic-graph)))
+
+(def boolean-strings
+  {"true"  true
+   "false" false
+   "yes"   true
+   "no"    false
+   "1"     true
+   "0"     false})
+(defn is-boolean-string? [value] (->> (str/lower-case value) (contains? (set (keys boolean-strings)))))
+(defn eval-boolean-string [value] (->> (str/lower-case value) (get boolean-strings)))
