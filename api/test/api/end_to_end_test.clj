@@ -1,7 +1,7 @@
 (ns api.end-to-end-test
   (:require [api.db-fixtures :as fixtures]
             [api.test-utils :refer [q load-test-document-plan]]
-            [clojure.test :refer [deftest is use-fixtures]]
+            [clojure.test :refer [deftest is use-fixtures testing]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]))
@@ -20,8 +20,8 @@
 
 (defn add-document-plan
   ([document-plan-id]
-   (add-document-plan document-plan-id 0)
-   [document-plan-id sample-row]
+   (add-document-plan document-plan-id 0))
+  ([document-plan-id sample-row]
    (:id (dp/add-document-plan {:uid          document-plan-id
                                :name         document-plan-id
                                :documentPlan (assoc (load-test-document-plan document-plan-id) :dataSampleRow sample-row)}
@@ -34,8 +34,8 @@
 
 (defn generate
   ([document-plan-id filename]
-   (generate document-plan-id filename 0)
-   [document-plan-id filename row-id]
+   (generate document-plan-id filename 0))
+  ([document-plan-id filename row-id]
    (q "/nlg/" :post {:documentPlanId   (add-document-plan document-plan-id row-id)
                      :readerFlagValues {:English true}
                      :dataId           (store-data-file filename)})))
