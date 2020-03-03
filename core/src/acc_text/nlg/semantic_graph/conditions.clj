@@ -35,14 +35,6 @@
 
 (defmulti evaluate-predicate (fn [concept _ _] (:type concept)))
 
-(defn translate-lang [l]
-  (case l
-    :en "Eng"
-    :ee "Est"
-    :de "Ger"
-    :lv "Lav"
-    :ru "Rus"))
-
 (defmethod evaluate-predicate :comparator [{operator :value :as concept} semantic-graph data]
   (let [child-concepts (sg-utils/get-children semantic-graph concept)]
     (when (every? #(contains? #{:data :quote :constant} (:type %)) child-concepts)
@@ -51,7 +43,7 @@
                                :quote value
                                :data (get data (keyword value))
                                :constant (case (:name attributes)
-                                           "*Language" (-> data (get :lang) (translate-lang)))))))))
+                                           "*Language" (get data :lang))))))))
 
 (defmethod evaluate-predicate :boolean [{operator :value :as concept} semantic-graph data]
   (let [child-concepts (sg-utils/get-children semantic-graph concept)

@@ -10,7 +10,7 @@
                                            :kind           "Str"
                                            :roles          [{:id "ARG0" :label "item" :type "Str"}]
                                            :semantic-graph (test-utils/load-test-semantic-graph "language-condition")}}}]
-    (is (= (core/select-context context {:lang :en})
+    (is (= (core/select-context context {:lang "Eng"})
            '{:amr {"nMMpkQyRnXGQPcZT" {:id             "nMMpkQyRnXGQPcZT"
                                        :kind           "Str"
                                        :label          "language-test"
@@ -48,7 +48,7 @@
                                                                           :from       :08
                                                                           :role       :ARG0
                                                                           :to         :09})}}}}))
-    (is (= (core/select-context context {:lang :ee})
+    (is (= (core/select-context context {:lang "Est"})
            '{:amr {"nMMpkQyRnXGQPcZT" {:id             "nMMpkQyRnXGQPcZT"
                                        :kind           "Str"
                                        :label          "language-test"
@@ -91,8 +91,8 @@
   (let [semantic-graph (test-utils/load-test-semantic-graph "language-test")
         context (test-utils/load-test-context "language-test")]
     (are [lang result] (= result (map :text (core/generate-text semantic-graph context lang)))
-                       :en ["There is a text."]
-                       :ee ["On olemas text."]
-                       :de ["Es gibt einen text."]
-                       :lv ["Ir text."]
-                       :ru ["Существует text."])))
+                       "Eng" ["There is a text."]
+                       "Est" ["On olemas text."]
+                       "Ger" ["Es gibt einen text."]
+                       "Lav" ["Ir text."]
+                       "Rus" ["Существует text."])))

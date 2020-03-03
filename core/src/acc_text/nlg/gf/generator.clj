@@ -254,7 +254,7 @@
 
 (defn generate
   ([grammar]
-   (generate :en grammar))
+   (generate "Eng" grammar))
   ([lang {::grammar/keys [module instance] :as grammar}]
    (let [{body :body} (service/compile-request lang module instance (grammar->content lang grammar))
          {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
