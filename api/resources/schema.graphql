@@ -303,11 +303,6 @@ type Query {
 
     dictionary:             DictionaryResults!
 
-    searchDictionaryMultilang(
-        key:                String!
-        sense:              String!
-    ): [ DictionaryItemMultilang ]
-
     dictionaryItem(
         id:                 ID!
     ):  DictionaryItem

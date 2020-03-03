@@ -1,5 +1,6 @@
 (ns api.graphql.domain.dictionary
-  (:require [api.graphql.translate.core :as translate-core]
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [api.graphql.translate.core :as translate-core]
             [api.graphql.translate.dictionary :as translate-dict]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
@@ -8,8 +9,8 @@
 
 (defn dictionary [_ _ _]
   (->> (dict-entity/list-multilang-dict 100)
-       (group-by #(select-keys % [:key :pos]))
-       (map #(apply translate-dict/multilang-dict-item->original-schema %))
+       (filter #(= (dict-entity/default-language) (::dictionary-item/language %)))
+       (map translate-dict/multilang-dict-item->original-schema)
        (sort-by :name)
        (translate-core/paginated-response)
        (resolve-as)))
@@ -19,9 +20,10 @@
 
 (defn dictionary-item [_ {id :id :as args} _]
   (log/debugf "Fetching dictionary item with args: %s" args)
-  (if-let [items (dict-entity/get-multidict-items id)]
-    (resolve-as (translate-dict/multilang-dict-item->original-schema id items))
-    (resolve-as-not-found-dict-item id)))
+  (let [items (dict-entity/search-multilang-dict #{id} #{(dict-entity/default-language)})]
+    (if (seq items)
+      (resolve-as (translate-dict/multilang-dict-item->original-schema (first items)))
+      (resolve-as-not-found-dict-item id))))
 
 (defn create-dictionary-item [_ {item-name :name pos :partOfSpeech phrases :phrases} _]
   (-> {:key          (cond->> item-name (some? pos) (str (name pos) "-"))
@@ -112,8 +114,3 @@
            (translate-dict/reader-flag-usage->schema phrase-id)
            (resolve-as)))
     (resolve-as-not-found-dict-item (get-parent-id id))))
-
-
-(defn search-dict-multilang [_ {:keys [key pos senses]} _]
-  (->> (dict-entity/search-multilang-dict key pos (map #(keyword %) senses))
-       (map translate-dict/multilang-dict-item->schema)))

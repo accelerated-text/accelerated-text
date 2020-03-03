@@ -1,5 +1,6 @@
 (ns api.graphql.translate.dictionary
-  (:require [api.graphql.translate.concept :as translate-concept]
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [api.graphql.translate.concept :as translate-concept]
             [clojure.tools.logging :as log]
             [data.utils :as utils]
             [data.entities.dictionary :as dict-entity]))
@@ -42,45 +43,22 @@
                         :roles  []
                         :frames []}))}))
 
-(defn multilang-dict-item->schema [{:keys [id key pos gender language senses inflections tenses] :as dict-item}]
-  (log/debugf "MultilangDictItem: %s" dict-item)
-  {:id            id
-   :key           key
-   :pos           pos
-   :language      (name language)
-   :gender        (get {:m "M" :f "F" :n "N"} gender)
-   :senses        (map (fn [sense] {:id (utils/gen-uuid)  :name (name sense)}) senses)
-   :tenses        (map (fn [tense] {:id (:tense/id tense) :key (name (:tense/key tense)) :value (:tense/value tense)}) tenses)
-   :inflections   (map (fn [inflection] {:id (:inflection/id inflection) :key (name (:inflection/key inflection)) :value (:inflection/value inflection)}) inflections)})
-
 (defn build-lang-user-flags [lang]
-  (map (fn [[k _]]
-         {:id   (utils/gen-uuid)
-          :flag {:id   (name k)
-                 :name (name k)}
-          :usage (if (= (subs (name k) 0 3) (name lang))
+  (map (fn [[flag _]]
+         {:id    (utils/gen-uuid)
+          :flag  {:id flag :name flag}
+          :usage (if (= (dict-entity/flag->lang flag) lang)
                    "YES"
                    "NO")})
        (dict-entity/get-default-flags)))
 
-(defn get-default-tense [tenses]
-  (let [value-map (into {} (map (fn [tense] {(:tense/key tense) (:tense/value tense)}) tenses))]
-    (get value-map :present-tense "")))
-
-(defn get-default-inflection [inflections]
-  (let [value-map (into {} (map (fn [infl] {(:inflection/key infl) (:inflection/value infl)}) inflections))]
-    (get value-map :nom-sg "")))
-
-(defn multilang-dict-item->original-schema [{:keys [key pos]} items]
+(defn multilang-dict-item->original-schema [{::dictionary-item/keys [key category forms language]}]
   {:id           key
-   :name         key
-   :partOfSpeech pos
-   :phrases      (map (fn [{:keys [language inflections tenses]}]
+   :name         (first forms)
+   :partOfSpeech category
+   :phrases      (map (fn [form]
                         {:defaultUsage    "YES"
                          :id              (utils/gen-uuid)
                          :readerFlagUsage (build-lang-user-flags language)
-                         :text            (cond
-                                            (not-empty inflections) (get-default-inflection inflections)
-                                            (not-empty tenses)       (get-default-tense tenses)
-                                            :else "")})
-                      items)})
+                         :text            form})
+                      forms)})

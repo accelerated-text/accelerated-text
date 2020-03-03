@@ -4,24 +4,18 @@
             [api.nlg.parser :as parser]
             [api.test-utils :refer [load-test-document-plan]]
             [clojure.test :refer [deftest is use-fixtures]]
-            [data.entities.dictionary :as dictionary]
-            [clojure.tools.logging :as log]))
+            [data.entities.dictionary :as dict-entity]))
 
 (defn prepare-environment [f]
-  (doseq [item [#:acc-text.nlg.dictionary.morphology{:key "good"
-                                                     :pos      "A"
-                                                     :language "Eng"
-                                                     :gender   :m
-                                                     :sense    :basic
-                                                     :inflections {:nom-sg "good"}}
-                #:acc-text.nlg.dictionary.morphology{:key "written"
-                                                     :pos      "V"
-                                                     :language "Eng"
-                                                     :gender   :m
-                                                     :sense    :basic
-                                                     :tenses   {:present-tense "write"
-                                                                :past-participle-tense    "written"}}]]
-    (dictionary/create-multilang-dict-item item))
+  (doseq [item [#:acc-text.nlg.dictionary.item{:key      "good"
+                                               :category "A"
+                                               :language "Eng"
+                                               :forms    ["good" "better" "best" "well"]}
+                #:acc-text.nlg.dictionary.item{:key      "written"
+                                               :category "V2"
+                                               :language "Eng"
+                                               :forms    ["write" "wrote" "written"]}]]
+    (dict-entity/create-multilang-dict-item item))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -35,15 +29,13 @@
 (deftest ^:integration dictionary-building
   (let [document-plan (load-test-document-plan "author-amr-with-adj")
         semantic-graph (parser/document-plan->semantic-graph document-plan)
-        context (context/build-multilang-dictionary-context semantic-graph {:default true})]
-    (log/debugf "Context: %s" context)
-    (is (= ["good"] (->> (get context "good")
-                         :Eng
-                         :inflections
-                         (map #(:inflection/value %))
-                         (vec))))
-    (is (= ["write", "written"] (->> (get context "written")
-                         :Eng
-                         :tenses
-                         (map #(:tense/value %))
-                         (vec))))))
+        context (context/build-dictionary-context semantic-graph ["Eng"])]
+    (is (= #{#:acc-text.nlg.dictionary.item{:key      "good"
+                                            :category "A"
+                                            :language "Eng"
+                                            :forms    ["good" "better" "best" "well"]}
+             #:acc-text.nlg.dictionary.item{:key      "written"
+                                            :category "V2"
+                                            :language "Eng"
+                                            :forms    ["write" "wrote" "written"]}}
+           (set (get-in context ["Eng"]))))))

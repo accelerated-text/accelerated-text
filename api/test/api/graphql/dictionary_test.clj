@@ -4,23 +4,23 @@
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.dictionary :as dict-entity]))
 
-(use-fixtures :each fixtures/clean-db)
+(defn prepare-environment [f]
+  (doseq [item #{#:acc-text.nlg.dictionary.item{:key      "place_1_N"
+                                                :sense    "1"
+                                                :category "N"
+                                                :language "Eng"
+                                                :forms    ["place" "places"]}
+                 #:acc-text.nlg.dictionary.item{:key      "place_1_N"
+                                                :sense    "1"
+                                                :category "N"
+                                                :language "Ger"
+                                                :forms    ["platz" "plätze"]}}]
+    (dict-entity/create-multilang-dict-item item))
+  (f))
+
+(use-fixtures :each fixtures/clean-db prepare-environment)
 
 (deftest ^:integration query-dict-items
-  (dict-entity/create-multilang-dict-item #:acc-text.nlg.dictionary.morphology{:key "place"
-                                                                               :pos      "N"
-                                                                               :language "Eng"
-                                                                               :gender   :m
-                                                                               :sense    :restaurant
-                                                                               :inflections {:nom-sg "place"
-                                                                                             :nom-pl "places"}})
-  (dict-entity/create-multilang-dict-item #:acc-text.nlg.dictionary.morphology{:key "place"
-                                                                               :pos      "N"
-                                                                               :language "Ger"
-                                                                               :gender   :m
-                                                                               :sense    :restaurant
-                                                                               :inflections {:nom-sg "platz"
-                                                                                             :nom-pl "plätze"}})
   (let [query "{dictionary{items{name partOfSpeech phrases{id text defaultUsage readerFlagUsage{id usage flag{id name}}}}}}"
         {{{{items :items} :dictionary} :data errors :errors} :body}
         (q "/_graphql" :post {:query query})]

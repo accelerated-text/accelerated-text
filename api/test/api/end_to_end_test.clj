@@ -1,38 +1,33 @@
 (ns api.end-to-end-test
-  (:require [api.db-fixtures :as fixtures]
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [api.db-fixtures :as fixtures]
             [api.test-utils :refer [q load-test-document-plan]]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]))
 
-(defn simple-verb [key lang]
-  #:acc-text.nlg.dictionary.morphology{:key         key
-                                       :pos         "V2"
-                                       :language    lang
-                                       :sense       :basic
-                                       :tenses      {:present key}})
-
 (defn prepare-environment [f]
-  (doseq [item [#:acc-text.nlg.dictionary.morphology{:key "place"
-                                                     :pos      "N"
-                                                     :language "Eng"
-                                                     :gender   :m
-                                                     :sense    :basic
-                                                     :inflections {:nom-sg "place"
-                                                                   :nom-pl "places"}}
-                #:acc-text.nlg.dictionary.morphology{:key "place"
-                                                     :pos      "N"
-                                                     :language "Ger"
-                                                     :gender   :m
-                                                     :sense    :basic
-                                                     :inflections {:nom-sg "platz"
-                                                                   :nom-pl "plätze"}}
-                (simple-verb "cut" "Eng")
-                (simple-verb "see" "Eng")
-                (simple-verb "written" "Eng")
-                (simple-verb "is" "Eng")
-                (simple-verb "release" "Eng")]]
+  (doseq [item [#::dictionary-item{:key      "cut"
+                                   :category "V2"
+                                   :language "Eng"
+                                   :forms    ["cut" "cut" "cut"]}
+                #::dictionary-item{:key      "see"
+                                   :category "V2"
+                                   :language "Eng"
+                                   :forms    ["see" "saw" "seen"]}
+                #::dictionary-item{:key      "written"
+                                   :category "V2"
+                                   :language "Eng"
+                                   :forms    ["write" "wrote" "written"]}
+                #::dictionary-item{:key      "release"
+                                   :category "V2"
+                                   :language "Eng"
+                                   :forms    ["release"]}
+                #::dictionary-item{:key      "is"
+                                   :category "V2"
+                                   :language "Eng"
+                                   :forms    ["is"]}]]
     (dictionary/create-multilang-dict-item item))
   (f))
 
@@ -292,9 +287,3 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (not= "Restaurant located in city center" (first (get-enriched-results result-id))))))
-
-(deftest ^:integration multilang-dict
-  (let [list-results   (dictionary/list-multilang-dict 100)
-        search-results (dictionary/search-multilang-dict "place" "N" [:basic])]
-    (is (= 7 (count list-results)))
-    (is (= 2 (count search-results)))))

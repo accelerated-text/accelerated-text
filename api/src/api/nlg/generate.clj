@@ -8,7 +8,8 @@
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as dp]
-            [data.entities.result :as results]))
+            [data.entities.result :as results]
+            [data.entities.dictionary :as dict-entity]))
 
 (s/def ::documentPlanId string?)
 (s/def ::key string?)
@@ -34,20 +35,15 @@
     {:original original :lang lang}
     data))
 
-
-(defn context-by-lang [context lang]
-  (log/spyf "Context by lang: %s" (assoc context :dictionary (into {} (map (fn [[k v]] {k (get v lang)})
-                                                                           (:dictionary-multilang context))))))
-
 (defn generate-text-for-language
   [semantic-graph context enrich lang]
   (let [ref-expr-fn (partial ref-expr/apply-ref-expressions lang)
         enrich-data (into {} (map (fn [[k v]] {v (format "{%s}" (name k))}) (:data context)))
         enrich-fn (fn [text]
                     (cond-> {:original (ref-expr-fn text) :lang lang}
-                      enrich (assoc :enriched (ref-expr-fn
-                                               (nlg/enrich-text enrich-data text)))))]
-    (->> (nlg/generate-text semantic-graph (context-by-lang context lang) lang)
+                            enrich (assoc :enriched (ref-expr-fn
+                                                      (nlg/enrich-text enrich-data text)))))]
+    (->> (nlg/generate-text semantic-graph context lang)
          (map :text)
          (sort)
          (dedupe)
@@ -56,26 +52,21 @@
          (map enrich-fn)
          (map merge-enrich-dupes))))
 
+(defn reader-model->languages [reader-model]
+  (reduce-kv (fn [acc k v]
+               (cond-> acc (true? v) (conj (dict-entity/flag->lang k))))
+             []
+             reader-model))
 
 (defn generate-text
-  ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
+  ([document-plan data enrich] (generate-text document-plan data {(dict-entity/default-language-flag) true} enrich))
   ([document-plan data reader-model enrich]
-   (let [languages (cond-> []
-                           (get reader-model "English" false) (conj :Eng)
-                           (get reader-model "Estonian" false) (conj :Est)
-                           (get reader-model "German" false) (conj :Ger)
-                           (get reader-model "Latvian" false) (conj :Lat)
-                           (get reader-model "Lithuanian" false) (conj :Lit)
-                           (get reader-model "Russian" false) (conj :Rus))
+   (let [languages (reader-model->languages reader-model)
          semantic-graph (parser/document-plan->semantic-graph document-plan)
-         context (context/build-context semantic-graph reader-model)
-         generate-fn (partial generate-text-for-language semantic-graph (assoc context :data data) enrich)]
-     (log/debugf "Context: %s" context)
-     (log/debugf "Languages: %s" languages)
-     (log/debugf "Reader Model: %s" reader-model)
-     (->> languages
-          (map generate-fn)
-          (mapcat identity)))))
+         context (context/build-context semantic-graph {:languages languages :data data})]
+     (mapcat (fn [lang]
+               (generate-text-for-language semantic-graph context enrich lang))
+             languages))))
 
 (defn generation-process [document-plan rows reader-model enrich]
   (try
@@ -134,12 +125,12 @@
 (defn prepend-lang-flag
   [text lang]
   (log/debugf "Result lang: %s" lang)
-  (format "%s %s" (case (keyword lang)
-                    :Eng "🇬🇧"
-                    :Ger "🇩🇪"
-                    :Est "🇪🇪"
-                    :Lat "🇱🇻"
-                    :Rus "🇷🇺"
+  (format "%s %s" (case lang
+                    "Eng" "🇬🇧"
+                    "Ger" "🇩🇪"
+                    "Est" "🇪🇪"
+                    "Lat" "🇱🇻"
+                    "Rus" "🇷🇺"
                     "🏳️") text))
 
 (defn transform-results
@@ -166,7 +157,6 @@
   {:status 500
    :body   {:error   true
             :message (.getMessage exception)}})
-
 
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)

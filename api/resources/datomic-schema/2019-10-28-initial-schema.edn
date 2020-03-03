@@ -400,73 +400,63 @@
           {:db/ident       :dictionary-multilang/key
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Key for word in dictionary"}
+           :db/doc         "Dictionary item key"}
 
-          {:db/ident       :dictionary-multilang/pos
-           :db/valueType   :db.type/keyword
+          {:db/ident       :dictionary-multilang/category
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Part of speech tag"}
+           :db/doc         "Category (part of speech tag) of dictionary item"}
 
           {:db/ident       :dictionary-multilang/language
-           :db/valueType   :db.type/keyword
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Language"}
+           :db/doc         "Dictionary item language"}
 
           {:db/ident       :dictionary-multilang/sense
-           :db/valueType   :db.type/keyword
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Domain for word"}
-
-          {:db/ident       :dictionary-multilang/inflections
-           :db/valueType   :db.type/ref
-           :db/cardinality :db.cardinality/many
-           :db/isComponent true
-           :db/doc         "Inflections for word"}
-
-          {:db/ident       :dictionary-multilang/tenses
-           :db/valueType   :db.type/ref
-           :db/cardinality :db.cardinality/many
-           :db/isComponent true
-           :db/doc         "Tenses for word"}
-
-          {:db/ident       :dictionary-multilang/gender
-           :db/valueType   :db.type/keyword
-           :db/cardinality :db.cardinality/one
-           :db/doc         "Gender for word"}
+           :db/doc         "Sense of word"}
 
           {:db/ident       :dictionary-multilang/definition
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Define dictionary item"}
+           :db/doc         "Dictionary item definition"}
 
-          {:db/ident       :inflection/id
+          {:db/ident       :dictionary-multilang/forms
+           :db/valueType   :db.type/ref
+           :db/cardinality :db.cardinality/many
+           :db/isComponent true
+           :db/doc         "Word forms"}
+
+          {:db/ident       :dictionary-multilang/attributes
+           :db/valueType   :db.type/ref
+           :db/cardinality :db.cardinality/many
+           :db/isComponent true
+           :db/doc         "Dictionary item attributes"}
+
+          {:db/ident       :attribute/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Public Id of inflection item"}
+           :db/doc         "Public Id of dictionary item attribute"}
 
-          {:db/ident       :inflection/key
-           :db/valueType   :db.type/keyword
-           :db/cardinality :db.cardinality/one
-           :db/doc         "Key for inflection"}
-
-          {:db/ident       :inflection/value
+          {:db/ident       :attribute/key
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Value for inflection"}
+           :db/doc         "Key of dictionary item attribute"}
 
-          {:db/ident       :tense/id
+          {:db/ident       :attribute/value
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Value of dictionary item attribute"}
+
+          {:db/ident       :form/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Public Id of tense item"}
+           :db/doc         "Public Id dictionary item word form"}
 
-          {:db/ident       :tense/key
-           :db/valueType   :db.type/keyword
-           :db/cardinality :db.cardinality/one
-           :db/doc         "Key for tense"}
-
-          {:db/ident       :tense/value
+          {:db/ident       :form/value
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Value for tense"}]]}}
+           :db/doc         "Dictionary item form"}]]}}

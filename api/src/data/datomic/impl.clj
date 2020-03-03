@@ -43,9 +43,9 @@
    :dictionary-combined/phrases      (->> (:phrases data-item)
                                           (map (fn [{:keys [id text flags]}]
                                                  (remove-nil-vals
-                                                  {:phrase/id    id
-                                                   :phrase/text  text
-                                                   :phrase/flags (prepare-reader-flags flags)})))
+                                                   {:phrase/id    id
+                                                    :phrase/text  text
+                                                    :phrase/flags (prepare-reader-flags flags)})))
                                           (remove empty?))})
 
 (defmethod transact-item :dictionary-combined [_ key data-item]
@@ -60,75 +60,57 @@
                         :results/ts    (ts-now)
                         :results/ready (:ready data-item)})]))
 
-(defn prepare-inflections [inflections]
-  (->> inflections
-       (map (fn [[key value]]
-              (remove-nil-vals
-               {:inflection/id    (gen-uuid)
-                :inflection/key   key
-                :inflection/value value})))
-       (remove nil?)))
+(defn prepare-multilang-dict [id {:keys [key category language forms sense definition attributes]}]
+  {:db/id                           [:dictionary-multilang/id id]
+   :dictionary-multilang/id         id
+   :dictionary-multilang/key        key
+   :dictionary-multilang/category   category
+   :dictionary-multilang/language   language
+   :dictionary-multilang/sense      sense
+   :dictionary-multilang/definition definition
+   :dictionary-multilang/forms      (map (fn [form]
+                                           {:form/id    (gen-uuid)
+                                            :form/value form})
+                                         forms)
+   :dictionary-multilang/attributes (map (fn [[k v]]
+                                           {:attribute/id    (gen-uuid)
+                                            :attribute/key   k
+                                            :attribute/value v})
+                                         attributes)})
 
-(defn prepare-tenses [tenses]
-  (->> tenses
-       (map (fn [[key value]]
-              (remove-nil-vals
-               {:tense/id     (gen-uuid)
-                :tense/key    key
-                :tense/value  value})))
-       (remove nil?)))
-
-(defn prepare-multilang-dict [id {:keys [key language pos definition inflections gender tenses sense]}]
-  {:db/id                            [:dictionary-multilang/id id]
-   :dictionary-multilang/id          id
-   :dictionary-multilang/key         key
-   :dictionary-multilang/language    (keyword language)
-   :dictionary-multilang/pos         (keyword pos)
-   :dictionary-multilang/gender      gender
-   :dictionary-multilang/sense       sense
-   :dictionary-multilang/tenses      (prepare-tenses tenses)
-   :dictionary-multilang/inflections (prepare-inflections inflections)
-   :dictionary-multilang/definition  definition})
-
-(defn read-inflection [inflection]
-  (log/debugf "Inflection: %s" inflection)
-  inflection)
-
-(defn read-tense [tense]
-  (log/debugf "Tense: %s" tense)
-  tense)
-
-(defn read-multilang-dict-item [item]
-  (log/spyf "Multilang dict item: %s"
-            {:id          (:dictionary-multilang/id item)
-             :key         (:dictionary-multilang/key item)
-             :language    (:dictionary-multilang/language item)
-             :pos         (:dictionary-multilang/pos item)
-             :gender      (:dictionary-multilang/gender item)
-             :definition  (:dictionary-multilang/definition item)
-             :sense       (:dictionary-multilang/sense item)
-             :tenses      (map read-tense (:dictionary-multilang/tenses item))
-             :inflections (map read-inflection (:dictionary-multilang/inflections item))}))
+(defn read-multilang-dict-item [{:dictionary-multilang/keys [key category language forms sense definition attributes]}]
+  (remove-nil-vals
+    {:key        key
+     :category   category
+     :language   language
+     :sense      sense
+     :definition definition
+     :forms      (mapv :form/value forms)
+     :attributes (when (seq attributes)
+                   (reduce (fn [m {:attribute/keys [key value]}]
+                             (assoc m key value))
+                           {}
+                           attributes))}))
 
 (defmethod transact-item :dictionary-multilang [_ key data-item]
   (try
     @(d/transact conn [(remove-nil-vals
-                        (dissoc (prepare-multilang-dict key data-item) :db/id))])
+                         (dissoc (prepare-multilang-dict key data-item) :db/id))])
     (catch Exception e (.printStackTrace e))))
 
 (defmethod transact-item :reader-flag [_ key value]
   (try
     @(d/transact conn [(remove-nil-vals
-                        (dissoc (prepare-reader-flag key value) :db/id))])
+                         (dissoc (prepare-reader-flag key value) :db/id))])
     (catch Exception e (.printStackTrace e))))
 
 (defn prepare-rgl-syntax-params [params]
   (->> params
        (map (fn [{:keys [id type role]}]
               (remove-nil-vals
-               {:param/id   id
-                :param/type type
-                :param/role role})))
+                {:param/id   id
+                 :param/type type
+                 :param/role role})))
        (remove empty?)))
 
 (defn prepare-rgl-syntax [syntax]
@@ -272,12 +254,12 @@
 
 (defmethod pull-entity :dictionary-multilang [_ key]
   (map
-   (fn [[item]] (read-multilang-dict-item item))
-   (d/q '[:find (pull ?e [*])
-          :in $ ?key
-          :where [?e :dictionary-multilang/key ?key]]
-        (d/db conn)
-        key)))
+    (fn [[item]] (read-multilang-dict-item item))
+    (d/q '[:find (pull ?e [*])
+           :in $ ?key
+           :where [?e :dictionary-multilang/key ?key]]
+         (d/db conn)
+         key)))
 
 (defmethod pull-entity :default [resource-type key]
   (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'" resource-type key)
@@ -337,28 +319,26 @@
   (log/warnf "Default implementation of SCAN for the '%s' with key '%s'" resource-type opts)
   (throw (RuntimeException. (format "DATOMIC SCAN FOR '%s' NOT IMPLEMENTED" resource-type))))
 
-(defn query-multilang-dictionary
-  ([key] ;; Hackish way, but at the time system is built this way
-   (d/q '[:find (pull ?e [*])
-          :in $ ?key
-          :where [?e :dictionary-multilang/key ?key]]
-            (d/db conn)
-            key))
-  ([key pos senses]
-   (d/q '[:find (pull ?e [*])
-          :in $  [?key ?pos ?senses]
-          :where [?e :dictionary-multilang/key ?key]
-                 [?e :dictionary-multilang/pos ?pos]
-                 [?e :dictionary-multilang/sense ?sense]
-                 [(contains? ?senses ?sense)]]
-            (d/db conn)
-            [key pos (set senses)])))
+(defn query-multilang-dictionary [keys languages]
+  (if (seq languages)
+    (d/q '[:find (pull ?e [*])
+           :in $ [?keys ?languages]
+           :where [?e :dictionary-multilang/key ?key]
+           [?e :dictionary-multilang/language ?language]
+           [(contains? ?languages ?language)]
+           [(contains? ?keys ?key)]]
+         (d/db conn)
+         [(set keys) (set languages)])
+    (d/q '[:find (pull ?e [*])
+           :in $ ?keys
+           :where [?e :dictionary-multilang/key ?key]
+           [(contains? ?keys ?key)]]
+         (d/db conn)
+         (set keys))))
 
-(defmethod scan :dictionary-multilang [_ {:keys [key pos senses]}]
+(defmethod scan :dictionary-multilang [_ {:keys [keys languages]}]
   (map (fn [[item]] (read-multilang-dict-item item))
-       (if (and (some? pos) (some? senses))
-         (query-multilang-dictionary key (keyword pos) senses)
-         (query-multilang-dictionary key))))
+       (query-multilang-dictionary keys languages)))
 
 (defmulti delete (fn [resource-type _] resource-type))
 

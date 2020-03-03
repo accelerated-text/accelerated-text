@@ -1,28 +1,44 @@
 (ns data.entities.dictionary
-  (:require [api.config :refer [conf]]
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [api.config :refer [conf]]
+            [clojure.edn :as edn]
+            [clojure.java.io :as io]
             [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]
-            [clojure.java.io :as io]
-            [clojure.edn :as edn]
-            [acc-text.nlg.dictionary.morphology :as morphology])
-  (:import (java.io File)))
+            [mount.core :refer [defstate]])
+  (:import (java.io File PushbackReader)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
+
 (defstate dictionary-combined-db :start (db/db-access :dictionary-combined conf))
+
 (defstate dictionary-multilang-db :start (db/db-access :dictionary-multilang conf))
 
+(def languages ["English" "Estonian" "German" "Latvian" "Russian"])
 
 (defn list-readers []
   (db/list! reader-flags-db 100))
 
+(defn default-language-flag []
+  (or (System/getenv "DEFAULT_LANGUAGE") "English"))
+
 (defn get-default-flags []
-  {:English  :YES
-   :Estonian :NO
-   :German   :NO
-   :Latvian  :NO
-   :Russian  :NO})
+  (assoc
+    (zipmap languages (repeat "NO"))
+    (default-language-flag)
+    "YES"))
+
+(defn flag->lang [f]
+  (case f
+    "English" "Eng"
+    "Estonian" "Est"
+    "German" "Ger"
+    "Latvian" "Lat"
+    "Russian" "Rus"))
+
+(defn default-language []
+  (flag->lang (default-language-flag)))
 
 (defn get-reader [key]
   (db/read! reader-flags-db key))
@@ -40,7 +56,7 @@
   ([text parent-id default-usage default-flags]
    {:id    (format "%s/%s" parent-id (utils/gen-uuid))
     :text  text
-    :flags (assoc default-flags :default default-usage)}))
+    :flags (assoc default-flags (default-language-flag) default-usage)}))
 
 (defn create-dictionary-item [{:keys [key name phrases partOfSpeech]}]
   (when-not (str/blank? name)
@@ -59,36 +75,41 @@
        (filter #(.isFile ^File %))
        (filter #(str/ends-with? (.getName %) "yaml"))))
 
-(defn create-multilang-dict-item [{::morphology/keys [key language gender pos sense tenses inflections]}]
-  (db/write! dictionary-multilang-db (utils/gen-uuid) {:key         key
-                                                       :language    language
-                                                       :gender      gender
-                                                       :pos         pos
-                                                       :sense       sense
-                                                       :tenses      tenses
-                                                       :inflections inflections}))
+(defn list-multilang-dict-files []
+  (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
+       (filter #(.isFile ^File %))
+       (filter #(str/ends-with? (.getName %) "edn"))))
 
-(defn get-multidict-items [key]
-  (db/read! dictionary-multilang-db key))
+(defn create-multilang-dict-item [{::dictionary-item/keys [key category language forms sense definition attributes]}]
+  (db/write! dictionary-multilang-db (utils/gen-uuid) {:key        key
+                                                       :category   category
+                                                       :language   language
+                                                       :forms      forms
+                                                       :sense      sense
+                                                       :definition definition
+                                                       :attributes attributes}))
+
+(defn- add-dict-item-ns-to-map [m]
+  (reduce-kv (fn [m k v]
+               (assoc m (->> k (name) (str "acc-text.nlg.dictionary.item/") (keyword)) v))
+             {}
+             m))
 
 (defn search-multilang-dict
-  ([key]
-   (db/scan! dictionary-multilang-db {:key key}))
-  ([key pos senses]
-   (db/scan! dictionary-multilang-db {:key key :pos pos :senses senses})))
+  ([keys]
+   (map add-dict-item-ns-to-map (db/scan! dictionary-multilang-db {:keys keys})))
+  ([keys languages]
+   (map add-dict-item-ns-to-map (db/scan! dictionary-multilang-db {:keys keys :languages languages}))))
 
-
-
-(defn list-multilang-dict [limit]
-  (db/list! dictionary-multilang-db limit))
+(defn list-multilang-dict
+  ([] (list-multilang-dict 100))
+  ([limit]
+   (map add-dict-item-ns-to-map (db/list! dictionary-multilang-db limit))))
 
 (defn initialize []
   (doseq [[flag value] (get-default-flags)]
     (db/write! reader-flags-db flag value))
-  (doall
-   (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
-        (filter #(.isFile ^File %))
-        (filter #(str/ends-with? (.getName %) "edn"))
-        (map #(edn/read-string (slurp (io/file %))))
-        (flatten)
-        (map #(create-multilang-dict-item %)))))
+  (doseq [f (list-multilang-dict-files)]
+    (with-open [r (io/reader f)]
+      (doseq [item (edn/read (PushbackReader. r))]
+        (create-multilang-dict-item item)))))
