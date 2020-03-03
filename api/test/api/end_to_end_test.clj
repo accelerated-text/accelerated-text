@@ -24,7 +24,8 @@
   ([document-plan-id sample-row]
    (:id (dp/add-document-plan {:uid          document-plan-id
                                :name         document-plan-id
-                               :documentPlan (assoc (load-test-document-plan document-plan-id) :dataSampleRow sample-row)}
+                               :dataSampleRow sample-row
+                               :documentPlan (load-test-document-plan document-plan-id)}
                               document-plan-id))))
 
 (defn store-data-file [filename]
