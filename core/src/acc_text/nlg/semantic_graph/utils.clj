@@ -80,13 +80,25 @@
                              ::sg/concepts
                              (filter #(contains? #{:condition :if-statement :default-statement} (:type %)))
                              (map :id)
-                             set)]
+                             (set))]
     (log/debugf "Ids for removal: %s" (pr-str ids-for-removal))
     (-> semantic-graph
         (update ::sg/concepts (fn [concepts]
                                 (remove #(contains? ids-for-removal (:id %)) concepts)))
         (update ::sg/relations (fn [relations]
-                                 relations)))))
+                                 (let [start-node (first (filter (fn [{:keys [from to]}] (and (contains? ids-for-removal to)
+                                                                                              (not (contains? ids-for-removal from))))
+                                                                 relations))
+                                       end-node (first (filter (fn [{:keys [from to]}] (and (contains? ids-for-removal from)
+                                                                                            (not (contains? ids-for-removal to))))
+                                                                relations))]
+                                   (log/debugf "StartNode: %s EndNode: %s" start-node end-node)
+                                   (->> relations
+                                        (remove (fn [{:keys [from to]}] (or (contains? ids-for-removal from)
+                                                                            (contains? ids-for-removal to))))
+                                        (cons {:from (:from start-node)
+                                               :to   (:to   end-node)
+                                               :role :instance}))))))))
 
 (defn node-name [{:keys [id type value]}]
   (if (= type :quote)
