@@ -20,7 +20,7 @@
 
 (defn add-document-plan
   ([document-plan-id]
-   (add-document-plan document-plan-id)
+   (add-document-plan document-plan-id 0)
    [document-plan-id sample-row]
    (:id (dp/add-document-plan {:uid          document-plan-id
                                :name         document-plan-id
