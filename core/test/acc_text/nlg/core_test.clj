@@ -21,10 +21,6 @@
                                                                           :type :document-plan}
                                                                          {:id   :02
                                                                           :type :segment}
-                                                                         {:id   :03
-                                                                          :type :condition}
-                                                                         {:id   :04
-                                                                          :type :if-statement}
                                                                          {:id    :08
                                                                           :type  :amr
                                                                           :value "ParadigmsEng.mkN/Str->N"}
@@ -36,12 +32,6 @@
                                                                           :to   :02}
                                                                          {:from :02
                                                                           :role :instance
-                                                                          :to   :03}
-                                                                         {:from :03
-                                                                          :role :statement
-                                                                          :to   :04}
-                                                                         {:from :04
-                                                                          :role :expression
                                                                           :to   :08}
                                                                          {:attributes {:label "Str"
                                                                                        :name  "Str"}
@@ -59,10 +49,6 @@
                                                                           :type :document-plan}
                                                                          {:id   :02
                                                                           :type :segment}
-                                                                         {:id   :03
-                                                                          :type :condition}
-                                                                         {:id   :10
-                                                                          :type :if-statement}
                                                                          {:id    :14
                                                                           :type  :amr
                                                                           :value "ParadigmsEst.mkN/Str->N"}
@@ -74,12 +60,6 @@
                                                                           :to   :02}
                                                                          {:from :02
                                                                           :role :instance
-                                                                          :to   :03}
-                                                                         {:from :03
-                                                                          :role :statement
-                                                                          :to   :10}
-                                                                         {:from :10
-                                                                          :role :expression
                                                                           :to   :14}
                                                                          {:attributes {:label "Str"
                                                                                        :name  "Str"}
