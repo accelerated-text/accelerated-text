@@ -45,7 +45,7 @@
                  (handle-http-error)))))
 
 (defn load-test-document-plan [filename]
-  (log/spyf "Loaded document Plan: %s"
+  (log/spyf :trace "Loaded document Plan: %s"
             (with-open [r (io/reader (format "test/resources/document_plans/%s.edn" filename))]
               (edn/read (PushbackReader. r)))))
 
