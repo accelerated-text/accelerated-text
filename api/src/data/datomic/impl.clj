@@ -198,6 +198,14 @@
                                    :flags (restore-reader-flags (:phrase/flags phrase))})
                      (:dictionary-combined/phrases dictionary-entry))})))
 
+(defmethod pull-entity :dictionary-multilang [_ key]
+  (when-let [item (ffirst (d/q '[:find (pull ?e [*])
+                            :in $ ?key
+                            :where [?e :dictionary-multilang/id ?key]]
+                          (d/db conn)
+                          key))]
+    (read-multilang-dict-item item)))
+
 (defmethod pull-entity :results [_ key]
   (let [entity (->> (d/q '[:find (pull ?e [*])
                            :where
@@ -253,15 +261,6 @@
                             (d/db conn)
                             key))]
     (cond-> entity (some? entity) (read-rgl-entity))))
-
-(defmethod pull-entity :dictionary-multilang [_ key]
-  (map
-    (fn [[item]] (read-multilang-dict-item item))
-    (d/q '[:find (pull ?e [*])
-           :in $ ?key
-           :where [?e :dictionary-multilang/key ?key]]
-         (d/db conn)
-         key)))
 
 (defmethod pull-entity :default [resource-type key]
   (log/warnf "Default implementation of pull-entity for the '%s' with key '%s'" resource-type key)
@@ -348,6 +347,10 @@
   @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]])
   nil)
 
+(defmethod delete :dictionary-multilang [_ key]
+  @(d/transact conn [[:db.fn/retractEntity [:dictionary-multilang/id key]]])
+  nil)
+
 (defmethod delete :rgl [_ key]
   @(d/transact conn [[:db.fn/retractEntity [:rgl/id key]]])
   nil)
@@ -371,6 +374,14 @@
   (try
     @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]])
     @(d/transact conn [(remove-nil-vals (dissoc (prepare-dictionary-item key data-item) :db/id))])
+    (catch Exception e
+      (log/errorf "Error %s with data %s" e val)))
+  (pull-entity resource-type key))
+
+(defmethod update! :dictionary-multilang [resource-type key data-item]
+  (try
+    @(d/transact conn [[:db.fn/retractEntity [:dictionary-multilang/id key]]])
+    @(d/transact conn [(remove-nil-vals (dissoc (prepare-multilang-dict key data-item) :db/id))])
     (catch Exception e
       (log/errorf "Error %s with data %s" e val)))
   (pull-entity resource-type key))

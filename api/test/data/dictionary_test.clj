@@ -18,17 +18,17 @@
 
 (defn prepare-environment [f]
   (doseq [item test-dictionary-items]
-    (dictionary/write-dictionary-item item))
+    (dictionary/write-item item))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
 
 (deftest ^:integration list-dictionary-items
-  (is (= test-dictionary-items (into #{} (dictionary/list-dictionary-items)))))
+  (is (= test-dictionary-items (into #{} (dictionary/list-items)))))
 
 (deftest ^:integration search-dictionary-items
-  (is (= #{} (into #{} (dictionary/scan-dictionary #{} #{}))))
-  (is (= #{} (into #{} (dictionary/scan-dictionary #{} #{}))))
+  (is (= #{} (into #{} (dictionary/scan #{} #{}))))
+  (is (= #{} (into #{} (dictionary/scan #{} #{}))))
   (is (= #{#:acc-text.nlg.dictionary.item{:id       "place_Eng"
                                           :key      "place_1_N"
                                           :sense    "1"
@@ -41,18 +41,18 @@
                                           :category "N"
                                           :language "Ger"
                                           :forms    ["platz" "plätze"]}}
-         (into #{} (dictionary/scan-dictionary #{"place_1_N"} #{"Eng" "Ger"}))))
+         (into #{} (dictionary/scan #{"place_1_N"} #{"Eng" "Ger"}))))
   (is (= #{#:acc-text.nlg.dictionary.item{:id       "place_Eng"
                                           :key      "place_1_N"
                                           :sense    "1"
                                           :category "N"
                                           :language "Eng"
                                           :forms    ["place" "places"]}}
-         (into #{} (dictionary/scan-dictionary #{"place_1_N"} #{"Eng"}))))
+         (into #{} (dictionary/scan #{"place_1_N"} #{"Eng"}))))
   (is (= #{#:acc-text.nlg.dictionary.item{:id       "place_Ger"
                                           :key      "place_1_N"
                                           :sense    "1"
                                           :category "N"
                                           :language "Ger"
                                           :forms    ["platz" "plätze"]}}
-         (into #{} (dictionary/scan-dictionary #{"place_1_N"} #{"Ger"})))))
+         (into #{} (dictionary/scan #{"place_1_N"} #{"Ger"})))))

@@ -3,7 +3,8 @@
             [api.graphql.translate.concept :as translate-concept]
             [clojure.tools.logging :as log]
             [data.utils :as utils]
-            [data.entities.dictionary :as dict-entity]))
+            [data.entities.dictionary :as dict-entity]
+            [clojure.string :as str]))
 
 (defn reader-flag->schema [[k u]]
   {:id           (name k)
@@ -43,11 +44,31 @@
                         :roles  []
                         :frames []}))}))
 
+(defn text->phrase
+  ([text parent-id default-usage]
+   (text->phrase text parent-id default-usage (dict-entity/get-default-flags)))
+  ([text parent-id default-usage default-flags]
+   {:id    (format "%s/%s" parent-id (utils/gen-uuid))
+    :text  text
+    :flags (assoc default-flags (dict-entity/default-language-flag) default-usage)}))
+
+(defn schema->dictionary-item [{id :id item-name :name pos :partOfSpeech phrases :phrases}]
+  (let [name-parts (str/split item-name #"_")]
+    (merge
+      (cond-> {}
+              (< 1 (count name-parts)) (assoc ::dictionary-item/category (last name-parts))
+              (< 2 (count name-parts)) (assoc ::dictionary-item/sense (last (butlast name-parts))))
+      (cond-> #::dictionary-item{:key      item-name
+                                 :forms    phrases
+                                 :language (dict-entity/default-language)}
+              (some? id) (assoc ::dictionary-item/id id)
+              (some? pos) (assoc ::dictionary-item/category pos)))))
+
 (defn build-lang-user-flags [lang]
   (map (fn [[flag _]]
          {:id    (utils/gen-uuid)
-          :flag  {:id flag
-                  :name flag
+          :flag  {:id           flag
+                  :name         flag
                   :defaultUsage (if (= (dict-entity/default-language) flag)
                                   "YES"
                                   "NO")}

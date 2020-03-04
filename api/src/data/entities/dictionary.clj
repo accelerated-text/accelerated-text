@@ -6,14 +6,13 @@
             [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]])
+            [mount.core :refer [defstate]]
+            [clojure.tools.logging :as log])
   (:import (java.io File PushbackReader)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
 
-(defstate dictionary-combined-db :start (db/db-access :dictionary-combined conf))
-
-(defstate dictionary-multilang-db :start (db/db-access :dictionary-multilang conf))
+(defstate dictionary-db :start (db/db-access :dictionary-multilang conf))
 
 (def languages ["English" "Estonian" "German" "Latvian" "Russian"])
 
@@ -42,48 +41,32 @@
 (defn get-reader [key]
   (db/read! reader-flags-db key))
 
-(defn list-dictionary []
-  (db/list! dictionary-combined-db 100))
-
-(defn get-dictionary-item [key]
-  (when-not (str/blank? key)
-    (db/read! dictionary-combined-db key)))
-
-(defn text->phrase
-  ([text parent-id default-usage]
-   (text->phrase text parent-id default-usage (get-default-flags)))
-  ([text parent-id default-usage default-flags]
-   {:id    (format "%s/%s" parent-id (utils/gen-uuid))
-    :text  text
-    :flags (assoc default-flags (default-language-flag) default-usage)}))
-
-(defn create-dictionary-item [{:keys [key name phrases partOfSpeech]}]
-  (when-not (str/blank? name)
-    (db/write! dictionary-combined-db key {:name         name
-                                           :partOfSpeech partOfSpeech
-                                           :phrases      (map #(text->phrase % key :YES) phrases)})))
-
-(defn delete-dictionary-item [key]
-  (db/delete! dictionary-combined-db key))
-
-(defn update-dictionary-item [item]
-  (db/update! dictionary-combined-db (:key item) (dissoc item :key)))
-
-(defn write-dictionary-item [{id ::dictionary-item/id :as item}]
-  (db/write! dictionary-multilang-db (or id (utils/gen-uuid)) item))
-
-(defn scan-dictionary
-  ([keys]
-   (db/scan! dictionary-multilang-db {:keys keys}))
-  ([keys languages]
-   (db/scan! dictionary-multilang-db {:keys keys :languages languages})))
-
-(defn list-dictionary-items
-  ([] (list-dictionary-items 100))
+(defn list-items
+  ([] (list-items 100))
   ([limit]
-   (db/list! dictionary-multilang-db limit)))
+   (db/list! dictionary-db limit)))
 
-(defn list-dictionary-files []
+(defn get-item [id]
+  (db/read! dictionary-db id))
+
+(defn delete-item [id]
+  (db/delete! dictionary-db id))
+
+(defn update-item [{id ::dictionary-item/id :as item}]
+  (db/update! dictionary-db id item))
+
+(defn write-item [{id ::dictionary-item/id :as item}]
+  (let [item-id (or id (utils/gen-uuid))]
+    (db/write! dictionary-db item-id item)
+    (get-item item-id)))
+
+(defn scan
+  ([keys]
+   (db/scan! dictionary-db {:keys keys}))
+  ([keys languages]
+   (db/scan! dictionary-db {:keys keys :languages languages})))
+
+(defn list-files []
   (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
        (filter #(.isFile ^File %))
        (filter #(str/ends-with? (.getName %) "edn"))))
@@ -91,7 +74,7 @@
 (defn initialize []
   (doseq [[flag value] (get-default-flags)]
     (db/write! reader-flags-db flag value))
-  (doseq [f (list-dictionary-files)]
+  (doseq [f (list-files)]
     (with-open [r (io/reader f)]
       (doseq [item (edn/read (PushbackReader. r))]
-        (write-dictionary-item item)))))
+        (write-item item)))))
