@@ -6,8 +6,7 @@
             [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]
-            [clojure.tools.logging :as log])
+            [mount.core :refer [defstate]])
   (:import (java.io File PushbackReader)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
