@@ -61,7 +61,8 @@
       (operator-fn (map #(evaluate-predicate % semantic-graph data) child-concepts)))))
 
 (defmethod evaluate-predicate :data [{value :value} _ data]
-  (let [result (get data value)]
+  (let [result (->> (keyword value) (get data) (not-empty))]
+    (log/debugf "Data: %s Value: %s IF: %s" data value result)
     (if (some? result)
       (if (sg-utils/is-boolean-string? result)
         (sg-utils/eval-boolean-string result)

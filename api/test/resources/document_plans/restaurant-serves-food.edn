@@ -4,10 +4,12 @@
                                  {:children [{:type "If-then-else"
                                               :conditions [{:type "If-condition"
                                                             :condition {:name "food" :type "Cell" :srcId "gM9(Du3fx?5qn`%HP;eQ"}
-                                                            :thenExpression {:children [{:name "food" :type "Cell" :srcId "UG1[Xn/.wv-8tq-i~nmJ"}
-                                                                                        {:type "Quote" :srcId "azF$@8eyrcM}r9~-)x}Y" :text "food"}]
-                                                                             :type "Sequence"
-                                                                             :srcId "I_K^5e{4xta3L(9Zo58B"}}
+                                                            :thenExpression {:name "food"
+                                                                             :type "Cell-modifiers"
+                                                                             :srcId "UG1[Xn/.wv-8tq-i~nmJ"
+                                                                             :child {:type "Quote"
+                                                                                     :srcId "azF$@8eyrcM}r9~-)x}Y"
+                                                                                     :text "food"}}}
                                                            {:type "Default-condition"
                                                             :thenExpression {:type "Quote" :srcId "cGW^v73GvZGA:!EtR{f/" :text "food"}}]
                                               :srcId ";p-M!1U?:T:$@SJcxx7["}]

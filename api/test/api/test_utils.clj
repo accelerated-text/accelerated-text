@@ -45,8 +45,9 @@
                  (handle-http-error)))))
 
 (defn load-test-document-plan [filename]
-  (with-open [r (io/reader (format "test/resources/document_plans/%s.edn" filename))]
-    (edn/read (PushbackReader. r))))
+  (log/spyf "Loaded document Plan: %s"
+            (with-open [r (io/reader (format "test/resources/document_plans/%s.edn" filename))]
+              (edn/read (PushbackReader. r)))))
 
 (defn rebuild-sentence [tokens]
   (->> tokens
