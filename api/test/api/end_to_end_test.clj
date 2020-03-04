@@ -8,18 +8,10 @@
             [data.entities.dictionary :as dictionary]))
 
 (defn prepare-environment [f]
-  (doseq [item [#::dictionary-item{:key      "cut"
-                                   :category "V2"
-                                   :language "Eng"
-                                   :forms    ["cut" "cut" "cut"]}
-                #::dictionary-item{:key      "see"
+  (doseq [item [#::dictionary-item{:key      "see"
                                    :category "V2"
                                    :language "Eng"
                                    :forms    ["see" "saw" "seen"]}
-                #::dictionary-item{:key      "written"
-                                   :category "V2"
-                                   :language "Eng"
-                                   :forms    ["write" "wrote" "written"]}
                 #::dictionary-item{:key      "release"
                                    :category "V2"
                                    :language "Eng"

@@ -3,7 +3,8 @@
             [acc-text.nlg.gf.grammar :as grammar]
             [acc-text.nlg.test-utils :as utils]
             [clojure.spec.test.alpha :as stest]
-            [clojure.test :refer [deftest is]]))
+            [clojure.test :refer [deftest is]]
+            [clojure.tools.logging :as log]))
 
 (stest/instrument `grammar/build `generate)
 
@@ -20,15 +21,15 @@
           "there is a venue in the city centre Alimentum"
           "there is an Alimentum in the city centre"
           "there is an arena in the city centre Alimentum"]
-         (generate (grammar/build "AtLoc" "1" (utils/load-test-semantic-graph "location-amr")
-                                  {:amr        {"at-location"
-                                                {:frames [{:syntax [{:type   :oper
-                                                                     :value  "atLocation"
-                                                                     :ret    "S"
-                                                                     :params [{:role "lexicon" :type "N"}
-                                                                              {:role "locationData" :type "N"}
-                                                                              {:role "objectRef" :type "N"}]}]}]}}
-                                   :dictionary {"place" ["arena" "place" "venue"]}})))))
+         (generate (log/spy (grammar/build "AtLoc" "1" (utils/load-test-semantic-graph "location-amr")
+                                           {:amr        {"at-location"
+                                                         {:frames [{:syntax [{:type   :oper
+                                                                              :value  "atLocation"
+                                                                              :ret    "S"
+                                                                              :params [{:role "lexicon" :type "N"}
+                                                                                       {:role "locationData" :type "N"}
+                                                                                       {:role "objectRef" :type "N"}]}]}]}}
+                                            :dictionary {"place" ["arena" "place" "venue"]}}))))))
 
 (deftest ^:integration polarity
   (is (= ["KFC is family-friendly."]

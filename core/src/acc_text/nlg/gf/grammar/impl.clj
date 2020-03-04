@@ -2,6 +2,7 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]
+            [clojure.set :as set]
             [clojure.tools.logging :as log]))
 
 (def data-types #{:data :dictionary-item :quote})
@@ -51,11 +52,13 @@
      :value [(replace-placeholders value data)]
      :type  (get types name "Str")}))
 
-(defmethod build-variable :dictionary-item [{value :value :as concept} {:keys [dictionary types]}]
-  (let [name (concept->name concept)]
-    {:name  name
-     :value (or (seq (get dictionary value)) (when (some? value) [value]))
-     :type  (get types name "Str")}))
+(defmethod build-variable :dictionary-item [{value :value {key :name} :attributes :as concept} {:keys [dictionary types]}]
+  (let [name (concept->name concept)
+        item (get dictionary key)]
+    (cond-> {:name name
+             :type (get types name "Str")}
+            (and (some? item) (map? item)) (assoc :item item)
+            (some? value) (assoc :value (if-let [coll (seq (get dictionary value))] coll [value])))))
 
 (defmulti build-function (fn [concept _ _ _ _] (:type concept)))
 
@@ -200,13 +203,15 @@
                                              (some? attr-name) (assoc attr-name (concept->name concept))))
                                    {}
                                    (zipmap relations children))
-                  params (->> (get amr value) (:frames) (mapcat :syntax) (mapcat :params) (distinct))]
+                  params (or
+                           (->> (get amr value) (:frames) (mapcat :syntax) (mapcat :params) (distinct) (seq))
+                           (->> (get amr value) (:roles) (map #(set/rename-keys % {:label :role})) (seq)))]
               (cond-> m
-                      (seq params) (merge (-> (when (every? :role params)
-                                                (zipmap
-                                                  (map (comp role-map :role) params)
-                                                  (map :type params)))
-                                              (add-child-types children concept-map relation-map))))))
+                      (some? params) (merge (-> (when (every? :role params)
+                                                  (zipmap
+                                                    (map (comp role-map :role) params)
+                                                    (map :type params)))
+                                                (add-child-types children concept-map relation-map))))))
           {}
           (filter #(= :amr (:type %)) (vals concept-map))))
 

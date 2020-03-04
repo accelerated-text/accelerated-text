@@ -1,5 +1,6 @@
 (ns acc-text.nlg.gf.generator
-  (:require [acc-text.nlg.gf.grammar :as grammar]
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [acc-text.nlg.gf.grammar :as grammar]
             [acc-text.nlg.gf.service :as service]
             [acc-text.nlg.utils :as utils]
             [clojure.spec.alpha :as s]
@@ -53,10 +54,36 @@
                  (format "(mk%s \"%s\")" type (escape-string %)))))
        (str/join " | ")))
 
+(defmulti build-dictionary-item (fn [type {::dictionary-item/keys [category language]}]
+                                  (str/join "/" [language type category])))
+
+(defn join-forms [forms]
+  (->> forms
+       (map #(format "\"%s\"" (escape-string %)))
+       (str/join " ")))
+
+(defmethod build-dictionary-item "Eng/V/V" [_ {::dictionary-item/keys [forms]}]
+  (format "(ParadigmsEng.mkV %s)" (join-forms forms)))
+
+(defmethod build-dictionary-item "Eng/V2/V" [_ {::dictionary-item/keys [forms]}]
+  (format "(ParadigmsEng.mkV2 (ParadigmsEng.mkV %s))" (join-forms forms)))
+
+(defmethod build-dictionary-item "Eng/V2/V2" [_ {::dictionary-item/keys [forms]}]
+  (format "(ParadigmsEng.mkV2 (ParadigmsEng.mkV %s))" (join-forms forms)))
+
+(defmethod build-dictionary-item "Eng/V/V2" [_ {::dictionary-item/keys [forms]}]
+  (format "(ParadigmsEng.mkV %s)" (join-forms forms)))
+
+(defmethod build-dictionary-item "Eng/N/N" [_ {::dictionary-item/keys [forms]}]
+  (format "(ParadigmsEng.mkN %s)" (join-forms forms)))
+
 (defn parse-oper [variables]
-  (map (fn [{:keys [name type value]}]
-         (cond-> (str name " : " type)
-                 (some? value) (str " = " (join-value type value))))
+  (map (fn [{:keys [name type value item]}]
+         (let [abstract-definition (str name " : " type)]
+           (cond
+             (some? value) (str abstract-definition " = " (join-value type value))
+             (some? item) (str abstract-definition " = " (build-dictionary-item type item))
+             :else abstract-definition)))
        variables))
 
 (defn get-selectors [functions]
@@ -201,7 +228,7 @@
   (format "interface %sLex = {%s\n}"
           module
           (join-body
-            "oper" (parse-oper (map #(dissoc % :value) variables)))))
+            "oper" (parse-oper (map #(dissoc % :value :item) variables)))))
 
 (defn ->resource [lang {::grammar/keys [module variables]}]
   (format "resource %sLex%s = open Syntax%s, Paradigms%s, BaseDictionaryEng in {%s\n}"
