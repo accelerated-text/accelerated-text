@@ -8,7 +8,7 @@
             [data.entities.dictionary :as dict-entity]))
 
 (defn dictionary [_ _ _]
-  (->> (dict-entity/list-multilang-dict 100)
+  (->> (dict-entity/list-dictionary-items)
        (filter #(= (dict-entity/default-language) (::dictionary-item/language %)))
        (map translate-dict/multilang-dict-item->original-schema)
        (sort-by :name)
@@ -20,12 +20,13 @@
 
 (defn dictionary-item [_ {id :id :as args} _]
   (log/debugf "Fetching dictionary item with args: %s" args)
-  (let [items (dict-entity/search-multilang-dict #{id} #{(dict-entity/default-language)})]
+  (let [items (dict-entity/scan-dictionary #{id} #{(dict-entity/default-language)})]
     (if (seq items)
       (resolve-as (translate-dict/multilang-dict-item->original-schema (first items)))
       (resolve-as-not-found-dict-item id))))
 
-(defn create-dictionary-item [_ {item-name :name pos :partOfSpeech phrases :phrases} _]
+(defn create-dictionary-item [_ {item-name :name pos :partOfSpeech phrases :phrases :as item} _]
+  (log/spy item)
   (-> {:key          (cond->> item-name (some? pos) (str (name pos) "-"))
        :name         item-name
        :phrases      phrases

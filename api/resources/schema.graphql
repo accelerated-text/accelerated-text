@@ -11,16 +11,11 @@ enum Usage {
     DONT_CARE
 }
 
-enum Gender {
-     M
-     F
-     N
-}
-
 #   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
 enum PartOfSpeech {
    A
    A2
+   compoundA
    Adv
    N
    N2
@@ -39,8 +34,6 @@ enum PartOfSpeech {
    VQ
    VS
    VV
-
-   SConj
 }
 
 ### Data -----------------------------------------------------------------------
@@ -150,34 +143,6 @@ type DictionaryItem {
     partOfSpeech:       PartOfSpeech
     phrases:            [ Phrase! ]
     concept:            Concept
-}
-
-type DictionaryItemMultilang {
-    id:                 ID!
-    key:                String!
-    gender:             Gender!
-    pos:                PartOfSpeech
-    language:           String!
-    senses:             [ Sense! ]
-    tenses:             [ Tense ]
-    inflections:        [ Inflection ]
-}
-
-type Sense {
-     id:                ID!
-     name:              String!
-}
-
-type Tense {
-     id:                ID!
-     key:               String!
-     value:             String!
-}
-
-type Inflection {
-     id:                ID!
-     key:               String!
-     value:             String!
 }
 
 type Phrase {

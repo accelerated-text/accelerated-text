@@ -13,7 +13,7 @@
 
 (defn build-dictionary-context [semantic-graph languages]
   (->> languages
-       (dict-entity/search-multilang-dict (get-values semantic-graph :dictionary-item))
+       (dict-entity/scan-dictionary (get-values semantic-graph :dictionary-item))
        (group-by ::dictionary-item/language)))
 
 (defn build-amr-context [semantic-graph]

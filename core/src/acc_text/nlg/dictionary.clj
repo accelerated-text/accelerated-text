@@ -6,6 +6,7 @@
                             ::dictionary-item/category
                             ::dictionary-item/language
                             ::dictionary-item/forms]
-                      :opt [::dictionary-item/sense
+                      :opt [::dictionary-item/id
+                            ::dictionary-item/sense
                             ::dictionary-item/definition
                             ::dictionary-item/attributes]))

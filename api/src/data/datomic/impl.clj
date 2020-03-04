@@ -1,5 +1,6 @@
 (ns data.datomic.impl
-  (:require [api.config :refer [conf]]
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [api.config :refer [conf]]
             [clojure.tools.logging :as log]
             [data.protocol :as protocol]
             [datomic.api :as d]
@@ -60,7 +61,7 @@
                         :results/ts    (ts-now)
                         :results/ready (:ready data-item)})]))
 
-(defn prepare-multilang-dict [id {:keys [key category language forms sense definition attributes]}]
+(defn prepare-multilang-dict [id {::dictionary-item/keys [key category language forms sense definition attributes]}]
   {:db/id                           [:dictionary-multilang/id id]
    :dictionary-multilang/id         id
    :dictionary-multilang/key        key
@@ -78,19 +79,20 @@
                                             :attribute/value v})
                                          attributes)})
 
-(defn read-multilang-dict-item [{:dictionary-multilang/keys [key category language forms sense definition attributes]}]
+(defn read-multilang-dict-item [{:dictionary-multilang/keys [id key category language forms sense definition attributes]}]
   (remove-nil-vals
-    {:key        key
-     :category   category
-     :language   language
-     :sense      sense
-     :definition definition
-     :forms      (mapv :form/value forms)
-     :attributes (when (seq attributes)
-                   (reduce (fn [m {:attribute/keys [key value]}]
-                             (assoc m key value))
-                           {}
-                           attributes))}))
+    {::dictionary-item/id         id
+     ::dictionary-item/key        key
+     ::dictionary-item/category   category
+     ::dictionary-item/language   language
+     ::dictionary-item/sense      sense
+     ::dictionary-item/definition definition
+     ::dictionary-item/forms      (mapv :form/value forms)
+     ::dictionary-item/attributes (when (seq attributes)
+                                    (reduce (fn [m {:attribute/keys [key value]}]
+                                              (assoc m key value))
+                                            {}
+                                            attributes))}))
 
 (defmethod transact-item :dictionary-multilang [_ key data-item]
   (try

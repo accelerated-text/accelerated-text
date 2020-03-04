@@ -3,12 +3,14 @@
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.dictionary :as dictionary]))
 
-(def test-dictionary-items #{#:acc-text.nlg.dictionary.item{:key      "place_1_N"
+(def test-dictionary-items #{#:acc-text.nlg.dictionary.item{:id       "place_Eng"
+                                                            :key      "place_1_N"
                                                             :sense    "1"
                                                             :category "N"
                                                             :language "Eng"
                                                             :forms    ["place" "places"]}
-                             #:acc-text.nlg.dictionary.item{:key      "place_1_N"
+                             #:acc-text.nlg.dictionary.item{:id       "place_Ger"
+                                                            :key      "place_1_N"
                                                             :sense    "1"
                                                             :category "N"
                                                             :language "Ger"
@@ -16,37 +18,41 @@
 
 (defn prepare-environment [f]
   (doseq [item test-dictionary-items]
-    (dictionary/create-multilang-dict-item item))
+    (dictionary/write-dictionary-item item))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
 
 (deftest ^:integration list-dictionary-items
-  (is (= test-dictionary-items (into #{} (dictionary/list-multilang-dict)))))
+  (is (= test-dictionary-items (into #{} (dictionary/list-dictionary-items)))))
 
 (deftest ^:integration search-dictionary-items
-  (is (= #{} (into #{} (dictionary/search-multilang-dict #{} #{}))))
-  (is (= #{} (into #{} (dictionary/search-multilang-dict #{} #{}))))
-  (is (= #{#:acc-text.nlg.dictionary.item{:key      "place_1_N"
+  (is (= #{} (into #{} (dictionary/scan-dictionary #{} #{}))))
+  (is (= #{} (into #{} (dictionary/scan-dictionary #{} #{}))))
+  (is (= #{#:acc-text.nlg.dictionary.item{:id       "place_Eng"
+                                          :key      "place_1_N"
                                           :sense    "1"
                                           :category "N"
                                           :language "Eng"
                                           :forms    ["place" "places"]}
-           #:acc-text.nlg.dictionary.item{:key      "place_1_N"
+           #:acc-text.nlg.dictionary.item{:id       "place_Ger"
+                                          :key      "place_1_N"
                                           :sense    "1"
                                           :category "N"
                                           :language "Ger"
                                           :forms    ["platz" "plätze"]}}
-         (into #{} (dictionary/search-multilang-dict #{"place_1_N"} #{"Eng" "Ger"}))))
-  (is (= #{#:acc-text.nlg.dictionary.item{:key      "place_1_N"
+         (into #{} (dictionary/scan-dictionary #{"place_1_N"} #{"Eng" "Ger"}))))
+  (is (= #{#:acc-text.nlg.dictionary.item{:id       "place_Eng"
+                                          :key      "place_1_N"
                                           :sense    "1"
                                           :category "N"
                                           :language "Eng"
                                           :forms    ["place" "places"]}}
-         (into #{} (dictionary/search-multilang-dict #{"place_1_N"} #{"Eng"}))))
-  (is (= #{#:acc-text.nlg.dictionary.item{:key      "place_1_N"
+         (into #{} (dictionary/scan-dictionary #{"place_1_N"} #{"Eng"}))))
+  (is (= #{#:acc-text.nlg.dictionary.item{:id       "place_Ger"
+                                          :key      "place_1_N"
                                           :sense    "1"
                                           :category "N"
                                           :language "Ger"
                                           :forms    ["platz" "plätze"]}}
-         (into #{} (dictionary/search-multilang-dict #{"place_1_N"} #{"Ger"})))))
+         (into #{} (dictionary/scan-dictionary #{"place_1_N"} #{"Ger"})))))

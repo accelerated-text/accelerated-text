@@ -4,6 +4,8 @@
 
 (def word? (s/and string? (complement str/blank?)))
 
+(s/def ::id string?)
+
 (s/def ::key word?)
 
 (s/def ::sense string?)

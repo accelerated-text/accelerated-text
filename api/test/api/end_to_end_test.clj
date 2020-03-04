@@ -28,7 +28,7 @@
                                    :category "V2"
                                    :language "Eng"
                                    :forms    ["is"]}]]
-    (dictionary/create-multilang-dict-item item))
+    (dictionary/write-dictionary-item item))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)

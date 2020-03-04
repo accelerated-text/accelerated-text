@@ -46,15 +46,19 @@
 (defn build-lang-user-flags [lang]
   (map (fn [[flag _]]
          {:id    (utils/gen-uuid)
-          :flag  {:id flag :name flag}
+          :flag  {:id flag
+                  :name flag
+                  :defaultUsage (if (= (dict-entity/default-language) flag)
+                                  "YES"
+                                  "NO")}
           :usage (if (= (dict-entity/flag->lang flag) lang)
                    "YES"
                    "NO")})
        (dict-entity/get-default-flags)))
 
-(defn multilang-dict-item->original-schema [{::dictionary-item/keys [key category forms language]}]
-  {:id           key
-   :name         (first forms)
+(defn multilang-dict-item->original-schema [{::dictionary-item/keys [id key category forms language]}]
+  {:id           id
+   :name         key
    :partOfSpeech category
    :phrases      (map (fn [form]
                         {:defaultUsage    "YES"

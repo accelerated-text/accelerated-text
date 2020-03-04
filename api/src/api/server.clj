@@ -29,7 +29,6 @@
               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
               "Content-Type"                 "application/json"})
 
-
 (defn health [_] {:status 200, :body "Ok"})
 
 (defn string-store [item]
@@ -87,21 +86,21 @@
                                                (let [{params :params} (multipart-handler request)
                                                      id (data-files/store! (get params "file"))]
                                                  {:status 200
-                                                  :body {:message "Succesfully uploaded file" :id id}}))}]
-    ["/swagger.json" {:get {:no-doc true
-                            :swagger {:info {:title "nlg-api"
-                                             :description "api description"}}
-                            :handler (swagger/create-swagger-handler)}}]
-    ["/health"       {:get health}]]
-   {:data {
-           :muuntaja m/instance
-           :middleware [swagger/swagger-feature
-                        muuntaja/format-negotiate-middleware
-                        parameters/parameters-middleware
-                        wrap-response
-                        muuntaja/format-response-middleware
-                        errors/exception-middleware]}
-    :exception pretty/exception}))
+                                                  :body   {:message "Succesfully uploaded file" :id id}}))}]
+     ["/swagger.json" {:get {:no-doc  true
+                             :swagger {:info {:title       "nlg-api"
+                                              :description "api description"}}
+                             :handler (swagger/create-swagger-handler)}}]
+     ["/health" {:get health}]]
+    {:data      {
+                 :muuntaja   m/instance
+                 :middleware [swagger/swagger-feature
+                              muuntaja/format-negotiate-middleware
+                              parameters/parameters-middleware
+                              wrap-response
+                              muuntaja/format-response-middleware
+                              errors/exception-middleware]}
+     :exception pretty/exception}))
 
 (def app
   (ring/ring-handler

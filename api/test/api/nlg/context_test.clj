@@ -7,15 +7,17 @@
             [data.entities.dictionary :as dict-entity]))
 
 (defn prepare-environment [f]
-  (doseq [item [#:acc-text.nlg.dictionary.item{:key      "good"
+  (doseq [item [#:acc-text.nlg.dictionary.item{:id       "good"
+                                               :key      "good"
                                                :category "A"
                                                :language "Eng"
                                                :forms    ["good" "better" "best" "well"]}
-                #:acc-text.nlg.dictionary.item{:key      "written"
+                #:acc-text.nlg.dictionary.item{:id       "written"
+                                               :key      "written"
                                                :category "V2"
                                                :language "Eng"
                                                :forms    ["write" "wrote" "written"]}]]
-    (dict-entity/create-multilang-dict-item item))
+    (dict-entity/write-dictionary-item item))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
@@ -30,11 +32,13 @@
   (let [document-plan (load-test-document-plan "author-amr-with-adj")
         semantic-graph (parser/document-plan->semantic-graph document-plan)
         context (context/build-dictionary-context semantic-graph ["Eng"])]
-    (is (= #{#:acc-text.nlg.dictionary.item{:key      "good"
+    (is (= #{#:acc-text.nlg.dictionary.item{:id       "good"
+                                            :key      "good"
                                             :category "A"
                                             :language "Eng"
                                             :forms    ["good" "better" "best" "well"]}
-             #:acc-text.nlg.dictionary.item{:key      "written"
+             #:acc-text.nlg.dictionary.item{:id       "written"
+                                            :key      "written"
                                             :category "V2"
                                             :language "Eng"
                                             :forms    ["write" "wrote" "written"]}}

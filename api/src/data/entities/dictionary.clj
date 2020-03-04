@@ -24,10 +24,9 @@
   (or (System/getenv "DEFAULT_LANGUAGE") "English"))
 
 (defn get-default-flags []
-  (assoc
-    (zipmap languages (repeat "NO"))
-    (default-language-flag)
-    "YES"))
+  (-> languages
+      (zipmap (repeat "NO"))
+      (assoc (default-language-flag) "YES")))
 
 (defn flag->lang [f]
   (case f
@@ -70,46 +69,29 @@
 (defn update-dictionary-item [item]
   (db/update! dictionary-combined-db (:key item) (dissoc item :key)))
 
-(defn list-dict-files []
-  (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
-       (filter #(.isFile ^File %))
-       (filter #(str/ends-with? (.getName %) "yaml"))))
+(defn write-dictionary-item [{id ::dictionary-item/id :as item}]
+  (db/write! dictionary-multilang-db (or id (utils/gen-uuid)) item))
 
-(defn list-multilang-dict-files []
+(defn scan-dictionary
+  ([keys]
+   (db/scan! dictionary-multilang-db {:keys keys}))
+  ([keys languages]
+   (db/scan! dictionary-multilang-db {:keys keys :languages languages})))
+
+(defn list-dictionary-items
+  ([] (list-dictionary-items 100))
+  ([limit]
+   (db/list! dictionary-multilang-db limit)))
+
+(defn list-dictionary-files []
   (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
        (filter #(.isFile ^File %))
        (filter #(str/ends-with? (.getName %) "edn"))))
 
-(defn create-multilang-dict-item [{::dictionary-item/keys [key category language forms sense definition attributes]}]
-  (db/write! dictionary-multilang-db (utils/gen-uuid) {:key        key
-                                                       :category   category
-                                                       :language   language
-                                                       :forms      forms
-                                                       :sense      sense
-                                                       :definition definition
-                                                       :attributes attributes}))
-
-(defn- add-dict-item-ns-to-map [m]
-  (reduce-kv (fn [m k v]
-               (assoc m (->> k (name) (str "acc-text.nlg.dictionary.item/") (keyword)) v))
-             {}
-             m))
-
-(defn search-multilang-dict
-  ([keys]
-   (map add-dict-item-ns-to-map (db/scan! dictionary-multilang-db {:keys keys})))
-  ([keys languages]
-   (map add-dict-item-ns-to-map (db/scan! dictionary-multilang-db {:keys keys :languages languages}))))
-
-(defn list-multilang-dict
-  ([] (list-multilang-dict 100))
-  ([limit]
-   (map add-dict-item-ns-to-map (db/list! dictionary-multilang-db limit))))
-
 (defn initialize []
   (doseq [[flag value] (get-default-flags)]
     (db/write! reader-flags-db flag value))
-  (doseq [f (list-multilang-dict-files)]
+  (doseq [f (list-dictionary-files)]
     (with-open [r (io/reader f)]
       (doseq [item (edn/read (PushbackReader. r))]
-        (create-multilang-dict-item item)))))
+        (write-dictionary-item item)))))
