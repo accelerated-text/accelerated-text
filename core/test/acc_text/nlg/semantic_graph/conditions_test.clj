@@ -123,7 +123,7 @@
                              {:id :06 :type :quote :value "The book was published."}]
                  :relations [{:from :01 :role :segment :to :02}
                              {:from :02 :role :instance :to :06}]}
-           (conditions/select (utils/load-test-semantic-graph "if-with-data") {"publishedDate" "2009"})))))
+           (conditions/select (utils/load-test-semantic-graph "if-with-data") {:publishedDate "2009"})))))
 
 (deftest conditions-on-data-booleans
   (testing "Hide"
@@ -132,11 +132,25 @@
                              {:id :08 :type :quote :value "Hide me."}]
                  :relations [{:from :01 :role :segment :to :02}
                              {:from :02 :role :instance :to :08}]}
-           (conditions/select (utils/load-test-semantic-graph "if-with-data-booleans") {"Show" "No"}))))
+           (conditions/select (utils/load-test-semantic-graph "if-with-data-booleans") {:Show "No"}))))
   (testing "Show"
     (is (= #::sg{:concepts  [{:id :01 :type :document-plan}
                              {:id :02 :type :segment}
                              {:id :06 :type :quote :value "Show me."}]
                  :relations [{:from :01 :role :segment :to :02}
                              {:from :02 :role :instance :to :06}]}
-           (conditions/select (utils/load-test-semantic-graph "if-with-data-booleans") {"Show" "yes"})))))
+           (conditions/select (utils/load-test-semantic-graph "if-with-data-booleans") {:Show "yes"})))))
+
+
+(deftest multilevel-conditions-on-data
+  (is (= #::sg{:concepts  [{:id :01 :type :document-plan}
+                           {:id :02 :type :segment}
+                           {:id :08 :type :quote :value "The book was not published."}
+                           {:id :12, :type :modifier}
+                           {:id :13, :type :data, :value "near"}
+                           {:id :14, :type :quote, :value "Published nearby"}]
+               :relations [{:from :01 :role :segment :to :02}
+                           {:from :02 :role :instance :to :08}
+                           {:from :12 :to :13 :role :child}
+                           {:from :12 :to :14 :role :modifier}]}
+           (conditions/select (utils/load-test-semantic-graph "multiple-ifs-with-data") {:near "Vilnius"}))))
