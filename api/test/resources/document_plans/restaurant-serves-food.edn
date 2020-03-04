@@ -1,24 +1,30 @@
 {:type "Document-plan"
- :segments [{:children [{:roles [{:children [{:name "name" :type "Cell" :srcId "xE{k_c?SMWSyJ3Ve%Jqa"}] :name "Subject" :label "Subject"}
-                                 {:children [{:name "serve" :type "Dictionary-item" :srcId "(Lw$JGF,EV=o#3^$Auys" :itemId "serve"}] :name "Verb" :label "Verb"}
+ :segments [{:children [{:roles [{:children [{:name "name" :type "Cell" :srcId "b;cLh$1uU1}(]c?I2M+:"}]
+                                  :name "Subject"
+                                  :label "Subject"}
+                                 {:children [{:type "Quote" :srcId "$KyZ~gbXoaSLq}g#ax;N" :text "serve"}]
+                                  :name "Verb"
+                                  :label "Verb"}
                                  {:children [{:type "If-then-else"
                                               :conditions [{:type "If-condition"
-                                                            :condition {:name "food" :type "Cell" :srcId "gM9(Du3fx?5qn`%HP;eQ"}
                                                             :thenExpression {:name "food"
-                                                                             :type "Cell-modifiers"
-                                                                             :srcId "UG1[Xn/.wv-8tq-i~nmJ"
+                                                                             :type "Cell-modifier"
+                                                                             :srcId "sLyfeBxu@9jNDz4}]!1"
                                                                              :child {:type "Quote"
-                                                                                     :srcId "azF$@8eyrcM}r9~-)x}Y"
-                                                                                     :text "food"}}}
+                                                                                     :srcId "l^R1pCkx$$69qj%(l76*"
+                                                                                     :text "food"}}
+                                                            :condition {:name "food" :type "Cell" :srcId "toJX3e4L2Za2*e82G%`"}}
                                                            {:type "Default-condition"
-                                                            :thenExpression {:type "Quote" :srcId "cGW^v73GvZGA:!EtR{f/" :text "food"}}]
-                                              :srcId ";p-M!1U?:T:$@SJcxx7["}]
+                                                            :thenExpression {:type "Quote"
+                                                                             :srcId "3{mg*}Q7ZImvNvx$ByN#"
+                                                                             :text "food"}}]
+                                              :srcId "pPj)(k--iui+Crsa~w1v"}]
                                   :name "Object"
                                   :label "Object"}]
                          :type "AMR"
-                         :srcId "td86]}yV*``_qj3O;|B"
+                         :srcId "SWb8^1#$xu:G9zDdUdql"
                          :conceptId "capable-of"
                          :kind "Str"}]
              :type "Segment"
-             :srcId "sn#g:ZHw2M{[dZo9xexE"}]
- :srcId "5cuZMnsOvjZLg8fGJ}!|"}
+             :srcId "d|ld`mo*j?2VQFE!TW(l"}]
+ :srcId "tOAElPh)mK~cxz+3:fd"}
