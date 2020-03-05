@@ -27,8 +27,8 @@
 (defn create-dictionary-item [_ args _]
   (-> (translate-dict/schema->dictionary-item args)
       (dict-entity/create-dictionary-item)
-      #_(translate-dict/multilang-dict-item->original-schema)
-      #_(resolve-as)))
+      (translate-dict/multilang-dict-item->original-schema)
+      (resolve-as)))
 
 (defn delete-dictionary-item [_ {:keys [id]} _]
   (dict-entity/delete-dictionary-item id)

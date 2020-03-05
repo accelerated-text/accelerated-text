@@ -62,7 +62,7 @@
                                  :forms    phrases
                                  :language (dict-entity/default-language)}
               (some? id) (assoc ::dictionary-item/id id)
-              (some? pos) (assoc ::dictionary-item/category pos)))))
+              (some? pos) (assoc ::dictionary-item/category (name pos))))))
 
 (defn build-lang-user-flags [lang]
   (map (fn [[flag _]]
