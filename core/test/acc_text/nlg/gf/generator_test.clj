@@ -83,9 +83,8 @@
                             ctx))))))
 
 (deftest ^:integration dictionary
-  (let []
-    (is (= ["it publishes author."]
-           (generate
-             (grammar/build "Default" "Instance"
-                            (utils/load-test-semantic-graph "dictionary-test")
-                            (utils/load-test-context "dictionary-test")))))))
+  (is (= ["it publishes author."]
+         (generate
+           (grammar/build "Default" "Instance"
+                          (utils/load-test-semantic-graph "dictionary-test")
+                          (utils/load-test-context "dictionary-test"))))))
