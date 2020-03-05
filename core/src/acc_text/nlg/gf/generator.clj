@@ -212,7 +212,7 @@
           lang
           lang
           lang
-          lang
+          (if (= lang "Lav") "Eng" lang)
           (join-body
             "oper" (parse-oper variables))))
 
