@@ -1,5 +1,6 @@
 (ns acc-text.nlg.gf.grammar.impl
   (:require [acc-text.nlg.semantic-graph :as sg]
+            [acc-text.nlg.utils :as utils]
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]
             [clojure.set :as set]
@@ -61,6 +62,7 @@
       (map? item) (assoc body :item item)
       (seq item) (assoc body :value item)
       (seq variants) (assoc body :value variants)
+      (utils/uuid-str? value) (assoc body :value ["{}"])
       :else (assoc body :value [value]))))
 
 (defmulti build-function (fn [concept _ _ _ _] (:type concept)))
