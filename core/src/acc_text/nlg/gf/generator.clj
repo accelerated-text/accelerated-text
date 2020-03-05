@@ -1,6 +1,7 @@
 (ns acc-text.nlg.gf.generator
-  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
-            [acc-text.nlg.gf.grammar :as grammar]
+  (:require [acc-text.nlg.gf.grammar :as grammar]
+            [acc-text.nlg.gf.generator.dictionary-item :as gen-dict-item]
+            [acc-text.nlg.gf.generator.utils :as gen-utils]
             [acc-text.nlg.gf.service :as service]
             [acc-text.nlg.utils :as utils]
             [clojure.spec.alpha :as s]
@@ -12,6 +13,7 @@
                   "this" "small" "of_Prep" "make" "fast" "suitable" "with_Prep"
                   "regular" "features" "easy_N"
                   "includes" "package"})
+
 (defn s-ret? [ret] (coll? ret))
 
 (defn f-param? [function-name] (str/starts-with? function-name "Amr"))
@@ -22,9 +24,6 @@
        (filter (comp seq second))
        (map #(format "\n    %s\n        %s ;" (first %) (str/join " ;\n        " (second %))))
        (str/join)))
-
-(defn escape-string [s]
-  (str/replace s #"\"" "\\\\\""))
 
 (defn parse-flags [flags]
   (map (fn [[flag val]]
@@ -46,45 +45,20 @@
        (map #(if (contains? dictionary %)
                %
                (case type
-                 "Str" (format "\"%s\"" (escape-string %))
+                 "Str" (format "\"%s\"" (gen-utils/escape-string %))
                  "Pol" (if (Boolean/valueOf ^String %)
                          "positivePol"
                          "negativePol")
-                 "CN" (format "(mkCN (mkN \"%s\"))" (escape-string %))
-                 (format "(mk%s \"%s\")" type (escape-string %)))))
+                 "CN" (format "(mkCN (mkN \"%s\"))" (gen-utils/escape-string %))
+                 (format "(mk%s \"%s\")" type (gen-utils/escape-string %)))))
        (str/join " | ")))
-
-(defmulti build-dictionary-item (fn [type {::dictionary-item/keys [category language]}]
-                                  (str/join "/" [language type category])))
-
-(defn join-forms [forms]
-  (->> forms
-       (map #(format "\"%s\"" (escape-string %)))
-       (str/join " ")))
-
-(defmethod build-dictionary-item "Eng/V/V" [_ {::dictionary-item/keys [forms]}]
-  (format "(ParadigmsEng.mkV %s)" (join-forms forms)))
-
-(defmethod build-dictionary-item "Eng/V2/V" [_ {::dictionary-item/keys [forms]}]
-  (format "(ParadigmsEng.mkV2 (ParadigmsEng.mkV %s))" (join-forms forms)))
-
-(defmethod build-dictionary-item "Eng/V2/V2" [_ {::dictionary-item/keys [forms]}]
-  (format "(ParadigmsEng.mkV2 (ParadigmsEng.mkV %s))" (join-forms forms)))
-
-(defmethod build-dictionary-item "Eng/V/V2" [_ {::dictionary-item/keys [forms]}]
-  (format "(ParadigmsEng.mkV %s)" (join-forms forms)))
-
-(defmethod build-dictionary-item "Eng/N/N" [_ {::dictionary-item/keys [forms attributes]}]
-  (if (contains? attributes "Gender")
-    (format "(ParadigmsEng.mkN ParadigmsEng.%s (ParadigmsEng.mkN %s))" (get attributes "Gender") (join-forms forms))
-    (format "(ParadigmsEng.mkN %s)" (join-forms forms))))
 
 (defn parse-oper [variables]
   (map (fn [{:keys [name type value item]}]
          (let [abstract-definition (str name " : " type)]
            (cond
              (some? value) (str abstract-definition " = " (join-value type value))
-             (some? item) (str abstract-definition " = " (build-dictionary-item type item))
+             (some? item) (str abstract-definition " = " (gen-dict-item/build-dictionary-item type item))
              :else abstract-definition)))
        variables))
 
@@ -123,7 +97,7 @@
     (let [{:keys [kind value params]} expr]
       (case kind
         :variable value
-        :literal (cond->> (format "\"%s\"" (escape-string value))
+        :literal (cond->> (format "\"%s\"" (gen-utils/escape-string value))
                           (not= "Str" (second ret)) (format "(mk%s %s)" (second ret)))
         :function (format "%s.s" value)
         :operation (let [flin (->> params
@@ -131,7 +105,7 @@
                                    (map (fn [{:keys [kind value]}]
                                           (case kind
                                             :literal (format "\"%s\""
-                                                             (escape-string value))
+                                                             (gen-utils/escape-string value))
                                             :function
                                             (format "%s%s"
                                                     value
@@ -153,7 +127,7 @@
               (case type
                 :argument value
                 :operation (format "(%s %s)" value (join-operation-body children))
-                :literal (format "\"%s\"" (escape-string value)))))
+                :literal (format "\"%s\"" (gen-utils/escape-string value)))))
        (str/join " ")))
 
 (defn join-function-body [body ret]

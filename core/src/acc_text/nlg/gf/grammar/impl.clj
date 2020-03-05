@@ -54,11 +54,14 @@
 
 (defmethod build-variable :dictionary-item [{value :value {key :name} :attributes :as concept} {:keys [dictionary types]}]
   (let [name (concept->name concept)
-        item (get dictionary key)]
-    (cond-> {:name name
-             :type (get types name "Str")}
-            (and (some? item) (map? item)) (assoc :item item)
-            (and (some? value) (nil? item)) (assoc :value (if-let [coll (seq (get dictionary value))] coll [value])))))
+        item (get dictionary key)
+        variants (get dictionary value)
+        body {:name name :type (get types name "Str")}]
+    (cond
+      (map? item) (assoc body :item item)
+      (seq item) (assoc body :value item)
+      (seq variants) (assoc body :value variants)
+      :else (assoc body :value [value]))))
 
 (defmulti build-function (fn [concept _ _ _ _] (:type concept)))
 
