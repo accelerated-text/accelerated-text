@@ -1,0 +1,15 @@
+#:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment}
+                                          {:from :02 :to :03 :role :instance}
+                                          {:from :03 :to :04 :role :ARG0 :attributes {:name "V2" :label "V2"}}
+                                          {:from :03 :to :05 :role :ARG1 :attributes {:name "N" :label "N"}})
+                              :concepts  ({:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :amr :value "uQSDXGuRhcueROwE"}
+                                          {:id         :04
+                                           :type       :dictionary-item
+                                           :value      "4ae69166-dbf0-4c7f-8d70-fb58433d56fb"
+                                           :attributes {:name "publish_1_V2"}}
+                                          {:id         :05
+                                           :type       :dictionary-item
+                                           :value      "0ec0da93-5781-4774-8ba1-bf532994cb45"
+                                           :attributes {:name "author_1_N"}})}
