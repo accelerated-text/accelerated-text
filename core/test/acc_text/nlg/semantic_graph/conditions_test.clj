@@ -151,6 +151,7 @@
                            {:id :14, :type :quote, :value "Published nearby"}]
                :relations [{:from :01 :role :segment :to :02}
                            {:from :02 :role :instance :to :08}
+                           {:from :02 :role :instance :to :12}
                            {:from :12 :to :13 :role :child}
                            {:from :12 :to :14 :role :modifier}]}
            (conditions/select (utils/load-test-semantic-graph "multiple-ifs-with-data") {:near "Vilnius"}))))
