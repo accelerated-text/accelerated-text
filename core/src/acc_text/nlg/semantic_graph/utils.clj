@@ -78,9 +78,9 @@
 (defn select-pairs [pairs nodes]
   (map (fn [[start end]]
          (log/debugf "Searching for pair: %s %s" start end)
-         {:start  (first (filter (fn [{:keys [from to]}] (= to start)) nodes))
+         {:start  (first (filter (fn [{:keys [to]}] (= to start)) nodes))
           :middle (first (filter (fn [{:keys [from to]}] (and (= from start) (= to end))) nodes))
-          :end    (first (filter (fn [{:keys [from to]}] (= from end)) nodes))})
+          :end    (first (filter (fn [{:keys [from]}] (= from end)) nodes))})
        pairs))
 
 (defn select-related-nodes [ids-for-removal relations]
@@ -108,7 +108,7 @@
                                              (if conditional?
                                                (->> values
                                                     (select-related-nodes ids-for-removal)
-                                                    (map (fn [{:keys [start middle end]}] (assoc start :to (:to end)))))
+                                                    (map (fn [{:keys [start end]}] (assoc start :to (:to end)))))
                                                values)))
                                       (apply concat)
                                       (sort-by :from)))))))
