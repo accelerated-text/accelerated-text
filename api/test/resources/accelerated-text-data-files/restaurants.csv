@@ -1,3 +1,3 @@
-"name","area","eat_type","food"
-"Alimentum","city center","restaurant",
-"Panda","riverside","restaurant","chinese"
+"name","area","eat_type","food","near"
+"Alimentum","city center","restaurant",,"Burger King"
+"Panda","riverside","restaurant","chinese",

@@ -300,3 +300,11 @@
       (is (= 200 status))
       (is (some? result-id))
       (is (= #{"Panda serves chinese food."} (get-original-results result-id))))))
+
+(deftest ^:integration amr-with-multiple-ifs
+  (let [{{result-id :resultId} :body status :status} (generate "located-near-multiple-ifs" "restaurants.csv" 0)]
+    (is (= 200 status))
+    (is (some? result-id))
+    (is (= #{"There is a restaurant in the city center, near the Burger King Alimentum."
+             "In the city center, near the Burger King there is a restaurant Alimentum."
+             "There is an Alimentum in the city center, near the Burger King."} (get-original-results result-id)))))
