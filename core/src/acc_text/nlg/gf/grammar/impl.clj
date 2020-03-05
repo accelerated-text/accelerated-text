@@ -201,9 +201,11 @@
   (reduce (fn [m {:keys [id value]}]
             (let [relations (get relation-map id)
                   children (map (comp concept-map :to) relations)
-                  role-map (reduce (fn [m [{{attr-name :name} :attributes} concept]]
-                                     (cond-> m
-                                             (some? attr-name) (assoc attr-name (concept->name concept))))
+                  role-map (reduce (fn [m [{{attr-name :name label :label} :attributes} concept]]
+                                     (cond
+                                       (some? label) (assoc m label (concept->name concept))
+                                       (some? attr-name) (assoc m attr-name (concept->name concept))
+                                       :else m))
                                    {}
                                    (zipmap relations children))
                   params (or
