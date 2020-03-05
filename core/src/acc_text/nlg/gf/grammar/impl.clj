@@ -58,7 +58,7 @@
     (cond-> {:name name
              :type (get types name "Str")}
             (and (some? item) (map? item)) (assoc :item item)
-            (some? value) (assoc :value (if-let [coll (seq (get dictionary value))] coll [value])))))
+            (and (some? value) (nil? item)) (assoc :value (if-let [coll (seq (get dictionary value))] coll [value])))))
 
 (defmulti build-function (fn [concept _ _ _ _] (:type concept)))
 
