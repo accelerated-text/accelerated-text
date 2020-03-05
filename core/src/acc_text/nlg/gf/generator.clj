@@ -207,8 +207,9 @@
             "oper" (parse-oper (map #(dissoc % :value :item) variables)))))
 
 (defn ->resource [lang {::grammar/keys [module variables]}]
-  (format "resource %sLex%s = open Syntax%s, Paradigms%s, BaseDictionaryEng in {%s\n}"
+  (format "resource %sLex%s = open Syntax%s, Paradigms%s, Morpho%s, BaseDictionaryEng in {%s\n}"
           module
+          lang
           lang
           lang
           lang
