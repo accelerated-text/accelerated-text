@@ -74,8 +74,10 @@
 (defmethod build-dictionary-item "Eng/V/V2" [_ {::dictionary-item/keys [forms]}]
   (format "(ParadigmsEng.mkV %s)" (join-forms forms)))
 
-(defmethod build-dictionary-item "Eng/N/N" [_ {::dictionary-item/keys [forms]}]
-  (format "(ParadigmsEng.mkN %s)" (join-forms forms)))
+(defmethod build-dictionary-item "Eng/N/N" [_ {::dictionary-item/keys [forms attributes]}]
+  (if (contains? attributes "Gender")
+    (format "(ParadigmsEng.mkN ParadigmsEng.%s (ParadigmsEng.mkN %s))" (get attributes "Gender") (join-forms forms))
+    (format "(ParadigmsEng.mkN %s)" (join-forms forms))))
 
 (defn parse-oper [variables]
   (map (fn [{:keys [name type value item]}]
