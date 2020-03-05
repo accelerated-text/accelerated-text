@@ -21,15 +21,15 @@
           "there is a venue in the city centre Alimentum"
           "there is an Alimentum in the city centre"
           "there is an arena in the city centre Alimentum"]
-         (generate (log/spy (grammar/build "AtLoc" "1" (utils/load-test-semantic-graph "location-amr")
-                                           {:amr        {"at-location"
-                                                         {:frames [{:syntax [{:type   :oper
-                                                                              :value  "atLocation"
-                                                                              :ret    "S"
-                                                                              :params [{:role "lexicon" :type "N"}
-                                                                                       {:role "locationData" :type "N"}
-                                                                                       {:role "objectRef" :type "N"}]}]}]}}
-                                            :dictionary {"place" ["arena" "place" "venue"]}}))))))
+         (generate (grammar/build "AtLoc" "1" (utils/load-test-semantic-graph "location-amr")
+                                  {:amr        {"at-location"
+                                                {:frames [{:syntax [{:type   :oper
+                                                                     :value  "atLocation"
+                                                                     :ret    "S"
+                                                                     :params [{:role "lexicon" :type "N"}
+                                                                              {:role "locationData" :type "N"}
+                                                                              {:role "objectRef" :type "N"}]}]}]}}
+                                   :dictionary {"place" ["arena" "place" "venue"]}})))))
 
 (deftest ^:integration polarity
   (is (= ["KFC is family-friendly."]
