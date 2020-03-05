@@ -3,6 +3,8 @@ import json
 import argparse
 import subprocess
 
+from io import open
+
 from wsgiref.util import setup_testing_defaults
 from wsgiref.simple_server import make_server
 
@@ -28,7 +30,7 @@ def compile_grammar(name, content):
                  for k in content.keys()
                  if k != name]
         for k, v in content.items():
-            with open("{0}/{1}.gf".format(tmpdir, k), "w") as f:
+            with open("{0}/{1}.gf".format(tmpdir, k), "w", encoding="UTF-8") as f:
                 f.write(v)
         
         logger.info("Compiling")
