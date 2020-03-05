@@ -75,6 +75,22 @@
   (prune-branches semantic-graph (set/difference (into #{} (map :id (rest concepts)))
                                                  (into #{} (map :to relations)))))
 
+
+(defn select-pairs [pairs nodes]
+  (map (fn [[start end]]
+         {:start  (first (filter (fn [{:keys [from to]}] (= to start)) nodes))
+          :middle (first (filter (fn [{:keys [from to]}] (and (= from start) (= to end))) nodes))
+          :end    (first (filter (fn [{:keys [from to]}] (= from end)) nodes))})
+       pairs))
+
+(defn select-related-nodes [ids-for-removal relations]
+  (let [pairs (zipmap ids-for-removal (rest ids-for-removal))]
+    (->> relations
+         (filter (fn [{:keys [from to]}] (or (contains? ids-for-removal to)
+                                             (contains? ids-for-removal from))))
+         (select-pairs pairs)
+         (remove #(nil? (:middle %))))))
+
 (defn remove-condition-nodes [semantic-graph]
   (let [ids-for-removal (->> semantic-graph
                              ::sg/concepts
@@ -86,18 +102,14 @@
         (update ::sg/concepts (fn [concepts]
                                 (remove #(contains? ids-for-removal (:id %)) concepts)))
         (update ::sg/relations (fn [relations]
-                                 (let [start-node (first (filter (fn [{:keys [from to]}] (and (contains? ids-for-removal to)
-                                                                                              (not (contains? ids-for-removal from))))
-                                                                 relations))
-                                       end-node (first (filter (fn [{:keys [from to]}] (and (contains? ids-for-removal from)
-                                                                                            (not (contains? ids-for-removal to))))
-                                                                relations))]
-                                   (log/debugf "StartNode: %s EndNode: %s" start-node end-node)
-                                   (->> relations
-                                        (remove (fn [{:keys [from to]}] (or (contains? ids-for-removal from)
-                                                                            (contains? ids-for-removal to))))
-                                        (cons (assoc start-node :to (:to end-node)))
-                                        (sort-by :from))))))))
+                                 (->> relations
+                                      (remove (fn [{:keys [from to]}] (or (contains? ids-for-removal from)
+                                                                          (contains? ids-for-removal to))))
+                                      (concat (->> relations
+                                                   (select-related-nodes ids-for-removal)
+                                                   (map (fn [{:keys [start middle end]}]
+                                                          (assoc start :to (:to end))))))
+                                      (sort-by :from)))))))
 
 (defn node-name [{:keys [id type value]}]
   (if (= type :quote)

@@ -86,3 +86,19 @@
                  :relations [{:from :01 :to :04 :role :segment}
                              {:from :04 :to :05 :role :instance}]}
            (sg-utils/prune-unrelated-branches semantic-graph)))))
+
+(deftest select-related-nodes
+  (let [nodes [{:from :x1 :to :03}
+               {:from :03 :to :11}
+               {:from :11 :to :x2}
+
+               {:from :x3 :to :13}
+               {:from :13 :to :17}
+               {:from :17 :to :x4}]]
+    (is (= [{:start  {:from :x1 :to :03}
+             :middle {:from :03 :to :11}
+             :end    {:from :11 :to :x2}}
+
+            {:start  {:from :x3 :to :13}
+             :middle {:from :13 :to :17}
+             :end    {:from :17 :to :x4}}] (sg-utils/select-related-nodes #{:03 :11 :13 :17} nodes)))))
