@@ -40,32 +40,32 @@
 (defn get-reader [key]
   (db/read! reader-flags-db key))
 
-(defn list-items
-  ([] (list-items 100))
+(defn list-dictionary-items
+  ([] (list-dictionary-items 100))
   ([limit]
    (db/list! dictionary-db limit)))
 
-(defn get-item [id]
+(defn get-dictionary-item [id]
   (db/read! dictionary-db id))
 
-(defn delete-item [id]
+(defn delete-dictionary-item [id]
   (db/delete! dictionary-db id))
 
-(defn update-item [{id ::dictionary-item/id :as item}]
+(defn update-dictionary-item [{id ::dictionary-item/id :as item}]
   (db/update! dictionary-db id item))
 
-(defn write-item [{id ::dictionary-item/id :as item}]
+(defn create-dictionary-item [{id ::dictionary-item/id :as item}]
   (let [item-id (or id (utils/gen-uuid))]
     (db/write! dictionary-db item-id item)
-    (get-item item-id)))
+    (get-dictionary-item item-id)))
 
-(defn scan
+(defn scan-dictionary
   ([keys]
    (db/scan! dictionary-db {:keys keys}))
   ([keys languages]
    (db/scan! dictionary-db {:keys keys :languages languages})))
 
-(defn list-files []
+(defn list-dictionary-files []
   (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
        (filter #(.isFile ^File %))
        (filter #(str/ends-with? (.getName %) "edn"))))
@@ -73,7 +73,7 @@
 (defn initialize []
   (doseq [[flag value] (get-default-flags)]
     (db/write! reader-flags-db flag value))
-  (doseq [f (list-files)]
+  (doseq [f (list-dictionary-files)]
     (with-open [r (io/reader f)]
       (doseq [item (edn/read (PushbackReader. r))]
-        (write-item item)))))
+        (create-dictionary-item item)))))

@@ -17,7 +17,7 @@
                                                :category "V2"
                                                :language "Eng"
                                                :forms    ["write" "wrote" "written"]}]]
-    (dict-entity/write-item item))
+    (dict-entity/create-dictionary-item item))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)

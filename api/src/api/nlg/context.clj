@@ -13,7 +13,7 @@
 
 (defn build-dictionary-context [semantic-graph languages]
   (->> languages
-       (dict-entity/scan (get-dictionary-item-keys semantic-graph))
+       (dict-entity/scan-dictionary (get-dictionary-item-keys semantic-graph))
        (group-by ::dictionary-item/language)
        (reduce-kv (fn [m k v]
                     (assoc m k (zipmap (map ::dictionary-item/key v) v)))

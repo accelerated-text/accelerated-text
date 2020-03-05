@@ -8,7 +8,7 @@
             [data.entities.dictionary :as dict-entity]))
 
 (defn dictionary [_ _ _]
-  (->> (dict-entity/list-items)
+  (->> (dict-entity/list-dictionary-items)
        (filter #(= (dict-entity/default-language) (::dictionary-item/language %)))
        (map translate-dict/multilang-dict-item->original-schema)
        (sort-by :name)
@@ -20,31 +20,31 @@
 
 (defn dictionary-item [_ {id :id :as args} _]
   (log/debugf "Fetching dictionary item with args: %s" args)
-  (if-let [item (dict-entity/get-item id)]
+  (if-let [item (dict-entity/get-dictionary-item id)]
     (resolve-as (translate-dict/multilang-dict-item->original-schema item))
     (resolve-as-not-found-dict-item id)))
 
 (defn create-dictionary-item [_ args _]
   (-> (translate-dict/schema->dictionary-item args)
-      (dict-entity/write-item)
+      (dict-entity/create-dictionary-item)
       #_(translate-dict/multilang-dict-item->original-schema)
       #_(resolve-as)))
 
 (defn delete-dictionary-item [_ {:keys [id]} _]
-  (dict-entity/delete-item id)
+  (dict-entity/delete-dictionary-item id)
   (resolve-as true))
 
 (defn update-dictionary-item [_ {id :id :as args} _]
-  (if-let [item (dict-entity/update-item (translate-dict/schema->dictionary-item args))]
+  (if-let [item (dict-entity/update-dictionary-item (translate-dict/schema->dictionary-item args))]
     (resolve-as (translate-dict/multilang-dict-item->original-schema item))
     (resolve-as-not-found-dict-item id)))
 
 (defn create-phrase [_ {:keys [dictionaryItemId text defaultUsage]} _]
-  (if-let [item (dict-entity/get-item dictionaryItemId)]
+  (if-let [item (dict-entity/get-dictionary-item dictionaryItemId)]
       (let [phrase (translate-dict/text->phrase text dictionaryItemId (keyword defaultUsage))]
         (-> item
             (update :phrases (partial cons phrase))
-            (dict-entity/update-item)
+            (dict-entity/update-dictionary-item)
             (translate-dict/dictionary-item->schema)
             (resolve-as)))
       (resolve-as-not-found-dict-item dictionaryItemId)))
@@ -52,7 +52,7 @@
 (defn- update-phrase [item id mut-fn translate?]
   (let [translate-fn (if (true? translate?) translate-dict/phrase->schema identity)]
     (->> (update item :phrases #(map (fn [phrase] (cond-> phrase (= id (:id phrase)) (mut-fn))) %))
-         (dict-entity/update-item)
+         (dict-entity/update-dictionary-item)
          (:phrases)
          (filter #(= id (:id %)))
          (first)
@@ -62,24 +62,24 @@
   (first (str/split id #"/")))
 
 (defn update-phrase-text [_ {:keys [id text]} _]
-  (if-let [item (dict-entity/get-item (get-parent-id id))]
+  (if-let [item (dict-entity/get-dictionary-item (get-parent-id id))]
     (-> item
         (update-phrase id #(assoc % :text text) true)
         (resolve-as))
     (resolve-as-not-found-dict-item (get-parent-id id))))
 
 (defn update-phrase-default-usage [_ {:keys [id defaultUsage]} _]
-  (if-let [item (dict-entity/get-item (get-parent-id id))]
+  (if-let [item (dict-entity/get-dictionary-item (get-parent-id id))]
     (-> item
         (update-phrase id #(assoc-in % [:flags :default] (keyword defaultUsage)) true)
         (resolve-as))
     (resolve-as-not-found-dict-item (get-parent-id id))))
 
 (defn delete-phrase [_ {:keys [id]} _]
-  (if-let [item (dict-entity/get-item (get-parent-id id))]
+  (if-let [item (dict-entity/get-dictionary-item (get-parent-id id))]
     (-> item
         (update :phrases #(remove (fn [phrase] (= id (:id phrase))) %))
-        (dict-entity/update-item)
+        (dict-entity/update-dictionary-item)
         (translate-dict/dictionary-item->schema)
         (resolve-as))
     (resolve-as-not-found-dict-item (get-parent-id id))))
@@ -98,7 +98,7 @@
     (resolve-as-not-found-reader-flag id)))
 
 (defn update-reader-flag-usage [_ {:keys [id usage]} _]
-  (if-let [item (dict-entity/get-item (get-parent-id id))]
+  (if-let [item (dict-entity/get-dictionary-item (get-parent-id id))]
     (let [[parent-part phrase-part flag-id] (str/split id #"/")
           flag-key (keyword flag-id)
           phrase-id (format "%s/%s" parent-part phrase-part)

@@ -15,7 +15,7 @@
                                                 :category "N"
                                                 :language "Ger"
                                                 :forms    ["platz" "plätze"]}}]
-    (dict-entity/write-item item))
+    (dict-entity/create-dictionary-item item))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)

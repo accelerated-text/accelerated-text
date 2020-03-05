@@ -20,7 +20,7 @@
                                    :category "V2"
                                    :language "Eng"
                                    :forms    ["is"]}]]
-    (dictionary/write-item item))
+    (dictionary/create-dictionary-item item))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
