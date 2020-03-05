@@ -3,8 +3,7 @@
             [acc-text.nlg.gf.grammar :as grammar]
             [acc-text.nlg.test-utils :as utils]
             [clojure.spec.test.alpha :as stest]
-            [clojure.test :refer [deftest is]]
-            [clojure.tools.logging :as log]))
+            [clojure.test :refer [deftest is]]))
 
 (stest/instrument `grammar/build `generate)
 
