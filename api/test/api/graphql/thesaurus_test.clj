@@ -4,6 +4,14 @@
 
 (deftest ^:integration search-thesaurus-test
   (let [query "{searchThesaurus(query:\"%s\" partOfSpeech:%s){words{id partOfSpeech text concept{id label}} offset limit totalCount}}"]
+    (testing "Empty query without pos"
+      (let [{{{{:keys [limit offset words totalCount]} :searchThesaurus} :data errors :errors} :body}
+            (q "/_graphql" :post {:query "{searchThesaurus(query:\"\"){words{id partOfSpeech text concept{id label}} offset limit totalCount}}"})]
+        (is (nil? errors))
+        (is (zero? limit))
+        (is (zero? offset))
+        (is (empty? words))
+        (is (zero? totalCount))))
     (testing "Noun search"
       (let [{{{{:keys [limit offset words totalCount]} :searchThesaurus} :data errors :errors} :body}
             (q "/_graphql" :post {:query (format query "word" "N")})]

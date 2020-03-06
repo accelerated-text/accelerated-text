@@ -4,7 +4,7 @@
 
 (defn search-thesaurus [query part-of-speech]
   (let [words (mapcat wn/synonyms (if (some? part-of-speech)
-                                    (wn/lookup-words query part-of-speech)
+                                    (wn/lookup-words query (name part-of-speech))
                                     (wn/lookup-words query)))]
     {:words      (map (fn [{:keys [pos lemma]}]
                         {:id           (format "%s-%s" (name pos) (string/replace lemma #" " "-"))
