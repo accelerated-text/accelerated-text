@@ -1,5 +1,6 @@
 (ns api.end-to-end-test
-  (:require [api.db-fixtures :as fixtures]
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [api.db-fixtures :as fixtures]
             [api.test-utils :refer [q load-test-document-plan]]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.document-plan :as dp]
@@ -7,12 +8,18 @@
             [data.entities.dictionary :as dictionary]))
 
 (defn prepare-environment [f]
-  (doseq [item [{:key "cut" :name "cut" :phrases ["cut"] :partOfSpeech :VB}
-                {:key "see" :name "see" :phrases ["see"] :partOfSpeech :VB}
-                {:key "place" :name "place" :phrases ["arena" "place" "venue"] :partOfSpeech :NN}
-                {:key "written" :name "written" :phrases ["written"] :partOfSpeech :VB}
-                {:key "is" :name "is" :phrases ["is"] :partOfSpeech :VB}
-                {:key "release" :name "release" :phrases ["publised" "released"] :partOfSpeech :VB}]]
+  (doseq [item [#::dictionary-item{:key      "see"
+                                   :category "V2"
+                                   :language "Eng"
+                                   :forms    ["see" "saw" "seen"]}
+                #::dictionary-item{:key      "release"
+                                   :category "V2"
+                                   :language "Eng"
+                                   :forms    ["release"]}
+                #::dictionary-item{:key      "is"
+                                   :category "V2"
+                                   :language "Eng"
+                                   :forms    ["is"]}]]
     (dictionary/create-dictionary-item item))
   (f))
 
@@ -250,24 +257,16 @@
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"In the city centre there is a place Alimentum."
-             "In the city centre there is a venue Alimentum."
-             "In the city centre there is an arena Alimentum."
              "There is a place in the city centre Alimentum."
-             "There is a venue in the city centre Alimentum."
-             "There is an Alimentum in the city centre."
-             "There is an arena in the city centre Alimentum."} (get-original-results result-id)))))
+             "There is an Alimentum in the city centre."} (get-original-results result-id)))))
 
 (deftest ^:integration located-near-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "located-near-amr" "books.csv")]
     (is (= 200 status))
     (is (some? result-id))
     (is (= #{"In the city centre, near the KFC there is a place Alimentum."
-             "In the city centre, near the KFC there is a venue Alimentum."
-             "In the city centre, near the KFC there is an arena Alimentum."
              "There is a place in the city centre, near the KFC Alimentum."
-             "There is a venue in the city centre, near the KFC Alimentum."
-             "There is an Alimentum in the city centre, near the KFC."
-             "There is an arena in the city centre, near the KFC Alimentum."} (get-original-results result-id)))))
+             "There is an Alimentum in the city centre, near the KFC."} (get-original-results result-id)))))
 
 (deftest ^:integration gf-amr-modifier-plan-generation
   (let [{{result-id :resultId} :body status :status} (generate "gf-amr-modifier" "books.csv")]

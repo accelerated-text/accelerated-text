@@ -1,19 +1,23 @@
 (ns api.nlg.context
   (:require [acc-text.nlg.semantic-graph :as sg]
-            [api.nlg.dictionary :as dictionary]
-            [clojure.string :as str]
+            [acc-text.nlg.semantic-graph.utils :as sg-utils]
+            [acc-text.nlg.dictionary.item :as dictionary-item]
             [data.entities.amr :as amr]
-            [data.entities.rgl :as rgl]))
+            [data.entities.rgl :as rgl]
+            [data.entities.dictionary :as dict-entity]))
 
-(defn get-reader-profiles [reader-model]
-  (or
-    (seq
-      (reduce-kv (fn [acc k v]
-                   (cond-> acc
-                           (true? v) (conj k)))
-                 []
-                 reader-model))
-    [:default]))
+(defn get-dictionary-item-keys [semantic-graph]
+  (->> (sg-utils/get-concepts-with-type semantic-graph :dictionary-item)
+       (map #(get-in % [:attributes :name]))
+       (into #{})))
+
+(defn build-dictionary-context [semantic-graph languages]
+  (->> languages
+       (dict-entity/scan-dictionary (get-dictionary-item-keys semantic-graph))
+       (group-by ::dictionary-item/language)
+       (reduce-kv (fn [m k v]
+                    (assoc m k (zipmap (map ::dictionary-item/key v) v)))
+                  {})))
 
 (defn get-values [semantic-graph type]
   (->> (get semantic-graph ::sg/concepts)
@@ -21,29 +25,21 @@
        (map :value)
        (set)))
 
-(defn build-dictionary-context [semantic-graph reader-profiles]
-  (reduce (fn [m value]
-            (assoc m value (->> reader-profiles
-                                (mapcat #(dictionary/search (str/lower-case value) %))
-                                (into #{})
-                                (sort)
-                                (vec))))
-          {}
-          (get-values semantic-graph :dictionary-item)))
-
 (defn build-amr-context [semantic-graph]
-  (reduce (fn [m amr-id]
-            (let [{sg :semantic-graph :as amr} (or (amr/get-amr amr-id) (rgl/get-rgl amr-id))]
-              (cond-> m
-                      (some? amr) (-> (assoc amr-id amr)
-                                      (cond-> (some? sg) (merge (build-amr-context sg)))))))
-          {}
-          (get-values semantic-graph :amr)))
+  (->> (sg-utils/get-concepts-with-type semantic-graph :amr)
+       (map :value)
+       (into #{})
+       (reduce (fn [m amr-id]
+                 (let [{sg :semantic-graph :as amr} (or (amr/get-amr amr-id) (rgl/get-rgl amr-id))]
+                   (cond-> m
+                           (some? amr) (-> (assoc amr-id amr)
+                                           (cond-> (some? sg) (merge (build-amr-context sg)))))))
+               {})))
 
 (defn build-context
   ([semantic-graph]
-   (build-context semantic-graph {:reader-model {:default true}}))
-  ([semantic-graph {reader-model :reader-model}]
-   (let [reader-profiles (get-reader-profiles reader-model)]
-     {:dictionary (build-dictionary-context semantic-graph reader-profiles)
-      :amr        (build-amr-context semantic-graph)})))
+   (build-context semantic-graph {:languages [(dict-entity/default-language)] :data {}}))
+  ([semantic-graph {:keys [languages data]}]
+   {:amr        (build-amr-context semantic-graph)
+    :data       data
+    :dictionary (build-dictionary-context semantic-graph languages)}))

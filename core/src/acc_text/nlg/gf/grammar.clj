@@ -47,6 +47,8 @@
 
 (s/def :acc-text.nlg.gf.grammar.variable/value (s/coll-of string?))
 
+(s/def :acc-text.nlg.gf.grammar.variable/item map?)
+
 (s/def :acc-text.nlg.gf.grammar.variable/type string?)
 
 (s/def ::variable (s/keys :req-un [:acc-text.nlg.gf.grammar.variable/name

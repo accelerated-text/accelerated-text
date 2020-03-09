@@ -1,0 +1,148 @@
+{:amr        {"uQSDXGuRhcueROwE"       {:id             "uQSDXGuRhcueROwE"
+                                        :label          "dictionary-test-amr"
+                                        :kind           "Str"
+                                        :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from :01
+                                                                                                   :to   :02
+                                                                                                   :role :segment}
+                                                                                                  {:from :02
+                                                                                                   :to   :03
+                                                                                                   :role :instance}
+                                                                                                  {:from       :03
+                                                                                                   :to         :04
+                                                                                                   :role       :ARG0
+                                                                                                   :attributes {:name  "V2"
+                                                                                                                :label "V2"}}
+                                                                                                  {:from       :03
+                                                                                                   :to         :05
+                                                                                                   :role       :ARG1
+                                                                                                   :attributes {:name  "N"
+                                                                                                                :label "N"}})
+                                                                                      :concepts  ({:id :01 :type :document-plan}
+                                                                                                  {:id :02 :type :segment}
+                                                                                                  {:id    :03
+                                                                                                   :type  :amr
+                                                                                                   :value "PQpUUxyfMnnlPNCD"}
+                                                                                                  {:id         :04
+                                                                                                   :type       :reference
+                                                                                                   :attributes {:name "V2"}}
+                                                                                                  {:id         :05
+                                                                                                   :type       :reference
+                                                                                                   :attributes {:name "N"}})}
+                                        :roles          [{:id "ARG0" :label "V2" :type "V2"} {:id "ARG1" :label "N" :type "N"}]}
+              "PQpUUxyfMnnlPNCD"       {:id             "PQpUUxyfMnnlPNCD"
+                                        :label          "dictionary-test-rgl"
+                                        :kind           "Str"
+                                        :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from :01
+                                                                                                   :to   :02
+                                                                                                   :role :segment}
+                                                                                                  {:from :02
+                                                                                                   :to   :03
+                                                                                                   :role :instance}
+                                                                                                  {:from       :03
+                                                                                                   :to         :04
+                                                                                                   :role       :ARG0
+                                                                                                   :attributes {:name  "Cl"
+                                                                                                                :label "Cl"}}
+                                                                                                  {:from       :04
+                                                                                                   :to         :05
+                                                                                                   :role       :ARG0
+                                                                                                   :attributes {:name  "VP"
+                                                                                                                :label "VP"}}
+                                                                                                  {:from       :05
+                                                                                                   :to         :06
+                                                                                                   :role       :ARG0
+                                                                                                   :attributes {:name  "V2"
+                                                                                                                :label "V2"}}
+                                                                                                  {:from       :05
+                                                                                                   :to         :07
+                                                                                                   :role       :ARG1
+                                                                                                   :attributes {:name  "NP"
+                                                                                                                :label "NP"}}
+                                                                                                  {:from       :07
+                                                                                                   :to         :08
+                                                                                                   :role       :ARG0
+                                                                                                   :attributes {:name  "N"
+                                                                                                                :label "N"}})
+                                                                                      :concepts  ({:id :01 :type :document-plan}
+                                                                                                  {:id :02 :type :segment}
+                                                                                                  {:id    :03
+                                                                                                   :type  :amr
+                                                                                                   :value "Syntax.mkText/Cl->Text"}
+                                                                                                  {:id    :04
+                                                                                                   :type  :amr
+                                                                                                   :value "Syntax.mkCl/VP->Cl"}
+                                                                                                  {:id    :05
+                                                                                                   :type  :amr
+                                                                                                   :value "Syntax.mkVP/V2->NP->VP"}
+                                                                                                  {:id         :06
+                                                                                                   :type       :reference
+                                                                                                   :attributes {:name "V2"}}
+                                                                                                  {:id    :07
+                                                                                                   :type  :amr
+                                                                                                   :value "Syntax.mkNP/N->NP"}
+                                                                                                  {:id         :08
+                                                                                                   :type       :reference
+                                                                                                   :attributes {:name "N"}})}
+                                        :roles          [{:id "ARG0" :label "V2" :type "V2"} {:id "ARG1" :label "N" :type "N"}]}
+              "Syntax.mkText/Cl->Text" {:id     "Syntax.mkText/Cl->Text"
+                                        :kind   "Text"
+                                        :name   "Cl -> Text"
+                                        :label  "mkText"
+                                        :module "Syntax"
+                                        :roles  ({:type "Cl" :label "Cl"})
+                                        :frames ({:examples ["she sleeps."]
+                                                  :syntax   ({:ret    "Text"
+                                                              :value  "Syntax.mkText"
+                                                              :params ({:id "ARG0" :type "Cl"})
+                                                              :type   :oper})})}
+              "Syntax.mkCl/VP->Cl"     {:id     "Syntax.mkCl/VP->Cl"
+                                        :kind   "Cl"
+                                        :name   "VP -> Cl"
+                                        :label  "mkCl"
+                                        :module "Syntax"
+                                        :roles  ({:type "VP" :label "VP"})
+                                        :frames ({:examples ["it is raining"]
+                                                  :syntax   ({:ret    "Cl"
+                                                              :value  "Syntax.mkCl"
+                                                              :params ({:id "ARG0" :type "VP"})
+                                                              :type   :oper})})}
+              "Syntax.mkNP/N->NP"      {:id     "Syntax.mkNP/N->NP"
+                                        :kind   "NP"
+                                        :name   "N -> NP"
+                                        :label  "mkNP"
+                                        :module "Syntax"
+                                        :roles  ({:type "N" :label "N"})
+                                        :frames ({:examples ["beer"]
+                                                  :syntax   ({:ret    "NP"
+                                                              :value  "Syntax.mkNP"
+                                                              :params ({:id "ARG0" :type "N"})
+                                                              :type   :oper})})}
+              "Syntax.mkVP/V2->NP->VP" {:id     "Syntax.mkVP/V2->NP->VP"
+                                        :kind   "VP"
+                                        :name   "V2 -> NP -> VP"
+                                        :label  "mkVP"
+                                        :module "Syntax"
+                                        :roles  ({:type "V2" :label "V2"} {:type "NP" :label "NP"})
+                                        :frames ({:examples ["to love him"]
+                                                  :syntax   ({:ret    "VP"
+                                                              :value  "Syntax.mkVP"
+                                                              :params ({:id "ARG0" :type "V2"} {:id "ARG1" :type "NP"})
+                                                              :type   :oper})})}}
+ :data       {:name "Alimentum" :area "city center" :eat_type "restaurant"}
+ :dictionary {"publish_1_V2" #:acc-text.nlg.dictionary.item{:id       "4ae69166-dbf0-4c7f-8d70-fb58433d56fb"
+                                                            :key      "publish_1_V2"
+                                                            :category "V2"
+                                                            :language "Eng"
+                                                            :sense    "1"
+                                                            :forms    ["publish"
+                                                                       "publishes"
+                                                                       "published"
+                                                                       "published"
+                                                                       "publishing"]}
+              "author_1_N"   #:acc-text.nlg.dictionary.item{:id         "0ec0da93-5781-4774-8ba1-bf532994cb45"
+                                                            :key        "author_1_N"
+                                                            :category   "N"
+                                                            :language   "Eng"
+                                                            :sense      "1"
+                                                            :forms      ["author" "authors"]
+                                                            :attributes {"Gender" "masculine"}}}}

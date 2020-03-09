@@ -8,7 +8,8 @@
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as dp]
-            [data.entities.result :as results]))
+            [data.entities.result :as results]
+            [data.entities.dictionary :as dict-entity]))
 
 (s/def ::documentPlanId string?)
 (s/def ::key string?)
@@ -34,7 +35,6 @@
     {:original original :lang lang}
     data))
 
-
 (defn generate-text-for-language
   [semantic-graph context enrich lang]
   (let [ref-expr-fn (partial ref-expr/apply-ref-expressions lang)
@@ -52,24 +52,21 @@
          (map enrich-fn)
          (map merge-enrich-dupes))))
 
+(defn reader-model->languages [reader-model]
+  (reduce-kv (fn [acc k v]
+               (cond-> acc (true? v) (conj (dict-entity/flag->lang k))))
+             []
+             reader-model))
 
 (defn generate-text
-  ([document-plan data enrich] (generate-text document-plan data {:default true} enrich))
+  ([document-plan data enrich] (generate-text document-plan data {(dict-entity/default-language-flag) true} enrich))
   ([document-plan data reader-model enrich]
-   (let [languages (cond-> []
-                           (get reader-model "English" false) (conj :en)
-                           (get reader-model "Estonian" false) (conj :ee)
-                           (get reader-model "German" false) (conj :de)
-                           (get reader-model "Latvian" false) (conj :lv)
-                           (get reader-model "Russian" false) (conj :ru))
+   (let [languages (reader-model->languages reader-model)
          semantic-graph (parser/document-plan->semantic-graph document-plan)
-         context (context/build-context semantic-graph reader-model)
-         generate-fn (partial generate-text-for-language semantic-graph (assoc context :data data) enrich)]
-     (log/debugf "Languages: %s" languages)
-     (log/debugf "Reader Model: %s" reader-model)
-     (->> languages
-          (map generate-fn)
-          (mapcat identity)))))
+         context (context/build-context semantic-graph {:languages languages :data data})]
+     (mapcat (fn [lang]
+               (generate-text-for-language semantic-graph (update context :dictionary #(get % lang)) enrich lang))
+             languages))))
 
 (defn generation-process [document-plan rows reader-model enrich]
   (try
@@ -128,12 +125,12 @@
 (defn prepend-lang-flag
   [text lang]
   (log/debugf "Result lang: %s" lang)
-  (format "%s %s" (case (keyword lang)
-                    :en "🇬🇧"
-                    :de "🇩🇪"
-                    :ee "🇪🇪"
-                    :lv "🇱🇻"
-                    :ru "🇷🇺"
+  (format "%s %s" (case lang
+                    "Eng" "🇬🇧"
+                    "Ger" "🇩🇪"
+                    "Est" "🇪🇪"
+                    "Lat" "🇱🇻"
+                    "Rus" "🇷🇺"
                     "🏳️") text))
 
 (defn transform-results
@@ -160,14 +157,6 @@
   {:status 500
    :body   {:error   true
             :message (.getMessage exception)}})
-
-
-(def dummy-response
-  {:ready   true
-   :results [[:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence one . Test sentence Two .") :lang :lv}]]
-             [:dummy [{:original (ref-expr/apply-ref-expressions :en "Test sentence 12.3 one . Test sentence Two .")
-                       :enriched (ref-expr/apply-ref-expressions :en "Test sentence one. Test sentence Two. Test sentence four. A very very long fith sentence test goes here. Test sentence six.")
-                       :lang     :de}]]]})
 
 (defn read-result [{{:keys [path query]} :parameters}]
   (let [request-id (:id path)

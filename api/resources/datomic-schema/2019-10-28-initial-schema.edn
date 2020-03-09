@@ -20,11 +20,11 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Reader flag id"}
           {:db/ident       :reader-flag/name
-           :db/valueType   :db.type/keyword
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Reader flag name"}
           {:db/ident       :reader-flag/value
-           :db/valueType   :db.type/keyword
+           :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Reader flag value"}]
 
@@ -389,4 +389,74 @@
           {:db/ident       :results/ts
            :db/valueType   :db.type/long
            :db/cardinality :db.cardinality/one
-           :db/doc         "Timestamp of the result"}]]}}
+           :db/doc         "Timestamp of the result"}]
+
+         [{:db/ident       :dictionary-multilang/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of dictionary item"}
+
+          {:db/ident       :dictionary-multilang/key
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Dictionary item key"}
+
+          {:db/ident       :dictionary-multilang/category
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Category (part of speech tag) of dictionary item"}
+
+          {:db/ident       :dictionary-multilang/language
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Dictionary item language"}
+
+          {:db/ident       :dictionary-multilang/sense
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Sense of word"}
+
+          {:db/ident       :dictionary-multilang/definition
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Dictionary item definition"}
+
+          {:db/ident       :dictionary-multilang/forms
+           :db/valueType   :db.type/ref
+           :db/cardinality :db.cardinality/many
+           :db/isComponent true
+           :db/doc         "Word forms"}
+
+          {:db/ident       :dictionary-multilang/attributes
+           :db/valueType   :db.type/ref
+           :db/cardinality :db.cardinality/many
+           :db/isComponent true
+           :db/doc         "Dictionary item attributes"}
+
+          {:db/ident       :attribute/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id of dictionary item attribute"}
+
+          {:db/ident       :attribute/key
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Key of dictionary item attribute"}
+
+          {:db/ident       :attribute/value
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Value of dictionary item attribute"}
+
+          {:db/ident       :form/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Public Id dictionary item word form"}
+
+          {:db/ident       :form/value
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Dictionary item form"}]]}}

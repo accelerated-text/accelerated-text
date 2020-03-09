@@ -80,3 +80,10 @@
              (grammar/build "Nested" "AMR"
                             (utils/load-test-semantic-graph "nested-amr")
                             ctx))))))
+
+(deftest ^:integration dictionary
+  (is (= ["it publishes author."]
+         (generate
+           (grammar/build "Default" "Instance"
+                          (utils/load-test-semantic-graph "dictionary-test")
+                          (utils/load-test-context "dictionary-test"))))))

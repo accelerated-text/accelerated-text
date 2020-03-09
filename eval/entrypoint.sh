@@ -19,7 +19,7 @@ done
 echo "Uploading data to: ${ACC_TEXT_URL}"
 
 
-DOCUMENT_PLAN_ID=$(curl -XPOST ${ACC_TEXT_URL}/_graphql -H 'Content-Type: application/json' -d @data/bleu-plan.json | jq ".data.createDocumentPlan.id")
+DOCUMENT_PLAN_ID=$(curl -XPOST ${ACC_TEXT_URL}/_graphql -H 'Content-Type: application/json' -d @data/bleu-plan-extended.json | jq ".data.createDocumentPlan.id")
 
 export DOCUMENT_PLAN_ID
 

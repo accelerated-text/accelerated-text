@@ -80,14 +80,16 @@ if __name__ == "__main__":
     results = dict(generate_results(data_rows))
     
     original_pairs = list([(ref[int(k)], random.choice(r)["original"])
-                           for k, r in results.items()])
+                           for k, r in results.items()
+                           if len(r) > 0])
 
     score = bleu_score(original_pairs)
     print("original BLEU score: {0:.4f}".format(score))
 
     enriched_pairs = list([(ref[int(k)], random.choice([(v["enriched"] if "enriched" in v else v["original"])
                                                         for v in r]))
-                           for k, r in results.items()])
+                           for k, r in results.items()
+                           if len(r) > 0])
 
     
     score = bleu_score(enriched_pairs)
