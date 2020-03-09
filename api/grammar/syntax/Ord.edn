@@ -1,5 +1,6 @@
 {:type "Ord",
  :description "ordinal number (used in Det)",
+ :module "Syntax",
  :functions
  [{:function "mkOrd", :type ["Numeral" "Ord"], :example "twentieth"}
   {:function "mkOrd", :type ["Digits" "Ord"], :example "51st"}

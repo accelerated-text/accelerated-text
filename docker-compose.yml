@@ -17,7 +17,7 @@ services:
       DOCUMENT_PLANS: "/opt/document-plans"
     volumes:
       - ./api/grammar:/opt/grammar
-      - ./api/test/resources/document_plans_new:/opt/document-plans
+      - ./api/grammar/document-plans:/opt/document-plans
   gf:
     build:
       context: .
