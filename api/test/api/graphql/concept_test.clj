@@ -18,7 +18,7 @@
 
 (deftest ^:integration get-concepts
   (let [query "{concepts{id concepts{id label roles{id fieldType fieldLabel} helpText}}}"
-        {{{{:keys [id concepts]} :concepts} :data errors :errors} :body} (q "/_graphql" :post {:query query})]
+        {{{{:keys [id]} :concepts} :data errors :errors} :body} (q "/_graphql" :post {:query query})]
     (is (nil? errors))
-    (is (seq concepts))
+    #_(is (seq concepts))                                   ;; concept search is disabled
     (is (= "concepts" id))))
