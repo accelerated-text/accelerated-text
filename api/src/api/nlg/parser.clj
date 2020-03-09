@@ -12,9 +12,8 @@
   (throw (Exception. (format "Unknown node type for node id %s: %s" id type))))
 
 (defmethod build-semantic-graph :placeholder [{id :id} _]
-  #::sg{:concepts  [{:id   id
-                     :type :placeholder}]
-        :relations []})
+  #::sg{:concepts [{:id   id
+                    :type :placeholder}]})
 
 (defmethod build-semantic-graph :Document-plan [{:keys [id segments]} _]
   #::sg{:concepts  [{:id   id
@@ -36,20 +35,22 @@
                         children)})
 
 (defmethod build-semantic-graph :AMR [{:keys [id conceptId roles]} _]
-  #::sg{:concepts  [{:id    id
-                     :type  :amr
-                     :value conceptId}]
+  #::sg{:concepts  [{:id   id
+                     :type :amr
+                     :name conceptId}]
         :relations (map-indexed (fn [index {[{child-id :id}] :children name :name label :label}]
-                                  {:from       id
-                                   :to         child-id
-                                   :role       (keyword (str "ARG" index))
-                                   :attributes {:name name :label label}})
+                                  {:from     id
+                                   :to       child-id
+                                   :role     :arg
+                                   :index    index
+                                   :category name
+                                   :name     label})
                                 roles)})
 
 (defmethod build-semantic-graph :Cell [{:keys [id name]} _]
-  #::sg{:concepts  [{:id    id
-                     :type  :data
-                     :value name}]
+  #::sg{:concepts  [{:id   id
+                     :type :data
+                     :name name}]
         :relations []})
 
 (defmethod build-semantic-graph :Quote [{:keys [id text]} _]
@@ -59,23 +60,23 @@
         :relations []})
 
 (defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name]} _]
-  #::sg{:concepts  [{:id         id
-                     :type       :dictionary-item
-                     :value      itemId
-                     :attributes {:name name}}]
+  #::sg{:concepts  [{:id    id
+                     :type  :dictionary-item
+                     :name  itemId
+                     :label name}]
         :relations []})
 
 (defmethod build-semantic-graph :Dictionary-item-modifier [{:keys [id itemId name]} _]
-  #::sg{:concepts  [{:id         id
-                     :type       :dictionary-item
-                     :value      itemId
-                     :attributes {:name name}}]
+  #::sg{:concepts  [{:id    id
+                     :type  :dictionary-item
+                     :name  itemId
+                     :label name}]
         :relations []})
 
 (defmethod build-semantic-graph :Cell-modifier [{:keys [id name]} _]
-  #::sg{:concepts  [{:id    id
-                     :type  :data
-                     :value name}]
+  #::sg{:concepts  [{:id   id
+                     :type :data
+                     :name name}]
         :relations []})
 
 (defmethod build-semantic-graph :Modifier [{:keys [id child modifiers]} _]
@@ -84,20 +85,22 @@
         :relations (cons {:from id
                           :to   (:id child)
                           :role :child}
-                         (map (fn [{modifier-id :id}]
-                                {:from id
-                                 :to   modifier-id
-                                 :role :modifier})
-                              modifiers))})
+                         (map-indexed (fn [index {modifier-id :id}]
+                                        {:from  id
+                                         :to    modifier-id
+                                         :role  :modifier
+                                         :index index})
+                                      modifiers))})
 
 (defmethod build-semantic-graph :Sequence [{:keys [id children]} _]
   #::sg{:concepts  [{:id   id
                      :type :sequence}]
-        :relations (map (fn [{child-id :id}]
-                          {:from id
-                           :to   child-id
-                           :role :item})
-                        children)})
+        :relations (map-indexed (fn [index {child-id :id}]
+                                  {:from  id
+                                   :to    child-id
+                                   :role  :item
+                                   :index index})
+                                children)})
 
 (defmethod build-semantic-graph :Shuffle [{:keys [id children]} _]
   #::sg{:concepts  [{:id   id
@@ -114,7 +117,7 @@
         :relations (map (fn [{child-id :id}]
                           {:from id
                            :to   child-id
-                           :role :synonym})
+                           :role :item})
                         children)})
 
 (defmethod build-semantic-graph :If-then-else [{:keys [id conditions]} _]
@@ -134,41 +137,45 @@
                      :role :predicate}
                     {:from id
                      :to   expression-id
-                     :role :expression}]})
+                     :role :then-expression}]})
 
 (defmethod build-semantic-graph :Default-condition [{id :id {expression-id :id} :thenExpression} _]
   #::sg{:concepts  [{:id   id
-                     :type :default-statement}]
+                     :type :else-statement}]
         :relations [{:from id
                      :to   expression-id
-                     :role :expression}]})
+                     :role :then-expression}]})
 
 (defmethod build-semantic-graph :Value-comparison [{:keys [id operator value1 value2]} _]
   #::sg{:concepts  [{:id    id
-                     :value operator
-                     :type  :comparator}]
-        :relations [{:from id
-                     :to   (:id value1)
-                     :role :comparable}
-                    {:from id
-                     :to   (:id value2)
-                     :role :comparable}]})
+                     :type  :comparator
+                     :value operator}]
+        :relations [{:from  id
+                     :to    (:id value1)
+                     :role  :comparable
+                     :index 0}
+                    {:from  id
+                     :to    (:id value2)
+                     :role  :comparable
+                     :index 1}]})
 
 (defmethod build-semantic-graph :Value-in [{:keys [id operator value list]} _]
   #::sg{:concepts  [{:id    id
-                     :value operator
-                     :type  :comparator}]
-        :relations [{:from id
-                     :to   (:id list)
-                     :role :entity}
-                    {:from id
-                     :to   (:id value)
-                     :role :comparable}]})
+                     :type  :comparator
+                     :value operator}]
+        :relations [{:from  id
+                     :to    (:id list)
+                     :role  :comparable
+                     :index 0}
+                    {:from  id
+                     :to    (:id value)
+                     :role  :comparable
+                     :index 1}]})
 
 (defmethod build-semantic-graph :And-or [{:keys [id operator children]} _]
   #::sg{:concepts  [{:id    id
-                     :value operator
-                     :type  :boolean}]
+                     :type  :boolean
+                     :value operator}]
         :relations (map (fn [{child-id :id}]
                           {:from id
                            :to   child-id
@@ -177,16 +184,16 @@
 
 (defmethod build-semantic-graph :Not [{id :id {child-id :id} :value} _]
   #::sg{:concepts  [{:id    id
-                     :value "not"
-                     :type  :boolean}]
+                     :type  :boolean
+                     :value "not"}]
         :relations [{:from id
                      :to   child-id
                      :role :input}]})
 
 (defmethod build-semantic-graph :Xor [{:keys [id value1 value2]} _]
   #::sg{:concepts  [{:id    id
-                     :value "xor"
-                     :type  :boolean}]
+                     :type  :boolean
+                     :value "xor"}]
         :relations [{:from id
                      :to   (:id value1)
                      :role :input}
@@ -203,9 +210,9 @@
 
 (defmethod build-semantic-graph :Get-var [{id :id var-id :name} {variables :vars variable-names :var-names}]
   (let [name (get variable-names var-id)]
-    #::sg{:concepts  [{:id         id
-                       :type       (if (contains? constants name) :constant :reference)
-                       :attributes {:name name}}]
+    #::sg{:concepts  [{:id   id
+                       :type (if (contains? constants name) :constant :reference)
+                       :name name}]
           :relations (map (fn [var-id]
                             {:from id
                              :to   var-id
@@ -306,7 +313,6 @@
 (defn postprocess [semantic-graph]
   (-> semantic-graph
       (sg-utils/prune-nil-relations)
-      (sg-utils/prune-concepts-by-type :placeholder)
       (sg-utils/prune-unrelated-branches)))
 
 (def merge-with-concat (partial merge-with concat))
