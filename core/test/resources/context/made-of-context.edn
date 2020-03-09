@@ -1,0 +1,323 @@
+{:amr        {"ParadigmsEng.mkV2/V->V2"                 {:id     "ParadigmsEng.mkV2/V->V2"
+                                                         :kind   "V2"
+                                                         :name   "V -> V2"
+                                                         :label  "mkV2"
+                                                         :module "ParadigmsEng"
+                                                         :roles  ({:type "V" :label "V"})
+                                                         :frames ({:examples ["transitive e.g. hit"]
+                                                                   :syntax   ({:ret    "V2"
+                                                                               :value  "ParadigmsEng.mkV2"
+                                                                               :params ({:id "ARG0" :type "V"})
+                                                                               :type   :oper})})}
+              "NCehNoXIvgFZypkq"                        {:id             "NCehNoXIvgFZypkq"
+                                                         :label          "made-of-test"
+                                                         :kind           "Str"
+                                                         :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from :01
+                                                                                                                    :to   :02
+                                                                                                                    :role :segment}
+                                                                                                                   {:from :02
+                                                                                                                    :to   :03
+                                                                                                                    :role :instance}
+                                                                                                                   {:from       :03
+                                                                                                                    :to         :04
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "S"
+                                                                                                                                 :label "S"}}
+                                                                                                                   {:from       :04
+                                                                                                                    :to         :05
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "Tense"
+                                                                                                                                 :label "(Tense)"}}
+                                                                                                                   {:from       :05
+                                                                                                                    :to         :06
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "NP"
+                                                                                                                                 :label "NP"}}
+                                                                                                                   {:from       :05
+                                                                                                                    :to         :08
+                                                                                                                    :role       :ARG1
+                                                                                                                    :attributes {:name  "VP"
+                                                                                                                                 :label "VP"}}
+                                                                                                                   {:from       :06
+                                                                                                                    :to         :07
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "N"
+                                                                                                                                 :label "N"}}
+                                                                                                                   {:from       :08
+                                                                                                                    :to         :09
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "VP"
+                                                                                                                                 :label "VP"}}
+                                                                                                                   {:from       :08
+                                                                                                                    :to         :11
+                                                                                                                    :role       :ARG1
+                                                                                                                    :attributes {:name  "Adv"
+                                                                                                                                 :label "Adv"}}
+                                                                                                                   {:from       :09
+                                                                                                                    :to         :10
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "V2"
+                                                                                                                                 :label "V2"}}
+                                                                                                                   {:from       :11
+                                                                                                                    :to         :12
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "Prep"
+                                                                                                                                 :label "Prep"}}
+                                                                                                                   {:from       :11
+                                                                                                                    :to         :13
+                                                                                                                    :role       :ARG1
+                                                                                                                    :attributes {:name  "NP"
+                                                                                                                                 :label "NP"}}
+                                                                                                                   {:from       :13
+                                                                                                                    :to         :14
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "N"
+                                                                                                                                 :label "N"}})
+                                                                                                       :concepts  ({:id :01 :type :document-plan}
+                                                                                                                   {:id :02 :type :segment}
+                                                                                                                   {:id    :03
+                                                                                                                    :type  :amr
+                                                                                                                    :value "Syntax.mkText/S->Text"}
+                                                                                                                   {:id    :04
+                                                                                                                    :type  :amr
+                                                                                                                    :value "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
+                                                                                                                   {:id    :05
+                                                                                                                    :type  :amr
+                                                                                                                    :value "Syntax.mkCl/NP->VP->Cl"}
+                                                                                                                   {:id    :06
+                                                                                                                    :type  :amr
+                                                                                                                    :value "Syntax.mkNP/N->NP"}
+                                                                                                                   {:id         :07
+                                                                                                                    :type       :reference
+                                                                                                                    :attributes {:name "Subject"}}
+                                                                                                                   {:id    :08
+                                                                                                                    :type  :amr
+                                                                                                                    :value "Syntax.mkVP/VP->Adv->VP"}
+                                                                                                                   {:id    :09
+                                                                                                                    :type  :amr
+                                                                                                                    :value "Syntax.passiveVP/V2->VP"}
+                                                                                                                   {:id         :10
+                                                                                                                    :type       :reference
+                                                                                                                    :attributes {:name "Verb"}}
+                                                                                                                   {:id    :11
+                                                                                                                    :type  :amr
+                                                                                                                    :value "Syntax.mkAdv/Prep->NP->Adv"}
+                                                                                                                   {:id    :12
+                                                                                                                    :type  :amr
+                                                                                                                    :value "Syntax.part_Prep/Prep"}
+                                                                                                                   {:id    :13
+                                                                                                                    :type  :amr
+                                                                                                                    :value "Syntax.mkNP/N->NP"}
+                                                                                                                   {:id         :14
+                                                                                                                    :type       :reference
+                                                                                                                    :attributes {:name "Object"}})}
+                                                         :roles          [{:id "ARG0" :label "Subject" :type "N"}
+                                                                          {:id "ARG1" :label "Verb" :type "V2"}
+                                                                          {:id "ARG2" :label "Object" :type "N"}]}
+              "Syntax.part_Prep/Prep"                   {:id     "Syntax.part_Prep/Prep"
+                                                         :kind   "Prep"
+                                                         :name   "Prep"
+                                                         :label  "part_Prep"
+                                                         :module "Syntax"
+                                                         :roles  ()
+                                                         :frames ({:examples ["of it"]
+                                                                   :syntax   ({:ret "Prep" :value "Syntax.part_Prep" :params () :type :oper})})}
+              "ParadigmsEng.mkV/Str->Str->Str->V"       {:id     "ParadigmsEng.mkV/Str->Str->Str->V"
+                                                         :kind   "V"
+                                                         :name   "Str -> Str -> Str -> V"
+                                                         :label  "mkV"
+                                                         :module "ParadigmsEng"
+                                                         :roles  ({:type "Str" :label "Str"}
+                                                                  {:type "Str" :label "Str"}
+                                                                  {:type "Str" :label "Str"})
+                                                         :frames ({:examples ["ordinary irregular (drink drank drunk)"]
+                                                                   :syntax   ({:ret    "V"
+                                                                               :value  "ParadigmsEng.mkV"
+                                                                               :params ({:id "ARG0" :type "Str"}
+                                                                                        {:id "ARG1" :type "Str"}
+                                                                                        {:id "ARG2" :type "Str"})
+                                                                               :type   :oper})})}
+              "Syntax.mkText/S->Text"                   {:id     "Syntax.mkText/S->Text"
+                                                         :kind   "Text"
+                                                         :name   "S -> Text"
+                                                         :label  "mkText"
+                                                         :module "Syntax"
+                                                         :roles  ({:type "S" :label "S"})
+                                                         :frames ({:examples ["she slept."]
+                                                                   :syntax   ({:ret    "Text"
+                                                                               :value  "Syntax.mkText"
+                                                                               :params ({:id "ARG0" :type "S"})
+                                                                               :type   :oper})})}
+              "KfGNKSXofKYahuFU"                        {:id             "KfGNKSXofKYahuFU"
+                                                         :label          "made-of-test"
+                                                         :kind           "Str"
+                                                         :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from :01
+                                                                                                                    :to   :02
+                                                                                                                    :role :segment}
+                                                                                                                   {:from :02
+                                                                                                                    :to   :03
+                                                                                                                    :role :instance}
+                                                                                                                   {:from       :03
+                                                                                                                    :to         :04
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "N"
+                                                                                                                                 :label "Subject"}}
+                                                                                                                   {:from       :03
+                                                                                                                    :to         :06
+                                                                                                                    :role       :ARG1
+                                                                                                                    :attributes {:name  "V2"
+                                                                                                                                 :label "Verb"}}
+                                                                                                                   {:from       :03
+                                                                                                                    :to         :11
+                                                                                                                    :role       :ARG2
+                                                                                                                    :attributes {:name  "N"
+                                                                                                                                 :label "Object"}}
+                                                                                                                   {:from       :04
+                                                                                                                    :to         :05
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "Str"
+                                                                                                                                 :label "Str"}}
+                                                                                                                   {:from       :06
+                                                                                                                    :to         :07
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "V"
+                                                                                                                                 :label "V"}}
+                                                                                                                   {:from       :07
+                                                                                                                    :to         :08
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "Str"
+                                                                                                                                 :label "Str"}}
+                                                                                                                   {:from       :07
+                                                                                                                    :to         :09
+                                                                                                                    :role       :ARG1
+                                                                                                                    :attributes {:name  "Str"
+                                                                                                                                 :label "Str"}}
+                                                                                                                   {:from       :07
+                                                                                                                    :to         :10
+                                                                                                                    :role       :ARG2
+                                                                                                                    :attributes {:name  "Str"
+                                                                                                                                 :label "Str"}}
+                                                                                                                   {:from       :11
+                                                                                                                    :to         :12
+                                                                                                                    :role       :ARG0
+                                                                                                                    :attributes {:name  "Str"
+                                                                                                                                 :label "Str"}})
+                                                                                                       :concepts  ({:id :01 :type :document-plan}
+                                                                                                                   {:id :02 :type :segment}
+                                                                                                                   {:id    :03
+                                                                                                                    :type  :amr
+                                                                                                                    :value "NCehNoXIvgFZypkq"}
+                                                                                                                   {:id    :04
+                                                                                                                    :type  :amr
+                                                                                                                    :value "ParadigmsEng.mkN/Str->N"}
+                                                                                                                   {:id         :05
+                                                                                                                    :type       :reference
+                                                                                                                    :attributes {:name "Subject"}}
+                                                                                                                   {:id    :06
+                                                                                                                    :type  :amr
+                                                                                                                    :value "ParadigmsEng.mkV2/V->V2"}
+                                                                                                                   {:id    :07
+                                                                                                                    :type  :amr
+                                                                                                                    :value "ParadigmsEng.mkV/Str->Str->Str->V"}
+                                                                                                                   {:id    :08
+                                                                                                                    :type  :quote
+                                                                                                                    :value "make"}
+                                                                                                                   {:id    :09
+                                                                                                                    :type  :quote
+                                                                                                                    :value "made"}
+                                                                                                                   {:id    :10
+                                                                                                                    :type  :quote
+                                                                                                                    :value "made"}
+                                                                                                                   {:id    :11
+                                                                                                                    :type  :amr
+                                                                                                                    :value "ParadigmsEng.mkN/Str->N"}
+                                                                                                                   {:id         :12
+                                                                                                                    :type       :reference
+                                                                                                                    :attributes {:name "Object"}})}
+                                                         :roles          [{:id "ARG0" :label "Subject" :type "Str"}
+                                                                          {:id "ARG1" :label "Object" :type "Str"}]}
+              "Syntax.mkAdv/Prep->NP->Adv"              {:id     "Syntax.mkAdv/Prep->NP->Adv"
+                                                         :kind   "Adv"
+                                                         :name   "Prep -> NP -> Adv"
+                                                         :label  "mkAdv"
+                                                         :module "Syntax"
+                                                         :roles  ({:type "Prep" :label "Prep"} {:type "NP" :label "NP"})
+                                                         :frames ({:examples ["in the house"]
+                                                                   :syntax   ({:ret    "Adv"
+                                                                               :value  "Syntax.mkAdv"
+                                                                               :params ({:id "ARG0" :type "Prep"} {:id "ARG1" :type "NP"})
+                                                                               :type   :oper})})}
+              "Syntax.mkCl/NP->VP->Cl"                  {:id     "Syntax.mkCl/NP->VP->Cl"
+                                                         :kind   "Cl"
+                                                         :name   "NP -> VP -> Cl"
+                                                         :label  "mkCl"
+                                                         :module "Syntax"
+                                                         :roles  ({:type "NP" :label "NP"} {:type "VP" :label "VP"})
+                                                         :frames ({:examples ["she always sleeps"]
+                                                                   :syntax   ({:ret    "Cl"
+                                                                               :value  "Syntax.mkCl"
+                                                                               :params ({:id "ARG0" :type "NP"} {:id "ARG1" :type "VP"})
+                                                                               :type   :oper})})}
+              "Syntax.mkNP/N->NP"                       {:id     "Syntax.mkNP/N->NP"
+                                                         :kind   "NP"
+                                                         :name   "N -> NP"
+                                                         :label  "mkNP"
+                                                         :module "Syntax"
+                                                         :roles  ({:type "N" :label "N"})
+                                                         :frames ({:examples ["beer"]
+                                                                   :syntax   ({:ret    "NP"
+                                                                               :value  "Syntax.mkNP"
+                                                                               :params ({:id "ARG0" :type "N"})
+                                                                               :type   :oper})})}
+              "Syntax.passiveVP/V2->VP"                 {:id     "Syntax.passiveVP/V2->VP"
+                                                         :kind   "VP"
+                                                         :name   "V2 -> VP"
+                                                         :label  "passiveVP"
+                                                         :module "Syntax"
+                                                         :roles  ({:type "V2" :label "V2"})
+                                                         :frames ({:examples ["to be loved"]
+                                                                   :syntax   ({:ret    "VP"
+                                                                               :value  "Syntax.passiveVP"
+                                                                               :params ({:id "ARG0" :type "V2"})
+                                                                               :type   :oper})})}
+              "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S" {:id     "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"
+                                                         :kind   "S"
+                                                         :name   "(Tense) -> (Ant) -> (Pol) -> Cl -> S"
+                                                         :label  "mkS"
+                                                         :module "Syntax"
+                                                         :roles  ({:type "Tense" :label "(Tense)"}
+                                                                  {:type "Ant" :label "(Ant)"}
+                                                                  {:type "Pol" :label "(Pol)"}
+                                                                  {:type "Cl" :label "Cl"})
+                                                         :frames ({:examples ["she wouldn't have slept"]
+                                                                   :syntax   ({:ret    "S"
+                                                                               :value  "Syntax.mkS"
+                                                                               :params ({:id "ARG0" :type "(Tense)"}
+                                                                                        {:id "ARG1" :type "(Ant)"}
+                                                                                        {:id "ARG2" :type "(Pol)"}
+                                                                                        {:id "ARG3" :type "Cl"})
+                                                                               :type   :oper})})}
+              "ParadigmsEng.mkN/Str->N"                 {:id     "ParadigmsEng.mkN/Str->N"
+                                                         :kind   "N"
+                                                         :name   "Str -> N"
+                                                         :label  "mkN"
+                                                         :module "ParadigmsEng"
+                                                         :roles  ({:type "Str" :label "Str"})
+                                                         :frames ({:examples ["plural s incl. flash-flashes fly-flies"]
+                                                                   :syntax   ({:ret    "N"
+                                                                               :value  "ParadigmsEng.mkN"
+                                                                               :params ({:id "ARG0" :type "Str"})
+                                                                               :type   :oper})})}
+              "Syntax.mkVP/VP->Adv->VP"                 {:id     "Syntax.mkVP/VP->Adv->VP"
+                                                         :kind   "VP"
+                                                         :name   "VP -> Adv -> VP"
+                                                         :label  "mkVP"
+                                                         :module "Syntax"
+                                                         :roles  ({:type "VP" :label "VP"} {:type "Adv" :label "Adv"})
+                                                         :frames ({:examples ["to sleep here"]
+                                                                   :syntax   ({:ret    "VP"
+                                                                               :value  "Syntax.mkVP"
+                                                                               :params ({:id "ARG0" :type "VP"} {:id "ARG1" :type "Adv"})
+                                                                               :type   :oper})})}}
+ :data       {}
+ :dictionary {}}
