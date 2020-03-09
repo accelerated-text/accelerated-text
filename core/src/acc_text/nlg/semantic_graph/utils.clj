@@ -10,15 +10,6 @@
        (map :id)
        (into #{})))
 
-(defn find-data-predicate-concept-ids [{concepts ::sg/concepts relations ::sg/relations}]
-  (let [concepts-under-predicate (->> relations
-                                      (filter #(= :predicate (:role %)))
-                                      (map #(:to %)))]
-    (->> concepts
-         (filter #(= :data (:type %)))
-         (map :id)
-         (filter #(contains? (set concepts-under-predicate) %))))) 
-
 (defn find-child-ids [{relations ::sg/relations} ids]
   (let [relation-map (group-by :from relations)]
     (->> ids
@@ -58,12 +49,6 @@
         (update ::sg/relations (fn [relations]
                                  (remove #(contains? ids-incl-descendants (:to %)) relations))))))
 
-(defn prune-concepts-by-type [semantic-graph type]
-  (->> (get-concepts-with-type semantic-graph type)
-       (map :id)
-       (into #{})
-       (prune-branches semantic-graph)))
-
 (defn prune-nil-relations [semantic-graph]
   (update semantic-graph ::sg/relations (fn [relations]
                                           (remove (fn [{:keys [from to]}]
@@ -73,31 +58,3 @@
 (defn prune-unrelated-branches [{::sg/keys [concepts relations] :as semantic-graph}]
   (prune-branches semantic-graph (set/difference (into #{} (map :id (rest concepts)))
                                                  (into #{} (map :to relations)))))
-
-(defn node-name [{:keys [id type value]}]
-  (if (= type :quote)
-    value
-    (-> "%s.%s %s"
-        (format (name id) (name type) (str value))
-        (str/trim)
-        (keyword))))
-
-(defn plan-graph [{::sg/keys [concepts relations]}]
-  (let [concepts (zipmap (map :id concepts) concepts)]
-    (apply uber/graph (map (fn [{:keys [from to role]}]
-                             [(node-name (get concepts from))
-                              (node-name (get concepts to))
-                              {:name role}])
-                           relations))))
-
-(defn vizgraph [semantic-graph] (uber/viz-graph (plan-graph semantic-graph)))
-
-(def boolean-strings
-  {"true"  true
-   "false" false
-   "yes"   true
-   "no"    false
-   "1"     true
-   "0"     false})
-(defn is-boolean-string? [value] (->> (str/lower-case value) (contains? (set (keys boolean-strings)))))
-(defn eval-boolean-string [value] (->> (str/lower-case value) (get boolean-strings)))

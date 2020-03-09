@@ -1,22 +1,12 @@
-(ns acc-text.nlg.gf.generator
-  (:require [acc-text.nlg.gf.grammar :as grammar]
-            [acc-text.nlg.gf.generator.dictionary-item :as gen-dict-item]
-            [acc-text.nlg.gf.generator.utils :as gen-utils]
+(ns acc-text.nlg.generator
+  (:require [acc-text.nlg.generator.dictionary-item :as gen-dict-item]
+            [acc-text.nlg.generator.utils :as gen-utils]
             [acc-text.nlg.gf.service :as service]
             [acc-text.nlg.utils :as utils]
             [clojure.spec.alpha :as s]
             [clojure.string :as str]
             [jsonista.core :as json]
             [clojure.tools.logging :as log]))
-
-(def dictionary #{"allows" "standard"
-                  "this" "small" "of_Prep" "make" "fast" "suitable" "with_Prep"
-                  "regular" "features" "easy_N"
-                  "includes" "package"})
-
-(defn s-ret? [ret] (coll? ret))
-
-(defn f-param? [function-name] (str/starts-with? function-name "Amr"))
 
 (defn join-body [& args]
   (->> args
@@ -267,5 +257,5 @@
        (sort (dedupe results))))))
 
 (s/fdef generate
-        :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar :reader-model map?)
+        :args (s/cat :grammar :acc-text.nlg.gf.grammar/grammar :context map?)
         :ret (s/nilable (s/coll-of string?)))

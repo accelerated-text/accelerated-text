@@ -1,6 +1,6 @@
-(ns acc-text.nlg.gf.generator.dictionary-item
+(ns acc-text.nlg.generator.dictionary-item
   (:require [acc-text.nlg.dictionary.item :as dictionary-item]
-            [acc-text.nlg.gf.generator.utils :as gen-utils]
+            [acc-text.nlg.generator.utils :as gen-utils]
             [clojure.string :as str]
             [clojure.tools.logging :as log]))
 

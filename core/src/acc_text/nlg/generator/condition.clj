@@ -1,8 +1,17 @@
-(ns acc-text.nlg.semantic-graph.conditions
+(ns acc-text.nlg.generator.condition
   (:require [acc-text.nlg.semantic-graph.utils :as sg-utils]
-            [clojure.set :as set]
-            [clojure.spec.alpha :as s]
             [clojure.string :as str]))
+
+(defn string->boolean [s]
+  (when-not (str/blank? s)
+    (case (-> s (str/lower-case) (str/trim))
+      "true" true
+      "false" false
+      "yes" true
+      "no" false
+      "1" true
+      "0" false
+      true)))
 
 (defn operator->fn [x]
   (case x
@@ -18,16 +27,16 @@
     "not" (fn [[arg]] (when (boolean? arg) (not arg)))
     "xor" (fn [args] (odd? (count (filter true? args))))))
 
-(defn normalize [xs]
-  (->> xs
-       (map #(cond-> % (string? %) (str/trim)))
-       (map #(cond-> % (try
-                         (bigdec %)
-                         (catch Exception _)) (bigdec)))))
+(defn normalize [x]
+  (cond-> x
+          (string? x) (str/trim)
+          (try
+            (bigdec x)
+            (catch Exception _)) (bigdec)))
 
 (defn comparison [operator args]
   (let [operator-fn (operator->fn operator)
-        normalized-args (normalize args)]
+        normalized-args (map normalize args)]
     (when (and (< 1 (count args)) (or (contains? #{"=" "!=" "in"} operator)
                                       (and (contains? #{"<" "<=" ">" ">="} operator)
                                            (every? number? normalized-args))))
@@ -52,12 +61,9 @@
       (operator-fn (map #(evaluate-predicate % semantic-graph data) child-concepts)))))
 
 (defmethod evaluate-predicate :data [{value :value} _ data]
-  (let [result (get data value)]
-    (if (some? result)
-      (if (sg-utils/is-boolean-string? result)
-        (sg-utils/eval-boolean-string result)
-        true)
-      false)))
+  (-> data
+      (get value)
+      (string->boolean)))
 
 (defn evaluate-statement [{type :type :as concept} semantic-graph data]
   (case type
@@ -65,35 +71,3 @@
                     (evaluate-predicate predicate-concept semantic-graph data))
     :default-statement true
     nil))
-
-(defn evaluate-conditions [semantic-graph data]
-  (reduce (fn [m {id :id :as condition-concept}]
-            (assoc m id (some (fn [{id :id :as statement-concept}]
-                                (when (true? (evaluate-statement statement-concept semantic-graph data))
-                                  id))
-                              (sg-utils/get-children semantic-graph condition-concept))))
-          {}
-          (sg-utils/get-concepts-with-type semantic-graph :condition)))
-
-(defn get-truthful-statement-ids [semantic-graph data]
-  (->> (evaluate-conditions semantic-graph data)
-       (vals)
-       (remove nil?)
-       (into #{})))
-
-(defn find-statement-ids [semantic-graph]
-  (->> #{:condition}
-       (sg-utils/find-concept-ids semantic-graph)
-       (sg-utils/find-child-ids semantic-graph)))
-
-(defn select [semantic-graph data]
-  (->> (get-truthful-statement-ids semantic-graph data)
-       (set/difference (find-statement-ids semantic-graph))
-       (set/union (sg-utils/find-concept-ids semantic-graph #{:boolean :comparator}))
-       (set/union (sg-utils/find-data-predicate-concept-ids semantic-graph))
-       (sg-utils/prune-branches semantic-graph)))
-
-(s/fdef select
-        :args (s/cat :semantic-graph :acc-text.nlg.semantic-graph/graph
-                     :data map?)
-        :ret :acc-text.nlg.semantic-graph/graph)

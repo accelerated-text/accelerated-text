@@ -1,4 +1,4 @@
-(ns acc-text.nlg.gf.generator.utils
+(ns acc-text.nlg.generator.utils
   (:require [clojure.string :as str]))
 
 (defn escape-string [s]
