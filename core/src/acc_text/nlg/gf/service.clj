@@ -1,5 +1,6 @@
 (ns acc-text.nlg.gf.service
-  (:require [clojure.tools.logging :as log]
+  (:require [acc-text.nlg.utils :as utils]
+            [clojure.tools.logging :as log]
             [jsonista.core :as json]
             [org.httpkit.client :as client]))
 
@@ -14,8 +15,8 @@
     (log/debugf "** Lex data **\n%s\n" (get content (str module "Lex" lang)))
     (log/debugf "** Ops **\n%s\n" (get content (str module "Ops")))
     (log/tracef "Request:\n curl -X POST -H \"Content-Type: application/json\"  %s -d '%s'"
-                request-url (json/write-value-as-string request-content))
+                request-url (json/write-value-as-string request-content utils/write-mapper))
     @(client/request {:url     request-url
                       :method  :post
                       :headers {"Content-type" "application/json"}
-                      :body    (json/write-value-as-string request-content)})))
+                      :body    (json/write-value-as-string request-content utils/write-mapper)})))

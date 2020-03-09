@@ -1,5 +1,7 @@
 (ns acc-text.nlg.gf.generator
   (:require [acc-text.nlg.gf.grammar :as grammar]
+            [acc-text.nlg.gf.generator.dictionary-item :as gen-dict-item]
+            [acc-text.nlg.gf.generator.utils :as gen-utils]
             [acc-text.nlg.gf.service :as service]
             [acc-text.nlg.utils :as utils]
             [clojure.spec.alpha :as s]
@@ -11,6 +13,7 @@
                   "this" "small" "of_Prep" "make" "fast" "suitable" "with_Prep"
                   "regular" "features" "easy_N"
                   "includes" "package"})
+
 (defn s-ret? [ret] (coll? ret))
 
 (defn f-param? [function-name] (str/starts-with? function-name "Amr"))
@@ -21,9 +24,6 @@
        (filter (comp seq second))
        (map #(format "\n    %s\n        %s ;" (first %) (str/join " ;\n        " (second %))))
        (str/join)))
-
-(defn escape-string [s]
-  (str/replace s #"\"" "\\\\\""))
 
 (defn parse-flags [flags]
   (map (fn [[flag val]]
@@ -45,18 +45,21 @@
        (map #(if (contains? dictionary %)
                %
                (case type
-                 "Str" (format "\"%s\"" (escape-string %))
+                 "Str" (format "\"%s\"" (gen-utils/escape-string %))
                  "Pol" (if (Boolean/valueOf ^String %)
                          "positivePol"
                          "negativePol")
-                 "CN" (format "(mkCN (mkN \"%s\"))" (escape-string %))
-                 (format "(mk%s \"%s\")" type (escape-string %)))))
+                 "CN" (format "(mkCN (mkN \"%s\"))" (gen-utils/escape-string %))
+                 (format "(mk%s \"%s\")" type (gen-utils/escape-string %)))))
        (str/join " | ")))
 
 (defn parse-oper [variables]
-  (map (fn [{:keys [name type value]}]
-         (cond-> (str name " : " type)
-                 (some? value) (str " = " (join-value type value))))
+  (map (fn [{:keys [name type value item]}]
+         (let [abstract-definition (str name " : " type)]
+           (cond
+             (some? value) (str abstract-definition " = " (join-value type value))
+             (some? item) (str abstract-definition " = " (gen-dict-item/build-dictionary-item type item))
+             :else abstract-definition)))
        variables))
 
 (defn get-selectors [functions]
@@ -94,7 +97,7 @@
     (let [{:keys [kind value params]} expr]
       (case kind
         :variable value
-        :literal (cond->> (format "\"%s\"" (escape-string value))
+        :literal (cond->> (format "\"%s\"" (gen-utils/escape-string value))
                           (not= "Str" (second ret)) (format "(mk%s %s)" (second ret)))
         :function (format "%s.s" value)
         :operation (let [flin (->> params
@@ -102,7 +105,7 @@
                                    (map (fn [{:keys [kind value]}]
                                           (case kind
                                             :literal (format "\"%s\""
-                                                             (escape-string value))
+                                                             (gen-utils/escape-string value))
                                             :function
                                             (format "%s%s"
                                                     value
@@ -124,7 +127,7 @@
               (case type
                 :argument value
                 :operation (format "(%s %s)" value (join-operation-body children))
-                :literal (format "\"%s\"" (escape-string value)))))
+                :literal (format "\"%s\"" (gen-utils/escape-string value)))))
        (str/join " ")))
 
 (defn join-function-body [body ret]
@@ -201,14 +204,15 @@
   (format "interface %sLex = {%s\n}"
           module
           (join-body
-            "oper" (parse-oper (map #(dissoc % :value) variables)))))
+            "oper" (parse-oper (map #(dissoc % :value :item) variables)))))
 
 (defn ->resource [lang {::grammar/keys [module variables]}]
-  (format "resource %sLex%s = open Syntax%s, Paradigms%s, BaseDictionaryEng in {%s\n}"
+  (format "resource %sLex%s = open Syntax%s, Paradigms%s, Morpho%s, BaseDictionaryEng in {%s\n}"
           module
           lang
           lang
           lang
+          (if (= lang "Lav") "Eng" lang)
           (join-body
             "oper" (parse-oper variables))))
 
@@ -252,20 +256,11 @@
    (str module "Ops")      (->operations lang grammar)
    (str module instance)   (->concrete lang grammar)})
 
-(defn translate-reader-model [lang]
-  (case lang
-    :en "Eng"
-    :ee "Est"
-    :de "Ger"
-    :lv "Lav"
-    :ru "Rus"))
-
 (defn generate
   ([grammar]
-   (generate :en grammar))
+   (generate "Eng" grammar))
   ([lang {::grammar/keys [module instance] :as grammar}]
-   (let [lang (translate-reader-model lang)
-         {body :body} (service/compile-request lang module instance (grammar->content lang grammar))
+   (let [{body :body} (service/compile-request lang module instance (grammar->content lang grammar))
          {[[_ results]] :results error :error} (json/read-value body utils/read-mapper)]
      (if (some? error)
        (log/error error)

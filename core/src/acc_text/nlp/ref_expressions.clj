@@ -26,12 +26,12 @@
 
 (defmulti add-replace-token (fn [lang _] lang))
 
-(defmethod add-replace-token :en [_ [idx value]]
+(defmethod add-replace-token "Eng" [_ [idx value]]
   (if (nlp/ends-with-s? value) [idx "its"] [idx "it"]))
 
-(defmethod add-replace-token :ee [_ [idx _]] [idx "see"])
+(defmethod add-replace-token "Est" [_ [idx _]] [idx "see"])
 
-(defmethod add-replace-token :de [_ [idx _]] [idx "es"])
+(defmethod add-replace-token "Ger" [_ [idx _]] [idx "es"])
 
 (defmethod add-replace-token :default [_ _] nil)
 
@@ -58,8 +58,8 @@
                   (check-for-dupes)
                   (into {}))]
     (nlp/rebuild-sentences
-     (map-indexed (fn [idx v]
-                    (cond (= :delete (get smap idx)) ""
-                          (contains? smap idx) (get smap idx)
-                          :else v))
-                  tokens))))
+      (map-indexed (fn [idx v]
+                     (cond (= :delete (get smap idx)) ""
+                           (contains? smap idx) (get smap idx)
+                           :else v))
+                   tokens))))

@@ -1,67 +1,79 @@
 (ns data.entities.dictionary
-  (:require [api.config :refer [conf]]
-            [clj-yaml.core :as yaml]
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [api.config :refer [conf]]
+            [clojure.edn :as edn]
+            [clojure.java.io :as io]
             [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]
-            [clojure.java.io :as io])
-  (:import (java.io File)))
+            [mount.core :refer [defstate]])
+  (:import (java.io File PushbackReader)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
-(defstate dictionary-combined-db :start (db/db-access :dictionary-combined conf))
+
+(defstate dictionary-db :start (db/db-access :dictionary-multilang conf))
+
+(def languages ["English" "Estonian" "German" "Latvian" "Russian"])
 
 (defn list-readers []
   (db/list! reader-flags-db 100))
 
+(defn default-language-flag []
+  (or (System/getenv "DEFAULT_LANGUAGE") "English"))
+
 (defn get-default-flags []
-  {:English  :YES
-   :Estonian :NO
-   :German   :NO
-   :Latvian  :NO
-   :Russian  :NO})
+  (-> languages
+      (zipmap (repeat "NO"))
+      (assoc (default-language-flag) "YES")))
+
+(defn flag->lang [f]
+  (case f
+    "English" "Eng"
+    "Estonian" "Est"
+    "German" "Ger"
+    "Latvian" "Lat"
+    "Russian" "Rus"))
+
+(defn default-language []
+  (flag->lang (default-language-flag)))
 
 (defn get-reader [key]
   (db/read! reader-flags-db key))
 
-(defn list-dictionary []
-  (db/list! dictionary-combined-db 100))
+(defn list-dictionary-items
+  ([] (list-dictionary-items 100))
+  ([limit]
+   (db/list! dictionary-db limit)))
 
-(defn get-dictionary-item [key]
-  (when-not (str/blank? key)
-    (db/read! dictionary-combined-db key)))
+(defn get-dictionary-item [id]
+  (db/read! dictionary-db id))
 
-(defn text->phrase
-  ([text parent-id default-usage]
-   (text->phrase text parent-id default-usage (get-default-flags)))
-  ([text parent-id default-usage default-flags]
-   {:id    (format "%s/%s" parent-id (utils/gen-uuid))
-    :text  text
-    :flags (assoc default-flags :default default-usage)}))
+(defn delete-dictionary-item [id]
+  (db/delete! dictionary-db id))
 
-(defn create-dictionary-item [{:keys [key name phrases partOfSpeech]}]
-  (when-not (str/blank? name)
-    (db/write! dictionary-combined-db key {:name         name
-                                           :partOfSpeech partOfSpeech
-                                           :phrases      (map #(text->phrase % key :YES) phrases)})))
+(defn update-dictionary-item [{id ::dictionary-item/id :as item}]
+  (db/update! dictionary-db id item))
 
-(defn delete-dictionary-item [key]
-  (db/delete! dictionary-combined-db key))
+(defn create-dictionary-item [{id ::dictionary-item/id :as item}]
+  (let [item-id (or id (utils/gen-uuid))]
+    (db/write! dictionary-db item-id item)
+    (get-dictionary-item item-id)))
 
-(defn update-dictionary-item [item]
-  (db/update! dictionary-combined-db (:key item) (dissoc item :key)))
+(defn scan-dictionary
+  ([keys]
+   (db/scan! dictionary-db {:keys keys}))
+  ([keys languages]
+   (db/scan! dictionary-db {:keys keys :languages languages})))
 
-(defn list-dict-files []
-  (filter #(.isFile ^File %) (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))))
+(defn list-dictionary-files []
+  (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
+       (filter #(.isFile ^File %))
+       (filter #(str/ends-with? (.getName %) "edn"))))
 
 (defn initialize []
-  (doseq [f (list-dict-files)]
-    (let [{:keys [phrases partOfSpeech name]} (yaml/parse-string (slurp f))
-          filename (utils/get-name f)]
-      (when-not (get-dictionary-item filename)
-        (create-dictionary-item
-          {:key          filename
-           :name         (or name filename)
-           :phrases      phrases
-           :partOfSpeech (when (some? partOfSpeech)
-                           (keyword partOfSpeech))})))))
+  (doseq [[flag value] (get-default-flags)]
+    (db/write! reader-flags-db flag value))
+  (doseq [f (list-dictionary-files)]
+    (with-open [r (io/reader f)]
+      (doseq [item (edn/read (PushbackReader. r))]
+        (create-dictionary-item item)))))

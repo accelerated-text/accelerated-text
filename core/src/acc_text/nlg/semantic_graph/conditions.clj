@@ -35,14 +35,6 @@
 
 (defmulti evaluate-predicate (fn [concept _ _] (:type concept)))
 
-(defn translate-lang [l]
-  (case l
-    :en "Eng"
-    :ee "Est"
-    :de "Ger"
-    :lv "Lav"
-    :ru "Rus"))
-
 (defmethod evaluate-predicate :comparator [{operator :value :as concept} semantic-graph data]
   (let [child-concepts (sg-utils/get-children semantic-graph concept)]
     (when (every? #(contains? #{:data :quote :constant} (:type %)) child-concepts)
@@ -51,13 +43,21 @@
                                :quote value
                                :data (get data (keyword value))
                                :constant (case (:name attributes)
-                                           "*Language" (-> data (get :lang) (translate-lang)))))))))
+                                           "*Language" (get data :lang))))))))
 
 (defmethod evaluate-predicate :boolean [{operator :value :as concept} semantic-graph data]
   (let [child-concepts (sg-utils/get-children semantic-graph concept)
         operator-fn (operator->fn operator)]
     (when (every? #(contains? #{:boolean :comparator} (:type %)) child-concepts)
       (operator-fn (map #(evaluate-predicate % semantic-graph data) child-concepts)))))
+
+(defmethod evaluate-predicate :data [{value :value} _ data]
+  (let [result (get data value)]
+    (if (some? result)
+      (if (sg-utils/is-boolean-string? result)
+        (sg-utils/eval-boolean-string result)
+        true)
+      false)))
 
 (defn evaluate-statement [{type :type :as concept} semantic-graph data]
   (case type
@@ -90,6 +90,7 @@
   (->> (get-truthful-statement-ids semantic-graph data)
        (set/difference (find-statement-ids semantic-graph))
        (set/union (sg-utils/find-concept-ids semantic-graph #{:boolean :comparator}))
+       (set/union (sg-utils/find-data-predicate-concept-ids semantic-graph))
        (sg-utils/prune-branches semantic-graph)))
 
 (s/fdef select

@@ -1,5 +1,6 @@
 (ns api.graphql.domain.dictionary
-  (:require [api.graphql.translate.core :as translate-core]
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [api.graphql.translate.core :as translate-core]
             [api.graphql.translate.dictionary :as translate-dict]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
@@ -7,8 +8,9 @@
             [data.entities.dictionary :as dict-entity]))
 
 (defn dictionary [_ _ _]
-  (->> (dict-entity/list-dictionary)
-       (map translate-dict/dictionary-item->schema)
+  (->> (dict-entity/list-dictionary-items)
+       (filter #(= (dict-entity/default-language) (::dictionary-item/language %)))
+       (map translate-dict/multilang-dict-item->original-schema)
        (sort-by :name)
        (translate-core/paginated-response)
        (resolve-as)))
@@ -19,16 +21,13 @@
 (defn dictionary-item [_ {id :id :as args} _]
   (log/debugf "Fetching dictionary item with args: %s" args)
   (if-let [item (dict-entity/get-dictionary-item id)]
-    (resolve-as (translate-dict/dictionary-item->schema item))
+    (resolve-as (translate-dict/multilang-dict-item->original-schema item))
     (resolve-as-not-found-dict-item id)))
 
-(defn create-dictionary-item [_ {item-name :name pos :partOfSpeech phrases :phrases} _]
-  (-> {:key          (cond->> item-name (some? pos) (str (name pos) "-"))
-       :name         item-name
-       :phrases      phrases
-       :partOfSpeech pos}
+(defn create-dictionary-item [_ args _]
+  (-> (translate-dict/schema->dictionary-item args)
       (dict-entity/create-dictionary-item)
-      (translate-dict/dictionary-item->schema)
+      (translate-dict/multilang-dict-item->original-schema)
       (resolve-as)))
 
 (defn delete-dictionary-item [_ {:keys [id]} _]
@@ -36,20 +35,19 @@
   (resolve-as true))
 
 (defn update-dictionary-item [_ {id :id :as args} _]
-  (if-let [item (dict-entity/update-dictionary-item args)]
-    (resolve-as (translate-dict/dictionary-item->schema item))
+  (if-let [item (dict-entity/update-dictionary-item (translate-dict/schema->dictionary-item args))]
+    (resolve-as (translate-dict/multilang-dict-item->original-schema item))
     (resolve-as-not-found-dict-item id)))
 
 (defn create-phrase [_ {:keys [dictionaryItemId text defaultUsage]} _]
-  (log/debugf "Creating phrase: %s %s %s" dictionaryItemId text defaultUsage)
   (if-let [item (dict-entity/get-dictionary-item dictionaryItemId)]
-    (let [phrase (dict-entity/text->phrase text dictionaryItemId (keyword defaultUsage))]
-      (-> item
-          (update :phrases (partial cons phrase))
-          (dict-entity/update-dictionary-item)
-          (translate-dict/dictionary-item->schema)
-          (resolve-as)))
-    (resolve-as-not-found-dict-item dictionaryItemId)))
+      (let [phrase (translate-dict/text->phrase text dictionaryItemId (keyword defaultUsage))]
+        (-> item
+            (update :phrases (partial cons phrase))
+            (dict-entity/update-dictionary-item)
+            (translate-dict/dictionary-item->schema)
+            (resolve-as)))
+      (resolve-as-not-found-dict-item dictionaryItemId)))
 
 (defn- update-phrase [item id mut-fn translate?]
   (let [translate-fn (if (true? translate?) translate-dict/phrase->schema identity)]
