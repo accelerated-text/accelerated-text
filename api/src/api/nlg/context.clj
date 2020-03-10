@@ -1,6 +1,5 @@
 (ns api.nlg.context
-  (:require [acc-text.nlg.semantic-graph :as sg]
-            [acc-text.nlg.semantic-graph.utils :as sg-utils]
+  (:require [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [acc-text.nlg.dictionary.item :as dictionary-item]
             [data.entities.amr :as amr]
             [data.entities.rgl :as rgl]
