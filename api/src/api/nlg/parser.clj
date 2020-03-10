@@ -209,15 +209,14 @@
                      :role :definition}]})
 
 (defmethod build-semantic-graph :Get-var [{id :id var-id :name} {variables :vars variable-names :var-names}]
-  (let [name (get variable-names var-id)]
-    #::sg{:concepts  [{:id   id
-                       :type (if (contains? constants name) :constant :reference)
-                       :name name}]
-          :relations (map (fn [var-id]
-                            {:from id
-                             :to   var-id
-                             :role :pointer})
-                          (get variables var-id))}))
+  #::sg{:concepts  [(cond-> {:id   id
+                             :type (if (contains? constants name) :constant :reference)}
+                            (contains? variable-names var-id) (assoc :name (get variable-names var-id)))]
+        :relations (map (fn [var-id]
+                          {:from id
+                           :to   var-id
+                           :role :pointer})
+                        (get variables var-id))})
 
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
@@ -239,7 +238,7 @@
 (defn get-children [{type :type :as node}]
   (case (keyword type)
     :Document-plan (:segments node)
-    :AMR (mapcat :children (:roles node))
+    :AMR (mapcat (fn [{children :children}] (cond-> children (empty? children) (conj nil))) (:roles node))
     :Dictionary-item-modifier [(:child node)]
     :Cell-modifier [(:child node)]
     :Modifier (cons (:child node) (or (when (some? (:modifier node)) [(:modifier node)]) (:modifiers node)))
@@ -313,6 +312,7 @@
 (defn postprocess [semantic-graph]
   (-> semantic-graph
       (sg-utils/prune-nil-relations)
+      (sg-utils/prune-concepts-by-type :placeholder)
       (sg-utils/prune-unrelated-branches)))
 
 (def merge-with-concat (partial merge-with concat))

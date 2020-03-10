@@ -1,21 +1,6 @@
 (ns acc-text.nlg.semantic-graph.utils
   (:require [acc-text.nlg.semantic-graph :as sg]
-            [clojure.set :as set]
-            [clojure.string :as str]
-            [ubergraph.core :as uber]))
-
-(defn find-concept-ids [{concepts ::sg/concepts} types]
-  (->> concepts
-       (filter #(contains? (set types) (:type %)))
-       (map :id)
-       (into #{})))
-
-(defn find-child-ids [{relations ::sg/relations} ids]
-  (let [relation-map (group-by :from relations)]
-    (->> ids
-         (mapcat relation-map)
-         (map :to)
-         (into #{}))))
+            [clojure.set :as set]))
 
 (defn find-descendant-ids [{relations ::sg/relations} ids]
   (let [relation-map (group-by :from relations)]
@@ -48,6 +33,12 @@
                                 (remove #(contains? ids-incl-descendants (:id %)) concepts)))
         (update ::sg/relations (fn [relations]
                                  (remove #(contains? ids-incl-descendants (:to %)) relations))))))
+
+(defn prune-concepts-by-type [semantic-graph type]
+  (->> (get-concepts-with-type semantic-graph type)
+       (map :id)
+       (into #{})
+       (prune-branches semantic-graph)))
 
 (defn prune-nil-relations [semantic-graph]
   (update semantic-graph ::sg/relations (fn [relations]
