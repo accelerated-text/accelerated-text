@@ -53,14 +53,14 @@
 (defn attach-amr [g amr-g amr-node-id]
   (let [amr-root-id (find-root-id amr-g)
         out-edge-map (group-by (fn [{edge-id :id}]
-                                 (get-in g [:attrs edge-id :attributes :label]))
+                                 (get-in g [:attrs edge-id :name]))
                                (graph/out-edges g amr-node-id))
-        reference-nodes (filter (fn [[_ {{reference-name :name} :attributes}]]
+        reference-nodes (filter (fn [[_ {reference-name :name}]]
                                   (contains? out-edge-map reference-name))
                                 (find-nodes amr-g {:type :reference}))]
     (-> (uber/build-graph amr-g g)
         (add-edges (->> reference-nodes
-                        (reduce (fn [edges [reference-id {{reference-name :name} :attributes}]]
+                        (reduce (fn [edges [reference-id {reference-name :name}]]
                                   (concat edges (for [{id :id src :src} (graph/in-edges amr-g reference-id)
                                                       {dest :dest} (get out-edge-map reference-name)]
                                                   [^:edge src dest (get-in amr-g [:attrs id])])))
@@ -77,15 +77,6 @@
                                    :name   (:label amr)
                                    :module (:module amr)})))
 
-(defn update-edge-attrs [g]
-  (reduce (fn [g edge-id]
-            (update-in g [:attrs edge-id] #(let [type (get-in % [:attributes :name])]
-                                             (-> %
-                                                 (dissoc :attributes)
-                                                 (cond-> (some? type) (assoc :type type))))))
-          g
-          (map :id (graph/edges g))))
-
 (defn add-concept-index [g]
   (reduce (fn [g [node-id position]]
             (update-in g [:attrs node-id] #(assoc % :position position)))
@@ -94,11 +85,11 @@
 
 (defn attach-amrs [g {amr-map :amr}]
   (letfn [(attach-fn [g]
-            (reduce (fn [g [node-id {amr-id :value}]]
-                      (let [{sg :semantic-graph frames :frames :as amr} (get amr-map amr-id)]
+            (reduce (fn [g [node-id {amr-name :name}]]
+                      (let [{sg :semantic-graph frames :frames :as amr} (get amr-map amr-name)]
                         (cond-> g
                                 (some? sg) (attach-amr (semantic-graph->ubergraph sg) node-id)
                                 (some? frames) (attach-rgl amr node-id))))
                     g
                     (find-nodes g {:type :amr})))]
-    (-> g (attach-fn) (attach-fn) (attach-fn) (update-edge-attrs) (add-concept-index))))
+    (-> g (attach-fn) (attach-fn) (attach-fn) (add-concept-index))))

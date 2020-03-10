@@ -23,7 +23,7 @@
 (defn get-successors [graph node-id]
   (->> (graph/successors graph node-id)
        (sort-by (fn [successor-id]
-                  (name (:role (attrs graph (get-in-edge graph successor-id))))))))
+                  (:index (attrs graph (get-in-edge graph successor-id)))))))
 
 (defn remove-data-types [graph node-ids]
   (remove #(contains? data-types (:type (attrs graph %))) node-ids))
@@ -44,7 +44,7 @@
         cat (node->cat graph node-id)]
     {:cat    [cat]
      :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-     :lincat {cat (or (:type (attrs graph (get-in-edge graph node-id))) "Text")}
+     :lincat {cat (or (:category (attrs graph (get-in-edge graph node-id))) "Text")}
      :lin    {cat (cond-> (str module "." name)
                           (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))}}))
 
