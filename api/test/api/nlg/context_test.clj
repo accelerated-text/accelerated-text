@@ -22,12 +22,6 @@
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
 
-(deftest ^:integration value-extraction
-  (let [document-plan (load-test-document-plan "author-amr-with-adj")
-        semantic-graph (parser/document-plan->semantic-graph document-plan)]
-    (is (= #{"good" "written"} (context/get-values semantic-graph :dictionary-item)))
-    (is (= #{"author"} (context/get-values semantic-graph :amr)))))
-
 (deftest ^:integration dictionary-building
   (let [document-plan (load-test-document-plan "author-amr-with-adj")
         semantic-graph (parser/document-plan->semantic-graph document-plan)

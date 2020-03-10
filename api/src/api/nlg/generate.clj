@@ -65,7 +65,7 @@
          semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph {:languages languages :data data})]
      (mapcat (fn [lang]
-               (generate-text-for-language semantic-graph (update context :dictionary #(get % lang)) enrich lang))
+               (generate-text-for-language semantic-graph (update context :dictionary #(get % lang {})) enrich lang))
              languages))))
 
 (defn generation-process [document-plan rows reader-model enrich]
