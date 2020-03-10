@@ -7,7 +7,7 @@
             [data.utils :as utils]))
 
 (defn get-relation-names [{relations ::sg/relations}]
-  (reduce (fn [m {concept-id :to {name :name} :attributes}]
+  (reduce (fn [m {concept-id :to name :name}]
             (cond-> m
                     (some? name) (assoc concept-id name)))
           {}
@@ -26,7 +26,7 @@
                               index 0 vars #{} roles []]
                          (if-not (some? reference)
                            roles
-                           (let [{id :id {name :name} :attributes} reference]
+                           (let [{:keys [id name]} reference]
                              (recur
                                rs
                                (inc index)
