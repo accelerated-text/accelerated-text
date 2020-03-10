@@ -39,12 +39,12 @@
                      :type :amr
                      :name conceptId}]
         :relations (map-indexed (fn [index {[{child-id :id}] :children name :name label :label}]
-                                  {:from     id
-                                   :to       child-id
-                                   :role     :arg
-                                   :index    index
-                                   :category name
-                                   :name     label})
+                                  (cond-> {:from     id
+                                           :to       child-id
+                                           :role     :arg
+                                           :index    index
+                                           :category name}
+                                          (not= name label) (assoc :name label)))
                                 roles)})
 
 (defmethod build-semantic-graph :Cell [{:keys [id name]} _]
