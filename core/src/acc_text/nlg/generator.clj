@@ -1,6 +1,5 @@
 (ns acc-text.nlg.generator
-  (:require [acc-text.nlg.gf.grammar :as grammar]
-            [clojure.spec.alpha :as s]
+  (:require [clojure.spec.alpha :as s]
             [clojure.string :as str]))
 
 (defn join-body [& args]

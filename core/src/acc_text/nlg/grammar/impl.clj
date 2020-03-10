@@ -49,8 +49,7 @@
                           (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))}}))
 
 (defmethod build-node :quote [graph node-id]
-  (let [successors (get-successors graph node-id)
-        cat (node->cat graph node-id)]
+  (let [cat (node->cat graph node-id)]
     {:oper   [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
 
 (defn build-grammar

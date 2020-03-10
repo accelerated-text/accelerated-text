@@ -12,3 +12,6 @@
   (s/coll-of
     (s/keys :req-un [::relation/from ::relation/to ::relation/role]
             :opt-un [::relation/index ::relation/category ::relation/name])))
+
+(s/def ::graph
+  (s/keys :req [::relations ::concepts]))
