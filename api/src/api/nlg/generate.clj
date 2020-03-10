@@ -76,7 +76,8 @@
                             [row-key (generate-text document-plan data reader-model enrich)])
                           rows))}
     (catch Exception e
-      (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
+      (log/errorf "Failed to generate text: %s" e)
+      (log/trace (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
 
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues enrich :enrich}]
