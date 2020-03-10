@@ -1,6 +1,6 @@
 (ns acc-text.nlg.generator.dictionary-item
   (:require [acc-text.nlg.dictionary.item :as dictionary-item]
-            [acc-text.nlg.generator.utils :as gen-utils]
+            [acc-text.nlg.gf.grammar :refer [escape-string]]
             [clojure.string :as str]
             [clojure.tools.logging :as log]))
 
@@ -13,7 +13,7 @@
 
 (defn join-forms [forms]
   (->> forms
-       (map #(format "\"%s\"" (gen-utils/escape-string %)))
+       (map #(format "\"%s\"" (escape-string %)))
        (str/join " ")))
 
 (defmethod build-dictionary-item "Eng/V/V" [_ {::dictionary-item/keys [forms]}]

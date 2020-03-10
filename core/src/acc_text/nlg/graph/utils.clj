@@ -1,4 +1,4 @@
-(ns acc-text.nlg.semantic-graph.ubergraph
+(ns acc-text.nlg.graph.utils
   (:require [acc-text.nlg.semantic-graph :as sg]
             [loom.alg :as alg]
             [loom.graph :as graph]
@@ -7,9 +7,6 @@
 
 (defn id-seq []
   (map #(keyword (format "%02d" %)) (rest (range))))
-
-(defn arg-seq []
-  (map #(keyword (format "ARG%d" %)) (range)))
 
 (defn add-edges [g edges]
   (apply graph/add-edges g edges))
@@ -76,18 +73,24 @@
 
 (defn attach-rgl [g amr node-id]
   (update-in g [:attrs node-id] (fn [_]
-                                  {:type     :operation
-                                   :name     (:label amr)
-                                   :module   (:module amr)})))
+                                  {:type   :operation
+                                   :name   (:label amr)
+                                   :module (:module amr)})))
 
 (defn update-edge-attrs [g]
   (reduce (fn [g edge-id]
             (update-in g [:attrs edge-id] #(let [type (get-in % [:attributes :name])]
-                                            (-> %
-                                                (dissoc :attributes)
-                                                (cond-> (some? type) (assoc :type type))))))
+                                             (-> %
+                                                 (dissoc :attributes)
+                                                 (cond-> (some? type) (assoc :type type))))))
           g
           (map :id (graph/edges g))))
+
+(defn add-concept-index [g]
+  (reduce (fn [g [node-id position]]
+            (update-in g [:attrs node-id] #(assoc % :position position)))
+          g
+          (zipmap (alg/pre-traverse g (find-root-id g)) (rest (range)))))
 
 (defn attach-amrs [g {amr-map :amr}]
   (letfn [(attach-fn [g]
@@ -98,4 +101,4 @@
                                 (some? frames) (attach-rgl amr node-id))))
                     g
                     (find-nodes g {:type :amr})))]
-    (-> g (attach-fn) (attach-fn) (attach-fn) (update-edge-attrs))))
+    (-> g (attach-fn) (attach-fn) (attach-fn) (update-edge-attrs) (add-concept-index))))
