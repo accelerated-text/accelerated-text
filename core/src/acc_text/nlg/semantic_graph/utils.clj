@@ -1,6 +1,8 @@
 (ns acc-text.nlg.semantic-graph.utils
   (:require [acc-text.nlg.semantic-graph :as sg]
-            [clojure.set :as set]))
+            [clojure.set :as set]
+            [ubergraph.core :as uber])
+  (:import (java.util UUID)))
 
 (defn find-descendant-ids [{relations ::sg/relations} ids]
   (let [relation-map (group-by :from relations)]
@@ -49,3 +51,13 @@
 (defn prune-unrelated-branches [{::sg/keys [concepts relations] :as semantic-graph}]
   (prune-branches semantic-graph (set/difference (into #{} (map :id (rest concepts)))
                                                  (into #{} (map :to relations)))))
+
+(defn semantic-graph->ubergraph [{::sg/keys [concepts relations]}]
+  (let [id->uuid (zipmap (map :id concepts) (repeatedly #(UUID/randomUUID)))]
+    (apply uber/digraph (concat
+                          (map (fn [{:keys [id] :as concept}]
+                                 [^:node (id->uuid id) (dissoc concept :id)])
+                               concepts)
+                          (map (fn [{:keys [from to] :as relation}]
+                                 [^:edge (id->uuid from) (id->uuid to) (dissoc relation :from :to)])
+                               relations)))))

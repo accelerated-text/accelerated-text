@@ -1,9 +1,9 @@
 (ns acc-text.nlg.graph.utils
   (:require [acc-text.nlg.semantic-graph :as sg]
+            [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [loom.alg :as alg]
             [loom.graph :as graph]
-            [ubergraph.core :as uber])
-  (:import (java.util UUID)))
+            [ubergraph.core :as uber]))
 
 (defn id-seq []
   (map #(keyword (format "%02d" %)) (rest (range))))
@@ -27,28 +27,6 @@
 (defn find-root-id [g]
   (some #(when (nil? (graph/predecessors g %)) %)
         (graph/nodes g)))
-
-(defn semantic-graph->ubergraph [{::sg/keys [concepts relations]}]
-  (let [id->uuid (zipmap (map :id concepts) (repeatedly #(UUID/randomUUID)))]
-    (apply uber/digraph (concat
-                          (map (fn [{:keys [id] :as concept}]
-                                 [^:node (id->uuid id) (dissoc concept :id)])
-                               concepts)
-                          (map (fn [{:keys [from to] :as relation}]
-                                 [^:edge (id->uuid from) (id->uuid to) (dissoc relation :from :to)])
-                               relations)))))
-
-(defn ubergraph->semantic-graph [g]
-  (let [{:keys [nodes directed-edges]} (uber/ubergraph->edn g)
-        uuid->id (zipmap (alg/pre-traverse g (find-root-id g)) (id-seq))]
-    #::sg{:relations (->> directed-edges
-                          (map (fn [[from to relation]]
-                                 (merge {:from (uuid->id from) :to (uuid->id to)} relation)))
-                          (sort-by :from))
-          :concepts  (->> nodes
-                          (map (fn [[id concept]]
-                                 (merge {:id (uuid->id id)} concept)))
-                          (sort-by :id))}))
 
 (defn attach-amr [g amr-g amr-node-id]
   (let [amr-root-id (find-root-id amr-g)
@@ -93,3 +71,15 @@
                     g
                     (find-nodes g {:type :amr})))]
     (-> g (attach-fn) (attach-fn) (attach-fn) (add-concept-index))))
+
+(defn ubergraph->semantic-graph [g]
+  (let [{:keys [nodes directed-edges]} (uber/ubergraph->edn g)
+        uuid->id (zipmap (alg/pre-traverse g (find-root-id g)) (id-seq))]
+    #::sg{:relations (->> directed-edges
+                          (map (fn [[from to relation]]
+                                 (merge {:from (uuid->id from) :to (uuid->id to)} relation)))
+                          (sort-by :from))
+          :concepts  (->> nodes
+                          (map (fn [[id concept]]
+                                 (merge {:id (uuid->id id)} concept)))
+                          (sort-by :id))}))

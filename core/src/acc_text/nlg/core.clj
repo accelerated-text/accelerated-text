@@ -2,7 +2,6 @@
   (:require [acc-text.nlg.enrich.core :as enrich]
             [acc-text.nlg.generator :as generator]
             [acc-text.nlg.gf.service :as service]
-            [acc-text.nlg.graph.utils :refer [semantic-graph->ubergraph attach-amrs]]
             [acc-text.nlg.grammar :as grammar]
             [acc-text.nlp.utils :as nlp]
             [clojure.tools.logging :as log]))

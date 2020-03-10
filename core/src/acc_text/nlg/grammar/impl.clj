@@ -1,5 +1,6 @@
 (ns acc-text.nlg.grammar.impl
-  (:require [acc-text.nlg.graph.utils :refer [attach-amrs semantic-graph->ubergraph find-root-id]]
+  (:require [acc-text.nlg.graph.utils :refer [attach-amrs find-root-id]]
+            [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.string :as str]
             [loom.alg :refer [pre-traverse]]
             [loom.attr :refer [attrs]]
