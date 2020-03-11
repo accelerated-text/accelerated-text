@@ -11,7 +11,7 @@
   (log/debugf "Semantic graph: %s" semantic-graph)
   (log/debugf "Context: %s" context)
   (map (comp nlp/annotate nlp/process-sentence)
-       (-> (grammar/build-grammar semantic-graph context)
+       (-> (grammar/build-grammar semantic-graph (assoc context :constants {"*Language" lang}))
            (generator/generate lang)
            (service/request lang))))
 

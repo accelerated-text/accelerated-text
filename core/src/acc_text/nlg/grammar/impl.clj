@@ -1,11 +1,11 @@
 (ns acc-text.nlg.grammar.impl
   (:require [acc-text.nlg.graph.amr :refer [attach-amrs]]
-            [acc-text.nlg.graph.utils :refer [find-root-id]]
+            [acc-text.nlg.graph.condition :refer [determine-conditions]]
+            [acc-text.nlg.graph.utils :refer [find-root-id get-successors get-in-edge add-concept-position prune-graph]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.string :as str]
             [loom.alg :refer [pre-traverse]]
-            [loom.attr :refer [attrs]]
-            [loom.graph :as graph]))
+            [loom.attr :refer [attrs]]))
 
 (def data-types #{:data :quote :dictionary-item})
 
@@ -18,14 +18,6 @@
               (map str/capitalize)
               (str/join))
          (format "%02d" (or position 0)))))
-
-(defn get-in-edge [graph node-id]
-  (first (graph/in-edges graph node-id)))
-
-(defn get-successors [graph node-id]
-  (->> (graph/successors graph node-id)
-       (sort-by (fn [successor-id]
-                  (:index (attrs graph (get-in-edge graph successor-id)))))))
 
 (defn remove-data-types [graph node-ids]
   (remove #(contains? data-types (:type (attrs graph %))) node-ids))
@@ -54,11 +46,19 @@
   (let [cat (node->cat graph node-id)]
     {:oper   [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
 
+(defn ->graph [semantic-graph context]
+  (-> semantic-graph
+      (semantic-graph->ubergraph)
+      (attach-amrs context)
+      (determine-conditions context)
+      (prune-graph)
+      (add-concept-position)))
+
 (defn build-grammar
   ([semantic-graph context]
    (build-grammar "Default" "Instance" semantic-graph context))
   ([module instance semantic-graph context]
-   (let [graph (-> semantic-graph (semantic-graph->ubergraph) (attach-amrs context))
+   (let [graph (->graph semantic-graph context)
          start-id (find-root-id graph)]
      (reduce (fn [grammar node-id]
                (merge-with (fn [acc val]
