@@ -1,6 +1,9 @@
 (ns acc-text.nlg.grammar.impl
-  (:require [acc-text.nlg.graph.amr :refer [attach-amrs]]
+  (:require [acc-text.nlg.grammar.dictionary-item :refer [build-dictionary-item]]
+            [acc-text.nlg.grammar.utils :refer [escape-string]]
+            [acc-text.nlg.graph.amr :refer [attach-amrs]]
             [acc-text.nlg.graph.condition :refer [determine-conditions]]
+            [acc-text.nlg.graph.dictionary-item :refer [resolve-dictionary-items]]
             [acc-text.nlg.graph.utils :refer [find-root-id get-successors get-in-edge add-concept-position prune-graph]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.string :as str]
@@ -8,9 +11,6 @@
             [loom.attr :refer [attrs]]))
 
 (def data-types #{:data :quote :dictionary-item})
-
-(defn escape-string [s]
-  (str/replace s #"\"" "\\\\\""))
 
 (defn node->cat [graph node-id]
   (let [{:keys [type position]} (attrs graph node-id)]
@@ -44,7 +44,13 @@
 
 (defmethod build-node :quote [graph node-id]
   (let [cat (node->cat graph node-id)]
-    {:oper   [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
+    {:oper [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
+
+(defmethod build-node :dictionary-item [graph node-id]
+  (let [cat (node->cat graph node-id)
+        in-edge-category (get-in graph [:attrs (:id (get-in-edge graph node-id)) :category])
+        {category :category :as attrs} (attrs graph node-id)]
+    {:oper [[cat category (build-dictionary-item in-edge-category attrs)]]}))
 
 (defn ->graph [semantic-graph context]
   (-> semantic-graph
@@ -52,6 +58,7 @@
       (attach-amrs context)
       (determine-conditions context)
       (prune-graph)
+      (resolve-dictionary-items context)
       (add-concept-position)))
 
 (defn build-grammar
