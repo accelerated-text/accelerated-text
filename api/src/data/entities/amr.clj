@@ -6,10 +6,10 @@
             [data.entities.document-plan :as dp]
             [data.utils :as utils]))
 
-(defn get-relation-names [{relations ::sg/relations}]
-  (reduce (fn [m {concept-id :to name :name}]
+(defn get-relation-categories [{relations ::sg/relations}]
+  (reduce (fn [m {concept-id :to category :category}]
             (cond-> m
-                    (some? name) (assoc concept-id name)))
+                    (some? category) (assoc concept-id category)))
           {}
           relations))
 
@@ -21,7 +21,7 @@
      :label          name
      :kind           "Str"
      :semantic-graph semantic-graph
-     :roles          (let [relation-names (get-relation-names semantic-graph)]
+     :roles          (let [categories (get-relation-categories semantic-graph)]
                        (loop [[reference & rs] (filter #(= :reference (:type %)) concepts)
                               index 0 vars #{} roles []]
                          (if-not (some? reference)
@@ -34,7 +34,7 @@
                                (cond-> roles
                                        (nil? (get vars name)) (conj {:id    (format "ARG%d" index)
                                                                      :label name
-                                                                     :type  (get relation-names id)})))))))}))
+                                                                     :type  (get categories id)})))))))}))
 
 (defn read-amr [id content]
   (let [{:keys [roles kind frames]} (yaml/parse-string content)]
