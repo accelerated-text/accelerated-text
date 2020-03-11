@@ -209,14 +209,15 @@
                      :role :definition}]})
 
 (defmethod build-semantic-graph :Get-var [{id :id var-id :name} {variables :vars variable-names :var-names}]
-  #::sg{:concepts  [(cond-> {:id   id
-                             :type (if (contains? constants name) :constant :reference)}
-                            (contains? variable-names var-id) (assoc :name (get variable-names var-id)))]
-        :relations (map (fn [var-id]
-                          {:from id
-                           :to   var-id
-                           :role :pointer})
-                        (get variables var-id))})
+  (let [var-name (get variable-names var-id)]
+    #::sg{:concepts  [(cond-> {:id   id
+                               :type (if (contains? constants var-name) :constant :reference)}
+                              (contains? variable-names var-id) (assoc :name var-name))]
+          :relations (map (fn [var-id]
+                            {:from id
+                             :to   var-id
+                             :role :pointer})
+                          (get variables var-id))}))
 
 (defn make-node [{type :type :as node} children]
   (case (keyword type)
