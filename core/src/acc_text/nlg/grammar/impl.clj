@@ -3,6 +3,7 @@
             [acc-text.nlg.grammar.utils :refer [escape-string]]
             [acc-text.nlg.graph.amr :refer [attach-amrs]]
             [acc-text.nlg.graph.condition :refer [determine-conditions]]
+            [acc-text.nlg.graph.data :refer [resolve-data]]
             [acc-text.nlg.graph.dictionary-item :refer [resolve-dictionary-items]]
             [acc-text.nlg.graph.utils :refer [find-root-id get-successors get-in-edge add-concept-position prune-graph]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
@@ -46,6 +47,10 @@
   (let [cat (node->cat graph node-id)]
     {:oper [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
 
+(defmethod build-node :data [graph node-id]
+  (let [cat (node->cat graph node-id)]
+    {:oper [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
+
 (defmethod build-node :dictionary-item [graph node-id]
   (let [cat (node->cat graph node-id)
         in-edge-category (get-in graph [:attrs (:id (get-in-edge graph node-id)) :category])
@@ -58,6 +63,7 @@
       (attach-amrs context)
       (determine-conditions context)
       (prune-graph)
+      (resolve-data context)
       (resolve-dictionary-items context)
       (add-concept-position)))
 
