@@ -123,11 +123,12 @@
 (defmethod build-semantic-graph :If-then-else [{:keys [id conditions]} _]
   #::sg{:concepts  [{:id   id
                      :type :condition}]
-        :relations (map (fn [{child-id :id}]
-                          {:from id
-                           :to   child-id
-                           :role :statement})
-                        conditions)})
+        :relations (map-indexed (fn [index {child-id :id}]
+                                  {:from  id
+                                   :to    child-id
+                                   :role  :statement
+                                   :index index})
+                                conditions)})
 
 (defmethod build-semantic-graph :If-condition [{id :id {predicate-id :id} :condition {expression-id :id} :thenExpression} _]
   #::sg{:concepts  [{:id   id
