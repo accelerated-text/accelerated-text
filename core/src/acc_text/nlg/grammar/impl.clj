@@ -6,6 +6,7 @@
             [acc-text.nlg.graph.data :refer [resolve-data]]
             [acc-text.nlg.graph.dictionary-item :refer [resolve-dictionary-items]]
             [acc-text.nlg.graph.lists :refer [resolve-lists]]
+            [acc-text.nlg.graph.modifier :refer [resolve-modifiers]]
             [acc-text.nlg.graph.utils :refer [find-root-id get-successors get-in-edge add-concept-position prune-graph]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.string :as str]
@@ -94,6 +95,7 @@
       (resolve-data context)
       (resolve-dictionary-items context)
       (resolve-lists)
+      (resolve-modifiers)
       (add-concept-position)))
 
 (defn build-grammar

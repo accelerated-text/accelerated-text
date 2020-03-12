@@ -85,7 +85,7 @@
                                 :forms    ["small" "smaller"]}
  #:acc-text.nlg.dictionary.item{:key      "standard_1_A"
                                 :sense    "1"
-                                :category "compoundA"
+                                :category "A"
                                 :language "Eng"
                                 :forms    ["standard"]}
  #:acc-text.nlg.dictionary.item{:key      "write_1_V"
