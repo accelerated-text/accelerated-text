@@ -1,6 +1,6 @@
 (ns acc-text.nlg.graph.dictionary-item
   (:require [acc-text.nlg.dictionary.item :as dictionary-item]
-            [acc-text.nlg.graph.utils :refer [find-nodes get-in-edge]]
+            [acc-text.nlg.graph.utils :refer [find-nodes]]
             [loom.graph :as graph]))
 
 (defn resolve-dictionary-items [g {dictionary :dictionary}]

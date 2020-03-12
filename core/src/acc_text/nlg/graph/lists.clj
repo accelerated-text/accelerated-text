@@ -4,7 +4,7 @@
             [loom.graph :as graph]))
 
 (defn resolve-lists [g]
-  (reduce (fn [g [node-id {name :name}]]
+  (reduce (fn [g [node-id _]]
             (let [{category :category :as in-edge-attrs} (attrs g (get-in-edge g node-id))]
               (reduce (fn [g edge]
                         (assoc-in g [:attrs (:id edge)] in-edge-attrs))

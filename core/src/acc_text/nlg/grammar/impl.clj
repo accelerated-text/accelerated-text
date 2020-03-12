@@ -11,8 +11,7 @@
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.string :as str]
             [loom.alg :refer [pre-traverse]]
-            [loom.attr :refer [attrs]]
-            [clojure.tools.logging :as log]))
+            [loom.attr :refer [attrs]]))
 
 (def data-types #{:data :quote :dictionary-item})
 
