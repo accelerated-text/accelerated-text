@@ -56,7 +56,7 @@
   (db/update! dictionary-db id item))
 
 (defn create-dictionary-item [{id ::dictionary-item/id :as item}]
-  (log/debugf "Creating: %s" item)
+  (log/tracef "Creating: %s" item)
   (let [item-id (or id (utils/gen-uuid))]
     (db/write! dictionary-db item-id item)
     (get-dictionary-item item-id)))
