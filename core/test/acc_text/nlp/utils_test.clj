@@ -4,3 +4,7 @@
 
 (deftest tokenize-two-words
   (is (= ["hello" "world"] (utils/tokenize "hello world"))))
+
+(deftest tokenize-russian-word
+  (is (= ["местo"] (utils/tokenize "местo"))))
+
