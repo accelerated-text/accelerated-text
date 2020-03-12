@@ -43,7 +43,7 @@
         {{{{:keys [name partOfSpeech]} :createDictionaryItem} :data errors :errors} :body}
         (q "/_graphql" :post {:query query :variables {:name "test", :partOfSpeech "V"}})]
     (is (nil? errors))
-    (is (= "test" name))
+    (is (= "test_V" name))
     (is (= "V" partOfSpeech))))
 
 (deftest ^:integration delete-dict-item-test
