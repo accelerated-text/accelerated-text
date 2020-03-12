@@ -20,19 +20,21 @@
                      :type :document-plan}]
         :relations (->> segments
                         (remove #(= "Define-var" (:type %)))
-                        (map (fn [{segment-id :id}]
-                               {:from id
-                                :to   segment-id
-                                :role :segment})))})
+                        (map-indexed (fn [index {segment-id :id}]
+                                       {:from  id
+                                        :to    segment-id
+                                        :role  :segment
+                                        :index index})))})
 
 (defmethod build-semantic-graph :Segment [{:keys [id children]} _]
   #::sg{:concepts  [{:id   id
                      :type :segment}]
-        :relations (map (fn [{child-id :id}]
-                          {:from id
-                           :to   child-id
-                           :role :instance})
-                        children)})
+        :relations (map-indexed (fn [index {child-id :id}]
+                                  {:from  id
+                                   :to    child-id
+                                   :role  :instance
+                                   :index index})
+                                children)})
 
 (defmethod build-semantic-graph :AMR [{:keys [id conceptId roles]} _]
   #::sg{:concepts  [{:id   id
@@ -105,20 +107,22 @@
 (defmethod build-semantic-graph :Shuffle [{:keys [id children]} _]
   #::sg{:concepts  [{:id   id
                      :type :shuffle}]
-        :relations (map (fn [{child-id :id}]
-                          {:from id
-                           :to   child-id
-                           :role :item})
-                        children)})
+        :relations (map-indexed (fn [index {child-id :id}]
+                                  {:from  id
+                                   :to    child-id
+                                   :role  :item
+                                   :index index})
+                                children)})
 
 (defmethod build-semantic-graph :One-of-synonyms [{:keys [id children]} _]
   #::sg{:concepts  [{:id   id
                      :type :synonyms}]
-        :relations (map (fn [{child-id :id}]
-                          {:from id
-                           :to   child-id
-                           :role :item})
-                        children)})
+        :relations (map-indexed (fn [index {child-id :id}]
+                                  {:from  id
+                                   :to    child-id
+                                   :role  :item
+                                   :index index})
+                                children)})
 
 (defmethod build-semantic-graph :If-then-else [{:keys [id conditions]} _]
   #::sg{:concepts  [{:id   id
@@ -177,11 +181,12 @@
   #::sg{:concepts  [{:id    id
                      :type  :boolean
                      :value operator}]
-        :relations (map (fn [{child-id :id}]
-                          {:from id
-                           :to   child-id
-                           :role :input})
-                        children)})
+        :relations (map-indexed (fn [index {child-id :id}]
+                                  {:from  id
+                                   :to    child-id
+                                   :role  :input
+                                   :index index})
+                                children)})
 
 (defmethod build-semantic-graph :Not [{id :id {child-id :id} :value} _]
   #::sg{:concepts  [{:id    id
