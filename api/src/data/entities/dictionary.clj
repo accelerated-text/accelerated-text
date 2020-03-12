@@ -6,6 +6,7 @@
             [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
+            [clojure.tools.logging :as log]
             [mount.core :refer [defstate]])
   (:import (java.io File PushbackReader)))
 
@@ -55,6 +56,7 @@
   (db/update! dictionary-db id item))
 
 (defn create-dictionary-item [{id ::dictionary-item/id :as item}]
+  (log/tracef "Creating: %s" item)
   (let [item-id (or id (utils/gen-uuid))]
     (db/write! dictionary-db item-id item)
     (get-dictionary-item item-id)))

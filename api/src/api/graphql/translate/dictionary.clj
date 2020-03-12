@@ -1,6 +1,5 @@
 (ns api.graphql.translate.dictionary
   (:require [acc-text.nlg.dictionary.item :as dictionary-item]
-            [api.graphql.translate.concept :as translate-concept]
             [clojure.tools.logging :as log]
             [data.utils :as utils]
             [data.entities.dictionary :as dict-entity]
@@ -32,17 +31,11 @@
 
 (defn dictionary-item->schema [{:keys [key name phrases] :as dict-item}]
   (log/debugf "DictionaryItem: %s" dict-item)
-  (let [part-of-speech (get dict-item :partOfSpeech "VB")]
+  (let [part-of-speech (get dict-item :partOfSpeech "V")]
     {:id           key
      :name         name
      :phrases      (map phrase->schema phrases)
-     :partOfSpeech part-of-speech
-     :concept      (when (= part-of-speech "VB")
-                     (translate-concept/amr->schema
-                       {:id     "PLACEHOLDER"
-                        :label  ""
-                        :roles  []
-                        :frames []}))}))
+     :partOfSpeech part-of-speech}))
 
 (defn text->phrase
   ([text parent-id default-usage]
@@ -87,3 +80,14 @@
                          :readerFlagUsage (build-lang-user-flags language)
                          :text            form})
                       forms)})
+
+(defn schema->default-multilang-dict-item [{id :id item-name :name pos :partOfSpeech}]
+  #:acc-text.nlg.dictionary.item {:id           id
+                                  :key          (if pos
+                                                  (format "%s_%s" item-name (name pos))
+                                                  item-name)
+                                  :category     (name pos)
+                                  :sense        "1"
+                                  :language     "Eng"
+                                  :forms        [item-name]
+                                  :attributes   {}})
