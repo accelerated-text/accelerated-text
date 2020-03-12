@@ -80,3 +80,14 @@
                          :readerFlagUsage (build-lang-user-flags language)
                          :text            form})
                       forms)})
+
+(defn schema->default-multilang-dict-item [{id :id item-name :name pos :partOfSpeech}]
+  #:acc-text.nlg.dictionary.item {:id           id
+                                  :key          (if pos
+                                                  (format "%s_%s" item-name (name pos))
+                                                  item-name)
+                                  :category     (name pos)
+                                  :sense        "1"
+                                  :language     "Eng"
+                                  :forms        [item-name]
+                                  :attributes   {}})

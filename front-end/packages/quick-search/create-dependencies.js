@@ -30,7 +30,7 @@ export default async ( result, graphqlClient ) => {
             mutation:               createDictionaryItem,
             variables: {
                 name:               result.text,
-                partOfSpeech:       result.partOfSpeech || undefined,
+                partOfSpeech:       result.partOfSpeech || "N",
             },
         });
         return {

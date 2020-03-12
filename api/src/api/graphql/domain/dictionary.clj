@@ -25,7 +25,7 @@
     (resolve-as-not-found-dict-item id)))
 
 (defn create-dictionary-item [_ args _]
-  (-> (translate-dict/schema->dictionary-item args)
+  (-> (translate-dict/schema->default-multilang-dict-item args)
       (dict-entity/create-dictionary-item)
       (translate-dict/multilang-dict-item->original-schema)
       (resolve-as)))
