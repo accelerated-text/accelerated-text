@@ -4,6 +4,12 @@
             [loom.graph :as graph]
             [ubergraph.core :as uber]))
 
+(defn segment->frame [g]
+  (reduce (fn [g [node-id _]]
+            (assoc-in g [:attrs node-id :type] :frame))
+          g
+          (find-nodes g {:type :segment})))
+
 (defn attach-amr [g amr-g amr-node-id]
   (let [amr-root-id (find-root-id amr-g)
         out-edge-map (group-by (fn [{edge-id :id}]
@@ -12,7 +18,8 @@
         reference-nodes (filter (fn [[_ {reference-name :name}]]
                                   (contains? out-edge-map reference-name))
                                 (find-nodes amr-g {:type :reference}))]
-    (-> (uber/build-graph amr-g g)
+    (-> (segment->frame amr-g)
+        (uber/build-graph g)
         (add-edges (->> reference-nodes
                         (reduce (fn [edges [reference-id {reference-name :name}]]
                                   (concat edges (for [{id :id src :src} (graph/in-edges amr-g reference-id)

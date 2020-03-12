@@ -20,6 +20,9 @@
               (str/join))
          (format "%02d" (or position 0)))))
 
+(defn s-node? [graph node-id]
+  (contains? #{:dictionary-item :operation} (:type (attrs graph node-id))))
+
 (defn remove-data-types [graph node-ids]
   (remove #(contains? data-types (:type (attrs graph %))) node-ids))
 
@@ -30,8 +33,20 @@
         cat (node->cat graph node-id)]
     {:cat    [cat]
      :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-     :lincat {cat "Text"}
-     :lin    {cat (str/join " | " (map #(node->cat graph %) successors))}}))
+     :lincat {cat "Str"}
+     :lin    {cat (str/join " ++ " (map #(cond-> (node->cat graph %)
+                                                 (s-node? graph %) (str ".s"))
+                                        successors))}}))
+
+(defmethod build-node :frame [graph node-id]
+  (let [successors (get-successors graph node-id)
+        cat (node->cat graph node-id)]
+    {:cat    [cat]
+     :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
+     :lincat {cat "Str"}
+     :lin    {cat (str/join " | " (map #(cond-> (node->cat graph %)
+                                                (s-node? graph %) (str ".s"))
+                                       successors))}}))
 
 (defmethod build-node :operation [graph node-id]
   (let [{:keys [name module]} (attrs graph node-id)
