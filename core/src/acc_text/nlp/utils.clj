@@ -2,16 +2,16 @@
   (:require [clojure.string :as str]))
 
 (defn split-into-sentences [s]
-  (str/split s #"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"))
+  (str/split s #"(?U)(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s"))
 
 (defn tokenize [s]
-  (map first (re-seq #"((\w+[.,-_ÄäÖöÜü]\w+)|(:(\w|[_-])+:)|(\{\{(\w|[_-])+\}\})|([\w+'`]+|[^\s\w+'`]+))" s)))
+  (map first (re-seq #"(?U)((\w+[.,-_]\w+)|(:(\w|[_-])+:)|(\{\{(\w|[_-])+\}\})|([\w+'`]+|[^\s\w+'`]+))" s)))
 
 (defn tokenize-incl-space [s]
-  (map first (re-seq #"([\w+'`]+|[\s]+|[^\s\w+'`]+)" s)))
+  (map first (re-seq #"(?U)([\w+'`]+|[\s]+|[^\s\w+'`]+)" s)))
 
 (defn word? [s]
-  (some? (re-seq #"\w" s)))
+  (some? (re-seq #"(?U)\w" s)))
 
 (defn ends-with-s? [token] (= "s" (str (last token))))
 
@@ -25,7 +25,7 @@
 
 (defn wrap-sentence [s]
   (cond-> (str/trim s)
-          (re-find #"[^.?!\s]\s*$" s) (str ".")))
+          (re-find #"(?U)[^.?!\s]\s*$" s) (str ".")))
 
 (defn process-sentence [s]
   (if-not (str/blank? s)
