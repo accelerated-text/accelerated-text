@@ -33,7 +33,7 @@ export const DictionaryItem = ({ prefix, name, phrases }) => ({
     __typename:         'DictionaryItem',
     id:                 `${ prefix }-${ name }-id`,
     name,
-    partOfSpeech:       'VB',
+    partOfSpeech:       'V',
     concept:            null,
     phrases: phrases.map(
         phrase => Phrase({
