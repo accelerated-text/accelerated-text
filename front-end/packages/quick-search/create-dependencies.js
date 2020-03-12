@@ -1,8 +1,5 @@
 import { blocks as B }      from '../nlg-blocks/';
-import {
-    createDictionaryItem,
-    createPhrase,
-}                           from '../graphql/mutations.graphql';
+import { createDictionaryItem } from '../graphql/mutations.graphql';
 import { YES }              from '../usage/constants';
 
 import getType              from './get-type';
@@ -35,15 +32,6 @@ export default async ( result, graphqlClient ) => {
                 name:               result.text,
                 partOfSpeech:       result.partOfSpeech || undefined,
             },
-        });
-        await graphqlClient.mutate({
-            mutation:               createPhrase,
-            variables: {
-                dictionaryItemId:   item.id,
-                text:               result.text,
-                defaultUsage:       YES,
-            },
-            refetchQueries:         [ 'dictionary' ],
         });
         return {
             ...result,
