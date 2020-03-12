@@ -39,10 +39,11 @@
                           (map (fn [[type cs]]
                                  (format "%s = %s" (str/join ", " cs) type))))
             "lin" (map (fn [index c]
-                         (let [funs (get fun c)]
+                         (let [funs (get fun c)
+                               l (str/join " | " (get lin c))]
                            (if (seq funs)
-                             (format "Function%02d %s = %s" index (str/join " " funs) (get lin c))
-                             (format "Function%02d = %s" index (get lin c)))))
+                             (format "Function%02d %s = %s" index (str/join " " funs) l)
+                             (format "Function%02d = %s" index l))))
                        (rest (range))
                        cat))))
 

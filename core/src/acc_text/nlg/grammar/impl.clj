@@ -5,11 +5,13 @@
             [acc-text.nlg.graph.condition :refer [determine-conditions]]
             [acc-text.nlg.graph.data :refer [resolve-data]]
             [acc-text.nlg.graph.dictionary-item :refer [resolve-dictionary-items]]
+            [acc-text.nlg.graph.lists :refer [resolve-lists]]
             [acc-text.nlg.graph.utils :refer [find-root-id get-successors get-in-edge add-concept-position prune-graph]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.string :as str]
             [loom.alg :refer [pre-traverse]]
-            [loom.attr :refer [attrs]]))
+            [loom.attr :refer [attrs]]
+            [clojure.tools.logging :as log]))
 
 (def data-types #{:data :quote :dictionary-item})
 
@@ -34,9 +36,9 @@
     {:cat    [cat]
      :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
      :lincat {cat "Str"}
-     :lin    {cat (str/join " ++ " (map #(cond-> (node->cat graph %)
-                                                 (s-node? graph %) (str ".s"))
-                                        successors))}}))
+     :lin    {cat [(str/join " ++ " (map #(cond-> (node->cat graph %)
+                                                  (s-node? graph %) (str ".s"))
+                                         successors))]}}))
 
 (defmethod build-node :frame [graph node-id]
   (let [successors (get-successors graph node-id)
@@ -44,9 +46,9 @@
     {:cat    [cat]
      :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
      :lincat {cat "Str"}
-     :lin    {cat (str/join " | " (map #(cond-> (node->cat graph %)
-                                                (s-node? graph %) (str ".s"))
-                                       successors))}}))
+     :lin    {cat [(str/join " | " (map #(cond-> (node->cat graph %)
+                                                 (s-node? graph %) (str ".s"))
+                                        successors))]}}))
 
 (defmethod build-node :operation [graph node-id]
   (let [{:keys [name module]} (attrs graph node-id)
@@ -55,8 +57,8 @@
     {:cat    [cat]
      :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
      :lincat {cat (or (:category (attrs graph (get-in-edge graph node-id))) "Text")}
-     :lin    {cat (cond-> (str module "." name)
-                          (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))}}))
+     :lin    {cat [(cond-> (str module "." name)
+                           (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))]}}))
 
 (defmethod build-node :quote [graph node-id]
   (let [cat (node->cat graph node-id)]
@@ -72,6 +74,17 @@
         {category :category :as attrs} (attrs graph node-id)]
     {:oper [[cat category (build-dictionary-item in-edge-category attrs)]]}))
 
+(defmethod build-node :synonyms [graph node-id]
+  (let [successors (get-successors graph node-id)
+        category (:category (attrs graph node-id))
+        cat (node->cat graph node-id)]
+    {:cat    [cat]
+     :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
+     :lincat {cat (or category "Str")}
+     :lin    {cat (map #(cond-> (node->cat graph %)
+                                (and (s-node? graph %) (nil? category)) (str ".s"))
+                       successors)}}))
+
 (defn ->graph [semantic-graph context]
   (-> semantic-graph
       (semantic-graph->ubergraph)
@@ -80,6 +93,7 @@
       (prune-graph)
       (resolve-data context)
       (resolve-dictionary-items context)
+      (resolve-lists)
       (add-concept-position)))
 
 (defn build-grammar
