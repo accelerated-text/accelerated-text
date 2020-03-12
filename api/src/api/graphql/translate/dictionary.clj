@@ -1,6 +1,5 @@
 (ns api.graphql.translate.dictionary
   (:require [acc-text.nlg.dictionary.item :as dictionary-item]
-            [api.graphql.translate.concept :as translate-concept]
             [clojure.tools.logging :as log]
             [data.utils :as utils]
             [data.entities.dictionary :as dict-entity]
