@@ -32,17 +32,11 @@
 
 (defn dictionary-item->schema [{:keys [key name phrases] :as dict-item}]
   (log/debugf "DictionaryItem: %s" dict-item)
-  (let [part-of-speech (get dict-item :partOfSpeech "VB")]
+  (let [part-of-speech (get dict-item :partOfSpeech "V")]
     {:id           key
      :name         name
      :phrases      (map phrase->schema phrases)
-     :partOfSpeech part-of-speech
-     :concept      (when (= part-of-speech "VB")
-                     (translate-concept/amr->schema
-                       {:id     "PLACEHOLDER"
-                        :label  ""
-                        :roles  []
-                        :frames []}))}))
+     :partOfSpeech part-of-speech}))
 
 (defn text->phrase
   ([text parent-id default-usage]
