@@ -58,7 +58,7 @@
 (defmethod build-semantic-graph :Quote [{:keys [id text]} _]
   #::sg{:concepts  [{:id    id
                      :type  :quote
-                     :value text}]
+                     :value (or text "")}]
         :relations []})
 
 (defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name]} _]
