@@ -1,4 +1,3 @@
-
 (ns api.nlg.parser
   (:require [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
