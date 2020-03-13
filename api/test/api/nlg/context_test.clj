@@ -25,7 +25,8 @@
 (deftest ^:integration dictionary-building
   (let [document-plan (load-test-document-plan "author-amr-with-adj")
         semantic-graph (parser/document-plan->semantic-graph document-plan)
-        context (context/build-dictionary-context semantic-graph ["Eng"])]
+        keys (context/get-dictionary-item-keys semantic-graph)
+        context (context/build-dictionary-context keys ["Eng"])]
     (is (= {"good"    #:acc-text.nlg.dictionary.item{:id       "good_1"
                                                      :key      "good"
                                                      :category "A"

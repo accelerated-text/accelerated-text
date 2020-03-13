@@ -10,9 +10,9 @@
        (map :label)
        (into #{})))
 
-(defn build-dictionary-context [semantic-graph languages]
+(defn build-dictionary-context [keys languages]
   (->> languages
-       (dict-entity/scan-dictionary (get-dictionary-item-keys semantic-graph))
+       (dict-entity/scan-dictionary keys)
        (group-by ::dictionary-item/language)
        (reduce-kv (fn [m k v]
                     (assoc m k (zipmap (map ::dictionary-item/key v) v)))
@@ -33,6 +33,11 @@
   ([semantic-graph]
    (build-context semantic-graph {:languages [(dict-entity/default-language)] :data {}}))
   ([semantic-graph {:keys [languages data]}]
-   {:amr        (build-amr-context semantic-graph)
-    :data       data
-    :dictionary (build-dictionary-context semantic-graph languages)}))
+   (let [amr (build-amr-context semantic-graph)]
+     {:amr        amr
+      :data       data
+      :dictionary (build-dictionary-context (into #{} (concat
+                                                        (get-dictionary-item-keys semantic-graph)
+                                                        (mapcat #(get-dictionary-item-keys (:semantic-graph %))
+                                                                (vals amr))))
+                                            languages)})))
