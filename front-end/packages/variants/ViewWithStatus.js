@@ -43,7 +43,7 @@ export default composeContexts({
                 })
                 : <Info message={
                     openedPlan.plan
-                        ? ( openedPlan.plan.dataSampleId
+                        ? emptyMessage( openedPlan.plan.dataSampleId
                             ? emptyMessage
                             : noDataMessage
                         )

@@ -11,7 +11,7 @@ import { getVariants }      from './api';
 
 
 const canGetResult = ( plan, file ) => (
-    getPlanDataRecord( file, plan )
+    plan
     && plan.id
     && plan.updatedAt
 );
@@ -54,7 +54,7 @@ export default composeContexts({
                     resultKey,
                 }, () => {
                     getVariants({
-                        dataId:             plan.dataSampleId,
+                        dataId:             plan.dataSampleId != null ? plan.dataSampleId : undefined,
                         documentPlanId:     plan.id,
                         readerFlagValues:   reader.flagValues,
                     }).then( result => this.setState( state =>
