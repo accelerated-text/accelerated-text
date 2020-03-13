@@ -7,6 +7,7 @@
             [acc-text.nlg.graph.dictionary-item :refer [resolve-dictionary-items]]
             [acc-text.nlg.graph.lists :refer [resolve-lists]]
             [acc-text.nlg.graph.modifier :refer [resolve-modifiers]]
+            [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
             [acc-text.nlg.graph.utils :refer [find-root-id get-successors get-in-edge add-concept-position prune-graph]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.string :as str]
@@ -92,6 +93,7 @@
       (determine-conditions context)
       (prune-graph)
       (resolve-data context)
+      (resolve-polarity)
       (resolve-dictionary-items context)
       (resolve-lists)
       (resolve-modifiers)
