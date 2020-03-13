@@ -40,5 +40,5 @@
   (format "(ParadigmsRus.mkV2 (ParadigmsRus.mkV MorphoRus.%s %s) \"\" ParadigmsRus.%s)"
           (get attributes "Aspect") (join-forms forms) (get attributes "Case")))
 
-(defmethod build-dictionary-item "Rus/V/V" [_ {::dictionary-item/keys [forms attributes]}]
+(defmethod build-dictionary-item "Rus/V/V" [_ {:keys [forms attributes]}]
   (format "(ParadigmsRus.mkV MorphoRus.%s %s)" (get attributes "Aspect") (join-forms forms)))
