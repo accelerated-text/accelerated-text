@@ -12,7 +12,6 @@
 (defmethod build-semantic-graph :default [{:keys [id type]} _]
   (throw (Exception. (format "Unknown node type for node id %s: %s" id type))))
 
-
 (defmethod build-semantic-graph :placeholder [{id :id} _]
   #::sg{:concepts  [{:id   id
                      :type :placeholder}]
@@ -27,7 +26,6 @@
                                {:from id
                                 :to   segment-id
                                 :role :segment})))})
-
 
 (defmethod build-semantic-graph :Segment [{:keys [id children]} _]
   #::sg{:concepts  [{:id   id
