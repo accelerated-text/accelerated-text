@@ -68,9 +68,10 @@
     {:oper [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
 
 (defmethod build-node :data [graph node-id lang]
-  {:oper [[(node->cat graph node-id)
-           "N" ;;FIXME sometimes data can be used as modifier, and then it has to be "A"
-           (build-data-item (escape-string (:value (attrs graph node-id))) lang)]]})
+  (let [cat (get-in graph [:attrs (:id (get-in-edge graph node-id)) :category])]
+    {:oper [[(node->cat graph node-id)
+             cat
+             (build-data-item cat (escape-string (:value (attrs graph node-id))) lang)]]}))
 
 (defmethod build-node :dictionary-item [graph node-id _]
   (let [cat (node->cat graph node-id)
