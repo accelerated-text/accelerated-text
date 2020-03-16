@@ -37,7 +37,7 @@
      :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
      :lincat {cat "Str"}
      :lin    {cat [(str/join " ++ " (map #(cond-> (node->cat graph %)
-                                                  (s-node? graph %) (str ".s"))
+                                            (s-node? graph %) (str ".s"))
                                          successors))]}}))
 
 (defmethod build-node :frame [graph node-id]
@@ -84,6 +84,21 @@
      :lin    {cat (map #(cond-> (node->cat graph %)
                                 (and (s-node? graph %) (nil? category)) (str ".s"))
                        successors)}}))
+
+(defmethod build-node :shuffle [graph node-id]
+  (let [children (:children (attrs graph node-id))
+        cat (node->cat graph node-id)]
+    {:cat    [cat]
+     :fun    {cat (->> children (first) (remove-data-types graph) (map #(node->cat graph %)))}
+     :lincat {cat "Str"}
+     :lin    {cat [(str/join " | " (map (fn [group]
+                                          (log/debugf "Group: %s" (pr-str group))
+                                          (->> (map #(cond-> (node->cat graph %)
+                                                       (s-node? graph %) (str ".s"))
+                                                    group)
+                                               (str/join " ++ ")
+                                               (format "(%s)")))
+                                        children))]}}))
 
 (defn ->graph [semantic-graph context]
   (-> semantic-graph
