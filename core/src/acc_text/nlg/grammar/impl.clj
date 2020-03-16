@@ -1,7 +1,5 @@
 (ns acc-text.nlg.grammar.impl
-  (:require [acc-text.nlg.grammar.dictionary-item :refer [build-dictionary-item]]
-            [acc-text.nlg.grammar.data-item :refer [build-data-item]]
-            [acc-text.nlg.grammar.utils :refer [escape-string]]
+  (:require [acc-text.nlg.grammar.dictionary-item :refer [build-dictionary-item-]]
             [acc-text.nlg.graph.amr :refer [attach-amrs]]
             [acc-text.nlg.graph.condition :refer [determine-conditions]]
             [acc-text.nlg.graph.data :refer [resolve-data]]
@@ -62,19 +60,16 @@
      :lin    {cat [(cond-> (str module "." name)
                            (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))]}}))
 
-(defmethod build-node :quote [graph node-id]
-  (let [cat (node->cat graph node-id)]
-    {:oper [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
-
-(defmethod build-node :data [graph node-id]
-  (let [cat (node->cat graph node-id)]
-    {:oper [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
-
 (defmethod build-node :dictionary-item [graph node-id]
   (let [cat (node->cat graph node-id)
         in-edge-category (get-in graph [:attrs (:id (get-in-edge graph node-id)) :category])
         {category :category :as attrs} (attrs graph node-id)]
-    {:oper [[cat category (build-dictionary-item in-edge-category attrs)]]}))
+    {:oper [[cat
+             (cond
+               (= "Str" category) "{s : Str}"
+               (nil? in-edge-category) "Text"
+               :else category)
+             (build-dictionary-item- in-edge-category attrs)]]}))
 
 (defmethod build-node :synonyms [graph node-id]
   (let [successors (get-successors graph node-id)

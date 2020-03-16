@@ -1,13 +1,15 @@
 (ns acc-text.nlg.grammar.dictionary-item
-  (:require [acc-text.nlg.grammar.utils :refer [escape-string]]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [clojure.tools.logging :as log]))
 
+(defn escape-string [s]
+  (str/replace s #"\"" "\\\\\""))
+
 (defmulti build-dictionary-item (fn [type {:keys [category language]}]
-                                  (str/join "/" [language type category])))
+                                  (str/join "/" [language (or type "Str") category])))
 
 (defmethod build-dictionary-item :default [type {:keys [category language]}]
-  (log/errorf "Unknown dictionary-item type pair for %s: %s/%s" language type category)
+  (log/errorf "Unknown dictionary-item type pair for %s: %s/%s" language (or type "Str") category)
   "\"\"")
 
 (defn join-forms [forms]
@@ -29,6 +31,18 @@
     (format "(ParadigmsEng.mkN ParadigmsEng.%s (ParadigmsEng.mkN %s))" (get attributes "Gender") (join-forms forms))
     (format "(ParadigmsEng.mkN %s)" (join-forms forms))))
 
+(defmethod build-dictionary-item "Eng/Str/Str" [_ {:keys [forms]}]
+  (format "{s = \"%s\"}" (escape-string (first forms))))
+
+(defmethod build-dictionary-item "Eng/Str/N" [_ {:keys [forms attributes]}]
+  (format "(mkText (mkCl %s))"
+          (if (contains? attributes "Gender")
+            (format "(ParadigmsEng.mkN ParadigmsEng.%s (ParadigmsEng.mkN %s))" (get attributes "Gender") (join-forms forms))
+            (format "(ParadigmsEng.mkN %s)" (join-forms forms)))))
+
+(defmethod build-dictionary-item "Eng/Str/V" [_ {:keys [forms]}]
+  (format "(mkText (mkCl %s))" (format "(ParadigmsEng.mkV %s)" (join-forms forms))))
+
 (defmethod build-dictionary-item "Rus/A/A" [_ {:keys [forms]}]
   (format "(ParadigmsRus.mkA %s)" (join-forms forms)))
 
@@ -42,3 +56,14 @@
 
 (defmethod build-dictionary-item "Rus/V/V" [_ {:keys [forms attributes]}]
   (format "(ParadigmsRus.mkV MorphoRus.%s %s)" (get attributes "Aspect") (join-forms forms)))
+
+(defmethod build-dictionary-item "Rus/Str/Str" [_ {:keys [forms]}]
+  (format "{s = \"%s\"}" (escape-string (first forms))))
+
+(defmethod build-dictionary-item "Rus/Str/N" [_ {:keys [forms attributes]}]
+  (format "(mkText (mkCl (ParadigmsRus.mkN %s MorphoRus.%s MorphoRus.%s)))"
+          (join-forms forms) (get attributes "Gender" "Masc") (get attributes "Animacy" "Inanimate")))
+
+(defmethod build-dictionary-item "Rus/Str/V" [_ {:keys [forms attributes]}]
+  (format "(mkText (mkCl (ParadigmsRus.mkV MorphoRus.%s %s)))" (get attributes "Aspect") (join-forms forms)))
+
