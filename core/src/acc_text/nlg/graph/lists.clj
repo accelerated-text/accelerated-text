@@ -1,7 +1,6 @@
 (ns acc-text.nlg.graph.lists
   (:require [acc-text.nlg.graph.utils :refer [find-nodes get-in-edge get-successors]]
             [clojure.math.combinatorics :refer [permutations]]
-            [loom.graph :as graph]
             [loom.attr :refer [attrs]]
             [loom.graph :as graph]))
 
