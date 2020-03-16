@@ -92,7 +92,6 @@
      :fun    {cat (->> children (first) (remove-data-types graph) (map #(node->cat graph %)))}
      :lincat {cat "Str"}
      :lin    {cat [(str/join " | " (map (fn [group]
-                                          (log/debugf "Group: %s" (pr-str group))
                                           (->> (map #(cond-> (node->cat graph %)
                                                        (s-node? graph %) (str ".s"))
                                                     group)
