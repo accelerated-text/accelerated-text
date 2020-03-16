@@ -1,5 +1,5 @@
 (ns acc-text.nlg.graph.condition
-  (:require [acc-text.nlg.graph.utils :refer [find-nodes get-successors get-in-edge add-edges]]
+  (:require [acc-text.nlg.graph.utils :refer [find-nodes get-successors add-edges remove-edges]]
             [clojure.string :as str]
             [loom.attr :refer [attrs]]
             [loom.graph :as graph]))
@@ -70,7 +70,7 @@
     :if-statement (when-let [predicate-node (some #(when (= :predicate (:role (attrs g %))) (graph/dest %))
                                                   (graph/out-edges g node-id))]
                     (evaluate-predicate g predicate-node context))
-    :default-statement true
+    :else-statement true
     nil))
 
 (defn find-truthful-edges [g condition-node-id context]
@@ -82,11 +82,12 @@
 
 (defn determine-conditions [g context]
   (reduce (fn [g [node-id _]]
-            (let [in-edge (get-in-edge g node-id)
+            (let [in-edges (graph/in-edges g node-id)
                   truthful-edges (find-truthful-edges g node-id context)]
-              (cond-> (graph/remove-edges g in-edge)
+              (cond-> (remove-edges g in-edges)
                       (some? truthful-edges) (add-edges
-                                               (for [truthful-edge truthful-edges]
-                                                 [^:edge (graph/src in-edge) (graph/dest truthful-edge) (attrs g in-edge)])))))
+                                               (for [in-edge in-edges
+                                                     out-edge truthful-edges]
+                                                 [^:edge (graph/src in-edge) (graph/dest out-edge) (attrs g in-edge)])))))
           g
           (find-nodes g {:type :condition})))

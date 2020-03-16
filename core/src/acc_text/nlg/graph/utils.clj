@@ -15,6 +15,9 @@
 (defn remove-nodes [g nodes]
   (apply graph/remove-nodes g nodes))
 
+(defn remove-edges [g edges]
+  (apply graph/remove-edges g edges))
+
 (defn find-nodes [g query]
   (->> (graph/nodes g)
        (map (partial uber/node-with-attrs g))
