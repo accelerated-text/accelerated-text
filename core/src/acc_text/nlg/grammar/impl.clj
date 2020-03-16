@@ -67,6 +67,7 @@
         {category :category :as attrs} (attrs graph node-id)]
     {:oper [[cat
              (cond
+               (= "Str" in-edge-category) "Str"
                (= "Str" category) "{s : Str}"
                (nil? in-edge-category) "Text"
                :else category)
