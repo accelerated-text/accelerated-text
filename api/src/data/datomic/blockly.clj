@@ -52,6 +52,7 @@
                           :document-plan/data-sample-id  (:dataSampleId data-item)
                           :document-plan/name            (:name data-item)
                           :document-plan/kind            (:kind data-item)
+                          :document-plan/examples        (:examples data-item)
                           :document-plan/blockly-xml     (:blocklyXml data-item)
                           :document-plan/document-plan   (prepare-document-plan (:documentPlan data-item))
                           :document-plan/created-at      current-ts
@@ -100,6 +101,7 @@
    :uid           (:document-plan/uid document-plan)
    :name          (:document-plan/name document-plan)
    :kind          (:document-plan/kind document-plan)
+   :examples      (:document-plan/examples document-plan)
    :blocklyXml    (:document-plan/blockly-xml document-plan)
    :documentPlan  (doc-plan->document-plan (:document-plan/document-plan document-plan))
    :createdAt     (:document-plan/created-at document-plan)
@@ -132,6 +134,7 @@
                           :document-plan/data-sample-id  (:dataSampleId data-item)
                           :document-plan/name            (:name data-item)
                           :document-plan/kind            (:kind data-item)
+                          :document-plan/examples        (:examples data-item)
                           :document-plan/blockly-xml     (:blocklyXml data-item)
                           :document-plan/document-plan   (prepare-document-plan (:documentPlan data-item))
                           :document-plan/updated-at      current-ts

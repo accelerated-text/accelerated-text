@@ -13,7 +13,7 @@
           {}
           relations))
 
-(defn document-plan->amr [{:keys [id name documentPlan] :as entity}]
+(defn document-plan->amr [{:keys [id name documentPlan examples] :as entity}]
   (let [{concepts ::sg/concepts :as semantic-graph} (document-plan->semantic-graph
                                                       documentPlan
                                                       {:var-names (dp/get-variable-names entity)})]
@@ -21,6 +21,7 @@
      :label          name
      :kind           "Str"
      :semantic-graph semantic-graph
+     :frames         [{:examples examples}]
      :roles          (let [categories (get-relation-categories semantic-graph)]
                        (loop [[reference & rs] (filter #(= :reference (:type %)) concepts)
                               index 0 vars #{} roles []]
