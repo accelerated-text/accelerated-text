@@ -12,7 +12,7 @@ services:
       DB_IMPLEMENTATION: datomic
       GRAMMAR_PACKAGE: "/opt/grammar/syntax"
       GRAMMAR_PARADIGMS: "/opt/grammar/paradigms"
-      AMR_GRAMMAR: "/opt/grammar/concept-net.yaml"
+      AMR_GRAMMAR: "/opt/grammar/empty.yaml"
       DICT_PATH: "/opt/grammar/dictionary"
       DOCUMENT_PLANS: "/opt/document-plans"
     volumes:
