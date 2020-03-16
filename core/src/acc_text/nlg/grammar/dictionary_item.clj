@@ -4,9 +4,7 @@
             [clojure.tools.logging :as log]))
 
 (defmulti build-dictionary-item (fn [type {:keys [category language]}]
-                                  ;; if we do  not get type use category value as the default
-                                  ;; ???
-                                  (str/join "/" [language (or type category) category])))
+                                  (str/join "/" [language type category])))
 
 (defmethod build-dictionary-item :default [type {:keys [category language]}]
   (log/errorf "Unknown dictionary-item type pair for %s: %s/%s" language type category)
@@ -36,7 +34,7 @@
 
 (defmethod build-dictionary-item "Rus/N/N" [_ {:keys [forms attributes]}]
   (format "(ParadigmsRus.mkN %s MorphoRus.%s MorphoRus.%s)"
-          (join-forms forms) (get attributes "Gender") (get attributes "Animacy")))
+          (join-forms forms) (get attributes "Gender" "Masc") (get attributes "Animacy" "Inanimate")))
 
 (defmethod build-dictionary-item "Rus/V2/V" [_ {:keys [forms attributes]}]
   (format "(ParadigmsRus.mkV2 (ParadigmsRus.mkV MorphoRus.%s %s) \"\" ParadigmsRus.%s)"

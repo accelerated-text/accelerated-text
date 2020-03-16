@@ -13,8 +13,7 @@
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.string :as str]
             [loom.alg :refer [pre-traverse]]
-            [loom.attr :refer [attrs]]
-            [clojure.tools.logging :as log]))
+            [loom.attr :refer [attrs]]))
 
 (def data-types #{:data :quote :dictionary-item})
 
@@ -31,9 +30,9 @@
 (defn remove-data-types [graph node-ids]
   (remove #(contains? data-types (:type (attrs graph %))) node-ids))
 
-(defmulti build-node (fn [graph node-id _] (:type (attrs graph node-id))))
+(defmulti build-node (fn [graph node-id] (:type (attrs graph node-id))))
 
-(defmethod build-node :default [graph node-id _]
+(defmethod build-node :default [graph node-id]
   (let [successors (get-successors graph node-id)
         cat (node->cat graph node-id)]
     {:cat    [cat]
@@ -43,7 +42,7 @@
                                                   (s-node? graph %) (str ".s"))
                                          successors))]}}))
 
-(defmethod build-node :frame [graph node-id _]
+(defmethod build-node :frame [graph node-id]
   (let [successors (get-successors graph node-id)
         cat (node->cat graph node-id)]
     {:cat    [cat]
@@ -53,7 +52,7 @@
                                                  (s-node? graph %) (str ".s"))
                                         successors))]}}))
 
-(defmethod build-node :operation [graph node-id _]
+(defmethod build-node :operation [graph node-id]
   (let [{:keys [name module]} (attrs graph node-id)
         successors (get-successors graph node-id)
         cat (node->cat graph node-id)]
@@ -63,23 +62,21 @@
      :lin    {cat [(cond-> (str module "." name)
                            (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))]}}))
 
-(defmethod build-node :quote [graph node-id _]
+(defmethod build-node :quote [graph node-id]
   (let [cat (node->cat graph node-id)]
     {:oper [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
 
-(defmethod build-node :data [graph node-id lang]
-  (let [cat (get-in graph [:attrs (:id (get-in-edge graph node-id)) :category])]
-    {:oper [[(node->cat graph node-id)
-             (or cat "N")
-             (build-data-item cat (escape-string (:value (attrs graph node-id))) lang)]]}))
+(defmethod build-node :data [graph node-id]
+  (let [cat (node->cat graph node-id)]
+    {:oper [[cat "Str" (format "\"%s\"" (escape-string (:value (attrs graph node-id))))]]}))
 
-(defmethod build-node :dictionary-item [graph node-id _]
+(defmethod build-node :dictionary-item [graph node-id]
   (let [cat (node->cat graph node-id)
         in-edge-category (get-in graph [:attrs (:id (get-in-edge graph node-id)) :category])
         {category :category :as attrs} (attrs graph node-id)]
     {:oper [[cat category (build-dictionary-item in-edge-category attrs)]]}))
 
-(defmethod build-node :synonyms [graph node-id _]
+(defmethod build-node :synonyms [graph node-id]
   (let [successors (get-successors graph node-id)
         category (:category (attrs graph node-id))
         cat (node->cat graph node-id)]
@@ -96,9 +93,9 @@
       (attach-amrs context)
       (determine-conditions context)
       (prune-graph)
-      (resolve-data context)
       (resolve-polarity)
       (resolve-dictionary-items context)
+      (resolve-data context)
       (resolve-lists)
       (resolve-modifiers)
       (add-concept-position)))
@@ -115,7 +112,7 @@
                                (map? acc) (merge acc val)
                                (coll? acc) (concat acc val)))
                            grammar
-                           (build-node graph node-id (get-in context [:constants "*Language"]))))
+                           (build-node graph node-id)))
              {:module   module
               :instance instance
               :flags    {:startcat (node->cat graph start-id)}

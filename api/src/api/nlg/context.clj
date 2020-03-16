@@ -37,6 +37,7 @@
      {:amr        amr
       :data       data
       :dictionary (build-dictionary-context (into #{} (concat
+                                                        (vals data)
                                                         (get-dictionary-item-keys semantic-graph)
                                                         (mapcat #(get-dictionary-item-keys (:semantic-graph %))
                                                                 (vals amr))))
