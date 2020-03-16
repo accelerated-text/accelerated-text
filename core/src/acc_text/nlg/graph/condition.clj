@@ -53,7 +53,7 @@
       (comparison operator (for [{:keys [type value name]} (map #(attrs g %) successors)]
                              (case type
                                :quote value
-                               :data (get data (keyword value))
+                               :data (get data (keyword name))
                                :constant (get constants name)))))))
 
 (defmethod evaluate-predicate :boolean [g node-id context]
@@ -63,7 +63,7 @@
       (operator-fn (map #(evaluate-predicate g % context) successors)))))
 
 (defmethod evaluate-predicate :data [g node-id {data :data}]
-  (string->boolean (get data (:value (attrs g node-id)))))
+  (string->boolean (get data (keyword (:name (attrs g node-id))))))
 
 (defn evaluate-statement [g node-id context]
   (case (:type (attrs g node-id))
