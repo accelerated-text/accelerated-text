@@ -1,5 +1,5 @@
 (ns acc-text.nlg.grammar.impl
-  (:require [acc-text.nlg.grammar.dictionary-item :refer [build-dictionary-item-]]
+  (:require [acc-text.nlg.grammar.dictionary-item :refer [build-dictionary-item]]
             [acc-text.nlg.graph.amr :refer [attach-amrs]]
             [acc-text.nlg.graph.condition :refer [determine-conditions]]
             [acc-text.nlg.graph.data :refer [resolve-data]]
@@ -8,6 +8,7 @@
             [acc-text.nlg.graph.modifier :refer [resolve-modifiers]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
             [acc-text.nlg.graph.utils :refer [find-root-id get-successors get-in-edge add-concept-position prune-graph]]
+            [acc-text.nlg.graph.variables :refer [resolve-variables]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.string :as str]
             [loom.alg :refer [pre-traverse]]
@@ -69,7 +70,7 @@
                (= "Str" category) "{s : Str}"
                (nil? in-edge-category) "Text"
                :else category)
-             (build-dictionary-item- in-edge-category attrs)]]}))
+             (build-dictionary-item in-edge-category attrs)]]}))
 
 (defmethod build-node :synonyms [graph node-id]
   (let [successors (get-successors graph node-id)
@@ -88,6 +89,7 @@
       (attach-amrs context)
       (determine-conditions context)
       (prune-graph)
+      (resolve-variables)
       (resolve-polarity)
       (resolve-dictionary-items context)
       (resolve-data context)
