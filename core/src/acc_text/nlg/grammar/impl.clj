@@ -70,7 +70,7 @@
 (defmethod build-node :data [graph node-id lang]
   (let [cat (get-in graph [:attrs (:id (get-in-edge graph node-id)) :category])]
     {:oper [[(node->cat graph node-id)
-             cat
+             (or cat "N")
              (build-data-item cat (escape-string (:value (attrs graph node-id))) lang)]]}))
 
 (defmethod build-node :dictionary-item [graph node-id _]

@@ -18,13 +18,19 @@
                    (repeat 13 quoted-form)))
       "A" (format "(ParadigmsRus.mkA %s)" quoted-form)
       nil (do
-            (log/errorf "Unknown category for data type for %s: %s" category form)
+            (log/errorf "Unknown category for data type for %s: %s. Building with cat N" category form)
+            ;; FIXME we get there via data use in IFs is this the best way to handle it?
+            (format "(ParadigmsRus.mkN %s Masc Inanimate)" (join-forms (repeat 13 quoted-form)))
             nil))))
+
+(defn english-forms [category form]
+  ;;FIXME see comment in russian-forms
+  (format "(ParadigmsEng.mk%s %s)" (or category "N") form))
 
 (defn build-data-item [category form language]
   (let [quoted-form (format "\"%s\"" form)]
     (condp = language
-      "Eng" (format "(ParadigmsEng.mk%s %s)" category quoted-form)
+      "Eng" (english-forms category quoted-form)
       "Rus" (russian-forms category form)
       (do
         (log/errorf "Unknown Data item type for %s: %s" language form)

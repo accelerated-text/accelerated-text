@@ -4,7 +4,9 @@
             [clojure.tools.logging :as log]))
 
 (defmulti build-dictionary-item (fn [type {:keys [category language]}]
-                                  (str/join "/" [language type category])))
+                                  ;; if we do  not get type use category value as the default
+                                  ;; ???
+                                  (str/join "/" [language (or type category) category])))
 
 (defmethod build-dictionary-item :default [type {:keys [category language]}]
   (log/errorf "Unknown dictionary-item type pair for %s: %s/%s" language type category)
