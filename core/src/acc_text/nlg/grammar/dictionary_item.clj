@@ -51,7 +51,9 @@
 
 (defmethod build-dictionary-item "Rus/N/N" [_ {:keys [forms attributes]}]
   (format "(ParadigmsRus.mkN %s MorphoRus.%s MorphoRus.%s)"
-          (join-forms forms) (get attributes "Gender" "Masc") (get attributes "Animacy" "Inanimate")))
+          (join-forms (if (= 1 (count forms)) (repeat 13 (first forms)) forms))
+          (get attributes "Gender" "Masc")
+          (get attributes "Animacy" "Inanimate")))
 
 (defmethod build-dictionary-item "Rus/V2/V" [_ {:keys [forms attributes]}]
   (format "(ParadigmsRus.mkV2 (ParadigmsRus.mkV MorphoRus.%s %s) \"\" ParadigmsRus.%s)"
