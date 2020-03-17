@@ -10,6 +10,7 @@
             [acc-text.nlg.graph.utils :refer [find-root-id get-successors get-in-edge add-concept-position prune-graph]]
             [acc-text.nlg.graph.variables :refer [resolve-variables]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
+            [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]
             [loom.alg :refer [pre-traverse]]
             [loom.attr :refer [attrs]]))
@@ -83,6 +84,21 @@
      :lin    {cat (map #(cond-> (node->cat graph %)
                                 (and (s-node? graph %) (nil? category)) (str ".s"))
                        successors)}}))
+
+(defmethod build-node :shuffle [graph node-id]
+  (let [successors (get-successors graph node-id)
+        category (:category (attrs graph node-id))
+        cat (node->cat graph node-id)]
+    {:cat    [cat]
+     :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
+     :lincat {cat (or category "Str")}
+     :lin    {cat [(str/join " | " (map (fn [group]
+                                          (->> (map #(cond-> (node->cat graph %)
+                                                             (and (s-node? graph %) (nil? category)) (str ".s"))
+                                                    group)
+                                               (str/join " ++ ")
+                                               (format "(%s)")))
+                                        (permutations successors)))]}}))
 
 (defn ->graph [semantic-graph context]
   (-> semantic-graph

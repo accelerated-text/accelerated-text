@@ -12,4 +12,4 @@
                               (some? category) (update-in [:attrs node-id] #(assoc % :category category)))
                       (graph/out-edges g node-id))))
           g
-          (find-nodes g {:type :synonyms})))
+          (concat (find-nodes g {:type :synonyms}) (find-nodes g {:type :shuffle}))))
