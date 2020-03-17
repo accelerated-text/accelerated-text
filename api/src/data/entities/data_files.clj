@@ -45,3 +45,11 @@
 
 (defn read-data-file-content [_ key]
   (:content (db/read! data-files-db key)))
+
+(defn data-file-path []
+  (or (System/getenv "DATA_FILES") "resources/data-files"))
+
+(defn initialize []
+  (doseq [f (utils/list-files (data-file-path))]
+    (store! {:filename (utils/get-name f)
+             :content  (slurp f)})))

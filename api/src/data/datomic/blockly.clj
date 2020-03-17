@@ -1,8 +1,7 @@
 (ns data.datomic.blockly
-  (:require
-    [data.utils :as utils]
-    [data.datomic.utils :refer [remove-nil-vals]]
-    [datomic.api :as d]))
+  (:require [data.utils :as utils]
+            [data.datomic.utils :refer [remove-nil-vals]]
+            [datomic.api :as d]))
 
 (defn remove-empty-or-nil-vals [m]
   (into {}

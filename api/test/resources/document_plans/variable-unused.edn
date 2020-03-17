@@ -1,9 +1,0 @@
-{:type     "Document-plan"
- :segments [{:name  "FXEsYFHf/r{9U]UT=p-["
-             :value {:type "Quote" :srcId "5AJTy!d0ro))GZC.)~!E" :text "some text"}
-             :type  "Define-var"
-             :srcId "7jMJ(/f=g/Hb$EWe-iww"}
-            {:children [{:type "Quote" :srcId "DHhi9lX5|Z+i(/ho%GZ{" :text "some text"}]
-             :type     "Segment"
-             :srcId    "4uT3cDE#!H752m5MlqnU"}]
- :srcId    "T*5{:n*`{cF3Cew`oktA"}

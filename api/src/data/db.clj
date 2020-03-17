@@ -1,6 +1,5 @@
 (ns data.db
   (:require [data.datomic.impl :as datomic]
-            [data.ddb.impl :as ddb]
             [data.protocol :as protocol]
             [data.utils :as utils]))
 
@@ -22,6 +21,5 @@
   ([resource-type] (db-access resource-type {}))
   ([resource-type config]
    (case (:db-implementation config)
-     :dynamodb (ddb/db-access resource-type config)
      :datomic (datomic/db-access resource-type config)
      (datomic/db-access resource-type config))))

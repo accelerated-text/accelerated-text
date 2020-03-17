@@ -116,6 +116,7 @@
         port (get conf :port 3001)]
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
     (document-plan/initialize)
+    (data-files/initialize)
     (dictionary/initialize)
     (rgl/initialize)
     (server/run-server

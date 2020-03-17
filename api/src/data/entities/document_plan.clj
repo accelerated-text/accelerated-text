@@ -41,5 +41,6 @@
   (or (System/getenv "DOCUMENT_PLANS") "grammar/document-plans"))
 
 (defn initialize []
-  (doseq [{id :id :as dp} (->> (document-plan-path) (utils/list-files) (map utils/read-json))]
-    (-> dp (update :documentPlan utils/read-json-str) (add-document-plan id))))
+  (doseq [dp (->> (document-plan-path) (utils/list-files) (map utils/read-json))]
+    (add-document-plan (cond-> dp
+                               (string? (:documentPlan dp)) (update :documentPlan utils/read-json-str)))))

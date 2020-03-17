@@ -1,8 +1,0 @@
-{:type     "Document-plan"
- :segments [{:children [{:name  "categories"
-                         :type  "Cell-modifier"
-                         :srcId "7z9K-PL33!Y{$lPr:yw{"
-                         :child {:type "Quote" :srcId "1RPLkR#pe69/SjM{XP5I" :text "book"}}]
-             :type     "Segment"
-             :srcId    "yOUg?dO~p-ouMYB[hEJ-"}]
- :srcId    "pUcCk!I[LQX0L/0*cs2-"}

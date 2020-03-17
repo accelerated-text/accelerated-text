@@ -3,12 +3,11 @@
             [api.config :refer [conf]]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
             [clojure.tools.logging :as log]
             [mount.core :refer [defstate]])
-  (:import (java.io File PushbackReader)))
+  (:import (java.io PushbackReader)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
 
@@ -67,15 +66,13 @@
   ([keys languages]
    (db/scan! dictionary-db {:keys keys :languages languages})))
 
-(defn list-dictionary-files []
-  (->> (file-seq (io/file (or (System/getenv "DICT_PATH") "grammar/dictionary")))
-       (filter #(.isFile ^File %))
-       (filter #(str/ends-with? (.getName %) "edn"))))
+(defn dictionary-path []
+  (or (System/getenv "DICT_PATH") "resources/dictionary"))
 
 (defn initialize []
   (doseq [[flag value] (get-default-flags)]
     (db/write! reader-flags-db flag value))
-  (doseq [f (list-dictionary-files)]
+  (doseq [f (utils/list-files (dictionary-path))]
     (with-open [r (io/reader f)]
       (doseq [item (edn/read (PushbackReader. r))]
         (create-dictionary-item item)))))
