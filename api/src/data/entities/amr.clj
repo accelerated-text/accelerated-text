@@ -18,7 +18,7 @@
      :label          name
      :kind           "Str"
      :semantic-graph semantic-graph
-     :frames         [{:examples examples}]
+     :frames         [{:examples (or examples [])}]
      :roles          (let [categories (get-relation-categories semantic-graph)]
                        (loop [[reference & rs] (filter #(= :reference (:type %)) concepts)
                               index 0 vars #{} roles []]

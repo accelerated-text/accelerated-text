@@ -29,16 +29,16 @@
     "not" (fn [[arg]] (when (boolean? arg) (not arg)))
     "xor" (fn [args] (odd? (count (filter true? args))))))
 
-(defn normalize [x]
-  (cond-> x
-          (string? x) (str/trim)
-          (try
-            (bigdec x)
-            (catch Exception _)) (bigdec)))
+(defn normalize [xs]
+  (->> xs
+       (map #(cond-> % (string? %) (str/trim)))
+       (map #(cond-> % (try
+                         (bigdec %)
+                         (catch Exception _)) (bigdec)))))
 
 (defn comparison [operator args]
   (let [operator-fn (operator->fn operator)
-        normalized-args (map normalize args)]
+        normalized-args (normalize args)]
     (when (and (< 1 (count args)) (or (contains? #{"=" "!=" "in"} operator)
                                       (and (contains? #{"<" "<=" ">" ">="} operator)
                                            (every? number? normalized-args))))

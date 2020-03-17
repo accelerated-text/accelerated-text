@@ -31,7 +31,7 @@
     "English" "Eng"
     "Estonian" "Est"
     "German" "Ger"
-    "Latvian" "Lat"
+    "Latvian" "Lav"
     "Russian" "Rus"))
 
 (defn default-language []

@@ -47,7 +47,7 @@
 
 (deftest ^:integration reading-data-file-contents
   (testing "Read books.csv headers"
-    (let [data-file-id (load-data-file "books")
+    (let [data-file-id (load-data-file "books.csv")
           result (data-files/read-data-file-content nil data-file-id)
           headers (-> result (str/split-lines) (first) (str/split #",") (set))]
       (is (= #{"authors" "categories" "pageCount" "publishedDate" "publisher" "subtitle" "title"} headers)))))

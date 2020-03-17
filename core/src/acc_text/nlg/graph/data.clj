@@ -13,16 +13,19 @@
                                              :attributes (or attributes {})}))))
 
 (defn resolve-by-category [g node-id value lang]
-  (reduce (fn [g in-edge]
-            (assoc-in g [:attrs node-id] {:type     :dictionary-item
-                                          :category (or (:category (attrs g in-edge)) "Str")
-                                          :language lang
-                                          :forms    (case lang
-                                                      "Eng" (repeat 4 value)
-                                                      "Rus" (repeat 13 value)
-                                                      :else value)}))
-          g
-          (graph/in-edges g node-id)))
+  (let [{type :type} (attrs g node-id)]
+    (reduce (fn [g in-edge]
+              (assoc-in g [:attrs node-id] {:type     :dictionary-item
+                                            :category (or (:category (attrs g in-edge)) "Str")
+                                            :language lang
+                                            :forms    (if (= :data type)
+                                                        (case lang
+                                                          "Eng" (repeat 4 value)
+                                                          "Rus" (repeat 13 value)
+                                                          [value])
+                                                        [value])}))
+            g
+            (graph/in-edges g node-id))))
 
 (defn resolve-data [g {:keys [data dictionary constants]}]
   (reduce (fn [g [node-id {:keys [name value]}]]

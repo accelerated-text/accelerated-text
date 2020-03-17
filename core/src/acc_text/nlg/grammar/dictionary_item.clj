@@ -8,9 +8,9 @@
 (defmulti build-dictionary-item (fn [type {:keys [category language]}]
                                   (str/join "/" [language (or type "s:Str") category])))
 
-(defmethod build-dictionary-item :default [type {:keys [category language]}]
-  (log/errorf "Unknown dictionary-item type pair for %s: %s/%s" language (or type "s:Str") category)
-  "\"\"")
+(defmethod build-dictionary-item :default [type {:keys [category language forms]}]
+  (log/warnf "Unknown dictionary-item type pair for %s: %s/%s" language (or type "s:Str") category)
+  (format "\"%s\"" (if (some? (first forms)) (escape-string (first forms)) "")))
 
 (defn join-forms [forms]
   (->> forms
