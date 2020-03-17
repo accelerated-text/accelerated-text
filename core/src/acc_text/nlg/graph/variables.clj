@@ -1,5 +1,5 @@
 (ns acc-text.nlg.graph.variables
-  (:require [acc-text.nlg.graph.utils :refer [find-nodes get-in-edge]]
+  (:require [acc-text.nlg.graph.utils :refer [find-nodes]]
             [loom.graph :as graph]))
 
 (defn resolve-variables [g]

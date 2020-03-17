@@ -1,7 +1,7 @@
 (ns acc-text.nlg.core-test
   (:require [acc-text.nlg.core :as core]
             [acc-text.nlg.test-utils :as test-utils]
-            [clojure.test :refer [deftest is are]]))
+            [clojure.test :refer [deftest are]]))
 
 (deftest ^:integration multi-language-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "language-test")
