@@ -4,7 +4,8 @@
             [clojure.java.io :as io]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]]
+            [clojure.tools.logging :as log]))
 
 (defstate document-plans-db :start (db/db-access :blockly conf))
 
@@ -38,9 +39,8 @@
               vars))))
 
 (defn document-plan-path []
-  (or (System/getenv "DOCUMENT_PLANS") "grammar/document-plans"))
+  (or (System/getenv "DOCUMENT_PLANS") "resources/document-plans"))
 
 (defn initialize []
-  (doseq [dp (->> (document-plan-path) (utils/list-files) (map utils/read-json))]
-    (add-document-plan (cond-> dp
-                               (string? (:documentPlan dp)) (update :documentPlan utils/read-json-str)))))
+  (doseq [{id :id :as dp} (->> (document-plan-path) (utils/list-files) (map utils/read-json))]
+    (add-document-plan (cond-> dp (string? (:documentPlan dp)) (update :documentPlan utils/read-json-str)) id)))
