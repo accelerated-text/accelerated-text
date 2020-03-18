@@ -1,13 +1,10 @@
 (ns api.test-utils
   (:require [api.server :as server]
             [api.utils :as utils]
-            [clojure.edn :as edn]
-            [clojure.java.io :as io]
-            [clojure.string :as string]
             [jsonista.core :as json]
-            [clojure.tools.logging :as log])
-  (:import (java.io PushbackReader)
-           (org.httpkit BytesInputStream)))
+            [clojure.tools.logging :as log]
+            [data.entities.data-files :as data-files])
+  (:import (org.httpkit BytesInputStream)))
 
 (def headers {"origin"                         "http://localhost:8080"
               "host"                           "0.0.0.0:3001"
@@ -44,17 +41,36 @@
                  (update :body #(json/read-value % utils/read-mapper))
                  (handle-http-error)))))
 
-(defn load-test-document-plan [filename]
-  (with-open [r (io/reader (format "test/resources/document_plans/%s.edn" filename))]
-    (edn/read (PushbackReader. r))))
+(defn load-data-file [filename]
+  (data-files/store!
+    {:filename filename
+     :content  (slurp (format "test/resources/data-files/%s" filename))}))
 
-(defn rebuild-sentence [tokens]
-  (->> tokens
-       (map (fn [{type :type text :text}]
-          (case (keyword type)
-            :WORD (str " " text)
-            :PUNCTUATION (if (re-find #"^[.,?!:]" text)
-                           text
-                           (str " " text)))))
-       (apply str)
-       (string/trim)))
+(defn wait-for-results [result-id]
+  (while (false? (get-in (q (str "/nlg/" result-id) :get nil {:format "raw"}) [:body :ready]))
+    (Thread/sleep 100)))
+
+(defn get-variants [result-id]
+  (when (some? result-id)
+    (wait-for-results result-id)
+    (let [response (q (str "/nlg/" result-id) :get nil {:format "raw"})
+          variants (get-in response [:body :variants])]
+      (into {} (map (fn [item] (let [[k v] item] {(keyword k) (set v)})) variants)))))
+
+(defn get-original-results [result-id]
+  (->>
+    result-id
+    (get-variants)
+    :sample
+    (map :original)
+    (set)))
+
+(defn generate-text
+  ([document-plan-id]
+   (generate-text document-plan-id {"English" true}))
+  ([document-plan-id reader-flags]
+   (generate-text document-plan-id reader-flags nil))
+  ([document-plan-id reader-flags data-id]
+   (q "/nlg/" :post {:documentPlanId   document-plan-id
+                     :readerFlagValues reader-flags
+                     :dataId           data-id})))

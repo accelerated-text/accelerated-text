@@ -18,7 +18,7 @@
     "PN"
     "V" "V0" "V2" "V3" "V2A" "V2Q" "V2S" "V2V" "VA" "VP" "VQ" "VS" "VV"})
 
-(s/def ::language #{"Eng" "Ger" "Est" "Lit" "Lat" "Rus"})
+(s/def ::language #{"Eng" "Ger" "Est" "Lit" "Lav" "Rus"})
 
 (s/def ::forms (s/coll-of word?))
 

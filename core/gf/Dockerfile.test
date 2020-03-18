@@ -17,10 +17,5 @@ RUN dpkg -i gf_3.10-2_amd64.deb && rm -rf gf_3.10-2_amd64.deb
 ADD core/gf/server.py server.py
 ADD core/gf/test.py test.py
 ADD core/test/resources/gf/ test_grammars/
-ADD core/gf/lang-utils /opt/gf/lang-utils
-ADD core/gf/concept-net /opt/gf/concept-net
-
-RUN gf -make /opt/gf/lang-utils/*.gf
-RUN gf -make /opt/gf/concept-net/*.gf
 
 CMD ["pytest", "test.py"]

@@ -1,4 +1,4 @@
-lint-code:
+lint:
 	clojure -Sdeps '{:deps {clj-kondo {:mvn/version "RELEASE"}}}' -m clj-kondo.main --lint src test
 
 unit-tests:
@@ -13,7 +13,8 @@ run-local:
 	clojure -A:dev -m api.server
 
 export-document-plan:
-	curl -s -X POST http://localhost:3001/_graphql \
+	@curl -s -X POST http://localhost:3001/_graphql \
 	     -H "Content-Type: application/json" \
 	     -d "{\"query\": \"{documentPlan(id:\\\"$(id)\\\",name:\\\"$(name)\\\",kind:\\\"Document\\\"){id uid name kind blocklyXml documentPlan}}\"}" | \
-	jq -r '.data.documentPlan'
+	jq -r '.data.documentPlan' | \
+	jq '.documentPlan = (.documentPlan | fromjson)'

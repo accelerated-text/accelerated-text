@@ -65,7 +65,7 @@
          semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph {:languages languages :data data})]
      (mapcat (fn [lang]
-               (generate-text-for-language semantic-graph (update context :dictionary #(get % lang)) enrich lang))
+               (generate-text-for-language semantic-graph (update context :dictionary #(get % lang {})) enrich lang))
              languages))))
 
 (defn generation-process [document-plan rows reader-model enrich]
@@ -76,7 +76,8 @@
                             [row-key (generate-text document-plan data reader-model enrich)])
                           rows))}
     (catch Exception e
-      (log/errorf "Failed to generate text: %s" (utils/get-stack-trace e))
+      (log/errorf "Failed to generate text: %s" e)
+      (log/trace (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
 
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues enrich :enrich}]
@@ -129,7 +130,7 @@
                     "Eng" "🇬🇧"
                     "Ger" "🇩🇪"
                     "Est" "🇪🇪"
-                    "Lat" "🇱🇻"
+                    "Lav" "🇱🇻"
                     "Rus" "🇷🇺"
                     "🏳️") text))
 

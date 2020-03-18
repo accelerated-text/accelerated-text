@@ -1,3 +1,0 @@
-FROM localstack/localstack:0.10.4
-
-COPY ./api/localstack/ /docker-entrypoint-initaws.d

@@ -1,8 +1,0 @@
-{:type     "Document-plan"
- :segments [{:children [{:modifier {:type "Quote" :srcId "5pW:}{pZNQjzyc^2yqP`" :text "nice"}
-                         :type     "Modifier"
-                         :srcId    "v[$d;[^*W5hKrI].c=0r"
-                         :child    {:type "Quote" :srcId "V=i}pOw^wD~=SmLY7](_" :text "text"}}]
-             :type     "Segment"
-             :srcId    "b/}9b(|ZVspx}A$b5bp7"}]
- :srcId    "6Qb`qjUR-:?SyE8sQm`"}

@@ -1,8 +1,9 @@
 (ns acc-text.nlg.enrich.core
   (:require [clojure.tools.logging :as log]
             [jsonista.core :as json]
-            [org.httpkit.client :as client]
-            [acc-text.nlg.utils :as utils]))
+            [org.httpkit.client :as client]))
+
+(def read-mapper (json/object-mapper {:decode-key-fn true}))
 
 (defn enrich-request
   [context text]
@@ -16,4 +17,4 @@
                           :headers {"Content-type" "application/json"}
                           :body    (json/write-value-as-string request-content)})
         (get :body)
-        (json/read-value utils/read-mapper))))
+        (json/read-value read-mapper))))

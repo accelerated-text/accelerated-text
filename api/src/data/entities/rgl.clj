@@ -22,11 +22,11 @@
     (delete-rgl id))
   (db/write! rgl-db id entity))
 
-(defn rgl-package-path []
-  (or (System/getenv "GRAMMAR_PACKAGE") "grammar/syntax"))
+(defn rgl-syntax-path []
+  (or (System/getenv "GRAMMAR_SYNTAX") "resources/syntax"))
 
 (defn rgl-paradigms-path []
-  (or (System/getenv "GRAMMAR_PARADIGMS") "grammar/paradigms"))
+  (or (System/getenv "GRAMMAR_PARADIGMS") "resources/paradigms"))
 
 (defn read-rgl [f]
   (let [{:keys [module functions]} (utils/read-edn f)]
@@ -49,7 +49,7 @@
 
 (defn read-library
   ([]
-   (read-library (rgl-package-path)))
+   (read-library (rgl-syntax-path)))
   ([path]
    (mapcat read-rgl (utils/list-files path))))
 

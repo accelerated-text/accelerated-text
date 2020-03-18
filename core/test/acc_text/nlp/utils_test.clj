@@ -7,4 +7,3 @@
 
 (deftest tokenize-russian-word
   (is (= ["местo"] (utils/tokenize "местo"))))
-
