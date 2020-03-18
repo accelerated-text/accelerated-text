@@ -4,8 +4,7 @@
             [clojure.java.io :as io]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]
-            [clojure.tools.logging :as log]))
+            [mount.core :refer [defstate]]))
 
 (defstate document-plans-db :start (db/db-access :blockly conf))
 
