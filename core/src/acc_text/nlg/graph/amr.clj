@@ -42,9 +42,10 @@
   (letfn [(attach-fn [g]
             (reduce (fn [g [node-id {amr-name :name}]]
                       (let [{sg :semantic-graph frames :frames :as amr} (get amr-map amr-name)]
-                        (cond-> g
-                                (some? sg) (attach-amr (semantic-graph->ubergraph sg) node-id)
-                                (some? frames) (attach-rgl amr node-id))))
+                        (cond
+                          (some? sg) (attach-amr g (semantic-graph->ubergraph sg) node-id)
+                          (some? frames) (attach-rgl g amr node-id)
+                          :else (throw (Exception. (format "AMR not found in context: `%s`" amr-name))))))
                     g
                     (find-nodes g {:type :amr})))]
     (-> g (attach-fn) (attach-fn) (attach-fn))))
