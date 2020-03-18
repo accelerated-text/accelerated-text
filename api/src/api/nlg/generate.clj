@@ -20,8 +20,8 @@
 (s/def ::dataRow (s/map-of string? string?))
 (s/def ::dataRows (s/map-of ::key ::dataRow))
 (s/def ::readerFlagValues (s/map-of string? boolean?))
-(s/def ::generate-req (s/keys :req-un [::documentPlanId ::dataId]
-                              :opt-un [::readerFlagValues ::enrich]))
+(s/def ::generate-req (s/keys :req-un [::documentPlanId]
+                              :opt-un [::dataId ::readerFlagValues ::enrich]))
 (s/def ::generate-bulk (s/keys :req-un [::documentPlanId ::dataRows]
                                :opt-un [::readerFlagValues ::enrich]))
 
@@ -83,7 +83,7 @@
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues enrich :enrich}]
   (let [result-id (utils/gen-uuid)
         {document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)
-        row (nth (get-data data-id) (or data-sample-row 0))]
+        row (if data-id (nth (get-data data-id) (or data-sample-row 0)) {})]
     (results/store-status result-id {:ready false})
     (results/rewrite result-id (generation-process document-plan {:sample row} reader-model enrich))
     {:status 200
