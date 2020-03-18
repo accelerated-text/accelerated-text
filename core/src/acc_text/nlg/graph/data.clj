@@ -33,6 +33,6 @@
               (if (contains? dictionary value)
                 (add-existing-dictionary-item g node-id (get dictionary value))
                 (resolve-by-category g node-id value (get constants "*Language")))
-              (graph/remove-nodes g node-id)))
+              (throw (Exception. (format "Missing value for data cell: `%s`" name)))))
           g
           (concat (find-nodes g {:type :data}) (find-nodes g {:type :quote}))))
