@@ -16,11 +16,11 @@ services:
       DICT_PATH: "/opt/dictionary"
       DOCUMENT_PLANS: "/opt/document-plans"
     volumes:
-      - ./resources/syntax:/opt/syntax
-      - ./resources/paradigms:/opt/paradigms
-      - ./resources/data-files:/opt/data-files
-      - ./resources/dictionary:/opt/dictionary
-      - ./resources/document-plans:/opt/document-plans
+      - ./api/resources/syntax:/opt/syntax
+      - ./api/resources/paradigms:/opt/paradigms
+      - ./api/resources/data-files:/opt/data-files
+      - ./api/resources/dictionary:/opt/dictionary
+      - ./api/resources/document-plans:/opt/document-plans
   gf:
     build:
       context: .
