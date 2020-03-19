@@ -16,10 +16,10 @@ services:
       DOCUMENT_PLANS: "/opt/document-plans"
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
-      - ./resources:/opt
-      - ./test/resources/data-files:/opt/data-files
-      - ./test/resources/dictionary:/opt/dictionary
-      - ./test/resources/document-plans:/opt/document-plans
+      - ./resources:/opt:ro
+      - ./test/resources/data-files:/opt/data-files:ro
+      - ./test/resources/dictionary:/opt/dictionary:ro
+      - ./test/resources/document-plans:/opt/document-plans:ro
   gf:
     build:
       context: ../
