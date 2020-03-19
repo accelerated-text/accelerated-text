@@ -1,14 +1,14 @@
-(ns acc-text.nlg.semantic-graph.conditions-test
-  (:require [acc-text.nlg.graph.condition :as conditions]
+(ns acc-text.nlg.graph.condition-test
+  (:require [acc-text.nlg.graph.condition :as condition]
             [clojure.test :refer [deftest testing is are]]))
 
 (deftest arg-normalization
-  (is (= [nil "" "abc" 5M 1.0M 5M 1.0M] (conditions/normalize [nil "" "abc" "5" "1.0" 5 1.0]))))
+  (is (= [nil "" "abc" 5M 1.0M 5M 1.0M] (condition/normalize [nil "" "abc" "5" "1.0" 5 1.0]))))
 
 (deftest comparison
   (testing "Result is true"
     (are [operator args]
-      (true? (conditions/comparison operator args))
+      (true? (condition/comparison operator args))
       "=" [1 "1" "1.0"]
       "=" ["" "" " "]
       "=" ["Abc" "Abc"]
@@ -22,7 +22,7 @@
       ">=" [2.1 "2"]))
   (testing "Result is false"
     (are [operator args]
-      (false? (conditions/comparison operator args))
+      (false? (condition/comparison operator args))
       "=" [1 "1" "1.0001"]
       "=" ["" " " "."]
       "=" ["Abc" "abc"]
@@ -35,5 +35,4 @@
       ">=" ["1.99" 2]
       ">=" [1.99 "2"]))
   (testing "Edge cases"
-    (is (nil? (conditions/comparison "=" [])))))
-
+    (is (nil? (condition/comparison "=" [])))))
