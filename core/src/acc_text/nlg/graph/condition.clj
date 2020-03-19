@@ -18,6 +18,7 @@
 (defn operator->fn [x]
   (case x
     "=" =
+    "==" =
     "!=" not=
     "<" <
     "<=" <=
@@ -39,7 +40,7 @@
 (defn comparison [operator args]
   (let [operator-fn (operator->fn operator)
         normalized-args (normalize args)]
-    (when (and (< 1 (count args)) (or (contains? #{"=" "!=" "in"} operator)
+    (when (and (< 1 (count args)) (or (contains? #{"=" "==" "!=" "in"} operator)
                                       (and (contains? #{"<" "<=" ">" ">="} operator)
                                            (every? number? normalized-args))))
       (apply operator-fn normalized-args))))
