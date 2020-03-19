@@ -1,38 +1,38 @@
-{:module   "Simple"
- :instance "Instance"
- :flags    {:startcat "DocumentPlan01"}
- :cat      ("DocumentPlan01" "Segment02" "Frame03" "Frame04"
-             "Operation05" "Operation06" "Operation07"
-             "Operation08" "Operation10" "Operation11")
- :fun      {"DocumentPlan01" ("Segment02")
-            "Segment02"      ("Frame03")
-            "Frame03"        ("Frame04")
-            "Frame04"        ("Operation05")
-            "Operation05"    ("Operation06")
-            "Operation06"    ("Operation07")
-            "Operation07"    ("Operation10" "Operation08")
-            "Operation08"    ()
-            "Operation10"    ("Operation11")
-            "Operation11"    ()}
- :lincat   {"DocumentPlan01" "Str"
-            "Segment02"      "Str"
-            "Frame03"        "Str"
-            "Frame04"        "Str"
-            "Operation05"    "Text"
-            "Operation06"    "S"
-            "Operation07"    "Cl"
-            "Operation08"    "V"
-            "Operation10"    "NP"
-            "Operation11"    "N"}
- :lin      {"DocumentPlan01" ["Segment02"]
-            "Segment02"      ["Frame03"]
-            "Frame03"        ["Frame04"]
-            "Frame04"        ["Operation05.s"]
-            "Operation05"    ["Syntax.mkText Operation06"]
-            "Operation06"    ["Syntax.mkS Operation07"]
-            "Operation07"    ["Syntax.mkCl Operation10 Operation08"]
-            "Operation08"    ["ParadigmsEng.mkV DictionaryItem09"]
-            "Operation10"    ["Syntax.mkNP Operation11"]
-            "Operation11"    ["ParadigmsEng.mkN DictionaryItem12"]}
- :oper     (["DictionaryItem09" "Str" "\"serve\""]
-            ["DictionaryItem12" "Str" "\"place\""])}
+#:acc-text.nlg.grammar{:module   "Simple"
+                       :instance "Instance"
+                       :flags    {:startcat "DocumentPlan01"}
+                       :cat      ("DocumentPlan01" "Segment02" "Frame03" "Frame04"
+                                   "Operation05" "Operation06" "Operation07"
+                                   "Operation08" "Operation10" "Operation11")
+                       :fun      {"DocumentPlan01" ("Segment02")
+                                  "Segment02"      ("Frame03")
+                                  "Frame03"        ("Frame04")
+                                  "Frame04"        ("Operation05")
+                                  "Operation05"    ("Operation06")
+                                  "Operation06"    ("Operation07")
+                                  "Operation07"    ("Operation10" "Operation08")
+                                  "Operation08"    ()
+                                  "Operation10"    ("Operation11")
+                                  "Operation11"    ()}
+                       :lincat   {"DocumentPlan01" "Str"
+                                  "Segment02"      "Str"
+                                  "Frame03"        "Str"
+                                  "Frame04"        "Str"
+                                  "Operation05"    "Text"
+                                  "Operation06"    "S"
+                                  "Operation07"    "Cl"
+                                  "Operation08"    "V"
+                                  "Operation10"    "NP"
+                                  "Operation11"    "N"}
+                       :lin      {"DocumentPlan01" ["Segment02"]
+                                  "Segment02"      ["Frame03"]
+                                  "Frame03"        ["Frame04"]
+                                  "Frame04"        ["Operation05.s"]
+                                  "Operation05"    ["Syntax.mkText Operation06"]
+                                  "Operation06"    ["Syntax.mkS Operation07"]
+                                  "Operation07"    ["Syntax.mkCl Operation10 Operation08"]
+                                  "Operation08"    ["ParadigmsEng.mkV DictionaryItem09"]
+                                  "Operation10"    ["Syntax.mkNP Operation11"]
+                                  "Operation11"    ["ParadigmsEng.mkN DictionaryItem12"]}
+                       :oper     (["DictionaryItem09" "Str" "\"serve\""]
+                                  ["DictionaryItem12" "Str" "\"place\""])}
