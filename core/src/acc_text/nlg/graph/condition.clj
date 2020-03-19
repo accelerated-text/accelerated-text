@@ -18,6 +18,7 @@
 (defn operator->fn [x]
   (case x
     "=" =
+    "==" =
     "!=" not=
     "<" <
     "<=" <=
