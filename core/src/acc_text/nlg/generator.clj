@@ -41,7 +41,8 @@
                                  (format "%s = %s" (str/join ", " cs) type))))
             "lin" (map (fn [index c]
                          (let [funs (get fun c)
-                               l (str/join " | " (get lin c))]
+                               body (remove str/blank? (get lin c))
+                               l (str/join " | " (cond-> body (empty? body) (conj "\"\"")))]
                            (if (seq funs)
                              (format "Function%02d %s = %s" index (str/join " " funs) l)
                              (format "Function%02d = %s" index l))))

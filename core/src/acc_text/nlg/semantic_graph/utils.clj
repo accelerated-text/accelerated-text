@@ -61,6 +61,3 @@
                           (map (fn [{:keys [from to] :as relation}]
                                  [^:edge (id->uuid from) (id->uuid to) (dissoc relation :from :to)])
                                relations)))))
-
-(defn realizable? [{concepts ::sg/concepts}]
-  (some #(contains? #{:amr :data :dictionary-item :quote} (:type %)) concepts))
