@@ -60,7 +60,7 @@
 (defmethod evaluate-predicate :boolean [g node-id context]
   (let [operator-fn (operator->fn (:value (attrs g node-id)))
         successors (get-successors g node-id)]
-    (when (every? #(contains? #{:boolean :comparator} (:type (attrs g %))) successors)
+    (when (every? #(contains? #{:boolean :comparator :data} (:type (attrs g %))) successors)
       (operator-fn (map #(evaluate-predicate g % context) successors)))))
 
 (defmethod evaluate-predicate :data [g node-id {data :data}]
