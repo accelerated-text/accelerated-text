@@ -6,6 +6,7 @@
             [api.utils :as utils]
             [clojure.spec.alpha :as s]
             [clojure.tools.logging :as log]
+            [clojure.string :as str]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as dp]
             [data.entities.result :as results]
@@ -83,7 +84,7 @@
 (defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues enrich :enrich}]
   (let [result-id (utils/gen-uuid)
         {document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)
-        row (if data-id (nth (get-data data-id) (or data-sample-row 0)) {})]
+        row (if-not (str/blank? data-id) (nth (get-data data-id) (or data-sample-row 0)) {})]
     (results/store-status result-id {:ready false})
     (results/rewrite result-id (generation-process document-plan {:sample row} reader-model enrich))
     {:status 200
