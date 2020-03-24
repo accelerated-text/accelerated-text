@@ -1,7 +1,7 @@
 (ns acc-text.nlg.core-test
   (:require [acc-text.nlg.core :as core]
             [acc-text.nlg.test-utils :as test-utils]
-            [clojure.math.combinatorics :refer [permutations]]
+            [clojure.math.combinatorics :refer [cartesian-product permutations]]
             [clojure.string :as str]
             [clojure.test :refer [deftest are is testing]]))
 
@@ -44,3 +44,17 @@
                     (map #(str/capitalize (str/join " " %)))
                     (into #{}))
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))))
+
+(deftest ^:integration amr-generation
+  (let [semantic-graph (test-utils/load-test-semantic-graph "amr-test")
+        context (test-utils/load-test-context "amr-test")]
+    (is (= (->> (cartesian-product
+                  #{"there was a bill." "there will be a bill." "there is a bill."}
+                  #{"there is a door." "there was a door." "there will be a door."}
+                  #{"there was a product." "there will be a product." "there is a product."}
+                  #{"there will be a noise." "there is a noise." "there was a noise."}
+                  #{"there was an interior." "there will be an interior." "there is an interior."}
+                  #{"there was a fridge." "there is a fridge." "there will be a fridge."})
+                (map (comp str/capitalize #(str/join " " %)))
+                (into #{}))
+           (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
