@@ -3,7 +3,8 @@ version: '3.4'
 services:
   acc-text-api:
     volumes:
-      - ./data/document-plans/:/opt/document-plans
+      - ./api/resources/:/opt
+      - ./eval/data/document-plans/:/opt/document-plans
   eval:
     build:
       context: eval
