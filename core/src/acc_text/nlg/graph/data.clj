@@ -15,15 +15,17 @@
 (defn resolve-by-category [g node-id value lang]
   (let [{type :type} (attrs g node-id)]
     (reduce (fn [g in-edge]
-              (assoc-in g [:attrs node-id] {:type     :dictionary-item
-                                            :category (or (:category (attrs g in-edge)) "Str")
-                                            :language lang
-                                            :forms    (if (= :data type)
-                                                        (case lang
-                                                          "Eng" (repeat 4 value)
-                                                          "Rus" (repeat 13 value)
-                                                          [value])
-                                                        [value])}))
+              (let [{:keys [role category]} (attrs g in-edge)]
+                (assoc-in g [:attrs node-id] (let [category (or category (when (= :modifier role) "A") "Str")]
+                                               {:type     :dictionary-item
+                                                :category category
+                                                :language lang
+                                                :forms    (if (= :data type)
+                                                            (case [lang category]
+                                                              ["Eng" "N"] (repeat 4 value)
+                                                              ["Rus" "N"] (repeat 13 value)
+                                                              [value])
+                                                            [value])}))))
             g
             (graph/in-edges g node-id))))
 
