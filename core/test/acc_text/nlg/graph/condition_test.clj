@@ -3,7 +3,7 @@
             [acc-text.nlg.graph.utils :refer [ubergraph->semantic-graph prune-graph]]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
-            [acc-text.nlg.test-utils :refer [load-test-semantic-graph load-test-context]]
+            [acc-text.nlg.test-utils :refer [load-test-semantic-graph]]
             [clojure.test :refer [deftest testing is are]]))
 
 (deftest arg-normalization
