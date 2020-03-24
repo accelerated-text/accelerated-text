@@ -16,7 +16,7 @@ services:
       DICT_PATH: "/opt/dictionary"
       DOCUMENT_PLANS: "/opt/document-plans"
     volumes:
-      - ./api/resources/:/opt:ro
+      - ./api/resources/:/opt
   gf:
     build:
       context: .
