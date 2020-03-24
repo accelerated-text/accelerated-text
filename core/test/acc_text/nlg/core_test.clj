@@ -58,3 +58,16 @@
                 (map (comp str/capitalize #(str/join " " %)))
                 (into #{}))
            (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
+
+(deftest ^:integration modifier-generation
+  (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
+        context (test-utils/load-test-context "modifier-test")]
+    (is (= (->> ["there is a quiet fridge."
+                 "there is a cheap kettle."
+                 "there is a quiet kettle."
+                 "there is a cheap fridge."
+                 "there is a quiet fan."
+                 "there is a cheap lamp."]
+                (str/join " ")
+                (str/capitalize))
+           (first (map :text (core/generate-text semantic-graph context "Eng")))))))
