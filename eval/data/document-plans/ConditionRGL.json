@@ -1,0 +1,136 @@
+{
+  "id": "xYejKgCiSQZpaRpx",
+  "uid": "c284477e-3c76-40fc-bf8f-af556bbe2663",
+  "name": "ConditionRGL",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"~(_;;7j7R`gf)nkx|*KQ\">Condition</variable><variable type=\"\" id=\":=)wP/bgpn~/?=@@URV8\">Phrase</variable><variable type=\"\" id=\".QXRCl}:b1Gm!I!{ztfa\">Object</variable></variables><block type=\"Document-plan\" id=\"#PobB}qg88J/WO$9vZ69\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\"9-p:D`1-Qptk9@?du|?r\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"gviA%C#HD%_{I|(k03rH\"><mutation concept_id=\"Syntax.mkText/S-&gt;Text\" concept_label=\"mkText\" roles=\"[{&quot;id&quot;:&quot;ceLCChmtJoZrIOlA&quot;,&quot;fieldLabel&quot;:&quot;S&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;S&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"ceLCChmtJoZrIOlA\"><block type=\"AMR\" id=\"rQYQbSib0M1#s*(mgARl\"><mutation concept_id=\"Syntax.mkS/(Tense)-&gt;(Ant)-&gt;(Pol)-&gt;Cl-&gt;S\" concept_label=\"mkS\" roles=\"[{&quot;id&quot;:&quot;TAIIqudRQrleBcFV&quot;,&quot;fieldLabel&quot;:&quot;(Tense)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Tense&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;ftWhuJxPMmPcNnzY&quot;,&quot;fieldLabel&quot;:&quot;(Ant)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Ant&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;zDfybdBtqkMtVWVv&quot;,&quot;fieldLabel&quot;:&quot;(Pol)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Pol&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;CPpqVYTxqbWKBBfQ&quot;,&quot;fieldLabel&quot;:&quot;Cl&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Cl&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"zDfybdBtqkMtVWVv\"><block type=\"If-then-else\" id=\"HzTxr{*A/WN7Fxq{i3su\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"VC!svb_udGR:cb+J*,z#\"><field name=\"name\" id=\"~(_;;7j7R`gf)nkx|*KQ\" variabletype=\"\">Condition</field></block></value><value name=\"then\"><block type=\"AMR\" id=\"OHPu[,igw7`CmuRe@}Nw\"><mutation concept_id=\"Syntax.positivePol/Pol\" concept_label=\"positivePol\" roles=\"[]\"></mutation></block></value><value name=\"else\"><block type=\"AMR\" id=\"v%-SfLj?f[1+q0Aweh`t\"><mutation concept_id=\"Syntax.negativePol/Pol\" concept_label=\"negativePol\" roles=\"[]\"></mutation></block></value></block></value><value name=\"CPpqVYTxqbWKBBfQ\"><block type=\"AMR\" id=\"47EPf(L,%(s?K;@zs%RW\"><mutation concept_id=\"Syntax.mkCl/NP-&gt;A-&gt;Cl\" concept_label=\"mkCl\" roles=\"[{&quot;id&quot;:&quot;UCibiIiQZLeqCIBA&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;qaHluJNAzOegtEEp&quot;,&quot;fieldLabel&quot;:&quot;A&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;A&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"UCibiIiQZLeqCIBA\"><block type=\"AMR\" id=\"1epekCxo;y=@wa|]zstj\"><mutation concept_id=\"Syntax.mkNP/N-&gt;NP\" concept_label=\"mkNP\" roles=\"[{&quot;id&quot;:&quot;VZKQAwgHprpBqGTR&quot;,&quot;fieldLabel&quot;:&quot;N&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"VZKQAwgHprpBqGTR\"><block type=\"Get-var\" id=\"DBmbv^a2dT*E_M7Xqi*)\"><field name=\"name\" id=\".QXRCl}:b1Gm!I!{ztfa\" variabletype=\"\">Object</field></block></value></block></value><value name=\"qaHluJNAzOegtEEp\"><block type=\"Get-var\" id=\"u5Br:.d$cEiKYa9hbV.3\"><field name=\"name\" id=\":=)wP/bgpn~/?=@@URV8\" variabletype=\"\">Phrase</field></block></value></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [],
+                        "name": "Tense",
+                        "label": "(Tense)"
+                      },
+                      {
+                        "children": [],
+                        "name": "Ant",
+                        "label": "(Ant)"
+                      },
+                      {
+                        "children": [
+                          {
+                            "type": "If-then-else",
+                            "conditions": [
+                              {
+                                "type": "If-condition",
+                                "thenExpression": {
+                                  "type": "AMR",
+                                  "srcId": "OHPu[,igw7`CmuRe@}Nw",
+                                  "conceptId": "Syntax.positivePol/Pol",
+                                  "kind": "Pol"
+                                },
+                                "condition": {
+                                  "name": "~(_;;7j7R`gf)nkx|*KQ",
+                                  "type": "Get-var",
+                                  "srcId": "VC!svb_udGR:cb+J*,z#"
+                                }
+                              },
+                              {
+                                "type": "Default-condition",
+                                "thenExpression": {
+                                  "type": "AMR",
+                                  "srcId": "v%-SfLj?f[1+q0Aweh`t",
+                                  "conceptId": "Syntax.negativePol/Pol",
+                                  "kind": "Pol"
+                                }
+                              }
+                            ],
+                            "srcId": "HzTxr{*A/WN7Fxq{i3su"
+                          }
+                        ],
+                        "name": "Pol",
+                        "label": "(Pol)"
+                      },
+                      {
+                        "children": [
+                          {
+                            "roles": [
+                              {
+                                "children": [
+                                  {
+                                    "roles": [
+                                      {
+                                        "children": [
+                                          {
+                                            "name": ".QXRCl}:b1Gm!I!{ztfa",
+                                            "type": "Get-var",
+                                            "srcId": "DBmbv^a2dT*E_M7Xqi*)"
+                                          }
+                                        ],
+                                        "name": "N",
+                                        "label": "N"
+                                      }
+                                    ],
+                                    "type": "AMR",
+                                    "srcId": "1epekCxo;y=@wa|]zstj",
+                                    "conceptId": "Syntax.mkNP/N->NP",
+                                    "kind": "NP"
+                                  }
+                                ],
+                                "name": "NP",
+                                "label": "NP"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "name": ":=)wP/bgpn~/?=@@URV8",
+                                    "type": "Get-var",
+                                    "srcId": "u5Br:.d$cEiKYa9hbV.3"
+                                  }
+                                ],
+                                "name": "A",
+                                "label": "A"
+                              }
+                            ],
+                            "type": "AMR",
+                            "srcId": "47EPf(L,%(s?K;@zs%RW",
+                            "conceptId": "Syntax.mkCl/NP->A->Cl",
+                            "kind": "Cl"
+                          }
+                        ],
+                        "name": "Cl",
+                        "label": "Cl"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "rQYQbSib0M1#s*(mgARl",
+                    "conceptId": "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S",
+                    "kind": "S"
+                  }
+                ],
+                "name": "S",
+                "label": "S"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "gviA%C#HD%_{I|(k03rH",
+            "conceptId": "Syntax.mkText/S->Text",
+            "kind": "Text"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "9-p:D`1-Qptk9@?du|?r"
+      }
+    ],
+    "srcId": "#PobB}qg88J/WO$9vZ69"
+  }
+}

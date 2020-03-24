@@ -1,0 +1,49 @@
+{
+  "id": "kJjBoFfIsSkwKVcS",
+  "uid": "35504ee4-4307-4cc7-8499-42767647957c",
+  "name": "Restaurants",
+  "kind": "Document",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\"#B*UquxO]G|(%A;%~@~R\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\"owU)vJk*oZNC0A1J-;p*\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"bw,ap%QN)Xn6M6$y%|]m\"><mutation concept_id=\"vPcoOZZgwqjeUTDc\" concept_label=\"FamilyFriendlyAMR\" roles=\"[{&quot;id&quot;:&quot;BXbtLAwICuxEXBDV&quot;,&quot;fieldLabel&quot;:&quot;IsFamilyFriendly&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;YdueNSLVIwjzsrRF&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"BXbtLAwICuxEXBDV\"><block type=\"Cell\" id=\"n%k?AkF%_5RhiSeg@V8?\"><field name=\"name\">familyFriendly</field></block></value><value name=\"YdueNSLVIwjzsrRF\"><block type=\"Cell\" id=\"f@QBYa4a;%-UjMTO4u^f\"><field name=\"name\">name</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "familyFriendly",
+                    "type": "Cell",
+                    "srcId": "n%k?AkF%_5RhiSeg@V8?"
+                  }
+                ],
+                "name": "Str",
+                "label": "IsFamilyFriendly"
+              },
+              {
+                "children": [
+                  {
+                    "name": "name",
+                    "type": "Cell",
+                    "srcId": "f@QBYa4a;%-UjMTO4u^f"
+                  }
+                ],
+                "name": "NP",
+                "label": "Object"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "bw,ap%QN)Xn6M6$y%|]m",
+            "conceptId": "vPcoOZZgwqjeUTDc",
+            "kind": "Str"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "owU)vJk*oZNC0A1J-;p*"
+      }
+    ],
+    "srcId": "#B*UquxO]G|(%A;%~@~R"
+  }
+}
