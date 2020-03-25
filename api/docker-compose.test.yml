@@ -27,5 +27,4 @@ services:
       dockerfile: core/gf/Dockerfile
   enrich:
     build:
-      context: ../
-      dockerfile: enrich/Dockerfile
+      context: ../enrich
