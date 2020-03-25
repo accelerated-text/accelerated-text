@@ -2,8 +2,7 @@
   (:require [api.graphql.translate.document-plan :as translate-dp]
             [clojure.string :as str]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-            [data.entities.document-plan :as dp]
-            [clojure.tools.logging :as log]))
+            [data.entities.document-plan :as dp]))
 
 (defn- resolve-as-not-found-document-plan [id]
   (resolve-as nil {:message (format "Cannot find document plan `%s`." id)}))
