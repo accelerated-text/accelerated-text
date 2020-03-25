@@ -10,10 +10,35 @@ sys.path.append("e2e-metrics")
 
 from itertools import dropwhile, takewhile, groupby
 
+from gql import gql, Client
+from gql.transport.requests import RequestsHTTPTransport
+
 from metrics.pymteval import BLEUScore
 
-DOCUMENT_PLAN_ID=os.getenv("DOCUMENT_PLAN_ID", None).strip("\"")
+DOCUMENT_PLAN_NAME=os.getenv("DOCUMENT_PLAN_NAME", "Restaurants")
+GQL_ENDPOINT=os.getenv("GRAPH_QL_URL", "http://localhost:3001/_graphql")
 NLG_ENDPOINT="{}/nlg".format(os.getenv("ACC_TEXT_URL", "http://localhost:3001"))
+
+
+def get_document_plans():
+    transport = RequestsHTTPTransport(
+        url=GQL_ENDPOINT,
+        use_json=True,
+        headers={
+            "Content-type": "application/json",
+        },
+        verify=False
+    )
+
+    client = Client(
+        retries=3,
+        transport=transport,
+        fetch_schema_from_transport=True,
+    )
+
+    query = gql("{documentPlans{items{id name}}}")
+    results = client.execute(query)
+    return dict([(item["name"], item["id"]) for item in results["documentPlans"]["items"]])
 
 
 def bleu_score(data):
@@ -27,9 +52,9 @@ def bleu_score(data):
 def not_empty_line(x):
     return x != "\n"
 
-def generate_results(data):
+def generate_results(data, document_plan_id):
     req = {
-        "documentPlanId": DOCUMENT_PLAN_ID,
+        "documentPlanId": document_plan_id,
         "readerFlagValues": {"English": True},
         "dataRows": data,
         "enrich": True
@@ -60,14 +85,13 @@ def load_data():
 def group_data(data):
     return [(k, list([item["ref"] for item in group]))
             for k, group in groupby(data, key=lambda x: x["data"])]
-    
+
 
 if __name__ == "__main__":
-    if DOCUMENT_PLAN_ID is None:
-        sys.exit("We're missing ENV variable: DOCUMENT_PLAN_ID")
-    else:
-        print("Using DocumentPlan: {}".format(DOCUMENT_PLAN_ID))
-        
+    document_plans = get_document_plans()
+    print("Available Document plans: {}".format(document_plans))
+    document_plan_id = document_plans.get(DOCUMENT_PLAN_NAME, None)
+
     ref = []
     data_rows = {}
 
@@ -77,8 +101,8 @@ if __name__ == "__main__":
         ref.append(refs)
         data_rows[idx] = data
 
-    results = dict(generate_results(data_rows))
-    
+    results = dict(generate_results(data_rows, document_plan_id))
+
     original_pairs = list([(ref[int(k)], random.choice(r)["original"])
                            for k, r in results.items()
                            if len(r) > 0])
@@ -91,6 +115,6 @@ if __name__ == "__main__":
                            for k, r in results.items()
                            if len(r) > 0])
 
-    
+
     score = bleu_score(enriched_pairs)
     print("enriched BLEU score: {0:.4f}".format(score))
