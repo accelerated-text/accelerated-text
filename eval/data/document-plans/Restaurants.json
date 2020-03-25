@@ -3,7 +3,7 @@
   "uid": "35504ee4-4307-4cc7-8499-42767647957c",
   "name": "Restaurants",
   "kind": "Document",
-  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\"#B*UquxO]G|(%A;%~@~R\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\"owU)vJk*oZNC0A1J-;p*\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"Shuffle\" id=\"Yh}*|1[Ka!*lrr/t:y_J\"><mutation value_count=\"3\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"bw,ap%QN)Xn6M6$y%|]m\"><mutation concept_id=\"vPcoOZZgwqjeUTDc\" concept_label=\"FamilyFriendlyAMR\" roles=\"[{&quot;id&quot;:&quot;BXbtLAwICuxEXBDV&quot;,&quot;fieldLabel&quot;:&quot;IsFamilyFriendly&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;YdueNSLVIwjzsrRF&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"BXbtLAwICuxEXBDV\"><block type=\"Cell\" id=\"n%k?AkF%_5RhiSeg@V8?\"><field name=\"name\">familyFriendly</field></block></value><value name=\"YdueNSLVIwjzsrRF\"><block type=\"Cell\" id=\"f@QBYa4a;%-UjMTO4u^f\"><field name=\"name\">name</field></block></value></block></value><value name=\"value_1\"><block type=\"AMR\" id=\":ueQf5wJKaM{9d22Sf1q\"><mutation concept_id=\"gvFGeKdcjjdSUtYN\" concept_label=\"LocatedAt\" roles=\"[{&quot;id&quot;:&quot;qNshfrSSZgRPxnvK&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;AkrjJSczRyyXTMTd&quot;,&quot;fieldLabel&quot;:&quot;Location&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"qNshfrSSZgRPxnvK\"><block type=\"Cell\" id=\"AXe}7AnqHp?=,p#JyBdh\"><field name=\"name\">name</field></block></value><value name=\"AkrjJSczRyyXTMTd\"><block type=\"Cell\" id=\"XSWm(CQ}YDBow1A[,G|U\"><field name=\"name\">area</field></block></value></block></value></block></value></block></statement></block></xml>",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\"#B*UquxO]G|(%A;%~@~R\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\"owU)vJk*oZNC0A1J-;p*\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"Shuffle\" id=\"Yh}*|1[Ka!*lrr/t:y_J\"><mutation value_count=\"3\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"bw,ap%QN)Xn6M6$y%|]m\"><mutation concept_id=\"vPcoOZZgwqjeUTDc\" concept_label=\"FamilyFriendlyAMR\" roles=\"[{&quot;id&quot;:&quot;BXbtLAwICuxEXBDV&quot;,&quot;fieldLabel&quot;:&quot;IsFamilyFriendly&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;YdueNSLVIwjzsrRF&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"BXbtLAwICuxEXBDV\"><block type=\"Cell\" id=\"n%k?AkF%_5RhiSeg@V8?\"><field name=\"name\">familyFriendly</field></block></value><value name=\"YdueNSLVIwjzsrRF\"><block type=\"Cell\" id=\"f@QBYa4a;%-UjMTO4u^f\"><field name=\"name\">name</field></block></value></block></value><value name=\"value_1\"><block type=\"If-then-else\" id=\"wMeV.Yg-XP@YB[MTJv}8\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Cell\" id=\"(znr9FOd0ocnQJGLQZSI\"><field name=\"name\">near</field></block></value><value name=\"then\"><block type=\"AMR\" id=\"|8`[no)%4Iu$Cc|J=pgA\"><mutation concept_id=\"qUiJLbeJiYvtOhAS\" concept_label=\"LocatedNearAMR\" roles=\"[{&quot;id&quot;:&quot;fEZtOuILKPpIIlIx&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;IUcjBIIIxErcurJK&quot;,&quot;fieldLabel&quot;:&quot;Near&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;OZssairWArHgIGQf&quot;,&quot;fieldLabel&quot;:&quot;Location&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"fEZtOuILKPpIIlIx\"><block type=\"Cell\" id=\"WD*TjG)0NsJy;Sx^GmN;\"><field name=\"name\">name</field></block></value><value name=\"IUcjBIIIxErcurJK\"><block type=\"Cell\" id=\"-B6Nj~p@|dAkCGZi~rVe\"><field name=\"name\">near</field></block></value><value name=\"OZssairWArHgIGQf\"><block type=\"Cell\" id=\"O)GPC!IUN%}dr$G}mg~z\"><field name=\"name\">area</field></block></value></block></value><value name=\"else\"><block type=\"AMR\" id=\"3s5u8eKpSJUuKhpu$HzI\"><mutation concept_id=\"gvFGeKdcjjdSUtYN\" concept_label=\"LocatedAtAMR\" roles=\"[{&quot;id&quot;:&quot;WAwIizeVaPoWpZgw&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;hePVXlYbClAyzZHP&quot;,&quot;fieldLabel&quot;:&quot;Location&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"WAwIizeVaPoWpZgw\"><block type=\"Cell\" id=\"(t83blmWz*|u8s7=CVTZ\"><field name=\"name\">name</field></block></value><value name=\"hePVXlYbClAyzZHP\"><block type=\"Cell\" id=\"+B1l|x?0bO[rCFIeY1E!\"><field name=\"name\">area</field></block></value></block></value></block></value></block></value></block></statement></block></xml>",
   "documentPlan": {
     "type": "Document-plan",
     "segments": [
@@ -41,34 +41,91 @@
                 "conceptId": "vPcoOZZgwqjeUTDc"
               },
               {
-                "roles": [
+                "type": "If-then-else",
+                "conditions": [
                   {
-                    "children": [
-                      {
-                        "name": "name",
-                        "type": "Cell",
-                        "srcId": "AXe}7AnqHp?=,p#JyBdh"
-                      }
-                    ],
-                    "name": "N",
-                    "label": "Object"
+                    "type": "If-condition",
+                    "thenExpression": {
+                      "roles": [
+                        {
+                          "children": [
+                            {
+                              "name": "name",
+                              "type": "Cell",
+                              "srcId": "WD*TjG)0NsJy;Sx^GmN;"
+                            }
+                          ],
+                          "name": "N",
+                          "label": "Object"
+                        },
+                        {
+                          "children": [
+                            {
+                              "name": "near",
+                              "type": "Cell",
+                              "srcId": "-B6Nj~p@|dAkCGZi~rVe"
+                            }
+                          ],
+                          "name": "N",
+                          "label": "Near"
+                        },
+                        {
+                          "children": [
+                            {
+                              "name": "area",
+                              "type": "Cell",
+                              "srcId": "O)GPC!IUN%}dr$G}mg~z"
+                            }
+                          ],
+                          "name": "N",
+                          "label": "Location"
+                        }
+                      ],
+                      "type": "AMR",
+                      "srcId": "|8`[no)%4Iu$Cc|J=pgA",
+                      "conceptId": "qUiJLbeJiYvtOhAS",
+                      "kind": "Str"
+                    },
+                    "condition": {
+                      "name": "near",
+                      "type": "Cell",
+                      "srcId": "(znr9FOd0ocnQJGLQZSI"
+                    }
                   },
                   {
-                    "children": [
-                      {
-                        "name": "area",
-                        "type": "Cell",
-                        "srcId": "XSWm(CQ}YDBow1A[,G|U"
-                      }
-                    ],
-                    "name": "NP",
-                    "label": "Location"
+                    "type": "Default-condition",
+                    "thenExpression": {
+                      "roles": [
+                        {
+                          "children": [
+                            {
+                              "name": "name",
+                              "type": "Cell",
+                              "srcId": "(t83blmWz*|u8s7=CVTZ"
+                            }
+                          ],
+                          "name": "N",
+                          "label": "Object"
+                        },
+                        {
+                          "children": [
+                            {
+                              "name": "area",
+                              "type": "Cell",
+                              "srcId": "+B1l|x?0bO[rCFIeY1E!"
+                            }
+                          ],
+                          "name": "NP",
+                          "label": "Location"
+                        }
+                      ],
+                      "type": "AMR",
+                      "srcId": "3s5u8eKpSJUuKhpu$HzI",
+                      "conceptId": "gvFGeKdcjjdSUtYN"
+                    }
                   }
                 ],
-                "type": "AMR",
-                "srcId": ":ueQf5wJKaM{9d22Sf1q",
-                "conceptId": "gvFGeKdcjjdSUtYN",
-                "kind": "Str"
+                "srcId": "wMeV.Yg-XP@YB[MTJv}8"
               }
             ],
             "type": "Shuffle",
