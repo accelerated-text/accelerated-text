@@ -1,6 +1,5 @@
 (ns acc-text.nlg.core
-  (:require [acc-text.nlg.enrich.core :as enrich]
-            [acc-text.nlg.generator :as generator]
+  (:require [acc-text.nlg.generator :as generator]
             [acc-text.nlg.gf.service :as service]
             [acc-text.nlg.grammar :as grammar]
             [acc-text.nlp.utils :as nlp]
@@ -14,7 +13,3 @@
        (-> (grammar/build-grammar semantic-graph (assoc context :constants {"*Language" lang}))
            (generator/generate lang)
            (service/request lang))))
-
-(defn enrich-text
-  [context text]
-  (get (enrich/enrich-request context text) :result text))

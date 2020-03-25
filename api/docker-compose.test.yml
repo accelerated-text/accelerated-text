@@ -28,4 +28,4 @@ services:
   enrich:
     build:
       context: ../
-      dockerfile: core/enrich/Dockerfile
+      dockerfile: enrich/Dockerfile
