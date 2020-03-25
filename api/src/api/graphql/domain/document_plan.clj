@@ -2,7 +2,8 @@
   (:require [api.graphql.translate.document-plan :as translate-dp]
             [clojure.string :as str]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-            [data.entities.document-plan :as dp]))
+            [data.entities.document-plan :as dp]
+            [clojure.tools.logging :as log]))
 
 (defn- resolve-as-not-found-document-plan [id]
   (resolve-as nil {:message (format "Cannot find document plan `%s`." id)}))
@@ -14,8 +15,8 @@
   (dp/delete-document-plan id)
   (resolve-as true))
 
-(defn list-document-plans [_ {:keys [offset limit kind] :or {offset 0 limit 20 kind "Document"}} _]
-  (let [items (dp/list-document-plans kind)]
+(defn list-document-plans [_ {:keys [offset limit kind] :or {offset 0 limit 100}} _]
+  (let [items (if (some? kind) (dp/list-document-plans kind) (dp/list-document-plans))]
     (resolve-as {:items      (->> items
                                   (drop offset)
                                   (take limit)

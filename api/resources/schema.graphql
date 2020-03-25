@@ -210,7 +210,7 @@ type DocumentPlanResults {
     items:             [ DocumentPlan! ]
     offset:            Int!
     limit:             Int!
-    kind:              String
+    kind:              String!
     totalCount:        Int!
 }
 
