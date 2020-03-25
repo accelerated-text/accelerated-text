@@ -15,7 +15,7 @@
 ----
 
 *A picture is worth a thousand words.* Or is it? 
-Tables, charts, pictures are all useful in undestanding our data but often we need a description – a story to tell us what are we looking at. 
+Tables, charts, pictures are all useful in understanding our data but often we need a description – a story to tell us what are we looking at. 
 **Accelerated Text** is a natural language generation tool which allows you to define data descriptions and then generates multiple versions of those descriptions varying in wording and structure.
 
 
