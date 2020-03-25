@@ -1,0 +1,23 @@
+#:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
+                                          {:from :02 :to :03 :role :instance :index 0}
+                                          {:from :03 :to :04 :role :arg :index 0 :category "Str" :name "item1"}
+                                          {:from :03 :to :05 :role :arg :index 1 :category "Str" :name "item2"}
+                                          {:from :03 :to :06 :role :arg :index 2 :category "Str" :name "item3"}
+                                          {:from :03 :to :07 :role :arg :index 3 :category "N" :name "item4"}
+                                          {:from :03 :to :08 :role :arg :index 4 :category "N" :name "item5"}
+                                          {:from :03 :to :09 :role :arg :index 5 :category "N" :name "item6"})
+                              :concepts  ({:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :amr :name "hERvMWwdMLUrgzAq"}
+                                          {:id    :04
+                                           :type  :dictionary-item
+                                           :name  "41d0ddcd-9b82-4181-b3c2-63b93f5276dc"
+                                           :label "bill"}
+                                          {:id :05 :type :quote :value "door"}
+                                          {:id :06 :type :data :name "product"}
+                                          {:id    :07
+                                           :type  :dictionary-item
+                                           :name  "ae1a289c-9f4a-471b-ae36-36c4089cc865"
+                                           :label "noise"}
+                                          {:id :08 :type :quote :value "interior"}
+                                          {:id :09 :type :data :name "fridge"})}

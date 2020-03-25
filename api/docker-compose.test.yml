@@ -16,7 +16,8 @@ services:
       DOCUMENT_PLANS: "/opt/document-plans"
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
-      - ./resources:/opt
+      - ./resources/syntax:/opt/syntax
+      - ./resources/paradigms:/opt/paradigms
       - ./test/resources/data-files:/opt/data-files
       - ./test/resources/dictionary:/opt/dictionary
       - ./test/resources/document-plans:/opt/document-plans

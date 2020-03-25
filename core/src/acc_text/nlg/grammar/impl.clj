@@ -35,70 +35,76 @@
 (defmethod build-node :default [graph node-id]
   (let [successors (get-successors graph node-id)
         cat (node->cat graph node-id)]
-    {:cat    [cat]
-     :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-     :lincat {cat "Str"}
-     :lin    {cat [(str/join " ++ " (map #(cond-> (node->cat graph %)
-                                                  (s-node? graph %) (str ".s"))
-                                         successors))]}}))
+    #:acc-text.nlg.grammar
+        {:cat    [cat]
+         :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
+         :lincat {cat "Str"}
+         :lin    {cat [(str/join " ++ " (map #(cond-> (node->cat graph %)
+                                                      (s-node? graph %) (str ".s"))
+                                             successors))]}}))
 
 (defmethod build-node :frame [graph node-id]
   (let [successors (get-successors graph node-id)
         cat (node->cat graph node-id)]
-    {:cat    [cat]
-     :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-     :lincat {cat "Str"}
-     :lin    {cat [(str/join " | " (map #(cond-> (node->cat graph %)
-                                                 (s-node? graph %) (str ".s"))
-                                        successors))]}}))
+    #:acc-text.nlg.grammar
+        {:cat    [cat]
+         :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
+         :lincat {cat "Str"}
+         :lin    {cat [(str/join " | " (map #(cond-> (node->cat graph %)
+                                                     (s-node? graph %) (str ".s"))
+                                            successors))]}}))
 
 (defmethod build-node :operation [graph node-id]
   (let [{:keys [name module]} (attrs graph node-id)
         successors (get-successors graph node-id)
         cat (node->cat graph node-id)]
-    {:cat    [cat]
-     :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-     :lincat {cat (or (:category (attrs graph (get-in-edge graph node-id))) "Text")}
-     :lin    {cat [(cond-> (str module "." name)
-                           (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))]}}))
+    #:acc-text.nlg.grammar
+        {:cat    [cat]
+         :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
+         :lincat {cat (or (:category (attrs graph (get-in-edge graph node-id))) "Text")}
+         :lin    {cat [(cond-> (str module "." name)
+                               (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))]}}))
 
 (defmethod build-node :dictionary-item [graph node-id]
   (let [cat (node->cat graph node-id)
         in-edge-category (get-in graph [:attrs (:id (get-in-edge graph node-id)) :category])
         {category :category :as attrs} (attrs graph node-id)]
-    {:oper [[cat
-             (cond
-               (= "Str" in-edge-category) "Str"
-               (= "Str" category) "{s : Str}"
-               (nil? in-edge-category) "Text"
-               :else category)
-             (build-dictionary-item in-edge-category attrs)]]}))
+    #:acc-text.nlg.grammar
+        {:oper [[cat
+                 (cond
+                   (= "Str" in-edge-category) "Str"
+                   (= "Str" category) "{s : Str}"
+                   (nil? in-edge-category) "Text"
+                   :else category)
+                 (build-dictionary-item in-edge-category attrs)]]}))
 
 (defmethod build-node :synonyms [graph node-id]
   (let [successors (get-successors graph node-id)
         category (:category (attrs graph node-id))
         cat (node->cat graph node-id)]
-    {:cat    [cat]
-     :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-     :lincat {cat (or category "Str")}
-     :lin    {cat (map #(cond-> (node->cat graph %)
-                                (and (s-node? graph %) (nil? category)) (str ".s"))
-                       successors)}}))
+    #:acc-text.nlg.grammar
+        {:cat    [cat]
+         :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
+         :lincat {cat (or category "Str")}
+         :lin    {cat (map #(cond-> (node->cat graph %)
+                                    (and (s-node? graph %) (nil? category)) (str ".s"))
+                           successors)}}))
 
 (defmethod build-node :shuffle [graph node-id]
   (let [successors (get-successors graph node-id)
         category (:category (attrs graph node-id))
         cat (node->cat graph node-id)]
-    {:cat    [cat]
-     :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-     :lincat {cat (or category "Str")}
-     :lin    {cat [(str/join " | " (map (fn [group]
-                                          (->> (map #(cond-> (node->cat graph %)
-                                                             (and (s-node? graph %) (nil? category)) (str ".s"))
-                                                    group)
-                                               (str/join " ++ ")
-                                               (format "(%s)")))
-                                        (permutations successors)))]}}))
+    #:acc-text.nlg.grammar
+        {:cat    [cat]
+         :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
+         :lincat {cat (or category "Str")}
+         :lin    {cat [(str/join " | " (map (fn [group]
+                                              (->> (map #(cond-> (node->cat graph %)
+                                                                 (and (s-node? graph %) (nil? category)) (str ".s"))
+                                                        group)
+                                                   (str/join " ++ ")
+                                                   (format "(%s)")))
+                                            (permutations successors)))]}}))
 
 (defn ->graph [semantic-graph context]
   (-> semantic-graph
@@ -127,12 +133,13 @@
                                (coll? acc) (concat acc val)))
                            grammar
                            (build-node graph node-id)))
-             {:module   module
-              :instance instance
-              :flags    {:startcat (node->cat graph start-id)}
-              :cat      []
-              :fun      {}
-              :lincat   {}
-              :lin      {}
-              :oper     []}
+             #:acc-text.nlg.grammar
+                 {:module   module
+                  :instance instance
+                  :flags    {:startcat (node->cat graph start-id)}
+                  :cat      []
+                  :fun      {}
+                  :lincat   {}
+                  :lin      {}
+                  :oper     []}
              (pre-traverse graph start-id)))))
