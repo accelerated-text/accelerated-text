@@ -55,6 +55,7 @@ def json_response(fn):
         try:
             response = fn(environ, start_response, *args)
         except Exception as ex:
+            logger.error(ex)
             response = {"error": True, "message": str(ex)}
 
         output = json.dumps(response).encode("UTF-8")
@@ -75,7 +76,7 @@ def json_response(fn):
 def application(environ, start_response, data, enricher=None):
     text = data["text"].strip(".")
     context = data["context"]
-    filtered_context = dict([{k: v} for k, v in context.items()
+    filtered_context = dict([(k, v) for k, v in context.items()
                              if v is not None and v.strip() != ""])
     result = enricher.enrich(text, filtered_context, max_iters=50)
     return {"result": format_result(result)}
