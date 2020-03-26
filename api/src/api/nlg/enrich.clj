@@ -12,7 +12,7 @@
 
 (defn enrich-request [content]
   (log/debugf "Enriching text via: %s" (enrich-endpoint))
-  (let [{{:keys [results error message]} :body request-error :error}
+  (let [{{:keys [result error message]} :body request-error :error}
         (-> @(client/request {:url     (enrich-endpoint)
                               :method  :post
                               :headers {"Content-type" "application/json"}
@@ -21,10 +21,10 @@
     (cond
       (true? error) (log/errorf "Failed to enrich text: %s" message)
       (some? request-error) (log/errorf "Enrich request failure: %s" (.getMessage request-error))
-      :else results)))
+      :else result)))
 
-(defn enrich-texts [texts data]
-  (enrich-request {:text    texts
+(defn enrich-text [text data]
+  (enrich-request {:text    text
                    :context (reduce-kv (fn [m k v]
                                          (assoc m v (format "{%s}" (name k))))
                                        {}

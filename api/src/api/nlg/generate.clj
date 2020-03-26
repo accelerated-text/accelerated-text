@@ -2,7 +2,7 @@
   (:require [acc-text.nlg.core :as nlg]
             [acc-text.nlp.ref-expressions :refer [apply-ref-expressions]]
             [api.nlg.context :as context]
-            [api.nlg.enrich :refer [enable-enrich? enrich-texts]]
+            [api.nlg.enrich :refer [enable-enrich? enrich-text]]
             [api.nlg.parser :as parser]
             [api.utils :as utils]
             [clojure.set :as set]
@@ -39,8 +39,7 @@
        (map (comp
               #(cond-> {:lang     lang
                         :original %}
-                       (enable-enrich?) (assoc :enriched (sort (set/difference
-                                                                 (set (enrich-texts % (:data context))) %))))
+                       (enable-enrich?) (assoc :enriched (enrich-text % (:data context))))
               #(apply-ref-expressions lang %)))))
 
 (defn reader-model->languages [reader-model]
@@ -128,7 +127,7 @@
 (defn transform-results
   [results]
   (mapcat (fn [{:keys [enriched original lang]}]
-            (if (seq enriched)
+            (if (and (some? enriched) (not= enriched original))
               [(prepend-lang-flag (format "📔\t%s " original) lang) (prepend-lang-flag (format "📙\t%s" enriched) lang)]
               [(prepend-lang-flag original lang)]))
           results))
