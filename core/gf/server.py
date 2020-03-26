@@ -30,7 +30,7 @@ def compile_grammar(name, content):
                  if k != name]
         for k, v in content.items():
             with open("{0}/{1}.gf".format(tmpdir, k), "w", encoding="UTF-8") as f:
-                f.write(v)
+                f.write(v.decode('utf-8'))
         
         logger.info("Compiling")
         cmd = "gf -i /opt/gf/lang-utils/ -i /opt/gf/concept-net/ --output-dir={path} -make {files} {main}".format(

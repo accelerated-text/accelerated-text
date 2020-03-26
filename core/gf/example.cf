@@ -1,7 +1,0 @@
-Pred. S ::= NP1 VP;
-Compl. VP ::= P1 V2 P2 NP2;
-Prep. P1 ::= "is the"
-Prep. P2 ::= "of"
-Authorship. V2 ::= "author";
-Author. NP1 ::= "X";
-Product. NP2 ::= "Y";
