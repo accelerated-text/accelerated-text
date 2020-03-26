@@ -31,8 +31,7 @@ def generate_results(data):
     req = {
         "documentPlanId": DOCUMENT_PLAN_ID,
         "readerFlagValues": {"English": True},
-        "dataRows": data,
-        "enrich": True
+        "dataRows": data
     }
 
     resp = requests.post("{url}/_bulk/".format(url=NLG_ENDPOINT), json=req)

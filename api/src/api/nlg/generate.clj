@@ -2,7 +2,7 @@
   (:require [acc-text.nlg.core :as nlg]
             [acc-text.nlp.ref-expressions :refer [apply-ref-expressions]]
             [api.nlg.context :as context]
-            [api.nlg.enrich :refer [enrich-texts]]
+            [api.nlg.enrich :refer [enable-enrich? enrich-texts]]
             [api.nlg.parser :as parser]
             [api.utils :as utils]
             [clojure.set :as set]
@@ -17,21 +17,20 @@
 (s/def ::documentPlanId string?)
 (s/def ::key string?)
 (s/def ::dataId string?)
-(s/def ::enrich boolean?)
 (s/def ::format #{"raw" "dropoff" "annotated"})             ;; reitit does not convert these to keys
 (s/def ::format-query (s/keys :opt-un [::format]))
 (s/def ::dataRow (s/map-of string? string?))
 (s/def ::dataRows (s/map-of ::key ::dataRow))
 (s/def ::readerFlagValues (s/map-of string? boolean?))
 (s/def ::generate-req (s/keys :req-un [::documentPlanId]
-                              :opt-un [::dataId ::readerFlagValues ::enrich]))
+                              :opt-un [::dataId ::readerFlagValues]))
 (s/def ::generate-bulk (s/keys :req-un [::documentPlanId ::dataRows]
-                               :opt-un [::readerFlagValues ::enrich]))
+                               :opt-un [::readerFlagValues]))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
-(defn generate-text-for-language [semantic-graph context enrich lang]
+(defn generate-text-for-language [semantic-graph context lang]
   (->> (nlg/generate-text semantic-graph context lang)
        (map :text)
        (sort)
@@ -40,8 +39,8 @@
        (map (comp
               #(cond-> {:lang     lang
                         :original %}
-                       (true? enrich) (assoc :enriched (sort (set/difference
-                                                               (set (enrich-texts % (:data context))) %))))
+                       (enable-enrich?) (assoc :enriched (sort (set/difference
+                                                                 (set (enrich-texts % (:data context))) %))))
               #(apply-ref-expressions lang %)))))
 
 (defn reader-model->languages [reader-model]
@@ -51,42 +50,42 @@
              reader-model))
 
 (defn generate-text
-  ([document-plan data enrich] (generate-text document-plan data {(dict-entity/default-language-flag) true} enrich))
-  ([document-plan data reader-model enrich]
+  ([document-plan data] (generate-text document-plan data {(dict-entity/default-language-flag) true}))
+  ([document-plan data reader-model]
    (let [languages (reader-model->languages reader-model)
          semantic-graph (parser/document-plan->semantic-graph document-plan)
          context (context/build-context semantic-graph {:languages languages :data data})]
      (mapcat (fn [lang]
-               (generate-text-for-language semantic-graph (update context :dictionary #(get % lang {})) enrich lang))
+               (generate-text-for-language semantic-graph (update context :dictionary #(get % lang {})) lang))
              languages))))
 
-(defn generation-process [document-plan rows reader-model enrich]
+(defn generation-process [document-plan rows reader-model]
   (try
     {:ready   true
      :results (doall (map (fn [[row-key data]]
                             (log/debugf "Generating result for row-key: %s, data: %s" row-key data)
-                            [row-key (generate-text document-plan data reader-model enrich)])
+                            [row-key (generate-text document-plan data reader-model)])
                           rows))}
     (catch Exception e
       (log/errorf "Failed to generate text: %s" e)
       (log/trace (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
 
-(defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues enrich :enrich}]
+(defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues}]
   (let [result-id (utils/gen-uuid)
         {document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)
         row (if-not (str/blank? data-id) (nth (get-data data-id) (or data-sample-row 0)) {})]
     (results/store-status result-id {:ready false})
-    (results/rewrite result-id (generation-process document-plan {:sample row} reader-model enrich))
+    (results/rewrite result-id (generation-process document-plan {:sample row} reader-model))
     {:status 200
      :body   {:resultId result-id}}))
 
-(defn generate-bulk [{document-plan-id :documentPlanId reader-model :readerFlagValues rows :dataRows enrich :enrich}]
+(defn generate-bulk [{document-plan-id :documentPlanId reader-model :readerFlagValues rows :dataRows}]
   (let [result-id (utils/gen-uuid)
         {document-plan :documentPlan} (dp/get-document-plan document-plan-id)]
     (log/tracef "Bulk Generate request, data: %s" rows)
     (results/store-status result-id {:ready false})
-    (results/rewrite result-id (generation-process document-plan (into {} (map (fn [[row-key row-values]] {row-key (into {} (utils/key-to-keyword row-values))}) rows)) reader-model enrich))
+    (results/rewrite result-id (generation-process document-plan (into {} (map (fn [[row-key row-values]] {row-key (into {} (utils/key-to-keyword row-values))}) rows)) reader-model))
     {:status 200
      :body   {:resultId result-id}}))
 

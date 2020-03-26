@@ -6,9 +6,10 @@ services:
       context: ../
       dockerfile: api/Dockerfile
     environment:
-      GF_ENDPOINT: http://gf:8000
-      ENRICH_ENDPOINT: http://enrich:8000
-      DB_IMPLEMENTATION: datomic
+      GF_ENDPOINT: "http://gf:8000"
+      ENABLE_ENRICH: "FALSE"
+      ENRICH_ENDPOINT: "http://enrich:8000"
+      DB_IMPLEMENTATION: "datomic"
       GRAMMAR_SYNTAX: "/opt/syntax"
       GRAMMAR_PARADIGMS: "/opt/paradigms"
       DATA_FILES: "/opt/data-files"
