@@ -181,8 +181,7 @@
             ],
             "type": "AMR",
             "srcId": "%w9:bg8dL?Cd@`orVdPI",
-            "conceptId": "Syntax.mkText/S->Text",
-            "kind": "Text"
+            "conceptId": "Syntax.mkText/S->Text"
           }
         ],
         "type": "Segment",

@@ -9,5 +9,8 @@ services:
     build:
       context: eval
       dockerfile: Dockerfile
+    depends_on:
+      - acc-text-api
     environment:
       ACC_TEXT_URL: http://acc-text-api:3001
+      GRAPH_QL_URL: http://acc-text-api:3001/_graphql
