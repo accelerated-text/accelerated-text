@@ -14,8 +14,8 @@
   (dp/delete-document-plan id)
   (resolve-as true))
 
-(defn list-document-plans [_ {:keys [offset limit kind] :or {offset 0 limit 20 kind "Document"}} _]
-  (let [items (dp/list-document-plans kind)]
+(defn list-document-plans [_ {:keys [offset limit kind] :or {offset 0 limit 100}} _]
+  (let [items (if (some? kind) (dp/list-document-plans kind) (dp/list-document-plans))]
     (resolve-as {:items      (->> items
                                   (drop offset)
                                   (take limit)
