@@ -25,6 +25,5 @@ services:
 
   enrich:
     build:
-      context: .
-      dockerfile: core/enrich/Dockerfile
+      context: ./enrich
     ports: ["8002:8000"]

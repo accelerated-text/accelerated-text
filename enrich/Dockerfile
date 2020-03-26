@@ -4,10 +4,10 @@ RUN pip3 install pipenv
 
 WORKDIR /opt/app
 
-COPY core/enrich/Pipfile Pipfile
-COPY core/enrich/Pipfile.lock Pipfile.lock
-COPY core/enrich/src src
-COPY core/enrich/data data
+COPY Pipfile Pipfile
+COPY Pipfile.lock Pipfile.lock
+COPY src src
+COPY data data
 
 RUN pipenv install
 

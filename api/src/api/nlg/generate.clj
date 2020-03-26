@@ -1,9 +1,11 @@
 (ns api.nlg.generate
   (:require [acc-text.nlg.core :as nlg]
-            [acc-text.nlp.ref-expressions :as ref-expr]
+            [acc-text.nlp.ref-expressions :refer [apply-ref-expressions]]
             [api.nlg.context :as context]
+            [api.nlg.enrich :refer [enrich-texts]]
             [api.nlg.parser :as parser]
             [api.utils :as utils]
+            [clojure.set :as set]
             [clojure.spec.alpha :as s]
             [clojure.tools.logging :as log]
             [clojure.string :as str]
@@ -29,29 +31,18 @@
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
 
-(defn filter-empty [text] (not= "" text))
-
-(defn merge-enrich-dupes [{:keys [original enriched lang] :as data}]
-  (if (= original enriched)
-    {:original original :lang lang}
-    data))
-
-(defn generate-text-for-language
-  [semantic-graph context enrich lang]
-  (let [ref-expr-fn (partial ref-expr/apply-ref-expressions lang)
-        enrich-data (into {} (map (fn [[k v]] {v (format "{%s}" (name k))}) (:data context)))
-        enrich-fn (fn [text]
-                    (cond-> {:original (ref-expr-fn text) :lang lang}
-                            enrich (assoc :enriched (ref-expr-fn
-                                                      (nlg/enrich-text enrich-data text)))))]
-    (->> (nlg/generate-text semantic-graph context lang)
-         (map :text)
-         (sort)
-         (dedupe)
-         (filter filter-empty)
-         (utils/inspect-results)
-         (map enrich-fn)
-         (map merge-enrich-dupes))))
+(defn generate-text-for-language [semantic-graph context enrich lang]
+  (->> (nlg/generate-text semantic-graph context lang)
+       (map :text)
+       (sort)
+       (dedupe)
+       (remove str/blank?)
+       (map (comp
+              #(cond-> {:lang     lang
+                        :original %}
+                       (true? enrich) (assoc :enriched (sort (set/difference
+                                                               (set (enrich-texts % (:data context))) %))))
+              #(apply-ref-expressions lang %)))))
 
 (defn reader-model->languages [reader-model]
   (reduce-kv (fn [acc k v]
@@ -138,7 +129,7 @@
 (defn transform-results
   [results]
   (mapcat (fn [{:keys [enriched original lang]}]
-            (if enriched
+            (if (seq enriched)
               [(prepend-lang-flag (format "📔\t%s " original) lang) (prepend-lang-flag (format "📙\t%s" enriched) lang)]
               [(prepend-lang-flag original lang)]))
           results))
