@@ -3,64 +3,181 @@
   "uid": "d12cbaa4-bcea-484a-ac18-81aeb9e13eac",
   "name": "FamilyFriendlyAMR",
   "kind": "AMR",
-  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"*H_#C[/G/s,p~gOQ$U$z\">IsFamilyFriendly</variable><variable type=\"\" id=\"IGWT0mi?l5Eu(/v9$%#g\">Object</variable></variables><block type=\"Document-plan\" id=\";c$L~n`sXw?2oASSPuZ9\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\"i{ilvUIM}Y5Oev^Bdush\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"6APIH*;}jZ914B/,o5!U\"><mutation concept_id=\"xYejKgCiSQZpaRpx\" concept_label=\"ConditionRGL\" roles=\"[{&quot;id&quot;:&quot;RmOpFJtniaMtuUpo&quot;,&quot;fieldLabel&quot;:&quot;Condition&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;XcQHHNCAgaPDjJKb&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;psZFtiAUEhVMdPEz&quot;,&quot;fieldLabel&quot;:&quot;Phrase&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;A&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"RmOpFJtniaMtuUpo\"><block type=\"Get-var\" id=\"3^8:$3/=.):bjQPte#Ga\"><field name=\"name\" id=\"*H_#C[/G/s,p~gOQ$U$z\" variabletype=\"\">IsFamilyFriendly</field></block></value><value name=\"XcQHHNCAgaPDjJKb\"><block type=\"Get-var\" id=\"KRF$U:o~/fd=8S3gbc`:\"><field name=\"name\" id=\"IGWT0mi?l5Eu(/v9$%#g\" variabletype=\"\">Object</field></block></value><value name=\"psZFtiAUEhVMdPEz\"><block type=\"AMR\" id=\"OS]a|5i,!dX,pOsKzB}N\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;UPPQqcUlanMhJZNM&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"UPPQqcUlanMhJZNM\"><block type=\"Quote\" id=\"iqZ2.AKshA]CbHzlDd:^\"><field name=\"text\">family friendly</field></block></value></block></value></block></value></block></statement></block></xml>",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"*H_#C[/G/s,p~gOQ$U$z\">IsFamilyFriendly</variable><variable type=\"\" id=\"IGWT0mi?l5Eu(/v9$%#g\">Object</variable></variables><block type=\"Document-plan\" id=\";c$L~n`sXw?2oASSPuZ9\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\"i{ilvUIM}Y5Oev^Bdush\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"One-of-synonyms\" id=\"d9JkEdZ1QY)bxF%g:[;[\"><mutation value_count=\"3\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"6APIH*;}jZ914B/,o5!U\"><mutation concept_id=\"xYejKgCiSQZpaRpx\" concept_label=\"ConditionRGL\" roles=\"[{&quot;id&quot;:&quot;RmOpFJtniaMtuUpo&quot;,&quot;fieldLabel&quot;:&quot;Condition&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;XcQHHNCAgaPDjJKb&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;psZFtiAUEhVMdPEz&quot;,&quot;fieldLabel&quot;:&quot;Phrase&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;A&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"RmOpFJtniaMtuUpo\"><block type=\"Get-var\" id=\"3^8:$3/=.):bjQPte#Ga\"><field name=\"name\" id=\"*H_#C[/G/s,p~gOQ$U$z\" variabletype=\"\">IsFamilyFriendly</field></block></value><value name=\"XcQHHNCAgaPDjJKb\"><block type=\"Get-var\" id=\"KRF$U:o~/fd=8S3gbc`:\"><field name=\"name\" id=\"IGWT0mi?l5Eu(/v9$%#g\" variabletype=\"\">Object</field></block></value><value name=\"psZFtiAUEhVMdPEz\"><block type=\"AMR\" id=\"OS]a|5i,!dX,pOsKzB}N\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;UPPQqcUlanMhJZNM&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"UPPQqcUlanMhJZNM\"><block type=\"Quote\" id=\"iqZ2.AKshA]CbHzlDd:^\"><field name=\"text\">family friendly</field></block></value></block></value></block></value><value name=\"value_1\"><block type=\"AMR\" id=\"`Nck/_(6K$_L{L~]U@~G\"><mutation concept_id=\"LQsyfyNPIgeRlnWU\" concept_label=\"IsARGL\" roles=\"[{&quot;id&quot;:&quot;SkGLHLwoAbnotwxw&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;chNvkbAnaiQELmqX&quot;,&quot;fieldLabel&quot;:&quot;Phrase&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;A&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"SkGLHLwoAbnotwxw\"><block type=\"Get-var\" id=\"j/d{y_!7Z5O{`K^60v6T\"><field name=\"name\" id=\"IGWT0mi?l5Eu(/v9$%#g\" variabletype=\"\">Object</field></block></value><value name=\"chNvkbAnaiQELmqX\"><block type=\"If-then-else\" id=\"$D}Kn`y^aLzQAB83I%+:\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"Os~(dw)vs|N0R]}f3A4B\"><field name=\"name\" id=\"*H_#C[/G/s,p~gOQ$U$z\" variabletype=\"\">IsFamilyFriendly</field></block></value><value name=\"then\"><block type=\"One-of-synonyms\" id=\"w=e3H?Ww3}fw1eS_Q%b*\"><mutation value_count=\"2\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"6X2PoT-z[!f+3RJ-h`$~\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;QIbhVqbYHFtTVtyp&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QIbhVqbYHFtTVtyp\"><block type=\"Quote\" id=\"XlcQ9y3LF8*.9Opt)yFi\"><field name=\"text\">family oriented</field></block></value></block></value></block></value><value name=\"else\"><block type=\"One-of-synonyms\" id=\"T%0Gt3FD#KNcpyp5SP(x\"><mutation value_count=\"3\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"?:{rETGP7aVU}=b652yC\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;QIbhVqbYHFtTVtyp&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QIbhVqbYHFtTVtyp\"><block type=\"Quote\" id=\"Q*LVL,*otW/%J|TTlv7B\"><field name=\"text\">the adult establishment</field></block></value></block></value><value name=\"value_1\"><block type=\"AMR\" id=\"}e_/+DU/Sq!e%6=lYfvj\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;QIbhVqbYHFtTVtyp&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QIbhVqbYHFtTVtyp\"><block type=\"Quote\" id=\"/_CIVclp)O3D/T03lBny\"><field name=\"text\">an adult establish</field></block></value></block></value></block></value></block></value></block></value></block></value></block></statement></block></xml>",
   "documentPlan": {
     "type": "Document-plan",
     "segments": [
       {
         "children": [
           {
-            "roles": [
+            "children": [
               {
-                "children": [
+                "roles": [
                   {
-                    "name": "*H_#C[/G/s,p~gOQ$U$z",
-                    "type": "Get-var",
-                    "srcId": "3^8:$3/=.):bjQPte#Ga"
-                  }
-                ],
-                "name": "Str",
-                "label": "Condition"
-              },
-              {
-                "children": [
-                  {
-                    "name": "IGWT0mi?l5Eu(/v9$%#g",
-                    "type": "Get-var",
-                    "srcId": "KRF$U:o~/fd=8S3gbc`:"
-                  }
-                ],
-                "name": "NP",
-                "label": "Object"
-              },
-              {
-                "children": [
-                  {
-                    "roles": [
+                    "children": [
                       {
-                        "children": [
-                          {
-                            "type": "Quote",
-                            "srcId": "iqZ2.AKshA]CbHzlDd:^",
-                            "text": "family friendly"
-                          }
-                        ],
-                        "name": "Str",
-                        "label": "Str"
+                        "name": "*H_#C[/G/s,p~gOQ$U$z",
+                        "type": "Get-var",
+                        "srcId": "3^8:$3/=.):bjQPte#Ga"
                       }
                     ],
-                    "type": "AMR",
-                    "srcId": "OS]a|5i,!dX,pOsKzB}N",
-                    "conceptId": "ParadigmsEng.mkA/Str->A"
+                    "name": "Str",
+                    "label": "Condition"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "IGWT0mi?l5Eu(/v9$%#g",
+                        "type": "Get-var",
+                        "srcId": "KRF$U:o~/fd=8S3gbc`:"
+                      }
+                    ],
+                    "name": "NP",
+                    "label": "Object"
+                  },
+                  {
+                    "children": [
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "type": "Quote",
+                                "srcId": "iqZ2.AKshA]CbHzlDd:^",
+                                "text": "family friendly"
+                              }
+                            ],
+                            "name": "Str",
+                            "label": "Str"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "OS]a|5i,!dX,pOsKzB}N",
+                        "conceptId": "ParadigmsEng.mkA/Str->A"
+                      }
+                    ],
+                    "name": "A",
+                    "label": "Phrase"
                   }
                 ],
-                "name": "A",
-                "label": "Phrase"
+                "type": "AMR",
+                "srcId": "6APIH*;}jZ914B/,o5!U",
+                "conceptId": "xYejKgCiSQZpaRpx"
+              },
+              {
+                "roles": [
+                  {
+                    "children": [
+                      {
+                        "name": "IGWT0mi?l5Eu(/v9$%#g",
+                        "type": "Get-var",
+                        "srcId": "j/d{y_!7Z5O{`K^60v6T"
+                      }
+                    ],
+                    "name": "N",
+                    "label": "Object"
+                  },
+                  {
+                    "children": [
+                      {
+                        "type": "If-then-else",
+                        "conditions": [
+                          {
+                            "type": "If-condition",
+                            "thenExpression": {
+                              "children": [
+                                {
+                                  "roles": [
+                                    {
+                                      "children": [
+                                        {
+                                          "type": "Quote",
+                                          "srcId": "XlcQ9y3LF8*.9Opt)yFi",
+                                          "text": "family oriented"
+                                        }
+                                      ],
+                                      "name": "Str",
+                                      "label": "Str"
+                                    }
+                                  ],
+                                  "type": "AMR",
+                                  "srcId": "6X2PoT-z[!f+3RJ-h`$~",
+                                  "conceptId": "ParadigmsEng.mkA/Str->A",
+                                  "kind": "A"
+                                }
+                              ],
+                              "type": "One-of-synonyms",
+                              "srcId": "w=e3H?Ww3}fw1eS_Q%b*"
+                            },
+                            "condition": {
+                              "name": "*H_#C[/G/s,p~gOQ$U$z",
+                              "type": "Get-var",
+                              "srcId": "Os~(dw)vs|N0R]}f3A4B"
+                            }
+                          },
+                          {
+                            "type": "Default-condition",
+                            "thenExpression": {
+                              "children": [
+                                {
+                                  "roles": [
+                                    {
+                                      "children": [
+                                        {
+                                          "type": "Quote",
+                                          "srcId": "Q*LVL,*otW/%J|TTlv7B",
+                                          "text": "the adult establishment"
+                                        }
+                                      ],
+                                      "name": "Str",
+                                      "label": "Str"
+                                    }
+                                  ],
+                                  "type": "AMR",
+                                  "srcId": "?:{rETGP7aVU}=b652yC",
+                                  "conceptId": "ParadigmsEng.mkA/Str->A",
+                                  "kind": "A"
+                                },
+                                {
+                                  "roles": [
+                                    {
+                                      "children": [
+                                        {
+                                          "type": "Quote",
+                                          "srcId": "/_CIVclp)O3D/T03lBny",
+                                          "text": "an adult establish"
+                                        }
+                                      ],
+                                      "name": "Str",
+                                      "label": "Str"
+                                    }
+                                  ],
+                                  "type": "AMR",
+                                  "srcId": "}e_/+DU/Sq!e%6=lYfvj",
+                                  "conceptId": "ParadigmsEng.mkA/Str->A",
+                                  "kind": "A"
+                                }
+                              ],
+                              "type": "One-of-synonyms",
+                              "srcId": "T%0Gt3FD#KNcpyp5SP(x"
+                            }
+                          }
+                        ],
+                        "srcId": "$D}Kn`y^aLzQAB83I%+:"
+                      }
+                    ],
+                    "name": "A",
+                    "label": "Phrase"
+                  }
+                ],
+                "type": "AMR",
+                "srcId": "`Nck/_(6K$_L{L~]U@~G",
+                "conceptId": "LQsyfyNPIgeRlnWU",
+                "kind": "Str"
               }
             ],
-            "type": "AMR",
-            "srcId": "6APIH*;}jZ914B/,o5!U",
-            "conceptId": "xYejKgCiSQZpaRpx"
+            "type": "One-of-synonyms",
+            "srcId": "d9JkEdZ1QY)bxF%g:[;["
           }
         ],
         "type": "Segment",
