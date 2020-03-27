@@ -4,58 +4,5 @@
   "name": "CustomerRatingAMR",
   "kind": "AMR",
   "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"6I:0X?CNbji;A%AZI2={\">Object</variable><variable type=\"\" id=\"WGsdC*LPd3SZNZ1g]sIe\">Phrase</variable></variables><block type=\"Document-plan\" id=\"xtn=CxE[}UI,BbfwmL#?\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\"4buf3u4fzl9az|/uvf[H\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"CpB@M#]RVrj4/n?9pZ-U\"><mutation concept_id=\"heCVqgYWHYhIYYBS\" concept_label=\"HasARGL\" roles=\"[{&quot;id&quot;:&quot;DTDKjtncuEPvrBJS&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;jagEAWNoCQabZVau&quot;,&quot;fieldLabel&quot;:&quot;Phrase&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"DTDKjtncuEPvrBJS\"><block type=\"Get-var\" id=\"{0kUuLv#5ymA;/d_9d5D\"><field name=\"name\" id=\"6I:0X?CNbji;A%AZI2={\" variabletype=\"\">Object</field></block></value><value name=\"jagEAWNoCQabZVau\"><block type=\"AMR\" id=\"l{#sEE+gz};OHKjRXRNV\"><mutation concept_id=\"ParadigmsEng.mkAdv/Str-&gt;Adv\" concept_label=\"mkAdv\" roles=\"[{&quot;id&quot;:&quot;lFRTbMxCjjxHDzTO&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"lFRTbMxCjjxHDzTO\"><block type=\"Get-var\" id=\"9@H4/+_uV3!wzrM.Y],1\"><field name=\"name\" id=\"WGsdC*LPd3SZNZ1g]sIe\" variabletype=\"\">Phrase</field></block></value></block></value></block></value></block></statement></block></xml>",
-  "documentPlan": {
-    "type": "Document-plan",
-    "segments": [
-      {
-        "children": [
-          {
-            "roles": [
-              {
-                "children": [
-                  {
-                    "name": "6I:0X?CNbji;A%AZI2={",
-                    "type": "Get-var",
-                    "srcId": "{0kUuLv#5ymA;/d_9d5D"
-                  }
-                ],
-                "name": "N",
-                "label": "Object"
-              },
-              {
-                "children": [
-                  {
-                    "roles": [
-                      {
-                        "children": [
-                          {
-                            "name": "WGsdC*LPd3SZNZ1g]sIe",
-                            "type": "Get-var",
-                            "srcId": "9@H4/+_uV3!wzrM.Y],1"
-                          }
-                        ],
-                        "name": "Str",
-                        "label": "Str"
-                      }
-                    ],
-                    "type": "AMR",
-                    "srcId": "l{#sEE+gz};OHKjRXRNV",
-                    "conceptId": "ParadigmsEng.mkAdv/Str->Adv"
-                  }
-                ],
-                "name": "CN",
-                "label": "Phrase"
-              }
-            ],
-            "type": "AMR",
-            "srcId": "CpB@M#]RVrj4/n?9pZ-U",
-            "conceptId": "heCVqgYWHYhIYYBS"
-          }
-        ],
-        "type": "Segment",
-        "srcId": "4buf3u4fzl9az|/uvf[H"
-      }
-    ],
-    "srcId": "xtn=CxE[}UI,BbfwmL#?"
-  }
+  "documentPlan": "{\"type\":\"Document-plan\",\"segments\":[{\"children\":[{\"roles\":[{\"children\":[{\"name\":\"6I:0X?CNbji;A%AZI2={\",\"type\":\"Get-var\",\"srcId\":\"{0kUuLv#5ymA;/d_9d5D\"}],\"name\":\"N\",\"label\":\"Object\"},{\"children\":[{\"roles\":[{\"children\":[{\"name\":\"WGsdC*LPd3SZNZ1g]sIe\",\"type\":\"Get-var\",\"srcId\":\"9@H4/+_uV3!wzrM.Y],1\"}],\"name\":\"Str\",\"label\":\"Str\"}],\"type\":\"AMR\",\"srcId\":\"l{#sEE+gz};OHKjRXRNV\",\"conceptId\":\"ParadigmsEng.mkAdv/Str->Adv\"}],\"name\":\"CN\",\"label\":\"Phrase\"}],\"type\":\"AMR\",\"srcId\":\"CpB@M#]RVrj4/n?9pZ-U\",\"conceptId\":\"heCVqgYWHYhIYYBS\"}],\"type\":\"Segment\",\"srcId\":\"4buf3u4fzl9az|/uvf[H\"}],\"srcId\":\"xtn=CxE[}UI,BbfwmL#?\"}"
 }
