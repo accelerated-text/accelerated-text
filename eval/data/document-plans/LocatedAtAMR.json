@@ -4,5 +4,93 @@
   "name": "LocatedAtAMR",
   "kind": "AMR",
   "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\".Ily1e)x@FB(AK$sB,J.\">Object</variable><variable type=\"\" id=\"TPT4I7%D)t8XFwczu#eD\">Location</variable></variables><block type=\"Document-plan\" id=\"*E|8nN7E1zLe(i$Z0^[C\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\"$mGK@#3)xP8ieHq6:/wc\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"One-of-synonyms\" id=\"K|FJ18[lO~QrjF]A`w-R\"><mutation value_count=\"3\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"nQ(hPZ*$Lnon2UX$_|VE\"><mutation concept_id=\"MYlhFCJEFSsAvksn\" concept_label=\"InAreaRGL\" roles=\"[{&quot;id&quot;:&quot;MRfaKZQDpGlCethk&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;xjNxwYBlOUGferTS&quot;,&quot;fieldLabel&quot;:&quot;Location&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"MRfaKZQDpGlCethk\"><block type=\"Get-var\" id=\"zACvULExzDEY{)865`0]\"><field name=\"name\" id=\".Ily1e)x@FB(AK$sB,J.\" variabletype=\"\">Object</field></block></value><value name=\"xjNxwYBlOUGferTS\"><block type=\"Get-var\" id=\"d$XpF+-{l(/z;UOeaQ0v\"><field name=\"name\" id=\"TPT4I7%D)t8XFwczu#eD\" variabletype=\"\">Location</field></block></value></block></value><value name=\"value_1\"><block type=\"AMR\" id=\"7dk[Gpi`2R9?`cJP.$Bp\"><mutation concept_id=\"ewiDMpncwVJVarJj\" concept_label=\"ActionAtRGL\" roles=\"[{&quot;id&quot;:&quot;orEUYgnWiaZBxLcb&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;lBbfPUmUAFalOqTA&quot;,&quot;fieldLabel&quot;:&quot;Action&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;gaGwexIzVBAlbAjp&quot;,&quot;fieldLabel&quot;:&quot;Location&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"orEUYgnWiaZBxLcb\"><block type=\"Get-var\" id=\"r_3Obf;s1%X.6w8?{h~1\"><field name=\"name\" id=\".Ily1e)x@FB(AK$sB,J.\" variabletype=\"\">Object</field></block></value><value name=\"lBbfPUmUAFalOqTA\"><block type=\"Dictionary-item\" id=\"*%sS:?IO]:[$,lN|0vML\"><mutation id=\"88a25542-50de-4320-879d-0c507c08123a\" name=\"locate_1_V\"></mutation></block></value><value name=\"gaGwexIzVBAlbAjp\"><block type=\"Get-var\" id=\"YSVWxDHx=uGbm;x?`lZG\"><field name=\"name\" id=\"TPT4I7%D)t8XFwczu#eD\" variabletype=\"\">Location</field></block></value></block></value></block></value></block></statement></block><block type=\"AMR\" id=\"M(#g($#qYKrhlZ^}m=Sd\" x=\"694\" y=\"107\"><mutation concept_id=\"cJxhPoeGyjybOJuu\" concept_label=\"ThereIsARGL\" roles=\"[{&quot;id&quot;:&quot;NQqEdHCmXDqqsiNj&quot;,&quot;fieldLabel&quot;:&quot;Word&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;qRfuLPvQXxiPcyQN&quot;,&quot;fieldLabel&quot;:&quot;Phrase&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"NQqEdHCmXDqqsiNj\"><block type=\"Dictionary-item\" id=\"Qv[-W;a5VPP}rmrJUK3?\"><mutation id=\"b01dd1f2-dee9-4145-8f9e-452e50f2d5e7\" name=\"place_1_N\"></mutation></block></value><value name=\"qRfuLPvQXxiPcyQN\"><block type=\"AMR\" id=\"2m]TlQO$p79(QPxli3rl\"><mutation concept_id=\"MYlhFCJEFSsAvksn\" concept_label=\"InAreaRGL\" roles=\"[{&quot;id&quot;:&quot;MRfaKZQDpGlCethk&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;xjNxwYBlOUGferTS&quot;,&quot;fieldLabel&quot;:&quot;Location&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"MRfaKZQDpGlCethk\"><block type=\"Get-var\" id=\"oR$Vu!BQXH_7?|ohmKaP\"><field name=\"name\" id=\".Ily1e)x@FB(AK$sB,J.\" variabletype=\"\">Object</field></block></value><value name=\"xjNxwYBlOUGferTS\"><block type=\"Get-var\" id=\"~1SR1[oRyaG,@jEi$gXl\"><field name=\"name\" id=\"TPT4I7%D)t8XFwczu#eD\" variabletype=\"\">Location</field></block></value></block></value></block></xml>",
-  "documentPlan": "{\"type\":\"Document-plan\",\"segments\":[{\"children\":[{\"children\":[{\"roles\":[{\"children\":[{\"name\":\".Ily1e)x@FB(AK$sB,J.\",\"type\":\"Get-var\",\"srcId\":\"zACvULExzDEY{)865`0]\"}],\"name\":\"N\",\"label\":\"Object\"},{\"children\":[{\"name\":\"TPT4I7%D)t8XFwczu#eD\",\"type\":\"Get-var\",\"srcId\":\"d$XpF+-{l(/z;UOeaQ0v\"}],\"name\":\"NP\",\"label\":\"Location\"}],\"type\":\"AMR\",\"srcId\":\"nQ(hPZ*$Lnon2UX$_|VE\",\"conceptId\":\"MYlhFCJEFSsAvksn\"},{\"roles\":[{\"children\":[{\"name\":\".Ily1e)x@FB(AK$sB,J.\",\"type\":\"Get-var\",\"srcId\":\"r_3Obf;s1%X.6w8?{h~1\"}],\"name\":\"N\",\"label\":\"Object\"},{\"children\":[{\"name\":\"locate_1_V\",\"type\":\"Dictionary-item\",\"srcId\":\"*%sS:?IO]:[$,lN|0vML\",\"itemId\":\"88a25542-50de-4320-879d-0c507c08123a\"}],\"name\":\"V\",\"label\":\"Action\"},{\"children\":[{\"name\":\"TPT4I7%D)t8XFwczu#eD\",\"type\":\"Get-var\",\"srcId\":\"YSVWxDHx=uGbm;x?`lZG\"}],\"name\":\"N\",\"label\":\"Location\"}],\"type\":\"AMR\",\"srcId\":\"7dk[Gpi`2R9?`cJP.$Bp\",\"conceptId\":\"ewiDMpncwVJVarJj\",\"kind\":\"Str\"}],\"type\":\"One-of-synonyms\",\"srcId\":\"K|FJ18[lO~QrjF]A`w-R\"}],\"type\":\"Segment\",\"srcId\":\"$mGK@#3)xP8ieHq6:/wc\"}],\"srcId\":\"*E|8nN7E1zLe(i$Z0^[C\"}"
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "roles": [
+                  {
+                    "children": [
+                      {
+                        "name": ".Ily1e)x@FB(AK$sB,J.",
+                        "type": "Get-var",
+                        "srcId": "zACvULExzDEY{)865`0]"
+                      }
+                    ],
+                    "name": "N",
+                    "label": "Object"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "TPT4I7%D)t8XFwczu#eD",
+                        "type": "Get-var",
+                        "srcId": "d$XpF+-{l(/z;UOeaQ0v"
+                      }
+                    ],
+                    "name": "NP",
+                    "label": "Location"
+                  }
+                ],
+                "type": "AMR",
+                "srcId": "nQ(hPZ*$Lnon2UX$_|VE",
+                "conceptId": "MYlhFCJEFSsAvksn"
+              },
+              {
+                "roles": [
+                  {
+                    "children": [
+                      {
+                        "name": ".Ily1e)x@FB(AK$sB,J.",
+                        "type": "Get-var",
+                        "srcId": "r_3Obf;s1%X.6w8?{h~1"
+                      }
+                    ],
+                    "name": "N",
+                    "label": "Object"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "locate_1_V",
+                        "type": "Dictionary-item",
+                        "srcId": "*%sS:?IO]:[$,lN|0vML",
+                        "itemId": "88a25542-50de-4320-879d-0c507c08123a"
+                      }
+                    ],
+                    "name": "V",
+                    "label": "Action"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "TPT4I7%D)t8XFwczu#eD",
+                        "type": "Get-var",
+                        "srcId": "YSVWxDHx=uGbm;x?`lZG"
+                      }
+                    ],
+                    "name": "N",
+                    "label": "Location"
+                  }
+                ],
+                "type": "AMR",
+                "srcId": "7dk[Gpi`2R9?`cJP.$Bp",
+                "conceptId": "ewiDMpncwVJVarJj",
+                "kind": "Str"
+              }
+            ],
+            "type": "One-of-synonyms",
+            "srcId": "K|FJ18[lO~QrjF]A`w-R"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "$mGK@#3)xP8ieHq6:/wc"
+      }
+    ],
+    "srcId": "*E|8nN7E1zLe(i$Z0^[C"
+  }
 }
