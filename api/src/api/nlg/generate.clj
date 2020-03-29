@@ -42,7 +42,7 @@
                         :original %}
                        (true? enrich) (assoc :enriched (sort (set/difference
                                                                (set (enrich-texts % (:data context))) %))))
-              #(apply-ref-expressions lang %)))))
+              #_#(apply-ref-expressions lang %)))))
 
 (defn reader-model->languages [reader-model]
   (reduce-kv (fn [acc k v]
