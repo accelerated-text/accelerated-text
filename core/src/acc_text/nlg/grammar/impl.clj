@@ -110,9 +110,9 @@
   (-> semantic-graph
       (semantic-graph->ubergraph)
       (attach-amrs context)
+      (resolve-variables)
       (determine-conditions context)
       (prune-graph)
-      (resolve-variables)
       (resolve-polarity)
       (resolve-dictionary-items context)
       (resolve-data context)
