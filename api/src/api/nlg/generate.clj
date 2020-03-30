@@ -81,11 +81,19 @@
 (defn generate-request [{data-id :dataId data-row :dataRow reader-model :readerFlagValues enrich :enrich async :async :as request}]
   (let [result-id (utils/gen-uuid)
         {document-plan :documentPlan data-sample-row :dataSampleRow} (get-document-plan request)
-        row (if-not (str/blank? data-id) (nth (get-data data-id) (or data-sample-row 0)) data-row)]
-    (results/store-status result-id {:ready false})
-    (results/rewrite result-id (generation-process document-plan {:sample row} reader-model enrich))
-    {:status 200
-     :body   {:resultId result-id}}))
+        row (if-not (str/blank? data-id) (nth (get-data data-id) (or data-sample-row 0)) (into {} (utils/key-to-keyword data-row)))
+        async-result (if (nil? async) true async)]
+    (if async-result
+      (do
+        (results/store-status result-id {:ready false})
+        (results/rewrite result-id (generation-process document-plan {:sample row} reader-model enrich)) ;; TODO: this not true async. Implement it some day.
+        {:status 200
+         :body   {:resultId result-id}})
+      {:status 200
+       :body (-> (generation-process document-plan {:sample row} reader-model enrich)
+                 :results
+                 (first)
+                 (second))})))
 
 (defn generate-bulk [{reader-model :readerFlagValues rows :dataRows enrich :enrich :as request}]
   (let [result-id (utils/gen-uuid)
