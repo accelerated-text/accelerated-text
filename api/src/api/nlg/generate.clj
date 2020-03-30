@@ -18,12 +18,13 @@
 (s/def ::key string?)
 (s/def ::dataId string?)
 (s/def ::enrich boolean?)
+(s/def ::async boolean?)
 (s/def ::format #{"raw" "dropoff" "annotated"})             ;; reitit does not convert these to keys
 (s/def ::format-query (s/keys :opt-un [::format]))
 (s/def ::dataRow (s/map-of string? string?))
 (s/def ::dataRows (s/map-of ::key ::dataRow))
 (s/def ::readerFlagValues (s/map-of string? boolean?))
-(s/def ::generate-req (s/keys :opt-un [::documentPlanId ::documentPlanName ::dataId ::readerFlagValues ::enrich]))
+(s/def ::generate-req (s/keys :opt-un [::documentPlanId ::documentPlanName ::dataId ::dataRow ::readerFlagValues ::enrich ::async]))
 (s/def ::generate-bulk (s/keys :req-un [::dataRows]
                                :opt-un [::documentPlanId ::documentPlanName ::readerFlagValues ::enrich]))
 
@@ -77,14 +78,22 @@
       (log/trace (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
 
-(defn generate-request [{data-id :dataId reader-model :readerFlagValues enrich :enrich :as request}]
+(defn generate-request [{data-id :dataId data-row :dataRow reader-model :readerFlagValues enrich :enrich async :async :as request}]
   (let [result-id (utils/gen-uuid)
         {document-plan :documentPlan data-sample-row :dataSampleRow} (get-document-plan request)
-        row (if-not (str/blank? data-id) (nth (get-data data-id) (or data-sample-row 0)) {})]
-    (results/store-status result-id {:ready false})
-    (results/rewrite result-id (generation-process document-plan {:sample row} reader-model enrich))
-    {:status 200
-     :body   {:resultId result-id}}))
+        row (if-not (str/blank? data-id) (nth (get-data data-id) (or data-sample-row 0)) (into {} (utils/key-to-keyword data-row)))
+        async-result (if (nil? async) true async)]
+    (if async-result
+      (do
+        (results/store-status result-id {:ready false})
+        (results/rewrite result-id (generation-process document-plan {:sample row} reader-model enrich)) ;; TODO: this not true async. Implement it some day.
+        {:status 200
+         :body   {:resultId result-id}})
+      {:status 200
+       :body (-> (generation-process document-plan {:sample row} reader-model enrich)
+                 :results
+                 (first)
+                 (second))})))
 
 (defn generate-bulk [{reader-model :readerFlagValues rows :dataRows enrich :enrich :as request}]
   (let [result-id (utils/gen-uuid)
