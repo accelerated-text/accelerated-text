@@ -4,6 +4,20 @@
 
 (defn filter-by-refs-count [[_ refs]] (>= (count refs) 2))
 
+(defn merge-nearby [tokens]
+  (loop [pairs (partition 2 1 tokens)
+         final ()]
+    (if (empty? pairs)
+      (reverse final)
+      (let [[head & tail] pairs
+            [[p1 v1] [p2 v2]] head]
+        (println v1)
+        (if (= 1 (- p2 p1))
+          (recur (rest tail) (cons [p1 (clojure.string/join " " [v1 v2])] final))
+          (recur tail (cons [p1 v1] final)))
+        ))))
+
+
 (defn filter-last-location-token
   [all-tokens group]
   (filter (fn [[idx token]]
@@ -19,10 +33,15 @@
   [tokens]
   (->> (map-indexed vector tokens)
        (filter #(referent? (second %)))
+       (merge-nearby)
        (group-by second)
        (filter filter-by-refs-count)
        (map (comp rest second))
        (mapcat (partial filter-last-location-token tokens))))
+
+(defmulti ignored-tokens (fn [lang _] lang))
+
+(defmethod ignored-tokens "Eng" [_ [idx value]])
 
 (defmulti add-replace-token (fn [lang _] lang))
 

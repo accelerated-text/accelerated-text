@@ -22,5 +22,5 @@
          (r/apply-ref-expressions "Eng" "The T1000 is shiny. The T1000 makes noise."))))
 
 (deftest test-test-test-case
-  (is (= "TEST TEST TEST"
+  (is (= "TEST TEST TEST."
          (r/apply-ref-expressions "Eng" "TEST TEST TEST"))))
