@@ -1,0 +1,151 @@
+{:type nil,
+ :description "",
+ :module "Syntax",
+ :functions
+ [{:function "masculine", :type ["Gender"], :example "-"}
+  {:function "feminine", :type ["Gender"], :example "-"}
+  {:function "Number", :type ["Type"], :example "-"}
+  {:function "singular", :type ["Number"], :example "-"}
+  {:function "plural", :type ["Number"], :example "-"}
+  {:function "accusative", :type ["Prep"], :example "direct object"}
+  {:function "genitive",
+   :type ["Prep"],
+   :example "preposition \"de\" and its contractions"}
+  {:function "dative",
+   :type ["Prep"],
+   :example "preposition \"a\" and its contractions"}
+  {:function "CopulaType", :type ["Type"], :example "-"}
+  {:function "serCopula", :type ["CopulaType"], :example "-"}
+  {:function "estarCopula", :type ["CopulaType"], :example "-"}
+  {:function "mkPrep",
+   :type ["Str" "Prep"],
+   :example "other preposition"}
+  {:function "mkPrep",
+   :type ["Str" "Prep" "Prep"],
+   :example
+   "compound prepositions, e.g. \"antes de\", made as mkPrep \"antes\" genitive"}
+  {:function "mkN",
+   :type ["(luz"],
+   :example
+   ": Str) -> N \tpredictable; feminine for \"-a\"/\"-z\", otherwise masculine"}
+  {:function "mkN",
+   :type ["Str" "Gender" "N"],
+   :example "force gender"}
+  {:function "mkN",
+   :type ["bastones"],
+   :example "bastones : Str) -> Gender -> N \tworst case"}
+  {:function "mkN",
+   :type ["N" "Str" "N"],
+   :example "compound, e.g. \"número\" + \"de teléfono\""}
+  {:function "compN",
+   :type ["N" "Str" "N"],
+   :example "compound, e.g. \"número\" + \"de teléfono\""}
+  {:function "mkN2",
+   :type ["N" "Prep" "N2"],
+   :example "relational noun with preposition"}
+  {:function "deN2",
+   :type ["N" "N2"],
+   :example "relational noun with preposition \"de\""}
+  {:function "aN2",
+   :type ["N" "N2"],
+   :example "relational noun with preposition \"a\""}
+  {:function "mkN3",
+   :type ["N" "Prep" "Prep" "N3"],
+   :example "prepositions for two complements"}
+  {:function "mkPN",
+   :type ["(Anna"],
+   :example ": Str) -> PN \tfeminine for \"-a\""}
+  {:function "mkPN",
+   :type ["(Pilar"],
+   :example ": Str) -> Gender -> PN \tforce gender"}
+  {:function "mkPN", :type ["N" "PN"], :example "gender from noun"}
+  {:function "mkA",
+   :type ["(util"],
+   :example ": Str) -> A \tpredictable adjective"}
+  {:function "mkA",
+   :type ["ola"],
+   :example "pañol,española : Str) -> A \t-"}
+  {:function "mkA",
+   :type ["solamente"],
+   :example
+   "a,solos,solas,solamente : Str) -> A \talmost worst-case, except for buen/bueno gran/grande"}
+  {:function "mkA",
+   :type ["solamente"],
+   :example
+   "nde,gran,grande,grandes,grandes,solamente : Str) -> A \tworst-case"}
+  {:function "mkA",
+   :type ["(bueno"],
+   :example
+   ": A) -> (mejor : A) -> A \tspecial comparison (default with \"mas\")"}
+  {:function "mkA",
+   :type ["(blanco"],
+   :example
+   ": A) -> (hueso : Str) -> A \tnoninflecting component after the adjective"}
+  {:function "mkA",
+   :type ["A" "CopulaType" "A"],
+   :example "force copula type"}
+  {:function "prefixA",
+   :type ["A" "A"],
+   :example "adjective before noun (default after noun)"}
+  {:function "invarA",
+   :type ["Str" "A"],
+   :example "invariable adjective"}
+  {:function "mkA2",
+   :type ["A" "Prep" "A2"],
+   :example "e.g. \"casado\" + dative"}
+  {:function "mkAdv", :type ["Str" "Adv"], :example "-"}
+  {:function "mkAdV", :type ["Str" "AdV"], :example "-"}
+  {:function "mkAdA", :type ["Str" "AdA"], :example "-"}
+  {:function "mkAdN", :type ["Str" "AdN"], :example "-"}
+  {:function "mkV",
+   :type ["(pagar"],
+   :example ": Str) -> V \tregular in \"-ar\", \"-er\", \".ir\""}
+  {:function "mkV",
+   :type ["muestro"],
+   :example "r,muestro : Str) -> V \tregular with vowel alternation"}
+  {:function "mkV",
+   :type ["Verbum" "V"],
+   :example "import verb constructed with BeschSpa"}
+  {:function "mkV", :type ["V" "Str" "V"], :example "particle verb"}
+  {:function "reflV", :type ["V" "V"], :example "reflexive verb"}
+  {:function "special_ppV",
+   :type ["V" "Str" "V"],
+   :example "deviant past participle, e.g. abrir - abierto"}
+  {:function "mkV2",
+   :type ["Str" "V2"],
+   :example "regular, direct object"}
+  {:function "mkV2", :type ["V" "V2"], :example "direct object"}
+  {:function "mkV2", :type ["V" "Prep" "V2"], :example "other object"}
+  {:function "mkV3",
+   :type ["V" "V3"],
+   :example "donner (+ accusative + dative)"}
+  {:function "mkV3",
+   :type ["V" "Prep" "V3"],
+   :example "placer (+ accusative) + dans"}
+  {:function "mkV3",
+   :type ["V" "Prep" "Prep" "V3"],
+   :example "parler + dative + genitive"}
+  {:function "dirV3",
+   :type ["V" "Prep" "V3"],
+   :example "e.g. dar,(accusative),a"}
+  {:function "dirdirV3",
+   :type ["V" "V3"],
+   :example "e.g. dar,(dative),(accusative)"}
+  {:function "mkVS", :type ["V" "VS"], :example "-"}
+  {:function "subjVS", :type ["V" "VS"], :example "-"}
+  {:function "mkVV",
+   :type ["V" "VV"],
+   :example "plain infinitive: \"quiero hablar\""}
+  {:function "deVV",
+   :type ["V" "VV"],
+   :example "\"terminar de hablar\""}
+  {:function "aVV", :type ["V" "VV"], :example "\"aprender a hablar\""}
+  {:function "mkVA", :type ["V" "VA"], :example "-"}
+  {:function "mkVQ", :type ["V" "VQ"], :example "-"}
+  {:function "mkV2Q", :type ["V" "Prep" "V2Q"], :example "-"}
+  {:function "mkV2S", :type ["V" "V2S"], :example "-"}
+  {:function "mkV2S", :type ["V" "Prep" "V2S"], :example "-"}
+  {:function "mkV2V", :type ["V" "V2V"], :example "-"}
+  {:function "mkV2V", :type ["V" "Prep" "Prep" "V2V"], :example "-"}
+  {:function "mkV2A", :type ["V" "V2A"], :example "-"}
+  {:function "mkV2A", :type ["V" "Prep" "Prep" "V2A"], :example "-"}]}
