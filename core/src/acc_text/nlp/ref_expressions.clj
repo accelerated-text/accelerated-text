@@ -2,6 +2,14 @@
   (:require [acc-text.nlp.utils :as nlp]
             [clojure.tools.logging :as log]))
 
+(defmulti ignored-token? (fn [lang _] lang))
+
+(defmethod ignored-token? "Eng" [_ value] (contains? #{"I"} value))
+
+(defmethod ignored-token? :default [_ _] false)
+
+(defn filter-ignored-tokens [lang [value _]] (ignored-token? lang value))
+
 (defn filter-by-refs-count [[_ refs]] (>= (count refs) 2))
 
 (defn merge-nearby [tokens]
@@ -12,7 +20,7 @@
       (let [[head & tail] pairs
             [[p1 v1] [p2 v2]] head]
         (if (= 1 (- p2 p1))
-          (recur (rest tail) (cons [p1 (clojure.string/join " " [v1 v2])] final))
+          (recur (rest tail) (cons [p1 (clojure.string/join " " (log/spyf "Merging: %s" [v1 v2]))] final))
           (recur tail (cons [p1 v1] final)))
         ))))
 
@@ -29,18 +37,15 @@
 (defn referent? [token] (nlp/starts-with-capital? token))
 
 (defn identify-potential-refs
-  [tokens]
+  [lang tokens]
   (->> (map-indexed vector tokens)
        (filter #(referent? (second %)))
        (merge-nearby)
        (group-by second)
+       (filter #(filter-ignored-tokens lang %))
        (filter filter-by-refs-count)
        (map (comp rest second))
        (mapcat (partial filter-last-location-token tokens))))
-
-(defmulti ignored-tokens (fn [lang _] lang))
-
-(defmethod ignored-tokens "Eng" [_ [idx value]])
 
 (defmulti add-replace-token (fn [lang _] lang))
 
@@ -71,7 +76,7 @@
   [lang text]
   (let [tokens (nlp/tokenize text)
         smap (->> tokens
-                  (identify-potential-refs)
+                  (identify-potential-refs lang)
                   (map (partial add-replace-token lang))
                   (check-for-dupes)
                   (into {}))]
