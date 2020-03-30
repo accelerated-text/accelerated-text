@@ -21,6 +21,7 @@ enum PartOfSpeech {
    N2
    N3
    PN
+   Prep
    V
    V0
    V2
