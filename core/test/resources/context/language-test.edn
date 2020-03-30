@@ -20,40 +20,6 @@
                                                         :value  "Syntax.mkText"
                                                         :params ({:id "ARG0" :type "Cl"})
                                                         :type   :oper})})}
-       "ZGWJFyFHwYywHDap"        {:id             "ZGWJFyFHwYywHDap"
-                                  :label          "noun"
-                                  :kind           "Str"
-                                  :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
-                                                                                             :to    :02
-                                                                                             :role  :segment
-                                                                                             :index 0}
-                                                                                            {:from  :02
-                                                                                             :to    :03
-                                                                                             :role  :instance
-                                                                                             :index 0}
-                                                                                            {:from     :03
-                                                                                             :to       :04
-                                                                                             :role     :arg
-                                                                                             :index    0
-                                                                                             :category "Cl"}
-                                                                                            {:from     :04
-                                                                                             :to       :05
-                                                                                             :role     :arg
-                                                                                             :index    0
-                                                                                             :category "N"})
-                                                                                :concepts  ({:id :01 :type :document-plan}
-                                                                                            {:id :02 :type :segment}
-                                                                                            {:id   :03
-                                                                                             :type :amr
-                                                                                             :name "Syntax.mkText/Cl->Text"}
-                                                                                            {:id   :04
-                                                                                             :type :amr
-                                                                                             :name "Syntax.mkCl/N->Cl"}
-                                                                                            {:id   :05
-                                                                                             :type :reference
-                                                                                             :name "item"})}
-                                  :frames         [{:examples nil}]
-                                  :roles          [{:id "ARG0" :label "item" :type "N"}]}
        "Syntax.mkCl/N->Cl"       {:id     "Syntax.mkCl/N->Cl"
                                   :kind   "Cl"
                                   :name   "N -> Cl"
@@ -65,41 +31,8 @@
                                                         :value  "Syntax.mkCl"
                                                         :params ({:id "ARG0" :type "N"})
                                                         :type   :oper})})}
-       "ParadigmsEst.mkN/Str->N" {:id     "ParadigmsEst.mkN/Str->N"
-                                  :kind   "N"
-                                  :name   "Str -> N"
-                                  :label  "mkN"
-                                  :module "ParadigmsEst"
-                                  :roles  ({:type "Str" :label "Str"})
-                                  :frames ({:examples ["predictable nouns covers 90%"]
-                                            :syntax   ({:ret    "N"
-                                                        :value  "ParadigmsEst.mkN"
-                                                        :params ({:id "ARG0" :type "Str"})
-                                                        :type   :oper})})}
-       "ParadigmsGer.mkN/Str->N" {:id     "ParadigmsGer.mkN/Str->N"
-                                  :kind   "N"
-                                  :name   "Str -> N"
-                                  :label  "mkN"
-                                  :module "ParadigmsGer"
-                                  :roles  ({:type "Str" :label "Str"})
-                                  :frames ({:examples ["die Stufe-Stufen der Tisch-Tische"]
-                                            :syntax   ({:ret    "N"
-                                                        :value  "ParadigmsGer.mkN"
-                                                        :params ({:id "ARG0" :type "Str"})
-                                                        :type   :oper})})}
-       "ParadigmsRus.mkN/Str->N" {:id     "ParadigmsRus.mkN/Str->N"
-                                  :kind   "N"
-                                  :name   "Str -> N"
-                                  :label  "mkN"
-                                  :module "ParadigmsRus"
-                                  :roles  ({:type "Str" :label "Str"})
-                                  :frames ({:examples ["-"]
-                                            :syntax   ({:ret    "N"
-                                                        :value  "ParadigmsRus.mkN"
-                                                        :params ({:id "ARG0" :type "Str"})
-                                                        :type   :oper})})}
-       "udwQwhFAAMehYTmr"        {:id             "udwQwhFAAMehYTmr"
-                                  :label          "noun"
+       "vbrlyagPKFmewMsD"        {:id             "vbrlyagPKFmewMsD"
+                                  :label          "language-test"
                                   :kind           "Str"
                                   :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
                                                                                              :to    :02
@@ -129,6 +62,10 @@
                                                                                              :to    :32
                                                                                              :role  :statement
                                                                                              :index 4}
+                                                                                            {:from  :03
+                                                                                             :to    :39
+                                                                                             :role  :statement
+                                                                                             :index 5}
                                                                                             {:from :04
                                                                                              :to   :05
                                                                                              :role :predicate}
@@ -253,6 +190,31 @@
                                                                                              :to       :38
                                                                                              :role     :arg
                                                                                              :index    0
+                                                                                             :category "Str"}
+                                                                                            {:from :39
+                                                                                             :to   :40
+                                                                                             :role :predicate}
+                                                                                            {:from :39
+                                                                                             :to   :43
+                                                                                             :role :then-expression}
+                                                                                            {:from  :40
+                                                                                             :to    :41
+                                                                                             :role  :comparable
+                                                                                             :index 0}
+                                                                                            {:from  :40
+                                                                                             :to    :42
+                                                                                             :role  :comparable
+                                                                                             :index 1}
+                                                                                            {:from     :43
+                                                                                             :to       :44
+                                                                                             :role     :arg
+                                                                                             :index    0
+                                                                                             :category "N"
+                                                                                             :name     "item"}
+                                                                                            {:from     :44
+                                                                                             :to       :45
+                                                                                             :role     :arg
+                                                                                             :index    0
                                                                                              :category "Str"})
                                                                                 :concepts  ({:id :01 :type :document-plan}
                                                                                             {:id :02 :type :segment}
@@ -269,7 +231,7 @@
                                                                                              :value "Eng"}
                                                                                             {:id   :08
                                                                                              :type :amr
-                                                                                             :name "ZGWJFyFHwYywHDap"}
+                                                                                             :name "EYRrzlgFWSQytHZI"}
                                                                                             {:id   :09
                                                                                              :type :amr
                                                                                              :name "ParadigmsEng.mkN/Str->N"}
@@ -288,7 +250,7 @@
                                                                                              :value "Est"}
                                                                                             {:id   :15
                                                                                              :type :amr
-                                                                                             :name "ZGWJFyFHwYywHDap"}
+                                                                                             :name "EYRrzlgFWSQytHZI"}
                                                                                             {:id   :16
                                                                                              :type :amr
                                                                                              :name "ParadigmsEst.mkN/Str->N"}
@@ -307,7 +269,7 @@
                                                                                              :value "Ger"}
                                                                                             {:id   :22
                                                                                              :type :amr
-                                                                                             :name "ZGWJFyFHwYywHDap"}
+                                                                                             :name "EYRrzlgFWSQytHZI"}
                                                                                             {:id   :23
                                                                                              :type :amr
                                                                                              :name "ParadigmsGer.mkN/Str->N"}
@@ -326,7 +288,7 @@
                                                                                              :value "Lav"}
                                                                                             {:id   :29
                                                                                              :type :amr
-                                                                                             :name "ZGWJFyFHwYywHDap"}
+                                                                                             :name "EYRrzlgFWSQytHZI"}
                                                                                             {:id   :30
                                                                                              :type :amr
                                                                                              :name "ParadigmsLav.mkN/Str->N"}
@@ -345,22 +307,119 @@
                                                                                              :value "Rus"}
                                                                                             {:id   :36
                                                                                              :type :amr
-                                                                                             :name "ZGWJFyFHwYywHDap"}
+                                                                                             :name "EYRrzlgFWSQytHZI"}
                                                                                             {:id   :37
                                                                                              :type :amr
                                                                                              :name "ParadigmsRus.mkN/Str->N"}
                                                                                             {:id   :38
                                                                                              :type :reference
+                                                                                             :name "item"}
+                                                                                            {:id :39 :type :if-statement}
+                                                                                            {:id    :40
+                                                                                             :type  :comparator
+                                                                                             :value "="}
+                                                                                            {:id   :41
+                                                                                             :type :constant
+                                                                                             :name "*Language"}
+                                                                                            {:id    :42
+                                                                                             :type  :quote
+                                                                                             :value "Spa"}
+                                                                                            {:id   :43
+                                                                                             :type :amr
+                                                                                             :name "EYRrzlgFWSQytHZI"}
+                                                                                            {:id   :44
+                                                                                             :type :amr
+                                                                                             :name "ParadigmsSpa.mkN/Str->N"}
+                                                                                            {:id   :45
+                                                                                             :type :reference
                                                                                              :name "item"})}
                                   :frames         [{:examples []}]
                                   :roles          [{:id "ARG0" :label "item" :type "Str"}]}
+       "EYRrzlgFWSQytHZI"        {:id             "EYRrzlgFWSQytHZI"
+                                  :label          "language-test"
+                                  :kind           "Str"
+                                  :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                             :to    :02
+                                                                                             :role  :segment
+                                                                                             :index 0}
+                                                                                            {:from  :02
+                                                                                             :to    :03
+                                                                                             :role  :instance
+                                                                                             :index 0}
+                                                                                            {:from     :03
+                                                                                             :to       :04
+                                                                                             :role     :arg
+                                                                                             :index    0
+                                                                                             :category "Cl"}
+                                                                                            {:from     :04
+                                                                                             :to       :05
+                                                                                             :role     :arg
+                                                                                             :index    0
+                                                                                             :category "N"})
+                                                                                :concepts  ({:id :01 :type :document-plan}
+                                                                                            {:id :02 :type :segment}
+                                                                                            {:id   :03
+                                                                                             :type :amr
+                                                                                             :name "Syntax.mkText/Cl->Text"}
+                                                                                            {:id   :04
+                                                                                             :type :amr
+                                                                                             :name "Syntax.mkCl/N->Cl"}
+                                                                                            {:id   :05
+                                                                                             :type :reference
+                                                                                             :name "item"})}
+                                  :frames         [{:examples []}]
+                                  :roles          [{:id "ARG0" :label "item" :type "N"}]}
+       "ParadigmsSpa.mkN/Str->N" {:id     "ParadigmsSpa.mkN/Str->N"
+                                  :kind   "N"
+                                  :name   "Str -> N"
+                                  :label  "mkN"
+                                  :module "ParadigmsSpa"
+                                  :roles  ({:type "Str" :label "Str"})
+                                  :frames ({:examples ["predictable; feminine for \"-a\"/\"-z\"  otherwise masculine"]
+                                            :syntax   ({:ret    "N"
+                                                        :value  "ParadigmsSpa.mkN"
+                                                        :params ({:id "ARG0" :type "Str"})
+                                                        :type   :oper})})}
+       "ParadigmsEst.mkN/Str->N" {:id     "ParadigmsEst.mkN/Str->N"
+                                  :kind   "N"
+                                  :name   "Str -> N"
+                                  :label  "mkN"
+                                  :module "ParadigmsEst"
+                                  :roles  ({:type "Str" :label "Str"})
+                                  :frames ({:examples ["predictable nouns  covers 90%"]
+                                            :syntax   ({:ret    "N"
+                                                        :value  "ParadigmsEst.mkN"
+                                                        :params ({:id "ARG0" :type "Str"})
+                                                        :type   :oper})})}
+       "ParadigmsGer.mkN/Str->N" {:id     "ParadigmsGer.mkN/Str->N"
+                                  :kind   "N"
+                                  :name   "Str -> N"
+                                  :label  "mkN"
+                                  :module "ParadigmsGer"
+                                  :roles  ({:type "Str" :label "Str"})
+                                  :frames ({:examples ["die Stufe-Stufen  der Tisch-Tische"]
+                                            :syntax   ({:ret    "N"
+                                                        :value  "ParadigmsGer.mkN"
+                                                        :params ({:id "ARG0" :type "Str"})
+                                                        :type   :oper})})}
+       "ParadigmsRus.mkN/Str->N" {:id     "ParadigmsRus.mkN/Str->N"
+                                  :kind   "N"
+                                  :name   "Str -> N"
+                                  :label  "mkN"
+                                  :module "ParadigmsRus"
+                                  :roles  ({:type "Str" :label "Str"})
+                                  :frames ({:examples ["-"]
+                                            :syntax   ({:ret    "N"
+                                                        :value  "ParadigmsRus.mkN"
+                                                        :params ({:id "ARG0" :type "Str"})
+                                                        :type   :oper})})}
        "ParadigmsEng.mkN/Str->N" {:id     "ParadigmsEng.mkN/Str->N"
                                   :kind   "N"
                                   :name   "Str -> N"
                                   :label  "mkN"
                                   :module "ParadigmsEng"
                                   :roles  ({:type "Str" :label "Str"})
-                                  :frames ({:examples ["plural s incl. flash-flashes fly-flies"]
+                                  :frames ({:examples ["plural s  incl. flash-flashes  fly-flies"]
                                             :syntax   ({:ret    "N"
                                                         :value  "ParadigmsEng.mkN"
                                                         :params ({:id "ARG0" :type "Str"})

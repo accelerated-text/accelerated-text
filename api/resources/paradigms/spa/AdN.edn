@@ -1,0 +1,4 @@
+{:type "AdN",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions [{:function "mkAdN", :type ["Str" "AdN"], :example "-"}]}

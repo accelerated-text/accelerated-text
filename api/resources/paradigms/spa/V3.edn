@@ -1,0 +1,19 @@
+{:type "V3",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkV3",
+   :type ["V" "V3"],
+   :example "donner (+ accusative + dative)"}
+  {:function "mkV3",
+   :type ["V" "Prep" "V3"],
+   :example "placer (+ accusative) + dans"}
+  {:function "mkV3",
+   :type ["V" "Prep" "Prep" "V3"],
+   :example "parler + dative + genitive"}
+  {:function "dirV3",
+   :type ["V" "Prep" "V3"],
+   :example "e.g. dar,(accusative),a"}
+  {:function "dirdirV3",
+   :type ["V" "V3"],
+   :example "e.g. dar,(dative),(accusative)"}]}

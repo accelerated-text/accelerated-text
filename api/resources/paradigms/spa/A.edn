@@ -1,0 +1,35 @@
+{:type "A",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkA",
+   :type ["Str" "A"],
+   :example "predictable adjective (util)"}
+  {:function "mkA",
+   :type ["Str" "Str" "A"],
+   :example "español, española"}
+  {:function "mkA",
+   :type ["Str" "Str" "Str" "Str" "Str" "A"],
+   :example
+   "almost worst-case, except for buen/bueno gran/grande (solo, sola, solos, solas, solamente)"}
+  {:function "mkA",
+   :type ["Str" "Str" "Str" "Str" "Str" "Str" "Str" "A"],
+   :example
+   "worst-case (gran, grande, gran, grande, grandes, grandes, solamente)"}
+  {:function "mkA",
+   :type ["A" "A" "A"],
+   :example
+   "special comparison (default with \"mas\") (bueno + mejor)"}
+  {:function "mkA",
+   :type ["A" "Str" "A"],
+   :example
+   "noninflecting component after the adjective (blanco + hueso)"}
+  {:function "mkA",
+   :type ["A" "CopulaType" "A"],
+   :example "force copula type"}
+  {:function "prefixA",
+   :type ["A" "A"],
+   :example "adjective before noun (default after noun)"}
+  {:function "invarA",
+   :type ["Str" "A"],
+   :example "invariable adjective"}]}

@@ -1,0 +1,18 @@
+{:type "V",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkV",
+   :type ["Str" "V"],
+   :example "regular in \"-ar\", \"-er\", \".ir\" (pagar)"}
+  {:function "mkV",
+   :type ["Str" "Str" "V"],
+   :example "regular with vowel alternation (mostrar, muestro)"}
+  {:function "mkV",
+   :type ["Verbum" "V"],
+   :example "import verb constructed with BeschSpa"}
+  {:function "mkV", :type ["V" "Str" "V"], :example "particle verb"}
+  {:function "reflV", :type ["V" "V"], :example "reflexive verb"}
+  {:function "special_ppV",
+   :type ["V" "Str" "V"],
+   :example "deviant past participle, e.g. abrir - abierto"}]}

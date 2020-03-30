@@ -138,6 +138,7 @@
                     "Est" "🇪🇪"
                     "Lav" "🇱🇻"
                     "Rus" "🇷🇺"
+                    "Spa" "🇪🇸"
                     "🏳️") text))
 
 (defn transform-results

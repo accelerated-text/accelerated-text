@@ -1,0 +1,18 @@
+{:type "Prep",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "accusative", :type ["Prep"], :example "direct object"}
+  {:function "genitive",
+   :type ["Prep"],
+   :example "preposition \"de\" and its contractions"}
+  {:function "dative",
+   :type ["Prep"],
+   :example "preposition \"a\" and its contractions"}
+  {:function "mkPrep",
+   :type ["Str" "Prep"],
+   :example "other preposition"}
+  {:function "mkPrep",
+   :type ["Str" "Prep" "Prep"],
+   :example
+   "compound prepositions, e.g. \"antes de\", made as mkPrep \"antes\" genitive"}]}

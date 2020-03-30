@@ -1,0 +1,7 @@
+{:type "N3",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkN3",
+   :type ["N" "Prep" "Prep" "N3"],
+   :example "prepositions for two complements"}]}

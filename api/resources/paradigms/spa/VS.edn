@@ -1,0 +1,6 @@
+{:type "VS",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkVS", :type ["V" "VS"], :example "-"}
+  {:function "subjVS", :type ["V" "VS"], :example "-"}]}
