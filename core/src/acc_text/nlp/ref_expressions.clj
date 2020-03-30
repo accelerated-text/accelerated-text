@@ -11,7 +11,6 @@
       (reverse final)
       (let [[head & tail] pairs
             [[p1 v1] [p2 v2]] head]
-        (println v1)
         (if (= 1 (- p2 p1))
           (recur (rest tail) (cons [p1 (clojure.string/join " " [v1 v2])] final))
           (recur tail (cons [p1 v1] final)))
