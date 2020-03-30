@@ -13,7 +13,7 @@
 
 (defstate dictionary-db :start (db/db-access :dictionary-multilang conf))
 
-(def languages ["English" "Estonian" "German" "Latvian" "Russian"])
+(def languages ["English" "Estonian" "German" "Latvian" "Russian" "Spanish"])
 
 (defn list-readers []
   (db/list! reader-flags-db 100))
@@ -32,7 +32,8 @@
     "Estonian" "Est"
     "German" "Ger"
     "Latvian" "Lav"
-    "Russian" "Rus"))
+    "Russian" "Rus"
+    "Spanish" "Spa"))
 
 (defn default-language []
   (flag->lang (default-language-flag)))

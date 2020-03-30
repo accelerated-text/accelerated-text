@@ -1,0 +1,5 @@
+{:type "V2Q",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkV2Q", :type ["V" "Prep" "V2Q"], :example "-"}]}

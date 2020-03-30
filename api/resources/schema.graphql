@@ -188,6 +188,7 @@ type Concepts {
     ParadigmsEst:      [ Concept! ]
     ParadigmsLav:      [ Concept! ]
     ParadigmsRus:      [ Concept! ]
+    ParadigmsSpa:      [ Concept! ]
 }
 
 

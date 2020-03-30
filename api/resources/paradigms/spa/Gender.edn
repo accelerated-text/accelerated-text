@@ -1,0 +1,6 @@
+{:type "Gender",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "masculine", :type ["Gender"], :example "-"}
+  {:function "feminine", :type ["Gender"], :example "- Number Type -"}]}
