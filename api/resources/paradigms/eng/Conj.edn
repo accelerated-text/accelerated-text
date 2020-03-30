@@ -1,0 +1,7 @@
+{:type "Conj",
+ :description "",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkConj",
+   :type ["Str" "Conj"],
+   :example "just one token or word, e.g. \",\""}]}

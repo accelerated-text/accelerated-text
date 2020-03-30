@@ -25,6 +25,10 @@ mkAdv Str -> Adv e.g. today
 // CAdv - comparative adverb
 mkCAdv Str -> Str -> Str -> CAdv more than/no more than
 
+// Conj - conjunctions
+
+mkConj -> Str -> Conj -> Conjunction: a, b
+
 // Gender
 human Gender -
 nonhuman Gender -

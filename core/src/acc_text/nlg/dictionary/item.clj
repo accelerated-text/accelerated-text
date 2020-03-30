@@ -15,7 +15,7 @@
 (s/def ::category
   #{"A" "A2" "Adv"
     "N" "N2" "N3"
-    "PN"
+    "PN" "Prep"
     "V" "V0" "V2" "V3" "V2A" "V2Q" "V2S" "V2V" "VA" "VP" "VQ" "VS" "VV"})
 
 (s/def ::language #{"Eng" "Ger" "Est" "Lit" "Lav" "Rus"})
