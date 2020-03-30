@@ -23,13 +23,18 @@
 (s/def ::dataRow (s/map-of string? string?))
 (s/def ::dataRows (s/map-of ::key ::dataRow))
 (s/def ::readerFlagValues (s/map-of string? boolean?))
-(s/def ::generate-req (s/keys :req-un [::documentPlanId]
-                              :opt-un [::dataId ::readerFlagValues ::enrich]))
-(s/def ::generate-bulk (s/keys :req-un [::documentPlanId ::dataRows]
-                               :opt-un [::readerFlagValues ::enrich]))
+(s/def ::generate-req (s/keys :opt-un [::documentPlanId ::documentPlanName ::dataId ::readerFlagValues ::enrich]))
+(s/def ::generate-bulk (s/keys :req-un [::dataRows]
+                               :opt-un [::documentPlanId ::documentPlanName ::readerFlagValues ::enrich]))
 
 (defn get-data [data-id]
   (doall (utils/csv-to-map (data-files/read-data-file-content "example-user" data-id))))
+
+(defn get-document-plan [{id :documentPlanId name :documentPlanName}]
+  (cond
+    (some? id) (dp/get-document-plan id)
+    (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans "Document"))
+    :else (throw (Exception. "Must provide either document plan id or document plan name."))))
 
 (defn generate-text-for-language [semantic-graph context enrich lang]
   (->> (nlg/generate-text semantic-graph context lang)
@@ -72,18 +77,18 @@
       (log/trace (utils/get-stack-trace e))
       {:error true :ready true :message (.getMessage e)})))
 
-(defn generate-request [{document-plan-id :documentPlanId data-id :dataId reader-model :readerFlagValues enrich :enrich}]
+(defn generate-request [{data-id :dataId reader-model :readerFlagValues enrich :enrich :as request}]
   (let [result-id (utils/gen-uuid)
-        {document-plan :documentPlan data-sample-row :dataSampleRow} (dp/get-document-plan document-plan-id)
+        {document-plan :documentPlan data-sample-row :dataSampleRow} (get-document-plan request)
         row (if-not (str/blank? data-id) (nth (get-data data-id) (or data-sample-row 0)) {})]
     (results/store-status result-id {:ready false})
     (results/rewrite result-id (generation-process document-plan {:sample row} reader-model enrich))
     {:status 200
      :body   {:resultId result-id}}))
 
-(defn generate-bulk [{document-plan-id :documentPlanId reader-model :readerFlagValues rows :dataRows enrich :enrich}]
+(defn generate-bulk [{reader-model :readerFlagValues rows :dataRows enrich :enrich :as request}]
   (let [result-id (utils/gen-uuid)
-        {document-plan :documentPlan} (dp/get-document-plan document-plan-id)]
+        {document-plan :documentPlan} (get-document-plan request)]
     (log/tracef "Bulk Generate request, data: %s" rows)
     (results/store-status result-id {:ready false})
     (results/rewrite result-id (generation-process document-plan (into {} (map (fn [[row-key row-values]] {row-key (into {} (utils/key-to-keyword row-values))}) rows)) reader-model enrich))
