@@ -28,3 +28,7 @@
 (deftest I-case
   (is (= "I was doing something. Later I was doing something else."
          (r/apply-ref-expressions "Eng" "I was doing something. Later I was doing something else."))))
+
+(deftest alimentum-case
+  (is (= "Alimentum is located in city center. It isn't a family friendly coffee shop."
+         (r/apply-ref-expressions "Eng" "Alimentum is located in city center. Alimentum isn't a family friendly coffee shop."))))

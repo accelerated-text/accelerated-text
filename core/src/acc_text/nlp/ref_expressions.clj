@@ -5,11 +5,11 @@
 
 (defmulti ignored-token? (fn [lang _] lang))
 
-(defmethod ignored-token? "Eng" [_ value] (contains? #{"I"} value))
+(defmethod ignored-token? "Eng" [_ value] (contains? #{"i" "it"} (str/lower-case value)))
 
 (defmethod ignored-token? :default [_ _] false)
 
-(defn remove-ignored-tokens [lang [value _]] (ignored-token? lang value))
+(defn remove-ignored-tokens [lang [idx value]] (ignored-token? lang value))
 
 (defn filter-by-refs-count [[_ refs]] (>= (count refs) 2))
 
@@ -20,9 +20,12 @@
       (reverse final)
       (let [[head & tail] pairs
             [[p1 v1] [p2 v2]] head]
+        (log/debugf "p1: %s v1: %s p2: %s v2: %s" p1 v1 p2 v2)
         (if (= 1 (- p2 p1))  ;; If distance between words is one token - merge them
           (recur (rest tail) (concat [[p2 ""] [p1 (str/join " " (log/spyf :debug "Merging: %s" [v1 v2]))]] final))
-          (recur tail (cons [p1 v1] final))))))) ;; Otherwise, put first one into the list and continue forward
+          (if (empty? tail)
+            (recur tail (concat [[p2 v2] [p1 v1]] final))
+            (recur tail (cons [p1 v1] final)))))))) ;; Otherwise, put first one into the list and continue forward
 
 
 (defn filter-last-location-token
@@ -36,13 +39,18 @@
 
 (defn referent? [token] (nlp/starts-with-capital? token))
 
+(defn log-partial [data]
+  (log/debugf "Partial result: %s" data)
+  data)
+
 (defn identify-potential-refs
   [lang tokens]
   (->> (map-indexed vector tokens)
        (filter #(referent? (second %)))
-       (merge-nearby)
-       (group-by second)
        (remove #(remove-ignored-tokens lang %))
+       (merge-nearby)
+       (map log-partial)
+       (group-by second)
        (filter filter-by-refs-count)
        (map (comp rest second))
        (mapcat (partial filter-last-location-token tokens))))
