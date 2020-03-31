@@ -13,4 +13,3 @@ services:
       - acc-text-api
     environment:
       ACC_TEXT_URL: http://acc-text-api:3001
-      GRAPH_QL_URL: http://acc-text-api:3001/_graphql
