@@ -1,26 +1,114 @@
-# Getting Started
+# Accelerated Text Help
 
-#### [One](#one-1)
+## Sidebars
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sed finibus nisi. Nullam mollis, urna at tincidunt accumsan, tellus quam hendrerit urna, in porta felis lacus et magna. Cras varius posuere purus, quis ornare nisi faucibus dictum. Aenean quis nisl eu ipsum convallis pulvinar. Fusce vulputate diam ultricies sem gravida lacinia. Vestibulum metus nisl, auctor dictum purus a, pharetra gravida dolor. Donec volutpat, erat at vehicula tempus, eros enim ornare odio, sed tincidunt dolor enim id urna. Ut pulvinar est ac libero ornare, vitae bibendum arcu vestibulum. Vivamus sagittis nisl a libero dictum, quis ultrices turpis dictum. Phasellus dignissim bibendum diam, in volutpat arcu tincidunt nec. Proin convallis consectetur blandit.
+Sidebars provide instruments to manage your data and control text generation.
 
-Vivamus ipsum eros, congue id diam molestie, fringilla eleifend elit. Etiam sit amet quam dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed facilisis maximus enim. Vestibulum sodales feugiat consectetur. Fusce pulvinar diam sed augue accumsan volutpat. Sed aliquam nisl id pretium hendrerit. Curabitur aliquet sapien rhoncus finibus faucibus.
+![sidebars](help/sidebars.png)
 
-## One
+### Data
 
-Morbi sed velit non ipsum tempor maximus. Nulla elementum elementum magna, cursus rutrum lorem blandit in. Mauris et massa molestie, fermentum lectus mattis, sodales orci. Phasellus condimentum, purus vel aliquam facilisis, leo velit fermentum dui, eget ultricies risus mauris sit amet leo. Donec hendrerit porta turpis, ut fermentum odio ultrices laoreet. Donec volutpat ultricies sapien, at auctor ligula molestie quis. Maecenas lobortis augue at congue finibus. Aenean malesuada quis orci ac ornare. Donec efficitur dolor vitae mauris auctor cursus. Morbi sed ante sit amet urna vehicula scelerisque quis a erat. Integer imperdiet ipsum at accumsan bibendum. Nunc ultrices non tellus eget aliquam. Duis a sapien vel ligula vulputate lacinia eu eleifend purus. Curabitur vehicula euismod sem quis eleifend.
+*Data* sidebar provides the tools to load CSV data files to be used in generation. Note that CSV files have to be comma separated with the column headers at the top.
 
-Vestibulum vitae odio vel odio gravida tincidunt. Phasellus vehicula, ex sed vehicula semper, arcu turpis tincidunt lacus, quis egestas augue lectus non tellus. Maecenas est nunc, semper eget tellus nec, congue dictum libero. Nunc sit amet tellus maximus, mattis est eget, scelerisque felis. Mauris dapibus eros nec ipsum venenatis facilisis. Maecenas interdum auctor neque, accumsan dapibus erat. Vivamus vitae ullamcorper quam. Nulla blandit sapien id eleifend blandit. Curabitur id volutpat enim. Nunc tellus mauris, blandit nec fringilla vitae, sollicitudin in ipsum. Cras viverra sapien felis, et lobortis diam luctus at. Quisque et dui id turpis finibus accumsan sed eu dolor.
+More than one data file can be loaded with the help of *Add* button. File selected in the drop down menu is the current one and will be used for text generation.
 
-Aliquam maximus augue a augue auctor tempor. Suspendisse sit amet dolor consectetur, bibendum orci sit amet, ornare elit. Etiam mauris diam, iaculis eu nunc non, mattis molestie nunc. Vivamus tempus volutpat augue at aliquet. Suspendisse potenti. Pellentesque vestibulum commodo tincidunt. Ut vel est suscipit ex dignissim imperdiet. Vivamus rhoncus eros metus, ut ornare arcu semper a. Morbi id pretium turpis. Sed sed nisi sed tortor placerat pulvinar. Quisque cursus felis ex, et vestibulum lacus sodales a. Nunc non finibus metus. Ut gravida, enim sed laoreet commodo, nisl turpis lobortis ante, iaculis dictum sapien nibh eget nibh. Phasellus accumsan tempor mi a gravida. Vivamus imperdiet dictum nibh, nec pulvinar mi rhoncus in. Maecenas molestie posuere blandit.
+Content of the current data file is displayed in the table bellow. Active row can be selected with control buttons at the top of the table.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sed finibus nisi. Nullam mollis, urna at tincidunt accumsan, tellus quam hendrerit urna, in porta felis lacus et magna. Cras varius posuere purus, quis ornare nisi faucibus dictum. Aenean quis nisl eu ipsum convallis pulvinar. Fusce vulputate diam ultricies sem gravida lacinia. Vestibulum metus nisl, auctor dictum purus a, pharetra gravida dolor. Donec volutpat, erat at vehicula tempus, eros enim ornare odio, sed tincidunt dolor enim id urna. Ut pulvinar est ac libero ornare, vitae bibendum arcu vestibulum. Vivamus sagittis nisl a libero dictum, quis ultrices turpis dictum. Phasellus dignissim bibendum diam, in volutpat arcu tincidunt nec. Proin convallis consectetur blandit.
+![data](help/data.png)
 
-Vivamus ipsum eros, congue id diam molestie, fringilla eleifend elit. Etiam sit amet quam dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed facilisis maximus enim. Vestibulum sodales feugiat consectetur. Fusce pulvinar diam sed augue accumsan volutpat. Sed aliquam nisl id pretium hendrerit. Curabitur aliquet sapien rhoncus finibus faucibus.
+### Language
 
-Morbi sed velit non ipsum tempor maximus. Nulla elementum elementum magna, cursus rutrum lorem blandit in. Mauris et massa molestie, fermentum lectus mattis, sodales orci. Phasellus condimentum, purus vel aliquam facilisis, leo velit fermentum dui, eget ultricies risus mauris sit amet leo. Donec hendrerit porta turpis, ut fermentum odio ultrices laoreet. Donec volutpat ultricies sapien, at auctor ligula molestie quis. Maecenas lobortis augue at congue finibus. Aenean malesuada quis orci ac ornare. Donec efficitur dolor vitae mauris auctor cursus. Morbi sed ante sit amet urna vehicula scelerisque quis a erat. Integer imperdiet ipsum at accumsan bibendum. Nunc ultrices non tellus eget aliquam. Duis a sapien vel ligula vulputate lacinia eu eleifend purus. Curabitur vehicula euismod sem quis eleifend.
+Language section shows which languages are supported in your installation. Language checkboxes select languages for text generation.
 
-Vestibulum vitae odio vel odio gravida tincidunt. Phasellus vehicula, ex sed vehicula semper, arcu turpis tincidunt lacus, quis egestas augue lectus non tellus. Maecenas est nunc, semper eget tellus nec, congue dictum libero. Nunc sit amet tellus maximus, mattis est eget, scelerisque felis. Mauris dapibus eros nec ipsum venenatis facilisis. Maecenas interdum auctor neque, accumsan dapibus erat. Vivamus vitae ullamcorper quam. Nulla blandit sapien id eleifend blandit. Curabitur id volutpat enim. Nunc tellus mauris, blandit nec fringilla vitae, sollicitudin in ipsum. Cras viverra sapien felis, et lobortis diam luctus at. Quisque et dui id turpis finibus accumsan sed eu dolor.
+![data](help/language.png)
 
-Aliquam maximus augue a augue auctor tempor. Suspendisse sit amet dolor consectetur, bibendum orci sit amet, ornare elit. Etiam mauris diam, iaculis eu nunc non, mattis molestie nunc. Vivamus tempus volutpat augue at aliquet. Suspendisse potenti. Pellentesque vestibulum commodo tincidunt. Ut vel est suscipit ex dignissim imperdiet. Vivamus rhoncus eros metus, ut ornare arcu semper a. Morbi id pretium turpis. Sed sed nisi sed tortor placerat pulvinar. Quisque cursus felis ex, et vestibulum lacus sodales a. Nunc non finibus metus. Ut gravida, enim sed laoreet commodo, nisl turpis lobortis ante, iaculis dictum sapien nibh eget nibh. Phasellus accumsan tempor mi a gravida. Vivamus imperdiet dictum nibh, nec pulvinar mi rhoncus in. Maecenas molestie posuere blandit.
+### Text Generation Results
 
+This section will show the resulting texts. Each block represents variations of text given the same document plan and current row of data. A flag next to text shows the language.
+
+![results](help/results.png)
+
+In cases where no text was generated due to missconstructed document plan, you will see 'No Variants.' message.
+
+### AMR
+
+This is a core element of the Accelerated Text engine. AMR - Abstract Meaning Representations - defines what kind of messages can be constructed about the data. Choose from the AMR list bellow what you want to communicate to your users. AMR must be dragged to the canvas to the left (Document Plan construction elements are described in the section bellow).
+
+![dictionary](help/amr.png)
+
+### Dictionary
+
+Dictionary section shows which words are available to construct your multilanguage document plans. Note that dictionary entries specify all the forms of the word: gender, case, number.
+
+Just as with AMRs, dictionary elements need to be dragged into Document Plan canvas to the left.
+
+![dictionary](help/dictionary.png)
+
+## Document Plan construction
+
+Document Plan defines how text is to be generated by choosing appropriate AMRs, dictionary items and data elements from the sample CSV.
+
+Document Plan management: 
+* creation of a new one, 
+* selecting from existing ones, 
+* changing the name and 
+* deleting 
+is done through the drop down list control at the top center section of the application.
+
+![dp-control](help/dp-controls.png)
+
+Plan builder follows visual programming paradigm to define generation logic. White canvas area in the center of the application is where you define the plan.
+
+Top section of Document Plan Builder has a toolbar with all the necessary elements for the plan construction.
+
+![toolbar](help/toolbar.png)
+
+### Document
+
+High level document structure elements.
+* *Text segment* - a thematic block of the text (roughly equivalent to paragraphs).
+* *Set item* - define some reusable block of generation logic to be repeatedly used further in the plan.
+
+![documenttb](help/document-tb.png)
+
+### Values
+
+Elements to specify data which will go into generation process. Note that *Data* sidebar is also a source of data elements, you can drag individual cells from the CSV table.
+
+* *Some text* - any text you want to use in generation. Useful for boiler plate text as well as words not present in the *Dictionary*.
+* *Item* - variable defined using *Set item* from *Documents* section.
+* *a.n.* - adjective-noun construction to specify expressions like 'red shoe' (where 'a.' is 'red' and 'n.' is 'shoe')
+
+![valuestb](help/values-tb.png)
+
+### Lists
+
+Handling of list elements - specify in which order elements enclosed in the list should be used.
+
+* *sequence* - exact sequence of the enclosed elements.
+* *in random order* - shuffle enclosed elements in a random order, thus producing text variations.
+* *a synonym from* - chose one of the elements in the list, thus producing text variations.
+
+![liststb](help/lists-tb.png)
+
+### Logic
+
+Text generation logic sometimes has to branch depending on the data supplied. Use *Logic* elements to control branching.
+
+* *if-then-else* - main construct to specify branching logic, if a condition satisfies a *check* (see next section), then perform an action, else do some other action.
+* *and* - a way to combine checks requiring them all to succeed.
+* *or* - combine checks so that only one of them is required to succeed.
+* *either-or-but-not-both* - combine two checks allowing only one of them to succeed.
+* *not* - negate the check.
+
+![logicstb](help/logics-tb.png)
+
+### Checks
+
+Checks are used in combination with *Logics* elements. Note that condition in the check element can be chosen from the drop down list.
+
+* *=* - 'equality' condition
+* *>* - 'more than' condition
+* *is in* - checks if your value is in a list of certain values, for example is brand 'X' in a list of brands 'X, Y, Z'.
+
+![checkstb](help/checks-tb.png)
