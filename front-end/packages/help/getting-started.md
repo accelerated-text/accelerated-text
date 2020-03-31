@@ -1,6 +1,21 @@
-# Getting Started
+# Accelerated Text Help
 
-#### [One](#one-1)
+## [Sidebars](#sidebars)
+
+![sidebars](/help/sidebars.png)
+
+### [Data]
+
+*Data* sidebar provides the tools to load CSV data files to be used in generation. Note that CSV files have to be comma separated.
+
+More than one data file can be loaded with the help of *Add* button. File selected in the drop down menu is a current one and will be used for the generation.
+
+Contents of the current data file are displayed in the table bellow. Active row can be selected with the controls at the top of the table 
+
+
+### []
+
+
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sed finibus nisi. Nullam mollis, urna at tincidunt accumsan, tellus quam hendrerit urna, in porta felis lacus et magna. Cras varius posuere purus, quis ornare nisi faucibus dictum. Aenean quis nisl eu ipsum convallis pulvinar. Fusce vulputate diam ultricies sem gravida lacinia. Vestibulum metus nisl, auctor dictum purus a, pharetra gravida dolor. Donec volutpat, erat at vehicula tempus, eros enim ornare odio, sed tincidunt dolor enim id urna. Ut pulvinar est ac libero ornare, vitae bibendum arcu vestibulum. Vivamus sagittis nisl a libero dictum, quis ultrices turpis dictum. Phasellus dignissim bibendum diam, in volutpat arcu tincidunt nec. Proin convallis consectetur blandit.
 
