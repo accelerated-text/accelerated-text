@@ -8,7 +8,7 @@
 
 (defmethod ignored-token? :default [_ _] false)
 
-(defn filter-ignored-tokens [lang [value _]] (ignored-token? lang value))
+(defn remove-ignored-tokens [lang [value _]] (ignored-token? lang value))
 
 (defn filter-by-refs-count [[_ refs]] (>= (count refs) 2))
 
@@ -21,8 +21,7 @@
             [[p1 v1] [p2 v2]] head]
         (if (= 1 (- p2 p1))
           (recur (rest tail) (cons [p1 (clojure.string/join " " (log/spyf "Merging: %s" [v1 v2]))] final))
-          (recur tail (cons [p1 v1] final)))
-        ))))
+          (recur tail (cons [p1 v1] final)))))))
 
 
 (defn filter-last-location-token
@@ -42,7 +41,7 @@
        (filter #(referent? (second %)))
        (merge-nearby)
        (group-by second)
-       (filter #(filter-ignored-tokens lang %))
+       (remove #(remove-ignored-tokens lang %))
        (filter filter-by-refs-count)
        (map (comp rest second))
        (mapcat (partial filter-last-location-token tokens))))
