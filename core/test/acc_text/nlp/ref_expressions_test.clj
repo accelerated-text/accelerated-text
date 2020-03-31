@@ -5,9 +5,9 @@
 
 (deftest test-identify-refs
   (is (= [4 "Alimentum"]
-         (-> (nlp/tokenize "Alimentum is nice. Alimentum serves good food. We will eat at Alimentum.")
-             (r/identify-potential-refs)
-             (first)))))
+         (->> (nlp/tokenize "Alimentum is nice. Alimentum serves good food. We will eat at Alimentum.")
+              (r/identify-potential-refs "Eng")
+              (first)))))
 
 (deftest test-replace-refs
   (is (= "Alimentum is nice. It serves good food. Starbucks provides coffee. Its coffee is awesome. We're going to drink coffee at Starbucks."
@@ -20,3 +20,11 @@
 (deftest the-it-case
   (is (= "The T1000 is shiny. It makes noise."
          (r/apply-ref-expressions "Eng" "The T1000 is shiny. The T1000 makes noise."))))
+
+(deftest test-test-test-case
+  (is (= "TEST TEST TEST."
+         (r/apply-ref-expressions "Eng" "TEST TEST TEST"))))
+
+(deftest I-case
+  (is (= "I was doing something. Later I was doing something else."
+         (r/apply-ref-expressions "Eng" "I was doing something. Later I was doing something else."))))
