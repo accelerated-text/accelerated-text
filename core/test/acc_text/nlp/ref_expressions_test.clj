@@ -24,3 +24,7 @@
 (deftest test-test-test-case
   (is (= "TEST TEST TEST."
          (r/apply-ref-expressions "Eng" "TEST TEST TEST"))))
+
+(deftest I-case
+  (is (= "I was doing something. Later I was doing something else."
+         (r/apply-ref-expressions "Eng" "I was doing something. Later I was doing something else."))))
