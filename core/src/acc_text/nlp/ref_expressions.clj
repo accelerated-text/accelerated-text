@@ -39,17 +39,13 @@
 
 (defn referent? [token] (nlp/starts-with-capital? token))
 
-(defn log-partial [data]
-  (log/debugf "Partial result: %s" data)
-  data)
-
 (defn identify-potential-refs
   [lang tokens]
   (->> (map-indexed vector tokens)
        (filter #(referent? (second %)))
        (remove #(remove-ignored-tokens lang %))
        (merge-nearby)
-       (map log-partial)
+       (map #(log/spyf :trace "Partial result: %s" %))
        (group-by second)
        (filter filter-by-refs-count)
        (map (comp rest second))
@@ -88,7 +84,6 @@
                   (map (partial add-replace-token lang))
                   (check-for-dupes)
                   (into {}))]
-    (log/debugf "Smap: %s" smap)
     (nlp/rebuild-sentences
       (map-indexed (fn [idx v]
                      (cond (= :delete (get smap idx)) ""
