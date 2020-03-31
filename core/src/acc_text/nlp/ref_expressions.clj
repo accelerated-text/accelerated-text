@@ -20,7 +20,6 @@
       (reverse final)
       (let [[head & tail] pairs
             [[p1 v1] [p2 v2]] head]
-        (log/debugf "p1: %s v1: %s p2: %s v2: %s" p1 v1 p2 v2)
         (if (= 1 (- p2 p1))  ;; If distance between words is one token - merge them
           (recur (rest tail) (concat [[p2 ""] [p1 (str/join " " (log/spyf :debug "Merging: %s" [v1 v2]))]] final))
           (if (empty? tail)
