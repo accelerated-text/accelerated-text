@@ -10,9 +10,9 @@ Sidebars provide instruments to manage your data and control text generation.
 
 *Data* sidebar provides the tools to load CSV data files to be used in generation. Note that CSV files have to be comma separated with the column headers at the top.
 
-More than one data file can be loaded with the help of *Add* button. File selected in the drop down menu is a current one and will be used for the generation.
+More than one data file can be loaded with the help of *Add* button. File selected in the drop down menu is the current one and will be used for text generation.
 
-Contents of the current data file are displayed in the table bellow. Active row can be selected with the controls at the top of the table.
+Content of the current data file is displayed in the table bellow. Active row can be selected with control buttons at the top of the table.
 
 ![data](help/data.png)
 
@@ -24,15 +24,15 @@ Language section shows which languages are supported in your installation. Langu
 
 ### Text Generation Results
 
-This section will show the resulting texts. Each block of text represents variations of the text given the same document plan and current row of data. A flag next to text shows the language of the text.
+This section will show the resulting texts. Each block represents variations of text given the same document plan and current row of data. A flag next to text shows the language.
 
 ![results](help/results.png)
 
-In cases when no text can be generated (due to missconstructed document plan), you will see 'No Variants.' message.
+In cases where no text was generated due to missconstructed document plan, you will see 'No Variants.' message.
 
 ### AMR
 
-This is a core element of the Accelerated Text engine. AMR - Abstract Meaning Representations - define what kind of messages can be constructed about the data. Choose from the AMR list bellow what you want to communicate to your users. AMR must be dragged to the Document Plan canvas to the left (Document Plan construction elements are described in the section bellow).
+This is a core element of the Accelerated Text engine. AMR - Abstract Meaning Representations - defines what kind of messages can be constructed about the data. Choose from the AMR list bellow what you want to communicate to your users. AMR must be dragged to the canvas to the left (Document Plan construction elements are described in the section bellow).
 
 ![dictionary](help/amr.png)
 
@@ -86,16 +86,16 @@ Elements to specify data which will go into generation process. Note that *Data*
 Handling of list elements - specify in which order elements enclosed in the list should be used.
 
 * *sequence* - exact sequence of the enclosed elements.
-* *in random order* - shuffle enclosed elements in a random order, thus producing variations in the text.
-* *a synonym from* - chose one of the elements in the list, thus producing variations in the text.
+* *in random order* - shuffle enclosed elements in a random order, thus producing text variations.
+* *a synonym from* - chose one of the elements in the list, thus producing text variations.
 
 ![liststb](help/lists-tb.png)
 
-### Logics
+### Logic
 
-Text generation logic sometimes has to branch depending on the data supplied. Use *Logics* elements to control branching.
+Text generation logic sometimes has to branch depending on the data supplied. Use *Logic* elements to control branching.
 
-* *if-then-else* - main construct to specify branching logics, if a condition satisfies a *check* (see next section), then perform an action, else do some other action.
+* *if-then-else* - main construct to specify branching logic, if a condition satisfies a *check* (see next section), then perform an action, else do some other action.
 * *and* - a way to combine checks requiring them all to succeed.
 * *or* - combine checks so that only one of them is required to succeed.
 * *either-or-but-not-both* - combine two checks allowing only one of them to succeed.
@@ -109,6 +109,6 @@ Checks are used in combination with *Logics* elements. Note that condition in th
 
 * *=* - 'equality' condition
 * *>* - 'more than' condition
-* *is in* - this one allows to check if your value is in a list of certain values, for example is brand 'X' in a list of brands 'X, Y, Z'.
+* *is in* - checks if your value is in a list of certain values, for example is brand 'X' in a list of brands 'X, Y, Z'.
 
 ![checkstb](help/checks-tb.png)
