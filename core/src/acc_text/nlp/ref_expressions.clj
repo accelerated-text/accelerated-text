@@ -20,7 +20,7 @@
       (let [[head & tail] pairs
             [[p1 v1] [p2 v2]] head]
         (if (= 1 (- p2 p1))
-          (recur (rest tail) (cons [p1 (clojure.string/join " " (log/spyf "Merging: %s" [v1 v2]))] final))
+          (recur (rest tail) (concat [[p2 ""] [p1 (clojure.string/join " " (log/spyf :debug "Merging: %s" [v1 v2]))]] final))
           (recur tail (cons [p1 v1] final)))))))
 
 
@@ -79,6 +79,7 @@
                   (map (partial add-replace-token lang))
                   (check-for-dupes)
                   (into {}))]
+    (log/debugf "Smap: %s" smap)
     (nlp/rebuild-sentences
       (map-indexed (fn [idx v]
                      (cond (= :delete (get smap idx)) ""
