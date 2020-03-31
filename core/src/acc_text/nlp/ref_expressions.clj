@@ -19,9 +19,9 @@
       (reverse final)
       (let [[head & tail] pairs
             [[p1 v1] [p2 v2]] head]
-        (if (= 1 (- p2 p1))
+        (if (= 1 (- p2 p1))  ;; If distance between words is one token - merge them
           (recur (rest tail) (concat [[p2 ""] [p1 (clojure.string/join " " (log/spyf :debug "Merging: %s" [v1 v2]))]] final))
-          (recur tail (cons [p1 v1] final)))))))
+          (recur tail (cons [p1 v1] final))))))) ;; Otherwise, put first one into the list and continue forward
 
 
 (defn filter-last-location-token
