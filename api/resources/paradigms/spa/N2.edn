@@ -1,0 +1,13 @@
+{:type "N2",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkN2",
+   :type ["N" "Prep" "N2"],
+   :example "relational noun with preposition"}
+  {:function "deN2",
+   :type ["N" "N2"],
+   :example "relational noun with preposition \"de\""}
+  {:function "aN2",
+   :type ["N" "N2"],
+   :example "relational noun with preposition \"a\""}]}

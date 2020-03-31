@@ -1,0 +1,6 @@
+{:type "CopulaType",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "serCopula", :type ["CopulaType"], :example "-"}
+  {:function "estarCopula", :type ["CopulaType"], :example "-"}]}

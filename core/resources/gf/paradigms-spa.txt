@@ -1,0 +1,118 @@
+// Type
+Gender Type -
+CopulaType Type -
+
+// Gender
+masculine Gender -
+feminine Gender - Number Type -
+
+// Number
+singular Number -
+plural Number -
+
+// CopulaType
+serCopula CopulaType -
+estarCopula CopulaType -
+
+// Prep
+accusative Prep direct object
+genitive Prep preposition "de" and its contractions
+dative Prep preposition "a" and its contractions
+mkPrep Str -> Prep other preposition
+mkPrep Str -> Prep -> Prep compound prepositions, e.g. "antes de", made as mkPrep "antes" genitive
+
+// N
+mkN Str -> N predictable; feminine for "-a"/"-z", otherwise masculine
+mkN Str -> Gender -> N force gender
+mkN Str -> Str -> Gender -> N worst case (baston, bastones)
+mkN N -> Str -> N compound, e.g. "número" + "de teléfono"
+compN N -> Str -> N compound, e.g. "número" + "de teléfono"
+
+// N2
+mkN2 N -> Prep -> N2 relational noun with preposition
+deN2 N -> N2 relational noun with preposition "de"
+aN2 N -> N2 relational noun with preposition "a"
+
+// N3
+mkN3 N -> Prep -> Prep -> N3 prepositions for two complements
+
+// PN
+mkPN Str -> PN feminine for "-a"
+mkPN Str -> Gender -> PN force gender
+mkPN N -> PN gender from noun
+
+// A
+mkA Str -> A predictable adjective (util)
+mkA Str -> Str -> A español, española
+mkA Str -> Str -> Str -> Str -> Str -> A almost worst-case, except for buen/bueno gran/grande (solo, sola, solos, solas, solamente)
+mkA Str -> Str -> Str -> Str -> Str -> Str -> Str -> A worst-case (gran, grande, gran, grande, grandes, grandes, solamente)
+mkA A -> A -> A special comparison (default with "mas") (bueno + mejor)
+mkA A -> Str -> A noninflecting component after the adjective (blanco + hueso)
+mkA A -> CopulaType -> A force copula type
+prefixA A -> A adjective before noun (default after noun)
+invarA Str -> A invariable adjective
+
+// A2
+mkA2 A -> Prep -> A2 e.g. "casado" + dative
+
+// Adv
+mkAdv Str -> Adv -
+
+// AdV
+mkAdV Str -> AdV -
+
+// AdA
+mkAdA Str -> AdA -
+
+// AdN
+mkAdN Str -> AdN -
+
+// V
+mkV Str -> V regular in "-ar", "-er", ".ir" (pagar)
+mkV Str -> Str -> V regular with vowel alternation (mostrar, muestro)
+mkV Verbum -> V import verb constructed with BeschSpa
+mkV V -> Str -> V particle verb
+reflV V -> V reflexive verb
+special_ppV V -> Str -> V deviant past participle, e.g. abrir - abierto
+
+// V2
+mkV2 Str -> V2 regular, direct object
+mkV2 V -> V2 direct object
+mkV2 V -> Prep -> V2 other object
+
+// V3
+mkV3 V -> V3 donner (+ accusative + dative)
+mkV3 V -> Prep -> V3 placer (+ accusative) + dans
+mkV3 V -> Prep -> Prep -> V3 parler + dative + genitive
+dirV3 V -> Prep -> V3 e.g. dar,(accusative),a
+dirdirV3 V -> V3 e.g. dar,(dative),(accusative)
+
+// VS
+mkVS V -> VS -
+subjVS V -> VS -
+
+// VV
+mkVV V -> VV plain infinitive: "quiero hablar"
+deVV V -> VV "terminar de hablar"
+aVV V -> VV "aprender a hablar"
+
+// VA
+mkVA V -> VA -
+
+// VQ
+mkVQ V -> VQ -
+
+// V2Q
+mkV2Q V -> Prep -> V2Q -
+
+// V2S
+mkV2S V -> V2S -
+mkV2S V -> Prep -> V2S -
+
+// V2V
+mkV2V V -> V2V -
+mkV2V V -> Prep -> Prep -> V2V -
+
+// V2A
+mkV2A V -> V2A -
+mkV2A V -> Prep -> Prep -> V2A -

@@ -54,7 +54,6 @@
                              :summary "GraphQL endpoint"}
                    :options cors-handler}]
      ["/nlg/" {:post    {:parameters {:body ::generate/generate-req}
-                         :responses  {200 {:body {:resultId string?}}}
                          :summary    "Registers document plan for generation"
                          :coercion   reitit.coercion.spec/coercion
                          :middleware [muuntaja/format-request-middleware

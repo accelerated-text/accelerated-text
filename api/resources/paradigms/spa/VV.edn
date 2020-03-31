@@ -1,0 +1,13 @@
+{:type "VV",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkVV",
+   :type ["V" "VV"],
+   :example "plain infinitive: \"quiero hablar\""}
+  {:function "deVV",
+   :type ["V" "VV"],
+   :example "\"terminar de hablar\""}
+  {:function "aVV",
+   :type ["V" "VV"],
+   :example "\"aprender a hablar\""}]}

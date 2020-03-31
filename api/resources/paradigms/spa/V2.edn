@@ -1,0 +1,9 @@
+{:type "V2",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkV2",
+   :type ["Str" "V2"],
+   :example "regular, direct object"}
+  {:function "mkV2", :type ["V" "V2"], :example "direct object"}
+  {:function "mkV2", :type ["V" "Prep" "V2"], :example "other object"}]}

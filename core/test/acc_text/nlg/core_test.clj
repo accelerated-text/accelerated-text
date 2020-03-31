@@ -13,7 +13,8 @@
                        "Est" ["On olemas text."]
                        "Ger" ["Es gibt einen text."]
                        "Lav" ["Ir text."]
-                       "Rus" ["Существует text."])))
+                       "Rus" ["Существует text."]
+                       "Spa" ["Hay un text."])))
 
 (deftest ^:integration list-generation
   (let [context {:data       {:product "product" :fridge "fridge"}
