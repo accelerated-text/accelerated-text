@@ -10,35 +10,10 @@ sys.path.append("e2e-metrics")
 
 from itertools import dropwhile, takewhile, groupby
 
-from gql import gql, Client
-from gql.transport.requests import RequestsHTTPTransport
-
 from metrics.pymteval import BLEUScore
 
 DOCUMENT_PLAN_NAME=os.getenv("DOCUMENT_PLAN_NAME", "Restaurants")
-GQL_ENDPOINT=os.getenv("GRAPH_QL_URL", "http://localhost:3001/_graphql")
 NLG_ENDPOINT="{}/nlg".format(os.getenv("ACC_TEXT_URL", "http://localhost:3001"))
-
-
-def get_document_plans():
-    transport = RequestsHTTPTransport(
-        url=GQL_ENDPOINT,
-        use_json=True,
-        headers={
-            "Content-type": "application/json",
-        },
-        verify=False
-    )
-
-    client = Client(
-        retries=3,
-        transport=transport,
-        fetch_schema_from_transport=True,
-    )
-
-    query = gql("{documentPlans{items{id name}}}")
-    results = client.execute(query)
-    return dict([(item["name"], item["id"]) for item in results["documentPlans"]["items"]])
 
 
 def bleu_score(data):
@@ -52,9 +27,9 @@ def bleu_score(data):
 def not_empty_line(x):
     return x != "\n"
 
-def generate_results(data, document_plan_id):
+def generate_results(data, document_plan_name):
     req = {
-        "documentPlanId": document_plan_id,
+        "documentPlanName": document_plan_name,
         "readerFlagValues": {"English": True},
         "dataRows": data,
         "enrich": True
@@ -88,10 +63,6 @@ def group_data(data):
 
 
 if __name__ == "__main__":
-    document_plans = get_document_plans()
-    print("Available Document plans: {}".format(document_plans))
-    document_plan_id = document_plans.get(DOCUMENT_PLAN_NAME, None)
-
     ref = []
     data_rows = {}
 
@@ -101,7 +72,7 @@ if __name__ == "__main__":
         ref.append(refs)
         data_rows[idx] = data
 
-    results = dict(generate_results(data_rows, document_plan_id))
+    results = dict(generate_results(data_rows, DOCUMENT_PLAN_NAME))
 
     original_pairs = list([(ref[int(k)], random.choice(r)["original"])
                            for k, r in results.items()
