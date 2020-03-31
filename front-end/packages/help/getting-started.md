@@ -18,13 +18,31 @@ Contents of the current data file are displayed in the table bellow. Active row 
 
 ### Language
 
-Language section shows which languages are supported in the your installation. Language checkboxes select for which language text will be generated.
+Language section shows which languages are supported in the your installation. Language checkboxes select text generation language.
 
 ![data](help/language.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sed finibus nisi. Nullam mollis, urna at tincidunt accumsan, tellus quam hendrerit urna, in porta felis lacus et magna. Cras varius posuere purus, quis ornare nisi faucibus dictum. Aenean quis nisl eu ipsum convallis pulvinar. Fusce vulputate diam ultricies sem gravida lacinia. Vestibulum metus nisl, auctor dictum purus a, pharetra gravida dolor. Donec volutpat, erat at vehicula tempus, eros enim ornare odio, sed tincidunt dolor enim id urna. Ut pulvinar est ac libero ornare, vitae bibendum arcu vestibulum. Vivamus sagittis nisl a libero dictum, quis ultrices turpis dictum. Phasellus dignissim bibendum diam, in volutpat arcu tincidunt nec. Proin convallis consectetur blandit.
+### Text Generation Results
 
-Vivamus ipsum eros, congue id diam molestie, fringilla eleifend elit. Etiam sit amet quam dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed facilisis maximus enim. Vestibulum sodales feugiat consectetur. Fusce pulvinar diam sed augue accumsan volutpat. Sed aliquam nisl id pretium hendrerit. Curabitur aliquet sapien rhoncus finibus faucibus.
+This section will show the resulting texts. Each block of text represents variations of the text given the same document plan and current row of data. A frag next to text shows the language of the text.
+
+![results](help/results.png)
+
+In cases when no text can be generated (due to missconstructed document plan), you will see 'No Variants.' message.
+
+### AMR
+
+This is a core element of the Accelerated Text engine. AMR - Abstract Meaning Representations - define what kind of messages can be constructed about the data. Choose from the AMR list bellow what you want to communicate to your users. AMR must be dragged to the Document Plan canvas to the left (Document Plan construction is described in the section bellow).
+
+![dictionary](help/amr.png)
+
+### Dictionary
+
+Dictionary section shows which words are available to construct your multilanguage document plans. Note that dictionary entries specify all the forms of the word: gender, case, number.
+
+Just as with AMRs dictionary elements need to be dragged into Document Plan canvas to the left.
+
+![dictionary](help/dictionary.png)
 
 ## One
 
