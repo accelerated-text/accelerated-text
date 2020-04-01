@@ -15,35 +15,29 @@
 
 (defn token-distance [[d1 _] [d2 _]]
   (if (seq? d1)
-    (- d2 (second d1))
+    (- d2 (last d1))
     (- d2 d1)))
 
-(defn merge-tokens [[p1 v1] [p2 v2]] [(flatten (seq [p1 p2])) (str/join " " (log/spyf :debug "Merging: %s" [v1 v2]))])
-
-(defn normalize-merged [tokens]
-  (mapcat (fn [[p v]]
-         (log/debugf "p: %s v: %s" (pr-str p) v)
-            (if (seq? p)
-              (concat
-               [[(first p) v]]
-               (map (fn [idx] [idx ""]) (rest p)))
-              [[p v]])) (reverse tokens)))
+(defn merge-tokens [[p1 v1] [p2 v2]] [(flatten (seq [p1 p2])) (str/join " " (log/spyf :trace "Merging: %s" [v1 v2]))])
 
 (defn merge-nearby [tokens]
-  (loop [stack tokens
+  (loop [[head next & tail] tokens
          result ()]
-    (if (empty? stack)
-      (normalize-merged result)
-      (let [[head next & tail] stack]
-        (if (and next (= 1 (token-distance head next)))
-          (recur (cons (merge-tokens head next) tail) result)
-          (recur (rest stack) (cons head result))))))
+    (if (empty? next)
+      (reverse (cons head result))
+      (if (= 1 (token-distance head next))
+        (recur (cons (merge-tokens head next) tail) result)
+        (recur (cons next tail) (cons head result))))))
 
+(defn next-index [idx]
+  (if (seq? idx)
+    (inc (last idx))
+    (inc idx)))
 
 (defn filter-last-location-token
   [all-tokens group]
   (filter (fn [[idx token]]
-            (let [next-token (nth all-tokens (inc idx) "$")]
+            (let [next-token (nth all-tokens (next-index idx) "$")]
               (log/tracef "Idx: %s Token: %s Next Token: %s" idx token next-token)
               ;; If it's last word in sentence, don't create ref.
               (not (= "." next-token))))
@@ -57,7 +51,6 @@
        (filter #(referent? (second %)))
        (remove #(remove-ignored-tokens lang %))
        (merge-nearby)
-       (map #(log/spyf :debug "Partial result: %s" %))
        (group-by second)
        (filter filter-by-refs-count)
        (map (comp rest second))
@@ -72,7 +65,12 @@
 
 (defmethod add-replace-token "Ger" [_ [idx _]] [idx "es"])
 
-(defmethod add-replace-token :default [_ _] nil)
+(defmethod add-replace-token :default [_ [idx value]] [idx value])
+
+(defn flatten-tokens [[idx value]]
+  (if (seq? idx)
+    (cons [(first idx) value] (map (fn [i] [i :delete]) (rest idx)))
+    [[idx value]]))
 
 (defn check-for-dupes
   "If we have replacement tokens which are exact same in a row [it, it] then mark the next one
@@ -95,10 +93,12 @@
                   (identify-potential-refs lang)
                   (map (partial add-replace-token lang))
                   (check-for-dupes)
+                  (mapcat flatten-tokens)
                   (into {}))]
+    (log/tracef "Smap: %s" smap)
     (nlp/rebuild-sentences
-      (map-indexed (fn [idx v]
-                     (cond (= :delete (get smap idx)) ""
-                           (contains? smap idx) (get smap idx)
-                           :else v))
-                   tokens))))
+     (map-indexed (fn [idx v]
+                    (cond (= :delete (get smap idx)) ""
+                          (contains? smap idx) (get smap idx)
+                          :else v))
+                  tokens))))
