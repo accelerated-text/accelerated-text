@@ -91,7 +91,7 @@ def main(args):
                                for item in r
                                if len(r) > 0])
 
-        enriched_pairs = list([(ref[int(k)], item
+        enriched_pairs = list([(ref[int(k)], item)
                                 for k, r in results.items()
                                 for item in [(v["enriched"] if "enriched" in v else v["original"])
                                              for v in r]
