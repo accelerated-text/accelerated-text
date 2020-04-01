@@ -13,18 +13,31 @@
 
 (defn filter-by-refs-count [[_ refs]] (>= (count refs) 2))
 
+(defn token-distance [[d1 _] [d2 _]]
+  (if (seq? d1)
+    (- d2 (second d1))
+    (- d2 d1)))
+
+(defn merge-tokens [[p1 v1] [p2 v2]] [(flatten (seq [p1 p2])) (str/join " " (log/spyf :debug "Merging: %s" [v1 v2]))])
+
+(defn normalize-merged [tokens]
+  (mapcat (fn [[p v]]
+         (log/debugf "p: %s v: %s" (pr-str p) v)
+            (if (seq? p)
+              (concat
+               [[(first p) v]]
+               (map (fn [idx] [idx ""]) (rest p)))
+              [[p v]])) (reverse tokens)))
+
 (defn merge-nearby [tokens]
-  (loop [pairs (partition 2 1 tokens)
-         final ()]
-    (if (empty? pairs)
-      (reverse final)
-      (let [[head & tail] pairs
-            [[p1 v1] [p2 v2]] head]
-        (if (= 1 (- p2 p1))  ;; If distance between words is one token - merge them
-          (recur (rest tail) (concat [[p2 ""] [p1 (str/join " " (log/spyf :debug "Merging: %s" [v1 v2]))]] final))
-          (if (empty? tail)
-            (recur tail (concat [[p2 v2] [p1 v1]] final))
-            (recur tail (cons [p1 v1] final)))))))) ;; Otherwise, put first one into the list and continue forward
+  (loop [stack tokens
+         result ()]
+    (if (empty? stack)
+      (normalize-merged result)
+      (let [[head next & tail] stack]
+        (if (and next (= 1 (token-distance head next)))
+          (recur (cons (merge-tokens head next) tail) result)
+          (recur (rest stack) (cons head result))))))
 
 
 (defn filter-last-location-token
@@ -44,7 +57,7 @@
        (filter #(referent? (second %)))
        (remove #(remove-ignored-tokens lang %))
        (merge-nearby)
-       (map #(log/spyf :trace "Partial result: %s" %))
+       (map #(log/spyf :debug "Partial result: %s" %))
        (group-by second)
        (filter filter-by-refs-count)
        (map (comp rest second))
