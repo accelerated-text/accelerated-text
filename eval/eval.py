@@ -64,7 +64,7 @@ def group_data(data):
 
 
 def main(args):
-    strategy = upper(args.strategy)
+    strategy = args.strategy.upper()
     ref = []
     data_rows = {}
 
