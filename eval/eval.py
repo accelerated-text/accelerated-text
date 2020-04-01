@@ -2,6 +2,7 @@ import sys
 import os
 import csv
 import random
+import argparse
 
 import requests
 
@@ -62,7 +63,8 @@ def group_data(data):
             for k, group in groupby(data, key=lambda x: x["data"])]
 
 
-if __name__ == "__main__":
+def main(args):
+    strategy = upper(args.strategy)
     ref = []
     data_rows = {}
 
@@ -74,18 +76,39 @@ if __name__ == "__main__":
 
     results = dict(generate_results(data_rows, DOCUMENT_PLAN_NAME))
 
-    original_pairs = list([(ref[int(k)], random.choice(r)["original"])
-                           for k, r in results.items()
-                           if len(r) > 0])
+    if strategy == "RANDOM":
+        original_pairs = list([(ref[int(k)], random.choice(r)["original"])
+                               for k, r in results.items()
+                               if len(r) > 0])
+
+        enriched_pairs = list([(ref[int(k)], random.choice([(v["enriched"] if "enriched" in v else v["original"])
+                                                        for v in r]))
+                               for k, r in results.items()
+                               if len(r) > 0])
+    elif strategy == "ALL":
+        original_pairs = list([(ref[int(k)], item["original"])
+                               for k, r in results.items()
+                               for item in r
+                               if len(r) > 0])
+
+        enriched_pairs = list([(ref[int(k)], item
+                                for k, r in results.items()
+                                for item in [(v["enriched"] if "enriched" in v else v["original"])
+                                             for v in r]
+                                if len(r) > 0])
 
     score = bleu_score(original_pairs)
     print("original BLEU score: {0:.4f}".format(score))
 
-    enriched_pairs = list([(ref[int(k)], random.choice([(v["enriched"] if "enriched" in v else v["original"])
-                                                        for v in r]))
-                           for k, r in results.items()
-                           if len(r) > 0])
-
 
     score = bleu_score(enriched_pairs)
     print("enriched BLEU score: {0:.4f}".format(score))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--strategy",
+        help="Choose strategy for eval. RANDOM - take random result from output and match with original. ALL - match all results with original, end result is basically an average",
+        default="RANDOM")
+    main(parser.parse_args())
