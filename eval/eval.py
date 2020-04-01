@@ -104,6 +104,11 @@ def main(args):
     score = bleu_score(enriched_pairs)
     print("enriched BLEU score: {0:.4f}".format(score))
 
+    for k, r in results.items():
+        phrases = [item for item in r]
+        if any(["it it" in item["original"] for item in phrases]):
+            print("Failure: results: {0} Data: {1}".format(phrases, data_rows[int(k)]))
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
