@@ -10,4 +10,4 @@ COPY . .
 
 ENTRYPOINT [ "/bin/bash", "entrypoint.sh" ]
 
-CMD [ "python", "./eval.py" ]
+CMD [ "python", "./eval.py", "--strategy", "RANDOM" ]
