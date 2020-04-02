@@ -46,6 +46,14 @@
 (defn read-data-file-content [_ key]
   (:content (db/read! data-files-db key)))
 
+(defn get-data [user key]
+  (when-let [content (read-data-file-content user key)]
+    (let [raw-csv (csv/read-csv content)
+          header (->> raw-csv (first) (map keyword) (vec))
+          data (rest raw-csv)
+          pairs (map #(interleave header %) data)]
+      (doall (map #(apply array-map %) pairs)))))
+
 (defn data-file-path []
   (or (System/getenv "DATA_FILES") "resources/data-files"))
 

@@ -1,0 +1,31 @@
+(ns api.nlg.service.utils
+  (:require [clojure.string :as str]
+            [clojure.tools.logging :as log]
+            [data.entities.data-files :as data-files]
+            [data.entities.dictionary :as dict-entity]))
+
+(defn error-response
+  ([exception] (error-response exception nil))
+  ([exception custom-message]
+   (let [message (->> [custom-message (.getMessage exception)] (filter some?) (str/join ": "))]
+     (log/error message)
+     (log/trace (str/join "\n" (.getStackTrace exception)))
+     {:status 500
+      :body   {:error   true
+               :message message}})))
+
+(defn reader-model->languages [reader-model]
+  (reduce-kv (fn [languages reader-flag state]
+               (let [lang (dict-entity/flag->lang reader-flag)]
+                 (if (some? lang)
+                   (cond-> languages (true? state) (conj lang))
+                   (do
+                     (log/warnf "Unknown reader flag: `%s`" reader-flag)
+                     languages))))
+             nil
+             reader-model))
+
+(defn get-data-row [data-id index]
+  (when-not (str/blank? data-id)
+    (let [data (data-files/get-data "user" data-id)]
+      (nth data index (log/errorf "Data with id `%s` does not contain row index %s" data-id index)))))

@@ -2,7 +2,7 @@
   (:gen-class)
   (:require [api.config :refer [conf]]
             [api.graphql.core :as graphql]
-            [api.nlg.generate :as generate]
+            [api.nlg.service :as service]
             [api.utils :as utils]
             [api.error :as errors]
             [clojure.tools.logging :as log]
@@ -53,7 +53,7 @@
                                            :body   (graphql/handle body)}))
                              :summary "GraphQL endpoint"}
                    :options cors-handler}]
-     ["/nlg/" {:post    {:parameters {:body ::generate/generate-req}
+     ["/nlg/" {:post    {:parameters {:body ::service/generate-request}
                          :responses  {200 {:body {:resultId string?}}}
                          :summary    "Registers document plan for generation"
                          :coercion   reitit.coercion.spec/coercion
@@ -61,9 +61,9 @@
                                       coercion/coerce-request-middleware
                                       coercion/coerce-response-middleware]
                          :handler    (fn [{{body :body} :parameters}]
-                                       (generate/generate-request body))}
+                                       (service/generate-request body))}
                :options cors-handler}]
-     ["/nlg/_bulk/" {:post    {:parameters {:body ::generate/generate-bulk}
+     ["/nlg/_bulk/" {:post    {:parameters {:body ::service/generate-request-bulk}
                                :responses  {200 {:body {:resultId string?}}}
                                :summary    "Bulk generation"
                                :coercion   reitit.coercion.spec/coercion
@@ -71,16 +71,16 @@
                                             coercion/coerce-request-middleware
                                             coercion/coerce-response-middleware]
                                :handler    (fn [{{body :body} :parameters}]
-                                             (generate/generate-bulk body))}
+                                             (service/generate-request-bulk body))}
                      :options cors-handler}]
-     ["/nlg/:id" {:get     {:parameters {:query ::generate/format-query
+     ["/nlg/:id" {:get     {:parameters {:query ::service/get-result
                                          :path  {:id string?}}
                             :coercion   reitit.coercion.spec/coercion
                             :summary    "Get NLG result"
                             :middleware [muuntaja/format-request-middleware
                                          coercion/coerce-request-middleware]
-                            :handler    generate/read-result}
-                  :delete  generate/delete-result
+                            :handler    service/get-result}
+                  :delete  service/delete-result
                   :options cors-handler}]
      ["/accelerated-text-data-files/" {:post (fn [request]
                                                (let [{params :params} (multipart-handler request)

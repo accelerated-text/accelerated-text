@@ -9,7 +9,8 @@
   (log/debugf "Processing generate request for `%s`..." lang)
   (log/debugf "Semantic graph: %s" semantic-graph)
   (log/debugf "Context: %s" (assoc context :constants {"*Language" lang}))
-  (map (comp nlp/annotate nlp/process-sentence)
+  (map #(let [text (nlp/process-sentence %)]
+          {:text text :language lang :tokens (nlp/annotate text)})
        (-> (grammar/build-grammar semantic-graph (assoc context :constants {"*Language" lang}))
            (generator/generate lang)
            (service/request lang))))

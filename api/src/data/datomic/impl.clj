@@ -1,5 +1,8 @@
 (ns data.datomic.impl
-  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+  (:require [data.spec.result :as result]
+            [data.spec.result.row :as result-row]
+            [data.spec.result.annotation :as result-annotation]
+            [acc-text.nlg.dictionary.item :as dictionary-item]
             [api.config :refer [conf]]
             [clojure.tools.logging :as log]
             [data.protocol :as protocol]
@@ -55,11 +58,8 @@
     (assoc data-item :key key)
     (catch Exception e (.printStackTrace e))))
 
-(defmethod transact-item :results [_ key data-item]
-  @(d/transact conn [(remove-nil-vals
-                       {:results/id    key
-                        :results/ts    (ts-now)
-                        :results/ready (:ready data-item)})]))
+(defmethod transact-item :results [_ _ data-item]
+  @(d/transact conn [(assoc data-item ::result/timestamp (ts-now))]))
 
 (defn prepare-multilang-dict [id {::dictionary-item/keys [key category language forms sense definition attributes]}]
   {:db/id                           [:dictionary-multilang/id id]
@@ -200,28 +200,27 @@
 
 (defmethod pull-entity :dictionary-multilang [_ key]
   (when-let [item (ffirst (d/q '[:find (pull ?e [*])
-                            :in $ ?key
-                            :where [?e :dictionary-multilang/id ?key]]
-                          (d/db conn)
-                          key))]
+                                 :in $ ?key
+                                 :where [?e :dictionary-multilang/id ?key]]
+                               (d/db conn)
+                               key))]
     (read-multilang-dict-item item)))
 
 (defmethod pull-entity :results [_ key]
-  (let [entity (->> (d/q '[:find (pull ?e [*])
-                           :where
-                           [?e :results/id ?key]]
-                         (d/db conn)
-                         key)
-                    (flatten)
-                    (filter (comp (partial = key) :results/id))
-                    (sort-by :results/ts #(compare %2 %1))
-                    (first))]
-    (when entity
-      {:id      key
-       :ready   (:results/ready entity)
-       :error   (:results/error entity)
-       :message (:results/message entity)
-       :results (decode-results (:results/results entity))})))
+  (d/pull
+    (d/db conn)
+    [::result/id
+     ::result/status
+     ::result/error-message
+     ::result/timestamp
+     {::result/rows [::result-row/id
+                     ::result-row/text
+                     ::result-row/language
+                     ::result-row/enriched?
+                     {::result-row/annotations [::result-annotation/id
+                                                ::result-annotation/idx
+                                                ::result-annotation/text]}]}]
+    [::result/id key]))
 
 (defn read-rgl-entity [entity]
   {:id     (:rgl/id entity)
@@ -360,15 +359,6 @@
   (throw (RuntimeException. (format "DATOMIC DELETE FOR '%s' NOT IMPLEMENTED" resource-type))))
 
 (defmulti update! (fn [resource-type _ _] resource-type))
-
-(defmethod update! :results [_ key data-item]
-  @(d/transact conn [(remove-nil-vals
-                       {:db/id           [:results/id key]
-                        :results/ready   (:ready data-item)
-                        :results/error   (:error data-item)
-                        :results/results (encode-results (:results data-item))
-                        :results/message (:message data-item)
-                        :results/ts      (ts-now)})]))
 
 (defmethod update! :dictionary-combined [resource-type key data-item]
   (try
