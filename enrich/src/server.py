@@ -78,7 +78,8 @@ def application(environ, start_response, data, enricher=None):
     filtered_context = dict([(k, v) for k, v in context.items()
                              if k is not None and k.strip() != ""])
     logger.debug("Filtered context: {}".format(filtered_context))
-    result = enricher.enrich(text, filtered_context, max_iters=50)
+    result = enricher.connect_sentences(text)
+    # result = enricher.enrich(text, filtered_context, max_iters=50)
     return {"result": format_result(result)}
 
 

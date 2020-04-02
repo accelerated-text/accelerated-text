@@ -48,6 +48,12 @@ class Enricher(object):
     def remove(self, tokens, pos):
         return remove(tokens, pos)
 
+    def connect_sentences(self, sent):
+        chunks = map(lambda x: x.strip(), sent.split("."))
+        buff = ", ".join([(s[0].lower() + s[1:]) for s in chunks])
+        buff = re.sub(r"^(.*)([,])", "\g<1> and", buff)
+        return buff
+
     def enrich(self, sent, context=None, max_iters=5, max_retries=15):
         ctx = CaseInsensitiveDict(context)
         tokens = tokenize(self._encode(sent, ctx))
