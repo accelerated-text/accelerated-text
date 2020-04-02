@@ -14,6 +14,7 @@
 (defn filter-by-refs-count [[_ refs]] (>= (count refs) 2))
 
 (defn token-distance [[d1 _] [d2 _]]
+  "Measure distance between tokens. First token may be already merged, so have multiple indices"
   (if (seq? d1)
     (- d2 (last d1))
     (- d2 d1)))
@@ -21,6 +22,7 @@
 (defn merge-tokens [[p1 v1] [p2 v2]] [(flatten (seq [p1 p2])) (str/join " " (log/spyf :trace "Merging: %s" [v1 v2]))])
 
 (defn merge-nearby [tokens]
+  "If there are two potential tokens nearby, merge them into single one"
   (loop [[head next & tail] tokens
          result ()]
     (if (empty? next)
@@ -68,6 +70,7 @@
 (defmethod add-replace-token :default [_ [idx value]] [idx value])
 
 (defn flatten-tokens [[idx value]]
+  "If tokens were merged, position consists of multiple indices. We need flat index structure in the end."
   (if (seq? idx)
     (cons [(first idx) value] (map (fn [i] [i :delete]) (rest idx)))
     [[idx value]]))
@@ -86,6 +89,11 @@
           (recur tokens (concat deduped [t1 [idx2 :delete]]))
           (recur tokens deduped))))))
 
+(defn fix-corner-cases
+  "If some cases needs too much effort to fix correctly, but are trivial to identify, we can just regex replace"
+  [text]
+  (str/replace text #"[Tt]he it" "it"))
+
 (defn apply-ref-expressions
   [lang text]
   (let [tokens (nlp/tokenize text)
@@ -96,9 +104,10 @@
                   (mapcat flatten-tokens)
                   (into {}))]
     (log/tracef "Smap: %s" smap)
-    (nlp/rebuild-sentences
-     (map-indexed (fn [idx v]
-                    (cond (= :delete (get smap idx)) ""
-                          (contains? smap idx) (get smap idx)
-                          :else v))
-                  tokens))))
+    (->> (map-indexed (fn [idx v]
+                        (cond (= :delete (get smap idx)) ""
+                              (contains? smap idx) (get smap idx)
+                              :else v))
+                      tokens)
+         (nlp/rebuild-sentences)
+         (fix-corner-cases))))
