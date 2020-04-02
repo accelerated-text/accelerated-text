@@ -8,7 +8,6 @@ from wsgiref.simple_server import make_server
 from src.enrich import Enricher
 from src.utils import format_result
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("Enrich")
 
 
@@ -55,6 +54,7 @@ def json_response(fn):
         try:
             response = fn(environ, start_response, *args)
         except Exception as ex:
+            logger.exception(ex)
             response = {"error": True, "message": str(ex)}
 
         output = json.dumps(response).encode("UTF-8")
@@ -76,12 +76,17 @@ def application(environ, start_response, data, enricher=None):
     text = data["text"].strip(".")
     context = data["context"]
     filtered_context = dict([(k, v) for k, v in context.items()
-                             if v is not None and v.strip() != ""])
+                             if k is not None and k.strip() != ""])
+    logger.debug("Filtered context: {}".format(filtered_context))
     result = enricher.enrich(text, filtered_context, max_iters=50)
     return {"result": format_result(result)}
 
 
 def main(args):
+    if args.debug:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
     httpd = make_server("", args.port, application)
     logger.info("Serving on port: {}".format(args.port))
     try:
@@ -94,4 +99,5 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", default=8000, type=int, help="Server port")
+    parser.add_argument("--debug", action="store_true", help="Debug output")
     main(parser.parse_args())

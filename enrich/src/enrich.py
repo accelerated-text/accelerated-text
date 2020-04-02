@@ -30,13 +30,13 @@ class Enricher(object):
     def _encode(self, text, context):
         if context is None:
             return text
-        logger.info("Pre-encode: {0}, Context: {1}".format(text, context))
+        logger.debug("Pre-encode: {0}, Context: {1}".format(text, context))
         return multi_replace(context, text)
 
     def _decode(self, text, context):
         if context is None:
             return text
-        logger.info("Pre-decode: {0}, Context: {1}".format(text, context))
+        logger.debug("Pre-decode: {0}, Context: {1}".format(text, context))
         return multi_replace(inverse_dict(context), text)
 
     def insert(self, tokens, pos):
@@ -63,7 +63,7 @@ class Enricher(object):
             pipeline.optimize,
             pipeline.get_result
         ]
-        
+
         while iters < max_iters and retries < max_retries:
             try:
                 result = reduce(lambda acc, p: p(*acc), pipe, (self, result))
