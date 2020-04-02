@@ -16,7 +16,6 @@
                         :headers {"Content-type" "application/json"}
                         :body    (json/write-value-as-string content)})
       (get :body)
-      (log/spyf :debug "Enrich response: %s")
       (json/read-value utils/read-mapper)
       (get :results)))
 
