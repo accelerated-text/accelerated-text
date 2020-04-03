@@ -9,20 +9,22 @@
 
 (defmethod ignored-token? :default [_ _] false)
 
-(defn remove-ignored-tokens [lang [idx value]] (ignored-token? lang value))
+(defn remove-ignored-tokens [lang [_ value]] (ignored-token? lang value))
 
 (defn filter-by-refs-count [[_ refs]] (>= (count refs) 2))
 
-(defn token-distance [[d1 _] [d2 _]]
+(defn token-distance
   "Measure distance between tokens. First token may be already merged, so have multiple indices"
+  [[d1 _] [d2 _]]
   (if (seq? d1)
     (- d2 (last d1))
     (- d2 d1)))
 
 (defn merge-tokens [[p1 v1] [p2 v2]] [(flatten (seq [p1 p2])) (str/join " " (log/spyf :trace "Merging: %s" [v1 v2]))])
 
-(defn merge-nearby [tokens]
+(defn merge-nearby
   "If there are two potential tokens nearby, merge them into single one"
+  [tokens]
   (loop [[head next & tail] tokens
          result ()]
     (if (empty? next)
@@ -69,8 +71,9 @@
 
 (defmethod add-replace-token :default [_ [idx value]] [idx value])
 
-(defn flatten-tokens [[idx value]]
+(defn flatten-tokens
   "If tokens were merged, position consists of multiple indices. We need flat index structure in the end."
+  [[idx value]]
   (if (seq? idx)
     (cons [(first idx) value] (map (fn [i] [i :delete]) (rest idx)))
     [[idx value]]))
