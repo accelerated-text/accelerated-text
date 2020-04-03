@@ -13,7 +13,7 @@
   "Expected keys are :filename and :content everything else is optional"
   [data-file]
   (let [id (utils/gen-uuid)]
-    (log/debugf "Storing: %s with id: %s" data-file id)
+    (log/debugf "Storing: %s with id: %s" (:filename data-file) id)
     (db/write! data-files-db id data-file)
     id))
 
@@ -47,14 +47,10 @@
 (defn read-data-file-content [_ key]
   (:content (db/read! data-files-db key)))
 
-(defn get-data
-  ([user key]
-   (get-data user key nil))
-  ([user key not-found]
-   (if-let [content (read-data-file-content user key)]
-     (let [[header & rows] (->> content (csv/read-csv) (map #(map str/trim %)))]
-       (map #(zipmap header %) rows))
-     not-found)))
+(defn get-data [user key]
+  (when-let [content (read-data-file-content user key)]
+    (let [[header & rows] (->> content (csv/read-csv) (map #(map str/trim %)))]
+      (map #(zipmap header %) rows))))
 
 (defn data-file-path []
   (or (System/getenv "DATA_FILES") "resources/data-files"))

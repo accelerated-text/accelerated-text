@@ -40,8 +40,9 @@
 
 (defn get-data-row [data-id index]
   (when-not (str/blank? data-id)
-    (when-let [data (data-files/get-data "user" data-id (log/errorf "Data with id `%s` not found" data-id))]
-      (nth data index (log/errorf "Data with id `%s` does not contain row index %s" data-id index)))))
+    (if-let [data (data-files/get-data "user" data-id)]
+      (nth data index)
+      (log/errorf "Data with id `%s` not found" data-id))))
 
 (defn get-document-plan [{id :documentPlanId name :documentPlanName}]
   (cond
