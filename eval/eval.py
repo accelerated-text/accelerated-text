@@ -33,7 +33,7 @@ def generate_results(data, document_plan_name):
         "documentPlanName": document_plan_name,
         "readerFlagValues": {"English": True},
         "dataRows": data,
-        "enrich": False
+        "enrich": True
     }
 
     resp = requests.post("{url}/_bulk/".format(url=NLG_ENDPOINT), json=req)
@@ -70,7 +70,7 @@ def main(args):
 
     items = list(group_data(load_data()))
 
-    for idx, (data, refs) in enumerate(items):
+    for idx, (data, refs) in enumerate(items[:10]):
         ref.append(refs)
         data_rows[idx] = data
 

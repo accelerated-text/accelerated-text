@@ -37,18 +37,27 @@
     (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans "Document"))
     :else (throw (Exception. "Must provide either document plan id or document plan name."))))
 
+
+(defn normalize-result [{:keys [lang original enriched]}]
+  (->> (map vector original enriched)
+       (map (fn [[o e]] {:original o :enriched e :lang lang}))))
+
 (defn generate-text-for-language [semantic-graph context enrich lang]
   (->> (nlg/generate-text semantic-graph context lang)
        (map :text)
        (sort)
        (dedupe)
        (remove str/blank?)
-       (map (comp
-              #(cond-> {:lang     lang
-                        :original %}
-                       (true? enrich) (assoc :enriched (sort (set/difference
-                                                               (set (enrich-texts % (:data context))) %))))
-              #(apply-ref-expressions lang %)))))
+       (map #(apply-ref-expressions lang %))
+       (apply (fn [& texts]
+                (if enrich
+                  {:lang     lang
+                   :original texts
+                   :enriched (enrich-texts texts (:data context))}
+                  {:lang     lang
+                   :original texts
+                   :enriched []})))
+       (normalize-result)))
 
 (defn reader-model->languages [reader-model]
   (reduce-kv (fn [acc k v]

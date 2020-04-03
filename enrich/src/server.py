@@ -68,19 +68,26 @@ def json_response(fn):
     return wrapper
 
 
+def process_text(text, filtered_context, enricher):
+    # result = enricher.connect_sentences(text.strip("."))
+    result = enricher.enrich(enricher.connect_sentences(text.strip(".")), filtered_context, max_iters=50)
+    return format_result(result)
+
+
 @post_request
 @json_request
 @json_response
 @inject_enricher
 def application(environ, start_response, data, enricher=None):
-    text = data["text"].strip(".")
     context = data["context"]
     filtered_context = dict([(k, v) for k, v in context.items()
                              if k is not None and k.strip() != ""])
     logger.debug("Filtered context: {}".format(filtered_context))
-    result = enricher.connect_sentences(text)
-    # result = enricher.enrich(text, filtered_context, max_iters=50)
-    return {"result": format_result(result)}
+    if "texts" in data:
+        return {"results": [process_text(text, filtered_context, enricher)
+                            for text in data["texts"]]}
+    else:
+        return {"result": process_text(data["text"], filtered_context, enricher)}
 
 
 def main(args):
