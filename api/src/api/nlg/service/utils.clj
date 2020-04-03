@@ -15,6 +15,18 @@
       :body   {:error   true
                :message message}})))
 
+(defn request->text [{:keys [documentPlanId documentPlanName dataId readerFlagValues]}]
+  (->> [(when (some? documentPlanId)
+          (format "document plan id `%s`" documentPlanId))
+        (when (and (some? documentPlanName) (nil? documentPlanId))
+          (format "document plan name `%s`" documentPlanId))
+        (if (some? dataId)
+          (format "data id `%s`" dataId))
+        (when-let [active-reader-flags (seq (map first (filter (comp true? second) readerFlagValues)))]
+          (format "reader flags: `%s`" (str/join "`, `" active-reader-flags)))]
+       (remove nil?)
+       (str/join "; ")))
+
 (defn reader-model->languages [reader-model]
   (reduce-kv (fn [languages reader-flag state]
                (let [lang (dict-entity/flag->lang reader-flag)]

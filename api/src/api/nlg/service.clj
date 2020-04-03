@@ -2,8 +2,8 @@
   (:require [api.nlg.core :refer [generate-text]]
             [api.nlg.format :refer [use-format with-default-format]]
             [api.nlg.service.request :as request]
-            [api.nlg.service.utils :refer [error-response get-data-row get-document-plan reader-model->languages]]
-            [api.utils :as utils]
+            [api.nlg.service.utils :as utils]
+            [api.utils :refer [gen-uuid]]
             [clojure.spec.alpha :as s]
             [data.spec.result :as result]
             [data.entities.results :as results]
@@ -27,40 +27,42 @@
 
 (defn generate-request
   [{data-id :dataId data-row :dataRow reader-model :readerFlagValues :as request}]
-  (log/infof "Generate request `%s`" request)
   (try
-    (let [{document-plan :documentPlan row-index :dataSampleRow} (get-document-plan request)
-          result-id (utils/gen-uuid)]
+    (log/infof "Generate request with %s" (utils/request->text request))
+    (let [{document-plan :documentPlan row-index :dataSampleRow} (utils/get-document-plan request)
+          result-id (gen-uuid)]
       (results/write #::result{:id     result-id
                                :status :pending})
       (results/write (generate-text {:id            result-id
                                      :document-plan document-plan
-                                     :data          (or data-row (get-data-row data-id (or row-index 0)))
-                                     :languages     (reader-model->languages reader-model)}))
+                                     :data          (or data-row (utils/get-data-row data-id (or row-index 0)))
+                                     :languages     (utils/reader-model->languages reader-model)}))
       {:status 200
        :body   {:resultId result-id}})
     (catch Exception e
-      (error-response e "Generate request failure"))))
+      (utils/error-response e "Generate request failure"))))
 
 (defn generate-request-bulk
   [{reader-model :readerFlagValues data-rows :dataRows :as request}]
   (try
-    (let [{document-plan :documentPlan} (get-document-plan request)
-          result-id (utils/gen-uuid)]
+    (log/infof "Bulk generate request with %s" (utils/request->text request))
+    (let [{document-plan :documentPlan} (utils/get-document-plan request)
+          result-id (gen-uuid)]
       (doseq [[request-id data-row] data-rows]
         (results/write #::result{:id     result-id
                                  :status :pending})
         (results/write (generate-text {:id            request-id
                                        :document-plan document-plan
                                        :data          data-row
-                                       :languages     (reader-model->languages reader-model)})))
+                                       :languages     (utils/reader-model->languages reader-model)})))
       {:status 200
        :body   {:resultIds (keys data-rows)}})
     (catch Exception e
-      (error-response e "Bulk generate request failure"))))
+      (utils/error-response e "Bulk generate request failure"))))
 
 (defn get-result [{{{request-id :id} :path {result-format :format} :query} :parameters}]
   (try
+    (log/infof "Result request with id `%s`" request-id)
     (if-let [{::result/keys [rows status timestamp] :as result} (results/fetch request-id)]
       {:status 200
        :body   {:offset     0
@@ -72,10 +74,11 @@
                               (with-default-format result))}}
       {:status 404})
     (catch Exception e
-      (error-response e (format "Failed to read result with id `%s`" request-id)))))
+      (utils/error-response e (format "Failed to get result with id `%s`" request-id)))))
 
 (defn delete-result [{{request-id :id} :path-params}]
   (try
+    (log/infof "Delete result request with id `%s`" request-id)
     (if-let [item (results/fetch request-id)]
       (do
         (results/delete request-id)
@@ -83,4 +86,4 @@
          :body   item})
       {:status 404})
     (catch Exception e
-      (error-response e (format "Failed to delete result with id `%s`" request-id)))))
+      (utils/error-response e (format "Failed to delete result with id `%s`" request-id)))))
