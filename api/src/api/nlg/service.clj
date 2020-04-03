@@ -72,7 +72,9 @@
                 :variants   (if (some? result-format)
                               (use-format result-format result)
                               (with-default-format result))}}
-      {:status 404})
+      (do
+        (log/warnf "Result with id `%s` not found" request-id)
+        {:status 404}))
     (catch Exception e
       (utils/error-response e (format "Failed to get result with id `%s`" request-id)))))
 
@@ -84,6 +86,8 @@
         (results/delete request-id)
         {:status 200
          :body   item})
-      {:status 404})
+      (do
+        (log/warnf "Result with id `%s` not found" request-id)
+        {:status 404}))
     (catch Exception e
       (utils/error-response e (format "Failed to delete result with id `%s`" request-id)))))
