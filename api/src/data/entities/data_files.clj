@@ -47,10 +47,14 @@
 (defn read-data-file-content [_ key]
   (:content (db/read! data-files-db key)))
 
-(defn get-data [user key]
-  (when-let [content (read-data-file-content user key)]
-    (let [[header & rows] (->> content (csv/read-csv) (map #(map str/trim %)))]
-      (map #(zipmap header %) rows))))
+(defn get-data
+  ([user key]
+   (get-data user key nil))
+  ([user key not-found]
+   (if-let [content (read-data-file-content user key)]
+     (let [[header & rows] (->> content (csv/read-csv) (map #(map str/trim %)))]
+       (map #(zipmap header %) rows))
+     not-found)))
 
 (defn data-file-path []
   (or (System/getenv "DATA_FILES") "resources/data-files"))
