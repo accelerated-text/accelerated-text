@@ -20,7 +20,7 @@
           (format "document plan id `%s`" documentPlanId))
         (when (and (some? documentPlanName) (nil? documentPlanId))
           (format "document plan name `%s`" documentPlanId))
-        (if (some? dataId)
+        (when (some? dataId)
           (format "data id `%s`" dataId))
         (when-let [active-reader-flags (seq (map first (filter (comp true? second) readerFlagValues)))]
           (format "reader flags: `%s`" (str/join "`, `" active-reader-flags)))]
