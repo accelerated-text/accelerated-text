@@ -5,8 +5,7 @@
             [org.httpkit.client :as http]))
 
 (defn enable-enrich? []
-  true
-  #_(Boolean/valueOf ^String (System/getenv "ENABLE_ENRICH")))
+  (Boolean/valueOf ^String (System/getenv "ENABLE_ENRICH")))
 
 (defn enrich-endpoint []
   (or (System/getenv "ENRICH_ENDPOINT") "http://localhost:8002"))
