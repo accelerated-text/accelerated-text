@@ -20,7 +20,7 @@
       (get :results)))
 
 (defn enrich-texts [texts data]
-  (log/debugf "Texsts for enrich: %s" texts)
+  (log/tracef "Texsts for enrich: %s" texts)
   (enrich-request {:texts    texts
                    :context (reduce-kv (fn [m k v]
                                          (assoc m v (format "{%s}" (name k))))

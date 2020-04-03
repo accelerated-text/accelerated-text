@@ -69,8 +69,8 @@ def json_response(fn):
 
 
 def process_text(text, filtered_context, enricher):
-    # result = enricher.connect_sentences(text.strip("."))
-    result = enricher.enrich(enricher.connect_sentences(text.strip(".")), filtered_context, max_iters=50)
+    result = enricher.connect_sentences(text.strip("."))
+    # result = enricher.enrich(enricher.connect_sentences(text.strip(".")), filtered_context, max_iters=10)
     return format_result(result)
 
 
