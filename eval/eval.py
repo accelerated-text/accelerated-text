@@ -36,17 +36,15 @@ def generate_results(data, document_plan_name):
     }
 
     resp = requests.post("{url}/_bulk/".format(url=NLG_ENDPOINT), json=req)
-    result_id = resp.json()["resultId"]
-    print("ResultId: {}".format(result_id))
-
-    results = requests.get("{url}/{result_id}?format=raw".format(
-        url=NLG_ENDPOINT,
-        result_id=result_id
-    )).json()
-
+    results = {}
+    for result_id in resp.json()["resultIds"]:
+        result = requests.get("{url}/{result_id}?format=raw".format(
+            url=NLG_ENDPOINT,
+            result_id=result_id
+        )).json()
+        results[result_id] = result["variants"]
     print("Results: {}".format(results))
-
-    return results["variants"]
+    return results
 
 def load_data():
     with open("data/devset.csv", "r") as f:

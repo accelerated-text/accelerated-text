@@ -48,8 +48,8 @@
                                                       annotations))}]}]}) ;; TODO
        rows))
 
-(defn ->raw-format [{::result/keys [id rows]}]
-  {id (map ::row/text rows)})
+(defn ->raw-format [{::result/keys [rows]}]
+  (map ::row/text rows))
 
 (defn use-format [format-type result]
   (case format-type
