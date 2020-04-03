@@ -49,6 +49,16 @@
                                 :category "N"
                                 :language "Eng"
                                 :forms    ["place" "places"]}
+ #:acc-text.nlg.dictionary.item{:key      "venue_1_N"
+                                :sense    "1"
+                                :category "N"
+                                :language "Eng"
+                                :forms    ["venue" "venues"]}
+ #:acc-text.nlg.dictionary.item{:key      "arena_1_N"
+                                :sense    "1"
+                                :category "N"
+                                :language "Eng"
+                                :forms    ["arena" "arenas"]}
  #:acc-text.nlg.dictionary.item{:key      "property_1_N"
                                 :sense    "1"
                                 :category "N"
