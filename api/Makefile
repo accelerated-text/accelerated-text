@@ -29,5 +29,5 @@ export-all-document-plans:
     	   base64 --decode | \
     	   jq -r $${1} '.' | \
     	   cat $${1} > item.json.tmp && \
-    	   mv item.json.tmp $${dir:=resources/document-plans}/$$(cat item.json.tmp | jq -r '.name').json  ; \
+    	   mv item.json.tmp $${dir:=resources/document-plans}/$$(cat item.json.tmp | jq -r '.id').json  ; \
     done
