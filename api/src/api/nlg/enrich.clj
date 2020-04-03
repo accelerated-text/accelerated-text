@@ -5,14 +5,15 @@
             [org.httpkit.client :as http]))
 
 (defn enable-enrich? []
-  (Boolean/valueOf ^String (System/getenv "ENABLE_ENRICH")))
+  true
+  #_(Boolean/valueOf ^String (System/getenv "ENABLE_ENRICH")))
 
 (defn enrich-endpoint []
   (or (System/getenv "ENRICH_ENDPOINT") "http://localhost:8002"))
 
 (defn enrich-request [content]
-  (log/tracef "Enriching text via: %s" (enrich-endpoint))
-  (let [{{:keys [result error message]} :body request-error :error}
+  (log/infof "Enriching text via: %s" (enrich-endpoint))
+  (let [{{:keys [results error message]} :body request-error :error}
         (-> @(http/request {:url     (enrich-endpoint)
                             :method  :post
                             :headers {"Content-type" "application/json"}
@@ -21,11 +22,19 @@
     (cond
       (true? error) (log/errorf "Failed to enrich text: %s" message)
       (some? request-error) (log/errorf "Enrich request failure: %s" (.getMessage request-error))
-      :else result)))
+      :else results)))
 
-(defn enrich-text [text data]
-  (enrich-request {:text    text
-                   :context (reduce-kv (fn [m k v]
-                                         (assoc m v (format "{%s}" (name k))))
-                                       {}
-                                       data)}))
+(defn build-context [data]
+  (reduce-kv (fn [m k v]
+               (assoc m v (format "{%s}" (name k))))
+             {}
+             data))
+
+(defn enrich [gen-result data]
+  (mapcat (fn [{:keys [enriched] :as result}]
+            (if (some? enriched)
+              (let [item (dissoc result :enriched)
+                    enriched-item (assoc item :text enriched :enriched? true)]
+                [item enriched-item])
+              [result]))
+          (enrich-request {:data gen-result :context (build-context data)})))

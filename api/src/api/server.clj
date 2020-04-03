@@ -64,7 +64,7 @@
                                        (service/generate-request body))}
                :options cors-handler}]
      ["/nlg/_bulk/" {:post    {:parameters {:body ::service/generate-request-bulk}
-                               :responses  {200 {:body {:resultId string?}}}
+                               :responses  {200 {:body {:resultIds string?}}}
                                :summary    "Bulk generation"
                                :coercion   reitit.coercion.spec/coercion
                                :middleware [muuntaja/format-request-middleware

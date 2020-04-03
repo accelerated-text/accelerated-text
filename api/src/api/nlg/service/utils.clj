@@ -2,7 +2,8 @@
   (:require [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
-            [data.entities.dictionary :as dict-entity]))
+            [data.entities.dictionary :as dict-entity]
+            [data.entities.document-plan :as dp]))
 
 (defn error-response
   ([exception] (error-response exception nil))
@@ -29,3 +30,9 @@
   (when-not (str/blank? data-id)
     (let [data (data-files/get-data "user" data-id)]
       (nth data index (log/errorf "Data with id `%s` does not contain row index %s" data-id index)))))
+
+(defn get-document-plan [{id :documentPlanId name :documentPlanName}]
+  (cond
+    (some? id) (dp/get-document-plan id)
+    (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans "Document"))
+    :else (throw (Exception. "Must provide either document plan id or document plan name."))))

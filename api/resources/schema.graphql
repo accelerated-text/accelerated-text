@@ -21,6 +21,7 @@ enum PartOfSpeech {
    N2
    N3
    PN
+   Prep
    V
    V0
    V2
@@ -187,6 +188,7 @@ type Concepts {
     ParadigmsEst:      [ Concept! ]
     ParadigmsLav:      [ Concept! ]
     ParadigmsRus:      [ Concept! ]
+    ParadigmsSpa:      [ Concept! ]
 }
 
 

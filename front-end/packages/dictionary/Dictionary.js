@@ -57,11 +57,6 @@ export default composeQueries({
                         </td>
                     </tr>
                 }
-                <tr>
-                    <td colspan="4">
-                        <AddItem refetchQueries={ [ 'dictionary' ] } />
-                    </td>
-                </tr>
             </tbody>
         </table>
     );

@@ -1,0 +1,6 @@
+{:type "V2V",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkV2V", :type ["V" "V2V"], :example "-"}
+  {:function "mkV2V", :type ["V" "Prep" "Prep" "V2V"], :example "-"}]}

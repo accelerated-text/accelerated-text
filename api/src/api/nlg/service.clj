@@ -2,34 +2,35 @@
   (:require [api.nlg.core :refer [generate-text]]
             [api.nlg.format :refer [use-format with-default-format]]
             [api.nlg.service.request :as request]
-            [api.nlg.service.utils :refer [error-response get-data-row reader-model->languages]]
+            [api.nlg.service.utils :refer [error-response get-data-row get-document-plan reader-model->languages]]
             [api.utils :as utils]
             [clojure.spec.alpha :as s]
             [data.spec.result :as result]
             [data.entities.dictionary :refer [default-language]]
-            [data.entities.document-plan :as dp]
             [data.entities.results :as results]
             [clojure.tools.logging :as log]))
 
 (s/def ::generate-request
-  (s/keys :req-un [::request/documentPlanId]
-          :opt-un [::request/dataId ::request/dataRow ::request/readerFlagValues]))
+  (s/keys :opt-un [::request/documentPlanId
+                   ::request/documentPlanName
+                   ::request/dataId
+                   ::request/dataRow
+                   ::request/readerFlagValues]))
 
 (s/def ::generate-request-bulk
-  (s/keys :req-un [::request/documentPlanId ::request/dataRows]
-          :opt-un [::request/readerFlagValues]))
+  (s/keys :req-un [::request/dataRows]
+          :opt-un [::request/documentPlanId
+                   ::request/documentPlanName
+                   ::request/readerFlagValues]))
 
 (s/def ::get-result
   (s/keys :opt-un [::request/format]))
 
 (defn generate-request
-  [{document-plan-id :documentPlanId
-    data-id          :dataId
-    data-row         :dataRow
-    reader-model     :readerFlagValues :as request}]
+  [{data-id :dataId data-row :dataRow reader-model :readerFlagValues :as request}]
   (log/infof "Generate request `%s`" request)
   (try
-    (let [{document-plan :documentPlan row-index :dataSampleRow} (dp/get-document-plan document-plan-id)
+    (let [{document-plan :documentPlan row-index :dataSampleRow} (get-document-plan request)
           languages (or (reader-model->languages reader-model) [(default-language)])
           result-id (utils/gen-uuid)]
       (results/write #::result{:id     result-id
@@ -44,11 +45,9 @@
       (error-response e "Generate request failure"))))
 
 (defn generate-request-bulk
-  [{document-plan-id :documentPlanId
-    reader-model     :readerFlagValues
-    data-rows        :dataRows}]
+  [{reader-model :readerFlagValues data-rows :dataRows :as request}]
   (try
-    (let [{document-plan :documentPlan} (dp/get-document-plan document-plan-id)
+    (let [{document-plan :documentPlan} (get-document-plan request)
           languages (or (reader-model->languages reader-model) [(default-language)])
           result-id (utils/gen-uuid)]
       (doseq [[request-id data-row] data-rows]

@@ -3,5 +3,5 @@
                                           {:from :03 :to :04 :role :arg :index 0 :category "Str" :name "item"})
                               :concepts  ({:id :01 :type :document-plan}
                                           {:id :02 :type :segment}
-                                          {:id :03 :type :amr :name "udwQwhFAAMehYTmr"}
+                                          {:id :03 :type :amr :name "vbrlyagPKFmewMsD"}
                                           {:id :04 :type :quote :value "text"})}

@@ -3,7 +3,7 @@
             [acc-text.nlp.utils :as nlp]
             [acc-text.nlp.ref-expressions :refer [apply-ref-expressions]]
             [api.nlg.utils :as nlg-utils]
-            [api.nlg.enrich :refer [enable-enrich? enrich-text]]
+            [api.nlg.enrich :refer [enable-enrich? enrich]]
             [api.nlg.parser :refer [document-plan->semantic-graph]]
             [api.utils :as utils]
             [clojure.string :as str]
@@ -23,16 +23,10 @@
                                                      :text text})
                                      (nlp/annotate text))))
 
-(defn enrich-row [{text ::row/text :as row} data]
-  (let [enriched-text (enrich-text text data)]
-    (if (and (some? enriched-text) (not= enriched-text text))
-      [row (assoc row ::row/id (utils/gen-uuid) ::row/text enriched-text ::row/enriched? true)]
-      [row])))
-
-(defn ->result-row [{:keys [text language]}]
+(defn ->result-row [{:keys [text language enriched?]}]
   #::row{:id        (utils/gen-uuid)
          :language  language
-         :enriched? false
+         :enriched? (true? enriched?)
          :text      (cond->> text (enable-ref-expr?) (apply-ref-expressions language))})
 
 (defn generate-text
@@ -49,10 +43,10 @@
                           (comp
                             (mapcat (fn [language]
                                       (let [context {:amr amrs :data data :dictionary (get dictionaries language)}]
-                                        (nlg/generate-text semantic-graph context language))))
+                                        (cond-> (nlg/generate-text semantic-graph context language)
+                                                (enable-enrich?) (enrich data)))))
                             (remove #(str/blank? (:text %)))
                             (map ->result-row)
-                            (mapcat #(if (enable-enrich?) (enrich-row % data) [%]))
                             (map add-annotations))
                           conj
                           languages)}
