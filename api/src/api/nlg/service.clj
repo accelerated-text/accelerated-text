@@ -6,7 +6,6 @@
             [api.utils :as utils]
             [clojure.spec.alpha :as s]
             [data.spec.result :as result]
-            [data.entities.dictionary :refer [default-language]]
             [data.entities.results :as results]
             [clojure.tools.logging :as log]))
 
@@ -31,14 +30,13 @@
   (log/infof "Generate request `%s`" request)
   (try
     (let [{document-plan :documentPlan row-index :dataSampleRow} (get-document-plan request)
-          languages (or (reader-model->languages reader-model) [(default-language)])
           result-id (utils/gen-uuid)]
       (results/write #::result{:id     result-id
                                :status :pending})
       (results/write (generate-text {:id            result-id
                                      :document-plan document-plan
                                      :data          (or data-row (get-data-row data-id (or row-index 0)))
-                                     :languages     languages}))
+                                     :languages     (reader-model->languages reader-model)}))
       {:status 200
        :body   {:resultId result-id}})
     (catch Exception e
@@ -48,7 +46,6 @@
   [{reader-model :readerFlagValues data-rows :dataRows :as request}]
   (try
     (let [{document-plan :documentPlan} (get-document-plan request)
-          languages (or (reader-model->languages reader-model) [(default-language)])
           result-id (utils/gen-uuid)]
       (doseq [[request-id data-row] data-rows]
         (results/write #::result{:id     result-id
@@ -56,7 +53,7 @@
         (results/write (generate-text {:id            request-id
                                        :document-plan document-plan
                                        :data          data-row
-                                       :languages     languages})))
+                                       :languages     (reader-model->languages reader-model)})))
       {:status 200
        :body   {:resultIds (keys data-rows)}})
     (catch Exception e
