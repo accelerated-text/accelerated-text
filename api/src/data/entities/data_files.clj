@@ -4,7 +4,8 @@
             [data.db :as db]
             [data.utils :as utils]
             [clojure.tools.logging :as log]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]]
+            [clojure.string :as str]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 
@@ -48,11 +49,8 @@
 
 (defn get-data [user key]
   (when-let [content (read-data-file-content user key)]
-    (let [raw-csv (csv/read-csv content)
-          header (->> raw-csv (first) (map keyword) (vec))
-          data (rest raw-csv)
-          pairs (map #(interleave header %) data)]
-      (doall (map #(apply array-map %) pairs)))))
+    (let [[header & rows] (->> content (csv/read-csv) (map #(map str/trim %)))]
+      (map #(zipmap header %) rows))))
 
 (defn data-file-path []
   (or (System/getenv "DATA_FILES") "resources/data-files"))
