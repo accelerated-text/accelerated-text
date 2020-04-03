@@ -5,7 +5,7 @@
 
 (use-fixtures :each db/clean-db)
 
-(deftest text-generation-with-default-plan
+(deftest ^:integration text-generation-with-default-plan
   (is (= [] (generate-text {:document-plan-name "Untitled plan"})))
   (is (= {"test" []} (generate-text-bulk {:document-plan-name "Untitled plan"
                                           :data-rows          {"test" {}}}))))
