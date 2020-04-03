@@ -13,7 +13,7 @@
   "Expected keys are :filename and :content everything else is optional"
   [data-file]
   (let [id (utils/gen-uuid)]
-    (log/debugf "Storing: %s with id: %s" (:filename data-file) id)
+    (log/infof "Storing `%s` with id: `%s`" (:filename data-file) id)
     (db/write! data-files-db id data-file)
     id))
 
