@@ -24,8 +24,7 @@ services:
       - ./test/resources/document-plans:/opt/document-plans
   gf:
     build:
-      context: ../
-      dockerfile: core/gf/Dockerfile
+      context: ../core/gf
   enrich:
     build:
       context: ../enrich
