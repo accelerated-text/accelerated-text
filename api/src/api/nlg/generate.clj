@@ -5,7 +5,6 @@
             [api.nlg.enrich :refer [enrich-texts]]
             [api.nlg.parser :as parser]
             [api.utils :as utils]
-            [clojure.set :as set]
             [clojure.spec.alpha :as s]
             [clojure.tools.logging :as log]
             [clojure.string :as str]
