@@ -4,5 +4,35 @@
   "name": "ToTextRGL",
   "kind": "RGL",
   "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\",5?TH28X/Yaj7CGhekqB\">Text</variable></variables><block type=\"Document-plan\" id=\"%[_xv8j_Jae_Ie`5w8cO\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\"5B[p#tC(c4c,k(l*yW[c\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"[tD~+RK4n(MvpKw~dx}2\"><mutation concept_id=\"Syntax.mkText/S-&gt;Text\" concept_label=\"mkText\" roles=\"[{&quot;id&quot;:&quot;qEGJpebbwcynBjVE&quot;,&quot;fieldLabel&quot;:&quot;S&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;S&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"qEGJpebbwcynBjVE\"><block type=\"Get-var\" id=\"*6bXx[:iom3/Opdj6nId\"><field name=\"name\" id=\",5?TH28X/Yaj7CGhekqB\" variabletype=\"\">Text</field></block></value></block></value></block></statement></block></xml>",
-  "documentPlan": "{\"type\":\"Document-plan\",\"segments\":[{\"children\":[{\"roles\":[{\"children\":[{\"name\":\",5?TH28X/Yaj7CGhekqB\",\"type\":\"Get-var\",\"srcId\":\"*6bXx[:iom3/Opdj6nId\"}],\"name\":\"S\",\"label\":\"S\"}],\"type\":\"AMR\",\"srcId\":\"[tD~+RK4n(MvpKw~dx}2\",\"conceptId\":\"Syntax.mkText/S->Text\",\"kind\":\"Text\"}],\"type\":\"Segment\",\"srcId\":\"5B[p#tC(c4c,k(l*yW[c\"}],\"srcId\":\"%[_xv8j_Jae_Ie`5w8cO\"}"
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": ",5?TH28X/Yaj7CGhekqB",
+                    "type": "Get-var",
+                    "srcId": "*6bXx[:iom3/Opdj6nId"
+                  }
+                ],
+                "name": "S",
+                "label": "S"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "[tD~+RK4n(MvpKw~dx}2",
+            "conceptId": "Syntax.mkText/S->Text",
+            "kind": "Text"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "5B[p#tC(c4c,k(l*yW[c"
+      }
+    ],
+    "srcId": "%[_xv8j_Jae_Ie`5w8cO"
+  }
 }

@@ -4,5 +4,256 @@
   "name": "CustomerRatingAMR",
   "kind": "AMR",
   "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"6I:0X?CNbji;A%AZI2={\">Object</variable><variable type=\"\" id=\"WGsdC*LPd3SZNZ1g]sIe\">Phrase</variable></variables><block type=\"Document-plan\" id=\"xtn=CxE[}UI,BbfwmL#?\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\"4buf3u4fzl9az|/uvf[H\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"GgIjLy%@Aj8k{-fn4,e)\"><mutation concept_id=\"heCVqgYWHYhIYYBS\" concept_label=\"HasARGL\" roles=\"[{&quot;id&quot;:&quot;gxfHLjVBuzhfkNHO&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;HGPoqsRXHxZnuldL&quot;,&quot;fieldLabel&quot;:&quot;Verb&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V2&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;JoqZjBhwFzFbzYEN&quot;,&quot;fieldLabel&quot;:&quot;(Phrase)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;A&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;JtJEQIpicKRmiiLT&quot;,&quot;fieldLabel&quot;:&quot;Attribute&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"gxfHLjVBuzhfkNHO\"><block type=\"AMR\" id=\"R*d4mNX_%6NMOyg:G[.R\"><mutation concept_id=\"ParadigmsEng.mkN/Str-&gt;N\" concept_label=\"mkN\" roles=\"[{&quot;id&quot;:&quot;ezgyrBPZAeoEgMwQ&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"ezgyrBPZAeoEgMwQ\"><block type=\"Get-var\" id=\";r(Wb_)vv$K;_+eH3(7,\"><field name=\"name\" id=\"6I:0X?CNbji;A%AZI2={\" variabletype=\"\">Object</field></block></value></block></value><value name=\"HGPoqsRXHxZnuldL\"><block type=\"AMR\" id=\"]`1mQ[,sFuX`W_*Z-MvZ\"><mutation concept_id=\"ParadigmsEng.mkV2/V-&gt;V2\" concept_label=\"mkV2\" roles=\"[{&quot;id&quot;:&quot;zarQNEngvSFIgzua&quot;,&quot;fieldLabel&quot;:&quot;V&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"zarQNEngvSFIgzua\"><block type=\"AMR\" id=\"1N{wpUv.ys%`4P;JOz0T\"><mutation concept_id=\"ParadigmsEng.mkV/Str-&gt;Str-&gt;Str-&gt;Str-&gt;Str-&gt;V\" concept_label=\"mkV\" roles=\"[{&quot;id&quot;:&quot;auZFSNoHymPcubKS&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;FrzJhiCEXJNwZkVE&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;iqKsThhBUUDbVMBb&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;zuoHFERzubAOLlxB&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;FDCvfMPfZqtguasI&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"auZFSNoHymPcubKS\"><block type=\"Quote\" id=\"[^d9^htW-?_kJ-:odAx}\"><field name=\"text\">has</field></block></value><value name=\"FrzJhiCEXJNwZkVE\"><block type=\"Quote\" id=\"H-,~?LY@`Tm$ioMH:i8x\"><field name=\"text\">has</field></block></value><value name=\"iqKsThhBUUDbVMBb\"><block type=\"Quote\" id=\"5RUnRN)-6r/IB$#qgZt7\"><field name=\"text\">had</field></block></value><value name=\"zuoHFERzubAOLlxB\"><block type=\"Quote\" id=\"Uc#,twuiAIkeJNj8.^kP\"><field name=\"text\">have been</field></block></value><value name=\"FDCvfMPfZqtguasI\"><block type=\"Quote\" id=\"DO:k,Nlb^6])~sBivaF)\"><field name=\"text\">having</field></block></value></block></value></block></value><value name=\"JoqZjBhwFzFbzYEN\"><block type=\"If-then-else\" id=\"(H%#PhEc2qvlHn2J,O:Y\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Value-comparison\" id=\"Y4(?%1{FfmK$:+U8~N6i\"><field name=\"operator\">=</field><value name=\"value1\"><block type=\"Get-var\" id=\"N1/YH2^Kh0T$:QmgwAu6\"><field name=\"name\" id=\"WGsdC*LPd3SZNZ1g]sIe\" variabletype=\"\">Phrase</field></block></value><value name=\"value2\"><block type=\"Quote\" id=\"i^71$#eH5O`yc:eS*$.[\"><field name=\"text\">average</field></block></value></block></value><value name=\"then\"><block type=\"AMR\" id=\"ik5h!ybtD71H?xxV#2~.\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;siSqhmMeChnFWrkR&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;viBHwCsYjnsEgFhm&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"siSqhmMeChnFWrkR\"><block type=\"Quote\" id=\"llu*Ir1x+IK:C)O5f=(S\"><field name=\"text\">an</field></block></value><value name=\"viBHwCsYjnsEgFhm\"><block type=\"Get-var\" id=\"-:s[YxF%O3E/%Gq}FGE1\"><field name=\"name\" id=\"WGsdC*LPd3SZNZ1g]sIe\" variabletype=\"\">Phrase</field></block></value></block></value><value name=\"else\"><block type=\"AMR\" id=\"eIq_31rN(4Zuzr{HadSU\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;wKZCxlYDIlxwAXxD&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"wKZCxlYDIlxwAXxD\"><block type=\"Get-var\" id=\"X2|i0PBcV^9+dODEA4Nc\"><field name=\"name\" id=\"WGsdC*LPd3SZNZ1g]sIe\" variabletype=\"\">Phrase</field></block></value></block></value></block></value><value name=\"JtJEQIpicKRmiiLT\"><block type=\"One-of-synonyms\" id=\"rK^]K,p`OnE)-f]D*l9t\"><mutation value_count=\"3\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"{j)xlKexEAeo~Y3]){a7\"><mutation concept_id=\"ParadigmsEng.mkN/Str-&gt;N\" concept_label=\"mkN\" roles=\"[{&quot;id&quot;:&quot;PqtTSHtbUMpmtaFU&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"PqtTSHtbUMpmtaFU\"><block type=\"Quote\" id=\"IHwYaFY~CJSE*ly$uz]O\"><field name=\"text\">customer rating</field></block></value></block></value><value name=\"value_1\"><block type=\"AMR\" id=\"#2fa[!q)dH6xg,D;v_/y\"><mutation concept_id=\"ParadigmsEng.mkN/Str-&gt;N\" concept_label=\"mkN\" roles=\"[{&quot;id&quot;:&quot;PqtTSHtbUMpmtaFU&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"PqtTSHtbUMpmtaFU\"><block type=\"Quote\" id=\"`d5^Y_m78GRr!IS.F=mn\"><field name=\"text\">rating</field></block></value></block></value></block></value></block></value></block></statement></block></xml>",
-  "documentPlan": "{\"type\":\"Document-plan\",\"segments\":[{\"children\":[{\"roles\":[{\"children\":[{\"roles\":[{\"children\":[{\"name\":\"6I:0X?CNbji;A%AZI2={\",\"type\":\"Get-var\",\"srcId\":\";r(Wb_)vv$K;_+eH3(7,\"}],\"name\":\"Str\",\"label\":\"Str\"}],\"type\":\"AMR\",\"srcId\":\"R*d4mNX_%6NMOyg:G[.R\",\"conceptId\":\"ParadigmsEng.mkN/Str->N\"}],\"name\":\"N\",\"label\":\"Object\"},{\"children\":[{\"roles\":[{\"children\":[{\"roles\":[{\"children\":[{\"type\":\"Quote\",\"srcId\":\"[^d9^htW-?_kJ-:odAx}\",\"text\":\"has\"}],\"name\":\"Str\",\"label\":\"Str\"},{\"children\":[{\"type\":\"Quote\",\"srcId\":\"H-,~?LY@`Tm$ioMH:i8x\",\"text\":\"has\"}],\"name\":\"Str\",\"label\":\"Str\"},{\"children\":[{\"type\":\"Quote\",\"srcId\":\"5RUnRN)-6r/IB$#qgZt7\",\"text\":\"had\"}],\"name\":\"Str\",\"label\":\"Str\"},{\"children\":[{\"type\":\"Quote\",\"srcId\":\"Uc#,twuiAIkeJNj8.^kP\",\"text\":\"have been\"}],\"name\":\"Str\",\"label\":\"Str\"},{\"children\":[{\"type\":\"Quote\",\"srcId\":\"DO:k,Nlb^6])~sBivaF)\",\"text\":\"having\"}],\"name\":\"Str\",\"label\":\"Str\"}],\"type\":\"AMR\",\"srcId\":\"1N{wpUv.ys%`4P;JOz0T\",\"conceptId\":\"ParadigmsEng.mkV/Str->Str->Str->Str->Str->V\"}],\"name\":\"V\",\"label\":\"V\"}],\"type\":\"AMR\",\"srcId\":\"]`1mQ[,sFuX`W_*Z-MvZ\",\"conceptId\":\"ParadigmsEng.mkV2/V->V2\"}],\"name\":\"V2\",\"label\":\"Verb\"},{\"children\":[{\"type\":\"If-then-else\",\"conditions\":[{\"type\":\"If-condition\",\"thenExpression\":{\"roles\":[{\"children\":[{\"type\":\"Quote\",\"srcId\":\"llu*Ir1x+IK:C)O5f=(S\",\"text\":\"an\"}],\"name\":\"Str\",\"label\":\"Str\"},{\"children\":[{\"name\":\"WGsdC*LPd3SZNZ1g]sIe\",\"type\":\"Get-var\",\"srcId\":\"-:s[YxF%O3E/%Gq}FGE1\"}],\"name\":\"Str\",\"label\":\"Str\"}],\"type\":\"AMR\",\"srcId\":\"ik5h!ybtD71H?xxV#2~.\",\"conceptId\":\"ParadigmsEng.mkA/Str->Str->A\",\"kind\":\"A\"},\"condition\":{\"type\":\"Value-comparison\",\"srcId\":\"Y4(?%1{FfmK$:+U8~N6i\",\"operator\":\"=\",\"value2\":{\"type\":\"Quote\",\"srcId\":\"i^71$#eH5O`yc:eS*$.[\",\"text\":\"average\"},\"value1\":{\"name\":\"WGsdC*LPd3SZNZ1g]sIe\",\"type\":\"Get-var\",\"srcId\":\"N1/YH2^Kh0T$:QmgwAu6\"}}},{\"type\":\"Default-condition\",\"thenExpression\":{\"roles\":[{\"children\":[{\"name\":\"WGsdC*LPd3SZNZ1g]sIe\",\"type\":\"Get-var\",\"srcId\":\"X2|i0PBcV^9+dODEA4Nc\"}],\"name\":\"Str\",\"label\":\"Str\"}],\"type\":\"AMR\",\"srcId\":\"eIq_31rN(4Zuzr{HadSU\",\"conceptId\":\"ParadigmsEng.mkA/Str->A\",\"kind\":\"A\"}}],\"srcId\":\"(H%#PhEc2qvlHn2J,O:Y\"}],\"name\":\"A\",\"label\":\"(Phrase)\"},{\"children\":[{\"children\":[{\"roles\":[{\"children\":[{\"type\":\"Quote\",\"srcId\":\"IHwYaFY~CJSE*ly$uz]O\",\"text\":\"customer rating\"}],\"name\":\"Str\",\"label\":\"Str\"}],\"type\":\"AMR\",\"srcId\":\"{j)xlKexEAeo~Y3]){a7\",\"conceptId\":\"ParadigmsEng.mkN/Str->N\"},{\"roles\":[{\"children\":[{\"type\":\"Quote\",\"srcId\":\"`d5^Y_m78GRr!IS.F=mn\",\"text\":\"rating\"}],\"name\":\"Str\",\"label\":\"Str\"}],\"type\":\"AMR\",\"srcId\":\"#2fa[!q)dH6xg,D;v_/y\",\"conceptId\":\"ParadigmsEng.mkN/Str->N\"}],\"type\":\"One-of-synonyms\",\"srcId\":\"rK^]K,p`OnE)-f]D*l9t\"}],\"name\":\"N\",\"label\":\"Attribute\"}],\"type\":\"AMR\",\"srcId\":\"GgIjLy%@Aj8k{-fn4,e)\",\"conceptId\":\"heCVqgYWHYhIYYBS\"}],\"type\":\"Segment\",\"srcId\":\"4buf3u4fzl9az|/uvf[H\"}],\"srcId\":\"xtn=CxE[}UI,BbfwmL#?\"}"
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "name": "6I:0X?CNbji;A%AZI2={",
+                            "type": "Get-var",
+                            "srcId": ";r(Wb_)vv$K;_+eH3(7,"
+                          }
+                        ],
+                        "name": "Str",
+                        "label": "Str"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "R*d4mNX_%6NMOyg:G[.R",
+                    "conceptId": "ParadigmsEng.mkN/Str->N"
+                  }
+                ],
+                "name": "N",
+                "label": "Object"
+              },
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "roles": [
+                              {
+                                "children": [
+                                  {
+                                    "type": "Quote",
+                                    "srcId": "[^d9^htW-?_kJ-:odAx}",
+                                    "text": "has"
+                                  }
+                                ],
+                                "name": "Str",
+                                "label": "Str"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "type": "Quote",
+                                    "srcId": "H-,~?LY@`Tm$ioMH:i8x",
+                                    "text": "has"
+                                  }
+                                ],
+                                "name": "Str",
+                                "label": "Str"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "type": "Quote",
+                                    "srcId": "5RUnRN)-6r/IB$#qgZt7",
+                                    "text": "had"
+                                  }
+                                ],
+                                "name": "Str",
+                                "label": "Str"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "type": "Quote",
+                                    "srcId": "Uc#,twuiAIkeJNj8.^kP",
+                                    "text": "have been"
+                                  }
+                                ],
+                                "name": "Str",
+                                "label": "Str"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "type": "Quote",
+                                    "srcId": "DO:k,Nlb^6])~sBivaF)",
+                                    "text": "having"
+                                  }
+                                ],
+                                "name": "Str",
+                                "label": "Str"
+                              }
+                            ],
+                            "type": "AMR",
+                            "srcId": "1N{wpUv.ys%`4P;JOz0T",
+                            "conceptId": "ParadigmsEng.mkV/Str->Str->Str->Str->Str->V"
+                          }
+                        ],
+                        "name": "V",
+                        "label": "V"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "]`1mQ[,sFuX`W_*Z-MvZ",
+                    "conceptId": "ParadigmsEng.mkV2/V->V2"
+                  }
+                ],
+                "name": "V2",
+                "label": "Verb"
+              },
+              {
+                "children": [
+                  {
+                    "type": "If-then-else",
+                    "conditions": [
+                      {
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "roles": [
+                            {
+                              "children": [
+                                {
+                                  "type": "Quote",
+                                  "srcId": "llu*Ir1x+IK:C)O5f=(S",
+                                  "text": "an"
+                                }
+                              ],
+                              "name": "Str",
+                              "label": "Str"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "name": "WGsdC*LPd3SZNZ1g]sIe",
+                                  "type": "Get-var",
+                                  "srcId": "-:s[YxF%O3E/%Gq}FGE1"
+                                }
+                              ],
+                              "name": "Str",
+                              "label": "Str"
+                            }
+                          ],
+                          "type": "AMR",
+                          "srcId": "ik5h!ybtD71H?xxV#2~.",
+                          "conceptId": "ParadigmsEng.mkA/Str->Str->A"
+                        },
+                        "condition": {
+                          "type": "Value-comparison",
+                          "srcId": "Y4(?%1{FfmK$:+U8~N6i",
+                          "operator": "=",
+                          "value2": {
+                            "type": "Quote",
+                            "srcId": "i^71$#eH5O`yc:eS*$.[",
+                            "text": "average"
+                          },
+                          "value1": {
+                            "name": "WGsdC*LPd3SZNZ1g]sIe",
+                            "type": "Get-var",
+                            "srcId": "N1/YH2^Kh0T$:QmgwAu6"
+                          }
+                        }
+                      },
+                      {
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "roles": [
+                            {
+                              "children": [
+                                {
+                                  "name": "WGsdC*LPd3SZNZ1g]sIe",
+                                  "type": "Get-var",
+                                  "srcId": "X2|i0PBcV^9+dODEA4Nc"
+                                }
+                              ],
+                              "name": "Str",
+                              "label": "Str"
+                            }
+                          ],
+                          "type": "AMR",
+                          "srcId": "eIq_31rN(4Zuzr{HadSU",
+                          "conceptId": "ParadigmsEng.mkA/Str->A"
+                        }
+                      }
+                    ],
+                    "srcId": "(H%#PhEc2qvlHn2J,O:Y"
+                  }
+                ],
+                "name": "A",
+                "label": "(Phrase)"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "type": "Quote",
+                                "srcId": "IHwYaFY~CJSE*ly$uz]O",
+                                "text": "customer rating"
+                              }
+                            ],
+                            "name": "Str",
+                            "label": "Str"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "{j)xlKexEAeo~Y3]){a7",
+                        "conceptId": "ParadigmsEng.mkN/Str->N"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "type": "Quote",
+                                "srcId": "`d5^Y_m78GRr!IS.F=mn",
+                                "text": "rating"
+                              }
+                            ],
+                            "name": "Str",
+                            "label": "Str"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "#2fa[!q)dH6xg,D;v_/y",
+                        "conceptId": "ParadigmsEng.mkN/Str->N"
+                      }
+                    ],
+                    "type": "One-of-synonyms",
+                    "srcId": "rK^]K,p`OnE)-f]D*l9t"
+                  }
+                ],
+                "name": "N",
+                "label": "Attribute"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "GgIjLy%@Aj8k{-fn4,e)",
+            "conceptId": "heCVqgYWHYhIYYBS"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "4buf3u4fzl9az|/uvf[H"
+      }
+    ],
+    "srcId": "xtn=CxE[}UI,BbfwmL#?"
+  }
 }
