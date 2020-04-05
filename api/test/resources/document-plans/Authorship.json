@@ -1,0 +1,34 @@
+{
+  "id": "xkHUWRhBGZKNxrzo",
+  "uid": "5074af1a-402f-475e-86c6-0189885f215f",
+  "name": "Authorship",
+  "kind": "Document",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\"F6DSI~Y-nZFun3n.~-6g\" deletable=\"false\" x=\"488\" y=\"117\"><statement name=\"segments\"><block type=\"Segment\" id=\"~id]y49dw$8|[ml#kv*;\"><mutation value_count=\"4\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"Cell\" id=\"yzH}9jTDcUVspNK4F4/U\"><field name=\"name\">title</field></block></value><value name=\"value_1\"><block type=\"Quote\" id=\"2?Iiw^QwP~^gO1gfPtDb\"><field name=\"text\">is authored by</field></block></value><value name=\"value_2\"><block type=\"Cell\" id=\"9c(]PC}a;!.mB?hqrNF$\"><field name=\"name\">authors</field></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "name": "title",
+            "type": "Cell",
+            "srcId": "yzH}9jTDcUVspNK4F4/U"
+          },
+          {
+            "type": "Quote",
+            "srcId": "2?Iiw^QwP~^gO1gfPtDb",
+            "text": "is authored by"
+          },
+          {
+            "name": "authors",
+            "type": "Cell",
+            "srcId": "9c(]PC}a;!.mB?hqrNF$"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "~id]y49dw$8|[ml#kv*;"
+      }
+    ],
+    "srcId": "F6DSI~Y-nZFun3n.~-6g"
+  }
+}

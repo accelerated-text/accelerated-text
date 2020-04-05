@@ -1,0 +1,10 @@
+[#:acc-text.nlg.dictionary.item{:key      "write_1_V"
+                                :sense    "1"
+                                :category "V"
+                                :language "Eng"
+                                :forms    ["write" "wrote" "written"]}
+ #:acc-text.nlg.dictionary.item{:key      "write_1_V"
+                                :sense    "1"
+                                :category "V"
+                                :language "Ger"
+                                :forms    ["schreiben" "schreibt" "schrieb" "schriebe" "geschrieben"]}]
