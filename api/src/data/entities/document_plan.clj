@@ -45,5 +45,5 @@
     (cond-> dp (string? (:documentPlan dp)) (update :documentPlan utils/read-json-str))))
 
 (defn initialize []
-  (doseq [f (utils/list-files (document-plan-path))]
-    (add-document-plan (load-document-plan f))))
+  (doseq [{id :id :as dp} (map load-document-plan (utils/list-files (document-plan-path)))]
+    (add-document-plan dp id)))
