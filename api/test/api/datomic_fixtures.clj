@@ -35,5 +35,6 @@
                       #'data.entities.dictionary/dictionary-db
                       #'data.entities.results/results-db
                       #'data.datomic.impl/conn})
-        (mount/start)))
+        (mount/start))
+    (data.entities.rgl/initialize))
   (f))
