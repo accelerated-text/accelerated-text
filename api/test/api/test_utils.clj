@@ -1,11 +1,13 @@
 (ns api.test-utils
   (:require [api.server :as server]
             [api.utils :as utils]
-            [jsonista.core :as json]
+            [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
+            [data.entities.dictionary :as dictionary]
             [data.entities.document-plan :as dp]
-            [clojure.java.io :as io])
+            [data.utils :refer [read-edn]]
+            [jsonista.core :as json])
   (:import (org.httpkit BytesInputStream)))
 
 (def headers {"origin"                         "http://localhost:8080"
@@ -50,11 +52,14 @@
 
 (defn load-document-plan [filename]
   (log/infof "Loading test document plan `%s`" filename)
-  (-> (format "test/resources/document-plans/%s.json" filename)
-      (io/file)
-      (dp/load-document-plan)
-      (dp/add-document-plan)
-      (get :id)))
+  (let [{id :id :as dp} (dp/load-document-plan (io/file (format "test/resources/document-plans/%s.json" filename)))]
+    (dp/add-document-plan dp id)
+    id))
+
+(defn load-dictionary [filename]
+  (log/infof "Loading test dictionary `%s`" filename)
+  (doseq [item (read-edn (io/file (format "test/resources/dictionary/%s.edn" filename)))]
+    (dictionary/create-dictionary-item item)))
 
 (defn get-result [result-id]
   (when (some? result-id)
