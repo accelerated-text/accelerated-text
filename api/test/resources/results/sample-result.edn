@@ -1,0 +1,15 @@
+#:data.spec.result{:id     "1d70f852-726d-4287-b329-f2d2b6b6a712"
+                   :status :ready
+                   :rows   [#:data.spec.result.row{:id          "ecbc9411-14fe-4051-825d-e086769a356e"
+                                                   :language    "Eng"
+                                                   :enriched?   false
+                                                   :text        "Sample text."
+                                                   :annotations [#:data.spec.result.annotation{:id   "574f5fc0-8866-4e0c-b6ed-5ae0d08cccb2"
+                                                                                               :idx  0
+                                                                                               :text "Sample"}
+                                                                 #:data.spec.result.annotation{:id   "68411776-dae2-4c08-bda0-63a82cecc0f8"
+                                                                                               :idx  7
+                                                                                               :text "text"}
+                                                                 #:data.spec.result.annotation{:id   "8f7efccc-25cc-4117-9919-abff02509d61"
+                                                                                               :idx  11
+                                                                                               :text "."}]}]}

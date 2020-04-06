@@ -31,7 +31,7 @@
 
 (defn resolve-data [g {:keys [data dictionary constants]}]
   (reduce (fn [g [node-id {:keys [name value]}]]
-            (if-let [value (or (when (some? name) (get data (keyword name))) value)]
+            (if-let [value (or (when (some? name) (get data name)) value)]
               (if (contains? dictionary value)
                 (add-existing-dictionary-item g node-id (get dictionary value))
                 (resolve-by-category g node-id value (get constants "*Language")))

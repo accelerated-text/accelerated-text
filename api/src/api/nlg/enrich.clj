@@ -2,27 +2,38 @@
   (:require [api.utils :as utils]
             [clojure.tools.logging :as log]
             [jsonista.core :as json]
-            [org.httpkit.client :as client]))
+            [org.httpkit.client :as http]))
+
+(defn enable-enrich? []
+  (Boolean/valueOf (System/getenv "ENABLE_ENRICH")))
 
 (defn enrich-endpoint []
   (or (System/getenv "ENRICH_ENDPOINT") "http://localhost:8002"))
 
 (defn enrich-request [content]
-  (log/debugf "Enriching text via: %s" (enrich-endpoint))
-  (log/tracef "Request:\n curl -X POST -H \"Content-Type: application/json\"  %s -d '%s'"
-              (enrich-endpoint) (json/write-value-as-string content))
-  (-> @(client/request {:url     (enrich-endpoint)
-                        :method  :post
-                        :headers {"Content-type" "application/json"}
-                        :body    (json/write-value-as-string content)})
-      (get :body)
-      (json/read-value utils/read-mapper)
-      (get :results)))
+  (log/infof "Enriching text via: %s" (enrich-endpoint))
+  (let [{{:keys [results error message]} :body request-error :error}
+        (-> @(http/request {:url     (enrich-endpoint)
+                            :method  :post
+                            :headers {"Content-type" "application/json"}
+                            :body    (json/write-value-as-string content)})
+            (update :body #(json/read-value % utils/read-mapper)))]
+    (cond
+      (true? error) (log/errorf "Failed to enrich text: %s" message)
+      (some? request-error) (log/errorf "Enrich request failure: %s" (.getMessage request-error))
+      :else results)))
 
-(defn enrich-texts [texts data]
-  (log/tracef "Texsts for enrich: %s" texts)
-  (enrich-request {:texts    texts
-                   :context (reduce-kv (fn [m k v]
-                                         (assoc m v (format "{%s}" (name k))))
-                                       {}
-                                       data)}))
+(defn build-context [data]
+  (reduce-kv (fn [m k v]
+               (assoc m v (format "{%s}" (name k))))
+             {}
+             data))
+
+(defn enrich [gen-result data]
+  (mapcat (fn [{:keys [enriched] :as result}]
+            (if (some? enriched)
+              (let [item (dissoc result :enriched)
+                    enriched-item (assoc item :text enriched :enriched? true)]
+                [item enriched-item])
+              [result]))
+          (enrich-request {:data gen-result :context (build-context data)})))

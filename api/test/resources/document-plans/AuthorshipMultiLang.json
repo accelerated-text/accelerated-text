@@ -1,0 +1,61 @@
+{
+  "id": "sqXLaAxNBgkdDejL",
+  "uid": "51b79e8f-96db-4404-8a9b-ca5049779acc",
+  "name": "AuthorshipMultiLang",
+  "kind": "Document",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\"J{c;@U$paW;)}Xq~xoor\" deletable=\"false\" x=\"519\" y=\"98\"><statement name=\"segments\"><block type=\"Segment\" id=\"**3H0y|eIx,P7A,hcbC4\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"M?v=#j;,hf}rz(H%}X]k\"><mutation concept_id=\"UbvSJjOQCTrhmdLB\" concept_label=\"AuthorshipAMR\" roles=\"[{&quot;id&quot;:&quot;EhSuPizIabmKLwPA&quot;,&quot;fieldLabel&quot;:&quot;Thing&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;bnOjKORnFmZFLcCA&quot;,&quot;fieldLabel&quot;:&quot;Action&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;ZVWkxbjbksPGDMaC&quot;,&quot;fieldLabel&quot;:&quot;Agent&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"EhSuPizIabmKLwPA\"><block type=\"Cell\" id=\".7m/Rqq1}n;{_/w[OkKn\"><field name=\"name\">title</field></block></value><value name=\"bnOjKORnFmZFLcCA\"><block type=\"Dictionary-item\" id=\"$Ll!0^AHYfqSXCbXBzW9\"><mutation id=\"c80c4b11-f303-40f0-b60a-821c60d34d61\" name=\"write_1_V\"></mutation></block></value><value name=\"ZVWkxbjbksPGDMaC\"><block type=\"Cell\" id=\"2btynP0ICFYgcK}erFH{\"><field name=\"name\">authors</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "title",
+                    "type": "Cell",
+                    "srcId": ".7m/Rqq1}n;{_/w[OkKn"
+                  }
+                ],
+                "name": "Str",
+                "label": "Thing"
+              },
+              {
+                "children": [
+                  {
+                    "name": "write_1_V",
+                    "type": "Dictionary-item",
+                    "srcId": "$Ll!0^AHYfqSXCbXBzW9",
+                    "itemId": "c80c4b11-f303-40f0-b60a-821c60d34d61"
+                  }
+                ],
+                "name": "V",
+                "label": "Action"
+              },
+              {
+                "children": [
+                  {
+                    "name": "authors",
+                    "type": "Cell",
+                    "srcId": "2btynP0ICFYgcK}erFH{"
+                  }
+                ],
+                "name": "Str",
+                "label": "Agent"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "M?v=#j;,hf}rz(H%}X]k",
+            "conceptId": "UbvSJjOQCTrhmdLB",
+            "kind": "Str"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "**3H0y|eIx,P7A,hcbC4"
+      }
+    ],
+    "srcId": "J{c;@U$paW;)}Xq~xoor"
+  }
+}

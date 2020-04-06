@@ -40,6 +40,10 @@
 (defn document-plan-path []
   (or (System/getenv "DOCUMENT_PLANS") "resources/document-plans"))
 
+(defn load-document-plan [f]
+  (let [dp (utils/read-json f)]
+    (cond-> dp (string? (:documentPlan dp)) (update :documentPlan utils/read-json-str))))
+
 (defn initialize []
-  (doseq [{id :id :as dp} (->> (document-plan-path) (utils/list-files) (map utils/read-json))]
-    (add-document-plan (cond-> dp (string? (:documentPlan dp)) (update :documentPlan utils/read-json-str)) id)))
+  (doseq [{id :id :as dp} (map load-document-plan (utils/list-files (document-plan-path)))]
+    (add-document-plan dp id)))

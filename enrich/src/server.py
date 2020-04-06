@@ -78,14 +78,19 @@ def process_text(text, filtered_context, enricher):
 @json_request
 @json_response
 @inject_enricher
-def application(environ, start_response, data, enricher=None):
-    context = data["context"]
+def application(environ, start_response, request, enricher=None):
+    data, context = request["data"], request["context"]
     filtered_context = dict([(k, v) for k, v in context.items()
                              if k is not None and k.strip() != ""])
     logger.debug("Filtered context: {}".format(filtered_context))
-    if "texts" in data:
-        return {"results": [process_text(text, filtered_context, enricher)
-                            for text in data["texts"]]}
+    if data:
+        results = []
+        for item in data:
+            enriched_text = process_text(item["text"], filtered_context, enricher) if item["text"] else None
+            if enriched_text and item["text"] != enriched_text:
+                item["enriched"] = enriched_text
+            results.append(item)
+        return {"results": results}
     else:
         return {"result": process_text(data["text"], filtered_context, enricher)}
 

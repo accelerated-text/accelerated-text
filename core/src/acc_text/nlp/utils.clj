@@ -16,7 +16,7 @@
 (defn ends-with-s? [token] (= "s" (str (last token))))
 
 (defn starts-with-capital? [[s & _]]
-  (and (Character/isLetter s)  (= (str s) (str/upper-case s))))
+  (and (Character/isLetter s) (= (str s) (str/upper-case s))))
 
 (defn token-type [token] (if (word? token) "WORD" "PUNCTUATION"))
 
@@ -30,7 +30,7 @@
 (defn process-sentence [s]
   (if-not (str/blank? s)
     (wrap-sentence
-     (capitalize-first-word s))
+      (capitalize-first-word s))
     ""))
 
 (defn clean-whitespace-before-punct
@@ -40,7 +40,7 @@
 (defn rebuild-sentences [tokens]
   (->> tokens
        (remove str/blank?)
-       (str/join " " )
+       (str/join " ")
        (split-into-sentences)
        (map clean-whitespace-before-punct)
        (map str/trim)
@@ -48,12 +48,11 @@
        (str/join " ")))
 
 (defn annotate [text]
-  {:text   text
-   :tokens (loop [[token & tokens] (tokenize-incl-space text)
-                  idx 0
-                  annotations []]
-             (if (nil? token)
-               annotations
-               (recur tokens (+ idx (count token)) (cond-> annotations
-                                                     (re-matches #"[^\s]+" token) (conj {:text token
-                                                                                         :idx  idx})))))})
+  (loop [[token & tokens] (tokenize-incl-space text)
+         idx 0
+         annotations []]
+    (if (nil? token)
+      annotations
+      (recur tokens (+ idx (count token)) (cond-> annotations
+                                                  (re-matches #"[^\s]+" token) (conj {:text token
+                                                                                      :idx  idx}))))))

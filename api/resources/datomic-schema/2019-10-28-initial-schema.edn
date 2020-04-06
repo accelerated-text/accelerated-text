@@ -365,36 +365,75 @@
            :db/cardinality :db.cardinality/many
            :db/doc         "Roles of the blockly item"}]
 
-         [{:db/ident       :results/id
+         [{:db/ident       :data.spec.result/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Public Id of the results"}
+           :db/doc         "Public Id of the result"}
 
-          {:db/ident       :results/ready
-           :db/valueType   :db.type/boolean
+          {:db/ident       :data.spec.result/status
+           :db/valueType   :db.type/keyword
            :db/cardinality :db.cardinality/one
-           :db/doc         "Status of the results"}
+           :db/doc         "Status of the result"}
 
-          {:db/ident       :results/error
-           :db/valueType   :db.type/boolean
-           :db/cardinality :db.cardinality/one
-           :db/doc         "Whether text generation ended in error"}
-
-          {:db/ident       :results/message
+          {:db/ident       :data.spec.result/error-message
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Text to be conveyed"}
+           :db/doc         "Error message of the result"}
 
-          {:db/ident       :results/results
-           :db/valueType   :db.type/string
-           :db/cardinality :db.cardinality/many
-           :db/doc         "Text that was generated"}
-
-          {:db/ident       :results/ts
+          {:db/ident       :data.spec.result/timestamp
            :db/valueType   :db.type/long
            :db/cardinality :db.cardinality/one
-           :db/doc         "Timestamp of the result"}]
+           :db/doc         "Timestamp of the result"}
+
+          {:db/ident       :data.spec.result/rows
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Rows of generated text"}]
+
+         [{:db/ident       :data.spec.result.row/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Id of the result row"}
+
+          {:db/ident       :data.spec.result.row/text
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Text of the result row"}
+
+          {:db/ident       :data.spec.result.row/language
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Language of the generated text"}
+
+          {:db/ident       :data.spec.result.row/enriched?
+           :db/valueType   :db.type/boolean
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Specifies if generated text is enriched"}
+
+          {:db/ident       :data.spec.result.row/annotations
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Annotations of the generated text"}]
+
+         [{:db/ident       :data.spec.result.annotation/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Id of the text annotation"}
+
+          {:db/ident       :data.spec.result.annotation/idx
+           :db/valueType   :db.type/long
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Index of the text annotation"}
+
+          {:db/ident       :data.spec.result.annotation/text
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Annotation text"}]
 
          [{:db/ident       :dictionary-multilang/id
            :db/unique      :db.unique/identity

@@ -1,9 +1,13 @@
 (ns api.test-utils
   (:require [api.server :as server]
             [api.utils :as utils]
-            [jsonista.core :as json]
+            [clojure.java.io :as io]
             [clojure.tools.logging :as log]
-            [data.entities.data-files :as data-files])
+            [data.entities.data-files :as data-files]
+            [data.entities.dictionary :as dictionary]
+            [data.entities.document-plan :as dp]
+            [data.utils :refer [read-edn]]
+            [jsonista.core :as json])
   (:import (org.httpkit BytesInputStream)))
 
 (def headers {"origin"                         "http://localhost:8080"
@@ -23,8 +27,8 @@
   (let [content (json/write-value-as-string body)]
     (BytesInputStream. (.getBytes content) (count content))))
 
-(defn handle-http-error [{:keys [status body] :as resp}]
-  (when-not (= 200 status)
+(defn log-failure [{:keys [status body] :as resp}]
+  (when-not (contains? #{200 404} status)
     (log/errorf "Error: %s" body))
   resp)
 
@@ -39,38 +43,48 @@
                  (update :body encode)
                  (server/app)
                  (update :body #(json/read-value % utils/read-mapper))
-                 (handle-http-error)))))
+                 (log-failure)))))
 
 (defn load-data-file [filename]
   (data-files/store!
     {:filename filename
      :content  (slurp (format "test/resources/data-files/%s" filename))}))
 
-(defn wait-for-results [result-id]
-  (while (false? (get-in (q (str "/nlg/" result-id) :get nil {:format "raw"}) [:body :ready]))
-    (Thread/sleep 100)))
+(defn load-document-plan [filename]
+  (log/infof "Loading test document plan `%s`" filename)
+  (let [{id :id :as dp} (dp/load-document-plan (io/file (format "test/resources/document-plans/%s.json" filename)))]
+    (dp/add-document-plan dp id)
+    id))
 
-(defn get-variants [result-id]
+(defn load-dictionary [filename]
+  (log/infof "Loading test dictionary `%s`" filename)
+  (doseq [item (read-edn (io/file (format "test/resources/dictionary/%s.edn" filename)))]
+    (dictionary/create-dictionary-item item)))
+
+(defn get-result [result-id]
   (when (some? result-id)
-    (wait-for-results result-id)
-    (let [response (q (str "/nlg/" result-id) :get nil {:format "raw"})
-          variants (get-in response [:body :variants])]
-      (into {} (map (fn [item] (let [[k v] item] {(keyword k) (set v)})) variants)))))
+    (letfn [(request! [] (q (str "/nlg/" result-id) :get nil {:format "raw"}))]
+      (loop [retry-count 0 {{:keys [ready variants]} :body} (request!)]
+        (cond
+          (true? ready) variants
+          (< 10 retry-count) (throw (Exception. "Result was not ready after 10 seconds."))
+          :else (do (Thread/sleep 1000) (recur (inc retry-count) (request!))))))))
 
-(defn get-original-results [result-id]
-  (->>
-    result-id
-    (get-variants)
-    :sample
-    (map :original)
-    (set)))
+(defn generate-text [{:keys [document-plan-name data-file-name reader-flags]}]
+  (let [{:keys [status body]} (q "/nlg/" :post {:documentPlanId   (load-document-plan document-plan-name)
+                                                :readerFlagValues (or reader-flags {"English" true})
+                                                :dataId           (if (some? data-file-name)
+                                                                    (load-data-file data-file-name)
+                                                                    "")})]
+    (when (= 200 status)
+      (get-result (:resultId body)))))
 
-(defn generate-text
-  ([document-plan-id]
-   (generate-text document-plan-id {"English" true}))
-  ([document-plan-id reader-flags]
-   (generate-text document-plan-id reader-flags nil))
-  ([document-plan-id reader-flags data-id]
-   (q "/nlg/" :post {:documentPlanId   document-plan-id
-                     :readerFlagValues reader-flags
-                     :dataId           data-id})))
+(defn generate-text-bulk [{:keys [document-plan-name data-rows reader-flags]}]
+  (let [{:keys [status body]} (q "/nlg/_bulk/" :post {:documentPlanId   (load-document-plan document-plan-name)
+                                                      :readerFlagValues (or reader-flags {"English" true})
+                                                      :dataRows         data-rows})]
+    (when (= 200 status)
+      (reduce (fn [m result-id]
+                (assoc m result-id (get-result result-id)))
+              {}
+              (:resultIds body)))))

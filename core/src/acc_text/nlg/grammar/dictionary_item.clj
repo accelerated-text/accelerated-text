@@ -46,6 +46,9 @@
 (defmethod build-dictionary-item "Eng/s:Str/V" [_ {:keys [forms]}]
   (format "(mkText (mkCl %s))" (format "(ParadigmsEng.mkV %s)" (join-forms forms))))
 
+(defmethod build-dictionary-item "Ger/V/V" [_ {:keys [forms]}]
+  (format "(ParadigmsGer.mkV %s)" (join-forms forms)))
+
 (defmethod build-dictionary-item "Rus/A/A" [_ {:keys [forms]}]
   (format "(ParadigmsRus.mkA %s)" (join-forms forms)))
 

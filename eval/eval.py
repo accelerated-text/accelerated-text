@@ -32,22 +32,19 @@ def generate_results(data, document_plan_name):
     req = {
         "documentPlanName": document_plan_name,
         "readerFlagValues": {"English": True},
-        "dataRows": data,
-        "enrich": True
+        "dataRows": data
     }
 
     resp = requests.post("{url}/_bulk/".format(url=NLG_ENDPOINT), json=req)
-    result_id = resp.json()["resultId"]
-    print("ResultId: {}".format(result_id))
-
-    results = requests.get("{url}/{result_id}?format=raw".format(
-        url=NLG_ENDPOINT,
-        result_id=result_id
-    )).json()
-
+    results = {}
+    for result_id in resp.json()["resultIds"]:
+        result = requests.get("{url}/{result_id}?format=raw".format(
+            url=NLG_ENDPOINT,
+            result_id=result_id
+        )).json()
+        results[result_id] = result["variants"]
     print("Results: {}".format(results))
-
-    return results["variants"]
+    return results
 
 def load_data():
     with open("data/devset.csv", "r") as f:
@@ -77,37 +74,18 @@ def main(args):
     results = dict(generate_results(data_rows, DOCUMENT_PLAN_NAME))
 
     if strategy == "RANDOM":
-        original_pairs = list([(ref[int(k)], random.choice(r)["original"])
-                               for k, r in results.items()
-                               if len(r) > 0])
+        pairs = list([(ref[int(k)], random.choice(r))
+                      for k, r in results.items()
+                      if len(r) > 0])
 
-        enriched_pairs = list([(ref[int(k)], random.choice([(v["enriched"] if "enriched" in v else v["original"])
-                                                        for v in r]))
-                               for k, r in results.items()
-                               if len(r) > 0])
     elif strategy == "ALL":
-        original_pairs = list([(ref[int(k)], item["original"])
-                               for k, r in results.items()
-                               for item in r
-                               if len(r) > 0])
+        pairs = list([(ref[int(k)], item)
+                      for k, r in results.items()
+                      for item in r
+                      if len(r) > 0])
 
-        enriched_pairs = list([(ref[int(k)], item)
-                                for k, r in results.items()
-                                for item in [(v["enriched"] if "enriched" in v else v["original"])
-                                             for v in r]
-                                if len(r) > 0])
-
-    score = bleu_score(original_pairs)
-    print("original BLEU score: {0:.4f}".format(score))
-
-
-    score = bleu_score(enriched_pairs)
-    print("enriched BLEU score: {0:.4f}".format(score))
-
-    for k, r in results.items():
-        phrases = [item for item in r]
-        if any(["it it" in item["original"] for item in phrases]):
-            print("Failure: results: {0} Data: {1}".format(phrases, data_rows[int(k)]))
+    score = bleu_score(pairs)
+    print("BLEU score: {0:.4f}".format(score))
 
 
 if __name__ == "__main__":

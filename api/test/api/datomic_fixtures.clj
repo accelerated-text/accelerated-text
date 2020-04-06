@@ -6,7 +6,7 @@
             [data.entities.dictionary]
             [data.entities.document-plan]
             [data.entities.rgl]
-            [data.entities.result]
+            [data.entities.results]
             [datomic.api :as d]
             [mount.core :as mount])
   (:import (java.util UUID)))
@@ -33,7 +33,8 @@
                       #'data.entities.document-plan/document-plans-db
                       #'data.entities.dictionary/reader-flags-db
                       #'data.entities.dictionary/dictionary-db
-                      #'data.entities.result/results-db
+                      #'data.entities.results/results-db
                       #'data.datomic.impl/conn})
-        (mount/start)))
+        (mount/start))
+    (data.entities.rgl/initialize))
   (f))

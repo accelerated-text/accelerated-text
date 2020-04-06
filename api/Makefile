@@ -28,6 +28,7 @@ export-all-document-plans:
     	do echo $${item} | \
     	   base64 --decode | \
     	   jq -r $${1} '.' | \
-    	   cat $${1} > item.json.tmp && \
+    	   jq '.documentPlan = (.documentPlan | fromjson)' | \
+    	   cat > item.json.tmp && \
     	   mv item.json.tmp $${dir:=resources/document-plans}/$$(cat item.json.tmp | jq -r '.id').json  ; \
     done
