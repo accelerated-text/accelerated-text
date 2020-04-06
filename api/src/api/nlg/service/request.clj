@@ -7,7 +7,7 @@
 
 (s/def ::dataId string?)
 
-(s/def ::format #{"raw" "standoff" "annotated"})
+(s/def ::format #{"raw" "annotated"})
 
 (s/def ::dataRow (s/map-of string? string?))
 
