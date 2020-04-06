@@ -1,6 +1,7 @@
 (ns acc-text.nlg.graph.condition
   (:require [acc-text.nlg.graph.utils :refer [find-nodes get-successors add-edges remove-edges]]
             [clojure.string :as str]
+            [clojure.tools.logging :as log]
             [loom.attr :refer [attrs]]
             [loom.graph :as graph]))
 
@@ -64,6 +65,10 @@
       (operator-fn (map #(evaluate-predicate g % context) successors)))))
 
 (defmethod evaluate-predicate :data [g node-id {data :data}]
+  (string->boolean (get data (:name (attrs g node-id)))))
+
+(defmethod evaluate-predicate :quote [g node-id {data :data}]
+  (log/debugf "Data: %s" data)
   (string->boolean (get data (:name (attrs g node-id)))))
 
 (defn evaluate-statement [g node-id context]

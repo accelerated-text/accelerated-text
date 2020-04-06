@@ -94,4 +94,15 @@
                                   (get ::sg/concepts))
                               (filter #(= :quote (:type %)))
                               (map :value)
+                              (into #{}))))))
+    (testing "Quote if"
+      (let [semantic-graph (load-test-semantic-graph "if-quote")]
+        (is (= #{"TRUE"} (->> (-> semantic-graph
+                                  (semantic-graph->ubergraph)
+                                  (condition/determine-conditions context)
+                                  (prune-graph)
+                                  (ubergraph->semantic-graph)
+                                  (get ::sg/concepts))
+                              (filter #(= :quote (:type %)))
+                              (map :value)
                               (into #{}))))))))
