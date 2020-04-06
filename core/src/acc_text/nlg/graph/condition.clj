@@ -67,9 +67,8 @@
 (defmethod evaluate-predicate :data [g node-id {data :data}]
   (string->boolean (get data (:name (attrs g node-id)))))
 
-(defmethod evaluate-predicate :quote [g node-id {data :data}]
-  (log/debugf "Data: %s" data)
-  (string->boolean (get data (:name (attrs g node-id)))))
+(defmethod evaluate-predicate :quote [g node-id _]
+  (string->boolean (:value (attrs g node-id))))
 
 (defn evaluate-statement [g node-id context]
   (case (:type (attrs g node-id))
