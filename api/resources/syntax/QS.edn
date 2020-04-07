@@ -1,0 +1,8 @@
+{:type "QS",
+ :description "question",
+ :module "Syntax",
+ :functions
+ [{:function "mkQS",
+   :type ["(Tense)" "(Ant)" "(Pol)" "QCl" "QS"],
+   :example "who wouldn't have slept"}
+  {:function "mkQS", :type ["Cl" "QS"], :example "does she sleep"}]}

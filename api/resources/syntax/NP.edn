@@ -1,0 +1,72 @@
+{:type "NP",
+ :description "noun phrase (subject or object)",
+ :module "Syntax",
+ :functions
+ [{:function "everybody_NP", :type ["NP"], :example "everybody"}
+  {:function "everything_NP", :type ["NP"], :example "everything"}
+  {:function "he_NP", :type ["NP"], :example "he"}
+  {:function "i_NP", :type ["NP"], :example "I"}
+  {:function "it_NP", :type ["NP"], :example "it"}
+  {:function "mkNP", :type ["Quant" "N" "NP"], :example "this man"}
+  {:function "mkNP",
+   :type ["Quant" "CN" "NP"],
+   :example "this old man"}
+  {:function "mkNP",
+   :type ["Quant" "Num" "CN" "NP"],
+   :example "these five old men"}
+  {:function "mkNP",
+   :type ["Quant" "Num" "N" "NP"],
+   :example "these five men"}
+  {:function "mkNP",
+   :type ["Det" "CN" "NP"],
+   :example "the five old men"}
+  {:function "mkNP", :type ["Det" "N" "NP"], :example "the five men"}
+  {:function "mkNP",
+   :type ["Numeral" "CN" "NP"],
+   :example "five old men"}
+  {:function "mkNP", :type ["Numeral" "N" "NP"], :example "five men"}
+  {:function "mkNP", :type ["Digits" "CN" "NP"], :example "51 old men"}
+  {:function "mkNP", :type ["Digits" "N" "NP"], :example "51 men"}
+  {:function "mkNP",
+   :type ["Card" "CN" "NP"],
+   :example "forty-five old men"}
+  {:function "mkNP",
+   :type ["Card" "N" "NP"],
+   :example "forty-five men"}
+  {:function "mkNP", :type ["Pron" "CN" "NP"], :example "my old man"}
+  {:function "mkNP", :type ["Pron" "N" "NP"], :example "my man"}
+  {:function "mkNP", :type ["PN" "NP"], :example "Paris"}
+  {:function "mkNP", :type ["Pron" "NP"], :example "we"}
+  {:function "mkNP", :type ["Quant" "NP"], :example "this"}
+  {:function "mkNP", :type ["Quant" "Num" "NP"], :example "these five"}
+  {:function "mkNP", :type ["Det" "NP"], :example "the five best"}
+  {:function "mkNP", :type ["CN" "NP"], :example "old beer"}
+  {:function "mkNP", :type ["N" "NP"], :example "beer"}
+  {:function "mkNP",
+   :type ["Predet" "NP" "NP"],
+   :example "only this woman"}
+  {:function "mkNP", :type ["NP" "V2" "NP"], :example "the man seen"}
+  {:function "mkNP", :type ["NP" "Adv" "NP"], :example "Paris today"}
+  {:function "mkNP",
+   :type ["NP" "RS" "NP"],
+   :example "John, that walks ..."}
+  {:function "mkNP",
+   :type ["Conj" "NP" "NP" "NP"],
+   :example "this woman or John"}
+  {:function "mkNP",
+   :type ["Conj" "ListNP" "NP"],
+   :example "this woman, John or I"}
+  {:function "nobody_NP", :type ["NP"], :example "nobody"}
+  {:function "nothing_NP", :type ["NP"], :example "nothing"}
+  {:function "she_NP", :type ["NP"], :example "she"}
+  {:function "somebody_NP", :type ["NP"], :example "somebody"}
+  {:function "something_NP", :type ["NP"], :example "something"}
+  {:function "that_NP", :type ["NP"], :example "that"}
+  {:function "these_NP", :type ["NP"], :example "these"}
+  {:function "they_NP", :type ["NP"], :example "they"}
+  {:function "this_NP", :type ["NP"], :example "this"}
+  {:function "those_NP", :type ["NP"], :example "those"}
+  {:function "we_NP", :type ["NP"], :example "we"}
+  {:function "youPl_NP", :type ["NP"], :example "you"}
+  {:function "youPol_NP", :type ["NP"], :example "you"}
+  {:function "you_NP", :type ["NP"], :example "you"}]}

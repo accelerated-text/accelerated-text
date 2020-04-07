@@ -1,0 +1,51 @@
+#:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
+                                          {:from :02 :to :03 :role :instance :index 0}
+                                          {:from :02 :to :06 :role :instance :index 1}
+                                          {:from :02 :to :09 :role :instance :index 2}
+                                          {:from :02 :to :12 :role :instance :index 3}
+                                          {:from :03 :to :04 :role :item :index 0}
+                                          {:from :03 :to :05 :role :item :index 1}
+                                          {:from :06 :to :07 :role :item :index 0}
+                                          {:from :06 :to :08 :role :item :index 1}
+                                          {:from :09 :to :10 :role :item :index 0}
+                                          {:from :09 :to :11 :role :item :index 1}
+                                          {:from :12 :to :13 :role :item :index 0}
+                                          {:from :12 :to :19 :role :item :index 1}
+                                          {:from :12 :to :20 :role :item :index 2}
+                                          {:from :13 :to :14 :role :item :index 0}
+                                          {:from :13 :to :17 :role :item :index 1}
+                                          {:from :13 :to :18 :role :item :index 2}
+                                          {:from :14 :to :15 :role :item :index 0}
+                                          {:from :14 :to :16 :role :item :index 1})
+                              :concepts  ({:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :sequence}
+                                          {:id :04 :type :quote :value "product"}
+                                          {:id :05 :type :quote :value "fridge"}
+                                          {:id :06 :type :sequence}
+                                          {:id :07 :type :data :name "product"}
+                                          {:id :08 :type :data :name "fridge"}
+                                          {:id :09 :type :sequence}
+                                          {:id    :10
+                                           :type  :dictionary-item
+                                           :name  "9399a059-f5a5-4443-bee7-a096d284a85d"
+                                           :label "product"}
+                                          {:id    :11
+                                           :type  :dictionary-item
+                                           :name  "03393900-ddbf-426f-b267-f100d09824c0"
+                                           :label "fridge"}
+                                          {:id :12 :type :sequence}
+                                          {:id :13 :type :sequence}
+                                          {:id :14 :type :sequence}
+                                          {:id :15 :type :quote :value "product"}
+                                          {:id :16 :type :quote :value "fridge"}
+                                          {:id :17 :type :data :name "product"}
+                                          {:id :18 :type :data :name "fridge"}
+                                          {:id    :19
+                                           :type  :dictionary-item
+                                           :name  "9399a059-f5a5-4443-bee7-a096d284a85d"
+                                           :label "product"}
+                                          {:id    :20
+                                           :type  :dictionary-item
+                                           :name  "03393900-ddbf-426f-b267-f100d09824c0"
+                                           :label "fridge"})}

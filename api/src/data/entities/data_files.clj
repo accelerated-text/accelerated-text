@@ -4,7 +4,8 @@
             [data.db :as db]
             [data.utils :as utils]
             [clojure.tools.logging :as log]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]]
+            [clojure.string :as str]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 
@@ -12,7 +13,7 @@
   "Expected keys are :filename and :content everything else is optional"
   [data-file]
   (let [id (utils/gen-uuid)]
-    (log/debugf "Storing: %s with id: %s" data-file id)
+    (log/infof "Storing `%s` with id: `%s`" (:filename data-file) id)
     (db/write! data-files-db id data-file)
     id))
 
@@ -45,3 +46,16 @@
 
 (defn read-data-file-content [_ key]
   (:content (db/read! data-files-db key)))
+
+(defn get-data [user key]
+  (when-let [content (read-data-file-content user key)]
+    (let [[header & rows] (->> content (csv/read-csv) (map #(map str/trim %)))]
+      (map #(zipmap header %) rows))))
+
+(defn data-file-path []
+  (or (System/getenv "DATA_FILES") "resources/data-files"))
+
+(defn initialize []
+  (doseq [f (utils/list-files (data-file-path))]
+    (store! {:filename (utils/get-name f)
+             :content  (slurp f)})))

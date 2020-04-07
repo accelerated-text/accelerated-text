@@ -1,0 +1,457 @@
+#:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
+                                          {:from :01 :to :59 :role :segment :index 1}
+                                          {:from :01 :to :116 :role :segment :index 2}
+                                          {:from :01 :to :173 :role :segment :index 3}
+                                          {:from :02 :to :03 :role :instance :index 0}
+                                          {:from :02 :to :11 :role :instance :index 1}
+                                          {:from :02 :to :19 :role :instance :index 2}
+                                          {:from :02 :to :27 :role :instance :index 3}
+                                          {:from :02 :to :35 :role :instance :index 4}
+                                          {:from :02 :to :43 :role :instance :index 5}
+                                          {:from :02 :to :51 :role :instance :index 6}
+                                          {:from :03 :to :04 :role :statement :index 0}
+                                          {:from :03 :to :09 :role :statement :index 1}
+                                          {:from :04 :to :05 :role :predicate}
+                                          {:from :04 :to :08 :role :then-expression}
+                                          {:from :05 :to :06 :role :comparable :index 0}
+                                          {:from :05 :to :07 :role :comparable :index 1}
+                                          {:from :09 :to :10 :role :then-expression}
+                                          {:from :11 :to :12 :role :statement :index 0}
+                                          {:from :11 :to :17 :role :statement :index 1}
+                                          {:from :12 :to :13 :role :predicate}
+                                          {:from :12 :to :16 :role :then-expression}
+                                          {:from :13 :to :14 :role :comparable :index 0}
+                                          {:from :13 :to :15 :role :comparable :index 1}
+                                          {:from :17 :to :18 :role :then-expression}
+                                          {:from :19 :to :20 :role :statement :index 0}
+                                          {:from :19 :to :25 :role :statement :index 1}
+                                          {:from :20 :to :21 :role :predicate}
+                                          {:from :20 :to :24 :role :then-expression}
+                                          {:from :21 :to :22 :role :comparable :index 0}
+                                          {:from :21 :to :23 :role :comparable :index 1}
+                                          {:from :25 :to :26 :role :then-expression}
+                                          {:from :27 :to :28 :role :statement :index 0}
+                                          {:from :27 :to :33 :role :statement :index 1}
+                                          {:from :28 :to :29 :role :predicate}
+                                          {:from :28 :to :32 :role :then-expression}
+                                          {:from :29 :to :30 :role :comparable :index 0}
+                                          {:from :29 :to :31 :role :comparable :index 1}
+                                          {:from :33 :to :34 :role :then-expression}
+                                          {:from :35 :to :36 :role :statement :index 0}
+                                          {:from :35 :to :41 :role :statement :index 1}
+                                          {:from :36 :to :37 :role :predicate}
+                                          {:from :36 :to :40 :role :then-expression}
+                                          {:from :37 :to :38 :role :comparable :index 0}
+                                          {:from :37 :to :39 :role :comparable :index 1}
+                                          {:from :41 :to :42 :role :then-expression}
+                                          {:from :43 :to :44 :role :statement :index 0}
+                                          {:from :43 :to :49 :role :statement :index 1}
+                                          {:from :44 :to :45 :role :predicate}
+                                          {:from :44 :to :48 :role :then-expression}
+                                          {:from :45 :to :46 :role :comparable :index 0}
+                                          {:from :45 :to :47 :role :comparable :index 1}
+                                          {:from :49 :to :50 :role :then-expression}
+                                          {:from :51 :to :52 :role :statement :index 0}
+                                          {:from :51 :to :57 :role :statement :index 1}
+                                          {:from :52 :to :53 :role :predicate}
+                                          {:from :52 :to :56 :role :then-expression}
+                                          {:from :53 :to :54 :role :comparable :index 0}
+                                          {:from :53 :to :55 :role :comparable :index 1}
+                                          {:from :57 :to :58 :role :then-expression}
+                                          {:from :59 :to :60 :role :instance :index 0}
+                                          {:from :59 :to :68 :role :instance :index 1}
+                                          {:from :59 :to :76 :role :instance :index 2}
+                                          {:from :59 :to :84 :role :instance :index 3}
+                                          {:from :59 :to :92 :role :instance :index 4}
+                                          {:from :59 :to :100 :role :instance :index 5}
+                                          {:from :59 :to :108 :role :instance :index 6}
+                                          {:from :60 :to :61 :role :statement :index 0}
+                                          {:from :60 :to :66 :role :statement :index 1}
+                                          {:from :61 :to :62 :role :predicate}
+                                          {:from :61 :to :65 :role :then-expression}
+                                          {:from :62 :to :63 :role :comparable :index 0}
+                                          {:from :62 :to :64 :role :comparable :index 1}
+                                          {:from :66 :to :67 :role :then-expression}
+                                          {:from :68 :to :69 :role :statement :index 0}
+                                          {:from :68 :to :74 :role :statement :index 1}
+                                          {:from :69 :to :70 :role :predicate}
+                                          {:from :69 :to :73 :role :then-expression}
+                                          {:from :70 :to :71 :role :comparable :index 0}
+                                          {:from :70 :to :72 :role :comparable :index 1}
+                                          {:from :74 :to :75 :role :then-expression}
+                                          {:from :76 :to :77 :role :statement :index 0}
+                                          {:from :76 :to :82 :role :statement :index 1}
+                                          {:from :77 :to :78 :role :predicate}
+                                          {:from :77 :to :81 :role :then-expression}
+                                          {:from :78 :to :79 :role :comparable :index 0}
+                                          {:from :78 :to :80 :role :comparable :index 1}
+                                          {:from :82 :to :83 :role :then-expression}
+                                          {:from :84 :to :85 :role :statement :index 0}
+                                          {:from :84 :to :90 :role :statement :index 1}
+                                          {:from :85 :to :86 :role :predicate}
+                                          {:from :85 :to :89 :role :then-expression}
+                                          {:from :86 :to :87 :role :comparable :index 0}
+                                          {:from :86 :to :88 :role :comparable :index 1}
+                                          {:from :90 :to :91 :role :then-expression}
+                                          {:from :92 :to :93 :role :statement :index 0}
+                                          {:from :92 :to :98 :role :statement :index 1}
+                                          {:from :93 :to :94 :role :predicate}
+                                          {:from :93 :to :97 :role :then-expression}
+                                          {:from :94 :to :95 :role :comparable :index 0}
+                                          {:from :94 :to :96 :role :comparable :index 1}
+                                          {:from :98 :to :99 :role :then-expression}
+                                          {:from :100 :to :101 :role :statement :index 0}
+                                          {:from :100 :to :106 :role :statement :index 1}
+                                          {:from :101 :to :102 :role :predicate}
+                                          {:from :101 :to :105 :role :then-expression}
+                                          {:from :102 :to :103 :role :comparable :index 0}
+                                          {:from :102 :to :104 :role :comparable :index 1}
+                                          {:from :106 :to :107 :role :then-expression}
+                                          {:from :108 :to :109 :role :statement :index 0}
+                                          {:from :108 :to :114 :role :statement :index 1}
+                                          {:from :109 :to :110 :role :predicate}
+                                          {:from :109 :to :113 :role :then-expression}
+                                          {:from :110 :to :111 :role :comparable :index 0}
+                                          {:from :110 :to :112 :role :comparable :index 1}
+                                          {:from :114 :to :115 :role :then-expression}
+                                          {:from :116 :to :117 :role :instance :index 0}
+                                          {:from :116 :to :125 :role :instance :index 1}
+                                          {:from :116 :to :133 :role :instance :index 2}
+                                          {:from :116 :to :141 :role :instance :index 3}
+                                          {:from :116 :to :149 :role :instance :index 4}
+                                          {:from :116 :to :157 :role :instance :index 5}
+                                          {:from :116 :to :165 :role :instance :index 6}
+                                          {:from :117 :to :118 :role :statement :index 0}
+                                          {:from :117 :to :123 :role :statement :index 1}
+                                          {:from :118 :to :119 :role :predicate}
+                                          {:from :118 :to :122 :role :then-expression}
+                                          {:from :119 :to :120 :role :comparable :index 0}
+                                          {:from :119 :to :121 :role :comparable :index 1}
+                                          {:from :123 :to :124 :role :then-expression}
+                                          {:from :125 :to :126 :role :statement :index 0}
+                                          {:from :125 :to :131 :role :statement :index 1}
+                                          {:from :126 :to :127 :role :predicate}
+                                          {:from :126 :to :130 :role :then-expression}
+                                          {:from :127 :to :128 :role :comparable :index 0}
+                                          {:from :127 :to :129 :role :comparable :index 1}
+                                          {:from :131 :to :132 :role :then-expression}
+                                          {:from :133 :to :134 :role :statement :index 0}
+                                          {:from :133 :to :139 :role :statement :index 1}
+                                          {:from :134 :to :135 :role :predicate}
+                                          {:from :134 :to :138 :role :then-expression}
+                                          {:from :135 :to :136 :role :comparable :index 0}
+                                          {:from :135 :to :137 :role :comparable :index 1}
+                                          {:from :139 :to :140 :role :then-expression}
+                                          {:from :141 :to :142 :role :statement :index 0}
+                                          {:from :141 :to :147 :role :statement :index 1}
+                                          {:from :142 :to :143 :role :predicate}
+                                          {:from :142 :to :146 :role :then-expression}
+                                          {:from :143 :to :144 :role :comparable :index 0}
+                                          {:from :143 :to :145 :role :comparable :index 1}
+                                          {:from :147 :to :148 :role :then-expression}
+                                          {:from :149 :to :150 :role :statement :index 0}
+                                          {:from :149 :to :155 :role :statement :index 1}
+                                          {:from :150 :to :151 :role :predicate}
+                                          {:from :150 :to :154 :role :then-expression}
+                                          {:from :151 :to :152 :role :comparable :index 0}
+                                          {:from :151 :to :153 :role :comparable :index 1}
+                                          {:from :155 :to :156 :role :then-expression}
+                                          {:from :157 :to :158 :role :statement :index 0}
+                                          {:from :157 :to :163 :role :statement :index 1}
+                                          {:from :158 :to :159 :role :predicate}
+                                          {:from :158 :to :162 :role :then-expression}
+                                          {:from :159 :to :160 :role :comparable :index 0}
+                                          {:from :159 :to :161 :role :comparable :index 1}
+                                          {:from :163 :to :164 :role :then-expression}
+                                          {:from :165 :to :166 :role :statement :index 0}
+                                          {:from :165 :to :171 :role :statement :index 1}
+                                          {:from :166 :to :167 :role :predicate}
+                                          {:from :166 :to :170 :role :then-expression}
+                                          {:from :167 :to :168 :role :comparable :index 0}
+                                          {:from :167 :to :169 :role :comparable :index 1}
+                                          {:from :171 :to :172 :role :then-expression}
+                                          {:from :173 :to :174 :role :instance :index 0}
+                                          {:from :173 :to :182 :role :instance :index 1}
+                                          {:from :173 :to :190 :role :instance :index 2}
+                                          {:from :173 :to :198 :role :instance :index 3}
+                                          {:from :173 :to :206 :role :instance :index 4}
+                                          {:from :173 :to :214 :role :instance :index 5}
+                                          {:from :173 :to :222 :role :instance :index 6}
+                                          {:from :174 :to :175 :role :statement :index 0}
+                                          {:from :174 :to :180 :role :statement :index 1}
+                                          {:from :175 :to :176 :role :predicate}
+                                          {:from :175 :to :179 :role :then-expression}
+                                          {:from :176 :to :177 :role :comparable :index 0}
+                                          {:from :176 :to :178 :role :comparable :index 1}
+                                          {:from :180 :to :181 :role :then-expression}
+                                          {:from :182 :to :183 :role :statement :index 0}
+                                          {:from :182 :to :188 :role :statement :index 1}
+                                          {:from :183 :to :184 :role :predicate}
+                                          {:from :183 :to :187 :role :then-expression}
+                                          {:from :184 :to :185 :role :comparable :index 0}
+                                          {:from :184 :to :186 :role :comparable :index 1}
+                                          {:from :188 :to :189 :role :then-expression}
+                                          {:from :190 :to :191 :role :statement :index 0}
+                                          {:from :190 :to :196 :role :statement :index 1}
+                                          {:from :191 :to :192 :role :predicate}
+                                          {:from :191 :to :195 :role :then-expression}
+                                          {:from :192 :to :193 :role :comparable :index 0}
+                                          {:from :192 :to :194 :role :comparable :index 1}
+                                          {:from :196 :to :197 :role :then-expression}
+                                          {:from :198 :to :199 :role :statement :index 0}
+                                          {:from :198 :to :204 :role :statement :index 1}
+                                          {:from :199 :to :200 :role :predicate}
+                                          {:from :199 :to :203 :role :then-expression}
+                                          {:from :200 :to :201 :role :comparable :index 0}
+                                          {:from :200 :to :202 :role :comparable :index 1}
+                                          {:from :204 :to :205 :role :then-expression}
+                                          {:from :206 :to :207 :role :statement :index 0}
+                                          {:from :206 :to :212 :role :statement :index 1}
+                                          {:from :207 :to :208 :role :predicate}
+                                          {:from :207 :to :211 :role :then-expression}
+                                          {:from :208 :to :209 :role :comparable :index 0}
+                                          {:from :208 :to :210 :role :comparable :index 1}
+                                          {:from :212 :to :213 :role :then-expression}
+                                          {:from :214 :to :215 :role :statement :index 0}
+                                          {:from :214 :to :220 :role :statement :index 1}
+                                          {:from :215 :to :216 :role :predicate}
+                                          {:from :215 :to :219 :role :then-expression}
+                                          {:from :216 :to :217 :role :comparable :index 0}
+                                          {:from :216 :to :218 :role :comparable :index 1}
+                                          {:from :220 :to :221 :role :then-expression}
+                                          {:from :222 :to :223 :role :statement :index 0}
+                                          {:from :222 :to :228 :role :statement :index 1}
+                                          {:from :223 :to :224 :role :predicate}
+                                          {:from :223 :to :227 :role :then-expression}
+                                          {:from :224 :to :225 :role :comparable :index 0}
+                                          {:from :224 :to :226 :role :comparable :index 1}
+                                          {:from :228 :to :229 :role :then-expression})
+                              :concepts  ({:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :condition}
+                                          {:id :04 :type :if-statement}
+                                          {:id :05 :type :comparator :value "="}
+                                          {:id :06 :type :quote :value "A"}
+                                          {:id :07 :type :quote :value "B"}
+                                          {:id :08 :type :quote :value "TRUE"}
+                                          {:id :09 :type :else-statement}
+                                          {:id :10 :type :quote :value "FALSE"}
+                                          {:id :11 :type :condition}
+                                          {:id :12 :type :if-statement}
+                                          {:id :13 :type :comparator :value "!="}
+                                          {:id :14 :type :quote :value "A"}
+                                          {:id :15 :type :quote :value "A"}
+                                          {:id :16 :type :quote :value "TRUE"}
+                                          {:id :17 :type :else-statement}
+                                          {:id :18 :type :quote :value "FALSE"}
+                                          {:id :19 :type :condition}
+                                          {:id :20 :type :if-statement}
+                                          {:id :21 :type :comparator :value "<"}
+                                          {:id :22 :type :quote :value "1"}
+                                          {:id :23 :type :quote :value "0"}
+                                          {:id :24 :type :quote :value "TRUE"}
+                                          {:id :25 :type :else-statement}
+                                          {:id :26 :type :quote :value "FALSE"}
+                                          {:id :27 :type :condition}
+                                          {:id :28 :type :if-statement}
+                                          {:id :29 :type :comparator :value "<="}
+                                          {:id :30 :type :quote :value "1"}
+                                          {:id :31 :type :quote :value "0"}
+                                          {:id :32 :type :quote :value "TRUE"}
+                                          {:id :33 :type :else-statement}
+                                          {:id :34 :type :quote :value "FALSE"}
+                                          {:id :35 :type :condition}
+                                          {:id :36 :type :if-statement}
+                                          {:id :37 :type :comparator :value ">"}
+                                          {:id :38 :type :quote :value "0"}
+                                          {:id :39 :type :quote :value "1"}
+                                          {:id :40 :type :quote :value "TRUE"}
+                                          {:id :41 :type :else-statement}
+                                          {:id :42 :type :quote :value "FALSE"}
+                                          {:id :43 :type :condition}
+                                          {:id :44 :type :if-statement}
+                                          {:id :45 :type :comparator :value ">="}
+                                          {:id :46 :type :quote :value "0"}
+                                          {:id :47 :type :quote :value "1"}
+                                          {:id :48 :type :quote :value "TRUE"}
+                                          {:id :49 :type :else-statement}
+                                          {:id :50 :type :quote :value "FALSE"}
+                                          {:id :51 :type :condition}
+                                          {:id :52 :type :if-statement}
+                                          {:id :53 :type :comparator :value "in"}
+                                          {:id :54 :type :quote :value "1"}
+                                          {:id :55 :type :quote :value "0"}
+                                          {:id :56 :type :quote :value "TRUE"}
+                                          {:id :57 :type :else-statement}
+                                          {:id :58 :type :quote :value "FALSE"}
+                                          {:id :59 :type :segment}
+                                          {:id :60 :type :condition}
+                                          {:id :61 :type :if-statement}
+                                          {:id :62 :type :comparator :value "="}
+                                          {:id :63 :type :data :name "A"}
+                                          {:id :64 :type :quote :value "B"}
+                                          {:id :65 :type :quote :value "TRUE"}
+                                          {:id :66 :type :else-statement}
+                                          {:id :67 :type :quote :value "FALSE"}
+                                          {:id :68 :type :condition}
+                                          {:id :69 :type :if-statement}
+                                          {:id :70 :type :comparator :value "!="}
+                                          {:id :71 :type :data :name "A"}
+                                          {:id :72 :type :quote :value "A"}
+                                          {:id :73 :type :quote :value "TRUE"}
+                                          {:id :74 :type :else-statement}
+                                          {:id :75 :type :quote :value "FALSE"}
+                                          {:id :76 :type :condition}
+                                          {:id :77 :type :if-statement}
+                                          {:id :78 :type :comparator :value "<"}
+                                          {:id :79 :type :data :name "1"}
+                                          {:id :80 :type :quote :value "0"}
+                                          {:id :81 :type :quote :value "TRUE"}
+                                          {:id :82 :type :else-statement}
+                                          {:id :83 :type :quote :value "FALSE"}
+                                          {:id :84 :type :condition}
+                                          {:id :85 :type :if-statement}
+                                          {:id :86 :type :comparator :value "<="}
+                                          {:id :87 :type :data :name "1"}
+                                          {:id :88 :type :quote :value "0"}
+                                          {:id :89 :type :quote :value "TRUE"}
+                                          {:id :90 :type :else-statement}
+                                          {:id :91 :type :quote :value "FALSE"}
+                                          {:id :92 :type :condition}
+                                          {:id :93 :type :if-statement}
+                                          {:id :94 :type :comparator :value ">"}
+                                          {:id :95 :type :data :name "0"}
+                                          {:id :96 :type :quote :value "1"}
+                                          {:id :97 :type :quote :value "TRUE"}
+                                          {:id :98 :type :else-statement}
+                                          {:id :99 :type :quote :value "FALSE"}
+                                          {:id :100 :type :condition}
+                                          {:id :101 :type :if-statement}
+                                          {:id :102 :type :comparator :value ">="}
+                                          {:id :103 :type :data :name "0"}
+                                          {:id :104 :type :quote :value "1"}
+                                          {:id :105 :type :quote :value "TRUE"}
+                                          {:id :106 :type :else-statement}
+                                          {:id :107 :type :quote :value "FALSE"}
+                                          {:id :108 :type :condition}
+                                          {:id :109 :type :if-statement}
+                                          {:id :110 :type :comparator :value "in"}
+                                          {:id :111 :type :quote :value "1"}
+                                          {:id :112 :type :data :name "0"}
+                                          {:id :113 :type :quote :value "TRUE"}
+                                          {:id :114 :type :else-statement}
+                                          {:id :115 :type :quote :value "FALSE"}
+                                          {:id :116 :type :segment}
+                                          {:id :117 :type :condition}
+                                          {:id :118 :type :if-statement}
+                                          {:id :119 :type :comparator :value "="}
+                                          {:id :120 :type :quote :value "A"}
+                                          {:id :121 :type :data :name "B"}
+                                          {:id :122 :type :quote :value "TRUE"}
+                                          {:id :123 :type :else-statement}
+                                          {:id :124 :type :quote :value "FALSE"}
+                                          {:id :125 :type :condition}
+                                          {:id :126 :type :if-statement}
+                                          {:id :127 :type :comparator :value "!="}
+                                          {:id :128 :type :quote :value "A"}
+                                          {:id :129 :type :data :name "A"}
+                                          {:id :130 :type :quote :value "TRUE"}
+                                          {:id :131 :type :else-statement}
+                                          {:id :132 :type :quote :value "FALSE"}
+                                          {:id :133 :type :condition}
+                                          {:id :134 :type :if-statement}
+                                          {:id :135 :type :comparator :value "<"}
+                                          {:id :136 :type :quote :value "1"}
+                                          {:id :137 :type :data :name "0"}
+                                          {:id :138 :type :quote :value "TRUE"}
+                                          {:id :139 :type :else-statement}
+                                          {:id :140 :type :quote :value "FALSE"}
+                                          {:id :141 :type :condition}
+                                          {:id :142 :type :if-statement}
+                                          {:id :143 :type :comparator :value "<="}
+                                          {:id :144 :type :quote :value "1"}
+                                          {:id :145 :type :data :name "0"}
+                                          {:id :146 :type :quote :value "TRUE"}
+                                          {:id :147 :type :else-statement}
+                                          {:id :148 :type :quote :value "FALSE"}
+                                          {:id :149 :type :condition}
+                                          {:id :150 :type :if-statement}
+                                          {:id :151 :type :comparator :value ">"}
+                                          {:id :152 :type :quote :value "0"}
+                                          {:id :153 :type :data :name "1"}
+                                          {:id :154 :type :quote :value "TRUE"}
+                                          {:id :155 :type :else-statement}
+                                          {:id :156 :type :quote :value "FALSE"}
+                                          {:id :157 :type :condition}
+                                          {:id :158 :type :if-statement}
+                                          {:id :159 :type :comparator :value ">="}
+                                          {:id :160 :type :quote :value "0"}
+                                          {:id :161 :type :data :name "1"}
+                                          {:id :162 :type :quote :value "TRUE"}
+                                          {:id :163 :type :else-statement}
+                                          {:id :164 :type :quote :value "FALSE"}
+                                          {:id :165 :type :condition}
+                                          {:id :166 :type :if-statement}
+                                          {:id :167 :type :comparator :value "in"}
+                                          {:id :168 :type :data :name "1"}
+                                          {:id :169 :type :quote :value "0"}
+                                          {:id :170 :type :quote :value "TRUE"}
+                                          {:id :171 :type :else-statement}
+                                          {:id :172 :type :quote :value "FALSE"}
+                                          {:id :173 :type :segment}
+                                          {:id :174 :type :condition}
+                                          {:id :175 :type :if-statement}
+                                          {:id :176 :type :comparator :value "="}
+                                          {:id :177 :type :data :name "A"}
+                                          {:id :178 :type :data :name "B"}
+                                          {:id :179 :type :quote :value "TRUE"}
+                                          {:id :180 :type :else-statement}
+                                          {:id :181 :type :quote :value "FALSE"}
+                                          {:id :182 :type :condition}
+                                          {:id :183 :type :if-statement}
+                                          {:id :184 :type :comparator :value "!="}
+                                          {:id :185 :type :data :name "A"}
+                                          {:id :186 :type :data :name "A"}
+                                          {:id :187 :type :quote :value "TRUE"}
+                                          {:id :188 :type :else-statement}
+                                          {:id :189 :type :quote :value "FALSE"}
+                                          {:id :190 :type :condition}
+                                          {:id :191 :type :if-statement}
+                                          {:id :192 :type :comparator :value "<"}
+                                          {:id :193 :type :data :name "1"}
+                                          {:id :194 :type :data :name "0"}
+                                          {:id :195 :type :quote :value "TRUE"}
+                                          {:id :196 :type :else-statement}
+                                          {:id :197 :type :quote :value "FALSE"}
+                                          {:id :198 :type :condition}
+                                          {:id :199 :type :if-statement}
+                                          {:id :200 :type :comparator :value "<="}
+                                          {:id :201 :type :data :name "1"}
+                                          {:id :202 :type :data :name "0"}
+                                          {:id :203 :type :quote :value "TRUE"}
+                                          {:id :204 :type :else-statement}
+                                          {:id :205 :type :quote :value "FALSE"}
+                                          {:id :206 :type :condition}
+                                          {:id :207 :type :if-statement}
+                                          {:id :208 :type :comparator :value ">"}
+                                          {:id :209 :type :data :name "0"}
+                                          {:id :210 :type :data :name "1"}
+                                          {:id :211 :type :quote :value "TRUE"}
+                                          {:id :212 :type :else-statement}
+                                          {:id :213 :type :quote :value "FALSE"}
+                                          {:id :214 :type :condition}
+                                          {:id :215 :type :if-statement}
+                                          {:id :216 :type :comparator :value ">="}
+                                          {:id :217 :type :data :name "0"}
+                                          {:id :218 :type :data :name "1"}
+                                          {:id :219 :type :quote :value "TRUE"}
+                                          {:id :220 :type :else-statement}
+                                          {:id :221 :type :quote :value "FALSE"}
+                                          {:id :222 :type :condition}
+                                          {:id :223 :type :if-statement}
+                                          {:id :224 :type :comparator :value "in"}
+                                          {:id :225 :type :data :name "1"}
+                                          {:id :226 :type :data :name "0"}
+                                          {:id :227 :type :quote :value "TRUE"}
+                                          {:id :228 :type :else-statement}
+                                          {:id :229 :type :quote :value "FALSE"})}

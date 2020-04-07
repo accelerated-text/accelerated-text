@@ -2,7 +2,7 @@
   (:gen-class)
   (:require [api.config :refer [conf]]
             [api.graphql.core :as graphql]
-            [api.nlg.generate :as generate]
+            [api.nlg.service :as service]
             [api.utils :as utils]
             [api.error :as errors]
             [clojure.tools.logging :as log]
@@ -29,7 +29,6 @@
               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
               "Content-Type"                 "application/json"})
 
-
 (defn health [_] {:status 200, :body "Ok"})
 
 (defn string-store [item]
@@ -54,7 +53,7 @@
                                            :body   (graphql/handle body)}))
                              :summary "GraphQL endpoint"}
                    :options cors-handler}]
-     ["/nlg/" {:post    {:parameters {:body ::generate/generate-req}
+     ["/nlg/" {:post    {:parameters {:body ::service/generate-request}
                          :responses  {200 {:body {:resultId string?}}}
                          :summary    "Registers document plan for generation"
                          :coercion   reitit.coercion.spec/coercion
@@ -62,47 +61,46 @@
                                       coercion/coerce-request-middleware
                                       coercion/coerce-response-middleware]
                          :handler    (fn [{{body :body} :parameters}]
-                                       (generate/generate-request body))}
+                                       (service/generate-request body))}
                :options cors-handler}]
-     ["/nlg/_bulk/" {:post    {:parameters {:body ::generate/generate-bulk}
-                               :responses  {200 {:body {:resultId string?}}}
+     ["/nlg/_bulk/" {:post    {:parameters {:body ::service/generate-request-bulk}
+                               :responses  {200 {:body {:resultIds coll?}}}
                                :summary    "Bulk generation"
                                :coercion   reitit.coercion.spec/coercion
                                :middleware [muuntaja/format-request-middleware
                                             coercion/coerce-request-middleware
                                             coercion/coerce-response-middleware]
                                :handler    (fn [{{body :body} :parameters}]
-                                             (generate/generate-bulk body))}
+                                             (service/generate-request-bulk body))}
                      :options cors-handler}]
-     ["/nlg/:id" {:get     {:parameters {:query ::generate/format-query
+     ["/nlg/:id" {:get     {:parameters {:query ::service/get-result
                                          :path  {:id string?}}
                             :coercion   reitit.coercion.spec/coercion
                             :summary    "Get NLG result"
                             :middleware [muuntaja/format-request-middleware
                                          coercion/coerce-request-middleware]
-                            :handler    generate/read-result}
-                  :delete  generate/delete-result
+                            :handler    service/get-result}
+                  :delete  service/delete-result
                   :options cors-handler}]
      ["/accelerated-text-data-files/" {:post (fn [request]
                                                (let [{params :params} (multipart-handler request)
                                                      id (data-files/store! (get params "file"))]
-                                                 
                                                  {:status 200
-                                                  :body {:message "Succesfully uploaded file" :id id}}))}]
-    ["/swagger.json" {:get {:no-doc true
-                            :swagger {:info {:title "nlg-api"
-                                             :description "api description"}}
-                            :handler (swagger/create-swagger-handler)}}]
-    ["/health"       {:get health}]]
-   {:data {
-           :muuntaja m/instance
-           :middleware [swagger/swagger-feature
-                        muuntaja/format-negotiate-middleware
-                        parameters/parameters-middleware
-                        wrap-response
-                        muuntaja/format-response-middleware
-                        errors/exception-middleware]}
-    :exception pretty/exception}))
+                                                  :body   {:message "Succesfully uploaded file" :id id}}))}]
+     ["/swagger.json" {:get {:no-doc  true
+                             :swagger {:info {:title       "nlg-api"
+                                              :description "api description"}}
+                             :handler (swagger/create-swagger-handler)}}]
+     ["/health" {:get health}]]
+    {:data      {
+                 :muuntaja   m/instance
+                 :middleware [swagger/swagger-feature
+                              muuntaja/format-negotiate-middleware
+                              parameters/parameters-middleware
+                              wrap-response
+                              muuntaja/format-response-middleware
+                              errors/exception-middleware]}
+     :exception pretty/exception}))
 
 (def app
   (ring/ring-handler
@@ -118,6 +116,7 @@
         port (get conf :port 3001)]
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
     (document-plan/initialize)
+    (data-files/initialize)
     (dictionary/initialize)
     (rgl/initialize)
     (server/run-server

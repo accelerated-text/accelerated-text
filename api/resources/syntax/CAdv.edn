@@ -1,0 +1,7 @@
+{:type "CAdv",
+ :description "comparative adverb",
+ :module "Syntax",
+ :functions
+ [{:function "as_CAdv", :type ["CAdv"], :example "as"}
+  {:function "less_CAdv", :type ["CAdv"], :example "less"}
+  {:function "more_CAdv", :type ["CAdv"], :example "more"}]}

@@ -4,27 +4,6 @@
             [acc-text.nlg.test-utils :as utils]
             [clojure.test :refer [deftest is are]]))
 
-(deftest concept-search
-  (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
-    (are [types ids]
-      (= ids (sg-utils/find-concept-ids semantic-graph types))
-      #{:dictionary-item} #{:04 :07}
-      #{:data} #{:06 :08}
-      #{:amr} #{:03}
-      #{:sequence} #{})))
-
-(deftest child-search
-  (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
-    (are [parent-ids child-ids]
-      (= child-ids (sg-utils/find-child-ids semantic-graph parent-ids))
-      #{:01} #{:02}
-      #{:02} #{:03}
-      #{:03} #{:04 :05 :08}
-      #{:04 :05} #{:06 :07}
-      #{:06 :07} #{}
-      #{:08} #{}
-      #{} #{})))
-
 (deftest descendant-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [parent-ids descendant-ids]

@@ -1,0 +1,5 @@
+{:type "AdV",
+ :description "adverb directly attached to verb",
+ :module "Syntax",
+ :functions
+ [{:function "always_AdV", :type ["AdV"], :example "always"}]}

@@ -1,0 +1,10 @@
+{:type "Temp",
+ :description "temporal and aspectual features",
+ :module "Syntax",
+ :functions
+ [{:function "mkTemp",
+   :type ["Tense" "Ant" "Temp"],
+   :example "e.g. past + anterior"}
+  {:function "conditionalTense",
+   :type ["Tense"],
+   :example "she would sleep"}]}

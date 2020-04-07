@@ -1,0 +1,66 @@
+#:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
+                                          {:from :02 :to :03 :role :instance :index 0}
+                                          {:from :02 :to :07 :role :instance :index 1}
+                                          {:from :02 :to :11 :role :instance :index 2}
+                                          {:from :02 :to :15 :role :instance :index 3}
+                                          {:from :02 :to :19 :role :instance :index 4}
+                                          {:from :02 :to :23 :role :instance :index 5}
+                                          {:from :03 :to :04 :role :arg :index 0 :category "Str" :name "item"}
+                                          {:from :04 :to :05 :role :child}
+                                          {:from :04 :to :06 :role :modifier :index 0}
+                                          {:from :07 :to :08 :role :arg :index 0 :category "Str" :name "item"}
+                                          {:from :08 :to :09 :role :child}
+                                          {:from :08 :to :10 :role :modifier :index 0}
+                                          {:from :11 :to :12 :role :arg :index 0 :category "Str" :name "item"}
+                                          {:from :12 :to :13 :role :child}
+                                          {:from :12 :to :14 :role :modifier :index 0}
+                                          {:from :15 :to :16 :role :arg :index 0 :category "Str" :name "item"}
+                                          {:from :16 :to :17 :role :child}
+                                          {:from :16 :to :18 :role :modifier :index 0}
+                                          {:from :19 :to :20 :role :arg :index 0 :category "Str" :name "item"}
+                                          {:from :20 :to :21 :role :child}
+                                          {:from :20 :to :22 :role :modifier :index 0}
+                                          {:from :23 :to :24 :role :arg :index 0 :category "Str" :name "item"}
+                                          {:from :24 :to :25 :role :child}
+                                          {:from :24 :to :26 :role :modifier :index 0})
+                              :concepts  ({:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :amr :name "hERvMWwdMLUrgzAq"}
+                                          {:id :04 :type :modifier}
+                                          {:id    :05
+                                           :type  :dictionary-item
+                                           :name  "dcc836af-a876-423d-aa60-1caf1b403b6f"
+                                           :label "fridge"}
+                                          {:id    :06
+                                           :type  :dictionary-item
+                                           :name  "c2e00e92-f331-4c4f-abb6-93dcbf6af21a"
+                                           :label "quiet"}
+                                          {:id :07 :type :amr :name "hERvMWwdMLUrgzAq"}
+                                          {:id :08 :type :modifier}
+                                          {:id :09 :type :data :name "kettle"}
+                                          {:id :10 :type :data :name "cheap"}
+                                          {:id :11 :type :amr :name "hERvMWwdMLUrgzAq"}
+                                          {:id :12 :type :modifier}
+                                          {:id :13 :type :data :name "kettle"}
+                                          {:id    :14
+                                           :type  :dictionary-item
+                                           :name  "c2e00e92-f331-4c4f-abb6-93dcbf6af21a"
+                                           :label "quiet"}
+                                          {:id :15 :type :amr :name "hERvMWwdMLUrgzAq"}
+                                          {:id :16 :type :modifier}
+                                          {:id    :17
+                                           :type  :dictionary-item
+                                           :name  "dcc836af-a876-423d-aa60-1caf1b403b6f"
+                                           :label "fridge"}
+                                          {:id :18 :type :data :name "cheap"}
+                                          {:id :19 :type :amr :name "hERvMWwdMLUrgzAq"}
+                                          {:id :20 :type :modifier}
+                                          {:id :21 :type :quote :value "fan"}
+                                          {:id    :22
+                                           :type  :dictionary-item
+                                           :name  "c2e00e92-f331-4c4f-abb6-93dcbf6af21a"
+                                           :label "quiet"}
+                                          {:id :23 :type :amr :name "hERvMWwdMLUrgzAq"}
+                                          {:id :24 :type :modifier}
+                                          {:id :25 :type :quote :value "lamp"}
+                                          {:id :26 :type :data :name "cheap"})}

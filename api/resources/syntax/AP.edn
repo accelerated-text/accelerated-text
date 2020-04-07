@@ -1,0 +1,38 @@
+{:type "AP",
+ :description "adjectival phrase",
+ :module "Syntax",
+ :functions
+ [{:function "comparAP", :type ["A" "AP"], :example "warmer"}
+  {:function "mkAP", :type ["A" "AP"], :example "warm"}
+  {:function "mkAP",
+   :type ["A" "NP" "AP"],
+   :example "warmer than Paris"}
+  {:function "mkAP", :type ["A2" "NP" "AP"], :example "married to her"}
+  {:function "mkAP", :type ["A2" "AP"], :example "married"}
+  {:function "mkAP",
+   :type ["AP" "S" "AP"],
+   :example "it is good that she sleeps"}
+  {:function "mkAP",
+   :type ["AP" "QS" "AP"],
+   :example "it is uncertain who sleeps"}
+  {:function "mkAP",
+   :type ["AP" "VP" "AP"],
+   :example "she is ready to sleep"}
+  {:function "mkAP",
+   :type ["AP" "SC" "AP"],
+   :example "she is ready to sleep"}
+  {:function "mkAP", :type ["AdA" "A" "AP"], :example "very old"}
+  {:function "mkAP", :type ["AdA" "AP" "AP"], :example "very very old"}
+  {:function "mkAP",
+   :type ["Conj" "AP" "AP" "AP"],
+   :example "old or young"}
+  {:function "mkAP",
+   :type ["Conj" "ListAP" "AP"],
+   :example "old, big and warm"}
+  {:function "mkAP", :type ["Ord" "AP"], :example "oldest"}
+  {:function "mkAP",
+   :type ["CAdv" "AP" "NP" "AP"],
+   :example "as old as she"}
+  {:function "reflAP",
+   :type ["A2" "AP"],
+   :example "married to itself"}]}

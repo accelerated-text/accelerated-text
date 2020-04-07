@@ -28,8 +28,7 @@ export const getVariants = async ({ dataId, documentPlanId, readerFlagValues }) 
     const { resultId } = await nlgApi.POST( `${ PREFIX }/`, {
         dataId,
         documentPlanId,
-        readerFlagValues,
-        enrich: true,
+        readerFlagValues
     });
 
     return new Promise(( resolve, reject ) =>

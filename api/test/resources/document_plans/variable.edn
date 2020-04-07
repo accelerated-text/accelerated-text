@@ -1,9 +1,0 @@
-{:type     "Document-plan"
- :segments [{:name  "b:Nz/Z%:#nEpCR)sysFa"
-             :value {:type "Quote" :srcId "z29g0)wyl;ugPPJHDW@" :text "some text"}
-             :type  "Define-var"
-             :srcId "%KoDBvMs1rNF+]{D6Ol"}
-            {:children [{:name "b:Nz/Z%:#nEpCR)sysFa" :type "Get-var" :srcId "H#b_.6Xj?TkL6nLuzl3;"}]
-             :type     "Segment"
-             :srcId    ":%wlg-mFHp$y{aYiwbs`"}]
- :srcId    "Y?Xr3n==_qrCWm#7?epZ"}

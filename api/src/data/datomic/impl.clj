@@ -1,5 +1,9 @@
 (ns data.datomic.impl
-  (:require [api.config :refer [conf]]
+  (:require [data.spec.result :as result]
+            [data.spec.result.row :as result-row]
+            [data.spec.result.annotation :as result-annotation]
+            [acc-text.nlg.dictionary.item :as dictionary-item]
+            [api.config :refer [conf]]
             [clojure.tools.logging :as log]
             [data.protocol :as protocol]
             [datomic.api :as d]
@@ -26,11 +30,14 @@
                       :data-file/filename (:filename data-item)
                       :data-file/content  (:content data-item)}]))
 
+(defn prepare-reader-flag [flag value]
+  {:reader-flag/id    (gen-uuid)
+   :reader-flag/name  flag
+   :reader-flag/value value})
+
 (defn prepare-reader-flags [flags]
   (for [[flag value] flags]
-    {:reader-flag/id    (gen-uuid)
-     :reader-flag/name  flag
-     :reader-flag/value value}))
+    (prepare-reader-flag flag value)))
 
 (defn prepare-dictionary-item [key data-item]
   {:db/id                            [:dictionary-combined/id key]
@@ -51,11 +58,53 @@
     (assoc data-item :key key)
     (catch Exception e (.printStackTrace e))))
 
-(defmethod transact-item :results [_ key data-item]
-  @(d/transact conn [(remove-nil-vals
-                       {:results/id    key
-                        :results/ts    (ts-now)
-                        :results/ready (:ready data-item)})]))
+(defmethod transact-item :results [_ _ data-item]
+  @(d/transact conn [(assoc data-item ::result/timestamp (ts-now))]))
+
+(defn prepare-multilang-dict [id {::dictionary-item/keys [key category language forms sense definition attributes]}]
+  {:db/id                           [:dictionary-multilang/id id]
+   :dictionary-multilang/id         id
+   :dictionary-multilang/key        key
+   :dictionary-multilang/category   category
+   :dictionary-multilang/language   language
+   :dictionary-multilang/sense      sense
+   :dictionary-multilang/definition definition
+   :dictionary-multilang/forms      (map (fn [form]
+                                           {:form/id    (gen-uuid)
+                                            :form/value form})
+                                         forms)
+   :dictionary-multilang/attributes (map (fn [[k v]]
+                                           {:attribute/id    (gen-uuid)
+                                            :attribute/key   k
+                                            :attribute/value v})
+                                         attributes)})
+
+(defn read-multilang-dict-item [{:dictionary-multilang/keys [id key category language forms sense definition attributes]}]
+  (remove-nil-vals
+    {::dictionary-item/id         id
+     ::dictionary-item/key        key
+     ::dictionary-item/category   category
+     ::dictionary-item/language   language
+     ::dictionary-item/sense      sense
+     ::dictionary-item/definition definition
+     ::dictionary-item/forms      (mapv :form/value forms)
+     ::dictionary-item/attributes (when (seq attributes)
+                                    (reduce (fn [m {:attribute/keys [key value]}]
+                                              (assoc m key value))
+                                            {}
+                                            attributes))}))
+
+(defmethod transact-item :dictionary-multilang [_ key data-item]
+  (try
+    @(d/transact conn [(remove-nil-vals
+                         (dissoc (prepare-multilang-dict key data-item) :db/id))])
+    (catch Exception e (.printStackTrace e))))
+
+(defmethod transact-item :reader-flag [_ key value]
+  (try
+    @(d/transact conn [(remove-nil-vals
+                         (dissoc (prepare-reader-flag key value) :db/id))])
+    (catch Exception e (.printStackTrace e))))
 
 (defn prepare-rgl-syntax-params [params]
   (->> params
@@ -79,25 +128,26 @@
        (remove empty?)))
 
 (defn prepare-rgl [key {:keys [name label module kind roles frames]}]
-  {:db/id      [:rgl/id key]
-   :rgl/id     key
-   :rgl/kind   kind
-   :rgl/roles  (->> roles
-                    (map (fn [{:keys [type label input]}]
-                           (remove-nil-vals
-                             {:role/type  type
-                              :role/label label
-                              :role/input input})))
-                    (remove empty?))
-   :rgl/label  label
-   :rgl/name   name
-   :rgl/module module
-   :rgl/frames (->> frames
-                    (map (fn [{:keys [examples syntax]}]
-                           (remove-nil-vals
-                             {:frame/examples (seq examples)
-                              :frame/syntax   (prepare-rgl-syntax syntax)})))
-                    (remove empty?))})
+  (remove-nil-vals
+    {:db/id      [:rgl/id key]
+     :rgl/id     key
+     :rgl/kind   kind
+     :rgl/roles  (->> roles
+                      (map (fn [{:keys [type label input]}]
+                             (remove-nil-vals
+                               {:role/type  type
+                                :role/label label
+                                :role/input input})))
+                      (remove empty?))
+     :rgl/label  label
+     :rgl/name   name
+     :rgl/module module
+     :rgl/frames (->> frames
+                      (map (fn [{:keys [examples syntax]}]
+                             (remove-nil-vals
+                               {:frame/examples (seq examples)
+                                :frame/syntax   (prepare-rgl-syntax syntax)})))
+                      (remove empty?))}))
 
 (defmethod transact-item :rgl [_ key data-item]
   (try
@@ -148,22 +198,29 @@
                                    :flags (restore-reader-flags (:phrase/flags phrase))})
                      (:dictionary-combined/phrases dictionary-entry))})))
 
+(defmethod pull-entity :dictionary-multilang [_ key]
+  (when-let [item (ffirst (d/q '[:find (pull ?e [*])
+                                 :in $ ?key
+                                 :where [?e :dictionary-multilang/id ?key]]
+                               (d/db conn)
+                               key))]
+    (read-multilang-dict-item item)))
+
 (defmethod pull-entity :results [_ key]
-  (let [entity (->> (d/q '[:find (pull ?e [*])
-                           :where
-                           [?e :results/id ?key]]
-                         (d/db conn)
-                         key)
-                    (flatten)
-                    (filter (comp (partial = key) :results/id))
-                    (sort-by :results/ts #(compare %2 %1))
-                    (first))]
-    (when entity
-      {:id      key
-       :ready   (:results/ready entity)
-       :error   (:results/error entity)
-       :message (:results/message entity)
-       :results (decode-results (:results/results entity))})))
+  (d/pull
+    (d/db conn)
+    [::result/id
+     ::result/status
+     ::result/error-message
+     ::result/timestamp
+     {::result/rows [::result-row/id
+                     ::result-row/text
+                     ::result-row/language
+                     ::result-row/enriched?
+                     {::result-row/annotations [::result-annotation/id
+                                                ::result-annotation/idx
+                                                ::result-annotation/text]}]}]
+    [::result/id key]))
 
 (defn read-rgl-entity [entity]
   {:id     (:rgl/id entity)
@@ -238,6 +295,13 @@
                           :where [?e :dictionary-combined/id]]
                         (d/db conn)))))
 
+
+(defmethod pull-n :dictionary-multilang [_ limit]
+  (take limit (map (fn [[item]] (read-multilang-dict-item item))
+                   (d/q '[:find (pull ?e [*])
+                          :where [?e :dictionary-multilang/id]]
+                        (d/db conn)))))
+
 (defmethod pull-n :rgl [_ limit]
   (take limit (map (fn [[item]]
                      (read-rgl-entity item))
@@ -255,10 +319,35 @@
   (log/warnf "Default implementation of SCAN for the '%s' with key '%s'" resource-type opts)
   (throw (RuntimeException. (format "DATOMIC SCAN FOR '%s' NOT IMPLEMENTED" resource-type))))
 
+(defn query-multilang-dictionary [keys languages]
+  (if (seq languages)
+    (d/q '[:find (pull ?e [*])
+           :in $ [?keys ?languages]
+           :where [?e :dictionary-multilang/key ?key]
+           [?e :dictionary-multilang/language ?language]
+           [(contains? ?languages ?language)]
+           [(contains? ?keys ?key)]]
+         (d/db conn)
+         [(set keys) (set languages)])
+    (d/q '[:find (pull ?e [*])
+           :in $ ?keys
+           :where [?e :dictionary-multilang/key ?key]
+           [(contains? ?keys ?key)]]
+         (d/db conn)
+         (set keys))))
+
+(defmethod scan :dictionary-multilang [_ {:keys [keys languages]}]
+  (map (fn [[item]] (read-multilang-dict-item item))
+       (query-multilang-dictionary keys languages)))
+
 (defmulti delete (fn [resource-type _] resource-type))
 
 (defmethod delete :dictionary-combined [_ key]
   @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]])
+  nil)
+
+(defmethod delete :dictionary-multilang [_ key]
+  @(d/transact conn [[:db.fn/retractEntity [:dictionary-multilang/id key]]])
   nil)
 
 (defmethod delete :rgl [_ key]
@@ -271,19 +360,18 @@
 
 (defmulti update! (fn [resource-type _ _] resource-type))
 
-(defmethod update! :results [_ key data-item]
-  @(d/transact conn [(remove-nil-vals
-                       {:db/id           [:results/id key]
-                        :results/ready   (:ready data-item)
-                        :results/error   (:error data-item)
-                        :results/results (encode-results (:results data-item))
-                        :results/message (:message data-item)
-                        :results/ts      (ts-now)})]))
-
 (defmethod update! :dictionary-combined [resource-type key data-item]
   (try
     @(d/transact conn [[:db.fn/retractEntity [:dictionary-combined/id key]]])
     @(d/transact conn [(remove-nil-vals (dissoc (prepare-dictionary-item key data-item) :db/id))])
+    (catch Exception e
+      (log/errorf "Error %s with data %s" e val)))
+  (pull-entity resource-type key))
+
+(defmethod update! :dictionary-multilang [resource-type key data-item]
+  (try
+    @(d/transact conn [[:db.fn/retractEntity [:dictionary-multilang/id key]]])
+    @(d/transact conn [(remove-nil-vals (dissoc (prepare-multilang-dict key data-item) :db/id))])
     (catch Exception e
       (log/errorf "Error %s with data %s" e val)))
   (pull-entity resource-type key))

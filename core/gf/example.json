@@ -1,1 +1,0 @@
-{"content": "Pred.  S  ::= NP VP;\nCompl. VP ::= V2 NP;\nJohn.  NP ::= \"John\";\nMary.  NP ::= \"Mary\";\nLove.  V2 ::= \"loves\";\n"}

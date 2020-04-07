@@ -3,12 +3,13 @@ import json
 import argparse
 import subprocess
 
+from io import open
+
 from wsgiref.util import setup_testing_defaults
 from wsgiref.simple_server import make_server
 
 from backports.tempfile import TemporaryDirectory
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("GF")
 
 
@@ -28,8 +29,8 @@ def compile_grammar(name, content):
                  for k in content.keys()
                  if k != name]
         for k, v in content.items():
-            with open("{0}/{1}.gf".format(tmpdir, k), "w") as f:
-                f.write(v)
+            with open("{0}/{1}.gf".format(tmpdir, k), "w", encoding="UTF-8") as f:
+                f.write(v.decode('utf-8'))
         
         logger.info("Compiling")
         cmd = "gf -i /opt/gf/lang-utils/ -i /opt/gf/concept-net/ --output-dir={path} -make {files} {main}".format(
@@ -149,6 +150,10 @@ def application(environ, start_response, data):
 
 def main(args):
     httpd = make_server("", args.port, application)
+    if args.debug:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
     logger.info("Serving on port: {}".format(args.port))
     try:
         httpd.serve_forever()
@@ -159,5 +164,6 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--debug", action="store_true")
     parser.add_argument("--port", default=8000, type=int, help="Server port")
     main(parser.parse_args())

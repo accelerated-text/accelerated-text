@@ -1,0 +1,4 @@
+{:type "VA",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions [{:function "mkVA", :type ["V" "VA"], :example "-"}]}

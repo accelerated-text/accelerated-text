@@ -1,0 +1,11 @@
+{:type "Sub100",
+ :description "",
+ :module "Syntax",
+ :functions
+ [{:function "mkSub100", :type ["Unit" "Sub100"], :example "eight"}
+  {:function "mkSub100",
+   :type ["Unit" "Unit" "Sub100"],
+   :example "..."}
+  {:function "tenfoldSub100",
+   :type ["Unit" "Sub100"],
+   :example "eight"}]}

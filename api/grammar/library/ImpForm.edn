@@ -1,9 +1,0 @@
-{:type "ImpForm",
- :description "",
- :module "SyntaxEng",
- :functions
- [{:function "pluralImpForm", :type ["ImpForm"], :example "be men"}
-  {:function "politeImpForm", :type ["ImpForm"], :example "be a man"}
-  {:function "singularImpForm",
-   :type ["ImpForm"],
-   :example "be a man"}]}

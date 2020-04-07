@@ -1,0 +1,86 @@
+{:type "QCl",
+ :description "question clause, with all tenses",
+ :module "Syntax",
+ :functions
+ [{:function "mkQCl", :type ["Cl" "QCl"], :example "does she sleep"}
+  {:function "mkQCl",
+   :type ["IP" "VP" "QCl"],
+   :example "who always sleeps"}
+  {:function "mkQCl", :type ["IP" "V" "QCl"], :example "who sleeps"}
+  {:function "mkQCl",
+   :type ["IP" "V2" "NP" "QCl"],
+   :example "who loves her"}
+  {:function "mkQCl",
+   :type ["IP" "V3" "NP" "NP" "QCl"],
+   :example "who sends it to her"}
+  {:function "mkQCl",
+   :type ["IP" "VV" "VP" "QCl"],
+   :example "who wants to sleep"}
+  {:function "mkQCl",
+   :type ["IP" "VS" "S" "QCl"],
+   :example "who says that I sleep"}
+  {:function "mkQCl",
+   :type ["IP" "VQ" "QS" "QCl"],
+   :example "who wonders who sleeps"}
+  {:function "mkQCl",
+   :type ["IP" "VA" "A" "QCl"],
+   :example "who becomes old"}
+  {:function "mkQCl",
+   :type ["IP" "VA" "AP" "QCl"],
+   :example "who becomes very old"}
+  {:function "mkQCl",
+   :type ["IP" "V2A" "NP" "A" "QCl"],
+   :example "who paints it red"}
+  {:function "mkQCl",
+   :type ["IP" "V2A" "NP" "AP" "QCl"],
+   :example "who paints it very red"}
+  {:function "mkQCl",
+   :type ["IP" "V2S" "NP" "S" "QCl"],
+   :example "who answers to him that we sleep"}
+  {:function "mkQCl",
+   :type ["IP" "V2Q" "NP" "QS" "QCl"],
+   :example "who asks him who sleeps"}
+  {:function "mkQCl",
+   :type ["IP" "V2V" "NP" "VP" "QCl"],
+   :example "who begs him to sleep"}
+  {:function "mkQCl", :type ["IP" "A" "QCl"], :example "who is old"}
+  {:function "mkQCl",
+   :type ["IP" "A" "NP" "QCl"],
+   :example "who is older than he"}
+  {:function "mkQCl",
+   :type ["IP" "A2" "NP" "QCl"],
+   :example "who is married to him"}
+  {:function "mkQCl",
+   :type ["IP" "AP" "QCl"],
+   :example "who is very old"}
+  {:function "mkQCl",
+   :type ["IP" "NP" "QCl"],
+   :example "who is the woman"}
+  {:function "mkQCl",
+   :type ["IP" "N" "QCl"],
+   :example "who is a woman"}
+  {:function "mkQCl",
+   :type ["IP" "CN" "QCl"],
+   :example "who is an old woman"}
+  {:function "mkQCl", :type ["IP" "Adv" "QCl"], :example "who is here"}
+  {:function "mkQCl",
+   :type ["IP" "NP" "V2" "QCl"],
+   :example "who is her"}
+  {:function "mkQCl",
+   :type ["IP" "ClSlash" "QCl"],
+   :example "whom does she love today"}
+  {:function "mkQCl",
+   :type ["IAdv" "Cl" "QCl"],
+   :example "why does she sleep"}
+  {:function "mkQCl",
+   :type ["Prep" "IP" "Cl" "QCl"],
+   :example "with whom does she sleep"}
+  {:function "mkQCl",
+   :type ["IAdv" "NP" "QCl"],
+   :example "where is she"}
+  {:function "mkQCl",
+   :type ["IComp" "NP" "QCl"],
+   :example "who is this man"}
+  {:function "mkQCl",
+   :type ["IP" "QCl"],
+   :example "which city is there"}]}

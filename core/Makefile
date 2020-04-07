@@ -13,7 +13,10 @@ integration-tests:
 gf:
 	/usr/bin/gf -i gf/lang-utils
 
-
 clean-gf-comple-files:
 	find . -name "*.gfo" -exec rm -rf {} \;
 	find . -name "*.pgf" -exec rm -rf {} \;
+
+test-gf-service:
+	cd gf && docker build -t gf .
+	docker run gf pytest test.py

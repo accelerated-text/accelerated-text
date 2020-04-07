@@ -1,0 +1,137 @@
+{:amr        {"hERvMWwdMLUrgzAq"        {:id             "hERvMWwdMLUrgzAq"
+                                         :label          "modifier-test"
+                                         :kind           "Str"
+                                         :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                                    :to    :02
+                                                                                                    :role  :segment
+                                                                                                    :index 0}
+                                                                                                   {:from  :02
+                                                                                                    :to    :03
+                                                                                                    :role  :instance
+                                                                                                    :index 0}
+                                                                                                   {:from     :03
+                                                                                                    :to       :04
+                                                                                                    :role     :arg
+                                                                                                    :index    0
+                                                                                                    :category "N"
+                                                                                                    :name     "item"}
+                                                                                                   {:from     :04
+                                                                                                    :to       :05
+                                                                                                    :role     :arg
+                                                                                                    :index    0
+                                                                                                    :category "Str"})
+                                                                                       :concepts  ({:id :01 :type :document-plan}
+                                                                                                   {:id :02 :type :segment}
+                                                                                                   {:id   :03
+                                                                                                    :type :amr
+                                                                                                    :name "zgmGHVJqlEiGlKbZ"}
+                                                                                                   {:id   :04
+                                                                                                    :type :amr
+                                                                                                    :name "ParadigmsEng.mkN/Str->N"}
+                                                                                                   {:id   :05
+                                                                                                    :type :reference
+                                                                                                    :name "item"})}
+                                         :frames         [{:examples []}]
+                                         :roles          [{:id "ARG0" :label "item" :type "Str"}]}
+              "zgmGHVJqlEiGlKbZ"        {:id             "zgmGHVJqlEiGlKbZ"
+                                         :label          "modifier-test"
+                                         :kind           "Str"
+                                         :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                                    :to    :02
+                                                                                                    :role  :segment
+                                                                                                    :index 0}
+                                                                                                   {:from  :02
+                                                                                                    :to    :03
+                                                                                                    :role  :instance
+                                                                                                    :index 0}
+                                                                                                   {:from     :03
+                                                                                                    :to       :04
+                                                                                                    :role     :arg
+                                                                                                    :index    0
+                                                                                                    :category "Cl"}
+                                                                                                   {:from     :04
+                                                                                                    :to       :05
+                                                                                                    :role     :arg
+                                                                                                    :index    0
+                                                                                                    :category "CN"}
+                                                                                                   {:from     :05
+                                                                                                    :to       :06
+                                                                                                    :role     :arg
+                                                                                                    :index    0
+                                                                                                    :category "N"})
+                                                                                       :concepts  ({:id :01 :type :document-plan}
+                                                                                                   {:id :02 :type :segment}
+                                                                                                   {:id   :03
+                                                                                                    :type :amr
+                                                                                                    :name "Syntax.mkText/Cl->Text"}
+                                                                                                   {:id   :04
+                                                                                                    :type :amr
+                                                                                                    :name "Syntax.mkCl/CN->Cl"}
+                                                                                                   {:id   :05
+                                                                                                    :type :amr
+                                                                                                    :name "Syntax.mkCN/N->CN"}
+                                                                                                   {:id   :06
+                                                                                                    :type :reference
+                                                                                                    :name "item"})}
+                                         :frames         [{:examples []}]
+                                         :roles          [{:id "ARG0" :label "item" :type "N"}]}
+              "Syntax.mkCN/N->CN"       {:id     "Syntax.mkCN/N->CN"
+                                         :kind   "CN"
+                                         :name   "N -> CN"
+                                         :label  "mkCN"
+                                         :module "Syntax"
+                                         :roles  ({:type "N" :label "N"})
+                                         :frames ({:examples ["house"]
+                                                   :syntax   ({:ret    "CN"
+                                                               :value  "Syntax.mkCN"
+                                                               :params ({:id "ARG0" :type "N"})
+                                                               :type   :oper})})}
+              "Syntax.mkText/Cl->Text"  {:id     "Syntax.mkText/Cl->Text"
+                                         :kind   "Text"
+                                         :name   "Cl -> Text"
+                                         :label  "mkText"
+                                         :module "Syntax"
+                                         :roles  ({:type "Cl" :label "Cl"})
+                                         :frames ({:examples ["she sleeps."]
+                                                   :syntax   ({:ret    "Text"
+                                                               :value  "Syntax.mkText"
+                                                               :params ({:id "ARG0" :type "Cl"})
+                                                               :type   :oper})})}
+              "Syntax.mkCl/CN->Cl"      {:id     "Syntax.mkCl/CN->Cl"
+                                         :kind   "Cl"
+                                         :name   "CN -> Cl"
+                                         :label  "mkCl"
+                                         :module "Syntax"
+                                         :roles  ({:type "CN" :label "CN"})
+                                         :frames ({:examples ["there is an old house"]
+                                                   :syntax   ({:ret    "Cl"
+                                                               :value  "Syntax.mkCl"
+                                                               :params ({:id "ARG0" :type "CN"})
+                                                               :type   :oper})})}
+              "ParadigmsEng.mkN/Str->N" {:id     "ParadigmsEng.mkN/Str->N"
+                                         :kind   "N"
+                                         :name   "Str -> N"
+                                         :label  "mkN"
+                                         :module "ParadigmsEng"
+                                         :roles  ({:type "Str" :label "Str"})
+                                         :frames ({:examples ["plural s incl. flash-flashes fly-flies"]
+                                                   :syntax   ({:ret    "N"
+                                                               :value  "ParadigmsEng.mkN"
+                                                               :params ({:id "ARG0" :type "Str"})
+                                                               :type   :oper})})}}
+ :data       {:kettle "kettle" :cheap "cheap"}
+ :dictionary {"quiet"  #:acc-text.nlg.dictionary.item{:id       "c2e00e92-f331-4c4f-abb6-93dcbf6af21a"
+                                                      :key      "quiet"
+                                                      :category "A"
+                                                      :language "Eng"
+                                                      :forms    ["quiet" "quieter"]}
+              "fridge" #:acc-text.nlg.dictionary.item{:id       "dcc836af-a876-423d-aa60-1caf1b403b6f"
+                                                      :key      "fridge"
+                                                      :category "N"
+                                                      :language "Eng"
+                                                      :forms    ["fridge" "fridges"]}
+              "kettle" #:acc-text.nlg.dictionary.item{:id       "b4802a27-e10b-4bdc-a2e9-ebcc52637d71"
+                                                      :key      "kettle"
+                                                      :category "N"
+                                                      :language "Eng"
+                                                      :forms    ["kettle" "kettles"]}}}

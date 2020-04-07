@@ -125,5 +125,8 @@ query concepts {
         ParadigmsRus {
             ...conceptFields
         }
+        ParadigmsSpa {
+            ...conceptFields
+        }
     }
 }

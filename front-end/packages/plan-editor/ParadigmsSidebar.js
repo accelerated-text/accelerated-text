@@ -6,6 +6,7 @@ import ParadigmsEstConcepts from '../amr-concepts/ParadigmsEstConcepts';
 import ParadigmsGerConcepts from '../amr-concepts/ParadigmsGerConcepts';
 import ParadigmsLavConcepts from '../amr-concepts/ParadigmsLavConcepts';
 import ParadigmsRusConcepts from '../amr-concepts/ParadigmsRusConcepts';
+import ParadigmsSpaConcepts from '../amr-concepts/ParadigmsSpaConcepts';
 import composeContexts      from '../compose-contexts/';
 import Dictionary           from '../dictionary/Dictionary';
 import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
@@ -40,6 +41,9 @@ export default composeContexts({
         </SidebarItem>
         <SidebarItem title="Russian">
             <ParadigmsRusConcepts />
+        </SidebarItem>
+        <SidebarItem title="Spanish">
+            <ParadigmsSpaConcepts />
         </SidebarItem>
         <SidebarItem title="RGL">
             <ParadigmsConcepts />

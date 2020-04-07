@@ -1,3 +1,0 @@
-{:type "Document-plan"
- :segments [{:type "Segment"
-             :children [{:text "this is a very good book: {{TITLE}}" :type "Quote"}]}]}

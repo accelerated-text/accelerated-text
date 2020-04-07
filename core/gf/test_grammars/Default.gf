@@ -1,0 +1,20 @@
+abstract Default = {
+    flags
+        startcat = DocumentPlan01 ;
+    cat
+        DocumentPlan01 ;
+        Segment02 ;
+        Frame03 ;
+        Frame04 ;
+        Operation05 ;
+        Operation06 ;
+        Operation07 ;
+    fun
+        Function01 : Segment02 -> DocumentPlan01 ;
+        Function02 : Frame03 -> Segment02 ;
+        Function03 : Frame04 -> Frame03 ;
+        Function04 : Operation05 -> Frame04 ;
+        Function05 : Operation06 -> Operation05 ;
+        Function06 : Operation07 -> Operation06 ;
+        Function07 : Operation07 ;
+}

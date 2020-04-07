@@ -1,5 +1,5 @@
 (ns api.graphql.data-test
-  (:require [api.test-utils :refer [q]]
+  (:require [api.test-utils :refer [q load-data-file]]
             [api.db-fixtures :as db]
             [clojure.string :as str]
             [clojure.test :refer [deftest is use-fixtures testing]]
@@ -20,7 +20,7 @@
           {{{{id :id :as df} :createDataFile} :data errors :errors} :body}
           (q "/_graphql" :post {:query     query
                                 :variables {:filename "books.csv"
-                                            :content  (slurp "test/resources/accelerated-text-data-files/books.csv")}})]
+                                            :content  (slurp "test/resources/data-files/books.csv")}})]
       (is (nil? errors))
       (is (= #{:id} (set (keys df))))
       (is (string? id))
@@ -47,11 +47,7 @@
 
 (deftest ^:integration reading-data-file-contents
   (testing "Read books.csv headers"
-    (let [data-file-id (data-files/store!
-                         {:filename "books.csv"
-                          :content  (slurp "test/resources/accelerated-text-data-files/books.csv")})
+    (let [data-file-id (load-data-file "books.csv")
           result (data-files/read-data-file-content nil data-file-id)
           headers (-> result (str/split-lines) (first) (str/split #",") (set))]
-      (is (= #{"pageCount" "publishedDate" "ratingsCount" "authors" "maturityRating"
-               "id" "categories" "averageRating" "thumbnail" "subtitle"
-               "title" "publisher" "language" "isbn-13"} headers)))))
+      (is (= #{"authors" "categories" "pageCount" "publishedDate" "publisher" "subtitle" "title"} headers)))))

@@ -1,0 +1,20 @@
+{:type "N",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkN",
+   :type ["Str" "N"],
+   :example
+   "predictable; feminine for \"-a\"/\"-z\", otherwise masculine"}
+  {:function "mkN",
+   :type ["Str" "Gender" "N"],
+   :example "force gender"}
+  {:function "mkN",
+   :type ["Str" "Str" "Gender" "N"],
+   :example "worst case (baston, bastones)"}
+  {:function "mkN",
+   :type ["N" "Str" "N"],
+   :example "compound, e.g. \"número\" + \"de teléfono\""}
+  {:function "compN",
+   :type ["N" "Str" "N"],
+   :example "compound, e.g. \"número\" + \"de teléfono\""}]}

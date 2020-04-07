@@ -1,9 +1,0 @@
-{:type "AdA",
- :description "adjective-modifying adverb",
- :module "SyntaxEng",
- :functions
- [{:function "almost_AdA", :type ["AdA"], :example "almost red"}
-  {:function "quite_Adv", :type ["AdA"], :example "quite"}
-  {:function "so_AdA", :type ["AdA"], :example "so warm"}
-  {:function "too_AdA", :type ["AdA"], :example "too warm"}
-  {:function "very_AdA", :type ["AdA"], :example "very warm"}]}

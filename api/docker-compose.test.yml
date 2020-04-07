@@ -6,21 +6,25 @@ services:
       context: ../
       dockerfile: api/Dockerfile
     environment:
-      DYNAMODB_ENDPOINT: http://localstack:4569
-      GF_ENDPOINT: http://gf:8000
-      GRAMMAR_PACKAGE: "/opt/grammar/library"
-      GRAMMAR_PARADIGMS: "/opt/grammar/paradigms"
+      GF_ENDPOINT: "http://gf:8000"
+      ENABLE_ENRICH: "FALSE"
       ENRICH_ENDPOINT: "http://enrich:8000"
-      DICT_PATH: "/opt/grammar/dictionary"
-      DOCUMENT_PLANS: "/opt/grammar/document-plans"
+      DB_IMPLEMENTATION: "datomic"
+      GRAMMAR_SYNTAX: "/opt/syntax"
+      GRAMMAR_PARADIGMS: "/opt/paradigms"
+      DATA_FILES: "/opt/data-files"
+      DICT_PATH: "/opt/dictionary"
+      DOCUMENT_PLANS: "/opt/document-plans"
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
-      - ./grammar:/opt/grammar
+      - ./resources/syntax:/opt/syntax
+      - ./resources/paradigms:/opt/paradigms
+      - ./test/resources/data-files:/opt/data-files
+      - ./test/resources/dictionary:/opt/dictionary
+      - ./test/resources/document-plans:/opt/document-plans
   gf:
     build:
-      context: ../
-      dockerfile: core/gf/Dockerfile
+      context: ../core/gf
   enrich:
     build:
-      context: ../
-      dockerfile: core/enrich/Dockerfile
+      context: ../enrich

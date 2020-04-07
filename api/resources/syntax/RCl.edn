@@ -1,0 +1,79 @@
+{:type "RCl",
+ :description "relative clause, with all tenses",
+ :module "Syntax",
+ :functions
+ [{:function "mkRCl",
+   :type ["RP" "VP" "RCl"],
+   :example "woman that always sleeps"}
+  {:function "mkRCl",
+   :type ["RP" "V" "RCl"],
+   :example "woman that sleeps"}
+  {:function "mkRCl",
+   :type ["RP" "V2" "NP" "RCl"],
+   :example "woman that loves him"}
+  {:function "mkRCl",
+   :type ["RP" "V3" "NP" "NP" "RCl"],
+   :example "woman that sends it to him"}
+  {:function "mkRCl",
+   :type ["RP" "VV" "VP" "RCl"],
+   :example "woman that wants to sleep"}
+  {:function "mkRCl",
+   :type ["RP" "VS" "S" "RCl"],
+   :example "woman that says that I sleep"}
+  {:function "mkRCl",
+   :type ["RP" "VQ" "QS" "RCl"],
+   :example "woman that wonders who sleeps"}
+  {:function "mkRCl",
+   :type ["RP" "VA" "A" "RCl"],
+   :example "woman that becomes old"}
+  {:function "mkRCl",
+   :type ["RP" "VA" "AP" "RCl"],
+   :example "woman that becomes very old"}
+  {:function "mkRCl",
+   :type ["RP" "V2A" "NP" "A" "RCl"],
+   :example "woman that paints it red"}
+  {:function "mkRCl",
+   :type ["RP" "V2A" "NP" "AP" "RCl"],
+   :example "woman that paints it very red"}
+  {:function "mkRCl",
+   :type ["RP" "V2S" "NP" "S" "RCl"],
+   :example "woman that answers to him that we sleep"}
+  {:function "mkRCl",
+   :type ["RP" "V2Q" "NP" "QS" "RCl"],
+   :example "woman that asks him who sleeps"}
+  {:function "mkRCl",
+   :type ["RP" "V2V" "NP" "VP" "RCl"],
+   :example "woman that begs him to sleep"}
+  {:function "mkRCl",
+   :type ["RP" "A" "RCl"],
+   :example "woman that is old"}
+  {:function "mkRCl",
+   :type ["RP" "A" "NP" "RCl"],
+   :example "woman that is older than he"}
+  {:function "mkRCl",
+   :type ["RP" "A2" "NP" "RCl"],
+   :example "woman that is married to him"}
+  {:function "mkRCl",
+   :type ["RP" "AP" "RCl"],
+   :example "woman that is very old"}
+  {:function "mkRCl",
+   :type ["RP" "NP" "RCl"],
+   :example "woman that is the woman"}
+  {:function "mkRCl",
+   :type ["RP" "N" "RCl"],
+   :example "student that is a woman"}
+  {:function "mkRCl",
+   :type ["RP" "CN" "RCl"],
+   :example "student that is an old woman"}
+  {:function "mkRCl",
+   :type ["RP" "Adv" "RCl"],
+   :example "woman that is here"}
+  {:function "mkRCl",
+   :type ["RP" "NP" "V2" "RCl"],
+   :example "woman that we love"}
+  {:function "mkRCl",
+   :type ["RP" "ClSlash" "RCl"],
+   :example "woman that she loves today"}
+  {:function "mkRCl",
+   :type ["Cl" "RCl"],
+   :example "such that she loves him"}]}

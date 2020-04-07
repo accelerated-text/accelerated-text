@@ -1,0 +1,385 @@
+{
+  "id": "vPcoOZZgwqjeUTDc",
+  "uid": "d12cbaa4-bcea-484a-ac18-81aeb9e13eac",
+  "name": "FamilyFriendlyAMR",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"^F+^lq@9DW4nkKiZ//_q\">Place</variable><variable type=\"\" id=\"K42mBRS85qh)CT[O.=6x\">(EatType)</variable><variable type=\"\" id=\"*H_#C[/G/s,p~gOQ$U$z\">IsFamilyFriendly</variable><variable type=\"\" id=\"IGWT0mi?l5Eu(/v9$%#g\">Object</variable></variables><block type=\"Document-plan\" id=\";c$L~n`sXw?2oASSPuZ9\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Define-var\" id=\"K)X8{GG3PjEiO!xq3f{n\"><field name=\"name\" id=\"^F+^lq@9DW4nkKiZ//_q\" variabletype=\"\">Place</field><value name=\"value\"><block type=\"If-then-else\" id=\"1Ug;kKek(v=gWP4$tjsJ\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"/W#uvSzkt*?KC=1,TYlG\"><field name=\"name\" id=\"K42mBRS85qh)CT[O.=6x\" variabletype=\"\">(EatType)</field></block></value><value name=\"then\"><block type=\"AMR\" id=\"yJl2UYRBWJz3De:iJCJ8\"><mutation concept_id=\"ParadigmsEng.mkN/Str-&gt;N\" concept_label=\"mkN\" roles=\"[{&quot;id&quot;:&quot;GPjveKDhlmrLiigJ&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"GPjveKDhlmrLiigJ\"><block type=\"Get-var\" id=\"S^dy09T]d(gSD5`irz8Q\"><field name=\"name\" id=\"K42mBRS85qh)CT[O.=6x\" variabletype=\"\">(EatType)</field></block></value></block></value><value name=\"else\"><block type=\"One-of-synonyms\" id=\"I~$*p/ebFG,NT}UX9)Yb\"><mutation value_count=\"4\"></mutation><value name=\"value_0\"><block type=\"Dictionary-item\" id=\"]3DxCp~a@0CxARZTGD(#\"><mutation id=\"045fcced-c986-4b51-9c22-ffca82171e6a\" name=\"place_1_N\"></mutation></block></value><value name=\"value_1\"><block type=\"Dictionary-item\" id=\"!2=4N;:R48cU:q-yYA[d\"><mutation id=\"5943b70d-7707-4086-b05b-e2c0566bbb1e\" name=\"venue_1_N\"></mutation></block></value><value name=\"value_2\"><block type=\"Dictionary-item\" id=\"zd#BB?LGO6cY/W|I,~J!\"><mutation id=\"d6506951-d455-4e00-8b96-9bcfb2a2148d\" name=\"arena_1_N\"></mutation></block></value></block></value></block></value><next><block type=\"Segment\" id=\"i{ilvUIM}Y5Oev^Bdush\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"Sequence\" id=\"D*lvNGNtH=Z_@$DFrx(n\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"One-of-synonyms\" id=\"d9JkEdZ1QY)bxF%g:[;[\"><mutation value_count=\"3\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"gsuMAo^+EYA8_gx?bh9a\"><mutation concept_id=\"xYejKgCiSQZpaRpx\" concept_label=\"ConditionRGL\" roles=\"[{&quot;id&quot;:&quot;jECHvoVEgUeYsnVD&quot;,&quot;fieldLabel&quot;:&quot;Condition&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;NQKntbalEnTxSHJi&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;OaBaUSFZlZVVzlNI&quot;,&quot;fieldLabel&quot;:&quot;Phrase&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;A&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;EmKMbRdzCnafPLpk&quot;,&quot;fieldLabel&quot;:&quot;Place&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"jECHvoVEgUeYsnVD\"><block type=\"Get-var\" id=\"3^8:$3/=.):bjQPte#Ga\"><field name=\"name\" id=\"*H_#C[/G/s,p~gOQ$U$z\" variabletype=\"\">IsFamilyFriendly</field></block></value><value name=\"NQKntbalEnTxSHJi\"><block type=\"Get-var\" id=\"KRF$U:o~/fd=8S3gbc`:\"><field name=\"name\" id=\"IGWT0mi?l5Eu(/v9$%#g\" variabletype=\"\">Object</field></block></value><value name=\"OaBaUSFZlZVVzlNI\"><block type=\"AMR\" id=\"OS]a|5i,!dX,pOsKzB}N\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;UPPQqcUlanMhJZNM&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"UPPQqcUlanMhJZNM\"><block type=\"Quote\" id=\"iqZ2.AKshA]CbHzlDd:^\"><field name=\"text\">family friendly</field></block></value></block></value><value name=\"EmKMbRdzCnafPLpk\"><block type=\"If-then-else\" id=\"*v+Cz1NZI4MyRCE``!5@\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"Ly;qh*-`.l1}|*ogC|(D\"><field name=\"name\" id=\"K42mBRS85qh)CT[O.=6x\" variabletype=\"\">(EatType)</field></block></value><value name=\"then\"><block type=\"AMR\" id=\"=Dd%}FHR#hOkRP6P7Y8Z\"><mutation concept_id=\"ParadigmsEng.mkN/Str-&gt;N\" concept_label=\"mkN\" roles=\"[{&quot;id&quot;:&quot;GPjveKDhlmrLiigJ&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"GPjveKDhlmrLiigJ\"><block type=\"Get-var\" id=\"![KOS[h^2y`XH~?[+Dt9\"><field name=\"name\" id=\"K42mBRS85qh)CT[O.=6x\" variabletype=\"\">(EatType)</field></block></value></block></value><value name=\"else\"><block type=\"One-of-synonyms\" id=\"s!VO)!_.#:s!}]T4%YUN\"><mutation value_count=\"4\"></mutation><value name=\"value_0\"><block type=\"Dictionary-item\" id=\"0$LJ(9VBXhqN)bx6B{P?\"><mutation id=\"045fcced-c986-4b51-9c22-ffca82171e6a\" name=\"place_1_N\"></mutation></block></value><value name=\"value_1\"><block type=\"Dictionary-item\" id=\"*yV~)gsUH*BasS^$KcKU\"><mutation id=\"5943b70d-7707-4086-b05b-e2c0566bbb1e\" name=\"venue_1_N\"></mutation></block></value><value name=\"value_2\"><block type=\"Dictionary-item\" id=\"g)),,F.B2eW#[*FS`/gV\"><mutation id=\"d6506951-d455-4e00-8b96-9bcfb2a2148d\" name=\"arena_1_N\"></mutation></block></value></block></value></block></value></block></value><value name=\"value_1\"><block type=\"AMR\" id=\"yEkB!pgaFUQp`dl~3*8*\"><mutation concept_id=\"LQsyfyNPIgeRlnWU\" concept_label=\"IsARGL\" roles=\"[{&quot;id&quot;:&quot;KAEISrJefIvchKTs&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;ttmPOuRxlLhRsdzK&quot;,&quot;fieldLabel&quot;:&quot;Phrase&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;A&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;QBDKcDLdoGnytmwR&quot;,&quot;fieldLabel&quot;:&quot;Place&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"KAEISrJefIvchKTs\"><block type=\"Get-var\" id=\"j/d{y_!7Z5O{`K^60v6T\"><field name=\"name\" id=\"IGWT0mi?l5Eu(/v9$%#g\" variabletype=\"\">Object</field></block></value><value name=\"ttmPOuRxlLhRsdzK\"><block type=\"If-then-else\" id=\"$D}Kn`y^aLzQAB83I%+:\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"Os~(dw)vs|N0R]}f3A4B\"><field name=\"name\" id=\"*H_#C[/G/s,p~gOQ$U$z\" variabletype=\"\">IsFamilyFriendly</field></block></value><value name=\"then\"><block type=\"One-of-synonyms\" id=\"w=e3H?Ww3}fw1eS_Q%b*\"><mutation value_count=\"2\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"6X2PoT-z[!f+3RJ-h`$~\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;QIbhVqbYHFtTVtyp&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QIbhVqbYHFtTVtyp\"><block type=\"Quote\" id=\"XlcQ9y3LF8*.9Opt)yFi\"><field name=\"text\">family oriented</field></block></value></block></value></block></value><value name=\"else\"><block type=\"One-of-synonyms\" id=\"T%0Gt3FD#KNcpyp5SP(x\"><mutation value_count=\"3\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"?:{rETGP7aVU}=b652yC\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;QIbhVqbYHFtTVtyp&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QIbhVqbYHFtTVtyp\"><block type=\"Quote\" id=\"Q*LVL,*otW/%J|TTlv7B\"><field name=\"text\">adult establishment</field></block></value></block></value><value name=\"value_1\"><block type=\"AMR\" id=\"}e_/+DU/Sq!e%6=lYfvj\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;QIbhVqbYHFtTVtyp&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QIbhVqbYHFtTVtyp\"><block type=\"Quote\" id=\"/_CIVclp)O3D/T03lBny\"><field name=\"text\">adult establish</field></block></value></block></value></block></value></block></value><value name=\"QBDKcDLdoGnytmwR\"><block type=\"If-then-else\" id=\"rv2eIq:73Z!U;rtKKOVQ\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"^+DuviE`;X$z[e*3=jcS\"><field name=\"name\" id=\"K42mBRS85qh)CT[O.=6x\" variabletype=\"\">(EatType)</field></block></value><value name=\"then\"><block type=\"AMR\" id=\"3+7=!(.0;[}_(o3rvIvp\"><mutation concept_id=\"ParadigmsEng.mkN/Str-&gt;N\" concept_label=\"mkN\" roles=\"[{&quot;id&quot;:&quot;GPjveKDhlmrLiigJ&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"GPjveKDhlmrLiigJ\"><block type=\"Get-var\" id=\"?_$?@OxAu=9A/NUtyvu-\"><field name=\"name\" id=\"K42mBRS85qh)CT[O.=6x\" variabletype=\"\">(EatType)</field></block></value></block></value><value name=\"else\"><block type=\"One-of-synonyms\" id=\"8rLR7C+Mn`(!D)s-U2FR\"><mutation value_count=\"4\"></mutation><value name=\"value_0\"><block type=\"Dictionary-item\" id=\"a#vG.e(PHBf1_ff*6a2,\"><mutation id=\"045fcced-c986-4b51-9c22-ffca82171e6a\" name=\"place_1_N\"></mutation></block></value><value name=\"value_1\"><block type=\"Dictionary-item\" id=\"VyKkw,_DS90l(EV0{M*K\"><mutation id=\"5943b70d-7707-4086-b05b-e2c0566bbb1e\" name=\"venue_1_N\"></mutation></block></value><value name=\"value_2\"><block type=\"Dictionary-item\" id=\"Wc{81JCJqPEsj(a/c$+;\"><mutation id=\"d6506951-d455-4e00-8b96-9bcfb2a2148d\" name=\"arena_1_N\"></mutation></block></value></block></value></block></value></block></value></block></value></block></value></block></next></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "name": "^F+^lq@9DW4nkKiZ//_q",
+        "value": {
+          "type": "If-then-else",
+          "conditions": [
+            {
+              "type": "If-condition",
+              "thenExpression": {
+                "roles": [
+                  {
+                    "children": [
+                      {
+                        "name": "K42mBRS85qh)CT[O.=6x",
+                        "type": "Get-var",
+                        "srcId": "S^dy09T]d(gSD5`irz8Q"
+                      }
+                    ],
+                    "name": "Str",
+                    "label": "Str"
+                  }
+                ],
+                "type": "AMR",
+                "srcId": "yJl2UYRBWJz3De:iJCJ8",
+                "conceptId": "ParadigmsEng.mkN/Str->N"
+              },
+              "condition": {
+                "name": "K42mBRS85qh)CT[O.=6x",
+                "type": "Get-var",
+                "srcId": "/W#uvSzkt*?KC=1,TYlG"
+              }
+            },
+            {
+              "type": "Default-condition",
+              "thenExpression": {
+                "children": [
+                  {
+                    "name": "place_1_N",
+                    "type": "Dictionary-item",
+                    "srcId": "]3DxCp~a@0CxARZTGD(#",
+                    "itemId": "045fcced-c986-4b51-9c22-ffca82171e6a"
+                  },
+                  {
+                    "name": "venue_1_N",
+                    "type": "Dictionary-item",
+                    "srcId": "!2=4N;:R48cU:q-yYA[d",
+                    "itemId": "5943b70d-7707-4086-b05b-e2c0566bbb1e"
+                  },
+                  {
+                    "name": "arena_1_N",
+                    "type": "Dictionary-item",
+                    "srcId": "zd#BB?LGO6cY/W|I,~J!",
+                    "itemId": "d6506951-d455-4e00-8b96-9bcfb2a2148d"
+                  }
+                ],
+                "type": "One-of-synonyms",
+                "srcId": "I~$*p/ebFG,NT}UX9)Yb"
+              }
+            }
+          ],
+          "srcId": "1Ug;kKek(v=gWP4$tjsJ"
+        },
+        "type": "Define-var",
+        "srcId": "K)X8{GG3PjEiO!xq3f{n"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "name": "*H_#C[/G/s,p~gOQ$U$z",
+                            "type": "Get-var",
+                            "srcId": "3^8:$3/=.):bjQPte#Ga"
+                          }
+                        ],
+                        "name": "Str",
+                        "label": "Condition"
+                      },
+                      {
+                        "children": [
+                          {
+                            "name": "IGWT0mi?l5Eu(/v9$%#g",
+                            "type": "Get-var",
+                            "srcId": "KRF$U:o~/fd=8S3gbc`:"
+                          }
+                        ],
+                        "name": "N",
+                        "label": "Object"
+                      },
+                      {
+                        "children": [
+                          {
+                            "roles": [
+                              {
+                                "children": [
+                                  {
+                                    "type": "Quote",
+                                    "srcId": "iqZ2.AKshA]CbHzlDd:^",
+                                    "text": "family friendly"
+                                  }
+                                ],
+                                "name": "Str",
+                                "label": "Str"
+                              }
+                            ],
+                            "type": "AMR",
+                            "srcId": "OS]a|5i,!dX,pOsKzB}N",
+                            "conceptId": "ParadigmsEng.mkA/Str->A"
+                          }
+                        ],
+                        "name": "A",
+                        "label": "Phrase"
+                      },
+                      {
+                        "children": [
+                          {
+                            "type": "If-then-else",
+                            "conditions": [
+                              {
+                                "type": "If-condition",
+                                "thenExpression": {
+                                  "roles": [
+                                    {
+                                      "children": [
+                                        {
+                                          "name": "K42mBRS85qh)CT[O.=6x",
+                                          "type": "Get-var",
+                                          "srcId": "![KOS[h^2y`XH~?[+Dt9"
+                                        }
+                                      ],
+                                      "name": "Str",
+                                      "label": "Str"
+                                    }
+                                  ],
+                                  "type": "AMR",
+                                  "srcId": "=Dd%}FHR#hOkRP6P7Y8Z",
+                                  "conceptId": "ParadigmsEng.mkN/Str->N"
+                                },
+                                "condition": {
+                                  "name": "K42mBRS85qh)CT[O.=6x",
+                                  "type": "Get-var",
+                                  "srcId": "Ly;qh*-`.l1}|*ogC|(D"
+                                }
+                              },
+                              {
+                                "type": "Default-condition",
+                                "thenExpression": {
+                                  "children": [
+                                    {
+                                      "name": "place_1_N",
+                                      "type": "Dictionary-item",
+                                      "srcId": "0$LJ(9VBXhqN)bx6B{P?",
+                                      "itemId": "045fcced-c986-4b51-9c22-ffca82171e6a"
+                                    },
+                                    {
+                                      "name": "venue_1_N",
+                                      "type": "Dictionary-item",
+                                      "srcId": "*yV~)gsUH*BasS^$KcKU",
+                                      "itemId": "5943b70d-7707-4086-b05b-e2c0566bbb1e"
+                                    },
+                                    {
+                                      "name": "arena_1_N",
+                                      "type": "Dictionary-item",
+                                      "srcId": "g)),,F.B2eW#[*FS`/gV",
+                                      "itemId": "d6506951-d455-4e00-8b96-9bcfb2a2148d"
+                                    }
+                                  ],
+                                  "type": "One-of-synonyms",
+                                  "srcId": "s!VO)!_.#:s!}]T4%YUN"
+                                }
+                              }
+                            ],
+                            "srcId": "*v+Cz1NZI4MyRCE``!5@"
+                          }
+                        ],
+                        "name": "N",
+                        "label": "Place"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "gsuMAo^+EYA8_gx?bh9a",
+                    "conceptId": "xYejKgCiSQZpaRpx"
+                  },
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "name": "IGWT0mi?l5Eu(/v9$%#g",
+                            "type": "Get-var",
+                            "srcId": "j/d{y_!7Z5O{`K^60v6T"
+                          }
+                        ],
+                        "name": "N",
+                        "label": "Object"
+                      },
+                      {
+                        "children": [
+                          {
+                            "type": "If-then-else",
+                            "conditions": [
+                              {
+                                "type": "If-condition",
+                                "thenExpression": {
+                                  "children": [
+                                    {
+                                      "roles": [
+                                        {
+                                          "children": [
+                                            {
+                                              "type": "Quote",
+                                              "srcId": "XlcQ9y3LF8*.9Opt)yFi",
+                                              "text": "family oriented"
+                                            }
+                                          ],
+                                          "name": "Str",
+                                          "label": "Str"
+                                        }
+                                      ],
+                                      "type": "AMR",
+                                      "srcId": "6X2PoT-z[!f+3RJ-h`$~",
+                                      "conceptId": "ParadigmsEng.mkA/Str->A"
+                                    }
+                                  ],
+                                  "type": "One-of-synonyms",
+                                  "srcId": "w=e3H?Ww3}fw1eS_Q%b*"
+                                },
+                                "condition": {
+                                  "name": "*H_#C[/G/s,p~gOQ$U$z",
+                                  "type": "Get-var",
+                                  "srcId": "Os~(dw)vs|N0R]}f3A4B"
+                                }
+                              },
+                              {
+                                "type": "Default-condition",
+                                "thenExpression": {
+                                  "children": [
+                                    {
+                                      "roles": [
+                                        {
+                                          "children": [
+                                            {
+                                              "type": "Quote",
+                                              "srcId": "Q*LVL,*otW/%J|TTlv7B",
+                                              "text": "adult establishment"
+                                            }
+                                          ],
+                                          "name": "Str",
+                                          "label": "Str"
+                                        }
+                                      ],
+                                      "type": "AMR",
+                                      "srcId": "?:{rETGP7aVU}=b652yC",
+                                      "conceptId": "ParadigmsEng.mkA/Str->A"
+                                    },
+                                    {
+                                      "roles": [
+                                        {
+                                          "children": [
+                                            {
+                                              "type": "Quote",
+                                              "srcId": "/_CIVclp)O3D/T03lBny",
+                                              "text": "adult establish"
+                                            }
+                                          ],
+                                          "name": "Str",
+                                          "label": "Str"
+                                        }
+                                      ],
+                                      "type": "AMR",
+                                      "srcId": "}e_/+DU/Sq!e%6=lYfvj",
+                                      "conceptId": "ParadigmsEng.mkA/Str->A"
+                                    }
+                                  ],
+                                  "type": "One-of-synonyms",
+                                  "srcId": "T%0Gt3FD#KNcpyp5SP(x"
+                                }
+                              }
+                            ],
+                            "srcId": "$D}Kn`y^aLzQAB83I%+:"
+                          }
+                        ],
+                        "name": "A",
+                        "label": "Phrase"
+                      },
+                      {
+                        "children": [
+                          {
+                            "type": "If-then-else",
+                            "conditions": [
+                              {
+                                "type": "If-condition",
+                                "thenExpression": {
+                                  "roles": [
+                                    {
+                                      "children": [
+                                        {
+                                          "name": "K42mBRS85qh)CT[O.=6x",
+                                          "type": "Get-var",
+                                          "srcId": "?_$?@OxAu=9A/NUtyvu-"
+                                        }
+                                      ],
+                                      "name": "Str",
+                                      "label": "Str"
+                                    }
+                                  ],
+                                  "type": "AMR",
+                                  "srcId": "3+7=!(.0;[}_(o3rvIvp",
+                                  "conceptId": "ParadigmsEng.mkN/Str->N"
+                                },
+                                "condition": {
+                                  "name": "K42mBRS85qh)CT[O.=6x",
+                                  "type": "Get-var",
+                                  "srcId": "^+DuviE`;X$z[e*3=jcS"
+                                }
+                              },
+                              {
+                                "type": "Default-condition",
+                                "thenExpression": {
+                                  "children": [
+                                    {
+                                      "name": "place_1_N",
+                                      "type": "Dictionary-item",
+                                      "srcId": "a#vG.e(PHBf1_ff*6a2,",
+                                      "itemId": "045fcced-c986-4b51-9c22-ffca82171e6a"
+                                    },
+                                    {
+                                      "name": "venue_1_N",
+                                      "type": "Dictionary-item",
+                                      "srcId": "VyKkw,_DS90l(EV0{M*K",
+                                      "itemId": "5943b70d-7707-4086-b05b-e2c0566bbb1e"
+                                    },
+                                    {
+                                      "name": "arena_1_N",
+                                      "type": "Dictionary-item",
+                                      "srcId": "Wc{81JCJqPEsj(a/c$+;",
+                                      "itemId": "d6506951-d455-4e00-8b96-9bcfb2a2148d"
+                                    }
+                                  ],
+                                  "type": "One-of-synonyms",
+                                  "srcId": "8rLR7C+Mn`(!D)s-U2FR"
+                                }
+                              }
+                            ],
+                            "srcId": "rv2eIq:73Z!U;rtKKOVQ"
+                          }
+                        ],
+                        "name": "N",
+                        "label": "Place"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "yEkB!pgaFUQp`dl~3*8*",
+                    "conceptId": "LQsyfyNPIgeRlnWU"
+                  }
+                ],
+                "type": "One-of-synonyms",
+                "srcId": "d9JkEdZ1QY)bxF%g:[;["
+              }
+            ],
+            "type": "Sequence",
+            "srcId": "D*lvNGNtH=Z_@$DFrx(n"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "i{ilvUIM}Y5Oev^Bdush"
+      }
+    ],
+    "srcId": ";c$L~n`sXw?2oASSPuZ9"
+  }
+}

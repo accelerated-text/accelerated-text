@@ -1,0 +1,11 @@
+{:type "PN",
+ :description "",
+ :module "ParadigmsSpa",
+ :functions
+ [{:function "mkPN",
+   :type ["Str" "PN"],
+   :example "feminine for \"-a\""}
+  {:function "mkPN",
+   :type ["Str" "Gender" "PN"],
+   :example "force gender"}
+  {:function "mkPN", :type ["N" "PN"], :example "gender from noun"}]}

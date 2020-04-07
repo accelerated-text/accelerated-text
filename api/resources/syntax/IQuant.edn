@@ -1,0 +1,5 @@
+{:type "IQuant",
+ :description "",
+ :module "Syntax",
+ :functions
+ [{:function "which_IQuant", :type ["IQuant"], :example "which house"}]}

@@ -37,7 +37,7 @@ export default composeContexts({
         <SidebarItem title="Language">
             <ReaderConfiguration />
         </SidebarItem>
-        <SidebarItem title="Text Analysis">
+        <SidebarItem title="Text Generation Results">
             <VariantReview />
         </SidebarItem>
         <SidebarItem title="AMR">

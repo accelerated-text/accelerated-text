@@ -1,10 +1,14 @@
 (ns api.graphql.translate.dictionary
-  (:require [api.graphql.translate.concept :as translate-concept]
-            [clojure.tools.logging :as log]))
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [clojure.tools.logging :as log]
+            [data.utils :as utils]
+            [data.entities.dictionary :as dict-entity]
+            [clojure.string :as str]))
 
-(defn reader-flag->schema [[k _]]
-  {:id   (name k)
-   :name (name k)})
+(defn reader-flag->schema [[k u]]
+  {:id           (name k)
+   :name         (name k)
+   :defaultUsage u})
 
 (defn reader-flags->schema [flags]
   {:flags (map reader-flag->schema (dissoc flags :default))
@@ -27,14 +31,63 @@
 
 (defn dictionary-item->schema [{:keys [key name phrases] :as dict-item}]
   (log/debugf "DictionaryItem: %s" dict-item)
-  (let [part-of-speech (get dict-item :partOfSpeech "VB")]
+  (let [part-of-speech (get dict-item :partOfSpeech "V")]
     {:id           key
      :name         name
      :phrases      (map phrase->schema phrases)
-     :partOfSpeech part-of-speech
-     :concept      (when (= part-of-speech "VB")
-                     (translate-concept/amr->schema
-                       {:id     "PLACEHOLDER"
-                        :label  ""
-                        :roles  []
-                        :frames []}))}))
+     :partOfSpeech part-of-speech}))
+
+(defn text->phrase
+  ([text parent-id default-usage]
+   (text->phrase text parent-id default-usage (dict-entity/get-default-flags)))
+  ([text parent-id default-usage default-flags]
+   {:id    (format "%s/%s" parent-id (utils/gen-uuid))
+    :text  text
+    :flags (assoc default-flags (dict-entity/default-language-flag) default-usage)}))
+
+(defn schema->dictionary-item [{id :id item-name :name pos :partOfSpeech phrases :phrases}]
+  (let [name-parts (str/split item-name #"_")]
+    (merge
+      (cond-> {}
+              (< 1 (count name-parts)) (assoc ::dictionary-item/category (last name-parts))
+              (< 2 (count name-parts)) (assoc ::dictionary-item/sense (last (butlast name-parts))))
+      (cond-> #::dictionary-item{:key      item-name
+                                 :forms    phrases
+                                 :language (dict-entity/default-language)}
+              (some? id) (assoc ::dictionary-item/id id)
+              (some? pos) (assoc ::dictionary-item/category (name pos))))))
+
+(defn build-lang-user-flags [lang]
+  (map (fn [[flag _]]
+         {:id    (utils/gen-uuid)
+          :flag  {:id           flag
+                  :name         flag
+                  :defaultUsage (if (= (dict-entity/default-language) flag)
+                                  "YES"
+                                  "NO")}
+          :usage (if (= (dict-entity/flag->lang flag) lang)
+                   "YES"
+                   "NO")})
+       (dict-entity/get-default-flags)))
+
+(defn multilang-dict-item->original-schema [{::dictionary-item/keys [id key category forms language]}]
+  {:id           id
+   :name         key
+   :partOfSpeech category
+   :phrases      (map (fn [form]
+                        {:defaultUsage    "YES"
+                         :id              (utils/gen-uuid)
+                         :readerFlagUsage (build-lang-user-flags language)
+                         :text            form})
+                      forms)})
+
+(defn schema->default-multilang-dict-item [{id :id item-name :name pos :partOfSpeech}]
+  #:acc-text.nlg.dictionary.item {:id           id
+                                  :key          (if pos
+                                                  (format "%s_%s" item-name (name pos))
+                                                  item-name)
+                                  :category     (name pos)
+                                  :sense        "1"
+                                  :language     "Eng"
+                                  :forms        [item-name]
+                                  :attributes   {}})

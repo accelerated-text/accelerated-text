@@ -181,6 +181,7 @@
     (is (= [{:blocklyXml    "<>"
              :dataSampleId  nil
              :dataSampleRow nil
+             :examples      nil
              :documentPlan  {}
              :name          "test"
              :kind          "Document"

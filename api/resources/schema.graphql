@@ -13,42 +13,28 @@ enum Usage {
 
 #   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
 enum PartOfSpeech {
-    CC      # conjunction, coordinating  and, or, but
-    CD      # cardinal number  five, three, 13%
-    DT      # determiner  the, a, these
-    EX      # existential there  there were six boys
-    FW      # foreign word  mais
-    IN      # conjunction, subordinating or preposition  of, on, before, unless
-    JJ      # adjective  nice, easy
-    JJR     # adjective, comparative  nicer, easier
-    JJS     # adjective, superlative  nicest, easiest
-    LS      # list item marker
-    MD      # verb, modal auxillary  may, should
-    NN      # noun, singular or mass  tiger, chair, laughter
-    NNS     # noun, plural  tigers, chairs, insects
-    NNP     # noun, proper singular  Germany, God, Alice
-    NNPS    # noun, proper plural  we met two Christmases ago
-    PDT     # predeterminer  both his children
-    POS     # possessive ending  's
-    PRP     # pronoun, personal  me, you, it
-    "PRP$"  # pronoun, possessive  my, your, our
-    RB      # adverb  extremely, loudly, hard
-    RBR     # adverb, comparative  better
-    RBS     # adverb, superlative  best
-    RP      # adverb, particle  about, off, up
-    SYM     # symbol  %
-    TO      # infinitival to  what to do?
-    UH      # interjection  oh, oops, gosh
-    VB      # verb, base form  think
-    VBZ     # verb, 3rd person singular present  she thinks
-    VBP     # verb, non-3rd person singular present  I think
-    VBD     # verb, past tense  they thought
-    VBN     # verb, past participle  a sunken ship
-    VBG     # verb, gerund or present participle  thinking is fun
-    WDT     # wh-determiner  which, whatever, whichever
-    WP      # wh-pronoun, personal  what, who, whom
-    "WP$"   # wh-pronoun, possessive  whose, whosever
-    WRB     # wh-adverb  where, when
+   A
+   A2
+   compoundA
+   Adv
+   N
+   N2
+   N3
+   PN
+   Prep
+   V
+   V0
+   V2
+   V3
+   V2A
+   V2Q
+   V2S
+   V2V
+   VA
+   VP
+   VQ
+   VS
+   VV
 }
 
 ### Data -----------------------------------------------------------------------
@@ -139,6 +125,7 @@ type ReaderFlags {
 type ReaderFlag {
     id:                 ID!
     name:               String!
+    defaultUsage:       Usage!
 }
 
 
@@ -201,6 +188,7 @@ type Concepts {
     ParadigmsEst:      [ Concept! ]
     ParadigmsLav:      [ Concept! ]
     ParadigmsRus:      [ Concept! ]
+    ParadigmsSpa:      [ Concept! ]
 }
 
 
@@ -224,7 +212,7 @@ type DocumentPlanResults {
     items:             [ DocumentPlan! ]
     offset:            Int!
     limit:             Int!
-    kind:              String
+    kind:              String!
     totalCount:        Int!
 }
 
