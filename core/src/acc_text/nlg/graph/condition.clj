@@ -1,7 +1,6 @@
 (ns acc-text.nlg.graph.condition
   (:require [acc-text.nlg.graph.utils :refer [find-nodes get-successors add-edges remove-edges]]
             [clojure.string :as str]
-            [clojure.tools.logging :as log]
             [loom.attr :refer [attrs]]
             [loom.graph :as graph]))
 
