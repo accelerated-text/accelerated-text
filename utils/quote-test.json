@@ -1,0 +1,127 @@
+{
+  "id": "JVfTIMTqjlcGrEYf",
+  "uid": "f82e436e-90d3-423b-92dc-5abc82774948",
+  "name": "Quote If Test",
+  "kind": "Document",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\"8=Nxg9q$kurz|w+b-)AA\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Segment\" id=\";YHNN]`O(Y5A81XN5Q}1\"><mutation value_count=\"5\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"If-then-else\" id=\"2iKe-lF^E+aTdR8zoZV%\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Quote\" id=\"[WD}_SUo)(k#5B}FKX*i\"><field name=\"text\">some text</field></block></value><value name=\"then\"><block type=\"Quote\" id=\"X.uFBXM[4i!+8nFJT^Dj\"><field name=\"text\">TRUE</field></block></value><value name=\"else\"><block type=\"Quote\" id=\"/PqO{*2YxvC66}YgeY3|\"><field name=\"text\">FALSE</field></block></value></block></value><value name=\"value_1\"><block type=\"If-then-else\" id=\"z{m(aqK2f%6I]3UAc(Og\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Quote\" id=\"Q!~+xL~n4I9uB}s_F@SA\"><field name=\"text\">0</field></block></value><value name=\"then\"><block type=\"Quote\" id=\"X!}s};0}kFys[wBM`@?b\"><field name=\"text\">FALSE</field></block></value><value name=\"else\"><block type=\"Quote\" id=\"xI}RQ1QQ3$THWOS;Bvj=\"><field name=\"text\">TRUE</field></block></value></block></value><value name=\"value_2\"><block type=\"If-then-else\" id=\".,.adOr77?#c9]G4T%tH\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Quote\" id=\"e$BYUpB:pBD_L4TC,vY#\"><field name=\"text\">1</field></block></value><value name=\"then\"><block type=\"Quote\" id=\"JlRanzkSZSt;]@3cK_s2\"><field name=\"text\">TRUE</field></block></value><value name=\"else\"><block type=\"Quote\" id=\"XMN-uJ%8r`N+s4a~CcZP\"><field name=\"text\">FALSE</field></block></value></block></value><value name=\"value_3\"><block type=\"If-then-else\" id=\"D{2P3**x2eW{X6x:qpgF\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Quote\" id=\"?fEwaLo1O-d*$JfbuDfC\"><field name=\"text\">NO</field></block></value><value name=\"then\"><block type=\"Quote\" id=\"IH#NtD*D(fYeg1U!MJqE\"><field name=\"text\">FALSE</field></block></value><value name=\"else\"><block type=\"Quote\" id=\"3,7KG{O^=vMOygX2yH$_\"><field name=\"text\">TRUE</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "type": "If-then-else",
+            "conditions": [
+              {
+                "type": "If-condition",
+                "thenExpression": {
+                  "type": "Quote",
+                  "srcId": "X.uFBXM[4i!+8nFJT^Dj",
+                  "text": "TRUE"
+                },
+                "condition": {
+                  "type": "Quote",
+                  "srcId": "[WD}_SUo)(k#5B}FKX*i",
+                  "text": "some text"
+                }
+              },
+              {
+                "type": "Default-condition",
+                "thenExpression": {
+                  "type": "Quote",
+                  "srcId": "/PqO{*2YxvC66}YgeY3|",
+                  "text": "FALSE"
+                }
+              }
+            ],
+            "srcId": "2iKe-lF^E+aTdR8zoZV%"
+          },
+          {
+            "type": "If-then-else",
+            "conditions": [
+              {
+                "type": "If-condition",
+                "thenExpression": {
+                  "type": "Quote",
+                  "srcId": "X!}s};0}kFys[wBM`@?b",
+                  "text": "FALSE"
+                },
+                "condition": {
+                  "type": "Quote",
+                  "srcId": "Q!~+xL~n4I9uB}s_F@SA",
+                  "text": "0"
+                }
+              },
+              {
+                "type": "Default-condition",
+                "thenExpression": {
+                  "type": "Quote",
+                  "srcId": "xI}RQ1QQ3$THWOS;Bvj=",
+                  "text": "TRUE"
+                }
+              }
+            ],
+            "srcId": "z{m(aqK2f%6I]3UAc(Og"
+          },
+          {
+            "type": "If-then-else",
+            "conditions": [
+              {
+                "type": "If-condition",
+                "thenExpression": {
+                  "type": "Quote",
+                  "srcId": "JlRanzkSZSt;]@3cK_s2",
+                  "text": "TRUE"
+                },
+                "condition": {
+                  "type": "Quote",
+                  "srcId": "e$BYUpB:pBD_L4TC,vY#",
+                  "text": "1"
+                }
+              },
+              {
+                "type": "Default-condition",
+                "thenExpression": {
+                  "type": "Quote",
+                  "srcId": "XMN-uJ%8r`N+s4a~CcZP",
+                  "text": "FALSE"
+                }
+              }
+            ],
+            "srcId": ".,.adOr77?#c9]G4T%tH"
+          },
+          {
+            "type": "If-then-else",
+            "conditions": [
+              {
+                "type": "If-condition",
+                "thenExpression": {
+                  "type": "Quote",
+                  "srcId": "IH#NtD*D(fYeg1U!MJqE",
+                  "text": "FALSE"
+                },
+                "condition": {
+                  "type": "Quote",
+                  "srcId": "?fEwaLo1O-d*$JfbuDfC",
+                  "text": "NO"
+                }
+              },
+              {
+                "type": "Default-condition",
+                "thenExpression": {
+                  "type": "Quote",
+                  "srcId": "3,7KG{O^=vMOygX2yH$_",
+                  "text": "TRUE"
+                }
+              }
+            ],
+            "srcId": "D{2P3**x2eW{X6x:qpgF"
+          }
+        ],
+        "type": "Segment",
+        "srcId": ";YHNN]`O(Y5A81XN5Q}1"
+      }
+    ],
+    "srcId": "8=Nxg9q$kurz|w+b-)AA"
+  }
+}
