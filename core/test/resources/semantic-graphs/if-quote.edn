@@ -1,4 +1,4 @@
-:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
+#:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
                                           {:from :02 :to :03 :role :instance :index 0}
                                           {:from :02 :to :09 :role :instance :index 1}
                                           {:from :02 :to :16 :role :instance :index 2}
