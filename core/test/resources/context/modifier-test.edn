@@ -119,7 +119,7 @@
                                                                :value  "ParadigmsEng.mkN"
                                                                :params ({:id "ARG0" :type "Str"})
                                                                :type   :oper})})}}
- :data       {:kettle "kettle" :cheap "cheap"}
+ :data       {"kettle" "kettle" "cheap" "cheap"}
  :dictionary {"quiet"  #:acc-text.nlg.dictionary.item{:id       "c2e00e92-f331-4c4f-abb6-93dcbf6af21a"
                                                       :key      "quiet"
                                                       :category "A"

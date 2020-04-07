@@ -17,7 +17,7 @@
                        "Spa" ["Hay un text."])))
 
 (deftest ^:integration list-generation
-  (let [context {:data       {:product "product" :fridge "fridge"}
+  (let [context {:data       {"product" "product" "fridge" "fridge"}
                  :dictionary {"fridge"  #:acc-text.nlg.dictionary.item{:id       "03393900-ddbf-426f-b267-f100d09824c0"
                                                                        :key      "fridge"
                                                                        :category "N"

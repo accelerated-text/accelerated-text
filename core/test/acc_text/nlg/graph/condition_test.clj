@@ -50,7 +50,7 @@
     (is (nil? (condition/comparison "=" [])))))
 
 (deftest conditions
-  (let [context {:data {:0 "0" :1 "1" :A "A" :B "B"}}]
+  (let [context {:data {"0" "0" "1" "1" "A" "A" "B" "B"}}]
     (testing "If-then"
       (let [semantic-graph (load-test-semantic-graph "if-then-branch")]
         (is (= #{"TRUE"} (->> (-> semantic-graph
@@ -86,6 +86,17 @@
                               (into #{}))))))
     (testing "Data if"
       (let [semantic-graph (load-test-semantic-graph "if-data")]
+        (is (= #{"TRUE"} (->> (-> semantic-graph
+                                  (semantic-graph->ubergraph)
+                                  (condition/determine-conditions context)
+                                  (prune-graph)
+                                  (ubergraph->semantic-graph)
+                                  (get ::sg/concepts))
+                              (filter #(= :quote (:type %)))
+                              (map :value)
+                              (into #{}))))))
+    (testing "Quote if"
+      (let [semantic-graph (load-test-semantic-graph "if-quote")]
         (is (= #{"TRUE"} (->> (-> semantic-graph
                                   (semantic-graph->ubergraph)
                                   (condition/determine-conditions context)
