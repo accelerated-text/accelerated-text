@@ -1,81 +1,110 @@
-:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
-                                          {:from :02 :to :03 :role :instance :index 0}
-                                          {:from :02 :to :09 :role :instance :index 1}
-                                          {:from :02 :to :16 :role :instance :index 2}
-                                          {:from :02 :to :24 :role :instance :index 3}
-                                          {:from :02 :to :33 :role :instance :index 4}
-                                          {:from :03 :to :04 :role :statement :index 0}
-                                          {:from :03 :to :07 :role :statement :index 1}
-                                          {:from :04 :to :05 :role :predicate}
-                                          {:from :04 :to :06 :role :then-expression}
-                                          {:from :07 :to :08 :role :then-expression}
-                                          {:from :09 :to :10 :role :statement :index 0}
-                                          {:from :09 :to :14 :role :statement :index 1}
-                                          {:from :10 :to :11 :role :predicate}
-                                          {:from :10 :to :13 :role :then-expression}
-                                          {:from :11 :to :12 :role :input}
-                                          {:from :14 :to :15 :role :then-expression}
-                                          {:from :16 :to :17 :role :statement :index 0}
-                                          {:from :16 :to :22 :role :statement :index 1}
-                                          {:from :17 :to :18 :role :predicate}
-                                          {:from :17 :to :21 :role :then-expression}
-                                          {:from :18 :to :19 :role :input}
-                                          {:from :18 :to :20 :role :input}
-                                          {:from :22 :to :23 :role :then-expression}
-                                          {:from :24 :to :25 :role :statement :index 0}
-                                          {:from :24 :to :31 :role :statement :index 1}
-                                          {:from :25 :to :26 :role :predicate}
-                                          {:from :25 :to :30 :role :then-expression}
-                                          {:from :26 :to :27 :role :input :index 0}
-                                          {:from :26 :to :28 :role :input :index 1}
-                                          {:from :28 :to :29 :role :input}
-                                          {:from :31 :to :32 :role :then-expression}
-                                          {:from :33 :to :34 :role :statement :index 0}
-                                          {:from :33 :to :40 :role :statement :index 1}
-                                          {:from :34 :to :35 :role :predicate}
-                                          {:from :34 :to :39 :role :then-expression}
-                                          {:from :35 :to :36 :role :input :index 0}
-                                          {:from :35 :to :38 :role :input :index 1}
-                                          {:from :36 :to :37 :role :input}
-                                          {:from :40 :to :41 :role :then-expression})
-                              :concepts  ({:id :01 :type :document-plan}
-                                          {:id :02 :type :segment}
-                                          {:id :03 :type :condition}
-                                          {:id :04 :type :if-statement}
-                                          {:id :05 :type :quote :value "1"}
-                                          {:id :06 :type :quote :value "TRUE"}
-                                          {:id :07 :type :else-statement}
-                                          {:id :08 :type :quote :value "FALSE"}
-                                          {:id :09 :type :condition}
-                                          {:id :10 :type :if-statement}
-                                          {:id :11 :type :boolean :value "not"}
-                                          {:id :12 :type :quote :value "0"}
-                                          {:id :13 :type :quote :value "TRUE"}
-                                          {:id :14 :type :else-statement}
-                                          {:id :15 :type :quote :value "FALSE"}
-                                          {:id :16 :type :condition}
-                                          {:id :17 :type :if-statement}
-                                          {:id :18 :type :boolean :value "xor"}
-                                          {:id :19 :type :quote :value "0"}
-                                          {:id :20 :type :quote :value "1"}
-                                          {:id :21 :type :quote :value "TRUE"}
-                                          {:id :22 :type :else-statement}
-                                          {:id :23 :type :quote :value "FALSE"}
-                                          {:id :24 :type :condition}
-                                          {:id :25 :type :if-statement}
-                                          {:id :26 :type :boolean :value "and"}
-                                          {:id :27 :type :quote :value "1"}
-                                          {:id :28 :type :boolean :value "not"}
-                                          {:id :29 :type :quote :value "0"}
-                                          {:id :30 :type :quote :value "TRUE"}
-                                          {:id :31 :type :else-statement}
-                                          {:id :32 :type :quote :value "FALSE"}
-                                          {:id :33 :type :condition}
-                                          {:id :34 :type :if-statement}
-                                          {:id :35 :type :boolean :value "or"}
-                                          {:id :36 :type :boolean :value "not"}
-                                          {:id :37 :type :quote :value "0"}
-                                          {:id :38 :type :quote :value "1"}
-                                          {:id :39 :type :quote :value "TRUE"}
-                                          {:id :40 :type :else-statement}
-                                          {:id :41 :type :quote :value "FALSE"})}
+#:acc-text.nlg.semantic-graph{:relations
+                              ({:from :01,
+                                :to :02,
+                                :role :segment,
+                                :index 0}
+                               {:from :02,
+                                :to :03,
+                                :role :instance,
+                                :index 0}
+                               {:from :02,
+                                :to :09,
+                                :role :instance,
+                                :index 1}
+                               {:from :02,
+                                :to :15,
+                                :role :instance,
+                                :index 2}
+                               {:from :02,
+                                :to :21,
+                                :role :instance,
+                                :index 3}
+                               {:from :03,
+                                :to :04,
+                                :role :statement,
+                                :index 0}
+                               {:from :03,
+                                :to :07,
+                                :role :statement,
+                                :index 1}
+                               {:from :04, :to :05, :role :predicate}
+                               {:from :04,
+                                :to :06,
+                                :role :then-expression}
+                               {:from :07,
+                                :to :08,
+                                :role :then-expression}
+                               {:from :09,
+                                :to :10,
+                                :role :statement,
+                                :index 0}
+                               {:from :09,
+                                :to :13,
+                                :role :statement,
+                                :index 1}
+                               {:from :10, :to :11, :role :predicate}
+                               {:from :10,
+                                :to :12,
+                                :role :then-expression}
+                               {:from :13,
+                                :to :14,
+                                :role :then-expression}
+                               {:from :15,
+                                :to :16,
+                                :role :statement,
+                                :index 0}
+                               {:from :15,
+                                :to :19,
+                                :role :statement,
+                                :index 1}
+                               {:from :16, :to :17, :role :predicate}
+                               {:from :16,
+                                :to :18,
+                                :role :then-expression}
+                               {:from :19,
+                                :to :20,
+                                :role :then-expression}
+                               {:from :21,
+                                :to :22,
+                                :role :statement,
+                                :index 0}
+                               {:from :21,
+                                :to :25,
+                                :role :statement,
+                                :index 1}
+                               {:from :22, :to :23, :role :predicate}
+                               {:from :22,
+                                :to :24,
+                                :role :then-expression}
+                               {:from :25,
+                                :to :26,
+                                :role :then-expression}),
+                              :concepts
+                              ({:id :01, :type :document-plan}
+                               {:id :02, :type :segment}
+                               {:id :03, :type :condition}
+                               {:id :04, :type :if-statement}
+                               {:id :05,
+                                :type :quote,
+                                :value "some text"}
+                               {:id :06, :type :quote, :value "TRUE"}
+                               {:id :07, :type :else-statement}
+                               {:id :08, :type :quote, :value "FALSE"}
+                               {:id :09, :type :condition}
+                               {:id :10, :type :if-statement}
+                               {:id :11, :type :quote, :value "0"}
+                               {:id :12, :type :quote, :value "FALSE"}
+                               {:id :13, :type :else-statement}
+                               {:id :14, :type :quote, :value "TRUE"}
+                               {:id :15, :type :condition}
+                               {:id :16, :type :if-statement}
+                               {:id :17, :type :quote, :value "1"}
+                               {:id :18, :type :quote, :value "TRUE"}
+                               {:id :19, :type :else-statement}
+                               {:id :20, :type :quote, :value "FALSE"}
+                               {:id :21, :type :condition}
+                               {:id :22, :type :if-statement}
+                               {:id :23, :type :quote, :value "NO"}
+                               {:id :24, :type :quote, :value "FALSE"}
+                               {:id :25, :type :else-statement}
+                               {:id :26, :type :quote, :value "TRUE"})}
