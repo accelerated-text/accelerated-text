@@ -50,7 +50,7 @@
     (is (nil? (condition/comparison "=" [])))))
 
 (deftest conditions
-  (let [context {:data {:0 "0" :1 "1" :A "A" :B "B"}}]
+  (let [context {:data {"0" "0" "1" "1" "A" "A" "B" "B"}}]
     (testing "If-then"
       (let [semantic-graph (load-test-semantic-graph "if-then-branch")]
         (is (= #{"TRUE"} (->> (-> semantic-graph
