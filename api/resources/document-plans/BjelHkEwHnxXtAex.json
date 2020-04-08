@@ -3,7 +3,7 @@
   "uid": "ce604ea4-2a20-4b1c-b296-304662d6e852",
   "name": "has a",
   "kind": "AMR",
-  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"#285/?kY!@u_AvDIhu!$\">N.1</variable><variable type=\"\" id=\")5@M6=BAQj}qJ$#rPiJZ\">N.2</variable></variables><block type=\"Document-plan\" id=\"26BwGQ70c,bHd.B$VL4u\" deletable=\"false\" x=\"1505\" y=\"391\"><statement name=\"segments\"><block type=\"Segment\" id=\"rrsTDuATOG.KNof=dfUk\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"Aw}.~Wvgzo?0gd/9i5N#\"><mutation concept_id=\"tuPYHTmeXViCeXHE\" concept_label=\"N -&gt; have a N\" roles=\"[{&quot;id&quot;:&quot;EjAEwCYODfkXYOja&quot;,&quot;fieldLabel&quot;:&quot;N.1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;UFjJPoNDqDvbRqlN&quot;,&quot;fieldLabel&quot;:&quot;N.2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"EjAEwCYODfkXYOja\"><block type=\"Get-var\" id=\"w2@gR5KElXA3$rTV0Fc0\"><field name=\"name\" id=\"#285/?kY!@u_AvDIhu!$\" variabletype=\"\">N.1</field></block></value><value name=\"UFjJPoNDqDvbRqlN\"><block type=\"Get-var\" id=\"ddomEW.!:#Yuu#21sQBk\"><field name=\"name\" id=\")5@M6=BAQj}qJ$#rPiJZ\" variabletype=\"\">N.2</field></block></value></block></value></block></statement></block></xml>",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"#285/?kY!@u_AvDIhu!$\">Name</variable><variable type=\"\" id=\")5@M6=BAQj}qJ$#rPiJZ\">Part</variable><variable type=\"\" id=\"FAYq{hY2@2}42no4r!0~\">(polarity)</variable></variables><block type=\"Document-plan\" id=\"26BwGQ70c,bHd.B$VL4u\" deletable=\"false\" x=\"1219\" y=\"109\"><statement name=\"segments\"><block type=\"Segment\" id=\"rrsTDuATOG.KNof=dfUk\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"OGN.0QeF|I*e9xQqvL#^\"><mutation concept_id=\"tuPYHTmeXViCeXHE\" concept_label=\"N -&gt; have a N\" roles=\"[{&quot;id&quot;:&quot;QrfDsdiFMyjKOImR&quot;,&quot;fieldLabel&quot;:&quot;(polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Tense&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;GfcnVrCOTnZienbK&quot;,&quot;fieldLabel&quot;:&quot;N.1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;fyhMGHgqkWCAjSQW&quot;,&quot;fieldLabel&quot;:&quot;N.2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QrfDsdiFMyjKOImR\"><block type=\"Get-var\" id=\"AkBY0fy5JqM4]#XzRP*T\"><field name=\"name\" id=\"FAYq{hY2@2}42no4r!0~\" variabletype=\"\">(polarity)</field></block></value><value name=\"GfcnVrCOTnZienbK\"><block type=\"Get-var\" id=\"w2@gR5KElXA3$rTV0Fc0\"><field name=\"name\" id=\"#285/?kY!@u_AvDIhu!$\" variabletype=\"\">Name</field></block></value><value name=\"fyhMGHgqkWCAjSQW\"><block type=\"Get-var\" id=\"ddomEW.!:#Yuu#21sQBk\"><field name=\"name\" id=\")5@M6=BAQj}qJ$#rPiJZ\" variabletype=\"\">Part</field></block></value></block></value></block></statement></block></xml>",
   "documentPlan": {
     "type": "Document-plan",
     "segments": [
@@ -11,6 +11,17 @@
         "children": [
           {
             "roles": [
+              {
+                "children": [
+                  {
+                    "name": "FAYq{hY2@2}42no4r!0~",
+                    "type": "Get-var",
+                    "srcId": "AkBY0fy5JqM4]#XzRP*T"
+                  }
+                ],
+                "name": "Tense",
+                "label": "(polarity)"
+              },
               {
                 "children": [
                   {
@@ -30,13 +41,14 @@
                     "srcId": "ddomEW.!:#Yuu#21sQBk"
                   }
                 ],
-                "name": "CN",
+                "name": "N",
                 "label": "N.2"
               }
             ],
             "type": "AMR",
-            "srcId": "Aw}.~Wvgzo?0gd/9i5N#",
-            "conceptId": "tuPYHTmeXViCeXHE"
+            "srcId": "OGN.0QeF|I*e9xQqvL#^",
+            "conceptId": "tuPYHTmeXViCeXHE",
+            "kind": "Str"
           }
         ],
         "type": "Segment",

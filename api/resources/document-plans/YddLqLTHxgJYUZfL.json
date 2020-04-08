@@ -3,7 +3,7 @@
   "uid": "998f8105-aa63-491b-bcdb-a21cad69e240",
   "name": "Untitled plan",
   "kind": "Document",
-  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\".)-kcky4@NO{84X,,EIO\" deletable=\"false\" x=\"1334\" y=\"215\"><statement name=\"segments\"><block type=\"Segment\" id=\"(-xLA2MR:~lfAAzPuy9$\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\".J$a!NTswZ_z}F;V:B5=\"><mutation concept_id=\"NESXbZeuUizIrLgt\" concept_label=\"is a\" roles=\"[{&quot;id&quot;:&quot;QwKHwkxqGmdVhVLh&quot;,&quot;fieldLabel&quot;:&quot;(polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;MDZQJGPhCTdgeKwJ&quot;,&quot;fieldLabel&quot;:&quot;Subject&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;LarYCoqvKghabcNv&quot;,&quot;fieldLabel&quot;:&quot;Attribute&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QwKHwkxqGmdVhVLh\"><block type=\"Quote\" id=\"61DMHpfRV7eh2N~6SJX.\"><field name=\"text\">x</field></block></value><value name=\"MDZQJGPhCTdgeKwJ\"><block type=\"Quote\" id=\"hHo[2W%T[Q{gbHonogrl\"><field name=\"text\">a</field></block></value><value name=\"LarYCoqvKghabcNv\"><block type=\"Quote\" id=\"vBW9J1+6FQCUZ@zDuS*n\"><field name=\"text\">b</field></block></value></block></value></block></statement></block></xml>",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\".)-kcky4@NO{84X,,EIO\" deletable=\"false\" x=\"393\" y=\"68\"><statement name=\"segments\"><block type=\"Segment\" id=\"(-xLA2MR:~lfAAzPuy9$\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"v|M,lKsQ4B@@^WMW4ji)\"><mutation concept_id=\"BjelHkEwHnxXtAex\" concept_label=\"has a\" roles=\"[{&quot;id&quot;:&quot;ernGllQzDutKrYjB&quot;,&quot;fieldLabel&quot;:&quot;(polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Tense&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;qmvrYSJFXTKECstX&quot;,&quot;fieldLabel&quot;:&quot;Name&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;wWNzuUOWGRCkHxfK&quot;,&quot;fieldLabel&quot;:&quot;Part&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"qmvrYSJFXTKECstX\"><block type=\"Quote\" id=\"B~n0L?oFbjmDseIY#00y\"><field name=\"text\">bird</field></block></value><value name=\"wWNzuUOWGRCkHxfK\"><block type=\"Quote\" id=\"hb4sZUs_/J{RV=lTmr:Z\"><field name=\"text\">wing</field></block></value></block></value></block></statement></block></xml>",
   "documentPlan": {
     "type": "Document-plan",
     "segments": [
@@ -12,42 +12,37 @@
           {
             "roles": [
               {
-                "children": [
-                  {
-                    "type": "Quote",
-                    "srcId": "61DMHpfRV7eh2N~6SJX.",
-                    "text": "x"
-                  }
-                ],
-                "name": "Str",
+                "children": [],
+                "name": "Tense",
                 "label": "(polarity)"
               },
               {
                 "children": [
                   {
                     "type": "Quote",
-                    "srcId": "hHo[2W%T[Q{gbHonogrl",
-                    "text": "a"
+                    "srcId": "B~n0L?oFbjmDseIY#00y",
+                    "text": "bird"
                   }
                 ],
-                "name": "Str",
-                "label": "Subject"
+                "name": "N",
+                "label": "Name"
               },
               {
                 "children": [
                   {
                     "type": "Quote",
-                    "srcId": "vBW9J1+6FQCUZ@zDuS*n",
-                    "text": "b"
+                    "srcId": "hb4sZUs_/J{RV=lTmr:Z",
+                    "text": "wing"
                   }
                 ],
-                "name": "Str",
-                "label": "Attribute"
+                "name": "N",
+                "label": "Part"
               }
             ],
             "type": "AMR",
-            "srcId": ".J$a!NTswZ_z}F;V:B5=",
-            "conceptId": "NESXbZeuUizIrLgt"
+            "srcId": "v|M,lKsQ4B@@^WMW4ji)",
+            "conceptId": "BjelHkEwHnxXtAex",
+            "kind": "Str"
           }
         ],
         "type": "Segment",
