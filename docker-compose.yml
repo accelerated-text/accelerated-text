@@ -35,7 +35,6 @@ services:
     ports: ["8002:8000"]
   datomic-transactor:
     image: "gordonstratton/datomic-free-transactor:latest"
-    ports: ["4334-4336:4334-4336"]
     networks:
       - datomic
     environment:
