@@ -61,8 +61,7 @@
                                     ],
                                     "type": "AMR",
                                     "srcId": "aIfk!%k|uILXP#H{/}K/",
-                                    "conceptId": "SyntaxEng.mkNP/N->NP",
-                                    "kind": "NP"
+                                    "conceptId": "SyntaxEng.mkNP/N->NP"
                                   }
                                 ],
                                 "name": "NP",
@@ -119,8 +118,7 @@
                             ],
                             "type": "AMR",
                             "srcId": "k#vFs0+.Rk0tJ|/+VM%c",
-                            "conceptId": "SyntaxEng.mkNP/NP->Adv->NP",
-                            "kind": "NP"
+                            "conceptId": "SyntaxEng.mkNP/NP->Adv->NP"
                           }
                         ],
                         "name": "NP",
@@ -129,8 +127,7 @@
                     ],
                     "type": "AMR",
                     "srcId": "^FnX]99kU3v`N_|5Epu]",
-                    "conceptId": "SyntaxEng.mkCl/NP->NP->Cl",
-                    "kind": "Cl"
+                    "conceptId": "SyntaxEng.mkCl/NP->NP->Cl"
                   }
                 ],
                 "name": "Cl",
