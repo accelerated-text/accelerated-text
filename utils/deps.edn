@@ -1,6 +1,5 @@
 {:deps      {core                 {:local/root "../core"}
-             api                  {:local/root "../api"
-                                   :exclusions [com.datomic/datomic-free]}
+             api                  {:local/root "../api"}
              http-kit                         {:mvn/version "2.3.0"}
              org.clojure/clojure              {:mvn/version "1.10.1"}}
  :paths     ["src" "resources"]
