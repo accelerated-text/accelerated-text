@@ -16,12 +16,15 @@
     (log/infof "Applying Datomic migration: %s" file-name)
     (c/ensure-conforms conn (c/read-resource (str schema-folder-name "/" file-name)))))
 
+(defn init-db [uri]
+  (d/create-database uri)
+  uri)
+
 (defn get-conn [conf]
   (let [c (d/connect (if-let [uri (:db-uri conf)]
-                       uri
+                       (init-db uri)
                        (let [uri (str "datomic:mem://" (str (UUID/randomUUID)))]
-                         (d/create-database uri)
-                         uri)))]
+                         (init-db uri))))]
     (migrate c)
     c))
 
