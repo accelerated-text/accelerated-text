@@ -1,0 +1,49 @@
+{
+  "id": "lGsMkmjAvZKyWrTG",
+  "uid": "b16b272c-07d3-408d-8fdb-1f2c7d870cc2",
+  "name": "Untitled plan",
+  "kind": "Document",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\"RyppB(;NCeySA{1PlI^+\" deletable=\"false\" x=\"1141\" y=\"192\"><statement name=\"segments\"><block type=\"Segment\" id=\"j?A7Crg5c9[;_j0zOAtL\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"_S3T~@R6]aB9$~(AvgZi\"><mutation concept_id=\"NESXbZeuUizIrLgt\" concept_label=\"is a\" roles=\"[{&quot;id&quot;:&quot;FzeTcJApLcCOqksc&quot;,&quot;fieldLabel&quot;:&quot;Subject&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;ZIkUXezmnOLSfbrz&quot;,&quot;fieldLabel&quot;:&quot;Attribute&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"FzeTcJApLcCOqksc\"><block type=\"Quote\" id=\"g56r2g{SXum`kA-k6|sw\"><field name=\"text\">a</field></block></value><value name=\"ZIkUXezmnOLSfbrz\"><block type=\"Quote\" id=\"Fb4[Zs62uf[p*|_I!D^~\"><field name=\"text\">b</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "type": "Quote",
+                    "srcId": "g56r2g{SXum`kA-k6|sw",
+                    "text": "a"
+                  }
+                ],
+                "name": "Str",
+                "label": "Subject"
+              },
+              {
+                "children": [
+                  {
+                    "type": "Quote",
+                    "srcId": "Fb4[Zs62uf[p*|_I!D^~",
+                    "text": "b"
+                  }
+                ],
+                "name": "Str",
+                "label": "Attribute"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "_S3T~@R6]aB9$~(AvgZi",
+            "conceptId": "NESXbZeuUizIrLgt",
+            "kind": "Str"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "j?A7Crg5c9[;_j0zOAtL"
+      }
+    ],
+    "srcId": "RyppB(;NCeySA{1PlI^+"
+  }
+}

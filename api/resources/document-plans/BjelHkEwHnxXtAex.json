@@ -1,0 +1,49 @@
+{
+  "id": "BjelHkEwHnxXtAex",
+  "uid": "ce604ea4-2a20-4b1c-b296-304662d6e852",
+  "name": "has a",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"#285/?kY!@u_AvDIhu!$\">N.1</variable><variable type=\"\" id=\")5@M6=BAQj}qJ$#rPiJZ\">N.2</variable></variables><block type=\"Document-plan\" id=\"26BwGQ70c,bHd.B$VL4u\" deletable=\"false\" x=\"1505\" y=\"391\"><statement name=\"segments\"><block type=\"Segment\" id=\"rrsTDuATOG.KNof=dfUk\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"Aw}.~Wvgzo?0gd/9i5N#\"><mutation concept_id=\"tuPYHTmeXViCeXHE\" concept_label=\"N -&gt; have a N\" roles=\"[{&quot;id&quot;:&quot;EjAEwCYODfkXYOja&quot;,&quot;fieldLabel&quot;:&quot;N.1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;UFjJPoNDqDvbRqlN&quot;,&quot;fieldLabel&quot;:&quot;N.2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"EjAEwCYODfkXYOja\"><block type=\"Get-var\" id=\"w2@gR5KElXA3$rTV0Fc0\"><field name=\"name\" id=\"#285/?kY!@u_AvDIhu!$\" variabletype=\"\">N.1</field></block></value><value name=\"UFjJPoNDqDvbRqlN\"><block type=\"Get-var\" id=\"ddomEW.!:#Yuu#21sQBk\"><field name=\"name\" id=\")5@M6=BAQj}qJ$#rPiJZ\" variabletype=\"\">N.2</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "#285/?kY!@u_AvDIhu!$",
+                    "type": "Get-var",
+                    "srcId": "w2@gR5KElXA3$rTV0Fc0"
+                  }
+                ],
+                "name": "N",
+                "label": "N.1"
+              },
+              {
+                "children": [
+                  {
+                    "name": ")5@M6=BAQj}qJ$#rPiJZ",
+                    "type": "Get-var",
+                    "srcId": "ddomEW.!:#Yuu#21sQBk"
+                  }
+                ],
+                "name": "CN",
+                "label": "N.2"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "Aw}.~Wvgzo?0gd/9i5N#",
+            "conceptId": "tuPYHTmeXViCeXHE",
+            "kind": "Str"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "rrsTDuATOG.KNof=dfUk"
+      }
+    ],
+    "srcId": "26BwGQ70c,bHd.B$VL4u"
+  }
+}
