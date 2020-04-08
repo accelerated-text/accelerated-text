@@ -26,3 +26,8 @@ services:
     build:
       context: ./enrich
     ports: ["8002:8000"]
+  transactor:
+    image: "gordonstratton/datomic-free-transactor:latest"
+    ports: ["4334-4336:4334-4336"]
+    volumes:
+      - ./api/data:/srv/datomic/data
