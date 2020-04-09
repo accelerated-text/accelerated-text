@@ -1,0 +1,74 @@
+{
+  "id": "tsZSpFXpTrxFDPjg",
+  "uid": "4cb3b0b0-7f72-42e9-b1a7-e5e16aa1c1b9",
+  "name": "capable of",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"KrDSk+_rhD2hP6dTFS{f\">Name</variable><variable type=\"\" id=\"F0/Y,~]up9t7CdZ8l6=}\">Object</variable><variable type=\"\" id=\"{}u]?/lHwxYi*9h?kQ!i\">Action</variable></variables><block type=\"Document-plan\" id=\"_n1qEb{w?2Iukpis/L!7\" deletable=\"false\" x=\"810\" y=\"238\"><statement name=\"segments\"><block type=\"Segment\" id=\"$+.!GN8+[;wTe(c4|2{s\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"q+D-h`k549jtsiE!nnfK\"><mutation concept_id=\"yLNcSXyZotzpXHHT\" concept_label=\"N -&gt; V -&gt; N\" roles=\"[{&quot;id&quot;:&quot;eveuyldqxvJIboTh&quot;,&quot;fieldLabel&quot;:&quot;N.1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;poyglyRODlUYvCVn&quot;,&quot;fieldLabel&quot;:&quot;V2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V2&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;hLsperZcjyIGikMG&quot;,&quot;fieldLabel&quot;:&quot;N.2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"eveuyldqxvJIboTh\"><block type=\"Get-var\" id=\".5#_l%mSTj+8GKO-t=^_\"><field name=\"name\" id=\"KrDSk+_rhD2hP6dTFS{f\" variabletype=\"\">Name</field></block></value><value name=\"poyglyRODlUYvCVn\"><block type=\"AMR\" id=\"~qh*~-G8;#y|;;oj@+(!\"><mutation concept_id=\"ParadigmsEng.mkV2/V-&gt;V2\" concept_label=\"mkV2\" roles=\"[{&quot;id&quot;:&quot;FvVcdopziaKWvNPf&quot;,&quot;fieldLabel&quot;:&quot;V&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"FvVcdopziaKWvNPf\"><block type=\"Get-var\" id=\"|]zuuB4IX/a-!)M}C#=U\"><field name=\"name\" id=\"{}u]?/lHwxYi*9h?kQ!i\" variabletype=\"\">Action</field></block></value></block></value><value name=\"hLsperZcjyIGikMG\"><block type=\"Get-var\" id=\"/g-_sRcfBKi66~,.Z4iB\"><field name=\"name\" id=\"F0/Y,~]up9t7CdZ8l6=}\" variabletype=\"\">Object</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "KrDSk+_rhD2hP6dTFS{f",
+                    "type": "Get-var",
+                    "srcId": ".5#_l%mSTj+8GKO-t=^_"
+                  }
+                ],
+                "name": "N",
+                "label": "N.1"
+              },
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "name": "{}u]?/lHwxYi*9h?kQ!i",
+                            "type": "Get-var",
+                            "srcId": "|]zuuB4IX/a-!)M}C#=U"
+                          }
+                        ],
+                        "name": "V",
+                        "label": "V"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "~qh*~-G8;#y|;;oj@+(!",
+                    "conceptId": "ParadigmsEng.mkV2/V->V2",
+                    "kind": "V2"
+                  }
+                ],
+                "name": "V2",
+                "label": "V2"
+              },
+              {
+                "children": [
+                  {
+                    "name": "F0/Y,~]up9t7CdZ8l6=}",
+                    "type": "Get-var",
+                    "srcId": "/g-_sRcfBKi66~,.Z4iB"
+                  }
+                ],
+                "name": "N",
+                "label": "N.2"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "q+D-h`k549jtsiE!nnfK",
+            "conceptId": "yLNcSXyZotzpXHHT",
+            "kind": "Str"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "$+.!GN8+[;wTe(c4|2{s"
+      }
+    ],
+    "srcId": "_n1qEb{w?2Iukpis/L!7"
+  }
+}
