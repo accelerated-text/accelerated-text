@@ -380,7 +380,7 @@
                                                                                :value  "ParadigmsEng.mkN"
                                                                                :params ({:id "ARG0" :type "Str"})
                                                                                :type   :oper})})}}
- :data       {:product "product" :fridge "fridge"}
+ :data       {"product" "product" "fridge" "fridge"}
  :dictionary {"noise"   #:acc-text.nlg.dictionary.item{:id       "ae1a289c-9f4a-471b-ae36-36c4089cc865"
                                                        :key      "noise"
                                                        :category "N"
