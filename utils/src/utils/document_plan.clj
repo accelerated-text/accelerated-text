@@ -19,6 +19,15 @@
       (document-plan->semantic-graph)
       (pprint)))
 
+(defn ouput-document-plan [dir dp])
+
+(defn ->file [output-dir {:keys [id] :as document-plan}]
+  (let [fpath (format "%s/%s.json" output-dir id)]
+    (log/debugf "Writing to: %s" fpath)
+    (spit
+     fpath
+     (json/write-value-as-string document-plan))))
+
 (defn export-document-plan [name])
 
 (defn export-all-document-plans
@@ -31,11 +40,13 @@
                                                                          :graphql
                                                                          (json/write-value-as-string))})]
      (if error
-       (println "Failed, exception is: " error)
-       (pprint body)))))
+       (log/errorf "Failed, exception is: %s" error)
+       (doseq [dp (-> (json/read-value body read-mapper) :data :documentPlans :items)]
+         (->file output-dir dp))))))
 
 (defn -main [& args]
   (mount/start)
+  (println queries/query-map)
   (let [[action & other] args]
     (case action
       "to-semantic-graph" (apply ->semantic-graph other)
