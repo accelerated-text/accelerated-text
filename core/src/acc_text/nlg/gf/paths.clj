@@ -1,30 +1,9 @@
 (ns acc-text.nlg.gf.paths
-  (:require [acc-text.nlg.semantic-graph :as sg]
-            [acc-text.nlg.gf.utils :as utils]
+  (:require [acc-text.nlg.gf.utils :as utils]
             [clojure.java.io :as io]))
 
-(defn path->sg [path]
-  (letfn [(->id [index] (keyword (format "%02d" (inc index))))]
-    #::sg{:relations (map-indexed (fn [index [_ _ category]]
-                                    {:from     (->id (inc index))
-                                     :to       (->id index)
-                                     :role     :arg
-                                     :index    0
-                                     :category category})
-                                  (butlast path))
-          :concepts  (map-indexed (fn [index [module name category]]
-                                    {:id       (->id index)
-                                     :type     :operation
-                                     :name     name
-                                     :category category
-                                     :module   module})
-                                  path)}))
-
 (defn load-paths [resource-path]
-  (reduce-kv (fn [m k v]
-               (assoc m k (path->sg (first v))))
-             {}
-             (utils/read-edn (io/file (io/resource resource-path)))))
+  (utils/read-edn (io/file (io/resource resource-path))))
 
 (def path-map
   {"Eng" (load-paths "rgl/paths/eng.edn")

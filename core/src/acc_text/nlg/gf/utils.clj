@@ -1,5 +1,6 @@
 (ns acc-text.nlg.gf.utils
-  (:require [clojure.edn :as edn]
+  (:require [acc-text.nlg.semantic-graph :as sg]
+            [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.pprint :refer [pprint]]
             [clojure.set :as set]
@@ -118,11 +119,22 @@
                 (str/join "\n" path)
                 (map traverse (for [s (remove #(contains? (set path) %) successors)]
                                 (conj path s))))))
-          (add-attributes [path]
-            (map (fn [function]
-                   (let [{:keys [type module]} (attrs g function)]
-                     [module function type]))
-                 path))]
+          (path->sg [path]
+            (letfn [(->id [index] (keyword (format "%02d" (inc index))))]
+              (->> (reverse path)
+                   (map-indexed (fn [index function]
+                                  (let [{:keys [type module]} (attrs g function)]
+                                    #::sg{:relations [{:from     (->id index)
+                                                       :to       (->id (inc index))
+                                                       :role     :arg
+                                                       :index    0
+                                                       :category type}]
+                                          :concepts  [{:id       (->id index)
+                                                       :type     :operation
+                                                       :name     function
+                                                       :category type
+                                                       :module   module}]})))
+                   (apply merge-with concat))))]
     (->> (graph/nodes g)
          (remove #(or (= "Text" %) (some? (:type (attrs g %)))))
          (map (comp traverse vector))
@@ -131,8 +143,8 @@
          (group-by #(vector (first %) (last %)))
          (reduce-kv (fn [m [src dest] paths]
                       (cond-> m
-                              (not= src dest) (assoc [src dest] (mapv (comp add-attributes rest butlast)
-                                                                      (sort-by #(evaluate-path src %) paths)))))
+                              (not= src dest) (assoc [src dest] (first (map (comp path->sg rest butlast)
+                                                                            (sort-by #(evaluate-path src %) paths))))))
                     {}))))
 
 (defn save-graph [g output-path]
