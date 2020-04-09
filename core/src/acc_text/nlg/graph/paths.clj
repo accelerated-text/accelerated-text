@@ -1,6 +1,5 @@
 (ns acc-text.nlg.graph.paths
   (:require [acc-text.nlg.gf.paths :refer [path-map]]
-            [acc-text.nlg.graph.utils :refer [get-in-edge]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [loom.alg :as alg]
             [loom.attr :refer [attrs]]

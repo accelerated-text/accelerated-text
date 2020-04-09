@@ -1,7 +1,7 @@
 (ns acc-text.nlg.graph.paths-test
   (:require [acc-text.nlg.test-utils :refer [load-test-semantic-graph load-test-context]]
             [acc-text.nlg.core :as core]
-            [clojure.test :refer [deftest is testing]]))
+            [clojure.test :refer [deftest is]]))
 
 (deftest ^:integration path-completion
   (let [semantic-graph (load-test-semantic-graph "path-test")
