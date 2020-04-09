@@ -40,8 +40,7 @@
                     ],
                     "type": "AMR",
                     "srcId": "M*5T%MvE?6#,e(UARK6v",
-                    "conceptId": "ParadigmsEng.mkN/Str->N",
-                    "kind": "N"
+                    "conceptId": "ParadigmsEng.mkN/Str->N"
                   }
                 ],
                 "name": "N",
@@ -91,8 +90,7 @@
                             ],
                             "type": "AMR",
                             "srcId": "YN2Yrxh,N=01.l2bebQf",
-                            "conceptId": "ParadigmsEng.mkV/Str->Str->Str->V",
-                            "kind": "V"
+                            "conceptId": "ParadigmsEng.mkV/Str->Str->Str->V"
                           }
                         ],
                         "name": "V",
@@ -101,8 +99,7 @@
                     ],
                     "type": "AMR",
                     "srcId": "D{QXNbMxU0}Et`q*{`7,",
-                    "conceptId": "ParadigmsEng.mkV2/V->V2",
-                    "kind": "V2"
+                    "conceptId": "ParadigmsEng.mkV2/V->V2"
                   }
                 ],
                 "name": "V2",
@@ -126,8 +123,7 @@
                     ],
                     "type": "AMR",
                     "srcId": "%B,ZdpX?ch%Nfa{Xew2]",
-                    "conceptId": "ParadigmsEng.mkPrep/Str->Prep",
-                    "kind": "Prep"
+                    "conceptId": "ParadigmsEng.mkPrep/Str->Prep"
                   }
                 ],
                 "name": "Prep",
@@ -151,8 +147,7 @@
                     ],
                     "type": "AMR",
                     "srcId": "(BUy{b-Y6wVwu8LzA3+l",
-                    "conceptId": "ParadigmsEng.mkN/Str->N",
-                    "kind": "N"
+                    "conceptId": "ParadigmsEng.mkN/Str->N"
                   }
                 ],
                 "name": "N",
@@ -161,8 +156,7 @@
             ],
             "type": "AMR",
             "srcId": "iU`LJ8dRk*OkW|%@*d^Z",
-            "conceptId": "FGTwjtvfVUcVJQPA",
-            "kind": "Str"
+            "conceptId": "FGTwjtvfVUcVJQPA"
           }
         ],
         "type": "Segment",
