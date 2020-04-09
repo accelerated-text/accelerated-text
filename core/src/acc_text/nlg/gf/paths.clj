@@ -6,17 +6,18 @@
 (defn path->sg [path]
   (letfn [(->id [index] (keyword (format "%02d" (inc index))))]
     #::sg{:relations (map-indexed (fn [index [_ _ category]]
-                                    {:from     (->id index)
-                                     :to       (->id (inc index))
+                                    {:from     (->id (inc index))
+                                     :to       (->id index)
                                      :role     :arg
                                      :index    0
                                      :category category})
-                                  (rest path))
-          :concepts  (map-indexed (fn [index [module name _]]
-                                    {:id     (->id index)
-                                     :type   :operation
-                                     :name   name
-                                     :module module})
+                                  (butlast path))
+          :concepts  (map-indexed (fn [index [module name category]]
+                                    {:id       (->id index)
+                                     :type     :operation
+                                     :name     name
+                                     :category category
+                                     :module   module})
                                   path)}))
 
 (defn load-paths [resource-path]
