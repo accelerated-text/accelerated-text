@@ -1,0 +1,5 @@
+query ExportDocumentPlans(){
+      documentPlans{
+        items{id uid name kind blocklyXml documentPlan}
+      }
+}
