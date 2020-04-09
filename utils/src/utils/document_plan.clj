@@ -27,7 +27,14 @@
      fpath
      (json/write-value-as-string document-plan))))
 
-(defn export-document-plan [name])
+(defn export-document-plan [name]
+  (let [{:keys [graphql-url]} config
+        {:keys [status body error]} @(http/post graphql-url {:headers {"Content-Type" "application/json"}
+                                                             :body (->> (queries/export-document-plan-query {:name name})
+                                                                        (log/spyf "Query Content: %s")
+                                                                        :graphql
+                                                                        (json/write-value-as-string))})]
+    (-> (json/read-value body read-mapper) :data :documentPlan (json/write-value-as-string) (pprint))))
 
 (defn export-all-document-plans
   ([] (export-all-document-plans "../api/resources/document-plans"))
