@@ -6,6 +6,7 @@
             [acc-text.nlg.graph.dictionary-item :refer [resolve-dictionary-items]]
             [acc-text.nlg.graph.lists :refer [resolve-lists]]
             [acc-text.nlg.graph.modifier :refer [resolve-modifiers]]
+            [acc-text.nlg.graph.paths :refer [resolve-paths]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
             [acc-text.nlg.graph.utils :refer [find-root-id get-successors get-in-edge add-concept-position prune-graph]]
             [acc-text.nlg.graph.variables :refer [resolve-variables]]
@@ -113,6 +114,7 @@
       (resolve-variables)
       (determine-conditions context)
       (prune-graph)
+      (resolve-paths context)
       (resolve-polarity)
       (resolve-dictionary-items context)
       (resolve-data context)

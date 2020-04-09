@@ -1,0 +1,9 @@
+#:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
+                                          {:from :02 :to :03 :role :instance :index 0}
+                                          {:from :03 :to :05 :role :arg :index 1 :category "Str" :name "Name"}
+                                          {:from :03 :to :06 :role :arg :index 2 :category "Str" :name "Material"})
+                              :concepts  ({:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :amr :name "rQqCrMfUOyjDsYyY"}
+                                          {:id :05 :type :quote :value "refrigerator"}
+                                          {:id :06 :type :quote :value "steel"})}
