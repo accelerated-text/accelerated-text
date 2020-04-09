@@ -3,6 +3,7 @@
             [graphql-builder.core :as core]
             [jsonista.core :as json]
             [clojure.string :as str]
+            [clojure.tools.logging :as log]
             [data.utils :refer [list-files]]))
 
 (defn graphql-file-filter
@@ -12,13 +13,15 @@
 (def graphql-files
   (->> (list-files "resources/")
        (map #(.getName %))
-       (filter graphql-file-filter)))
+       #_(filter graphql-file-filter)))
 
 (def query-map
   (->> graphql-files
        (map read-file)
        (str/join "\n")
+       (log/spyf :trace "Content: %s")
        (parse)
+       (log/spyf :trace "Parsed: %s")
        (core/query-map)))
 
 (def export-document-plans-query (get-in query-map [:query :export-document-plans]))
