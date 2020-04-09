@@ -100,7 +100,17 @@
                                                  (mapcat :from fns))))))))
 
 (defn find-paths [g]
-  (letfn [(path-ended? [path]
+  (letfn [(evaluate-path [src path]
+            (let [desired-ops #{"mkText" "mkPhr" "mkUtt" "mkS" "mkCl" "mkCN" "mkN"}
+                  undesired-ops #{"mkImp" "mkQS" "mkQCl" "mkNP" "mkVP" "mkAP"}
+                  required-op (cond
+                                (contains? #{"N" "N2" "N3" "CN" "PN"} src) "mkNP"
+                                (contains? #{"V" "V2" "V2A" "V3" "VA" "VQ" "VS" "VV"} src) "mkVP"
+                                (contains? #{"A" "A2"} src) "mkAP")]
+              [(if (and (some? required-op) (contains? (set path) required-op)) 0 1)
+               (+ (count (set/intersection undesired-ops (set path)))
+                  (/ (count path) (inc (apply + (map #(if (contains? desired-ops %) 1 0) path)))))]))
+          (path-ended? [path]
             (and (< 1 (count path)) (nil? (:type (attrs g (last path))))))
           (traverse [path]
             (let [successors (graph/successors g (last path))]
@@ -122,7 +132,7 @@
          (reduce-kv (fn [m [src dest] paths]
                       (cond-> m
                               (not= src dest) (assoc [src dest] (mapv (comp add-attributes rest butlast)
-                                                                      (sort-by count paths)))))
+                                                                      (sort-by #(evaluate-path src %) paths)))))
                     {}))))
 
 (defn save-graph [g output-path]
