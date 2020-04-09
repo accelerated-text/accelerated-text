@@ -1,5 +1,5 @@
-{:deps      {core                 {:local/root "../core"}
-             api                  {:local/root "../api"}
+{:deps      {core                             {:local/root "../core"}
+             api                              {:local/root "../api"}
              http-kit                         {:mvn/version "2.3.0"}
              org.clojure/clojure              {:mvn/version "1.10.1"}
              floatingpointio/graphql-builder  {:mvn/version "0.1.10"}}
