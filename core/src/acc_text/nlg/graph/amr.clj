@@ -13,7 +13,8 @@
 (defn attach-amr [g amr-g amr-node-id]
   (let [amr-root-id (find-root-id amr-g)
         out-edge-map (group-by (fn [{edge-id :id}]
-                                 (get-in g [:attrs edge-id :name]))
+                                 (let [{:keys [name category]} (get-in g [:attrs edge-id])]
+                                   (or name category)))
                                (graph/out-edges g amr-node-id))
         reference-nodes (filter (fn [[_ {reference-name :name}]]
                                   (contains? out-edge-map reference-name))
