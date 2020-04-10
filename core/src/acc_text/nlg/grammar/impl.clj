@@ -114,12 +114,12 @@
       (resolve-variables)
       (determine-conditions context)
       (prune-graph)
-      (resolve-paths context)
       (resolve-polarity)
       (resolve-dictionary-items context)
       (resolve-data context)
       (resolve-lists)
       (resolve-modifiers)
+      (resolve-paths context)
       (add-concept-position)))
 
 (defn build-grammar
