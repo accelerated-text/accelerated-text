@@ -114,8 +114,7 @@
             ],
             "type": "AMR",
             "srcId": "qA$jm)7O/Lvl4E}d4}xq",
-            "conceptId": "Syntax.mkText/S->Text",
-            "kind": "Text"
+            "conceptId": "Syntax.mkText/S->Text"
           }
         ],
         "type": "Segment",

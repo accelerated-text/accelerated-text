@@ -1,0 +1,60 @@
+{
+  "id": "UFauCFMMLeoqxHaz",
+  "uid": "c6338c10-3552-429a-82f3-f01d6e56fafe",
+  "name": "located at",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"c{^%I%B$SO.T+nLa3iSI\">(polarity)</variable><variable type=\"\" id=\"I;`GwhwW4f/GyhD2tQUW\">Name</variable><variable type=\"\" id=\"Fk$ga!QRh3KnywN0(hqa\">Location</variable></variables><block type=\"Document-plan\" id=\"a|H`9VBD@m+4P.t-3ra0\" deletable=\"false\" x=\"690\" y=\"275\"><statement name=\"segments\"><block type=\"Segment\" id=\"))7MohxkW#*9}x8ZxT`i\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"!6M+M51Viz%8;HcSWy3G\"><mutation concept_id=\"XctBUAGRHOQNIAoR\" concept_label=\"N -&gt; in the -&gt; N\" roles=\"[{&quot;id&quot;:&quot;ZeZRUYwAaGebFPOq&quot;,&quot;fieldLabel&quot;:&quot;(polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;gamnOUzcVLopSsiP&quot;,&quot;fieldLabel&quot;:&quot;N.1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;DfPQRlCYHYRbgbmV&quot;,&quot;fieldLabel&quot;:&quot;N.2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"ZeZRUYwAaGebFPOq\"><block type=\"Get-var\" id=\"P7#ABZ``4}jfW38D#bD2\"><field name=\"name\" id=\"c{^%I%B$SO.T+nLa3iSI\" variabletype=\"\">(polarity)</field></block></value><value name=\"gamnOUzcVLopSsiP\"><block type=\"Get-var\" id=\"h-N-/mJH^}`BuO,XeH4J\"><field name=\"name\" id=\"I;`GwhwW4f/GyhD2tQUW\" variabletype=\"\">Name</field></block></value><value name=\"DfPQRlCYHYRbgbmV\"><block type=\"Get-var\" id=\"g3{M2TO$[B~wbw^5gdFC\"><field name=\"name\" id=\"Fk$ga!QRh3KnywN0(hqa\" variabletype=\"\">Location</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "c{^%I%B$SO.T+nLa3iSI",
+                    "type": "Get-var",
+                    "srcId": "P7#ABZ``4}jfW38D#bD2"
+                  }
+                ],
+                "name": "Str",
+                "label": "(polarity)"
+              },
+              {
+                "children": [
+                  {
+                    "name": "I;`GwhwW4f/GyhD2tQUW",
+                    "type": "Get-var",
+                    "srcId": "h-N-/mJH^}`BuO,XeH4J"
+                  }
+                ],
+                "name": "N",
+                "label": "N.1"
+              },
+              {
+                "children": [
+                  {
+                    "name": "Fk$ga!QRh3KnywN0(hqa",
+                    "type": "Get-var",
+                    "srcId": "g3{M2TO$[B~wbw^5gdFC"
+                  }
+                ],
+                "name": "N",
+                "label": "N.2"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "!6M+M51Viz%8;HcSWy3G",
+            "conceptId": "XctBUAGRHOQNIAoR",
+            "kind": "Str"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "))7MohxkW#*9}x8ZxT`i"
+      }
+    ],
+    "srcId": "a|H`9VBD@m+4P.t-3ra0"
+  }
+}
