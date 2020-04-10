@@ -55,18 +55,24 @@
 (defn- remove-optional-params [params]
   (remove #(re-matches #"^\(.+\)$" %) params))
 
+(defn- find-position [params]
+  (some (fn [[index param]]
+          (when-not (re-matches #"^\(.+\)$" param) index))
+        (map-indexed #(vector %1 %2) params)))
+
 (defn- find-single-arity-functions [fns]
   (reduce (fn [acc {:keys [module functions]}]
             (concat acc (sequence
                           (comp
                             (map #(set/rename-keys % {:type :params}))
                             (map #(assoc % :type (last (:params %))))
+                            (map #(assoc % :position (find-position (:params %))))
                             (map #(update % :params (comp remove-optional-params butlast)))
                             (remove #(not= 1 (count (:params %))))
                             (map #(set/rename-keys % {:params :from}))
                             (map #(update % :from first))
                             (map #(assoc % :module module))
-                            (map #(select-keys % [:function :type :from :module])))
+                            (map #(select-keys % [:function :type :position :from :module])))
                           functions)))
           []
           fns))
@@ -86,9 +92,9 @@
   (let [fns (-> (apply read-rgl-functions paths) (find-single-arity-functions) (apply-function-filter) (group-single-arity-function-params))
         type->fns (group-by :type fns)]
     (apply uber/digraph (->> fns
-                             (mapcat (fn [{:keys [function type from module]}]
+                             (mapcat (fn [{:keys [function type from module position]}]
                                        (cons
-                                         [^:node function {:module module :type type}]
+                                         [^:node function {:module module :type type :position position}]
                                          (cons
                                            [^:edge function type]
                                            (->> (for [type from
@@ -103,7 +109,7 @@
 (defn find-paths [g]
   (letfn [(evaluate-path [src path]
             (let [desired-ops #{"mkText" "mkPhr" "mkUtt" "mkS" "mkCl" "mkCN" "mkN"}
-                  undesired-ops #{"mkImp" "mkQS" "mkQCl" "mkNP" "mkVP" "mkAP"}
+                  undesired-ops #{"mkImp" "mkQS" "mkQCl" "mkNP" "mkVP" "mkAP" "mkPost"}
                   required-op (cond
                                 (contains? #{"N" "N2" "N3" "CN" "PN"} src) "mkNP"
                                 (contains? #{"V" "V2" "V2A" "V3" "VA" "VQ" "VS" "VV"} src) "mkVP"
@@ -121,20 +127,23 @@
                                 (conj path s))))))
           (path->sg [path]
             (letfn [(->id [index] (keyword (format "%02d" (inc index))))]
-              (->> (reverse path)
-                   (map-indexed (fn [index function]
-                                  (let [{:keys [type module]} (attrs g function)]
-                                    #::sg{:relations [{:from     (->id index)
-                                                       :to       (->id (inc index))
-                                                       :role     :arg
-                                                       :index    0
-                                                       :category type}]
-                                          :concepts  [{:id       (->id index)
-                                                       :type     :operation
-                                                       :name     function
-                                                       :category type
-                                                       :module   module}]})))
-                   (apply merge-with concat))))]
+              #::sg{:relations (map (fn [index function last-function]
+                                      (let [{:keys [type]} (attrs g function)
+                                            {:keys [position]} (attrs g last-function)]
+                                        {:from     (->id index)
+                                         :to       (->id (inc index))
+                                         :role     :arg
+                                         :index    position
+                                         :category type}))
+                                    (range) (rest (reverse path)) (butlast (reverse path)))
+                    :concepts  (map (fn [index function]
+                                      (let [{:keys [type module]} (attrs g function)]
+                                        {:id       (->id index)
+                                         :type     :operation
+                                         :name     function
+                                         :category type
+                                         :module   module}))
+                                    (range) (reverse path))}))]
     (->> (graph/nodes g)
          (remove #(or (= "Text" %) (some? (:type (attrs g %)))))
          (map (comp traverse vector))
