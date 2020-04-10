@@ -51,8 +51,7 @@
                     ],
                     "type": "AMR",
                     "srcId": "j60`jT|+=V=em]hQU*mE",
-                    "conceptId": "ParadigmsEng.mkPrep/Str->Prep",
-                    "kind": "Prep"
+                    "conceptId": "ParadigmsEng.mkPrep/Str->Prep"
                   }
                 ],
                 "name": "Prep",
@@ -76,8 +75,7 @@
                     ],
                     "type": "AMR",
                     "srcId": "q1fA$4)1-m3sACp3eg/{",
-                    "conceptId": "ParadigmsEng.mkN/Str->N",
-                    "kind": "N"
+                    "conceptId": "ParadigmsEng.mkN/Str->N"
                   }
                 ],
                 "name": "N",
@@ -86,8 +84,7 @@
             ],
             "type": "AMR",
             "srcId": "u`x=jmGIX+vJ.nP:OP.9",
-            "conceptId": "XctBUAGRHOQNIAoT",
-            "kind": "Str"
+            "conceptId": "XctBUAGRHOQNIAoT"
           }
         ],
         "type": "Segment",
