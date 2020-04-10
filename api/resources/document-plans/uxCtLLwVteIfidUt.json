@@ -1,0 +1,96 @@
+{
+  "id": "uxCtLLwVteIfidUt",
+  "uid": "ca214746-beed-4feb-b3d0-d5f62b386d65",
+  "name": "located near",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"0$TgP9=W:S^Cp~GZ3aSP\">(polarity)</variable><variable type=\"\" id=\",u]+7.5tp;E`V#1ruRbG\">Name</variable><variable type=\"\" id=\"@w|fQZ{pX@~K(Jm;4[Bj\">Object</variable></variables><block type=\"Document-plan\" id=\"wb+4L`D59~A]#~erWv0?\" deletable=\"false\" x=\"791\" y=\"241\"><statement name=\"segments\"><block type=\"Segment\" id=\"Q*$oo`g?a5Ad/)D$H:bY\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"u`x=jmGIX+vJ.nP:OP.9\"><mutation concept_id=\"XctBUAGRHOQNIAoT\" concept_label=\"N -&gt; Prep -&gt; N\" roles=\"[{&quot;id&quot;:&quot;iTjuJXORfPIhhyJJ&quot;,&quot;fieldLabel&quot;:&quot;(polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;tmCoawbcovxGHvTT&quot;,&quot;fieldLabel&quot;:&quot;N.1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;mEvxyrbvDqktwyAm&quot;,&quot;fieldLabel&quot;:&quot;Prep&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Prep&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;tQfwJdJkeMsGsSuO&quot;,&quot;fieldLabel&quot;:&quot;N.2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"iTjuJXORfPIhhyJJ\"><block type=\"Get-var\" id=\"MpBy,/G0]/y?,(1GS?l)\"><field name=\"name\" id=\"0$TgP9=W:S^Cp~GZ3aSP\" variabletype=\"\">(polarity)</field></block></value><value name=\"tmCoawbcovxGHvTT\"><block type=\"Get-var\" id=\"iYNTE/J1uavv:[T81`wf\"><field name=\"name\" id=\",u]+7.5tp;E`V#1ruRbG\" variabletype=\"\">Name</field></block></value><value name=\"mEvxyrbvDqktwyAm\"><block type=\"AMR\" id=\"j60`jT|+=V=em]hQU*mE\"><mutation concept_id=\"ParadigmsEng.mkPrep/Str-&gt;Prep\" concept_label=\"mkPrep\" roles=\"[{&quot;id&quot;:&quot;rjFXcPbQccjpyKPc&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"rjFXcPbQccjpyKPc\"><block type=\"Quote\" id=\"eTrP#46!k$x/jJ!tG=cY\"><field name=\"text\">near</field></block></value></block></value><value name=\"tQfwJdJkeMsGsSuO\"><block type=\"AMR\" id=\"q1fA$4)1-m3sACp3eg/{\"><mutation concept_id=\"ParadigmsEng.mkN/Str-&gt;N\" concept_label=\"mkN\" roles=\"[{&quot;id&quot;:&quot;uKvkbxrAXsPMtxve&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"uKvkbxrAXsPMtxve\"><block type=\"Get-var\" id=\"[8hq^D/(8id~nNZnI(%L\"><field name=\"name\" id=\"@w|fQZ{pX@~K(Jm;4[Bj\" variabletype=\"\">Object</field></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "0$TgP9=W:S^Cp~GZ3aSP",
+                    "type": "Get-var",
+                    "srcId": "MpBy,/G0]/y?,(1GS?l)"
+                  }
+                ],
+                "name": "Str",
+                "label": "(polarity)"
+              },
+              {
+                "children": [
+                  {
+                    "name": ",u]+7.5tp;E`V#1ruRbG",
+                    "type": "Get-var",
+                    "srcId": "iYNTE/J1uavv:[T81`wf"
+                  }
+                ],
+                "name": "N",
+                "label": "N.1"
+              },
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "type": "Quote",
+                            "srcId": "eTrP#46!k$x/jJ!tG=cY",
+                            "text": "near"
+                          }
+                        ],
+                        "name": "Str",
+                        "label": "Str"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "j60`jT|+=V=em]hQU*mE",
+                    "conceptId": "ParadigmsEng.mkPrep/Str->Prep"
+                  }
+                ],
+                "name": "Prep",
+                "label": "Prep"
+              },
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "name": "@w|fQZ{pX@~K(Jm;4[Bj",
+                            "type": "Get-var",
+                            "srcId": "[8hq^D/(8id~nNZnI(%L"
+                          }
+                        ],
+                        "name": "Str",
+                        "label": "Str"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "q1fA$4)1-m3sACp3eg/{",
+                    "conceptId": "ParadigmsEng.mkN/Str->N"
+                  }
+                ],
+                "name": "N",
+                "label": "N.2"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "u`x=jmGIX+vJ.nP:OP.9",
+            "conceptId": "XctBUAGRHOQNIAoT"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "Q*$oo`g?a5Ad/)D$H:bY"
+      }
+    ],
+    "srcId": "wb+4L`D59~A]#~erWv0?"
+  }
+}

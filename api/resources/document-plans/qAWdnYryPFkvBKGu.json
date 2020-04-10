@@ -1,0 +1,88 @@
+{
+  "id": "qAWdnYryPFkvBKGu",
+  "uid": "813249da-a41e-46a7-822f-7547b8a25143",
+  "name": "has property",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"=Cv0Z#K=[grr.w7.ut-6\">(Polarity)</variable><variable type=\"\" id=\"E8*U;ru@-6.|mg()Sa:k\">Name</variable><variable type=\"\" id=\"GCsM*p)V:-R1vR*_Qh-j\">Property</variable></variables><block type=\"Document-plan\" id=\"owemeAm:4:o85oAeOXhF\" deletable=\"false\" x=\"690\" y=\"233\"><statement name=\"segments\"><block type=\"Segment\" id=\")Qp=Em9(/XfnsK~R$j*2\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"n%BUc-u__}i,.X#BZAgC\"><mutation concept_id=\"SHryyIJaZAvWJwMZ\" concept_label=\"N -&gt; is -&gt; A\" roles=\"[{&quot;id&quot;:&quot;BnvxbndqzXXFfZYA&quot;,&quot;fieldLabel&quot;:&quot;(Polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;zuXWCXFENtUHrJGI&quot;,&quot;fieldLabel&quot;:&quot;N.1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;NIaRUpphGbjSSBRf&quot;,&quot;fieldLabel&quot;:&quot;A.1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;A&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"BnvxbndqzXXFfZYA\"><block type=\"Get-var\" id=\"cr8-CA;Ok.}hsq9%vYk[\"><field name=\"name\" id=\"=Cv0Z#K=[grr.w7.ut-6\" variabletype=\"\">(Polarity)</field></block></value><value name=\"zuXWCXFENtUHrJGI\"><block type=\"AMR\" id=\"c_5l$tCpMGkiY%BAVc{]\"><mutation concept_id=\"ParadigmsEng.mkN/Str-&gt;N\" concept_label=\"mkN\" roles=\"[{&quot;id&quot;:&quot;jUTJEtftmJNzwnja&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"jUTJEtftmJNzwnja\"><block type=\"Get-var\" id=\"*9TLXvL.Tn(vcq#[ES2W\"><field name=\"name\" id=\"E8*U;ru@-6.|mg()Sa:k\" variabletype=\"\">Name</field></block></value></block></value><value name=\"NIaRUpphGbjSSBRf\"><block type=\"AMR\" id=\"zmFh.jL~Z]K$;VQQ_$`O\"><mutation concept_id=\"ParadigmsEng.mkA/Str-&gt;A\" concept_label=\"mkA\" roles=\"[{&quot;id&quot;:&quot;BmvfPPugUNbpxgsd&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"BmvfPPugUNbpxgsd\"><block type=\"Get-var\" id=\"~U:7B@.I{V9([Z98=2g+\"><field name=\"name\" id=\"GCsM*p)V:-R1vR*_Qh-j\" variabletype=\"\">Property</field></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "=Cv0Z#K=[grr.w7.ut-6",
+                    "type": "Get-var",
+                    "srcId": "cr8-CA;Ok.}hsq9%vYk["
+                  }
+                ],
+                "name": "Str",
+                "label": "(Polarity)"
+              },
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "name": "E8*U;ru@-6.|mg()Sa:k",
+                            "type": "Get-var",
+                            "srcId": "*9TLXvL.Tn(vcq#[ES2W"
+                          }
+                        ],
+                        "name": "Str",
+                        "label": "Str"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "c_5l$tCpMGkiY%BAVc{]",
+                    "conceptId": "ParadigmsEng.mkN/Str->N",
+                    "kind": "N"
+                  }
+                ],
+                "name": "N",
+                "label": "N.1"
+              },
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "name": "GCsM*p)V:-R1vR*_Qh-j",
+                            "type": "Get-var",
+                            "srcId": "~U:7B@.I{V9([Z98=2g+"
+                          }
+                        ],
+                        "name": "Str",
+                        "label": "Str"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "zmFh.jL~Z]K$;VQQ_$`O",
+                    "conceptId": "ParadigmsEng.mkA/Str->A",
+                    "kind": "A"
+                  }
+                ],
+                "name": "A",
+                "label": "A.1"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "n%BUc-u__}i,.X#BZAgC",
+            "conceptId": "SHryyIJaZAvWJwMZ",
+            "kind": "Str"
+          }
+        ],
+        "type": "Segment",
+        "srcId": ")Qp=Em9(/XfnsK~R$j*2"
+      }
+    ],
+    "srcId": "owemeAm:4:o85oAeOXhF"
+  }
+}
