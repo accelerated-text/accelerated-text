@@ -13,13 +13,13 @@
     (-> (uber/build-graph g path-g)
         (graph/remove-edges in-edge)
         (graph/add-edges
-          [^:edge (graph/src in-edge) end-node (attrs g in-edge)]
-          [^:edge start-node (graph/dest in-edge) out-attrs]))))
+          [^:edge (graph/src in-edge) start-node (attrs g in-edge)]
+          [^:edge end-node (graph/dest in-edge) out-attrs]))))
 
 (defn resolve-paths [g {{language "*Language"} :constants}]
   (reduce (fn [g node-id]
             (reduce (fn [g in-edge]
-                      (let [category (:category (attrs g node-id))
+                      (let [category (get (attrs g node-id) :category "Str")
                             in-edge-category (get (attrs g in-edge) :category "Text")
                             path-sg (get-in path-map [language [category in-edge-category]])]
                         (cond-> g
@@ -33,4 +33,4 @@
                     g
                     (graph/in-edges g node-id)))
           g
-          (filter #(= :operation (:type (attrs g %))) (graph/nodes g))))
+          (filter #(contains? #{:operation :data :quote} (:type (attrs g %))) (graph/nodes g))))
