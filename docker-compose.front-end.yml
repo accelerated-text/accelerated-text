@@ -3,56 +3,11 @@ version: '3.4'
 services:
   front-end:
     build:
-      context: front-end/
-      dockerfile: Dockerfile
-    ports: ["8080:8080"]
-    environment:
-      ACC_TEXT_API_URL: http://0.0.0.0:3001
-      ACC_TEXT_GRAPHQL_URL: http://0.0.0.0:3001/_graphql
-      MOCK_SHOP_API_URL: http://0:0:0:0:8090
+      context: .
+      dockerfile: front-end/Dockerfile.builder
+      args:
+        ACC_TEXT_API_URL: http://localhost:3001
+        ACC_TEXT_GRAPHQL_URL: http://localhost:3001/_graphql
+    ports: ["8080:80"]
     volumes:
-      - ./api/resources/schema.graphql:/usr/src/app/packages/graphql/schema.graphql
-  front-end-rgl:
-    build:
-      context: front-end/
-      dockerfile: Dockerfile
-    ports: ["8081:8080"]
-    environment:
-      ACC_TEXT_API_URL: http://0.0.0.0:3001
-      ACC_TEXT_GRAPHQL_URL: http://0.0.0.0:3001/_graphql
-      MOCK_SHOP_API_URL: http://0:0:0:0:8090
-    volumes:
-      - ./api/resources/schema.graphql:/usr/src/app/packages/graphql/schema.graphql
-      - ./front-end/packages/plan-editor/RglSidebar.js:/usr/src/app/packages/plan-editor/Sidebar.js
-      - ./front-end/packages/nlg-blocks/One-of.js:/usr/src/app/packages/nlg-blocks/One-of-synonyms.js
-      - ./front-end/packages/nlg-blocks/Frame.js:/usr/src/app/packages/nlg-blocks/Segment.js
-      - ./front-end/packages/nlg-blocks/RGL-plan.js:/usr/src/app/packages/nlg-blocks/Document-plan.js
-      - ./front-end/packages/plan-selector/RglPlanSelector.js:/usr/src/app/packages/plan-selector/PlanSelector.js
-      - ./front-end/packages/onboard-code/RglOnboardCode.js:/usr/src/app/packages/onboard-code/OnboardCode.js
-      - ./front-end/packages/plan-editor/RglPlanEditor.js:/usr/src/app/packages/plan-editor/PlanEditor.js
-      - ./front-end/packages/document-plans/rgl-plan-template.js:/usr/src/app/packages/document-plans/plan-template.js
-      - ./front-end/packages/header/RglHeader.js:/usr/src/app/packages/header/Header.js
-      - ./front-end/packages/webpack/rgl.config.js:/usr/src/app/packages/webpack/config.js
-      - ./front-end/packages/graphql/rgl-queries.graphql:/usr/src/app/packages/graphql/queries.graphql
-  front-end-paradigms:
-    build:
-      context: front-end/
-      dockerfile: Dockerfile
-    ports: ["8082:8080"]
-    environment:
-      ACC_TEXT_API_URL: http://0.0.0.0:3001
-      ACC_TEXT_GRAPHQL_URL: http://0.0.0.0:3001/_graphql
-      MOCK_SHOP_API_URL: http://0:0:0:0:8090
-    volumes:
-      - ./api/resources/schema.graphql:/usr/src/app/packages/graphql/schema.graphql
-      - ./front-end/packages/plan-editor/ParadigmsSidebar.js:/usr/src/app/packages/plan-editor/Sidebar.js
-      - ./front-end/packages/nlg-blocks/One-of.js:/usr/src/app/packages/nlg-blocks/One-of-synonyms.js
-      - ./front-end/packages/nlg-blocks/Frame.js:/usr/src/app/packages/nlg-blocks/Segment.js
-      - ./front-end/packages/nlg-blocks/AMR-plan.js:/usr/src/app/packages/nlg-blocks/Document-plan.js
-      - ./front-end/packages/plan-selector/ParadigmsPlanSelector.js:/usr/src/app/packages/plan-selector/PlanSelector.js
-      - ./front-end/packages/onboard-code/ParadigmsOnboardCode.js:/usr/src/app/packages/onboard-code/OnboardCode.js
-      - ./front-end/packages/plan-editor/ParadigmsPlanEditor.js:/usr/src/app/packages/plan-editor/PlanEditor.js
-      - ./front-end/packages/document-plans/paradigms-plan-template.js:/usr/src/app/packages/document-plans/plan-template.js
-      - ./front-end/packages/header/ParadigmsHeader.js:/usr/src/app/packages/header/Header.js
-      - ./front-end/packages/webpack/paradigms.config.js:/usr/src/app/packages/webpack/config.js
-      - ./front-end/packages/graphql/paradigms-queries.graphql:/usr/src/app/packages/graphql/queries.graphql
+      - ./front-end/dist/:/opt/dist/
