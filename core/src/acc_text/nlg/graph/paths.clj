@@ -33,4 +33,4 @@
                     g
                     (graph/in-edges g node-id)))
           g
-          (filter #(contains? #{:operation :dictionary-item} (:type (attrs g %))) (graph/nodes g))))
+          (filter #(contains? #{:operation :dictionary-item :quote} (:type (attrs g %))) (graph/nodes g))))
