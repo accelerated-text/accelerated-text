@@ -1404,20 +1404,6 @@
  ["IAdv" "IComp"]
  #:acc-text.nlg.semantic-graph{:relations ()
                                :concepts  ({:id :01 :type :operation :name "mkIComp" :category "IComp" :module "Syntax"})}
- ["Str" "Text"]
- #:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :arg :index 0 :category "Phr"}
-                                           {:from :02 :to :03 :role :arg :index 1 :category "Utt"}
-                                           {:from :03 :to :04 :role :arg :index 0 :category "S"}
-                                           {:from :04 :to :05 :role :arg :index 3 :category "Cl"}
-                                           {:from :05 :to :06 :role :arg :index 0 :category "CN"}
-                                           {:from :06 :to :07 :role :arg :index 0 :category "N"})
-                               :concepts  ({:id :01 :type :operation :name "mkText" :category "Text" :module "Syntax"}
-                                           {:id :02 :type :operation :name "mkPhr" :category "Phr" :module "Syntax"}
-                                           {:id :03 :type :operation :name "mkUtt" :category "Utt" :module "Syntax"}
-                                           {:id :04 :type :operation :name "mkS" :category "S" :module "Syntax"}
-                                           {:id :05 :type :operation :name "mkCl" :category "Cl" :module "Syntax"}
-                                           {:id :06 :type :operation :name "mkCN" :category "CN" :module "Syntax"}
-                                           {:id :07 :type :operation :name "mkN" :category "N" :module "ParadigmsEst"})}
  ["N2" "Utt"]
  #:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :arg :index 0 :category "S"}
                                            {:from :02 :to :03 :role :arg :index 3 :category "Cl"}
