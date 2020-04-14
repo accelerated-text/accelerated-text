@@ -3454,11 +3454,9 @@
                                            {:id :04 :type :operation :name "mkCard" :category "Card" :module "Syntax"}
                                            {:id :05 :type :operation :name "mkNumeral" :category "Numeral" :module "Syntax"})}
  ["Str" "VP"]
- #:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :arg :index 0 :category "CN"}
-                                           {:from :02 :to :03 :role :arg :index 0 :category "N"})
+ #:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :arg :index 0 :category "V"})
                                :concepts  ({:id :01 :type :operation :name "mkVP" :category "VP" :module "Syntax"}
-                                           {:id :02 :type :operation :name "mkCN" :category "CN" :module "Syntax"}
-                                           {:id :03 :type :operation :name "mkN" :category "N" :module "ParadigmsSpa"})}
+                                           {:id :02 :type :operation :name "mkV" :category "V" :module "ParadigmsSpa"})}
  ["A2" "RCl"]
  #:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :arg :index 0 :category "Cl"}
                                            {:from :02 :to :03 :role :arg :index 0 :category "VP"}
