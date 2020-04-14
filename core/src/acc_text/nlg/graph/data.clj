@@ -1,7 +1,6 @@
 (ns acc-text.nlg.graph.data
   (:require [acc-text.nlg.graph.utils :refer [find-nodes]]
-            [acc-text.nlg.graph.dictionary-item :refer [get-dictionary-item add-dictionary-item]]
-            [loom.attr :refer [attrs]]))
+            [acc-text.nlg.graph.dictionary-item :refer [get-dictionary-item add-dictionary-item]]))
 
 (defn get-data [data key]
   (if (contains? data key)

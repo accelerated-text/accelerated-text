@@ -1,7 +1,7 @@
 (ns acc-text.nlg.core-test
   (:require [acc-text.nlg.core :as core]
             [acc-text.nlg.test-utils :as test-utils]
-            [clojure.math.combinatorics :refer [cartesian-product permutations]]
+            [clojure.math.combinatorics :refer [cartesian-product]]
             [clojure.string :as str]
             [clojure.test :refer [deftest are is testing]]))
 
