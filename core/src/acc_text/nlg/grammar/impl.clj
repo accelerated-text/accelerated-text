@@ -66,6 +66,12 @@
          :lin    {cat [(cond-> (str module "." name)
                                (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))]}}))
 
+(defmethod build-node :quote [graph node-id]
+  (let [{:keys [value]} (attrs graph node-id)
+        cat (node->cat graph node-id)]
+    #:acc-text.nlg.grammar
+        {:oper [[cat "Str" (format "\"%s\"" (str/replace value #"\"" "\\\\\""))]]}))
+
 (defmethod build-node :dictionary-item [graph node-id]
   (let [cat (node->cat graph node-id)
         in-edge-category (get-in graph [:attrs (:id (get-in-edge graph node-id)) :category])
@@ -99,13 +105,14 @@
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
          :lincat {cat (or category "Str")}
-         :lin    {cat [(str/join " | " (map (fn [group]
-                                              (->> (map #(cond-> (node->cat graph %)
-                                                                 (and (s-node? graph %) (nil? category)) (str ".s"))
-                                                        group)
-                                                   (str/join " ++ ")
-                                                   (format "(%s)")))
-                                            (permutations successors)))]}}))
+         :lin    {cat [(str/join " | " (->> (permutations successors)
+                                            (remove empty?)
+                                            (map (fn [group]
+                                                   (->> (map #(cond-> (node->cat graph %)
+                                                                      (and (s-node? graph %) (nil? category)) (str ".s"))
+                                                             group)
+                                                        (str/join " ++ ")
+                                                        (format "(%s)"))))))]}}))
 
 (defn ->graph [semantic-graph context]
   (-> semantic-graph
