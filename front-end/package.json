@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node -r esm node_modules/.bin/webpack --config packages/webpack/build.config.js",
+    "build-dev": "node -r esm node_modules/.bin/webpack --config packages/webpack/build.dev.config.js",
     "check:audit": "npm audit || echo 'Fix the issues above.'",
     "start": "node -r esm node_modules/.bin/webpack-dev-server --host 0.0.0.0 --config packages/webpack/run.config.js",
     "test": "npm run test:eslint && npm run test:sasslint && npm run test:ava && npm run check:audit",
