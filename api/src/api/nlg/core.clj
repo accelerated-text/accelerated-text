@@ -55,4 +55,4 @@
         (log/trace (str/join "\n" (.getStackTrace e)))
         #::result{:id            id
                   :status        :error
-                  :error-message (.getMessage e)}))))
+                  :error-message (or (.getMessage e) "")}))))
