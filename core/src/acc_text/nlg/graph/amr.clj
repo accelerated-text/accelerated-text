@@ -28,10 +28,10 @@
                                                   [^:edge src dest (get-in amr-g [:attrs id])])))
                                 [])
                         (concat
-                          (for [{id :id src :src} (graph/in-edges g amr-node-id)
-                                dest (graph/successors amr-g amr-root-id)]
-                            [^:edge src dest (get-in g [:attrs id])]))))
-        (remove-nodes (concat [amr-root-id amr-node-id] (map first reference-nodes))))))
+                          (for [{id :id src :src} (graph/in-edges g amr-node-id)]
+                            [^:edge src amr-root-id (get-in g [:attrs id])]))))
+        (assoc-in [:attrs amr-root-id :type] :amr)
+        (remove-nodes (concat [amr-node-id] (map first reference-nodes))))))
 
 (defn attach-rgl [g amr node-id]
   (update-in g [:attrs node-id] (fn [_]
@@ -40,14 +40,32 @@
                                    :category (:kind amr)
                                    :module   (:module amr)})))
 
-(defn attach-amrs [g {amr-map :amr}]
-  (letfn [(attach-fn [g]
-            (reduce (fn [g [node-id {amr-name :name}]]
-                      (let [{sg :semantic-graph frames :frames :as amr} (get amr-map amr-name)]
-                        (cond
-                          (some? sg) (attach-amr g (semantic-graph->ubergraph sg) node-id)
-                          (some? frames) (attach-rgl g amr node-id)
-                          :else (throw (Exception. (format "AMR not found in context: `%s`" amr-name))))))
-                    g
-                    (find-nodes g {:type :amr})))]
-    (-> g (attach-fn) (attach-fn) (attach-fn))))
+(defn set-category [g amr-node-id category]
+  (->> (graph/successors g amr-node-id)
+       (cons amr-node-id)
+       (mapcat #(cons % (map :id (graph/out-edges g %))))
+       (reduce (fn [g node-or-edge-id]
+                 (assoc-in g [:attrs node-or-edge-id :category] category))
+               g)))
+
+(defn resolve-categories [g]
+  (reduce (fn [g [node-id _]]
+            (let [categories (set (remove nil? (map #(get-in g [:attrs (:id %) :category]) (graph/in-edges g node-id))))]
+              (case (count categories)
+                0 g
+                1 (set-category g node-id (first categories))
+                (throw (Exception. (format "Ambiguous categories for AMR id `%s`" node-id))))))
+          g
+          (find-nodes g {:type :amr})))
+
+(defn attach-amrs [g {amr-map :amr :as context}]
+  (resolve-categories
+    (reduce (fn [g [node-id {amr-name :name}]]
+              (let [{sg :semantic-graph frames :frames :as amr} (get amr-map amr-name)]
+                (cond
+                  (nil? amr-name) g
+                  (some? sg) (-> g (attach-amr (semantic-graph->ubergraph sg) node-id) (attach-amrs context))
+                  (some? frames) (attach-rgl g amr node-id)
+                  :else (throw (Exception. (format "AMR not found in context: `%s`" amr-name))))))
+            g
+            (find-nodes g {:type :amr}))))

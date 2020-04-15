@@ -35,24 +35,30 @@
 
 (defmethod build-node :default [graph node-id]
   (let [successors (get-successors graph node-id)
+        category (get (attrs graph node-id) :category "Str")
         cat (node->cat graph node-id)]
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-         :lincat {cat "Str"}
+         :lincat {cat category}
          :lin    {cat [(str/join " ++ " (map #(cond-> (node->cat graph %)
-                                                      (s-node? graph %) (str ".s"))
+                                                      (and
+                                                        (= category "Str")
+                                                        (s-node? graph %)) (str ".s"))
                                              successors))]}}))
 
-(defmethod build-node :frame [graph node-id]
+(defmethod build-node :amr [graph node-id]
   (let [successors (get-successors graph node-id)
+        category (get (attrs graph node-id) :category "Str")
         cat (node->cat graph node-id)]
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-         :lincat {cat "Str"}
+         :lincat {cat category}
          :lin    {cat [(str/join " | " (map #(cond-> (node->cat graph %)
-                                                     (s-node? graph %) (str ".s"))
+                                                     (and
+                                                       (= category "Str")
+                                                       (s-node? graph %)) (str ".s"))
                                             successors))]}}))
 
 (defmethod build-node :operation [graph node-id]

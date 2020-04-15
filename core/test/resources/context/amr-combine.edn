@@ -1,0 +1,244 @@
+{:amr        {"hSDkPDEXEnAgudSQ"         {:id             "hSDkPDEXEnAgudSQ"
+                                          :label          "noun verb frames"
+                                          :kind           "Str"
+                                          :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                                     :to    :02
+                                                                                                     :role  :segment
+                                                                                                     :index 0}
+                                                                                                    {:from  :02
+                                                                                                     :to    :03
+                                                                                                     :role  :instance
+                                                                                                     :index 0}
+                                                                                                    {:from     :03
+                                                                                                     :to       :04
+                                                                                                     :role     :arg
+                                                                                                     :index    0
+                                                                                                     :category "N"
+                                                                                                     :name     "noun"}
+                                                                                                    {:from     :03
+                                                                                                     :to       :05
+                                                                                                     :role     :arg
+                                                                                                     :index    1
+                                                                                                     :category "V"
+                                                                                                     :name     "verb"})
+                                                                                        :concepts  ({:id :01 :type :document-plan}
+                                                                                                    {:id :02 :type :segment}
+                                                                                                    {:id   :03
+                                                                                                     :type :amr
+                                                                                                     :name "YXxZrfOYLteiEFro"}
+                                                                                                    {:id   :04
+                                                                                                     :type :reference
+                                                                                                     :name "noun"}
+                                                                                                    {:id   :05
+                                                                                                     :type :reference
+                                                                                                     :name "verb"})}
+                                          :frames         [{:examples []}]
+                                          :roles          [{:id "ARG0" :label "noun" :type "N"} {:id "ARG1" :label "verb" :type "V"}]}
+              "YXxZrfOYLteiEFro"         {:id             "YXxZrfOYLteiEFro"
+                                          :label          "noun verb frames"
+                                          :kind           "Str"
+                                          :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                                     :to    :02
+                                                                                                     :role  :segment
+                                                                                                     :index 0}
+                                                                                                    {:from  :01
+                                                                                                     :to    :05
+                                                                                                     :role  :segment
+                                                                                                     :index 1}
+                                                                                                    {:from  :02
+                                                                                                     :to    :03
+                                                                                                     :role  :instance
+                                                                                                     :index 0}
+                                                                                                    {:from     :03
+                                                                                                     :to       :04
+                                                                                                     :role     :arg
+                                                                                                     :index    0
+                                                                                                     :category "N"}
+                                                                                                    {:from  :05
+                                                                                                     :to    :06
+                                                                                                     :role  :instance
+                                                                                                     :index 0}
+                                                                                                    {:from     :06
+                                                                                                     :to       :07
+                                                                                                     :role     :arg
+                                                                                                     :index    0
+                                                                                                     :category "V"})
+                                                                                        :concepts  ({:id :01 :type :document-plan}
+                                                                                                    {:id :02 :type :segment}
+                                                                                                    {:id   :03
+                                                                                                     :type :amr
+                                                                                                     :name "Syntax.mkCl/N->Cl"}
+                                                                                                    {:id   :04
+                                                                                                     :type :reference
+                                                                                                     :name "noun"}
+                                                                                                    {:id :05 :type :segment}
+                                                                                                    {:id   :06
+                                                                                                     :type :amr
+                                                                                                     :name "Syntax.mkCl/V->Cl"}
+                                                                                                    {:id   :07
+                                                                                                     :type :reference
+                                                                                                     :name "verb"})}
+                                          :frames         [{:examples []}]
+                                          :roles          [{:id "ARG0" :label "noun" :type "N"} {:id "ARG1" :label "verb" :type "V"}]}
+              "Syntax.mkCl/V->Cl"        {:id     "Syntax.mkCl/V->Cl"
+                                          :kind   "Cl"
+                                          :name   "V -> Cl"
+                                          :label  "mkCl"
+                                          :module "Syntax"
+                                          :roles  ({:type "V" :label "V"})
+                                          :frames ({:examples ["it rains"]
+                                                    :syntax   ({:ret    "Cl"
+                                                                :value  "Syntax.mkCl"
+                                                                :params ({:id "ARG0" :type "V"})
+                                                                :type   :oper})})}
+              "Syntax.mkCl/N->Cl"        {:id     "Syntax.mkCl/N->Cl"
+                                          :kind   "Cl"
+                                          :name   "N -> Cl"
+                                          :label  "mkCl"
+                                          :module "Syntax"
+                                          :roles  ({:type "N" :label "N"})
+                                          :frames ({:examples ["there is a house"]
+                                                    :syntax   ({:ret    "Cl"
+                                                                :value  "Syntax.mkCl"
+                                                                :params ({:id "ARG0" :type "N"})
+                                                                :type   :oper})})}
+              "focKkuxAcXjtzoTe"         {:id             "focKkuxAcXjtzoTe"
+                                          :label          "join-sentences"
+                                          :kind           "Str"
+                                          :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                                     :to    :02
+                                                                                                     :role  :segment
+                                                                                                     :index 0}
+                                                                                                    {:from  :02
+                                                                                                     :to    :03
+                                                                                                     :role  :instance
+                                                                                                     :index 0}
+                                                                                                    {:from     :03
+                                                                                                     :to       :04
+                                                                                                     :role     :arg
+                                                                                                     :index    0
+                                                                                                     :category "S"
+                                                                                                     :name     "S1"}
+                                                                                                    {:from     :03
+                                                                                                     :to       :05
+                                                                                                     :role     :arg
+                                                                                                     :index    1
+                                                                                                     :category "S"
+                                                                                                     :name     "S2"})
+                                                                                        :concepts  ({:id :01 :type :document-plan}
+                                                                                                    {:id :02 :type :segment}
+                                                                                                    {:id   :03
+                                                                                                     :type :amr
+                                                                                                     :name "iKdNKIhqzeMGXerk"}
+                                                                                                    {:id   :04
+                                                                                                     :type :reference
+                                                                                                     :name "S1"}
+                                                                                                    {:id   :05
+                                                                                                     :type :reference
+                                                                                                     :name "S2"})}
+                                          :frames         [{:examples []}]
+                                          :roles          [{:id "ARG0" :label "S1" :type "S"} {:id "ARG1" :label "S2" :type "S"}]}
+              "iKdNKIhqzeMGXerk"         {:id             "iKdNKIhqzeMGXerk"
+                                          :label          "join-sentences"
+                                          :kind           "Str"
+                                          :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                                     :to    :02
+                                                                                                     :role  :segment
+                                                                                                     :index 0}
+                                                                                                    {:from  :01
+                                                                                                     :to    :07
+                                                                                                     :role  :segment
+                                                                                                     :index 1}
+                                                                                                    {:from  :02
+                                                                                                     :to    :03
+                                                                                                     :role  :instance
+                                                                                                     :index 0}
+                                                                                                    {:from     :03
+                                                                                                     :to       :04
+                                                                                                     :role     :arg
+                                                                                                     :index    0
+                                                                                                     :category "Conj"}
+                                                                                                    {:from     :03
+                                                                                                     :to       :05
+                                                                                                     :role     :arg
+                                                                                                     :index    1
+                                                                                                     :category "S"}
+                                                                                                    {:from     :03
+                                                                                                     :to       :06
+                                                                                                     :role     :arg
+                                                                                                     :index    2
+                                                                                                     :category "S"}
+                                                                                                    {:from  :07
+                                                                                                     :to    :08
+                                                                                                     :role  :instance
+                                                                                                     :index 0}
+                                                                                                    {:from     :08
+                                                                                                     :to       :09
+                                                                                                     :role     :arg
+                                                                                                     :index    0
+                                                                                                     :category "Conj"}
+                                                                                                    {:from     :08
+                                                                                                     :to       :10
+                                                                                                     :role     :arg
+                                                                                                     :index    1
+                                                                                                     :category "S"}
+                                                                                                    {:from     :08
+                                                                                                     :to       :11
+                                                                                                     :role     :arg
+                                                                                                     :index    2
+                                                                                                     :category "S"})
+                                                                                        :concepts  ({:id :01 :type :document-plan}
+                                                                                                    {:id :02 :type :segment}
+                                                                                                    {:id   :03
+                                                                                                     :type :amr
+                                                                                                     :name "Syntax.mkS/Conj->S->S->S"}
+                                                                                                    {:id   :04
+                                                                                                     :type :amr
+                                                                                                     :name "Syntax.and_Conj/Conj"}
+                                                                                                    {:id   :05
+                                                                                                     :type :reference
+                                                                                                     :name "S1"}
+                                                                                                    {:id   :06
+                                                                                                     :type :reference
+                                                                                                     :name "S2"}
+                                                                                                    {:id :07 :type :segment}
+                                                                                                    {:id   :08
+                                                                                                     :type :amr
+                                                                                                     :name "Syntax.mkS/Conj->S->S->S"}
+                                                                                                    {:id   :09
+                                                                                                     :type :amr
+                                                                                                     :name "Syntax.and_Conj/Conj"}
+                                                                                                    {:id   :10
+                                                                                                     :type :reference
+                                                                                                     :name "S2"}
+                                                                                                    {:id   :11
+                                                                                                     :type :reference
+                                                                                                     :name "S1"})}
+                                          :frames         [{:examples []}]
+                                          :roles          [{:id "ARG0" :label "S1" :type "S"} {:id "ARG1" :label "S2" :type "S"}]}
+              "Syntax.and_Conj/Conj"     {:id     "Syntax.and_Conj/Conj"
+                                          :kind   "Conj"
+                                          :name   "Conj"
+                                          :label  "and_Conj"
+                                          :module "Syntax"
+                                          :roles  ()
+                                          :frames ({:examples ["here and now"]
+                                                    :syntax   ({:ret "Conj" :value "Syntax.and_Conj" :params () :type :oper})})}
+              "Syntax.mkS/Conj->S->S->S" {:id     "Syntax.mkS/Conj->S->S->S"
+                                          :kind   "S"
+                                          :name   "Conj -> S -> S -> S"
+                                          :label  "mkS"
+                                          :module "Syntax"
+                                          :roles  ({:type "Conj" :label "Conj"}
+                                                   {:type "S" :label "S"}
+                                                   {:type "S" :label "S"})
+                                          :frames ({:examples ["she sleeps and I run"]
+                                                    :syntax   ({:ret    "S"
+                                                                :value  "Syntax.mkS"
+                                                                :params ({:id "ARG0" :type "Conj"}
+                                                                         {:id "ARG1" :type "S"}
+                                                                         {:id "ARG2" :type "S"})
+                                                                :type   :oper})})}}
+ :data       nil
+ :dictionary nil
+ :constants  {"*Language" "Eng"}}
