@@ -20,3 +20,4 @@ api/libsunec.so
 *.gfo
 *.pgf
 eval/
+api/data/
