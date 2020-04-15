@@ -31,6 +31,9 @@
     (format "(ParadigmsEng.mkN ParadigmsEng.%s (ParadigmsEng.mkN %s))" (get attributes "Gender") (join-forms forms))
     (format "(ParadigmsEng.mkN %s)" (join-forms forms))))
 
+(defmethod build-dictionary-item "Eng/Adv/Adv" [_ {:keys [forms]}]
+  (format "(ParadigmsEng.mkAdv %s)" (join-forms forms)))
+
 (defmethod build-dictionary-item "Eng/Str/Str" [_ {:keys [forms]}]
   (format "\"%s\"" (escape-string (first forms))))
 

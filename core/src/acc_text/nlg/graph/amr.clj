@@ -35,9 +35,10 @@
 
 (defn attach-rgl [g amr node-id]
   (update-in g [:attrs node-id] (fn [_]
-                                  {:type   :operation
-                                   :name   (:label amr)
-                                   :module (:module amr)})))
+                                  {:type     :operation
+                                   :name     (:label amr)
+                                   :category (:kind amr)
+                                   :module   (:module amr)})))
 
 (defn attach-amrs [g {amr-map :amr}]
   (letfn [(attach-fn [g]
