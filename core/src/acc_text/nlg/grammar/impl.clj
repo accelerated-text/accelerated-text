@@ -44,7 +44,7 @@
                                                       (s-node? graph %) (str ".s"))
                                              successors))]}}))
 
-(defmethod build-node :frame [graph node-id]
+(defmethod build-node :amr [graph node-id]
   (let [successors (get-successors graph node-id)
         cat (node->cat graph node-id)]
     #:acc-text.nlg.grammar
