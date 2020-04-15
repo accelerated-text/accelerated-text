@@ -22,6 +22,7 @@
            "Est" "🇪🇪"
            "Lav" "🇱🇻"
            "Rus" "🇷🇺"
+           "Spa" "🇪🇸"
            "🏳️")})
 
 (defn get-flags [{::row/keys [language enriched?]}]
