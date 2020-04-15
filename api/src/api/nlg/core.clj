@@ -44,7 +44,7 @@
                             (mapcat (fn [language]
                                       (let [context {:amr amrs :data data :dictionary (get dictionaries language)}]
                                         (cond-> (nlg/generate-text semantic-graph context language)
-                                                (enable-enrich?) (enrich data)))))
+                                                (and (= "Eng" language) (enable-enrich?)) (enrich data)))))
                             (remove #(str/blank? (:text %)))
                             (map ->result-row)
                             (map add-annotations))
