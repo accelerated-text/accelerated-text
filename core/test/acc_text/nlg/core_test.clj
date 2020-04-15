@@ -50,6 +50,19 @@
              "There will be a bill." "There will be a door." "There will be a fridge." "There will be a noise." "There will be a product." "There will be an interior."}
            (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
 
+(deftest ^:integration amr-combining
+  (let [semantic-graph (test-utils/load-test-semantic-graph "amr-combine")
+        context (test-utils/load-test-context "amr-combine")]
+    (is (= #{"It publishes and it writes."
+             "It publishes and there is an author."
+             "It writes and it publishes."
+             "It writes and there is a publisher."
+             "There is a publisher and it writes."
+             "There is a publisher and there is an author."
+             "There is an author and it publishes."
+             "There is an author and there is a publisher."}
+           (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
+
 (deftest ^:integration modifier-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
         context (test-utils/load-test-context "modifier-test")]
