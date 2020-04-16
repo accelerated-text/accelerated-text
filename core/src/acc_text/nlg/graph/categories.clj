@@ -1,5 +1,6 @@
 (ns acc-text.nlg.graph.categories
-  (:require [loom.graph :as graph]
+  (:require [acc-text.nlg.graph.utils :as utils]
+            [loom.graph :as graph]
             [loom.alg :as alg]))
 
 (defn set-category [g node-id category]
@@ -21,4 +22,4 @@
                 1 (set-category g node-id (first categories))
                 (throw (Exception. (format "Ambiguous categories for id `%s`" node-id))))))
           g
-          (alg/pre-traverse g)))
+          (alg/pre-traverse g (utils/find-root-id g))))
