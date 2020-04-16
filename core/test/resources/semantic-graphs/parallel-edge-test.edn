@@ -1,0 +1,7 @@
+#:acc-text.nlg.semantic-graph{:relations ({:from :01, :to :02, :role :segment, :index 0}
+                                          {:from :02, :to :03, :role :instance, :index 0}
+                                          {:from :03, :to :04, :role :arg, :index 0, :category "Str", :name "item"}),
+                              :concepts  ({:id :01, :type :document-plan}
+                                          {:id :02, :type :segment}
+                                          {:id :03, :type :amr, :name "kTErYCgvoTGwxgpr"}
+                                          {:id :04, :type :quote, :value "item"})}
