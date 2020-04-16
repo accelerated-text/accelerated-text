@@ -1,6 +1,7 @@
 (ns acc-text.nlg.grammar.impl
   (:require [acc-text.nlg.grammar.dictionary-item :refer [build-dictionary-item]]
             [acc-text.nlg.graph.amr :refer [attach-amrs]]
+            [acc-text.nlg.graph.categories :refer [resolve-categories]]
             [acc-text.nlg.graph.condition :refer [determine-conditions]]
             [acc-text.nlg.graph.data :refer [resolve-data]]
             [acc-text.nlg.graph.dictionary-item :refer [resolve-dictionary-items]]
@@ -125,13 +126,14 @@
       (semantic-graph->ubergraph)
       (attach-amrs context)
       (resolve-variables)
+      (resolve-categories)
       (determine-conditions context)
       (prune-graph)
-      (resolve-polarity)
       (resolve-dictionary-items context)
       (resolve-data context)
       (resolve-lists)
       (resolve-modifiers)
+      (resolve-polarity)
       (resolve-paths context)
       (add-concept-position)))
 
