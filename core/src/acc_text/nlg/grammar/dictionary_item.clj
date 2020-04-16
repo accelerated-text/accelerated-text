@@ -46,6 +46,23 @@
             (format "(ParadigmsEng.mkN ParadigmsEng.%s (ParadigmsEng.mkN %s))" (get attributes "Gender") (join-forms forms))
             (format "(ParadigmsEng.mkN %s)" (join-forms forms)))))
 
+(defmethod build-dictionary-item "Spa/N/N" [_ {:keys [forms attributes]}]
+  (if (contains? attributes "Gender")
+    (format "(ParadigmsSpa.mkN %s ParadigmsSpa.%s)" (join-forms forms) (get attributes "Gender"))
+    (format "(ParadigmsSpa.mkN %s)" (join-forms forms))))
+
+(defmethod build-dictionary-item "Spa/V/V" [_ {:keys [forms]}]
+  (format "(ParadigmsSpa.mkV %s)" (join-forms forms)))
+
+(defmethod build-dictionary-item "Spa/A/A" [_ {:keys [forms]}]
+  (format "(ParadigmsSpa.mkA %s)" (join-forms forms)))
+
+(defmethod build-dictionary-item "Spa/Adv/Adv" [_ {:keys [forms]}]
+  (format "(ParadigmsSpa.mkAdv %s)" (join-forms forms)))
+
+(defmethod build-dictionary-item "Spa/AdV/AdV" [_ {:keys [forms]}]
+  (format "(ParadigmsSpa.mkAdV %s)" (join-forms forms)))
+
 (defmethod build-dictionary-item "Eng/s:Str/V" [_ {:keys [forms]}]
   (format "(mkText (mkCl %s))" (format "(ParadigmsEng.mkV %s)" (join-forms forms))))
 
