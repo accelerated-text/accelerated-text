@@ -5,12 +5,12 @@
 
 (defn resolve-polarity [g]
   (reduce (fn [g [_ node-id _]]
-            (let [{:keys [value name]} (attrs g node-id)]
-              (assoc-in g [:attrs node-id] {:type   :operation
-                                            :module "Syntax"
-                                            :name   (cond
-                                                      (contains? #{"positivePol" "negativePol"} name) name
-                                                      (true? (string->boolean value)) "positivePol"
-                                                      (false? (string->boolean value)) "negativePol")})))
+            (let [{:keys [value type]} (attrs g node-id)]
+              (cond-> g
+                      (= :quote type) (assoc-in [:attrs node-id] {:type   :operation
+                                                                  :module "Syntax"
+                                                                  :name   (if (true? (string->boolean value))
+                                                                            "positivePol"
+                                                                            "negativePol")}))))
           g
           (find-edges g {:category "Pol"})))
