@@ -47,6 +47,8 @@
 
 (defmulti evaluate-predicate (fn [g node-id _] (:type (attrs g node-id))))
 
+(defmethod evaluate-predicate :default [_ _ _] true)
+
 (defmethod evaluate-predicate :comparator [g node-id {:keys [data constants]}]
   (let [operator (:value (attrs g node-id))
         successors (get-successors g node-id)]
