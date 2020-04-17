@@ -1,0 +1,49 @@
+{
+  "id": "OpQlqPCXchNuYEPD",
+  "uid": "66462d2e-9b31-4dce-a825-82cdc82c4c2e",
+  "name": "*VP VP Adv",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"d+gKaCfxzv,I*,)GDR_f\">VP</variable><variable type=\"\" id=\"X!C03p7?b.{Q#.n_@ndu\">Adv</variable></variables><block type=\"Document-plan\" id=\"Jb+7uhv_w4an84y6g8/i\" deletable=\"false\" x=\"432\" y=\"175\"><statement name=\"segments\"><block type=\"Segment\" id=\"]bO_6XwTfX`u9{|3]:#+\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"u?qS~KfRbAKYQ/r0N9VA\"><mutation concept_id=\"Syntax.mkVP/VP-&gt;Adv-&gt;VP\" concept_label=\"mkVP\" roles=\"[{&quot;id&quot;:&quot;ycpNNhcSGmlMjRrz&quot;,&quot;fieldLabel&quot;:&quot;VP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;qHfhlAekSpzDnBsE&quot;,&quot;fieldLabel&quot;:&quot;Adv&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Adv&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"ycpNNhcSGmlMjRrz\"><block type=\"Get-var\" id=\"n9tMZCg@SyeL6=I/$4FN\"><field name=\"name\" id=\"d+gKaCfxzv,I*,)GDR_f\" variabletype=\"\">VP</field></block></value><value name=\"qHfhlAekSpzDnBsE\"><block type=\"Get-var\" id=\"Mx%VoXU?:[)X-Se!B]MZ\"><field name=\"name\" id=\"X!C03p7?b.{Q#.n_@ndu\" variabletype=\"\">Adv</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "d+gKaCfxzv,I*,)GDR_f",
+                    "type": "Get-var",
+                    "srcId": "n9tMZCg@SyeL6=I/$4FN"
+                  }
+                ],
+                "name": "VP",
+                "label": "VP"
+              },
+              {
+                "children": [
+                  {
+                    "name": "X!C03p7?b.{Q#.n_@ndu",
+                    "type": "Get-var",
+                    "srcId": "Mx%VoXU?:[)X-Se!B]MZ"
+                  }
+                ],
+                "name": "Adv",
+                "label": "Adv"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "u?qS~KfRbAKYQ/r0N9VA",
+            "conceptId": "Syntax.mkVP/VP->Adv->VP",
+            "kind": "VP"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "]bO_6XwTfX`u9{|3]:#+"
+      }
+    ],
+    "srcId": "Jb+7uhv_w4an84y6g8/i"
+  }
+}

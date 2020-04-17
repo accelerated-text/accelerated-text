@@ -1,0 +1,130 @@
+{
+  "id": "mQjyTbERGYAYNjRv",
+  "uid": "2a344a51-f388-49fa-b28e-09ad788a3968",
+  "name": "VV VP test",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"G/?JW|3~Ct|0JK%/[?5a\">(Polarity)</variable><variable type=\"\" id=\"@H2SQbp{7XEvL{O}wL(-\">Clause</variable></variables><block type=\"Document-plan\" id=\"6)WrDvwh#gv:qBt`5A9l\" deletable=\"false\" x=\"435\" y=\"147\"><statement name=\"segments\"><block type=\"Segment\" id=\"Lx{Zwz{lZ^;+vfZT.K4O\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"NUCw:.P8-D}@#7l,+FLm\"><mutation concept_id=\"nmAUOjBoGcgLLHqp\" concept_label=\"Sentence\" roles=\"[{&quot;id&quot;:&quot;JQAxsJSaouSGIFNb&quot;,&quot;fieldLabel&quot;:&quot;(Tense)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;usgmrpSzBhjsBqXP&quot;,&quot;fieldLabel&quot;:&quot;(Pol)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;NfPyuViLgVvNFOwt&quot;,&quot;fieldLabel&quot;:&quot;Cl&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"usgmrpSzBhjsBqXP\"><block type=\"Get-var\" id=\"-IWA8JMnY4xJ|3gJjJ|S\"><field name=\"name\" id=\"G/?JW|3~Ct|0JK%/[?5a\" variabletype=\"\">(Polarity)</field></block></value><value name=\"NfPyuViLgVvNFOwt\"><block type=\"One-of-synonyms\" id=\"@j~k[=pg{Ej1Ov)%!iFp\"><mutation value_count=\"5\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"r@?[w%.:e$/tBKunWI-4\"><mutation concept_id=\"xRipsrvBURnuPdUv\" concept_label=\"can VP\" roles=\"[{&quot;id&quot;:&quot;QExPYaAkPfuFqFsZ&quot;,&quot;fieldLabel&quot;:&quot;VP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QExPYaAkPfuFqFsZ\"><block type=\"Get-var\" id=\"Pg~c|ID6-2)e:IDN8R85\"><field name=\"name\" id=\"@H2SQbp{7XEvL{O}wL(-\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_1\"><block type=\"AMR\" id=\"g!iwzd*5KnpOO$cpq8rL\"><mutation concept_id=\"jvXumLzXZwnLLewX\" concept_label=\"can8know VP\" roles=\"[{&quot;id&quot;:&quot;AwprEFNyvcLZeCXR&quot;,&quot;fieldLabel&quot;:&quot;VP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"AwprEFNyvcLZeCXR\"><block type=\"Get-var\" id=\"wAMkus23Uob@1NnCMzTJ\"><field name=\"name\" id=\"@H2SQbp{7XEvL{O}wL(-\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_2\"><block type=\"AMR\" id=\"vI.j=4mQq:EMV.597%ID\"><mutation concept_id=\"xubPwVIpwsIFfuFH\" concept_label=\"must VP\" roles=\"[{&quot;id&quot;:&quot;lMomLArkyzJliaJB&quot;,&quot;fieldLabel&quot;:&quot;VP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"lMomLArkyzJliaJB\"><block type=\"Get-var\" id=\"opgaD?.yx7c?Dr!#XTl$\"><field name=\"name\" id=\"@H2SQbp{7XEvL{O}wL(-\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_3\"><block type=\"AMR\" id=\"F~LwV`OA]*#4:[10qBlj\"><mutation concept_id=\"WKxAxETvauvvtEoi\" concept_label=\"want VP\" roles=\"[{&quot;id&quot;:&quot;LgaKnHgjiQOjtThI&quot;,&quot;fieldLabel&quot;:&quot;VP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"LgaKnHgjiQOjtThI\"><block type=\"Get-var\" id=\"ZWLKwq$`]=3+tQcT2!K^\"><field name=\"name\" id=\"@H2SQbp{7XEvL{O}wL(-\" variabletype=\"\">Clause</field></block></value></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [],
+                "name": "Str",
+                "label": "(Tense)"
+              },
+              {
+                "children": [
+                  {
+                    "name": "G/?JW|3~Ct|0JK%/[?5a",
+                    "type": "Get-var",
+                    "srcId": "-IWA8JMnY4xJ|3gJjJ|S"
+                  }
+                ],
+                "name": "Str",
+                "label": "(Pol)"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "@H2SQbp{7XEvL{O}wL(-",
+                                "type": "Get-var",
+                                "srcId": "Pg~c|ID6-2)e:IDN8R85"
+                              }
+                            ],
+                            "name": "VP",
+                            "label": "VP"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "r@?[w%.:e$/tBKunWI-4",
+                        "conceptId": "xRipsrvBURnuPdUv",
+                        "kind": "Str"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "@H2SQbp{7XEvL{O}wL(-",
+                                "type": "Get-var",
+                                "srcId": "wAMkus23Uob@1NnCMzTJ"
+                              }
+                            ],
+                            "name": "VP",
+                            "label": "VP"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "g!iwzd*5KnpOO$cpq8rL",
+                        "conceptId": "jvXumLzXZwnLLewX",
+                        "kind": "Str"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "@H2SQbp{7XEvL{O}wL(-",
+                                "type": "Get-var",
+                                "srcId": "opgaD?.yx7c?Dr!#XTl$"
+                              }
+                            ],
+                            "name": "VP",
+                            "label": "VP"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "vI.j=4mQq:EMV.597%ID",
+                        "conceptId": "xubPwVIpwsIFfuFH",
+                        "kind": "Str"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "@H2SQbp{7XEvL{O}wL(-",
+                                "type": "Get-var",
+                                "srcId": "ZWLKwq$`]=3+tQcT2!K^"
+                              }
+                            ],
+                            "name": "VP",
+                            "label": "VP"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "F~LwV`OA]*#4:[10qBlj",
+                        "conceptId": "WKxAxETvauvvtEoi",
+                        "kind": "Str"
+                      }
+                    ],
+                    "type": "One-of-synonyms",
+                    "srcId": "@j~k[=pg{Ej1Ov)%!iFp"
+                  }
+                ],
+                "name": "Str",
+                "label": "Cl"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "NUCw:.P8-D}@#7l,+FLm",
+            "conceptId": "nmAUOjBoGcgLLHqp"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "Lx{Zwz{lZ^;+vfZT.K4O"
+      }
+    ],
+    "srcId": "6)WrDvwh#gv:qBt`5A9l"
+  }
+}

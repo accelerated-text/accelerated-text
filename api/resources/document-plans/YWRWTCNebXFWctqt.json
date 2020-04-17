@@ -1,0 +1,84 @@
+{
+  "id": "YWRWTCNebXFWctqt",
+  "uid": "90b4d64e-ee1f-4db2-b666-c506db463228",
+  "name": "to be must VP",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"4SHSt-USTNN%K(ud73_$\">V2</variable></variables><block type=\"Document-plan\" id=\"~]C4BQQ5b^,o,Jclg-45\" deletable=\"false\" x=\"339\" y=\"211\"><statement name=\"segments\"><block type=\"Segment\" id=\"v8x=XO@prZ9fHCO^,Gf8\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"qe4T_yDu}_GfkG5OD5Un\"><mutation concept_id=\"Syntax.mkVP/VV-&gt;VP-&gt;VP\" concept_label=\"mkVP\" roles=\"[{&quot;id&quot;:&quot;dGCotOmAsKTzURTr&quot;,&quot;fieldLabel&quot;:&quot;VV&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;VV&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;UWQNbokJMpnWcazA&quot;,&quot;fieldLabel&quot;:&quot;VP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"dGCotOmAsKTzURTr\"><block type=\"AMR\" id=\"%^v+r/rY7356rz~r`KPk\"><mutation concept_id=\"Syntax.must_VV/VV\" concept_label=\"must_VV\" roles=\"[]\"></mutation></block></value><value name=\"UWQNbokJMpnWcazA\"><block type=\"AMR\" id=\"C!|6^.;xr865uZ:M4i(d\"><mutation concept_id=\"Syntax.passiveVP/V2-&gt;VP\" concept_label=\"passiveVP\" roles=\"[{&quot;id&quot;:&quot;qPOexHKaVGVzVObH&quot;,&quot;fieldLabel&quot;:&quot;V2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V2&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"qPOexHKaVGVzVObH\"><block type=\"If-then-else\" id=\"OrDr^7-9OnGbp*YD-vg}\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"doKkp[(B-*]{isjKbz@O\"><field name=\"name\" id=\"4SHSt-USTNN%K(ud73_$\" variabletype=\"\">V2</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\"-AnL)2K95kMOK:{p@b|,\"><field name=\"name\" id=\"4SHSt-USTNN%K(ud73_$\" variabletype=\"\">V2</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"XQM*}BIJM+7VDsP|aa9v\"><mutation concept_id=\"Syntax.have_V2/V2\" concept_label=\"have_V2\" roles=\"[]\"></mutation></block></value></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "type": "AMR",
+                    "srcId": "%^v+r/rY7356rz~r`KPk",
+                    "conceptId": "Syntax.must_VV/VV",
+                    "kind": "VV"
+                  }
+                ],
+                "name": "VV",
+                "label": "VV"
+              },
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "type": "If-then-else",
+                            "conditions": [
+                              {
+                                "type": "If-condition",
+                                "thenExpression": {
+                                  "name": "4SHSt-USTNN%K(ud73_$",
+                                  "type": "Get-var",
+                                  "srcId": "-AnL)2K95kMOK:{p@b|,"
+                                },
+                                "condition": {
+                                  "name": "4SHSt-USTNN%K(ud73_$",
+                                  "type": "Get-var",
+                                  "srcId": "doKkp[(B-*]{isjKbz@O"
+                                }
+                              },
+                              {
+                                "type": "Default-condition",
+                                "thenExpression": {
+                                  "type": "AMR",
+                                  "srcId": "XQM*}BIJM+7VDsP|aa9v",
+                                  "conceptId": "Syntax.have_V2/V2"
+                                }
+                              }
+                            ],
+                            "srcId": "OrDr^7-9OnGbp*YD-vg}"
+                          }
+                        ],
+                        "name": "V2",
+                        "label": "V2"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "C!|6^.;xr865uZ:M4i(d",
+                    "conceptId": "Syntax.passiveVP/V2->VP"
+                  }
+                ],
+                "name": "VP",
+                "label": "VP"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "qe4T_yDu}_GfkG5OD5Un",
+            "conceptId": "Syntax.mkVP/VV->VP->VP"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "v8x=XO@prZ9fHCO^,Gf8"
+      }
+    ],
+    "srcId": "~]C4BQQ5b^,o,Jclg-45"
+  }
+}

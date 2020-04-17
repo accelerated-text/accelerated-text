@@ -1,0 +1,342 @@
+{
+  "id": "kTErYCgvoTGwxgpr",
+  "uid": "8e88bf3f-5e2f-42e9-a4d3-8f7b4842f601",
+  "name": "det NP test",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"0}#zSH-moYRBG^!upEgP\">(Polarity)</variable><variable type=\"\" id=\"XQRc%O1?{uLxyX}3ocF`\">Clause</variable></variables><block type=\"Document-plan\" id=\"zzTA`Jy+u74O|(2C|a_{\" deletable=\"false\" x=\"68\" y=\"-19\"><statement name=\"segments\"><block type=\"Segment\" id=\"^Tu`OwEXd8*^iL@Mzhm6\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\")-9QV/FylNXp]JnO6/(1\"><mutation concept_id=\"nmAUOjBoGcgLLHqp\" concept_label=\"Sentence\" roles=\"[{&quot;id&quot;:&quot;pnQkgKMUCiPWKGHN&quot;,&quot;fieldLabel&quot;:&quot;(Tense)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;CEFNPBQDIBMBsyES&quot;,&quot;fieldLabel&quot;:&quot;(Pol)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;EgxZhKMfPyhduMMN&quot;,&quot;fieldLabel&quot;:&quot;Cl&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"CEFNPBQDIBMBsyES\"><block type=\"Get-var\" id=\"l#OYL/#NYY8]us=Reb.H\"><field name=\"name\" id=\"0}#zSH-moYRBG^!upEgP\" variabletype=\"\">(Polarity)</field></block></value><value name=\"EgxZhKMfPyhduMMN\"><block type=\"One-of-synonyms\" id=\"A`Zd$E;=!gDt$7*tLA#M\"><mutation value_count=\"17\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"O]ycmv|?kfx}y47T^n{)\"><mutation concept_id=\"hqZiZSBneVgNUaFh\" concept_label=\"much NP\" roles=\"[{&quot;id&quot;:&quot;uTvQZzNbRsexFETS&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"uTvQZzNbRsexFETS\"><block type=\"Get-var\" id=\"~s}vlBEU`3R#iW(!=Bt|\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_1\"><block type=\"AMR\" id=\"}r.aN@yt?sz4nmRV/S9L\"><mutation concept_id=\"ZWlFQcOaWhIrSJlL\" concept_label=\"noPl NP\" roles=\"[{&quot;id&quot;:&quot;xfvuHcmHHDmRvQaM&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"xfvuHcmHHDmRvQaM\"><block type=\"Get-var\" id=\"yXHs~T_Y~E:~X+K%9cDz\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_2\"><block type=\"AMR\" id=\"=[5j`tQRV]yTlzgN`mDe\"><mutation concept_id=\"SujHTkRzsMWCQaRQ\" concept_label=\"the NP\" roles=\"[{&quot;id&quot;:&quot;zVsWkNojkDEmnGNr&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"zVsWkNojkDEmnGNr\"><block type=\"Get-var\" id=\"P^^EUtg{=Oc**@$d3-#a\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_3\"><block type=\"AMR\" id=\"y;9Pg?Bh`TWy23cw[/z#\"><mutation concept_id=\"ryfNlfUzSgeOgGiG\" concept_label=\"some NP\" roles=\"[{&quot;id&quot;:&quot;VnvunYuurTGOLpia&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"VnvunYuurTGOLpia\"><block type=\"Get-var\" id=\"wnsh:o;tHQl@AkdVJD,q\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_4\"><block type=\"AMR\" id=\"jI.@xEDO)$[0zD)C+3MJ\"><mutation concept_id=\"UcRdlFJUNkwStQOA\" concept_label=\"no NP\" roles=\"[{&quot;id&quot;:&quot;oJNNQAwybosJNxly&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"oJNNQAwybosJNxly\"><block type=\"Get-var\" id=\"jQ.1bI50h_,Ab||Vr?@J\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_5\"><block type=\"AMR\" id=\":)*AwWQ]i[N+)$8CuYi|\"><mutation concept_id=\"QdbOqMnnmKAerBAS\" concept_label=\"thePl NP\" roles=\"[{&quot;id&quot;:&quot;ZQTfsDPNpoFjJPev&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"ZQTfsDPNpoFjJPev\"><block type=\"Get-var\" id=\"5LMy`RURa{r4PZB#w)vQ\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_6\"><block type=\"AMR\" id=\"u7$/CzwC,a1CAf:,Yhe-\"><mutation concept_id=\"JjLAwgECSdqWgfDS\" concept_label=\"these NP\" roles=\"[{&quot;id&quot;:&quot;oOsXkUFVDTBjobBw&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"oOsXkUFVDTBjobBw\"><block type=\"Get-var\" id=\";-0iM{?vS+M*(~wJX`hJ\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_7\"><block type=\"AMR\" id=\"~u@;`~C?`BqY^G//Ll8w\"><mutation concept_id=\"rPkBWqcnLDFVkYOM\" concept_label=\"somePl NP\" roles=\"[{&quot;id&quot;:&quot;cQRDeddkmNYbnRGB&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"cQRDeddkmNYbnRGB\"><block type=\"Get-var\" id=\"ng$2Yod,HR17f_z0nCYw\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_8\"><block type=\"AMR\" id=\"MQzb~{ye,6:EyofjP|f|\"><mutation concept_id=\"VIRhpjfneYpBBtPD\" concept_label=\"that NP\" roles=\"[{&quot;id&quot;:&quot;JFBULfxFPpkERdPI&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"JFBULfxFPpkERdPI\"><block type=\"Get-var\" id=\"L.q$A3UU`vp-4N+iopG{\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_9\"><block type=\"AMR\" id=\"%yO|g25pwDO!mZ__=CXk\"><mutation concept_id=\"uvMUygCdBIBxuSwB\" concept_label=\"this NP\" roles=\"[{&quot;id&quot;:&quot;FnugLNjAwMQrXgbB&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"FnugLNjAwMQrXgbB\"><block type=\"Get-var\" id=\"u%gz][d**Z+!)D%W-i?1\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_10\"><block type=\"AMR\" id=\"#S)|5{LJkm);!fU/v2Tn\"><mutation concept_id=\"iqBinpLaPrwGmlsD\" concept_label=\"those NP\" roles=\"[{&quot;id&quot;:&quot;pcCuMBwpaRKkDVNK&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"pcCuMBwpaRKkDVNK\"><block type=\"Get-var\" id=\"8/cWk3244GA^$12o3Ty9\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_11\"><block type=\"AMR\" id=\"r(|?HjO^6#5=jeueON69\"><mutation concept_id=\"bfqgcSSqHGKvJufR\" concept_label=\"a NP\" roles=\"[{&quot;id&quot;:&quot;gcVDAfrpkwEnznQj&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"gcVDAfrpkwEnznQj\"><block type=\"Get-var\" id=\"e9g!n@kA85paBV!#*,n!\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_12\"><block type=\"AMR\" id=\"9RP?R=URVQ32,}?}X}1t\"><mutation concept_id=\"smKlWoqAyzvYMnXo\" concept_label=\"aPl NP\" roles=\"[{&quot;id&quot;:&quot;vVLQQpYmMQFIWIui&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"vVLQQpYmMQFIWIui\"><block type=\"Get-var\" id=\"T!Q2keb^zsb*T+sVN[Ns\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_13\"><block type=\"AMR\" id=\"2-iQ3GWaZQ]S@:pf|3F/\"><mutation concept_id=\"DqdlLFUuhOUGKEOW\" concept_label=\"every NP\" roles=\"[{&quot;id&quot;:&quot;qkRiAIGPYZutjeqA&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"qkRiAIGPYZutjeqA\"><block type=\"Get-var\" id=\".0Hv=wbcHtw)]iYNBbk:\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_14\"><block type=\"AMR\" id=\"sc(rmoo+VMqwqBhjM4ek\"><mutation concept_id=\"bFQsmRQmVJdgykox\" concept_label=\"few NP\" roles=\"[{&quot;id&quot;:&quot;bMVccwrCruRtleEM&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"bMVccwrCruRtleEM\"><block type=\"Get-var\" id=\"n.uk`$JSZC.v=B,-nU$t\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value><value name=\"value_15\"><block type=\"AMR\" id=\"vx?y_`~TKo;;@y_[%N:%\"><mutation concept_id=\"giNtswuJnXSuvYJe\" concept_label=\"many NP\" roles=\"[{&quot;id&quot;:&quot;vwHLXfDMhSLqJXry&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"vwHLXfDMhSLqJXry\"><block type=\"Get-var\" id=\"5eEnAHqpEXe)pcoH{.XK\"><field name=\"name\" id=\"XQRc%O1?{uLxyX}3ocF`\" variabletype=\"\">Clause</field></block></value></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [],
+                "name": "Str",
+                "label": "(Tense)"
+              },
+              {
+                "children": [
+                  {
+                    "name": "0}#zSH-moYRBG^!upEgP",
+                    "type": "Get-var",
+                    "srcId": "l#OYL/#NYY8]us=Reb.H"
+                  }
+                ],
+                "name": "Str",
+                "label": "(Pol)"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "~s}vlBEU`3R#iW(!=Bt|"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "O]ycmv|?kfx}y47T^n{)",
+                        "conceptId": "hqZiZSBneVgNUaFh"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "yXHs~T_Y~E:~X+K%9cDz"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "}r.aN@yt?sz4nmRV/S9L",
+                        "conceptId": "ZWlFQcOaWhIrSJlL"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "P^^EUtg{=Oc**@$d3-#a"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "=[5j`tQRV]yTlzgN`mDe",
+                        "conceptId": "SujHTkRzsMWCQaRQ"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "wnsh:o;tHQl@AkdVJD,q"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "y;9Pg?Bh`TWy23cw[/z#",
+                        "conceptId": "ryfNlfUzSgeOgGiG"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "jQ.1bI50h_,Ab||Vr?@J"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "jI.@xEDO)$[0zD)C+3MJ",
+                        "conceptId": "UcRdlFJUNkwStQOA"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "5LMy`RURa{r4PZB#w)vQ"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": ":)*AwWQ]i[N+)$8CuYi|",
+                        "conceptId": "QdbOqMnnmKAerBAS"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": ";-0iM{?vS+M*(~wJX`hJ"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "u7$/CzwC,a1CAf:,Yhe-",
+                        "conceptId": "JjLAwgECSdqWgfDS"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "ng$2Yod,HR17f_z0nCYw"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "~u@;`~C?`BqY^G//Ll8w",
+                        "conceptId": "rPkBWqcnLDFVkYOM"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "L.q$A3UU`vp-4N+iopG{"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "MQzb~{ye,6:EyofjP|f|",
+                        "conceptId": "VIRhpjfneYpBBtPD"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "u%gz][d**Z+!)D%W-i?1"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "%yO|g25pwDO!mZ__=CXk",
+                        "conceptId": "uvMUygCdBIBxuSwB"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "8/cWk3244GA^$12o3Ty9"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "#S)|5{LJkm);!fU/v2Tn",
+                        "conceptId": "iqBinpLaPrwGmlsD"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "e9g!n@kA85paBV!#*,n!"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "r(|?HjO^6#5=jeueON69",
+                        "conceptId": "bfqgcSSqHGKvJufR"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "T!Q2keb^zsb*T+sVN[Ns"
+                              }
+                            ],
+                            "name": "Str",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "9RP?R=URVQ32,}?}X}1t",
+                        "conceptId": "smKlWoqAyzvYMnXo"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": ".0Hv=wbcHtw)]iYNBbk:"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "2-iQ3GWaZQ]S@:pf|3F/",
+                        "conceptId": "DqdlLFUuhOUGKEOW"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "n.uk`$JSZC.v=B,-nU$t"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "sc(rmoo+VMqwqBhjM4ek",
+                        "conceptId": "bFQsmRQmVJdgykox"
+                      },
+                      {
+                        "roles": [
+                          {
+                            "children": [
+                              {
+                                "name": "XQRc%O1?{uLxyX}3ocF`",
+                                "type": "Get-var",
+                                "srcId": "5eEnAHqpEXe)pcoH{.XK"
+                              }
+                            ],
+                            "name": "CN",
+                            "label": "CN"
+                          }
+                        ],
+                        "type": "AMR",
+                        "srcId": "vx?y_`~TKo;;@y_[%N:%",
+                        "conceptId": "giNtswuJnXSuvYJe"
+                      }
+                    ],
+                    "type": "One-of-synonyms",
+                    "srcId": "A`Zd$E;=!gDt$7*tLA#M"
+                  }
+                ],
+                "name": "Str",
+                "label": "Cl"
+              }
+            ],
+            "type": "AMR",
+            "srcId": ")-9QV/FylNXp]JnO6/(1",
+            "conceptId": "nmAUOjBoGcgLLHqp"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "^Tu`OwEXd8*^iL@Mzhm6"
+      }
+    ],
+    "srcId": "zzTA`Jy+u74O|(2C|a_{"
+  }
+}

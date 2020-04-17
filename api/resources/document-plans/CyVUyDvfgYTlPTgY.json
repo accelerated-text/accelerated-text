@@ -1,0 +1,49 @@
+{
+  "id": "CyVUyDvfgYTlPTgY",
+  "uid": "f7a51890-f5e4-4420-9919-08dd77c1218f",
+  "name": "test",
+  "kind": "Document",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" id=\"vU%vllkauR.1jYEjN(,M\" deletable=\"false\" x=\"496\" y=\"127\"><statement name=\"segments\"><block type=\"Segment\" id=\"o30,y73/!}va`==D+}N{\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"WE;V|YXPlz~o}FTIh|Oh\"><mutation concept_id=\"wRVWaBWstpzABtqC\" concept_label=\"test\" roles=\"[{&quot;id&quot;:&quot;IHcewwgROaxNQdFz&quot;,&quot;fieldLabel&quot;:&quot;action&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;iOmTNnDcXDhBbced&quot;,&quot;fieldLabel&quot;:&quot;item&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"IHcewwgROaxNQdFz\"><block type=\"Quote\" id=\"U6yE4{kEM^h%*y[f7D-V\"><field name=\"text\">produce</field></block></value><value name=\"iOmTNnDcXDhBbced\"><block type=\"Quote\" id=\"k8A?E9aPL?/3pV@*Q3XX\"><field name=\"text\">steel</field></block></value></block></value></block></statement></block><block type=\"AMR\" id=\"Nj.yGNMq}dMB0yHiCtyf\" x=\"715\" y=\"355\"><mutation concept_id=\"jNBOBBLpYCCQKYOD\" concept_label=\"test\" roles=\"[{&quot;id&quot;:&quot;XpIMiqhMRCETfymg&quot;,&quot;fieldLabel&quot;:&quot;(Polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;kqtjTQQpviFJpqxw&quot;,&quot;fieldLabel&quot;:&quot;Clause&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation></block><block type=\"AMR\" id=\"*,y$m-1DLdB{cTzqN.)O\" x=\"354\" y=\"504\"><mutation concept_id=\"mQjyTbERGYAYNjRv\" concept_label=\"VV VP test\" roles=\"[{&quot;id&quot;:&quot;ufyjHSFZaMzLmxRZ&quot;,&quot;fieldLabel&quot;:&quot;(Polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;LMGVnhBRLIBSyvnM&quot;,&quot;fieldLabel&quot;:&quot;Clause&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"ufyjHSFZaMzLmxRZ\"><block type=\"Quote\" id=\"JxVg:(i.Xj!G4S4$lNne\"><field name=\"text\">false</field></block></value></block><block type=\"AMR\" id=\"|y([j]hg+.[$HM2RKk]N\" x=\"622\" y=\"582\"><mutation concept_id=\"pqpeeFhtlpWOXCNl\" concept_label=\"prep NP Adv test\" roles=\"[{&quot;id&quot;:&quot;BoAJpflHeyOwSkww&quot;,&quot;fieldLabel&quot;:&quot;(Polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;PsNddnBWgSLxyJZe&quot;,&quot;fieldLabel&quot;:&quot;Clause&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "type": "Quote",
+                    "srcId": "U6yE4{kEM^h%*y[f7D-V",
+                    "text": "produce"
+                  }
+                ],
+                "name": "Str",
+                "label": "action"
+              },
+              {
+                "children": [
+                  {
+                    "type": "Quote",
+                    "srcId": "k8A?E9aPL?/3pV@*Q3XX",
+                    "text": "steel"
+                  }
+                ],
+                "name": "CN",
+                "label": "item"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "WE;V|YXPlz~o}FTIh|Oh",
+            "conceptId": "wRVWaBWstpzABtqC",
+            "kind": "Str"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "o30,y73/!}va`==D+}N{"
+      }
+    ],
+    "srcId": "vU%vllkauR.1jYEjN(,M"
+  }
+}

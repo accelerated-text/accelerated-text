@@ -1,0 +1,49 @@
+{
+  "id": "SWgEWGgdELvBbVXq",
+  "uid": "f4721c63-097d-420c-8748-f9bb2c798fdb",
+  "name": "*Clause NP is NP",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"r0q6@pB3y8t~Zf_eg)gz\">NP</variable><variable type=\"\" id=\"Q=BoK-y~n{dg=f:V0lFL\">NP2</variable></variables><block type=\"Document-plan\" id=\"7E[gCegVaT$K[p:!Uz8=\" deletable=\"false\" x=\"498\" y=\"195\"><statement name=\"segments\"><block type=\"Segment\" id=\"%K0ne==CrZ]s~^OE7-uM\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"XN_Bskeu5HH57rktJl=E\"><mutation concept_id=\"Syntax.mkCl/NP-&gt;NP-&gt;Cl\" concept_label=\"mkCl\" roles=\"[{&quot;id&quot;:&quot;JnVFftiOYZZXyLtW&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;pkXWXfgYEJxdabkd&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"JnVFftiOYZZXyLtW\"><block type=\"Get-var\" id=\";P9s;YPSuR}dVT-QQOz%\"><field name=\"name\" id=\"r0q6@pB3y8t~Zf_eg)gz\" variabletype=\"\">NP</field></block></value><value name=\"pkXWXfgYEJxdabkd\"><block type=\"Get-var\" id=\"4P!r78g}.3-D7w#5Qh6A\"><field name=\"name\" id=\"Q=BoK-y~n{dg=f:V0lFL\" variabletype=\"\">NP2</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "r0q6@pB3y8t~Zf_eg)gz",
+                    "type": "Get-var",
+                    "srcId": ";P9s;YPSuR}dVT-QQOz%"
+                  }
+                ],
+                "name": "NP",
+                "label": "NP"
+              },
+              {
+                "children": [
+                  {
+                    "name": "Q=BoK-y~n{dg=f:V0lFL",
+                    "type": "Get-var",
+                    "srcId": "4P!r78g}.3-D7w#5Qh6A"
+                  }
+                ],
+                "name": "NP",
+                "label": "NP"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "XN_Bskeu5HH57rktJl=E",
+            "conceptId": "Syntax.mkCl/NP->NP->Cl",
+            "kind": "Cl"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "%K0ne==CrZ]s~^OE7-uM"
+      }
+    ],
+    "srcId": "7E[gCegVaT$K[p:!Uz8="
+  }
+}

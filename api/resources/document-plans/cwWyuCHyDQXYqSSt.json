@@ -35,8 +35,7 @@
                                 "thenExpression": {
                                   "type": "AMR",
                                   "srcId": "Z-GXryn{v.w?GY2^,d7T",
-                                  "conceptId": "Syntax.negativePol/Pol",
-                                  "kind": "Pol"
+                                  "conceptId": "Syntax.negativePol/Pol"
                                 },
                                 "condition": {
                                   "value": {
@@ -59,8 +58,7 @@
                                 "thenExpression": {
                                   "type": "AMR",
                                   "srcId": "6@ygn^G7w?RWBf2NB)El",
-                                  "conceptId": "Syntax.positivePol/Pol",
-                                  "kind": "Pol"
+                                  "conceptId": "Syntax.positivePol/Pol"
                                 }
                               }
                             ],

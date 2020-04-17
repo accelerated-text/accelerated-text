@@ -1,0 +1,71 @@
+{
+  "id": "rroSOLvLKuDiBeVv",
+  "uid": "030c232e-d2ae-4a8e-b2bf-f52e4849dca1",
+  "name": "between NP Adv",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"amvhASu3{KDqz$]h]_?J\">NP</variable></variables><block type=\"Document-plan\" id=\"0ARkSzzPSS8#P:Rs~2g9\" deletable=\"false\" x=\"514\" y=\"182\"><statement name=\"segments\"><block type=\"Segment\" id=\"w6VGSu[)fEvUhJww#_%^\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"FRvW=VVCi*^^9Jz,pZv#\"><mutation concept_id=\"Syntax.mkAdv/Prep-&gt;NP-&gt;Adv\" concept_label=\"mkAdv\" roles=\"[{&quot;id&quot;:&quot;wuzFDEEgOdyCeaHN&quot;,&quot;fieldLabel&quot;:&quot;Prep&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Prep&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;pazGjAqNkihOxpWX&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"wuzFDEEgOdyCeaHN\"><block type=\"AMR\" id=\"H+C?Eq]5FcwSv+%SIK`i\"><mutation concept_id=\"Syntax.between_Prep/Prep\" concept_label=\"between_Prep\" roles=\"[]\"></mutation></block></value><value name=\"pazGjAqNkihOxpWX\"><block type=\"If-then-else\" id=\"SdAi;qkl-pUUYK$c+@iY\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"jgAd,d*QAjv@$2LsY3?}\"><field name=\"name\" id=\"amvhASu3{KDqz$]h]_?J\" variabletype=\"\">NP</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\"z?JeoD=K{A;~8D*v`3Vl\"><field name=\"name\" id=\"amvhASu3{KDqz$]h]_?J\" variabletype=\"\">NP</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"bE=S]}6}+zhfECB+:B/a\"><mutation concept_id=\"Syntax.it_NP/NP\" concept_label=\"it_NP\" roles=\"[]\"></mutation></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "type": "AMR",
+                    "srcId": "H+C?Eq]5FcwSv+%SIK`i",
+                    "conceptId": "Syntax.between_Prep/Prep",
+                    "kind": "Prep"
+                  }
+                ],
+                "name": "Prep",
+                "label": "Prep"
+              },
+              {
+                "children": [
+                  {
+                    "type": "If-then-else",
+                    "conditions": [
+                      {
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "name": "amvhASu3{KDqz$]h]_?J",
+                          "type": "Get-var",
+                          "srcId": "z?JeoD=K{A;~8D*v`3Vl"
+                        },
+                        "condition": {
+                          "name": "amvhASu3{KDqz$]h]_?J",
+                          "type": "Get-var",
+                          "srcId": "jgAd,d*QAjv@$2LsY3?}"
+                        }
+                      },
+                      {
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "type": "AMR",
+                          "srcId": "bE=S]}6}+zhfECB+:B/a",
+                          "conceptId": "Syntax.it_NP/NP"
+                        }
+                      }
+                    ],
+                    "srcId": "SdAi;qkl-pUUYK$c+@iY"
+                  }
+                ],
+                "name": "NP",
+                "label": "NP"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "FRvW=VVCi*^^9Jz,pZv#",
+            "conceptId": "Syntax.mkAdv/Prep->NP->Adv"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "w6VGSu[)fEvUhJww#_%^"
+      }
+    ],
+    "srcId": "0ARkSzzPSS8#P:Rs~2g9"
+  }
+}
