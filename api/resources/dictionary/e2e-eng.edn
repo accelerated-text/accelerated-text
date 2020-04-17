@@ -299,7 +299,7 @@
                                 :category "N"
                                 :language "Eng"
                                 :forms    ["eatery" "eateries"]}
- #:acc-text.nlg.dictionary.item{:key      "eatery_1_N"
+ #:acc-text.nlg.dictionary.item{:key      "establishment_1_N"
                                 :sense    "1"
                                 :category "N"
                                 :language "Eng"

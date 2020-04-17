@@ -29,3 +29,15 @@
                                     (resolve-polarity)
                                     (ubergraph->semantic-graph)
                                     (get ::sg/concepts))))))))))
+
+(defn concept-with-val [concepts]
+  (some #(when (= "red" (::sg/value %)) %) concepts))
+
+(deftest synonyms
+  (let [{:keys [acc-text.nlg.semantic-graph/relations acc-text.nlg.semantic-graph/concepts]}
+        (-> "one-of-with-str" load-test-context  :amr  (get-in ["ZlmgilOQpBKynpTm" :semantic-graph]))
+        red (concept-with-val concepts)
+        green (some #(when (= "green" (:value %)) %) concepts)
+        ]
+    (is (= nil red))
+    ))

@@ -9,13 +9,20 @@
             [acc-text.nlg.graph.modifier :refer [resolve-modifiers]]
             [acc-text.nlg.graph.paths :refer [resolve-paths]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
-            [acc-text.nlg.graph.utils :refer [find-root-id get-successors get-in-edge add-concept-position prune-graph]]
+            [acc-text.nlg.graph.utils
+             :refer
+             [add-concept-position
+              find-root-id
+              get-in-edge
+              get-successors
+              prune-graph]]
             [acc-text.nlg.graph.variables :refer [resolve-variables]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]
             [loom.alg :refer [pre-traverse]]
-            [loom.attr :refer [attrs]]))
+            [loom.attr :refer [attrs]]
+            [ubergraph.core :as uber]))
 
 (def data-types #{:data :quote :dictionary-item})
 
@@ -143,6 +150,7 @@
   ([module instance semantic-graph context]
    (let [graph (->graph semantic-graph context)
          start-id (find-root-id graph)]
+     (uber/viz-graph graph {:auto-label true :save {:format :png :filename "graph3.png"}})
      (reduce (fn [grammar node-id]
                (merge-with (fn [acc val]
                              (cond
