@@ -150,7 +150,6 @@
   ([module instance semantic-graph context]
    (let [graph (->graph semantic-graph context)
          start-id (find-root-id graph)]
-     (uber/viz-graph graph {:auto-label true :save {:format :png :filename "graph3.png"}})
      (reduce (fn [grammar node-id]
                (merge-with (fn [acc val]
                              (cond
