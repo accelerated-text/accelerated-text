@@ -52,7 +52,8 @@
                                     ],
                                     "type": "AMR",
                                     "srcId": "uPs3(lRcZ=h0|m0x,Aw5",
-                                    "conceptId": "Syntax.mkNP/N->NP"
+                                    "conceptId": "Syntax.mkNP/N->NP",
+                                    "kind": "NP"
                                   }
                                 ],
                                 "name": "NP",
@@ -63,7 +64,8 @@
                                   {
                                     "type": "AMR",
                                     "srcId": "uu$dR(0P?bjSYUx.tTx7",
-                                    "conceptId": "Syntax.can_VV/VV"
+                                    "conceptId": "Syntax.can_VV/VV",
+                                    "kind": "VV"
                                   }
                                 ],
                                 "name": "VV",
@@ -102,7 +104,8 @@
                                             ],
                                             "type": "AMR",
                                             "srcId": "7n$)Ag9k@R![jD:/1nj}",
-                                            "conceptId": "Syntax.mkNP/N->NP"
+                                            "conceptId": "Syntax.mkNP/N->NP",
+                                            "kind": "NP"
                                           }
                                         ],
                                         "name": "NP",
@@ -111,7 +114,8 @@
                                     ],
                                     "type": "AMR",
                                     "srcId": "qmPycj^])2pb+iw^5tBV",
-                                    "conceptId": "Syntax.mkVP/V2->NP->VP"
+                                    "conceptId": "Syntax.mkVP/V2->NP->VP",
+                                    "kind": "VP"
                                   }
                                 ],
                                 "name": "VP",
@@ -120,7 +124,8 @@
                             ],
                             "type": "AMR",
                             "srcId": "Ds6KGyIlfyVB{u^70F(j",
-                            "conceptId": "Syntax.mkCl/NP->VV->VP->Cl"
+                            "conceptId": "Syntax.mkCl/NP->VV->VP->Cl",
+                            "kind": "Cl"
                           }
                         ],
                         "name": "Cl",
@@ -129,7 +134,8 @@
                     ],
                     "type": "AMR",
                     "srcId": "pVhuZtc.F0nEH@7?|8[|",
-                    "conceptId": "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"
+                    "conceptId": "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S",
+                    "kind": "S"
                   }
                 ],
                 "name": "S",
@@ -138,7 +144,8 @@
             ],
             "type": "AMR",
             "srcId": "mT!RZcIzTj8b-z{e,gdB",
-            "conceptId": "Syntax.mkText/S->Text"
+            "conceptId": "Syntax.mkText/S->Text",
+            "kind": "Text"
           }
         ],
         "type": "Segment",
