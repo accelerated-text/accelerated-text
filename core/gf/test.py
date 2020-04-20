@@ -1,6 +1,7 @@
 import pytest
-import server
 import logging
+
+from gf import generate_results
 
 logger = logging.getLogger("GF")
 logger.setLevel(logging.DEBUG)
@@ -32,6 +33,6 @@ def test_compile_grammar(api_post):
     data = api_post
     content = data["content"]
     name = data["module"]
-    results = server.generate_results(name, content)
+    results = generate_results(name, content)
     print("Results: {}".format(results))
     assert len(results) > 0
