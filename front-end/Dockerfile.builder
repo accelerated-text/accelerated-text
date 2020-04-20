@@ -71,5 +71,7 @@ FROM nginx:latest
 RUN mkdir -p /var/www/acc-text/
 
 COPY --from=builder /opt/dist /var/www/acc-text
+COPY --from=builder /usr/src/app/node_modules /var/www/acc-text/node_modules
+COPY --from=builder /usr/src/app/dp/packages /var/www/acc-text/packages
 
 COPY front-end/nginx.conf /etc/nginx/nginx.conf
