@@ -47,11 +47,35 @@
                                                :type role})
                                             roles (range))}]}]}))))
 
+(defn grammar-type? [{:keys [kind]}]
+  (contains? #{"Tense" "Punct" "Pol" "Num" "ImpForm" "Ant"} kind))
+
 (defn read-library
   ([]
    (read-library (rgl-syntax-path)))
   ([path]
-   (mapcat read-rgl (utils/list-files path))))
+   (->> (utils/list-files path)
+        (mapcat read-rgl)
+        (filter #(or (seq (:roles %)) (grammar-type? %)))
+        (sort-by #(vector (:kind %) (:label %))))))
+
+(defn read-structural-words
+  ([]
+   (read-structural-words (rgl-syntax-path)))
+  ([path]
+   (->> (utils/list-files path)
+        (mapcat read-rgl)
+        (filter #(and (empty? (:roles %)) (not (grammar-type? %))))
+        (sort-by #(vector (:kind %) (:label %))))))
+
+(defn read-grammar
+  ([]
+   (read-grammar (rgl-syntax-path)))
+  ([path]
+   (->> (utils/list-files path)
+        (mapcat read-rgl)
+        (filter #(and (empty? (:roles %)) (grammar-type? %)))
+        (sort-by #(vector (:kind %) (:label %))))))
 
 (defn read-paradigms
   ([]
@@ -60,7 +84,7 @@
    (mapcat read-library (utils/list-directories path))))
 
 (defn initialize
-  ([] (initialize (concat (read-library) (read-paradigms))))
+  ([] (initialize (concat (read-library) (read-structural-words) (read-paradigms))))
   ([entities]
    (doseq [entity entities]
      (write-rgl entity))))
