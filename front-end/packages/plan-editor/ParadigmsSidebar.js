@@ -1,6 +1,8 @@
 import { h }                from 'preact';
 
 import ParadigmsConcepts    from '../amr-concepts/ParadigmsConcepts';
+import ParadigmsStructural  from '../amr-concepts/ParadigmsStructural';
+import ParadigmsGrammar     from '../amr-concepts/ParadigmsGrammar';
 import ParadigmsEngConcepts from '../amr-concepts/ParadigmsEngConcepts';
 import ParadigmsEstConcepts from '../amr-concepts/ParadigmsEstConcepts';
 import ParadigmsGerConcepts from '../amr-concepts/ParadigmsGerConcepts';
@@ -47,6 +49,12 @@ export default composeContexts({
         </SidebarItem>
         <SidebarItem title="RGL">
             <ParadigmsConcepts />
+        </SidebarItem>
+        <SidebarItem title="Structural Words">
+            <ParadigmsStructural />
+        </SidebarItem>
+        <SidebarItem title="Grammar">
+            <ParadigmsGrammar />
         </SidebarItem>
         <SidebarItem title="Dictionary">
             <Dictionary />
