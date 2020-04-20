@@ -110,6 +110,12 @@ query concepts {
         paradigms {
             ...conceptFields
         }
+        grammar {
+            ...conceptFields
+        }
+        structural {
+            ...conceptFields
+        }
         ParadigmsEng {
             ...conceptFields
         }
