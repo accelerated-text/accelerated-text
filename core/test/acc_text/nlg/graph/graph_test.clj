@@ -2,7 +2,7 @@
   (:require [acc-text.nlg.graph.amr :refer [attach-amrs]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
             [acc-text.nlg.graph.lists :refer [resolve-lists]]
-            [acc-text.nlg.graph.utils :refer [ubergraph->semantic-graph]]
+            [acc-text.nlg.graph.utils :refer [ubergraph->semantic-graph save-graph]]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [acc-text.nlg.test-utils :refer [load-test-semantic-graph load-test-context]]
