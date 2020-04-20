@@ -9,7 +9,6 @@
             [clojure.tools.logging :as log]
             [org.httpkit.client :as http]))
 
-
 (def read-mapper (json/object-mapper {:decode-key-fn true}))
 
 (defn ->semantic-graph [file-path]
