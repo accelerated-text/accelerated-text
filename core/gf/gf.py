@@ -59,14 +59,18 @@ def compile_grammar(name, content):
             return grammar, None
 
 
+def parse_tree(text, concrete_grammar):
+    return [concrete_grammar.graphvizParseTree(e) for (_, e) in concrete_grammar.parse(text)]
+
+
 def generate_variants(expressions, concrete_grammar):
-    return list([r
-                 for (_, e) in expressions
-                 for r in concrete_grammar.linearizeAll(e)])
+    results = [r
+               for (_, e) in expressions
+               for r in concrete_grammar.linearizeAll(e)]
 
-
-def generate_parse_tree(concrete_grammar):
-    return {}
+    return list([{"result":
+                  r,
+                  "tree": parse_tree(r, concrete_grammar)}for r in results])
 
 
 def generate_expressions(abstract_grammar):
@@ -83,7 +87,7 @@ def generate_results(name, content):
     if grammar:
         logger.info("Generating")
         expressions = generate_expressions(grammar)
-        return [(k, generate_variants(expressions, concrete), generate_parse_tree(concrete))
+        return [(k, generate_variants(expressions, concrete))
                 for k, concrete in grammar.languages.items()]
     else:
         raise GFError(error)
