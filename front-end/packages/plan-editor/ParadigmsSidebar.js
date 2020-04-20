@@ -32,6 +32,21 @@ export default composeContexts({
         <SidebarItem title="English">
             <ParadigmsEngConcepts />
         </SidebarItem>
+        <SidebarItem title="Estonian">
+            <ParadigmsEstConcepts />
+        </SidebarItem>
+        <SidebarItem title="German">
+            <ParadigmsGerConcepts />
+        </SidebarItem>
+        <SidebarItem title="Latvian">
+            <ParadigmsLavConcepts />
+        </SidebarItem>
+        <SidebarItem title="Russian">
+            <ParadigmsRusConcepts />
+        </SidebarItem>
+        <SidebarItem title="Spanish">
+            <ParadigmsSpaConcepts />
+        </SidebarItem>
         <SidebarItem title="RGL">
             <ParadigmsConcepts />
         </SidebarItem>
