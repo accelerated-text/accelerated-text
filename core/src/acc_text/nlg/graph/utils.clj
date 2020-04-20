@@ -34,6 +34,12 @@
        (sort-by #(:index (attrs g %)))
        (map graph/dest)))
 
+(defn get-predecessors [g node-id]
+  (->> node-id
+       (graph/in-edges g)
+       (sort-by #(:index (attrs g %)))
+       (map graph/src)))
+
 (defn get-in-edge [graph node-id]
   (first (graph/in-edges graph node-id)))
 
@@ -63,3 +69,6 @@
                           (map (fn [[id concept]]
                                  (merge {:id (uuid->id id)} concept)))
                           (sort-by :id))}))
+
+(defn save-graph [graph filename]
+  (uber/viz-graph graph {:auto-label true :save {:format :png :filename filename}}))
