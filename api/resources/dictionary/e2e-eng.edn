@@ -28,7 +28,7 @@
                                 :sense    "1"
                                 :category "V"
                                 :language "Eng"
-                                :forms    ["cost"]}
+                                :forms    ["cost" "cost" "costs"]}
  #:acc-text.nlg.dictionary.item{:key      "dine_1_V"
                                 :sense    "1"
                                 :category "V"
