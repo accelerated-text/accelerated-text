@@ -15,14 +15,14 @@
   (set/difference (set (map :id concepts)) (set (map :from relations))))
 
 (defn document-plan->amr [{:keys [id name documentPlan examples] :as entity}]
-  (let [{concepts ::sg/concepts :as semantic-graph} (document-plan->semantic-graph
-                                                      documentPlan
-                                                      {:var-names (dp/get-variable-names entity)})]
+  (let [{::sg/keys [concepts description] :as semantic-graph} (document-plan->semantic-graph
+                                                                documentPlan
+                                                                {:var-names (dp/get-variable-names entity)})]
     {:id             id
      :label          name
      :kind           "Str"
      :semantic-graph semantic-graph
-     :frames         [{:examples (or examples [])}]
+     :frames         [{:examples (or examples (cond-> [] (some? description) (conj description)))}]
      :roles          (let [categories (get-relation-categories semantic-graph)
                            unrelated-concepts (find-unrelated-concepts semantic-graph)]
                        (loop [[reference & rs] (filter (fn [{:keys [id type]}]
