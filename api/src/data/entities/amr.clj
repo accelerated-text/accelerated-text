@@ -18,8 +18,8 @@
   (let [{root-id :id} (some #(when (= :document-plan (:type %)) %) concepts)
         {first-segment-id :to} (first (sort-by :index (filter #(= root-id (:from %)) relations)))
         {first-block-id :to} (first (sort-by :index (filter #(= first-segment-id (:from %)) relations)))
-        {:keys [type kind]} (some #(when (= first-block-id (:id %)) %) concepts)]
-    (or (when (= :amr type) kind) "Str")))
+        {:keys [type category]} (some #(when (= first-block-id (:id %)) %) concepts)]
+    (or (when (= :amr type) category) "Str")))
 
 (defn document-plan->amr [{:keys [id name documentPlan examples] :as entity}]
   (let [{::sg/keys [concepts description] :as semantic-graph} (document-plan->semantic-graph
