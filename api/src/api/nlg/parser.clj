@@ -36,10 +36,11 @@
                                    :index index})
                                 children)})
 
-(defmethod build-semantic-graph :AMR [{:keys [id conceptId roles]} _]
-  #::sg{:concepts  [{:id   id
-                     :type :amr
-                     :name conceptId}]
+(defmethod build-semantic-graph :AMR [{:keys [id conceptId roles kind]} _]
+  #::sg{:concepts  [(cond-> {:id   id
+                             :type :amr
+                             :name conceptId}
+                            (some? kind) (assoc :category kind))]
         :relations (map-indexed (fn [index {[{child-id :id}] :children name :name label :label}]
                                   (cond-> {:from     id
                                            :to       child-id
