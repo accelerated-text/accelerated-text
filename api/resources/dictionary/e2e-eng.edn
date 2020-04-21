@@ -4,11 +4,11 @@
                                 :category "V"
                                 :language "Eng"
                                 :forms    ["bring" "brought" "brought"]}
- #:acc-text.nlg.dictionary.item{:key      "boasts_1_V"
+ #:acc-text.nlg.dictionary.item{:key      "boast_1_V"
                                 :sense    "1"
                                 :category "V"
                                 :language "Eng"
-                                :forms    ["boasts"]}
+                                :forms    ["boast"]}
  #:acc-text.nlg.dictionary.item{:key      "call_1_V"
                                 :sense    "1"
                                 :category "V"
