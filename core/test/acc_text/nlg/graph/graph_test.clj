@@ -47,5 +47,9 @@
         red            (concept-with-val concepts "red")
         green          (concept-with-val concepts "green")
         ]
-    
+    (-> semantic-graph
+        (semantic-graph->ubergraph)
+        (attach-amrs context)
+        #_(uber/viz-graph {:auto-label true}))
+
     ))
