@@ -80,3 +80,6 @@
   (let [semantic-graph (test-utils/load-test-semantic-graph "parallel-edge-test")
         context (test-utils/load-test-context "parallel-edge-test")]
     (is (= ["There is an item."] (map :text (core/generate-text semantic-graph context "Eng"))))))
+
+(deftest ^:integration failing-test
+  (is false))

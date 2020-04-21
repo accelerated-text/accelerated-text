@@ -32,6 +32,3 @@
                          :data-file-name     "books.csv"
                          :reader-flags       {"English" true
                                               "German"  true}}))))
-
-(deftest ^:integration failing-test
-  (is false))
