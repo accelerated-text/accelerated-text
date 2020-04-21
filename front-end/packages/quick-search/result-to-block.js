@@ -11,7 +11,7 @@ const getProps = {
         mutation: {
             concept_id:     concept.id,
             concept_label:  concept.label,
-            kind:           concept.kind,
+            concep_kind:    concept.kind,
             roles:          JSON.stringify( concept.roles ),
         },
         values: {

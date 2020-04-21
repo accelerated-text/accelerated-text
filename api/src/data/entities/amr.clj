@@ -14,15 +14,22 @@
 (defn find-unrelated-concepts [{::sg/keys [concepts relations]}]
   (set/difference (set (map :id concepts)) (set (map :from relations))))
 
+(defn get-category [{::sg/keys [concepts relations]}]
+  (let [{root-id :id} (some #(when (= :document-plan (:type %)) %) concepts)
+        {first-segment-id :to} (first (sort-by :index (filter #(= root-id (:from %)) relations)))
+        {first-block-id :to} (first (sort-by :index (filter #(= first-segment-id (:from %)) relations)))
+        {:keys [type category]} (some #(when (= first-block-id (:id %)) %) concepts)]
+    (or (when (= :amr type) category) "Str")))
+
 (defn document-plan->amr [{:keys [id name documentPlan examples] :as entity}]
-  (let [{concepts ::sg/concepts :as semantic-graph} (document-plan->semantic-graph
-                                                      documentPlan
-                                                      {:var-names (dp/get-variable-names entity)})]
+  (let [{::sg/keys [concepts description] :as semantic-graph} (document-plan->semantic-graph
+                                                                documentPlan
+                                                                {:var-names (dp/get-variable-names entity)})]
     {:id             id
      :label          name
-     :kind           "Str"
+     :kind           (get-category semantic-graph)
      :semantic-graph semantic-graph
-     :frames         [{:examples (or examples [])}]
+     :frames         [{:examples (or examples (cond-> [] (some? description) (conj description)))}]
      :roles          (let [categories (get-relation-categories semantic-graph)
                            unrelated-concepts (find-unrelated-concepts semantic-graph)]
                        (loop [[reference & rs] (filter (fn [{:keys [id type]}]
