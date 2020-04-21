@@ -13,5 +13,8 @@
     (s/keys :req-un [::relation/from ::relation/to ::relation/role]
             :opt-un [::relation/index ::relation/category ::relation/name])))
 
+(s/def ::description string?)
+
 (s/def ::graph
-  (s/keys :req [::relations ::concepts]))
+  (s/keys :req [::relations ::concepts]
+          :opt [::description]))
