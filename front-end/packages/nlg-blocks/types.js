@@ -10,14 +10,11 @@ export const A2 =           'A2';
 export const AP =           'AP';
 export const AdA =          'AdA';
 export const AdN =          'AdN';
-export const AdNalmost =    'AdNalmost';
-export const AdNat =        'AdNat';
 export const AdV =          'AdV';
 export const Adv =          'Adv';
 export const Ant =          'Ant';
 export const CAdv =         'CAdv';
 export const CN =           'CN';
-export const CNvery =       'CNvery';
 export const Card =         'Card';
 export const Cl =           'Cl';
 export const ClSlash =      'ClSlash';
@@ -92,8 +89,8 @@ export const Voc =          'Voc';
 export const ATOMIC_VALUE = [ BOOLEAN, STRING ];
 export const TEXT =         [ LIST, STRING ];
 export const AMR =          [
-    A, A2, AP, AdA, AdN, AdNalmost, AdNat, AdV, Adv, Ant, CAdv,
-    CN, CNvery, Card, Cl, ClSlash, Comp, Conj, Det, Dig, Digits,
+    A, A2, AP, AdA, AdN, AdV, Adv, Ant, CAdv,
+    CN, Card, Cl, ClSlash, Comp, Conj, Det, Dig, Digits,
     Gender, IAdv, IComp, IDet, IP, IQuant, Imp, ImpForm, Interj,
     ListAP, ListAdv, ListNP, ListRS, ListS, N, N2, N3, NP, Num,
     Number, Numeral, Ord, PConj, PN, Phr, Pol, Predet, Prep, Pron,
@@ -101,4 +98,3 @@ export const AMR =          [
     Sub1000, Subj, Temp, Tense, Text, Type, Unit, Utt, V, V2,
     V2A, V2Q, V2S, V2V, V3, VA, VP, VPSlash, VQ, VS, VV, Voc,
 ];
-export const AMR_OR_TEXT =   TEXT.concat( AMR );
