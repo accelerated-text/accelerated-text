@@ -21,5 +21,5 @@ export default Block({
         message0:           'Text segment',
     },
 
-    valueListCheck:         T.TEXT,
+    valueListCheck:         T.AMR_OR_TEXT,
 });

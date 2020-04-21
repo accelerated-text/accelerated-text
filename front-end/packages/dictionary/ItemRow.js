@@ -26,8 +26,9 @@ export default class DictionaryItemRow extends Component {
                     <DragInBlock
                         block={ DictionaryItemBlock }
                         mutation={{
-                            id:     item.id,
-                            name:   item.name,
+                            id:           item.id,
+                            name:         item.name,
+                            partOfSpeech: item.partOfSpeech,
                         }}
                     />
                 }
