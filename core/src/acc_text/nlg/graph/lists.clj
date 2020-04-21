@@ -25,11 +25,9 @@
 (defn construct-list-structure [g list-node gf-funct data-leaf]
   (let [new-id (UUID/randomUUID) new-attrs (uber/attrs g gf-funct)]
     (-> g
-        #_(remove-node gf-fuct)
         (add-node new-id new-attrs)
         (add-edge new-id data-leaf (attrs-from-edge g gf-funct list-node))
         (add-edge list-node new-id (attrs-from-edge g list-node data-leaf))
-        #_(remove-edge gf-funct list-node)
         (remove-edge list-node data-leaf))))
 
 (defn resolve-lists [g]
@@ -38,15 +36,18 @@
      (reduce ;;then iterate over parents of each list node
       (fn [g parent]
         (let [list-parent (first (gut/get-predecessors g parent))]
-          (reduce ;;lastly go over children of list node and connect with parent
-           (fn [g child]
-             (if (= :operation (:type (uber/attrs g parent)))
-               (construct-list-structure g list-node parent child)
-               g))
-           (-> g
-               (add-edge list-parent list-node (attrs-from-edge g list-parent parent))
-               #_(remove-edge list-parent parent)
-               #_(remove-edge parent list-node))
-           (gut/get-successors g list-node))))
+          (remove-node
+           (remove-edge
+            (reduce ;;lastly go over children of list node and connect with parent
+             (fn [g child]
+               (if (= :operation (:type (uber/attrs g parent)))
+                 (construct-list-structure g list-node parent child)
+                 g))
+             (-> g
+                 (add-edge list-parent list-node (attrs-from-edge g list-parent parent))
+                 (remove-edge list-parent parent))
+             (gut/get-successors g list-node))
+            parent list-node)
+           parent)))
       g (gut/get-predecessors g list-node)))
    g (concat (find-nodes g {:type :synonyms}) (find-nodes g {:type :shuffle}))))

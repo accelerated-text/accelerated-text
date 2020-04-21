@@ -34,7 +34,7 @@
 (defn concept-with-val [concepts val]
   (some #(when (= val (:value %)) %) concepts))
 
-(deftest synonyms
+(defn foo []
   (let [context        (load-test-context "one-of-with-str")
         semantic-graph (load-test-semantic-graph "one-of-with-str")
         {:keys [acc-text.nlg.semantic-graph/relations
@@ -50,6 +50,7 @@
     (-> semantic-graph
         (semantic-graph->ubergraph)
         (attach-amrs context)
-        #_(uber/viz-graph {:auto-label true}))
+        (resolve-lists)
+        (ubergraph.core/viz-graph {:auto-label true}))
 
     ))
