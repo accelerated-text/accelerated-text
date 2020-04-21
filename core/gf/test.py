@@ -43,5 +43,5 @@ def test_get_parse_tree(api_post):
     content = data["content"]
     name = data["module"]
     (_, result_objects) = generate_results(name, content)[0]
-    tree = result_objects[0]["tree"]
-    assert tree.strip() != ""
+    tree = result_objects[0]["tree"][0]
+    assert tree.strip() == "(DocumentPlan01:6 (Segment02:5 (Frame03:4 (Frame04:3 (Operation05:2 (Operation06:1 there is an (Operation07:0 item)) .)))))"

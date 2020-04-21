@@ -60,10 +60,9 @@ def compile_grammar(name, content):
 
 
 def generate_variants(expressions, concrete_grammar):
-    results = [{"result": r, "tree": concrete_grammar.graphvizParseTree(e)}
-               for (_, e) in expressions
-               for r in concrete_grammar.linearizeAll(e)]
-    return list(results)
+    return [{"result": r, "tree": map(str, concrete_grammar.bracketedLinearize(e))}
+            for (_, e) in expressions
+            for r in concrete_grammar.linearizeAll(e)]
 
 
 def generate_expressions(abstract_grammar):
