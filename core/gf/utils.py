@@ -1,5 +1,7 @@
 import json
 
+from wsgiref.util import setup_testing_defaults
+
 
 def response_404(environ, start_response):
     status = "404 NOT FOUND"

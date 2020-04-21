@@ -1,7 +1,6 @@
 import logging
 import argparse
 
-from wsgiref.util import setup_testing_defaults
 from wsgiref.simple_server import make_server
 
 from utils import (response_404, post_request, json_request, json_response)

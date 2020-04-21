@@ -44,4 +44,4 @@ def test_get_parse_tree(api_post):
     name = data["module"]
     (_, result_objects) = generate_results(name, content)[0]
     tree = result_objects[0]["tree"]
-    assert tree == ""
+    assert tree.strip() != ""
