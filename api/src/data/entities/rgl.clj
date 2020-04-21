@@ -56,7 +56,6 @@
   ([path]
    (->> (utils/list-files path)
         (mapcat read-rgl)
-        (filter #(or (seq (:roles %)) (grammar-type? %)))
         (sort-by #(vector (:kind %) (:label %))))))
 
 (defn read-structural-words
@@ -84,7 +83,7 @@
    (mapcat read-library (utils/list-directories path))))
 
 (defn initialize
-  ([] (initialize (concat (read-library) (read-structural-words) (read-paradigms))))
+  ([] (initialize (concat (read-library) (read-paradigms))))
   ([entities]
    (doseq [entity entities]
      (write-rgl entity))))
