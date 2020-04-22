@@ -23,6 +23,11 @@
 (defmethod build-dictionary-item "Eng/A/A" [_ {:keys [forms]}]
   (format "(ParadigmsEng.mkA %s)" (join-forms forms)))
 
+(defmethod build-dictionary-item "Eng/Adv/N" [_ {:keys [forms attributes]}]
+  (if (contains? attributes "Gender")
+    (format "(ParadigmsEng.mkN ParadigmsEng.%s (ParadigmsEng.mkN %s))" (get attributes "Gender") (join-forms forms))
+    (format "(ParadigmsEng.mkN %s)" (join-forms forms))))
+
 (defmethod build-dictionary-item "Eng/V2/V" [_ {:keys [forms]}]
   (format "(ParadigmsEng.mkV2 (ParadigmsEng.mkV %s))" (join-forms forms)))
 
