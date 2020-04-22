@@ -3,25 +3,24 @@
   "uid": "ce604ea4-2a20-4b1c-b296-304662d6e852",
   "name": "has a",
   "kind": "AMR",
-  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"FAYq{hY2@2}42no4r!0~\">(polarity)</variable><variable type=\"\" id=\"#285/?kY!@u_AvDIhu!$\">Name</variable><variable type=\"\" id=\")5@M6=BAQj}qJ$#rPiJZ\">Part</variable></variables><block type=\"Document-plan\" id=\"26BwGQ70c,bHd.B$VL4u\" deletable=\"false\" x=\"1219\" y=\"109\"><statement name=\"segments\"><block type=\"Segment\" id=\"rrsTDuATOG.KNof=dfUk\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"OGN.0QeF|I*e9xQqvL#^\"><mutation concept_id=\"tuPYHTmeXViCeXHE\" concept_label=\"N -&gt; have a N\" roles=\"[{&quot;id&quot;:&quot;QrfDsdiFMyjKOImR&quot;,&quot;fieldLabel&quot;:&quot;(polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Tense&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;GfcnVrCOTnZienbK&quot;,&quot;fieldLabel&quot;:&quot;N.1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;fyhMGHgqkWCAjSQW&quot;,&quot;fieldLabel&quot;:&quot;N.2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QrfDsdiFMyjKOImR\"><block type=\"Get-var\" id=\"AkBY0fy5JqM4]#XzRP*T\"><field name=\"name\" id=\"FAYq{hY2@2}42no4r!0~\" variabletype=\"\">(polarity)</field></block></value><value name=\"GfcnVrCOTnZienbK\"><block type=\"Get-var\" id=\"w2@gR5KElXA3$rTV0Fc0\"><field name=\"name\" id=\"#285/?kY!@u_AvDIhu!$\" variabletype=\"\">Name</field></block></value><value name=\"fyhMGHgqkWCAjSQW\"><block type=\"Get-var\" id=\"ddomEW.!:#Yuu#21sQBk\"><field name=\"name\" id=\")5@M6=BAQj}qJ$#rPiJZ\" variabletype=\"\">Part</field></block></value></block></value></block></statement></block></xml>",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\":%`/P+:x/Vv$IqSq@]pJ\">*Description</variable><variable type=\"\" id=\"#285/?kY!@u_AvDIhu!$\">Name</variable><variable type=\"\" id=\")5@M6=BAQj}qJ$#rPiJZ\">Part</variable></variables><block type=\"Document-plan\" id=\"26BwGQ70c,bHd.B$VL4u\" deletable=\"false\" x=\"409\" y=\"208\"><statement name=\"segments\"><block type=\"Define-var\" id=\"ni[P)%~6:Zb#5zq63}aL\"><field name=\"name\" id=\":%`/P+:x/Vv$IqSq@]pJ\" variabletype=\"\">*Description</field><value name=\"value\"><block type=\"Quote\" id=\"Q`Oe_dV3FtAPoA!-D-?=\"><field name=\"text\">A bird has a wing.</field></block></value><next><block type=\"Segment\" id=\"rrsTDuATOG.KNof=dfUk\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"T4N8{O#TddPi`5$[r/v+\"><mutation concept_id=\"yLNcSXyZotzpXHHT\" concept_kind=\"Cl\" concept_label=\"Cl\" roles=\"[{&quot;id&quot;:&quot;BmayPBvpNFZHgQDa&quot;,&quot;fieldLabel&quot;:&quot;NP.1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;IutDLzpeTEDQHcqN&quot;,&quot;fieldLabel&quot;:&quot;V2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;V2&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;jtcxzuNSmEOzDEDl&quot;,&quot;fieldLabel&quot;:&quot;NP.2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"BmayPBvpNFZHgQDa\"><block type=\"Get-var\" id=\"w2@gR5KElXA3$rTV0Fc0\"><field name=\"name\" id=\"#285/?kY!@u_AvDIhu!$\" variabletype=\"\">Name</field></block></value><value name=\"IutDLzpeTEDQHcqN\"><block type=\"AMR\" id=\"Vz%Z4L1X~Oxr_/LdLx8a\"><mutation concept_id=\"Syntax.have_V2/V2\" concept_kind=\"V2\" concept_label=\"have_V2\" roles=\"[]\"></mutation></block></value><value name=\"jtcxzuNSmEOzDEDl\"><block type=\"Get-var\" id=\"ddomEW.!:#Yuu#21sQBk\"><field name=\"name\" id=\")5@M6=BAQj}qJ$#rPiJZ\" variabletype=\"\">Part</field></block></value></block></value></block></next></block></statement></block></xml>",
   "documentPlan": {
     "type": "Document-plan",
     "segments": [
       {
+        "name": ":%`/P+:x/Vv$IqSq@]pJ",
+        "value": {
+          "type": "Quote",
+          "srcId": "Q`Oe_dV3FtAPoA!-D-?=",
+          "text": "A bird has a wing."
+        },
+        "type": "Define-var",
+        "srcId": "ni[P)%~6:Zb#5zq63}aL"
+      },
+      {
         "children": [
           {
             "roles": [
-              {
-                "children": [
-                  {
-                    "name": "FAYq{hY2@2}42no4r!0~",
-                    "type": "Get-var",
-                    "srcId": "AkBY0fy5JqM4]#XzRP*T"
-                  }
-                ],
-                "name": "Tense",
-                "label": "(polarity)"
-              },
               {
                 "children": [
                   {
@@ -30,8 +29,20 @@
                     "srcId": "w2@gR5KElXA3$rTV0Fc0"
                   }
                 ],
-                "name": "N",
-                "label": "N.1"
+                "name": "NP",
+                "label": "NP.1"
+              },
+              {
+                "children": [
+                  {
+                    "type": "AMR",
+                    "srcId": "Vz%Z4L1X~Oxr_/LdLx8a",
+                    "conceptId": "Syntax.have_V2/V2",
+                    "kind": "V2"
+                  }
+                ],
+                "name": "V2",
+                "label": "V2"
               },
               {
                 "children": [
@@ -41,13 +52,14 @@
                     "srcId": "ddomEW.!:#Yuu#21sQBk"
                   }
                 ],
-                "name": "N",
-                "label": "N.2"
+                "name": "NP",
+                "label": "NP.2"
               }
             ],
             "type": "AMR",
-            "srcId": "OGN.0QeF|I*e9xQqvL#^",
-            "conceptId": "tuPYHTmeXViCeXHE"
+            "srcId": "T4N8{O#TddPi`5$[r/v+",
+            "conceptId": "yLNcSXyZotzpXHHT",
+            "kind": "Cl"
           }
         ],
         "type": "Segment",

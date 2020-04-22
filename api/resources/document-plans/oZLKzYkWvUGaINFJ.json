@@ -1,0 +1,59 @@
+{
+  "id": "oZLKzYkWvUGaINFJ",
+  "uid": "bf5a304b-3526-48de-bdaa-11e9026bba46",
+  "name": "*Object, qualified",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"GTC1w(%uZwS3DzFF;/7A\">*Description</variable><variable type=\"\" id=\"8wR81^{LGisFzFag*%T#\">Object</variable><variable type=\"\" id=\"=|w$=DDco/*!M-?3r.WR\">Qualifier</variable></variables><block type=\"Document-plan\" id=\"ASa}3v:`0mu9Mi8!TEvN\" deletable=\"false\" x=\"374\" y=\"170\"><statement name=\"segments\"><block type=\"Define-var\" id=\"QFu#ij~y@k[#)~,*T@d4\"><field name=\"name\" id=\"GTC1w(%uZwS3DzFF;/7A\" variabletype=\"\">*Description</field><value name=\"value\"><block type=\"Quote\" id=\"7R[jnzk?d?EXD.b_vk})\"><field name=\"text\">There is a venue here.</field></block></value><next><block type=\"Segment\" id=\"SJiRSpl+1t(`^U=C(+|W\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"B:YXn:x.niJu_Qmz^TA8\"><mutation concept_id=\"JwOhVjKoXgRnaGjn\" concept_kind=\"NP\" concept_label=\"NP\" roles=\"[{&quot;id&quot;:&quot;aPjfzYgDoMuikTqZ&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;LBCigyRCgLUTIehr&quot;,&quot;fieldLabel&quot;:&quot;Adv&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;,&quot;A&quot;,&quot;Adv&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"aPjfzYgDoMuikTqZ\"><block type=\"Get-var\" id=\"]X7QIbKr;}o-%Hu@sQw!\"><field name=\"name\" id=\"8wR81^{LGisFzFag*%T#\" variabletype=\"\">Object</field></block></value><value name=\"LBCigyRCgLUTIehr\"><block type=\"Get-var\" id=\";6{^@K!K:tuXO#|uw%Ly\"><field name=\"name\" id=\"=|w$=DDco/*!M-?3r.WR\" variabletype=\"\">Qualifier</field></block></value></block></value></block></next></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "name": "GTC1w(%uZwS3DzFF;/7A",
+        "value": {
+          "type": "Quote",
+          "srcId": "7R[jnzk?d?EXD.b_vk})",
+          "text": "There is a venue here."
+        },
+        "type": "Define-var",
+        "srcId": "QFu#ij~y@k[#)~,*T@d4"
+      },
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "8wR81^{LGisFzFag*%T#",
+                    "type": "Get-var",
+                    "srcId": "]X7QIbKr;}o-%Hu@sQw!"
+                  }
+                ],
+                "name": "NP",
+                "label": "NP"
+              },
+              {
+                "children": [
+                  {
+                    "name": "=|w$=DDco/*!M-?3r.WR",
+                    "type": "Get-var",
+                    "srcId": ";6{^@K!K:tuXO#|uw%Ly"
+                  }
+                ],
+                "name": "Adv",
+                "label": "Adv"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "B:YXn:x.niJu_Qmz^TA8",
+            "conceptId": "JwOhVjKoXgRnaGjn",
+            "kind": "NP"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "SJiRSpl+1t(`^U=C(+|W"
+      }
+    ],
+    "srcId": "ASa}3v:`0mu9Mi8!TEvN"
+  }
+}

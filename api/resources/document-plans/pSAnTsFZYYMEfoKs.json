@@ -1,0 +1,116 @@
+{
+  "id": "pSAnTsFZYYMEfoKs",
+  "uid": "306d6c6e-d9ae-4ee2-b87b-d38fabd63c6f",
+  "name": "S",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"kLT$;=#JB@%,,Z$07W_N\">Cl</variable></variables><block type=\"Document-plan\" id=\"SoJioirwD!{q87z0$S{S\" deletable=\"false\" x=\"432\" y=\"191\"><statement name=\"segments\"><block type=\"Segment\" id=\"5)P!vW`rBsV1n9]b}6LX\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"ttp2Z3Mf9x7t3[gm;+P^\"><mutation concept_id=\"Syntax.mkS/(Tense)-&gt;(Ant)-&gt;(Pol)-&gt;Cl-&gt;S\" concept_kind=\"S\" concept_label=\"mkS\" roles=\"[{&quot;id&quot;:&quot;yWMOPcbnObLnFHda&quot;,&quot;fieldLabel&quot;:&quot;(Tense)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Tense&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;DZyISJfHvjqsLbql&quot;,&quot;fieldLabel&quot;:&quot;(Ant)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Ant&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;YyEQjVRbkDBtmeFI&quot;,&quot;fieldLabel&quot;:&quot;(Pol)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Pol&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;grNdanlKXoNFcQXa&quot;,&quot;fieldLabel&quot;:&quot;Cl&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Comp&quot;,&quot;V2&quot;,&quot;Dig&quot;,&quot;VPSlash&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;NP&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;VP&quot;,&quot;Quant&quot;,&quot;AP&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Adv&quot;,&quot;Numeral&quot;,&quot;Digit&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;A2&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;A&quot;,&quot;Det&quot;,&quot;Ord&quot;,&quot;Cl&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"grNdanlKXoNFcQXa\"><block type=\"If-then-else\" id=\"iIy6Wu85|rD*@EHBerJN\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"%o]T}UUFJ9n)*K(}8JS5\"><field name=\"name\" id=\"kLT$;=#JB@%,,Z$07W_N\" variabletype=\"\">Cl</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\"ofPme|VDp@;!}%]IX]:o\"><field name=\"name\" id=\"kLT$;=#JB@%,,Z$07W_N\" variabletype=\"\">Cl</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"+ztG~F5B`a[#M(+pjyXd\"><mutation concept_id=\"Syntax.genericCl/VP-&gt;Cl\" concept_kind=\"Cl\" concept_label=\"genericCl\" roles=\"[{&quot;id&quot;:&quot;WdOhQPVUbiQnyHhv&quot;,&quot;fieldLabel&quot;:&quot;VP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Comp&quot;,&quot;V2&quot;,&quot;Dig&quot;,&quot;VPSlash&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;NP&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;AP&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Adv&quot;,&quot;Numeral&quot;,&quot;Digit&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;A2&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;A&quot;,&quot;Det&quot;,&quot;Ord&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"WdOhQPVUbiQnyHhv\"><block type=\"AMR\" id=\"t*nY[^|%T[xzzc1L3ujg\"><mutation concept_id=\"Syntax.mkVP/V2-&gt;NP-&gt;VP\" concept_kind=\"VP\" concept_label=\"mkVP\" roles=\"[{&quot;id&quot;:&quot;dOzeBnfwTnJFnDGd&quot;,&quot;fieldLabel&quot;:&quot;V2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;V2&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;KMIYUgxVuMPUwOHg&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"dOzeBnfwTnJFnDGd\"><block type=\"AMR\" id=\"g^gjytoMP.t)Z}CLgCFt\"><mutation concept_id=\"Syntax.have_V2/V2\" concept_kind=\"V2\" concept_label=\"have_V2\" roles=\"[]\"></mutation></block></value><value name=\"KMIYUgxVuMPUwOHg\"><block type=\"AMR\" id=\"I4s]mVv-K:QG{MG04`RR\"><mutation concept_id=\"Syntax.it_NP/NP\" concept_kind=\"NP\" concept_label=\"it_NP\" roles=\"[]\"></mutation></block></value></block></value></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [],
+                "name": "Tense",
+                "label": "(Tense)"
+              },
+              {
+                "children": [],
+                "name": "Ant",
+                "label": "(Ant)"
+              },
+              {
+                "children": [],
+                "name": "Pol",
+                "label": "(Pol)"
+              },
+              {
+                "children": [
+                  {
+                    "type": "If-then-else",
+                    "conditions": [
+                      {
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "name": "kLT$;=#JB@%,,Z$07W_N",
+                          "type": "Get-var",
+                          "srcId": "ofPme|VDp@;!}%]IX]:o"
+                        },
+                        "condition": {
+                          "name": "kLT$;=#JB@%,,Z$07W_N",
+                          "type": "Get-var",
+                          "srcId": "%o]T}UUFJ9n)*K(}8JS5"
+                        }
+                      },
+                      {
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "roles": [
+                            {
+                              "children": [
+                                {
+                                  "roles": [
+                                    {
+                                      "children": [
+                                        {
+                                          "type": "AMR",
+                                          "srcId": "g^gjytoMP.t)Z}CLgCFt",
+                                          "conceptId": "Syntax.have_V2/V2",
+                                          "kind": "V2"
+                                        }
+                                      ],
+                                      "name": "V2",
+                                      "label": "V2"
+                                    },
+                                    {
+                                      "children": [
+                                        {
+                                          "type": "AMR",
+                                          "srcId": "I4s]mVv-K:QG{MG04`RR",
+                                          "conceptId": "Syntax.it_NP/NP",
+                                          "kind": "NP"
+                                        }
+                                      ],
+                                      "name": "NP",
+                                      "label": "NP"
+                                    }
+                                  ],
+                                  "type": "AMR",
+                                  "srcId": "t*nY[^|%T[xzzc1L3ujg",
+                                  "conceptId": "Syntax.mkVP/V2->NP->VP",
+                                  "kind": "VP"
+                                }
+                              ],
+                              "name": "VP",
+                              "label": "VP"
+                            }
+                          ],
+                          "type": "AMR",
+                          "srcId": "+ztG~F5B`a[#M(+pjyXd",
+                          "conceptId": "Syntax.genericCl/VP->Cl",
+                          "kind": "Cl"
+                        }
+                      }
+                    ],
+                    "srcId": "iIy6Wu85|rD*@EHBerJN"
+                  }
+                ],
+                "name": "Cl",
+                "label": "Cl"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "ttp2Z3Mf9x7t3[gm;+P^",
+            "conceptId": "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S",
+            "kind": "S"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "5)P!vW`rBsV1n9]b}6LX"
+      }
+    ],
+    "srcId": "SoJioirwD!{q87z0$S{S"
+  }
+}

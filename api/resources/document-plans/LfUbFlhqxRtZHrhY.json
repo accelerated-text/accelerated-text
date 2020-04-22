@@ -1,0 +1,61 @@
+{
+  "id": "LfUbFlhqxRtZHrhY",
+  "uid": "87f9e30f-a86b-4431-8394-2523eb3d1156",
+  "name": "VP",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"Lo.I@7YoTI=yA8W%xZ(O\">NP</variable></variables><block type=\"Document-plan\" id=\"7wR72z}Eo{}_7ZBW/cP8\" deletable=\"false\" x=\"368\" y=\"224\"><statement name=\"segments\"><block type=\"Segment\" id=\"@408[~c2oh7S@i.yivT?\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"jH%ioSq3#aY*Zi`zE{vk\"><mutation concept_id=\"Syntax.mkVP/NP-&gt;VP\" concept_kind=\"VP\" concept_label=\"mkVP\" roles=\"[{&quot;id&quot;:&quot;uBCVELhhqbFOTRMU&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"uBCVELhhqbFOTRMU\"><block type=\"If-then-else\" id=\"%.~3Kj03l3QxajId)%Ii\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\")%8^lZ@/~sRV2}f$,/MB\"><field name=\"name\" id=\"Lo.I@7YoTI=yA8W%xZ(O\" variabletype=\"\">NP</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\"HIqT9F0f+W.5QL$B{v92\"><field name=\"name\" id=\"Lo.I@7YoTI=yA8W%xZ(O\" variabletype=\"\">NP</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"@Pt8ggw5Q#BFN$lLIQL=\"><mutation concept_id=\"Syntax.it_NP/NP\" concept_kind=\"NP\" concept_label=\"it_NP\" roles=\"[]\"></mutation></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "type": "If-then-else",
+                    "conditions": [
+                      {
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "name": "Lo.I@7YoTI=yA8W%xZ(O",
+                          "type": "Get-var",
+                          "srcId": "HIqT9F0f+W.5QL$B{v92"
+                        },
+                        "condition": {
+                          "name": "Lo.I@7YoTI=yA8W%xZ(O",
+                          "type": "Get-var",
+                          "srcId": ")%8^lZ@/~sRV2}f$,/MB"
+                        }
+                      },
+                      {
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "type": "AMR",
+                          "srcId": "@Pt8ggw5Q#BFN$lLIQL=",
+                          "conceptId": "Syntax.it_NP/NP",
+                          "kind": "NP"
+                        }
+                      }
+                    ],
+                    "srcId": "%.~3Kj03l3QxajId)%Ii"
+                  }
+                ],
+                "name": "NP",
+                "label": "NP"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "jH%ioSq3#aY*Zi`zE{vk",
+            "conceptId": "Syntax.mkVP/NP->VP",
+            "kind": "VP"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "@408[~c2oh7S@i.yivT?"
+      }
+    ],
+    "srcId": "7wR72z}Eo{}_7ZBW/cP8"
+  }
+}

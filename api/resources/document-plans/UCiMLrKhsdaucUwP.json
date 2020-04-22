@@ -1,0 +1,122 @@
+{
+  "id": "UCiMLrKhsdaucUwP",
+  "uid": "46f775e5-5590-420c-8779-c5e817eec835",
+  "name": "located near",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"N?PP2Qy;5v|k%=xB|sY#\">*Description</variable><variable type=\"\" id=\"U5`~)p^Ky06ZVE}5Zj$G\">Name</variable><variable type=\"\" id=\"wfVW/_eH%ZF@LU#DrO;4\">Object</variable><variable type=\"\" id=\"Tv8v%${b/+9=kaFKafb`\">*Language</variable></variables><block type=\"Document-plan\" id=\"t.iE5@h[|PvWlJY+-xz7\" deletable=\"false\" x=\"312\" y=\"198\"><statement name=\"segments\"><block type=\"Define-var\" id=\"}K2d6$dsL/ifssD4d!$o\"><field name=\"name\" id=\"N?PP2Qy;5v|k%=xB|sY#\" variabletype=\"\">*Description</field><value name=\"value\"><block type=\"Quote\" id=\"p042ZKtC4HgTrVIW9Au;\"><field name=\"text\">A fire exit is near an elevator.</field></block></value><next><block type=\"Segment\" id=\"7ArAb4:A~slv;4u0buRS\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"~27_/#]_dIu^.+OCP}=Y\"><mutation concept_id=\"DsTcClNrrrODcDSr\" concept_kind=\"Cl\" concept_label=\"Cl\" roles=\"[{&quot;id&quot;:&quot;IVgdITmyyqxCZpkF&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;eqFhcgBBTNKjYXIf&quot;,&quot;fieldLabel&quot;:&quot;Adv&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;,&quot;A&quot;,&quot;Adv&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"IVgdITmyyqxCZpkF\"><block type=\"Get-var\" id=\"tP%mK7.$):#axF(+jARD\"><field name=\"name\" id=\"U5`~)p^Ky06ZVE}5Zj$G\" variabletype=\"\">Name</field></block></value><value name=\"eqFhcgBBTNKjYXIf\"><block type=\"AMR\" id=\"}rFt#vdPC#w^-.G^yiW%\"><mutation concept_id=\"ZvDGMoADoIEsUfTV\" concept_kind=\"Adv\" concept_label=\"Adv\" roles=\"[{&quot;id&quot;:&quot;eoMIIJIyRChQWpag&quot;,&quot;fieldLabel&quot;:&quot;Prep&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Case&quot;,&quot;Prep&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;pHJlfZyyGEYlCiHH&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"eoMIIJIyRChQWpag\"><block type=\"If-then-else\" id=\"_iZ/?ZlXoBsdJk}=sg$[\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Value-comparison\" id=\"`v_yAwtv]qFQVp2E}ET)\"><field name=\"operator\">=</field><value name=\"value1\"><block type=\"Get-var\" id=\"C|(M*@Y4ddT!fVo(DJrK\"><field name=\"name\" id=\"Tv8v%${b/+9=kaFKafb`\" variabletype=\"\">*Language</field></block></value><value name=\"value2\"><block type=\"Quote\" id=\",hw6pOtY,#cGBI)7;?VW\"><field name=\"text\">Eng</field></block></value></block></value><value name=\"then\"><block type=\"AMR\" id=\"^P-`^Y`v-vHn_d*#(TGb\"><mutation concept_id=\"ParadigmsEng.mkPrep/Str-&gt;Prep\" concept_kind=\"Prep\" concept_label=\"mkPrep\" roles=\"[{&quot;id&quot;:&quot;OUFkUbfDcLTXDxTw&quot;,&quot;fieldLabel&quot;:&quot;Str&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Str&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"OUFkUbfDcLTXDxTw\"><block type=\"Quote\" id=\"+we;(OUPppV[dvmvyxF.\"><field name=\"text\">near</field></block></value></block></value></block></value><value name=\"pHJlfZyyGEYlCiHH\"><block type=\"Get-var\" id=\"!}-hwb+S1vYX23RMyMWH\"><field name=\"name\" id=\"wfVW/_eH%ZF@LU#DrO;4\" variabletype=\"\">Object</field></block></value></block></value></block></value></block></next></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "name": "N?PP2Qy;5v|k%=xB|sY#",
+        "value": {
+          "type": "Quote",
+          "srcId": "p042ZKtC4HgTrVIW9Au;",
+          "text": "A fire exit is near an elevator."
+        },
+        "type": "Define-var",
+        "srcId": "}K2d6$dsL/ifssD4d!$o"
+      },
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "U5`~)p^Ky06ZVE}5Zj$G",
+                    "type": "Get-var",
+                    "srcId": "tP%mK7.$):#axF(+jARD"
+                  }
+                ],
+                "name": "NP",
+                "label": "NP"
+              },
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [
+                          {
+                            "type": "If-then-else",
+                            "conditions": [
+                              {
+                                "type": "If-condition",
+                                "thenExpression": {
+                                  "roles": [
+                                    {
+                                      "children": [
+                                        {
+                                          "type": "Quote",
+                                          "srcId": "+we;(OUPppV[dvmvyxF.",
+                                          "text": "near"
+                                        }
+                                      ],
+                                      "name": "Str",
+                                      "label": "Str"
+                                    }
+                                  ],
+                                  "type": "AMR",
+                                  "srcId": "^P-`^Y`v-vHn_d*#(TGb",
+                                  "conceptId": "ParadigmsEng.mkPrep/Str->Prep",
+                                  "kind": "Prep"
+                                },
+                                "condition": {
+                                  "type": "Value-comparison",
+                                  "srcId": "`v_yAwtv]qFQVp2E}ET)",
+                                  "operator": "=",
+                                  "value2": {
+                                    "type": "Quote",
+                                    "srcId": ",hw6pOtY,#cGBI)7;?VW",
+                                    "text": "Eng"
+                                  },
+                                  "value1": {
+                                    "name": "Tv8v%${b/+9=kaFKafb`",
+                                    "type": "Get-var",
+                                    "srcId": "C|(M*@Y4ddT!fVo(DJrK"
+                                  }
+                                }
+                              }
+                            ],
+                            "srcId": "_iZ/?ZlXoBsdJk}=sg$["
+                          }
+                        ],
+                        "name": "Prep",
+                        "label": "Prep"
+                      },
+                      {
+                        "children": [
+                          {
+                            "name": "wfVW/_eH%ZF@LU#DrO;4",
+                            "type": "Get-var",
+                            "srcId": "!}-hwb+S1vYX23RMyMWH"
+                          }
+                        ],
+                        "name": "NP",
+                        "label": "NP"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "}rFt#vdPC#w^-.G^yiW%",
+                    "conceptId": "ZvDGMoADoIEsUfTV",
+                    "kind": "Adv"
+                  }
+                ],
+                "name": "Adv",
+                "label": "Adv"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "~27_/#]_dIu^.+OCP}=Y",
+            "conceptId": "DsTcClNrrrODcDSr",
+            "kind": "Cl"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "7ArAb4:A~slv;4u0buRS"
+      }
+    ],
+    "srcId": "t.iE5@h[|PvWlJY+-xz7"
+  }
+}
