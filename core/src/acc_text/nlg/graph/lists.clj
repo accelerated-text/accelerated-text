@@ -1,5 +1,5 @@
 (ns acc-text.nlg.graph.lists
-  (:require [acc-text.nlg.graph.utils :as gut :refer [find-nodes]]
+  (:require [acc-text.nlg.graph.utils :as gut]
             [clojure.tools.logging :as log]
             [ubergraph.core :as uber]
             [loom.graph :as graph])
@@ -51,7 +51,7 @@
         (remove-node gf-funct))))
 
 (defn find-list-nodes [g]
-  (concat (find-nodes g {:type :synonyms}) (find-nodes g {:type :shuffle})))
+  (concat (gut/find-nodes g {:type :synonyms}) (gut/find-nodes g {:type :shuffle})))
 
 (defn resolve-lists [g]
   (reduce ;;first, iterate over all list nodes
