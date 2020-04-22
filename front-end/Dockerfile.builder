@@ -50,20 +50,15 @@ RUN mv  amr/packages/plan-editor/ParadigmsSidebar.js amr/packages/plan-editor/Si
 
 
 
-RUN npm install && touch -m node_modules
-
-RUN rm -rf /usr/src/app/dp/node_modules && ln -s $PWD/node_modules /usr/src/app/dp/node_modules
-RUN rm -rf /usr/src/app/amr/node_modules && ln -s $PWD/node_modules /usr/src/app/amr/node_modules
-RUN rm -rf /usr/src/app/rgl/node_modules &&ln -s $PWD/node_modules /usr/src/app/rgl/node_modules
+RUN rm -rf /usr/src/app/dp/node_modules
+RUN rm -rf /usr/src/app/amr/node_modules
+RUN rm -rf /usr/src/app/rgl/node_modules
 
 RUN mkdir -p /opt/dist
-RUN mkdir -p /opt/dist/dp  && cd dp  && npm run build-dev && cp -r dist/* /opt/dist/dp  && cp -r assets/* /opt/dist/dp/
-RUN mkdir -p /opt/dist/amr && cd amr && npm run build-dev && cp -r dist/* /opt/dist/amr && cp -r assets/* /opt/dist/amr/
-RUN mkdir -p /opt/dist/rgl && cd rgl && npm run build-dev && cp -r dist/* /opt/dist/rgl  && cp -r assets/* /opt/dist/rgl/
+RUN mkdir -p /opt/dist/dp  && cd dp  && make build && cp -r dist/* /opt/dist/dp
+RUN mkdir -p /opt/dist/amr  && cd amr  && make build && cp -r dist/* /opt/dist/amr
+RUN mkdir -p /opt/dist/rgl  && cd rgl  && make build && cp -r dist/* /opt/dist/rgl
 
-RUN unlink /opt/dist/dp/blockly && cp -r dp/packages/inject-blockly/assets /opt/dist/dp/blockly
-RUN unlink /opt/dist/amr/blockly && cp -r amr/packages/inject-blockly/assets /opt/dist/amr/blockly
-RUN unlink /opt/dist/rgl/blockly && cp -r rgl/packages/inject-blockly/assets /opt/dist/rgl/blockly
 
 
 FROM nginx:latest
@@ -71,7 +66,5 @@ FROM nginx:latest
 RUN mkdir -p /var/www/acc-text/
 
 COPY --from=builder /opt/dist /var/www/acc-text
-COPY --from=builder /usr/src/app/node_modules /var/www/acc-text/node_modules
-COPY --from=builder /usr/src/app/dp/packages /var/www/acc-text/packages
 
 COPY front-end/nginx.conf /etc/nginx/nginx.conf
