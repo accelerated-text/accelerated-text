@@ -1,11 +1,16 @@
 (ns api.graphql.translate.concept
-  (:require [clojure.string :as str]
+  (:require [acc-text.nlg.gf.paths :refer [possible-paths]]
+            [clojure.string :as str]
             [data.utils :as utils]))
 
 (defn- role->schema [{:keys [type label]}]
   {:id         (utils/gen-rand-str 16)
-   :fieldType  (cond-> ["List" "Str"] (some? type) (conj type))
-   :fieldLabel (or label type "")})
+   :fieldLabel (or label type "")
+   :fieldType  (cond-> ["List" "Str"]
+                       (some? type) (-> (concat (get possible-paths type))
+                                        (distinct)
+                                        (vec)
+                                        (conj type)))})
 
 (defn- frames->help-text [frames]
   (->> frames
@@ -13,10 +18,13 @@
        (flatten)
        (str/join "\n\n")))
 
-(defn amr->schema [{:keys [id kind roles frames label name]}]
+(defn- construct-name [{:keys [kind roles]}]
+  (str/join " -> " (-> (mapv #(or (:type %) (:label %)) roles) (conj kind))))
+
+(defn amr->schema [{:keys [id kind roles frames label name] :as entity}]
   {:id       id
-   :kind     kind
+   :kind     (or kind "Str")
    :roles    (map role->schema roles)
    :helpText (frames->help-text frames)
    :label    (or label id)
-   :name     (or name id)})
+   :name     (or name (construct-name entity))})

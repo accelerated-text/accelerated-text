@@ -12,3 +12,11 @@
    "Lav" (load-paths "rgl/paths/lav.edn")
    "Rus" (load-paths "rgl/paths/rus.edn")
    "Spa" (load-paths "rgl/paths/spa.edn")})
+
+(def possible-paths
+  (->> (vals path-map)
+       (mapcat keys)
+       (group-by second)
+       (reduce-kv (fn [m k v]
+                    (assoc m k (set (map first v))))
+                  {})))

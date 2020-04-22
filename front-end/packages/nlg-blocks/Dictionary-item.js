@@ -28,9 +28,13 @@ export default Block({
 
         this.itemId =       xmlElement.getAttribute( 'id' );
         this.itemName =     xmlElement.getAttribute( 'name' );
+        this.partOfSpeech = xmlElement.getAttribute( 'partOfSpeech' );
 
         this.getField( 'name' )
             .setValue( this.itemName );
+
+        this.setOutput( true, this.partOfSpeech );
+
     },
 
     mutationToDom() {
@@ -38,6 +42,7 @@ export default Block({
             <mutation
                 id={ this.itemId }
                 name={ this.itemName }
+                partOfSpeech={ this.partOfSpeech }
             />
         );
     },
