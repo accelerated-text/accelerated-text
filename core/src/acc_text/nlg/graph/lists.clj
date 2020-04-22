@@ -57,6 +57,8 @@
   (reduce ;;first, iterate over all list nodes
    (fn [g [list-node _]]
      (reduce ;;then iterate over parents of each list node
-      (fn [g parent] (construct-list-structure g list-node parent))
+      (fn [g parent]
+        (log/debugf "Rearranging list %s with parent %s" list-node parent)
+        (construct-list-structure g list-node parent))
       g (gf-parent-operations g list-node)))
    g (find-list-nodes g)))
