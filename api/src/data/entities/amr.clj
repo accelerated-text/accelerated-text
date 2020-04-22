@@ -31,10 +31,9 @@
       (graph-utils/ubergraph->semantic-graph :keep-ids? true)))
 
 (defn document-plan->amr [{:keys [id name documentPlan examples] :as entity}]
-  (let [{::sg/keys [concepts description] :as semantic-graph} (resolve-categories
-                                                                (document-plan->semantic-graph
-                                                                  documentPlan
-                                                                  {:var-names (dp/get-variable-names entity)}))]
+  (let [metadata {:var-names (dp/get-variable-names entity)}
+        {::sg/keys [description] :as semantic-graph} (document-plan->semantic-graph documentPlan metadata)
+        {::sg/keys [concepts] :as semantic-graph} (resolve-categories semantic-graph)]
     {:id             id
      :label          name
      :kind           (get-category semantic-graph)
