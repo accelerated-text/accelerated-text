@@ -25,6 +25,9 @@
 (s/def ::get-result
   (s/keys :opt-un [::request/format]))
 
+(defn display-error? []
+  (Boolean/valueOf (System/getenv "DISPLAY_ERROR")))
+
 (defn generate-request
   [{data-id :dataId data-row :dataRow reader-model :readerFlagValues :as request}]
   (try
@@ -69,9 +72,10 @@
                 :totalCount (count rows)
                 :ready      (not= status :pending)
                 :updatedAt  timestamp
-                :variants   (if (some? result-format)
-                              (use-format result-format result)
-                              (with-default-format result))}}
+                :variants   (cond
+                              (and (= :error status) (display-error?)) (use-format "error" result)
+                              (some? result-format) (use-format result-format result)
+                              :else (with-default-format result))}}
       (do
         (log/warnf "Result with id `%s` not found" request-id)
         {:status 404}))

@@ -1,5 +1,6 @@
 (ns api.nlg.format
   (:require [api.utils :as utils]
+            [clojure.string :as str]
             [data.spec.result :as result]
             [data.spec.result.row :as row]
             [data.spec.result.annotation :as annotation]))
@@ -29,6 +30,11 @@
   (cond-> [(get-flag language)]
           (true? enriched?) (conj enriched-flag)))
 
+(defn get-error-flags [_]
+  [{:type "FLAG"
+    :id   "ERROR"
+    :text "\uD83D\uDED1"}])
+
 (defn ->annotated-text-format [{rows ::result/rows}]
   (map (fn [{annotations ::row/annotations :as row}]
          {:type        "ANNOTATED_TEXT"
@@ -49,13 +55,33 @@
                                                       annotations))}]}]}) ;; TODO
        rows))
 
+(defn ->error [{::result/keys [error-message] :as result}]
+  (cond-> []
+          (re-matches #"^(?!tmp).*$" error-message)
+          (conj {:type        "ANNOTATED_TEXT"
+                 :id          (utils/gen-uuid)
+                 :annotations []
+                 :references  []
+                 :children    [{:type     "PARAGRAPH"
+                                :id       (utils/gen-uuid)
+                                :children [{:type     "SENTENCE"
+                                            :id       (utils/gen-uuid)
+                                            :children (concat
+                                                        (get-error-flags result)
+                                                        (map (fn [word]
+                                                               {:type "WORD"
+                                                                :id   (utils/gen-uuid)
+                                                                :text word})
+                                                             (str/split error-message #"\s+")))}]}]})))
+
 (defn ->raw-format [{::result/keys [rows]}]
   (map ::row/text rows))
 
 (defn use-format [format-type result]
   (case format-type
     "raw" (->raw-format result)
-    "annotated-text" (->annotated-text-format result)))
+    "annotated-text" (->annotated-text-format result)
+    "error" (->error result)))
 
 (defn with-default-format [result]
   (use-format default-format-type result))
