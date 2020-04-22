@@ -57,7 +57,7 @@ RUN rm -rf /usr/src/app/amr/node_modules && ln -s $PWD/node_modules /usr/src/app
 RUN rm -rf /usr/src/app/rgl/node_modules &&ln -s $PWD/node_modules /usr/src/app/rgl/node_modules
 
 RUN mkdir -p /opt/dist
-RUN mkdir -p /opt/dist/dp  && cd dp  && npm run build && cp -r dist/* /opt/dist/dp  && cp -r assets/* /opt/dist/dp/
+RUN mkdir -p /opt/dist/dp  && cd dp  && make build && cp -r dist/* opt/dist/dp
 RUN mkdir -p /opt/dist/amr && cd amr && npm run build && cp -r dist/* /opt/dist/amr && cp -r assets/* /opt/dist/amr/
 RUN mkdir -p /opt/dist/rgl && cd rgl && npm run build && cp -r dist/* /opt/dist/rgl  && cp -r assets/* /opt/dist/rgl/
 
