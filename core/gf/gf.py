@@ -59,8 +59,21 @@ def compile_grammar(name, content):
             return grammar, None
 
 
+def serialize_bracket(bracket):
+    if isinstance(bracket, str):
+        return bracket
+
+    return {
+        "cat": bracket.cat,
+        "fid": bracket.fid,
+        "ann": bracket.ann,
+        "fun": bracket.fun,
+        "children": list([serialize_bracket(c) for c in bracket.children])
+    }
+
+
 def generate_variants(expressions, concrete_grammar):
-    return [{"result": r, "tree": map(str, concrete_grammar.bracketedLinearize(e))}
+    return [{"result": r, "tree": map(serialize_bracket, concrete_grammar.bracketedLinearize(e))}
             for (_, e) in expressions
             for r in concrete_grammar.linearizeAll(e)]
 
