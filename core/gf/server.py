@@ -4,7 +4,7 @@ import argparse
 from wsgiref.simple_server import make_server
 
 from utils import (response_404, post_request, json_request, json_response)
-from gf import generate_results
+from gf import generate_results, GFError
 
 
 logger = logging.getLogger("server")

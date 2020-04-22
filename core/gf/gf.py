@@ -66,7 +66,6 @@ def serialize_bracket(bracket):
     return {
         "cat": bracket.cat,
         "fid": bracket.fid,
-        "ann": bracket.ann,
         "fun": bracket.fun,
         "children": list([serialize_bracket(c) for c in bracket.children])
     }
