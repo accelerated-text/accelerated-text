@@ -21,8 +21,7 @@
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]
             [loom.alg :refer [pre-traverse]]
-            [loom.attr :refer [attrs]]
-            [ubergraph.core :as uber]))
+            [loom.attr :refer [attrs]]))
 
 (def data-types #{:data :quote :dictionary-item})
 
