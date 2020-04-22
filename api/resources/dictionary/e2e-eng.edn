@@ -54,6 +54,11 @@
                                 :category "V"
                                 :language "Eng"
                                 :forms    ["find" "found" "found"]}
+ #:acc-text.nlg.dictionary.item{:key      "make_1_V"
+                                :sense    "1"
+                                :category "V"
+                                :language "Eng"
+                                :forms    ["make" "made" "made"]}
  #:acc-text.nlg.dictionary.item{:key      "get_1_V"
                                 :sense    "1"
                                 :category "V"
@@ -356,4 +361,51 @@
                                 :category "N"
                                 :language "Eng"
                                 :forms    ["family" "families"]}
+
+ ;; other
+ #:acc-text.nlg.dictionary.item{:key      "chef_1_N"
+                                :sense    "1"
+                                :category "N"
+                                :language "Eng"
+                                :forms    ["chef" "chefs"]}
+ #:acc-text.nlg.dictionary.item{:key      "money_1_N"
+                                :sense    "1"
+                                :category "N"
+                                :language "Eng"
+                                :forms    ["money" "money"]}
+ #:acc-text.nlg.dictionary.item{:key      "city_1_N"
+                                :sense    "1"
+                                :category "N"
+                                :language "Eng"
+                                :forms    ["city"]}
+ #:acc-text.nlg.dictionary.item{:key      "centre_1_N"
+                                :sense    "1"
+                                :category "N"
+                                :language "Eng"
+                                :forms    ["centre"]}
+ #:acc-text.nlg.dictionary.item{:key      "here_1_Adv"
+                                :sense    "1"
+                                :category "Adv"
+                                :language "Eng"
+                                :forms    ["here"]}
+ #:acc-text.nlg.dictionary.item{:key      "there_1_Adv"
+                                :sense    "1"
+                                :category "Adv"
+                                :language "Eng"
+                                :forms    ["there"]}
+ #:acc-text.nlg.dictionary.item{:key      "table_1_N"
+                                :sense    "1"
+                                :category "N"
+                                :language "Eng"
+                                :forms    ["table"]}
+ #:acc-text.nlg.dictionary.item{:key      "family-friendly_1_A"
+                                :sense    "1"
+                                :category "A"
+                                :language "Eng"
+                                :forms    ["family-friendly"]}
+ #:acc-text.nlg.dictionary.item{:key      "delicious_1_A"
+                                :sense    "1"
+                                :category "A"
+                                :language "Eng"
+                                :forms    ["delicious"]}
 ]
