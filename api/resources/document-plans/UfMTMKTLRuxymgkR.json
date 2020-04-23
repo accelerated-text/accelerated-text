@@ -1,0 +1,238 @@
+{
+  "id": "UfMTMKTLRuxymgkR",
+  "uid": "6bcd3fd9-3739-4f80-8c8b-3f20ca8d222e",
+  "name": "example-plan",
+  "kind": "Document",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"oc)p~lb}o]72z%Op*UrR\">Location</variable><variable type=\"\" id=\"/L-0E=UzBh.F8^JFk^4B\">Description</variable></variables><block type=\"Document-plan\" id=\",be/]!{DN0y1sOZdo`OW\" deletable=\"false\" x=\"10\" y=\"10\"><statement name=\"segments\"><block type=\"Define-var\" id=\";VD#.u-VfptN!j~;^n,L\"><field name=\"name\" id=\"oc)p~lb}o]72z%Op*UrR\" variabletype=\"\">Location</field><value name=\"value\"><block type=\"AMR\" id=\"00[=qah6WJzEQkX=yP#6\"><mutation concept_id=\"oZLKzYkWvUGaINFJ\" concept_kind=\"NP\" concept_label=\"*Object, qualified\" roles=\"[{&quot;id&quot;:&quot;uiSWwJGNsMRitzjQ&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;UIBDFWtsvmqVXYgX&quot;,&quot;fieldLabel&quot;:&quot;Qualifier&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;,&quot;A&quot;,&quot;Adv&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"uiSWwJGNsMRitzjQ\"><block type=\"AMR\" id=\"Ju)~+{Fml[!Fq5l1)47#\"><mutation concept_id=\"WjgWhIChUqMvKPHa\" concept_kind=\"NP\" concept_label=\"*Object, the\" roles=\"[{&quot;id&quot;:&quot;XvwtFhpQHrBJztTR&quot;,&quot;fieldLabel&quot;:&quot;Noun&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N3&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"XvwtFhpQHrBJztTR\"><block type=\"Quote\" id=\"^|X.6UB@bVO`1|/1;C6L\"><field name=\"text\">Burger King</field></block></value></block></value><value name=\"UIBDFWtsvmqVXYgX\"><block type=\"AMR\" id=\"z6i5J^K[?5i9}%vxis[K\"><mutation concept_id=\"DGmLjUPYhlGnxMGg\" concept_kind=\"Adv\" concept_label=\"*Qualifier, in\" roles=\"[{&quot;id&quot;:&quot;znlJPvjXKyfDXsXn&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"znlJPvjXKyfDXsXn\"><block type=\"AMR\" id=\"z@TD{_cF!sh9U83wGL%(\"><mutation concept_id=\"WjgWhIChUqMvKPHa\" concept_kind=\"NP\" concept_label=\"*Object, the\" roles=\"[{&quot;id&quot;:&quot;XvwtFhpQHrBJztTR&quot;,&quot;fieldLabel&quot;:&quot;Noun&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N3&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"XvwtFhpQHrBJztTR\"><block type=\"Quote\" id=\"JtOohhyrA(j_dv}r#evm\"><field name=\"text\">city centre</field></block></value></block></value></block></value></block></value><next><block type=\"Define-var\" id=\"^}TB7qtLzMHA*6|kQPki\"><field name=\"name\" id=\"/L-0E=UzBh.F8^JFk^4B\" variabletype=\"\">Description</field><value name=\"value\"><block type=\"AMR\" id=\"G5JHGxbLDzh$ctd8k{U!\"><mutation concept_id=\"nIbGPEHYWiEGopms\" concept_kind=\"CN\" concept_label=\"*Property\" roles=\"[{&quot;id&quot;:&quot;orQkGFtmAenrcZAh&quot;,&quot;fieldLabel&quot;:&quot;Property&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;Sub100&quot;,&quot;Numeral&quot;,&quot;Digit&quot;,&quot;A2&quot;,&quot;N&quot;,&quot;A&quot;,&quot;Ord&quot;,&quot;AP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;NMVPFILowWUXZliJ&quot;,&quot;fieldLabel&quot;:&quot;Noun&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N3&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"orQkGFtmAenrcZAh\"><block type=\"Dictionary-item\" id=\"+`u4NSQWv8iC7tGDk_az\"><mutation id=\"e90365a8-b9a4-4839-9d06-fc69a274f695\" name=\"family-friendly_1_A\" partofspeech=\"null\"></mutation></block></value><value name=\"NMVPFILowWUXZliJ\"><block type=\"One-of-synonyms\" id=\"Kp7~7_VmVjYuavXz5rno\"><mutation value_count=\"3\"></mutation><value name=\"value_0\"><block type=\"Dictionary-item\" id=\"`L!JFw)6=Nj%ADOkbq8J\"><mutation id=\"c08d5fe1-767c-48ee-b61a-a95bb033640a\" name=\"place_1_N\" partofspeech=\"null\"></mutation></block></value><value name=\"value_1\"><block type=\"Dictionary-item\" id=\"l?I,Y=G*2x[x{8b}`3@Q\"><mutation id=\"356e1270-64c6-4115-804a-cd0cdf6e9f87\" name=\"venue_1_N\" partofspeech=\"null\"></mutation></block></value></block></value></block></value><next><block type=\"Segment\" id=\"O!rs:}6S,R:d_GvNxPl3\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\";P@QUC_`H%*5F8TeJ(Nx\"><mutation concept_id=\"UFrKuCtajDyoWjzN\" concept_kind=\"S\" concept_label=\"*Join, and\" roles=\"[{&quot;id&quot;:&quot;uuAMuaTkZnBUiKBV&quot;,&quot;fieldLabel&quot;:&quot;Statement 1&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Comp&quot;,&quot;V2&quot;,&quot;Dig&quot;,&quot;VPSlash&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;NP&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;VP&quot;,&quot;Quant&quot;,&quot;AP&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Adv&quot;,&quot;Numeral&quot;,&quot;Cl&quot;,&quot;Digit&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;A2&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;A&quot;,&quot;Det&quot;,&quot;Ord&quot;,&quot;S&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;WLYsmphczmhGmAVI&quot;,&quot;fieldLabel&quot;:&quot;Statement 2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Comp&quot;,&quot;V2&quot;,&quot;Dig&quot;,&quot;VPSlash&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;NP&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;VP&quot;,&quot;Quant&quot;,&quot;AP&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Adv&quot;,&quot;Numeral&quot;,&quot;Cl&quot;,&quot;Digit&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;A2&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;A&quot;,&quot;Det&quot;,&quot;Ord&quot;,&quot;S&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"uuAMuaTkZnBUiKBV\"><block type=\"AMR\" id=\"ikwcm6fNT9NPB}mLtL@]\"><mutation concept_id=\"qEprwDpSTMgSyXRQ\" concept_kind=\"S\" concept_label=\"*Statement\" roles=\"[{&quot;id&quot;:&quot;RcsJHTzLDuEdrmQw&quot;,&quot;fieldLabel&quot;:&quot;(Polarity)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Pol&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;qKTgpgoRuQhMpdWQ&quot;,&quot;fieldLabel&quot;:&quot;Clause&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Comp&quot;,&quot;V2&quot;,&quot;Dig&quot;,&quot;VPSlash&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;NP&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;VP&quot;,&quot;Quant&quot;,&quot;AP&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Adv&quot;,&quot;Numeral&quot;,&quot;Digit&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;A2&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;A&quot;,&quot;Det&quot;,&quot;Ord&quot;,&quot;Cl&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"qKTgpgoRuQhMpdWQ\"><block type=\"AMR\" id=\":h,?/qb#9-C/VN*(AoD]\"><mutation concept_id=\"nUfKLthfqaMKnibj\" concept_kind=\"Cl\" concept_label=\"is a\" roles=\"[{&quot;id&quot;:&quot;kIpmCeTJfmEzjEAN&quot;,&quot;fieldLabel&quot;:&quot;Name&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;rklriebzhwQUrxbE&quot;,&quot;fieldLabel&quot;:&quot;Property&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N3&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"kIpmCeTJfmEzjEAN\"><block type=\"Quote\" id=\"3V|C-yrCa4-85[Xbtoqu\"><field name=\"text\">Alimentum</field></block></value><value name=\"rklriebzhwQUrxbE\"><block type=\"Get-var\" id=\"B$xw7+6X21ceB5Bueq=F\"><field name=\"name\" id=\"/L-0E=UzBh.F8^JFk^4B\" variabletype=\"\">Description</field></block></value></block></value></block></value><value name=\"WLYsmphczmhGmAVI\"><block type=\"AMR\" id=\"S.^-2F%-qHyM`4EJ0nA$\"><mutation concept_id=\"UCiMLrKhsdaucUwP\" concept_kind=\"Cl\" concept_label=\"located near\" roles=\"[{&quot;id&quot;:&quot;TLHgvRWQdAnGASVH&quot;,&quot;fieldLabel&quot;:&quot;Name&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;ykEvgjjxlrMhksjY&quot;,&quot;fieldLabel&quot;:&quot;Object&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"ykEvgjjxlrMhksjY\"><block type=\"Get-var\" id=\".9[eSSa8:,F/R%B3)6oT\"><field name=\"name\" id=\"oc)p~lb}o]72z%Op*UrR\" variabletype=\"\">Location</field></block></value></block></value></block></value></block></next></block></next></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "name": "oc)p~lb}o]72z%Op*UrR",
+        "value": {
+          "roles": [
+            {
+              "children": [
+                {
+                  "roles": [
+                    {
+                      "children": [
+                        {
+                          "type": "Quote",
+                          "srcId": "^|X.6UB@bVO`1|/1;C6L",
+                          "text": "Burger King"
+                        }
+                      ],
+                      "name": "CN",
+                      "label": "Noun"
+                    }
+                  ],
+                  "type": "AMR",
+                  "srcId": "Ju)~+{Fml[!Fq5l1)47#",
+                  "conceptId": "WjgWhIChUqMvKPHa",
+                  "kind": "NP"
+                }
+              ],
+              "name": "NP",
+              "label": "Object"
+            },
+            {
+              "children": [
+                {
+                  "roles": [
+                    {
+                      "children": [
+                        {
+                          "roles": [
+                            {
+                              "children": [
+                                {
+                                  "type": "Quote",
+                                  "srcId": "JtOohhyrA(j_dv}r#evm",
+                                  "text": "city centre"
+                                }
+                              ],
+                              "name": "CN",
+                              "label": "Noun"
+                            }
+                          ],
+                          "type": "AMR",
+                          "srcId": "z@TD{_cF!sh9U83wGL%(",
+                          "conceptId": "WjgWhIChUqMvKPHa",
+                          "kind": "NP"
+                        }
+                      ],
+                      "name": "NP",
+                      "label": "Object"
+                    }
+                  ],
+                  "type": "AMR",
+                  "srcId": "z6i5J^K[?5i9}%vxis[K",
+                  "conceptId": "DGmLjUPYhlGnxMGg",
+                  "kind": "Adv"
+                }
+              ],
+              "name": "Adv",
+              "label": "Qualifier"
+            }
+          ],
+          "type": "AMR",
+          "srcId": "00[=qah6WJzEQkX=yP#6",
+          "conceptId": "oZLKzYkWvUGaINFJ",
+          "kind": "NP"
+        },
+        "type": "Define-var",
+        "srcId": ";VD#.u-VfptN!j~;^n,L"
+      },
+      {
+        "name": "/L-0E=UzBh.F8^JFk^4B",
+        "value": {
+          "roles": [
+            {
+              "children": [
+                {
+                  "name": "family-friendly_1_A",
+                  "type": "Dictionary-item",
+                  "srcId": "+`u4NSQWv8iC7tGDk_az",
+                  "itemId": "e90365a8-b9a4-4839-9d06-fc69a274f695"
+                }
+              ],
+              "name": "AP",
+              "label": "Property"
+            },
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "name": "place_1_N",
+                      "type": "Dictionary-item",
+                      "srcId": "`L!JFw)6=Nj%ADOkbq8J",
+                      "itemId": "c08d5fe1-767c-48ee-b61a-a95bb033640a"
+                    },
+                    {
+                      "name": "venue_1_N",
+                      "type": "Dictionary-item",
+                      "srcId": "l?I,Y=G*2x[x{8b}`3@Q",
+                      "itemId": "356e1270-64c6-4115-804a-cd0cdf6e9f87"
+                    }
+                  ],
+                  "type": "One-of-synonyms",
+                  "srcId": "Kp7~7_VmVjYuavXz5rno"
+                }
+              ],
+              "name": "CN",
+              "label": "Noun"
+            }
+          ],
+          "type": "AMR",
+          "srcId": "G5JHGxbLDzh$ctd8k{U!",
+          "conceptId": "nIbGPEHYWiEGopms",
+          "kind": "CN"
+        },
+        "type": "Define-var",
+        "srcId": "^}TB7qtLzMHA*6|kQPki"
+      },
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [],
+                        "name": "Pol",
+                        "label": "(Polarity)"
+                      },
+                      {
+                        "children": [
+                          {
+                            "roles": [
+                              {
+                                "children": [
+                                  {
+                                    "type": "Quote",
+                                    "srcId": "3V|C-yrCa4-85[Xbtoqu",
+                                    "text": "Alimentum"
+                                  }
+                                ],
+                                "name": "NP",
+                                "label": "Name"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "name": "/L-0E=UzBh.F8^JFk^4B",
+                                    "type": "Get-var",
+                                    "srcId": "B$xw7+6X21ceB5Bueq=F"
+                                  }
+                                ],
+                                "name": "CN",
+                                "label": "Property"
+                              }
+                            ],
+                            "type": "AMR",
+                            "srcId": ":h,?/qb#9-C/VN*(AoD]",
+                            "conceptId": "nUfKLthfqaMKnibj",
+                            "kind": "Cl"
+                          }
+                        ],
+                        "name": "Cl",
+                        "label": "Clause"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "ikwcm6fNT9NPB}mLtL@]",
+                    "conceptId": "qEprwDpSTMgSyXRQ",
+                    "kind": "S"
+                  }
+                ],
+                "name": "S",
+                "label": "Statement 1"
+              },
+              {
+                "children": [
+                  {
+                    "roles": [
+                      {
+                        "children": [],
+                        "name": "NP",
+                        "label": "Name"
+                      },
+                      {
+                        "children": [
+                          {
+                            "name": "oc)p~lb}o]72z%Op*UrR",
+                            "type": "Get-var",
+                            "srcId": ".9[eSSa8:,F/R%B3)6oT"
+                          }
+                        ],
+                        "name": "NP",
+                        "label": "Object"
+                      }
+                    ],
+                    "type": "AMR",
+                    "srcId": "S.^-2F%-qHyM`4EJ0nA$",
+                    "conceptId": "UCiMLrKhsdaucUwP",
+                    "kind": "Cl"
+                  }
+                ],
+                "name": "S",
+                "label": "Statement 2"
+              }
+            ],
+            "type": "AMR",
+            "srcId": ";P@QUC_`H%*5F8TeJ(Nx",
+            "conceptId": "UFrKuCtajDyoWjzN",
+            "kind": "S"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "O!rs:}6S,R:d_GvNxPl3"
+      }
+    ],
+    "srcId": ",be/]!{DN0y1sOZdo`OW"
+  }
+}
