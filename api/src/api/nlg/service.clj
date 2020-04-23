@@ -73,8 +73,8 @@
                 :ready      (not= status :pending)
                 :updatedAt  timestamp
                 :variants   (cond
-                              (and (= :error status) (display-error?)) (use-format "error" result)
                               (some? result-format) (use-format result-format result)
+                              (and (= :error status) (display-error?)) (use-format "error" result)
                               :else (with-default-format result))}}
       (do
         (log/warnf "Result with id `%s` not found" request-id)
