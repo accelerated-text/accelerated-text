@@ -1,6 +1,5 @@
 (ns api.nlg.format
   (:require [api.utils :as utils]
-            [clojure.string :as str]
             [data.spec.result :as result]
             [data.spec.result.row :as row]
             [data.spec.result.annotation :as annotation]))
