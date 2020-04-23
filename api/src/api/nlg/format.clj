@@ -10,6 +10,10 @@
 (defn show-flags? []
   (Boolean/valueOf ^String (or (System/getenv "SHOW_FLAGS") "true")))
 
+(def error-flag {:type "FLAG"
+                 :id   "ERROR"
+                 :text "\uD83D\uDED1"})
+
 (def enriched-flag {:type "FLAG"
                     :id   "ENRICHED"
                     :text "📙"})
@@ -29,11 +33,6 @@
 (defn get-flags [{::row/keys [language enriched?]}]
   (cond-> [(get-flag language)]
           (true? enriched?) (conj enriched-flag)))
-
-(defn get-error-flags [_]
-  [{:type "FLAG"
-    :id   "ERROR"
-    :text "\uD83D\uDED1"}])
 
 (defn ->annotated-text-format [{rows ::result/rows}]
   (map (fn [{annotations ::row/annotations :as row}]
@@ -55,24 +54,14 @@
                                                       annotations))}]}]}) ;; TODO
        rows))
 
-(defn ->error [{::result/keys [error-message] :as result}]
+(defn ->error [{::result/keys [error-message]}]
   (cond-> []
           (re-matches #"^(?!tmp).*$" error-message)
-          (conj {:type        "ANNOTATED_TEXT"
-                 :id          (utils/gen-uuid)
-                 :annotations []
-                 :references  []
-                 :children    [{:type     "PARAGRAPH"
-                                :id       (utils/gen-uuid)
-                                :children [{:type     "SENTENCE"
-                                            :id       (utils/gen-uuid)
-                                            :children (concat
-                                                        (get-error-flags result)
-                                                        (map (fn [word]
-                                                               {:type "WORD"
-                                                                :id   (utils/gen-uuid)
-                                                                :text word})
-                                                             (str/split error-message #"\s+")))}]}]})))
+          (conj {:type     "ERROR"
+                 :id       (utils/gen-uuid)
+                 :children [error-flag {:type "MESSAGE"
+                                        :id   (utils/gen-uuid)
+                                        :text error-message}]})))
 
 (defn ->raw-format [{::result/keys [rows]}]
   (map ::row/text rows))
