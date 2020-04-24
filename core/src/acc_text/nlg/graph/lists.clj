@@ -25,11 +25,26 @@
   (filter #(= :operation (:type (uber/attrs g %)))
           (gut/get-predecessors g list-node)))
 
+(defn add-edges-with-new-source [g source-id edges]
+  (reduce (fn [g edge] (add-edge g source-id
+                                (uber/dest edge)
+                                (uber/attrs g edge)))
+          g edges))
+
+(defn clone-node [g id attrs edges]
+  (-> g
+      (add-node id attrs)
+      (add-edges-with-new-source id edges)))
+
+(defn subset-of-edges-from [g source edges-to-destinations]
+  (remove #(get edges-to-destinations (uber/dest %))
+          (uber/find-edges g {:src source})))
+
 (defn rearange-list-connections [g list-node gf-funct data-leaf]
   (let [new-id (UUID/randomUUID) new-attrs (uber/attrs g gf-funct)]
     (-> g
         ;;add a new node (clone) for gf operation, old one will be removed
-        (add-node new-id new-attrs)
+        (clone-node new-id new-attrs (subset-of-edges-from g gf-funct #{list-node}))
         ;;connect new operation ode with data (Str)
         (add-edge new-id data-leaf (attrs-from-edge g gf-funct list-node))
         ;;connect list and new operation nodes

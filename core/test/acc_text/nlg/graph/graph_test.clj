@@ -1,6 +1,6 @@
 (ns acc-text.nlg.graph.graph-test
   (:require [acc-text.nlg.graph.amr :refer [attach-amrs]]
-            [acc-text.nlg.graph.lists :refer [resolve-lists]]
+            [acc-text.nlg.graph.lists :refer [resolve-lists subset-of-edges-from]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
             [acc-text.nlg.graph.utils :as utils :refer [ubergraph->semantic-graph]]
             [acc-text.nlg.semantic-graph :as sg]
@@ -84,3 +84,31 @@
     (is (= {:type :operation :name "mkAP" :category "AP" :module "Syntax"}
            (fattrs g mkAP->list-green)))
     (is (= (first mkAP->list-red) (first mkAP->list-green)))))
+
+(deftest list-with-the-quotes-attached
+  ;;Different from the test above in that that data nodes will have determiners
+  ;;in front of them. That is not 'Apple is red' but 'Murderer is in *the* city'
+  (let [context        (load-test-context "one-of-with-the-str")
+        semantic-graph (load-test-semantic-graph "one-of-with-the-str")
+        g              (-> semantic-graph
+                           (semantic-graph->ubergraph)
+                           (attach-amrs context)
+                           (resolve-lists))
+        city           (-> g (utils/find-nodes {:value "city"}) (ffirst))
+        town           (-> g (utils/find-nodes {:value "town"}) (ffirst))
+
+        mkNP->city (utils/get-predecessors g city)
+        mkNP->town (utils/get-predecessors g town)
+
+        det->city (subset-of-edges-from g (first mkNP->city) #{city})
+        det->town (subset-of-edges-from g (first mkNP->town) #{town})]
+
+    (is (not (nil? city)))
+    (is (not (nil? town)))
+    (is (= {:type :operation :name "mkNP" :category "NP" :module "Syntax"} (fattrs g mkNP->town)))
+    (is (= {:type :operation :name "mkNP" :category "NP" :module "Syntax"} (fattrs g mkNP->city)))
+    ;;that's the main point of the test - check if mkNP did not loose the Dets
+    (is (= {:type :operation :name "the_Det" :category "Det" :module "Syntax"}
+           (->> det->city first :dest (uber/attrs g))))
+    (is (= {:type :operation :name "the_Det" :category "Det" :module "Syntax"}
+           (->> det->town first :dest (uber/attrs g))))))
