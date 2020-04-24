@@ -1,0 +1,15 @@
+{:acc-text.nlg.semantic-graph/relations
+ ({:from :01, :to :02, :role :segment, :index 0}
+  {:from :02, :to :03, :role :instance, :index 0}
+  {:from :03, :to :05, :role :arg, :index 1, :category "N", :name "Name"}
+  {:from :03, :to :06, :role :arg, :index 2, :category "N", :name "Location"}
+  {:from :06, :to :07, :role :item, :index 0}
+  {:from :06, :to :08, :role :item, :index 1}),
+ :acc-text.nlg.semantic-graph/concepts
+ ({:id :01, :type :document-plan}
+  {:id :02, :type :segment}
+  {:id :03, :type :amr, :name "UFauCFMMLeoqxHaz"}
+  {:id :05, :type :quote, :value "Alimentum"}
+  {:id :06, :type :synonyms}
+  {:id :07, :type :quote, :value "city"}
+  {:id :08, :type :quote, :value "town"})}
