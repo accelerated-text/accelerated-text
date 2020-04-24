@@ -1,0 +1,53 @@
+{
+  "id": "zRdxALbwrADAPBOl",
+  "uid": "fd8253be-38db-4e1c-813c-88918ee8cb6e",
+  "name": "*Object, a",
+  "kind": "AMR",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"x;^mU=NRXssPHBfzJtH!\">*Description</variable><variable type=\"\" id=\"bGYgVi,yN10s_|0SC.rD\">Noun</variable></variables><block type=\"Document-plan\" id=\"^i.QE}WerkgJA{ph;p$:\" deletable=\"false\" x=\"335\" y=\"169\"><statement name=\"segments\"><block type=\"Define-var\" id=\"|dP`~.W{#O#yy|j!g;%@\"><field name=\"name\" id=\"x;^mU=NRXssPHBfzJtH!\" variabletype=\"\">*Description</field><value name=\"value\"><block type=\"Quote\" id=\"GaMwpoU;^R}]GtqVgI{|\"><field name=\"text\">There is a house.</field></block></value><next><block type=\"Segment\" id=\"!GP(T#E}UuZ![~YsYXDb\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"h/@[tppJtqBqy7_vJYog\"><mutation concept_id=\"NiMQlZJtzgrzGGiK\" concept_kind=\"NP\" concept_label=\"NP\" roles=\"[{&quot;id&quot;:&quot;gxRFTFQWaQeWFBMj&quot;,&quot;fieldLabel&quot;:&quot;Det&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;Card&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;Numeral&quot;,&quot;Det&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;AyNqYDtFFRuGmSKJ&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N3&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"AyNqYDtFFRuGmSKJ\"><block type=\"Get-var\" id=\"%**m.[qoZSRNkg_~{@vQ\"><field name=\"name\" id=\"bGYgVi,yN10s_|0SC.rD\" variabletype=\"\">Noun</field></block></value></block></value></block></next></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "name": "x;^mU=NRXssPHBfzJtH!",
+        "value": {
+          "type": "Quote",
+          "srcId": "GaMwpoU;^R}]GtqVgI{|",
+          "text": "There is a house."
+        },
+        "type": "Define-var",
+        "srcId": "|dP`~.W{#O#yy|j!g;%@"
+      },
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [],
+                "name": "Det",
+                "label": "Det"
+              },
+              {
+                "children": [
+                  {
+                    "name": "bGYgVi,yN10s_|0SC.rD",
+                    "type": "Get-var",
+                    "srcId": "%**m.[qoZSRNkg_~{@vQ"
+                  }
+                ],
+                "name": "CN",
+                "label": "CN"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "h/@[tppJtqBqy7_vJYog",
+            "conceptId": "NiMQlZJtzgrzGGiK",
+            "kind": "NP"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "!GP(T#E}UuZ![~YsYXDb"
+      }
+    ],
+    "srcId": "^i.QE}WerkgJA{ph;p$:"
+  }
+}

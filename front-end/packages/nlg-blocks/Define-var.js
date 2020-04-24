@@ -26,7 +26,7 @@ export default Block({
         args1: [{
             type:           'input_value',
             name:           'value',
-            check:          T.TEXT,
+            check:          T.ANY,
         }],
     },
 });

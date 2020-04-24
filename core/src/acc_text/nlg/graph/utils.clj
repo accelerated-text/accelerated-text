@@ -58,9 +58,9 @@
           g
           (zipmap (alg/pre-traverse g (find-root-id g)) (rest (range)))))
 
-(defn ubergraph->semantic-graph [g]
+(defn ubergraph->semantic-graph [g & {:keys [keep-ids?]}]
   (let [{:keys [nodes directed-edges]} (uber/ubergraph->edn g)
-        uuid->id (zipmap (alg/pre-traverse g (find-root-id g)) (id-seq))]
+        uuid->id (if (true? keep-ids?) identity (zipmap (alg/pre-traverse g (find-root-id g)) (id-seq)))]
     #::sg{:relations (->> directed-edges
                           (map (fn [[from to relation]]
                                  (merge {:from (uuid->id from) :to (uuid->id to)} relation)))

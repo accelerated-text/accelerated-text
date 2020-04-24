@@ -9,6 +9,10 @@
 (defn show-flags? []
   (Boolean/valueOf ^String (or (System/getenv "SHOW_FLAGS") "true")))
 
+(def error-flag {:type "FLAG"
+                 :id   "ERROR"
+                 :text "\uD83D\uDED1"})
+
 (def enriched-flag {:type "FLAG"
                     :id   "ENRICHED"
                     :text "📙"})
@@ -49,13 +53,23 @@
                                                       annotations))}]}]}) ;; TODO
        rows))
 
+(defn ->error [{::result/keys [error-message]}]
+  (cond-> []
+          (re-matches #"^(?!tmp).*$" error-message)
+          (conj {:type     "ERROR"
+                 :id       (utils/gen-uuid)
+                 :children [error-flag {:type "MESSAGE"
+                                        :id   (utils/gen-uuid)
+                                        :text error-message}]})))
+
 (defn ->raw-format [{::result/keys [rows]}]
   (map ::row/text rows))
 
 (defn use-format [format-type result]
   (case format-type
     "raw" (->raw-format result)
-    "annotated-text" (->annotated-text-format result)))
+    "annotated-text" (->annotated-text-format result)
+    "error" (->error result)))
 
 (defn with-default-format [result]
   (use-format default-format-type result))

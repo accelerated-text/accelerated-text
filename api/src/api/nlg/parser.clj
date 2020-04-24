@@ -4,7 +4,7 @@
             [clojure.spec.alpha :as s]
             [clojure.zip :as zip]))
 
-(def constants #{"*Description" "*Language"})
+(def constants #{"*Language"})
 
 (defmulti build-semantic-graph (fn [node _] (-> node (get :type) (keyword))))
 
@@ -36,10 +36,11 @@
                                    :index index})
                                 children)})
 
-(defmethod build-semantic-graph :AMR [{:keys [id conceptId roles]} _]
-  #::sg{:concepts  [{:id   id
-                     :type :amr
-                     :name conceptId}]
+(defmethod build-semantic-graph :AMR [{:keys [id conceptId roles kind]} _]
+  #::sg{:concepts  [(cond-> {:id   id
+                             :type :amr
+                             :name conceptId}
+                            (some? kind) (assoc :category kind))]
         :relations (map-indexed (fn [index {[{child-id :id}] :children name :name label :label}]
                                   (cond-> {:from     id
                                            :to       child-id
@@ -316,8 +317,22 @@
           (zip/next)
           (recur (inc index))))))
 
-(defn postprocess [semantic-graph]
+(defn add-description [semantic-graph {variable-names :var-names variables :vars}]
+  (let [[{description :value :as concept}] (some (fn [[k v]]
+                                                   (when (= v "*Description")
+                                                     (sg-utils/get-children
+                                                       semantic-graph
+                                                       {:id (get-in variables [k 0])})))
+                                                 variable-names)]
+    (cond-> semantic-graph
+            (and
+              (some? description)
+              (empty? (sg-utils/get-children semantic-graph concept)))
+            (assoc ::sg/description description))))
+
+(defn postprocess [semantic-graph metadata]
   (-> semantic-graph
+      (add-description metadata)
       (sg-utils/prune-nil-relations)
       (sg-utils/prune-concepts-by-type :placeholder)
       (sg-utils/prune-unrelated-branches)))
@@ -326,12 +341,12 @@
 
 (defn document-plan->semantic-graph
   ([root] (document-plan->semantic-graph root {}))
-  ([root {variable-names :var-names}]
+  ([root {variable-names :var-names :as metadata}]
    (loop [zipper (-> root (preprocess) (make-zipper))
           graph #::sg{:relations [] :concepts []}
           variables {}]
      (if (or (zip/end? zipper) (empty? root))
-       (postprocess graph)
+       (postprocess graph (assoc metadata :vars variables))
        (let [{:keys [id name type] :as node} (zip/node zipper)]
          (recur
            (zip/next zipper)
@@ -343,5 +358,5 @@
                    (= "Define-var" type) (merge-with-concat {name [id]}))))))))
 
 (s/fdef document-plan->semantic-graph
-        :args (s/cat :document-plan map? :metadata map?)
-        :ret ::sg/graph)
+  :args (s/cat :document-plan map? :metadata map?)
+  :ret ::sg/graph)

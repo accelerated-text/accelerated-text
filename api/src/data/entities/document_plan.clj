@@ -12,7 +12,7 @@
   ([]
    (db/scan! document-plans-db {}))
   ([kind]
-   (filter #(= kind (:kind %)) (db/scan! document-plans-db {}))))
+   (sort-by :name (filter #(= kind (:kind %)) (db/scan! document-plans-db {})))))
 
 (defn get-document-plan [document-plan-id]
   (db/read! document-plans-db document-plan-id))

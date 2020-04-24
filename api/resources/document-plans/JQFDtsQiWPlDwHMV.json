@@ -1,0 +1,72 @@
+{
+  "id": "JQFDtsQiWPlDwHMV",
+  "uid": "ae118353-65eb-43cb-8d9a-bf74301e02f8",
+  "name": "Cl",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"cW/8~9Lm9Isa4AgD1x*H\">AP</variable><variable type=\"\" id=\"Lo.I@7YoTI=yA8W%xZ(O\">NP</variable></variables><block type=\"Document-plan\" id=\"7wR72z}Eo{}_7ZBW/cP8\" deletable=\"false\" x=\"166\" y=\"143\"><statement name=\"segments\"><block type=\"Segment\" id=\"@408[~c2oh7S@i.yivT?\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"ZgKS}tI3lMMM.h5xA{d[\"><mutation concept_id=\"Syntax.mkCl/NP-&gt;AP-&gt;Cl\" concept_kind=\"Cl\" concept_label=\"mkCl\" roles=\"[{&quot;id&quot;:&quot;ydQQFPtYpsUdObWw&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;sUznygRKSvNpQKdB&quot;,&quot;fieldLabel&quot;:&quot;AP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;Sub100&quot;,&quot;Numeral&quot;,&quot;Digit&quot;,&quot;A2&quot;,&quot;N&quot;,&quot;A&quot;,&quot;Ord&quot;,&quot;AP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"ydQQFPtYpsUdObWw\"><block type=\"If-then-else\" id=\"6tiYdhQlHu{I*$i3:r}2\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"/!=n^lu=C`mP~b,~1{(^\"><field name=\"name\" id=\"Lo.I@7YoTI=yA8W%xZ(O\" variabletype=\"\">NP</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\"8^d{wOPE(fM~}Ia[SrO+\"><field name=\"name\" id=\"Lo.I@7YoTI=yA8W%xZ(O\" variabletype=\"\">NP</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"?~$]vh1fY`I=WmGVh,|0\"><mutation concept_id=\"Syntax.it_NP/NP\" concept_kind=\"NP\" concept_label=\"it_NP\" roles=\"[]\"></mutation></block></value></block></value><value name=\"sUznygRKSvNpQKdB\"><block type=\"Get-var\" id=\"1~,oUhvq?C{UiX:?!%*T\"><field name=\"name\" id=\"cW/8~9Lm9Isa4AgD1x*H\" variabletype=\"\">AP</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "type": "If-then-else",
+                    "conditions": [
+                      {
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "name": "Lo.I@7YoTI=yA8W%xZ(O",
+                          "type": "Get-var",
+                          "srcId": "8^d{wOPE(fM~}Ia[SrO+"
+                        },
+                        "condition": {
+                          "name": "Lo.I@7YoTI=yA8W%xZ(O",
+                          "type": "Get-var",
+                          "srcId": "/!=n^lu=C`mP~b,~1{(^"
+                        }
+                      },
+                      {
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "type": "AMR",
+                          "srcId": "?~$]vh1fY`I=WmGVh,|0",
+                          "conceptId": "Syntax.it_NP/NP",
+                          "kind": "NP"
+                        }
+                      }
+                    ],
+                    "srcId": "6tiYdhQlHu{I*$i3:r}2"
+                  }
+                ],
+                "name": "NP",
+                "label": "NP"
+              },
+              {
+                "children": [
+                  {
+                    "name": "cW/8~9Lm9Isa4AgD1x*H",
+                    "type": "Get-var",
+                    "srcId": "1~,oUhvq?C{UiX:?!%*T"
+                  }
+                ],
+                "name": "AP",
+                "label": "AP"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "ZgKS}tI3lMMM.h5xA{d[",
+            "conceptId": "Syntax.mkCl/NP->AP->Cl",
+            "kind": "Cl"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "@408[~c2oh7S@i.yivT?"
+      }
+    ],
+    "srcId": "7wR72z}Eo{}_7ZBW/cP8"
+  }
+}

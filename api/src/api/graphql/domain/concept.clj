@@ -7,16 +7,20 @@
 (defn list-concepts [_ _ _]
   (resolve-as
     (merge
-      {:id        "concepts"
-       :concepts  []
-       :amr       (->> (amr-entity/list-amrs)
-                       (map concept-translate/amr->schema)
-                       (sort-by :id))
-       :rgl       (->> (rgl-entity/read-library)
-                       (map concept-translate/amr->schema))
-       :paradigms (->> (amr-entity/list-rgls)
-                       (map concept-translate/amr->schema)
-                       (sort-by :id))}
+      {:id         "concepts"
+       :concepts   []
+       :amr        (->> (amr-entity/list-amrs)
+                        (map concept-translate/amr->schema)
+                        (sort-by :id))
+       :rgl        (->> (rgl-entity/read-library)
+                        (map concept-translate/amr->schema))
+       :structural (->> (rgl-entity/read-structural-words)
+                        (map concept-translate/amr->schema))
+       :grammar    (->> (rgl-entity/read-grammar)
+                        (map concept-translate/amr->schema))
+       :paradigms  (->> (amr-entity/list-rgls)
+                        (map concept-translate/amr->schema)
+                        (sort-by :id))}
       (->> (rgl-entity/read-paradigms)
            (group-by :module)
            (reduce-kv (fn [m k v]

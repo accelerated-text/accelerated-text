@@ -38,6 +38,11 @@ run-dev-api:
 	docker-compose -p dev -f docker-compose.yml build && \
 	docker-compose -p dev -f docker-compose.yml up --remove-orphans
 
+run-dev-no-api:
+	docker-compose -p dev -f docker-compose.front-end.yml up -d
+	cd core/gf && docker build -t dev_gf .
+	docker run --rm --net dev_default --name dev_gf -p 8001:8000 dev_gf
+
 run-dev-api-with-mocks:
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.mocks.yml down && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.mocks.yml build && \

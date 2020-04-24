@@ -11,6 +11,7 @@ services:
     ports: ["3001:3001"]
     environment:
       GF_ENDPOINT: "http://gf:8000"
+      DISPLAY_ERROR: "TRUE"
       ENABLE_ENRICH: "TRUE"
       ENRICH_ENDPOINT: "http://enrich:8000"
       DB_IMPLEMENTATION: "datomic"
