@@ -5,9 +5,7 @@
             [acc-text.nlg.graph.utils :as utils :refer [ubergraph->semantic-graph]]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
-            [acc-text.nlg.test-utils
-             :refer
-             [load-test-context load-test-semantic-graph]]
+            [acc-text.nlg.test-utils :refer [load-test-context load-test-semantic-graph]]
             [clojure.test :refer [deftest is testing]]
             [ubergraph.core :as uber]))
 
@@ -40,21 +38,21 @@
 (defn- fattrs [g node] (->> node (first) (uber/attrs g)))
 
 (deftest list-with-quotes-attached
-  (let [context        (load-test-context "one-of-with-str")
+  (let [context (load-test-context "one-of-with-str")
         semantic-graph (load-test-semantic-graph "one-of-with-str")
-        g              (-> semantic-graph
-                           (semantic-graph->ubergraph)
-                           (attach-amrs context)
-                           (resolve-lists))
-        red            (-> g (utils/find-nodes {:value "red"}) (ffirst))
-        green          (-> g (utils/find-nodes {:value "green"}) (ffirst))
+        g (-> semantic-graph
+              (semantic-graph->ubergraph)
+              (attach-amrs context)
+              (resolve-lists))
+        red (-> g (utils/find-nodes {:value "red"}) (ffirst))
+        green (-> g (utils/find-nodes {:value "green"}) (ffirst))
 
-        mkA->red   (utils/get-predecessors g red)
+        mkA->red (utils/get-predecessors g red)
         mkA->green (utils/get-predecessors g green)
 
-        list->mkA-red    (utils/get-predecessors g (first mkA->red))
-        list->mkA-green  (utils/get-predecessors g (first mkA->green))
-        mkAP->list-red   (utils/get-predecessors g (first list->mkA-red))
+        list->mkA-red (utils/get-predecessors g (first mkA->red))
+        list->mkA-green (utils/get-predecessors g (first mkA->green))
+        mkAP->list-red (utils/get-predecessors g (first list->mkA-red))
         mkAP->list-green (utils/get-predecessors g (first list->mkA-green))]
 
     ;; data nodes must exist and be leaves
@@ -88,14 +86,14 @@
 (deftest list-with-the-quotes-attached
   ;;Different from the test above in that that data nodes will have determiners
   ;;in front of them. That is not 'Apple is red' but 'Murderer is in *the* city'
-  (let [context        (load-test-context "one-of-with-the-str")
+  (let [context (load-test-context "one-of-with-the-str")
         semantic-graph (load-test-semantic-graph "one-of-with-the-str")
-        g              (-> semantic-graph
-                           (semantic-graph->ubergraph)
-                           (attach-amrs context)
-                           (resolve-lists))
-        city           (-> g (utils/find-nodes {:value "city"}) (ffirst))
-        town           (-> g (utils/find-nodes {:value "town"}) (ffirst))
+        g (-> semantic-graph
+              (semantic-graph->ubergraph)
+              (attach-amrs context)
+              (resolve-lists))
+        city (-> g (utils/find-nodes {:value "city"}) (ffirst))
+        town (-> g (utils/find-nodes {:value "town"}) (ffirst))
 
         mkNP->city (utils/get-predecessors g city)
         mkNP->town (utils/get-predecessors g town)

@@ -9,13 +9,7 @@
             [acc-text.nlg.graph.modifier :refer [resolve-modifiers]]
             [acc-text.nlg.graph.paths :refer [resolve-paths]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
-            [acc-text.nlg.graph.utils
-             :refer
-             [add-concept-position
-              find-root-id
-              get-in-edge
-              get-successors
-              prune-graph]]
+            [acc-text.nlg.graph.utils :refer [add-concept-position find-root-id get-in-edge get-successors prune-graph]]
             [acc-text.nlg.graph.variables :refer [resolve-variables]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.math.combinatorics :refer [permutations]]
