@@ -1,0 +1,121 @@
+{
+  "id": "BJLUYVJbhCErSvpW",
+  "uid": "24f03387-94bb-453a-a466-8b589360054b",
+  "name": "VP",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"Eo)FU:=MJDrFL-8{_lgv\">VP</variable><variable type=\"\" id=\"Lo.I@7YoTI=yA8W%xZ(O\">Adv</variable></variables><block type=\"Document-plan\" id=\"7wR72z}Eo{}_7ZBW/cP8\" deletable=\"false\" x=\"368\" y=\"224\"><statement name=\"segments\"><block type=\"Segment\" id=\"@408[~c2oh7S@i.yivT?\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\")WyT}-3Bv#0hXvQgL3Fv\"><mutation concept_id=\"Syntax.mkVP/VP-&gt;Adv-&gt;VP\" concept_kind=\"VP\" concept_label=\"mkVP\" roles=\"[{&quot;id&quot;:&quot;egtgavDsGWGdtMGi&quot;,&quot;fieldLabel&quot;:&quot;VP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Comp&quot;,&quot;V2&quot;,&quot;Dig&quot;,&quot;VPSlash&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;NP&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;AP&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Adv&quot;,&quot;Numeral&quot;,&quot;Digit&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;A2&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;A&quot;,&quot;Det&quot;,&quot;Ord&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;VAhBOUmwGVKXYkWk&quot;,&quot;fieldLabel&quot;:&quot;Adv&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;,&quot;A&quot;,&quot;Adv&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"egtgavDsGWGdtMGi\"><block type=\"If-then-else\" id=\"%.~3Kj03l3QxajId)%Ii\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\")%8^lZ@/~sRV2}f$,/MB\"><field name=\"name\" id=\"Eo)FU:=MJDrFL-8{_lgv\" variabletype=\"\">VP</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\"HIqT9F0f+W.5QL$B{v92\"><field name=\"name\" id=\"Eo)FU:=MJDrFL-8{_lgv\" variabletype=\"\">VP</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"025)G,=)h^o%;4(;,x`6\"><mutation concept_id=\"Syntax.mkVP/V2-&gt;NP-&gt;VP\" concept_kind=\"VP\" concept_label=\"mkVP\" roles=\"[{&quot;id&quot;:&quot;myHpPeMWXhCmwpgZ&quot;,&quot;fieldLabel&quot;:&quot;V2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;V2&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;VyEAvQnCNwuhqpfU&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"myHpPeMWXhCmwpgZ\"><block type=\"AMR\" id=\"Bk=FwTu@.zI9O$3}Y)JN\"><mutation concept_id=\"Syntax.have_V2/V2\" concept_kind=\"V2\" concept_label=\"have_V2\" roles=\"[]\"></mutation></block></value><value name=\"VyEAvQnCNwuhqpfU\"><block type=\"AMR\" id=\";F1r9=+bc#Z2}-}=v,#A\"><mutation concept_id=\"Syntax.it_NP/NP\" concept_kind=\"NP\" concept_label=\"it_NP\" roles=\"[]\"></mutation></block></value></block></value></block></value><value name=\"VAhBOUmwGVKXYkWk\"><block type=\"If-then-else\" id=\"A^oDTS7TjX|o5=h53kaN\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"^T0Pur2:=TvJ?X0oz*:J\"><field name=\"name\" id=\"Lo.I@7YoTI=yA8W%xZ(O\" variabletype=\"\">Adv</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\"_rKK_~Yj6z(Vdu@5K_pL\"><field name=\"name\" id=\"Lo.I@7YoTI=yA8W%xZ(O\" variabletype=\"\">Adv</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"R_I*}/ezSMcdYa40UN8Y\"><mutation concept_id=\"Syntax.quite_Adv/AdA\" concept_kind=\"AdA\" concept_label=\"quite_Adv\" roles=\"[]\"></mutation></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "type": "If-then-else",
+                    "conditions": [
+                      {
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "name": "Eo)FU:=MJDrFL-8{_lgv",
+                          "type": "Get-var",
+                          "srcId": "HIqT9F0f+W.5QL$B{v92"
+                        },
+                        "condition": {
+                          "name": "Eo)FU:=MJDrFL-8{_lgv",
+                          "type": "Get-var",
+                          "srcId": ")%8^lZ@/~sRV2}f$,/MB"
+                        }
+                      },
+                      {
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "roles": [
+                            {
+                              "children": [
+                                {
+                                  "type": "AMR",
+                                  "srcId": "Bk=FwTu@.zI9O$3}Y)JN",
+                                  "conceptId": "Syntax.have_V2/V2",
+                                  "kind": "V2"
+                                }
+                              ],
+                              "name": "V2",
+                              "label": "V2"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "type": "AMR",
+                                  "srcId": ";F1r9=+bc#Z2}-}=v,#A",
+                                  "conceptId": "Syntax.it_NP/NP",
+                                  "kind": "NP"
+                                }
+                              ],
+                              "name": "NP",
+                              "label": "NP"
+                            }
+                          ],
+                          "type": "AMR",
+                          "srcId": "025)G,=)h^o%;4(;,x`6",
+                          "conceptId": "Syntax.mkVP/V2->NP->VP",
+                          "kind": "VP"
+                        }
+                      }
+                    ],
+                    "srcId": "%.~3Kj03l3QxajId)%Ii"
+                  }
+                ],
+                "name": "VP",
+                "label": "VP"
+              },
+              {
+                "children": [
+                  {
+                    "type": "If-then-else",
+                    "conditions": [
+                      {
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "name": "Lo.I@7YoTI=yA8W%xZ(O",
+                          "type": "Get-var",
+                          "srcId": "_rKK_~Yj6z(Vdu@5K_pL"
+                        },
+                        "condition": {
+                          "name": "Lo.I@7YoTI=yA8W%xZ(O",
+                          "type": "Get-var",
+                          "srcId": "^T0Pur2:=TvJ?X0oz*:J"
+                        }
+                      },
+                      {
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "type": "AMR",
+                          "srcId": "R_I*}/ezSMcdYa40UN8Y",
+                          "conceptId": "Syntax.quite_Adv/AdA",
+                          "kind": "AdA"
+                        }
+                      }
+                    ],
+                    "srcId": "A^oDTS7TjX|o5=h53kaN"
+                  }
+                ],
+                "name": "Adv",
+                "label": "Adv"
+              }
+            ],
+            "type": "AMR",
+            "srcId": ")WyT}-3Bv#0hXvQgL3Fv",
+            "conceptId": "Syntax.mkVP/VP->Adv->VP",
+            "kind": "VP"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "@408[~c2oh7S@i.yivT?"
+      }
+    ],
+    "srcId": "7wR72z}Eo{}_7ZBW/cP8"
+  }
+}

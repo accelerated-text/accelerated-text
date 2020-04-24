@@ -1,0 +1,72 @@
+{
+  "id": "nedwukrmegjAOBTX",
+  "uid": "2ce4c8d8-a04e-4f10-b8a3-e58c3ef8c7b2",
+  "name": "CN",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"+I$s2ph#|Jp(!(=nTkih\">CN</variable><variable type=\"\" id=\"xQl)Ve7,!EX;~l)F7_Ql\">NP</variable></variables><block type=\"Document-plan\" id=\";bYwqxYa):R^5S(1:qul\" deletable=\"false\" x=\"376\" y=\"210\"><statement name=\"segments\"><block type=\"Segment\" id=\"nBNtQXG_v6hbc1QrQx+P\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"u7%?8;,!5k_5#0v#8X?I\"><mutation concept_id=\"Syntax.mkCN/CN-&gt;NP-&gt;CN\" concept_kind=\"CN\" concept_label=\"mkCN\" roles=\"[{&quot;id&quot;:&quot;cnAROtgoVUoynWBh&quot;,&quot;fieldLabel&quot;:&quot;CN&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N3&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;CN&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;uRjRMpSuGuWftwrN&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"cnAROtgoVUoynWBh\"><block type=\"Get-var\" id=\"8oTYD3Zx6V5@u8ss|rYi\"><field name=\"name\" id=\"+I$s2ph#|Jp(!(=nTkih\" variabletype=\"\">CN</field></block></value><value name=\"uRjRMpSuGuWftwrN\"><block type=\"If-then-else\" id=\"I)f69@j[GQ?vs31P+E.`\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"8zOFcD4`imh^u?$r;5E;\"><field name=\"name\" id=\"xQl)Ve7,!EX;~l)F7_Ql\" variabletype=\"\">NP</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\"NUD*snCQ?!d~y`7`b(9b\"><field name=\"name\" id=\"xQl)Ve7,!EX;~l)F7_Ql\" variabletype=\"\">NP</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"rm?;R3+dk_=!e!HqR$yx\"><mutation concept_id=\"Syntax.it_NP/NP\" concept_kind=\"NP\" concept_label=\"it_NP\" roles=\"[]\"></mutation></block></value></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "+I$s2ph#|Jp(!(=nTkih",
+                    "type": "Get-var",
+                    "srcId": "8oTYD3Zx6V5@u8ss|rYi"
+                  }
+                ],
+                "name": "CN",
+                "label": "CN"
+              },
+              {
+                "children": [
+                  {
+                    "type": "If-then-else",
+                    "conditions": [
+                      {
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "name": "xQl)Ve7,!EX;~l)F7_Ql",
+                          "type": "Get-var",
+                          "srcId": "NUD*snCQ?!d~y`7`b(9b"
+                        },
+                        "condition": {
+                          "name": "xQl)Ve7,!EX;~l)F7_Ql",
+                          "type": "Get-var",
+                          "srcId": "8zOFcD4`imh^u?$r;5E;"
+                        }
+                      },
+                      {
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "type": "AMR",
+                          "srcId": "rm?;R3+dk_=!e!HqR$yx",
+                          "conceptId": "Syntax.it_NP/NP",
+                          "kind": "NP"
+                        }
+                      }
+                    ],
+                    "srcId": "I)f69@j[GQ?vs31P+E.`"
+                  }
+                ],
+                "name": "NP",
+                "label": "NP"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "u7%?8;,!5k_5#0v#8X?I",
+            "conceptId": "Syntax.mkCN/CN->NP->CN",
+            "kind": "CN"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "nBNtQXG_v6hbc1QrQx+P"
+      }
+    ],
+    "srcId": ";bYwqxYa):R^5S(1:qul"
+  }
+}
