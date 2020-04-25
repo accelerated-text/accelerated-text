@@ -80,3 +80,11 @@
   (let [semantic-graph (test-utils/load-test-semantic-graph "parallel-edge-test")
         context (test-utils/load-test-context "parallel-edge-test")]
     (is (= ["There is an item."] (map :text (core/generate-text semantic-graph context "Eng"))))))
+
+(deftest ^:integration one-of-generation
+  (let [semantic-graph (test-utils/load-test-semantic-graph "one-of-with-str")
+        context        (test-utils/load-test-context "one-of-with-str")]
+    (is (= #{"Apple is green." "Apple is red."}
+           (set (map :text
+                     (core/generate-text
+                      semantic-graph context "Eng")))))))
