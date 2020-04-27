@@ -1,5 +1,8 @@
 (ns data.entities.amr
-  (:require [acc-text.nlg.semantic-graph :as sg]
+  (:require [acc-text.nlg.graph.categories :as categories]
+            [acc-text.nlg.graph.utils :as graph-utils]
+            [acc-text.nlg.semantic-graph :as sg]
+            [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [api.nlg.parser :refer [document-plan->semantic-graph]]
             [clojure.set :as set]
             [data.entities.document-plan :as dp]))
@@ -21,10 +24,16 @@
         {:keys [type category]} (some #(when (= first-block-id (:id %)) %) concepts)]
     (or (when (= :amr type) category) "Str")))
 
+(defn resolve-categories [semantic-graph]
+  (-> semantic-graph
+      (sg-utils/semantic-graph->ubergraph :keep-ids? true)
+      (categories/resolve-categories)
+      (graph-utils/ubergraph->semantic-graph :keep-ids? true)))
+
 (defn document-plan->amr [{:keys [id name documentPlan examples] :as entity}]
-  (let [{::sg/keys [concepts description] :as semantic-graph} (document-plan->semantic-graph
-                                                                documentPlan
-                                                                {:var-names (dp/get-variable-names entity)})]
+  (let [metadata {:var-names (dp/get-variable-names entity)}
+        {::sg/keys [description] :as semantic-graph} (document-plan->semantic-graph documentPlan metadata)
+        {::sg/keys [concepts] :as semantic-graph} (resolve-categories semantic-graph)]
     {:id             id
      :label          name
      :kind           (get-category semantic-graph)

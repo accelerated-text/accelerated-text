@@ -1,0 +1,38 @@
+{
+  "id": "JxhodTfGyVxcVPtG",
+  "uid": "f3ba1d28-9bbd-4b65-b33b-3fab05390d43",
+  "name": "CN",
+  "kind": "RGL",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"+I$s2ph#|Jp(!(=nTkih\">N</variable></variables><block type=\"Document-plan\" id=\";bYwqxYa):R^5S(1:qul\" deletable=\"false\" x=\"376\" y=\"210\"><statement name=\"segments\"><block type=\"Segment\" id=\"nBNtQXG_v6hbc1QrQx+P\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"yO%TNh@WP.Y.A+mK!v{R\"><mutation concept_id=\"Syntax.mkCN/N-&gt;CN\" concept_kind=\"CN\" concept_label=\"mkCN\" roles=\"[{&quot;id&quot;:&quot;wgarxqeGHYiSLewp&quot;,&quot;fieldLabel&quot;:&quot;N&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"wgarxqeGHYiSLewp\"><block type=\"Get-var\" id=\"8oTYD3Zx6V5@u8ss|rYi\"><field name=\"name\" id=\"+I$s2ph#|Jp(!(=nTkih\" variabletype=\"\">N</field></block></value></block></value></block></statement></block></xml>",
+  "documentPlan": {
+    "type": "Document-plan",
+    "segments": [
+      {
+        "children": [
+          {
+            "roles": [
+              {
+                "children": [
+                  {
+                    "name": "+I$s2ph#|Jp(!(=nTkih",
+                    "type": "Get-var",
+                    "srcId": "8oTYD3Zx6V5@u8ss|rYi"
+                  }
+                ],
+                "name": "N",
+                "label": "N"
+              }
+            ],
+            "type": "AMR",
+            "srcId": "yO%TNh@WP.Y.A+mK!v{R",
+            "conceptId": "Syntax.mkCN/N->CN",
+            "kind": "CN"
+          }
+        ],
+        "type": "Segment",
+        "srcId": "nBNtQXG_v6hbc1QrQx+P"
+      }
+    ],
+    "srcId": ";bYwqxYa):R^5S(1:qul"
+  }
+}

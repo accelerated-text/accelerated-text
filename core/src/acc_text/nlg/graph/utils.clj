@@ -34,6 +34,12 @@
        (sort-by #(:index (attrs g %)))
        (map graph/dest)))
 
+(defn get-predecessors [g node-id]
+  (->> node-id
+       (graph/in-edges g)
+       (sort-by #(:index (attrs g %)))
+       (map graph/src)))
+
 (defn get-in-edge [graph node-id]
   (first (graph/in-edges graph node-id)))
 
@@ -52,9 +58,9 @@
           g
           (zipmap (alg/pre-traverse g (find-root-id g)) (rest (range)))))
 
-(defn ubergraph->semantic-graph [g]
+(defn ubergraph->semantic-graph [g & {:keys [keep-ids?]}]
   (let [{:keys [nodes directed-edges]} (uber/ubergraph->edn g)
-        uuid->id (zipmap (alg/pre-traverse g (find-root-id g)) (id-seq))]
+        uuid->id (if (true? keep-ids?) identity (zipmap (alg/pre-traverse g (find-root-id g)) (id-seq)))]
     #::sg{:relations (->> directed-edges
                           (map (fn [[from to relation]]
                                  (merge {:from (uuid->id from) :to (uuid->id to)} relation)))
@@ -63,3 +69,6 @@
                           (map (fn [[id concept]]
                                  (merge {:id (uuid->id id)} concept)))
                           (sort-by :id))}))
+
+(defn save-graph [graph filename]
+  (uber/viz-graph graph {:auto-label true :save {:format :png :filename filename}}))

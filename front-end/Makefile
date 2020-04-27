@@ -27,3 +27,11 @@ setup: node_modules
 node_modules: package.json
 	npm install
 	touch -m node_modules
+
+prepare-builder:
+	docker build -t frontend-builder -f Dockerfile.builder ../
+
+copy-resources:
+	docker run -v "${PWD}/dist:/opt/output" -t frontend-builder cp -r /var/www/acc-text/ /opt/output
+
+compile-frontend-services: prepare-builder copy-resources

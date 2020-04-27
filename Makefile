@@ -55,7 +55,6 @@ run-eval:
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml up --remove-orphans --abort-on-container-exit --exit-code-from eval
 
 run-front-end-dev:
-	ACC_TEXT_API_URL=http://0.0.0.0:3001 \
-	ACC_TEXT_GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
-	MOCK_SHOP_API_URL=http://0:0:0:0:8090 \
-	cd front-end && make run
+	docker-compose -f docker-compose.front-end.yml up -d
+	cd core/gf && docker build -t gf .
+	docker run -p 8001:8000 gf

@@ -1,9 +1,9 @@
 {
   "id": "pVqkwvCizkJsJcXJ",
   "uid": "2cac0aa5-71ed-4419-b13b-002f848477d9",
-  "name": "N -> Modal -> V -> N",
+  "name": "Cl",
   "kind": "RGL",
-  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"pciPhrAdD)4hX2teT5Pq\">N.1</variable><variable type=\"\" id=\"=E$4MYcJ$0)lE~hv@Z?z\">V2</variable><variable type=\"\" id=\"-6aqv0D7+9n;Z0`?X*On\">N.2</variable></variables><block type=\"Document-plan\" id=\"Vi:Ei6tYLV=Z_09[}U(~\" deletable=\"false\" x=\"180\" y=\"127\"><statement name=\"segments\"><block type=\"Segment\" id=\"^f13le}fpZrc%ISu=en[\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"mT!RZcIzTj8b-z{e,gdB\"><mutation concept_id=\"Syntax.mkText/S-&gt;Text\" concept_label=\"mkText\" roles=\"[{&quot;id&quot;:&quot;oXJqkYGBJGbErgTM&quot;,&quot;fieldLabel&quot;:&quot;S&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;S&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"oXJqkYGBJGbErgTM\"><block type=\"AMR\" id=\"pVhuZtc.F0nEH@7?|8[|\"><mutation concept_id=\"Syntax.mkS/(Tense)-&gt;(Ant)-&gt;(Pol)-&gt;Cl-&gt;S\" concept_label=\"mkS\" roles=\"[{&quot;id&quot;:&quot;peexyFuKAHEahHTt&quot;,&quot;fieldLabel&quot;:&quot;(Tense)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Tense&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;TzHgkaeNJMnicuNK&quot;,&quot;fieldLabel&quot;:&quot;(Ant)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Ant&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;hGIpNMJghJDVOVFU&quot;,&quot;fieldLabel&quot;:&quot;(Pol)&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Pol&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;UGwTsEXxGTJCtUXk&quot;,&quot;fieldLabel&quot;:&quot;Cl&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Cl&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"UGwTsEXxGTJCtUXk\"><block type=\"AMR\" id=\"Ds6KGyIlfyVB{u^70F(j\"><mutation concept_id=\"Syntax.mkCl/NP-&gt;VV-&gt;VP-&gt;Cl\" concept_label=\"mkCl\" roles=\"[{&quot;id&quot;:&quot;NyszqkbqjzINuNcN&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;dhtsGrSAcGnQKiCE&quot;,&quot;fieldLabel&quot;:&quot;VV&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;VV&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;QyHlBdXXScjrQxJf&quot;,&quot;fieldLabel&quot;:&quot;VP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"NyszqkbqjzINuNcN\"><block type=\"AMR\" id=\"uPs3(lRcZ=h0|m0x,Aw5\"><mutation concept_id=\"Syntax.mkNP/N-&gt;NP\" concept_label=\"mkNP\" roles=\"[{&quot;id&quot;:&quot;GnYwQZynVQmDksmB&quot;,&quot;fieldLabel&quot;:&quot;N&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"GnYwQZynVQmDksmB\"><block type=\"Get-var\" id=\"Fi;U=%bC4-iR9C}lS4$7\"><field name=\"name\" id=\"pciPhrAdD)4hX2teT5Pq\" variabletype=\"\">N.1</field></block></value></block></value><value name=\"dhtsGrSAcGnQKiCE\"><block type=\"AMR\" id=\"uu$dR(0P?bjSYUx.tTx7\"><mutation concept_id=\"Syntax.can_VV/VV\" concept_label=\"can_VV\" roles=\"[]\"></mutation></block></value><value name=\"QyHlBdXXScjrQxJf\"><block type=\"AMR\" id=\"qmPycj^])2pb+iw^5tBV\"><mutation concept_id=\"Syntax.mkVP/V2-&gt;NP-&gt;VP\" concept_label=\"mkVP\" roles=\"[{&quot;id&quot;:&quot;QvTDCgJDnsMJvTVw&quot;,&quot;fieldLabel&quot;:&quot;V2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V2&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;tbfBZaCYmesukxfe&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"QvTDCgJDnsMJvTVw\"><block type=\"Get-var\" id=\"Z73U.~PM1xo{M*ZZU]k%\"><field name=\"name\" id=\"=E$4MYcJ$0)lE~hv@Z?z\" variabletype=\"\">V2</field></block></value><value name=\"tbfBZaCYmesukxfe\"><block type=\"AMR\" id=\"7n$)Ag9k@R![jD:/1nj}\"><mutation concept_id=\"Syntax.mkNP/N-&gt;NP\" concept_label=\"mkNP\" roles=\"[{&quot;id&quot;:&quot;GnYwQZynVQmDksmB&quot;,&quot;fieldLabel&quot;:&quot;N&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;N&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"GnYwQZynVQmDksmB\"><block type=\"Get-var\" id=\"(1DJK$53jQr%RZY+hoZ|\"><field name=\"name\" id=\"-6aqv0D7+9n;Z0`?X*On\" variabletype=\"\">N.2</field></block></value></block></value></block></value></block></value></block></value></block></value></block></statement></block></xml>",
+  "blocklyXml": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><variables><variable type=\"\" id=\"pciPhrAdD)4hX2teT5Pq\">NP</variable><variable type=\"\" id=\"20X%@5sIu;;+q++VX}Pu\">VV</variable><variable type=\"\" id=\"=E$4MYcJ$0)lE~hv@Z?z\">VP</variable></variables><block type=\"Document-plan\" id=\"Vi:Ei6tYLV=Z_09[}U(~\" deletable=\"false\" x=\"334\" y=\"89\"><statement name=\"segments\"><block type=\"Segment\" id=\"^f13le}fpZrc%ISu=en[\"><mutation value_count=\"1\" value_sequence=\"value_\"></mutation><value name=\"value_0\"><block type=\"AMR\" id=\"h*KP%)~?N)(,]^}U]Zp)\"><mutation concept_id=\"Syntax.mkCl/NP-&gt;VV-&gt;VP-&gt;Cl\" concept_kind=\"Cl\" concept_label=\"mkCl\" roles=\"[{&quot;id&quot;:&quot;xYWrRJvHOIdjsrvs&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;SKYNCayBnlCCoQDk&quot;,&quot;fieldLabel&quot;:&quot;VV&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;VV&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;TPrUYFDdsdbsUvtS&quot;,&quot;fieldLabel&quot;:&quot;VP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Comp&quot;,&quot;V2&quot;,&quot;Dig&quot;,&quot;VPSlash&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;NP&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;AP&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Adv&quot;,&quot;Numeral&quot;,&quot;Digit&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;A2&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;A&quot;,&quot;Det&quot;,&quot;Ord&quot;,&quot;VP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"xYWrRJvHOIdjsrvs\"><block type=\"If-then-else\" id=\"PAo|1/zY[boUp)IKG6ud\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"Fi;U=%bC4-iR9C}lS4$7\"><field name=\"name\" id=\"pciPhrAdD)4hX2teT5Pq\" variabletype=\"\">NP</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\"exp}bDV407gWC5)5YW`K\"><field name=\"name\" id=\"pciPhrAdD)4hX2teT5Pq\" variabletype=\"\">NP</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"QqAR;xOM6RgzG!GuxI_0\"><mutation concept_id=\"Syntax.it_NP/NP\" concept_kind=\"NP\" concept_label=\"it_NP\" roles=\"[]\"></mutation></block></value></block></value><value name=\"SKYNCayBnlCCoQDk\"><block type=\"If-then-else\" id=\"{8_`g3VyA6{8W^X:;[qA\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\"G@tzI+w,~W+xgh`:5Mh_\"><field name=\"name\" id=\"20X%@5sIu;;+q++VX}Pu\" variabletype=\"\">VV</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\"G:1Z2@]woxH%KMw5?Qd{\"><field name=\"name\" id=\"20X%@5sIu;;+q++VX}Pu\" variabletype=\"\">VV</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"g+E]iO{Y_yw2lQn=A@Uk\"><mutation concept_id=\"Syntax.can_VV/VV\" concept_kind=\"VV\" concept_label=\"can_VV\" roles=\"[]\"></mutation></block></value></block></value><value name=\"TPrUYFDdsdbsUvtS\"><block type=\"If-then-else\" id=\"}m`2QUbz7do%.VSbd4S?\"><mutation else_if_count=\"0\"></mutation><value name=\"if\"><block type=\"Get-var\" id=\".Fq0+Y%5Y~TCe2i~acG*\"><field name=\"name\" id=\"=E$4MYcJ$0)lE~hv@Z?z\" variabletype=\"\">VP</field></block></value><value name=\"then\"><block type=\"Get-var\" id=\":o=tG~+zV:5la2f55@:U\"><field name=\"name\" id=\"=E$4MYcJ$0)lE~hv@Z?z\" variabletype=\"\">VP</field></block></value><value name=\"else\"><block type=\"AMR\" id=\"35uYlKGE#(U1;M!lqJ[4\"><mutation concept_id=\"Syntax.mkVP/V2-&gt;NP-&gt;VP\" concept_kind=\"VP\" concept_label=\"mkVP\" roles=\"[{&quot;id&quot;:&quot;PYcpGaemeYIKpwoX&quot;,&quot;fieldLabel&quot;:&quot;V2&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;V&quot;,&quot;Verbum&quot;,&quot;V2&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;},{&quot;id&quot;:&quot;ASCALOBhKlomctpH&quot;,&quot;fieldLabel&quot;:&quot;NP&quot;,&quot;fieldType&quot;:[&quot;List&quot;,&quot;Str&quot;,&quot;Unit&quot;,&quot;Pron&quot;,&quot;Dig&quot;,&quot;Digits&quot;,&quot;Sub1000&quot;,&quot;N3&quot;,&quot;Card&quot;,&quot;PN&quot;,&quot;Quant&quot;,&quot;Sub100&quot;,&quot;CN&quot;,&quot;Numeral&quot;,&quot;N&quot;,&quot;N2&quot;,&quot;Det&quot;,&quot;NP&quot;],&quot;__typename&quot;:&quot;ThematicRole&quot;}]\"></mutation><value name=\"PYcpGaemeYIKpwoX\"><block type=\"AMR\" id=\"Xx`]3~Sn/oHCp`ILFe=D\"><mutation concept_id=\"Syntax.have_V2/V2\" concept_kind=\"V2\" concept_label=\"have_V2\" roles=\"[]\"></mutation></block></value><value name=\"ASCALOBhKlomctpH\"><block type=\"AMR\" id=\"kyFv]%gf-JLOt+A^S{lb\"><mutation concept_id=\"Syntax.it_NP/NP\" concept_kind=\"NP\" concept_label=\"it_NP\" roles=\"[]\"></mutation></block></value></block></value></block></value></block></value></block></statement></block></xml>",
   "documentPlan": {
     "type": "Document-plan",
     "segments": [
@@ -14,138 +14,136 @@
               {
                 "children": [
                   {
-                    "roles": [
+                    "type": "If-then-else",
+                    "conditions": [
                       {
-                        "children": [],
-                        "name": "Tense",
-                        "label": "(Tense)"
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "name": "pciPhrAdD)4hX2teT5Pq",
+                          "type": "Get-var",
+                          "srcId": "exp}bDV407gWC5)5YW`K"
+                        },
+                        "condition": {
+                          "name": "pciPhrAdD)4hX2teT5Pq",
+                          "type": "Get-var",
+                          "srcId": "Fi;U=%bC4-iR9C}lS4$7"
+                        }
                       },
                       {
-                        "children": [],
-                        "name": "Ant",
-                        "label": "(Ant)"
-                      },
-                      {
-                        "children": [],
-                        "name": "Pol",
-                        "label": "(Pol)"
-                      },
-                      {
-                        "children": [
-                          {
-                            "roles": [
-                              {
-                                "children": [
-                                  {
-                                    "roles": [
-                                      {
-                                        "children": [
-                                          {
-                                            "name": "pciPhrAdD)4hX2teT5Pq",
-                                            "type": "Get-var",
-                                            "srcId": "Fi;U=%bC4-iR9C}lS4$7"
-                                          }
-                                        ],
-                                        "name": "N",
-                                        "label": "N"
-                                      }
-                                    ],
-                                    "type": "AMR",
-                                    "srcId": "uPs3(lRcZ=h0|m0x,Aw5",
-                                    "conceptId": "Syntax.mkNP/N->NP",
-                                    "kind": "NP"
-                                  }
-                                ],
-                                "name": "NP",
-                                "label": "NP"
-                              },
-                              {
-                                "children": [
-                                  {
-                                    "type": "AMR",
-                                    "srcId": "uu$dR(0P?bjSYUx.tTx7",
-                                    "conceptId": "Syntax.can_VV/VV",
-                                    "kind": "VV"
-                                  }
-                                ],
-                                "name": "VV",
-                                "label": "VV"
-                              },
-                              {
-                                "children": [
-                                  {
-                                    "roles": [
-                                      {
-                                        "children": [
-                                          {
-                                            "name": "=E$4MYcJ$0)lE~hv@Z?z",
-                                            "type": "Get-var",
-                                            "srcId": "Z73U.~PM1xo{M*ZZU]k%"
-                                          }
-                                        ],
-                                        "name": "V2",
-                                        "label": "V2"
-                                      },
-                                      {
-                                        "children": [
-                                          {
-                                            "roles": [
-                                              {
-                                                "children": [
-                                                  {
-                                                    "name": "-6aqv0D7+9n;Z0`?X*On",
-                                                    "type": "Get-var",
-                                                    "srcId": "(1DJK$53jQr%RZY+hoZ|"
-                                                  }
-                                                ],
-                                                "name": "N",
-                                                "label": "N"
-                                              }
-                                            ],
-                                            "type": "AMR",
-                                            "srcId": "7n$)Ag9k@R![jD:/1nj}",
-                                            "conceptId": "Syntax.mkNP/N->NP",
-                                            "kind": "NP"
-                                          }
-                                        ],
-                                        "name": "NP",
-                                        "label": "NP"
-                                      }
-                                    ],
-                                    "type": "AMR",
-                                    "srcId": "qmPycj^])2pb+iw^5tBV",
-                                    "conceptId": "Syntax.mkVP/V2->NP->VP",
-                                    "kind": "VP"
-                                  }
-                                ],
-                                "name": "VP",
-                                "label": "VP"
-                              }
-                            ],
-                            "type": "AMR",
-                            "srcId": "Ds6KGyIlfyVB{u^70F(j",
-                            "conceptId": "Syntax.mkCl/NP->VV->VP->Cl",
-                            "kind": "Cl"
-                          }
-                        ],
-                        "name": "Cl",
-                        "label": "Cl"
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "type": "AMR",
+                          "srcId": "QqAR;xOM6RgzG!GuxI_0",
+                          "conceptId": "Syntax.it_NP/NP",
+                          "kind": "NP"
+                        }
                       }
                     ],
-                    "type": "AMR",
-                    "srcId": "pVhuZtc.F0nEH@7?|8[|",
-                    "conceptId": "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S",
-                    "kind": "S"
+                    "srcId": "PAo|1/zY[boUp)IKG6ud"
                   }
                 ],
-                "name": "S",
-                "label": "S"
+                "name": "NP",
+                "label": "NP"
+              },
+              {
+                "children": [
+                  {
+                    "type": "If-then-else",
+                    "conditions": [
+                      {
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "name": "20X%@5sIu;;+q++VX}Pu",
+                          "type": "Get-var",
+                          "srcId": "G:1Z2@]woxH%KMw5?Qd{"
+                        },
+                        "condition": {
+                          "name": "20X%@5sIu;;+q++VX}Pu",
+                          "type": "Get-var",
+                          "srcId": "G@tzI+w,~W+xgh`:5Mh_"
+                        }
+                      },
+                      {
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "type": "AMR",
+                          "srcId": "g+E]iO{Y_yw2lQn=A@Uk",
+                          "conceptId": "Syntax.can_VV/VV",
+                          "kind": "VV"
+                        }
+                      }
+                    ],
+                    "srcId": "{8_`g3VyA6{8W^X:;[qA"
+                  }
+                ],
+                "name": "VV",
+                "label": "VV"
+              },
+              {
+                "children": [
+                  {
+                    "type": "If-then-else",
+                    "conditions": [
+                      {
+                        "type": "If-condition",
+                        "thenExpression": {
+                          "name": "=E$4MYcJ$0)lE~hv@Z?z",
+                          "type": "Get-var",
+                          "srcId": ":o=tG~+zV:5la2f55@:U"
+                        },
+                        "condition": {
+                          "name": "=E$4MYcJ$0)lE~hv@Z?z",
+                          "type": "Get-var",
+                          "srcId": ".Fq0+Y%5Y~TCe2i~acG*"
+                        }
+                      },
+                      {
+                        "type": "Default-condition",
+                        "thenExpression": {
+                          "roles": [
+                            {
+                              "children": [
+                                {
+                                  "type": "AMR",
+                                  "srcId": "Xx`]3~Sn/oHCp`ILFe=D",
+                                  "conceptId": "Syntax.have_V2/V2",
+                                  "kind": "V2"
+                                }
+                              ],
+                              "name": "V2",
+                              "label": "V2"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "type": "AMR",
+                                  "srcId": "kyFv]%gf-JLOt+A^S{lb",
+                                  "conceptId": "Syntax.it_NP/NP",
+                                  "kind": "NP"
+                                }
+                              ],
+                              "name": "NP",
+                              "label": "NP"
+                            }
+                          ],
+                          "type": "AMR",
+                          "srcId": "35uYlKGE#(U1;M!lqJ[4",
+                          "conceptId": "Syntax.mkVP/V2->NP->VP",
+                          "kind": "VP"
+                        }
+                      }
+                    ],
+                    "srcId": "}m`2QUbz7do%.VSbd4S?"
+                  }
+                ],
+                "name": "VP",
+                "label": "VP"
               }
             ],
             "type": "AMR",
-            "srcId": "mT!RZcIzTj8b-z{e,gdB",
-            "conceptId": "Syntax.mkText/S->Text",
-            "kind": "Text"
+            "srcId": "h*KP%)~?N)(,]^}U]Zp)",
+            "conceptId": "Syntax.mkCl/NP->VV->VP->Cl",
+            "kind": "Cl"
           }
         ],
         "type": "Segment",
