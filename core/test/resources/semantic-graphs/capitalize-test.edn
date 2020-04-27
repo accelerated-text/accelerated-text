@@ -1,0 +1,15 @@
+#:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
+                                          {:from :01 :to :11 :role :segment :index 1}
+                                          {:from :02 :to :03 :role :instance :index 0}
+                                          {:from :02 :to :07 :role :instance :index 1}
+                                          {:from :07 :to :10 :role :arg :index 2 :category "N" :name "Part"}
+                                          {:from :11 :to :12 :role :instance :index 0}
+                                          {:from :12 :to :15 :role :arg :index 2 :category "N" :name "Part"})
+                              :concepts  ({:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :amr :name "BjelHkEwHnxXtAex" :category "Str"}
+                                          {:id :07 :type :amr :name "BjelHkEwHnxXtAex" :category "Str"}
+                                          {:id :10 :type :quote :value "two"}
+                                          {:id :11 :type :segment}
+                                          {:id :12 :type :amr :name "BjelHkEwHnxXtAex" :category "Str"}
+                                          {:id :15 :type :quote :value "three"})}

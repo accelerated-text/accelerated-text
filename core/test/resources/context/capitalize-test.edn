@@ -1,0 +1,275 @@
+{:amr       {"Syntax.negativePol/Pol"                  {:id     "Syntax.negativePol/Pol"
+                                                        :kind   "Pol"
+                                                        :name   "Pol"
+                                                        :label  "negativePol"
+                                                        :module "Syntax"
+                                                        :roles  ()
+                                                        :frames ({:examples ["she doesn't sleep"]
+                                                                  :syntax   ({:ret "Pol" :value "Syntax.negativePol" :params () :type :oper})})}
+             "Syntax.positivePol/Pol"                  {:id     "Syntax.positivePol/Pol"
+                                                        :kind   "Pol"
+                                                        :name   "Pol"
+                                                        :label  "positivePol"
+                                                        :module "Syntax"
+                                                        :roles  ()
+                                                        :frames ({:examples ["she sleeps"]
+                                                                  :syntax   ({:ret "Pol" :value "Syntax.positivePol" :params () :type :oper})})}
+             "tuPYHTmeXViCeXHE"                        {:id             "tuPYHTmeXViCeXHE"
+                                                        :label          "N -> have a N"
+                                                        :kind           "Str"
+                                                        :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                                                   :to    :02
+                                                                                                                   :role  :segment
+                                                                                                                   :index 0}
+                                                                                                                  {:from  :02
+                                                                                                                   :to    :03
+                                                                                                                   :role  :instance
+                                                                                                                   :index 0}
+                                                                                                                  {:from     :03
+                                                                                                                   :to       :04
+                                                                                                                   :role     :arg
+                                                                                                                   :index    0
+                                                                                                                   :category "S"}
+                                                                                                                  {:from     :04
+                                                                                                                   :to       :07
+                                                                                                                   :role     :arg
+                                                                                                                   :index    2
+                                                                                                                   :category "Pol"
+                                                                                                                   :name     "(Pol)"}
+                                                                                                                  {:from     :04
+                                                                                                                   :to       :15
+                                                                                                                   :role     :arg
+                                                                                                                   :index    3
+                                                                                                                   :category "Cl"}
+                                                                                                                  {:from  :07
+                                                                                                                   :to    :08
+                                                                                                                   :role  :statement
+                                                                                                                   :index 0}
+                                                                                                                  {:from  :07
+                                                                                                                   :to    :13
+                                                                                                                   :role  :statement
+                                                                                                                   :index 1}
+                                                                                                                  {:from :08
+                                                                                                                   :to   :09
+                                                                                                                   :role :predicate}
+                                                                                                                  {:from :08
+                                                                                                                   :to   :12
+                                                                                                                   :role :then-expression}
+                                                                                                                  {:from  :09
+                                                                                                                   :to    :10
+                                                                                                                   :role  :comparable
+                                                                                                                   :index 0}
+                                                                                                                  {:from  :09
+                                                                                                                   :to    :11
+                                                                                                                   :role  :comparable
+                                                                                                                   :index 1}
+                                                                                                                  {:from :13
+                                                                                                                   :to   :14
+                                                                                                                   :role :then-expression}
+                                                                                                                  {:from     :15
+                                                                                                                   :to       :16
+                                                                                                                   :role     :arg
+                                                                                                                   :index    0
+                                                                                                                   :category "NP"}
+                                                                                                                  {:from     :15
+                                                                                                                   :to       :19
+                                                                                                                   :role     :arg
+                                                                                                                   :index    1
+                                                                                                                   :category "V2"}
+                                                                                                                  {:from     :15
+                                                                                                                   :to       :20
+                                                                                                                   :role     :arg
+                                                                                                                   :index    2
+                                                                                                                   :category "NP"}
+                                                                                                                  {:from     :16
+                                                                                                                   :to       :17
+                                                                                                                   :role     :arg
+                                                                                                                   :index    0
+                                                                                                                   :category "Det"}
+                                                                                                                  {:from     :16
+                                                                                                                   :to       :18
+                                                                                                                   :role     :arg
+                                                                                                                   :index    1
+                                                                                                                   :category "N"}
+                                                                                                                  {:from     :20
+                                                                                                                   :to       :21
+                                                                                                                   :role     :arg
+                                                                                                                   :index    0
+                                                                                                                   :category "Det"}
+                                                                                                                  {:from     :20
+                                                                                                                   :to       :22
+                                                                                                                   :role     :arg
+                                                                                                                   :index    1
+                                                                                                                   :category "N"})
+                                                                                                      :concepts  ({:id :01 :type :document-plan}
+                                                                                                                  {:id :02 :type :segment}
+                                                                                                                  {:id   :03
+                                                                                                                   :type :amr
+                                                                                                                   :name "Syntax.mkText/S->Text"}
+                                                                                                                  {:id   :04
+                                                                                                                   :type :amr
+                                                                                                                   :name "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
+                                                                                                                  {:id :07 :type :condition}
+                                                                                                                  {:id :08 :type :if-statement}
+                                                                                                                  {:id    :09
+                                                                                                                   :type  :comparator
+                                                                                                                   :value "in"}
+                                                                                                                  {:id    :10
+                                                                                                                   :type  :quote
+                                                                                                                   :value "no false 0"}
+                                                                                                                  {:id   :11
+                                                                                                                   :type :reference
+                                                                                                                   :name "(polarity)"}
+                                                                                                                  {:id   :12
+                                                                                                                   :type :amr
+                                                                                                                   :name "Syntax.negativePol/Pol"}
+                                                                                                                  {:id :13 :type :else-statement}
+                                                                                                                  {:id   :14
+                                                                                                                   :type :amr
+                                                                                                                   :name "Syntax.positivePol/Pol"}
+                                                                                                                  {:id   :15
+                                                                                                                   :type :amr
+                                                                                                                   :name "Syntax.mkCl/NP->V2->NP->Cl"}
+                                                                                                                  {:id   :16
+                                                                                                                   :type :amr
+                                                                                                                   :name "Syntax.mkNP/Det->N->NP"}
+                                                                                                                  {:id   :17
+                                                                                                                   :type :amr
+                                                                                                                   :name "Syntax.a_Det/Det"}
+                                                                                                                  {:id   :18
+                                                                                                                   :type :reference
+                                                                                                                   :name "N.1"}
+                                                                                                                  {:id   :19
+                                                                                                                   :type :amr
+                                                                                                                   :name "Syntax.have_V2/V2"}
+                                                                                                                  {:id   :20
+                                                                                                                   :type :amr
+                                                                                                                   :name "Syntax.mkNP/Det->N->NP"}
+                                                                                                                  {:id   :21
+                                                                                                                   :type :amr
+                                                                                                                   :name "Syntax.a_Det/Det"}
+                                                                                                                  {:id   :22
+                                                                                                                   :type :reference
+                                                                                                                   :name "N.2"})}
+                                                        :frames         [{:examples []}]
+                                                        :roles          [{:id "ARG0" :label "(polarity)" :type nil}
+                                                                         {:id "ARG1" :label "N.1" :type "N"}
+                                                                         {:id "ARG2" :label "N.2" :type "N"}]}
+             "Syntax.mkText/S->Text"                   {:id     "Syntax.mkText/S->Text"
+                                                        :kind   "Text"
+                                                        :name   "S -> Text"
+                                                        :label  "mkText"
+                                                        :module "Syntax"
+                                                        :roles  ({:type "S" :label "S"})
+                                                        :frames ({:examples ["she slept."]
+                                                                  :syntax   ({:ret    "Text"
+                                                                              :value  "Syntax.mkText"
+                                                                              :params ({:id "ARG0" :type "S"})
+                                                                              :type   :oper})})}
+             "Syntax.mkCl/NP->V2->NP->Cl"              {:id     "Syntax.mkCl/NP->V2->NP->Cl"
+                                                        :kind   "Cl"
+                                                        :name   "NP -> V2 -> NP -> Cl"
+                                                        :label  "mkCl"
+                                                        :module "Syntax"
+                                                        :roles  ({:type "NP" :label "NP"}
+                                                                 {:type "V2" :label "V2"}
+                                                                 {:type "NP" :label "NP"})
+                                                        :frames ({:examples ["she loves him"]
+                                                                  :syntax   ({:ret    "Cl"
+                                                                              :value  "Syntax.mkCl"
+                                                                              :params ({:id "ARG0" :type "NP"}
+                                                                                       {:id "ARG1" :type "V2"}
+                                                                                       {:id "ARG2" :type "NP"})
+                                                                              :type   :oper})})}
+             "Syntax.a_Det/Det"                        {:id     "Syntax.a_Det/Det"
+                                                        :kind   "Det"
+                                                        :name   "Det"
+                                                        :label  "a_Det"
+                                                        :module "Syntax"
+                                                        :roles  ()
+                                                        :frames ({:examples ["a house"]
+                                                                  :syntax   ({:ret "Det" :value "Syntax.a_Det" :params () :type :oper})})}
+             "Syntax.have_V2/V2"                       {:id     "Syntax.have_V2/V2"
+                                                        :kind   "V2"
+                                                        :name   "V2"
+                                                        :label  "have_V2"
+                                                        :module "Syntax"
+                                                        :roles  ()
+                                                        :frames ({:examples ["to have it"]
+                                                                  :syntax   ({:ret "V2" :value "Syntax.have_V2" :params () :type :oper})})}
+             "BjelHkEwHnxXtAex"                        {:id             "BjelHkEwHnxXtAex"
+                                                        :label          "has a"
+                                                        :kind           "Str"
+                                                        :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                                                   :to    :02
+                                                                                                                   :role  :segment
+                                                                                                                   :index 0}
+                                                                                                                  {:from  :02
+                                                                                                                   :to    :03
+                                                                                                                   :role  :instance
+                                                                                                                   :index 0}
+                                                                                                                  {:from     :03
+                                                                                                                   :to       :04
+                                                                                                                   :role     :arg
+                                                                                                                   :index    0
+                                                                                                                   :category "Tense"
+                                                                                                                   :name     "(polarity)"}
+                                                                                                                  {:from     :03
+                                                                                                                   :to       :05
+                                                                                                                   :role     :arg
+                                                                                                                   :index    1
+                                                                                                                   :category "N"
+                                                                                                                   :name     "N.1"}
+                                                                                                                  {:from     :03
+                                                                                                                   :to       :06
+                                                                                                                   :role     :arg
+                                                                                                                   :index    2
+                                                                                                                   :category "N"
+                                                                                                                   :name     "N.2"})
+                                                                                                      :concepts  ({:id :01 :type :document-plan}
+                                                                                                                  {:id :02 :type :segment}
+                                                                                                                  {:id   :03
+                                                                                                                   :type :amr
+                                                                                                                   :name "tuPYHTmeXViCeXHE"}
+                                                                                                                  {:id   :04
+                                                                                                                   :type :reference
+                                                                                                                   :name "(polarity)"}
+                                                                                                                  {:id   :05
+                                                                                                                   :type :reference
+                                                                                                                   :name "Name"}
+                                                                                                                  {:id   :06
+                                                                                                                   :type :reference
+                                                                                                                   :name "Part"})}
+                                                        :frames         [{:examples []}]
+                                                        :roles          [{:id "ARG0" :label "(polarity)" :type "Tense"}
+                                                                         {:id "ARG1" :label "Name" :type "N"}
+                                                                         {:id "ARG2" :label "Part" :type "N"}]}
+             "Syntax.mkNP/Det->N->NP"                  {:id     "Syntax.mkNP/Det->N->NP"
+                                                        :kind   "NP"
+                                                        :name   "Det -> N -> NP"
+                                                        :label  "mkNP"
+                                                        :module "Syntax"
+                                                        :roles  ({:type "Det" :label "Det"} {:type "N" :label "N"})
+                                                        :frames ({:examples ["the five men"]
+                                                                  :syntax   ({:ret    "NP"
+                                                                              :value  "Syntax.mkNP"
+                                                                              :params ({:id "ARG0" :type "Det"} {:id "ARG1" :type "N"})
+                                                                              :type   :oper})})}
+             "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S" {:id     "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"
+                                                        :kind   "S"
+                                                        :name   "(Tense) -> (Ant) -> (Pol) -> Cl -> S"
+                                                        :label  "mkS"
+                                                        :module "Syntax"
+                                                        :roles  ({:type "Tense" :label "(Tense)"}
+                                                                 {:type "Ant" :label "(Ant)"}
+                                                                 {:type "Pol" :label "(Pol)"}
+                                                                 {:type "Cl" :label "Cl"})
+                                                        :frames ({:examples ["she wouldn't have slept"]
+                                                                  :syntax   ({:ret    "S"
+                                                                              :value  "Syntax.mkS"
+                                                                              :params ({:id "ARG0" :type "(Tense)"}
+                                                                                       {:id "ARG1" :type "(Ant)"}
+                                                                                       {:id "ARG2" :type "(Pol)"}
+                                                                                       {:id "ARG3" :type "Cl"})
+                                                                              :type   :oper})})}}
+ :constants {"*Language" "Eng"}}

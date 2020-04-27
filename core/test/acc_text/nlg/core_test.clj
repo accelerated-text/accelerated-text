@@ -29,16 +29,21 @@
                                                                        :forms    ["product" "products"]}}}]
     (testing "Sequences"
       (let [semantic-graph (test-utils/load-test-semantic-graph "sequence-test")]
-        (is (= ["Product fridge product. fridge. there is product. there is fridge. product fridge product. fridge. there is product. there is fridge."]
+        (is (= ["Product fridge product. fridge. There is product. There is fridge. product fridge product. fridge. There is product. There is fridge."]
                (map :text (core/generate-text semantic-graph context "Eng"))))))
     (testing "Synonyms"
       (let [semantic-graph (test-utils/load-test-semantic-graph "synonyms-test")]
-        (is (= #{"Fridge." "Product." "There is fridge." "There is product."}
+        (is (= #{"Fridge"
+                 "Fridge."
+                 "Product"
+                 "Product."
+                 "There is fridge."
+                 "There is product."}
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
     (testing "Shuffle"
       (let [semantic-graph (test-utils/load-test-semantic-graph "shuffle-test")]
-        (is (= #{"Product. product. there is product. fridge."
-                 "Product. there is product. product. fridge."
+        (is (= #{"Product. There is product. product. fridge."
+                 "Product. product. There is product. fridge."
                  "There is product. product. product. fridge."}
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))))
 
@@ -80,3 +85,8 @@
   (let [semantic-graph (test-utils/load-test-semantic-graph "parallel-edge-test")
         context (test-utils/load-test-context "parallel-edge-test")]
     (is (= ["There is an item."] (map :text (core/generate-text semantic-graph context "Eng"))))))
+
+(deftest ^:integration capitalize-test
+  (let [semantic-graph (test-utils/load-test-semantic-graph "capitalize-test")
+        context (test-utils/load-test-context "capitalize-test")]
+    (is (= ["One has one. One has a two. One has a three."] (map :text (core/generate-text semantic-graph context "Eng"))))))
