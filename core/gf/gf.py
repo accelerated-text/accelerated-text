@@ -72,9 +72,9 @@ def serialize_bracket(bracket):
 
 
 def generate_variants(expressions, concrete_grammar):
-    return [{"result": r, "tree": map(serialize_bracket, concrete_grammar.bracketedLinearize(e))}
+    return [{"tree": map(serialize_bracket, bracket)}
             for (_, e) in expressions
-            for r in concrete_grammar.linearizeAll(e)]
+            for bracket in concrete_grammar.bracketedLinearizeAll(e)]
 
 
 def generate_expressions(abstract_grammar):
