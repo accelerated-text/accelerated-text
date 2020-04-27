@@ -1,6 +1,5 @@
 (ns acc-text.nlg.gf.parser
-  (:require [acc-text.nlg.semantic-graph :as sg]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [clojure.zip :as zip]))
 
 (defn get-attrs [cat]
@@ -9,31 +8,13 @@
       {:type     (keyword (str/replace type #"_" "-"))
        :position (Integer/parseInt position)})))
 
-(defn build-semantic-graph [{:keys [id text cat children]}]
-  #::sg{:relations (map (fn [{child-id :id}]
-                          {:from id
-                           :to   child-id
-                           :role :child})
-                        children)
-        :concepts  [(merge
-                      {:id id}
-                      (if (some? cat)
-                        (get-attrs cat)
-                        {:type  :quote
-                         :value text}))]})
-
-(defn preprocess [z]
-  (loop [index 1
-         z z]
-    (if (zip/end? z)
-      (zip/root z)
-      (recur
-        (inc index)
-        (-> z
-            (zip/edit #(some-> %
-                               (cond->> (string? %) (hash-map :text))
-                               (assoc :id (keyword (format "%02d" index)))))
-            (zip/next))))))
+(defn make-concept [{:keys [cat text]} lincat]
+  (if (some? cat)
+    (cond-> (get-attrs cat)
+            (contains? lincat cat) (assoc :category (get lincat cat)))
+    {:type     :quote
+     :value    text
+     :category "Str"}))
 
 (defn make-zipper [t]
   (zip/zipper
@@ -44,12 +25,27 @@
       (assoc node :children children))
     t))
 
-(defn tree->semantic-graph [t]
-  (loop [z (-> t (make-zipper) (preprocess) (make-zipper))
-         graph #::sg{:relations []
-                     :concepts  []}]
+(defn detokenize [tokens]
+  (str/replace (str/join " " tokens) #"\s+[.?!]" #(str/trim %)))
+
+(defn parse-tree [t lincat]
+  (loop [z (make-zipper (first t))
+         new-paragraph? false
+         new-sentence? false
+         tokens []]
     (if (zip/end? z)
-      graph
-      (recur
-        (zip/next z)
-        (merge-with concat graph (build-semantic-graph (zip/node z)))))))
+      {:text   (detokenize tokens)
+       :tokens tokens}
+      (let [node (cond->> (zip/node z) (string? (zip/node z)) (hash-map :text))
+            {:keys [type category value]} (make-concept node lincat)]
+        (recur
+          (zip/next z)
+          (cond-> new-paragraph?
+                  (and (false? new-paragraph?) (= :segment type)) (not)
+                  (and (true? new-paragraph?) (= :quote type)) (not))
+          (cond-> new-sentence?
+                  (and (false? new-sentence?) (= "Text" category)) (not)
+                  (and (true? new-sentence?) (= :quote type)) (not))
+          (cond-> tokens
+                  (and (= :quote type) (or (true? new-sentence?) (zero? (count tokens)))) (conj (str/capitalize value))
+                  (and (false? new-sentence?) (pos-int? (count tokens)) (= :quote type)) (conj value)))))))
