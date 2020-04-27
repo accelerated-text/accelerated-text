@@ -33,12 +33,7 @@
                (map :text (core/generate-text semantic-graph context "Eng"))))))
     (testing "Synonyms"
       (let [semantic-graph (test-utils/load-test-semantic-graph "synonyms-test")]
-        (is (= #{"Fridge"
-                 "Fridge."
-                 "Product"
-                 "Product."
-                 "There is fridge."
-                 "There is product."}
+        (is (= #{"Fridge." "Product." "There is fridge." "There is product."}
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
     (testing "Shuffle"
       (let [semantic-graph (test-utils/load-test-semantic-graph "shuffle-test")]
@@ -71,14 +66,12 @@
 (deftest ^:integration modifier-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
         context (test-utils/load-test-context "modifier-test")]
-    (is (= (->> ["there is a quiet fridge."
-                 "there is a cheap kettle."
-                 "there is a quiet kettle."
-                 "there is a cheap fridge."
-                 "there is a quiet fan."
-                 "there is a cheap lamp."]
-                (str/join " ")
-                (str/capitalize))
+    (is (= (str/join " " ["There is a quiet fridge."
+                          "There is a cheap kettle."
+                          "There is a quiet kettle."
+                          "There is a cheap fridge."
+                          "There is a quiet fan."
+                          "There is a cheap lamp."])
            (first (map :text (core/generate-text semantic-graph context "Eng")))))))
 
 (deftest ^:integration parallel-edge-test
