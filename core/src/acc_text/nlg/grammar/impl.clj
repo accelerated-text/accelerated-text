@@ -21,9 +21,7 @@
 
 (defn node->cat [graph node-id]
   (let [{:keys [type position]} (attrs graph node-id)]
-    (str (->> (str/split (name type) #"-")
-              (map str/capitalize)
-              (str/join))
+    (str (str/replace (name type) #"-" "_")
          (format "%02d" (or position 0)))))
 
 (defn s-node? [graph node-id]
