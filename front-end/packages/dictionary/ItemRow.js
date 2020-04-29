@@ -40,6 +40,7 @@ export default class DictionaryItemRow extends Component {
                         mutation={{
                             id:     item.id,
                             name:   item.name,
+                            partOfSpeech: item.partOfSpeech,
                         }}
                     />
                 }

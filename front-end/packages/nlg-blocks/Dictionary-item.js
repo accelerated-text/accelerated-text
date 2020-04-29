@@ -51,6 +51,7 @@ export default Block({
         return {
             ...toNlgJson( this ),
             itemId:         this.itemId,
+            kind:           this.partOfSpeech,
         };
     },
 });
