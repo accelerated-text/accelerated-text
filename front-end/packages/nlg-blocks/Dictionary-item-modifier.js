@@ -22,7 +22,7 @@ export default Block({
             {
                 type:       'input_value',
                 name:       'child',
-                check:      T.TEXT,
+                check:      T.AMR_or_TEXT,
             },
         ],
     },
