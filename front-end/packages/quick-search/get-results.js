@@ -6,7 +6,7 @@ import posToString          from '../part-of-speech/to-string';
 const BLOCK_RESULTS = {
     'AND / OR':                     B.AndOr,
     'EITHER - OR':                  B.Xor,
-    'adjective + noun (modifier)':  B.Modifier,
+    'modifier':                     B.Modifier,
     'define variable':              B.DefineVar,
     'if..then..else':               B.IfThenElse,
     'one of synonyms':              B.OneOfSynonyms,

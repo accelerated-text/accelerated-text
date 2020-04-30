@@ -26,4 +26,15 @@ export default Block({
             },
         ],
     },
+
+    domToMutation( xmlElement ) {
+
+        this.itemId =       xmlElement.getAttribute( 'id' );
+        this.itemName =     xmlElement.getAttribute( 'name' );
+        this.partOfSpeech = xmlElement.getAttribute( 'partOfSpeech' );
+
+        this.getField( 'name' )
+            .setValue( this.itemName );
+
+    },
 });
