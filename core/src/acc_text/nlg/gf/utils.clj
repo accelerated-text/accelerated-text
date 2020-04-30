@@ -164,3 +164,13 @@
 
 (defn save-paths [paths output-path]
   (spit output-path (with-out-str (pprint paths))))
+
+(defn find-modifiers [& paths]
+  (->> paths
+       (apply read-rgl-functions)
+       (mapcat (fn [{:keys [module functions]}] (map #(assoc % :module module) functions)))
+       (filter (fn [{type :type}] (= 3 (count (filter #(re-matches #"\p{L}+" %) type)))))
+       (map (fn [{:keys [function type module]}]
+              (let [[x y z] (filter #(re-matches #"\p{L}+" %) type)]
+                {[x y] (list {:type :operation :name function :category z :module module})})))
+       (apply merge-with concat)))
