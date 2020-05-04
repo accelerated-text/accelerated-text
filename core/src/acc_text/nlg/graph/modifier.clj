@@ -1,7 +1,7 @@
 (ns acc-text.nlg.graph.modifier
   (:require [acc-text.nlg.gf.modifiers :refer [modifier-map]]
             [acc-text.nlg.gf.paths :refer [path-map]]
-            [acc-text.nlg.graph.utils :refer [find-nodes get-in-edge get-successors]]
+            [acc-text.nlg.graph.utils :refer [find-nodes get-successors]]
             [acc-text.nlg.semantic-graph :as sg]
             [clojure.math.combinatorics :refer [cartesian-product]]
             [loom.attr :refer [attrs]]
