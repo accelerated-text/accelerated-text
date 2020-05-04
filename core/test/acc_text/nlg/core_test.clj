@@ -81,13 +81,24 @@
 
 (deftest ^:integration one-of-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "one-of-with-str")
-        context        (test-utils/load-test-context "one-of-with-str")]
+        context (test-utils/load-test-context "one-of-with-str")]
     (is (= #{"Apple is green." "Apple is red."}
            (set (map :text
                      (core/generate-text
-                      semantic-graph context "Eng")))))))
+                       semantic-graph context "Eng")))))))
 
 (deftest ^:integration capitalize-test
   (let [semantic-graph (test-utils/load-test-semantic-graph "capitalize-test")
         context (test-utils/load-test-context "capitalize-test")]
     (is (= ["One has one. One has a two. One has a three."] (map :text (core/generate-text semantic-graph context "Eng"))))))
+
+(deftest ^:integration modifier-test-full
+  (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test-full")
+        context (test-utils/load-test-context "modifier-test-full")]
+    (is (= (->> ["There is good eatery." "There is good chinese eatery." "Cafe is nice." "There is nice cafe."
+                 "Excellent to find." "It is here that it looks." "It looks here." "There is venue there."
+                 "It is here that there is restaurant." "Delicious to try." "Excellent that eatery is a delicious decent cafe."
+                 "It is in family-friendly Alimentum that there is italian food and the beautiful door is made of traditional oriental wood."]
+                (str/join " ")
+                (vector))
+           (map :text (core/generate-text semantic-graph context "Eng"))))))

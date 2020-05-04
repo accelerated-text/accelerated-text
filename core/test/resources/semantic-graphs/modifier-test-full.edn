@@ -1,0 +1,249 @@
+#:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
+                                          {:from :02 :to :03 :role :instance :index 0}
+                                          {:from :02 :to :06 :role :instance :index 1}
+                                          {:from :02 :to :10 :role :instance :index 2}
+                                          {:from :02 :to :13 :role :instance :index 3}
+                                          {:from :02 :to :16 :role :instance :index 4}
+                                          {:from :02 :to :19 :role :instance :index 5}
+                                          {:from :02 :to :22 :role :instance :index 6}
+                                          {:from :02 :to :25 :role :instance :index 7}
+                                          {:from :02 :to :28 :role :instance :index 8}
+                                          {:from :02 :to :31 :role :instance :index 9}
+                                          {:from :02 :to :34 :role :instance :index 10}
+                                          {:from :02 :to :43 :role :instance :index 11}
+                                          {:from :03 :to :04 :role :child}
+                                          {:from :03 :to :05 :role :modifier :index 0}
+                                          {:from :06 :to :07 :role :child}
+                                          {:from :06 :to :08 :role :modifier :index 0}
+                                          {:from :06 :to :09 :role :modifier :index 1}
+                                          {:from :10 :to :11 :role :child}
+                                          {:from :10 :to :12 :role :modifier :index 0}
+                                          {:from :13 :to :14 :role :child}
+                                          {:from :13 :to :15 :role :modifier :index 0}
+                                          {:from :16 :to :17 :role :child}
+                                          {:from :16 :to :18 :role :modifier :index 0}
+                                          {:from :19 :to :20 :role :child}
+                                          {:from :19 :to :21 :role :modifier :index 0}
+                                          {:from :22 :to :23 :role :child}
+                                          {:from :22 :to :24 :role :modifier :index 0}
+                                          {:from :25 :to :26 :role :child}
+                                          {:from :25 :to :27 :role :modifier :index 0}
+                                          {:from :28 :to :29 :role :child}
+                                          {:from :28 :to :30 :role :modifier :index 0}
+                                          {:from :31 :to :32 :role :child}
+                                          {:from :31 :to :33 :role :modifier :index 0}
+                                          {:from :34 :to :35 :role :child}
+                                          {:from :34 :to :42 :role :modifier :index 0}
+                                          {:from :35 :to :36 :role :arg :index 0 :category "NP" :name "Name"}
+                                          {:from :35 :to :37 :role :arg :index 1 :category "CN" :name "Property"}
+                                          {:from :37 :to :38 :role :arg :index 0 :category "AP" :name "Property"}
+                                          {:from :37 :to :39 :role :arg :index 1 :category "CN" :name "Noun"}
+                                          {:from :39 :to :40 :role :child}
+                                          {:from :39 :to :41 :role :modifier :index 0}
+                                          {:from :43 :to :44 :role :child}
+                                          {:from :43 :to :59 :role :modifier :index 0}
+                                          {:from :44 :to :45 :role :arg :index 0 :category "S" :name "Statement 1"}
+                                          {:from :44 :to :50 :role :arg :index 1 :category "S" :name "Statement 2"}
+                                          {:from :45 :to :46 :role :arg :index 0 :category "NP" :name "Name"}
+                                          {:from :46 :to :47 :role :child}
+                                          {:from :46 :to :48 :role :modifier :index 0}
+                                          {:from :50 :to :51 :role :arg :index 0 :category "NP" :name "Name"}
+                                          {:from :50 :to :55 :role :arg :index 1 :category "NP" :name "Material"}
+                                          {:from :51 :to :52 :role :arg :index 0 :category "CN" :name "Noun"}
+                                          {:from :52 :to :53 :role :child}
+                                          {:from :52 :to :54 :role :modifier :index 0}
+                                          {:from :55 :to :56 :role :child}
+                                          {:from :55 :to :57 :role :modifier :index 0}
+                                          {:from :55 :to :58 :role :modifier :index 1}
+                                          {:from :59 :to :60 :role :arg :index 0 :category "NP" :name "Object"}
+                                          {:from :60 :to :61 :role :child}
+                                          {:from :60 :to :62 :role :modifier :index 0})
+                              :concepts  ({:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :modifier}
+                                          {:id       :04
+                                           :type     :dictionary-item
+                                           :name     "034fe8a5-6c57-4cc3-a3b5-0309d2eaf201"
+                                           :label    "eatery_1_N"
+                                           :category "N"}
+                                          {:id       :05
+                                           :type     :dictionary-item
+                                           :name     "6a8b8da0-a821-4085-9620-5fcbcfc441c3"
+                                           :label    "good_1_A"
+                                           :category "A"}
+                                          {:id :06 :type :modifier}
+                                          {:id       :07
+                                           :type     :dictionary-item
+                                           :name     "034fe8a5-6c57-4cc3-a3b5-0309d2eaf201"
+                                           :label    "eatery_1_N"
+                                           :category "N"}
+                                          {:id       :08
+                                           :type     :dictionary-item
+                                           :name     "6a8b8da0-a821-4085-9620-5fcbcfc441c3"
+                                           :label    "good_1_A"
+                                           :category "A"}
+                                          {:id       :09
+                                           :type     :dictionary-item
+                                           :name     "3a2e0919-0992-4adc-8e2e-17254a5b71ba"
+                                           :label    "chinese_1_A"
+                                           :category "A"}
+                                          {:id :10 :type :modifier}
+                                          {:id       :11
+                                           :type     :dictionary-item
+                                           :name     "b7a235c4-09b0-48a1-867e-c4082e416c9f"
+                                           :label    "nice_1_A"
+                                           :category "A"}
+                                          {:id       :12
+                                           :type     :dictionary-item
+                                           :name     "48a5b9b5-09ab-45c4-83f4-c2d996768be1"
+                                           :label    "cafe_1_N"
+                                           :category "N"}
+                                          {:id :13 :type :modifier}
+                                          {:id       :14
+                                           :type     :dictionary-item
+                                           :name     "48a5b9b5-09ab-45c4-83f4-c2d996768be1"
+                                           :label    "cafe_1_N"
+                                           :category "N"}
+                                          {:id       :15
+                                           :type     :dictionary-item
+                                           :name     "b7a235c4-09b0-48a1-867e-c4082e416c9f"
+                                           :label    "nice_1_A"
+                                           :category "A"}
+                                          {:id :16 :type :modifier}
+                                          {:id       :17
+                                           :type     :dictionary-item
+                                           :name     "13178cdb-6c0e-4ab3-8a80-7a0f70fd53dc"
+                                           :label    "find_1_V"
+                                           :category "V"}
+                                          {:id       :18
+                                           :type     :dictionary-item
+                                           :name     "b815372d-8f58-4a8b-be0a-351def641fbb"
+                                           :label    "excellent_1_A"
+                                           :category "A"}
+                                          {:id :19 :type :modifier}
+                                          {:id       :20
+                                           :type     :dictionary-item
+                                           :name     "efe7424c-2220-4601-b7ee-986c1a40bad2"
+                                           :label    "look_1_V"
+                                           :category "V"}
+                                          {:id       :21
+                                           :type     :dictionary-item
+                                           :name     "dc189d3e-55a6-4d41-b8f7-2347c2fd41b0"
+                                           :label    "here_1_Adv"
+                                           :category "Adv"}
+                                          {:id :22 :type :modifier}
+                                          {:id       :23
+                                           :type     :dictionary-item
+                                           :name     "dc189d3e-55a6-4d41-b8f7-2347c2fd41b0"
+                                           :label    "here_1_Adv"
+                                           :category "Adv"}
+                                          {:id       :24
+                                           :type     :dictionary-item
+                                           :name     "efe7424c-2220-4601-b7ee-986c1a40bad2"
+                                           :label    "look_1_V"
+                                           :category "V"}
+                                          {:id :25 :type :modifier}
+                                          {:id       :26
+                                           :type     :dictionary-item
+                                           :name     "d8485655-40fd-437e-a384-17b7c3aa7930"
+                                           :label    "there_1_Adv"
+                                           :category "Adv"}
+                                          {:id       :27
+                                           :type     :dictionary-item
+                                           :name     "a8c224b8-72ad-4359-82d6-120a1cc0ba08"
+                                           :label    "venue_1_N"
+                                           :category "N"}
+                                          {:id :28 :type :modifier}
+                                          {:id       :29
+                                           :type     :dictionary-item
+                                           :name     "592b92cc-30c8-4d81-808f-14650e2f076d"
+                                           :label    "restaurant_1_N"
+                                           :category "N"}
+                                          {:id       :30
+                                           :type     :dictionary-item
+                                           :name     "dc189d3e-55a6-4d41-b8f7-2347c2fd41b0"
+                                           :label    "here_1_Adv"
+                                           :category "Adv"}
+                                          {:id :31 :type :modifier}
+                                          {:id       :32
+                                           :type     :dictionary-item
+                                           :name     "4c15179d-eac3-47ee-a626-e51fcf418190"
+                                           :label    "try_1_V"
+                                           :category "V"}
+                                          {:id       :33
+                                           :type     :dictionary-item
+                                           :name     "e5558c7c-7bd6-4863-82b9-875a21083fa0"
+                                           :label    "delicious_1_A"
+                                           :category "A"}
+                                          {:id :34 :type :modifier}
+                                          {:id :35 :type :amr :name "nUfKLthfqaMKnibj" :category "Cl"}
+                                          {:id       :36
+                                           :type     :dictionary-item
+                                           :name     "034fe8a5-6c57-4cc3-a3b5-0309d2eaf201"
+                                           :label    "eatery_1_N"
+                                           :category "N"}
+                                          {:id :37 :type :amr :name "nIbGPEHYWiEGopms" :category "CN"}
+                                          {:id       :38
+                                           :type     :dictionary-item
+                                           :name     "e5558c7c-7bd6-4863-82b9-875a21083fa0"
+                                           :label    "delicious_1_A"
+                                           :category "A"}
+                                          {:id :39 :type :modifier}
+                                          {:id       :40
+                                           :type     :dictionary-item
+                                           :name     "48a5b9b5-09ab-45c4-83f4-c2d996768be1"
+                                           :label    "cafe_1_N"
+                                           :category "N"}
+                                          {:id       :41
+                                           :type     :dictionary-item
+                                           :name     "9c58b2d3-f462-4d4a-b650-522e3f7c353f"
+                                           :label    "decent_1_A"
+                                           :category "A"}
+                                          {:id       :42
+                                           :type     :dictionary-item
+                                           :name     "b815372d-8f58-4a8b-be0a-351def641fbb"
+                                           :label    "excellent_1_A"
+                                           :category "A"}
+                                          {:id :43 :type :modifier}
+                                          {:id :44 :type :amr :name "UFrKuCtajDyoWjzN" :category "S"}
+                                          {:id :45 :type :amr :name "rlTnoTVoELQNiQjW" :category "Cl"}
+                                          {:id :46 :type :modifier}
+                                          {:id       :47
+                                           :type     :dictionary-item
+                                           :name     "d846bbf8-4ed2-4706-8be9-dad558ae34a3"
+                                           :label    "food_1_N"
+                                           :category "N"}
+                                          {:id       :48
+                                           :type     :dictionary-item
+                                           :name     "b5177341-d01d-4b5b-bc0e-245f3393a5e9"
+                                           :label    "italian_1_A"
+                                           :category "A"}
+                                          {:id :50 :type :amr :name "TXFAAaOVstvGiyif" :category "Cl"}
+                                          {:id :51 :type :amr :name "WjgWhIChUqMvKPHa" :category "NP"}
+                                          {:id :52 :type :modifier}
+                                          {:id :53 :type :data :name "Type"}
+                                          {:id       :54
+                                           :type     :dictionary-item
+                                           :name     "c6815199-e22b-4c05-8581-6fac6ff94ccc"
+                                           :label    "beautiful_1_A"
+                                           :category "A"}
+                                          {:id :55 :type :modifier}
+                                          {:id :56 :type :data :name "Main Material"}
+                                          {:id       :57
+                                           :type     :dictionary-item
+                                           :name     "271deda0-87fc-4a54-a62a-6d90fe476428"
+                                           :label    "traditional_1_A"
+                                           :category "A"}
+                                          {:id       :58
+                                           :type     :dictionary-item
+                                           :name     "def9017b-b15a-493e-87fc-f60e3f9e4d82"
+                                           :label    "oriental_1_A"
+                                           :category "A"}
+                                          {:id :59 :type :amr :name "DGmLjUPYhlGnxMGg" :category "Adv"}
+                                          {:id :60 :type :modifier}
+                                          {:id :61 :type :quote :value "Alimentum"}
+                                          {:id       :62
+                                           :type     :dictionary-item
+                                           :name     "374ac2b3-ca66-401c-8e90-cd30a5cb4299"
+                                           :label    "family-friendly_1_A"
+                                           :category "A"})}
