@@ -31,7 +31,7 @@ export default Block({
 
         this.itemId =       xmlElement.getAttribute( 'id' );
         this.itemName =     xmlElement.getAttribute( 'name' );
-        this.partOfSpeech = xmlElement.getAttribute( 'partOfSpeech' );
+        this.partOfSpeech = xmlElement.getAttribute( 'pos' );
 
         this.getField( 'name' )
             .setValue( this.itemName );
