@@ -12,19 +12,13 @@
  ["Det" "N"]        ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["Quant" "N"]      ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["Numeral" "N"]    ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
- ["V" "Str"]        ({:type :operation :name "partV" :category "V" :module "ParadigmsEng"})
- ["AP" "ListAP"]    ({:type :operation :name "mkListAP" :category "ListAP" :module "Syntax"})
  ["AP" "CN"]        ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
  ["NP" "A"]         ({:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
  ["VPSlash" "NP"]   ({:type :operation :name "mkVP" :category "VP" :module "Syntax"})
  ["N" "Prep"]       ({:type :operation :name "mkN3" :category "Prep" :module "ParadigmsEng"})
- ["NP" "NP"]        ({:type :operation :name "mkVP" :category "VP" :module "Syntax"}
-                     {:type :operation :name "mkCN" :category "CN" :module "Syntax"}
-                     {:type :operation :name "mkCl" :category "Cl" :module "Syntax"}
-                     {:type :operation :name "mkCl" :category "Cl" :module "Syntax"}
-                     {:type :operation :name "mkCl" :category "Cl" :module "Syntax"}
-                     {:type :operation :name "mkListNP" :category "ListNP" :module "Syntax"})
- ["Adv" "ListAdv"]  ({:type :operation :name "mkListAdv" :category "ListAdv" :module "Syntax"})
+ ["NP" "NP"]        ({:type :operation :name "mkCN" :category "CN" :module "Syntax"}
+                     {:type :operation :name "mkVP" :category "VP" :module "Syntax"}
+                     {:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
  ["Quant" "Ord"]    ({:type :operation :name "mkDet" :category "Det" :module "Syntax"})
  ["CN" "S"]         ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
  ["IP" "AP"]        ({:type :operation :name "mkQCl" :category "QCl" :module "Syntax"})
@@ -33,25 +27,19 @@
  ["Pron" "Num"]     ({:type :operation :name "mkDet" :category "Det" :module "Syntax"})
  ["RP" "CN"]        ({:type :operation :name "mkRCl" :category "RCl" :module "Syntax"})
  ["Quant" "Card"]   ({:type :operation :name "mkDet" :category "Det" :module "Syntax"})
- ["Adv" "Adv"]      ({:type :operation :name "mkListAdv" :category "ListAdv" :module "Syntax"})
  ["Numeral" "CN"]   ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["Card" "CN"]      ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["RP" "AP"]        ({:type :operation :name "mkRCl" :category "RCl" :module "Syntax"})
- ["IP" "NP"]        ({:type :operation :name "mkQCl" :category "QCl" :module "Syntax"}
-                     {:type :operation :name "mkQCl" :category "QCl" :module "Syntax"}
-                     {:type :operation :name "mkQCl" :category "QCl" :module "Syntax"}
-                     {:type :operation :name "mkQCl" :category "QCl" :module "Syntax"})
+ ["IP" "NP"]        ({:type :operation :name "mkQCl" :category "QCl" :module "Syntax"})
  ["Prep" "IP"]      ({:type :operation :name "mkIAdv" :category "IAdv" :module "Syntax"})
  ["CN" "SC"]        ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
  ["VQ" "QS"]        ({:type :operation :name "mkVP" :category "VP" :module "Syntax"})
  ["VP" "Adv"]       ({:type :operation :name "mkVP" :category "VP" :module "Syntax"})
- ["AdN" "Card"]     ({:type :operation :name "mkNum" :category "Num" :module "Syntax"}
-                     {:type :operation :name "mkCard" :category "Card" :module "Syntax"})
+ ["AdN" "Card"]     ({:type :operation :name "mkCard" :category "Card" :module "Syntax"}
+                     {:type :operation :name "mkNum" :category "Num" :module "Syntax"})
  ["AdA" "Adv"]      ({:type :operation :name "mkAdv" :category "Adv" :module "Syntax"})
- ["A" "Str"]        ({:type :operation :name "irregAdv" :category "A" :module "ParadigmsEng"})
  ["N" "NP"]         ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
  ["N" "Adv"]        ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
- ["RS" "RS"]        ({:type :operation :name "mkListRS" :category "ListRS" :module "Syntax"})
  ["Pron" "CN"]      ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["RP" "A"]         ({:type :operation :name "mkRCl" :category "RCl" :module "Syntax"})
  ["VV" "VPSlash"]   ({:type :operation :name "mkVPSlash" :category "VPSlash" :module "Syntax"})
@@ -71,14 +59,12 @@
                      {:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
  ["AP" "S"]         ({:type :operation :name "mkAP" :category "AP" :module "Syntax"})
  ["SC" "VP"]        ({:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
- ["NP" "ListNP"]    ({:type :operation :name "mkListNP" :category "ListNP" :module "Syntax"})
  ["Digits" "N"]     ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["CN" "NP"]        ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
  ["Card" "N"]       ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["NP" "S"]         ({:type :operation :name "mkVP" :category "VP" :module "Syntax"})
  ["IQuant" "N"]     ({:type :operation :name "mkIP" :category "IP" :module "Syntax"})
  ["IQuant" "CN"]    ({:type :operation :name "mkIP" :category "IP" :module "Syntax"})
- ["S" "ListS"]      ({:type :operation :name "mkListS" :category "ListS" :module "Syntax"})
  ["A" "CN"]         ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
  ["IP" "A"]         ({:type :operation :name "mkQCl" :category "QCl" :module "Syntax"})
  ["CN" "VP"]        ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
@@ -86,7 +72,6 @@
  ["CN" "Adv"]       ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
  ["Pron" "N"]       ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["V" "Prep"]       ({:type :operation :name "mkV2V" :category "Prep" :module "ParadigmsEng"}
-                     {:type :operation :name "ingV2V" :category "Prep" :module "ParadigmsEng"}
                      {:type :operation :name "mkV3" :category "Prep" :module "ParadigmsEng"}
                      {:type :operation :name "mkV2A" :category "Prep" :module "ParadigmsEng"})
  ["IDet" "N"]       ({:type :operation :name "mkIP" :category "IP" :module "Syntax"})
@@ -102,25 +87,17 @@
  ["AdA" "A"]        ({:type :operation :name "mkAP" :category "AP" :module "Syntax"})
  ["VA" "AP"]        ({:type :operation :name "mkVP" :category "VP" :module "Syntax"})
  ["Predet" "NP"]    ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
- ["RP" "NP"]        ({:type :operation :name "mkRCl" :category "RCl" :module "Syntax"}
-                     {:type :operation :name "mkRCl" :category "RCl" :module "Syntax"}
-                     {:type :operation :name "mkRCl" :category "RCl" :module "Syntax"}
-                     {:type :operation :name "mkRCl" :category "RCl" :module "Syntax"})
+ ["RP" "NP"]        ({:type :operation :name "mkRCl" :category "RCl" :module "Syntax"})
  ["Conj" "ListAP"]  ({:type :operation :name "mkAP" :category "AP" :module "Syntax"})
  ["IAdv" "Adv"]     ({:type :operation :name "mkIAdv" :category "IAdv" :module "Syntax"})
  ["Quant" "CN"]     ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["Subj" "S"]       ({:type :operation :name "mkAdv" :category "Adv" :module "Syntax"})
  ["Conj" "ListS"]   ({:type :operation :name "mkS" :category "S" :module "Syntax"})
  ["IComp" "NP"]     ({:type :operation :name "mkQCl" :category "QCl" :module "Syntax"})
- ["S" "S"]          ({:type :operation :name "mkListS" :category "ListS" :module "Syntax"})
- ["AP" "AP"]        ({:type :operation :name "mkListAP" :category "ListAP" :module "Syntax"})
  ["Adv" "S"]        ({:type :operation :name "mkCl" :category "Cl" :module "Syntax"}
                      {:type :operation :name "mkS" :category "S" :module "Syntax"})
  ["AP" "N"]         ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
  ["IAdv" "NP"]      ({:type :operation :name "mkQCl" :category "QCl" :module "Syntax"})
- ["Str" "Str"]      ({:type :operation :name "mkA" :category "A" :module "ParadigmsEng"}
-                     {:type :operation :name "mkV" :category "V" :module "ParadigmsEng"}
-                     {:type :operation :name "mkN" :category "N" :module "ParadigmsEng"})
  ["NP" "V"]         ({:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
  ["RP" "ClSlash"]   ({:type :operation :name "mkRCl" :category "RCl" :module "Syntax"})
  ["CN" "RS"]        ({:type :operation :name "mkCN" :category "CN" :module "Syntax"})
@@ -129,14 +106,13 @@
  ["NP" "RS"]        ({:type :operation :name "mkNP" :category "NP" :module "Syntax"}
                      {:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
  ["RP" "N"]         ({:type :operation :name "mkRCl" :category "RCl" :module "Syntax"})
- ["NP" "VPSlash"]   ({:type :operation :name "mkClSlash" :category "ClSlash" :module "Syntax"}
-                     {:type :operation :name "mkVPSlash" :category "VPSlash" :module "Syntax"})
- ["RS" "ListRS"]    ({:type :operation :name "mkListRS" :category "ListRS" :module "Syntax"})
+ ["NP" "VPSlash"]   ({:type :operation :name "mkVPSlash" :category "VPSlash" :module "Syntax"}
+                     {:type :operation :name "mkClSlash" :category "ClSlash" :module "Syntax"})
  ["AdA" "AP"]       ({:type :operation :name "mkAP" :category "AP" :module "Syntax"})
  ["NP" "VP"]        ({:type :operation :name "mkVP" :category "VP" :module "Syntax"}
                      {:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
- ["Quant" "Num"]    ({:type :operation :name "mkNP" :category "NP" :module "Syntax"}
-                     {:type :operation :name "mkDet" :category "Det" :module "Syntax"})
+ ["Quant" "Num"]    ({:type :operation :name "mkDet" :category "Det" :module "Syntax"}
+                     {:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["AP" "VP"]        ({:type :operation :name "mkAP" :category "AP" :module "Syntax"})
  ["Digits" "CN"]    ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})
  ["IP" "N"]         ({:type :operation :name "mkQCl" :category "QCl" :module "Syntax"})
