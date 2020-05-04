@@ -13,13 +13,13 @@ export default Block({
     json: {
         colour:             color,
         output:             T.LIST,
-        message0:           'a.%1',
+        message0:           '%1',
         args0: [{
             type:           'input_value',
             name:           'modifier',
             check:          T.ANY,
         }],
-        message1:           'n.%1',
+        message1:           '%1',
         args1: [{
             type:           'input_value',
             name:           'child',

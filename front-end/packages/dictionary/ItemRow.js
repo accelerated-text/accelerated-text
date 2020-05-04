@@ -28,7 +28,7 @@ export default class DictionaryItemRow extends Component {
                         mutation={{
                             id:           item.id,
                             name:         item.name,
-                            partOfSpeech: item.partOfSpeech,
+                            pos:          item.partOfSpeech,
                         }}
                     />
                 }
@@ -40,6 +40,7 @@ export default class DictionaryItemRow extends Component {
                         mutation={{
                             id:     item.id,
                             name:   item.name,
+                            pos:    item.partOfSpeech,
                         }}
                     />
                 }

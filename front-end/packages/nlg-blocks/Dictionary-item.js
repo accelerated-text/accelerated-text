@@ -28,7 +28,7 @@ export default Block({
 
         this.itemId =       xmlElement.getAttribute( 'id' );
         this.itemName =     xmlElement.getAttribute( 'name' );
-        this.partOfSpeech = xmlElement.getAttribute( 'partOfSpeech' );
+        this.partOfSpeech = xmlElement.getAttribute( 'pos' );
 
         this.getField( 'name' )
             .setValue( this.itemName );
@@ -42,7 +42,7 @@ export default Block({
             <mutation
                 id={ this.itemId }
                 name={ this.itemName }
-                partOfSpeech={ this.partOfSpeech }
+                pos={ this.partOfSpeech }
             />
         );
     },
@@ -51,6 +51,7 @@ export default Block({
         return {
             ...toNlgJson( this ),
             itemId:         this.itemId,
+            kind:           this.partOfSpeech,
         };
     },
 });

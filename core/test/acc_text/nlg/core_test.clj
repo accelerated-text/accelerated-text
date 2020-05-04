@@ -63,17 +63,6 @@
              "There is an author and there is a publisher."}
            (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
 
-(deftest ^:integration modifier-generation
-  (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
-        context (test-utils/load-test-context "modifier-test")]
-    (is (= (str/join " " ["There is a quiet fridge."
-                          "There is a cheap kettle."
-                          "There is a quiet kettle."
-                          "There is a cheap fridge."
-                          "There is a quiet fan."
-                          "There is a cheap lamp."])
-           (first (map :text (core/generate-text semantic-graph context "Eng")))))))
-
 (deftest ^:integration parallel-edge-test
   (let [semantic-graph (test-utils/load-test-semantic-graph "parallel-edge-test")
         context (test-utils/load-test-context "parallel-edge-test")]
@@ -81,13 +70,24 @@
 
 (deftest ^:integration one-of-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "one-of-with-str")
-        context        (test-utils/load-test-context "one-of-with-str")]
+        context (test-utils/load-test-context "one-of-with-str")]
     (is (= #{"Apple is green." "Apple is red."}
            (set (map :text
                      (core/generate-text
-                      semantic-graph context "Eng")))))))
+                       semantic-graph context "Eng")))))))
 
 (deftest ^:integration capitalize-test
   (let [semantic-graph (test-utils/load-test-semantic-graph "capitalize-test")
         context (test-utils/load-test-context "capitalize-test")]
     (is (= ["One has one. One has a two. One has a three."] (map :text (core/generate-text semantic-graph context "Eng"))))))
+
+(deftest ^:integration modifier-test
+  (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
+        context (test-utils/load-test-context "modifier-test")]
+    (is (= (->> ["There is good eatery." "There is good chinese eatery." "Cafe is nice." "There is nice cafe."
+                 "Excellent to find." "It is here that it looks." "It looks here." "There is venue there."
+                 "It is here that there is restaurant." "Delicious to try." "Excellent that eatery is a delicious decent cafe."
+                 "It is in family-friendly Alimentum that there is italian food and the beautiful door is made of traditional oriental wood."]
+                (str/join " ")
+                (vector))
+           (map :text (core/generate-text semantic-graph context "Eng"))))))

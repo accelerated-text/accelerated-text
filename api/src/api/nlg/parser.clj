@@ -62,18 +62,20 @@
                      :value (or text "")}]
         :relations []})
 
-(defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name]} _]
-  #::sg{:concepts  [{:id    id
-                     :type  :dictionary-item
-                     :name  itemId
-                     :label name}]
+(defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name kind]} _]
+  #::sg{:concepts  [{:id       id
+                     :type     :dictionary-item
+                     :name     itemId
+                     :label    name
+                     :category kind}]
         :relations []})
 
-(defmethod build-semantic-graph :Dictionary-item-modifier [{:keys [id itemId name]} _]
-  #::sg{:concepts  [{:id    id
-                     :type  :dictionary-item
-                     :name  itemId
-                     :label name}]
+(defmethod build-semantic-graph :Dictionary-item-modifier [{:keys [id itemId name kind]} _]
+  #::sg{:concepts  [{:id       id
+                     :type     :dictionary-item
+                     :name     itemId
+                     :label    name
+                     :category kind}]
         :relations []})
 
 (defmethod build-semantic-graph :Cell-modifier [{:keys [id name]} _]
@@ -358,5 +360,5 @@
                    (= "Define-var" type) (merge-with-concat {name [id]}))))))))
 
 (s/fdef document-plan->semantic-graph
-  :args (s/cat :document-plan map? :metadata map?)
-  :ret ::sg/graph)
+        :args (s/cat :document-plan map? :metadata map?)
+        :ret ::sg/graph)

@@ -1,5 +1,6 @@
 (ns api.nlg.format
   (:require [api.utils :as utils]
+            [clojure.string :as str]
             [data.spec.result :as result]
             [data.spec.result.row :as row]
             [data.spec.result.annotation :as annotation]))
@@ -55,7 +56,10 @@
 
 (defn ->error [{::result/keys [error-message]}]
   (cond-> []
-          (re-matches #"^(?!tmp).*$" error-message)
+          (and
+            (not (str/blank? error-message))
+            (not (str/includes? error-message "java.lang.NullPointerException"))
+            (re-matches #"^(?!tmp).*$" error-message))
           (conj {:type     "ERROR"
                  :id       (utils/gen-uuid)
                  :children [error-flag {:type "MESSAGE"

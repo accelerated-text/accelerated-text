@@ -98,3 +98,4 @@ export const AMR =          [
     Sub1000, Subj, Temp, Tense, Text, Type, Unit, Utt, V, V2,
     V2A, V2Q, V2S, V2V, V3, VA, VP, VPSlash, VQ, VS, VV, Voc,
 ];
+export const AMR_or_TEXT = [...AMR, ...TEXT];

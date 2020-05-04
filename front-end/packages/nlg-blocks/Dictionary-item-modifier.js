@@ -22,8 +22,19 @@ export default Block({
             {
                 type:       'input_value',
                 name:       'child',
-                check:      T.TEXT,
+                check:      T.AMR_or_TEXT,
             },
         ],
+    },
+
+    domToMutation( xmlElement ) {
+
+        this.itemId =       xmlElement.getAttribute( 'id' );
+        this.itemName =     xmlElement.getAttribute( 'name' );
+        this.partOfSpeech = xmlElement.getAttribute( 'pos' );
+
+        this.getField( 'name' )
+            .setValue( this.itemName );
+
     },
 });

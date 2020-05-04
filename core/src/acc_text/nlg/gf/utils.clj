@@ -164,3 +164,26 @@
 
 (defn save-paths [paths output-path]
   (spit output-path (with-out-str (pprint paths))))
+
+(def mod-position
+  (-> ["Prep" "Digits" "Det" "IDet" "Temp" "Card" "IP" "Num"
+       "N" "V" "Adv" "CN" "NP" "AP" "VP" "IAdv" "VPSlash"
+       "Cl" "ClSlash" "RCl" "QCl" "S" "RS" "Text"]
+      (zipmap (range))))
+
+(defn sort-modifiers [xs]
+  (sort-by #(get mod-position (:category %) 99) xs))
+
+(defn find-modifiers [& paths]
+  (->> paths
+       (apply read-rgl-functions)
+       (mapcat (fn [{:keys [module functions]}] (map #(assoc % :module module) functions)))
+       (filter (fn [{:keys [type function]}] (and
+                                               (= 3 (count (filter #(re-matches #"\p{L}+" %) type)))
+                                               (re-matches #"^mk.+" function)
+                                               (not (re-matches #"^mkList.+" function))
+                                               (not= "Str" (first type) (second type)))))
+       (map (fn [{:keys [function type module]}]
+              (let [[x y z] (filter #(re-matches #"\p{L}+" %) type)]
+                {[x y] (list {:type :operation :name function :category z :module module})})))
+       (apply merge-with (comp sort-modifiers distinct concat))))
