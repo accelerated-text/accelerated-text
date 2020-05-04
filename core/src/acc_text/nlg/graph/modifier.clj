@@ -79,4 +79,4 @@
                         [^:edge root-node modifier {:role :arg :index 0 :category modifier-cat}]
                         [^:edge root-node child {:role :arg :index 1 :category child-cat}])))))))
           g
-          (find-nodes g {:type :modifier})))
+          (reverse (find-nodes g {:type :modifier}))))
