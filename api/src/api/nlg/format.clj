@@ -58,6 +58,7 @@
   (cond-> []
           (and
             (not (str/blank? error-message))
+            (not (str/includes? error-message "java.lang.NullPointerException"))
             (re-matches #"^(?!tmp).*$" error-message))
           (conj {:type     "ERROR"
                  :id       (utils/gen-uuid)
