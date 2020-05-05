@@ -1,4 +1,6 @@
 {:type "PN",
  :description "proper name",
  :module "ParadigmsEng",
- :functions [{:function "mkPN", :type ["Str" "PN"], :example "-"}]}
+ :functions
+ [{:function "mkPN", :type ["Str" "PN"], :example "-"}
+  {:function "mkPN", :type ["N" "PN"], :example "-"}]}

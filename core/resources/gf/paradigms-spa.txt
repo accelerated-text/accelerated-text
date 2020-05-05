@@ -1,7 +1,3 @@
-// Type
-Gender Type -
-CopulaType Type -
-
 // Gender
 masculine Gender -
 feminine Gender - Number Type -
@@ -70,7 +66,6 @@ mkAdN Str -> AdN -
 // V
 mkV Str -> V regular in "-ar", "-er", ".ir" (pagar)
 mkV Str -> Str -> V regular with vowel alternation (mostrar, muestro)
-mkV Verbum -> V import verb constructed with BeschSpa
 mkV V -> Str -> V particle verb
 reflV V -> V reflexive verb
 special_ppV V -> Str -> V deviant past participle, e.g. abrir - abierto

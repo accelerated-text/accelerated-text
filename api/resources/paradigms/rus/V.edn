@@ -16,4 +16,7 @@
     "Str"
     "V"],
    :example
-   "presSg1, presSg2, presSg3, presPl1, presPl2, presPl3, pastSgMasc, imp, inf"}]}
+   "presSg1, presSg2, presSg3, presPl1, presPl2, presPl3, pastSgMasc, imp, inf"}
+  {:function "regV",
+   :type ["Aspect" "Conjugation" "Str" "Str" "Str" "Str" "Str" "V"],
+   :example "stemPresSg1, endPresSg1, pastSg1, imp, inf"}]}

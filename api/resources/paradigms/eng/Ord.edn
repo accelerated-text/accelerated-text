@@ -1,0 +1,4 @@
+{:type "Ord",
+ :description "",
+ :module "ParadigmsEng",
+ :functions [{:function "mkOrd", :type ["Str" "Ord"], :example "-"}]}

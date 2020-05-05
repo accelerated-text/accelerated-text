@@ -1,0 +1,4 @@
+{:type "Subj",
+ :description "",
+ :module "ParadigmsEng",
+ :functions [{:function "mkSubj", :type ["Str" "Subj"], :example "-"}]}

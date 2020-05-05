@@ -6,8 +6,5 @@
    :type ["V" "V2A"],
    :example "e.g. paint (NP) (AP)"}
   {:function "mkV2A",
-   :type ["V" "Prep" "V2A"],
-   :example "backwards compatibility"}
-  {:function "mkV2A",
    :type ["V" "Prep" "Prep" "V2A"],
    :example "e.g. strike (NP) as (AP)"}]}

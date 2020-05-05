@@ -12,6 +12,9 @@
    :type ["Str" "Str" "Str" "V"],
    :example "ordinary irregular (drink, drank, drunk)"}
   {:function "mkV",
+   :type ["Str" "Str" "Str" "Str" "V"],
+   :example "run, ran, run, running"}
+  {:function "mkV",
    :type ["Str" "Str" "Str" "Str" "Str" "V"],
    :example "totally irregular (go, goes, went, gone, going)"}
   {:function "mkV",

@@ -1,7 +1,16 @@
 {:type "Conj",
- :description "",
+ :description "conjunctions",
  :module "ParadigmsEng",
  :functions
  [{:function "mkConj",
    :type ["Str" "Conj"],
-   :example "just one token or word, e.g. \",\""}]}
+   :example "and (plural agreement)"}
+  {:function "mkConj",
+   :type ["Str" "Number" "Conj"],
+   :example "or (agrement number given as argument)"}
+  {:function "mkConj",
+   :type ["Str" "Str" "Conj"],
+   :example "both ... and (plural)"}
+  {:function "mkConj",
+   :type ["Str" "Str" "Number" "Conj"],
+   :example "either ... or (agrement number given as argument)"}]}

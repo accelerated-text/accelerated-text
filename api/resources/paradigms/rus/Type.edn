@@ -1,7 +1,0 @@
-{:type "Type",
- :description "",
- :module "ParadigmsRus",
- :functions
- [{:function "Gender", :type ["Type"], :example "-"}
-  {:function "Case", :type ["Type"], :example "-"}
-  {:function "Number", :type ["Type"], :example "-"}]}

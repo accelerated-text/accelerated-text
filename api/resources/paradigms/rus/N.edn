@@ -2,8 +2,8 @@
  :description "",
  :module "ParadigmsRus",
  :functions
- [{:function "mkN", :type ["Str" "N"], :example "-"}
-  {:function "mkN", :type ["Str" "Animacy" "N"], :example "-"}
+ [{:function "mkN", :type ["Str" "N"], :example "karta"}
+  {:function "mkN", :type ["Str" "Animacy" "N"], :example "tigr"}
   {:function "mkN",
    :type
    ["Str"
@@ -23,4 +23,10 @@
     "Animacy"
     "N"],
    :example
-   "nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl"}]}
+   "nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl"}
+  {:function "mkIndeclinableNoun",
+   :type ["Str" "Gender" "Animacy" "N"],
+   :example "\"кофе\", \"пальто\", \"ВУЗ\""}
+  {:function "mkNAltPl",
+   :type ["Str" "Str" "Gender" "Animacy" "N"],
+   :example "-"}]}

@@ -1,8 +1,3 @@
-// Type
-Gender Type -
-Case Type -
-Number Type -
-
 // Gender
 masculine Gender -
 feminine Gender -
@@ -16,14 +11,24 @@ accusative Case -
 instructive Case -
 prepositional Case -
 
+// Animacy
+animate Animacy -
+inanimate Animacy -
+
+// Aspect
+imperfective Aspect -
+perfective Aspect -
+
 // Number
 singular Number -
 plural Number -
 
 // N
-mkN Str -> N -
-mkN Str -> Animacy -> N -
+mkN Str -> N karta
+mkN Str -> Animacy -> N tigr
 mkN Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Gender -> Animacy -> N nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl
+mkIndeclinableNoun Str -> Gender -> Animacy -> N "кофе", "пальто", "ВУЗ"
+mkNAltPl Str -> Str -> Gender -> Animacy -> N -
 
 // N2
 mkN2 N -> N2 -
@@ -49,8 +54,17 @@ mkAdv Str -> Adv -
 // Prep
 mkPrep Str -> Case -> Prep as in German
 
+// Conjugation
+first Conjugation "гуля-Ешь, гуля-Ем"
+firstE Conjugation Verbs with vowel "ё": "даёшь" (give), "пьёшь" (drink)
+second Conjugation "вид-Ишь, вид-Им"
+mixed Conjugation "хоч-Ешь - хот-Им"
+dolzhen Conjugation irregular
+foreign Conjugation foreign words which are used in Russian
+
 // V
 mkV Aspect -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> Str -> V presSg1, presSg2, presSg3, presPl1, presPl2, presPl3, pastSgMasc, imp, inf
+regV Aspect -> Conjugation -> Str -> Str -> Str -> Str -> Str -> V stemPresSg1, endPresSg1, pastSg1, imp, inf
 
 // V2
 mkV2 V -> Str -> Case -> V2 "войти в дом"; "в", accusative

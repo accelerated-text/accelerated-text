@@ -1,0 +1,6 @@
+{:type "Aspect",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "imperfective", :type ["Aspect"], :example "-"}
+  {:function "perfective", :type ["Aspect"], :example "-"}]}

@@ -1,0 +1,10 @@
+{:type "Quant",
+ :description "",
+ :module "ParadigmsEng",
+ :functions
+ [{:function "mkQuant",
+   :type ["Str" "Str" "Quant"],
+   :example "this, these"}
+  {:function "mkQuant",
+   :type ["Str" "Str" "Str" "Str" "Quant"],
+   :example "no_sg, no_pl, none_sg, non_pl"}]}
