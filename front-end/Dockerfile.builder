@@ -31,7 +31,8 @@ RUN mv rgl/packages/plan-editor/RglSidebar.js rgl/packages/plan-editor/Sidebar.j
     mv  rgl/packages/document-plans/rgl-plan-template.js rgl/packages/document-plans/plan-template.js && \
     mv  rgl/packages/header/RglHeader.js rgl/packages/header/Header.js && \
     mv  rgl/packages/webpack/rgl.config.js rgl/packages/webpack/config.js && \
-    mv  rgl/packages/graphql/rgl-queries.graphql rgl/packages/graphql/queries.graphql
+    mv  rgl/packages/graphql/rgl-queries.graphql rgl/packages/graphql/queries.graphql && \
+    mv  rgl/packages/variants/AmrContextProvider.js rgl/packages/variants/ContextProvider.js
 
 RUN mv  amr/packages/plan-editor/ParadigmsSidebar.js amr/packages/plan-editor/Sidebar.js && \
     mv  amr/packages/nlg-blocks/One-of.js amr/packages/nlg-blocks/One-of-synonyms.js && \
@@ -43,7 +44,8 @@ RUN mv  amr/packages/plan-editor/ParadigmsSidebar.js amr/packages/plan-editor/Si
     mv  amr/packages/document-plans/paradigms-plan-template.js amr/packages/document-plans/plan-template.js && \
     mv  amr/packages/header/ParadigmsHeader.js amr/packages/header/Header.js && \
     mv  amr/packages/webpack/paradigms.config.js amr/packages/webpack/config.js && \
-    mv  amr/packages/graphql/paradigms-queries.graphql amr/packages/graphql/queries.graphql
+    mv  amr/packages/graphql/paradigms-queries.graphql amr/packages/graphql/queries.graphql && \
+    mv  amr/packages/variants/AmrContextProvider.js amr/packages/variants/ContextProvider.js
 
 
 
