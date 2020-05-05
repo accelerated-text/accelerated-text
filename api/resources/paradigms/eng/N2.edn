@@ -7,4 +7,8 @@
    :example "e.g. wife of (default prep. to)"}
   {:function "mkN2",
    :type ["N" "Prep" "N2"],
-   :example "e.g. access to"}]}
+   :example "e.g. access to"}
+  {:function "mkN2", :type ["N" "Str" "N2"], :example "access to"}
+  {:function "mkN2",
+   :type ["Str" "Str" "N2"],
+   :example "access to (regular noun)"}]}

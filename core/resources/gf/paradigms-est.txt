@@ -1,7 +1,3 @@
-// Type
-Number Type -
-Case Type -
-
 // Number
 singular Number -
 plural Number -

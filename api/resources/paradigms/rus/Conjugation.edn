@@ -1,0 +1,21 @@
+{:type "Conjugation",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "first",
+   :type ["Conjugation"],
+   :example "\"гуля-Ешь, гуля-Ем\""}
+  {:function "firstE",
+   :type ["Conjugation"],
+   :example
+   "Verbs with vowel \"ё\": \"даёшь\" (give), \"пьёшь\" (drink)"}
+  {:function "second",
+   :type ["Conjugation"],
+   :example "\"вид-Ишь, вид-Им\""}
+  {:function "mixed",
+   :type ["Conjugation"],
+   :example "\"хоч-Ешь - хот-Им\""}
+  {:function "dolzhen", :type ["Conjugation"], :example "irregular"}
+  {:function "foreign",
+   :type ["Conjugation"],
+   :example "foreign words which are used in Russian"}]}

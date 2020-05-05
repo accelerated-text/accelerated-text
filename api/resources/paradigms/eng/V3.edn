@@ -7,4 +7,8 @@
    :example "ditransitive, e.g. give,_,_"}
   {:function "mkV3",
    :type ["V" "Prep" "Prep" "V3"],
-   :example "two prepositions, e.g. speak, with, about"}]}
+   :example "two prepositions, e.g. speak, with, about"}
+  {:function "mkV3", :type ["V" "Prep" "V3"], :example "give,_,to"}
+  {:function "mkV3", :type ["V" "Str" "V3"], :example "give,_,to"}
+  {:function "mkV3", :type ["Str" "Str" "V3"], :example "give,_,to"}
+  {:function "mkV3", :type ["Str" "V3"], :example "give,_,_"}]}

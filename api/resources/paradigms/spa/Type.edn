@@ -1,6 +1,0 @@
-{:type "Type",
- :description "",
- :module "ParadigmsSpa",
- :functions
- [{:function "Gender", :type ["Type"], :example "-"}
-  {:function "CopulaType", :type ["Type"], :example "-"}]}

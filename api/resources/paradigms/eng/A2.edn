@@ -2,4 +2,7 @@
  :description "two-place adjective",
  :module "ParadigmsEng",
  :functions
- [{:function "mkA2", :type ["A" "Prep" "A2"], :example "absent from"}]}
+ [{:function "mkA2", :type ["A" "Prep" "A2"], :example "absent from"}
+  {:function "mkA2", :type ["A" "Str" "A2"], :example "absent from"}
+  {:function "mkA2", :type ["Str" "Prep" "A2"], :example "absent from"}
+  {:function "mkA2", :type ["Str" "Str" "A2"], :example "absent from"}]}

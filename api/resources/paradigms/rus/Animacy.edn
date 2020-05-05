@@ -1,0 +1,6 @@
+{:type "Animacy",
+ :description "",
+ :module "ParadigmsRus",
+ :functions
+ [{:function "animate", :type ["Animacy"], :example "-"}
+  {:function "inanimate", :type ["Animacy"], :example "-"}]}
