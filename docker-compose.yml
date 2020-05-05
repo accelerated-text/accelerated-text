@@ -43,8 +43,12 @@ services:
       DATOMIC_HOST: "datomic-transactor"
       DATOMIC_ALT_HOST: "acc-text-api"
     volumes:
-      - ./api/data:/srv/datomic/data
+      - datomic:/srv/datomic/data
 
 networks:
   default:
   datomic:
+
+volumes:
+  datomic:
+    name: acc-text_datomic
