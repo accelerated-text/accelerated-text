@@ -6,37 +6,37 @@
             [data.db :as db]
             [data.utils :as utils]
             [clojure.tools.logging :as log]
-            [mount.core :refer [defstate]])
+            [mount.core :refer [defstate]]
+            [clojure.string :as string])
   (:import (java.io PushbackReader)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
 
 (defstate dictionary-db :start (db/db-access :dictionary-multilang conf))
 
-(def languages ["English" "Estonian" "German" "Latvian" "Russian" "Spanish"])
-
-(defn list-readers []
-  (db/list! reader-flags-db 100))
+(def language-config (->> "config/language-codes.csv"
+                          (io/resource)
+                          (slurp)
+                          (string/split-lines)
+                          (reduce (fn [m line]
+                                    (let [[code name] (string/split line #",")]
+                                      (assoc m name (string/capitalize code))))
+                                  {})))
 
 (defn default-language-flag []
   (or (System/getenv "DEFAULT_LANGUAGE") "English"))
 
 (defn get-default-flags []
-  (-> languages
+  (-> (:enabled-languages conf)
       (zipmap (repeat "NO"))
       (assoc (default-language-flag) "YES")))
 
-(defn flag->lang [f]
-  (case f
-    "English" "Eng"
-    "Estonian" "Est"
-    "German" "Ger"
-    "Latvian" "Lav"
-    "Russian" "Rus"
-    "Spanish" "Spa"))
+(defn list-readers []
+  (get-default-flags))
 
-(defn default-language []
-  (flag->lang (default-language-flag)))
+(defn flag->lang [flag] (get language-config flag))
+
+(defn default-language [] (flag->lang (default-language-flag)))
 
 (defn get-reader [key]
   (db/read! reader-flags-db key))
