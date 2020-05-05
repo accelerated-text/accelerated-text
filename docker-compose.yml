@@ -44,6 +44,7 @@ services:
       DATOMIC_ALT_HOST: "acc-text-api"
     volumes:
       - datomic:/srv/datomic/data
+      - ./transactor-logback.xml:/srv/datomic/bin/logback.xml
 
 networks:
   default:
