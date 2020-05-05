@@ -10,6 +10,8 @@
     <logger name="org.apache.http" level="WARN"/>
     <logger name="com.amazonaws" level="WARN"/>
     <logger name="datomic.db" level="INFO"/>
+    <logger name="datomic.peer" level="WARN"/>
+    <logger name="datomic.kv-cluster" level="WARN"/>
     <logger name="api.graphql" level="INFO"/>
     <root level="DEBUG">
         <appender-ref ref="A1"/>
