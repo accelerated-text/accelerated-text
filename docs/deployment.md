@@ -86,5 +86,4 @@ Example.:
 ```
 ACC_TEXT_API_URL: http://0.0.0.0:3001
 ACC_TEXT_GRAPHQL_URL: http://0.0.0.0:3001/_graphql
-MOCK_SHOP_API_URL: http://0:0:0:0:8090
 ```

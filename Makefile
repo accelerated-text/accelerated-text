@@ -43,11 +43,6 @@ run-dev-no-api:
 	cd core/gf && docker build -t dev_gf .
 	docker run --rm --net dev_default --name dev_gf -p 8001:8000 dev_gf
 
-run-dev-api-with-mocks:
-	docker-compose -p dev -f docker-compose.yml -f docker-compose.mocks.yml down && \
-	docker-compose -p dev -f docker-compose.yml -f docker-compose.mocks.yml build && \
-	docker-compose -p dev -f docker-compose.yml -f docker-compose.mocks.yml up --remove-orphans
-
 run-eval:
 	git submodule update --init --recursive && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml down && \
@@ -57,5 +52,4 @@ run-eval:
 run-front-end-dev:
 	ACC_TEXT_API_URL=http://0.0.0.0:3001 \
 	ACC_TEXT_GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
-	MOCK_SHOP_API_URL=http://0:0:0:0:8090 \
 	cd front-end && make run
