@@ -16,8 +16,8 @@
 
 (def language-config (->> "config/language-codes.csv"
                           (io/resource)
-                          (io/reader)
-                          (line-seq)
+                          (slurp)
+                          (string/split-lines)
                           (reduce (fn [m line]
                                     (let [[code name] (string/split line #",")]
                                       (assoc m name (string/capitalize code))))
@@ -32,8 +32,7 @@
       (assoc (default-language-flag) "YES")))
 
 (defn list-readers []
-  (get-default-flags)
-  #_(db/list! reader-flags-db 100))
+  (get-default-flags))
 
 (defn flag->lang [flag] (get language-config flag))
 
