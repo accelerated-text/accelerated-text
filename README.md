@@ -114,7 +114,7 @@ make run-dev-env
 
 After running this command the document plan editor will be availabe at _http://localhost:8080_, while AMR and DLG editors will be reachable via _http://localhost:8080/amr/_ and _http://localhost:8080/dlg/_ respectively.
 
-For more detailed description of text generation workflow visit the [Text Generation Guide](docs/guide.md).
+For more detailed description of text generation workflow visit the [Documentation](docs/README.md).
 
 ## Demo
 
