@@ -17,6 +17,10 @@ clean-gf-comple-files:
 	find . -name "*.gfo" -exec rm -rf {} \;
 	find . -name "*.pgf" -exec rm -rf {} \;
 
+run-gf-service:
+	cd gf && docker build -t dev_gf .
+	docker run --rm --net dev_default --name dev_gf -p 8001:8000 dev_gf
+
 test-gf-service:
 	cd gf && docker build -t gf .
 	docker run gf pytest test.py

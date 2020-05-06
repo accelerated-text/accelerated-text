@@ -1,89 +1,93 @@
-# Natural Language Generation for Accelerated Text
+# Natural Language Generation Core
 
-Library which allows to generate text using Gramatical Framework defined grammar
+This is the main module of Accelerated Text.
 
-## Getting started
+In order to generate text, *Core* uses *Semantic Graphs* - low level structures that describe what the text should look like when generation is complete.
 
-Make sure that development environment (or at least gf service) is running.
+One *Semantic Graph* is enough to generate many text variations for multiple languages.
+
+## Prerequisites
+
+At the lowest level, Accelerated Text Core uses [Grammatical Framework](https://www.grammaticalframework.org/).
+
+To launch *GF* service, enter:
+
+```
+make run-gf-service
+```
+
+## Development
 
 Main entrypoint for text generation can be accessed by invoking *acc-text.nlg.core/generate-text*.
-To be able to generate it, three inputs must be provided: semantic graph, its context, and data.
 
-<img src="resources/docs/graph.png" width="600"/>
-
-Semantic graph is a document plan representation. It can be manually built, but a better idea
-would be to convert existing document plans created with UI.
-
-<TBD>
-
-We can also visualize our semantic graph using GraphViz (must have it installed for this to work). 
+We can also visualize semantic graphs using [GraphViz](https://graphviz.org/). 
 
 ```clojure
 (def semantic-graph
   #:acc-text.nlg.semantic-graph{:relations [{:from :01 :to :02 :role :segment}
                                             {:from :02 :to :03 :role :instance}
-                                            {:from :03 :to :04 :role :function}
-                                            {:from :03 :to :05 :role :ARG0 :attributes {:name "agent"}}
-                                            {:from :03 :to :06 :role :ARG1 :attributes {:name "co-agent"}}]
+                                            {:from :03 :to :04 :role :child}
+                                            {:from :03 :to :05 :role :modifier}
+                                            {:from :05 :to :06 :role :child}
+                                            {:from :05 :to :09 :role :modifier}
+                                            {:from :06 :to :07 :role :item}
+                                            {:from :06 :to :08 :role :item}]
                                 :concepts [{:id :01 :type :document-plan}
                                            {:id :02 :type :segment}
-                                           {:id :03 :type :amr :value "author"}
-                                           {:id :04 :type :dictionary-item :value "author"}
-                                           {:id :05 :type :data :value "authors"}
-                                           {:id :06 :type :data :value "title"}]})
-                                           
+                                           {:id :03 :type :modifier}
+                                           {:id :04 :type :dictionary-item :name "here" :label "here" :category "Adv"}
+                                           {:id :05 :type :modifier}
+                                           {:id :06 :type :synonyms}
+                                           {:id :07 :type :dictionary-item :name "venue" :label "venue" :category "N"}
+                                           {:id :08 :type :dictionary-item :name "restaurant" :label "restaurant" :category "N"}
+                                           {:id :09 :type :dictionary-item :name "affordable" :label "affordable" :category "A"}]})
 (acc-text.nlg.semantic-graph.utils/vizgraph semantic-graph)
 ```
 
-Context includes dictionary and AMR. Dictionary will used by dictionary-item 
-concepts in semantic graph, while AMR defines AMR concept realization rules.
+<img src="resources/docs/graph.png" width="600"/>
+
+Context includes data, dictionary and AMRs that provide rules how these concepts should be realized in semantic graph.
+
+Since our Semantic Graph includes only dictionary items, only they need to be defined in context.
 
 ```clojure
 (def context
-  {:amr        {:author {:frames [{:syntax   [{:pos :NP :role "Agent"}
-                                              {:pos :AUX :value "is"}
-                                              {:pos :LEX :value "the author"}
-                                              {:pos :ADP :value "of"}
-                                              {:pos :NP :role "co-Agent"}]}
-                                  {:syntax   [{:pos :NP :role "co-Agent"}
-                                              {:pos :AUX :value "is"}
-                                              {:pos :VERB}
-                                              {:pos :ADP :value "by"}
-                                              {:pos :NP :role "Agent"}]}]}}
-   :dictionary {"author" ["written"]}})
-```
-
-Data are values provided to semantic graph data concepts.
-
-```clojure
-(def data
-  {:authors "Manu Konchady"
-   :title   "Building Search Applications"})
+  {:dictionary  {"venue" #:acc-text.nlg.dictionary.item{:key "venue" 
+                                                        :category "N" 
+                                                        :language "Eng" 
+                                                        :forms ["venue"]}
+                 "restaurant" #:acc-text.nlg.dictionary.item{:key "restaurant" 
+                                                             :category "N"
+                                                             :language "Eng" 
+                                                             :forms ["restaurant"]}
+                 "affordable" #:acc-text.nlg.dictionary.item{:key "affordable" 
+                                                             :category "A" 
+                                                             :language "Eng" 
+                                                             :forms ["affordable"]}
+                 "here" #:acc-text.nlg.dictionary.item{:key "here" 
+                                                       :category "Adv" 
+                                                       :language "Eng" 
+                                                       :forms ["here"]}}})
 ```
 
 Finally, let's generate text for this semantic graph.
 ```clojure
-(acc-text.nlg.core/generate-text semantic-graph context data)
+(acc-text.nlg.core/generate-text semantic-graph context "Eng")
 =>
-({:text   "Manu Konchady is the author of Building Search Applications.",
-  :tokens [{:text "Manu", :idx 0}
-           {:text "Konchady", :idx 5}
-           {:text "is", :idx 14}
-           {:text "the", :idx 17}
-           {:text "author", :idx 21}
-           {:text "of", :idx 28}
-           {:text "Building", :idx 31}
-           {:text "Search", :idx 40}
-           {:text "Applications", :idx 47}
-           {:text ".", :idx 59}]}
- {:text   "Building Search Applications is written by Manu Konchady.",
-  :tokens [{:text "Building", :idx 0}
-           {:text "Search", :idx 9}
-           {:text "Applications", :idx 16}
-           {:text "is", :idx 29}
-           {:text "written", :idx 32}
-           {:text "by", :idx 40}
-           {:text "Manu", :idx 43}
-           {:text "Konchady", :idx 48}
-           {:text ".", :idx 56}]})
+({:text "There is affordable venue here."
+  :language "Eng"
+  :tokens [{:text "There" :idx 0}
+           {:text "is" :idx 6}
+           {:text "affordable" :idx 9}
+           {:text "venue" :idx 20}
+           {:text "here" :idx 26}
+           {:text "." :idx 30}]}
+ {:text "There is affordable restaurant here."
+  :language "Eng"
+  :tokens [{:text "There" :idx 0}
+           {:text "is" :idx 6}
+           {:text "affordable" :idx 9}
+           {:text "restaurant" :idx 20}
+           {:text "here" :idx 31}
+           {:text "." :idx 35}]})
 ```
