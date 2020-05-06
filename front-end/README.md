@@ -36,11 +36,6 @@ ACC_TEXT_GRAPHQL_URL=https://example.org/_graphql npm start
 
 See file _.env.defaults_ for the variables you can use.
 
-⚠️ Document how to launch dependencies
-⚠️ Link to back end readme
-⚠️ How to run tests
-
-
 ##  Development
 
 The app uses [Preact][Preact] v10.x, [Apollo GraphQL][Apollo] client and [Blockly][Blockly].
