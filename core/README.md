@@ -45,7 +45,7 @@ We can also visualize semantic graphs using [GraphViz](https://graphviz.org/).
 (acc-text.nlg.semantic-graph.utils/vizgraph semantic-graph)
 ```
 
-<img src="resources/docs/graph.png" width="800"/>
+<img src="resources/docs/graph.png" width="1000"/>
 
 Context includes data, dictionary and AMRs that provide rules how these concepts should be realized in semantic graph.
 
