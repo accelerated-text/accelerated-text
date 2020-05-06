@@ -2,7 +2,7 @@
 
 We assume that Accelerated Text environment is already running and can be reached at http://localhost:8080.
 
-If not, please set up the [environment](docs/environment.md) first.
+If not, please set up the [environment](environment.md) first.
 
 ## Create Document Plan
 
