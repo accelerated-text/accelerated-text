@@ -2,7 +2,7 @@
 
 This is the main module of Accelerated Text.
 
-In order to generate text, *Core* uses *Semantic Graphs* - low level structures that describe what the text should look like when generation is complete.
+In order to generate text, Core uses *Semantic Graphs* - structures that describe what the text should look like when generation is complete.
 
 One *Semantic Graph* is enough to generate many text variations for multiple languages.
 
@@ -44,7 +44,7 @@ We can also visualize semantic graphs using [GraphViz](https://graphviz.org/).
 (acc-text.nlg.semantic-graph.utils/vizgraph semantic-graph)
 ```
 
-<img src="resources/docs/graph.png" width="600"/>
+<img src="resources/docs/graph.png" width="800"/>
 
 Context includes data, dictionary and AMRs that provide rules how these concepts should be realized in semantic graph.
 
