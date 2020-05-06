@@ -4,6 +4,7 @@
             [acc-text.nlg.graph.utils :refer [find-nodes get-successors]]
             [acc-text.nlg.semantic-graph :as sg]
             [clojure.math.combinatorics :refer [cartesian-product]]
+            [loom.alg :as alg]
             [loom.attr :refer [attrs]]
             [loom.graph :as graph]
             [ubergraph.core :as uber])
@@ -54,7 +55,7 @@
        (validate-cats lang [modifier-cat child-cat])))
 
 (defn resolve-modifiers [g {{lang "*Language"} :constants}]
-  (reduce (fn [g [modifier-node _]]
+  (reduce (fn [g modifier-node]
             (loop [[modifier & modifiers] (find-modifiers g modifier-node)
                    child (find-modified-node g modifier-node)
                    g g]
@@ -79,4 +80,5 @@
                         [^:edge root-node modifier {:role :arg :index 0 :category modifier-cat}]
                         [^:edge root-node child {:role :arg :index 1 :category child-cat}])))))))
           g
-          (reverse (find-nodes g {:type :modifier}))))
+          (filter #(= :modifier (:type (attrs g %)))
+                  (alg/post-traverse g))))
