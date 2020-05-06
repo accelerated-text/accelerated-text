@@ -16,8 +16,8 @@
                                              :attributes (or attributes {})}))))
 
 (defn resolve-dictionary-items [g {dictionary :dictionary {lang "*Language"} :constants}]
-  (reduce (fn [g [node-id {key :label}]]
-            (->> key
+  (reduce (fn [g [node-id {:keys [label name]}]]
+            (->> (or label name)
                  (get-dictionary-item dictionary lang)
                  (add-dictionary-item g node-id)))
           g
