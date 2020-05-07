@@ -135,6 +135,6 @@ In order to facilitate it please provide description of needed information for b
 
 ## License 
 
-Copyright &copy; 2019 [TokenMill UAB](http://www.tokenmill.lt).
+Copyright &copy; 2019 [TokenMill UAB](http://www.tokenmill.ai).
 
 Distributed under the The Apache License, Version 2.0.
