@@ -1,7 +1,11 @@
 site_name: Accelerated Text
-docs_dir: docs
+site_url: https://www.acceleratedtext.com/
+repo_url: https://github.com/tokenmill/accelerated-text/
+edit_uri: tree/master/docs
+site_description: "Data to text platform to generate natural language descriptions of your data"
+
 nav:
-    - Home: README.md
+    - Home: index.md
     - Data Formats:
         - Annotated Text JSON (ATJ) format: annotated-text-json.md
         - Blockly Workspace JSON (BWJ) format: blockly-workspace-json.md
@@ -15,3 +19,4 @@ markdown_extensions:
 plugins:
     - search
 theme: readthedocs
+copyright: "Copyright &copy; 2019 <a href="https://www.tokenmill.ai/">TokenMill UAB</a>."
