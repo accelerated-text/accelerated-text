@@ -47,8 +47,6 @@ INFO  a.server - Running server on: localhost:3001. Press Ctrl+C to stop
 
 At this point, Accelerated Text will be accessible on your browser:
 
-* **Document Plan Editor** is the main window at http://localhost:8080
-* **AMR Editor** is mid level Abstract Meaning Representation editor at http://localhost:8080/amr/
-* **DLG Editor** is the lowest level dealing with base grammar at http://localhost:8080/dlg/
-
-If you are new to Accelerated Text, you should head to [First Steps](first-steps.md) for an introduction of basic workflow.
+* **Document Plan Editor** is the main window at [http://localhost:8080](http://localhost:8080)
+* **AMR Editor** is mid level *Abstract Meaning Representation* editor at [http://localhost:8080/amr/](http://localhost:8080/amr/)
+* **DLG Editor** is the lowest level dealing with base grammar at [http://localhost:8080/dlg/](http://localhost:8080/dlg/)
