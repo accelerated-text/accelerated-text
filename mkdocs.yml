@@ -6,6 +6,8 @@ site_description: "Data to text platform to generate natural language descriptio
 
 nav:
     - Introduction: index.md
+    - Getting Started:
+        - Installation: installation.md
 markdown_extensions:
     - toc
     - tables
