@@ -8,6 +8,7 @@ nav:
     - Introduction: index.md
     - Getting Started:
         - Installation: installation.md
+        - First Steps: first-steps.md
 markdown_extensions:
     - toc
     - tables
