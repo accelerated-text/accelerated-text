@@ -1,11 +1,11 @@
 <div >
 
   <div valign="middle" height="125">
-    <img height="70" alt="Accelerated Text" src="docs/assets/accelerated-text-logo.png"/>
+    <img height="70" alt="Accelerated Text" src="assets/accelerated-text-logo.png"/>
   </div>
 
-  <a href="http://www.tokenmill.lt">
-    <img src="docs/assets/tokenmill-logo.svg" height="125" align="right" />
+  <a href="https://www.tokenmill.ai/">
+    <img src="assets/tokenmill-logo.svg" height="100" align="right" />
   </a>
  
 </div>

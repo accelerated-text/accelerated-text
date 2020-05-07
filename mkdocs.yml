@@ -5,13 +5,7 @@ edit_uri: tree/master/docs
 site_description: "Data to text platform to generate natural language descriptions of your data"
 
 nav:
-    - Home: index.md
-    - Data Formats:
-        - Annotated Text JSON (ATJ) format: annotated-text-json.md
-        - Blockly Workspace JSON (BWJ) format: blockly-workspace-json.md
-    - Deployment: deployment.md
-    - NLG Api: nlg-api.md
-    - Contributing: contributing.md
+    - Introduction: index.md
 markdown_extensions:
     - toc
     - tables
