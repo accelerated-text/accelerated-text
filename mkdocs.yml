@@ -19,4 +19,4 @@ markdown_extensions:
 plugins:
     - search
 theme: readthedocs
-copyright: "Copyright &copy; 2019 <a href="https://www.tokenmill.ai/">TokenMill UAB</a>."
+copyright: Copyright &copy; 2019 <a href="https://www.tokenmill.ai/">TokenMill UAB</a>.
