@@ -44,3 +44,11 @@ After build is complete and environment is running, you should see:
 ```
 INFO  a.server - Running server on: localhost:3001. Press Ctrl+C to stop
 ```
+
+At this point, Accelerated Text will be accessible on your browser:
+
+* **Document Plan Editor** is the main window at _http://localhost:8080_ 
+* **AMR Editor** is mid level Abstract Meaning Representation editor at _http://localhost:8080/amr/_ 
+* **DLG Editor** is the lowest level dealing with Domain Language Grammar at _http://localhost:8080/dlg/_
+
+If you are new to Accelerated Text, continue to [First Steps](first-steps.md) for an introduction of basic workflow.
