@@ -1,14 +1,11 @@
 <div >
 
   <div valign="middle" height="125">
-    <img height="70" alt="Accelerated Text" src="assets/accelerated-text-logo.png"/>
+    <img height="50" alt="Accelerated Text" src="assets/accelerated-text-logo.png"/>
   </div>
 
-  <a href="https://www.tokenmill.ai/">
-    <img src="assets/tokenmill-logo.svg" height="100" align="right" />
-  </a>
- 
 </div>
+<br><br>
 
 *A picture is worth a thousand words.* Or is it? 
 Tables, charts, pictures are all useful in understanding our data but often we need a description – a story to tell us what are we looking at. 
