@@ -1,11 +1,11 @@
 <div >
 
   <div valign="middle" height="125">
-    <img height="50" alt="Accelerated Text" src="assets/accelerated-text-logo.png"/>
+    <img height="40" alt="Accelerated Text" src="assets/accelerated-text-logo.png"/>
   </div>
 
 </div>
-<br><br>
+<br/>
 
 *A picture is worth a thousand words.* Or is it? 
 Tables, charts, pictures are all useful in understanding our data but often we need a description – a story to tell us what are we looking at. 
