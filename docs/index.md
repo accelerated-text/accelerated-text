@@ -10,54 +10,10 @@
  
 </div>
 
-
-
-----
-
 *A picture is worth a thousand words.* Or is it? 
 Tables, charts, pictures are all useful in understanding our data but often we need a description – a story to tell us what are we looking at. 
+
 **Accelerated Text** is a natural language generation tool which allows you to define data descriptions and then generates multiple versions of those descriptions varying in wording and structure.
-
-
-<div align="center"><a name="menu"></a>
-  <h3>
-    <a href="#about">
-      About
-    </a>
-    <span> • </span>
-    <a href="#philosophy">
-      Philosophy
-    </a>
-    <span> • </span>
-    <a href="#key-features">
-      Key Features
-    </a>
-    <span> • </span>    
-    <a href="#get-started">
-      Get Started
-    </a>    
-    <span> • </span>
-    <a href="#demo">
-      Demo
-    </a>
-    <span> • </span>
-    <a href="#development">
-      Development
-    </a>
-    <span> • </span>
-    <a href="#contact-us">
-      Contact Us
-    </a>
-  </h4>
-</div>
-
-
-<br>
-
-<div align="center">
-<img src="docs/assets/preview.gif" width="900"/>
-</div>
-
 
 ## About
 
@@ -103,38 +59,3 @@ This description – a document plan – is executed by natural language generat
 * **Language and vocabulary  control** to match each of your reader groups.
 * **Build-in rule engine** to allow the control of what is said based on the different values of data points.
 * **Live preview** to see variations of generated text.
-
-## Get Started
-
-If you want to start tinkering and run it based on the latest code in the repository, first make sure that you have [make](https://www.gnu.org/software/make/) and [docker-compose](https://docs.docker.com/compose/install/) installed, then clone the project and run
-
-```
-make run-dev-env
-```
-
-After running this command the document plan editor will be availabe at _http://localhost:8080_, while AMR and DLG editors will be reachable via _http://localhost:8080/amr/_ and _http://localhost:8080/dlg/_ respectively.
-
-For more detailed description of text generation workflow visit the [Documentation](https://accelerated-text.readthedocs.io/).
-
-## Demo
-
-For a demonstration of how Accelerated Text can be used to provide descriptions for various items in an e-commerce platform (https://www.reactioncommerce.com/) please check the following repository: https://github.com/tokenmill/reaction-acc-text-demo.
-
-## Development
-
-To get started with a development environment for Accelerated Text please follow the instructions in our developer's guides 
-for the [front-end](front-end/README.md), [api](api/README.md) and the [text generation engine](core/README.md).
-
-## Contact Us
-
-If you have any questions, do not hesitate asking us at accelerated-text@tokenmill.ai
-
-If you'll submit an *Issue* this will help everyone and you will be able to track the progress of us fixing it. 
-In order to facilitate it please provide description of needed information for bug requests (like project version number, Docker version, etc.)
-
-
-## License 
-
-Copyright &copy; 2019 [TokenMill UAB](http://www.tokenmill.lt).
-
-Distributed under the The Apache License, Version 2.0.
