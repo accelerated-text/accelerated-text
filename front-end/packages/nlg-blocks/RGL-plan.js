@@ -12,7 +12,7 @@ export default Block({
 
     json: {
         colour:             color,
-        message0:           'RGL:',
+        message0:           'Operation:',
         message1:           '%1',
         args1: [{
             type:           'input_statement',

@@ -38,7 +38,7 @@ export default PlanActions( composeContexts({
         } = this.props;
 
         const name = window.prompt(         // eslint-disable-line no-alert
-            'Add a new RGL function:',
+            'Add a new operation:',
             planTemplate.name,
         );
         name && onCreatePlan({
@@ -55,7 +55,7 @@ export default PlanActions( composeContexts({
         } = this.props;
 
         const name = window.prompt(         // eslint-disable-line no-alert
-            'Enter name for the new RGL function:',
+            'Enter name for the new operation:',
             plan.name,
         );
         name && onCreatePlan({ ...plan, name });

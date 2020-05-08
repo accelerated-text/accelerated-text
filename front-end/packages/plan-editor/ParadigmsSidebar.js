@@ -47,7 +47,7 @@ export default composeContexts({
         <SidebarItem title="Spanish">
             <ParadigmsSpaConcepts />
         </SidebarItem>
-        <SidebarItem title="RGL">
+        <SidebarItem title="Operations">
             <ParadigmsConcepts />
         </SidebarItem>
         <SidebarItem title="Structural Words">

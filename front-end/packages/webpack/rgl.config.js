@@ -51,7 +51,7 @@ export default ({
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title:      'RGL Editor',
+            title:      'DLG Editor',
         }),
         ...( mode === 'production'
             ? [ new MiniCssExtractPlugin() ]
