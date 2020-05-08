@@ -1,6 +1,8 @@
 # Definition
 
-Abstract Meaning Representations, or AMRs, are blocks in Accelerated Text that usually capture rough meaning of a sentence, inspired by Banarescu, Bonial et al. paper "[Abstract Meaning Representation for Sembanking](https://amr.isi.edu/a.pdf)".
+Abstract Meaning Representations, or AMRs, are blocks in Accelerated Text that usually capture rough meaning of a sentence
+
+They are inspired by Banarescu, Bonial et al. paper "[Abstract Meaning Representation for Sembanking](https://amr.isi.edu/a.pdf)".
 
 You can find more information on AMRs in their [guidelines](https://github.com/amrisi/amr-guidelines/blob/master/amr.md).
 
