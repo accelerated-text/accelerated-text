@@ -9,7 +9,7 @@ nav:
     - Getting Started:
         - Installation: installation.md
         - First Steps: first-steps.md
-        - Abstract Meaning Representations: amr.md
+        - AMRs: amr.md
 markdown_extensions:
     - toc
     - tables
