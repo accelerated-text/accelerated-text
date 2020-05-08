@@ -19,7 +19,7 @@ Dante|Inferno
 
 # Attach text blocks
 
-There are many types of blocks in Accelerated Text, but the most basic ones are *quote* blocks (grey) and *data* blocks (green).
+There are many types of blocks in Accelerated Text, but the most basic ones are *quote blocks* (grey) and *data blocks* (green).
 
 ![attach-blocks](assets/first_steps/03-attach-blocks.gif)
 
@@ -31,7 +31,7 @@ Text is generated on each change to document plan. You can view results in the s
 
 # Add variations
 
-Sometimes different words can express the same message. *One of synonyms* block can be used for this purpose.
+Sometimes different words can express the same message. *One of synonyms block* can be used for this purpose.
 
 ![add-variants](assets/first_steps/05-add-variants.gif)
 
