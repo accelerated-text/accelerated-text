@@ -13,7 +13,7 @@
     <logger name="datomic.db" level="INFO"/>
     <logger name="api" level="DEBUG"/>
     <logger name="api.graphql" level="INFO"/>
-    <logger name="core" level="DEBUG"/>
+    <logger name="acc-text" level="DEBUG"/>
     <root level="INFO">
         <appender-ref ref="A1"/>
     </root>
