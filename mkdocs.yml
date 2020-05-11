@@ -15,8 +15,8 @@ nav:
     - Getting Started:
         - Installation: installation.md
         - First Steps: first-steps.md
-        - AMRs: amr.md
-        - Dictionary: dictionary.md
+        - Adding AMRs: amr.md
+        - Creating a dictionary: dictionary.md
 markdown_extensions:
     - toc
     - tables
