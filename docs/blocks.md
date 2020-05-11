@@ -2,57 +2,59 @@
 
 These are the main blocks for document plans, AMRs and Operations. Only one of these blocks can exists in each plan, they cannot be deleted and are created automatically.
 
-| Block | Description |
-| ------ | ------ |
-| ![document-plan](assets/blocks/document-plan.png) | |
-| ![amr](assets/blocks/amr.png)                     | |
-| ![operation](assets/blocks/operation.png)         | |
+| Block | Name | Description |
+| ------ | ------ | ------ |
+| ![document-plan](assets/blocks/document-plan.png) | Document plan | Root block of document plan. |
+| ![amr](assets/blocks/amr.png)                     | AMR           | Root block of AMR. |
+| ![operation](assets/blocks/operation.png)         | Operation     | Root block of Operation. |
 
 # Document blocks
 
-Document blocks are blocks in Accelerated Text that get directly attached to Document plan, AMR or Operation.
+Document blocks are blocks in Accelerated Text that get directly attached to root.
 
-| Block | Description |
-| ------ | ------ |
-| ![segment](assets/blocks/segment.png)           | Text segment roughly represents a single paragraph of text and is available only in Document Plan Editor. Multiple items can be attached to this block. |
-| ![frame](assets/blocks/frame.png)               | Frame block is a single variant of text and is only available in AMR and DLG editors. Only single item can be attached to this block. |
-| ![set-variable](assets/blocks/set-variable.png) | Defines value of specific variable. |
+| Block | Name | Description |
+| ------ | ------ | ------ |
+| ![segment](assets/blocks/segment.png)           | Segment             | Text segment roughly represents a single paragraph of text and is available only in Document Plan Editor. Multiple items can be attached to this block. |
+| ![frame](assets/blocks/frame.png)               | Frame               | Frame block is a single variant of text and is only available in AMR and DLG editors. Only single item can be attached to this block. |
+| ![set-variable](assets/blocks/set-variable.png) | Variable definition | Defines value of specific variable. |
 
 # Value blocks
 
-| Block | Description |
-| ------ | ------ |
-| ![quote](assets/blocks/quote.png)                                       | |
-| ![data](assets/blocks/data.png)                                         | |
-| ![dictionary-item](assets/blocks/dictionary-item.png)                   | |
-| ![data-modifier](assets/blocks/data-modifier.png)                       | |
-| ![dictionary-item-modifier](assets/blocks/dictionary-item-modifier.png) | |
-| ![modifier](assets/blocks/modifier.png)                                 | |
-| ![variable](assets/blocks/variable.png)                                 | |
+Basic building blocks of document plans, AMRs and Operations.
+
+| Block | Name | Description |
+| ------ | ------ | ------ |
+| ![quote](assets/blocks/quote.png)                                       | Quote                    | A text that may be changed anytime. |
+| ![data](assets/blocks/data.png)                                         | Data cell                | Text from specific data row and column. Available in Data section of sidebar. |
+| ![dictionary-item](assets/blocks/dictionary-item.png)                   | Dictionay item           | Word defined in dictionary. |
+| ![data-modifier](assets/blocks/data-modifier.png)                       | Data cell modifier       | Similar to data block. |
+| ![dictionary-item-modifier](assets/blocks/dictionary-item-modifier.png) | Dictionary item modifier | Similar to data cell, with ability to attach another block. Modifies attached block. Available in Data section of sidebar. |
+| ![modifier](assets/blocks/modifier.png)                                 | Modifier                 | Accepts a block to upper position that modifies a block attached to lower position. |
+| ![variable](assets/blocks/variable.png)                                 | Variable                 | Points to *variable definition block*. Undefined variables are treated as parameters for AMRs and Operations. |
 
 # List blocks
 
-| Block | Description |
-| ------ | ------ |
-| ![sequence](assets/blocks/sequence.png)               | |
-| ![in-random-order](assets/blocks/in-random-order.png) | |
-| ![one-of-synonyms](assets/blocks/a-synonym-from.png)  | |
-| ![one-of](assets/blocks/one-of.png)                   | |
+| Block | Name | Description |
+| ------ | ------ | ------ |
+| ![sequence](assets/blocks/sequence.png)               | Sequence        | Accepts multiple blocks. |
+| ![in-random-order](assets/blocks/in-random-order.png) | In random order | Accepts multiple blocks that get randomly shuffled. |
+| ![one-of-synonyms](assets/blocks/a-synonym-from.png)  | A synonym from  | Produces variants for each attached block. Available in Document Plan Editor. |
+| ![one-of](assets/blocks/one-of.png)                   | One of          | Works similar to *a synonym from block*. Available in AMR and DLG Editors. |
 
 # Logic blocks
 
-| Block | Description |
-| ------ | ------ |
-| ![if](assets/blocks/if.png)               | |
-| ![and](assets/blocks/and.png)             | |
-| ![or](assets/blocks/or.png)               | |
-| ![either-or](assets/blocks/either-or.png) | |
-| ![not](assets/blocks/not.png)             | |
+| Block | Name | Description |
+| ------ | ------ | ------ |
+| ![if](assets/blocks/if.png)               | If condition    | Conditional block. Can have multiple branches. |
+| ![and](assets/blocks/and.png)             | AND             | True if both blocks are true. |
+| ![or](assets/blocks/or.png)               | OR              | True if one of blocks are true. |
+| ![either-or](assets/blocks/either-or.png) | XOR (Either Or) | True if one block is true and another is false. |
+| ![not](assets/blocks/not.png)             | NOT             | True becomes false and false becomes true. |
 
 # Checks
 
-| Block | Description |
-| ------ | ------ |
-| ![equal](assets/blocks/equal.png)               | |
-| ![greater-than](assets/blocks/greater-than.png) | |
-| ![is-in](assets/blocks/is-in.png)               | |
+| Block | Name | Description |
+| ------ | ------ | ------ |
+| ![equal](assets/blocks/equal.png)               | Equality check     | May be changed to test inequality (≠). |
+| ![greater-than](assets/blocks/greater-than.png) | Greater than check | Works with numbers. May be changed to test greater than or equal (>=), less than (<), less than or equal (<=) |
+| ![is-in](assets/blocks/is-in.png)               | Is in check        | Checks if substring is included string. |
