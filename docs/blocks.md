@@ -26,9 +26,9 @@ Basic building blocks of document plans, AMRs and Operations.
 | ------ | ------ | ------ |
 | ![quote](assets/blocks/quote.png)                                       | Quote                    | A text that may be changed anytime. |
 | ![data](assets/blocks/data.png)                                         | Data cell                | Text from specific data row and column. Available in Data section of sidebar. |
-| ![dictionary-item](assets/blocks/dictionary-item.png)                   | Dictionay item           | Word defined in dictionary. |
-| ![data-modifier](assets/blocks/data-modifier.png)                       | Data cell modifier       | Similar to data block. |
-| ![dictionary-item-modifier](assets/blocks/dictionary-item-modifier.png) | Dictionary item modifier | Similar to data cell, with ability to attach another block. Modifies attached block. Available in Data section of sidebar. |
+| ![dictionary-item](assets/blocks/dictionary-item.png)                   | Dictionay item           | Word defined in dictionary. Available in Dictionary section of sidebar. |
+| ![data-modifier](assets/blocks/data-modifier.png)                       | Data cell modifier       | Similar to data cell, with ability to attach another block. Modifies attached block. Available in Data section of sidebar. |
+| ![dictionary-item-modifier](assets/blocks/dictionary-item-modifier.png) | Dictionary item modifier | Dictionary item that accepts a block to be modified. Available in Dictionary section of sidebar. |
 | ![modifier](assets/blocks/modifier.png)                                 | Modifier                 | Accepts a block to upper position that modifies a block attached to lower position. |
 | ![variable](assets/blocks/variable.png)                                 | Variable                 | Points to *variable definition block*. Undefined variables are treated as parameters for AMRs and Operations. |
 
