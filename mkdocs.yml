@@ -5,12 +5,11 @@ edit_uri: tree/master/docs
 site_description: "Data to text platform to generate natural language descriptions of your data"
 
 nav:
-    - Introduction:
-        - About: index.md
-        - Application:
-              - Document Plan Editor: document-plan-editor.md
-              - AMR Editor: amr-editor.md
-              - DLG Editor: dlg-editor.md
+    - Introduction: index.md
+    - User Interface:
+        - Document Plan Editor: document-plan-editor.md
+        - AMR Editor: amr-editor.md
+        - DLG Editor: dlg-editor.md
         - Blocks: blocks.md
     - Getting Started:
         - Installation: installation.md
