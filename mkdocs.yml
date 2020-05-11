@@ -10,6 +10,7 @@ nav:
         - Installation: installation.md
         - First Steps: first-steps.md
         - AMRs: amr.md
+    - Blocks: blocks.md
 markdown_extensions:
     - toc
     - tables
