@@ -8,9 +8,9 @@ nav:
     - Introduction:
         - About: index.md
         - Application:
-              - Document Plan Editor
-              - AMR Editor
-              - DLG Editor
+              - Document Plan Editor: document-plan-editor.md
+              - AMR Editor: amr-editor.md
+              - DLG Editor: dlg-editor.md
         - Blocks: blocks.md
     - Getting Started:
         - Installation: installation.md
