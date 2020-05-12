@@ -13,6 +13,7 @@ nav:
         - Installation: installation.md
         - First Steps: first-steps.md
         - Adding AMRs: amr.md
+        - Conditionals: conditionals.md
         - Creating a dictionary: dictionary.md
 markdown_extensions:
     - toc
