@@ -1,8 +1,7 @@
 (ns acc-text.nlg.graph.data
   (:require [acc-text.nlg.graph.utils :refer [find-nodes get-in-edge]]
             [acc-text.nlg.graph.dictionary-item :refer [get-dictionary-item add-dictionary-item]]
-            [loom.attr :refer [attrs]]
-            [clojure.tools.logging :as log]))
+            [loom.attr :refer [attrs]]))
 
 (defn get-data [data key]
   (if (contains? data key)
@@ -20,7 +19,7 @@
 
 (defn resolve-data [g {data :data dictionary :dictionary {lang "*Language"} :constants}]
   (reduce (fn [g [node-id {key :name}]]
-            (let [category (log/spy (find-data-category g node-id))
+            (let [category (find-data-category g node-id)
                   value (get-data data key)]
               (if-not (contains? dictionary [value category])
                 (update-in g [:attrs node-id] #(merge % {:type :quote :value value}))

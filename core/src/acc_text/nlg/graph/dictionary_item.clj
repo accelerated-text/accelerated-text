@@ -1,11 +1,10 @@
 (ns acc-text.nlg.graph.dictionary-item
   (:require [acc-text.nlg.dictionary.item :as dictionary-item]
-            [acc-text.nlg.graph.utils :refer [find-nodes]]
-            [clojure.tools.logging :as log]))
+            [acc-text.nlg.graph.utils :refer [find-nodes]]))
 
 (defn get-dictionary-item [dictionary language key category]
   (if (contains? dictionary [key category])
-    (log/spy (get dictionary [key category]))
+    (get dictionary [key category])
     (throw (Exception. (format "Missing dictionary item for `%s` language category `%s`: `%s`"
                                language category key)))))
 
