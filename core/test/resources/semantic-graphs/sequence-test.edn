@@ -26,14 +26,16 @@
                                           {:id :07 :type :data :name "product"}
                                           {:id :08 :type :data :name "fridge"}
                                           {:id :09 :type :sequence}
-                                          {:id    :10
-                                           :type  :dictionary-item
-                                           :name  "9399a059-f5a5-4443-bee7-a096d284a85d"
-                                           :label "product"}
-                                          {:id    :11
-                                           :type  :dictionary-item
-                                           :name  "03393900-ddbf-426f-b267-f100d09824c0"
-                                           :label "fridge"}
+                                          {:id       :10
+                                           :type     :dictionary-item
+                                           :name     "9399a059-f5a5-4443-bee7-a096d284a85d"
+                                           :label    "product"
+                                           :category "N"}
+                                          {:id       :11
+                                           :type     :dictionary-item
+                                           :name     "03393900-ddbf-426f-b267-f100d09824c0"
+                                           :label    "fridge"
+                                           :category "N"}
                                           {:id :12 :type :sequence}
                                           {:id :13 :type :sequence}
                                           {:id :14 :type :sequence}
@@ -41,11 +43,13 @@
                                           {:id :16 :type :quote :value "fridge"}
                                           {:id :17 :type :data :name "product"}
                                           {:id :18 :type :data :name "fridge"}
-                                          {:id    :19
-                                           :type  :dictionary-item
-                                           :name  "9399a059-f5a5-4443-bee7-a096d284a85d"
-                                           :label "product"}
-                                          {:id    :20
-                                           :type  :dictionary-item
-                                           :name  "03393900-ddbf-426f-b267-f100d09824c0"
-                                           :label "fridge"})}
+                                          {:id       :19
+                                           :type     :dictionary-item
+                                           :name     "9399a059-f5a5-4443-bee7-a096d284a85d"
+                                           :label    "product"
+                                           :category "N"}
+                                          {:id       :20
+                                           :type     :dictionary-item
+                                           :name     "03393900-ddbf-426f-b267-f100d09824c0"
+                                           :label    "fridge"
+                                           :category "N"})}

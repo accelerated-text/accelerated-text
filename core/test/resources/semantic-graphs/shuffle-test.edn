@@ -14,7 +14,8 @@
                                           {:id    :06,
                                            :type  :dictionary-item,
                                            :name  "49556f0f-4b75-403a-b66b-8689e5d11f9b",
-                                           :label "product"}
+                                           :label "product"
+                                           :category "N"}
                                           {:id :07, :type :data, :name "product"}
                                           {:id :08, :type :shuffle}
                                           {:id :09, :type :data, :name "fridge"})}
