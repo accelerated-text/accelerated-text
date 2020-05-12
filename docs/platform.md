@@ -34,4 +34,6 @@ AMR Editor has access to language specific blocks and operations built in DLG Ed
 
 What is special about DLG Editor, is that the sidebar is filled with special blocks from [Grammatical Framework's Resource Grammar Library](https://www.grammaticalframework.org/lib/doc/synopsis/index.html). And sooner or later, blocks from all levels of editing get transformed into GF's operations.
 
+Here we build our *Domain Grammar Language* - a collection of operations, that will be the main blocks in for building AMRs.
+
 ![dlg-editor](assets/editors/dlg-editor.png)
