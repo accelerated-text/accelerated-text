@@ -7,9 +7,7 @@ site_description: "Data to text platform to generate natural language descriptio
 nav:
     - Introduction: index.md
     - User Interface:
-        - Document Plan Editor: document-plan-editor.md
-        - AMR Editor: amr-editor.md
-        - DLG Editor: dlg-editor.md
+        - Platform: platform.md
         - Blocks: blocks.md
     - Getting Started:
         - Installation: installation.md
