@@ -86,7 +86,7 @@
   (doseq [[flag value] (get-default-flags)]
     (db/write! reader-flags-db flag value))
   (doseq [{id ::dictionary-item/id}
-          (->> (utils/list-files (dictionary-path))
-               (mapcat add-dictionary-items-from-file)
-               (set/difference (set (list-dictionary-items 9999))))]
+          (set/difference
+            (set (list-dictionary-items 9999))
+            (set (mapcat add-dictionary-items-from-file (utils/list-files (dictionary-path)))))]
     (delete-dictionary-item id)))
