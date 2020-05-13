@@ -53,7 +53,7 @@ Let's create another file for German language - `ger.edn` - which will be of use
   :forms      ["verfassen"]}
  {:key        "author"
   :category   "N"
-  :language   "Eng"
+  :language   "Ger"
   :forms      ["autor"]
   :attributes {"Gender" "masculine"}}]
 ```
