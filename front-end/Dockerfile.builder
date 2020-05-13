@@ -22,7 +22,6 @@ COPY api/resources/schema.graphql /usr/src/app/rgl/packages/graphql/schema.graph
 
 
 RUN mv rgl/packages/plan-editor/RglSidebar.js rgl/packages/plan-editor/Sidebar.js && \
-    mv  rgl/packages/nlg-blocks/One-of.js rgl/packages/nlg-blocks/One-of-synonyms.js && \
     mv  rgl/packages/nlg-blocks/Frame.js rgl/packages/nlg-blocks/Segment.js && \
     mv  rgl/packages/nlg-blocks/RGL-plan.js rgl/packages/nlg-blocks/Document-plan.js && \
     mv  rgl/packages/plan-selector/RglPlanSelector.js rgl/packages/plan-selector/PlanSelector.js && \
@@ -35,7 +34,6 @@ RUN mv rgl/packages/plan-editor/RglSidebar.js rgl/packages/plan-editor/Sidebar.j
     mv  rgl/packages/variants/AmrContextProvider.js rgl/packages/variants/ContextProvider.js
 
 RUN mv  amr/packages/plan-editor/ParadigmsSidebar.js amr/packages/plan-editor/Sidebar.js && \
-    mv  amr/packages/nlg-blocks/One-of.js amr/packages/nlg-blocks/One-of-synonyms.js && \
     mv  amr/packages/nlg-blocks/Frame.js amr/packages/nlg-blocks/Segment.js && \
     mv  amr/packages/nlg-blocks/AMR-plan.js amr/packages/nlg-blocks/Document-plan.js && \
     mv  amr/packages/plan-selector/ParadigmsPlanSelector.js amr/packages/plan-selector/PlanSelector.js && \

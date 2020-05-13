@@ -20,8 +20,10 @@
                                           {:id    :10
                                            :type  :dictionary-item
                                            :name  "9399a059-f5a5-4443-bee7-a096d284a85d"
-                                           :label "product"}
+                                           :label "product"
+                                           :category "N"}
                                           {:id    :11
                                            :type  :dictionary-item
                                            :name  "03393900-ddbf-426f-b267-f100d09824c0"
-                                           :label "fridge"})}
+                                           :label "fridge"
+                                           :category "N"})}

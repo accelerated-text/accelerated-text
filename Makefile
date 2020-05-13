@@ -39,7 +39,7 @@ run-dev-api:
 	docker-compose -p dev -f docker-compose.yml up --remove-orphans
 
 run-dev-no-api:
-	docker-compose -p dev -f docker-compose.front-end.yml up -d
+	docker-compose -p dev -f docker-compose.front-end.yml up -d --remove-orphans
 	cd core/gf && docker build -t dev_gf .
 	docker run --rm --net dev_default --name dev_gf -p 8001:8000 dev_gf
 

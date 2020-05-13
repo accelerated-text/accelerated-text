@@ -319,26 +319,36 @@
   (log/warnf "Default implementation of SCAN for the '%s' with key '%s'" resource-type opts)
   (throw (RuntimeException. (format "DATOMIC SCAN FOR '%s' NOT IMPLEMENTED" resource-type))))
 
-(defn query-multilang-dictionary [keys languages]
-  (if (seq languages)
-    (d/q '[:find (pull ?e [*])
-           :in $ [?keys ?languages]
-           :where [?e :dictionary-multilang/key ?key]
-           [?e :dictionary-multilang/language ?language]
-           [(contains? ?languages ?language)]
-           [(contains? ?keys ?key)]]
-         (d/db conn)
-         [(set keys) (set languages)])
-    (d/q '[:find (pull ?e [*])
-           :in $ ?keys
-           :where [?e :dictionary-multilang/key ?key]
-           [(contains? ?keys ?key)]]
-         (d/db conn)
-         (set keys))))
+(defn query-multilang-dictionary [keys languages categories]
+  (cond
+    (and (seq languages) (seq categories)) (d/q '[:find (pull ?e [*])
+                                                  :in $ [?keys ?languages ?categories]
+                                                  :where [?e :dictionary-multilang/key ?key]
+                                                  [?e :dictionary-multilang/language ?language]
+                                                  [?e :dictionary-multilang/category ?category]
+                                                  [(contains? ?categories ?category)]
+                                                  [(contains? ?languages ?language)]
+                                                  [(contains? ?keys ?key)]]
+                                                (d/db conn)
+                                                [(set keys) (set languages) (set categories)])
+    (seq languages) (d/q '[:find (pull ?e [*])
+                           :in $ [?keys ?languages]
+                           :where [?e :dictionary-multilang/key ?key]
+                           [?e :dictionary-multilang/language ?language]
+                           [(contains? ?languages ?language)]
+                           [(contains? ?keys ?key)]]
+                         (d/db conn)
+                         [(set keys) (set languages)])
+    :else (d/q '[:find (pull ?e [*])
+                 :in $ ?keys
+                 :where [?e :dictionary-multilang/key ?key]
+                 [(contains? ?keys ?key)]]
+               (d/db conn)
+               (set keys))))
 
-(defmethod scan :dictionary-multilang [_ {:keys [keys languages]}]
+(defmethod scan :dictionary-multilang [_ {:keys [keys languages categories]}]
   (map (fn [[item]] (read-multilang-dict-item item))
-       (query-multilang-dictionary keys languages)))
+       (query-multilang-dictionary keys languages categories)))
 
 (defmulti delete (fn [resource-type _] resource-type))
 
