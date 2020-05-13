@@ -67,7 +67,7 @@
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-         :lincat {cat (or (:category (attrs graph (get-in-edge graph node-id))) "Text")}
+         :lincat {cat (or (:category (attrs graph node-id)) "Text")}
          :lin    {cat [(cond-> (str module "." name)
                                (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))]}}))
 
