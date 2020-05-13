@@ -4,8 +4,6 @@ At the moment, there is no way to create dictionary items through user interface
 
 By default, dictionary files are kept in `api/resources/dictionary` and use [EDN](https://github.com/edn-format/edn) format.
 
-We begin with creating a new .edn file, for example `eng.edn`. This is the file that will contain all entries that we will define in this chapter, but there may be any number of dictionary files.
-
 This is how a single dictionary item looks like:
 
 ```clojure
@@ -23,7 +21,7 @@ Let's go through each of the dictionary item attributes:
 * **Forms** that will vary depending on tense, most of the time single form will be enough 
 * **Attributes** *(optional)* define additional information, for example, gender
 
-Dictionary file may look like this:
+We begin with creating a new .edn file, for example `eng.edn`. Dictionary file then may look like this:
 
 ```clojure
 [{:key        "write"
@@ -59,4 +57,3 @@ Let's create another file for German language - `ger.edn` - which will be of use
 ```
 
 Since keys are the same for both languages, Accelerated Text will use the correct forms when needed. Also notice that there is an additional `Gender` attribute for German nouns. More information on how forms should look like and what additional attributes need to be defined can be found [here](https://www.grammaticalframework.org/lib/doc/synopsis/).
-
