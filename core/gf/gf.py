@@ -2,7 +2,10 @@ import six
 import logging
 import subprocess
 
-from backports.tempfile import TemporaryDirectory
+try:
+    from tempfile import TemporaryDirectory
+except ImportError:
+    from backports.tempfile import TemporaryDirectory
 
 
 logger = logging.getLogger("gf")

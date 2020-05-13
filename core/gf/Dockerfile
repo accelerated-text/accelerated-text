@@ -1,6 +1,8 @@
 FROM haskell:8.8.3
 
-RUN apt-get update && apt-get install wget python python-pip -y
+RUN apt-get update && apt-get install wget python libtinfo5 -y
+
+RUN curl https://bootstrap.pypa.io/get-pip.py | python
 
 RUN pip install backports.tempfile gunicorn pytest
 
