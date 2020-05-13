@@ -55,3 +55,9 @@
        (file-seq)
        (filter #(.isDirectory ^File %))
        (rest)))
+
+(defn add-ns-to-map [ns m]
+  (reduce-kv (fn [ns-m k v]
+               (assoc ns-m (keyword ns (name k)) v))
+             {}
+             m))

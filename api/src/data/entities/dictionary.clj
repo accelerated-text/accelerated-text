@@ -3,11 +3,11 @@
             [api.config :refer [conf]]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
+            [clojure.set :as set]
+            [clojure.string :as string]
             [data.db :as db]
             [data.utils :as utils]
-            [clojure.tools.logging :as log]
-            [mount.core :refer [defstate]]
-            [clojure.string :as string])
+            [mount.core :refer [defstate]])
   (:import (java.io PushbackReader)))
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
@@ -55,25 +55,38 @@
 (defn update-dictionary-item [{id ::dictionary-item/id :as item}]
   (db/update! dictionary-db id item))
 
-(defn create-dictionary-item [{id ::dictionary-item/id :as item}]
-  (log/tracef "Creating: %s" item)
-  (let [item-id (or id (utils/gen-uuid))]
-    (db/write! dictionary-db item-id item)
-    (get-dictionary-item item-id)))
-
 (defn scan-dictionary
   ([keys]
    (db/scan! dictionary-db {:keys keys}))
   ([keys languages]
-   (db/scan! dictionary-db {:keys keys :languages languages})))
+   (db/scan! dictionary-db {:keys keys :languages languages}))
+  ([keys languages categories]
+   (db/scan! dictionary-db {:keys keys :languages languages :categories categories})))
+
+(defn find-dictionary-item [{::dictionary-item/keys [key language category]}]
+  (first (scan-dictionary [key] [language] [category])))
+
+(defn create-dictionary-item [{id ::dictionary-item/id :as item}]
+  (let [item-id (or id (::dictionary-item/id (find-dictionary-item item)) (utils/gen-uuid))]
+    (when (some? (get-dictionary-item item-id))
+      (delete-dictionary-item item-id))
+    (db/write! dictionary-db item-id item)
+    (get-dictionary-item item-id)))
 
 (defn dictionary-path []
   (or (System/getenv "DICT_PATH") "resources/dictionary"))
 
+(defn add-dictionary-items-from-file [f]
+  (when (= ".edn" (utils/get-ext f))
+    (with-open [r (io/reader f)]
+      (mapv #(->> % (utils/add-ns-to-map "acc-text.nlg.dictionary.item") (create-dictionary-item))
+            (edn/read (PushbackReader. r))))))
+
 (defn initialize []
   (doseq [[flag value] (get-default-flags)]
     (db/write! reader-flags-db flag value))
-  (doseq [f (utils/list-files (dictionary-path))]
-    (with-open [r (io/reader f)]
-      (doseq [item (edn/read (PushbackReader. r))]
-        (create-dictionary-item item)))))
+  (doseq [{id ::dictionary-item/id}
+          (set/difference
+            (set (list-dictionary-items 9999))
+            (set (mapcat add-dictionary-items-from-file (utils/list-files (dictionary-path)))))]
+    (delete-dictionary-item id)))

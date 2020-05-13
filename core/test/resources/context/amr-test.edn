@@ -381,24 +381,24 @@
                                                                                :params ({:id "ARG0" :type "Str"})
                                                                                :type   :oper})})}}
  :data       {"product" "product" "fridge" "fridge"}
- :dictionary {"noise"   #:acc-text.nlg.dictionary.item{:id       "ae1a289c-9f4a-471b-ae36-36c4089cc865"
-                                                       :key      "noise"
-                                                       :category "N"
-                                                       :language "Eng"
-                                                       :forms    ["noise" "noises"]}
-              "fridge"  #:acc-text.nlg.dictionary.item{:id       "dcc836af-a876-423d-aa60-1caf1b403b6f"
-                                                       :key      "fridge"
-                                                       :category "N"
-                                                       :language "Eng"
-                                                       :forms    ["fridge" "fridges"]}
-              "bill"    #:acc-text.nlg.dictionary.item{:id       "41d0ddcd-9b82-4181-b3c2-63b93f5276dc"
-                                                       :key      "bill"
-                                                       :category "N"
-                                                       :language "Eng"
-                                                       :forms    ["bill" "bills"]}
-              "product" #:acc-text.nlg.dictionary.item{:id       "062ae949-c661-479a-ab77-a3e4b3242a03"
-                                                       :key      "product"
-                                                       :category "N"
-                                                       :language "Eng"
-                                                       :forms    ["product" "products"]}}
+ :dictionary {["noise" "N"]   #:acc-text.nlg.dictionary.item{:id       "ae1a289c-9f4a-471b-ae36-36c4089cc865"
+                                                             :key      "noise"
+                                                             :category "N"
+                                                             :language "Eng"
+                                                             :forms    ["noise" "noises"]}
+              ["fridge" "N"]  #:acc-text.nlg.dictionary.item{:id       "dcc836af-a876-423d-aa60-1caf1b403b6f"
+                                                             :key      "fridge"
+                                                             :category "N"
+                                                             :language "Eng"
+                                                             :forms    ["fridge" "fridges"]}
+              ["bill" "N"]    #:acc-text.nlg.dictionary.item{:id       "41d0ddcd-9b82-4181-b3c2-63b93f5276dc"
+                                                             :key      "bill"
+                                                             :category "N"
+                                                             :language "Eng"
+                                                             :forms    ["bill" "bills"]}
+              ["product" "N"] #:acc-text.nlg.dictionary.item{:id       "062ae949-c661-479a-ab77-a3e4b3242a03"
+                                                             :key      "product"
+                                                             :category "N"
+                                                             :language "Eng"
+                                                             :forms    ["product" "products"]}}
  :constants  {"*Language" "Eng"}}

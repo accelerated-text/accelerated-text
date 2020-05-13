@@ -15,7 +15,8 @@
        (dict-entity/scan-dictionary keys)
        (group-by ::dictionary-item/language)
        (reduce-kv (fn [m k v]
-                    (assoc m k (zipmap (map ::dictionary-item/key v) v)))
+                    (assoc m k (zipmap (map (fn [{::dictionary-item/keys [key category]}]
+                                              [key category]) v) v)))
                   {})))
 
 (defn fetch-amrs [semantic-graph]

@@ -38,7 +38,7 @@ export default composeQueries({
                     <th>
                         <LabelWithStatus
                             error={ error }
-                            label="phrases"
+                            label="forms"
                             loading={ loading }
                         />
                     </th>

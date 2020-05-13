@@ -21,14 +21,14 @@
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [concept role child]
       (= child (sg-utils/get-child-with-relation semantic-graph concept role))
-      {:id :05 :type :data :value "authors"} :modifier {:id :07 :type :dictionary-item :value "good"}
+      {:id :05 :type :data :value "authors"} :modifier {:id :07 :type :dictionary-item :value "good" :category "A"}
       {:id :02 :type :segment} :function nil)))
 
 (deftest child-concept-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [concept children]
       (= children (sg-utils/get-children semantic-graph concept))
-      {:id :03 :type :amr :value "author"} [{:id :04 :type :dictionary-item :value "written"}
+      {:id :03 :type :amr :value "author"} [{:id :04 :type :dictionary-item :value "written" :category "V"}
                                             {:id :05 :type :modifier}
                                             {:id :08 :type :data :value "title"}]
       {:id :07 :type :data :value "title"} [])))

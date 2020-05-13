@@ -12,12 +12,14 @@
                                           {:id    :04
                                            :type  :dictionary-item
                                            :name  "41d0ddcd-9b82-4181-b3c2-63b93f5276dc"
-                                           :label "bill"}
+                                           :label "bill"
+                                           :category "N"}
                                           {:id :05 :type :quote :value "door"}
                                           {:id :06 :type :data :name "product"}
                                           {:id    :07
                                            :type  :dictionary-item
                                            :name  "ae1a289c-9f4a-471b-ae36-36c4089cc865"
-                                           :label "noise"}
+                                           :label "noise"
+                                           :category "N"}
                                           {:id :08 :type :quote :value "interior"}
                                           {:id :09 :type :data :name "fridge"})}
