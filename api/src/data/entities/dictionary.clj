@@ -3,6 +3,7 @@
             [api.config :refer [conf]]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
+            [clojure.set :as set]
             [clojure.string :as string]
             [data.db :as db]
             [data.utils :as utils]
@@ -75,10 +76,17 @@
 (defn dictionary-path []
   (or (System/getenv "DICT_PATH") "resources/dictionary"))
 
+(defn add-dictionary-items-from-file [f]
+  (when (= ".edn" (utils/get-ext f))
+    (with-open [r (io/reader f)]
+      (mapv #(->> % (utils/add-ns-to-map "acc-text.nlg.dictionary.item") (create-dictionary-item))
+            (edn/read (PushbackReader. r))))))
+
 (defn initialize []
   (doseq [[flag value] (get-default-flags)]
     (db/write! reader-flags-db flag value))
-  (doseq [f (utils/list-files (dictionary-path))]
-    (with-open [r (io/reader f)]
-      (doseq [item (edn/read (PushbackReader. r))]
-        (create-dictionary-item (utils/add-ns-to-map "acc-text.nlg.dictionary.item" item))))))
+  (doseq [{id ::dictionary-item/id}
+          (->> (utils/list-files (dictionary-path))
+               (mapcat add-dictionary-items-from-file)
+               (set/difference (set (list-dictionary-items 9999))))]
+    (delete-dictionary-item id)))
