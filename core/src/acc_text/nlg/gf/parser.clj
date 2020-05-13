@@ -47,5 +47,5 @@
                   (and (false? new-sentence?) (= "Text" category)) (not)
                   (and (true? new-sentence?) (= :quote type)) (not))
           (cond-> tokens
-                  (and (= :quote type) (or (true? new-sentence?) (zero? (count tokens)))) (conj (str/capitalize value))
-                  (and (false? new-sentence?) (pos-int? (count tokens)) (= :quote type)) (conj value)))))))
+                  (and (some? value) (= :quote type) (or (true? new-sentence?) (zero? (count tokens)))) (conj (str/capitalize value))
+                  (and (some? value) (false? new-sentence?) (pos-int? (count tokens)) (= :quote type)) (conj value)))))))
