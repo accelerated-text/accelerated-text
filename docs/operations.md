@@ -8,7 +8,7 @@ This part can be a bit tricky though, especially when starting out - constructin
 
 We will be replacing template-like quote blocks that we previously defined when creating an AMR.
 
-![fist-operation](assets/first_steps/13-fist-operation.gif)
+![first-operation](assets/first_steps/13-first-operation.gif)
 
 ![second-operation](assets/first_steps/14-second-operation.gif)
 
