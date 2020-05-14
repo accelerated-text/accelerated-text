@@ -1,7 +1,6 @@
 (ns utils.queries
   (:require [graphql-builder.parser :refer [parse read-file]]
             [graphql-builder.core :as core]
-            [jsonista.core :as json]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.utils :refer [list-files]]))
