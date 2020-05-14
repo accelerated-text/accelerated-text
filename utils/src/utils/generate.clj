@@ -31,6 +31,7 @@
   "Generate text variants for data rows. Return collection of tuples where
   first entry is original data and the second is a collection of variants."
   [document-plan data]
+  (log/infof "Generating text for %s data items" (count data))
   (let [ids      (take (count data) (repeatedly #(str (java.util.UUID/randomUUID))))
         id->data (zipmap ids data)]
     (->> {:documentPlanName document-plan
@@ -42,20 +43,23 @@
                 [(get id->data id) variants])))))
 
 (defn save-data-with-variants
-  "Merge data rows and text variantas. For each text variant for the data item
+  "Merge data rows and text variants. For each text variant for the data item
   create a new row with all the data points duplicated"
   [out-file results]
+  (log/infof "Total %s results to save" (count results))
   (let [header (vec (map name (-> results first first keys)))
         csv-data (mapcat (fn [[data variations]]
-                        (let [data-row (vec (map (fn [col] (get data col)) header))]
-                          (map (fn [variant]
-                                 (conj data-row variant))
-                               variations)))
-                      results)]
-    (with-open [writer (io/writer out-file)]
-      (csv/write-csv writer
-                     (cons (conj (vec (map name (-> results first first keys))) "Variants")
-                           csv-data)))))
+                           (log/infof "Data %s has %s variations" (get data (first header)) (count variations))
+                           (let [data-row (vec (map (fn [col] (get data col)) header))]
+                             (map (fn [variant]
+                                    (conj data-row variant))
+                                  variations)))
+                         results)]
+    (when (seq results)
+      (with-open [writer (io/writer out-file)]
+        (csv/write-csv writer
+                       (cons (conj (vec (map name (-> results first first keys))) "Variants")
+                             csv-data))))))
 
 (defn data->text [document-plan data-file output-file]
   (->> data-file
