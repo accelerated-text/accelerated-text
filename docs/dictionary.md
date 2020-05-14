@@ -31,7 +31,7 @@ We begin with creating a new .edn file, for example `eng.edn`. Dictionary file t
  {:key        "author"
   :category   "V"
   :language   "Eng"
-  :forms      ["author"]}
+  :forms      ["author" "authored" "authored"]}
  {:key        "author"
   :category   "N"
   :language   "Eng"

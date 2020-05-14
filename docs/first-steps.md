@@ -31,7 +31,7 @@ Text is generated on each change to document plan. You can view results in the s
 
 # Add variations
 
-Sometimes different words can express the same message. *One of synonyms block* can be used for this purpose.
+Sometimes different words can express the same message. *One of block* can be used for this purpose.
 
 ![add-variants](assets/first_steps/05-add-variants.gif)
 
