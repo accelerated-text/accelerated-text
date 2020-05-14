@@ -1,2 +1,2 @@
 generate-from-csv:
-	clojure -A:test -e:integration
+	clojure -m utils.generate $(doc-plan) "$(data-file)" "$(output-file)"

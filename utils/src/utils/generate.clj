@@ -62,7 +62,13 @@
                              csv-data))))))
 
 (defn data->text [document-plan data-file output-file]
+  (log/infof "Generating using '%s' document plan" document-plan)
   (->> data-file
        (read-data)
        (generate-bulk document-plan)
        (save-data-with-variants output-file)))
+
+(defn -main [& [document-plan data-file output-file]]
+  (if (and document-plan data-file output-file)
+    (data->text document-plan data-file output-file)
+    (println "Usage: pass in three parameters: name of the document plan, path to a data file, and path to an output file")))
