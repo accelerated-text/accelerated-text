@@ -68,12 +68,21 @@
 (defn find-list-nodes [g]
   (concat (gut/find-nodes g {:type :synonyms}) (gut/find-nodes g {:type :shuffle})))
 
+(defn update-list-categories [g list-node]
+  (if-let [in-edge-category (:category (uber/attrs g (gut/get-in-edge g list-node)))]
+    (reduce (fn [g node-or-edge-id]
+              (assoc-in g [:attrs node-or-edge-id :category] in-edge-category))
+            g
+            (cons list-node (map :id (graph/out-edges g list-node))))
+    g))
+
 (defn resolve-lists [g]
   (reduce ;;first, iterate over all list nodes
-   (fn [g [list-node _]]
-     (reduce ;;then iterate over parents of each list node
-      (fn [g parent]
-        (log/debugf "Rearranging list %s with parent %s" list-node parent)
-        (construct-list-structure g list-node parent))
-      g (gf-parent-operations g list-node)))
-   g (find-list-nodes g)))
+    (fn [g [list-node _]]
+      (-> (reduce ;;then iterate over parents of each list node
+            (fn [g parent]
+              (log/debugf "Rearranging list %s with parent %s" list-node parent)
+              (construct-list-structure g list-node parent))
+            g (gf-parent-operations g list-node))
+          (update-list-categories list-node)))
+    g (find-list-nodes g)))
