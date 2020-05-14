@@ -38,8 +38,7 @@ Basic building blocks of document plans, AMRs and Operations.
 | ------ | ------ | ------ |
 | ![sequence](assets/blocks/sequence.png)               | Sequence        | Accepts multiple blocks. |
 | ![in-random-order](assets/blocks/in-random-order.png) | In random order | Accepts multiple blocks that get randomly shuffled. |
-| ![one-of-synonyms](assets/blocks/a-synonym-from.png)  | A synonym from  | Produces variants for each attached block. Available in Document Plan Editor. |
-| ![one-of](assets/blocks/one-of.png)                   | One of          | Works similar to *a synonym from block*. Available in AMR and DLG Editors. |
+| ![one-of](assets/blocks/one-of.png)                   | One of          | Produces variants for each attached block. |
 
 # Logic blocks
 
