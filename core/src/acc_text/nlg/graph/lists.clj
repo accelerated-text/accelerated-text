@@ -69,12 +69,13 @@
   (concat (gut/find-nodes g {:type :synonyms}) (gut/find-nodes g {:type :shuffle})))
 
 (defn update-list-categories [g list-node]
-  (if-let [in-edge-category (:category (uber/attrs g (gut/get-in-edge g list-node)))]
+  (let [in-edge-category (:category (uber/attrs g (gut/get-in-edge g list-node)))]
     (reduce (fn [g node-or-edge-id]
-              (assoc-in g [:attrs node-or-edge-id :category] in-edge-category))
+              (if (some? in-edge-category)
+                (assoc-in g [:attrs node-or-edge-id :category] in-edge-category)
+                (update-in g [:attrs node-or-edge-id] #(dissoc % :category))))
             g
-            (cons list-node (map :id (graph/out-edges g list-node))))
-    g))
+            (cons list-node (map :id (graph/out-edges g list-node))))))
 
 (defn resolve-lists [g]
   (reduce ;;first, iterate over all list nodes
