@@ -16,8 +16,7 @@ Supported languages are:
 We will illustrate multi language text generation by additionally enabling German language. Environment variable in *docker-compose.yml* should look like this:
 
 ```
-      ENABLED_LANGUAGES: "english,german"
-
+ENABLED_LANGUAGES: "english,german"
 ```
 
 # Select language
@@ -26,7 +25,7 @@ When dictionary items are defined for both languages, most of the time we will n
 
 ![select-languages](assets/first_steps/19-select-languages.gif)
 
-However, if we wanted to generate text using more template-like style, for this purpose we would use *if block* with special variable **Language*:
+However, if we wanted to generate text using more template-like style, for this purpose in AMR Editor we would use *if block* with special variable **Language*:
 
 ![if-language](assets/blocks/if-language.png)
 
