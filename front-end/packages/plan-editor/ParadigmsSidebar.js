@@ -4,9 +4,7 @@ import ParadigmsConcepts    from '../amr-concepts/ParadigmsConcepts';
 import ParadigmsStructural  from '../amr-concepts/ParadigmsStructural';
 import ParadigmsGrammar     from '../amr-concepts/ParadigmsGrammar';
 import ParadigmsEngConcepts from '../amr-concepts/ParadigmsEngConcepts';
-import ParadigmsEstConcepts from '../amr-concepts/ParadigmsEstConcepts';
 import ParadigmsGerConcepts from '../amr-concepts/ParadigmsGerConcepts';
-import ParadigmsLavConcepts from '../amr-concepts/ParadigmsLavConcepts';
 import ParadigmsRusConcepts from '../amr-concepts/ParadigmsRusConcepts';
 import ParadigmsSpaConcepts from '../amr-concepts/ParadigmsSpaConcepts';
 import composeContexts      from '../compose-contexts/';
@@ -32,14 +30,8 @@ export default composeContexts({
         <SidebarItem title="English">
             <ParadigmsEngConcepts />
         </SidebarItem>
-        <SidebarItem title="Estonian">
-            <ParadigmsEstConcepts />
-        </SidebarItem>
         <SidebarItem title="German">
             <ParadigmsGerConcepts />
-        </SidebarItem>
-        <SidebarItem title="Latvian">
-            <ParadigmsLavConcepts />
         </SidebarItem>
         <SidebarItem title="Russian">
             <ParadigmsRusConcepts />

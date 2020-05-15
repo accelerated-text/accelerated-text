@@ -7,9 +7,7 @@ To change languages displayed in Accelerated Text UI, change the `ENABLED_LANGUA
 Supported languages are:
 
 * English
-* Estonian
 * German
-* Latvian
 * Russian
 * Spanish
 
