@@ -1,9 +1,10 @@
 (ns api.graphql.domain.thesaurus
-  (:require [api.graphql.translate.thesaurus :as translate]
-            [com.walmartlabs.lacinia.resolve :refer [resolve-as]]))
+  (:require [com.walmartlabs.lacinia.resolve :refer [resolve-as]]))
 
-(defn search-thesaurus [_ {:keys [query partOfSpeech]} _]
-  (resolve-as (translate/search-thesaurus query partOfSpeech)))
+;; TODO: thesaurus implementation
 
-(defn synonyms [_ {:keys [wordId]} _]
-  (resolve-as (translate/synonyms wordId)))
+(defn search-thesaurus [_ _ _]
+  (resolve-as []))
+
+(defn synonyms [_ _ _]
+  (resolve-as []))
