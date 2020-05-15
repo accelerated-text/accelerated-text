@@ -16,21 +16,6 @@ Accelerated Text is an open source project on GitHub. To clone the project, past
 git clone https://github.com/tokenmill/accelerated-text.git
 ```
 
-# Configuration
-
-Refer to *docker-compose.yml* at the project root.
-
-To change languages displayed in Accelerated Text UI, change the `ENABLED_LANGUAGES` environment variable.
-
-Supported languages are:
-
-* English
-* Estonian
-* German
-* Latvian
-* Russian
-* Spanish
-
 # Launch
 
 Navigate to project root and type in your terminal:
