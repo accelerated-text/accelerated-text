@@ -18,6 +18,8 @@ nav:
         - Adding operations: operations.md
         - Selecting languages: languages.md
         - Exporting data: export.md
+    - Advanced Topics:
+        - Deployment: deployment.md
 markdown_extensions:
     - toc
     - tables
