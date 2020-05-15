@@ -13,7 +13,3 @@ The following is a set of guidelines for contributing to Accelerated Text and it
 If you come up with some new interesting feature, and want to share it with us, just submit a PR. 
 
 Please send a GitHub Pull Request with a clear list of what you've done (read more about pull requests). When you send a pull request, we will love you forever if you include examples. We can always use more test coverage. Please follow our coding conventions (below) and make sure all of your commits are atomic (one feature per commit).
-
-## Do you have questions about the source code?
-
-Link to chat

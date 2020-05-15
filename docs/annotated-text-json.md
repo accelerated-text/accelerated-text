@@ -4,7 +4,7 @@ The format helps describe pieces of text (usualy generated from a _Document Plan
 
 A piece of text consists of DOM-like _Element_ tree starting with a _Annotated Text Element_ at the root.
 
-_*Note:* this doc uses [Yaml] instead of [JSON] in code examples to increase readability. JSON example file is [here](variants-example.json)._
+_*Note:* this doc uses [Yaml] instead of [JSON] in code examples to increase readability. JSON example file is [here](examples/variants-example.json)._
 
 ####    Example
 
