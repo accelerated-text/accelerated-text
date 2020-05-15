@@ -21,7 +21,6 @@ nav:
         - Deployment: deployment.md
         - NLG API: nlg-api.md
         - GraphQL API: graphql.md
-        - Datomic: datomic.md
     - Contributing: contributing.md
 markdown_extensions:
     - toc
