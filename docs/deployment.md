@@ -19,7 +19,7 @@ This project consists of serveral independant parts which are combined together 
 
 ### GF
 
-(core/gf/Dockerfile)
+[Dockerfile](../core/gf/Dockerfile)
 
 It launches an instance of [Grammatical Framework](https://www.grammaticalframework.org) with a custom REST API to be able to generate text and get result by single HTTP request.
 
@@ -30,7 +30,7 @@ If `pgf` module is missing, that means runtime libraries are not installed. Runt
 
 ### API
 
-(api/Dockerfile)
+[Dockerfile](../api/Dockerfile)
 
 It launches REST API as well as GraphQL. 
 
@@ -67,7 +67,7 @@ ENABLED_LANGUAGES: "english"
 
 ### Front-End
 
-(front-end/Dockerfile)
+[Dockerfile](../front-end/Dockerfile)
 
 FrontEnd runs on nodeJS, thus `node` and `npm` should be installed to be able to run it directly.
 
