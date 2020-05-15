@@ -6,10 +6,8 @@ site_description: "Data to text platform to generate natural language descriptio
 
 nav:
     - Introduction: index.md
-    - User Interface:
-        - Platform: platform.md
-        - Blocks: blocks.md
     - Getting Started:
+        - Platform: platform.md
         - Installation: installation.md
         - First Steps: first-steps.md
         - Adding AMRs: amr.md
@@ -19,6 +17,7 @@ nav:
         - Selecting languages: languages.md
         - Exporting data: export.md
     - Advanced Topics:
+        - Blocks: blocks.md
         - Deployment: deployment.md
         - NLG API: nlg-api.md
         - GraphQL API: graphql.md
