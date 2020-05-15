@@ -30,13 +30,13 @@
 (defn generate-bulk
   "Generate text variants for data rows. Return collection of tuples where
   first entry is original data and the second is a collection of variants."
-  [document-plan data]
+  [document-plan language data]
   (log/infof "Generating text for %s data items" (count data))
   (let [ids      (take (count data) (repeatedly #(str (java.util.UUID/randomUUID))))
         id->data (zipmap ids data)]
     (->> {:documentPlanName document-plan
           :dataRows         id->data
-          :readerFlagValues {"English" true}}
+          :readerFlagValues {language true}}
          (post-generate)
          (map get-results)
          (map (fn [[id variants]]
@@ -61,14 +61,14 @@
                        (cons (conj (vec (map name (-> results first first keys))) "Variants")
                              csv-data))))))
 
-(defn data->text [document-plan data-file output-file]
-  (log/infof "Generating using '%s' document plan" document-plan)
+(defn data->text [document-plan data-file output-file language]
+  (log/infof "Generating using '%s' document plan for '%s' language" document-plan language)
   (->> data-file
        (read-data)
-       (generate-bulk document-plan)
+       (generate-bulk document-plan language)
        (save-data-with-variants output-file)))
 
-(defn -main [& [document-plan data-file output-file]]
+(defn -main [& [document-plan data-file output-file language]]
   (if (and document-plan data-file output-file)
-    (data->text document-plan data-file output-file)
+    (data->text document-plan data-file output-file (or language "English"))
     (println "Usage: pass in three parameters: name of the document plan, path to a data file, and path to an output file")))
