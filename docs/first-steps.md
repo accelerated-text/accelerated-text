@@ -8,7 +8,7 @@ To create a new document plan, press "New document plan", then type the name of 
 
 # Upload a data file
 
-Accelerated text works with spreadsheet data where first row is reserved for column names, for example:
+Accelerated text works with spreadsheet data in csv format where first row is reserved for column names, for example:
 
 author|title
 ---|---
@@ -16,6 +16,8 @@ Shakespeare|Macbeth
 Dante|Inferno
 
 ![upload-data](assets/first_steps/02-upload-data.gif)
+
+[Download example data](https://raw.githubusercontent.com/tokenmill/accelerated-text/master/api/test/resources/data-files/books.csv)
 
 # Attach text blocks
 
