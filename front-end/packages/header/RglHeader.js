@@ -21,7 +21,7 @@ export default composeContexts({
                 className={ S.logo }
                 onClick={ closeAll }
                 src="/accelerated-text-logo.png"
-                title="RGL Editor"
+                title="DLG Editor"
             />
         </div>
         <div className={ S.center }>

@@ -70,8 +70,8 @@
     (is (= 1 (count mkA->green)))
 
     ;;single list points to both mkAs
-    (is (= {:type :synonyms} (fattrs g list->mkA-red)))
-    (is (= {:type :synonyms} (fattrs g list->mkA-green)))
+    (is (= {:category "A" :type :synonyms} (fattrs g list->mkA-red)))
+    (is (= {:category "A" :type :synonyms} (fattrs g list->mkA-green)))
     (is (= 1 (count list->mkA-red)))
     (is (= 1 (count list->mkA-green)))
     (is (= (first list->mkA-red) (first list->mkA-green)))

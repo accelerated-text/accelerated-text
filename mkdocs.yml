@@ -1,12 +1,26 @@
 site_name: Accelerated Text
-docs_dir: docs
+site_url: https://www.acceleratedtext.com/
+repo_url: https://github.com/tokenmill/accelerated-text/
+edit_uri: tree/master/docs
+site_description: "Data to text platform to generate natural language descriptions of your data"
+
 nav:
-    - Home: README.md
-    - Data Formats:
-        - Annotated Text JSON (ATJ) format: annotated-text-json.md
-        - Blockly Workspace JSON (BWJ) format: blockly-workspace-json.md
-    - Deployment: deployment.md
-    - NLG Api: nlg-api.md
+    - Introduction: index.md
+    - Getting Started:
+        - Platform: platform.md
+        - Installation: installation.md
+        - First Steps: first-steps.md
+        - Adding AMRs: amr.md
+        - Conditionals: conditionals.md
+        - Creating a dictionary: dictionary.md
+        - Adding operations: operations.md
+        - Selecting languages: languages.md
+        - Exporting data: export.md
+    - Advanced Topics:
+        - Blocks: blocks.md
+        - Deployment: deployment.md
+        - NLG API: nlg-api.md
+        - GraphQL API: graphql.md
     - Contributing: contributing.md
 markdown_extensions:
     - toc
@@ -15,3 +29,4 @@ markdown_extensions:
 plugins:
     - search
 theme: readthedocs
+copyright: Copyright &copy; 2019 <a href="https://www.tokenmill.ai/">TokenMill UAB</a>.

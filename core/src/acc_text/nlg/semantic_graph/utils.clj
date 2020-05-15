@@ -61,3 +61,8 @@
                                (map (fn [{:keys [from to] :as relation}]
                                       [^:edge (id->uuid from) (id->uuid to) (dissoc relation :from :to)])
                                     relations)))))
+
+(defn vizgraph [semantic-graph]
+  (-> semantic-graph
+      (semantic-graph->ubergraph :keep-ids? true)
+      (uber/viz-graph {:auto-label true})))

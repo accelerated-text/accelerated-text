@@ -309,4 +309,4 @@ _See [Annotated Text JSON (ATJ) docs][ATJ] for more details._
 
 
 [ATJ]:          annotated-text-json.md
-[Variants]:     variants-example.json
+[Variants]:     examples/variants-example.json
