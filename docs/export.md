@@ -1,6 +1,6 @@
 When document plan is ready, we can export generated text using one of utility functions that are included in Accelerated Text project.
 
-Go to utils folder located in project root, and run this command in the terminal:
+Go to `utils` folder located in project root, and run this command in the terminal:
 
 ```
 make generate-from-csv \
