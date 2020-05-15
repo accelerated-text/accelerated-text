@@ -20,6 +20,7 @@ nav:
         - Exporting data: export.md
     - Advanced Topics:
         - Deployment: deployment.md
+        - GraphQL API: graphql.md
 markdown_extensions:
     - toc
     - tables

@@ -1,8 +1,3 @@
-
-## GraphQL API
-
-You should have running accelerated text environment and simple document plan created by now, if not, please refer to previous sections.
- 
 Here we will describe Accelerated Text GraphQL API usage in order to fetch generated texts. For this purpose we will need to pass two bits of information to the NLG backend: *document plan identifier* and *data item identifier*.
 
 The GraphQL endpoint is accessible at `http://localhost:3001/_graphql`. CURL will be used to illustrate the calls to the back end.
@@ -100,5 +95,3 @@ You should get generated text with annotations (data is truncated):
   ]
 }
 ```
-
-State needs to be initialized
