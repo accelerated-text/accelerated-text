@@ -12,9 +12,7 @@
 
 
 
-----
-
-Go straight to [Documentation](https://accelerated-text.readthedocs.io/).
+---
 
 *A picture is worth a thousand words.* Or is it? 
 Tables, charts, pictures are all useful in understanding our data but often we need a description – a story to tell us what are we looking at. 
@@ -23,6 +21,10 @@ Tables, charts, pictures are all useful in understanding our data but often we n
 
 <div align="center"><a name="menu"></a>
   <h3>
+    <a href="https://accelerated-text.readthedocs.io/">
+      Docs
+    </a>
+    <span> • </span>
     <a href="#about">
       About
     </a>
