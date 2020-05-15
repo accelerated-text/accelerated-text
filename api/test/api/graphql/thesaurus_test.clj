@@ -1,6 +1,6 @@
 (ns api.graphql.thesaurus-test
-  (:require [api.test-utils :refer [q]]
-            [clojure.test :refer [deftest is testing]]))
+  #_(:require [api.test-utils :refer [q]]
+              [clojure.test :refer [deftest is testing]]))
 
 #_(deftest ^:integration search-thesaurus-test
     (let [query "{searchThesaurus(query:\"%s\" partOfSpeech:%s){words{id partOfSpeech text concept{id label}} offset limit totalCount}}"]
