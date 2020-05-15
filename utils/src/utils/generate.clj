@@ -71,4 +71,4 @@
 (defn -main [& [document-plan data-file output-file language]]
   (if (and document-plan data-file output-file)
     (data->text document-plan data-file output-file (or language "English"))
-    (println "Usage: pass in three parameters: name of the document plan, path to a data file, and path to an output file")))
+    (println "Usage: pass in four parameters: name of the document plan, path to a data file, path to an output file, and language")))
