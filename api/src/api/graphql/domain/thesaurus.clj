@@ -4,7 +4,11 @@
 ;; TODO: thesaurus implementation
 
 (defn search-thesaurus [_ _ _]
-  (resolve-as []))
+  (resolve-as {:words      []
+               :offset     0
+               :limit      0
+               :totalCount 0}))
 
-(defn synonyms [_ _ _]
-  (resolve-as []))
+(defn synonyms [_ {:keys [wordId]} _]
+  (resolve-as {:rootWord wordId
+               :synonyms []}))
