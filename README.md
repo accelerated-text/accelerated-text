@@ -22,7 +22,7 @@ Tables, charts, pictures are all useful in understanding our data but often we n
 <div align="center"><a name="menu"></a>
   <h3>
     <a href="https://accelerated-text.readthedocs.io/">
-      Docs
+      Documentation
     </a>
     <span> • </span>
     <a href="#about">
@@ -34,7 +34,7 @@ Tables, charts, pictures are all useful in understanding our data but often we n
     </a>
     <span> • </span>
     <a href="#key-features">
-      Key Features
+      Features
     </a>
     <span> • </span>    
     <a href="#get-started">
@@ -50,7 +50,7 @@ Tables, charts, pictures are all useful in understanding our data but often we n
     </a>
     <span> • </span>
     <a href="#contact-us">
-      Contact Us
+      Contact
     </a>
   </h4>
 </div>
