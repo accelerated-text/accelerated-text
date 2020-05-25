@@ -1,6 +1,6 @@
 (ns acc-text.nlg.gf.service
   (:require [acc-text.nlg.grammar :as grammar]
-            [acc-text.nlg.gf.parser :refer [parse-tree]]
+            [acc-text.nlg.gf.results :refer [post-process]]
             [clojure.tools.logging :as log]
             [jsonista.core :as json]
             [org.httpkit.client :as client]
@@ -32,7 +32,4 @@
       (cond
         (some? request-error) (throw request-error)
         (some? error) (throw (Exception. ^String error))
-        :else (->> results
-                   (distinct)
-                   (map #(assoc (parse-tree (:tree %) lincat)
-                           :language lang)))))))
+        :else (map #(post-process lang lincat %) (distinct results))))))
