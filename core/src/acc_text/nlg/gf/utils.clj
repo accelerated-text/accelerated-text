@@ -108,8 +108,8 @@
 
 (defn find-paths [g]
   (letfn [(evaluate-path [src path]
-            (let [desired-ops #{"mkText" "mkPhr" "mkUtt" "mkS" "mkCl" "mkCN" "mkN"}
-                  undesired-ops #{"mkImp" "mkQS" "mkQCl" "mkNP" "mkVP" "mkAP" "mkPost"}
+            (let [desired-ops #{"mkUtt" "mkCN" "mkN"}
+                  undesired-ops #{"mkText" "mkPhr" "mkCl" "mkS" "mkImp" "mkQS" "mkQCl" "mkNP" "mkVP" "mkAP" "mkPost" "mkCard" "mkVPSlash"}
                   required-op (cond
                                 (contains? #{"N" "N2" "N3" "CN" "PN"} src) "mkNP"
                                 (contains? #{"V" "V2" "V2A" "V3" "VA" "VQ" "VS" "VV"} src) "mkVP"
@@ -152,10 +152,7 @@
          (group-by #(vector (first %) (last %)))
          (reduce-kv (fn [m [src dest] paths]
                       (cond-> m
-                              (and
-                                (not= src dest)
-                                (not= src "Str")
-                                (not= dest "Text")) (assoc [src dest] (first (map (comp path->sg rest butlast)
+                              (not= src dest) (assoc [src dest] (first (map (comp path->sg rest butlast)
                                                                                   (sort-by #(evaluate-path src %) paths))))))
                     {}))))
 

@@ -20,7 +20,7 @@
   (reduce (fn [g node-id]
             (reduce (fn [g in-edge]
                       (let [category (get (attrs g node-id) :category "Str")
-                            in-edge-category (get (attrs g in-edge) :category "Text")
+                            in-edge-category (get (attrs g in-edge) :category "Utt")
                             path-sg (get-in path-map [language [category in-edge-category]])]
                         (cond-> g
                                 (and
