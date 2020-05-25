@@ -1,4 +1,4 @@
-(ns acc-text.nlg.gf.parser
+(ns acc-text.nlg.gf.results
   (:require [clojure.string :as str]
             [clojure.zip :as zip]))
 
@@ -42,7 +42,8 @@
       (str/replace #"([.?!]\s*)(\p{Ll})" #(str (nth % 1) (str/capitalize (nth % 2))))
       (str/replace #"[^.?!]$" #(str % "."))))
 
-(defn post-process [lang lincat {[tree] :tree text :text}]
-  {:text     (emend text)
-   :tokens   (into [] (remove nil? (map :value (get-concepts tree lincat))))
-   :language lang})
+(defn post-process [lang lincat {[tree] :tree}]
+  (let [concepts (get-concepts tree lincat)]
+    {:text     (->> concepts (map :value) (str/join " ") (emend))
+     :concepts concepts
+     :language lang}))
