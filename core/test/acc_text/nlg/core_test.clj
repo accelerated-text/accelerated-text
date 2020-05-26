@@ -84,10 +84,10 @@
 (deftest ^:integration modifier-test
   (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
         context (test-utils/load-test-context "modifier-test")]
-    (is (= (->> ["There is good eatery." "There is good chinese eatery." "Cafe is nice." "There is nice cafe."
-                 "Excellent to find." "It is here that it looks." "It looks here." "There is venue there."
-                 "It is here that there is restaurant." "Delicious to try." "Excellent that eatery is a delicious decent cafe."
-                 "It is in family-friendly Alimentum that there is italian food and the beautiful door is made of traditional oriental wood."]
+    (is (= (->> ["Good eatery" "good chinese eatery" "cafe is nice" "nice cafe"
+                 "excellent to find" "it is here that it looks" "to look here" "venue there"
+                 "it is here that there is restaurant" "delicious to try" "excellent that eatery is a delicious decent cafe"
+                 "it is in family-friendly Alimentum that there is italian food and the beautiful door is made of traditional oriental wood."]
                 (str/join " ")
                 (vector))
            (map :text (core/generate-text semantic-graph context "Eng"))))))
