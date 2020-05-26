@@ -790,7 +790,7 @@
                                  :to :02,
                                  :role :arg,
                                  :index 0,
-                                 :category "A"}),
+                                 :category "Digits"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -799,9 +799,9 @@
                                  :module "Syntax"}
                                 {:id :02,
                                  :type :operation,
-                                 :name "mkA",
-                                 :category "A",
-                                 :module "ParadigmsLav"})},
+                                 :name "mkDigits",
+                                 :category "Digits",
+                                 :module "Syntax"})},
  ["Str" "Comp"]
  #:acc-text.nlg.semantic-graph{:relations
                                ({:from :01,
@@ -1834,7 +1834,7 @@
                                  :to :02,
                                  :role :arg,
                                  :index 0,
-                                 :category "Utt"}
+                                 :category "Cl"}
                                 {:from :02,
                                  :to :03,
                                  :role :arg,
@@ -1853,8 +1853,8 @@
                                  :module "Syntax"}
                                 {:id :02,
                                  :type :operation,
-                                 :name "mkUtt",
-                                 :category "Utt",
+                                 :name "mkCl",
+                                 :category "Cl",
                                  :module "Syntax"}
                                 {:id :03,
                                  :type :operation,
@@ -2322,7 +2322,7 @@
                                  :to :02,
                                  :role :arg,
                                  :index 1,
-                                 :category "Utt"}
+                                 :category "Cl"}
                                 {:from :02,
                                  :to :03,
                                  :role :arg,
@@ -2341,8 +2341,8 @@
                                  :module "Syntax"}
                                 {:id :02,
                                  :type :operation,
-                                 :name "mkUtt",
-                                 :category "Utt",
+                                 :name "mkCl",
+                                 :category "Cl",
                                  :module "Syntax"}
                                 {:id :03,
                                  :type :operation,
@@ -2498,7 +2498,12 @@
                                  :to :02,
                                  :role :arg,
                                  :index 0,
-                                 :category "A"}),
+                                 :category "Ord"}
+                                {:from :02,
+                                 :to :03,
+                                 :role :arg,
+                                 :index 0,
+                                 :category "Digits"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -2507,9 +2512,14 @@
                                  :module "Syntax"}
                                 {:id :02,
                                  :type :operation,
-                                 :name "mkA",
-                                 :category "A",
-                                 :module "ParadigmsLav"})},
+                                 :name "mkOrd",
+                                 :category "Ord",
+                                 :module "Syntax"}
+                                {:id :03,
+                                 :type :operation,
+                                 :name "mkDigits",
+                                 :category "Digits",
+                                 :module "Syntax"})},
  ["NP" "QCl"]
  #:acc-text.nlg.semantic-graph{:relations
                                ({:from :01,
@@ -2585,7 +2595,17 @@
                                  :to :03,
                                  :role :arg,
                                  :index 0,
-                                 :category "VP"}),
+                                 :category "VP"}
+                                {:from :03,
+                                 :to :04,
+                                 :role :arg,
+                                 :index 0,
+                                 :category "VPSlash"}
+                                {:from :04,
+                                 :to :05,
+                                 :role :arg,
+                                 :index 0,
+                                 :category "V2"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -2601,7 +2621,17 @@
                                  :type :operation,
                                  :name "mkVP",
                                  :category "VP",
-                                 :module "Syntax"})},
+                                 :module "Syntax"}
+                                {:id :04,
+                                 :type :operation,
+                                 :name "mkVPSlash",
+                                 :category "VPSlash",
+                                 :module "Syntax"}
+                                {:id :05,
+                                 :type :operation,
+                                 :name "mkV2",
+                                 :category "V2",
+                                 :module "ParadigmsLav"})},
  ["VPSlash" "Imp"]
  #:acc-text.nlg.semantic-graph{:relations
                                ({:from :01,
@@ -4703,12 +4733,7 @@
                                  :to :03,
                                  :role :arg,
                                  :index 0,
-                                 :category "NP"}
-                                {:from :03,
-                                 :to :04,
-                                 :role :arg,
-                                 :index 0,
-                                 :category "CN"}),
+                                 :category "NP"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -4724,11 +4749,6 @@
                                  :type :operation,
                                  :name "mkNP",
                                  :category "NP",
-                                 :module "Syntax"}
-                                {:id :04,
-                                 :type :operation,
-                                 :name "mkCN",
-                                 :category "CN",
                                  :module "Syntax"})},
  ["Str" "V3"]
  #:acc-text.nlg.semantic-graph{:relations
@@ -6253,7 +6273,17 @@
                                  :to :03,
                                  :role :arg,
                                  :index 0,
-                                 :category "VP"}),
+                                 :category "VP"}
+                                {:from :03,
+                                 :to :04,
+                                 :role :arg,
+                                 :index 0,
+                                 :category "VPSlash"}
+                                {:from :04,
+                                 :to :05,
+                                 :role :arg,
+                                 :index 0,
+                                 :category "V2"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -6269,7 +6299,17 @@
                                  :type :operation,
                                  :name "mkVP",
                                  :category "VP",
-                                 :module "Syntax"})},
+                                 :module "Syntax"}
+                                {:id :04,
+                                 :type :operation,
+                                 :name "mkVPSlash",
+                                 :category "VPSlash",
+                                 :module "Syntax"}
+                                {:id :05,
+                                 :type :operation,
+                                 :name "mkV2",
+                                 :category "V2",
+                                 :module "ParadigmsLav"})},
  ["PN" "RS"]
  #:acc-text.nlg.semantic-graph{:relations
                                ({:from :01,
@@ -8138,12 +8178,7 @@
                                  :to :02,
                                  :role :arg,
                                  :index 0,
-                                 :category "NP"}
-                                {:from :02,
-                                 :to :03,
-                                 :role :arg,
-                                 :index 0,
-                                 :category "CN"}),
+                                 :category "NP"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -8154,11 +8189,6 @@
                                  :type :operation,
                                  :name "mkNP",
                                  :category "NP",
-                                 :module "Syntax"}
-                                {:id :03,
-                                 :type :operation,
-                                 :name "mkCN",
-                                 :category "CN",
                                  :module "Syntax"})},
  ["VPSlash" "VP"]
  #:acc-text.nlg.semantic-graph{:relations (),
@@ -8406,7 +8436,17 @@
                                  :to :02,
                                  :role :arg,
                                  :index 0,
-                                 :category "VP"}),
+                                 :category "VP"}
+                                {:from :02,
+                                 :to :03,
+                                 :role :arg,
+                                 :index 0,
+                                 :category "VPSlash"}
+                                {:from :03,
+                                 :to :04,
+                                 :role :arg,
+                                 :index 0,
+                                 :category "V2"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -8417,7 +8457,17 @@
                                  :type :operation,
                                  :name "mkVP",
                                  :category "VP",
-                                 :module "Syntax"})},
+                                 :module "Syntax"}
+                                {:id :03,
+                                 :type :operation,
+                                 :name "mkVPSlash",
+                                 :category "VPSlash",
+                                 :module "Syntax"}
+                                {:id :04,
+                                 :type :operation,
+                                 :name "mkV2",
+                                 :category "V2",
+                                 :module "ParadigmsLav"})},
  ["Utt" "Phr"]
  #:acc-text.nlg.semantic-graph{:relations (),
                                :concepts
@@ -9466,7 +9516,7 @@
                                  :to :02,
                                  :role :arg,
                                  :index 0,
-                                 :category "Digits"}),
+                                 :category "Card"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -9475,8 +9525,8 @@
                                  :module "Syntax"}
                                 {:id :02,
                                  :type :operation,
-                                 :name "mkDigits",
-                                 :category "Digits",
+                                 :name "mkCard",
+                                 :category "Card",
                                  :module "Syntax"})},
  ["Det" "RS"]
  #:acc-text.nlg.semantic-graph{:relations
@@ -9540,7 +9590,7 @@
                                  :to :02,
                                  :role :arg,
                                  :index 0,
-                                 :category "Utt"}
+                                 :category "Cl"}
                                 {:from :02,
                                  :to :03,
                                  :role :arg,
@@ -9559,8 +9609,8 @@
                                  :module "Syntax"}
                                 {:id :02,
                                  :type :operation,
-                                 :name "mkUtt",
-                                 :category "Utt",
+                                 :name "mkCl",
+                                 :category "Cl",
                                  :module "Syntax"}
                                 {:id :03,
                                  :type :operation,
@@ -11963,12 +12013,7 @@
                                  :to :03,
                                  :role :arg,
                                  :index 0,
-                                 :category "NP"}
-                                {:from :03,
-                                 :to :04,
-                                 :role :arg,
-                                 :index 0,
-                                 :category "CN"}),
+                                 :category "NP"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -11984,11 +12029,6 @@
                                  :type :operation,
                                  :name "mkNP",
                                  :category "NP",
-                                 :module "Syntax"}
-                                {:id :04,
-                                 :type :operation,
-                                 :name "mkCN",
-                                 :category "CN",
                                  :module "Syntax"})},
  ["NP" "RS"]
  #:acc-text.nlg.semantic-graph{:relations
@@ -13410,7 +13450,7 @@
                                  :to :02,
                                  :role :arg,
                                  :index 1,
-                                 :category "Utt"}
+                                 :category "Cl"}
                                 {:from :02,
                                  :to :03,
                                  :role :arg,
@@ -13429,8 +13469,8 @@
                                  :module "Syntax"}
                                 {:id :02,
                                  :type :operation,
-                                 :name "mkUtt",
-                                 :category "Utt",
+                                 :name "mkCl",
+                                 :category "Cl",
                                  :module "Syntax"}
                                 {:id :03,
                                  :type :operation,
@@ -13740,7 +13780,7 @@
                                  :to :02,
                                  :role :arg,
                                  :index 0,
-                                 :category "QS"}),
+                                 :category "S"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -13749,8 +13789,8 @@
                                  :module "Syntax"}
                                 {:id :02,
                                  :type :operation,
-                                 :name "mkQS",
-                                 :category "QS",
+                                 :name "mkS",
+                                 :category "S",
                                  :module "Syntax"})},
  ["Dig" "QCl"]
  #:acc-text.nlg.semantic-graph{:relations

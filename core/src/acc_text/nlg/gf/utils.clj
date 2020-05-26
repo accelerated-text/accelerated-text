@@ -105,18 +105,36 @@
                              (concat (into #{} (concat
                                                  (map :type fns)
                                                  (mapcat :from fns))))))))
+(def op-map
+  {"N"   #{"mkN" "mkN2" "mkN3" "mkCN" "mkPN"}
+   "V"   #{"mkV" "mkV2" "mkV2A" "mkV3" "mkVA" "mkVQ" "mkVS" "mkVV"}
+   "A"   #{"mkA" "mkA2"}
+   "Adv" #{"mkAdv"}})
 
 (defn find-paths [g]
-  (letfn [(evaluate-path [src path]
-            (let [desired-ops #{"mkUtt" "mkCN" "mkN"}
-                  undesired-ops #{"mkText" "mkPhr" "mkCl" "mkS" "mkImp" "mkQS" "mkQCl" "mkNP" "mkVP" "mkAP" "mkPost" "mkCard" "mkVPSlash"}
-                  required-op (cond
-                                (contains? #{"N" "N2" "N3" "CN" "PN"} src) "mkNP"
-                                (contains? #{"V" "V2" "V2A" "V3" "VA" "VQ" "VS" "VV"} src) "mkVP"
-                                (contains? #{"A" "A2"} src) "mkAP")]
-              [(if (and (some? required-op) (contains? (set path) required-op)) 0 1)
-               (+ (count (set/intersection undesired-ops (set path)))
-                  (/ (count path) (inc (apply + (map #(if (contains? desired-ops %) 1 0) path)))))]))
+  (letfn [(normalize-op [x]
+            (cond
+              (contains? #{"N" "N2" "N3" "CN" "PN" "NP"} x) "N"
+              (contains? #{"V" "V2" "V2A" "V3" "VA" "VQ" "VS" "VV" "VP"} x) "V"
+              (contains? #{"A" "A2" "AP"} x) "A"
+              :else x))
+          (get-required-ops [src]
+            (case (normalize-op src)
+              "N" #{"mkNP"}
+              "V" #{"mkVP"}
+              "A" #{"mkAP"}
+              "Str" #{"mkCN" "mkN"}
+              #{}))
+          (evaluate-path [src dest path]
+            (let [ops (get op-map (or (normalize-op src) (normalize-op dest)))
+                  required-ops (get-required-ops src)
+                  desired-ops (set/union #{"mkUtt"} ops)
+                  undesired-ops (set/union #{"mkImp" "mkQS" "mkQCl" "mkPost" "mkVPSlash"}
+                                           (set/difference (apply set/union (vals op-map)) ops))]
+              [(if (set/subset? required-ops (set path)) 0 1)
+               (if (zero? (count (set/intersection undesired-ops (set path)))) 0 1)
+               (if (zero? (count (set/intersection desired-ops (set path)))) 1 0)
+               (count path)]))
           (path-ended? [path]
             (and (< 1 (count path)) (nil? (:type (attrs g (last path))))))
           (traverse [path]
@@ -153,7 +171,7 @@
          (reduce-kv (fn [m [src dest] paths]
                       (cond-> m
                               (not= src dest) (assoc [src dest] (first (map (comp path->sg rest butlast)
-                                                                                  (sort-by #(evaluate-path src %) paths))))))
+                                                                            (sort-by #(evaluate-path src dest %) paths))))))
                     {}))))
 
 (defn save-graph [g output-path]
