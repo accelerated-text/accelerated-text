@@ -1,0 +1,16 @@
+{:amr       {},
+ :data      {"Type" "fridge", "Color" "white"},
+ :dictionary
+ {["fridge" "N"]
+  #:acc-text.nlg.dictionary.item{:id       "882cd9ca-4d66-47ce-b829-2c5b91a68064",
+                                 :key      "fridge",
+                                 :category "N",
+                                 :language "Eng",
+                                 :forms    ["fridge" "fridges"]},
+  ["white" "N"]
+  #:acc-text.nlg.dictionary.item{:id       "72636aff-c6c7-469d-b221-3d331a4d4660",
+                                 :key      "white",
+                                 :category "N",
+                                 :language "Eng",
+                                 :forms    ["white" "whites"]}},
+ :constants {"*Language" "Eng"}}
