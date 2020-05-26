@@ -141,11 +141,4 @@
                            :module "Syntax",
                            :roles (),
                            :frames ({:examples ["a house"],
-                                     :syntax ({:ret "Det", :value "Syntax.a_Det", :params (), :type :oper})})}},
- :data {"title" "Moving to the Cloud",
-        "subtitle" "Developing Apps in the New World of Cloud Computing",
-        "authors" "Dinkar Sitaram, Geetha Manjunath",
-        "publisher" "Elsevier",
-        "publishedDate" "2011",
-        "pageCount" "448",
-        "categories" "Computers"}}
+                                     :syntax ({:ret "Det", :value "Syntax.a_Det", :params (), :type :oper})})}},}
