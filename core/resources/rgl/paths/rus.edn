@@ -12414,34 +12414,6 @@
                                  :name "mkUtt",
                                  :category "Utt",
                                  :module "Syntax"})},
- ["Str" "Utt"]
- #:acc-text.nlg.semantic-graph{:relations
-                               ({:from :01,
-                                 :to :02,
-                                 :role :arg,
-                                 :index 0,
-                                 :category "CN"}
-                                {:from :02,
-                                 :to :03,
-                                 :role :arg,
-                                 :index 0,
-                                 :category "N"}),
-                               :concepts
-                               ({:id :01,
-                                 :type :operation,
-                                 :name "mkUtt",
-                                 :category "Utt",
-                                 :module "Syntax"}
-                                {:id :02,
-                                 :type :operation,
-                                 :name "mkCN",
-                                 :category "CN",
-                                 :module "Syntax"}
-                                {:id :03,
-                                 :type :operation,
-                                 :name "mkN",
-                                 :category "N",
-                                 :module "ParadigmsRus"})},
  ["Adv" "Comp"]
  #:acc-text.nlg.semantic-graph{:relations (),
                                :concepts

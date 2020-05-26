@@ -170,8 +170,10 @@
          (group-by #(vector (first %) (last %)))
          (reduce-kv (fn [m [src dest] paths]
                       (cond-> m
-                              (not= src dest) (assoc [src dest] (first (map (comp path->sg rest butlast)
-                                                                            (sort-by #(evaluate-path src dest %) paths))))))
+                              (and
+                                (not= [src dest] ["Str" "Utt"])
+                                (not= src dest)) (assoc [src dest] (first (map (comp path->sg rest butlast)
+                                                                               (sort-by #(evaluate-path src dest %) paths))))))
                     {}))))
 
 (defn save-graph [g output-path]

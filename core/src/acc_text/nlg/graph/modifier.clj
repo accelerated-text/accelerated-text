@@ -51,14 +51,21 @@
 
 (defn sync-categories [lang modifier-cat child-cat]
   (case [modifier-cat child-cat]
+    ["A" "Str"] ["A" "N"]
     ["A" "A"] ["AP" "VP"]
     ["A" "AP"] ["AP" "VP"]
     ["A" "Adv"] ["AP" "VP"]
+    ["A" "Cl"] ["AP" "S"]
+    ["N" "Str"] ["CN" "NP"]
     ["V" "V"] ["VV" "VP"]
     ["V" "VP"] ["VV" "VP"]
-    ["A" "Cl"] ["AP" "S"]
+    ["V" "N"] ["VV" "VP"]
+    ["V" "CN"] ["VV" "VP"]
+    ["V" "Str"] ["VV" "VP"]
     ["Adv" "V"] ["Adv" "S"]
     ["Adv" "N"] ["Adv" "S"]
+    ["Adv" "Str"] ["Adv" "S"]
+    ["Adv" "A"] ["Adv" "S"]
     (->> (cartesian-product (find-path-to-utt lang modifier-cat) (find-path-to-utt lang child-cat))
          (some #(when (contains? (get modifier-map lang) %) %))
          (validate-cats lang [modifier-cat child-cat]))))
