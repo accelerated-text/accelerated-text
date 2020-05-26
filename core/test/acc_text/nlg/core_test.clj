@@ -91,3 +91,9 @@
                 (str/join " ")
                 (vector))
            (map :text (core/generate-text semantic-graph context "Eng"))))))
+
+(deftest ^:integration template-amr
+  (let [semantic-graph (test-utils/load-test-semantic-graph "template-amr")
+        context (test-utils/load-test-context "template-amr")]
+    (is (= ["A house is built to last. An object is built to last."]
+           (map :text (core/generate-text semantic-graph context "Eng"))))))
