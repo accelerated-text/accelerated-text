@@ -50,9 +50,18 @@
        (cons cat)))
 
 (defn sync-categories [lang modifier-cat child-cat]
-  (->> (cartesian-product (find-path-to-utt lang modifier-cat) (find-path-to-utt lang child-cat))
-       (some #(when (contains? (get modifier-map lang) %) %))
-       (validate-cats lang [modifier-cat child-cat])))
+  (case [modifier-cat child-cat]
+    ["A" "A"] ["AP" "VP"]
+    ["A" "AP"] ["AP" "VP"]
+    ["A" "Adv"] ["AP" "VP"]
+    ["V" "V"] ["VV" "VP"]
+    ["V" "VP"] ["VV" "VP"]
+    ["A" "Cl"] ["AP" "S"]
+    ["Adv" "V"] ["Adv" "S"]
+    ["Adv" "N"] ["Adv" "S"]
+    (->> (cartesian-product (find-path-to-utt lang modifier-cat) (find-path-to-utt lang child-cat))
+         (some #(when (contains? (get modifier-map lang) %) %))
+         (validate-cats lang [modifier-cat child-cat]))))
 
 (defn resolve-modifiers [g {{lang "*Language"} :constants}]
   (reduce (fn [g modifier-node]
