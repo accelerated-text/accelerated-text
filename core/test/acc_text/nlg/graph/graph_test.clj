@@ -106,3 +106,9 @@
            (->> det->city first :dest (uber/attrs g))))
     (is (= {:type :operation :name "the_Det" :category "Det" :module "Syntax"}
            (->> det->town first :dest (uber/attrs g))))))
+
+(deftest ap-attached-to-segment
+  (let [context (load-test-context "ap-no-amr")
+        semantic-graphs (load-test-semantic-graph "ap-no-amr")]
+
+    ))
