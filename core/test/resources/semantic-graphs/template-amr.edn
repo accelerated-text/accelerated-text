@@ -1,0 +1,11 @@
+#:acc-text.nlg.semantic-graph{:relations ({:from :01, :to :02, :role :segment, :index 0}
+                                          {:from :02, :to :03, :role :instance, :index 0}
+                                          {:from :02, :to :05, :role :instance, :index 1}
+                                          {:from :03, :to :04, :role :arg, :index 0, :category "CN", :name "Thing"}
+                                          {:from :05, :to :06, :role :arg, :index 0, :category "CN", :name "Thing"}),
+                              :concepts  ({:id :01, :type :document-plan}
+                                          {:id :02, :type :segment}
+                                          {:id :03, :type :amr, :name "JVfEjnRVNodsDjxL", :category "Str"}
+                                          {:id :04, :type :quote, :value "house"}
+                                          {:id :05, :type :amr, :name "JVfEjnRVNodsDjxL", :category "Str"}
+                                          {:id :06, :type :quote, :value "object"})}
