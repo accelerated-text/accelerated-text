@@ -1,8 +1,9 @@
 (ns acc-text.nlg.graph.lists
   (:require [acc-text.nlg.graph.utils :as gut]
-            [clojure.tools.logging :as log]
             [ubergraph.core :as uber]
-            [loom.graph :as graph])
+            [loom.attr :refer [attrs]]
+            [loom.graph :as graph]
+            [loom.alg :as alg])
   (:import java.util.UUID))
 
 (defn add-node [g node attrs]
@@ -65,9 +66,6 @@
         (remove-edge gf-funct list-node)
         (remove-node gf-funct))))
 
-(defn find-list-nodes [g]
-  (concat (gut/find-nodes g {:type :synonyms}) (gut/find-nodes g {:type :shuffle})))
-
 (defn update-list-categories [g list-node]
   (let [in-edge-category (:category (uber/attrs g (gut/get-in-edge g list-node)))]
     (reduce (fn [g node-or-edge-id]
@@ -77,13 +75,27 @@
             g
             (cons list-node (map :id (graph/out-edges g list-node))))))
 
+(defn has-str-child? [g node]
+  (some #(let [{:keys [category type]} (attrs g %)]
+           (true? (or (= "Str" category) (= :quote type) (= :data type))))
+        (graph/successors g node)))
+
+(defn restructure-synonym-node [g node]
+  (update-list-categories
+    (reduce (fn [g parent]
+              (construct-list-structure g node parent))
+            g
+            (gf-parent-operations g node))
+    node))
+
 (defn resolve-lists [g]
-  (reduce ;;first, iterate over all list nodes
-    (fn [g [list-node _]]
-      (-> (reduce ;;then iterate over parents of each list node
-            (fn [g parent]
-              (log/debugf "Rearranging list %s with parent %s" list-node parent)
-              (construct-list-structure g list-node parent))
-            g (gf-parent-operations g list-node))
-          (update-list-categories list-node)))
-    g (find-list-nodes g)))
+  (reduce (fn [g node]
+            (let [{type :type} (attrs g node)]
+              (cond-> g
+                      (and
+                        (= :synonyms type)
+                        (has-str-child? g node)) (restructure-synonym-node node))))
+          g
+          (filter #(let [{type :type} (attrs g %)]
+                     (contains? #{:sequence :shuffle :synonyms} type))
+                  (alg/post-traverse g))))
