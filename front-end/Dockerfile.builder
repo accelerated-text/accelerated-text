@@ -22,7 +22,7 @@ COPY api/resources/schema.graphql /usr/src/app/rgl/packages/graphql/schema.graph
 
 
 RUN mv rgl/packages/plan-editor/RglSidebar.js rgl/packages/plan-editor/Sidebar.js && \
-    mv  rgl/packages/nlg-blocks/Frame.js rgl/packages/nlg-blocks/Segment.js && \
+    mv  rgl/packages/nlg-blocks/RglFrame.js rgl/packages/nlg-blocks/Segment.js && \
     mv  rgl/packages/nlg-blocks/RGL-plan.js rgl/packages/nlg-blocks/Document-plan.js && \
     mv  rgl/packages/plan-selector/RglPlanSelector.js rgl/packages/plan-selector/PlanSelector.js && \
     mv  rgl/packages/onboard-code/RglOnboardCode.js rgl/packages/onboard-code/OnboardCode.js && \
