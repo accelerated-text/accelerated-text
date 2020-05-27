@@ -2,6 +2,7 @@
   (:require [acc-text.nlg.graph.amr :refer [attach-amrs]]
             [acc-text.nlg.graph.lists :refer [resolve-lists subset-of-edges-from]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
+            [acc-text.nlg.graph.data :refer [resolve-data]]
             [acc-text.nlg.graph.utils :as utils :refer [ubergraph->semantic-graph]]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
@@ -38,10 +39,12 @@
 (defn fattrs [g node] (->> node (first) (uber/attrs g)))
 
 (defn load-graph [sg-ctx-file]
-  (-> (load-test-semantic-graph sg-ctx-file)
-      (semantic-graph->ubergraph)
-      (attach-amrs (load-test-context sg-ctx-file))
-      (resolve-lists)))
+  (let [ctx (load-test-context sg-ctx-file)]
+    (-> (load-test-semantic-graph sg-ctx-file)
+        (semantic-graph->ubergraph)
+        (attach-amrs ctx)
+        (resolve-lists)
+        (resolve-data ctx))))
 
 (deftest list-with-quotes-attached
   (let [g     (load-graph "one-of-with-str")
@@ -108,7 +111,5 @@
            (->> det->town first :dest (uber/attrs g))))))
 
 (deftest ap-attached-to-segment
-  (let [context (load-test-context "ap-no-amr")
-        semantic-graphs (load-test-semantic-graph "ap-no-amr")]
-
+  (let [g (load-graph "ap-no-amr")]
     ))

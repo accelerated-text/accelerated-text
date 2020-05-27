@@ -7,10 +7,10 @@
                                  :category "N",
                                  :language "Eng",
                                  :forms    ["fridge" "fridges"]},
-  ["white" "N"]
+  ["white" "A"]
   #:acc-text.nlg.dictionary.item{:id       "72636aff-c6c7-469d-b221-3d331a4d4660",
                                  :key      "white",
-                                 :category "N",
+                                 :category "A",
                                  :language "Eng",
-                                 :forms    ["white" "whites"]}},
+                                 :forms    ["white"]}},
  :constants {"*Language" "Eng"}}

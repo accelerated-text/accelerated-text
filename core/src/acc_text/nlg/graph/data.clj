@@ -9,7 +9,12 @@
     (throw (Exception. (format "Missing value for data cell: `%s`" key)))))
 
 (defn find-data-category [g node-id]
-  (let [category (:category (->> node-id (get-in-edge g) (attrs g)))]
+  (prn "XL " (->> node-id (get-in-edge g) (attrs g)))
+  (let [edge-attrs (->> node-id (get-in-edge g) (attrs g))
+        category (get edge-attrs :category
+                      (if (= :modifier (:role edge-attrs))
+                        "A" "N"))]
+    (prn "CAt: " category)
     (cond
       (contains? #{"A" "A2" "ACard" "AP"} category) "A"
       (contains? #{"AdA" "AdN" "AdV" "Adv" "CAdv"} category) "Adv"
