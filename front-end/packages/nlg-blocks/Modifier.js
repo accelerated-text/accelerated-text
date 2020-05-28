@@ -13,7 +13,7 @@ export default Block({
     json: {
         colour:             color,
         output:             T.LIST,
-        message0:           '%1',
+        message0:           'mod. %1',
         args0: [{
             type:           'input_value',
             name:           'modifier',
