@@ -38,7 +38,7 @@
 (defn emend [text]
   (-> text
       (str/replace #"^\p{Ll}" str/capitalize)
-      (str/replace #"\s+[.?!]" str/trim)
+      (str/replace #"\s+[,.?!]" str/trim)
       (str/replace #"([.?!]\s*)(\p{Ll})" #(str (nth % 1) (str/capitalize (nth % 2))))
       (str/replace #"[^.?!]$" #(str % "."))))
 
