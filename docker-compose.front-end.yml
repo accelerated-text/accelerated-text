@@ -2,10 +2,9 @@ version: '3.4'
 
 services:
   front-end:
-    build:
-      context: .
-      dockerfile: front-end/Dockerfile.builder
-      args:
-        ACC_TEXT_API_URL: http://localhost:3001
-        ACC_TEXT_GRAPHQL_URL: http://localhost:3001/_graphql
+    image: docker.pkg.github.com/tokenmill/accelerated-text/frontend:latest
     ports: ["8080:80"]
+    depends_on:
+      - acc-text-api
+    volumes:
+      - ./front-end/nginx.local.conf:/etc/nginx/nginx.conf
