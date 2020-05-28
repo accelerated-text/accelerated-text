@@ -43,7 +43,7 @@
         g (-> semantic-graph
               (semantic-graph->ubergraph)
               (attach-amrs context)
-              (resolve-lists))
+              (resolve-lists context))
         red (-> g (utils/find-nodes {:value "red"}) (ffirst))
         green (-> g (utils/find-nodes {:value "green"}) (ffirst))
 
@@ -91,7 +91,7 @@
         g (-> semantic-graph
               (semantic-graph->ubergraph)
               (attach-amrs context)
-              (resolve-lists))
+              (resolve-lists context))
         city (-> g (utils/find-nodes {:value "city"}) (ffirst))
         town (-> g (utils/find-nodes {:value "town"}) (ffirst))
 
