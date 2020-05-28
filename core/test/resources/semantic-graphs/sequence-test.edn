@@ -1,55 +1,37 @@
 #:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
                                           {:from :02 :to :03 :role :instance :index 0}
-                                          {:from :02 :to :06 :role :instance :index 1}
-                                          {:from :02 :to :09 :role :instance :index 2}
-                                          {:from :02 :to :12 :role :instance :index 3}
+                                          {:from :02 :to :07 :role :instance :index 1}
+                                          {:from :02 :to :08 :role :instance :index 2}
+                                          {:from :02 :to :11 :role :instance :index 3}
                                           {:from :03 :to :04 :role :item :index 0}
                                           {:from :03 :to :05 :role :item :index 1}
-                                          {:from :06 :to :07 :role :item :index 0}
-                                          {:from :06 :to :08 :role :item :index 1}
-                                          {:from :09 :to :10 :role :item :index 0}
-                                          {:from :09 :to :11 :role :item :index 1}
-                                          {:from :12 :to :13 :role :item :index 0}
-                                          {:from :12 :to :19 :role :item :index 1}
-                                          {:from :12 :to :20 :role :item :index 2}
-                                          {:from :13 :to :14 :role :item :index 0}
-                                          {:from :13 :to :17 :role :item :index 1}
-                                          {:from :13 :to :18 :role :item :index 2}
-                                          {:from :14 :to :15 :role :item :index 0}
-                                          {:from :14 :to :16 :role :item :index 1})
+                                          {:from :03 :to :06 :role :item :index 2}
+                                          {:from :08 :to :09 :role :item :index 0}
+                                          {:from :08 :to :10 :role :item :index 1})
                               :concepts  ({:id :01 :type :document-plan}
                                           {:id :02 :type :segment}
                                           {:id :03 :type :sequence}
-                                          {:id :04 :type :quote :value "product"}
-                                          {:id :05 :type :quote :value "fridge"}
-                                          {:id :06 :type :sequence}
-                                          {:id :07 :type :data :name "product"}
-                                          {:id :08 :type :data :name "fridge"}
-                                          {:id :09 :type :sequence}
+                                          {:id       :04
+                                           :type     :dictionary-item
+                                           :name     "140d317b-2c6d-4614-8472-4f1a4c10fe97"
+                                           :label    "cafe"
+                                           :category "N"}
+                                          {:id       :05
+                                           :type     :dictionary-item
+                                           :name     "a10e55ee-611d-4d40-8f7d-974591cba907"
+                                           :label    "restaurant"
+                                           :category "N"}
+                                          {:id :06 :type :quote :value "pub"}
+                                          {:id :07 :type :quote :value "."}
+                                          {:id :08 :type :sequence}
+                                          {:id       :09
+                                           :type     :dictionary-item
+                                           :name     "c7a33092-4f88-4a33-bc0e-f80155b82d8d"
+                                           :label    "affordable"
+                                           :category "A"}
                                           {:id       :10
                                            :type     :dictionary-item
-                                           :name     "9399a059-f5a5-4443-bee7-a096d284a85d"
-                                           :label    "product"
-                                           :category "N"}
-                                          {:id       :11
-                                           :type     :dictionary-item
-                                           :name     "03393900-ddbf-426f-b267-f100d09824c0"
-                                           :label    "fridge"
-                                           :category "N"}
-                                          {:id :12 :type :sequence}
-                                          {:id :13 :type :sequence}
-                                          {:id :14 :type :sequence}
-                                          {:id :15 :type :quote :value "product"}
-                                          {:id :16 :type :quote :value "fridge"}
-                                          {:id :17 :type :data :name "product"}
-                                          {:id :18 :type :data :name "fridge"}
-                                          {:id       :19
-                                           :type     :dictionary-item
-                                           :name     "9399a059-f5a5-4443-bee7-a096d284a85d"
-                                           :label    "product"
-                                           :category "N"}
-                                          {:id       :20
-                                           :type     :dictionary-item
-                                           :name     "03393900-ddbf-426f-b267-f100d09824c0"
-                                           :label    "fridge"
-                                           :category "N"})}
+                                           :name     "1c392c64-1bc9-404e-99f1-f15bc4c7e2ef"
+                                           :label    "average"
+                                           :category "A"}
+                                          {:id :11 :type :quote :value "."})}

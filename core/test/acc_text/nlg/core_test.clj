@@ -29,8 +29,8 @@
                                                                              :forms    ["product" "products"]}}}]
     (testing "Sequences"
       (let [semantic-graph (test-utils/load-test-semantic-graph "sequence-test")]
-        (is (= ["Product fridge product. Fridge. Product fridge product fridge product. Fridge. Product fridge."]
-               (map :text (core/generate-text semantic-graph context "Eng"))))))
+        (is (= ["Cafe, restaurant and pub. Affordable and average."]
+               (map :text (core/generate-text semantic-graph (test-utils/load-test-context "sequence-test") "Eng"))))))
     (testing "Synonyms"
       (let [semantic-graph (test-utils/load-test-semantic-graph "synonyms-test")]
         (is (= #{"Fridge." "Product."}
