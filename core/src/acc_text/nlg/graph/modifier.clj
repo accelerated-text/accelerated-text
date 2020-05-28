@@ -51,6 +51,7 @@
 
 (defn sync-categories [lang modifier-cat child-cat]
   (case [modifier-cat child-cat]
+    ["Str" "Str"] ["A" "N"]
     ["A" "Str"] ["A" "N"]
     ["A" "A"] ["AP" "VP"]
     ["A" "AP"] ["AP" "VP"]
