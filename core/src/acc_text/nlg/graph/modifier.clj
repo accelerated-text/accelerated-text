@@ -80,10 +80,10 @@
                 (cond-> (graph/remove-nodes g modifier-node)
                         (some? child) (uber/add-directed-edges*
                                         (for [edge (graph/in-edges g modifier-node)]
-                                          [^:edge (graph/src edge) modifier (attrs g edge)]))
+                                          [^:edge (graph/src edge) child (attrs g edge)]))
                         (some? modifier) (uber/add-directed-edges*
                                            (for [edge (graph/in-edges g modifier-node)]
-                                             [^:edge (graph/src edge) child (attrs g edge)])))
+                                             [^:edge (graph/src edge) modifier (attrs g edge)])))
                 (let [root-node (UUID/randomUUID)
                       [modifier-cat child-cat] (sync-categories
                                                  lang
