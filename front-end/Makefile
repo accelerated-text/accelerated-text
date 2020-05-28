@@ -1,5 +1,7 @@
 BUILD_DIR=dist
 
+FRONTEND_IMAGE=docker.pkg.github.com/tokenmill/accelerated-text/frontend:latest
+
 .PHONY: test
 test: setup
 	npm test --silent
@@ -35,3 +37,7 @@ copy-resources:
 	docker run -v "${PWD}/dist:/opt/output" -t frontend-builder cp -r /var/www/acc-text/ /opt/output
 
 compile-frontend-services: prepare-builder copy-resources
+
+publish-frontend-docker:
+	docker build -t ${FRONTEND_IMAGE} -f Dockerfile.builder ../
+	docker push ${FRONTEND_IMAGE}
