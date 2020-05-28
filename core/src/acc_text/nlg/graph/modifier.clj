@@ -51,6 +51,7 @@
 
 (defn sync-categories [lang modifier-cat child-cat]
   (case [modifier-cat child-cat]
+    ["Str" "Str"] ["A" "N"]
     ["A" "Str"] ["A" "N"]
     ["A" "A"] ["AP" "VP"]
     ["A" "AP"] ["AP" "VP"]
@@ -75,12 +76,14 @@
             (loop [[modifier & modifiers] (find-modifiers g modifier-node)
                    child (find-modified-node g modifier-node)
                    g g]
-              (if-not (and (some? child) (some? modifier))
-                (-> g
-                    (graph/remove-nodes modifier-node)
-                    (uber/add-directed-edges*
-                      (for [edge (graph/in-edges g modifier-node)]
-                        [^:edge (graph/src edge) child (attrs g edge)])))
+              (if (some nil? [modifier child])
+                (cond-> (graph/remove-nodes g modifier-node)
+                        (some? child) (uber/add-directed-edges*
+                                        (for [edge (graph/in-edges g modifier-node)]
+                                          [^:edge (graph/src edge) child (attrs g edge)]))
+                        (some? modifier) (uber/add-directed-edges*
+                                           (for [edge (graph/in-edges g modifier-node)]
+                                             [^:edge (graph/src edge) modifier (attrs g edge)])))
                 (let [root-node (UUID/randomUUID)
                       [modifier-cat child-cat] (sync-categories
                                                  lang
