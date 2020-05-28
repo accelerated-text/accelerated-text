@@ -1,6 +1,6 @@
 BUILD_DIR=dist
 
-FRONTEND_IMAGE=docker.pkg.github.com/tokenmill/accelerated-text/frontend:latest
+FRONTEND_IMAGE=acctext/frontend:latest
 
 .PHONY: test
 test: setup

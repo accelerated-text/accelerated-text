@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   front-end:
-    image: docker.pkg.github.com/tokenmill/accelerated-text/frontend:latest
+    image: acctext/frontend:latest
     ports: ["8080:80"]
     depends_on:
       - acc-text-api
