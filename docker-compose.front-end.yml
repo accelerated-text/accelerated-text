@@ -4,3 +4,7 @@ services:
   front-end:
     image: docker.pkg.github.com/tokenmill/accelerated-text/frontend:latest
     ports: ["8080:80"]
+    depends_on:
+      - acc-text-api
+    volumes:
+      - ./front-end/nginx.local.conf:/etc/nginx/nginx.conf
