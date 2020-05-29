@@ -2,6 +2,7 @@
   (:require [acc-text.nlg.graph.utils :as gut]
             [acc-text.nlg.graph.modifier :refer [find-category]]
             [acc-text.nlg.gf.paths :refer [path-map]]
+            [clojure.math.combinatorics :refer [permutations]]
             [ubergraph.core :as uber]
             [loom.attr :refer [attrs]]
             [loom.graph :as graph]
@@ -154,6 +155,22 @@
                                                                            :category (str "List" category)}]]))))))
       g)))
 
+(defn build-gf-shuffle-graph [g node lang]
+  (reduce (fn [g successors]
+            (let [list-node (UUID/randomUUID)]
+              (-> g
+                  (uber/add-nodes-with-attrs [^:node list-node {:type :sequence}])
+                  (uber/add-directed-edges* (cons
+                                              [^:edge node list-node {:role :item}]
+                                              (map-indexed (fn [index successor]
+                                                             [^:edge list-node successor {:role :item :index index}])
+                                                           successors)))
+                  (build-gf-list-graph list-node lang))))
+          (-> g
+              (graph/remove-edges* (graph/out-edges g node))
+              (assoc-in [:attrs node :type] :synonyms))
+          (remove empty? (permutations (graph/successors g node)))))
+
 (defn resolve-lists [g {{lang "*Language"} :constants}]
   (reduce (fn [g node]
             (let [{type :type} (attrs g node)]
@@ -161,7 +178,8 @@
                       (and
                         (= :synonyms type)
                         (has-str-child? g node)) (restructure-synonym-node node)
-                      (= :sequence type) (build-gf-list-graph node lang))))
+                      (= :sequence type) (build-gf-list-graph node lang)
+                      (= :shuffle type) (build-gf-shuffle-graph node lang))))
           g
           (filter #(let [{type :type} (attrs g %)]
                      (contains? #{:sequence :shuffle :synonyms} type))
