@@ -39,5 +39,5 @@ copy-resources:
 compile-frontend-services: prepare-builder copy-resources
 
 publish-frontend-docker:
-	docker build -t ${FRONTEND_IMAGE} -f Dockerfile.builder ../
+	docker build -t ${FRONTEND_IMAGE} --build-arg ACC_TEXT_DATA_FILES_BUCKET="/accelerated-text-data-files/" -f Dockerfile.builder ../
 	docker push ${FRONTEND_IMAGE}
