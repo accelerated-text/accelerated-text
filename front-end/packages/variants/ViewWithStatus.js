@@ -11,6 +11,15 @@ import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 
 import VariantsContext      from './Context';
 
+const shuffleVariants = (variants) => {
+    for (let i = variants.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [variants[i], variants[j]] = [variants[j], variants[i]];
+    }
+
+    return variants;
+};
+
 
 export default composeContexts({
     documentPlans:          DocumentPlansContext,
@@ -39,7 +48,7 @@ export default composeContexts({
                 ? <Loading message={ loadingMessage } />
             : ( result && result.variants && result.variants.length )
                 ? children({
-                    variants:   result.variants,
+                    variants:   shuffleVariants(result.variants),
                 })
                 : <Info message={
                     openedPlan.plan

@@ -50,21 +50,40 @@
        (cons cat)))
 
 (defn sync-categories [lang modifier-cat child-cat]
-  (->> (cartesian-product (find-path-to-utt lang modifier-cat) (find-path-to-utt lang child-cat))
-       (some #(when (contains? (get modifier-map lang) %) %))
-       (validate-cats lang [modifier-cat child-cat])))
+  (case [modifier-cat child-cat]
+    ["Str" "Str"] ["A" "N"]
+    ["A" "Str"] ["A" "N"]
+    ["A" "A"] ["AP" "VP"]
+    ["A" "AP"] ["AP" "VP"]
+    ["A" "Adv"] ["AP" "VP"]
+    ["A" "Cl"] ["AP" "S"]
+    ["N" "Str"] ["CN" "NP"]
+    ["V" "V"] ["VV" "VP"]
+    ["V" "VP"] ["VV" "VP"]
+    ["V" "N"] ["VV" "VP"]
+    ["V" "CN"] ["VV" "VP"]
+    ["V" "Str"] ["VV" "VP"]
+    ["Adv" "V"] ["Adv" "S"]
+    ["Adv" "N"] ["Adv" "S"]
+    ["Adv" "Str"] ["Adv" "S"]
+    ["Adv" "A"] ["Adv" "S"]
+    (->> (cartesian-product (find-path-to-utt lang modifier-cat) (find-path-to-utt lang child-cat))
+         (some #(when (contains? (get modifier-map lang) %) %))
+         (validate-cats lang [modifier-cat child-cat]))))
 
 (defn resolve-modifiers [g {{lang "*Language"} :constants}]
   (reduce (fn [g modifier-node]
             (loop [[modifier & modifiers] (find-modifiers g modifier-node)
                    child (find-modified-node g modifier-node)
                    g g]
-              (if-not (and (some? child) (some? modifier))
-                (-> g
-                    (graph/remove-nodes modifier-node)
-                    (uber/add-directed-edges*
-                      (for [edge (graph/in-edges g modifier-node)]
-                        [^:edge (graph/src edge) child (attrs g edge)])))
+              (if (some nil? [modifier child])
+                (cond-> (graph/remove-nodes g modifier-node)
+                        (some? child) (uber/add-directed-edges*
+                                        (for [edge (graph/in-edges g modifier-node)]
+                                          [^:edge (graph/src edge) child (attrs g edge)]))
+                        (some? modifier) (uber/add-directed-edges*
+                                           (for [edge (graph/in-edges g modifier-node)]
+                                             [^:edge (graph/src edge) modifier (attrs g edge)])))
                 (let [root-node (UUID/randomUUID)
                       [modifier-cat child-cat] (sync-categories
                                                  lang

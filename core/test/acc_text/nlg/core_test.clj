@@ -29,17 +29,17 @@
                                                                              :forms    ["product" "products"]}}}]
     (testing "Sequences"
       (let [semantic-graph (test-utils/load-test-semantic-graph "sequence-test")]
-        (is (= ["Product fridge product. fridge. There is product. There is fridge. product fridge product. fridge. There is product. There is fridge."]
+        (is (= ["Product fridge product. Fridge. Product fridge product fridge product. Fridge. Product fridge."]
                (map :text (core/generate-text semantic-graph context "Eng"))))))
     (testing "Synonyms"
       (let [semantic-graph (test-utils/load-test-semantic-graph "synonyms-test")]
-        (is (= #{"Fridge." "Product." "There is fridge." "There is product."}
+        (is (= #{"Fridge." "Product."}
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
     (testing "Shuffle"
       (let [semantic-graph (test-utils/load-test-semantic-graph "shuffle-test")]
-        (is (= #{"Product. There is product. product. fridge."
-                 "Product. product. There is product. fridge."
-                 "There is product. product. product. fridge."}
+        (is (= #{"Product product. Product. Fridge."
+                 "Product. Product product. Fridge."
+                 "Product. Product. Product fridge."}
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))))
 
 (deftest ^:integration amr-generation
@@ -84,10 +84,16 @@
 (deftest ^:integration modifier-test
   (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
         context (test-utils/load-test-context "modifier-test")]
-    (is (= (->> ["There is good eatery." "There is good chinese eatery." "Cafe is nice." "There is nice cafe."
-                 "Excellent to find." "It is here that it looks." "It looks here." "There is venue there."
-                 "It is here that there is restaurant." "Delicious to try." "Excellent that eatery is a delicious decent cafe."
-                 "It is in family-friendly Alimentum that there is italian food and the beautiful door is made of traditional oriental wood."]
+    (is (= (->> ["Good eatery" "good chinese eatery" "cafe is nice" "nice cafe"
+                 "excellent to find" "it is here that it looks" "to look here" "venue there"
+                 "it is here that there is restaurant" "delicious to try" "excellent that eatery is a delicious decent cafe"
+                 "it is in family-friendly Alimentum that there is italian food and the beautiful door is made of traditional oriental wood."]
                 (str/join " ")
                 (vector))
+           (map :text (core/generate-text semantic-graph context "Eng"))))))
+
+(deftest ^:integration template-amr
+  (let [semantic-graph (test-utils/load-test-semantic-graph "template-amr")
+        context (test-utils/load-test-context "template-amr")]
+    (is (= ["A house is built to last. An object is built to last."]
            (map :text (core/generate-text semantic-graph context "Eng"))))))

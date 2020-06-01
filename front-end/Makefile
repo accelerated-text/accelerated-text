@@ -1,5 +1,7 @@
 BUILD_DIR=dist
 
+FRONTEND_IMAGE=acctext/frontend:latest
+
 .PHONY: test
 test: setup
 	npm test --silent
@@ -35,3 +37,7 @@ copy-resources:
 	docker run -v "${PWD}/dist:/opt/output" -t frontend-builder cp -r /var/www/acc-text/ /opt/output
 
 compile-frontend-services: prepare-builder copy-resources
+
+publish-frontend-docker:
+	docker build -t ${FRONTEND_IMAGE} --build-arg ACC_TEXT_DATA_FILES_BUCKET="/accelerated-text-data-files/" -f Dockerfile.builder ../
+	docker push ${FRONTEND_IMAGE}

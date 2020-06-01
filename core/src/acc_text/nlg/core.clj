@@ -9,10 +9,9 @@
   (log/debugf "Semantic graph: %s" semantic-graph)
   (log/debugf "Context: %s" (assoc context :constants {"*Language" lang}))
   (map (fn [{:keys [text]}]
-         (let [text (nlp/process-sentence text)]
-           {:text     text
-            :language lang
-            :tokens   (nlp/annotate text)}))
+         {:text     text
+          :language lang
+          :tokens   (nlp/annotate text)})
        (-> semantic-graph
            (grammar/build-grammar (assoc context :constants {"*Language" lang}))
            (gf-service/request lang))))

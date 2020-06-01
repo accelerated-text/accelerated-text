@@ -6,14 +6,14 @@
 (deftest ^:integration path-completion
   (let [semantic-graph (load-test-semantic-graph "path-test")
         context (load-test-context "path-test")]
-    (is (= #{"It is made of steel."
-             "It is made."
-             "It makes itself."
+    (is (= #{"To be made of steel."
+             "To be made."
+             "To make itself."
              "Of steel."
              "Of."
              "Refrigerator is made of steel."
              "Refrigerator was made of steel."
              "Refrigerator will be made of steel."
-             "There is refrigerator."
-             "There is steel."}
+             "Refrigerator."
+             "Steel."}
            (set (map :text (core/generate-text semantic-graph context "Eng")))))))
