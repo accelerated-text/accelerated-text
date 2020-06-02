@@ -99,7 +99,7 @@
                                          (or (= src dest) (contains? (get path-map lang) [src dest]))))
                                      (graph/successors g node)))
               dest))
-          ["NP" "AP" "Adv" "S"])))                          ;; TODO: ListRS
+          ["NP" "AP" "Adv" "S"])))
 
 (defn build-gf-list-graph [g node lang]
   (let [category (determine-list-category g node lang)]
@@ -178,8 +178,7 @@
                       (and
                         (= :synonyms type)
                         (has-str-child? g node)) (restructure-synonym-node node)
-                      (= :sequence type) (build-gf-list-graph node lang)
-                      (= :shuffle type) (build-gf-shuffle-graph node lang))))
+                      (= :sequence type) (build-gf-list-graph node lang))))
           g
           (filter #(let [{type :type} (attrs g %)]
                      (contains? #{:sequence :shuffle :synonyms} type))
