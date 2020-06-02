@@ -20,10 +20,12 @@
          (:to)
          (get concept-map))))
 
+(defn find-root [{::sg/keys [concepts]}]
+  (some #(when (= :document-plan (:type %)) %) concepts))
+
 (defn get-children [{::sg/keys [concepts relations]} {id :id}]
-  (let [concept-map (zipmap (map :id concepts) concepts)
-        relation-map (group-by :from relations)]
-    (map #(get concept-map (:to %)) (get relation-map id))))
+  (let [concept-map (zipmap (map :id concepts) concepts)]
+    (map (comp concept-map :to) (sort-by :index (filter #(= id (:from %)) relations)))))
 
 (defn get-concepts-with-type [{concepts ::sg/concepts} type]
   (filter #(= type (:type %)) concepts))

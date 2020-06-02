@@ -17,12 +17,14 @@
 (defn find-unrelated-concepts [{::sg/keys [concepts relations]}]
   (set/difference (set (map :id concepts)) (set (map :from relations))))
 
-(defn get-category [{::sg/keys [concepts relations]}]
-  (let [{root-id :id} (some #(when (= :document-plan (:type %)) %) concepts)
-        {first-segment-id :to} (first (sort-by :index (filter #(= root-id (:from %)) relations)))
-        {first-block-id :to} (first (sort-by :index (filter #(= first-segment-id (:from %)) relations)))
-        {:keys [type category]} (some #(when (= first-block-id (:id %)) %) concepts)]
-    (or (when (= :amr type) category) "Str")))
+(defn get-category [sg]
+  (let [root (sg-utils/find-root sg)
+        segments (sg-utils/get-children sg root)
+        first-segment-blocks (sg-utils/get-children sg (first segments))
+        first-block (first first-segment-blocks)]
+    (or (when (and (= 1 (count first-segment-blocks)) (= :amr (:type first-block)))
+          (:category first-block))
+        "Str")))
 
 (defn resolve-categories [semantic-graph]
   (-> semantic-graph

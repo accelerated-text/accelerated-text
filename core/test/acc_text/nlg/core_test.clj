@@ -29,18 +29,18 @@
                                                                              :forms    ["product" "products"]}}}]
     (testing "Sequences"
       (let [semantic-graph (test-utils/load-test-semantic-graph "sequence-test")]
-        (is (= ["Product fridge product. Fridge. Product fridge product fridge product. Fridge. Product fridge."]
-               (map :text (core/generate-text semantic-graph context "Eng"))))))
+        (is (= ["Cafe, restaurant and pub. Affordable and average."]
+               (map :text (core/generate-text semantic-graph (test-utils/load-test-context "sequence-test") "Eng"))))))
     (testing "Synonyms"
       (let [semantic-graph (test-utils/load-test-semantic-graph "synonyms-test")]
         (is (= #{"Fridge." "Product."}
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
     (testing "Shuffle"
       (let [semantic-graph (test-utils/load-test-semantic-graph "shuffle-test")]
-        (is (= #{"Product product. Product. Fridge."
-                 "Product. Product product. Fridge."
-                 "Product. Product. Product fridge."}
-               (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))))
+        (is (= #{"Cafe pub restaurant." "Cafe restaurant pub."
+                 "Pub cafe restaurant." "Pub restaurant cafe."
+                 "Restaurant cafe pub." "Restaurant pub cafe."}
+               (into #{} (map :text (core/generate-text semantic-graph {} "Eng")))))))))
 
 (deftest ^:integration amr-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "amr-test")
