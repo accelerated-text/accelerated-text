@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.dictionary.item :as dictionary-item]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [data.entities.dictionary :as dict-entity]
-            [data.entities.amr :as amr]
-            [data.entities.rgl :as rgl]))
+            [data.entities.amr :as amr]))
 
 (defn get-dictionary-keys [semantic-graph]
   (->> (sg-utils/get-concepts-with-type semantic-graph :dictionary-item)
@@ -24,7 +23,7 @@
        (map :name)
        (into #{})
        (reduce (fn [m amr-id]
-                 (let [{sg :semantic-graph :as amr} (or (amr/get-amr amr-id) (rgl/get-rgl amr-id))]
+                 (let [{sg :semantic-graph :as amr} (amr/get-amr amr-id)]
                    (cond-> m
                            (some? amr) (-> (assoc amr-id amr)
                                            (cond-> (some? sg) (merge (fetch-amrs sg)))))))
