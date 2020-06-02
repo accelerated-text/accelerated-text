@@ -57,8 +57,6 @@ Here are environment variables with their default values that will need to be ch
 GF_ENDPOINT: "http://gf:8000"
 DB_IMPLEMENTATION: "datomic"
 DB_URI: "datomic:free://datomic-transactor:4334/acc-text?password=datomic"
-GRAMMAR_SYNTAX: "/opt/syntax"
-GRAMMAR_PARADIGMS: "/opt/paradigms"
 DATA_FILES: "/opt/data-files"
 DICT_PATH: "/opt/dictionary"
 DOCUMENT_PLANS: "/opt/document-plans"
