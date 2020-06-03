@@ -8,7 +8,7 @@ services:
     environment:
       GF_ENDPOINT: "http://gf:8000"
       ENABLE_ENRICH: "FALSE"
-      ENRICH_ENDPOINT: "http://enrich:8000"
+      ENABLE_REF_EXPR: "FALSE"
       DB_IMPLEMENTATION: "datomic"
       GRAMMAR_SYNTAX: "/opt/syntax"
       GRAMMAR_PARADIGMS: "/opt/paradigms"
@@ -25,6 +25,3 @@ services:
   gf:
     build:
       context: ../core/gf
-  enrich:
-    build:
-      context: ../enrich
