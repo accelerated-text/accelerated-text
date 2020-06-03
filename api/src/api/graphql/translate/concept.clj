@@ -21,6 +21,14 @@
 (defn- construct-name [{:keys [kind roles]}]
   (str/join " -> " (-> (mapv #(or (:type %) (:label %)) roles) (conj kind))))
 
+(defn operation->schema [{:keys [id name category args example]}]
+  {:id       id
+   :kind     category
+   :roles    (map #(role->schema {:type (str/replace % #"[()]" "") :label %}) args)
+   :helpText (str example)
+   :label    name
+   :name     (str/join " -> " (conj args category))})
+
 (defn amr->schema [{:keys [id kind roles frames label name] :as entity}]
   {:id       id
    :kind     (or kind "Str")

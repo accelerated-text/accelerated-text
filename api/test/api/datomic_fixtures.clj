@@ -5,7 +5,6 @@
             [data.entities.data-files]
             [data.entities.dictionary]
             [data.entities.document-plan]
-            [data.entities.rgl]
             [data.entities.results]
             [datomic.api :as d]
             [mount.core :as mount])
@@ -28,13 +27,11 @@
            {:start (fn []
                      {:db-implementation :datomic})}})
         (mount/only #{#'api.config/conf
-                      #'data.entities.rgl/rgl-db
                       #'data.entities.data-files/data-files-db
                       #'data.entities.document-plan/document-plans-db
                       #'data.entities.dictionary/reader-flags-db
                       #'data.entities.dictionary/dictionary-db
                       #'data.entities.results/results-db
                       #'data.datomic.impl/conn})
-        (mount/start))
-    (data.entities.rgl/initialize))
+        (mount/start)))
   (f))

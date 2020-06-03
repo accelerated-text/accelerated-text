@@ -1,5 +1,6 @@
 (ns api.nlg.parser
-  (:require [acc-text.nlg.semantic-graph :as sg]
+  (:require [acc-text.nlg.gf.operations :as ops]
+            [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.spec.alpha :as s]
             [clojure.zip :as zip]))
@@ -40,7 +41,9 @@
   #::sg{:concepts  [(cond-> {:id   id
                              :type :amr
                              :name conceptId}
-                            (some? kind) (assoc :category kind))]
+                            (some? kind) (assoc :category kind)
+                            (contains? ops/operation-map conceptId) (merge (select-keys (get ops/operation-map conceptId)
+                                                                                        [:type :name :category :module])))]
         :relations (map-indexed (fn [index {[{child-id :id}] :children name :name label :label}]
                                   (cond-> {:from     id
                                            :to       child-id

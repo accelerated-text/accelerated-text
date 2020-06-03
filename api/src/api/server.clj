@@ -8,7 +8,6 @@
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
-            [data.entities.rgl :as rgl]
             [data.entities.document-plan :as document-plan]
             [mount.core :refer [defstate] :as mount]
             [org.httpkit.server :as server]
@@ -118,7 +117,6 @@
     (document-plan/initialize)
     (data-files/initialize)
     (dictionary/initialize)
-    (rgl/initialize)
     (server/run-server
       #'app {:port     port
              :ip       host

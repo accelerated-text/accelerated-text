@@ -1,139 +1,120 @@
-{:amr {"JVfEjnRVNodsDjxL" {:id "JVfEjnRVNodsDjxL",
-                           :label "test",
-                           :kind "Str",
-                           :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from :01,
-                                                                                      :to :02,
-                                                                                      :role :segment,
+{:amr {"JVfEjnRVNodsDjxL" {:id             "JVfEjnRVNodsDjxL"
+                           :label          "test"
+                           :kind           "Str"
+                           :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                      :to    :02
+                                                                                      :role  :segment
                                                                                       :index 0}
-                                                                                     {:from :02,
-                                                                                      :to :03,
-                                                                                      :role :instance,
+                                                                                     {:from  :02
+                                                                                      :to    :03
+                                                                                      :role  :instance
                                                                                       :index 0}
-                                                                                     {:from :02,
-                                                                                      :to :06,
-                                                                                      :role :instance,
+                                                                                     {:from  :02
+                                                                                      :to    :06
+                                                                                      :role  :instance
                                                                                       :index 1}
-                                                                                     {:from :03,
-                                                                                      :to :04,
-                                                                                      :role :arg,
-                                                                                      :index 0,
+                                                                                     {:from     :03
+                                                                                      :to       :04
+                                                                                      :role     :arg
+                                                                                      :index    0
                                                                                       :category "Det"}
-                                                                                     {:from :03,
-                                                                                      :to :05,
-                                                                                      :role :arg,
-                                                                                      :index 1,
-                                                                                      :category "CN"}),
-                                                                         :concepts ({:id :01, :type :document-plan}
-                                                                                    {:id :02, :type :segment}
-                                                                                    {:id :03,
-                                                                                     :type :amr,
-                                                                                     :name "NiMQlZJtzgrzGGiK",
-                                                                                     :category "NP"}
-                                                                                    {:id :04,
-                                                                                     :type :amr,
-                                                                                     :name "Syntax.a_Det/Det",
-                                                                                     :category "Det"}
-                                                                                    {:id :05,
-                                                                                     :type :reference,
-                                                                                     :name "Thing",
-                                                                                     :category "CN"}
-                                                                                    {:id :06,
-                                                                                     :type :quote,
-                                                                                     :value "is built to last."})},
-                           :frames [{:examples []}],
-                           :roles [{:id "ARG0", :label "Thing", :type "CN"}]},
-       "NiMQlZJtzgrzGGiK" {:id "NiMQlZJtzgrzGGiK",
-                           :label "NP",
-                           :kind "NP",
-                           :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from :01,
-                                                                                      :to :02,
-                                                                                      :role :segment,
-                                                                                      :index 0}
-                                                                                     {:from :02,
-                                                                                      :to :03,
-                                                                                      :role :instance,
-                                                                                      :index 0}
-                                                                                     {:from :03,
-                                                                                      :to :04,
-                                                                                      :role :arg,
-                                                                                      :index 0,
+                                                                                     {:from     :03
+                                                                                      :to       :05
+                                                                                      :role     :arg
+                                                                                      :index    1
+                                                                                      :category "CN"})
+                                                                         :concepts  ({:id :01 :type :document-plan}
+                                                                                     {:id :02 :type :segment}
+                                                                                     {:id       :03
+                                                                                      :type     :amr
+                                                                                      :name     "NiMQlZJtzgrzGGiK"
+                                                                                      :category "NP"}
+                                                                                     {:id       :04
+                                                                                      :type     :amr
+                                                                                      :name     "Syntax.a_Det/Det"
                                                                                       :category "Det"}
-                                                                                     {:from :03,
-                                                                                      :to :10,
-                                                                                      :role :arg,
-                                                                                      :index 1,
+                                                                                     {:id       :05
+                                                                                      :type     :reference
+                                                                                      :name     "Thing"
                                                                                       :category "CN"}
-                                                                                     {:from :04,
-                                                                                      :to :05,
-                                                                                      :role :statement,
-                                                                                      :index 0,
+                                                                                     {:id    :06
+                                                                                      :type  :quote
+                                                                                      :value "is built to last."})}
+                           :frames         [{:examples []}]
+                           :roles          [{:id "ARG0" :label "Thing" :type "CN"}]}
+       "NiMQlZJtzgrzGGiK" {:id             "NiMQlZJtzgrzGGiK"
+                           :label          "NP"
+                           :kind           "NP"
+                           :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                                      :to    :02
+                                                                                      :role  :segment
+                                                                                      :index 0}
+                                                                                     {:from  :02
+                                                                                      :to    :03
+                                                                                      :role  :instance
+                                                                                      :index 0}
+                                                                                     {:from     :03
+                                                                                      :to       :04
+                                                                                      :role     :arg
+                                                                                      :index    0
                                                                                       :category "Det"}
-                                                                                     {:from :04,
-                                                                                      :to :08,
-                                                                                      :role :statement,
-                                                                                      :index 1,
+                                                                                     {:from     :03
+                                                                                      :to       :10
+                                                                                      :role     :arg
+                                                                                      :index    1
+                                                                                      :category "CN"}
+                                                                                     {:from     :04
+                                                                                      :to       :05
+                                                                                      :role     :statement
+                                                                                      :index    0
                                                                                       :category "Det"}
-                                                                                     {:from :05,
-                                                                                      :to :06,
-                                                                                      :role :predicate,
+                                                                                     {:from     :04
+                                                                                      :to       :08
+                                                                                      :role     :statement
+                                                                                      :index    1
                                                                                       :category "Det"}
-                                                                                     {:from :05,
-                                                                                      :to :07,
-                                                                                      :role :then-expression,
+                                                                                     {:from     :05
+                                                                                      :to       :06
+                                                                                      :role     :predicate
                                                                                       :category "Det"}
-                                                                                     {:from :08,
-                                                                                      :to :09,
-                                                                                      :role :then-expression,
-                                                                                      :category "Det"}),
-                                                                         :concepts ({:id :01, :type :document-plan}
-                                                                                    {:id :02, :type :segment}
-                                                                                    {:id :03,
-                                                                                     :type :amr,
-                                                                                     :name "Syntax.mkNP/Det->CN->NP",
-                                                                                     :category "NP"}
-                                                                                    {:id :04,
-                                                                                     :type :condition,
-                                                                                     :category "Det"}
-                                                                                    {:id :05,
-                                                                                     :type :if-statement,
-                                                                                     :category "Det"}
-                                                                                    {:id :06,
-                                                                                     :type :reference,
-                                                                                     :name "Det",
-                                                                                     :category "Det"}
-                                                                                    {:id :07,
-                                                                                     :type :reference,
-                                                                                     :name "Det",
-                                                                                     :category "Det"}
-                                                                                    {:id :08,
-                                                                                     :type :else-statement,
-                                                                                     :category "Det"}
-                                                                                    {:id :09,
-                                                                                     :type :amr,
-                                                                                     :name "Syntax.a_Det/Det",
-                                                                                     :category "Det"}
-                                                                                    {:id :10,
-                                                                                     :type :reference,
-                                                                                     :name "CN",
-                                                                                     :category "CN"})},
-                           :frames [{:examples []}],
-                           :roles [{:id "ARG0", :label "Det", :type "Det"} {:id "ARG2", :label "CN", :type "CN"}]},
-       "Syntax.mkNP/Det->CN->NP" {:id "Syntax.mkNP/Det->CN->NP",
-                                  :kind "NP",
-                                  :name "Det -> CN -> NP",
-                                  :label "mkNP",
-                                  :module "Syntax",
-                                  :roles ({:type "Det", :label "Det"} {:type "CN", :label "CN"}),
-                                  :frames ({:examples ["the five old men"],
-                                            :syntax ({:ret "NP",
-                                                      :value "Syntax.mkNP",
-                                                      :params ({:id "ARG0", :type "Det"} {:id "ARG1", :type "CN"}),
-                                                      :type :oper})})},
-       "Syntax.a_Det/Det" {:id "Syntax.a_Det/Det",
-                           :kind "Det",
-                           :name "Det",
-                           :label "a_Det",
-                           :module "Syntax",
-                           :roles (),
-                           :frames ({:examples ["a house"],
-                                     :syntax ({:ret "Det", :value "Syntax.a_Det", :params (), :type :oper})})}},}
+                                                                                     {:from     :05
+                                                                                      :to       :07
+                                                                                      :role     :then-expression
+                                                                                      :category "Det"}
+                                                                                     {:from     :08
+                                                                                      :to       :09
+                                                                                      :role     :then-expression
+                                                                                      :category "Det"})
+                                                                         :concepts  ({:id :01 :type :document-plan}
+                                                                                     {:id :02 :type :segment}
+                                                                                     {:id       :03
+                                                                                      :type     :amr
+                                                                                      :name     "Syntax.mkNP/Det->CN->NP"
+                                                                                      :category "NP"}
+                                                                                     {:id       :04
+                                                                                      :type     :condition
+                                                                                      :category "Det"}
+                                                                                     {:id       :05
+                                                                                      :type     :if-statement
+                                                                                      :category "Det"}
+                                                                                     {:id       :06
+                                                                                      :type     :reference
+                                                                                      :name     "Det"
+                                                                                      :category "Det"}
+                                                                                     {:id       :07
+                                                                                      :type     :reference
+                                                                                      :name     "Det"
+                                                                                      :category "Det"}
+                                                                                     {:id       :08
+                                                                                      :type     :else-statement
+                                                                                      :category "Det"}
+                                                                                     {:id       :09
+                                                                                      :type     :amr
+                                                                                      :name     "Syntax.a_Det/Det"
+                                                                                      :category "Det"}
+                                                                                     {:id       :10
+                                                                                      :type     :reference
+                                                                                      :name     "CN"
+                                                                                      :category "CN"})}
+                           :frames         [{:examples []}]
+                           :roles          [{:id "ARG0" :label "Det" :type "Det"} {:id "ARG2" :label "CN" :type "CN"}]}}}
