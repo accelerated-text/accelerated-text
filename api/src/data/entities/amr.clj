@@ -62,6 +62,16 @@
 (defn get-amr [id]
   (some-> id (dp/get-document-plan) (document-plan->amr)))
 
+(defn get-amrs [semantic-graph]
+  (loop [amr-ids (sg-utils/get-amr-ids semantic-graph)
+         output '()]
+    (if-not (seq amr-ids)
+      (vec output)
+      (let [amrs (map get-amr amr-ids)]
+        (recur
+          (remove nil? (mapcat (comp sg-utils/get-amr-ids :semantic-graph) amrs))
+          (concat output amrs))))))
+
 (defn list-amrs []
   (map document-plan->amr (dp/list-document-plans "AMR")))
 

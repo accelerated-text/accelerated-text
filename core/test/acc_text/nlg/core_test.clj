@@ -17,16 +17,16 @@
 
 (deftest ^:integration list-generation
   (let [context {:data       {"product" "product." "fridge" "fridge."}
-                 :dictionary {["fridge" "N"]  #:acc-text.nlg.dictionary.item{:id       "03393900-ddbf-426f-b267-f100d09824c0"
-                                                                             :key      "fridge"
-                                                                             :category "N"
-                                                                             :language "Eng"
-                                                                             :forms    ["fridge" "fridges"]}
-                              ["product" "N"] #:acc-text.nlg.dictionary.item{:id       "9399a059-f5a5-4443-bee7-a096d284a85d"
-                                                                             :key      "product"
-                                                                             :category "N"
-                                                                             :language "Eng"
-                                                                             :forms    ["product" "products"]}}}]
+                 :dictionary [#:acc-text.nlg.dictionary.item{:id       "03393900-ddbf-426f-b267-f100d09824c0"
+                                                             :key      "fridge"
+                                                             :category "N"
+                                                             :language "Eng"
+                                                             :forms    ["fridge" "fridges"]}
+                              #:acc-text.nlg.dictionary.item{:id       "9399a059-f5a5-4443-bee7-a096d284a85d"
+                                                             :key      "product"
+                                                             :category "N"
+                                                             :language "Eng"
+                                                             :forms    ["product" "products"]}]}]
     (testing "Sequences"
       (let [semantic-graph (test-utils/load-test-semantic-graph "sequence-test")]
         (is (= ["Cafe, restaurant and pub. Affordable and average."]

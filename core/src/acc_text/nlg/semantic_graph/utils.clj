@@ -30,6 +30,16 @@
 (defn get-concepts-with-type [{concepts ::sg/concepts} type]
   (filter #(= type (:type %)) concepts))
 
+(defn get-dictionary-keys [semantic-graph]
+  (->> (get-concepts-with-type semantic-graph :dictionary-item)
+       (map :label)
+       (into #{})))
+
+(defn get-amr-ids [semantic-graph]
+  (->> (get-concepts-with-type semantic-graph :amr)
+       (map :name)
+       (into #{})))
+
 (defn prune-branches [semantic-graph ids]
   (let [ids-incl-descendants (set/union (set ids) (find-descendant-ids semantic-graph ids))]
     (-> semantic-graph
