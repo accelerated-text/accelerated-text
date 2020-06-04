@@ -225,11 +225,12 @@
     #::sg{:concepts  [(cond-> {:id   id
                                :type (if (contains? constants var-name) :constant :reference)}
                               (contains? variable-names var-id) (assoc :name var-name))]
-          :relations (map (fn [var-id]
-                            {:from id
-                             :to   var-id
-                             :role :pointer})
-                          (get variables var-id))}))
+          :relations (map-indexed (fn [index var-id]
+                                    {:from  id
+                                     :to    var-id
+                                     :role  :pointer
+                                     :index index})
+                                  (get variables var-id))}))
 
 (defn make-node [{type :type :as node} children]
   (case (keyword type)

@@ -102,6 +102,18 @@
                                     (and (s-node? graph %) (nil? category)) (str ".s"))
                            successors)}}))
 
+(defmethod build-node :reference [graph node-id]
+  (let [successors (get-successors graph node-id)
+        category (:category (attrs graph node-id))
+        cat (node->cat graph node-id)]
+    #:acc-text.nlg.grammar
+        {:cat    [cat]
+         :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
+         :lincat {cat (or category "Str")}
+         :lin    {cat (map #(cond-> (node->cat graph %)
+                                    (and (s-node? graph %) (nil? category)) (str ".s"))
+                           successors)}}))
+
 (defmethod build-node :shuffle [graph node-id]
   (let [successors (get-successors graph node-id)
         category (:category (attrs graph node-id))
@@ -145,7 +157,8 @@
                (merge-with (fn [acc val]
                              (cond
                                (map? acc) (merge acc val)
-                               (coll? acc) (concat acc val)))
+                               (coll? acc) (concat acc val)
+                               (nil? val) acc))
                            grammar
                            (build-node graph node-id)))
              #:acc-text.nlg.grammar
