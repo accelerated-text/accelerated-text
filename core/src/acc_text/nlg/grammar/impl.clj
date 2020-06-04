@@ -10,6 +10,7 @@
             [acc-text.nlg.graph.paths :refer [resolve-paths]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
             [acc-text.nlg.graph.utils :refer [add-concept-position find-root-id get-in-edge get-successors prune-graph]]
+            [acc-text.nlg.graph.variables :refer [resolve-variables]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]
@@ -134,6 +135,7 @@
   (-> semantic-graph
       (semantic-graph->ubergraph)
       (attach-amrs context)
+      (resolve-variables)
       (determine-conditions context)
       (prune-graph)
       (resolve-lists context)
@@ -155,7 +157,8 @@
                (merge-with (fn [acc val]
                              (cond
                                (map? acc) (merge acc val)
-                               (coll? acc) (concat acc val)))
+                               (coll? acc) (concat acc val)
+                               (nil? val) acc))
                            grammar
                            (build-node graph node-id)))
              #:acc-text.nlg.grammar
