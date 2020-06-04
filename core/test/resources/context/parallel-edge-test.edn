@@ -1,68 +1,68 @@
-{:amr {"kTErYCgvoTGwxgpr" {:id             "kTErYCgvoTGwxgpr"
-                           :label          "test"
-                           :kind           "Str"
-                           :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
-                                                                                      :to    :02
-                                                                                      :role  :segment
-                                                                                      :index 0}
-                                                                                     {:from  :02
-                                                                                      :to    :03
-                                                                                      :role  :instance
-                                                                                      :index 0}
-                                                                                     {:from     :03
-                                                                                      :to       :04
-                                                                                      :role     :arg
-                                                                                      :index    0
-                                                                                      :category "Str"
-                                                                                      :name     "Cl"})
-                                                                         :concepts  ({:id :01 :type :document-plan}
-                                                                                     {:id :02 :type :segment}
-                                                                                     {:id   :03
-                                                                                      :type :amr
-                                                                                      :name "nmAUOjBoGcgLLHqp"}
-                                                                                     {:id   :04
-                                                                                      :type :reference
-                                                                                      :name "item"})}
-                           :frames         [{:examples []}]
-                           :roles          [{:id "ARG0" :label "item" :type "Str"}]}
-       "nmAUOjBoGcgLLHqp" {:id             "nmAUOjBoGcgLLHqp"
-                           :label          "test"
-                           :kind           "Str"
-                           :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
-                                                                                      :to    :02
-                                                                                      :role  :segment
-                                                                                      :index 0}
-                                                                                     {:from  :02
-                                                                                      :to    :03
-                                                                                      :role  :instance
-                                                                                      :index 0}
-                                                                                     {:from     :03
-                                                                                      :to       :07
-                                                                                      :role     :arg
-                                                                                      :index    3
-                                                                                      :category "Cl"}
-                                                                                     {:from  :07
-                                                                                      :to    :08
-                                                                                      :role  :statement
-                                                                                      :index 0}
-                                                                                     {:from :08
-                                                                                      :to   :09
-                                                                                      :role :predicate}
-                                                                                     {:from :08
-                                                                                      :to   :10
-                                                                                      :role :then-expression})
-                                                                         :concepts  ({:id :01 :type :document-plan}
-                                                                                     {:id :02 :type :segment}
-                                                                                     {:id   :03
-                                                                                      :type :amr
-                                                                                      :name "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
-                                                                                     {:id :07 :type :condition}
-                                                                                     {:id :08 :type :if-statement}
-                                                                                     {:id   :09
-                                                                                      :type :reference
-                                                                                      :name "Cl"}
-                                                                                     {:id   :10
-                                                                                      :type :reference
-                                                                                      :name "Cl"})}
-                           :frames         [{:examples []}]
-                           :roles          [{:id "ARG0" :label "Cl" :type nil}]}}}
+{:amr [{:id             "kTErYCgvoTGwxgpr"
+        :label          "test"
+        :kind           "Str"
+        :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                   :to    :02
+                                                                   :role  :segment
+                                                                   :index 0}
+                                                                  {:from  :02
+                                                                   :to    :03
+                                                                   :role  :instance
+                                                                   :index 0}
+                                                                  {:from     :03
+                                                                   :to       :04
+                                                                   :role     :arg
+                                                                   :index    0
+                                                                   :category "Str"
+                                                                   :name     "Cl"})
+                                                      :concepts  ({:id :01 :type :document-plan}
+                                                                  {:id :02 :type :segment}
+                                                                  {:id   :03
+                                                                   :type :amr
+                                                                   :name "nmAUOjBoGcgLLHqp"}
+                                                                  {:id   :04
+                                                                   :type :reference
+                                                                   :name "item"})}
+        :frames         [{:examples []}]
+        :roles          [{:id "ARG0" :label "item" :type "Str"}]}
+       {:id             "nmAUOjBoGcgLLHqp"
+        :label          "test"
+        :kind           "Str"
+        :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                   :to    :02
+                                                                   :role  :segment
+                                                                   :index 0}
+                                                                  {:from  :02
+                                                                   :to    :03
+                                                                   :role  :instance
+                                                                   :index 0}
+                                                                  {:from     :03
+                                                                   :to       :07
+                                                                   :role     :arg
+                                                                   :index    3
+                                                                   :category "Cl"}
+                                                                  {:from  :07
+                                                                   :to    :08
+                                                                   :role  :statement
+                                                                   :index 0}
+                                                                  {:from :08
+                                                                   :to   :09
+                                                                   :role :predicate}
+                                                                  {:from :08
+                                                                   :to   :10
+                                                                   :role :then-expression})
+                                                      :concepts  ({:id :01 :type :document-plan}
+                                                                  {:id :02 :type :segment}
+                                                                  {:id   :03
+                                                                   :type :amr
+                                                                   :name "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
+                                                                  {:id :07 :type :condition}
+                                                                  {:id :08 :type :if-statement}
+                                                                  {:id   :09
+                                                                   :type :reference
+                                                                   :name "Cl"}
+                                                                  {:id   :10
+                                                                   :type :reference
+                                                                   :name "Cl"})}
+        :frames         [{:examples []}]
+        :roles          [{:id "ARG0" :label "Cl" :type nil}]}]}

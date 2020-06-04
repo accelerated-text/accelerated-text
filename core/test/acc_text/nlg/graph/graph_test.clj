@@ -1,5 +1,6 @@
 (ns acc-text.nlg.graph.graph-test
-  (:require [acc-text.nlg.graph.amr :refer [attach-amrs]]
+  (:require [acc-text.nlg.core :refer [build-context]]
+            [acc-text.nlg.graph.amr :refer [attach-amrs]]
             [acc-text.nlg.graph.lists :refer [resolve-lists subset-of-edges-from]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
             [acc-text.nlg.graph.utils :as utils :refer [ubergraph->semantic-graph]]
@@ -12,7 +13,7 @@
 (deftest polarity
   (let [semantic-graph (load-test-semantic-graph "polarity-test")]
     (testing "Positive polarity"
-      (let [context (load-test-context "polarity-positive-test")]
+      (let [context (build-context (load-test-context "polarity-positive-test") "Eng")]
         (is (= 2 (count (filter (fn [{:keys [type name]}]
                                   (and (= type :operation) (= name "positivePol")))
                                 (-> semantic-graph
@@ -22,7 +23,7 @@
                                     (ubergraph->semantic-graph)
                                     (get ::sg/concepts))))))))
     (testing "Negative polarity"
-      (let [context (load-test-context "polarity-negative-test")]
+      (let [context (build-context (load-test-context "polarity-negative-test") "Eng")]
         (is (= 2 (count (filter (fn [{:keys [type name]}]
                                   (and (= type :operation) (= name "negativePol")))
                                 (-> semantic-graph
@@ -38,7 +39,7 @@
 (defn- fattrs [g node] (->> node (first) (uber/attrs g)))
 
 (deftest list-with-quotes-attached
-  (let [context (load-test-context "one-of-with-str")
+  (let [context (build-context (load-test-context "one-of-with-str") "Eng")
         semantic-graph (load-test-semantic-graph "one-of-with-str")
         g (-> semantic-graph
               (semantic-graph->ubergraph)
@@ -86,7 +87,7 @@
 (deftest list-with-the-quotes-attached
   ;;Different from the test above in that that data nodes will have determiners
   ;;in front of them. That is not 'Apple is red' but 'Murderer is in *the* city'
-  (let [context (load-test-context "one-of-with-the-str")
+  (let [context (build-context (load-test-context "one-of-with-the-str") "Eng")
         semantic-graph (load-test-semantic-graph "one-of-with-the-str")
         g (-> semantic-graph
               (semantic-graph->ubergraph)

@@ -1,14 +1,15 @@
 (ns api.nlg.core
   (:require [acc-text.nlg.core :as nlg]
             [acc-text.nlp.utils :as nlp]
-            [api.nlg.utils :as nlg-utils]
+            [acc-text.nlg.semantic-graph.utils :refer [get-dictionary-keys]]
             [api.nlg.ref-expr :refer [enable-ref-expr? apply-ref-expressions]]
             [api.nlg.enrich :refer [enable-enrich? enrich]]
             [api.nlg.parser :refer [document-plan->semantic-graph]]
             [api.utils :as utils]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
-            [data.entities.dictionary :refer [default-language]]
+            [data.entities.amr :refer [get-amrs]]
+            [data.entities.dictionary :refer [build-dictionaries default-language]]
             [data.spec.result :as result]
             [data.spec.result.annotation :as annotation]
             [data.spec.result.row :as row]))
@@ -29,17 +30,17 @@
 (defn generate-text
   [{:keys [id document-plan data languages] :or {id (utils/gen-uuid) data {} languages [(default-language)]}}]
   (let [semantic-graph (document-plan->semantic-graph document-plan)
-        amrs (nlg-utils/fetch-amrs semantic-graph)
-        semantic-graphs (cons semantic-graph (map :semantic-graph (vals amrs)))
-        dictionary-keys (set (concat (vals data) (mapcat nlg-utils/get-dictionary-keys semantic-graphs)))
-        dictionaries (nlg-utils/build-dictionaries dictionary-keys languages)]
+        amrs (get-amrs semantic-graph)
+        semantic-graphs (cons semantic-graph (map :semantic-graph amrs))
+        dictionary-keys (set (concat (vals data) (mapcat get-dictionary-keys semantic-graphs)))
+        dictionaries (build-dictionaries dictionary-keys languages)]
     (try
       #::result{:id     id
                 :status :ready
                 :rows   (transduce
                           (comp
                             (mapcat (fn [language]
-                                      (let [context {:amr amrs :data data :dictionary (get dictionaries language)}]
+                                      (let [context {:amr amrs :data data :dictionary (get dictionaries language [])}]
                                         (cond-> (nlg/generate-text semantic-graph context language)
                                                 (and (= "Eng" language) (enable-enrich?)) (enrich data)))))
                             (remove #(str/blank? (:text %)))

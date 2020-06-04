@@ -73,6 +73,9 @@
     (db/write! dictionary-db item-id item)
     (get-dictionary-item item-id)))
 
+(defn build-dictionaries [keys languages]
+  (group-by ::dictionary-item/language (scan-dictionary keys languages)))
+
 (defn dictionary-path []
   (or (System/getenv "DICT_PATH") "resources/dictionary"))
 
