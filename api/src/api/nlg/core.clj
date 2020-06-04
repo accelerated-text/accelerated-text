@@ -1,8 +1,8 @@
 (ns api.nlg.core
   (:require [acc-text.nlg.core :as nlg]
             [acc-text.nlp.utils :as nlp]
-            [acc-text.nlp.ref-expressions :refer [apply-ref-expressions]]
             [acc-text.nlg.semantic-graph.utils :refer [get-dictionary-keys]]
+            [api.nlg.ref-expr :refer [enable-ref-expr? apply-ref-expressions]]
             [api.nlg.enrich :refer [enable-enrich? enrich]]
             [api.nlg.parser :refer [document-plan->semantic-graph]]
             [api.utils :as utils]
@@ -13,9 +13,6 @@
             [data.spec.result :as result]
             [data.spec.result.annotation :as annotation]
             [data.spec.result.row :as row]))
-
-(defn enable-ref-expr? []
-  (Boolean/valueOf (System/getenv "ENABLE_REF_EXPR")))
 
 (defn add-annotations [{text ::row/text :as row}]
   (assoc row ::row/annotations (mapv (fn [{:keys [idx text]}]
