@@ -12,8 +12,8 @@ services:
     environment:
       GF_ENDPOINT: "http://gf:8000"
       DISPLAY_ERROR: "TRUE"
-      ENABLE_ENRICH: "TRUE"
-      ENRICH_ENDPOINT: "http://enrich:8000"
+      ENABLE_ENRICH: "FALSE"
+      ENABLE_REF_EXPR: "FALSE"
       DB_IMPLEMENTATION: "datomic"
       DB_URI: "datomic:free://datomic-transactor:4334/acc-text?password=datomic"
       DATA_FILES: "/opt/data-files"
@@ -29,10 +29,6 @@ services:
     build:
       context: ./core/gf
     ports: ["8001:8000"]
-  enrich:
-    build:
-      context: ./enrich
-    ports: ["8002:8000"]
   datomic-transactor:
     image: "gordonstratton/datomic-free-transactor:latest"
     networks:
