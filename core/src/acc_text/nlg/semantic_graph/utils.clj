@@ -64,6 +64,11 @@
   (prune-branches semantic-graph (set/difference (into #{} (map :id (rest concepts)))
                                                  (into #{} (map :to relations)))))
 
+(defn sort-semantic-graph [sg]
+  (-> sg
+      (update ::sg/concepts #(sort-by :id %))
+      (update ::sg/relations #(sort-by (fn [{:keys [from to]}] [from to]) %))))
+
 (defn semantic-graph->ubergraph [{::sg/keys [concepts relations]} & {:keys [keep-ids?]}]
   (let [id->uuid (zipmap (map :id concepts) (if-not (true? keep-ids?) (repeatedly #(UUID/randomUUID)) (map :id concepts)))]
     (apply uber/multidigraph (concat
