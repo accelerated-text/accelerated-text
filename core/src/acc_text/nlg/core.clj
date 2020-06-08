@@ -1,5 +1,6 @@
 (ns acc-text.nlg.core
   (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.gf.service :as gf-service]
             [acc-text.nlg.grammar :as grammar]
             [clojure.tools.logging :as log]
@@ -7,7 +8,7 @@
 
 (defn build-context [context lang]
   (-> context
-      (update :amr #(zipmap (map :id %) %))
+      (update :amr #(zipmap (map ::sg/id %) %))
       (assoc :constants {"*Language" lang})
       (update :dictionary #(zipmap (map (fn [{::dictionary-item/keys [key category]}]
                                           [key category])

@@ -16,5 +16,5 @@
 (s/def ::description string?)
 
 (s/def ::graph
-  (s/keys :req [::relations ::concepts]
-          :opt [::description]))
+  (s/keys :req [::id ::relations ::concepts]
+          :opt [::name ::category ::roles ::description]))

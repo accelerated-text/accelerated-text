@@ -39,11 +39,11 @@
 
 (defn attach-amrs [g {amr-map :amr :as context}]
   (reduce (fn [g [node-id {amr-name :name}]]
-            (let [{sg :semantic-graph} (get amr-map amr-name)]
+            (let [sg (get amr-map amr-name)]
               (cond
                 (nil? amr-name) g
-                (some? sg) (-> g (attach-amr node-id sg) (attach-amrs context))
                 (contains? ops/operation-map amr-name) (attach-rgl g node-id amr-name)
+                (some? sg) (-> g (attach-amr node-id sg) (attach-amrs context))
                 :else (throw (Exception. (format "AMR not found in context: `%s`" amr-name))))))
           g
           (find-nodes g {:type :amr})))

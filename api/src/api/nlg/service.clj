@@ -32,7 +32,7 @@
   [{data-id :dataId data-row :dataRow reader-model :readerFlagValues :as request}]
   (try
     (log/infof "Generate request with %s" (utils/request->text request))
-    (let [{document-plan :documentPlan row-index :dataSampleRow} (utils/get-document-plan request)
+    (let [{row-index :dataSampleRow :as document-plan} (utils/get-document-plan request)
           result-id (gen-uuid)]
       (results/write #::result{:id     result-id
                                :status :pending})
@@ -49,7 +49,7 @@
   [{reader-model :readerFlagValues data-rows :dataRows :as request}]
   (try
     (log/infof "Bulk generate request with %s" (utils/request->text request))
-    (let [{document-plan :documentPlan} (utils/get-document-plan request)
+    (let [document-plan (utils/get-document-plan request)
           result-id (gen-uuid)]
       (doseq [[request-id data-row] data-rows]
         (results/write #::result{:id     result-id

@@ -64,10 +64,49 @@
   (prune-branches semantic-graph (set/difference (into #{} (map :id (rest concepts)))
                                                  (into #{} (map :to relations)))))
 
-(defn sort-semantic-graph [sg]
-  (-> sg
-      (update ::sg/concepts #(sort-by :id %))
-      (update ::sg/relations #(sort-by (fn [{:keys [from to]}] [from to]) %))))
+(defn find-unrelated-concepts
+  ([semantic-graph]
+   (let [{::sg/keys [concepts relations]} semantic-graph
+         concept-map (zipmap (map :id concepts) concepts)]
+     (map concept-map (set/difference (set (map :id concepts)) (set (map :from relations))))))
+  ([semantic-graph type]
+   (filter #(= type (:type %)) (find-unrelated-concepts semantic-graph))))
+
+(defn find-roles [{::sg/keys [relations] :as semantic-graph}]
+  (let [to-relation-map (group-by :to relations)]
+    (map (fn [{:keys [id name category]}]
+           (let [category (or
+                            category
+                            (some (fn [{cat :category}]
+                                    (when (some? cat) cat))
+                                  (get to-relation-map id)))]
+             (cond-> {:id   id
+                      :name name}
+                     (some? category) (assoc :category category))))
+         (find-unrelated-concepts semantic-graph :reference))))
+
+(defn merge-semantic-graphs [& graphs]
+  (-> (first graphs)
+      (assoc ::sg/concepts (sort-by :id (mapcat ::sg/concepts graphs)))
+      (assoc ::sg/relations (sort-by #(vector (:from %) (:to %)) (mapcat ::sg/relations graphs)))))
+
+(defn add-category [{concepts ::sg/concepts :as semantic-graph}]
+  (let [category (some (fn [{:keys [type category]}]
+                         (when (= :document-plan type) category))
+                       concepts)]
+    (cond-> semantic-graph
+            (some? category) (assoc ::sg/category category))))
+
+(defn remove-nil-categories [semantic-graph]
+  (-> semantic-graph
+      (update ::sg/concepts #(map (fn [{cat :category :as concept}]
+                                    (cond-> concept
+                                            (nil? cat) (dissoc :category)))
+                                  %))
+      (update ::sg/relations #(map (fn [{cat :category :as relation}]
+                                     (cond-> relation
+                                             (nil? cat) (dissoc :category)))
+                                   %))))
 
 (defn semantic-graph->ubergraph [{::sg/keys [concepts relations]} & {:keys [keep-ids?]}]
   (let [id->uuid (zipmap (map :id concepts) (if-not (true? keep-ids?) (repeatedly #(UUID/randomUUID)) (map :id concepts)))]
