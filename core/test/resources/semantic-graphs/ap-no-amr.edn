@@ -1,0 +1,14 @@
+#:acc-text.nlg.semantic-graph{:relations
+                              ({:from :01, :to :02, :role :segment, :index 0}
+                               {:from :02, :to :03, :role :instance, :index 0}
+                               {:from :03, :to :04, :role :child}
+                               {:from :03,
+                                :to :05,
+                                :role :modifier,
+                                :index 0}),
+                              :concepts
+                              ({:id :01, :type :document-plan}
+                               {:id :02, :type :segment}
+                               {:id :03, :type :modifier}
+                               {:id :04, :type :data, :name "Type"}
+                               {:id :05, :type :data, :name "Color"})}
