@@ -112,10 +112,11 @@
            (->> det->town first :dest (uber/attrs g))))))
 
 (deftest ap-attached-to-segment
-  (let [g (load-graph "ap-no-amr")
-        white (-> g (utils/find-nodes {:category "A"}) first)
-        fridge (-> g (utils/find-nodes {:category "N"}) first)]
+  (let [g      (load-graph "ap-no-amr")
+        ;;white is in the dict
+        white  (-> g (utils/find-nodes {:category "A"}) first)
+        ;;fridge is not in the dict
+        fridge (-> g (utils/find-nodes {:type :quote}) first)]
     (is (= ["white"] (-> white second :forms)))
     (is (= :dictionary-item (-> white second :type)))
-    (is (= ["fridge" "fridges"] (-> fridge second :forms)))
-    (is (= :dictionary-item (-> fridge second :type)))))
+    (is (= "fridge" (-> fridge second :value)))))
