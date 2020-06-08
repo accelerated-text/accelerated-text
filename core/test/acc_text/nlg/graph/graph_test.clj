@@ -40,7 +40,7 @@
 (defn fattrs [g node] (->> node (first) (uber/attrs g)))
 
 (defn load-graph [sg-ctx-file]
-  (let [ctx (load-test-context sg-ctx-file)]
+  (let [ctx (build-context (load-test-context sg-ctx-file) "Eng")]
     (-> (load-test-semantic-graph sg-ctx-file)
         (semantic-graph->ubergraph)
         (attach-amrs ctx)
