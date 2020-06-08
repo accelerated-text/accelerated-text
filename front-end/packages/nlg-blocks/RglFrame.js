@@ -2,7 +2,7 @@ import Block                from './Block';
 import { green as color }   from './colors.sass';
 import StatementIcon        from './icons/Statement';
 import * as T               from './types';
-import valueSequence        from './value-sequence';
+import valueSequence        from './rgl-value-sequence';
 
 
 export default Block({

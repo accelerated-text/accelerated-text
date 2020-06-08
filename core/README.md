@@ -53,22 +53,22 @@ Since our Semantic Graph includes only dictionary items, only they need to be de
 
 ```clojure
 (def context
-  {:dictionary  {"venue" #:acc-text.nlg.dictionary.item{:key "venue" 
-                                                        :category "N" 
-                                                        :language "Eng" 
-                                                        :forms ["venue"]}
-                 "restaurant" #:acc-text.nlg.dictionary.item{:key "restaurant" 
-                                                             :category "N"
-                                                             :language "Eng" 
-                                                             :forms ["restaurant"]}
-                 "affordable" #:acc-text.nlg.dictionary.item{:key "affordable" 
-                                                             :category "A" 
-                                                             :language "Eng" 
-                                                             :forms ["affordable"]}
-                 "here" #:acc-text.nlg.dictionary.item{:key "here" 
-                                                       :category "Adv" 
-                                                       :language "Eng" 
-                                                       :forms ["here"]}}})
+  {:dictionary  [#:acc-text.nlg.dictionary.item{:key "venue" 
+                                                :category "N" 
+                                                :language "Eng" 
+                                                :forms ["venue"]}
+                 #:acc-text.nlg.dictionary.item{:key "restaurant" 
+                                                :category "N"
+                                                :language "Eng" 
+                                                :forms ["restaurant"]}
+                 #:acc-text.nlg.dictionary.item{:key "affordable" 
+                                                :category "A" 
+                                                :language "Eng" 
+                                                :forms ["affordable"]}
+                 #:acc-text.nlg.dictionary.item{:key "here" 
+                                                :category "Adv" 
+                                                :language "Eng" 
+                                                :forms ["here"]}]})
 ```
 
 Finally, let's generate text for this semantic graph.

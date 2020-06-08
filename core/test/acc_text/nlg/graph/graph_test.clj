@@ -1,5 +1,6 @@
 (ns acc-text.nlg.graph.graph-test
-  (:require [acc-text.nlg.graph.amr :refer [attach-amrs]]
+  (:require [acc-text.nlg.core :refer [build-context]]
+            [acc-text.nlg.graph.amr :refer [attach-amrs]]
             [acc-text.nlg.graph.lists :refer [resolve-lists subset-of-edges-from]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
             [acc-text.nlg.graph.data :refer [resolve-data]]
@@ -13,7 +14,7 @@
 (deftest polarity
   (let [semantic-graph (load-test-semantic-graph "polarity-test")]
     (testing "Positive polarity"
-      (let [context (load-test-context "polarity-positive-test")]
+      (let [context (build-context (load-test-context "polarity-positive-test") "Eng")]
         (is (= 2 (count (filter (fn [{:keys [type name]}]
                                   (and (= type :operation) (= name "positivePol")))
                                 (-> semantic-graph
@@ -23,7 +24,7 @@
                                     (ubergraph->semantic-graph)
                                     (get ::sg/concepts))))))))
     (testing "Negative polarity"
-      (let [context (load-test-context "polarity-negative-test")]
+      (let [context (build-context (load-test-context "polarity-negative-test") "Eng")]
         (is (= 2 (count (filter (fn [{:keys [type name]}]
                                   (and (= type :operation) (= name "negativePol")))
                                 (-> semantic-graph
@@ -43,7 +44,7 @@
     (-> (load-test-semantic-graph sg-ctx-file)
         (semantic-graph->ubergraph)
         (attach-amrs ctx)
-        (resolve-lists)
+        (resolve-lists ctx)
         (resolve-data ctx))))
 
 (deftest list-with-quotes-attached

@@ -8,23 +8,16 @@ services:
     environment:
       GF_ENDPOINT: "http://gf:8000"
       ENABLE_ENRICH: "FALSE"
-      ENRICH_ENDPOINT: "http://enrich:8000"
+      ENABLE_REF_EXPR: "FALSE"
       DB_IMPLEMENTATION: "datomic"
-      GRAMMAR_SYNTAX: "/opt/syntax"
-      GRAMMAR_PARADIGMS: "/opt/paradigms"
       DATA_FILES: "/opt/data-files"
       DICT_PATH: "/opt/dictionary"
       DOCUMENT_PLANS: "/opt/document-plans"
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
-      - ./resources/syntax:/opt/syntax
-      - ./resources/paradigms:/opt/paradigms
       - ./test/resources/data-files:/opt/data-files
       - ./test/resources/dictionary:/opt/dictionary
       - ./test/resources/document-plans:/opt/document-plans
   gf:
     build:
       context: ../core/gf
-  enrich:
-    build:
-      context: ../enrich

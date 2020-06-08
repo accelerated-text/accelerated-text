@@ -17,30 +17,30 @@
 
 (deftest ^:integration list-generation
   (let [context {:data       {"product" "product." "fridge" "fridge."}
-                 :dictionary {["fridge" "N"]  #:acc-text.nlg.dictionary.item{:id       "03393900-ddbf-426f-b267-f100d09824c0"
-                                                                             :key      "fridge"
-                                                                             :category "N"
-                                                                             :language "Eng"
-                                                                             :forms    ["fridge" "fridges"]}
-                              ["product" "N"] #:acc-text.nlg.dictionary.item{:id       "9399a059-f5a5-4443-bee7-a096d284a85d"
-                                                                             :key      "product"
-                                                                             :category "N"
-                                                                             :language "Eng"
-                                                                             :forms    ["product" "products"]}}}]
+                 :dictionary [#:acc-text.nlg.dictionary.item{:id       "03393900-ddbf-426f-b267-f100d09824c0"
+                                                             :key      "fridge"
+                                                             :category "N"
+                                                             :language "Eng"
+                                                             :forms    ["fridge" "fridges"]}
+                              #:acc-text.nlg.dictionary.item{:id       "9399a059-f5a5-4443-bee7-a096d284a85d"
+                                                             :key      "product"
+                                                             :category "N"
+                                                             :language "Eng"
+                                                             :forms    ["product" "products"]}]}]
     (testing "Sequences"
       (let [semantic-graph (test-utils/load-test-semantic-graph "sequence-test")]
-        (is (= ["Product fridge product. Fridge. Product fridge product fridge product. Fridge. Product fridge."]
-               (map :text (core/generate-text semantic-graph context "Eng"))))))
+        (is (= ["Cafe, restaurant and pub. Affordable and average."]
+               (map :text (core/generate-text semantic-graph (test-utils/load-test-context "sequence-test") "Eng"))))))
     (testing "Synonyms"
       (let [semantic-graph (test-utils/load-test-semantic-graph "synonyms-test")]
         (is (= #{"Fridge." "Product."}
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
     (testing "Shuffle"
       (let [semantic-graph (test-utils/load-test-semantic-graph "shuffle-test")]
-        (is (= #{"Product product. Product. Fridge."
-                 "Product. Product product. Fridge."
-                 "Product. Product. Product fridge."}
-               (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))))
+        (is (= #{"Cafe pub restaurant." "Cafe restaurant pub."
+                 "Pub cafe restaurant." "Pub restaurant cafe."
+                 "Restaurant cafe pub." "Restaurant pub cafe."}
+               (into #{} (map :text (core/generate-text semantic-graph {} "Eng")))))))))
 
 (deftest ^:integration amr-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "amr-test")

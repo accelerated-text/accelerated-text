@@ -1,297 +1,181 @@
-{:amr
- {"Syntax.negativePol/Pol"
-  {:id "Syntax.negativePol/Pol"
-   :kind "Pol"
-   :name "Pol"
-   :label "negativePol"
-   :module "Syntax"
-   :roles ()
-   :frames
-   ({:examples ["she doesn't sleep"]
-     :syntax
-     ({:ret "Pol" :value "Syntax.negativePol" :params () :type :oper})})}
-  "Syntax.positivePol/Pol"
-  {:id "Syntax.positivePol/Pol"
-   :kind "Pol"
-   :name "Pol"
-   :label "positivePol"
-   :module "Syntax"
-   :roles ()
-   :frames
-   ({:examples ["she sleeps"]
-     :syntax
-     ({:ret "Pol" :value "Syntax.positivePol" :params () :type :oper})})}
-  "ParadigmsEng.mkA/Str->A"
-  {:id "ParadigmsEng.mkA/Str->A"
-   :kind "A"
-   :name "Str -> A"
-   :label "mkA"
-   :module "ParadigmsEng"
-   :roles ({:type "Str" :label "Str"})
-   :frames
-   ({:examples ["regular adj incl. happy-happier rude-ruder"]
-     :syntax
-     ({:ret "A"
-       :value "ParadigmsEng.mkA"
-       :params ({:id "ARG0" :type "Str"})
-       :type :oper})})}
-  "SHryyIJaZAvWJwMZ"
-  {:id "SHryyIJaZAvWJwMZ"
-   :label "N -> is -> A"
-   :kind "Str"
-   :semantic-graph
-   #:acc-text.nlg.semantic-graph{:relations
-                                 ({:from :01
-                                   :to :02
-                                   :role :segment
-                                   :index 0}
-                                  {:from :02
-                                   :to :03
-                                   :role :instance
-                                   :index 0}
-                                  {:from :03
-                                   :to :04
-                                   :role :arg
-                                   :index 0
-                                   :category "S"}
-                                  {:from :04
-                                   :to :07
-                                   :role :arg
-                                   :index 2
-                                   :category "Pol"
-                                   :name "(Pol)"}
-                                  {:from :04
-                                   :to :15
-                                   :role :arg
-                                   :index 3
-                                   :category "Cl"}
-                                  {:from :07
-                                   :to :08
-                                   :role :statement
-                                   :index 0}
-                                  {:from :07
-                                   :to :13
-                                   :role :statement
-                                   :index 1}
-                                  {:from :08 :to :09 :role :predicate}
-                                  {:from :08 :to :12 :role :then-expression}
-                                  {:from :09
-                                   :to :10
-                                   :role :comparable
-                                   :index 0}
-                                  {:from :09
-                                   :to :11
-                                   :role :comparable
-                                   :index 1}
-                                  {:from :13 :to :14 :role :then-expression}
-                                  {:from :15
-                                   :to :16
-                                   :role :arg
-                                   :index 0
-                                   :category "NP"}
-                                  {:from :15
-                                   :to :18
-                                   :role :arg
-                                   :index 1
-                                   :category "AP"}
-                                  {:from :16
-                                   :to :17
-                                   :role :arg
-                                   :index 0
-                                   :category "N"}
-                                  {:from :18
-                                   :to :19
-                                   :role :arg
-                                   :index 0
-                                   :category "A"})
-                                 :concepts
-                                 ({:id :01 :type :document-plan}
-                                  {:id :02 :type :segment}
-                                  {:id :03
-                                   :type :amr
-                                   :name "Syntax.mkText/S->Text"}
-                                  {:id :04
-                                   :type :amr
-                                   :name
-                                   "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
-                                  {:id :07 :type :condition}
-                                  {:id :08 :type :if-statement}
-                                  {:id :09 :type :comparator :value "in"}
-                                  {:id :10 :type :quote :value "false no 0"}
-                                  {:id :11
-                                   :type :reference
-                                   :name "(Polarity)"}
-                                  {:id :12
-                                   :type :amr
-                                   :name "Syntax.negativePol/Pol"}
-                                  {:id :13 :type :else-statement}
-                                  {:id :14
-                                   :type :amr
-                                   :name "Syntax.positivePol/Pol"}
-                                  {:id :15
-                                   :type :amr
-                                   :name "Syntax.mkCl/NP->AP->Cl"}
-                                  {:id :16
-                                   :type :amr
-                                   :name "Syntax.mkNP/N->NP"}
-                                  {:id :17 :type :reference :name "N.1"}
-                                  {:id :18
-                                   :type :amr
-                                   :name "Syntax.mkAP/A->AP"}
-                                  {:id :19 :type :reference :name "A.1"})}
-   :frames [{:examples []}]
-   :roles
-   [{:id "ARG0" :label "(Polarity)" :type nil}
-    {:id "ARG1" :label "N.1" :type "N"}
-    {:id "ARG2" :label "A.1" :type "A"}]}
-  "Syntax.mkText/S->Text"
-  {:id "Syntax.mkText/S->Text"
-   :kind "Text"
-   :name "S -> Text"
-   :label "mkText"
-   :module "Syntax"
-   :roles ({:type "S" :label "S"})
-   :frames
-   ({:examples ["she slept."]
-     :syntax
-     ({:ret "Text"
-       :value "Syntax.mkText"
-       :params ({:id "ARG0" :type "S"})
-       :type :oper})})}
-  "Syntax.mkCl/NP->AP->Cl"
-  {:id "Syntax.mkCl/NP->AP->Cl"
-   :kind "Cl"
-   :name "NP -> AP -> Cl"
-   :label "mkCl"
-   :module "Syntax"
-   :roles ({:type "NP" :label "NP"} {:type "AP" :label "AP"})
-   :frames
-   ({:examples ["she is very old"]
-     :syntax
-     ({:ret "Cl"
-       :value "Syntax.mkCl"
-       :params ({:id "ARG0" :type "NP"} {:id "ARG1" :type "AP"})
-       :type :oper})})}
-  "Syntax.mkNP/N->NP"
-  {:id "Syntax.mkNP/N->NP"
-   :kind "NP"
-   :name "N -> NP"
-   :label "mkNP"
-   :module "Syntax"
-   :roles ({:type "N" :label "N"})
-   :frames
-   ({:examples ["beer"]
-     :syntax
-     ({:ret "NP"
-       :value "Syntax.mkNP"
-       :params ({:id "ARG0" :type "N"})
-       :type :oper})})}
-  "Syntax.mkAP/A->AP"
-  {:id "Syntax.mkAP/A->AP"
-   :kind "AP"
-   :name "A -> AP"
-   :label "mkAP"
-   :module "Syntax"
-   :roles ({:type "A" :label "A"})
-   :frames
-   ({:examples ["warm"]
-     :syntax
-     ({:ret "AP"
-       :value "Syntax.mkAP"
-       :params ({:id "ARG0" :type "A"})
-       :type :oper})})}
-  "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"
-  {:id "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"
-   :kind "S"
-   :name "(Tense) -> (Ant) -> (Pol) -> Cl -> S"
-   :label "mkS"
-   :module "Syntax"
-   :roles
-   ({:type "Tense" :label "(Tense)"}
-    {:type "Ant" :label "(Ant)"}
-    {:type "Pol" :label "(Pol)"}
-    {:type "Cl" :label "Cl"})
-   :frames
-   ({:examples ["she wouldn't have slept"]
-     :syntax
-     ({:ret "S"
-       :value "Syntax.mkS"
-       :params
-       ({:id "ARG0" :type "(Tense)"}
-        {:id "ARG1" :type "(Ant)"}
-        {:id "ARG2" :type "(Pol)"}
-        {:id "ARG3" :type "Cl"})
-       :type :oper})})}
-  "ParadigmsEng.mkN/Str->N"
-  {:id "ParadigmsEng.mkN/Str->N"
-   :kind "N"
-   :name "Str -> N"
-   :label "mkN"
-   :module "ParadigmsEng"
-   :roles ({:type "Str" :label "Str"})
-   :frames
-   ({:examples ["plural s incl. flash-flashes fly-flies"]
-     :syntax
-     ({:ret "N"
-       :value "ParadigmsEng.mkN"
-       :params ({:id "ARG0" :type "Str"})
-       :type :oper})})}
-  "ZlmgilOQpBKynpTm"
-  {:id "ZlmgilOQpBKynpTm"
-   :label "Apple"
-   :kind "Str"
-   :semantic-graph
-   #:acc-text.nlg.semantic-graph{:relations
-                                 ({:from :01
-                                   :to :02
-                                   :role :segment
-                                   :index 0}
-                                  {:from :02
-                                   :to :03
-                                   :role :instance
-                                   :index 0}
-                                  {:from :03
-                                   :to :05
-                                   :role :arg
-                                   :index 1
-                                   :category "N"
-                                   :name "N.1"}
-                                  {:from :03
-                                   :to :07
-                                   :role :arg
-                                   :index 2
-                                   :category "A"
-                                   :name "A.1"}
-                                  {:from :05
-                                   :to :06
-                                   :role :arg
-                                   :index 0
-                                   :category "Str"}
-                                  {:from :07
-                                   :to :08
-                                   :role :arg
-                                   :index 0
-                                   :category "Str"}
-                                  {:from :08 :to :09 :role :item :index 0}
-                                  {:from :08 :to :10 :role :item :index 1})
-                                 :concepts
-                                 ({:id :01 :type :document-plan}
-                                  {:id :02 :type :segment}
-                                  {:id :03
-                                   :type :amr
-                                   :name "SHryyIJaZAvWJwMZ"}
-                                  {:id :05
-                                   :type :amr
-                                   :name "ParadigmsEng.mkN/Str->N"}
-                                  {:id :06 :type :quote :value "Apple"}
-                                  {:id :07
-                                   :type :amr
-                                   :name "ParadigmsEng.mkA/Str->A"}
-                                  {:id :08 :type :synonyms}
-                                  {:id :09 :type :quote :value "red"}
-                                  {:id :10 :type :quote :value "green"})}
-   :frames [{:examples []}]
-   :roles []}}
- :data nil
- :dictionary nil
- :constants {"*Language" "Eng"}}
+{:amr [{:id             "SHryyIJaZAvWJwMZ"
+        :label          "N -> is -> A"
+        :kind           "Str"
+        :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                   :to    :02
+                                                                   :role  :segment
+                                                                   :index 0}
+                                                                  {:from  :02
+                                                                   :to    :03
+                                                                   :role  :instance
+                                                                   :index 0}
+                                                                  {:from     :03
+                                                                   :to       :04
+                                                                   :role     :arg
+                                                                   :index    0
+                                                                   :category "S"}
+                                                                  {:from     :04
+                                                                   :to       :07
+                                                                   :role     :arg
+                                                                   :index    2
+                                                                   :category "Pol"
+                                                                   :name     "(Pol)"}
+                                                                  {:from     :04
+                                                                   :to       :15
+                                                                   :role     :arg
+                                                                   :index    3
+                                                                   :category "Cl"}
+                                                                  {:from  :07
+                                                                   :to    :08
+                                                                   :role  :statement
+                                                                   :index 0}
+                                                                  {:from  :07
+                                                                   :to    :13
+                                                                   :role  :statement
+                                                                   :index 1}
+                                                                  {:from :08
+                                                                   :to   :09
+                                                                   :role :predicate}
+                                                                  {:from :08
+                                                                   :to   :12
+                                                                   :role :then-expression}
+                                                                  {:from  :09
+                                                                   :to    :10
+                                                                   :role  :comparable
+                                                                   :index 0}
+                                                                  {:from  :09
+                                                                   :to    :11
+                                                                   :role  :comparable
+                                                                   :index 1}
+                                                                  {:from :13
+                                                                   :to   :14
+                                                                   :role :then-expression}
+                                                                  {:from     :15
+                                                                   :to       :16
+                                                                   :role     :arg
+                                                                   :index    0
+                                                                   :category "NP"}
+                                                                  {:from     :15
+                                                                   :to       :18
+                                                                   :role     :arg
+                                                                   :index    1
+                                                                   :category "AP"}
+                                                                  {:from     :16
+                                                                   :to       :17
+                                                                   :role     :arg
+                                                                   :index    0
+                                                                   :category "N"}
+                                                                  {:from     :18
+                                                                   :to       :19
+                                                                   :role     :arg
+                                                                   :index    0
+                                                                   :category "A"})
+                                                      :concepts  ({:id :01 :type :document-plan}
+                                                                  {:id :02 :type :segment}
+                                                                  {:id   :03
+                                                                   :type :amr
+                                                                   :name "Syntax.mkText/S->Text"}
+                                                                  {:id   :04
+                                                                   :type :amr
+                                                                   :name "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
+                                                                  {:id :07 :type :condition}
+                                                                  {:id :08 :type :if-statement}
+                                                                  {:id    :09
+                                                                   :type  :comparator
+                                                                   :value "in"}
+                                                                  {:id    :10
+                                                                   :type  :quote
+                                                                   :value "false no 0"}
+                                                                  {:id   :11
+                                                                   :type :reference
+                                                                   :name "(Polarity)"}
+                                                                  {:id   :12
+                                                                   :type :amr
+                                                                   :name "Syntax.negativePol/Pol"}
+                                                                  {:id :13 :type :else-statement}
+                                                                  {:id   :14
+                                                                   :type :amr
+                                                                   :name "Syntax.positivePol/Pol"}
+                                                                  {:id   :15
+                                                                   :type :amr
+                                                                   :name "Syntax.mkCl/NP->AP->Cl"}
+                                                                  {:id   :16
+                                                                   :type :amr
+                                                                   :name "Syntax.mkNP/N->NP"}
+                                                                  {:id   :17
+                                                                   :type :reference
+                                                                   :name "N.1"}
+                                                                  {:id   :18
+                                                                   :type :amr
+                                                                   :name "Syntax.mkAP/A->AP"}
+                                                                  {:id   :19
+                                                                   :type :reference
+                                                                   :name "A.1"})}
+        :frames         [{:examples []}]
+        :roles          [{:id "ARG0" :label "(Polarity)" :type nil}
+                         {:id "ARG1" :label "N.1" :type "N"}
+                         {:id "ARG2" :label "A.1" :type "A"}]}
+       {:id             "ZlmgilOQpBKynpTm"
+        :label          "Apple"
+        :kind           "Str"
+        :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                   :to    :02
+                                                                   :role  :segment
+                                                                   :index 0}
+                                                                  {:from  :02
+                                                                   :to    :03
+                                                                   :role  :instance
+                                                                   :index 0}
+                                                                  {:from     :03
+                                                                   :to       :05
+                                                                   :role     :arg
+                                                                   :index    1
+                                                                   :category "N"
+                                                                   :name     "N.1"}
+                                                                  {:from     :03
+                                                                   :to       :07
+                                                                   :role     :arg
+                                                                   :index    2
+                                                                   :category "A"
+                                                                   :name     "A.1"}
+                                                                  {:from     :05
+                                                                   :to       :06
+                                                                   :role     :arg
+                                                                   :index    0
+                                                                   :category "Str"}
+                                                                  {:from     :07
+                                                                   :to       :08
+                                                                   :role     :arg
+                                                                   :index    0
+                                                                   :category "Str"}
+                                                                  {:from  :08
+                                                                   :to    :09
+                                                                   :role  :item
+                                                                   :index 0}
+                                                                  {:from  :08
+                                                                   :to    :10
+                                                                   :role  :item
+                                                                   :index 1})
+                                                      :concepts  ({:id :01 :type :document-plan}
+                                                                  {:id :02 :type :segment}
+                                                                  {:id   :03
+                                                                   :type :amr
+                                                                   :name "SHryyIJaZAvWJwMZ"}
+                                                                  {:id   :05
+                                                                   :type :amr
+                                                                   :name "ParadigmsEng.mkN/Str->N"}
+                                                                  {:id    :06
+                                                                   :type  :quote
+                                                                   :value "Apple"}
+                                                                  {:id   :07
+                                                                   :type :amr
+                                                                   :name "ParadigmsEng.mkA/Str->A"}
+                                                                  {:id :08 :type :synonyms}
+                                                                  {:id    :09
+                                                                   :type  :quote
+                                                                   :value "red"}
+                                                                  {:id    :10
+                                                                   :type  :quote
+                                                                   :value "green"})}
+        :frames         [{:examples []}]
+        :roles          []}]}

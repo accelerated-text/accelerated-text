@@ -1,5 +1,6 @@
 (ns acc-text.nlg.graph.amr
-  (:require [acc-text.nlg.graph.utils :refer [find-root-id find-nodes add-edges remove-nodes]]
+  (:require [acc-text.nlg.gf.operations :as ops]
+            [acc-text.nlg.graph.utils :refer [find-root-id find-nodes add-edges remove-nodes]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [loom.graph :as graph]
             [ubergraph.core :as uber]))
@@ -10,11 +11,9 @@
           g
           (find-nodes g {:type :segment})))
 
-(defn amr-sg->graph [sg]
-  (-> sg (semantic-graph->ubergraph) (segment->frame)))
-
-(defn attach-amr [g amr-g amr-node-id]
-  (let [amr-root-id (find-root-id amr-g)
+(defn attach-amr [g amr-node-id sg]
+  (let [amr-g (-> sg (semantic-graph->ubergraph) (segment->frame))
+        amr-root-id (find-root-id amr-g)
         out-edge-map (group-by (fn [{edge-id :id}]
                                  (let [{:keys [name category]} (get-in g [:attrs edge-id])]
                                    (or name category)))
@@ -33,20 +32,18 @@
                      (for [{id :id src :src} (graph/in-edges g amr-node-id)]
                        [^:edge src amr-root-id (get-in g [:attrs id])]))))))
 
-(defn attach-rgl [g amr node-id]
+(defn attach-rgl [g node-id name]
   (update-in g [:attrs node-id] (fn [_]
-                                  {:type     :operation
-                                   :name     (:label amr)
-                                   :category (:kind amr)
-                                   :module   (:module amr)})))
+                                  (select-keys (get ops/operation-map name)
+                                               [:type :name :category :module]))))
 
 (defn attach-amrs [g {amr-map :amr :as context}]
   (reduce (fn [g [node-id {amr-name :name}]]
-            (let [{sg :semantic-graph frames :frames :as amr} (get amr-map amr-name)]
+            (let [{sg :semantic-graph} (get amr-map amr-name)]
               (cond
                 (nil? amr-name) g
-                (some? sg) (-> g (attach-amr (amr-sg->graph sg) node-id) (attach-amrs context))
-                (some? frames) (attach-rgl g amr node-id)
+                (some? sg) (-> g (attach-amr node-id sg) (attach-amrs context))
+                (contains? ops/operation-map amr-name) (attach-rgl g node-id amr-name)
                 :else (throw (Exception. (format "AMR not found in context: `%s`" amr-name))))))
           g
           (find-nodes g {:type :amr})))

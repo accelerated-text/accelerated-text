@@ -1,404 +1,323 @@
-{:amr        {"Syntax.pastTense/Tense"                  {:id     "Syntax.pastTense/Tense"
-                                                         :kind   "Tense"
-                                                         :name   "Tense"
-                                                         :label  "pastTense"
-                                                         :module "Syntax"
-                                                         :roles  ()
-                                                         :frames ({:examples ["she slept"]
-                                                                   :syntax   ({:ret "Tense" :value "Syntax.pastTense" :params () :type :oper})})}
-              "hERvMWwdMLUrgzAq"                        {:id             "hERvMWwdMLUrgzAq"
-                                                         :label          "amr-test"
-                                                         :kind           "Str"
-                                                         :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
-                                                                                                                    :to    :02
-                                                                                                                    :role  :segment
-                                                                                                                    :index 0}
-                                                                                                                   {:from  :01
-                                                                                                                    :to    :06
-                                                                                                                    :role  :segment
-                                                                                                                    :index 1}
-                                                                                                                   {:from  :01
-                                                                                                                    :to    :10
-                                                                                                                    :role  :segment
-                                                                                                                    :index 2}
-                                                                                                                   {:from  :01
-                                                                                                                    :to    :14
-                                                                                                                    :role  :segment
-                                                                                                                    :index 3}
-                                                                                                                   {:from  :01
-                                                                                                                    :to    :17
-                                                                                                                    :role  :segment
-                                                                                                                    :index 4}
-                                                                                                                   {:from  :01
-                                                                                                                    :to    :20
-                                                                                                                    :role  :segment
-                                                                                                                    :index 5}
-                                                                                                                   {:from  :02
-                                                                                                                    :to    :03
-                                                                                                                    :role  :instance
-                                                                                                                    :index 0}
-                                                                                                                   {:from     :03
-                                                                                                                    :to       :04
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "N"
-                                                                                                                    :name     "item"}
-                                                                                                                   {:from     :04
-                                                                                                                    :to       :05
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "Str"}
-                                                                                                                   {:from  :06
-                                                                                                                    :to    :07
-                                                                                                                    :role  :instance
-                                                                                                                    :index 0}
-                                                                                                                   {:from     :07
-                                                                                                                    :to       :08
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "N"
-                                                                                                                    :name     "item"}
-                                                                                                                   {:from     :08
-                                                                                                                    :to       :09
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "Str"}
-                                                                                                                   {:from  :10
-                                                                                                                    :to    :11
-                                                                                                                    :role  :instance
-                                                                                                                    :index 0}
-                                                                                                                   {:from     :11
-                                                                                                                    :to       :12
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "N"
-                                                                                                                    :name     "item"}
-                                                                                                                   {:from     :12
-                                                                                                                    :to       :13
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "Str"}
-                                                                                                                   {:from  :14
-                                                                                                                    :to    :15
-                                                                                                                    :role  :instance
-                                                                                                                    :index 0}
-                                                                                                                   {:from     :15
-                                                                                                                    :to       :16
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "N"
-                                                                                                                    :name     "item"}
-                                                                                                                   {:from  :17
-                                                                                                                    :to    :18
-                                                                                                                    :role  :instance
-                                                                                                                    :index 0}
-                                                                                                                   {:from     :18
-                                                                                                                    :to       :19
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "N"
-                                                                                                                    :name     "item"}
-                                                                                                                   {:from  :20
-                                                                                                                    :to    :21
-                                                                                                                    :role  :instance
-                                                                                                                    :index 0}
-                                                                                                                   {:from     :21
-                                                                                                                    :to       :22
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "N"
-                                                                                                                    :name     "item"})
-                                                                                                       :concepts  ({:id :01 :type :document-plan}
-                                                                                                                   {:id :02 :type :segment}
-                                                                                                                   {:id   :03
-                                                                                                                    :type :amr
-                                                                                                                    :name "zgmGHVJqlEiGlKbZ"}
-                                                                                                                   {:id   :04
-                                                                                                                    :type :amr
-                                                                                                                    :name "ParadigmsEng.mkN/Str->N"}
-                                                                                                                   {:id   :05
-                                                                                                                    :type :reference
-                                                                                                                    :name "item1"}
-                                                                                                                   {:id :06 :type :segment}
-                                                                                                                   {:id   :07
-                                                                                                                    :type :amr
-                                                                                                                    :name "zgmGHVJqlEiGlKbZ"}
-                                                                                                                   {:id   :08
-                                                                                                                    :type :amr
-                                                                                                                    :name "ParadigmsEng.mkN/Str->N"}
-                                                                                                                   {:id   :09
-                                                                                                                    :type :reference
-                                                                                                                    :name "item2"}
-                                                                                                                   {:id :10 :type :segment}
-                                                                                                                   {:id   :11
-                                                                                                                    :type :amr
-                                                                                                                    :name "zgmGHVJqlEiGlKbZ"}
-                                                                                                                   {:id   :12
-                                                                                                                    :type :amr
-                                                                                                                    :name "ParadigmsEng.mkN/Str->N"}
-                                                                                                                   {:id   :13
-                                                                                                                    :type :reference
-                                                                                                                    :name "item3"}
-                                                                                                                   {:id :14 :type :segment}
-                                                                                                                   {:id   :15
-                                                                                                                    :type :amr
-                                                                                                                    :name "zgmGHVJqlEiGlKbZ"}
-                                                                                                                   {:id   :16
-                                                                                                                    :type :reference
-                                                                                                                    :name "item4"}
-                                                                                                                   {:id :17 :type :segment}
-                                                                                                                   {:id   :18
-                                                                                                                    :type :amr
-                                                                                                                    :name "zgmGHVJqlEiGlKbZ"}
-                                                                                                                   {:id   :19
-                                                                                                                    :type :reference
-                                                                                                                    :name "item5"}
-                                                                                                                   {:id :20 :type :segment}
-                                                                                                                   {:id   :21
-                                                                                                                    :type :amr
-                                                                                                                    :name "zgmGHVJqlEiGlKbZ"}
-                                                                                                                   {:id   :22
-                                                                                                                    :type :reference
-                                                                                                                    :name "item6"})}
-                                                         :frames         [{:examples []}]
-                                                         :roles          [{:id "ARG0" :label "item1" :type "Str"}
-                                                                          {:id "ARG1" :label "item2" :type "Str"}
-                                                                          {:id "ARG2" :label "item3" :type "Str"}
-                                                                          {:id "ARG3" :label "item4" :type "N"}
-                                                                          {:id "ARG4" :label "item5" :type "N"}
-                                                                          {:id "ARG5" :label "item6" :type "N"}]}
-              "Syntax.mkText/S->Text"                   {:id     "Syntax.mkText/S->Text"
-                                                         :kind   "Text"
-                                                         :name   "S -> Text"
-                                                         :label  "mkText"
-                                                         :module "Syntax"
-                                                         :roles  ({:type "S" :label "S"})
-                                                         :frames ({:examples ["she slept."]
-                                                                   :syntax   ({:ret    "Text"
-                                                                               :value  "Syntax.mkText"
-                                                                               :params ({:id "ARG0" :type "S"})
-                                                                               :type   :oper})})}
-              "Syntax.mkCl/N->Cl"                       {:id     "Syntax.mkCl/N->Cl"
-                                                         :kind   "Cl"
-                                                         :name   "N -> Cl"
-                                                         :label  "mkCl"
-                                                         :module "Syntax"
-                                                         :roles  ({:type "N" :label "N"})
-                                                         :frames ({:examples ["there is a house"]
-                                                                   :syntax   ({:ret    "Cl"
-                                                                               :value  "Syntax.mkCl"
-                                                                               :params ({:id "ARG0" :type "N"})
-                                                                               :type   :oper})})}
-              "zgmGHVJqlEiGlKbZ"                        {:id             "zgmGHVJqlEiGlKbZ"
-                                                         :label          "amr-test"
-                                                         :kind           "Str"
-                                                         :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
-                                                                                                                    :to    :02
-                                                                                                                    :role  :segment
-                                                                                                                    :index 0}
-                                                                                                                   {:from  :01
-                                                                                                                    :to    :10
-                                                                                                                    :role  :segment
-                                                                                                                    :index 1}
-                                                                                                                   {:from  :01
-                                                                                                                    :to    :18
-                                                                                                                    :role  :segment
-                                                                                                                    :index 2}
-                                                                                                                   {:from  :02
-                                                                                                                    :to    :03
-                                                                                                                    :role  :instance
-                                                                                                                    :index 0}
-                                                                                                                   {:from     :03
-                                                                                                                    :to       :04
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "S"}
-                                                                                                                   {:from     :04
-                                                                                                                    :to       :05
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "Tense"
-                                                                                                                    :name     "(Tense)"}
-                                                                                                                   {:from     :04
-                                                                                                                    :to       :08
-                                                                                                                    :role     :arg
-                                                                                                                    :index    3
-                                                                                                                    :category "Cl"}
-                                                                                                                   {:from     :08
-                                                                                                                    :to       :09
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "N"}
-                                                                                                                   {:from  :10
-                                                                                                                    :to    :11
-                                                                                                                    :role  :instance
-                                                                                                                    :index 0}
-                                                                                                                   {:from     :11
-                                                                                                                    :to       :12
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "S"}
-                                                                                                                   {:from     :12
-                                                                                                                    :to       :13
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "Tense"
-                                                                                                                    :name     "(Tense)"}
-                                                                                                                   {:from     :12
-                                                                                                                    :to       :16
-                                                                                                                    :role     :arg
-                                                                                                                    :index    3
-                                                                                                                    :category "Cl"}
-                                                                                                                   {:from     :16
-                                                                                                                    :to       :17
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "N"}
-                                                                                                                   {:from  :18
-                                                                                                                    :to    :19
-                                                                                                                    :role  :instance
-                                                                                                                    :index 0}
-                                                                                                                   {:from     :19
-                                                                                                                    :to       :20
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "S"}
-                                                                                                                   {:from     :20
-                                                                                                                    :to       :21
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "Tense"
-                                                                                                                    :name     "(Tense)"}
-                                                                                                                   {:from     :20
-                                                                                                                    :to       :24
-                                                                                                                    :role     :arg
-                                                                                                                    :index    3
-                                                                                                                    :category "Cl"}
-                                                                                                                   {:from     :24
-                                                                                                                    :to       :25
-                                                                                                                    :role     :arg
-                                                                                                                    :index    0
-                                                                                                                    :category "N"})
-                                                                                                       :concepts  ({:id :01 :type :document-plan}
-                                                                                                                   {:id :02 :type :segment}
-                                                                                                                   {:id   :03
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.mkText/S->Text"}
-                                                                                                                   {:id   :04
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
-                                                                                                                   {:id   :05
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.futureTense/Tense"}
-                                                                                                                   {:id   :08
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.mkCl/N->Cl"}
-                                                                                                                   {:id   :09
-                                                                                                                    :type :reference
-                                                                                                                    :name "item"}
-                                                                                                                   {:id :10 :type :segment}
-                                                                                                                   {:id   :11
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.mkText/S->Text"}
-                                                                                                                   {:id   :12
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
-                                                                                                                   {:id   :13
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.pastTense/Tense"}
-                                                                                                                   {:id   :16
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.mkCl/N->Cl"}
-                                                                                                                   {:id   :17
-                                                                                                                    :type :reference
-                                                                                                                    :name "item"}
-                                                                                                                   {:id :18 :type :segment}
-                                                                                                                   {:id   :19
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.mkText/S->Text"}
-                                                                                                                   {:id   :20
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
-                                                                                                                   {:id   :21
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.presentTense/Tense"}
-                                                                                                                   {:id   :24
-                                                                                                                    :type :amr
-                                                                                                                    :name "Syntax.mkCl/N->Cl"}
-                                                                                                                   {:id   :25
-                                                                                                                    :type :reference
-                                                                                                                    :name "item"})}
-                                                         :frames         [{:examples []}]
-                                                         :roles          [{:id "ARG0" :label "item" :type "N"}]}
-              "Syntax.futureTense/Tense"                {:id     "Syntax.futureTense/Tense"
-                                                         :kind   "Tense"
-                                                         :name   "Tense"
-                                                         :label  "futureTense"
-                                                         :module "Syntax"
-                                                         :roles  ()
-                                                         :frames ({:examples ["she will sleep"]
-                                                                   :syntax   ({:ret    "Tense"
-                                                                               :value  "Syntax.futureTense"
-                                                                               :params ()
-                                                                               :type   :oper})})}
-              "Syntax.presentTense/Tense"               {:id     "Syntax.presentTense/Tense"
-                                                         :kind   "Tense"
-                                                         :name   "Tense"
-                                                         :label  "presentTense"
-                                                         :module "Syntax"
-                                                         :roles  ()
-                                                         :frames ({:examples ["she sleeps"]
-                                                                   :syntax   ({:ret    "Tense"
-                                                                               :value  "Syntax.presentTense"
-                                                                               :params ()
-                                                                               :type   :oper})})}
-              "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S" {:id     "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"
-                                                         :kind   "S"
-                                                         :name   "(Tense) -> (Ant) -> (Pol) -> Cl -> S"
-                                                         :label  "mkS"
-                                                         :module "Syntax"
-                                                         :roles  ({:type "Tense" :label "(Tense)"}
-                                                                  {:type "Ant" :label "(Ant)"}
-                                                                  {:type "Pol" :label "(Pol)"}
-                                                                  {:type "Cl" :label "Cl"})
-                                                         :frames ({:examples ["she wouldn't have slept"]
-                                                                   :syntax   ({:ret    "S"
-                                                                               :value  "Syntax.mkS"
-                                                                               :params ({:id "ARG0" :type "(Tense)"}
-                                                                                        {:id "ARG1" :type "(Ant)"}
-                                                                                        {:id "ARG2" :type "(Pol)"}
-                                                                                        {:id "ARG3" :type "Cl"})
-                                                                               :type   :oper})})}
-              "ParadigmsEng.mkN/Str->N"                 {:id     "ParadigmsEng.mkN/Str->N"
-                                                         :kind   "N"
-                                                         :name   "Str -> N"
-                                                         :label  "mkN"
-                                                         :module "ParadigmsEng"
-                                                         :roles  ({:type "Str" :label "Str"})
-                                                         :frames ({:examples ["plural s incl. flash-flashes fly-flies"]
-                                                                   :syntax   ({:ret    "N"
-                                                                               :value  "ParadigmsEng.mkN"
-                                                                               :params ({:id "ARG0" :type "Str"})
-                                                                               :type   :oper})})}}
+{:amr        [{:id             "hERvMWwdMLUrgzAq"
+               :label          "amr-test"
+               :kind           "Str"
+               :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                          :to    :02
+                                                                          :role  :segment
+                                                                          :index 0}
+                                                                         {:from  :01
+                                                                          :to    :06
+                                                                          :role  :segment
+                                                                          :index 1}
+                                                                         {:from  :01
+                                                                          :to    :10
+                                                                          :role  :segment
+                                                                          :index 2}
+                                                                         {:from  :01
+                                                                          :to    :14
+                                                                          :role  :segment
+                                                                          :index 3}
+                                                                         {:from  :01
+                                                                          :to    :17
+                                                                          :role  :segment
+                                                                          :index 4}
+                                                                         {:from  :01
+                                                                          :to    :20
+                                                                          :role  :segment
+                                                                          :index 5}
+                                                                         {:from  :02
+                                                                          :to    :03
+                                                                          :role  :instance
+                                                                          :index 0}
+                                                                         {:from     :03
+                                                                          :to       :04
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "N"
+                                                                          :name     "item"}
+                                                                         {:from     :04
+                                                                          :to       :05
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "Str"}
+                                                                         {:from  :06
+                                                                          :to    :07
+                                                                          :role  :instance
+                                                                          :index 0}
+                                                                         {:from     :07
+                                                                          :to       :08
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "N"
+                                                                          :name     "item"}
+                                                                         {:from     :08
+                                                                          :to       :09
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "Str"}
+                                                                         {:from  :10
+                                                                          :to    :11
+                                                                          :role  :instance
+                                                                          :index 0}
+                                                                         {:from     :11
+                                                                          :to       :12
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "N"
+                                                                          :name     "item"}
+                                                                         {:from     :12
+                                                                          :to       :13
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "Str"}
+                                                                         {:from  :14
+                                                                          :to    :15
+                                                                          :role  :instance
+                                                                          :index 0}
+                                                                         {:from     :15
+                                                                          :to       :16
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "N"
+                                                                          :name     "item"}
+                                                                         {:from  :17
+                                                                          :to    :18
+                                                                          :role  :instance
+                                                                          :index 0}
+                                                                         {:from     :18
+                                                                          :to       :19
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "N"
+                                                                          :name     "item"}
+                                                                         {:from  :20
+                                                                          :to    :21
+                                                                          :role  :instance
+                                                                          :index 0}
+                                                                         {:from     :21
+                                                                          :to       :22
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "N"
+                                                                          :name     "item"})
+                                                             :concepts  ({:id :01 :type :document-plan}
+                                                                         {:id :02 :type :segment}
+                                                                         {:id   :03
+                                                                          :type :amr
+                                                                          :name "zgmGHVJqlEiGlKbZ"}
+                                                                         {:id   :04
+                                                                          :type :amr
+                                                                          :name "ParadigmsEng.mkN/Str->N"}
+                                                                         {:id   :05
+                                                                          :type :reference
+                                                                          :name "item1"}
+                                                                         {:id :06 :type :segment}
+                                                                         {:id   :07
+                                                                          :type :amr
+                                                                          :name "zgmGHVJqlEiGlKbZ"}
+                                                                         {:id   :08
+                                                                          :type :amr
+                                                                          :name "ParadigmsEng.mkN/Str->N"}
+                                                                         {:id   :09
+                                                                          :type :reference
+                                                                          :name "item2"}
+                                                                         {:id :10 :type :segment}
+                                                                         {:id   :11
+                                                                          :type :amr
+                                                                          :name "zgmGHVJqlEiGlKbZ"}
+                                                                         {:id   :12
+                                                                          :type :amr
+                                                                          :name "ParadigmsEng.mkN/Str->N"}
+                                                                         {:id   :13
+                                                                          :type :reference
+                                                                          :name "item3"}
+                                                                         {:id :14 :type :segment}
+                                                                         {:id   :15
+                                                                          :type :amr
+                                                                          :name "zgmGHVJqlEiGlKbZ"}
+                                                                         {:id   :16
+                                                                          :type :reference
+                                                                          :name "item4"}
+                                                                         {:id :17 :type :segment}
+                                                                         {:id   :18
+                                                                          :type :amr
+                                                                          :name "zgmGHVJqlEiGlKbZ"}
+                                                                         {:id   :19
+                                                                          :type :reference
+                                                                          :name "item5"}
+                                                                         {:id :20 :type :segment}
+                                                                         {:id   :21
+                                                                          :type :amr
+                                                                          :name "zgmGHVJqlEiGlKbZ"}
+                                                                         {:id   :22
+                                                                          :type :reference
+                                                                          :name "item6"})}
+               :frames         [{:examples []}]
+               :roles          [{:id "ARG0" :label "item1" :type "Str"}
+                                {:id "ARG1" :label "item2" :type "Str"}
+                                {:id "ARG2" :label "item3" :type "Str"}
+                                {:id "ARG3" :label "item4" :type "N"}
+                                {:id "ARG4" :label "item5" :type "N"}
+                                {:id "ARG5" :label "item6" :type "N"}]}
+              {:id             "zgmGHVJqlEiGlKbZ"
+               :label          "amr-test"
+               :kind           "Str"
+               :semantic-graph #:acc-text.nlg.semantic-graph{:relations ({:from  :01
+                                                                          :to    :02
+                                                                          :role  :segment
+                                                                          :index 0}
+                                                                         {:from  :01
+                                                                          :to    :10
+                                                                          :role  :segment
+                                                                          :index 1}
+                                                                         {:from  :01
+                                                                          :to    :18
+                                                                          :role  :segment
+                                                                          :index 2}
+                                                                         {:from  :02
+                                                                          :to    :03
+                                                                          :role  :instance
+                                                                          :index 0}
+                                                                         {:from     :03
+                                                                          :to       :04
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "S"}
+                                                                         {:from     :04
+                                                                          :to       :05
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "Tense"
+                                                                          :name     "(Tense)"}
+                                                                         {:from     :04
+                                                                          :to       :08
+                                                                          :role     :arg
+                                                                          :index    3
+                                                                          :category "Cl"}
+                                                                         {:from     :08
+                                                                          :to       :09
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "N"}
+                                                                         {:from  :10
+                                                                          :to    :11
+                                                                          :role  :instance
+                                                                          :index 0}
+                                                                         {:from     :11
+                                                                          :to       :12
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "S"}
+                                                                         {:from     :12
+                                                                          :to       :13
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "Tense"
+                                                                          :name     "(Tense)"}
+                                                                         {:from     :12
+                                                                          :to       :16
+                                                                          :role     :arg
+                                                                          :index    3
+                                                                          :category "Cl"}
+                                                                         {:from     :16
+                                                                          :to       :17
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "N"}
+                                                                         {:from  :18
+                                                                          :to    :19
+                                                                          :role  :instance
+                                                                          :index 0}
+                                                                         {:from     :19
+                                                                          :to       :20
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "S"}
+                                                                         {:from     :20
+                                                                          :to       :21
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "Tense"
+                                                                          :name     "(Tense)"}
+                                                                         {:from     :20
+                                                                          :to       :24
+                                                                          :role     :arg
+                                                                          :index    3
+                                                                          :category "Cl"}
+                                                                         {:from     :24
+                                                                          :to       :25
+                                                                          :role     :arg
+                                                                          :index    0
+                                                                          :category "N"})
+                                                             :concepts  ({:id :01 :type :document-plan}
+                                                                         {:id :02 :type :segment}
+                                                                         {:id   :03
+                                                                          :type :amr
+                                                                          :name "Syntax.mkText/S->Text"}
+                                                                         {:id   :04
+                                                                          :type :amr
+                                                                          :name "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
+                                                                         {:id   :05
+                                                                          :type :amr
+                                                                          :name "Syntax.futureTense/Tense"}
+                                                                         {:id   :08
+                                                                          :type :amr
+                                                                          :name "Syntax.mkCl/N->Cl"}
+                                                                         {:id   :09
+                                                                          :type :reference
+                                                                          :name "item"}
+                                                                         {:id :10 :type :segment}
+                                                                         {:id   :11
+                                                                          :type :amr
+                                                                          :name "Syntax.mkText/S->Text"}
+                                                                         {:id   :12
+                                                                          :type :amr
+                                                                          :name "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
+                                                                         {:id   :13
+                                                                          :type :amr
+                                                                          :name "Syntax.pastTense/Tense"}
+                                                                         {:id   :16
+                                                                          :type :amr
+                                                                          :name "Syntax.mkCl/N->Cl"}
+                                                                         {:id   :17
+                                                                          :type :reference
+                                                                          :name "item"}
+                                                                         {:id :18 :type :segment}
+                                                                         {:id   :19
+                                                                          :type :amr
+                                                                          :name "Syntax.mkText/S->Text"}
+                                                                         {:id   :20
+                                                                          :type :amr
+                                                                          :name "Syntax.mkS/(Tense)->(Ant)->(Pol)->Cl->S"}
+                                                                         {:id   :21
+                                                                          :type :amr
+                                                                          :name "Syntax.presentTense/Tense"}
+                                                                         {:id   :24
+                                                                          :type :amr
+                                                                          :name "Syntax.mkCl/N->Cl"}
+                                                                         {:id   :25
+                                                                          :type :reference
+                                                                          :name "item"})}
+               :frames         [{:examples []}]
+               :roles          [{:id "ARG0" :label "item" :type "N"}]}]
  :data       {"product" "product" "fridge" "fridge"}
- :dictionary {["noise" "N"]   #:acc-text.nlg.dictionary.item{:id       "ae1a289c-9f4a-471b-ae36-36c4089cc865"
-                                                             :key      "noise"
-                                                             :category "N"
-                                                             :language "Eng"
-                                                             :forms    ["noise" "noises"]}
-              ["fridge" "N"]  #:acc-text.nlg.dictionary.item{:id       "dcc836af-a876-423d-aa60-1caf1b403b6f"
-                                                             :key      "fridge"
-                                                             :category "N"
-                                                             :language "Eng"
-                                                             :forms    ["fridge" "fridges"]}
-              ["bill" "N"]    #:acc-text.nlg.dictionary.item{:id       "41d0ddcd-9b82-4181-b3c2-63b93f5276dc"
-                                                             :key      "bill"
-                                                             :category "N"
-                                                             :language "Eng"
-                                                             :forms    ["bill" "bills"]}
-              ["product" "N"] #:acc-text.nlg.dictionary.item{:id       "062ae949-c661-479a-ab77-a3e4b3242a03"
-                                                             :key      "product"
-                                                             :category "N"
-                                                             :language "Eng"
-                                                             :forms    ["product" "products"]}}
- :constants  {"*Language" "Eng"}}
+ :dictionary [#:acc-text.nlg.dictionary.item{:id       "ae1a289c-9f4a-471b-ae36-36c4089cc865"
+                                             :key      "noise"
+                                             :category "N"
+                                             :language "Eng"
+                                             :forms    ["noise" "noises"]}
+              #:acc-text.nlg.dictionary.item{:id       "dcc836af-a876-423d-aa60-1caf1b403b6f"
+                                             :key      "fridge"
+                                             :category "N"
+                                             :language "Eng"
+                                             :forms    ["fridge" "fridges"]}
+              #:acc-text.nlg.dictionary.item{:id       "41d0ddcd-9b82-4181-b3c2-63b93f5276dc"
+                                             :key      "bill"
+                                             :category "N"
+                                             :language "Eng"
+                                             :forms    ["bill" "bills"]}
+              #:acc-text.nlg.dictionary.item{:id       "062ae949-c661-479a-ab77-a3e4b3242a03"
+                                             :key      "product"
+                                             :category "N"
+                                             :language "Eng"
+                                             :forms    ["product" "products"]}]}
