@@ -1,5 +1,6 @@
 (ns acc-text.nlg.graph.data
-  (:require [acc-text.nlg.graph.utils :refer [find-nodes get-in-edge]]
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.graph.utils :refer [find-nodes get-in-edge]]
             [acc-text.nlg.graph.dictionary-item :refer [get-dictionary-item add-dictionary-item]]
             [loom.attr :refer [attrs]]))
 
@@ -24,10 +25,14 @@
 (defn resolve-data [g {data :data dictionary :dictionary {lang "*Language"} :constants}]
   (reduce (fn [g [node-id {key :name}]]
             (let [category (find-data-category g node-id)
-                  value (get-data data key)]
-              (if-not (contains? dictionary [value category])
-                (update-in g [:attrs node-id] #(merge % {:type :quote :value value}))
-                (add-dictionary-item g node-id
-                                     (get-dictionary-item dictionary lang value category)))))
+                  value (get-data data key)
+                  dictionary-keys (group-by ::dict-item/key (vals dictionary))]
+              (cond
+                (contains? dictionary [value category]) (add-dictionary-item g node-id
+                                                                             (get-dictionary-item dictionary lang value category))
+                (contains? dictionary-keys value) (add-dictionary-item g node-id
+                                                                       (get-dictionary-item dictionary lang value
+                                                                                            (get-in dictionary-keys [value 0 ::dict-item/category])))
+                :else (update-in g [:attrs node-id] #(merge % {:type :quote :value value})))))
           g
           (concat (find-nodes g {:type :data}))))
