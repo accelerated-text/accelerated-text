@@ -3,6 +3,7 @@
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.spec.alpha :as s]
+            [clojure.string :as str]
             [clojure.zip :as zip]
             [data.entities.document-plan.utils :as dp-utils]
             [data.entities.document-plan.zip :as dp-zip]))
@@ -400,9 +401,10 @@
   ([{id :id name :name body :documentPlan blockly-xml :blocklyXml :as dp}]
    (let [labels (dp-utils/get-variable-labels blockly-xml)
          variables (dp-utils/find-variables dp labels)
-         context {:labels labels :variables variables}]
+         context {:labels labels :variables variables}
+         description (str/join "\n" (dp-utils/find-examples dp))]
      (loop [loc (-> body (preprocess) (post-process context) (dp-zip/make-zipper))
-            semantic-graph #::sg{:id id :name name :category "Str" :relations [] :concepts []}
+            semantic-graph #::sg{:id id :name name :category "Str" :description description :relations [] :concepts []}
             context (assoc context :variables {})]
        (if (or (zip/end? loc) (empty? body))
          (-> semantic-graph
