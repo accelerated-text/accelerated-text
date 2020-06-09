@@ -2,15 +2,17 @@
   (:require [data.entities.document-plan.zip :as dp-zip]
             [clojure.zip :as zip]
             [clojure.java.io :as io]
-            [clojure.data.xml :as xml]
-            [clojure.tools.logging :as log]))
+            [clojure.data.xml :as xml]))
 
 (defn get-variable-labels [blockly-xml]
   (with-open [is (io/input-stream (.getBytes blockly-xml))]
     (let [{[{vars :content}] :content} (xml/parse is)]
       (reduce (fn [m {{var-id :id} :attrs
                       [var-name]   :content}]
-                (assoc m var-id var-name))
+                (cond-> m
+                        (and
+                          (some? var-id)
+                          (some? var-name)) (assoc var-id var-name)))
               {}
               vars))))
 
