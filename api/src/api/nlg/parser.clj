@@ -6,7 +6,8 @@
             [clojure.string :as str]
             [clojure.zip :as zip]
             [data.entities.document-plan.utils :as dp-utils]
-            [data.entities.document-plan.zip :as dp-zip]))
+            [data.entities.document-plan.zip :as dp-zip]
+            [data.utils :as utils]))
 
 (def constants #{"*Language" "*Definition"})
 
@@ -304,7 +305,7 @@
   #::sg{:concepts  [{:id       id
                      :type     :variable
                      :category kind
-                     :name     (get labels name)}]
+                     :name     (get labels name kind)}]
         :relations [{:from     id
                      :to       (:id value)
                      :role     :definition
@@ -314,7 +315,7 @@
   (let [label (get labels var-id)]
     #::sg{:concepts  [{:id       id
                        :type     (if (contains? constants label) :constant :reference)
-                       :name     label
+                       :name     (or label kind)
                        :category kind}]
           :relations (map-indexed (fn [index {var-id :id}]
                                     {:from     id
@@ -401,10 +402,14 @@
   ([{id :id name :name body :documentPlan blockly-xml :blocklyXml :as dp}]
    (let [labels (dp-utils/get-variable-labels blockly-xml)
          variables (dp-utils/find-variables dp labels)
-         context {:labels labels :variables variables}
-         description (str/join "\n" (dp-utils/find-examples dp))]
-     (loop [loc (-> body (preprocess) (post-process context) (dp-zip/make-zipper))
-            semantic-graph #::sg{:id id :name name :category "Str" :description description :relations [] :concepts []}
+         context {:labels labels :variables variables}]
+     (loop [semantic-graph #::sg{:id          (or id (utils/gen-rand-str 16))
+                                 :name        (str name)
+                                 :category    "Str"
+                                 :description (str/join "\n" (dp-utils/find-examples dp))
+                                 :relations   []
+                                 :concepts    []}
+            loc (-> body (preprocess) (post-process context) (dp-zip/make-zipper))
             context (assoc context :variables {})]
        (if (or (zip/end? loc) (empty? body))
          (-> semantic-graph
@@ -415,9 +420,15 @@
              (sg-utils/remove-nil-categories))
          (let [{:keys [type name] :as node} (add-category semantic-graph (zip/node loc) (merge dp context))]
            (recur
-             (-> loc (zip/replace node) (zip/next))
-             (sg-utils/merge-semantic-graphs semantic-graph (build-semantic-graph node (merge dp context)))
-             (update context :variables #(if (= "Define-var" type) (merge-with concat % {name [node]}) %)))))))))
+             (sg-utils/merge-semantic-graphs
+               semantic-graph
+               (build-semantic-graph node (merge dp context)))
+             (-> loc
+                 (zip/replace node)
+                 (zip/next))
+             (-> context
+                 (update :variables #(if (= "Define-var" type)
+                                       (merge-with concat % {name [node]}) %))))))))))
 
 (s/fdef document-plan->semantic-graph
         :args (s/cat :document-plan map?)
