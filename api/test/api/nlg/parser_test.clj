@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.semantic-graph :as sg]
             [api.nlg.parser :as parser]
             [clojure.set :as set]
-            [clojure.test :refer [deftest testing is]]
-            [clojure.tools.logging :as log]))
+            [clojure.test :refer [deftest testing is]]))
 
 (deftest document-plan-parsing
   (testing "Simple document plan parsing"
@@ -28,8 +27,7 @@
                                                     {:children [nil] :name "theme"}]
                                         :type      "AMR"
                                         :conceptId "author"}}
-          {::sg/keys [concepts relations] :as dp} (parser/document-plan->semantic-graph document-plan)]
-      (log/spy dp)
+          {::sg/keys [concepts relations]} (parser/document-plan->semantic-graph document-plan)]
       (is (set/subset? #{:amr :data :dictionary-item} (set (map :type concepts))))
       (is (set/subset? #{:arg} (set (map :role relations))))))
   (testing "Modifier parsing"
