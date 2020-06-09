@@ -9,9 +9,9 @@
 
 (def constants #{"*Language" "*Definition"})
 
-(defmulti build-semantic-graph (fn [{type :type kind :kind concept-id :conceptId} {dp-kind :kind}]
+(defmulti build-semantic-graph (fn [{type :type concept-id :conceptId} {dp-kind :kind}]
                                  (keyword
-                                   (case [dp-kind kind]
+                                   (case [dp-kind type]
                                      ["AMR" "Document-plan"] "AMR-plan"
                                      ["RGL" "Document-plan"] "AMR-plan"
                                      ["AMR" "Segment"] "Frame"
