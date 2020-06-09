@@ -9,7 +9,13 @@
 
 (def constants #{"*Language"})
 
-(defmulti build-semantic-graph (fn [node _] (-> node (get :type) (keyword))))
+(defmulti build-semantic-graph (fn [node {dp-kind :kind}]
+                                 (case [dp-kind (:kind node)]
+                                   ["AMR" "Document-plan"] :AMR-plan
+                                   ["RGL" "Document-plan"] :AMR-plan
+                                   ["AMR" "Segment"] :Frame
+                                   ["RGL" "Segment"] :Frame
+                                   (-> node (get :type) (keyword)))))
 
 (defn definition? [node]
   (= "Define-var" (:type node)))
@@ -21,29 +27,50 @@
   #::sg{:concepts [{:id   id
                     :type :placeholder}]})
 
-(defmethod build-semantic-graph :Document-plan [{:keys [id segments kind]} _]
+(defmethod build-semantic-graph :Document-plan [{:keys [id segments]} _]
+  #::sg{:concepts  [{:id       id
+                     :type     :document-plan}]
+        :relations (->> segments
+                        (remove definition?)
+                        (map-indexed (fn [index {segment-id :id}]
+                                       {:from     id
+                                        :to       segment-id
+                                        :role     :segment
+                                        :index    index})))})
+
+(defmethod build-semantic-graph :AMR-plan [{:keys [id segments kind]} _]
   #::sg{:concepts  [{:id       id
                      :type     :document-plan
                      :category kind}]
         :relations (->> segments
                         (remove definition?)
-                        (map-indexed (fn [index {segment-id :id segment-kind :kind}]
+                        (map-indexed (fn [index {segment-id :id child-kind :kind}]
                                        {:from     id
                                         :to       segment-id
                                         :role     :segment
                                         :index    index
-                                        :category segment-kind})))})
+                                        :category (or kind child-kind)})))})
 
-(defmethod build-semantic-graph :Segment [{:keys [id children kind]} _]
+(defmethod build-semantic-graph :Segment [{:keys [id children]} _]
+  #::sg{:concepts  [{:id       id
+                     :type     :segment}]
+        :relations (map-indexed (fn [index {child-id :id}]
+                                  {:from     id
+                                   :to       child-id
+                                   :role     :instance
+                                   :index    index})
+                                children)})
+
+(defmethod build-semantic-graph :Frame [{:keys [id children kind]} _]
   #::sg{:concepts  [{:id       id
                      :type     :segment
                      :category kind}]
-        :relations (map-indexed (fn [index {child-id :id child-kind :kind}]
+        :relations (map-indexed (fn [index {child-id :id  child-kind :kind}]
                                   {:from     id
                                    :to       child-id
                                    :role     :instance
                                    :index    index
-                                   :category (or child-kind kind)})
+                                   :category (or kind child-kind)})
                                 children)})
 
 (defmethod build-semantic-graph :AMR [{id :id concept-id :conceptId roles :roles kind :kind} _]
@@ -324,12 +351,12 @@
     (= 1 (count kinds)) (first kinds)))
 
 (defn post-add-kind [{:keys [name type kind] :as node} {variables :variables}]
-  (let [kinds (remove nil? (map :kind (remove definition? (dp-zip/get-children node))))
+  (let [kinds (map :kind (remove definition? (dp-zip/get-children node)))
         kind (or
                kind
                (cond
                  (= "Get-var" type) (select-kind (remove nil? (map :kind (get variables name))))
-                 (contains? #{"If-then-else" "Xor"} type) (select-kind (set kinds))
+                 (contains? #{"If-then-else" "Xor"} type) (select-kind (set (remove nil? kinds)))
                  :else (select-kind kinds)))]
     (when (some? node)
       (assoc node :kind kind))))
@@ -363,7 +390,7 @@
          context {:variable-labels labels
                   :variables       (dp-utils/find-variables dp labels)}
          dp-with-meta (merge dp context)]
-     (loop [loc (-> body (post-process context) (pre-process) (dp-zip/make-zipper))
+     (loop [loc (-> body (pre-process) (post-process context) (dp-zip/make-zipper))
             semantic-graph #::sg{:id id :name name :category "Str" :relations [] :concepts []}]
        (if (or (zip/end? loc) (empty? body))
          (-> semantic-graph
