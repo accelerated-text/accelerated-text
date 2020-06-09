@@ -5,14 +5,8 @@
             [loom.graph :as graph]
             [ubergraph.core :as uber]))
 
-(defn segment->frame [g]
-  (reduce (fn [g [node-id _]]
-            (assoc-in g [:attrs node-id :type] :frame))
-          g
-          (find-nodes g {:type :segment})))
-
 (defn attach-amr [g amr-node-id sg]
-  (let [amr-g (-> sg (semantic-graph->ubergraph) (segment->frame))
+  (let [amr-g (semantic-graph->ubergraph sg)
         amr-root-id (find-root-id amr-g)
         out-edge-map (group-by (fn [{edge-id :id}]
                                  (let [{:keys [name category]} (get-in g [:attrs edge-id])]
