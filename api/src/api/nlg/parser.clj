@@ -7,15 +7,18 @@
             [data.entities.document-plan.utils :as dp-utils]
             [data.entities.document-plan.zip :as dp-zip]))
 
-(def constants #{"*Language"})
+(def constants #{"*Language" "*Definition"})
 
-(defmulti build-semantic-graph (fn [node {dp-kind :kind}]
-                                 (case [dp-kind (:kind node)]
-                                   ["AMR" "Document-plan"] :AMR-plan
-                                   ["RGL" "Document-plan"] :AMR-plan
-                                   ["AMR" "Segment"] :Frame
-                                   ["RGL" "Segment"] :Frame
-                                   (-> node (get :type) (keyword)))))
+(defmulti build-semantic-graph (fn [{type :type kind :kind concept-id :conceptId} {dp-kind :kind}]
+                                 (keyword
+                                   (case [dp-kind kind]
+                                     ["AMR" "Document-plan"] "AMR-plan"
+                                     ["RGL" "Document-plan"] "AMR-plan"
+                                     ["AMR" "Segment"] "Frame"
+                                     ["RGL" "Segment"] "Frame"
+                                     ["AMR" "AMR"] (if (contains? ops/operation-map concept-id) "Operation" "AMR")
+                                     ["RGL" "AMR"] (if (contains? ops/operation-map concept-id) "Operation" "AMR")
+                                     type))))
 
 (defn definition? [node]
   (= "Define-var" (:type node)))
@@ -28,15 +31,15 @@
                     :type :placeholder}]})
 
 (defmethod build-semantic-graph :Document-plan [{:keys [id segments]} _]
-  #::sg{:concepts  [{:id       id
-                     :type     :document-plan}]
+  #::sg{:concepts  [{:id   id
+                     :type :document-plan}]
         :relations (->> segments
                         (remove definition?)
                         (map-indexed (fn [index {segment-id :id}]
-                                       {:from     id
-                                        :to       segment-id
-                                        :role     :segment
-                                        :index    index})))})
+                                       {:from  id
+                                        :to    segment-id
+                                        :role  :segment
+                                        :index index})))})
 
 (defmethod build-semantic-graph :AMR-plan [{:keys [id segments kind]} _]
   #::sg{:concepts  [{:id       id
@@ -44,54 +47,63 @@
                      :category kind}]
         :relations (->> segments
                         (remove definition?)
-                        (map-indexed (fn [index {segment-id :id child-kind :kind}]
+                        (map-indexed (fn [index {frame-id :id}]
                                        {:from     id
-                                        :to       segment-id
-                                        :role     :segment
+                                        :to       frame-id
+                                        :role     :frame
                                         :index    index
-                                        :category (or kind child-kind)})))})
+                                        :category kind})))})
 
 (defmethod build-semantic-graph :Segment [{:keys [id children]} _]
-  #::sg{:concepts  [{:id       id
-                     :type     :segment}]
+  #::sg{:concepts  [{:id   id
+                     :type :segment}]
         :relations (map-indexed (fn [index {child-id :id}]
-                                  {:from     id
-                                   :to       child-id
-                                   :role     :instance
-                                   :index    index})
+                                  {:from  id
+                                   :to    child-id
+                                   :role  :instance
+                                   :index index})
                                 children)})
 
 (defmethod build-semantic-graph :Frame [{:keys [id children kind]} _]
   #::sg{:concepts  [{:id       id
-                     :type     :segment
+                     :type     :frame
                      :category kind}]
-        :relations (map-indexed (fn [index {child-id :id  child-kind :kind}]
+        :relations (map-indexed (fn [index {child-id :id}]
                                   {:from     id
                                    :to       child-id
                                    :role     :instance
                                    :index    index
-                                   :category (or kind child-kind)})
+                                   :category kind})
                                 children)})
 
 (defmethod build-semantic-graph :AMR [{id :id concept-id :conceptId roles :roles kind :kind} _]
-  #::sg{:concepts  [(if (contains? ops/operation-map concept-id)
-                      (let [{:keys [module name]} (get ops/operation-map concept-id)]
-                        {:id       id
-                         :type     :operation
-                         :name     name
-                         :category kind
-                         :module   module})
-                      {:id       id
-                       :type     :amr
-                       :name     concept-id
-                       :category kind})]
+  #::sg{:concepts  [{:id       id
+                     :type     :amr
+                     :name     concept-id
+                     :category kind}]
         :relations (map-indexed (fn [index {[{child-id :id}] :children kind :name label :label}]
                                   (cond-> {:from     id
                                            :to       child-id
                                            :role     :arg
                                            :index    index
-                                           :category kind}
-                                          (not= kind label) (assoc :name label)))
+                                           :category kind
+                                           :name     label}))
+                                roles)})
+
+(defmethod build-semantic-graph :Operation [{id :id concept-id :conceptId roles :roles kind :kind} _]
+  #::sg{:concepts  [(let [{:keys [module name]} (get ops/operation-map concept-id)]
+                      {:id       id
+                       :type     :operation
+                       :name     name
+                       :category kind
+                       :module   module})]
+        :relations (map-indexed (fn [index {[{child-id :id}] :children kind :name label :label}]
+                                  (cond-> {:from     id
+                                           :to       child-id
+                                           :role     :arg
+                                           :index    index
+                                           :category kind
+                                           :name     label}))
                                 roles)})
 
 (defmethod build-semantic-graph :Cell [{:keys [id name]} _]
@@ -104,7 +116,7 @@
 (defmethod build-semantic-graph :Quote [{:keys [id text]} _]
   #::sg{:concepts  [{:id       id
                      :type     :quote
-                     :value    (or text "")
+                     :value    (str text)
                      :category "Str"}]
         :relations []})
 
@@ -151,62 +163,62 @@
   #::sg{:concepts  [{:id       id
                      :type     :sequence
                      :category kind}]
-        :relations (map-indexed (fn [index {child-id :id child-kind :kind}]
+        :relations (map-indexed (fn [index {child-id :id}]
                                   {:from     id
                                    :to       child-id
                                    :role     :item
                                    :index    index
-                                   :category (or child-kind kind)})
+                                   :category kind})
                                 children)})
 
 (defmethod build-semantic-graph :Shuffle [{:keys [id children kind]} _]
   #::sg{:concepts  [{:id       id
                      :type     :shuffle
                      :category kind}]
-        :relations (map-indexed (fn [index {child-id :id child-kind :kind}]
+        :relations (map-indexed (fn [index {child-id :id}]
                                   {:from     id
                                    :to       child-id
                                    :role     :item
                                    :index    index
-                                   :category (or child-kind kind)})
+                                   :category kind})
                                 children)})
 
 (defmethod build-semantic-graph :One-of-synonyms [{:keys [id children kind]} _]
   #::sg{:concepts  [{:id       id
                      :type     :synonyms
                      :category kind}]
-        :relations (map-indexed (fn [index {child-id :id child-kind :kind}]
+        :relations (map-indexed (fn [index {child-id :id}]
                                   {:from     id
                                    :to       child-id
                                    :role     :item
                                    :index    index
-                                   :category (or child-kind kind)})
+                                   :category kind})
                                 children)})
 
 (defmethod build-semantic-graph :If-then-else [{:keys [id conditions kind]} _]
   #::sg{:concepts  [{:id       id
                      :type     :condition
                      :category kind}]
-        :relations (map-indexed (fn [index {child-id :id child-kind :kind}]
+        :relations (map-indexed (fn [index {child-id :id}]
                                   {:from     id
                                    :to       child-id
                                    :role     :statement
                                    :index    index
-                                   :category (or child-kind kind)})
+                                   :category kind})
                                 conditions)})
 
 (defmethod build-semantic-graph :If-condition [{id :id kind :kind condition :condition then-expression :thenExpression} _]
   #::sg{:concepts  [{:id       id
                      :type     :if-statement
-                     :category (or kind (:kind then-expression))}]
+                     :category kind}]
         :relations [{:from     id
                      :to       (:id condition)
                      :role     :predicate
-                     :category (or kind (:kind then-expression))}
+                     :category kind}
                     {:from     id
                      :to       (:id then-expression)
                      :role     :then-expression
-                     :category (or kind (:kind then-expression))}]})
+                     :category kind}]})
 
 (defmethod build-semantic-graph :Default-condition [{id :id kind :kind then-expression :thenExpression} _]
   (when (some? then-expression)
@@ -216,7 +228,7 @@
           :relations [{:from     id
                        :to       (:id then-expression)
                        :role     :then-expression
-                       :category (or (:kind then-expression) kind)}]}))
+                       :category kind}]}))
 
 (defmethod build-semantic-graph :Value-comparison [{:keys [id kind operator value1 value2]} _]
   #::sg{:concepts  [{:id       id
@@ -226,12 +238,12 @@
         :relations [{:from     id
                      :to       (:id value1)
                      :role     :comparable
-                     :category (or (:kind value1) kind)
+                     :category kind
                      :index    0}
                     {:from     id
                      :to       (:id value2)
                      :role     :comparable
-                     :category (or (:kind value2) kind)
+                     :category kind
                      :index    1}]})
 
 (defmethod build-semantic-graph :Value-in [{:keys [id kind operator value list]} _]
@@ -242,12 +254,12 @@
         :relations [{:from     id
                      :to       (:id list)
                      :role     :comparable
-                     :category (or (:kind list) kind)
+                     :category kind
                      :index    0}
                     {:from     id
                      :to       (:id value)
                      :role     :comparable
-                     :category (or (:kind value) kind)
+                     :category kind
                      :index    1}]})
 
 (defmethod build-semantic-graph :And-or [{:keys [id kind operator children]} _]
@@ -255,15 +267,15 @@
                      :type     :boolean
                      :value    operator
                      :category kind}]
-        :relations (map-indexed (fn [index {child-id :id child-kind :kind}]
+        :relations (map-indexed (fn [index {child-id :id}]
                                   {:from     id
                                    :to       child-id
                                    :role     :input
                                    :index    index
-                                   :category (or child-kind kind)})
+                                   :category kind})
                                 children)})
 
-(defmethod build-semantic-graph :Not [{id :id kind :kind {child-id :id child-kind :kind} :value} _]
+(defmethod build-semantic-graph :Not [{id :id kind :kind {child-id :id} :value} _]
   #::sg{:concepts  [{:id       id
                      :type     :boolean
                      :value    "not"
@@ -271,7 +283,7 @@
         :relations [{:from     id
                      :to       child-id
                      :role     :input
-                     :category (or child-kind kind)}]})
+                     :category kind}]})
 
 (defmethod build-semantic-graph :Xor [{:keys [id kind value1 value2]} _]
   #::sg{:concepts  [{:id       id
@@ -281,13 +293,13 @@
         :relations [{:from     id
                      :to       (:id value1)
                      :role     :input
-                     :category (or (:kind value1) kind)}
+                     :category kind}
                     {:from     id
                      :to       (:id value2)
                      :role     :input
-                     :category (or (:kind value2) kind)}]})
+                     :category kind}]})
 
-(defmethod build-semantic-graph :Define-var [{:keys [id kind value name]} {labels :variable-labels}]
+(defmethod build-semantic-graph :Define-var [{:keys [id kind value name]} {labels :labels}]
   #::sg{:concepts  [{:id       id
                      :type     :variable
                      :category kind
@@ -295,20 +307,20 @@
         :relations [{:from     id
                      :to       (:id value)
                      :role     :definition
-                     :category (or (:kind value) kind)}]})
+                     :category kind}]})
 
-(defmethod build-semantic-graph :Get-var [{id :id var-id :name kind :kind} {variables :variables labels :variable-labels}]
+(defmethod build-semantic-graph :Get-var [{id :id var-id :name kind :kind} {variables :variables labels :labels}]
   (let [label (get labels var-id)]
     #::sg{:concepts  [{:id       id
                        :type     (if (contains? constants label) :constant :reference)
                        :name     label
                        :category kind}]
-          :relations (map-indexed (fn [index {var-id :id var-kind :kind}]
+          :relations (map-indexed (fn [index {var-id :id}]
                                     {:from     id
                                      :to       var-id
                                      :role     :pointer
                                      :index    index
-                                     :category (or var-kind kind)})
+                                     :category kind})
                                   (get variables var-id))}))
 
 (declare preprocess-node)
@@ -336,7 +348,7 @@
 (defn preprocess-node [node index]
   (-> node (nil->placeholder) (rearrange-modifiers index) (gen-id index)))
 
-(defn pre-process [root]
+(defn preprocess [root]
   (loop [loc (dp-zip/make-zipper root)
          index 1]
     (if (zip/end? loc)
@@ -370,7 +382,7 @@
             (zip/edit post-add-kind context)
             (dp-zip/post-next))))))
 
-(defn add-kind [semantic-graph {:keys [id kind name] :as node} {variables :variables}]
+(defn add-category [semantic-graph {:keys [id kind name] :as node} {variables :variables}]
   (let [in-relations (filter #(= (:to %) id) (::sg/relations semantic-graph))
         kind (or
                kind
@@ -387,11 +399,11 @@
 (defn document-plan->semantic-graph
   ([{id :id name :name body :documentPlan blockly-xml :blocklyXml :as dp}]
    (let [labels (dp-utils/get-variable-labels blockly-xml)
-         context {:variable-labels labels
-                  :variables       (dp-utils/find-variables dp labels)}
-         dp-with-meta (merge dp context)]
-     (loop [loc (-> body (pre-process) (post-process context) (dp-zip/make-zipper))
-            semantic-graph #::sg{:id id :name name :category "Str" :relations [] :concepts []}]
+         variables (dp-utils/find-variables dp labels)
+         context {:labels labels :variables variables}]
+     (loop [loc (-> body (preprocess) (post-process context) (dp-zip/make-zipper))
+            semantic-graph #::sg{:id id :name name :category "Str" :relations [] :concepts []}
+            context (assoc context :variables {})]
        (if (or (zip/end? loc) (empty? body))
          (-> semantic-graph
              (sg-utils/prune-nil-relations)
@@ -399,10 +411,11 @@
              (sg-utils/prune-unrelated-branches)
              (sg-utils/add-category)
              (sg-utils/remove-nil-categories))
-         (let [node (add-kind semantic-graph (zip/node loc) dp-with-meta)]
+         (let [{:keys [type name] :as node} (add-category semantic-graph (zip/node loc) (merge dp context))]
            (recur
              (-> loc (zip/replace node) (zip/next))
-             (sg-utils/merge-semantic-graphs semantic-graph (build-semantic-graph node dp-with-meta)))))))))
+             (sg-utils/merge-semantic-graphs semantic-graph (build-semantic-graph node (merge dp context)))
+             (update context :variables #(if (= "Define-var" type) (merge-with concat % {name [node]}) %)))))))))
 
 (s/fdef document-plan->semantic-graph
         :args (s/cat :document-plan map?)
