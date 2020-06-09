@@ -5,16 +5,17 @@
             [clojure.data.xml :as xml]))
 
 (defn get-variable-labels [blockly-xml]
-  (with-open [is (io/input-stream (.getBytes blockly-xml))]
-    (let [{[{vars :content}] :content} (xml/parse is)]
-      (reduce (fn [m {{var-id :id} :attrs
-                      [var-name]   :content}]
-                (cond-> m
-                        (and
-                          (some? var-id)
-                          (some? var-name)) (assoc var-id var-name)))
-              {}
-              vars))))
+  (when (some? blockly-xml)
+    (with-open [is (io/input-stream (.getBytes blockly-xml))]
+      (let [{[{vars :content}] :content} (xml/parse is)]
+        (reduce (fn [m {{var-id :id} :attrs
+                        [var-name]   :content}]
+                  (cond-> m
+                          (and
+                            (some? var-id)
+                            (some? var-name)) (assoc var-id var-name)))
+                {}
+                vars)))))
 
 (defn get-nodes-with-types [body types]
   (->> (dp-zip/make-zipper body)
