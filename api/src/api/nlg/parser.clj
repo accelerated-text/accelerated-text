@@ -9,9 +9,9 @@
 
 (def constants #{"*Language" "*Definition"})
 
-(defmulti build-semantic-graph (fn [{type :type concept-id :conceptId} {dp-kind :kind}]
+(defmulti build-semantic-graph (fn [{type :type concept-id :conceptId} {kind :kind}]
                                  (keyword
-                                   (case [dp-kind type]
+                                   (case [kind type]
                                      ["AMR" "Document-plan"] "AMR-plan"
                                      ["RGL" "Document-plan"] "AMR-plan"
                                      ["AMR" "Segment"] "Frame"
@@ -82,12 +82,12 @@
                      :name     concept-id
                      :category kind}]
         :relations (map-indexed (fn [index {[{child-id :id}] :children kind :name label :label}]
-                                  (cond-> {:from     id
-                                           :to       child-id
-                                           :role     :arg
-                                           :index    index
-                                           :category kind
-                                           :name     label}))
+                                  {:from     id
+                                   :to       child-id
+                                   :role     :arg
+                                   :index    index
+                                   :category kind
+                                   :name     label})
                                 roles)})
 
 (defmethod build-semantic-graph :Operation [{id :id concept-id :conceptId roles :roles kind :kind} _]
@@ -98,12 +98,12 @@
                        :category kind
                        :module   module})]
         :relations (map-indexed (fn [index {[{child-id :id}] :children kind :name label :label}]
-                                  (cond-> {:from     id
-                                           :to       child-id
-                                           :role     :arg
-                                           :index    index
-                                           :category kind
-                                           :name     label}))
+                                  {:from     id
+                                   :to       child-id
+                                   :role     :arg
+                                   :index    index
+                                   :category kind
+                                   :name     label})
                                 roles)})
 
 (defmethod build-semantic-graph :Cell [{:keys [id name]} _]
