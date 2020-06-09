@@ -1,8 +1,7 @@
 (ns data.entities.amr
   (:require [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [api.nlg.parser :refer [document-plan->semantic-graph]]
-            [data.entities.document-plan :as dp]
-            [clojure.tools.logging :as log]))
+            [data.entities.document-plan :as dp]))
 
 (defn get-amr [id]
   (some-> id (dp/get-document-plan) (document-plan->semantic-graph)))
