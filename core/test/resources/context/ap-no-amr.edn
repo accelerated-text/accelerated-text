@@ -1,9 +1,10 @@
-{:amr       {},
- :data      {"Type" "fridge", "Color" "white"},
+{:amr (),
+ :data {"Type" "fridge", "Color" "white"},
  :dictionary
- [#:acc-text.nlg.dictionary.item{:id "598e0a24-a7e6-4525-891b-cd7f58ec4c4c",
+ [#:acc-text.nlg.dictionary.item{:id
+                                 "598e0a24-a7e6-4525-891b-cd7f58ec4c4c",
                                  :key "white",
                                  :category "A",
                                  :language "Eng",
-                                 :forms ["white"]}]
+                                 :forms ["white"]}],
  :constants {"*Language" "Eng"}}

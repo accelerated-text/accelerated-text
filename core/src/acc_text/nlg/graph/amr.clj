@@ -5,14 +5,8 @@
             [loom.graph :as graph]
             [ubergraph.core :as uber]))
 
-(defn segment->frame [g]
-  (reduce (fn [g [node-id _]]
-            (assoc-in g [:attrs node-id :type] :frame))
-          g
-          (find-nodes g {:type :segment})))
-
 (defn attach-amr [g amr-node-id sg]
-  (let [amr-g (-> sg (semantic-graph->ubergraph) (segment->frame))
+  (let [amr-g (semantic-graph->ubergraph sg)
         amr-root-id (find-root-id amr-g)
         out-edge-map (group-by (fn [{edge-id :id}]
                                  (let [{:keys [name category]} (get-in g [:attrs edge-id])]
@@ -39,11 +33,11 @@
 
 (defn attach-amrs [g {amr-map :amr :as context}]
   (reduce (fn [g [node-id {amr-name :name}]]
-            (let [{sg :semantic-graph} (get amr-map amr-name)]
+            (let [sg (get amr-map amr-name)]
               (cond
                 (nil? amr-name) g
-                (some? sg) (-> g (attach-amr node-id sg) (attach-amrs context))
                 (contains? ops/operation-map amr-name) (attach-rgl g node-id amr-name)
+                (some? sg) (-> g (attach-amr node-id sg) (attach-amrs context))
                 :else (throw (Exception. (format "AMR not found in context: `%s`" amr-name))))))
           g
           (find-nodes g {:type :amr})))

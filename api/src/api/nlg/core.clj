@@ -8,7 +8,7 @@
             [api.utils :as utils]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
-            [data.entities.amr :refer [get-amrs]]
+            [data.entities.amr :refer [find-amrs]]
             [data.entities.dictionary :refer [build-dictionaries default-language]]
             [data.spec.result :as result]
             [data.spec.result.annotation :as annotation]
@@ -30,8 +30,8 @@
 (defn generate-text
   [{:keys [id document-plan data languages] :or {id (utils/gen-uuid) data {} languages [(default-language)]}}]
   (let [semantic-graph (document-plan->semantic-graph document-plan)
-        amrs (get-amrs semantic-graph)
-        semantic-graphs (cons semantic-graph (map :semantic-graph amrs))
+        amrs (find-amrs semantic-graph)
+        semantic-graphs (cons semantic-graph amrs)
         dictionary-keys (set (concat (vals data) (mapcat get-dictionary-keys semantic-graphs)))
         dictionaries (build-dictionaries dictionary-keys languages)]
     (try

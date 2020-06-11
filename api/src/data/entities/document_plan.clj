@@ -1,7 +1,5 @@
 (ns data.entities.document-plan
   (:require [api.config :refer [conf]]
-            [clojure.data.xml :as xml]
-            [clojure.java.io :as io]
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
@@ -27,15 +25,6 @@
 
 (defn update-document-plan [document-plan-id document-plan]
   (db/update! document-plans-db document-plan-id document-plan))
-
-(defn get-variable-names [{blockly-xml :blocklyXml}]
-  (with-open [is (io/input-stream (.getBytes blockly-xml))]
-    (let [{[{vars :content}] :content} (xml/parse is)]
-      (reduce (fn [m {{var-id :id} :attrs
-                      [var-name]   :content}]
-                (assoc m var-id var-name))
-              {}
-              vars))))
 
 (defn document-plan-path []
   (or (System/getenv "DOCUMENT_PLANS") "resources/document-plans"))

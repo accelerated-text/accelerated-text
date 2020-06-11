@@ -25,7 +25,10 @@
          (format "%02d" (or position 0)))))
 
 (defn s-node? [graph node-id]
-  (contains? #{:dictionary-item :operation} (:type (attrs graph node-id))))
+  (let [category (:category (attrs graph node-id))]
+    (and
+      (some? category)
+      (not= category "Str"))))
 
 (defn remove-data-types [graph node-ids]
   (remove #(contains? data-types (:type (attrs graph %))) node-ids))
