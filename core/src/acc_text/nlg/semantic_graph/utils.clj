@@ -64,13 +64,13 @@
   (prune-branches semantic-graph (set/difference (into #{} (map :id (rest concepts)))
                                                  (into #{} (map :to relations)))))
 
-(defn find-unrelated-concepts
+(defn find-terminal-concepts
   ([semantic-graph]
    (let [{::sg/keys [concepts relations]} semantic-graph
          concept-map (zipmap (map :id concepts) concepts)]
      (map concept-map (set/difference (set (map :id concepts)) (set (map :from relations))))))
   ([semantic-graph type]
-   (filter #(= type (:type %)) (find-unrelated-concepts semantic-graph))))
+   (filter #(= type (:type %)) (find-terminal-concepts semantic-graph))))
 
 (defn find-roles [{::sg/keys [relations] :as semantic-graph}]
   (let [to-relation-map (group-by :to relations)]
@@ -83,7 +83,7 @@
              (cond-> {:id   id
                       :name name}
                      (some? category) (assoc :category category))))
-         (find-unrelated-concepts semantic-graph :reference))))
+         (find-terminal-concepts semantic-graph :reference))))
 
 (defn merge-semantic-graphs [& graphs]
   (-> (first graphs)
