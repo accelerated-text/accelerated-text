@@ -43,28 +43,6 @@
            :db/cardinality :db.cardinality/many
            :db/doc         "Phrases associated with the dictionary-item"}]
 
-         [{:db/ident       :dictionary-combined/id
-           :db/unique      :db.unique/identity
-           :db/valueType   :db.type/string
-           :db/cardinality :db.cardinality/one
-           :db/doc         "Public Id of the dictionary-item"}
-
-          {:db/ident       :dictionary-combined/name
-           :db/valueType   :db.type/string
-           :db/cardinality :db.cardinality/one
-           :db/doc         "Name of the dictionary-item"}
-
-          {:db/ident       :dictionary-combined/partOfSpeech
-           :db/valueType   :db.type/keyword
-           :db/cardinality :db.cardinality/one
-           :db/doc         "Part of speech tag of the dictionary-item"}
-
-          {:db/ident       :dictionary-combined/phrases
-           :db/valueType   :db.type/ref
-           :db/isComponent true
-           :db/cardinality :db.cardinality/many
-           :db/doc         "Phrases associated with the dictionary-item"}]
-
          [{:db/ident       :document-plan/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
@@ -325,72 +303,72 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Annotation text"}]
 
-         [{:db/ident       :dictionary-multilang/id
+         [{:db/ident       :acc-text.nlg.dictionary.item/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Public Id of dictionary item"}
 
-          {:db/ident       :dictionary-multilang/key
+          {:db/ident       :acc-text.nlg.dictionary.item/key
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Dictionary item key"}
 
-          {:db/ident       :dictionary-multilang/category
+          {:db/ident       :acc-text.nlg.dictionary.item/category
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Category (part of speech tag) of dictionary item"}
 
-          {:db/ident       :dictionary-multilang/language
+          {:db/ident       :acc-text.nlg.dictionary.item/language
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Dictionary item language"}
 
-          {:db/ident       :dictionary-multilang/sense
+          {:db/ident       :acc-text.nlg.dictionary.item/sense
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Sense of word"}
 
-          {:db/ident       :dictionary-multilang/definition
+          {:db/ident       :acc-text.nlg.dictionary.item/definition
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Dictionary item definition"}
 
-          {:db/ident       :dictionary-multilang/forms
+          {:db/ident       :acc-text.nlg.dictionary.item/forms
            :db/valueType   :db.type/ref
            :db/cardinality :db.cardinality/many
            :db/isComponent true
            :db/doc         "Word forms"}
 
-          {:db/ident       :dictionary-multilang/attributes
+          {:db/ident       :acc-text.nlg.dictionary.item/attributes
            :db/valueType   :db.type/ref
            :db/cardinality :db.cardinality/many
            :db/isComponent true
            :db/doc         "Dictionary item attributes"}
 
-          {:db/ident       :attribute/id
+          {:db/ident       :acc-text.nlg.dictionary.item.attr/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Public Id of dictionary item attribute"}
 
-          {:db/ident       :attribute/key
+          {:db/ident       :acc-text.nlg.dictionary.item.attr/name
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Key of dictionary item attribute"}
 
-          {:db/ident       :attribute/value
+          {:db/ident       :acc-text.nlg.dictionary.item.attr/value
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Value of dictionary item attribute"}
 
-          {:db/ident       :form/id
+          {:db/ident       :acc-text.nlg.dictionary.item.form/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Public Id dictionary item word form"}
 
-          {:db/ident       :form/value
+          {:db/ident       :acc-text.nlg.dictionary.item.form/value
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
            :db/doc         "Dictionary item form"}]]}}
