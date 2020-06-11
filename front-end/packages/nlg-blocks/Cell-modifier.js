@@ -23,7 +23,7 @@ export default Block({
         args0: [{
             type:           'input_value',
             name:           'child',
-            check:          T.TEXT,
+            check:          T.ANY,
         }],
     },
 
