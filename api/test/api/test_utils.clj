@@ -6,7 +6,6 @@
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
             [data.entities.document-plan :as dp]
-            [data.utils :refer [read-edn]]
             [jsonista.core :as json])
   (:import (org.httpkit BytesInputStream)))
 
