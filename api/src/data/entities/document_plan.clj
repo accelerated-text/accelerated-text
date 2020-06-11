@@ -4,7 +4,7 @@
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 
-(defstate document-plans-db :start (db/db-access :blockly conf))
+(defstate document-plans-db :start (db/db-access :document-plan conf))
 
 (defn list-document-plans
   ([]

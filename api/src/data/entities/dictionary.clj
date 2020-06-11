@@ -12,7 +12,7 @@
 
 (defstate reader-flags-db :start (db/db-access :reader-flag conf))
 
-(defstate dictionary-db :start (db/db-access :dictionary-multilang conf))
+(defstate dictionary-db :start (db/db-access :dictionary conf))
 
 (def language-config (->> "config/language-codes.csv"
                           (io/resource)
