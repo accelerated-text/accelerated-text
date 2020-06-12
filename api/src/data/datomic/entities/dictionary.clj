@@ -23,7 +23,7 @@
 
 (defn transact-item [conn key data-item]
   (try
-    @(d/transact conn [(log/spy (dict-item->schema (assoc data-item ::dict-item/id key)))])
+    @(d/transact conn [(dict-item->schema (assoc data-item ::dict-item/id key))])
     (catch Exception e (.printStackTrace e))))
 
 (defn pull-entity [conn key]
