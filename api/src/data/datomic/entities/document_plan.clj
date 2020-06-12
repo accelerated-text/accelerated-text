@@ -1,4 +1,4 @@
-(ns data.datomic.blockly
+(ns data.datomic.entities.document-plan
   (:require [data.utils :as utils]
             [data.datomic.utils :refer [remove-nil-vals]]
             [datomic.api :as d]))

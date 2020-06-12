@@ -10,7 +10,7 @@
 (defn dictionary [_ _ _]
   (->> (dict-entity/list-dictionary-items)
        (filter #(= (dict-entity/default-language) (::dictionary-item/language %)))
-       (map translate-dict/multilang-dict-item->original-schema)
+       (map translate-dict/dictionary-item->schema)
        (sort-by :name)
        (translate-core/paginated-response)
        (resolve-as)))
@@ -21,13 +21,13 @@
 (defn dictionary-item [_ {id :id :as args} _]
   (log/debugf "Fetching dictionary item with args: %s" args)
   (if-let [item (dict-entity/get-dictionary-item id)]
-    (resolve-as (translate-dict/multilang-dict-item->original-schema item))
+    (resolve-as (translate-dict/dictionary-item->schema item))
     (resolve-as-not-found-dict-item id)))
 
 (defn create-dictionary-item [_ args _]
-  (-> (translate-dict/schema->default-multilang-dict-item args)
+  (-> (translate-dict/schema->dictionary-item args)
       (dict-entity/create-dictionary-item)
-      (translate-dict/multilang-dict-item->original-schema)
+      (translate-dict/dictionary-item->schema)
       (resolve-as)))
 
 (defn delete-dictionary-item [_ {:keys [id]} _]
@@ -36,7 +36,7 @@
 
 (defn update-dictionary-item [_ {id :id :as args} _]
   (if-let [item (dict-entity/update-dictionary-item (translate-dict/schema->dictionary-item args))]
-    (resolve-as (translate-dict/multilang-dict-item->original-schema item))
+    (resolve-as (translate-dict/dictionary-item->schema item))
     (resolve-as-not-found-dict-item id)))
 
 (defn create-phrase [_ {:keys [dictionaryItemId text defaultUsage]} _]
