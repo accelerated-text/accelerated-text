@@ -5,9 +5,9 @@
             [api.nlg.service.utils :as utils]
             [api.utils :refer [gen-uuid]]
             [clojure.spec.alpha :as s]
+            [clojure.tools.logging :as log]
             [data.spec.result :as result]
-            [data.entities.results :as results]
-            [clojure.tools.logging :as log]))
+            [data.entities.results :as results]))
 
 (s/def ::generate-request
   (s/keys :opt-un [::request/documentPlanId
