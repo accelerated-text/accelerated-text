@@ -4,42 +4,12 @@
             [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.set :as set]
-            [clojure.string :as string]
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]])
   (:import (java.io PushbackReader)))
 
-(defstate reader-flags-db :start (db/db-access :reader-flag conf))
-
 (defstate dictionary-db :start (db/db-access :dictionary conf))
-
-(def language-config (->> "config/language-codes.csv"
-                          (io/resource)
-                          (slurp)
-                          (string/split-lines)
-                          (reduce (fn [m line]
-                                    (let [[code name] (string/split line #",")]
-                                      (assoc m name (string/capitalize code))))
-                                  {})))
-
-(defn default-language-flag []
-  (or (System/getenv "DEFAULT_LANGUAGE") "English"))
-
-(defn get-default-flags []
-  (-> (:enabled-languages conf)
-      (zipmap (repeat "NO"))
-      (assoc (default-language-flag) "YES")))
-
-(defn list-readers []
-  (get-default-flags))
-
-(defn flag->lang [flag] (get language-config flag))
-
-(defn default-language [] (flag->lang (default-language-flag)))
-
-(defn get-reader [key]
-  (db/read! reader-flags-db key))
 
 (defn list-dictionary-items
   ([] (list-dictionary-items 100))
@@ -73,8 +43,8 @@
     (db/write! dictionary-db item-id item)
     (get-dictionary-item item-id)))
 
-(defn build-dictionaries [keys languages]
-  (group-by ::dictionary-item/language (scan-dictionary keys languages)))
+(defn build-dictionaries [keys language-codes]
+  (group-by ::dictionary-item/language (scan-dictionary keys language-codes)))
 
 (defn dictionary-path []
   (or (System/getenv "DICT_PATH") "resources/dictionary"))
@@ -86,8 +56,6 @@
             (edn/read (PushbackReader. r))))))
 
 (defn initialize []
-  (doseq [[flag value] (get-default-flags)]
-    (db/write! reader-flags-db flag value))
   (doseq [{id ::dictionary-item/id}
           (set/difference
             (set (list-dictionary-items 9999))

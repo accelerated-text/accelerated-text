@@ -1,5 +1,6 @@
 (ns data.utils
-  (:require [clojure.edn :as edn]
+  (:require [clojure.data.csv :as csv]
+            [clojure.edn :as edn]
             [clojure.java.io :as io]
             [jsonista.core :as json])
   (:import (java.io File PushbackReader)
@@ -23,6 +24,11 @@
 (defn read-edn [^File f]
   (with-open [rdr (io/reader f)]
     (edn/read (PushbackReader. rdr))))
+
+(defn read-csv [^File f]
+  (with-open [reader (io/reader f)]
+    (doall
+      (csv/read-csv reader))))
 
 (defn read-json [^File f]
   (with-open [f (io/reader f)]
