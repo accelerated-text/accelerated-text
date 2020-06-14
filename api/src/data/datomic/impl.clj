@@ -4,7 +4,7 @@
             [data.datomic.entities.data-files :as data-files]
             [data.datomic.entities.dictionary :as dictionary]
             [data.datomic.entities.document-plan :as document-plan]
-            [data.datomic.entities.reader-flag :as reader-flag]
+            [data.datomic.entities.language :as language]
             [data.datomic.entities.results :as results]
             [data.protocol :as protocol]
             [mount.core :refer [defstate]]
@@ -69,12 +69,12 @@
 (defmethod transact-item :document-plan [_ key data-item]
   (document-plan/transact-item conn key data-item))
 
-(defmethod transact-item :reader-flag [_ key data-item]
-  (reader-flag/transact-item conn key data-item))
-(defmethod pull-entity :reader-flag [_ key]
-  (reader-flag/pull-entity conn key))
-(defmethod pull-n :reader-flag [_ limit]
-  (reader-flag/pull-n conn limit))
+(defmethod transact-item :language [_ _ data-item]
+  (language/transact-item conn data-item))
+(defmethod pull-entity :language [_ code]
+  (language/pull-entity conn code))
+(defmethod pull-n :language [_ limit]
+  (language/pull-n conn limit))
 
 (defmethod transact-item :results [_ _ data-item]
   (results/transact-item conn data-item))
