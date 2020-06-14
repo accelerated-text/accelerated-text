@@ -3,6 +3,7 @@
             [api.graphql.domain.data :as data-domain]
             [api.graphql.domain.dictionary :as dictionary-domain]
             [api.graphql.domain.document-plan :as document-plan-domain]
+            [api.graphql.domain.reader-model :as reader-model-domain]
             [api.graphql.domain.thesaurus :as thesaurus-domain]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]
@@ -47,8 +48,8 @@
                               :update-phrase               #'dictionary-domain/update-phrase-text
                               :delete-phrase               #'dictionary-domain/delete-phrase
                               :update-phrase-default-usage #'dictionary-domain/update-phrase-default-usage
-                              :update-reader-flag-usage    #'dictionary-domain/update-reader-flag-usage
-                              :reader-flags                #'dictionary-domain/reader-flags
+                              :reader-flags                #'reader-model-domain/reader-model
+                              :update-reader-flag-usage    #'reader-model-domain/update-reader-flag-usage
                               :document-plan               #'document-plan-domain/get-document-plan
                               :document-plans              #'document-plan-domain/list-document-plans
                               :create-document-plan        #'document-plan-domain/add-document-plan
