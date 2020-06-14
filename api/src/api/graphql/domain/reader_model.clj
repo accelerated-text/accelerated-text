@@ -25,7 +25,7 @@
           flag-key (keyword flag-id)
           phrase-id (format "%s/%s" parent-part phrase-part)
           select-pair (fn [flags] (list flag-key (get flags flag-key)))]
-      (->> (dict-domain/update-form item phrase-id #(assoc-in % [:flags flag-key] (keyword usage)) false)
+      (->> (dict-domain/update-phrase item phrase-id #(assoc-in % [:flags flag-key] (keyword usage)) false)
            (:flags)
            (select-pair)
            (rm-translate/reader-flag-usage->schema phrase-id)

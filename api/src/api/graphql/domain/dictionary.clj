@@ -48,7 +48,7 @@
           (resolve-as)))
     (resolve-as-not-found-dict-item dictionaryItemId)))
 
-(defn update-form [item id mut-fn translate?]
+(defn update-phrase [item id mut-fn translate?]
   (let [translate-fn (if (true? translate?) rm-translate/phrase->schema identity)]
     (->> (update item :phrases #(map (fn [phrase] (cond-> phrase (= id (:id phrase)) (mut-fn))) %))
          (dict-entity/update-dictionary-item)
@@ -63,14 +63,14 @@
 (defn update-phrase-text [_ {:keys [id text]} _]
   (if-let [item (dict-entity/get-dictionary-item (get-parent-id id))]
     (-> item
-        (update-form id #(assoc % :text text) true)
+        (update-phrase id #(assoc % :text text) true)
         (resolve-as))
     (resolve-as-not-found-dict-item (get-parent-id id))))
 
 (defn update-phrase-default-usage [_ {:keys [id defaultUsage]} _]
   (if-let [item (dict-entity/get-dictionary-item (get-parent-id id))]
     (-> item
-        (update-form id #(assoc-in % [:flags :default] (keyword defaultUsage)) true)
+        (update-phrase id #(assoc-in % [:flags :default] (keyword defaultUsage)) true)
         (resolve-as))
     (resolve-as-not-found-dict-item (get-parent-id id))))
 
