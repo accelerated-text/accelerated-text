@@ -9,7 +9,7 @@
 (defn reader-model [_ _ _]
   (resolve-as
     {:id    "default"
-     :flags (map rm-translate/language->reader-flag (lang-entity/listing))}))
+     :flags (map rm-translate/language->reader-flag (lang-entity/list-languages))}))
 
 (defn- resolve-as-not-found-reader-flag [id]
   (resolve-as nil {:message (format "Cannot find reader flag with id `%s`." id)}))

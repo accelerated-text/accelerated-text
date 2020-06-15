@@ -40,7 +40,6 @@
     :else (throw (Exception. "Must provide either document plan id or document plan name."))))
 
 (defn reader-model->languages [reader-model]
-  (reduce-kv (fn [langs name enabled?]
-               (cond-> langs (true? enabled?) (conj (lang/get-language name))))
-             []
-             reader-model))
+  (map (fn [[code enabled?]]
+         (lang/get-language code enabled?))
+       reader-model))

@@ -7,6 +7,7 @@
             [clojure.spec.alpha :as s]
             [clojure.tools.logging :as log]
             [data.spec.result :as result]
+            [data.entities.language :as lang]
             [data.entities.results :as results]))
 
 (s/def ::generate-request
@@ -39,7 +40,7 @@
       (results/write (generate-text {:id            result-id
                                      :document-plan document-plan
                                      :data          (or data-row (utils/get-data-row data-id (or row-index 0)) {})
-                                     :languages     (utils/reader-model->languages reader-model)}))
+                                     :languages     (map lang/update! (utils/reader-model->languages reader-model))}))
       {:status 200
        :body   {:resultId result-id}})
     (catch Exception e

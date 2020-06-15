@@ -10,7 +10,7 @@
             [clojure.tools.logging :as log]
             [data.entities.amr :refer [find-amrs]]
             [data.entities.dictionary :refer [build-dictionaries]]
-            [data.entities.language :refer [enabled-languages]]
+            [data.entities.language :refer [list-languages]]
             [data.spec.language :as lang]
             [data.spec.result :as result]
             [data.spec.result.annotation :as annotation]
@@ -30,7 +30,7 @@
          :text      (cond->> text (enable-ref-expr?) (apply-ref-expressions language))})
 
 (defn generate-text
-  [{:keys [id document-plan data languages] :or {id (utils/gen-uuid) data {} languages (enabled-languages)}}]
+  [{:keys [id document-plan data languages] :or {id (utils/gen-uuid) data {} languages (list-languages)}}]
   (let [semantic-graph (document-plan->semantic-graph document-plan)
         amrs (find-amrs semantic-graph)
         semantic-graphs (cons semantic-graph amrs)
@@ -41,6 +41,7 @@
                 :status :ready
                 :rows   (transduce
                           (comp
+                            (filter #(true? (::lang/enabled? %)))
                             (mapcat (fn [{lang ::lang/code}]
                                       (let [context {:amr amrs :data data :dictionary (get dictionaries lang [])}]
                                         (cond-> (nlg/generate-text semantic-graph context lang)

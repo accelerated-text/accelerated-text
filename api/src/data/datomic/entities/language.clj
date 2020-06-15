@@ -4,7 +4,7 @@
 
 (defn transact-item [conn data-item]
   (try
-    @(d/transact conn (cond-> data-item (map? data-item) (vector)))
+    @(d/transact conn [data-item])
     (catch Exception e (.printStackTrace e))))
 
 (defn pull-entity [conn code]

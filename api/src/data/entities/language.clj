@@ -12,28 +12,28 @@
 (defn get-language-name [code]
   (if (contains? language-names code)
     (get language-names code)
-    (throw (Exception. (format "Language name not found for: `%s`" code)))))
+    (throw (Exception. (format "Unknown language code: `%s`" code)))))
 
-(defn get-language [code]
-  #::lang{:code     code
-          :name     (get-language-name code)
-          :enabled? (contains? (:enabled-languages conf) code)})
+(defn get-language
+  ([code] (get-language code (contains? (:enabled-languages conf) code)))
+  ([code enabled?]
+   #::lang{:code     code
+           :name     (get-language-name code)
+           :enabled? enabled?}))
 
 (defstate language-db :start (db/db-access :language conf))
-
-(defn update! [lang]
-  (db/write! language-db lang))
 
 (defn fetch [code]
   (db/read! language-db code))
 
-(defn listing
-  ([] (listing 100))
+(defn update! [lang]
+  (db/write! language-db lang)
+  (fetch (::lang/code lang)))
+
+(defn list-languages
+  ([] (list-languages 100))
   ([limit]
    (db/list! language-db limit)))
 
-(defn enabled-languages []
-  (filter #(true? (::lang/enabled? %)) (listing)))
-
-(defstate language :start (update! (let [{:keys [available-languages enabled-languages]} conf]
-                                     (map get-language (set/union available-languages enabled-languages)))))
+(defstate language :start (doseq [code (set/union (:available-languages conf) (:enabled-languages conf))]
+                            (update! (get-language code))))

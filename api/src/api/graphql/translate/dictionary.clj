@@ -6,11 +6,11 @@
 
 (defn text->phrase
   ([text parent-id default-usage]
-   (text->phrase text parent-id default-usage (lang-entity/listing)))
+   (text->phrase text parent-id default-usage (lang-entity/list-languages)))
   ([text parent-id default-usage default-flags]
    {:id    (format "%s/%s" parent-id (utils/gen-uuid))
     :text  text
-    :flags (assoc default-flags (lang-entity/listing) default-usage)}))
+    :flags (assoc default-flags (lang-entity/list-languages) default-usage)}))
 
 (defn build-lang-user-flags [lang]
   (map (fn [{::language/keys [code name enabled?]}]
@@ -19,7 +19,7 @@
           :flag  {:id           code
                   :name         name
                   :defaultUsage (if enabled? "YES" "NO")}})
-       (lang-entity/listing)))
+       (lang-entity/list-languages)))
 
 (defn dictionary-item->schema [{::dictionary-item/keys [id key category forms language]}]
   {:id           (or id (utils/gen-uuid))
