@@ -60,7 +60,7 @@ DB_URI: "datomic:free://datomic-transactor:4334/acc-text?password=datomic"
 DATA_FILES: "/opt/data-files"
 DICT_PATH: "/opt/dictionary"
 DOCUMENT_PLANS: "/opt/document-plans"
-ENABLED_LANGUAGES: "english"
+ENABLED_LANGUAGES: "eng"
 ```
 
 ### Front-End

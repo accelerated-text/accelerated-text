@@ -11,7 +11,7 @@
    :db-implementation   (when-let [db-implementation (or (System/getenv "DB_IMPLEMENTATION") "datomic")]
                           (keyword db-implementation))
    :db-uri              (System/getenv "DB_URI")
-   :available-languages (set (read-conf-line (or (System/getenv "AVAILABLE_LANGUAGES") "English")))
-   :enabled-languages   (set (read-conf-line (or (System/getenv "ENABLED_LANGUAGES") "English")))})
+   :available-languages (set (read-conf-line (or (System/getenv "AVAILABLE_LANGUAGES") "Eng")))
+   :enabled-languages   (set (read-conf-line (or (System/getenv "ENABLED_LANGUAGES") "Eng")))})
 
 (defstate conf :start (load-config))

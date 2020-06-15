@@ -19,7 +19,7 @@ services:
       DATA_FILES: "/opt/data-files"
       DICT_PATH: "/opt/dictionary"
       DOCUMENT_PLANS: "/opt/document-plans"
-      ENABLED_LANGUAGES: "English"
+      ENABLED_LANGUAGES: "Eng"
     volumes:
       - ./api/resources:/opt
     depends_on:

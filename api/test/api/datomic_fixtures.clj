@@ -26,13 +26,14 @@
     (-> (mount/swap-states
           {#'api.config/conf
            {:start (fn []
-                     {:db-implementation :datomic})}})
+                     {:db-implementation :datomic
+                      :enabled-languages #{"Eng"}})}})
         (mount/only #{#'api.config/conf
                       #'data.entities.data-files/data-files-db
                       #'data.entities.document-plan/document-plans-db
                       #'data.entities.language/language
                       #'data.entities.language/language-db
-                      #'data.entities.language/language-codes
+                      #'data.entities.language/language-names
                       #'data.entities.dictionary/dictionary-db
                       #'data.entities.results/results-db
                       #'data.datomic.impl/conn})

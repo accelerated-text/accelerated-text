@@ -7,26 +7,22 @@
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 
-(defstate language-codes :start (->> (io/resource "config/language-codes.csv")
-                                     (io/file)
-                                     (utils/read-csv)
-                                     (into {})
-                                     (clojure.set/map-invert)))
+(defstate language-names :start (->> "config/language-names.csv" (io/resource) (io/file) (utils/read-csv) (into {})))
 
-(defn get-language-code [lang]
-  (if (contains? language-codes lang)
-    (get language-codes lang)
-    (throw (Exception. (format "Language code not found for: `%s`" lang)))))
+(defn get-language-name [code]
+  (if (contains? language-names code)
+    (get language-names code)
+    (throw (Exception. (format "Language name not found for: `%s`" code)))))
 
-(defn get-language [name]
-  #::lang{:code     (get-language-code name)
-          :name     name
-          :enabled? (contains? (:enabled-languages conf) name)})
+(defn get-language [code]
+  #::lang{:code     code
+          :name     (get-language-name code)
+          :enabled? (contains? (:enabled-languages conf) code)})
 
 (defstate language-db :start (db/db-access :language conf))
 
-(defn update! [langs]
-  (db/write! language-db langs))
+(defn update! [lang]
+  (db/write! language-db lang))
 
 (defn fetch [code]
   (db/read! language-db code))
@@ -39,8 +35,5 @@
 (defn enabled-languages []
   (filter #(true? (::lang/enabled? %)) (listing)))
 
-(defn default-languages []
-  (let [{:keys [available-languages enabled-languages]} conf]
-    (map get-language (set/union available-languages enabled-languages))))
-
-(defstate language :start (update! (default-languages)))
+(defstate language :start (update! (let [{:keys [available-languages enabled-languages]} conf]
+                                     (map get-language (set/union available-languages enabled-languages)))))
