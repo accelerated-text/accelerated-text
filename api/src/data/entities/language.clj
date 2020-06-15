@@ -18,6 +18,11 @@
     (get language-codes lang)
     (throw (Exception. (format "Language code not found for: `%s`" lang)))))
 
+(defn get-language [name]
+  #::lang{:code     (get-language-code name)
+          :name     name
+          :enabled? (contains? (:enabled-languages conf) name)})
+
 (defstate language-db :start (db/db-access :language conf))
 
 (defn update! [langs]
@@ -36,9 +41,6 @@
 
 (defn default-languages []
   (let [{:keys [available-languages enabled-languages]} conf]
-    (map (fn [lang] #::lang{:code     (get-language-code lang)
-                            :name     lang
-                            :enabled? (contains? enabled-languages lang)})
-         (set/union available-languages enabled-languages))))
+    (map get-language (set/union available-languages enabled-languages))))
 
 (defstate language :start (update! (default-languages)))
