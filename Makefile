@@ -27,7 +27,6 @@ npm-audit:
 
 run-app:
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml down && \
-	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml pull && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml up --remove-orphans
 
 run-dev-env:
@@ -57,3 +56,7 @@ run-front-end-dev:
 	ACC_TEXT_API_URL=http://0.0.0.0:3001 \
 	ACC_TEXT_GRAPHQL_URL=http://0.0.0.0:3001/_graphql \
 	cd front-end && make run
+
+delete-datomic-volume:
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml -f docker-compose.dev.yml down && \
+	docker volume rm acc-text_datomic
