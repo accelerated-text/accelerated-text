@@ -134,13 +134,23 @@ jobs:
             latest
 
       - task: Docker@2
-        displayName: Build and push front-end image
+        displayName: Build front-end image
         inputs:
-          command: buildAndPush
+          command: build
           repository: acctext/frontend
           dockerfile: front-end/Dockerfile
           containerRegistry: dockerhub
           buildContext: .
+          tags: |
+            latest
+          arguments: --build-arg ACC_TEXT_API_URL="http://localhost:3001" --build-arg ACC_TEXT_GRAPHQL_URL="http://localhost:3001/_graphql" --build-arg ACC_TEXT_DATA_FILES_BUCKET="http://localhost:3001/accelerated-text-data-files"
+
+      - task: Docker@2
+        displayName: Push front-end image
+        inputs:
+          command: push
+          repository: acctext/frontend
+          containerRegistry: dockerhub
           tags: |
             latest
 
