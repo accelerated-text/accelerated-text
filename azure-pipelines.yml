@@ -113,6 +113,12 @@ jobs:
           dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from eval
 
   - job: publish
+    dependsOn:
+      - unit_test_backend
+      - lint_backend
+      - api_integration_tests
+      - core_integration_tests
+      - eval
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     pool:
       vmImage: 'ubuntu-latest'
