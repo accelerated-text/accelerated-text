@@ -113,12 +113,11 @@ jobs:
           dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from eval
 
   - job: publish
-    displayName: Publish docker images
     pool:
       vmImage: 'ubuntu-latest'
     steps:
       - task: Docker@2
-        displayName: Build and push accelerated text core image
+        displayName: Build and push core image
         inputs:
           command: buildAndPush
           repository: acctext/core
@@ -128,7 +127,7 @@ jobs:
             latest
 
       - task: Docker@2
-        displayName: Build and push accelerated text front-end image
+        displayName: Build and push front-end image
         inputs:
           command: buildAndPush
           repository: acctext/frontend
@@ -139,7 +138,7 @@ jobs:
             latest
 
       - task: Docker@2
-        displayName: Build and push accelerated text api image
+        displayName: Build and push api image
         inputs:
           command: buildAndPush
           repository: acctext/api
@@ -150,7 +149,7 @@ jobs:
             latest
 
       - task: Docker@2
-        displayName: Build and push accelerated text gf image
+        displayName: Build and push gf image
         inputs:
           command: buildAndPush
           repository: acctext/gf
