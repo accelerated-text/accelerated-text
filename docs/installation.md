@@ -21,7 +21,7 @@ git clone https://github.com/tokenmill/accelerated-text.git
 Navigate to project root and type in your terminal:
 
 ```
-make run-dev-env
+make run-app
 ```
 
 After build is complete and environment is running, you should see:
