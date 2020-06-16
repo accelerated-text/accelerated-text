@@ -2,9 +2,12 @@ version: '3.4'
 
 services:
   api:
+    image: acctext/api:test
     build:
       context: ../
       dockerfile: api/Dockerfile
+      cache_from:
+        - acctext/api:latest
     environment:
       GF_ENDPOINT: "http://gf:8000"
       ENABLE_ENRICH: "FALSE"
@@ -19,5 +22,8 @@ services:
       - ./test/resources/dictionary:/opt/dictionary
       - ./test/resources/document-plans:/opt/document-plans
   gf:
+    image: acctext/core:test
     build:
       context: ../core/gf
+      cache_from:
+        - acctext/gf:latest

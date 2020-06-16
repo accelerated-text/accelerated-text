@@ -25,18 +25,22 @@ clean:
 npm-audit:
 	${FRONT_END_MAKE} npm-audit
 
-test-gf-service:
-	docker build -t gf-test -f core/gf/Dockerfile.test . && docker run -it gf-test
-
-run-dev-env:
+run-app:
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml down && \
-	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml build && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml pull && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml up --remove-orphans
 
+run-dev-env:
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml -f docker-compose.dev.yml down && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml -f docker-compose.dev.yml pull && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml -f docker-compose.dev.yml build && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml -f docker-compose.dev.yml up --remove-orphans
+
 run-dev-api:
-	docker-compose -p dev -f docker-compose.yml down && \
-	docker-compose -p dev -f docker-compose.yml build && \
-	docker-compose -p dev -f docker-compose.yml up --remove-orphans
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.dev.yml down && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.dev.yml pull && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.dev.yml build && \
+	docker-compose -p dev -f docker-compose.yml -f docker-compose.dev.yml up --remove-orphans
 
 run-dev-no-api:
 	docker-compose -p dev -f docker-compose.front-end.yml up -d --remove-orphans
