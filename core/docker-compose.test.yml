@@ -2,11 +2,17 @@ version: '3.4'
 
 services:
   core:
+    image: acctext/core:test
     build:
       context: .
+      cache_from:
+        - acctext/core:latest
     environment:
       GF_ENDPOINT: http://gf:8000
     command: ["clojure", "-A:dev:test", "-i", "integration"]
   gf:
+    image: acctext/gf:test
     build:
       context: ./gf
+      cache_from:
+        - acctext/gf:latest

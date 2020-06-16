@@ -2,12 +2,10 @@ version: '3.4'
 
 services:
   acc-text-api:
+    image: acctext/api:latest
     networks:
       - default
       - datomic
-    build:
-      context: .
-      dockerfile: api/Dockerfile
     ports: ["3001:3001"]
     environment:
       GF_ENDPOINT: "http://gf:8000"
@@ -26,8 +24,7 @@ services:
       - datomic-transactor
       - gf
   gf:
-    build:
-      context: ./core/gf
+    image: acctext/gf:latest
     ports: ["8001:8000"]
   datomic-transactor:
     image: "gordonstratton/datomic-free-transactor:latest"
