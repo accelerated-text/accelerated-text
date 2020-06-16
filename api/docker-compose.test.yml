@@ -22,6 +22,7 @@ services:
       - ./test/resources/dictionary:/opt/dictionary
       - ./test/resources/document-plans:/opt/document-plans
   gf:
+    image: acctext/core:test
     build:
       context: ../core/gf
       cache_from:
