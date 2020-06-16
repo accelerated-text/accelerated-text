@@ -3,8 +3,8 @@
 
 (defn transact-item [conn key data-item]
   @(d/transact conn [{:data-file/id       key
-                    :data-file/filename (:filename data-item)
-                    :data-file/content  (:content data-item)}]))
+                      :data-file/filename (:filename data-item)
+                      :data-file/content  (:content data-item)}]))
 
 (defn pull-entity [conn key]
   (let [data-file (ffirst (d/q '[:find (pull ?e [*])

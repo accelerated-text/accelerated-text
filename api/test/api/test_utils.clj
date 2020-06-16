@@ -70,7 +70,7 @@
 
 (defn generate-text [{:keys [document-plan-name data-file-name reader-flags]}]
   (let [{:keys [status body]} (q "/nlg/" :post {:documentPlanId   (load-document-plan document-plan-name)
-                                                :readerFlagValues (or reader-flags {"English" true})
+                                                :readerFlagValues (or reader-flags {"Eng" true})
                                                 :dataId           (if (some? data-file-name)
                                                                     (load-data-file data-file-name)
                                                                     "")})]
@@ -79,7 +79,7 @@
 
 (defn generate-text-bulk [{:keys [document-plan-name data-rows reader-flags]}]
   (let [{:keys [status body]} (q "/nlg/_bulk/" :post {:documentPlanId   (load-document-plan document-plan-name)
-                                                      :readerFlagValues (or reader-flags {"English" true})
+                                                      :readerFlagValues (or reader-flags {"Eng" true})
                                                       :dataRows         data-rows})]
     (when (= 200 status)
       (reduce (fn [m result-id]

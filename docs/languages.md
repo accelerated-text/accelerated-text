@@ -14,7 +14,7 @@ Supported languages are:
 We will illustrate multi language text generation by additionally enabling German language. Environment variable in *docker-compose.yml* should look like this:
 
 ```
-ENABLED_LANGUAGES: "english,german"
+ENABLED_LANGUAGES: "eng,ger"
 ```
 
 # Select language

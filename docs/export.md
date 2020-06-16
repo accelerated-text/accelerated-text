@@ -13,7 +13,7 @@ make generate-from-csv \
 If all is well, you should see an output like this:
 
 ```
-INFO  u.generate - Generating using 'Authorship' document plan for 'English' language
+INFO  u.generate - Generating using 'Authorship' document plan for 'Eng' language
 INFO  u.generate - Generating text for 5 data items
 INFO  u.generate - Total 5 results to save
 INFO  u.generate - Data The Business Blockchain has 4 variations

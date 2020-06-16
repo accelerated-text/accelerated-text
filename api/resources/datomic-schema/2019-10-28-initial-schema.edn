@@ -14,19 +14,19 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Content of the Data File"}]
 
-         [{:db/ident       :reader-flag/id
+         [{:db/ident       :data.spec.language/code
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Reader flag id"}
-          {:db/ident       :reader-flag/name
+           :db/doc         "Language code"}
+          {:db/ident       :data.spec.language/name
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Reader flag name"}
-          {:db/ident       :reader-flag/value
-           :db/valueType   :db.type/string
+           :db/doc         "Language name"}
+          {:db/ident       :data.spec.language/enabled?
+           :db/valueType   :db.type/boolean
            :db/cardinality :db.cardinality/one
-           :db/doc         "Reader flag value"}]
+           :db/doc         "Language enabled?"}]
 
          [{:db/ident       :phrase/id
            :db/unique      :db.unique/identity

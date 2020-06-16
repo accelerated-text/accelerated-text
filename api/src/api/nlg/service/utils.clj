@@ -2,8 +2,8 @@
   (:require [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
-            [data.entities.dictionary :as dict-entity]
-            [data.entities.document-plan :as dp]))
+            [data.entities.document-plan :as dp]
+            [data.entities.language :as lang]))
 
 (defn error-response
   ([exception] (error-response exception nil))
@@ -27,17 +27,6 @@
        (remove nil?)
        (str/join "; ")))
 
-(defn reader-model->languages [reader-model]
-  (reduce-kv (fn [languages reader-flag state]
-               (let [lang (dict-entity/flag->lang reader-flag)]
-                 (if (some? lang)
-                   (cond-> languages (true? state) (conj lang))
-                   (do
-                     (log/warnf "Unknown reader flag: `%s`" reader-flag)
-                     languages))))
-             nil
-             reader-model))
-
 (defn get-data-row [data-id index]
   (when-not (str/blank? data-id)
     (if-let [data (data-files/get-data "user" data-id)]
@@ -49,3 +38,8 @@
     (some? id) (dp/get-document-plan id)
     (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans "Document"))
     :else (throw (Exception. "Must provide either document plan id or document plan name."))))
+
+(defn reader-model->languages [reader-model]
+  (map (fn [[code enabled?]]
+         (lang/get-language code enabled?))
+       reader-model))

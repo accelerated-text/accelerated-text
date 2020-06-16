@@ -1,22 +1,21 @@
 (ns api.graphql.domain.dictionary
-  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
-            [api.graphql.translate.core :as translate-core]
+  (:require [api.graphql.translate.core :as translate-core]
             [api.graphql.translate.dictionary :as translate-dict]
+            [api.graphql.translate.reader-model :as rm-translate]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.entities.dictionary :as dict-entity]))
 
+(defn resolve-as-not-found-dict-item [id]
+  (resolve-as nil {:message (format "Cannot find dictionary item with id `%s`." id)}))
+
 (defn dictionary [_ _ _]
   (->> (dict-entity/list-dictionary-items)
-       (filter #(= (dict-entity/default-language) (::dictionary-item/language %)))
        (map translate-dict/dictionary-item->schema)
        (sort-by :name)
        (translate-core/paginated-response)
        (resolve-as)))
-
-(defn- resolve-as-not-found-dict-item [id]
-  (resolve-as nil {:message (format "Cannot find dictionary item with id `%s`." id)}))
 
 (defn dictionary-item [_ {id :id :as args} _]
   (log/debugf "Fetching dictionary item with args: %s" args)
@@ -41,16 +40,16 @@
 
 (defn create-phrase [_ {:keys [dictionaryItemId text defaultUsage]} _]
   (if-let [item (dict-entity/get-dictionary-item dictionaryItemId)]
-      (let [phrase (translate-dict/text->phrase text dictionaryItemId (keyword defaultUsage))]
-        (-> item
-            (update :phrases (partial cons phrase))
-            (dict-entity/update-dictionary-item)
-            (translate-dict/dictionary-item->schema)
-            (resolve-as)))
-      (resolve-as-not-found-dict-item dictionaryItemId)))
+    (let [phrase (translate-dict/text->phrase text dictionaryItemId (= "YES" defaultUsage))]
+      (-> item
+          (update :phrases (partial cons phrase))
+          (dict-entity/update-dictionary-item)
+          (translate-dict/dictionary-item->schema)
+          (resolve-as)))
+    (resolve-as-not-found-dict-item dictionaryItemId)))
 
-(defn- update-phrase [item id mut-fn translate?]
-  (let [translate-fn (if (true? translate?) translate-dict/phrase->schema identity)]
+(defn update-phrase [item id mut-fn translate?]
+  (let [translate-fn (if (true? translate?) rm-translate/phrase->schema identity)]
     (->> (update item :phrases #(map (fn [phrase] (cond-> phrase (= id (:id phrase)) (mut-fn))) %))
          (dict-entity/update-dictionary-item)
          (:phrases)
@@ -58,7 +57,7 @@
          (first)
          (translate-fn))))
 
-(defn- get-parent-id [id]
+(defn get-parent-id [id]
   (first (str/split id #"/")))
 
 (defn update-phrase-text [_ {:keys [id text]} _]
@@ -82,30 +81,4 @@
         (dict-entity/update-dictionary-item)
         (translate-dict/dictionary-item->schema)
         (resolve-as))
-    (resolve-as-not-found-dict-item (get-parent-id id))))
-
-(defn reader-flags [_ _ _]
-  (-> (dict-entity/list-readers)
-      (translate-dict/reader-flags->schema)
-      (resolve-as)))
-
-(defn- resolve-as-not-found-reader-flag [id]
-  (resolve-as nil {:message (format "Cannot find reader flag with id `%s`." id)}))
-
-(defn reader-flag [_ {:keys [id]} _]
-  (if-let [item (dict-entity/get-reader id)]
-    (resolve-as (translate-dict/reader-flag->schema item))
-    (resolve-as-not-found-reader-flag id)))
-
-(defn update-reader-flag-usage [_ {:keys [id usage]} _]
-  (if-let [item (dict-entity/get-dictionary-item (get-parent-id id))]
-    (let [[parent-part phrase-part flag-id] (str/split id #"/")
-          flag-key (keyword flag-id)
-          phrase-id (format "%s/%s" parent-part phrase-part)
-          select-pair (fn [flags] (list flag-key (get flags flag-key)))]
-      (->> (update-phrase item phrase-id #(assoc-in % [:flags flag-key] (keyword usage)) false)
-           (:flags)
-           (select-pair)
-           (translate-dict/reader-flag-usage->schema phrase-id)
-           (resolve-as)))
     (resolve-as-not-found-dict-item (get-parent-id id))))
