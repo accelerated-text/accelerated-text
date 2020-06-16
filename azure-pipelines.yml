@@ -138,7 +138,7 @@ jobs:
         inputs:
           command: build
           repository: acctext/frontend
-          dockerfile: front-end/Dockerfile
+          dockerfile: front-end/Dockerfile.builder
           containerRegistry: dockerhub
           buildContext: .
           tags: |
