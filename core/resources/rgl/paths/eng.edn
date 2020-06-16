@@ -2506,7 +2506,7 @@
                                  :to :02,
                                  :role :arg,
                                  :index 0,
-                                 :category "Ord"}),
+                                 :category "A"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -2515,9 +2515,9 @@
                                  :module "Syntax"}
                                 {:id :02,
                                  :type :operation,
-                                 :name "mkOrd",
-                                 :category "Ord",
-                                 :module "Syntax"})},
+                                 :name "mkA",
+                                 :category "A",
+                                 :module "ParadigmsEng"})},
  ["NP" "QCl"]
  #:acc-text.nlg.semantic-graph{:relations
                                ({:from :01,
