@@ -111,3 +111,50 @@ jobs:
           additionalDockerComposeFiles: docker-compose.eval.yml
           projectName: $(Build.Repository.Name)
           dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from eval
+
+  - job: publish
+    displayName: Publish docker images
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: Docker@2
+        displayName: Build and push accelerated text core image
+        inputs:
+          command: buildAndPush
+          repository: acctext/core
+          dockerfile: core/Dockerfile
+          containerRegistry: dockerhub
+          tags: |
+            latest
+
+      - task: Docker@2
+        displayName: Build and push accelerated text front-end image
+        inputs:
+          command: buildAndPush
+          repository: acctext/frontend
+          dockerfile: front-end/Dockerfile
+          containerRegistry: dockerhub
+          buildContext: .
+          tags: |
+            latest
+
+      - task: Docker@2
+        displayName: Build and push accelerated text api image
+        inputs:
+          command: buildAndPush
+          repository: acctext/api
+          dockerfile: api/Dockerfile
+          containerRegistry: dockerhub
+          buildContext: .
+          tags: |
+            latest
+
+      - task: Docker@2
+        displayName: Build and push accelerated text gf image
+        inputs:
+          command: buildAndPush
+          repository: acctext/gf
+          dockerfile: core/gf/Dockerfile
+          containerRegistry: dockerhub
+          tags: |
+            latest
