@@ -21,12 +21,14 @@
                                                              :key      "fridge"
                                                              :category "N"
                                                              :language "Eng"
-                                                             :forms    ["fridge" "fridges"]}
+                                                             :forms    [#:acc-text.nlg.dictionary.item.form{:value "fridge"}
+                                                                        #:acc-text.nlg.dictionary.item.form{:value "fridges"}]}
                               #:acc-text.nlg.dictionary.item{:id       "9399a059-f5a5-4443-bee7-a096d284a85d"
                                                              :key      "product"
                                                              :category "N"
                                                              :language "Eng"
-                                                             :forms    ["product" "products"]}]}]
+                                                             :forms    [#:acc-text.nlg.dictionary.item.form{:value "product"}
+                                                                        #:acc-text.nlg.dictionary.item.form{:value "products"}]}]}]
     (testing "Sequences"
       (let [semantic-graph (test-utils/load-test-semantic-graph "sequence-test")]
         (is (= ["Cafe, restaurant and pub. Affordable and average."]

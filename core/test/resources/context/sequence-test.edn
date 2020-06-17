@@ -22,5 +22,4 @@
                                  :key "affordable",
                                  :category "A",
                                  :language "Eng",
-                                 :forms #:acc-text.nlg.dictionary.item.form{:value "affordable"}}],
- :amr ()}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "affordable"}]}]}
