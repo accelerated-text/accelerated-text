@@ -17,9 +17,9 @@
                                        ::dict-item-attr/name
                                        ::dict-item-attr/value]}])
 
-(defn transact-item [conn _ data-item]
+(defn transact-item [conn key data-item]
   (try
-    @(d/transact conn [data-item])
+    @(d/transact conn [(assoc data-item ::dict-item/id key)])
     (catch Exception e (.printStackTrace e))))
 
 (defn pull-entity [conn key]

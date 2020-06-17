@@ -1,21 +1,26 @@
 (ns api.graphql.dictionary-test
-  (:require [api.test-utils :refer [q]]
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.dictionary.item.form :as dict-item-form]
+            [api.test-utils :refer [q]]
             [api.db-fixtures :as fixtures]
             [clojure.test :refer [deftest is use-fixtures]]
-            [data.entities.dictionary :as dict-entity]))
+            [data.entities.dictionary :as dict-entity]
+            [api.utils :as utils]))
 
-(def test-dictionary-items #{#:acc-text.nlg.dictionary.item{:id       "place_Eng"
-                                                            :key      "place_1_N"
-                                                            :sense    "1"
-                                                            :category "N"
-                                                            :language "Eng"
-                                                            :forms    ["place" "places"]}
-                             #:acc-text.nlg.dictionary.item{:id       "place_Ger"
-                                                            :key      "place_1_N"
-                                                            :sense    "1"
-                                                            :category "N"
-                                                            :language "Ger"
-                                                            :forms    ["platz" "plätze"]}})
+(def test-dictionary-items #{#::dict-item{:id       "place_Eng"
+                                          :key      "place_1_N"
+                                          :sense    "1"
+                                          :category "N"
+                                          :language "Eng"
+                                          :forms    [#::dict-item-form{:id (utils/gen-uuid) :value "place"}
+                                                     #::dict-item-form{:id (utils/gen-uuid) :value "places"}]}
+                             #::dict-item{:id       "place_Ger"
+                                          :key      "place_1_N"
+                                          :sense    "1"
+                                          :category "N"
+                                          :language "Ger"
+                                          :forms    [#::dict-item-form{:id (utils/gen-uuid) :value "platz"}
+                                                     #::dict-item-form{:id (utils/gen-uuid) :value "plätze"}]}})
 
 (defn prepare-environment [f]
   (doseq [item test-dictionary-items]

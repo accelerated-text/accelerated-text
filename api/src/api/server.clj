@@ -116,7 +116,6 @@
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
     (document-plan/initialize)
     (data-files/initialize)
-    (dictionary/initialize)
     (server/run-server
       #'app {:port     port
              :ip       host

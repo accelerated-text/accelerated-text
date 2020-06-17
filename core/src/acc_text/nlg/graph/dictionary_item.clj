@@ -1,5 +1,6 @@
 (ns acc-text.nlg.graph.dictionary-item
-  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [acc-text.nlg.graph.utils :refer [find-nodes]]))
 
 (defn get-dictionary-item [dictionary language key category]
@@ -9,11 +10,11 @@
                                language category key)))))
 
 (defn add-dictionary-item [g node-id dictionary-item]
-  (let [{::dictionary-item/keys [category language forms attributes]} dictionary-item]
+  (let [{::dict-item/keys [category language forms attributes]} dictionary-item]
     (update-in g [:attrs node-id] #(merge % {:type       :dictionary-item
                                              :category   category
                                              :language   language
-                                             :forms      forms
+                                             :forms      (map ::dict-item-form/value forms)
                                              :attributes (or attributes {})}))))
 
 (defn resolve-dictionary-items [g {dictionary :dictionary {lang "*Language"} :constants}]
