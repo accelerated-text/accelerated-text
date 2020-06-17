@@ -59,15 +59,15 @@
     (is (true? response))
     (is (nil? (dict-entity/get-dictionary-item "place_Eng")))))
 
-#_(deftest ^:integration create-phrase-test
-    (let [query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
-          {{{{:keys [phrases]} :createPhrase} :data errors :errors} :body}
-          (q "/_graphql" :post {:query query :variables {:dictionaryItemId "place_Eng"
-                                                         :text             "t3"
-                                                         :defaultUsage     "YES"}})]
-      (is (nil? errors))
-      (is (seq phrases))
-      (is (contains? (set (map :text phrases)) "t3"))))
+(deftest ^:integration create-phrase-test
+  (let [query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
+        {{{{:keys [phrases]} :createPhrase} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:dictionaryItemId "place_Eng"
+                                                       :text             "t3"
+                                                       :defaultUsage     "YES"}})]
+    (is (nil? errors))
+    (is (seq phrases))
+    (is (contains? (set (map :text phrases)) "t3"))))
 
 #_(deftest ^:integration get-dictionary-item-test
     (let [create-dictionary-item-query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"

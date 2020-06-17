@@ -3,15 +3,14 @@
             [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [data.utils :as utils]
             [data.spec.language :as language]
-            [data.entities.language :as lang-entity]))
+            [data.entities.language :as lang-entity]
+            [clojure.tools.logging :as log]))
 
 (defn text->phrase
   ([text parent-id default-usage]
    (text->phrase text parent-id default-usage (lang-entity/list-languages)))
-  ([text parent-id default-usage default-flags]
-   {:id    (format "%s/%s" parent-id (utils/gen-uuid))
-    :text  text
-    :flags (assoc default-flags (lang-entity/list-languages) default-usage)}))
+  ([text _ _ _]
+   #::dict-item-form{:id (utils/gen-uuid) :value text}))
 
 (defn build-lang-user-flags [lang]
   (map (fn [{::language/keys [code name enabled?]}]

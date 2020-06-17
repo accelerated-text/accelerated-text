@@ -59,13 +59,12 @@
 (defn scan [conn {:keys [keys languages categories]}]
   (map first (query-dictionary conn keys languages categories)))
 
-(defn update! [conn resource-type key data-item]
+(defn update! [conn key data-item]
   (try
-    @(d/transact conn [[:db.fn/retractEntity [::dict-item/id key]]])
     @(d/transact conn [data-item])
     (catch Exception e
       (log/errorf "Error %s with data %s" e val)))
-  (pull-entity resource-type key))
+  (pull-entity conn key))
 
 (defn delete [conn key]
   @(d/transact conn [[:db.fn/retractEntity [::dict-item/id key]]])

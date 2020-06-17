@@ -7,7 +7,6 @@
             [api.error :as errors]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
-            [data.entities.dictionary :as dictionary]
             [data.entities.document-plan :as document-plan]
             [mount.core :refer [defstate] :as mount]
             [org.httpkit.server :as server]

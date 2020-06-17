@@ -1,6 +1,5 @@
 (ns api.config
-  (:require [clojure.java.io :as io]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [mount.core :refer [defstate]]))
 
 (defn- read-conf-line [l]
@@ -14,6 +13,6 @@
    :db-uri              (System/getenv "DB_URI")
    :available-languages (set (read-conf-line (or (System/getenv "AVAILABLE_LANGUAGES") "Eng")))
    :enabled-languages   (set (read-conf-line (or (System/getenv "ENABLED_LANGUAGES") "Eng")))
-   :dictionary-path     (or (System/getenv "DICT_PATH") (io/resource "dictionary"))})
+   :dictionary-path     (or (System/getenv "DICT_PATH") "resources/dictionary")})
 
 (defstate conf :start (load-config))

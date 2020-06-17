@@ -1,5 +1,6 @@
 (ns api.graphql.domain.dictionary
-  (:require [api.graphql.translate.core :as translate-core]
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [api.graphql.translate.core :as translate-core]
             [api.graphql.translate.dictionary :as translate-dict]
             [api.graphql.translate.reader-model :as rm-translate]
             [clojure.string :as str]
@@ -40,9 +41,9 @@
 
 (defn create-phrase [_ {:keys [dictionaryItemId text defaultUsage]} _]
   (if-let [item (dict-entity/get-dictionary-item dictionaryItemId)]
-    (let [phrase (translate-dict/text->phrase text dictionaryItemId (= "YES" defaultUsage))]
+    (let [phrase (translate-dict/text->phrase text dictionaryItemId (= :YES defaultUsage))]
       (-> item
-          (update :phrases (partial cons phrase))
+          (update ::dict-item/forms #(conj % phrase))
           (dict-entity/update-dictionary-item)
           (translate-dict/dictionary-item->schema)
           (resolve-as)))
