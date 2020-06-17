@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [api.graphql.translate.dictionary :as dict-translate]
             [clojure.tools.logging :as log]
-            [data.spec.language :as lang]
-            [data.entities.language :as lang-entity]))
+            [data.spec.language :as lang]))
 
 (defn reader-flag-usage->schema [id [k v]]
   (log/debugf "Got: k=%s v=%s" k v)

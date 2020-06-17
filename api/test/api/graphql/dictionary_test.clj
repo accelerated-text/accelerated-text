@@ -5,8 +5,7 @@
             [api.db-fixtures :as fixtures]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.dictionary :as dict-entity]
-            [api.utils :as utils]
-            [clojure.tools.logging :as log]))
+            [api.utils :as utils]))
 
 (def test-dictionary-items #{#::dict-item{:id       "place_Eng"
                                           :key      "place_1_N"
@@ -82,7 +81,7 @@
                                                                        :readerFlagUsage  []}})
 
         query "{dictionaryItem(id:\"%s\"){name partOfSpeech phrases{text} concept{id}}}"
-        {{{{:keys [name partOfSpeech phrases] :as y} :dictionaryItem} :data errors :errors} :body}
+        {{{{:keys [name partOfSpeech phrases]} :dictionaryItem} :data errors :errors} :body}
         (q "/_graphql" :post {:query (format query id)})]
     (is (nil? errors))
     (is (= "see_V" name))
