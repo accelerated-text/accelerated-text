@@ -306,22 +306,26 @@
                                  :key "noise",
                                  :category "N",
                                  :language "Eng",
-                                 :forms ["noise" "noises"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "noise"}
+                                         #:acc-text.nlg.dictionary.item.form{:value "noises"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "dcc836af-a876-423d-aa60-1caf1b403b6f",
                                  :key "fridge",
                                  :category "N",
                                  :language "Eng",
-                                 :forms ["fridge" "fridges"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "fridge"}
+                                         #:acc-text.nlg.dictionary.item.form{:value "fridges"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "41d0ddcd-9b82-4181-b3c2-63b93f5276dc",
                                  :key "bill",
                                  :category "N",
                                  :language "Eng",
-                                 :forms ["bill" "bills"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "bill"}
+                                         #:acc-text.nlg.dictionary.item.form{:value "bills"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "062ae949-c661-479a-ab77-a3e4b3242a03",
                                  :key "product",
                                  :category "N",
                                  :language "Eng",
-                                 :forms ["product" "products"]}]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "product"}
+                                         #:acc-text.nlg.dictionary.item.form{:value "products"}]}]}

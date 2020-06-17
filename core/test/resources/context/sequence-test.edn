@@ -4,23 +4,23 @@
                                  :key "average",
                                  :category "A",
                                  :language "Eng",
-                                 :forms ["average"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "average"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "140d317b-2c6d-4614-8472-4f1a4c10fe97",
                                  :key "cafe",
                                  :category "N",
                                  :language "Eng",
-                                 :forms ["cafe"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "cafe"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "a10e55ee-611d-4d40-8f7d-974591cba907",
                                  :key "restaurant",
                                  :category "N",
                                  :language "Eng",
-                                 :forms ["restaurant"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "restaurant"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "c7a33092-4f88-4a33-bc0e-f80155b82d8d",
                                  :key "affordable",
                                  :category "A",
                                  :language "Eng",
-                                 :forms ["affordable"]}],
+                                 :forms #:acc-text.nlg.dictionary.item.form{:value "affordable"}}],
  :amr ()}
