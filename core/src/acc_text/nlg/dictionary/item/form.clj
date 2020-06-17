@@ -4,3 +4,5 @@
 (s/def ::id string?)
 
 (s/def ::value string?)
+
+(s/def ::default? boolean?)

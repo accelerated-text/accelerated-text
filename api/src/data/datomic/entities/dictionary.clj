@@ -12,7 +12,8 @@
               ::dict-item/definition
               ::dict-item/language
               {::dict-item/forms [::dict-item-form/id
-                                  ::dict-item-form/value]}
+                                  ::dict-item-form/value
+                                  ::dict-item-form/default?]}
               {::dict-item/attributes [::dict-item-attr/id
                                        ::dict-item-attr/name
                                        ::dict-item-attr/value]}])
@@ -61,6 +62,7 @@
 
 (defn update! [conn key data-item]
   (try
+    @(d/transact conn [[:db.fn/retractEntity [::dict-item/id key]]])
     @(d/transact conn [data-item])
     (catch Exception e
       (log/errorf "Error %s with data %s" e val)))

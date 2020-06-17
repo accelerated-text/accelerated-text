@@ -1,5 +1,6 @@
 (ns data.entities.dictionary
   (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [api.config :refer [conf]]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
@@ -19,6 +20,12 @@
   ([limit]
    (db/list! dictionary-db limit)))
 
+(defn get-parent [{id ::dict-item-form/id}]
+  (some (fn [{forms ::dict-item/forms :as dict-item}]
+          (when (contains? (set (map ::dict-item-form/id forms)) id)
+            dict-item))
+        (list-dictionary-items)))
+
 (defn get-dictionary-item [id]
   (db/read! dictionary-db id))
 
@@ -27,6 +34,9 @@
 
 (defn update-dictionary-item [{id ::dict-item/id :as item}]
   (db/update! dictionary-db id item))
+
+(defn update-dictionary-item-form [{id ::dict-item-form/id :as form}]
+  (db/update! dictionary-db id form))
 
 (defn scan-dictionary
   ([keys]

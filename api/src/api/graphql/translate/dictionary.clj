@@ -3,8 +3,7 @@
             [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [data.utils :as utils]
             [data.spec.language :as language]
-            [data.entities.language :as lang-entity]
-            [clojure.tools.logging :as log]))
+            [data.entities.language :as lang-entity]))
 
 (defn text->phrase
   ([text parent-id default-usage]
@@ -25,10 +24,10 @@
   {:id           (or id (utils/gen-uuid))
    :name         key
    :partOfSpeech category
-   :phrases      (map (fn [{::dict-item-form/keys [id value]}]
+   :phrases      (map (fn [{::dict-item-form/keys [id value default?]}]
                         {:id              id
                          :text            value
-                         :defaultUsage    "YES"
+                         :defaultUsage    (if default? "YES" "NO")
                          :readerFlagUsage (build-lang-user-flags language)})
                       forms)})
 
