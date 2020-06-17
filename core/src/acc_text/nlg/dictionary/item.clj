@@ -1,5 +1,7 @@
 (ns acc-text.nlg.dictionary.item
-  (:require [clojure.spec.alpha :as s]
+  (:require [acc-text.nlg.dictionary.item.attr :as attr]
+            [acc-text.nlg.dictionary.item.form :as form]
+            [clojure.spec.alpha :as s]
             [clojure.string :as str]))
 
 (def word? (s/and string? (complement str/blank?)))
@@ -20,6 +22,6 @@
 
 (s/def ::language #{"Eng" "Ger" "Est" "Lit" "Lav" "Rus"})
 
-(s/def ::forms (s/coll-of word?))
+(s/def ::forms (s/keys :req [::form/id ::form/value]))
 
-(s/def ::attributes (s/map-of string? string?))
+(s/def ::attributes (s/keys :req [::attr/id ::attr/name ::attr/value]))
