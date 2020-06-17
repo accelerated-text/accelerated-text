@@ -14,7 +14,7 @@
 (defn build-lang-user-flags [lang]
   (map (fn [{::language/keys [code name enabled?]}]
          {:id    (utils/gen-uuid)
-          :usage (if (= name lang) "YES" "NO")
+          :usage (if (= code lang) "YES" "NO")
           :flag  {:id           code
                   :name         name
                   :defaultUsage (if enabled? "YES" "NO")}})

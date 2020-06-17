@@ -65,7 +65,7 @@
               (update ::dict-item/forms (fn [forms]
                                           (map #(utils/add-ns-to-map
                                                   "acc-text.nlg.dictionary.item.form"
-                                                  {:id (utils/gen-uuid) :value %})
+                                                  {:id (utils/gen-uuid) :value % :default? true})
                                                forms)))
               (update ::dict-item/attributes (fn [attrs]
                                                (map (fn [[name value]]
