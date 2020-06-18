@@ -1,5 +1,6 @@
 (ns api.graphql.translate.dictionary
-  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [data.utils :as utils]
             [data.spec.language :as language]
             [data.entities.language :as lang-entity]))
@@ -7,37 +8,35 @@
 (defn text->phrase
   ([text parent-id default-usage]
    (text->phrase text parent-id default-usage (lang-entity/list-languages)))
-  ([text parent-id default-usage default-flags]
-   {:id    (format "%s/%s" parent-id (utils/gen-uuid))
-    :text  text
-    :flags (assoc default-flags (lang-entity/list-languages) default-usage)}))
+  ([text _ _ _]
+   #::dict-item-form{:id (utils/gen-uuid) :value text}))
 
 (defn build-lang-user-flags [lang]
   (map (fn [{::language/keys [code name enabled?]}]
          {:id    (utils/gen-uuid)
-          :usage (if (= name lang) "YES" "NO")
+          :usage (if (= code lang) "YES" "NO")
           :flag  {:id           code
                   :name         name
                   :defaultUsage (if enabled? "YES" "NO")}})
        (lang-entity/list-languages)))
 
-(defn dictionary-item->schema [{::dictionary-item/keys [id key category forms language]}]
+(defn dictionary-item->schema [{::dict-item/keys [id key category forms language]}]
   {:id           (or id (utils/gen-uuid))
    :name         key
    :partOfSpeech category
-   :phrases      (map (fn [form]
-                        {:id              (utils/gen-uuid)
-                         :text            form
-                         :defaultUsage    "YES"
+   :phrases      (map (fn [{::dict-item-form/keys [id value default?]}]
+                        {:id              id
+                         :text            value
+                         :defaultUsage    (if default? "YES" "NO")
                          :readerFlagUsage (build-lang-user-flags language)})
                       forms)})
 
 (defn schema->dictionary-item [{id :id item-name :name pos :partOfSpeech}]
-  #::dictionary-item{:id       id
-                     :key      (if (some? pos)
-                                 (format "%s_%s" item-name (name pos))
-                                 item-name)
-                     :category (name pos)
-                     :sense    "1"
-                     :language "Eng"
-                     :forms    [item-name]})
+  #::dict-item{:id       (or id (utils/gen-uuid))
+               :key      (if (some? pos)
+                           (format "%s_%s" item-name (name pos))
+                           item-name)
+               :category (name pos)
+               :sense    "1"
+               :language "Eng"
+               :forms    [#::dict-item-form{:id (utils/gen-uuid) :value item-name}]})

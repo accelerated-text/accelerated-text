@@ -1,21 +1,26 @@
 (ns api.graphql.dictionary-test
-  (:require [api.test-utils :refer [q]]
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.dictionary.item.form :as dict-item-form]
+            [api.test-utils :refer [q]]
             [api.db-fixtures :as fixtures]
             [clojure.test :refer [deftest is use-fixtures]]
-            [data.entities.dictionary :as dict-entity]))
+            [data.entities.dictionary :as dict-entity]
+            [api.utils :as utils]))
 
-(def test-dictionary-items #{#:acc-text.nlg.dictionary.item{:id       "place_Eng"
-                                                            :key      "place_1_N"
-                                                            :sense    "1"
-                                                            :category "N"
-                                                            :language "Eng"
-                                                            :forms    ["place" "places"]}
-                             #:acc-text.nlg.dictionary.item{:id       "place_Ger"
-                                                            :key      "place_1_N"
-                                                            :sense    "1"
-                                                            :category "N"
-                                                            :language "Ger"
-                                                            :forms    ["platz" "plätze"]}})
+(def test-dictionary-items #{#::dict-item{:id       "place_Eng"
+                                          :key      "place_1_N"
+                                          :sense    "1"
+                                          :category "N"
+                                          :language "Eng"
+                                          :forms    [#::dict-item-form{:id (utils/gen-uuid) :value "place"}
+                                                     #::dict-item-form{:id (utils/gen-uuid) :value "places"}]}
+                             #::dict-item{:id       "place_Ger"
+                                          :key      "place_1_N"
+                                          :sense    "1"
+                                          :category "N"
+                                          :language "Ger"
+                                          :forms    [#::dict-item-form{:id (utils/gen-uuid) :value "platz"}
+                                                     #::dict-item-form{:id (utils/gen-uuid) :value "plätze"}]}})
 
 (defn prepare-environment [f]
   (doseq [item test-dictionary-items]
@@ -54,92 +59,90 @@
     (is (true? response))
     (is (nil? (dict-entity/get-dictionary-item "place_Eng")))))
 
-#_(deftest ^:integration create-phrase-test
-    (let [query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
-          {{{{:keys [phrases]} :createPhrase} :data errors :errors} :body}
-          (q "/_graphql" :post {:query query :variables {:dictionaryItemId "place_Eng"
-                                                         :text             "t3"
-                                                         :defaultUsage     "YES"}})]
-      (is (nil? errors))
-      (is (seq phrases))
-      (is (contains? (set (map :text phrases)) "t3"))))
+(deftest ^:integration create-phrase-test
+  (let [query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
+        {{{{:keys [phrases]} :createPhrase} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:dictionaryItemId "place_Eng"
+                                                       :text             "t3"
+                                                       :defaultUsage     "YES"}})]
+    (is (nil? errors))
+    (is (seq phrases))
+    (is (contains? (set (map :text phrases)) "t3"))))
 
-#_(deftest ^:integration get-dictionary-item-test
-    (let [create-dictionary-item-query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
-          {{{{:keys [id]} :createDictionaryItem} :data} :body}
-          (q "/_graphql" :post {:query create-dictionary-item-query :variables {:name "test-phrase", :partOfSpeech "V"}})
+(deftest ^:integration get-dictionary-item-test
+  (let [create-dictionary-item-query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
+        {{{{:keys [id]} :createDictionaryItem} :data} :body}
+        (q "/_graphql" :post {:query create-dictionary-item-query :variables {:name "see", :partOfSpeech "V"}})
 
-          create-phrase-query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
-          _ (q "/_graphql" :post {:query create-phrase-query :variables {:dictionaryItemId id
-                                                                         :text             "see"
-                                                                         :defaultUsage     "YES"
-                                                                         :readerFlagUsage  []}})
-
-          query "{dictionaryItem(id:\"%s\"){name partOfSpeech phrases{text} concept{id}}}"
-          {{{{:keys [name partOfSpeech phrases concept]} :dictionaryItem} :data errors :errors} :body}
-          (q "/_graphql" :post {:query (format query id)})]
-      (is (nil? errors))
-      (is (= "test-phrase" name))
-      (is (= "VB" partOfSpeech))
-      (is (= (set [{:text "see"}]) (set phrases)))
-      (is (some? (:id concept)))))
-
-#_(deftest ^:integration list-dictionary-phrases-test
-    (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
-          {{{{:keys [id]} :createDictionaryItem} :data errors :errors} :body}
-          (q "/_graphql" :post {:query query :variables {:name "test-phrase", :partOfSpeech "VB"}})
-
-          create-phrase-query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
-          _ (q "/_graphql" :post {:query create-phrase-query :variables {:dictionaryItemId id
-                                                                         :text             "see"
-                                                                         :defaultUsage     "YES"
-                                                                         :readerFlagUsage  []}})
-          create-phrase-query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
-          _ (q "/_graphql" :post {:query create-phrase-query :variables {:dictionaryItemId id
-                                                                         :text             "see1"
-                                                                         :defaultUsage     "YES"
-                                                                         :readerFlagUsage  []}})]
-      (is (nil? errors))
-      (is (some? (dict-entity/get-dictionary-item id)))
-
-      (let [query "{dictionary{items{name phrases{text}}}}"
-            {{{{items :items} :dictionary} :data errors :errors} :body}
-            (q "/_graphql" :post {:query query})]
-        (is (nil? errors))
-        (is (seq items))
-        (let [{phrases :phrases :as test-phrase-item} (first (filter (fn [item] (= "test-phrase" (:name item))) items))]
-          (is test-phrase-item)
-          (is (= 2 (count phrases))))
-        (is (= items (sort-by :name (shuffle items)))))))
-
-#_(deftest ^:integration update-phrase-test
-    (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
-          {{{{:keys [id]} :createDictionaryItem} :data} :body}
-          (q "/_graphql" :post {:query query :variables {:name "test-phrase", :partOfSpeech "VB"}})
-
-          create-phrase-query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
-          {{{{:keys [phrases]} :createPhrase} :data} :body}
-          (q "/_graphql" :post {:query create-phrase-query :variables {:dictionaryItemId id
-                                                                       :text             "see"
+        create-phrase-query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
+        _ (q "/_graphql" :post {:query create-phrase-query :variables {:dictionaryItemId id
+                                                                       :text             "saw"
                                                                        :defaultUsage     "YES"
                                                                        :readerFlagUsage  []}})
 
-          query "mutation UpdatePhrase($id:ID! $text:String!){updatePhrase(id:$id text:$text){text defaultUsage}}"
-          {{{{text :text} :updatePhrase} :data errors :errors} :body}
-          (q "/_graphql" :post {:query query :variables {:id   (-> phrases first :id)
-                                                         :text "t2-updated"}})]
-      (is (nil? errors))
-      (is (= "t2-updated" text))))
+        query "{dictionaryItem(id:\"%s\"){name partOfSpeech phrases{text} concept{id}}}"
+        {{{{:keys [name partOfSpeech phrases]} :dictionaryItem} :data errors :errors} :body}
+        (q "/_graphql" :post {:query (format query id)})]
+    (is (nil? errors))
+    (is (= "see_V" name))
+    (is (= "V" partOfSpeech))
+    (is (= #{{:text "see"} {:text "saw"}} (set phrases)))))
 
-#_(deftest ^:integration update-phrase-default-usage-test
+(deftest ^:integration list-dictionary-phrases-test
+  (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
+        {{{{:keys [id]} :createDictionaryItem} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:name "see", :partOfSpeech "V"}})
+
+        create-phrase-query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
+        _ (q "/_graphql" :post {:query create-phrase-query :variables {:dictionaryItemId id
+                                                                       :text             "saw"
+                                                                       :defaultUsage     "YES"
+                                                                       :readerFlagUsage  []}})
+        create-phrase-query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
+        _ (q "/_graphql" :post {:query create-phrase-query :variables {:dictionaryItemId id
+                                                                       :text             "seen"
+                                                                       :defaultUsage     "YES"
+                                                                       :readerFlagUsage  []}})]
+    (is (nil? errors))
+    (is (some? (dict-entity/get-dictionary-item id)))
+
+    (let [query "{dictionary{items{name phrases{text}}}}"
+          {{{{items :items} :dictionary} :data errors :errors} :body}
+          (q "/_graphql" :post {:query query})]
+      (is (nil? errors))
+      (is (seq items))
+      (let [{phrases :phrases :as test-phrase-item} (first (filter (fn [item] (= "see_V" (:name item))) items))]
+        (is test-phrase-item)
+        (is (= 3 (count phrases)))))))
+
+(deftest ^:integration update-phrase-test
+  (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
+        {{{{:keys [id]} :createDictionaryItem} :data} :body}
+        (q "/_graphql" :post {:query query :variables {:name "see", :partOfSpeech "V"}})
+
+        create-phrase-query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
+        {{{{:keys [phrases]} :createPhrase} :data} :body}
+        (q "/_graphql" :post {:query create-phrase-query :variables {:dictionaryItemId id
+                                                                     :text             "see"
+                                                                     :defaultUsage     "YES"
+                                                                     :readerFlagUsage  []}})
+
+        query "mutation UpdatePhrase($id:ID! $text:String!){updatePhrase(id:$id text:$text){text defaultUsage}}"
+        {{{{text :text} :updatePhrase} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:id   (-> phrases second :id)
+                                                       :text "saw"}})]
+    (is (nil? errors))
+    (is (= "saw" text))))
+
+(deftest ^:integration update-phrase-default-usage-test
     (let [query "mutation CreateDictionaryItem($name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
           {{{{:keys [id]} :createDictionaryItem} :data} :body}
-          (q "/_graphql" :post {:query query :variables {:name "test-phrase", :partOfSpeech "VB"}})
+          (q "/_graphql" :post {:query query :variables {:name "see", :partOfSpeech "V"}})
 
           create-phrase-query "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
           {{{{:keys [phrases]} :createPhrase} :data} :body}
           (q "/_graphql" :post {:query create-phrase-query :variables {:dictionaryItemId id
-                                                                       :text             "see"
+                                                                       :text             "saw"
                                                                        :defaultUsage     "YES"
                                                                        :readerFlagUsage  []}})
 

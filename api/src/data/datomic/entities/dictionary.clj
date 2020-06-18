@@ -5,94 +5,68 @@
             [clojure.tools.logging :as log]
             [datomic.api :as d]))
 
-(defn schema->dict-item [{::dict-item/keys [forms attributes] :as dict-item}]
-  (cond-> (dissoc dict-item :db/id)
-          (seq forms) (update ::dict-item/forms #(map ::dict-item-form/value %))
-          (seq attributes) (update ::dict-item/attributes #(reduce (fn [m {::dict-item-attr/keys [name value]}]
-                                                                     (assoc m name value))
-                                                                   {}
-                                                                   %))))
-
-(defn dict-item->schema [{::dict-item/keys [forms attributes] :as dict-item}]
-  (cond-> dict-item
-          (seq forms) (update ::dict-item/forms #(map (fn [form] {::dict-item-form/value form}) %))
-          (seq attributes) (update ::dict-item/attributes #(reduce-kv (fn [acc k v]
-                                                                        (conj acc #::dict-item-attr{:name k :value v}))
-                                                                      []
-                                                                      %))))
+(def pattern [::dict-item/id
+              ::dict-item/key
+              ::dict-item/category
+              ::dict-item/sense
+              ::dict-item/definition
+              ::dict-item/language
+              {::dict-item/forms [::dict-item-form/id
+                                  ::dict-item-form/value
+                                  ::dict-item-form/default?]}
+              {::dict-item/attributes [::dict-item-attr/id
+                                       ::dict-item-attr/name
+                                       ::dict-item-attr/value]}])
 
 (defn transact-item [conn key data-item]
   (try
-    @(d/transact conn [(dict-item->schema (assoc data-item ::dict-item/id key))])
+    @(d/transact conn [(assoc data-item ::dict-item/id key)])
     (catch Exception e (.printStackTrace e))))
 
 (defn pull-entity [conn key]
-  (schema->dict-item
-    (d/pull
-      (d/db conn)
-      [::dict-item/id
-       ::dict-item/key
-       ::dict-item/category
-       ::dict-item/sense
-       ::dict-item/definition
-       ::dict-item/language
-       {::dict-item/forms [::dict-item-form/value]}
-       {::dict-item/attributes [::dict-item-attr/name
-                                ::dict-item-attr/value]}]
-      [::dict-item/id key])))
+  (d/pull (d/db conn) pattern [::dict-item/id key]))
 
 (defn pull-n [conn limit]
-  (map (comp schema->dict-item first)
-       (take limit (d/q '[:find (pull ?e [::dict-item/id
-                                          ::dict-item/key
-                                          ::dict-item/category
-                                          ::dict-item/sense
-                                          ::dict-item/definition
-                                          ::dict-item/language
-                                          {::dict-item/forms [::dict-item-form/value]}
-                                          {::dict-item/attributes [::dict-item-attr/name
-                                                                   ::dict-item-attr/value]}])
-                          :where
-                          [?e ::dict-item/id]]
-                        (d/db conn)))))
+  (map first (take limit (d/q '[:find (pull ?e pattern)
+                                :in $ pattern
+                                :where
+                                [?e ::dict-item/id]]
+                              (d/db conn) pattern))))
 
 (defn query-dictionary [conn keys languages categories]
   (cond
-    (and (seq languages) (seq categories)) (d/q '[:find (pull ?e [*])
-                                                  :in $ [?keys ?languages ?categories]
+    (and (seq languages) (seq categories)) (d/q '[:find (pull ?e pattern)
+                                                  :in $ ?keys ?languages ?categories pattern
                                                   :where [?e ::dict-item/key ?key]
                                                   [?e ::dict-item/language ?language]
                                                   [?e ::dict-item/category ?category]
                                                   [(contains? ?categories ?category)]
                                                   [(contains? ?languages ?language)]
                                                   [(contains? ?keys ?key)]]
-                                                (d/db conn)
-                                                [(set keys) (set languages) (set categories)])
-    (seq languages) (d/q '[:find (pull ?e [*])
-                           :in $ [?keys ?languages]
+                                                (d/db conn) (set keys) (set languages) (set categories) pattern)
+    (seq languages) (d/q '[:find (pull ?e pattern)
+                           :in $ ?keys ?languages pattern
                            :where [?e ::dict-item/key ?key]
                            [?e ::dict-item/language ?language]
                            [(contains? ?languages ?language)]
                            [(contains? ?keys ?key)]]
-                         (d/db conn)
-                         [(set keys) (set languages)])
-    :else (d/q '[:find (pull ?e [*])
-                 :in $ ?keys
+                         (d/db conn) (set keys) (set languages) pattern)
+    :else (d/q '[:find (pull ?e pattern)
+                 :in $ ?keys pattern
                  :where [?e ::dict-item/key ?key]
                  [(contains? ?keys ?key)]]
-               (d/db conn)
-               (set keys))))
+               (d/db conn) (set keys) pattern)))
 
 (defn scan [conn {:keys [keys languages categories]}]
-  (map (comp schema->dict-item first) (query-dictionary conn keys languages categories)))
+  (map first (query-dictionary conn keys languages categories)))
 
-(defn update! [conn resource-type key data-item]
+(defn update! [conn key data-item]
   (try
     @(d/transact conn [[:db.fn/retractEntity [::dict-item/id key]]])
-    @(d/transact conn [(dict-item->schema data-item)])
+    @(d/transact conn [data-item])
     (catch Exception e
       (log/errorf "Error %s with data %s" e val)))
-  (pull-entity resource-type key))
+  (pull-entity conn key))
 
 (defn delete [conn key]
   @(d/transact conn [[:db.fn/retractEntity [::dict-item/id key]]])

@@ -6,5 +6,5 @@
                                  :key "white",
                                  :category "A",
                                  :language "Eng",
-                                 :forms ["white"]}],
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "white"}]}],
  :constants {"*Language" "Eng"}}

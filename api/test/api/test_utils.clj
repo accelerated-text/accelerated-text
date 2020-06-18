@@ -57,7 +57,8 @@
 
 (defn load-dictionary [filename]
   (log/infof "Loading test dictionary `%s`" filename)
-  (dictionary/add-dictionary-items-from-file (io/file (format "test/resources/dictionary/%s.edn" filename))))
+  (doseq [dict-item (dictionary/read-dictionary-items-from-file (io/file (format "test/resources/dictionary/%s.edn" filename)))]
+    (dictionary/create-dictionary-item dict-item)))
 
 (defn get-result [result-id]
   (when (some? result-id)

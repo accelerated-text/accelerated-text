@@ -371,4 +371,9 @@
           {:db/ident       :acc-text.nlg.dictionary.item.form/value
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Dictionary item form"}]]}}
+           :db/doc         "Dictionary item form"}
+
+          {:db/ident       :acc-text.nlg.dictionary.item.form/default?
+           :db/valueType   :db.type/boolean
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Is form default form"}]]}}

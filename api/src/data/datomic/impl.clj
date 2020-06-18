@@ -53,8 +53,8 @@
   (dictionary/pull-n conn limit))
 (defmethod scan :dictionary [_ opts]
   (dictionary/scan conn opts))
-(defmethod update! :dictionary [resource-type key data-item]
-  (dictionary/update! conn resource-type key data-item))
+(defmethod update! :dictionary [_ key data-item]
+  (dictionary/update! conn key data-item))
 (defmethod delete :dictionary [_ key]
   (dictionary/delete conn key))
 

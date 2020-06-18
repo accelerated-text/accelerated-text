@@ -1,5 +1,7 @@
 (ns api.graphql.translate.reader-model
-  (:require [clojure.tools.logging :as log]
+  (:require [acc-text.nlg.dictionary.item.form :as dict-item-form]
+            [api.graphql.translate.dictionary :as dict-translate]
+            [clojure.tools.logging :as log]
             [data.spec.language :as lang]))
 
 (defn reader-flag-usage->schema [id [k v]]
@@ -9,13 +11,12 @@
    :flag  {:id   (name k)
            :name (name k)}})
 
-(defn phrase->schema [{:keys [id text flags] :as phrase}]
+(defn phrase->schema [{::dict-item-form/keys [id value default?] :as phrase} language]
   (log/tracef "Phrase: %s" phrase)
   {:id              id
-   :text            text
-   :defaultUsage    (:default flags)
-   :readerFlagUsage (map (partial reader-flag-usage->schema id)
-                         (dissoc flags :default))})
+   :text            value
+   :defaultUsage    (if default? "YES" "NO")
+   :readerFlagUsage (dict-translate/build-lang-user-flags language)})
 
 (defn language->reader-flag [{::lang/keys [code name enabled?]}]
   {:id           code

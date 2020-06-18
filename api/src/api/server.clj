@@ -7,7 +7,6 @@
             [api.error :as errors]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
-            [data.entities.dictionary :as dictionary]
             [data.entities.document-plan :as document-plan]
             [mount.core :refer [defstate] :as mount]
             [org.httpkit.server :as server]
@@ -116,7 +115,6 @@
     (log/infof "Running server on: localhost:%s. Press Ctrl+C to stop" port)
     (document-plan/initialize)
     (data-files/initialize)
-    (dictionary/initialize)
     (server/run-server
       #'app {:port     port
              :ip       host

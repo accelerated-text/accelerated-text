@@ -1,13 +1,17 @@
 (ns data.entities.dictionary
-  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [api.config :refer [conf]]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [clojure.set :as set]
+            [clojure.string :as str]
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]])
   (:import (java.io PushbackReader)))
+
+(defn gen-id [{::dict-item/keys [key category sense language]}]
+  (str/join "_" (remove nil? [key category sense language])))
 
 (defstate dictionary-db :start (db/db-access :dictionary conf))
 
@@ -16,14 +20,23 @@
   ([limit]
    (db/list! dictionary-db limit)))
 
+(defn get-parent [{id ::dict-item-form/id}]
+  (some (fn [{forms ::dict-item/forms :as dict-item}]
+          (when (contains? (set (map ::dict-item-form/id forms)) id)
+            dict-item))
+        (list-dictionary-items)))
+
 (defn get-dictionary-item [id]
   (db/read! dictionary-db id))
 
 (defn delete-dictionary-item [id]
   (db/delete! dictionary-db id))
 
-(defn update-dictionary-item [{id ::dictionary-item/id :as item}]
+(defn update-dictionary-item [{id ::dict-item/id :as item}]
   (db/update! dictionary-db id item))
+
+(defn update-dictionary-item-form [{id ::dict-item-form/id :as form}]
+  (db/update! dictionary-db id form))
 
 (defn scan-dictionary
   ([keys]
@@ -33,31 +46,39 @@
   ([keys languages categories]
    (db/scan! dictionary-db {:keys keys :languages languages :categories categories})))
 
-(defn find-dictionary-item [{::dictionary-item/keys [key language category]}]
-  (first (scan-dictionary [key] [language] [category])))
-
-(defn create-dictionary-item [{id ::dictionary-item/id :as item}]
-  (let [item-id (or id (::dictionary-item/id (find-dictionary-item item)) (utils/gen-uuid))]
+(defn create-dictionary-item [{id ::dict-item/id :as item}]
+  (let [item-id (or id (gen-id item))]
     (when (some? (get-dictionary-item item-id))
       (delete-dictionary-item item-id))
     (db/write! dictionary-db item-id item)
     (get-dictionary-item item-id)))
 
 (defn build-dictionaries [keys language-codes]
-  (group-by ::dictionary-item/language (scan-dictionary keys language-codes)))
+  (group-by ::dict-item/language (scan-dictionary keys language-codes)))
 
-(defn dictionary-path []
-  (or (System/getenv "DICT_PATH") "resources/dictionary"))
-
-(defn add-dictionary-items-from-file [f]
+(defn read-dictionary-items-from-file [f]
   (when (= ".edn" (utils/get-ext f))
     (with-open [r (io/reader f)]
-      (mapv #(->> % (utils/add-ns-to-map "acc-text.nlg.dictionary.item") (create-dictionary-item))
-            (edn/read (PushbackReader. r))))))
+      (doall
+        (for [dict-item (edn/read (PushbackReader. r))]
+          (-> (utils/add-ns-to-map "acc-text.nlg.dictionary.item" dict-item)
+              (update ::dict-item/forms (fn [forms]
+                                          (map #(utils/add-ns-to-map
+                                                  "acc-text.nlg.dictionary.item.form"
+                                                  {:id (utils/gen-uuid) :value % :default? true})
+                                               forms)))
+              (update ::dict-item/attributes (fn [attrs]
+                                               (map (fn [[name value]]
+                                                      (utils/add-ns-to-map
+                                                        "acc-text.nlg.dictionary.item.attr"
+                                                        {:id (utils/gen-uuid) :name name :value value}))
+                                                    attrs)))))))))
 
-(defn initialize []
-  (doseq [{id ::dictionary-item/id}
-          (set/difference
-            (set (list-dictionary-items 9999))
-            (set (mapcat add-dictionary-items-from-file (utils/list-files (dictionary-path)))))]
-    (delete-dictionary-item id)))
+(defstate dictionary
+  :start (doseq [f (utils/list-files (:dictionary-path conf))
+                 dict-item (read-dictionary-items-from-file f)]
+           (let [id (or (::dict-item/id dict-item) (gen-id dict-item))]
+             (when-not (some? (get-dictionary-item id))
+               (create-dictionary-item (assoc dict-item ::dict-item/id id)))))
+  :stop (doseq [{id ::dict-item/id} (list-dictionary-items)]
+          (delete-dictionary-item id)))

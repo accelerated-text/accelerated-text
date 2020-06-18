@@ -1,6 +1,6 @@
 (ns api.config
-  (:require [mount.core :refer [defstate]]
-            [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [mount.core :refer [defstate]]))
 
 (defn- read-conf-line [l]
   (map (comp str/capitalize str/trim) (str/split l #",")))
@@ -12,6 +12,7 @@
                           (keyword db-implementation))
    :db-uri              (System/getenv "DB_URI")
    :available-languages (set (read-conf-line (or (System/getenv "AVAILABLE_LANGUAGES") "Eng")))
-   :enabled-languages   (set (read-conf-line (or (System/getenv "ENABLED_LANGUAGES") "Eng")))})
+   :enabled-languages   (set (read-conf-line (or (System/getenv "ENABLED_LANGUAGES") "Eng")))
+   :dictionary-path     (or (System/getenv "DICT_PATH") "resources/dictionary")})
 
 (defstate conf :start (load-config))

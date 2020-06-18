@@ -1287,105 +1287,108 @@
                                  :category "N",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["eatery" "eateries"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "eatery"}
+                                         #:acc-text.nlg.dictionary.item.form{:value "eateries"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "13178cdb-6c0e-4ab3-8a80-7a0f70fd53dc",
                                  :key "find_1_V",
                                  :category "V",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["find" "found" "found"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "find"}
+                                         #:acc-text.nlg.dictionary.item.form{:value "found"}
+                                         #:acc-text.nlg.dictionary.item.form{:value "found"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "271deda0-87fc-4a54-a62a-6d90fe476428",
                                  :key "traditional_1_A",
                                  :category "A",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["traditional"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "traditional"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "e5558c7c-7bd6-4863-82b9-875a21083fa0",
                                  :key "delicious_1_A",
                                  :category "A",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["delicious"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "delicious"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "efe7424c-2220-4601-b7ee-986c1a40bad2",
                                  :key "look_1_V",
                                  :category "V",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["look"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "look"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "48a5b9b5-09ab-45c4-83f4-c2d996768be1",
                                  :key "cafe_1_N",
                                  :category "N",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["cafe"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "cafe"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "b5177341-d01d-4b5b-bc0e-245f3393a5e9",
                                  :key "italian_1_A",
                                  :category "A",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["italian"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "italian"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "9c58b2d3-f462-4d4a-b650-522e3f7c353f",
                                  :key "decent_1_A",
                                  :category "A",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["decent"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "decent"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "4c15179d-eac3-47ee-a626-e51fcf418190",
                                  :key "try_1_V",
                                  :category "V",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["try"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "try"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "a8c224b8-72ad-4359-82d6-120a1cc0ba08",
                                  :key "venue_1_N",
                                  :category "N",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["venue"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "venue"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "def9017b-b15a-493e-87fc-f60e3f9e4d82",
                                  :key "oriental_1_A",
                                  :category "A",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["oriental"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "oriental"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "3a2e0919-0992-4adc-8e2e-17254a5b71ba",
                                  :key "chinese_1_A",
                                  :category "A",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["chinese"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "chinese"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "d846bbf8-4ed2-4706-8be9-dad558ae34a3",
                                  :key "food_1_N",
                                  :category "N",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["food"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "food"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "dc189d3e-55a6-4d41-b8f7-2347c2fd41b0",
                                  :key "here_1_Adv",
                                  :category "Adv",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["here"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "here"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "b7a235c4-09b0-48a1-867e-c4082e416c9f",
                                  :key "nice_1_A",
                                  :category "A",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["nice"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "nice"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "6a8b8da0-a821-4085-9620-5fcbcfc441c3",
                                  :key "good_1_A",
@@ -1393,39 +1396,42 @@
                                  :language "Eng",
                                  :sense "1",
                                  :forms
-                                 ["good" "better" "best" "well"]}
+                                 [#:acc-text.nlg.dictionary.item.form{:value "good"}
+                                  #:acc-text.nlg.dictionary.item.form{:value "better"}
+                                  #:acc-text.nlg.dictionary.item.form{:value "best"}
+                                  #:acc-text.nlg.dictionary.item.form{:value "well"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "b815372d-8f58-4a8b-be0a-351def641fbb",
                                  :key "excellent_1_A",
                                  :category "A",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["excellent"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "excellent"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "d8485655-40fd-437e-a384-17b7c3aa7930",
                                  :key "there_1_Adv",
                                  :category "Adv",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["there"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "there"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "374ac2b3-ca66-401c-8e90-cd30a5cb4299",
                                  :key "family-friendly_1_A",
                                  :category "A",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["family-friendly"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "family-friendly"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "c6815199-e22b-4c05-8581-6fac6ff94ccc",
                                  :key "beautiful_1_A",
                                  :category "A",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["beautiful"]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "beautiful"}]}
   #:acc-text.nlg.dictionary.item{:id
                                  "592b92cc-30c8-4d81-808f-14650e2f076d",
                                  :key "restaurant_1_N",
                                  :category "N",
                                  :language "Eng",
                                  :sense "1",
-                                 :forms ["restaurant"]}]}
+                                 :forms [#:acc-text.nlg.dictionary.item.form{:value "restaurant"}]}]}
