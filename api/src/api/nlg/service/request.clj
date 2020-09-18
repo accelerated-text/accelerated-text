@@ -5,6 +5,8 @@
 
 (s/def ::documentPlanId string?)
 
+(s/def ::documentPlanName string?)
+
 (s/def ::dataId string?)
 
 (s/def ::format #{"raw" "annotated-text"})
