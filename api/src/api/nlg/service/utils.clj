@@ -1,5 +1,6 @@
 (ns api.nlg.service.utils
-  (:require [clojure.string :as str]
+  (:require [api.nlg.enrich.data :as data-enrich]
+            [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as dp]
@@ -29,8 +30,8 @@
 
 (defn get-data-row [data-id index]
   (when-not (str/blank? data-id)
-    (if-let [data (data-files/get-data "user" data-id)]
-      (nth data index)
+    (if-let [{:keys [filename content]} (data-files/get-data "user" data-id)]
+      (cond->> (nth content index) (data-enrich/enable-enrich?) (data-enrich/enrich filename))
       (log/errorf "Data with id `%s` not found" data-id))))
 
 (defn get-document-plan [{id :documentPlanId name :documentPlanName}]

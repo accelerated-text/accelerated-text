@@ -44,13 +44,15 @@
      :limit      limit
      :totalCount (count data-files)}))
 
-(defn read-data-file-content [_ key]
-  (:content (db/read! data-files-db key)))
+(defn read-data-file [_ key]
+  (db/read! data-files-db key))
 
 (defn get-data [user key]
-  (when-let [content (read-data-file-content user key)]
-    (let [[header & rows] (->> content (csv/read-csv) (map #(map str/trim %)))]
-      (map #(zipmap header %) rows))))
+  (let [{:keys [filename content]} (read-data-file user key)]
+    (when (some? content)
+      {:filename filename
+       :content  (let [[header & rows] (->> content (csv/read-csv) (map #(map str/trim %)))]
+                   (map #(zipmap header %) rows))})))
 
 (defn data-file-path []
   (or (System/getenv "DATA_FILES") "resources/data-files"))
