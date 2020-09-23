@@ -4,10 +4,10 @@ Go to `utils` folder located in project root, and run this command in the termin
 
 ```
 make generate-from-csv \
-    doc-plan=Authorship \
-    data-file=../api/test/resources/data-files/books.csv \
-    output-file=output-eng.csv \
-    language=English
+    doc-plan="Authorship" \
+    data-file="../api/test/resources/data-files/books.csv" \
+    output-file="output-eng.csv" \
+    language="Eng"
 ```
 
 If all is well, you should see an output like this:

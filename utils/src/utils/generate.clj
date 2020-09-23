@@ -4,7 +4,7 @@
             [org.httpkit.client :as http]
             [jsonista.core :as json]
             [clojure.tools.logging :as log]
-            [clojure.string :as string]))
+            [clojure.string :as str]))
 
 (def read-mapper (json/object-mapper {:decode-key-fn true}))
 
@@ -16,10 +16,14 @@
            (rest csv-data)))))
 
 (defn- post-generate [body]
-  (-> @(http/post "http://localhost:3001/nlg/_bulk/"
-                  {:headers {"Content-Type" "application/json"}
-                   :body    (json/write-value-as-string body)})
-      :body (json/read-value read-mapper) :resultIds))
+  (let [{:keys [status body]}
+        @(http/post "http://localhost:3001/nlg/_bulk/"
+                    {:headers {"Content-Type" "application/json"}
+                     :body    (json/write-value-as-string body)})
+        body (json/read-value body read-mapper)]
+    (if (= status 200)
+      (:resultIds body)
+      (log/error (:message body)))))
 
 (defn- get-results [id]
   [id (-> (format "http://localhost:3001/nlg/%s?format=raw" id)
@@ -70,5 +74,5 @@
 
 (defn -main [& [document-plan data-file output-file language]]
   (if (and document-plan data-file output-file)
-    (data->text document-plan data-file output-file (or language "English"))
-    (println "Usage: pass in four parameters: name of the document plan, path to a data file, path to an output file, and language")))
+    (data->text document-plan data-file output-file (if-not (str/blank? language) language "Eng"))
+    (println "Usage: pass in four parameters: name of the document plan, path to a data file, path to an output file, and language code")))
