@@ -26,25 +26,33 @@
       (log/error (:message body)))))
 
 (defn- get-results [id]
-  [id (-> (format "http://localhost:3001/nlg/%s?format=raw" id)
-          http/get deref
-          :body (json/read-value read-mapper)
-          :variants)])
+  (->> (repeatedly #(let [{ready? :ready :as response}
+                          (-> (format "http://localhost:3001/nlg/%s?format=raw" id)
+                              http/get deref
+                              :body (json/read-value read-mapper))]
+                      (when-not ready?
+                        (Thread/sleep 1000))
+                      response))
+       (filter :ready)
+       (first)
+       (:variants)
+       (vector id)))
 
 (defn generate-bulk
   "Generate text variants for data rows. Return collection of tuples where
   first entry is original data and the second is a collection of variants."
   [document-plan language data]
   (log/infof "Generating text for %s data items" (count data))
-  (let [ids      (take (count data) (repeatedly #(str (java.util.UUID/randomUUID))))
+  (let [ids (take (count data) (repeatedly #(str (java.util.UUID/randomUUID))))
         id->data (zipmap ids data)]
     (->> {:documentPlanName document-plan
           :dataRows         id->data
           :readerFlagValues {language true}}
          (post-generate)
          (map get-results)
-         (map (fn [[id variants]]
-                [(get id->data id) variants])))))
+         (map-indexed (fn [i [id variants]]
+                        (log/info "%d out of %s instances ready" i (count ids))
+                        [(get id->data id) variants])))))
 
 (defn save-data-with-variants
   "Merge data rows and text variants. For each text variant for the data item
