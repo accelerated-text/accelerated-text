@@ -5,7 +5,8 @@
             [clojure.tools.logging :as log]
             [jsonista.core :as json]
             [org.httpkit.client :as http])
-  (:import (java.io File)))
+  (:import (java.io File)
+           (java.util UUID)))
 
 (def read-mapper (json/object-mapper {:decode-key-fn true}))
 
@@ -18,21 +19,21 @@
                   :method  :post
                   :headers {"Content-Type" "application/json"}
                   :body    (json/write-value-as-string body)}
-                 (fn [{:keys [status body]}]
-                   (let [{result-ids :resultIds message :message} (json/read-value body read-mapper)]
-                     (if (= status 200)
-                       result-ids
-                       (log/error message))))))
+                 (fn [{:keys [status body error]}]
+                   (if (= status 200)
+                     (:resultIds (json/read-value body read-mapper))
+                     (log/error (.getMessage ^Throwable error))))))
 
 (defn- fetch-results [id]
   @(http/request {:url (format "http://localhost:3001/nlg/%s?format=raw" id)}
-                 (fn [{:keys [status body]}]
-                   (if (= status 200)
-                     (let [{ready? :ready :as response} (json/read-value body read-mapper)]
-                       (when-not ready?
-                         (Thread/sleep 1000))
-                       response)
-                     (log/error "Failed to fetch result with status %d" status)))))
+                 (fn [{:keys [status body error]}]
+                   (cond
+                     (not= status 200) (log/errorf "Failed to fetch result `%s` with status %d" id status)
+                     (some? error) (log/error (.getMessage ^Throwable error))
+                     :else (let [{ready? :ready :as response} (json/read-value body read-mapper)]
+                             (when-not ready?
+                               (Thread/sleep 1000))
+                             response)))))
 
 (defn- get-results [id]
   (->> (repeatedly #(fetch-results id))
@@ -46,7 +47,7 @@
   first entry is original data and the second is a collection of variants."
   [document-plan language data]
   (log/infof "Generating text for %s data items" (count data))
-  (let [ids (take (count data) (repeatedly #(str (java.util.UUID/randomUUID))))
+  (let [ids (take (count data) (repeatedly #(str (UUID/randomUUID))))
         id->data (zipmap ids data)]
     (->> {:documentPlanName document-plan
           :dataRows         id->data
@@ -62,6 +63,8 @@
   create a new row with all the data points duplicated"
   [out-file results header]
   (let [csv-data (mapcat (fn [[data variations]]
+                           (when-not (seq variations)
+                             (log/warnf "%s returned with 0 variants" (get data (first header))))
                            (let [data-row (vec (map (fn [col] (get data col)) header))]
                              (map (fn [variant]
                                     (conj data-row variant))
