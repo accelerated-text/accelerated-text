@@ -1,59 +1,70 @@
 (ns utils.generate
   (:require [clojure.data.csv :as csv]
             [clojure.java.io :as io]
-            [org.httpkit.client :as http]
-            [jsonista.core :as json]
+            [clojure.string :as str]
             [clojure.tools.logging :as log]
-            [clojure.string :as str]))
+            [jsonista.core :as json]
+            [org.httpkit.client :as http])
+  (:import (java.io File)
+           (java.util UUID)))
 
 (def read-mapper (json/object-mapper {:decode-key-fn true}))
 
 (defn read-data [csv-file]
   (with-open [reader (io/reader csv-file)]
-    (let [csv-data (doall (csv/read-csv reader))]
-      (map zipmap
-           (repeat (first csv-data))
-           (rest csv-data)))))
+    (doall (csv/read-csv reader))))
 
 (defn- post-generate [body]
-  (let [{:keys [status body]}
-        @(http/post "http://localhost:3001/nlg/_bulk/"
-                    {:headers {"Content-Type" "application/json"}
-                     :body    (json/write-value-as-string body)})
-        body (json/read-value body read-mapper)]
-    (if (= status 200)
-      (:resultIds body)
-      (log/error (:message body)))))
+  @(http/request {:url     "http://localhost:3001/nlg/_bulk/"
+                  :method  :post
+                  :headers {"Content-Type" "application/json"}
+                  :body    (json/write-value-as-string body)}
+                 (fn [{:keys [status body error]}]
+                   (if (= status 200)
+                     (:resultIds (json/read-value body read-mapper))
+                     (log/error (.getMessage ^Throwable error))))))
+
+(defn- fetch-results [id]
+  @(http/request {:url (format "http://localhost:3001/nlg/%s?format=raw" id)}
+                 (fn [{:keys [status body error]}]
+                   (cond
+                     (not= status 200) (log/errorf "Failed to fetch result `%s` with status %d" id status)
+                     (some? error) (log/error (.getMessage ^Throwable error))
+                     :else (let [{ready? :ready :as response} (json/read-value body read-mapper)]
+                             (when-not ready?
+                               (Thread/sleep 1000))
+                             response)))))
 
 (defn- get-results [id]
-  [id (-> (format "http://localhost:3001/nlg/%s?format=raw" id)
-          http/get deref
-          :body (json/read-value read-mapper)
-          :variants)])
+  (->> (repeatedly #(fetch-results id))
+       (filter :ready)
+       (first)
+       (:variants)
+       (vector id)))
 
 (defn generate-bulk
   "Generate text variants for data rows. Return collection of tuples where
   first entry is original data and the second is a collection of variants."
   [document-plan language data]
   (log/infof "Generating text for %s data items" (count data))
-  (let [ids      (take (count data) (repeatedly #(str (java.util.UUID/randomUUID))))
+  (let [ids (take (count data) (repeatedly #(str (UUID/randomUUID))))
         id->data (zipmap ids data)]
     (->> {:documentPlanName document-plan
           :dataRows         id->data
           :readerFlagValues {language true}}
          (post-generate)
          (map get-results)
-         (map (fn [[id variants]]
-                [(get id->data id) variants])))))
+         (map-indexed (fn [i [id variants]]
+                        (log/infof "%.2f%% ready" (float (* 100 (/ (inc i) (count ids)))))
+                        [(get id->data id) variants])))))
 
 (defn save-data-with-variants
   "Merge data rows and text variants. For each text variant for the data item
   create a new row with all the data points duplicated"
-  [out-file results]
-  (log/infof "Total %s results to save" (count results))
-  (let [header (vec (map name (-> results first first keys)))
-        csv-data (mapcat (fn [[data variations]]
-                           (log/infof "Data %s has %s variations" (get data (first header)) (count variations))
+  [out-file results header]
+  (let [csv-data (mapcat (fn [[data variations]]
+                           (when-not (seq variations)
+                             (log/warnf "%s returned with 0 variants" (get data (first header))))
                            (let [data-row (vec (map (fn [col] (get data col)) header))]
                              (map (fn [variant]
                                     (conj data-row variant))
@@ -61,18 +72,16 @@
                          results)]
     (when (seq results)
       (with-open [writer (io/writer out-file)]
-        (csv/write-csv writer
-                       (cons (conj (vec (map name (-> results first first keys))) "Variants")
-                             csv-data))))))
+        (csv/write-csv writer (cons (conj (vec header) "Variants") csv-data)))
+      (log/infof "Saved output to `%s`" (.getAbsolutePath ^File out-file)))))
 
 (defn data->text [document-plan data-file output-file language]
   (log/infof "Generating using '%s' document plan for '%s' language" document-plan language)
-  (->> data-file
-       (read-data)
-       (generate-bulk document-plan language)
-       (save-data-with-variants output-file)))
+  (let [[header & rows] (read-data data-file)
+        results (generate-bulk document-plan language (map #(zipmap header %) rows))]
+    (save-data-with-variants output-file results header)))
 
-(defn -main [& [document-plan data-file output-file language]]
-  (if (and document-plan data-file output-file)
-    (data->text document-plan data-file output-file (if-not (str/blank? language) language "Eng"))
+(defn -main [& [document-plan data-path output-path language]]
+  (if (and document-plan data-path output-path)
+    (data->text document-plan (io/file data-path) (io/file output-path) (if-not (str/blank? language) language "Eng"))
     (println "Usage: pass in four parameters: name of the document plan, path to a data file, path to an output file, and language code")))

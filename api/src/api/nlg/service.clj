@@ -50,15 +50,20 @@
   [{reader-model :readerFlagValues data-rows :dataRows :as request}]
   (try
     (log/infof "Bulk generate request with %s" (utils/request->text request))
-    (let [document-plan (utils/get-document-plan request)
-          result-id (gen-uuid)]
-      (doseq [[request-id data-row] data-rows]
+    (let [document-plan (utils/get-document-plan request)]
+      (doseq [result-id (keys data-rows)]
         (results/write #::result{:id     result-id
-                                 :status :pending})
-        (results/write (generate-text {:id            request-id
-                                       :document-plan document-plan
-                                       :data          data-row
-                                       :languages     (utils/reader-model->languages reader-model)})))
+                                 :status :pending}))
+      (->> data-rows
+           (pmap (fn [[request-id data-row]]
+                   (-> {:id            request-id
+                        :document-plan document-plan
+                        :data          data-row
+                        :languages     (utils/reader-model->languages reader-model)}
+                       (generate-text)
+                       (results/write))))
+           (doall)
+           (future))
       {:status 200
        :body   {:resultIds (keys data-rows)}})
     (catch Exception e
