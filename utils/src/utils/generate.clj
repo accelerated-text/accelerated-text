@@ -51,7 +51,7 @@
          (post-generate)
          (map get-results)
          (map-indexed (fn [i [id variants]]
-                        (log/info "%d out of %s instances ready" i (count ids))
+                        (log/infof "%d out of %s instances ready" i (count ids))
                         [(get id->data id) variants])))))
 
 (defn save-data-with-variants
