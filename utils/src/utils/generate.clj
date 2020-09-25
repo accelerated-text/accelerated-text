@@ -81,7 +81,7 @@
         results (generate-bulk document-plan language (map #(zipmap header %) rows))]
     (save-data-with-variants output-file results header)))
 
-(defn -main [& [document-plan data-file output-path language]]
-  (if (and document-plan data-file output-path)
-    (data->text document-plan (io/file data-file) (io/file output-path) (if-not (str/blank? language) language "Eng"))
+(defn -main [& [document-plan data-path output-path language]]
+  (if (and document-plan data-path output-path)
+    (data->text document-plan (io/file data-path) (io/file output-path) (if-not (str/blank? language) language "Eng"))
     (println "Usage: pass in four parameters: name of the document plan, path to a data file, path to an output file, and language code")))
