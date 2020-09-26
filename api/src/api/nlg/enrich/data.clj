@@ -27,7 +27,7 @@
   (reduce (fn [data {columns :columns}]
             (reduce (fn [data {:keys [name replace transformations]}]
                       (if-let [val (get data name)]
-                        (if (true? replace)
+                        (when (true? replace)
                           (let [tr-fn (build-transformations transformations)
                                 result (tr-fn val)]
                             (log/debugf "`%s` -> `%s`" val result)
@@ -38,11 +38,9 @@
           data
           rules))
 
-(defn enrich [filename data]
+(defn enrich [{filename :fileName :as data}]
   (log/info "Enriching data row...")
   (let [rules (select-rules filename (read-rules))]
     (log/infof "%d rules matches filename `%s`" (count rules) filename)
-    (if (seq rules)
-      (do
-        (-> data (update-columns rules)))
-      data)))
+    (cond-> data
+            (seq rules) (update :records #(update-columns % rules)))))
