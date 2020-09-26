@@ -1,5 +1,4 @@
 [{:filename-pattern #regex"ect-.+?-\\d+?-csv\\.csv"
-  :columns          [{:name            "Data_value"
-                      :replace         true
+  :fields           [{:name            "Data_value"
                       :transformations [{:function :api.nlg.enrich.data.transformations/approximate
                                          :args     {:language :en :scale 1/4}}]}]}]
