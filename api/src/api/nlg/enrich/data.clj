@@ -20,27 +20,31 @@
 
 (defn build-transformations [tr]
   (apply comp (map (fn [{:keys [function args]}]
-                     #((resolve (symbol function)) % args))
+                     (let [tr-fn (resolve (symbol function))]
+                       #(tr-fn % args)))
                    (reverse tr))))
 
-(defn update-columns [data rules]
-  (reduce (fn [data {columns :columns}]
-            (reduce (fn [data {:keys [name replace transformations]}]
-                      (if-let [val (get data name)]
-                        (when (true? replace)
-                          (let [tr-fn (build-transformations transformations)
-                                result (tr-fn val)]
-                            (log/debugf "`%s` -> `%s`" val result)
-                            (assoc data name result)))
-                        data))
-                    data
-                    columns))
+(defn update-fields [data fields]
+  (reduce (fn [data {:keys [name transformations]}]
+            (if (contains? data name)
+              (let [tr-fn (build-transformations transformations)]
+                (update data name tr-fn))
+              (do
+                (log/warn "Field `%s` was not found in data" name)
+                data)))
+          data
+          fields))
+
+(defn apply-rules [data rules]
+  (reduce (fn [data {fields :fields}]
+            (-> data
+                (update-fields fields)))
           data
           rules))
 
-(defn enrich [{filename :fileName :as data}]
-  (log/info "Enriching data row...")
+(defn enrich [filename data]
+  (log/info "Enriching data...")
   (let [rules (select-rules filename (read-rules))]
     (log/infof "%d rules matches filename `%s`" (count rules) filename)
     (cond-> data
-            (seq rules) (update :records #(update-columns % rules)))))
+            (seq rules) (apply-rules rules))))
