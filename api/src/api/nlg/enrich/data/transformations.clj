@@ -15,13 +15,12 @@
       (letfn [(round [n]
                 (let [multiplier (float (reduce * (take places (repeat 10))))]
                   (/ (Math/round ^Float (* n multiplier)) multiplier)))]
-        (-> (cond
-              (> 1000 abs-n) (str (round n))
-              (> 1000000 abs-n) (str (round (/ n 1000)) "K")
-              (> 1000000000 abs-n) (str (round (/ n 1000000)) "M")
-              (> 1000000000000 abs-n) (str (round (/ n 1000000000)) "B")
-              :else (str (round (/ abs-n 1000000000000)) "T"))
-            (str/replace #"(\.[1-9]*0+)[KMBT]$" ""))))
+        (cond
+          (> 1000 abs-n) (str (round n))
+          (> 1000000 abs-n) (str (round (/ n 1000)) "K")
+          (> 1000000000 abs-n) (str (round (/ n 1000000)) "M")
+          (> 1000000000000 abs-n) (str (round (/ n 1000000000)) "B")
+          :else (str (round (/ abs-n 1000000000000)) "T"))))
     ""))
 
 (defn add-symbol [s {:keys [symbol position skip] :or {position :back}}]
