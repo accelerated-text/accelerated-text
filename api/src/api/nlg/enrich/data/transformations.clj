@@ -2,8 +2,8 @@
   (:require [clojure.string :as str]
             [numberwords.core :as nw]))
 
-(defn approximate [s {:keys [language scale]
-                      :or   {language :en, scale 1/4}}]
+(defn number->words [s {:keys [language scale]
+                        :or   {language :en, scale 1/4}}]
   (when-not (str/blank? s)
     (let [approx (nw/approximations language (Float/valueOf ^String s) scale)]
       (:numwords/text (some #(get approx %) [:numwords/equal :numwords/around :numwords/more-than :numwords/less-than])))))
