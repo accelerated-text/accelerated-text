@@ -18,8 +18,9 @@
       (> 1000000000000 abs-n) (str (Math/round ^Float (/ n 1000000000)) "B")
       :else (str (Math/round ^Float (/ abs-n 1000000000000)) "T"))))
 
-(defn add-symbol [s {:keys [symbol]}]
-  (cond-> s (some? symbol) (s symbol)))
+(defn add-symbol [s {:keys [symbol position] :or {position :back}}]
+  (let [cond->? (if (= :back position) cond->> cond->)]
+    (cond->? s (some? symbol) (str symbol))))
 
 (defn custom-rearrange-1 [s {}]
   (let [[id main-cat & rest] (str/split s #"-")]
