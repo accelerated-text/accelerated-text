@@ -62,9 +62,7 @@
           :references  []
           :children    [{:type "PARAGRAPH"
                          :id   (utils/gen-uuid)
-                         :text (str/trim (str/join " " [(when (show-flags?)
-                                                          (str/join " " (map :text (get-flags row))))
-                                                        text]))}]})
+                         :text (str/join " " (conj (mapv :text (get-flags row)) text))}]})
        rows))
 
 (defn ->error [{::result/keys [error-message]}]
