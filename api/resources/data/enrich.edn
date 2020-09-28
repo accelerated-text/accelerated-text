@@ -2,7 +2,8 @@
   :fields           [{:name-pattern    #regex"Account_.+"
                       :transformations [{:function :api.nlg.enrich.data.transformations/custom-rearrange-1}]}
                      {:name-pattern    #regex"Amount_.+"
-                      :transformations [{:function :api.nlg.enrich.data.transformations/rough-estimation}
+                      :transformations [{:function :api.nlg.enrich.data.transformations/rough-estimation
+                                         :args     {:places 1}}
                                         {:function :api.nlg.enrich.data.transformations/add-symbol
                                          :args     {:symbol "$" :position :front :skip #{\- \+}}}]}
                      {:name-pattern    #regex"Percentage_.+"
