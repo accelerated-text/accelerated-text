@@ -11,10 +11,12 @@
 (defn rough-estimation [s {}]
   (let [n (Float/valueOf ^String s)
         abs-n (Math/abs ^Float n)]
-    (str (when (> 0 n) "-")
-         (cond
-           (> 1000 abs-n) (str (Math/round ^Float n))
-           (> 1000000 abs-n) (str (Math/round ^Float (/ n 1000)) "K")
-           (> 1000000000 abs-n) (str (Math/round ^Float (/ n 1000000)) "M")
-           (> 1000000000000 abs-n) (str (Math/round ^Float (/ n 1000000000)) "B")
-           :else (str (Math/round ^Float (/ abs-n 1000000000000)) "T")))))
+    (cond
+      (> 1000 abs-n) (str (Math/round ^Float n))
+      (> 1000000 abs-n) (str (Math/round ^Float (/ n 1000)) "K")
+      (> 1000000000 abs-n) (str (Math/round ^Float (/ n 1000000)) "M")
+      (> 1000000000000 abs-n) (str (Math/round ^Float (/ n 1000000000)) "B")
+      :else (str (Math/round ^Float (/ abs-n 1000000000000)) "T"))))
+
+(defn percentage [s {}]
+  (str s "%"))
