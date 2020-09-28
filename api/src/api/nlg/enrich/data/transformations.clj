@@ -18,5 +18,9 @@
       (> 1000000000000 abs-n) (str (Math/round ^Float (/ n 1000000000)) "B")
       :else (str (Math/round ^Float (/ abs-n 1000000000000)) "T"))))
 
-(defn percentage [s {}]
-  (str s "%"))
+(defn add-symbol [s {:keys [symbol]}]
+  (cond-> s (some? symbol) (s symbol)))
+
+(defn custom-rearrange-1 [s {}]
+  (let [[id main-cat & rest] (str/split s #"-")]
+    (format "%s (%s, %s)" (str/trim main-cat) (str/trim (str/join "-" rest)) (str/trim id))))
