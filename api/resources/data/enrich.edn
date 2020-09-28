@@ -1,4 +1,5 @@
-[{:filename-pattern #regex"ect-.+?-\\d+?-csv\\.csv"
-  :fields           [{:name            "Data_value"
-                      :transformations [{:function :api.nlg.enrich.data.transformations/approximate
-                                         :args     {:language :en :scale 1/4}}]}]}]
+[{:filename-pattern #regex"^.+$"
+  :fields           [{:name-pattern    #regex"Amount_.+"
+                      :transformations [{:function :api.nlg.enrich.data.transformations/rough-estimation}]}
+                     {:name-pattern    #regex"Percentage_.+"
+                      :transformations [{:function :api.nlg.enrich.data.transformations/percentage}]}]}]
