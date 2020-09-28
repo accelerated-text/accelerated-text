@@ -25,13 +25,17 @@
                    (reverse tr))))
 
 (defn update-fields [data fields]
-  (reduce (fn [data {:keys [name transformations]}]
-            (if (contains? data name)
-              (let [tr-fn (build-transformations transformations)]
-                (update data name tr-fn))
-              (do
-                (log/warn "Field `%s` was not found in data" name)
-                data)))
+  (reduce (fn [data {:keys [name name-pattern transformations]}]
+            (let [tr-fn (build-transformations transformations)]
+              (cond
+                (contains? data name) (update data name tr-fn)
+                (some? name-pattern) (reduce (fn [data name]
+                                               (update data name tr-fn))
+                                             data
+                                             (filter #(re-matches name-pattern %) (keys data)))
+                :else (do
+                        (log/warn "Field `%s` was not found in data" name)
+                        data))))
           data
           fields))
 
