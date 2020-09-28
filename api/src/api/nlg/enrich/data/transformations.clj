@@ -20,10 +20,21 @@
         :else (str (Math/round ^Float (/ abs-n 1000000000000)) "T")))
     ""))
 
-(defn add-symbol [s {:keys [symbol position] :or {position :back}}]
-  (if (= :back position)
-    (cond-> s (some? symbol) (str symbol))
-    (cond->> s (some? symbol) (str symbol))))
+(defn add-symbol [s {:keys [symbol position skip] :or {position :back}}]
+  (if (some? symbol)
+    (let [n-chars-to-skip (if (seq skip)
+                            (-> (format "%s[%s]+%s"
+                                        (if (= :front position) "^" "")
+                                        (str/join skip)
+                                        (if (= :back position) "$" ""))
+                                (re-pattern)
+                                (re-find s)
+                                (count))
+                            0)]
+      (if (= :front position)
+        (str (subs s 0 n-chars-to-skip) symbol (subs s n-chars-to-skip))
+        (str (subs s 0 (- (count s) n-chars-to-skip)) symbol (subs s (- (count s) n-chars-to-skip)))))
+    s))
 
 (defn custom-rearrange-1 [s {}]
   (if-not (str/blank? s)
