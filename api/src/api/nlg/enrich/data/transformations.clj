@@ -20,8 +20,8 @@
 
 (defn add-symbol [s {:keys [symbol position] :or {position :back}}]
   (if (= :back position)
-    (cond->> s (some? symbol) (str symbol))
-    (cond-> s (some? symbol) (str symbol))))
+    (cond-> s (some? symbol) (str symbol))
+    (cond->> s (some? symbol) (str symbol))))
 
 (defn custom-rearrange-1 [s {}]
   (let [[id main-cat & rest] (str/split s #"-")]
