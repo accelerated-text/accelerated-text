@@ -1,11 +1,11 @@
 [{:filename-pattern #regex"^.+$"
-  :fields           [{:name-pattern    #regex"Account_.+"
+  :fields           [{:name-pattern    #regex".*[Aa]ccount.+"
                       :transformations [{:function :api.nlg.enrich.data.transformations/custom-rearrange-1}]}
-                     {:name-pattern    #regex"Amount_.+"
+                     {:name-pattern    #regex"Amount.*"
                       :transformations [{:function :api.nlg.enrich.data.transformations/rough-estimation
                                          :args     {:places 1}}
                                         {:function :api.nlg.enrich.data.transformations/add-symbol
                                          :args     {:symbol "$" :position :front :skip #{\- \+}}}]}
-                     {:name-pattern    #regex"Percentage_.+"
+                     {:name-pattern    #regex"Percentage.*"
                       :transformations [{:function :api.nlg.enrich.data.transformations/add-symbol
                                          :args     {:symbol "%"}}]}]}]
