@@ -122,13 +122,25 @@ jobs:
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     pool:
       vmImage: 'ubuntu-latest'
+    variables:
+      DOCKER_BUILDKIT: 1
     steps:
       - task: Docker@2
-        displayName: Build and push core image
+        displayName: Build core image
         inputs:
-          command: buildAndPush
+          command: build
           repository: acctext/core
           dockerfile: core/Dockerfile
+          containerRegistry: dockerhub
+          tags: |
+            latest
+          arguments: --build-arg BUILDKIT_INLINE_CACHE=1
+
+      - task: Docker@2
+        displayName: Push core image
+        inputs:
+          command: push
+          repository: acctext/core
           containerRegistry: dockerhub
           tags: |
             latest
@@ -143,7 +155,7 @@ jobs:
           buildContext: .
           tags: |
             latest
-          arguments: --build-arg ACC_TEXT_API_URL="http://localhost:3001" --build-arg ACC_TEXT_GRAPHQL_URL="http://localhost:3001/_graphql" --build-arg ACC_TEXT_DATA_FILES_BUCKET="http://localhost:3001/accelerated-text-data-files"
+          arguments: --build-arg BUILDKIT_INLINE_CACHE=1 --build-arg ACC_TEXT_API_URL="http://localhost:3001" --build-arg ACC_TEXT_GRAPHQL_URL="http://localhost:3001/_graphql" --build-arg ACC_TEXT_DATA_FILES_BUCKET="http://localhost:3001/accelerated-text-data-files"
 
       - task: Docker@2
         displayName: Push front-end image
@@ -155,22 +167,43 @@ jobs:
             latest
 
       - task: Docker@2
-        displayName: Build and push api image
+        displayName: Build api image
         inputs:
-          command: buildAndPush
+          command: build
           repository: acctext/api
           dockerfile: api/Dockerfile
           containerRegistry: dockerhub
           buildContext: .
           tags: |
             latest
+          arguments: --build-arg BUILDKIT_INLINE_CACHE=1
 
       - task: Docker@2
-        displayName: Build and push gf image
+        displayName: Push api image
         inputs:
-          command: buildAndPush
+          command: push
+          repository: acctext/api
+          containerRegistry: dockerhub
+          buildContext: .
+          tags: |
+            latest
+
+      - task: Docker@2
+        displayName: Build gf image
+        inputs:
+          command: build
           repository: acctext/gf
           dockerfile: core/gf/Dockerfile
+          containerRegistry: dockerhub
+          tags: |
+            latest
+          arguments: --build-arg BUILDKIT_INLINE_CACHE=1
+
+      - task: Docker@2
+        displayName: Push gf image
+        inputs:
+          command: push
+          repository: acctext/gf
           containerRegistry: dockerhub
           tags: |
             latest
