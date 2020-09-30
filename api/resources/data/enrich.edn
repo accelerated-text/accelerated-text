@@ -1,5 +1,5 @@
 [{:filename-pattern #regex"^.+$"
-  :fields           [{:name-pattern    #regex".*[Aa]ccount.+"
+  :fields           [{:name-pattern    #regex".*[Aa]ccount.*"
                       :transformations [{:function :api.nlg.enrich.data.transformations/custom-rearrange-1}]}
                      {:name-pattern    #regex"Amount.*"
                       :transformations [{:function :api.nlg.enrich.data.transformations/rough-estimation
