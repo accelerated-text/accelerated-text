@@ -58,7 +58,7 @@
               (cond-> g
                       (and (contains? #{:amr :frame} node-type)
                            (zero? (count (get-successors g node))))
-                      (graph/remove-nodes g node))))
+                      (graph/remove-nodes node))))
           g
           (alg/post-traverse g root-id)))
 
