@@ -1,8 +1,4 @@
-#:acc-text.nlg.semantic-graph{:id          "PJykgaiYbOXwIhVi"
-                              :name        "Untitled plan"
-                              :category    "Str"
-                              :description ""
-                              :relations   ({:from :01 :to :02 :role :segment :index 0}
+#:acc-text.nlg.semantic-graph{:relations   ({:from :01 :to :02 :role :segment :index 0}
                                             {:from :02 :to :03 :role :instance :index 0}
                                             {:from :03 :to :04 :role :item :index 0}
                                             {:from :03 :to :06 :role :item :index 1}
