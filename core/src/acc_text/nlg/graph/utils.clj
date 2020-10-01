@@ -46,11 +46,27 @@
 (defn find-root-id [g]
   (ffirst (find-nodes g {:type :document-plan})))
 
-(defn prune-graph [g]
+(defn prune-detached-nodes [g root-id]
   (apply graph/remove-nodes g
          (set/difference
-           (into #{} (graph/nodes g))
-           (into #{} (alg/bf-traverse g (find-root-id g))))))
+           (set (graph/nodes g))
+           (alg/bf-traverse g root-id))))
+
+(defn prune-empty-amrs [g root-id]
+  (reduce (fn [g node]
+            (let [{node-type :type} (attrs g node)]
+              (cond-> g
+                      (and (contains? #{:amr :frame} node-type)
+                           (zero? (count (get-successors g node))))
+                      (graph/remove-nodes g node))))
+          g
+          (alg/post-traverse g root-id)))
+
+(defn prune-graph [g]
+  (let [root-id (find-root-id g)]
+    (-> g
+        (prune-detached-nodes root-id)
+        (prune-empty-amrs root-id))))
 
 (defn add-concept-position [g]
   (reduce (fn [g [node-id position]]
