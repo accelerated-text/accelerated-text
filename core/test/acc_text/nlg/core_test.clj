@@ -99,3 +99,12 @@
         context (test-utils/load-test-context "template-amr")]
     (is (= ["A house is built to last. An object is built to last."]
            (map :text (core/generate-text semantic-graph context "Eng"))))))
+
+(deftest ^:integration empty-amr-pruning
+  (let [semantic-graph (test-utils/load-test-semantic-graph "sequence-with-amrs")
+        semantic-graph-with-empty-amr (test-utils/load-test-semantic-graph "sequence-with-amrs-empty")
+        context (test-utils/load-test-context "sequence-with-amrs")]
+    (is (= ["There is a thing, there is an other thing and there is a third thing."]
+           (map :text (core/generate-text semantic-graph context "Eng"))))
+    (is (= ["There is a thing and there is an other thing."]
+           (map :text (core/generate-text semantic-graph-with-empty-amr context "Eng"))))))

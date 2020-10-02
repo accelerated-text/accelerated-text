@@ -1,0 +1,17 @@
+#:acc-text.nlg.semantic-graph{:relations   ({:from :01 :to :02 :role :segment :index 0}
+                                            {:from :02 :to :03 :role :instance :index 0}
+                                            {:from :03 :to :04 :role :item :index 0}
+                                            {:from :03 :to :06 :role :item :index 1}
+                                            {:from :03 :to :08 :role :item :index 2}
+                                            {:from :04 :to :05 :role :arg :index 0 :category "Cl" :name "item"}
+                                            {:from :06 :to :07 :role :arg :index 0 :category "Cl" :name "item"}
+                                            {:from :08 :to :09 :role :arg :index 0 :category "Cl" :name "item"})
+                              :concepts    ({:id :01 :type :document-plan}
+                                            {:id :02 :type :segment}
+                                            {:id :03 :type :sequence}
+                                            {:id :04 :type :amr :name "qxfvSDpDWcnuFRuG" :category "Str"}
+                                            {:id :05 :type :quote :value "thing" :category "Str"}
+                                            {:id :06 :type :amr :name "qxfvSDpDWcnuFRuG" :category "Str"}
+                                            {:id :07 :type :quote :value "other thing" :category "Str"}
+                                            {:id :08 :type :amr :name "qxfvSDpDWcnuFRuG" :category "Str"}
+                                            {:id :09 :type :quote :value "third thing" :category "Str"})}

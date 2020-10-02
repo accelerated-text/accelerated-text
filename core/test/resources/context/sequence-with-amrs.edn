@@ -1,0 +1,64 @@
+{:amr [#:acc-text.nlg.semantic-graph{:id          "qxfvSDpDWcnuFRuG"
+                                     :name        "there is a ..."
+                                     :category    "Str"
+                                     :description ""
+                                     :relations   ({:from :01 :to :02 :role :frame :index 0}
+                                                   {:from :02 :to :03 :role :instance :index 0}
+                                                   {:from :03 :to :04 :role :statement :index 0}
+                                                   {:from :04 :to :05 :role :predicate}
+                                                   {:from :04 :to :06 :role :then-expression}
+                                                   {:from :06 :to :07 :role :arg :index 0 :category "Cl" :name "Cl"})
+                                     :concepts    ({:id :01 :type :document-plan}
+                                                   {:id :02 :type :frame}
+                                                   {:id :03 :type :condition}
+                                                   {:id :04 :type :if-statement}
+                                                   {:id :05 :type :reference :name "item"}
+                                                   {:id :06 :type :amr :name "pSAnTsFZYYMEfoKs" :category "S"}
+                                                   {:id :07 :type :reference :name "item" :category "Cl"})}
+       #:acc-text.nlg.semantic-graph{:id          "pSAnTsFZYYMEfoKs"
+                                     :name        "S"
+                                     :category    "S"
+                                     :description ""
+                                     :relations   ({:from :01 :to :02 :role :frame :index 0 :category "S"}
+                                                   {:from :02 :to :03 :role :instance :index 0 :category "S"}
+                                                   {:from :03 :to :07 :role :arg :index 3 :category "Cl" :name "Cl"}
+                                                   {:from :07 :to :08 :role :statement :index 0 :category "Cl"}
+                                                   {:from :07 :to :11 :role :statement :index 1 :category "Cl"}
+                                                   {:from :08 :to :09 :role :predicate :category "Cl"}
+                                                   {:from :08 :to :10 :role :then-expression :category "Cl"}
+                                                   {:from :11 :to :12 :role :then-expression :category "Cl"}
+                                                   {:from :12 :to :13 :role :arg :index 0 :category "VP" :name "VP"}
+                                                   {:from :13 :to :14 :role :arg :index 0 :category "V2" :name "V2"}
+                                                   {:from :13 :to :15 :role :arg :index 1 :category "NP" :name "NP"})
+                                     :concepts    ({:id :01 :type :document-plan :category "S"}
+                                                   {:id :02 :type :frame :category "S"}
+                                                   {:id       :03
+                                                    :type     :operation
+                                                    :name     "mkS"
+                                                    :category "S"
+                                                    :module   "Syntax"}
+                                                   {:id :07 :type :condition :category "Cl"}
+                                                   {:id :08 :type :if-statement :category "Cl"}
+                                                   {:id :09 :type :reference :name "Cl" :category "Cl"}
+                                                   {:id :10 :type :reference :name "Cl" :category "Cl"}
+                                                   {:id :11 :type :else-statement :category "Cl"}
+                                                   {:id       :12
+                                                    :type     :operation
+                                                    :name     "genericCl"
+                                                    :category "Cl"
+                                                    :module   "Syntax"}
+                                                   {:id       :13
+                                                    :type     :operation
+                                                    :name     "mkVP"
+                                                    :category "VP"
+                                                    :module   "Syntax"}
+                                                   {:id       :14
+                                                    :type     :operation
+                                                    :name     "have_V2"
+                                                    :category "V2"
+                                                    :module   "Syntax"}
+                                                   {:id       :15
+                                                    :type     :operation
+                                                    :name     "it_NP"
+                                                    :category "NP"
+                                                    :module   "Syntax"})}]}
