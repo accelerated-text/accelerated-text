@@ -1,0 +1,3 @@
+[#:data.spec.reader-model{:code "NC" :name "New customer"}
+ #:data.spec.reader-model{:code "DC" :name "Discount customer"}
+ #:data.spec.reader-model{:code "LC" :name "Loyal customer"}]

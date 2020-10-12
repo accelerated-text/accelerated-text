@@ -1,0 +1,7 @@
+[#:data.spec.reader-model{:code "Eng" :flag "🇬🇧" :name "English" :available? true}
+ #:data.spec.reader-model{:code "Ger" :flag "🇩🇪" :name "German"}
+ #:data.spec.reader-model{:code "Est" :flag "🇪🇪" :name "Estonian"}
+ #:data.spec.reader-model{:code "Lav" :flag "🇱🇻" :name "Latvian"}
+ #:data.spec.reader-model{:code "Lit" :flag "🇱🇹" :name "Lithuanian"}
+ #:data.spec.reader-model{:code "Rus" :flag "🇷🇺" :name "Russian"}
+ #:data.spec.reader-model{:code "Spa" :flag "🇪🇸" :name "Spanish"}]
