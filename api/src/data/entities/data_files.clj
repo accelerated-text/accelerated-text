@@ -1,11 +1,11 @@
 (ns data.entities.data-files
   (:require [api.config :refer [conf]]
             [clojure.data.csv :as csv]
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]
             [data.db :as db]
             [data.utils :as utils]
-            [clojure.tools.logging :as log]
-            [mount.core :refer [defstate]]
-            [clojure.string :as str]))
+            [mount.core :refer [defstate]]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 
@@ -17,23 +17,40 @@
     (db/write! data-files-db id data-file)
     id))
 
+(defn read-data-file [key]
+  (db/read! data-files-db key))
+
+(defn parse-data
+  ([data] (parse-data data 0 Integer/MAX_VALUE))
+  ([data offset limit]
+   (when (some? data)
+     (let [[header & rows] (->> (get data :content) (csv/read-csv) (map #(map str/trim %)))]
+       {:filename (get data :filename)
+        :header   (vec header)
+        :rows     (take limit (drop offset rows))
+        :offset   offset
+        :limit    limit
+        :total    (count rows)}))))
+
 (defn fetch [id offset limit]
-  (when-let [{content :content file-name :filename} (db/read! data-files-db id)]
-    (let [rows (csv/read-csv content)
-          field-names (first rows)
-          records (rest rows)]
-      {:id           id
-       :fileName     file-name
-       :fieldNames   field-names
-       :records      (for [[row record] (->> (map vector (range) records) (drop offset) (take limit))]
-                       {:id     (str id ":" row)
-                        :fields (for [[column field-name value] (map vector (range) field-names record)]
-                                  {:id        (str id ":" row ":" column)
-                                   :fieldName field-name
-                                   :value     value})})
-       :recordOffset offset
-       :recordLimit  limit
-       :recordCount  (count records)})))
+  (when-let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data offset limit))]
+    {:id           id
+     :fileName     filename
+     :fieldNames   header
+     :records      (map (fn [row record]
+                          {:id     (str id ":" row)
+                           :fields (map (fn [column field-name value]
+                                          {:id        (str id ":" row ":" column)
+                                           :fieldName field-name
+                                           :value     value})
+                                        (range)
+                                        header
+                                        record)})
+                        (range offset (+ offset limit))
+                        rows)
+     :recordOffset offset
+     :recordLimit  limit
+     :recordCount  total}))
 
 (defn listing [offset limit recordOffset recordLimit]
   (let [data-files (db/list! data-files-db Integer/MAX_VALUE)]
@@ -43,14 +60,6 @@
      :offset     offset
      :limit      limit
      :totalCount (count data-files)}))
-
-(defn read-data-file-content [_ key]
-  (:content (db/read! data-files-db key)))
-
-(defn get-data [user key]
-  (when-let [content (read-data-file-content user key)]
-    (let [[header & rows] (->> content (csv/read-csv) (map #(map str/trim %)))]
-      (map #(zipmap header %) rows))))
 
 (defn data-file-path []
   (or (System/getenv "DATA_FILES") "resources/data-files"))

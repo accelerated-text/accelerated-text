@@ -29,8 +29,8 @@
 
 (defn get-data-row [data-id index]
   (when-not (str/blank? data-id)
-    (if-let [data (data-files/get-data "user" data-id)]
-      (nth data index)
+    (if-let [{[{fields :fields}] :records} (data-files/fetch data-id index 1)]
+      (zipmap (map :fieldName fields) (map :value fields))
       (log/errorf "Data with id `%s` not found" data-id))))
 
 (defn get-document-plan [{id :documentPlanId name :documentPlanName}]
