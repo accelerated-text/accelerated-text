@@ -5,7 +5,7 @@
             [data.spec.result.row :as row]
             [data.spec.result.annotation :as annotation]))
 
-(def default-format-type "annotated-text")
+(def default-format-type "annotated-text-shallow")
 
 (defn show-flags? []
   (Boolean/valueOf ^String (or (System/getenv "SHOW_FLAGS") "true")))
@@ -54,6 +54,17 @@
                                                       annotations))}]}]}) ;; TODO
        rows))
 
+(defn ->annotated-text-shallow-format [{rows ::result/rows}]
+  (map (fn [{text ::row/text :as row}]
+         {:type        "ANNOTATED_TEXT"
+          :id          (utils/gen-uuid)
+          :annotations []
+          :references  []
+          :children    [{:type "PARAGRAPH"
+                         :id   (utils/gen-uuid)
+                         :text (str/join " " (conj (mapv :text (get-flags row)) text))}]})
+       rows))
+
 (defn ->error [{::result/keys [error-message]}]
   (cond-> []
           (and
@@ -73,6 +84,7 @@
   (case format-type
     "raw" (->raw-format result)
     "annotated-text" (->annotated-text-format result)
+    "annotated-text-shallow" (->annotated-text-shallow-format result)
     "error" (->error result)))
 
 (defn with-default-format [result]
