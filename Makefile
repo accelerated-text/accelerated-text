@@ -25,6 +25,11 @@ clean:
 npm-audit:
 	${FRONT_END_MAKE} npm-audit
 
+pull-latest-mages:
+	docker pull acctext/gf
+	docker pull acctext/api
+	docker pull acctext/frontend
+
 run-app:
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml down && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.front-end.yml up --remove-orphans
