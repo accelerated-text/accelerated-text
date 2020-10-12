@@ -18,9 +18,10 @@
   (d/pull (d/db conn) pattern [::reader-model/code code]))
 
 (defn pull-n [conn limit]
-  (->> (d/db conn)
-       (d/q '[:find (pull ?e pattern)
+  (->> (d/q '[:find (pull ?e pattern)
               :in $ pattern
-              :where [?e ::reader-model/code]])
+              :where [?e ::reader-model/code]]
+            (d/db conn)
+            pattern)
        (map first)
        (take limit)))
