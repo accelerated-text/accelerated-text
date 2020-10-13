@@ -108,3 +108,13 @@
            (map :text (core/generate-text semantic-graph context "Eng"))))
     (is (= ["There is a thing and there is an other thing."]
            (map :text (core/generate-text semantic-graph-with-empty-amr context "Eng"))))))
+
+(deftest ^:integration unknown-language-generation
+  (let [semantic-graph (test-utils/load-test-semantic-graph "unknown-language-test")]
+    (is (= ["Test."] (map :text (core/generate-text semantic-graph {} "Eng"))))
+    (is (= ["Testas."] (map :text (core/generate-text semantic-graph {} "Lit"))))))
+
+(deftest ^:integration reader-model-test
+  (let [semantic-graph (test-utils/load-test-semantic-graph "reader-model-test")]
+    (is (= ["Some text... Some text for specific reader..."]
+           (map :text (core/generate-text semantic-graph {:readers #{"Dc"}} "Eng"))))))

@@ -1,0 +1,21 @@
+#:acc-text.nlg.semantic-graph{:category  "Str"
+                              :relations ({:from :01 :to :02 :role :segment :index 0}
+                                          {:from :02 :to :03 :role :instance :index 0}
+                                          {:from :02 :to :04 :role :instance :index 1}
+                                          {:from :04 :to :05 :role :statement :index 0}
+                                          {:from :05 :to :06 :role :predicate}
+                                          {:from :05 :to :09 :role :then-expression}
+                                          {:from :06 :to :07 :role :comparable :index 0}
+                                          {:from :06 :to :08 :role :comparable :index 1})
+                              :concepts  ({:id :01 :type :document-plan}
+                                          {:id :02 :type :segment}
+                                          {:id :03 :type :quote :value "some text..." :category "Str"}
+                                          {:id :04 :type :condition}
+                                          {:id :05 :type :if-statement}
+                                          {:id :06 :type :comparator :value "in"}
+                                          {:id :07 :type :constant :name "*Reader"}
+                                          {:id :08 :type :quote :value "Dc" :category "Str"}
+                                          {:id       :09
+                                           :type     :quote
+                                           :value    "some text for specific reader..."
+                                           :category "Str"})}

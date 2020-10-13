@@ -290,7 +290,7 @@
 
           {:db/ident       :data.spec.result.row/readers
            :db/valueType   :db.type/string
-           :db/cardinality :db.cardinality/one
+           :db/cardinality :db.cardinality/many
            :db/doc         "Intended readers of the generated text"}
 
           {:db/ident       :data.spec.result.row/enriched?
