@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.graph.utils :refer [find-nodes get-successors add-edges remove-edges]]
             [clojure.string :as str]
             [loom.attr :refer [attrs]]
-            [loom.graph :as graph]
-            [clojure.tools.logging :as log]))
+            [loom.graph :as graph]))
 
 (defn string->boolean [s]
   (when-not (str/blank? s)
@@ -51,7 +50,6 @@
 (defmethod evaluate-predicate :default [_ _ _] true)
 
 (defmethod evaluate-predicate :comparator [g node-id {:keys [data constants]}]
-  (log/spy :info constants)
   (let [operator (:value (attrs g node-id))
         successors (get-successors g node-id)]
     (when (every? #(contains? #{:data :quote :constant} (:type (attrs g %))) successors)
