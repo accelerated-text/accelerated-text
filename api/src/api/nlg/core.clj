@@ -30,36 +30,39 @@
          :enriched? (true? enriched?)
          :text      (cond->> text (enable-ref-expr?) (apply-ref-expressions language))})
 
+(defn select-enabled-readers [reader-model]
+  (let [{:keys [language reader]} (->> reader-model (filter ::reader-model/enabled?) (group-by ::reader-model/type))]
+    {:languages (set (map ::reader-model/code language))
+     :readers   (set (map ::reader-model/code reader))}))
+
 (defn generate-text
   [{:keys [id document-plan data reader-model] :or {id (utils/gen-uuid) data {} reader-model (available-reader-model)}}]
-  (let [{:keys [language reader]} (->> reader-model (filter ::reader-model/enabled?) (group-by ::reader-model/type))
-        readers (set (map ::reader-model/code reader))
-        languages (set (map ::reader-model/code language))
+  (let [{:keys [languages readers]} (select-enabled-readers reader-model)
         semantic-graph (document-plan->semantic-graph document-plan)
         amrs (find-amrs semantic-graph)
         semantic-graphs (cons semantic-graph amrs)
         dictionary-keys (set (concat (vals data) (mapcat get-dictionary-keys semantic-graphs)))
-        dictionaries (build-dictionaries dictionary-keys (map ::reader-model/code languages))]
-    (log/spy :info #::result{:id     id
-                             :status :ready
-                             :rows   (transduce
-                                       (comp
-                                         (mapcat (fn [lang]
-                                                   (let [context {:amr        amrs
-                                                                  :data       data
-                                                                  :readers    readers
-                                                                  :dictionary (get dictionaries lang [])}]
-                                                     (cond-> (nlg/generate-text semantic-graph context lang)
-                                                             (and (= "Eng" lang) (enable-enrich?)) (enrich data)))))
-                                         (remove #(str/blank? (:text %)))
-                                         (map ->result-row)
-                                         (map add-annotations))
-                                       conj
-                                       (distinct (map ::reader-model/code language)))})
-    #_(try
-        (catch Exception e
-          (log/error (.getMessage e))
-          (log/trace (str/join "\n" (.getStackTrace e)))
-          #::result{:id            id
-                    :status        :error
-                    :error-message (or (.getMessage e) "")}))))
+        dictionaries (build-dictionaries dictionary-keys languages)]
+    (try
+      #::result{:id     id
+                :status :ready
+                :rows   (transduce
+                          (comp
+                            (mapcat (fn [lang]
+                                      (let [context {:amr        amrs
+                                                     :data       data
+                                                     :readers    readers
+                                                     :dictionary (get dictionaries lang [])}]
+                                        (cond-> (nlg/generate-text semantic-graph context lang)
+                                                (and (= "Eng" lang) (enable-enrich?)) (enrich data)))))
+                            (remove #(str/blank? (:text %)))
+                            (map ->result-row)
+                            (map add-annotations))
+                          conj
+                          languages)}
+      (catch Exception e
+        (log/error (.getMessage e))
+        (log/trace (str/join "\n" (.getStackTrace e)))
+        #::result{:id            id
+                  :status        :error
+                  :error-message (or (.getMessage e) "")}))))
