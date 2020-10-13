@@ -15,15 +15,23 @@
   (db/write! reader-model-db lang)
   (fetch (::reader-model/code lang)))
 
-(defn list-readers
-  ([] (list-readers 100))
+(defn list-reader-model
+  ([] (list-reader-model 100))
   ([limit]
-   (filter #(= (::reader-model/type %) :reader) (db/list! reader-model-db limit))))
+   (db/list! reader-model-db limit)))
 
-(defn list-languages
-  ([] (list-languages 100))
-  ([limit]
-   (filter #(= (::reader-model/type %) :language) (db/list! reader-model-db limit))))
+(defn available-readers []
+  (filter (fn [{::reader-model/keys [type available?]}]
+            (and (= type :reader) (true? available?)))
+          (list-reader-model)))
+
+(defn available-languages []
+  (filter (fn [{::reader-model/keys [type available?]}]
+            (and (= type :language) (true? available?)))
+          (list-reader-model)))
+
+(defn available-reader-model []
+  (filter #(true? (::reader-model/available? %)) (list-reader-model)))
 
 (defstate reader-conf :start
   (->> "config/readers.edn"

@@ -17,6 +17,7 @@
            {::result/rows [::result-row/id
                            ::result-row/text
                            ::result-row/language
+                           ::result-row/readers
                            ::result-row/enriched?
                            {::result-row/annotations [::result-annotation/id
                                                       ::result-annotation/idx

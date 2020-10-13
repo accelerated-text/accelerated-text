@@ -2,7 +2,7 @@
   (:require [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [api.graphql.translate.dictionary :as dict-translate]
             [clojure.tools.logging :as log]
-            [data.spec.language :as lang]))
+            [data.spec.reader-model :as reader-model]))
 
 (defn reader-flag-usage->schema [id [k v]]
   (log/debugf "Got: k=%s v=%s" k v)
@@ -16,9 +16,9 @@
   {:id              id
    :text            value
    :defaultUsage    (if default? "YES" "NO")
-   :readerFlagUsage (dict-translate/build-lang-user-flags language)})
+   :readerFlagUsage (dict-translate/build-reader-model-user-flags language)})
 
-(defn language->reader-flag [{::lang/keys [code name enabled?]}]
+(defn reader-model->reader-flag [{::reader-model/keys [code name enabled?]}]
   {:id           code
    :name         name
    :defaultUsage (if (true? enabled?) "YES" "NO")})

@@ -22,6 +22,7 @@
   (map (fn [{:keys [text]}]
          {:text     text
           :language lang
+          :readers  (:readers context)
           :tokens   (nlp/annotate text)})
        (-> semantic-graph
            (grammar/build-grammar (build-context context lang))
