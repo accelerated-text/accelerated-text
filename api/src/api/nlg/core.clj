@@ -10,7 +10,7 @@
             [clojure.tools.logging :as log]
             [data.entities.amr :refer [find-amrs]]
             [data.entities.dictionary :refer [build-dictionaries]]
-            [data.entities.reader-model :refer [available-reader-model]]
+            [data.entities.reader-model :refer [available-reader-model available-readers]]
             [data.spec.reader-model :as reader-model]
             [data.spec.result :as result]
             [data.spec.result.annotation :as annotation]
@@ -31,9 +31,10 @@
          :text      (cond->> text (enable-ref-expr?) (apply-ref-expressions language))})
 
 (defn select-enabled-readers [reader-model]
-  (let [{:keys [language reader]} (->> reader-model (filter ::reader-model/enabled?) (group-by ::reader-model/type))]
+  (let [{:keys [language reader]} (->> reader-model (filter ::reader-model/enabled?) (group-by ::reader-model/type))
+        default-readers (filter ::reader-model/enabled? (available-readers))]
     {:languages (set (map ::reader-model/code language))
-     :readers   (set (map ::reader-model/code reader))}))
+     :readers   (set (map ::reader-model/code (cond-> reader (not (seq reader)) (concat default-readers))))}))
 
 (defn generate-text
   [{:keys [id document-plan data reader-model] :or {id (utils/gen-uuid) data {} reader-model (available-reader-model)}}]
