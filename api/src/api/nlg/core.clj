@@ -10,8 +10,8 @@
             [clojure.tools.logging :as log]
             [data.entities.amr :refer [find-amrs]]
             [data.entities.dictionary :refer [build-dictionaries]]
-            [data.entities.language :refer [list-languages]]
-            [data.spec.language :as lang]
+            [data.entities.reader-model :refer [available-reader-model]]
+            [data.spec.reader-model :as reader-model]
             [data.spec.result :as result]
             [data.spec.result.annotation :as annotation]
             [data.spec.result.row :as row]))
@@ -23,27 +23,36 @@
                                                      :text text})
                                      (nlp/annotate text))))
 
-(defn ->result-row [{:keys [text language enriched?]}]
+(defn ->result-row [{:keys [text language readers enriched?]}]
   #::row{:id        (utils/gen-uuid)
          :language  language
+         :readers   readers
          :enriched? (true? enriched?)
          :text      (cond->> text (enable-ref-expr?) (apply-ref-expressions language))})
 
+(defn select-enabled-readers [reader-model]
+  (let [{:keys [language reader]} (->> reader-model (filter ::reader-model/enabled?) (group-by ::reader-model/type))]
+    {:languages (set (map ::reader-model/code language))
+     :readers   (set (map ::reader-model/code reader))}))
+
 (defn generate-text
-  [{:keys [id document-plan data languages] :or {id (utils/gen-uuid) data {} languages (list-languages)}}]
-  (let [semantic-graph (document-plan->semantic-graph document-plan)
+  [{:keys [id document-plan data reader-model] :or {id (utils/gen-uuid) data {} reader-model (available-reader-model)}}]
+  (let [{:keys [languages readers]} (select-enabled-readers reader-model)
+        semantic-graph (document-plan->semantic-graph document-plan)
         amrs (find-amrs semantic-graph)
         semantic-graphs (cons semantic-graph amrs)
         dictionary-keys (set (concat (vals data) (mapcat get-dictionary-keys semantic-graphs)))
-        dictionaries (build-dictionaries dictionary-keys (map ::lang/code languages))]
+        dictionaries (build-dictionaries dictionary-keys languages)]
     (try
       #::result{:id     id
                 :status :ready
                 :rows   (transduce
                           (comp
-                            (filter #(true? (::lang/enabled? %)))
-                            (mapcat (fn [{lang ::lang/code}]
-                                      (let [context {:amr amrs :data data :dictionary (get dictionaries lang [])}]
+                            (mapcat (fn [lang]
+                                      (let [context {:amr        amrs
+                                                     :data       data
+                                                     :readers    readers
+                                                     :dictionary (get dictionaries lang [])}]
                                         (cond-> (nlg/generate-text semantic-graph context lang)
                                                 (and (= "Eng" lang) (enable-enrich?)) (enrich data)))))
                             (remove #(str/blank? (:text %)))

@@ -1,6 +1,8 @@
 (ns api.nlg.format
   (:require [api.utils :as utils]
             [clojure.string :as str]
+            [data.entities.reader-model :as reader-model-entity]
+            [data.spec.reader-model :as reader-model]
             [data.spec.result :as result]
             [data.spec.result.row :as row]
             [data.spec.result.annotation :as annotation]))
@@ -18,20 +20,19 @@
                     :id   "ENRICHED"
                     :text "📙"})
 
-(defn get-flag [lang]
+(defn get-lang-flag [code]
   {:type "FLAG"
-   :id   lang
-   :text (case lang
-           "Eng" "🇬🇧"
-           "Ger" "🇩🇪"
-           "Est" "🇪🇪"
-           "Lav" "🇱🇻"
-           "Rus" "🇷🇺"
-           "Spa" "🇪🇸"
-           "🏳️")})
+   :id   code
+   :text (or (::reader-model/flag (reader-model-entity/fetch code)) "🏳️")})
 
-(defn get-flags [{::row/keys [language enriched?]}]
-  (cond-> [(get-flag language)]
+(defn get-reader-flag [code]
+  (when-let [reader (reader-model-entity/fetch code)]
+    {:type "FLAG"
+     :id   code
+     :text (::reader-model/flag reader)}))
+
+(defn get-flags [{::row/keys [language enriched? readers]}]
+  (cond-> (cons (get-lang-flag language) (filter some? (map get-reader-flag readers)))
           (true? enriched?) (conj enriched-flag)))
 
 (defn ->annotated-text-format [{rows ::result/rows}]

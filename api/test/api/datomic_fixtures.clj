@@ -5,7 +5,7 @@
             [data.entities.data-files]
             [data.entities.dictionary]
             [data.entities.document-plan]
-            [data.entities.language]
+            [data.entities.reader-model]
             [data.entities.results]
             [datomic.api :as d]
             [mount.core :as mount])
@@ -31,9 +31,9 @@
         (mount/only #{#'api.config/conf
                       #'data.entities.data-files/data-files-db
                       #'data.entities.document-plan/document-plans-db
-                      #'data.entities.language/language
-                      #'data.entities.language/language-db
-                      #'data.entities.language/language-names
+                      #'data.entities.reader-model/reader-model-db
+                      #'data.entities.reader-model/reader-conf
+                      #'data.entities.reader-model/language-conf
                       #'data.entities.dictionary/dictionary-db
                       #'data.entities.results/results-db
                       #'data.datomic.impl/conn})

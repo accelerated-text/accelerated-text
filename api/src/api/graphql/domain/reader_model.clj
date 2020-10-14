@@ -4,19 +4,19 @@
             [clojure.string :as str]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.entities.dictionary :as dict-entity]
-            [data.entities.language :as lang-entity]))
+            [data.entities.reader-model :as reader-model-entity]))
 
 (defn reader-model [_ _ _]
   (resolve-as
     {:id    "default"
-     :flags (map rm-translate/language->reader-flag (lang-entity/list-languages))}))
+     :flags (map rm-translate/reader-model->reader-flag (reader-model-entity/available-languages))}))
 
 (defn- resolve-as-not-found-reader-flag [id]
   (resolve-as nil {:message (format "Cannot find reader flag with id `%s`." id)}))
 
 (defn reader-flag [_ {:keys [id]} _]
-  (if-let [item (lang-entity/fetch id)]
-    (resolve-as (rm-translate/language->reader-flag item))
+  (if-let [item (reader-model-entity/fetch id)]
+    (resolve-as (rm-translate/reader-model->reader-flag item))
     (resolve-as-not-found-reader-flag id)))
 
 (defn update-reader-flag-usage [_ {:keys [id usage]} _]

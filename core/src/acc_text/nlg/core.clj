@@ -4,12 +4,14 @@
             [acc-text.nlg.gf.service :as gf-service]
             [acc-text.nlg.grammar :as grammar]
             [clojure.tools.logging :as log]
-            [acc-text.nlp.utils :as nlp]))
+            [acc-text.nlp.utils :as nlp]
+            [clojure.string :as str]))
 
 (defn build-context [context lang]
   (-> context
       (update :amr #(zipmap (map ::sg/id %) %))
-      (assoc :constants {"*Language" lang})
+      (assoc :constants {"*Language" lang
+                         "*Reader"   (str/join "," (:readers context))})
       (update :dictionary #(zipmap (map (fn [{::dictionary-item/keys [key category]}]
                                           [key category])
                                         %)
@@ -22,6 +24,7 @@
   (map (fn [{:keys [text]}]
          {:text     text
           :language lang
+          :readers  (:readers context)
           :tokens   (nlp/annotate text)})
        (-> semantic-graph
            (grammar/build-grammar (build-context context lang))

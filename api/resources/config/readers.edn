@@ -1,0 +1,3 @@
+[#:data.spec.reader-model{:code "Nc" :name "New customer" :available? true}
+ #:data.spec.reader-model{:code "Dc" :name "Discount customer" :available? true}
+ #:data.spec.reader-model{:code "Lc" :name "Loyal customer" :available? true}]

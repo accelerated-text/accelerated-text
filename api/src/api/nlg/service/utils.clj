@@ -3,7 +3,7 @@
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as dp]
-            [data.entities.language :as lang]))
+            [data.entities.reader-model :as reader-model]))
 
 (defn error-response
   ([exception] (error-response exception nil))
@@ -39,7 +39,9 @@
     (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans "Document"))
     :else (throw (Exception. "Must provide either document plan id or document plan name."))))
 
-(defn reader-model->languages [reader-model]
+(defn form-reader-model [reader-model]
   (map (fn [[code enabled?]]
-         (lang/get-language code enabled?))
+         (if-let [rm (reader-model/fetch code)]
+           (assoc rm :data.spec.reader-model/enabled? enabled?)
+           (throw (Exception. (format "Unknown reader model: `%s`" code)))))
        reader-model))

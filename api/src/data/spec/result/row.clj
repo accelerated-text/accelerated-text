@@ -8,6 +8,8 @@
 
 (s/def ::language #{"Eng" "Est" "Ger" "Lav" "Rus"})
 
+(s/def ::readers (s/coll-of string?))
+
 (s/def ::enriched? boolean?)
 
 (s/def ::annotation (s/keys ::req [::annotation/id ::annotation/idx ::annotation/text]))

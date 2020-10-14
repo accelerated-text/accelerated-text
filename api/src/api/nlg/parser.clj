@@ -9,7 +9,7 @@
             [data.entities.document-plan.zip :as dp-zip]
             [data.utils :as utils]))
 
-(def constants #{"*Language" "*Definition"})
+(def constants #{"*Language" "*Definition" "*Reader"})
 
 (defmulti build-semantic-graph (fn [{type :type concept-id :conceptId} {kind :kind}]
                                  (keyword
