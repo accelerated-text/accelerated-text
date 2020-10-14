@@ -10,7 +10,7 @@
             [clojure.tools.logging :as log]
             [data.entities.amr :refer [find-amrs]]
             [data.entities.dictionary :refer [build-dictionaries]]
-            [data.entities.reader-model :refer [available-reader-model available-readers]]
+            [data.entities.reader-model :refer [available-reader-model]]
             [data.spec.reader-model :as reader-model]
             [data.spec.result :as result]
             [data.spec.result.annotation :as annotation]
