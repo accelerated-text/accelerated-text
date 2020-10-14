@@ -31,10 +31,9 @@
          :text      (cond->> text (enable-ref-expr?) (apply-ref-expressions language))})
 
 (defn select-enabled-readers [reader-model]
-  (let [{:keys [language reader]} (->> reader-model (filter ::reader-model/enabled?) (group-by ::reader-model/type))
-        default-readers (filter ::reader-model/enabled? (available-readers))]
+  (let [{:keys [language reader]} (->> reader-model (filter ::reader-model/enabled?) (group-by ::reader-model/type))]
     {:languages (set (map ::reader-model/code language))
-     :readers   (set (map ::reader-model/code (cond-> reader (not (seq reader)) (concat default-readers))))}))
+     :readers   (set (map ::reader-model/code reader))}))
 
 (defn generate-text
   [{:keys [id document-plan data reader-model] :or {id (utils/gen-uuid) data {} reader-model (available-reader-model)}}]

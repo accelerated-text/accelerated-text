@@ -18,6 +18,7 @@ services:
       DICT_PATH: "/opt/dictionary"
       DOCUMENT_PLANS: "/opt/document-plans"
       ENABLED_LANGUAGES: "Eng"
+      ENABLED_READERS: ""
     volumes:
       - ./api/resources:/opt
     depends_on:
