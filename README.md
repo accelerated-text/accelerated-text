@@ -84,9 +84,6 @@ to produce multiple variations of text exactly expressing what was intended to b
 
 ## Philosophy
 
-> Whereof one cannot speak thereof one must be silent <br>
->   -- _Wittgenstein_
-
 Natural language generation is a broad domain with applications in chat-bots, story generation, and data descriptions to name a few. 
 Accelerated Text focuses on applying NLG technology to solve your *data to text* needs.
 
