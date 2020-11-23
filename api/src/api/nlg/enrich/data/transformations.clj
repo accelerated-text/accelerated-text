@@ -4,9 +4,7 @@
 
 (defn number->words [s {:keys [language scale]
                         :or   {language :en, scale 1/4}}]
-  (when-not (str/blank? s)
-    (let [approx (nw/approximations language (Float/valueOf ^String s) scale)]
-      (:numwords/text (some #(get approx %) [:numwords/equal :numwords/around :numwords/more-than :numwords/less-than])))))
+  (nw/numeric-expression (Integer/valueOf ^String s) scale))
 
 (defn rough-estimation [s {:keys [places] :or {places 0}}]
   (if-not (str/blank? s)
