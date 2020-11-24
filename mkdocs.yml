@@ -21,6 +21,7 @@ nav:
         - Deployment: deployment.md
         - NLG API: nlg-api.md
         - GraphQL API: graphql.md
+        - Data Enrichment: data-enrichment.md
     - Contributing: contributing.md
 markdown_extensions:
     - toc
@@ -29,4 +30,4 @@ markdown_extensions:
 plugins:
     - search
 theme: readthedocs
-copyright: Copyright &copy; 2019 <a href="https://www.tokenmill.ai/">TokenMill UAB</a>.
+copyright: Copyright &copy; 2020 <a href="https://www.tokenmill.ai/">TokenMill UAB</a>.
