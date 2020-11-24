@@ -1,6 +1,6 @@
 (ns data.spec
   (:require [clojure.spec.alpha :as s]
-            [data.spec.language :as language]
+            [data.spec.reader-model :as reader-model]
             [data.spec.result :as result]))
 
 (s/def ::result (s/keys ::req [::result/id ::result/status]
@@ -8,6 +8,9 @@
 
 (s/def ::results (s/coll-of ::result))
 
-(s/def ::language (s/keys ::req [::language/code ::language/name ::language/enabled?]))
-
-(s/def ::languages (s/coll-of ::language))
+(s/def ::reader-model (s/coll-of (s/keys ::req [::reader-model/code
+                                                ::reader-model/name
+                                                ::reader-model/type
+                                                ::reader-model/enabled?]
+                                         ::opt [::reader-model/flag
+                                                ::reader-model/available?])))

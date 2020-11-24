@@ -10,9 +10,20 @@
 
 (def write-mapper (json/object-mapper {:escape-non-ascii true}))
 
+(def default-language "Eng")
+
+(def available-languages #{"Eng" "Ger" "Est" "Lav" "Rus" "Spa"})
+
+(defn check-language [lang]
+  (if (contains? available-languages lang)
+    lang
+    (do
+      (log/warnf "Unknown language `%s`, switching to `%s`" lang default-language)
+      default-language)))
+
 (defn request
   [{::grammar/keys [module instance lincat] :as grammar} lang]
-  (let [payload (generator/generate grammar lang)
+  (let [payload (generator/generate grammar (check-language lang))
         request-url (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
         request-content {:module module :instance instance :content payload}]
     (log/debugf "Compiling grammar via %s" request-url)

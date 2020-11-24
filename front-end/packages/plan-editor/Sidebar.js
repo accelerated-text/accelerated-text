@@ -1,15 +1,16 @@
-import { h }                from 'preact';
+import { h }                 from 'preact';
 
-import AmrConcepts          from '../amr-concepts/AmrConcepts';
-import composeContexts      from '../compose-contexts/';
-import DataManager          from '../data-manager/DataManager';
-import Dictionary           from '../dictionary/Dictionary';
-import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
-import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
-import ReaderConfiguration  from '../reader/Configuration';
-import Sidebar              from '../sidebar/Sidebar';
-import SidebarItem          from '../sidebar/Item';
-import VariantReview        from '../variant-review/VariantReview';
+import AmrConcepts           from '../amr-concepts/AmrConcepts';
+import composeContexts       from '../compose-contexts/';
+import DataManager           from '../data-manager/DataManager';
+import Dictionary            from '../dictionary/Dictionary';
+import OpenedFileContext     from '../accelerated-text/OpenedDataFileContext';
+import OpenedPlanContext     from '../accelerated-text/OpenedPlanContext';
+import ReaderConfiguration   from '../reader/Configuration';
+import LanguageConfiguration from '../reader/LanguageConfiguration';
+import Sidebar               from '../sidebar/Sidebar';
+import SidebarItem           from '../sidebar/Item';
+import VariantReview         from '../variant-review/VariantReview';
 
 
 export default composeContexts({
@@ -35,6 +36,9 @@ export default composeContexts({
             <DataManager plan={ plan } />
         </SidebarItem>
         <SidebarItem title="Language">
+            <LanguageConfiguration />
+        </SidebarItem>
+        <SidebarItem title="Reader Model">
             <ReaderConfiguration />
         </SidebarItem>
         <SidebarItem title="Text Generation Samples">

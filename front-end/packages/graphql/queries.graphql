@@ -79,6 +79,15 @@ query readerFlags {
   }
 }
 
+query languages {
+  languages {
+    id
+    flags {
+      ...readerFlagFields
+    }
+  }
+}
+
 
 ### Dictionary -----------------------------------------------------------------
 

@@ -7,7 +7,7 @@
             [clojure.spec.alpha :as s]
             [clojure.tools.logging :as log]
             [data.spec.result :as result]
-            [data.entities.language :as lang]
+            [data.entities.reader-model :as reader-model]
             [data.entities.results :as results]))
 
 (s/def ::generate-request
@@ -40,7 +40,7 @@
       (results/write (generate-text {:id            result-id
                                      :document-plan document-plan
                                      :data          (or data-row (utils/get-data-row data-id (or row-index 0)) {})
-                                     :languages     (map lang/update! (utils/reader-model->languages reader-model))}))
+                                     :reader-model  (map reader-model/update! (utils/form-reader-model reader-model))}))
       {:status 200
        :body   {:resultId result-id}})
     (catch Exception e
@@ -59,7 +59,7 @@
                    (-> {:id            request-id
                         :document-plan document-plan
                         :data          data-row
-                        :languages     (utils/reader-model->languages reader-model)}
+                        :reader-model  (utils/form-reader-model reader-model)}
                        (generate-text)
                        (results/write))))
            (doall)
