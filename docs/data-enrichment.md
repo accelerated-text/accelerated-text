@@ -1,5 +1,5 @@
 # Purpose
-Raw data can not always be presented in text as is. Numbers might need some formatting, names need cleaning or normalization. With Data Enrichment component a set of data transformation functions can be defined. They will modify the raw data before sending it to the text generation component. 
+Raw data cannot always be presented in text as is. Numbers might need some formatting, names need cleaning or normalization. With Data Enrichment component, a set of data transformation functions can be defined. They will modify the raw data before sending it to the text generation component. 
 
 Let's say we have accounting data like this
 
@@ -8,7 +8,7 @@ Let's say we have accounting data like this
 Gross Sales (ID1220) | 90447 | 82018 | 8429
 Advertising (ID3011) | 1280 | 1982 | -702
 
-When generating text we do not want ID part in the account name and we want the amounts in periods rounded to thousands using bite size formatting plus "USD" is needed at the end. We want something like this
+When generating text we do not want ID part in the account name and we want the amounts in periods rounded to thousands using bite size formatting plus "USD" is needed at the end. We want something like this:
 
  Account | CurrentPeriod (Q2) | PriorPeriod (Q1) 
 ---------|--------------------|-----------------
@@ -17,7 +17,7 @@ Advertising | around 1k USD | around 2k USD | -$702
 
 # Defining transformations
 
-Accelerated Text stores data transformation rules in the `api/resources/config/enrich.edn` file. There might be separate transformation rules for different data types, this is controlled via `filenname-pattern` parameter. Which fields (columns) have to receive which changes is specified under `fields` parameter. Fields in turn is a collection of per field configurations. Configuration file structure is as follows:
+Accelerated Text stores data transformation rules in the `api/resources/config/enrich.edn` file. There might be separate transformation rules for different data types, this is controlled via `filename-pattern` parameter. Which fields (columns) have to receive which changes is specified under `fields` parameter. Fields in turn is a collection of per field configurations. Configuration file structure is as follows:
 
 * `file-pattern` - regular expression defining the file name for which this config will be active
 * `fields` - a collection of field configurations
@@ -33,12 +33,12 @@ Note that `-pattern` fields will take on regular expressions, but their patternl
 The following example configuration does the transformations outlined above. This has to be placed in `api/resources/config/enrich.edn` file for the transformations to take the effect.
 
 ```
-[{:filename-pattern #regex"accounts.csv"
+[{:filename "accounts.csv"
   :fields
-  [{:name-pattern #"Account"
+  [{:name "Account"
     :transformations
     [{:function :api.nlg.enrich.data.transformations/cleanup
-      :args     {:regex#" \(.*?\)" :replacement ""}}]}
+      :args     {:regex #regex" \\(.*?\\)" :replacement ""}}]}
    {:name-pattern #regex".*Period .*"
     :transformations
     [{:function :api.nlg.enrich.data.transformations/number-approximation
@@ -48,7 +48,7 @@ The following example configuration does the transformations outlined above. Thi
                  :relation   :numberwords.domain/around}}
      {:function :api.nlg.enrich.data.transformations/add-symbol
       :args     {:symbol " USD" :position :back}}]}
-   {:name-pattern #regex"Increase"
+   {:name "Increase"
     :transformations
     [{:function :api.nlg.enrich.data.transformations/add-symbol
       :args     {:symbol "$" :position :front :skip #{\- \+}}}]}]}]

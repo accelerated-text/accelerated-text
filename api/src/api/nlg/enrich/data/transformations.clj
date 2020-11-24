@@ -1,19 +1,23 @@
 (ns api.nlg.enrich.data.transformations
   (:require [clojure.string :as str]
+            [clojure.tools.logging :as log]
             [numberwords.core :as nw]))
 
-(defn num->string [n]
-  (if (re-find #"[.,]" n) (Float/valueOf n) (Integer/valueOf n)))
+(defn string->num [^String n]
+  (if (re-find #"[.]" n) (Float/valueOf n) (Integer/valueOf n)))
 
 (defn number-approximation
   "Using Number Words package turn a number to its numeric expression"
   [s {:keys [language scale relation formatting]
       :or   {language   :en
+             scale      10
              relation   :numberwords.domain/around
              formatting :numberwords.domain/bites}}]
-  (if (str/blank? s)
-    ""
-    (nw/numeric-expression (num->string s) scale language relation formatting)))
+  (try
+    (nw/numeric-expression (string->num s) scale language relation formatting)
+    (catch Exception e
+      (log/warnf "Failed number approximation of `%s`: %s" s (.getMessage e))
+      s)))
 
 (defn add-symbol
   "Add extra symbol to the front or the back of the value. Useful to add measurements or currency symbols"
