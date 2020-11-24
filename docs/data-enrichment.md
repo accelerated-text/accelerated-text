@@ -25,6 +25,8 @@ Accelerated Text stores data transformation rules in the `api/resources/data/enr
     * `transformations` - a collection of functions performing transformations
         * `function` - any function which can transform the data (see bellow for the required parameter list for such function)
         * `args` - a map of arguments for the transformation function
+        
+Note that `-pattern` fields will take on regular expressions, but their patternless versions will be used for exact match. Thus `file-pattern` can be replace with `filename` and `name-pattern` with `name`.
 
 # Configuration example
 
