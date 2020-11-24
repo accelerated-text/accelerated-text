@@ -1,12 +1,1 @@
-[{:filename-pattern #regex"^.+$"
-  :fields           [{:name-pattern    #regex"service_.*"
-                      :transformations [{:function :api.nlg.enrich.data.transformations/cleanup
-                                         :args {:regex #"\(.*?\)"} :replace ""}]}
-                     {:name-pattern    #regex"profit_.*"
-                      :transformations [{:function :api.nlg.enrich.data.transformations/number-approximation
-                                         :args     {:scale 100 :language :en :formatting :numberwords.domain/words :relation :numberwords.domain/around}}
-                                        {:function :api.nlg.enrich.data.transformations/add-symbol
-                                         :args     {:symbol "$" :position :front :skip #{\- \+}}}]}
-                     {:name-pattern    #regex"proportion_.*"
-                      :transformations [{:function :api.nlg.enrich.data.transformations/add-symbol
-                                         :args     {:symbol "%"}}]}]}]
+[]
