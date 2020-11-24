@@ -31,11 +31,15 @@
     "xor" (fn [args] (odd? (count (filter true? args))))))
 
 (defn normalize [xs]
-  (->> xs
-       (map #(cond-> % (string? %) (str/trim)))
-       (map #(cond-> % (try
-                         (bigdec %)
-                         (catch Exception _)) (bigdec)))))
+  (letfn [(extract-number [s] (re-find #"[-\d.]+" s))]
+    (sequence
+      (comp
+        (map #(cond-> % (string? %) (str/trim)))
+        (map #(cond-> % (string? %) (-> (extract-number) (or %))))
+        (map #(cond-> % (try
+                          (bigdec %)
+                          (catch Exception _)) (bigdec))))
+      xs)))
 
 (defn comparison [operator args]
   (let [operator-fn (operator->fn operator)

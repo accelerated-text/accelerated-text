@@ -18,7 +18,8 @@ nav:
         - Exporting data: export.md
     - Advanced Topics:
         - Blocks: blocks.md
-        - Reader model: reader-models.md
+        - Reader Model: reader-models.md
+        - Data Enrichment: data-enrichment.md
         - Deployment: deployment.md
         - NLG API: nlg-api.md
         - GraphQL API: graphql.md
@@ -30,4 +31,4 @@ markdown_extensions:
 plugins:
     - search
 theme: readthedocs
-copyright: Copyright &copy; 2019 <a href="https://www.tokenmill.ai/">TokenMill UAB</a>.
+copyright: Copyright &copy; 2020 <a href="https://www.tokenmill.ai/">TokenMill UAB</a>.
