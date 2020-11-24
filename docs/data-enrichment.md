@@ -55,11 +55,13 @@ The following example configuration does the transformations outlined above. Thi
 # Transformation functions
 
 Any custom transformation function can be used as long as it conforms to this specification:
+
 * its first parameter is the value from the data cell
 * its second parameter is a map as specified in `args` configuration section
 * it returns a modified cell value as string
 
-Accelerated text provides a few transformation functions in its `api.nlg.enrich.data.transformations` namespace
+Accelerated text provides a few transformation functions in its `api.nlg.enrich.data.transformations` namespace:
+
 * `number-approximation` - Using [Number Words](https://github.com/tokenmill/numberwords) package turn a number to its numeric expression
 * `add-symbol` - Add extra symbol to the front or the back of the value. Useful to add measurements or currency symbols
 * `cleanup` - Cleanup the string using clojure.string/replace
