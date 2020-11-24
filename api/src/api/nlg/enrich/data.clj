@@ -8,7 +8,7 @@
   (Boolean/valueOf ^String (or (System/getenv "DATA_ENRICH") "TRUE")))
 
 (defn read-rules []
-  (with-open [r (io/reader (io/resource "data/enrich.edn"))]
+  (with-open [r (io/reader (io/resource "config/enrich.edn"))]
     (edn/read {:readers {'regex re-pattern}} (PushbackReader. r))))
 
 (defn select-rules [filename rules]

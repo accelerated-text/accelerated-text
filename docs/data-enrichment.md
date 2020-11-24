@@ -17,7 +17,7 @@ Advertising | around 1k USD | around 2k USD | -$702
 
 # Defining transformations
 
-Accelerated Text stores data transformation rules in the `api/resources/data/enrich.edn` file. There might be separate transformation rules for different data types, this is controlled via `filenname-pattern` parameter. Which fields (columns) have to receive which changes is specified under `fields` parameter. Fields in turn is a collection of per field configurations. Configuration file structure is as follows:
+Accelerated Text stores data transformation rules in the `api/resources/config/enrich.edn` file. There might be separate transformation rules for different data types, this is controlled via `filenname-pattern` parameter. Which fields (columns) have to receive which changes is specified under `fields` parameter. Fields in turn is a collection of per field configurations. Configuration file structure is as follows:
 
 * `file-pattern` - regular expression defining the file name for which this config will be active
 * `fields` - a collection of field configurations
@@ -30,7 +30,7 @@ Note that `-pattern` fields will take on regular expressions, but their patternl
 
 # Configuration example
 
-The following example configuration does the transformations outlined above. This has to be placed in `api/resources/data/enrich.edn` file for the transformations to take the effect.
+The following example configuration does the transformations outlined above. This has to be placed in `api/resources/config/enrich.edn` file for the transformations to take the effect.
 
 ```
 [{:filename-pattern #regex"accounts.csv"
