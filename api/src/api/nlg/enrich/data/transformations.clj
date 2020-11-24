@@ -2,25 +2,16 @@
   (:require [clojure.string :as str]
             [numberwords.core :as nw]))
 
-(defn number->words [s {:keys [language scale]
-                        :or   {language :en, scale 1/4}}]
-  (nw/numeric-expression (Integer/valueOf ^String s) scale))
+(defn num->string [n]
+  (if (re-find #"[.,]" n) (Float/valueOf n) (Integer/valueOf n)))
 
-(defn rough-estimation [s {:keys [places] :or {places 0}}]
-  (if-not (str/blank? s)
-    (let [n (Float/valueOf ^String s)
-          abs-n (Math/abs ^Float n)]
-      (letfn [(round [n]
-                (let [multiplier (float (reduce * (take places (repeat 10))))]
-                  (/ (Math/round ^Float (* n multiplier)) multiplier)))]
-        (-> (cond
-              (> 1000 abs-n) (str (round n))
-              (> 1000000 abs-n) (str (round (/ n 1000)) "K")
-              (> 1000000000 abs-n) (str (round (/ n 1000000)) "M")
-              (> 1000000000000 abs-n) (str (round (/ n 1000000000)) "B")
-              :else (str (round (/ abs-n 1000000000000)) "T"))
-            (str/replace #"\.0[KMBT]?$" #(str/replace % #"\.0" "")))))
-    ""))
+(defn number-approximation [s {:keys [language scale relation formatting]
+                               :or   {language   :en
+                                      relation   :numberwords.domain/around
+                                      formatting :numberwords.domain/bites}}]
+  (if (str/blank? s)
+    ""
+    (nw/numeric-expression (num->string s) scale language relation formatting)))
 
 (defn add-symbol [s {:keys [symbol position skip] :or {position :back}}]
   (if (some? symbol)
@@ -38,11 +29,4 @@
         (str (subs s 0 (- (count s) n-chars-to-skip)) symbol (subs s (- (count s) n-chars-to-skip)))))
     s))
 
-(defn custom-rearrange-1 [s {}]
-  (if-not (str/blank? s)
-    (let [[id main-cat & rest] (str/split s #"-")]
-      (cond
-        (seq rest) (format "%s (%s, %s)" (str/trim main-cat) (str/trim (str/join "-" rest)) (str/trim id))
-        (some? main-cat) (format "%s (%s)" (str/trim main-cat) (str/trim id))
-        :else id))
-    ""))
+(defn cleanup [s {:keys [regex replace]}] (str/replace s regex replace))
