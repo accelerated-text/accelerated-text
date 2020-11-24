@@ -19,10 +19,10 @@ nav:
     - Advanced Topics:
         - Blocks: blocks.md
         - Reader model: reader-models.md
+        - Data Enrichment: data-enrichment.md
         - Deployment: deployment.md
         - NLG API: nlg-api.md
         - GraphQL API: graphql.md
-        - Data Enrichment: data-enrichment.md
     - Contributing: contributing.md
 markdown_extensions:
     - toc
