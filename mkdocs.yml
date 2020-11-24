@@ -18,7 +18,7 @@ nav:
         - Exporting data: export.md
     - Advanced Topics:
         - Blocks: blocks.md
-        - Reader model: reader-models.md
+        - Reader Model: reader-models.md
         - Data Enrichment: data-enrichment.md
         - Deployment: deployment.md
         - NLG API: nlg-api.md
