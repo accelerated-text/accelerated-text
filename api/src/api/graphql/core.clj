@@ -4,6 +4,7 @@
             [api.graphql.domain.dictionary :as dictionary-domain]
             [api.graphql.domain.document-plan :as document-plan-domain]
             [api.graphql.domain.reader-model :as reader-model-domain]
+            [api.graphql.domain.language :as language-domain]
             [api.graphql.domain.thesaurus :as thesaurus-domain]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]
@@ -23,6 +24,7 @@
                                                    :dictionary      :dictionary
                                                    :dictionaryItem  :dictionary-item
                                                    :readerFlags     :reader-flags
+                                                   :languages       :languages
                                                    :concepts        :concepts
                                                    :concept         :concept
                                                    :searchThesaurus :search-thesaurus
@@ -38,6 +40,7 @@
                                                    :deletePhrase             :delete-phrase
                                                    :updatePhraseDefaultUsage :update-phrase-default-usage
                                                    :updateReaderFlagUsage    :update-reader-flag-usage
+                                                   :updateLanguageUsage      :update-language-usage
                                                    :createDataFile           :create-data-file}}})
       (util/attach-resolvers {:dictionary                  #'dictionary-domain/dictionary
                               :dictionary-item             #'dictionary-domain/dictionary-item
@@ -50,6 +53,8 @@
                               :update-phrase-default-usage #'dictionary-domain/update-phrase-default-usage
                               :reader-flags                #'reader-model-domain/reader-model
                               :update-reader-flag-usage    #'reader-model-domain/update-reader-flag-usage
+                              :languages                   #'language-domain/language-model
+                              :update-language-usage       #'language-domain/update-language-usage
                               :document-plan               #'document-plan-domain/get-document-plan
                               :document-plans              #'document-plan-domain/list-document-plans
                               :create-document-plan        #'document-plan-domain/add-document-plan
