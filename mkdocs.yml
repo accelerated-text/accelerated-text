@@ -18,6 +18,7 @@ nav:
         - Exporting data: export.md
     - Advanced Topics:
         - Blocks: blocks.md
+        - Reader model: reader-models.md
         - Deployment: deployment.md
         - NLG API: nlg-api.md
         - GraphQL API: graphql.md

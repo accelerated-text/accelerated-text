@@ -1,4 +1,4 @@
-(ns api.graphql.domain.reader-model
+(ns api.graphql.domain.language
   (:require [api.graphql.domain.dictionary :as dict-domain]
             [api.graphql.translate.reader-model :as rm-translate]
             [clojure.string :as str]
@@ -6,20 +6,20 @@
             [data.entities.dictionary :as dict-entity]
             [data.entities.reader-model :as reader-model-entity]))
 
-(defn reader-model [_ _ _]
+(defn language-model [_ _ _]
   (resolve-as
     {:id    "default"
-     :flags (map rm-translate/reader-model->reader-flag (reader-model-entity/available-readers))}))
+     :flags (map rm-translate/reader-model->reader-flag (reader-model-entity/available-languages))}))
 
-(defn- resolve-as-not-found-reader-flag [id]
-  (resolve-as nil {:message (format "Cannot find reader flag with id `%s`." id)}))
+(defn- resolve-as-not-found-language [id]
+  (resolve-as nil {:message (format "Cannot find language with code `%s`." id)}))
 
-(defn reader-flag [_ {:keys [id]} _]
+(defn language [_ {:keys [id]} _]
   (if-let [item (reader-model-entity/fetch id)]
     (resolve-as (rm-translate/reader-model->reader-flag item))
-    (resolve-as-not-found-reader-flag id)))
+    (resolve-as-not-found-language id)))
 
-(defn update-reader-flag-usage [_ {:keys [id usage]} _]
+(defn update-language-usage [_ {:keys [id usage]} _]
   (if-let [item (dict-entity/get-dictionary-item (dict-domain/get-parent-id id))]
     (let [[parent-part phrase-part flag-id] (str/split id #"/")
           flag-key (keyword flag-id)
