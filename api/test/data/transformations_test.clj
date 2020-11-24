@@ -15,7 +15,7 @@
                :relation   :numberwords.domain/around}))))
 
 (deftest cell-cleanup
-  (is (= "product" (sut/cleanup "product (122)" {:regex #" \(.*\)" :replace ""}))))
+  (is (= "product" (sut/cleanup "product (122)" {:regex #" \(.*\)" :replacement ""}))))
 
 (deftest cell-add-symbol
   (is (= "-$10" (sut/add-symbol "-10" {:symbol "$" :position :front :skip #{\- \+}}))))
