@@ -17,7 +17,7 @@
                    :formatting :numberwords.domain/bites
                    :relation   :numberwords.domain/around}}
        {:function :api.nlg.enrich.data.transformations/add-symbol
-        :args     {:symbol " USD" :position :back :skip #{\- \+}}}]}
+        :args     {:symbol " USD" :position :back}}]}
      {:name-pattern #"Increase"
       :transformations
       [{:function :api.nlg.enrich.data.transformations/add-symbol
