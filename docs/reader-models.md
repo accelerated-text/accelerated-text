@@ -23,9 +23,9 @@ Next, we will construct a Document plan with reader-specific branches using if-c
 
 ![reader-model-doc-plan](assets/examples/reader-model-doc-plan.png)
 
-Notice the usage of "is in" check instead of "=". This way, a reader can be regarded as a "New customer" and a "Discount customer" at the same time.
+Notice the usage of "**is in**" check instead of "**=**". This way, a reader can be regarded both as a "New customer" and a "Discount customer" at the same time!
 
-Here are the text examples with different reader configurations.
+Here are the text examples with different reader configurations, produced using Document plan pictured above.
 
 ![reader-model-doc-plan](assets/examples/reader-model-example-1.png)
 
