@@ -29,4 +29,4 @@
         (str (subs s 0 (- (count s) n-chars-to-skip)) symbol (subs s (- (count s) n-chars-to-skip)))))
     s))
 
-(defn cleanup [s {:keys [regex replace]}] (str/replace s regex replace))
+(defn cleanup [s {:keys [regex replacement]}] (str/replace s regex replacement))

@@ -1,6 +1,5 @@
 (ns api.nlg.enrich.data
-  (:require [api.nlg.enrich.data.transformations]
-            [clojure.java.io :as io]
+  (:require [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.tools.logging :as log])
   (:import (java.io PushbackReader)))
