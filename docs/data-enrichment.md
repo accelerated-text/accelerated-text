@@ -1,4 +1,4 @@
-# Purpose
+# About
 Raw data cannot always be presented in text as is. Numbers might need some formatting, names need cleaning or normalization. With Data Enrichment component, a set of data transformation functions can be defined. They will modify the raw data before sending it to the text generation component. 
 
 Let's say we have accounting data like this
