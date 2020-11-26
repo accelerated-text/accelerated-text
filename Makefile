@@ -1,29 +1,4 @@
-FRONT_END_MAKE= cd front-end && make
 PROJECT_NAME=accelerated-text
-
-.PHONY: test
-test:
-	${FRONT_END_MAKE} test
-
-.PHONY: run
-run:
-	${FRONT_END_MAKE} run
-
-.PHONY: build-app
-build-app:
-	${FRONT_END_MAKE} build
-
-.PHONY: deploy-app
-deploy-app:
-	${FRONT_END_MAKE} deploy
-
-.PHONY: clean
-clean:
-	${FRONT_END_MAKE} clean
-
-.PHONY: npm-audit
-npm-audit:
-	${FRONT_END_MAKE} npm-audit
 
 pull-latest-mages:
 	docker pull acctext/gf
