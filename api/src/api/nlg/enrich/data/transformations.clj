@@ -13,11 +13,12 @@
              scale      10
              relation   :numberwords.domain/around
              formatting :numberwords.domain/bites}}]
-  (try
-    (nw/numeric-expression (string->num s) scale language relation formatting)
-    (catch Exception e
-      (log/warnf "Failed number approximation of `%s`: %s" s (.getMessage e))
-      s)))
+  (when (some? s)
+    (try
+      (nw/numeric-expression (string->num s) scale language relation formatting)
+      (catch Exception e
+        (log/warnf "Failed number approximation of `%s`: %s" s (.getMessage e))
+        s))))
 
 (defn add-symbol
   "Add extra symbol to the front or the back of the value. Useful to add measurements or currency symbols"

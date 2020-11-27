@@ -3,11 +3,11 @@
              [api.nlg.enrich.data.transformations :as sut]))
 
 (deftest cell-approximation
-  (is (= "" (sut/number-approximation
-             nil
-             {:scale      100 :language :en
-              :formatting :numberwords.domain/words
-              :relation   :numberwords.domain/around})))
+  (is (nil? (sut/number-approximation
+              nil
+              {:scale      100 :language :en
+               :formatting :numberwords.domain/words
+               :relation   :numberwords.domain/around})))
   (is (= "around 1k" (sut/number-approximation
               "1040"
               {:scale      1000 :language :en
