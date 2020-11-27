@@ -5,15 +5,15 @@
             [loom.graph :as graph]))
 
 (defn string->boolean [s]
-  (when-not (str/blank? s)
-    (case (-> s (str/lower-case) (str/trim))
-      "true" true
-      "false" false
-      "yes" true
-      "no" false
-      "1" true
-      "0" false
-      true)))
+  (case (-> s (str/lower-case) (str/trim))
+    "" false
+    "true" true
+    "false" false
+    "yes" true
+    "no" false
+    "1" true
+    "0" false
+    true))
 
 (defn operator->fn [x]
   (case x
