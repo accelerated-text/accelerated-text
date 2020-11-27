@@ -177,7 +177,8 @@
                     {}))))
 
 (defn save-graph [g output-path]
-  (uber/viz-graph g {:save {:filename output-path :format :png}}))
+  (uber/viz-graph g {:auto-label true
+                     :save       {:filename output-path :format :png}}))
 
 (defn save-paths [paths output-path]
   (spit output-path (with-out-str (pprint paths))))
