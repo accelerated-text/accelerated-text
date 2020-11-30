@@ -1,5 +1,6 @@
 (ns api.nlg.enrich.data
-  (:require [clojure.java.io :as io]
+  (:require [api.config :refer [conf]]
+            [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.tools.logging :as log])
   (:import (java.io PushbackReader)))
@@ -7,8 +8,11 @@
 (defn enable-enrich? []
   (Boolean/valueOf ^String (or (System/getenv "DATA_ENRICH") "TRUE")))
 
+(defn enrich-config-path []
+  (io/file (get conf :config-path (io/resource "config")) "enrich.edn"))
+
 (defn read-rules []
-  (with-open [r (io/reader (io/resource "config/enrich.edn"))]
+  (with-open [r (io/reader (enrich-config-path))]
     (edn/read {:readers {'regex re-pattern}} (PushbackReader. r))))
 
 (defn select-rules [filename rules]

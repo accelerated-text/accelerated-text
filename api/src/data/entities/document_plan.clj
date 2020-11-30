@@ -1,5 +1,6 @@
 (ns data.entities.document-plan
   (:require [api.config :refer [conf]]
+            [clojure.java.io :as io]
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
@@ -27,7 +28,7 @@
   (db/update! document-plans-db document-plan-id document-plan))
 
 (defn document-plan-path []
-  (or (System/getenv "DOCUMENT_PLANS") "resources/document-plans"))
+  (get conf :document-plan-path (io/resource "document-plans")))
 
 (defn load-document-plan [f]
   (let [dp (utils/read-json f)]

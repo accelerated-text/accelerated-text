@@ -37,12 +37,16 @@
 (defn available-reader-model []
   (filter #(true? (::reader-model/available? %)) (list-reader-model)))
 
+(defn reader-model-config-path []
+  (io/file (get conf :config-path (io/resource "config")) "readers.edn"))
+
+(defn language-config-path []
+  (io/file (get conf :config-path (io/resource "config")) "languages.edn"))
+
 (defstate reader-conf :start
   (do
     (doseq [reader (available-readers)] (delete! reader))
-    (->> "config/readers.edn"
-         (io/resource)
-         (io/file)
+    (->> (reader-model-config-path)
          (utils/read-edn)
          (filter ::reader-model/available?)
          (mapv #(update! (assoc % ::reader-model/type :reader
@@ -52,9 +56,7 @@
 (defstate language-conf :start
   (do
     (doseq [lang (available-languages)] (delete! lang))
-    (->> "config/languages.edn"
-         (io/resource)
-         (io/file)
+    (->> (language-config-path)
          (utils/read-edn)
          (filter ::reader-model/available?)
          (mapv #(update! (assoc % ::reader-model/type :language
