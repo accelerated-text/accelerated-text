@@ -19,7 +19,7 @@
    (let [uri (str "datomic:mem://" db-name)]
      (d/create-database uri))))
 
-(defn datomix-fixture [f]
+(defn datomic-fixture [f]
   (let [db-name (str (UUID/randomUUID))]
     (scratch-conn db-name)
     (mount/stop)

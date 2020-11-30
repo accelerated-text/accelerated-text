@@ -1,6 +1,6 @@
 PROJECT_NAME=accelerated-text
 
-pull-latest-mages:
+pull-latest-images:
 	docker pull acctext/gf
 	docker pull acctext/api
 	docker pull acctext/frontend

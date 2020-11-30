@@ -3,4 +3,4 @@
 
 (defn clean-db [f]
   (when-not (System/getProperty "skip-datomic")
-    (datomic/datomix-fixture f)))
+    (datomic/datomic-fixture f)))
