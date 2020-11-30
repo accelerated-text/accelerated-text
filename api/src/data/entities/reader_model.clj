@@ -1,6 +1,7 @@
 (ns data.entities.reader-model
   (:require [api.config :refer [conf]]
             [clojure.java.io :as io]
+            [clojure.string :as str]
             [data.db :as db]
             [data.spec.reader-model :as reader-model]
             [data.utils :as utils]
@@ -11,9 +12,12 @@
 (defn fetch [code]
   (db/read! reader-model-db code))
 
-(defn update! [lang]
-  (db/write! reader-model-db lang)
-  (fetch (::reader-model/code lang)))
+(defn update! [reader]
+  (db/write! reader-model-db reader)
+  (fetch (::reader-model/code reader)))
+
+(defn delete! [reader]
+  (db/delete! reader-model-db (::reader-model/code reader)))
 
 (defn list-reader-model
   ([] (list-reader-model 100))
@@ -34,19 +38,25 @@
   (filter #(true? (::reader-model/available? %)) (list-reader-model)))
 
 (defstate reader-conf :start
-  (->> "config/readers.edn"
-       (io/resource)
-       (io/file)
-       (utils/read-edn)
-       (mapv #(update! (assoc % ::reader-model/type :reader
-                                ::reader-model/enabled? (contains? (:enabled-readers conf)
-                                                                   (::reader-model/code %)))))))
+  (do
+    (doseq [reader (available-readers)] (delete! reader))
+    (->> "config/readers.edn"
+         (io/resource)
+         (io/file)
+         (utils/read-edn)
+         (filter ::reader-model/available?)
+         (mapv #(update! (assoc % ::reader-model/type :reader
+                                  ::reader-model/enabled? (contains? (:enabled-readers conf)
+                                                                     (str/capitalize (::reader-model/code %)))))))))
 
 (defstate language-conf :start
-  (->> "config/languages.edn"
-       (io/resource)
-       (io/file)
-       (utils/read-edn)
-       (mapv #(update! (assoc % ::reader-model/type :language
-                                ::reader-model/enabled? (contains? (:enabled-languages conf)
-                                                                   (::reader-model/code %)))))))
+  (do
+    (doseq [lang (available-languages)] (delete! lang))
+    (->> "config/languages.edn"
+         (io/resource)
+         (io/file)
+         (utils/read-edn)
+         (filter ::reader-model/available?)
+         (mapv #(update! (assoc % ::reader-model/type :language
+                                  ::reader-model/enabled? (contains? (:enabled-languages conf)
+                                                                     (str/capitalize (::reader-model/code %)))))))))

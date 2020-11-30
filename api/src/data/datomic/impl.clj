@@ -75,6 +75,8 @@
   (reader-model/pull-entity conn code))
 (defmethod pull-n :reader-model [_ limit]
   (reader-model/pull-n conn limit))
+(defmethod delete :reader-model [_ key]
+  (reader-model/delete conn key))
 
 (defmethod transact-item :results [_ _ data-item]
   (results/transact-item conn data-item))

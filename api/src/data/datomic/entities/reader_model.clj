@@ -25,3 +25,7 @@
             pattern)
        (map first)
        (take limit)))
+
+(defn delete [conn key]
+  @(d/transact conn [[:db.fn/retractEntity [::reader-model/code key]]])
+  nil)
