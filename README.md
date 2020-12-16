@@ -103,6 +103,8 @@ This description – a document plan – is executed by natural language generat
 
 ## Get Started
 
+The easiest way to gets started is to use [Accelerated Text Project Template](https://github.com/tokenmill/accelerated-text-project-template). It will provide you with the necessary project configuration structure.
+
 If you want to start tinkering and run it based on the latest code in the repository, first make sure that you have [make](https://www.gnu.org/software/make/) and [docker-compose](https://docs.docker.com/compose/install/) installed, then clone the project and run
 
 ```
@@ -112,6 +114,8 @@ make run-app
 After running this command the document plan editor will be availabe at _http://localhost:8080_, while AMR and DLG editors will be reachable via _http://localhost:8080/amr/_ and _http://localhost:8080/dlg/_ respectively.
 
 For more detailed description of text generation workflow visit the [Documentation](https://accelerated-text.readthedocs.io/).
+
+
 
 ## Demo
 
