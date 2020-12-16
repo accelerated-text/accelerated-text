@@ -129,7 +129,6 @@ If you have any questions, do not hesitate asking us at accelerated-text@tokenmi
 If you'll submit an *Issue* this will help everyone and you will be able to track the progress of us fixing it. 
 In order to facilitate it please provide description of needed information for bug requests (like project version number, Docker version, etc.)
 
-
 ## License 
 
 Copyright &copy; 2020 [TokenMill UAB](http://www.tokenmill.ai).
