@@ -103,6 +103,8 @@ This description – a document plan – is executed by natural language generat
 
 ## Get Started
 
+The easiest way to get started is to use [Accelerated Text Project Template](https://github.com/tokenmill/accelerated-text-project-template). It will provide you with the necessary project configuration structure.
+
 If you want to start tinkering and run it based on the latest code in the repository, first make sure that you have [make](https://www.gnu.org/software/make/) and [docker-compose](https://docs.docker.com/compose/install/) installed, then clone the project and run
 
 ```
