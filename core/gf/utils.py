@@ -51,3 +51,11 @@ def json_response(fn):
 
         return [output]
     return wrapper
+
+
+def route(path):
+    def inject(fn):
+        def wrapper(environ, *arg, **kwargs):
+            return fn(environ, *args, **kwargs)
+        return wrapper
+    return inject

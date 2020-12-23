@@ -101,3 +101,14 @@ def generate_results(name, content):
                 for k, concrete in grammar.languages.items()]
     else:
         raise GFError(error)
+
+
+def parse_text(name, content, text):
+    (grammar, error) = compile_grammar(name, content)
+    logger.debug("Grammar: {}".format(grammar))
+    if grammar:
+        logger.info("Parsing")
+        return [(k, [str(e) for p, e in concrete.parse(text)])
+                for k, concrete in grammar.languages.items()]
+    else:
+        raise GFError(error)
