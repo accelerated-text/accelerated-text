@@ -5,7 +5,7 @@ from wsgiref.simple_server import make_server
 from wsgiref.util import setup_testing_defaults
 
 from utils import (response_404, json_request, json_response, route, routes)
-from gf import generate_results, GFError
+from gf import generate_results, parse_text, GFError
 
 
 logger = logging.getLogger("server")
@@ -20,6 +20,24 @@ def generate(environ, start_response, data):
     name = data["module"]
     try:
         results = generate_results(name, content)
+        return {"results": results}
+    except GFError as error:
+        return {"error": error.message}
+    except Exception as ex:
+        logger.exception(ex)
+        return {"error": str(ex).strip()}
+
+
+
+@route("/parse", "POST")
+@json_request
+@json_response
+def parse(environ, start_response, data):
+    content = data["content"]
+    name = data["module"]
+    text = data["text"]
+    try:
+        result = parse_text(name, content, text)
         return {"results": results}
     except GFError as error:
         return {"error": error.message}
