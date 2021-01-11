@@ -52,6 +52,8 @@
      :recordLimit  limit
      :recordCount  total}))
 
+(defn fetch-most-relevant [id limit])
+
 (defn listing [offset limit recordOffset recordLimit]
   (let [data-files (db/list! data-files-db Integer/MAX_VALUE)]
     {:dataFiles  (map (fn [{id :id}]

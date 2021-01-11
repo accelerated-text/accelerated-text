@@ -66,6 +66,7 @@
                               :concept                     #'concept-domain/get-concept
                               :list-data-files             #'data-domain/list-data-files
                               :get-data-file               #'data-domain/get-data-file
+                              :get-relevant-samples        #'data-domain/get-relevant-samples
                               :create-data-file            #'data-domain/create-data-file})
       schema/compile))
 

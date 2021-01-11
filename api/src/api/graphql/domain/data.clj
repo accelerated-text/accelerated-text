@@ -11,6 +11,12 @@
     (resolve-as data-file)
     (resolve-as-not-found-file id)))
 
+(defn get-relevant-samples [_ {:keys [id recordLimit]
+                               :or {recordLimit 20}} _]
+  (if-let [data-file (data-files/fetch-most-relevant id recordLimit)]
+    (resolve-as data-file)
+    (resolve-as-not-found-file id)))
+
 (defn list-data-files [_ {:keys [offset limit recordOffset recordLimit]
                           :or {offset 0 limit 20 recordOffset 0 recordLimit 20}} _]
   (resolve-as (data-files/listing offset limit recordOffset recordLimit)))
