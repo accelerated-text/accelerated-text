@@ -22,10 +22,11 @@
           rules))
 
 (defn build-transformations [tr]
-  (apply comp (map (fn [{:keys [function args]}]
-                     (let [tr-fn (resolve (symbol function))]
-                       #(tr-fn % args)))
-                   (reverse tr))))
+  (let [f (apply comp (map (fn [{:keys [function args]}]
+                             (let [tr-fn (resolve (symbol function))]
+                               #(tr-fn % args)))
+                           (reverse tr)))]
+    #(when (some? %) (f %))))
 
 (defn update-fields [data fields]
   (reduce (fn [data {:keys [name name-pattern transformations]}]
