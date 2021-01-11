@@ -50,17 +50,17 @@
             (not= index -1) (subs 0 index))))
 
 (defn list-files [path]
-  (->> path
-       (io/file)
-       (file-seq)
-       (filter #(.isFile ^File %))))
+  (some->> path
+           (io/file)
+           (file-seq)
+           (filter #(.isFile ^File %))))
 
 (defn list-directories [path]
-  (->> path
-       (io/file)
-       (file-seq)
-       (filter #(.isDirectory ^File %))
-       (rest)))
+  (some->> path
+           (io/file)
+           (file-seq)
+           (filter #(.isDirectory ^File %))
+           (rest)))
 
 (defn add-ns-to-map [ns m]
   (reduce-kv (fn [ns-m k v]
