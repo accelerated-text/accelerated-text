@@ -247,6 +247,11 @@ type Query {
         recordLimit:        Int
     ): DataFile
 
+    getRelevantSamples(
+        id:                 ID!
+        recordLimit:        Int
+    ): DataFile
+
     listDataFiles(
         offset:             Int
         limit:              Int

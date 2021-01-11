@@ -52,7 +52,25 @@
      :recordLimit  limit
      :recordCount  total}))
 
-(defn fetch-most-relevant [id limit])
+(defn fetch-most-relevant [id limit]
+  (when-let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data 0 limit))]
+    {:id           id
+     :fileName     filename
+     :fieldNames   header
+     :records      (map (fn [row record]
+                          {:id     (str id ":" row)
+                           :fields (map (fn [column field-name value]
+                                          {:id        (str id ":" row ":" column)
+                                           :fieldName field-name
+                                           :value     value})
+                                        (range)
+                                        header
+                                        record)})
+                        (range 0 limit)
+                        rows)
+     :recordOffset offset
+     :recordLimit  limit
+     :recordCount  total}))
 
 (defn listing [offset limit recordOffset recordLimit]
   (let [data-files (db/list! data-files-db Integer/MAX_VALUE)]

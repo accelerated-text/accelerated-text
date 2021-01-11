@@ -1,7 +1,7 @@
 import { h, Component }     from 'preact';
 import { path }             from 'ramda';
 
-import { getDataFile }      from '../graphql/queries.graphql';
+import { getRelevantSamples }      from '../graphql/queries.graphql';
 import { Query }            from '../graphql/';
 
 import Context              from './OpenedDataFileContext';
@@ -18,7 +18,7 @@ export default class OpenedDataFileContextProvider extends Component {
         const id =          path([ 'plan', 'dataSampleId' ], openedPlan );
         return (
             <Query
-                query={ getDataFile }
+                query={ getRelevantSamples }
                 skip={ ! id }
                 variables={{ id }}
             >
