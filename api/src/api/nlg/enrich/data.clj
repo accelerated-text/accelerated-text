@@ -1,5 +1,6 @@
 (ns api.nlg.enrich.data
   (:require [api.config :refer [conf]]
+            [api.nlg.enrich.data.transformations]
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.tools.logging :as log])
