@@ -77,7 +77,10 @@
     0))
 
 (defn distance-matrix [rows]
-  (map
-   (fn [r1]
-     (map (fn [r2] (jaccard-distance r1 r2)) rows))
-   rows))
+  (into
+   {}
+   (map-indexed
+    (fn [id1 r1]
+      [id1 (map-indexed (fn [id2 r2] [id2 (jaccard-distance r1 r2)]) rows)])
+    rows)))
+
