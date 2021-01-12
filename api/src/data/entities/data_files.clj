@@ -68,7 +68,7 @@
                                         record)})
                         (range 0 limit)
                         rows)
-     :recordOffset offset
+     :recordOffset 0
      :recordLimit  limit
      :recordCount  total}))
 

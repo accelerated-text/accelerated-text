@@ -3,6 +3,22 @@
 
 ### Data files -----------------------------------------------------------------
 
+query getRelevantSamples ( $id: ID! ) {
+  getRelevantSamples( id: $id ) {
+    id
+    fileName
+    fieldNames
+    records {
+      id
+      fields {
+        id
+        fieldName
+        value
+      }
+    }
+  }
+}
+
 query getDataFile( $id: ID! ) {
   getDataFile( id: $id ) {
     id
