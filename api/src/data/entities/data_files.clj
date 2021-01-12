@@ -53,7 +53,7 @@
      :recordCount  total}))
 
 (defn fetch-most-relevant [id limit]
-  (when-let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data 0 limit))]
+  (when-let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data 0 1000))]
     {:id           id
      :fileName     filename
      :fieldNames   header

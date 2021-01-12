@@ -2,7 +2,8 @@
   (:require [clojure.data.csv :as csv]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [jsonista.core :as json])
+            [jsonista.core :as json]
+            [clojure.set :as set])
   (:import (java.io File PushbackReader)
            (java.util UUID)
            (java.time Instant)))
@@ -67,3 +68,16 @@
                (assoc ns-m (keyword ns (name k)) v))
              {}
              m))
+
+(defn jaccard-distance [d1 d2]
+  (if (not= d1 d2)
+    (let [k1 (set d1)
+          k2 (set d2)]
+      (- 1 (/ (count (set/intersection k1 k2)) (count (set/union k1 k2)))))
+    0))
+
+(defn distance-matrix [rows]
+  (map
+   (fn [r1]
+     (map (fn [r2] (jaccard-distance r1 r2)) rows))
+   rows))
