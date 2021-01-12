@@ -53,7 +53,9 @@
      :recordCount  total}))
 
 (defn fetch-most-relevant [id limit]
-  (when-let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data 0 1000))]
+  (let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data 0 1000))
+             m                                    (utils/distance-matrix rows)
+             selected-rows                        (utils/select-rows m rows limit)]
     {:id           id
      :fileName     filename
      :fieldNames   header
@@ -67,7 +69,7 @@
                                         header
                                         record)})
                         (range 0 limit)
-                        rows)
+                        selected-rows)
      :recordOffset 0
      :recordLimit  limit
      :recordCount  total}))

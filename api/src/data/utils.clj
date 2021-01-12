@@ -1,3 +1,4 @@
+
 (ns data.utils
   (:require [clojure.data.csv :as csv]
             [clojure.edn :as edn]
@@ -81,6 +82,15 @@
    {}
    (map-indexed
     (fn [id1 r1]
-      [id1 (map-indexed (fn [id2 r2] [id2 (jaccard-distance r1 r2)]) rows)])
+      [id1 (remove
+            (fn [[idx _]] (= id1 idx))
+            (map-indexed (fn [id2 r2] [id2 (jaccard-distance r1 r2)]) rows))])
     rows)))
 
+(defn select-rows [m rows limit]
+  (loop [results (set [])
+         next    0]
+    (if (or (= limit (count results)) (= (count results) (count rows)))
+      (map (fn [r] (nth rows r)) results)
+      (let [[k _] (apply max-key second (remove (fn [[idx _]] (contains? results idx)) (get m next)))]
+        (recur (conj results k) k)))))
