@@ -104,6 +104,7 @@
                        :position position
                        :type     :operation
                        :name     name
+                       :label    concept-id
                        :category kind
                        :module   module})]
         :relations (map-indexed (fn [index {[{child-id :id}] :children kind :name label :label}]
