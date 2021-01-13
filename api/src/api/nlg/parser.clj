@@ -343,6 +343,7 @@
                        :position position
                        :type     (if (contains? constants label) :constant :reference)
                        :name     (or label kind)
+                       :label    var-id
                        :category kind}]
           :relations (map-indexed (fn [index {var-id :id}]
                                     {:from     id
