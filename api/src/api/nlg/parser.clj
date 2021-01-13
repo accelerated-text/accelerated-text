@@ -3,7 +3,6 @@
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.spec.alpha :as s]
-            [clojure.set :as set]
             [clojure.string :as str]
             [clojure.zip :as zip]
             [data.entities.document-plan.utils :as dp-utils]
