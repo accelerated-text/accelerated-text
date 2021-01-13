@@ -7,7 +7,8 @@
             [clojure.set :as set])
   (:import (java.io File PushbackReader)
            (java.util UUID)
-           (java.time Instant)))
+           (java.time Instant)
+           (org.apache.commons.codec.digest MurmurHash3)))
 
 (def char-list (map char (concat (range 65 91) (range 97 123))))
 
@@ -70,6 +71,12 @@
              {}
              m))
 
+(defn murmur-hash [key] (first (MurmurHash3/hash128x64 (.getBytes key))))
+
+(defn hash-row [row]
+  (->> (map (fn [[k v]] [k (if (string? v) (murmur-hash v) v)]) row)
+       (into {})))
+
 (defn jaccard-distance [d1 d2]
   (if (not= d1 d2)
     (let [k1 (set d1)
@@ -78,14 +85,15 @@
     0))
 
 (defn distance-matrix [rows]
-  (into
-   {}
-   (map-indexed
-    (fn [id1 r1]
-      [id1 (remove
-            (fn [[idx _]] (= id1 idx))
-            (map-indexed (fn [id2 r2] [id2 (jaccard-distance r1 r2)]) rows))])
-    rows)))
+  (let [hashed-rows (map (fn [row] (hash-row row)) rows)]
+    (into
+     {}
+     (map-indexed
+      (fn [id1 r1]
+        [id1 (remove
+              (fn [[idx _]] (= id1 idx))
+              (map-indexed (fn [id2 r2] [id2 (jaccard-distance r1 r2)]) hashed-rows))])
+      hashed-rows))))
 
 (defn select-rows [m rows limit]
   (loop [results (set [])
