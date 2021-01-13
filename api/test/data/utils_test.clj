@@ -8,7 +8,10 @@
               {:primary 2 :secondary 3}))))
 
 (deftest test-selected-rows
-  (let [rows          [{:a 1 :b 2} {:a 2 :b 2} {:a 3 :b 3}]
+  (let [rows          [["test1" "test2"] ["test2" "test2"] ["test3" "test3"] ["test3" "test4"] ["test3" "test3"]]
         m             (utils/distance-matrix rows)
         selected-rows (utils/select-rows m rows 2)]
-    (is (= [{:a 2, :b 2} {:a 3, :b 3}] selected-rows))))
+    (is (= [["test1" "test2"] ["test3" "test3"]] selected-rows))))
+
+(deftest test-sample
+  (is (= [0 20 40 60 80] (utils/sample (range 100) 5))))

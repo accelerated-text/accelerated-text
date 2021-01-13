@@ -5,7 +5,7 @@ import { SELECTORS }            from '../constants';
 export const selectDataFile = ( t, dataFile, documentPlan = null ) =>
     Promise.all([
         t.graphqlApi.provideOnce(
-            'getDataFile',
+            'getRelevantSamples',
             { id: dataFile.id },
             { data: { getDataFile: dataFile }},
         ),

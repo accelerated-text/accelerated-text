@@ -9,6 +9,8 @@
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 
+(def relevant-items-limit 100)
+
 (defn store!
   "Expected keys are :filename and :content everything else is optional"
   [data-file]
@@ -53,9 +55,10 @@
      :recordCount  total}))
 
 (defn fetch-most-relevant [id limit]
-  (let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data 0 1000))
-             m                                    (utils/distance-matrix rows)
-             selected-rows                        (utils/select-rows m rows limit)]
+  (let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data))
+        sampled-rows                         (utils/sample rows relevant-items-limit)
+        m                                    (utils/distance-matrix sampled-rows)
+        selected-rows                        (utils/select-rows m sampled-rows limit)]
     {:id           id
      :fileName     filename
      :fieldNames   header
