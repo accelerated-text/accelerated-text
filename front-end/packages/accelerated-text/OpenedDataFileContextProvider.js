@@ -26,7 +26,7 @@ export default class OpenedDataFileContextProvider extends Component {
                     <Context.Provider
                         children={ children }
                         value={ Object.assign( this.value, {
-                            file:       data && data.getDataFile,
+                            file:       data && data.getRelevantSamples,
                             error,
                             loading,
                         }) }
