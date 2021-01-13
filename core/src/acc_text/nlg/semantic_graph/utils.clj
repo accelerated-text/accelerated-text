@@ -75,6 +75,7 @@
 (defn find-roles [{::sg/keys [relations] :as semantic-graph}]
   (let [to-relation-map (group-by :to relations)]
     (->> (find-terminal-concepts semantic-graph :reference)
+         (sort-by :position)
          (map (fn [{:keys [id name category]}]
                 (let [category (or
                                  category
@@ -83,8 +84,7 @@
                                        (get to-relation-map id)))]
                   (cond-> {:id   id
                            :name name}
-                          (some? category) (assoc :category category)))))
-         (sort-by :id))))
+                          (some? category) (assoc :category category))))))))
 
 (defn merge-semantic-graphs [& graphs]
   (-> (first graphs)
