@@ -61,7 +61,7 @@
                                                   relations))))
 
 (defn prune-unrelated-branches [{::sg/keys [concepts relations] :as semantic-graph}]
-  (prune-branches semantic-graph (set/difference (into #{} (map :id (rest concepts)))
+  (prune-branches semantic-graph (set/difference (into #{} (map :id (remove #(= :document-plan (:type %)) concepts)))
                                                  (into #{} (map :to relations)))))
 
 (defn find-terminal-concepts
@@ -108,6 +108,14 @@
                                      (cond-> relation
                                              (nil? cat) (dissoc :category)))
                                    %))))
+
+(defn sort-semantic-graph [semantic-graph]
+  (let [positions (into {} (map (fn [{:keys [id position]}] [id position])) (::sg/concepts semantic-graph))]
+    (-> semantic-graph
+        (update ::sg/concepts #(sort-by :position %))
+        (update ::sg/relations #(sort-by (fn [{:keys [from index]}]
+                                           [(get positions from) index])
+                                         %)))))
 
 (defn semantic-graph->ubergraph [{::sg/keys [concepts relations]} & {:keys [keep-ids?]}]
   (let [id->uuid (zipmap (map :id concepts) (if-not (true? keep-ids?) (repeatedly #(UUID/randomUUID)) (map :id concepts)))]

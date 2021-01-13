@@ -1,9 +1,9 @@
 (ns acc-text.nlg.semantic-graph.relation
   (:require [clojure.spec.alpha :as s]))
 
-(s/def ::from keyword?)
+(s/def ::from string?)
 
-(s/def ::to keyword?)
+(s/def ::to string?)
 
 (s/def ::role
   (s/or :core #{:arg}
