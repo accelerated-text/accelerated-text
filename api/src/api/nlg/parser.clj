@@ -5,6 +5,7 @@
             [clojure.spec.alpha :as s]
             [clojure.string :as str]
             [clojure.zip :as zip]
+            [data.entities.document-plan :as dp-entity]
             [data.entities.document-plan.utils :as dp-utils]
             [data.entities.document-plan.zip :as dp-zip]
             [data.utils :as utils]))
@@ -84,11 +85,13 @@
                                 children)})
 
 (defmethod build-semantic-graph :AMR [{id :id concept-id :conceptId roles :roles kind :kind position :position} _]
-  #::sg{:concepts  [{:id       id
-                     :position position
-                     :type     :amr
-                     :name     concept-id
-                     :category kind}]
+  #::sg{:concepts  [(let [{name :name} (dp-entity/get-document-plan concept-id)]
+                      {:id       id
+                       :position position
+                       :type     :amr
+                       :label    (str name)
+                       :name     concept-id
+                       :category kind})]
         :relations (map-indexed (fn [index {[{child-id :id}] :children kind :name label :label}]
                                   {:from     id
                                    :to       child-id
