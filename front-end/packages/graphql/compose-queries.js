@@ -3,7 +3,6 @@ import { mapObjIndexed, path }  from 'ramda';
 
 
 export default queries => {
-
     const propsToVars = varProp => ( varProp && {
         options: props => ({
             variables: mapObjIndexed(

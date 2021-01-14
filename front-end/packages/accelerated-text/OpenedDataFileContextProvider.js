@@ -16,11 +16,12 @@ export default class OpenedDataFileContextProvider extends Component {
 
     render({ children }, _, openedPlan ) {
         const id =          path([ 'plan', 'dataSampleId' ], openedPlan );
+        const method =      path([ 'plan', 'dataSampleMethod'], openedPlan );
         return (
             <Query
                 query={ getRelevantSamples }
                 skip={ ! id }
-                variables={{ id }}
+                variables={{ id, method }}
             >
                 { ({ error, data, loading }) =>
                     <Context.Provider

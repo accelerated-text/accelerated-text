@@ -3,8 +3,8 @@
 
 ### Data files -----------------------------------------------------------------
 
-query getRelevantSamples ( $id: ID! ) {
-  getRelevantSamples( id: $id ) {
+query getRelevantSamples ( $id: ID!, $method: String! ) {
+  getRelevantSamples( id: $id, method: $method ) {
     id
     fileName
     fieldNames

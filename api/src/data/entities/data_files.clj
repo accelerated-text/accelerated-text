@@ -54,7 +54,7 @@
      :recordLimit  limit
      :recordCount  total}))
 
-(defn fetch-most-relevant [id limit]
+(defn fetch-most-relevant [id _ limit]
   (let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data))
         sampled-rows                         (utils/sample rows relevant-items-limit)
         m                                    (utils/distance-matrix sampled-rows)

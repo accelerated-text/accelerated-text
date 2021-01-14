@@ -17,10 +17,11 @@ import { QA }               from '../tests/constants';
 import RowSelector          from '../row-selector/RowSelector';
 
 import S                    from './Cells.sass';
+import SampleAlgorithm      from './SampleAlgorithm';
 
 
 export default composeQueries({
-    getRelevantSamples:    [ getRelevantSamples, { id: 'id' }],
+    getRelevantSamples:    [ getRelevantSamples, { id: 'id', method: 'method' }],
 })(({
     className,
     getRelevantSamples: {
@@ -30,13 +31,17 @@ export default composeQueries({
     },
     onChangeRow,
     selectedRow,
+    onChangeMethod,
 }) => {
-
     const valueDict = dataFieldsToObj(
         pathOr([], [ 'records', selectedRow, 'fields' ], getRelevantSamples ),
     );
 
     return (
+    <div>
+        <SampleAlgorithm
+            onChange={ onChangeMethod }
+        />
         <table className={ classnames( S.className, className, QA.DATA_MANAGER_CELL_TABLE ) }>
             <thead>
                 <tr>
@@ -86,5 +91,6 @@ export default composeQueries({
                 </tr>
             )}</tbody>
         </table>
+     </div>
     );
 });
