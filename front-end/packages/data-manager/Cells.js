@@ -24,10 +24,12 @@ export default composeQueries({
     getRelevantSamples:    [ getRelevantSamples, { id: 'id', method: 'method' }],
 })(({
     className,
+    method,
     getRelevantSamples: {
         error,
         getRelevantSamples,
         loading,
+        refetch
     },
     onChangeRow,
     selectedRow,
@@ -37,10 +39,16 @@ export default composeQueries({
         pathOr([], [ 'records', selectedRow, 'fields' ], getRelevantSamples ),
     );
 
+    const refetchData = (method) => {
+        onChangeMethod(method)
+        refetch()
+    }
+
     return (
     <div>
         <SampleAlgorithm
-            onChange={ onChangeMethod }
+            onChange={ refetchData }
+            value={ method }
         />
         <table className={ classnames( S.className, className, QA.DATA_MANAGER_CELL_TABLE ) }>
             <thead>

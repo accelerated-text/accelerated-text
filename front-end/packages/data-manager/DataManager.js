@@ -29,6 +29,7 @@ export default PlanActions( composeQueries({
      onChangeMethod = dataSampleMethod =>
          this.props.onUpdatePlan({
              ...this.props.plan,
+             dataSampleRow: 0,
              dataSampleMethod,
          });
 
