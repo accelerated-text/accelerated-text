@@ -37,7 +37,7 @@ def parse(environ, start_response, data):
     name = data["module"]
     text = data["text"]
     try:
-        result = parse_text(name, content, text)
+        results = parse_text(name, content, text)
         return {"results": results}
     except GFError as error:
         return {"error": error.message}
