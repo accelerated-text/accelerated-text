@@ -1,5 +1,5 @@
 (ns data.row-selection-test
-    (:require [clojure.test :refer [deftest is use-fixtures]]
+    (:require [clojure.test :refer [deftest is]]
               [data.entities.data-files.row-selection :as row-selection]))
 
 (deftest test-jaccard-distance

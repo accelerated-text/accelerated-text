@@ -32,7 +32,7 @@
         (log/debugf "Result incides: %s" results)
         (map (fn [r] (nth rows r)) results))
 
-      (let [too-close?     (fn [[i x]] (< x (/ 1 10)))
+      (let [too-close?     (fn [[_ x]] (< x (/ 1 10)))
             available-rows (remove (fn [[idx _]] (contains? (set results) idx)) (get m next)) ;; Rows which are not yet in result
             distant-rows   (remove (fn [[idx _]]  ;; Rows who are far enough from previous results
                                      (some too-close? (-> (get m idx) (select-keys (take-last 3 results)))))
