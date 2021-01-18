@@ -1,20 +1,54 @@
+
 (ns data.entities.data-files
   (:require [api.config :refer [conf]]
             [clojure.data.csv :as csv]
             [clojure.string :as str]
+            [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]]
+            [dk.ative.docjure.spreadsheet :as excel]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
+
+
+(defn binary->csv [data-file]
+  (assoc data-file :content (slurp (:content data-file))))
+
+
+(defn xlsx->csv [data-file]
+  (let [content (:content data-file)]
+    (assoc data-file :content (->> (io/input-stream content)
+                                   (excel/load-workbook-from-stream)
+                                   (excel/select-sheet #"Sheet")
+                                   (excel/row-seq)
+                                   (remove nil?)
+                                   (map excel/cell-seq)
+                                   (map #(map excel/read-cell %))
+                                   (remove #(every? nil? %))
+                                   (map #(str/join "," %))
+                                   (str/join "\n")
+                                   (log/spyf :info "Content: %s")))))
+
+
+(defn convert-file [data-file]
+  (let [file-name (:filename data-file)
+        format    (cond
+                   (str/ends-with? file-name ".csv") :csv
+                   (str/ends-with? file-name ".xlsx") :xlsx
+                   :else                          :unknown)]
+    (case format
+          :csv     (binary->csv data-file)
+          :xlsx    (xlsx->csv data-file)
+          :unknown data-file)))
 
 (defn store!
   "Expected keys are :filename and :content everything else is optional"
   [data-file]
   (let [id (utils/gen-uuid)]
     (log/infof "Storing `%s` with id: `%s`" (:filename data-file) id)
-    (db/write! data-files-db id data-file)
+    (db/write! data-files-db id (convert-file data-file))
     id))
 
 (defn read-data-file [key]
