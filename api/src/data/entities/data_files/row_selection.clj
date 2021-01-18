@@ -42,10 +42,12 @@
 
 
 (defn sample [col limit]
-  (let [l    (count col)
-        step (- (/ l limit) 1)]
-    (loop [[head & tail]   col
-           result          []]
-      (if (= (count result) limit)
-        result
-        (recur (drop step tail) (conj result head))))))
+  (if (> (count col) limit)
+    (let [l    (count col)
+          step (- (/ l limit) 1)]
+      (loop [[head & tail]   col
+             result          []]
+        (if (= (count result) limit)
+          result
+          (recur (drop step tail) (conj result head)))))
+    col))
