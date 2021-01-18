@@ -1,5 +1,6 @@
 (ns api.utils
-  (:require [jsonista.core :as json])
+  (:require [jsonista.core :as json]
+            [clojure.java.io :as io])
   (:import (java.util UUID)))
 
 (def read-mapper (json/object-mapper {:decode-key-fn true}))
@@ -15,5 +16,5 @@
   "Slurp the bytes from a slurpable thing"
   [x]
   (with-open [out (java.io.ByteArrayOutputStream.)]
-    (clojure.java.io/copy (clojure.java.io/input-stream x) out)
+    (io/copy (clojure.java.io/input-stream x) out)
     (.toByteArray out)))
