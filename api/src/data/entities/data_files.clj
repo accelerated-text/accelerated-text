@@ -28,8 +28,7 @@
                                    (map #(map excel/read-cell %))
                                    (remove #(every? nil? %))
                                    (map #(str/join "," %))
-                                   (str/join "\n")
-                                   (log/spyf :info "Content: %s")))))
+                                   (str/join "\n")))))
 
 
 (defn convert-file [data-file]
