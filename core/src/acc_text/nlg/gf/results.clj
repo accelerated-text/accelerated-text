@@ -36,11 +36,14 @@
               zip/node))))
 
 (defn emend [text]
-  (-> text
-      (str/replace #"^\p{Ll}" str/capitalize)
-      (str/replace #"\s+[,.?!]" str/trim)
-      (str/replace #"([.?!]\s*)(\p{Ll})" #(str (nth % 1) (str/capitalize (nth % 2))))
-      (str/replace #"[^.?!]$" #(str % "."))))
+  (->> (str/split text #"\s*¶+\s*")
+       (map (fn [paragraph]
+              (-> paragraph
+                  (str/replace #"^\p{Ll}" str/capitalize)
+                  (str/replace #"\s+[,.?!]" str/trim)
+                  (str/replace #"([.?!]\s*)(\p{Ll})" #(str (nth % 1) (str/capitalize (nth % 2))))
+                  (str/replace #"[^.?!]$" #(str % ".")))))
+       (str/join "¶ ")))
 
 (defn post-process [lang lincat {[tree] :tree}]
   (let [concepts (get-concepts tree lincat)]

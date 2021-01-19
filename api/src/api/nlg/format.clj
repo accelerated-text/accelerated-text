@@ -35,35 +35,60 @@
   (cond-> (cons (get-lang-flag language) (filter some? (map get-reader-flag readers)))
           (true? enriched?) (conj enriched-flag)))
 
+(defn remove-paragraph-symbol [s]
+  (str/replace s #"¶+" ""))
+
+(defn split-annotations [annotations]
+  (loop [[ann & anns] annotations
+         segment []
+         segments []]
+    (if (nil? ann)
+      (cond-> segments (seq segment) (conj segment))
+      (let [ending? (str/includes? (::annotation/text ann) "¶")
+            updated-segment (conj segment (cond-> ann
+                                                  ending? (update ::annotation/text remove-paragraph-symbol)))]
+        (recur
+          anns
+          (if ending? [] updated-segment)
+          (if ending? (conj segments updated-segment) segments))))))
+
 (defn ->annotated-text-format [{rows ::result/rows}]
   (map (fn [{annotations ::row/annotations :as row}]
-         {:type        "ANNOTATED_TEXT"
-          :id          (utils/gen-uuid)
-          :annotations []
-          :references  []
-          :children    [{:type     "PARAGRAPH"
-                         :id       (utils/gen-uuid)
-                         :children [{:type     "SENTENCE"
-                                     :id       (utils/gen-uuid)
-                                     :children (concat
-                                                 (when (show-flags?)
-                                                   (get-flags row))
-                                                 (map (fn [{::annotation/keys [id text]}]
-                                                        {:type "WORD"
-                                                         :id   id
-                                                         :text text})
-                                                      annotations))}]}]}) ;; TODO
+         (let [flags (when (show-flags?) (get-flags row))]
+           {:type        "ANNOTATED_TEXT"
+            :id          (utils/gen-uuid)
+            :annotations []
+            :references  []
+            :children    (->> annotations
+                              (split-annotations)
+                              (map-indexed (fn [i paragraph-annotations]
+                                             {:type     "PARAGRAPH"
+                                              :id       (utils/gen-uuid)
+                                              :children [{:type     "SENTENCE"
+                                                          :id       (utils/gen-uuid)
+                                                          :children (concat
+                                                                      (when (= i 0) flags)
+                                                                      (map (fn [{::annotation/keys [id text]}]
+                                                                             {:type "WORD"
+                                                                              :id   id
+                                                                              :text text})
+                                                                           paragraph-annotations))}]})))}))
        rows))
 
 (defn ->annotated-text-shallow-format [{rows ::result/rows}]
   (map (fn [{text ::row/text :as row}]
-         {:type        "ANNOTATED_TEXT"
-          :id          (utils/gen-uuid)
-          :annotations []
-          :references  []
-          :children    [{:type "PARAGRAPH"
-                         :id   (utils/gen-uuid)
-                         :text (str/join " " (conj (mapv :text (get-flags row)) text))}]})
+         (let [flags (when (show-flags?) (str/join " " (map :text (get-flags row))))]
+           {:type        "ANNOTATED_TEXT"
+            :id          (utils/gen-uuid)
+            :annotations []
+            :references  []
+            :children    (->> (str/split text #"¶+")
+                              (map str/trim)
+                              (map-indexed (fn [i paragraph]
+                                             {:type "PARAGRAPH"
+                                              :id   (utils/gen-uuid)
+                                              :text (str/trim (cond->> paragraph
+                                                                       (= i 0) (str flags " ")))})))}))
        rows))
 
 (defn ->error [{::result/keys [error-message]}]
@@ -79,7 +104,7 @@
                                         :text error-message}]})))
 
 (defn ->raw-format [{::result/keys [rows]}]
-  (map ::row/text rows))
+  (map (comp remove-paragraph-symbol ::row/text) rows))
 
 (defn use-format [format-type result]
   (case format-type
