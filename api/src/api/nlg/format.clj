@@ -36,21 +36,21 @@
           (true? enriched?) (conj enriched-flag)))
 
 (defn remove-paragraph-symbol [s]
-  (str/replace s #"¶+" ""))
+  (str/replace s #"\s*¶+\s*" " "))
 
-(defn split-annotations [annotations]
+(defn split-into-paragraphs [annotations]
   (loop [[ann & anns] annotations
-         segment []
-         segments []]
+         segments []
+         segment []]
     (if (nil? ann)
       (cond-> segments (seq segment) (conj segment))
-      (let [ending? (str/includes? (::annotation/text ann) "¶")
-            updated-segment (conj segment (cond-> ann
-                                                  ending? (update ::annotation/text remove-paragraph-symbol)))]
+      (let [ending? (str/includes? (::annotation/text ann) "¶")]
         (recur
           anns
-          (if ending? [] updated-segment)
-          (if ending? (conj segments updated-segment) segments))))))
+          (if ending? (conj segments segment) segments)
+          (if ending? (let [text (remove-paragraph-symbol (::annotation/text ann))]
+                        (cond-> [] (not (str/blank? text)) (conj (assoc ann ::annotation/text text))))
+                      (conj segment ann)))))))
 
 (defn ->annotated-text-format [{rows ::result/rows}]
   (map (fn [{annotations ::row/annotations :as row}]
@@ -60,7 +60,7 @@
             :annotations []
             :references  []
             :children    (->> annotations
-                              (split-annotations)
+                              (split-into-paragraphs)
                               (map-indexed (fn [i paragraph-annotations]
                                              {:type     "PARAGRAPH"
                                               :id       (utils/gen-uuid)

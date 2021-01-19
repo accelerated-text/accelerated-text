@@ -43,7 +43,7 @@
                   (str/replace #"\s+[,.?!]" str/trim)
                   (str/replace #"([.?!]\s*)(\p{Ll})" #(str (nth % 1) (str/capitalize (nth % 2))))
                   (str/replace #"[^.?!]$" #(str % ".")))))
-       (str/join "¶ ")))
+       (str/join " ¶ ")))
 
 (defn post-process [lang lincat {[tree] :tree}]
   (let [concepts (get-concepts tree lincat)]
