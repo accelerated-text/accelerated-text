@@ -21,7 +21,8 @@
   (let [content (:content data-file)]
     (assoc data-file :content (->> (io/input-stream content)
                                    (excel/load-workbook-from-stream)
-                                   (excel/select-sheet #"Sheet")
+                                   (excel/sheet-seq)
+                                   (first)
                                    (excel/row-seq)
                                    (remove nil?)
                                    (map excel/cell-seq)
