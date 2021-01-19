@@ -35,9 +35,6 @@
   (cond-> (cons (get-lang-flag language) (filter some? (map get-reader-flag readers)))
           (true? enriched?) (conj enriched-flag)))
 
-(defn remove-paragraph-symbol [s]
-  (str/replace s #"\s*¶+\s*" " "))
-
 (defn split-into-paragraphs [annotations]
   (loop [[ann & anns] annotations
          segments []
@@ -48,7 +45,7 @@
         (recur
           anns
           (if ending? (conj segments segment) segments)
-          (if ending? (let [text (remove-paragraph-symbol (::annotation/text ann))]
+          (if ending? (let [text (str/replace (::annotation/text ann) #"\s*¶+\s*" "")]
                         (cond-> [] (not (str/blank? text)) (conj (assoc ann ::annotation/text text))))
                       (conj segment ann)))))))
 
@@ -104,7 +101,7 @@
                                         :text error-message}]})))
 
 (defn ->raw-format [{::result/keys [rows]}]
-  (map (comp remove-paragraph-symbol ::row/text) rows))
+  (map #(str/replace (::row/text %) #"\s*¶+\s*" "\n") rows))
 
 (defn use-format [format-type result]
   (case format-type
