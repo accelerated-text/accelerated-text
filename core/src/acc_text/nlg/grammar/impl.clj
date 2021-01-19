@@ -11,7 +11,7 @@
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
             [acc-text.nlg.graph.utils :refer [add-concept-position find-root-id get-in-edge get-successors prune-graph]]
             [acc-text.nlg.graph.variables :refer [resolve-variables]]
-            [acc-text.nlg.graph.segment :refer [add-paragraph-quote]]
+            [acc-text.nlg.graph.segment :refer [add-paragraph-symbol]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]
@@ -138,7 +138,7 @@
 (defn ->graph [semantic-graph context]
   (-> semantic-graph
       (semantic-graph->ubergraph)
-      (add-paragraph-quote)
+      (add-paragraph-symbol)
       (attach-amrs context)
       (resolve-variables)
       (determine-conditions context)
