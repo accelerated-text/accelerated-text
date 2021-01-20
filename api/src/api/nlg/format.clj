@@ -41,11 +41,11 @@
          segment []]
     (if (nil? ann)
       (cond-> segments (seq segment) (conj segment))
-      (let [ending? (str/includes? (::annotation/text ann) "¶")]
+      (let [ending? (str/includes? (::annotation/text ann) "\n")]
         (recur
           anns
           (if ending? (conj segments segment) segments)
-          (if ending? (let [text (str/replace (::annotation/text ann) #"\s*¶+\s*" "")]
+          (if ending? (let [text (str/replace (::annotation/text ann) #"\s*\n+\s*" "")]
                         (cond-> [] (not (str/blank? text)) (conj (assoc ann ::annotation/text text))))
                       (conj segment ann)))))))
 
@@ -79,7 +79,7 @@
             :id          (utils/gen-uuid)
             :annotations []
             :references  []
-            :children    (->> (str/split text #"¶+")
+            :children    (->> (str/split text #"\n+")
                               (map str/trim)
                               (map-indexed (fn [i paragraph]
                                              {:type "PARAGRAPH"
@@ -101,7 +101,7 @@
                                         :text error-message}]})))
 
 (defn ->raw-format [{::result/keys [rows]}]
-  (map #(str/replace (::row/text %) #"\s*¶+\s*" "\n") rows))
+  (map #(str/replace (::row/text %) #"\s*\n+\s*" "\n") rows))
 
 (defn use-format [format-type result]
   (case format-type
