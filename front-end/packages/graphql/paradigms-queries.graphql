@@ -47,58 +47,6 @@ query documentPlans( $kind: String! = "AMR" ) {
     }
 }
 
-### Thesaurus ------------------------------------------------------------------
-
-query searchThesaurus( $query: String! ) {
-    searchThesaurus( query: $query ) {
-        offset
-        totalCount
-        words {
-            ...wordFields
-        }
-    }
-}
-
-query synonyms( $wordId: ID! ) {
-    synonyms( wordId: $wordId ) {
-        synonyms {
-            ...wordFields
-        }
-    }
-}
-
-
-### Reader ---------------------------------------------------------------------
-
-query readerFlags {
-    readerFlags {
-        id
-        flags {
-            ...readerFlagFields
-        }
-    }
-}
-
-
-### Dictionary -----------------------------------------------------------------
-
-query dictionary {
-    dictionary {
-        offset
-        totalCount
-        items {
-            ...dictionaryItemFields
-        }
-    }
-}
-
-query dictionaryItem( $id: ID! ) {
-    dictionaryItem( id: $id ) {
-        ...dictionaryItemFields
-    }
-}
-
-
 ### AMR ------------------------------------------------------------------------
 
 query concepts {

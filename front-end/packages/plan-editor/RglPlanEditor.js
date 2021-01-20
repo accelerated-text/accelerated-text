@@ -5,11 +5,11 @@ import PropTypes            from 'prop-types';
 import composeContexts      from '../compose-contexts/';
 import Error                from '../ui-messages/Error';
 import Loading              from '../ui-messages/Loading';
-import OnboardCode          from '../onboard-code/OnboardCode';
+import OnboardCode          from '../onboard-code/RglOnboardCode';
 import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
 import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 import PlanActions          from '../document-plans/Actions';
-import planTemplate         from '../document-plans/plan-template';
+import planTemplate         from '../document-plans/rgl-plan-template';
 import Workspace            from '../nlg-workspace/NlgWorkspace';
 
 import S                    from './PlanEditor.sass';

@@ -3,7 +3,7 @@ import { h }                from 'preact';
 import { composeQueries  }  from '../graphql';
 import { Error, Loading }   from '../ui-messages/';
 import LabelWithStatus      from '../label-with-status/LabelWithStatus';
-import { concepts }         from '../graphql/queries.graphql';
+import { concepts }         from '../graphql/rgl-queries.graphql';
 
 import RglConceptRow        from './RglConceptRow';
 import S                    from './AmrConcepts.sass';
