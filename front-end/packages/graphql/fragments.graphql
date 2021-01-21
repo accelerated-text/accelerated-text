@@ -61,7 +61,6 @@ fragment documentPlanFields on DocumentPlan {
   documentPlan
   dataSampleId
   dataSampleRow
-  dataSampleMethod
   createdAt
   updatedAt
   updateCount

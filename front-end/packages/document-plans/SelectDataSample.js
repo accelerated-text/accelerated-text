@@ -20,7 +20,6 @@ export default PlanActions(
                 ...this.props.plan,
                 dataSampleId,
                 dataSampleRow:  0,
-                dataSampleMethod: 'relevant'
             });
 
         render({ className, plan }) {
