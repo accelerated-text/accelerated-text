@@ -2,18 +2,20 @@ import logging
 import argparse
 
 from wsgiref.simple_server import make_server
+from wsgiref.util import setup_testing_defaults
 
-from utils import (response_404, post_request, json_request, json_response)
-from gf import generate_results, GFError
+from utils import (response_404, json_request, json_response, route, routes)
+from gf import generate_results, parse_text, GFError
 
 
 logger = logging.getLogger("server")
 
 
-@post_request
+
+@route("/", "POST")
 @json_request
 @json_response
-def application(environ, start_response, data):
+def generate(environ, start_response, data):
     content = data["content"]
     name = data["module"]
     try:
@@ -24,6 +26,40 @@ def application(environ, start_response, data):
     except Exception as ex:
         logger.exception(ex)
         return {"error": str(ex).strip()}
+
+
+
+@route("/parse", "POST")
+@json_request
+@json_response
+def parse(environ, start_response, data):
+    content = data["content"]
+    name = data["module"]
+    text = data["text"]
+    try:
+        results = parse_text(name, content, text)
+        return {"results": results}
+    except GFError as error:
+        return {"error": error.message}
+    except Exception as ex:
+        logger.exception(ex)
+        return {"error": str(ex).strip()}
+
+
+
+@route("/health", "GET")
+@json_response
+def ping(*args):
+    return {"status": "OK"}
+
+
+
+def application(environ, start_response):
+    setup_testing_defaults(environ)
+    for (m, p), fn in routes.items():
+        if environ["REQUEST_METHOD"] == m and environ["PATH_INFO"] == p:
+            return fn(environ, start_response)
+    return response_404(environ, start_response)
 
 
 def main(args):

@@ -1,6 +1,6 @@
 import json
 
-from wsgiref.util import setup_testing_defaults
+routes = {}
 
 
 def response_404(environ, start_response):
@@ -10,15 +10,20 @@ def response_404(environ, start_response):
     return ""
 
 
-def post_request(fn):
-    def wrapper(environ, *args, **kwargs):
-        setup_testing_defaults(environ)
-        if environ["REQUEST_METHOD"] == "POST":
-            return fn(environ, *args, **kwargs)
-        else:
-            return response_404(environ, *args, **kwargs)
 
-    return wrapper
+
+def route(path, method):
+    def inject(fn):
+        routes[(method, path)] = fn
+        def wrapper(environ, *args, **kwargs):
+            return fn(*args, **kwargs)
+            # if environ["REQUEST_METHOD"] == "POST":
+            #     return fn(environ, *args, **kwargs)
+            # else:
+            #     return response_404(environ, *args, **kwargs)
+
+        return wrapper
+    return inject
 
 
 def json_request(fn):
