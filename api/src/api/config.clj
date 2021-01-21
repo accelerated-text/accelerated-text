@@ -16,6 +16,7 @@
    :enabled-readers    (set (read-conf-line (or (System/getenv "ENABLED_READERS") "")))
    :config-path        (or (System/getenv "CONFIG_PATH") (io/resource "config"))
    :dictionary-path    (or (System/getenv "DICT_PATH") (io/resource "dictionary"))
-   :document-plan-path (or (System/getenv "DOCUMENT_PLANS") (io/resource "document-plans"))})
+   :document-plan-path (or (System/getenv "DOCUMENT_PLANS") (io/resource "document-plans"))
+   :relevant-items-limit (or (System/getenv "RELEVANT_ITEMS_MATRIX_LIMIT") 100)})
 
 (defstate conf :start (load-config))
