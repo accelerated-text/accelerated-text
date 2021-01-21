@@ -27,7 +27,8 @@
           {#'api.config/conf
            {:start (fn []
                      {:db-implementation :datomic
-                      :enabled-languages #{"Eng"}})}})
+                      :enabled-languages #{"Eng"}
+                      :relevant-items-limit 100})}})
         (mount/only #{#'api.config/conf
                       #'data.entities.data-files/data-files-db
                       #'data.entities.document-plan/document-plans-db

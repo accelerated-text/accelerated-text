@@ -112,6 +112,11 @@
            :db/cardinality :db.cardinality/one
            :db/doc         "Data sample row number"}
 
+          {:db/ident       :document-plan/data-sample-method
+           :db/valueType   :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Data sample method"}
+
           {:db/ident       :document-plan/update-count
            :db/valueType   :db.type/long
            :db/cardinality :db.cardinality/one

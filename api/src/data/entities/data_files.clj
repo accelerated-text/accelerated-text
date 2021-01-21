@@ -7,8 +7,9 @@
             [clojure.tools.logging :as log]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]
-            [dk.ative.docjure.spreadsheet :as excel]))
+            [dk.ative.docjure.spreadsheet :as excel]
+            [data.entities.data-files.row-selection :as row-selection]
+            [mount.core :refer [defstate]]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 
@@ -83,6 +84,29 @@
                         (range offset (+ offset limit))
                         rows)
      :recordOffset offset
+     :recordLimit  limit
+     :recordCount  total}))
+
+(defn fetch-most-relevant [id _ limit]
+  (let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data))
+        sampled-rows                         (row-selection/sample rows (:relevant-items-limit conf))
+        m                                    (row-selection/distance-matrix sampled-rows)
+        selected-rows                        (row-selection/select-rows m sampled-rows limit)]
+    {:id           id
+     :fileName     filename
+     :fieldNames   header
+     :records      (map (fn [row record]
+                          {:id     (str id ":" row)
+                           :fields (map (fn [column field-name value]
+                                          {:id        (str id ":" row ":" column)
+                                           :fieldName field-name
+                                           :value     value})
+                                        (range)
+                                        header
+                                        record)})
+                        (range 0 limit)
+                        selected-rows)
+     :recordOffset 0
      :recordLimit  limit
      :recordCount  total}))
 

@@ -17,18 +17,19 @@
   (-> "schema.graphql"
       (io/resource)
       slurp
-      (parser/parse-schema {:resolvers {:Query    {:listDataFiles   :list-data-files
-                                                   :documentPlan    :document-plan
-                                                   :documentPlans   :document-plans
-                                                   :getDataFile     :get-data-file
-                                                   :dictionary      :dictionary
-                                                   :dictionaryItem  :dictionary-item
-                                                   :readerFlags     :reader-flags
-                                                   :languages       :languages
-                                                   :concepts        :concepts
-                                                   :concept         :concept
-                                                   :searchThesaurus :search-thesaurus
-                                                   :synonyms        :synonyms}
+      (parser/parse-schema {:resolvers {:Query    {:listDataFiles      :list-data-files
+                                                   :documentPlan       :document-plan
+                                                   :documentPlans      :document-plans
+                                                   :getRelevantSamples :get-relevant-samples
+                                                   :getDataFile        :get-data-file
+                                                   :dictionary         :dictionary
+                                                   :dictionaryItem     :dictionary-item
+                                                   :readerFlags        :reader-flags
+                                                   :languages          :languages
+                                                   :concepts           :concepts
+                                                   :concept            :concept
+                                                   :searchThesaurus    :search-thesaurus
+                                                   :synonyms           :synonyms}
                                         :Mutation {:createDictionaryItem     :create-dictionary-item
                                                    :deleteDictionaryItem     :delete-dictionary-item
                                                    :updateDictionaryItem     :update-dictionary-item
@@ -66,6 +67,7 @@
                               :concept                     #'concept-domain/get-concept
                               :list-data-files             #'data-domain/list-data-files
                               :get-data-file               #'data-domain/get-data-file
+                              :get-relevant-samples        #'data-domain/get-relevant-samples
                               :create-data-file            #'data-domain/create-data-file})
       schema/compile))
 
