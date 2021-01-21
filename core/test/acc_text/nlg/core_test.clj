@@ -81,7 +81,7 @@
 (deftest ^:integration capitalize-test
   (let [semantic-graph (test-utils/load-test-semantic-graph "capitalize-test")
         context (test-utils/load-test-context "capitalize-test")]
-    (is (= ["One has one. One has a two.\nOne has a three."] (map :text (core/generate-text semantic-graph context "Eng"))))))
+    (is (= ["One has one. One has a two. One has a three."] (map :text (core/generate-text semantic-graph context "Eng"))))))
 
 (deftest ^:integration modifier-test
   (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
