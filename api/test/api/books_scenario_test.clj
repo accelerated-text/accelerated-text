@@ -61,14 +61,13 @@
         req8 {:uri "/_graphql", :params {}, :body {:operationName "listDataFiles", :variables {}, :query "query listDataFiles {\n  listDataFiles {\n    offset\n    totalCount\n    limit\n    dataFiles {\n      id\n      fileName\n      fieldNames\n      __typename\n    }\n    __typename\n  }\n}\n"}, :request-method :post}
         req9 {:uri "/_graphql", :params {}, :body {:operationName "getDataFile", :variables {:id "11898ba2-bc52-402f-aa78-5b09b1db8ef8"}, :query "query getDataFile($id: ID!) {\n  getDataFile(id: $id) {\n    id\n    fileName\n    fieldNames\n    records {\n      id\n      fields {\n        id\n        fieldName\n        value\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"}, :request-method :post}
         req10 {:uri "/_graphql", :params {}, :body {:operationName "updateDocumentPlan", :variables {:blocklyXml "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"Document-plan\" deletable=\"false\"><statement name=\"segments\"><block type=\"Segment\"><mutation value_count=\"2\" value_sequence=\"value_\"></mutation></block></statement></block></xml>", :updatedAt 1573023619, :__typename "DocumentPlan", :uid "06b6a85c-7696-4d1f-9775-84692cace0cd", :name "Untitled plan", :createdAt 1573023619, :dataSampleId "11898ba2-bc52-402f-aa78-5b09b1db8ef8", :id "e3e784e2-310c-49e9-9ddf-e0bd3bebbce0", :documentPlan "{\"type\":\"Document-plan\",\"segments\":[{\"children\":[],\"type\":\"Segment\",\"srcId\":\"new-segment\"}],\"srcId\":\"new-document-plan\"}", :dataSampleRow 0, :updateCount 0}, :query "mutation updateDocumentPlan($id: ID!, $uid: ID, $name: String, $blocklyXml: String, $documentPlan: String, $dataSampleId: ID, $dataSampleRow: Int) {\n  updateDocumentPlan(id: $id, uid: $uid, name: $name, blocklyXml: $blocklyXml, documentPlan: $documentPlan, dataSampleId: $dataSampleId, dataSampleRow: $dataSampleRow) {\n    ...documentPlanFields\n    __typename\n  }\n}\n\nfragment documentPlanFields on DocumentPlan {\n  id\n  uid\n  name\n  blocklyXml\n  documentPlan\n  dataSampleId\n  dataSampleRow\n  createdAt\n  updatedAt\n  updateCount\n  __typename\n}\n"}, :request-method :post}
-        req11 {:uri            "/nlg/",
-               :params         {},
-               :body           {:documentPlanId   "e3e784e2-310c-49e9-9ddf-e0bd3bebbce0",
-                                :readerFlagValues {},
-                                :dataId           "11898ba2-bc52-402f-aa78-5b09b1db8ef8"},
-               :content-type   "application/json",
-               :request-method :post}
-        req12 {:uri "/_graphql", :params {}, :body {:operationName "getRelevantSamples", :variables {:id "11898ba2-bc52-402f-aa78-5b09b1db8ef8" :method "relevant"}, :query "query getRelevantSamples($id: ID!, $method: String!) {\n  getRelevantSamples(id: $id, method: $method) {\n    id\n    fileName\n    fieldNames\n    records {\n      id\n      fields {\n        id\n        fieldName\n        value\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"}, :request-method :post}]
+        req11 {:uri "/nlg/",
+               :params {},
+               :body {:documentPlanId "e3e784e2-310c-49e9-9ddf-e0bd3bebbce0",
+                      :readerFlagValues {},
+                      :dataId "11898ba2-bc52-402f-aa78-5b09b1db8ef8"},
+               :content-type "application/json",
+               :request-method :post}]
     (is (= [[:data :dictionary :__typename] [:data :dictionary :offset] [:data :dictionary :totalCount] [:data :dictionary :items]]
            (-> (call req0) :body keys-in)))
     (is (= [[:data :concepts :__typename] [:data :concepts :concepts] [:data :concepts :id]]
@@ -244,23 +243,5 @@
                (-> (call (-> req11
                              (assoc-in [:body :documentPlanId] document-plan-id)
                              (assoc-in [:body :dataId] data-file-id)))
-                   :body (doto prn) keys-in)))
-        (let [resp (call (assoc-in req12 [:body :variables :id] data-file-id))]
-          (pprint/pprint resp)
-          (is (= [[:data
-                   :getRelevantSamples
-                   :__typename]
-                  [:data
-                   :getRelevantSamples
-                   :fileName]
-                  [:data
-                   :getRelevantSamples
-                   :records]
-                  [:data
-                   :getRelevantSamples
-                   :fieldNames]
-                  [:data
-                   :getRelevantSamples
-                   :id]]
-                 (-> resp :body keys-in))))))))
+                   :body (doto prn) keys-in)))))))
 

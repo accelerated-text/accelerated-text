@@ -10,23 +10,10 @@
   (is (= {"test" []} (generate-text-bulk {:document-plan-name "Untitled plan"
                                           :data-rows          {"test" {}}}))))
 
-(deftest ^:integration text-generation-with-simple-plan
+(deftest ^:integration text-generation-with-simple-pan
   (is (= ["Building Search Applications is authored by Manu Konchady."]
          (generate-text {:document-plan-name "Authorship"
                          :data-file-name     "books.csv"})))
-  (is (= {"0" ["Building Search Applications is authored by Manu Konchady."]
-          "1" ["The Business Blockchain is authored by William Mougayar."]}
-         (generate-text-bulk {:document-plan-name "Authorship"
-                              :data-rows          {"0" {"authors" "Manu Konchady"
-                                                        "title"   "Building Search Applications"}
-                                                   "1" {"authors" "William Mougayar"
-                                                        "title"   "The Business Blockchain"}}}))))
-
-
-(deftest ^:integration text-generation-with-simple-plan-using-xlsx
-  (is (= ["Building Search Applications is authored by Manu Konchady."]
-         (generate-text {:document-plan-name "Authorship"
-                         :data-file-name     "books.xlsx"})))
   (is (= {"0" ["Building Search Applications is authored by Manu Konchady."]
           "1" ["The Business Blockchain is authored by William Mougayar."]}
          (generate-text-bulk {:document-plan-name "Authorship"

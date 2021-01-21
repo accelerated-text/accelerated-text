@@ -34,7 +34,6 @@ export default class DataManagerFiles extends Component {
         plan,
     }, {
         uploadOpen,
-        method,
     }) {
         const showUpload = (
             uploadOpen

@@ -12,44 +12,31 @@ import {
     Info,
     Loading,
 }   from '../ui-messages/';
-import { getRelevantSamples }      from '../graphql/queries.graphql';
+import { getDataFile }      from '../graphql/queries.graphql';
 import { QA }               from '../tests/constants';
 import RowSelector          from '../row-selector/RowSelector';
 
 import S                    from './Cells.sass';
-import SampleAlgorithm      from './SampleAlgorithm';
 
 
 export default composeQueries({
-    getRelevantSamples:    [ getRelevantSamples, { id: 'id', method: 'method' }],
+    getDataFile:    [ getDataFile, { id: 'id' }],
 })(({
     className,
-    method,
-    getRelevantSamples: {
+    getDataFile: {
         error,
-        getRelevantSamples,
+        getDataFile,
         loading,
-        refetch
     },
     onChangeRow,
     selectedRow,
-    onChangeMethod,
 }) => {
+
     const valueDict = dataFieldsToObj(
-        pathOr([], [ 'records', selectedRow, 'fields' ], getRelevantSamples ),
+        pathOr([], [ 'records', selectedRow, 'fields' ], getDataFile ),
     );
 
-    const refetchData = (method) => {
-        onChangeMethod(method)
-        refetch()
-    }
-
     return (
-    <div>
-        <SampleAlgorithm
-            onChange={ refetchData }
-            value={ method }
-        />
         <table className={ classnames( S.className, className, QA.DATA_MANAGER_CELL_TABLE ) }>
             <thead>
                 <tr>
@@ -61,12 +48,12 @@ export default composeQueries({
                             ? <Error message={ error } />
                         : loading
                             ? <Loading message="Loading cell values" />
-                        : getRelevantSamples && getRelevantSamples.records
+                        : getDataFile && getDataFile.records
                             ? <RowSelector
                                 nextClassName={ QA.DATA_MANAGER_ROW_NEXT }
                                 previousClassName={ QA.DATA_MANAGER_ROW_PREVIOUS }
                                 onChange={ onChangeRow }
-                                rows={ getRelevantSamples.records }
+                                rows={ getDataFile.records }
                                 selectClassName={ classnames( S.selectRow, QA.DATA_MANAGER_ROW_SELECT ) }
                                 selected={ selectedRow }
                             />
@@ -74,7 +61,7 @@ export default composeQueries({
                     }</th>
                 </tr>
             </thead>
-            <tbody>{ getRelevantSamples && getRelevantSamples.fieldNames.map(( name, i ) =>
+            <tbody>{ getDataFile && getDataFile.fieldNames.map(( name, i ) =>
                 <tr key={ i }>
                     <td className={ S.dragInBlock }>
                         <DragInBlock
@@ -99,6 +86,5 @@ export default composeQueries({
                 </tr>
             )}</tbody>
         </table>
-     </div>
     );
 });

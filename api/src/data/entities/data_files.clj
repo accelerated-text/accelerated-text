@@ -1,55 +1,20 @@
-
 (ns data.entities.data-files
   (:require [api.config :refer [conf]]
             [clojure.data.csv :as csv]
             [clojure.string :as str]
-            [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [data.db :as db]
             [data.utils :as utils]
-            [dk.ative.docjure.spreadsheet :as excel]
-            [data.entities.data-files.row-selection :as row-selection]
             [mount.core :refer [defstate]]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
-
-
-(defn binary->csv [data-file]
-  (assoc data-file :content (slurp (:content data-file))))
-
-
-(defn xlsx->csv [data-file]
-  (let [content (:content data-file)]
-    (assoc data-file :content (->> (io/input-stream content)
-                                   (excel/load-workbook-from-stream)
-                                   (excel/sheet-seq)
-                                   (first)
-                                   (excel/row-seq)
-                                   (remove nil?)
-                                   (map excel/cell-seq)
-                                   (map #(map excel/read-cell %))
-                                   (remove #(every? nil? %))
-                                   (map #(str/join "," %))
-                                   (str/join "\n")))))
-
-
-(defn convert-file [data-file]
-  (let [file-name (:filename data-file)
-        format    (cond
-                   (str/ends-with? file-name ".csv") :csv
-                   (str/ends-with? file-name ".xlsx") :xlsx
-                   :else                          :unknown)]
-    (case format
-          :csv     (binary->csv data-file)
-          :xlsx    (xlsx->csv data-file)
-          :unknown data-file)))
 
 (defn store!
   "Expected keys are :filename and :content everything else is optional"
   [data-file]
   (let [id (utils/gen-uuid)]
     (log/infof "Storing `%s` with id: `%s`" (:filename data-file) id)
-    (db/write! data-files-db id (convert-file data-file))
+    (db/write! data-files-db id data-file)
     id))
 
 (defn read-data-file [key]
@@ -84,29 +49,6 @@
                         (range offset (+ offset limit))
                         rows)
      :recordOffset offset
-     :recordLimit  limit
-     :recordCount  total}))
-
-(defn fetch-most-relevant [id _ limit]
-  (let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data))
-        sampled-rows                         (row-selection/sample rows (:relevant-items-limit conf))
-        m                                    (row-selection/distance-matrix sampled-rows)
-        selected-rows                        (row-selection/select-rows m sampled-rows limit)]
-    {:id           id
-     :fileName     filename
-     :fieldNames   header
-     :records      (map (fn [row record]
-                          {:id     (str id ":" row)
-                           :fields (map (fn [column field-name value]
-                                          {:id        (str id ":" row ":" column)
-                                           :fieldName field-name
-                                           :value     value})
-                                        (range)
-                                        header
-                                        record)})
-                        (range 0 limit)
-                        selected-rows)
-     :recordOffset 0
      :recordLimit  limit
      :recordCount  total}))
 
