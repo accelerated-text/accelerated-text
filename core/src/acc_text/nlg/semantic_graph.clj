@@ -5,10 +5,12 @@
 
 (s/def ::id string?)
 
+(s/def ::uid string?)
+
 (s/def ::concepts
   (s/coll-of
     (s/keys :req-un [::concept/id ::concept/type]
-            :opt-un [::concept/name ::concept/value ::concept/category ::concept/label])))
+            :opt-un [::concept/name ::concept/value ::concept/category ::concept/label ::concept/position])))
 
 (s/def ::relations
   (s/coll-of
@@ -17,10 +19,12 @@
 
 (s/def ::name string?)
 
+(s/def ::kind string?)
+
 (s/def ::category string?)
 
 (s/def ::description string?)
 
 (s/def ::graph
   (s/keys :req [::id ::concepts ::relations]
-          :opt [::name ::category ::description]))
+          :opt [::uid ::name ::kind ::category ::description]))
