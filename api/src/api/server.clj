@@ -31,7 +31,7 @@
 
 (defn string-store [item]
   (-> (select-keys item [:filename :content-type])
-      (assoc :content (utils/slurp-bytes (:stream item)))))
+      (assoc :content (slurp (:stream item)))))
 
 (def multipart-handler
   (multipart-params/wrap-multipart-params identity {:store string-store}))
