@@ -10,7 +10,8 @@ import { QA }               from '../tests/constants';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 import WorkspaceContext     from '../workspace-context/WorkspaceContext';
 import workspaceShortcuts   from '../shortcuts/workspace-shortcuts';
-import DocumentPlan         from '../nlg-blocks/Document-Plan';
+import RGLPlan              from '../nlg-blocks/RGL-plan';
+
 import blockSvgOverride     from './block-svg-override';
 import S                    from './NlgWorkspace.sass';
 import { setCellOptions }   from './cell-options';
@@ -26,6 +27,7 @@ export default class NlgWorkspace extends Component {
         cellNames:          PropTypes.array,
         onChangeWorkspace:  PropTypes.func,
         workspaceXml:       PropTypes.string,
+        planClass:          PropTypes.func,
     };
 
     static contextType =    WorkspaceContext;
@@ -62,7 +64,7 @@ export default class NlgWorkspace extends Component {
                     documentPlan:
                         workspace
                             .getTopBlocks()
-                            .find( block => block.type === DocumentPlan.type )
+                            .find( block => block.type === RGLPlan.type )
                             .toNlgJson(),
                     workspaceXml:
                         Xml.domToText(

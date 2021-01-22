@@ -11,6 +11,7 @@ import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 import PlanActions          from '../document-plans/Actions';
 import planTemplate         from '../document-plans/plan-template';
 import Workspace            from '../nlg-workspace/NlgWorkspace';
+import AMRPlan              from '../nlg-blocks/AMR-plan';
 
 import S                    from './PlanEditor.sass';
 
@@ -56,6 +57,7 @@ export default PlanActions( composeContexts({
                         key={ plan.uid }
                         onChangeWorkspace={ this.onChangeWorkspace }
                         workspaceXml={ plan.blocklyXml }
+                        planClass={ AMRPlan }
                     />
                 : loading
                     ? <Loading className={ S.item } message="Loading morphologies." />

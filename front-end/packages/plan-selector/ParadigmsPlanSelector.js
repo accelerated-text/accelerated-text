@@ -6,7 +6,7 @@ import DocumentPlansContext from '../document-plans/Context';
 import { Error, Loading }   from '../ui-messages/';
 import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 import PlanActions          from '../document-plans/Actions';
-import planTemplate         from '../document-plans/plan-template';
+import planTemplate         from '../document-plans/paradigms-plan-template';
 import { QA }               from '../tests/constants';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
 

@@ -6,12 +6,12 @@ import {
     deleteDocumentPlan,
     updateDocumentPlan,
 }                           from '../graphql/mutations.graphql';
-import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
+import OpenedPlanContext    from '../rgl/OpenedPlanContext';
 
 import {
     preparePlanJson,
 }                           from './functions';
-import planTemplate from './plan-template';
+import planTemplate from './rgl-plan-template';
 import uuid from 'uuid';
 
 export const createPlan = fields => ({
@@ -21,6 +21,7 @@ export const createPlan = fields => ({
     id:                 undefined,
     uid:                uuid.v4(),
 });
+
 
 export default ChildComponent =>
     composeQueries({
@@ -48,7 +49,7 @@ export default ChildComponent =>
             this.context.openPlan( createdPlan );
             return this.props.createDocumentPlan({
                 variables:              preparePlanJson( createdPlan ),
-                refetchQueries:         [ 'documentPlans' ],
+                refetchQueries:         [ 'rglPlans' ],
                 optimisticResponse: {
                     __typename:         'Mutation',
                     createDocumentPlan: {

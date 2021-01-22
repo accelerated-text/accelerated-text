@@ -8,9 +8,9 @@ import Loading              from '../ui-messages/Loading';
 import OnboardCode          from '../onboard-code/RglOnboardCode';
 import OpenedFileContext    from '../rgl/OpenedDataFileContext';
 import OpenedPlanContext    from '../rgl/OpenedPlanContext';
-import PlanActions          from '../document-plans/Actions';
+import PlanActions          from '../document-plans/RglActions';
 import planTemplate         from '../document-plans/rgl-plan-template';
-import Workspace            from '../nlg-workspace/NlgWorkspace';
+import Workspace            from '../nlg-workspace/RglWorkspace';
 
 import S                    from './PlanEditor.sass';
 
