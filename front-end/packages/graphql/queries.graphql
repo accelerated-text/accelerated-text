@@ -63,6 +63,30 @@ query documentPlans( $kind: String! = "Document" ) {
   }
 }
 
+query rglPlans( $kind: String! = "RGL" ) {
+    documentPlans( kind: $kind ) {
+        offset
+        totalCount
+        limit
+        kind
+        items {
+            ...documentPlanFields
+        }
+    }
+}
+
+query amrPlans( $kind: String! = "AMR" ) {
+    documentPlans( kind: $kind ) {
+        offset
+        totalCount
+        limit
+        kind
+        items {
+            ...documentPlanFields
+        }
+    }
+}
+
 ### Thesaurus ------------------------------------------------------------------
 
 query searchThesaurus( $query: String! ) {

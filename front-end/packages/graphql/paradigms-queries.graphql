@@ -32,21 +32,6 @@ query listDataFiles {
     }
 }
 
-
-### Document plans -------------------------------------------------------------
-
-query documentPlans( $kind: String! = "AMR" ) {
-    documentPlans( kind: $kind ) {
-        offset
-        totalCount
-        limit
-        kind
-        items {
-            ...documentPlanFields
-        }
-    }
-}
-
 ### AMR ------------------------------------------------------------------------
 
 query concepts {
