@@ -14,6 +14,8 @@ export const blocks = {
     OneOfSynonyms:          require( './One-of-synonyms' ).default,
     Quote:                  require( './Quote' ).default,
     Segment:                require( './Segment' ).default,
+    RglFrame:               require( './RglFrame' ).default,
+    Frame:                  require( './Frame' ).default,
     Sequence:               require( './Sequence' ).default,
     Shuffle:                require( './Shuffle' ).default,
     ValueComparison:        require( './Value-comparison' ).default,
