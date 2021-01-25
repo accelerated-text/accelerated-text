@@ -15,7 +15,7 @@ export default {
         type:           'Document-plan',
         srcId:          'new-document-plan',
         segments: [{
-            type:       'Frame',
+            type:       'Segment',
             srcId:      'new-segment',
             children:   [],
         }],

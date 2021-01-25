@@ -5,7 +5,7 @@ import PropTypes            from 'prop-types';
 
 import BottomBar            from '../bottom-bar/BottomBar';
 import DropTarget           from '../drag-in-blocks/DropTarget';
-import { provideBlocks }    from '../nlg-blocks/';
+import { provideDocumentPlanBlocks }    from '../nlg-blocks/';
 import { QA }               from '../tests/constants';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 import WorkspaceContext     from '../workspace-context/WorkspaceContext';
@@ -86,7 +86,7 @@ export default class NlgWorkspace extends Component {
         Blockly.HSV_VALUE =         0.6;
 
         blockSvgOverride( Blockly );
-        provideBlocks( Blockly );
+        provideDocumentPlanBlocks( Blockly );
 
         this.context.setBlockly( Blockly );
     };
