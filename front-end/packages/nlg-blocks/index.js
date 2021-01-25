@@ -13,7 +13,7 @@ export const blocks = {
     Not:                    require( './Not' ).default,
     OneOfSynonyms:          require( './One-of-synonyms' ).default,
     Quote:                  require( './Quote' ).default,
-    //Segment:                require( './Segment' ).default,
+    Segment:                require( './Segment' ).default,
     //RglFrame:               require( './RglFrame' ).default,
     //Frame:                  require( './Frame' ).default,
     Sequence:               require( './Sequence' ).default,
@@ -21,10 +21,6 @@ export const blocks = {
     ValueComparison:        require( './Value-comparison' ).default,
     ValueIn:                require( './Value-in' ).default,
     Xor:                    require( './Xor' ).default,
-};
-
-export const DocumentPlanBlocks = {
-    Segment:                require( './Segment' ).default,
 };
 
 
@@ -37,7 +33,7 @@ export const AmrBlocks = {
 };
 
 export const provideDocumentPlanBlocks = Blockly =>
-    Object.values( Object.assign({}, blocks, DocumentPlanBlocks ))
+    Object.values( blocks )
         .forEach( block => block( Blockly ));
 
 export const provideRglBlocks = Blockly =>

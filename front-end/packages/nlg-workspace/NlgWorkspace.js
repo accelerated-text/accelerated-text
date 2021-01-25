@@ -10,7 +10,7 @@ import { QA }               from '../tests/constants';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 import WorkspaceContext     from '../workspace-context/WorkspaceContext';
 import workspaceShortcuts   from '../shortcuts/workspace-shortcuts';
-import DocumentPlan         from '../nlg-blocks/Document-Plan';
+import DocumentPlan         from '../nlg-blocks/Document-plan';
 import blockSvgOverride     from './block-svg-override';
 import S                    from './NlgWorkspace.sass';
 import { setCellOptions }   from './cell-options';
