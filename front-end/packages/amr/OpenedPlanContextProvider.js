@@ -2,7 +2,7 @@ import { h, Component }     from 'preact';
 import { path }             from 'ramda';
 
 import { composeQueries }   from '../graphql/';
-import { rglPlans }    from '../graphql/queries.graphql';
+import { amrPlans }    from '../graphql/queries.graphql';
 import { getPlanByUid }     from '../document-plans/functions';
 
 import Context              from './OpenedPlanContext';
@@ -10,11 +10,11 @@ import { OPENED_PLAN_UID }  from './constants';
 
 
 export default composeQueries({
-    rglPlans,
+    amrPlans,
 })( class OpenedPlanContextProvider extends Component {
 
     static getDerivedStateFromProps(
-        { rglPlans: { documentPlans, error, loading }},
+        { amrPlans: { documentPlans, error, loading }},
         { plan },
     ) {
         const skip = (
@@ -67,8 +67,8 @@ export default composeQueries({
         return <Context.Provider
             children={ children }
             value={ Object.assign( this.value, {
-                error:          ! plan && rglPlans.error,
-                loading:        ! plan && rglPlans.loading,
+                error:          ! plan && amrPlans.error,
+                loading:        ! plan && amrPlans.loading,
                 openPlan:       this.openPlan,
                 openPlanUid:    this.openPlanUid,
                 plan,
