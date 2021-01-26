@@ -5,12 +5,12 @@ import PropTypes            from 'prop-types';
 
 import BottomBar            from '../bottom-bar/BottomBar';
 import DropTarget           from '../drag-in-blocks/DropTarget';
-import { provideRglBlocks }    from '../nlg-blocks/';
+import { provideAmrBlocks }    from '../nlg-blocks/';
 import { QA }               from '../tests/constants';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 import WorkspaceContext     from '../workspace-context/WorkspaceContext';
 import workspaceShortcuts   from '../shortcuts/workspace-shortcuts';
-import RGLPlan              from '../nlg-blocks/RGL-plan';
+import AMRPlan              from '../nlg-blocks/AMR-plan';
 
 import blockSvgOverride     from './block-svg-override';
 import S                    from './NlgWorkspace.sass';
@@ -18,7 +18,7 @@ import { setCellOptions }   from './cell-options';
 import toolbox              from './toolbox.xml';
 
 
-const log =                 debug( 'RglWorkspace' );
+const log =                 debug( 'AmrWorkspace' );
 
 
 export default class NlgWorkspace extends Component {
@@ -64,7 +64,7 @@ export default class NlgWorkspace extends Component {
                     documentPlan:
                         workspace
                             .getTopBlocks()
-                            .find( block => block.type === RGLPlan.type )
+                            .find( block => block.type === AMRPlan.type )
                             .toNlgJson(),
                     workspaceXml:
                         Xml.domToText(
@@ -88,7 +88,7 @@ export default class NlgWorkspace extends Component {
         Blockly.HSV_VALUE =         0.6;
 
         blockSvgOverride( Blockly );
-        provideRglBlocks( Blockly );
+        provideAmrBlocks( Blockly );
 
         this.context.setBlockly( Blockly );
     };

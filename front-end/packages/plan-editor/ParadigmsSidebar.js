@@ -9,18 +9,15 @@ import ParadigmsRusConcepts from '../amr-concepts/ParadigmsRusConcepts';
 import ParadigmsSpaConcepts from '../amr-concepts/ParadigmsSpaConcepts';
 import composeContexts      from '../compose-contexts/';
 import Dictionary           from '../dictionary/Dictionary';
-import OpenedFileContext    from '../accelerated-text/OpenedDataFileContext';
-import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
+import OpenedPlanContext    from '../amr/OpenedPlanContext';
 import Sidebar              from '../sidebar/Sidebar';
 import SidebarItem          from '../sidebar/Item';
 
 
 export default composeContexts({
-    openedDataFile:         OpenedFileContext,
     openedPlan:             OpenedPlanContext,
 })(({
     className,
-    openedDataFile: { file },
     openedPlan: {
         plan,
         loading,

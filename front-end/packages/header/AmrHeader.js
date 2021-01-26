@@ -2,9 +2,9 @@ import  classnames          from 'classnames';
 import { h }                from 'preact';
 
 import composeContexts      from '../compose-contexts/';
-import PlanSelector         from '../plan-selector/RglPlanSelector';
+import PlanSelector         from '../plan-selector/ParadigmsPlanSelector';
 import Status               from '../status/Status';
-import UIContext            from '../rgl/UIContext';
+import UIContext            from '../amr/UIContext';
 
 import S                    from './Header.sass';
 

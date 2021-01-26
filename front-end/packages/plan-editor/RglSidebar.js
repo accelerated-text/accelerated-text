@@ -2,7 +2,7 @@ import { h }                from 'preact';
 
 import RglConcepts          from '../amr-concepts/RglConcepts';
 import composeContexts      from '../compose-contexts/';
-import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
+import OpenedPlanContext    from '../rgl/OpenedPlanContext';
 import Sidebar              from '../sidebar/Sidebar';
 
 
