@@ -104,8 +104,15 @@ def generate_results(name, content):
 
 
 def parse_text(name, content, text):
-    grammar = pgf.readPGF("/grammars/LangEng.pgf")
+    error = None
+    if content:
+        (grammar, error) = compile_grammar(name, content)
+    else:
+        grammar = pgf.readPGF("/grammars/LangEng.pgf")
     logger.debug("Grammar: {}".format(grammar))
-    logger.info("Parsing")
-    return [(k, [str(e) for p, e in concrete.parse(text)])
-            for k, concrete in grammar.languages.items()]
+    if grammar:
+        logger.info("Parsing")
+        return [(k, [str(e) for p, e in concrete.parse(text)])
+                for k, concrete in grammar.languages.items()]
+    elif error:
+        raise GFError(error)
