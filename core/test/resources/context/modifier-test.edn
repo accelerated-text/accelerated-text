@@ -1177,8 +1177,8 @@
                                   :category "Adv"}
                                  {:id :17,
                                   :type :amr,
-                                  :name "Syntax.quite_Adv/AdA",
-                                  :category "AdA"})}
+                                  :name "Syntax.quite_Adv/Adv",
+                                  :category "Adv"})}
   #:acc-text.nlg.semantic-graph{:id "nUfKLthfqaMKnibj",
                                 :name "is a",
                                 :category "Cl",
