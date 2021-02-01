@@ -21,6 +21,9 @@
   {:function "mkAP",
    :type ["AP" "SC" "AP"],
    :example "she is ready to sleep"}
+  {:function "mkAP"
+   :type ["AP" "Adv" "AP"]
+   :example "warm by nature"}
   {:function "mkAP", :type ["AdA" "A" "AP"], :example "very old"}
   {:function "mkAP", :type ["AdA" "AP" "AP"], :example "very very old"}
   {:function "mkAP",
