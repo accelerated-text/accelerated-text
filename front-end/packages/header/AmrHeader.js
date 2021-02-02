@@ -3,7 +3,7 @@ import { h }                from 'preact';
 
 import composeContexts      from '../compose-contexts/';
 import PlanSelector         from '../plan-selector/ParadigmsPlanSelector';
-import Status               from '../status/Status';
+import Status               from '../status/AmrStatus';
 import UIContext            from '../amr/UIContext';
 
 import S                    from './Header.sass';

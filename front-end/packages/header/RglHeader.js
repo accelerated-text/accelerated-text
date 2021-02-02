@@ -3,7 +3,7 @@ import { h }                from 'preact';
 
 import composeContexts      from '../compose-contexts/';
 import PlanSelector         from '../plan-selector/RglPlanSelector';
-import Status               from '../status/Status';
+import Status               from '../status/RglStatus';
 import UIContext            from '../rgl/UIContext';
 
 import S                    from './Header.sass';
