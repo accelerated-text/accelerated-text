@@ -322,6 +322,7 @@ type Mutation {
     ### Dictionary
 
     createDictionaryItem(
+        id:                 ID
         name:               String!
         partOfSpeech:       PartOfSpeech  # default = VB
     ):  DictionaryItem!
