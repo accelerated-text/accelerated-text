@@ -12,6 +12,8 @@ ENV DATA_FILES_BUCKET=$ACC_TEXT_DATA_FILES_BUCKET
 
 WORKDIR /usr/src/app
 COPY front-end/package.json /usr/src/app
+COPY front-end/ /usr/src/app/
+COPY api/resources/schema.graphql /usr/src/app/packages/graphql/schema.graphql
 
 RUN make build
 
