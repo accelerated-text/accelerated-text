@@ -55,7 +55,7 @@ export default composeQueries({
     };
 
     openPlanUid = uid => {
-        const plan =        getPlanByUid( this.props.rglPlans.documentPlans, uid );
+        const plan =        getPlanByUid( this.props.amrPlans.documentPlans, uid );
         if( plan ) {
             this.openPlan( plan );
         } else {

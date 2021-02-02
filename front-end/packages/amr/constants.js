@@ -1,1 +1,1 @@
-export const OPENED_PLAN_UID =  'accelerated-text/opened-plan-uid';
+export const OPENED_PLAN_UID =  'amr/opened-plan-uid';
