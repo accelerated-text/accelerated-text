@@ -1,6 +1,7 @@
 FROM node:11-slim as builder
 
-RUN apt-get update -qq && apt-get install -y -qq build-essential chromium libatk-bridge2.0-0 libgtk-3-0 rsync
+RUN apt-get update -qq && apt-get install -y -qq build-essential rsync
+# chromium libatk-bridge2.0-0 libgtk-3-0
 
 ARG ACC_TEXT_API_URL
 ARG ACC_TEXT_GRAPHQL_URL
@@ -13,9 +14,14 @@ ENV DATA_FILES_BUCKET=$ACC_TEXT_DATA_FILES_BUCKET
 WORKDIR /usr/src/app
 COPY front-end/package.json /usr/src/app
 COPY front-end/ /usr/src/app/
+RUN rm -rf /usr/src/app/node_modules
 COPY api/resources/schema.graphql /usr/src/app/packages/graphql/schema.graphql
 
 RUN make build
+
+RUN mkdir -p /opt/dist
+
+RUN cp -r dist/* /opt/dist/
 
 FROM nginx:latest
 
