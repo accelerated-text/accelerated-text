@@ -2,11 +2,11 @@
  :module "Grammar",
  :description "",
  :functions
- [{:function "AdjDAP",
-   :type ["DAP" "AP" "DAP"],
-   :example "the large (one)",
-   :label "mkDAP"}
-  {:function "DetDAP",
-   :type ["Det" "DAP"],
-   :example "this (or that)",
-   :label "mkDAP"}]}
+ [#_{:function "AdjDAP",
+     :type ["DAP" "AP" "DAP"],
+     :example "the large (one)",
+     :label "mkDAP"}
+  #_{:function "DetDAP",
+     :type ["Det" "DAP"],
+     :example "this (or that)",
+     :label "mkDAP"}]}
