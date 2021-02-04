@@ -1,0 +1,12 @@
+{:type "ListIAdv",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "BaseIAdv",
+   :type ["IAdv" "IAdv" "ListIAdv"],
+   :example "where, when",
+   :label "mkListIAdv"}
+  {:function "ConsIAdv",
+   :type ["IAdv" "ListIAdv" "ListIAdv"],
+   :example "where, when, why",
+   :label "mkListIAdv"}]}

@@ -1,0 +1,7 @@
+{:type "Voc",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "NoVoc",
+   :type ["Voc"],
+   :example ""}]}

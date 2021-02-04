@@ -1,0 +1,8 @@
+{:type "Det",
+ :module "Grammar",
+ :description "",
+ :functions
+ [#_{:function "ConjDet",
+     :type ["Conj" "ListDAP" "Det"],
+     :example "his or her",
+     :label "mkDet"}]}

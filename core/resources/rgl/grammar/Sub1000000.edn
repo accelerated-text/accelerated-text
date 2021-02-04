@@ -1,0 +1,16 @@
+{:type "Sub1000000",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "pot3plus",
+   :type ["Sub1000" "Sub1000" "Sub1000000"],
+   :example "m * 1000 + n",
+   :label "mkSub1000000"}
+  {:function "pot2as3",
+   :type ["Sub1000" "Sub1000000"],
+   :example "coercion of 1..999",
+   :label "mkSub1000000"}
+  {:function "pot3",
+   :type ["Sub1000" "Sub1000000"],
+   :example "m * 1000",
+   :label "mkSub1000000"}]}

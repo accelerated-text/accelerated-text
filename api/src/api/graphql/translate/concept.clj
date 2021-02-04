@@ -14,12 +14,12 @@
                                             (vec)
                                             (conj category)))})
 
-(defn operation->schema [{:keys [id name category args example]}]
+(defn operation->schema [{:keys [id label category args example]}]
   {:id       id
    :kind     category
    :roles    (map #(role->schema {:name % :category (str/replace % #"[()]" "")}) args)
    :helpText (str example)
-   :label    name
+   :label    label
    :name     (str/join " -> " (conj args category))})
 
 (defn select-roles [roles]

@@ -1,0 +1,12 @@
+{:type "Sub1000",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "pot2plus",
+   :type ["Sub10" "Sub100" "Sub1000"],
+   :example "m * 100 + n",
+   :label "mkSub1000"}
+  {:function "pot2",
+   :type ["Sub10" "Sub1000"],
+   :example "m * 100",
+   :label "mkSub1000"}]}

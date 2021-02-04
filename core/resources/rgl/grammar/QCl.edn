@@ -1,0 +1,8 @@
+{:type "QCl",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "QuestQVP",
+   :type ["IP" "QVP" "QCl"],
+   :example "who buys what where",
+   :label "mkQCl"}]}

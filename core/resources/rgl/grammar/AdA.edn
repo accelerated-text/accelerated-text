@@ -1,0 +1,8 @@
+{:type "AdA",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "PositAdAAdj",
+   :type ["A" "AdA"],
+   :example "extremely",
+   :label "mkAdA"}]}

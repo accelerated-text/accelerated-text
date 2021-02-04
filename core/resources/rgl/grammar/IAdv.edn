@@ -1,0 +1,8 @@
+{:type "IAdv",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "ConjIAdv",
+   :type ["Conj" "ListIAdv" "IAdv"],
+   :example "where and with whom",
+   :label "mkIAdv"}]}

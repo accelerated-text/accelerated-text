@@ -1,0 +1,28 @@
+{:type "Sub100",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "pot1plus",
+   :type ["Digit" "Sub10" "Sub100"],
+   :example "d * 10 + n",
+   :label "mkSub100"}
+  {:function "pot1",
+   :type ["Digit" "Sub100"],
+   :example "d * 10",
+   :label "mkSub100"}
+  {:function "pot1to19",
+   :type ["Digit" "Sub100"],
+   :example "10 + d",
+   :label "mkSub100"}
+  {:function "pot0as1",
+   :type ["Sub10" "Sub100"],
+   :example "coercion of 1..9",
+   :label "mkSub100"}
+  {:function "pot110",
+   :type ["Sub100"],
+   :example "10",
+   :label "mkSub100"}
+  {:function "pot111",
+   :type ["Sub100"],
+   :example "11",
+   :label "mkSub100"}]}

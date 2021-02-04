@@ -1,0 +1,16 @@
+{:type "VPSlash",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "AdVVPSlash",
+   :type ["AdV" "VPSlash" "VPSlash"],
+   :example "always use (it)",
+   :label "mkVPSlash"}
+  {:function "VPSlashPrep",
+   :type ["VP" "Prep" "VPSlash"],
+   :example "live in (it)",
+   :label "mkVPSlash"}
+  {:function "AdvVPSlash",
+   :type ["VPSlash" "Adv" "VPSlash"],
+   :example "use (it) here",
+   :label "mkVPSlash"}]}
