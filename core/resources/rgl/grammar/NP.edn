@@ -1,0 +1,12 @@
+{:type "NP",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "CountNP",
+   :type ["Det" "NP" "NP"],
+   :example "three of them, some of the boys",
+   :label "mkNP"}
+  {:function "SelfNP",
+   :type ["NP" "NP"],
+   :example "the president himself (is at home)",
+   :label "mkNP"}]}

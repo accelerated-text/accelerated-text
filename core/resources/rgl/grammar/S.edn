@@ -1,0 +1,20 @@
+{:type "S",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "ExtAdvS",
+   :type ["Adv" "S" "S"],
+   :example "next week, I will go home",
+   :label "mkS"}
+  {:function "RelS",
+   :type ["S" "RS" "S"],
+   :example "she sleeps, which is good",
+   :label "mkS"}
+  {:function "ModSubjS",
+   :type ["S" "Subj" "S" "S"],
+   :example "she sleeps, because she is old",
+   :label "mkS"}
+  {:function "SSubjS",
+   :type ["S" "Subj" "S" "S"],
+   :example "I go home if she comes",
+   :label "mkS"}]}

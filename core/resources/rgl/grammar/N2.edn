@@ -1,0 +1,16 @@
+{:type "N2",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "Use2N3",
+   :type ["N3" "N2"],
+   :example "distance (from this city)",
+   :label "mkN2"}
+  {:function "Use3N3",
+   :type ["N3" "N2"],
+   :example "distance (to Paris)",
+   :label "mkN2"}
+  {:function "ComplN3",
+   :type ["N3" "NP" "N2"],
+   :example "distance from this city (to Paris)",
+   :label "mkN2"}]}

@@ -1,0 +1,12 @@
+{:type "ListAdV",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "BaseAdV",
+   :type ["AdV" "AdV" "ListAdV"],
+   :example "always, sometimes",
+   :label "mkListAdV"}
+  {:function "ConsAdV",
+   :type ["AdV" "ListAdV" "ListAdV"],
+   :example "always, sometimes, never",
+   :label "mkListAdV"}]}

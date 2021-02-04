@@ -1,0 +1,8 @@
+{:type "AdV",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "ConjAdV",
+   :type ["Conj" "ListAdV" "AdV"],
+   :example "always or sometimes",
+   :label "mkAdV"}]}

@@ -1,0 +1,24 @@
+{:type "Utt",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "UttInterj",
+   :type ["Interj" "Utt"],
+   :example "alas",
+   :label "mkUtt"}
+  {:function "UttImpPl",
+   :type ["Pol" "Imp" "Utt"],
+   :example "(don't) love yourselves",
+   :label "mkUtt"}
+  {:function "UttImpPol",
+   :type ["Pol" "Imp" "Utt"],
+   :example "(don't) sleep (polite)",
+   :label "mkUtt"}
+  {:function "UttImpSg",
+   :type ["Pol" "Imp" "Utt"],
+   :example "(don't) love yourself",
+   :label "mkUtt"}
+  {:function "ImpP3",
+   :type ["NP" "VP" "Utt"],
+   :example "let John walk",
+   :label "mkUtt"}]}

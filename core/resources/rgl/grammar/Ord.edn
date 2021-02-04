@@ -1,0 +1,8 @@
+{:type "Ord",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "OrdNumeralSuperl",
+   :type ["Numeral" "A" "Ord"],
+   :example "third largest",
+   :label "mkOrd"}]}

@@ -1,0 +1,7 @@
+{:type "PConj",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "NoPConj",
+   :type ["PConj"],
+   :example ""}]}
