@@ -27,7 +27,7 @@
                        cat))))
 
 (defn ->incomplete [lang {::grammar/keys [module cat fun lincat lin]}]
-  (format "incomplete concrete %sBody of %s = open Syntax, %sLex, Paradigms%s in {%s\n}"
+  (format "incomplete concrete %sBody of %s = open Syntax, Grammar, %sLex, Paradigms%s in {%s\n}"
           module
           module
           module
@@ -58,8 +58,9 @@
                         oper))))
 
 (defn ->resource [lang {::grammar/keys [module oper]}]
-  (format "resource %sLex%s = open Syntax%s, Paradigms%s, Morpho%s in {%s\n}"
+  (format "resource %sLex%s = open Syntax%s, Grammar%s, Paradigms%s, Morpho%s in {%s\n}"
           module
+          lang
           lang
           lang
           lang
@@ -70,11 +71,12 @@
                         oper))))
 
 (defn ->concrete [lang {::grammar/keys [instance module]}]
-  (format "concrete %s%s of %s = %sBody with \n  (Syntax=Syntax%s),\n  (%sLex = %sLex%s);"
+  (format "concrete %s%s of %s = %sBody with \n  (Syntax=Syntax%s),\n  (Grammar=Grammar%s),\n  (%sLex=%sLex%s);"
           module
           instance
           module
           module
+          lang
           lang
           module
           module
