@@ -1,6 +1,7 @@
 (ns data.entities.document-plan
   (:require [api.config :refer [conf]]
             [clojure.java.io :as io]
+            [clojure.string :as string]
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
@@ -35,5 +36,8 @@
     (cond-> dp (string? (:documentPlan dp)) (update :documentPlan utils/read-json-str))))
 
 (defn initialize []
-  (doseq [{id :id :as dp} (map load-document-plan (utils/list-files (document-plan-path)))]
+  (doseq [{id :id :as dp}
+          (map load-document-plan
+               (filter #(string/ends-with? (.getName %) ".json")
+                       (utils/list-files (document-plan-path))))]
     (add-document-plan dp id)))
