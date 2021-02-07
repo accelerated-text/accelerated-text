@@ -38,6 +38,7 @@
 (defn initialize []
   (doseq [{id :id :as dp}
           (map load-document-plan
-               (filter #(string/ends-with? (.getName %) ".json")
-                       (utils/list-files (document-plan-path))))]
+               (->> (document-plan-path)
+                    (utils/list-files)
+                    (filter #(string/ends-with? (.getName %) ".json"))))]
     (add-document-plan dp id)))
