@@ -2,7 +2,11 @@
  :module "Grammar",
  :description "",
  :functions
- [{:function "ConsCN",
+ [{:function "BaseCN",
+   :type ["CN" "CN" "ListCN"],
+   :example "man, woman",
+   :label "mkListCN"}
+  {:function "ConsCN",
    :type ["CN" "ListCN" "ListCN"],
    :example "man, woman, child",
    :label "mkListCN"}]}
