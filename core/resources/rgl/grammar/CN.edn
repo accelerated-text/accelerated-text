@@ -1,0 +1,8 @@
+{:type "CN",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "ConjCN",
+   :type ["Conj" "ListCN" "CN"],
+   :example "man and woman",
+   :label "mkCN"}]}
