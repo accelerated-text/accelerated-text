@@ -1,7 +1,7 @@
 import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
-import planTemplate         from '../document-plans/plan-template';
+import planTemplate         from '../document-plans/paradigms-plan-template';
 import { QA }               from '../tests/constants';
 
 import S                    from './OnboardCode.sass';
