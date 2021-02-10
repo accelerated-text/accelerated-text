@@ -6,6 +6,7 @@
   {:function "here7from_Adv", :type ["Adv"], :example "from here"}
   {:function "here7to_Adv", :type ["Adv"], :example "to here"}
   {:function "here_Adv", :type ["Adv"], :example "here"}
+  {:function "quite_Adv", :type ["Adv"], :example "quite"}
   {:function "mkAdv", :type ["A" "Adv"], :example "warmly"}
   {:function "mkAdv",
    :type ["Prep" "NP" "Adv"],

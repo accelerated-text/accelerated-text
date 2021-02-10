@@ -1,0 +1,12 @@
+{:type "DAP",
+ :module "Grammar",
+ :description "",
+ :functions
+ [#_{:function "AdjDAP",
+     :type ["DAP" "AP" "DAP"],
+     :example "the large (one)",
+     :label "mkDAP"}
+  #_{:function "DetDAP",
+     :type ["Det" "DAP"],
+     :example "this (or that)",
+     :label "mkDAP"}]}

@@ -1,0 +1,12 @@
+{:type "Digit",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "n2", :type ["Digit"], :example "two" :label "n2_Digit"}
+  {:function "n3", :type ["Digit"], :example "three" :label "n3_Digit"}
+  {:function "n4", :type ["Digit"], :example "four" :label "n4_Digit"}
+  {:function "n5", :type ["Digit"], :example "five" :label "n5_Digit"}
+  {:function "n6", :type ["Digit"], :example "six" :label "n6_Digit"}
+  {:function "n7", :type ["Digit"], :example "seven" :label "n7_Digit"}
+  {:function "n8", :type ["Digit"], :example "eight" :label "n8_Digit"}
+  {:function "n9", :type ["Digit"], :example "nine" :label "n9_Digit"}]}

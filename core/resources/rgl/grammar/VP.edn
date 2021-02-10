@@ -1,0 +1,13 @@
+{:type "VP",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "SelfAdVVP",
+   :type ["VP" "VP"],
+   :example "is himself at home",
+   :label "mkVP"}
+  {:function "SelfAdvVP",
+   :type ["VP" "VP"],
+   :example "is at home himself",
+   :label "mkVP"}
+  {:function "UseCopula", :type ["VP"], :example "be"}]}

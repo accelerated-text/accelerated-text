@@ -1,0 +1,16 @@
+{:type "QVP",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "AddAdvQVP",
+   :type ["QVP" "IAdv" "QVP"],
+   :example "buys what where",
+   :label "mkQVP"}
+  {:function "AdvQVP",
+   :type ["VP" "IAdv" "QVP"],
+   :example "lives where",
+   :label "mkQVP"}
+  {:function "ComplSlashIP",
+   :type ["VPSlash" "IP" "QVP"],
+   :example "buys what",
+   :label "mkQVP"}]}

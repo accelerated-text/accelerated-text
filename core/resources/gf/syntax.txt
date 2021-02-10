@@ -11,6 +11,7 @@ mkAP AP -> SC -> AP she is ready to sleep
 mkAP AdA -> A -> AP very old
 mkAP AdA -> AP -> AP very very old
 mkAP Conj -> AP -> AP -> AP old or young
+mkAP AP -> Adv -> AP warm by nature
 mkAP Conj -> ListAP -> AP old, big and warm
 mkAP Ord -> AP oldest
 mkAP CAdv -> AP -> NP -> AP as old as she
@@ -18,21 +19,21 @@ reflAP A2 -> AP married to itself
 
 // AdA - adjective-modifying adverb
 almost_AdA AdA almost red
-quite_Adv AdA quite
 so_AdA AdA so warm
 too_AdA AdA too warm
 very_AdA AdA very warm
 
 // AdN - numeral-modifying adverb
-almost_AdN AdNalmost eight
-at_least_AdN AdNat least eight
-at_most_AdN AdNat most eight
+almost_AdN AdN almost eight
+at_least_AdN AdN at least eight
+at_most_AdN AdN at most eight
 mkAdN CAdv -> AdN more than eight
 
 // AdV - adverb directly attached to verb
 always_AdV AdV always
 
 // Adv - verb-phrase-modifying adverb
+quite_Adv Adv quite
 everywhere_Adv Adv everywhere
 here7from_Adv Adv from here
 here7to_Adv Adv to here

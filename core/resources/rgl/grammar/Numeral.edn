@@ -1,0 +1,8 @@
+{:type "Numeral",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "num",
+   :type ["Sub1000000" "Numeral"],
+   :example "123456",
+   :label "mkNumeral"}]}

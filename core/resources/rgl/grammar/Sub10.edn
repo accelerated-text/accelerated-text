@@ -1,0 +1,9 @@
+{:type "Sub10",
+ :module "Grammar",
+ :description "",
+ :functions
+ [{:function "pot0",
+   :type ["Digit" "Sub10"],
+   :example "d * 1",
+   :label "mkSub10"}
+  {:function "pot01", :type ["Sub10"], :example "1", :label "mkSub10"}]}
