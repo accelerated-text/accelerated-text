@@ -2,8 +2,8 @@ import { h, Component }     from 'preact';
 
 import composeContexts      from '../compose-contexts/';
 import { getPlanDataRecord }    from '../data-samples/functions';
-import OpenedFileContext    from '../amr/OpenedDataFileContext';
-import OpenedPlanContext    from '../amr/OpenedPlanContext';
+import OpenedFileContext    from '../rgl/OpenedDataFileContext';
+import OpenedPlanContext    from '../rgl/OpenedPlanContext';
 import ReaderContext        from '../reader/Context';
 
 import Context              from './Context';
