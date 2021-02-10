@@ -8,7 +8,7 @@ import Loading              from '../ui-messages/Loading';
 import OnboardCode          from '../onboard-code/ParadigmsOnboardCode';
 import OpenedPlanContext    from '../amr/OpenedPlanContext';
 import PlanActions          from '../document-plans/AmrActions';
-import planTemplate         from '../document-plans/plan-template';
+import planTemplate         from '../document-plans/paradigms-plan-template';
 import Workspace            from '../nlg-workspace/AmrWorkspace';
 import AMRPlan              from '../nlg-blocks/AMR-plan';
 
