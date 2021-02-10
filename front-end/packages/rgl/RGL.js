@@ -10,7 +10,6 @@ import Header               from '../header/RglHeader';
 import Modal                from '../modal/Modal';
 import ModalProvider        from '../modal/ContextProvider';
 import PlanEditor           from '../plan-editor/RglPlanEditor';
-import VariantsContextProvider  from '../variants/RglContextProvider';
 import WorkspaceContextProvider from '../workspace-context/Provider';
 import OpenedPlanProvider   from './OpenedPlanContextProvider';
 import S                    from './RGL.sass';
@@ -40,7 +39,6 @@ export default () => [
     GraphQLProvider,
     RGLContextProvider,
     OpenedPlanProvider,
-    VariantsContextProvider,
     WorkspaceContextProvider,
     UIContextProvider,
     RGL,

@@ -10,7 +10,6 @@ import Header               from '../header/AmrHeader';
 import Modal                from '../modal/Modal';
 import ModalProvider        from '../modal/ContextProvider';
 import PlanEditor           from '../plan-editor/ParadigmsPlanEditor';
-import VariantsContextProvider  from '../variants/AmrContextProvider';
 import WorkspaceContextProvider from '../workspace-context/Provider';
 import OpenedPlanProvider   from './OpenedPlanContextProvider';
 import S                    from './AMR.sass';
@@ -40,7 +39,6 @@ export default () => [
     GraphQLProvider,
     AMRContextProvider,
     OpenedPlanProvider,
-    VariantsContextProvider,
     WorkspaceContextProvider,
     UIContextProvider,
     AMR,
