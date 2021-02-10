@@ -17,7 +17,7 @@ const Error = ({ type, url }) => (
 export default () => (
     <Router>
         <AcceleratedText path="/"/>
-        <RGL path="/rgl" />
+        <RGL path="/dlg" />
         <AMR path="/amr" />
         <Error type="404" default />
     </Router>
