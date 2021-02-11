@@ -2,8 +2,9 @@
   (:require [api.utils :refer [read-mapper]]
             [jsonista.core :as json]))
 
-(defn schema->dp [{:keys [uid name kind blocklyXml documentPlan dataSampleId dataSampleRow]}]
-  {:uid           uid
+(defn schema->dp [{:keys [id uid name kind blocklyXml documentPlan dataSampleId dataSampleRow]}]
+  {:id            id
+   :uid           uid
    :name          name
    :kind          kind
    :blocklyXml    blocklyXml
