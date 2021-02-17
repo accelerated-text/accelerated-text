@@ -4,7 +4,7 @@
             [jsonista.core :as json]
             [clojure.pprint :refer [pprint]]
             [utils.queries :as queries]
-            [mount.core :refer [defstate] :as mount]
+            [mount.core :refer  :as mount]
             [utils.config :refer [config]]
             [clojure.tools.logging :as log]
             [org.httpkit.client :as http]))
@@ -17,8 +17,6 @@
       :documentPlan
       (document-plan->semantic-graph)
       (pprint)))
-
-(defn ouput-document-plan [dir dp])
 
 (defn ->file [output-dir {:keys [id] :as document-plan}]
   (let [fpath (format "%s/%s.json" output-dir id)]
