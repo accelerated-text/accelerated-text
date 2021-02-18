@@ -1,4 +1,4 @@
-{:deps      {accelerated-text/accelerated-text    {:local/root "../core"}
+{:deps      {accelerated-text/core                {:local/root "../core"}
              ch.qos.logback/logback-classic       {:mvn/version "1.2.3"}
              com.walmartlabs/lacinia              {:mvn/version "0.35.0"}
              http-kit/http-kit                    {:mvn/version "2.3.0"}

@@ -9,16 +9,15 @@
             [org.httpkit.client :as http]
             [utils.config :refer [config]]
             [utils.queries :as queries]))
-(def read-mapper (json/object-mapper {:decode-key-fn true}))
+
+(def read-mapper (json/object-mapper {:decode-key-fn true :pretty true}))
 
 (defn pprint-semantic-graph [file-path]
-  (let [dp       (json/read-value (slurp file-path) read-mapper)
-        fixed-dp (assoc dp
-                        :documentPlan
-                        (json/read-value (:documentPlan dp) read-mapper))]
-    (-> fixed-dp
+  (-> (slurp file-path)
+        (json/read-value read-mapper)
+        (update :documentPlan #(json/read-value % read-mapper))
         (document-plan->semantic-graph)
-        (pprint))))
+        (println)))
 
 (defn doc->dir-name [{kind :kind}]
   (condp = kind
@@ -37,28 +36,29 @@
                                  :graphql
                                  (json/write-value-as-string))}))
 
-(defn export-document-plan [name]
+(defn pprint-document-plan [name]
   (-> (run-query (:graphql-url config)
                  (queries/export-document-plan-query {:name name}))
       :body
       (json/read-value read-mapper)
+      (update :documentPlan #(json/read-value % read-mapper))
       :data :documentPlan
       (json/write-value-as-string)
-      (pprint)))
+      (println)))
 
-(defn export-all-document-plans
-  ([] (export-all-document-plans "../api/resources/document-plans"))
-  ([output-dir]
-   (let [{:keys [body error]} (run-query (:graphql-url config)
-                                         (queries/export-document-plans-query {}))]
-     (if error
-       (log/errorf "Failed with the error: %s" error)
-       (doseq [dp (-> (json/read-value body read-mapper) :data :documentPlans :items)]
-         (->file output-dir dp))))))
+(defn export-all-document-plans [output-dir]
+  (let [{:keys [body error]} (run-query (:graphql-url config)
+                                        (queries/export-document-plans-query {}))]
+    (if error
+      (log/errorf "Failed with the error: %s" error)
+      (doseq [dp (-> (json/read-value body read-mapper)
+                     (update :documentPlan #(json/read-value % read-mapper))
+                     :data :documentPlans :items)]
+        (->file output-dir dp)))))
 
 (defn -main [action & args]
   (mount/start)
   (case action
-      "graph" (apply pprint-semantic-graph args)
-      "plan"  (apply export-document-plan args)
-      "all-plans"   (export-all-document-plans)))
+    "print-graph"  (apply pprint-semantic-graph args)
+    "print-plan"   (apply pprint-document-plan args)
+    "export-plans" (export-all-document-plans (or (first args) "../api/resources/document-plans"))))
