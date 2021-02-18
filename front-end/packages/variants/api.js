@@ -4,6 +4,20 @@ import * as nlgApi      from '../nlg-api/';
 const POLL_INTERVAL =   500;
 const PREFIX =          '/nlg';
 
+const checkStatus = async () => {
+    try {
+        const result = await nlgApi.GET("/status");
+        if( result.color == "green" ) {
+            resolve( true );
+        }
+        else {
+            reject( "AcceleratedText API seems to be unhealthy. Please contact Administrator" );
+        }
+    } catch ( err ) {
+        reject( err );
+    }
+};
+
 
 const checkResult = async ( resultId, resolve, reject ) => {
 
