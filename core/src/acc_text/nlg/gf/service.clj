@@ -21,8 +21,17 @@
       (log/warnf "Unknown language `%s`, switching to `%s`" lang default-language)
       default-language)))
 
+(defn ping []
+  (let [service-host (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
+        request-url (str service-host "/health")
+        {body :body request-error :error} @(client/request {:url request-url :method :get})]
+    (when-some? request-error
+      (log/errorf "GF service host: %s is unreachable. Are you sure it is started and reachable?"))
+    (nil? request-error)))
+
 (defn request
   [{::grammar/keys [module instance lincat] :as grammar} lang]
+  (ping)
   (let [payload (generator/generate grammar (check-language lang))
         request-url (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
         request-content {:module module :instance instance :content payload}]
