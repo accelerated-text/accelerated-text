@@ -9,15 +9,16 @@
             [org.httpkit.client :as http]
             [utils.config :refer [config]]
             [utils.queries :as queries]))
-
 (def read-mapper (json/object-mapper {:decode-key-fn true}))
 
-(defn ->semantic-graph [file-path]
-  (-> (slurp file-path)
-      (json/read-value read-mapper)
-      :documentPlan
-      (document-plan->semantic-graph)
-      (pprint)))
+(defn pprint-semantic-graph [file-path]
+  (let [dp       (json/read-value (slurp file-path) read-mapper)
+        fixed-dp (assoc dp
+                        :documentPlan
+                        (json/read-value (:documentPlan dp) read-mapper))]
+    (-> fixed-dp
+        (document-plan->semantic-graph)
+        (pprint))))
 
 (defn doc->dir-name [{kind :kind}]
   (condp = kind
@@ -26,7 +27,7 @@
 (defn ->file [output-dir {:keys [id] :as document-plan}]
   (let [dir (str output-dir "/" (doc->dir-name document-plan))]
     (.mkdirs (io/file dir))
-    (println (format "Writing: %s/%s.json" dir id))
+    (log/infof "Writing: %s/%s.json" dir id)
     (spit (format "%s/%s.json" dir id)
           (json/write-value-as-string document-plan))))
 
@@ -55,11 +56,9 @@
        (doseq [dp (-> (json/read-value body read-mapper) :data :documentPlans :items)]
          (->file output-dir dp))))))
 
-(defn -main [& args]
+(defn -main [action & args]
   (mount/start)
-  (println queries/query-map)
-  (let [[action & other] args]
-    (case action
-      "to-semantic-graph" (apply ->semantic-graph other)
-      "export" (apply export-document-plan other)
-      "export-all" (apply export-all-document-plans other))))
+  (case action
+      "graph" (apply pprint-semantic-graph args)
+      "plan"  (apply export-document-plan args)
+      "all-plans"   (export-all-document-plans)))

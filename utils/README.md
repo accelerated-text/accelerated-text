@@ -7,10 +7,17 @@ Development utils to get and convert data
 ## DocumentPlan JSON -> Semantic Graph
 
 ```bash
-clojure -m utils.document-plan to-semantic-graph <document-plan>.json
+clojure -M:export semantic-graph <document-plan>.json
 ```
 
-Example:
+## Exporting document plans
+
+Print single document plan:
 ```bash
-clojure -m utils.document-plan to-semantic-graph quote-test.json
+clojure -M:export plan [plan-name]
+```
+
+Save all documents to a default `../api/resources/document-plans` location:
+```bash
+clojure -M:export all-plans
 ```
