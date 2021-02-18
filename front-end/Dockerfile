@@ -1,13 +1,25 @@
 FROM node:11-slim
 
-RUN apt-get update -qq && apt-get install -y -qq build-essential chromium libatk-bridge2.0-0 libgtk-3-0 rsync
-RUN apt-get install -y python3-pip
-RUN pip3 install awscli --upgrade
+RUN apt-get update -qq && apt-get install -y -qq build-essential rsync
+# RUN apt-get install -y python3-pip
+# RUN pip3 install awscli --upgrade
+
+ARG ACC_TEXT_API_URL
+ARG ACC_TEXT_GRAPHQL_URL
+ARG ACC_TEXT_DATA_FILES_BUCKET
+
+ENV ACC_TEXT_API_URL=$ACC_TEXT_API_URL
+ENV ACC_TEXT_GRAPHQL_URL=$ACC_TEXT_GRAPHQL_URL
+ENV DATA_FILES_BUCKET=$ACC_TEXT_DATA_FILES_BUCKET
+
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY . /usr/src/app
 
-RUN npm install && touch -m node_modules
+COPY front-end/package.json /usr/src/app
+COPY front-end/ /usr/src/app/
+COPY api/resources/schema.graphql /usr/src/app/packages/graphql/schema.graphql
 
-CMD ["npm", "start"]
+RUN make setup
+
+CMD ["make", "run"]
