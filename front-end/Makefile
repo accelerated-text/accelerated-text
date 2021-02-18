@@ -38,6 +38,9 @@ copy-resources:
 
 compile-frontend-services: prepare-builder copy-resources
 
-publish-frontend-docker:
+build-docker:
 	docker build -t ${FRONTEND_IMAGE} --build-arg ACC_TEXT_API_URL="http://localhost:3001" --build-arg ACC_TEXT_GRAPHQL_URL="http://localhost:3001/_graphql" --build-arg ACC_TEXT_DATA_FILES_BUCKET="http://localhost:3001/accelerated-text-data-files" -f Dockerfile.builder ../
+
+
+publish-frontend-docker: build-docker
 	docker push ${FRONTEND_IMAGE}
