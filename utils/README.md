@@ -2,7 +2,7 @@
 
 Development utils to get and convert data
 
-# Actions
+# Exporting
 
 ## DocumentPlan JSON -> Semantic Graph
 
