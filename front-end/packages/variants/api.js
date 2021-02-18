@@ -4,17 +4,19 @@ import * as nlgApi      from '../nlg-api/';
 const POLL_INTERVAL =   500;
 const PREFIX =          '/nlg';
 
-const checkStatus = async () => {
+export const checkStatus = async ( ) => {
     try {
         const result = await nlgApi.GET("/status");
         if( result.color == "green" ) {
-            resolve( true );
+            return true;
         }
         else {
-            reject( "AcceleratedText API seems to be unhealthy. Please contact Administrator" );
+            console.log( "AcceleratedText API seems to be unhealthy. Please contact Administrator" );
+            return false;
         }
     } catch ( err ) {
-        reject( err );
+        console.err(err);
+        return false;
     }
 };
 
