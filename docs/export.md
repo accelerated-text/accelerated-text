@@ -3,11 +3,11 @@ When document plan is ready, we can export generated text using one of utility f
 Go to `utils` folder located in project root, and run this command in the terminal:
 
 ```
-make generate-from-csv \
-    doc-plan="Authorship" \
-    data-file="../api/test/resources/data-files/books.csv" \
-    output-file="output-eng.csv" \
-    language="Eng"
+clojure -A:generate \
+    "Authorship" \
+    "../api/test/resources/data-files/books.csv" \
+    "output-eng.csv" \
+    "Eng"
 ```
 
 If all is well, you should see an output like this:
