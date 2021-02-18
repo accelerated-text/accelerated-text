@@ -21,7 +21,7 @@
   (db/delete! document-plans-db document-plan-id))
 
 (defn add-document-plan
-  ([document-plan] (add-document-plan document-plan (utils/gen-rand-str 16)))
+  ([document-plan] (add-document-plan document-plan (or (:id document-plan) (utils/gen-rand-str 16))))
   ([document-plan provided-id]
    (db/write! document-plans-db provided-id document-plan true)))
 

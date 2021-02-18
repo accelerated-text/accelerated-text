@@ -354,6 +354,7 @@ type Mutation {
     ): Boolean!
 
     createDocumentPlan(
+        id:                 ID
         uid:                ID!
         name:               String!
         kind:               String
