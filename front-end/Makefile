@@ -10,6 +10,9 @@ test: setup
 run: setup
 	npm start
 
+run-w-proxy: setup
+	(nginx -g "daemon on;" && npm start)
+
 .PHONY: npm-audit
 npm-audit:
 	npm audit

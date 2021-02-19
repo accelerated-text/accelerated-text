@@ -1,6 +1,6 @@
 import { h }                from 'preact';
 
-import Router               from 'preact-router';
+import Router from 'preact-router';
 
 import AcceleratedText      from '../accelerated-text/AcceleratedText';
 import RGL                  from '../rgl/RGL';
