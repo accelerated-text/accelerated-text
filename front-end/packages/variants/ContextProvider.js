@@ -13,10 +13,7 @@ import { getVariants, checkStatus }      from './api';
 const canGetResult = async ( plan, file ) => {
     const serverStatus = await checkStatus();
 
-    return serverStatus
-            && plan
-            && plan.id
-            && plan.updatedAt;
+    return {serverStatus, planAvailable: (plan && plan.id && plan.updatedAt)};
 };
 
 
@@ -49,8 +46,12 @@ export default composeContexts({
             reader,
         } = this.props;
 
-        canGetResult( plan, file ).then( b => {
-            if ( b ) {
+        canGetResult( plan, file ).then( s => {
+            const { serverStatus, planAvailable } = s;
+            if ( !serverStatus ) {
+                this.setState({loading: false, error: "API is in an unhealthy state. Please contact Administrator."})
+            }
+            else if ( planAvailable ) {
                 const resultKey = getResultKey( plan, file, reader.flagValues );
                 if( this.state.resultKey !== resultKey ) {
                     this.setState({

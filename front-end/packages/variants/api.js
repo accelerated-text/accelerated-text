@@ -11,11 +11,10 @@ export const checkStatus = async ( ) => {
             return true;
         }
         else {
-            console.log( "AcceleratedText API seems to be unhealthy. Please contact Administrator" );
             return false;
         }
     } catch ( err ) {
-        console.err(err);
+        console.log(err);
         return false;
     }
 };
