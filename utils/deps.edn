@@ -1,9 +1,11 @@
-{:deps      {core                            {:local/root "../core"}
-             api                             {:local/root "../api"}
-             http-kit                        {:mvn/version "2.3.0"}
+{:deps      {accelerated-text/core           {:local/root "../core"}
+             accelerated-text/api            {:local/root "../api"}
+             http-kit/http-kit               {:mvn/version "2.3.0"}
              org.clojure/data.csv            {:mvn/version "1.0.0"}
              org.clojure/clojure             {:mvn/version "1.10.1"}
-             floatingpointio/graphql-builder {:mvn/version "0.1.10"}}
+             floatingpointio/graphql-builder {:mvn/version "0.1.14"}}
  :paths     ["src" "resources"]
+ :aliases   {:dp       {:main-opts ["-m" "utils.document-plan"]}
+             :generate {:main-opts ["-m" "utils.generate"]}}
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://repo.clojars.org/"}}}

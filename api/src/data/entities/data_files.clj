@@ -12,10 +12,8 @@
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 
-
 (defn binary->csv [data-file]
   (assoc data-file :content (slurp (:content data-file))))
-
 
 (defn xlsx->csv [data-file]
   (let [content (:content data-file)]
@@ -30,7 +28,6 @@
                                    (remove #(every? nil? %))
                                    (map #(str/join "," %))
                                    (str/join "\n")))))
-
 
 (defn convert-file [data-file]
   (let [file-name (:filename data-file)

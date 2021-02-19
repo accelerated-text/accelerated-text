@@ -1,29 +1,12 @@
 (ns utils.queries
-  (:require [graphql-builder.parser :refer [parse read-file]]
-            [graphql-builder.core :as core]
-            [clojure.string :as str]
-            [clojure.tools.logging :as log]
-            [data.utils :refer [list-files]]))
+  (:require [graphql-builder.core :as core]
+            [graphql-builder.parser :refer [defgraphql]]))
 
-(defn graphql-file-filter
-  [fname]
-  (re-matches #"[.]graphql" fname))
+(defgraphql doc-plan "export-document-plan.graphql")
+(defgraphql doc-plans "export-document-plans.graphql")
 
-(def graphql-files
-  (->> (list-files "resources/")
-       (map #(.getName %))
-       #_(filter graphql-file-filter)))
+(def export-document-plans-query
+  (-> doc-plans core/query-map :query :export-document-plans))
 
-(def query-map
-  (->> graphql-files
-       (map read-file)
-       (str/join "\n")
-       (log/spyf :trace "Content: %s")
-       (parse)
-       (log/spyf :trace "Parsed: %s")
-       (core/query-map)))
-
-(def export-document-plans-query (get-in query-map [:query :export-document-plans]))
-
-(def export-document-plan-query (get-in query-map [:query :export-document-plan]))
-
+(def export-document-plan-query
+  (-> doc-plan core/query-map :query :export-document-plan))
