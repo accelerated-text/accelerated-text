@@ -26,7 +26,7 @@
         request-url (str service-host "/health")
         {request-error :error} @(client/request {:url request-url :method :get})]
     (when (some? request-error)
-      (log/errorf "GF service host: %s is unreachable. Are you sure it is started and reachable?" service-host))
+      (log/tracef "GF service host: %s is unreachable. Are you sure it is started and reachable?" service-host))
     (nil? request-error)))
 
 (defn request
