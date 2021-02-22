@@ -1,18 +1,24 @@
 {:acc-text/data-file-schema
- {:txes [[{:db/ident       :data-file/id
+ {:txes [[{:db/ident       :data.spec.data-file/id
+           :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Public Id of the Data File"}
+           :db/doc         "Public id of the data file"}
 
-          {:db/ident       :data-file/filename
+          {:db/ident       :data.spec.data-file/name
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "File name of the Data File"}
+           :db/doc         "Name of the data file"}
 
-          {:db/ident       :data-file/content
+          {:db/ident       :data.spec.data-file/timestamp
+           :db/valueType   :db.type/long
+           :db/cardinality :db.cardinality/one
+           :db/doc         "Timestamp when file was registered"}
+
+          {:db/ident       :data.spec.data-file/content
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one
-           :db/doc         "Content of the Data File"}]
+           :db/doc         "Content of the data file"}]
 
          [{:db/ident       :data.spec.reader-model/code
            :db/unique      :db.unique/identity
