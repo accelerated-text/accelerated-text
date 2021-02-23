@@ -5,19 +5,13 @@ services:
     build:
       context: .
       dockerfile: api/Dockerfile
-      cache_from:
-        - acctext/api:latest
   gf:
     build:
       context: ./core/gf
-      cache_from:
-        - acctext/gf:latest
   front-end:
     build:
       context: .
       dockerfile: front-end/Dockerfile.builder
-      cache_from:
-        - acctext/frontend:latest
       args:
         ACC_TEXT_API_URL: "http://localhost:3001"
         ACC_TEXT_GRAPHQL_URL: "http://localhost:3001/_graphql"

@@ -1,0 +1,8 @@
+{:type "Comp",
+ :description "complement of copula, such as AP",
+ :module "Grammar",
+ :functions
+ [{:function "CompCN",
+   :type ["CN" "Comp"],
+   :example "(be) a man/men",
+   :label "mkComp"}]}
