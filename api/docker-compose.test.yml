@@ -6,8 +6,6 @@ services:
     build:
       context: ../
       dockerfile: api/Dockerfile
-      cache_from:
-        - acctext/api:latest
     environment:
       GF_ENDPOINT: "http://gf:8000"
       ENABLE_ENRICH: "FALSE"
@@ -18,6 +16,8 @@ services:
       DOCUMENT_PLANS: "/opt/document-plans"
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
+      - ./resources/schema.graphql:/opt/schema.graphql
+      - ./resoutces/datomic-schema:/opt/datomic-schema
       - ./test/resources/data-files:/opt/data-files
       - ./test/resources/dictionary:/opt/dictionary
       - ./test/resources/document-plans:/opt/document-plans
@@ -25,5 +25,3 @@ services:
     image: acctext/core:test
     build:
       context: ../core/gf
-      cache_from:
-        - acctext/gf:latest
