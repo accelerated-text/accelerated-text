@@ -1,8 +1,7 @@
 (ns acc-text.nlg.semantic-graph.utils
   (:require [acc-text.nlg.semantic-graph :as sg]
             [clojure.set :as set]
-            [ubergraph.core :as uber]
-            [clojure.tools.logging :as log])
+            [ubergraph.core :as uber])
   (:import (java.util UUID)))
 
 (defn find-descendant-ids [{relations ::sg/relations} ids]
