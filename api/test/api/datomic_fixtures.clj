@@ -27,7 +27,22 @@
           {#'api.config/conf
            {:start (fn []
                      {:db-implementation :datomic
-                      :enabled-languages #{"Eng"}})}})
+                      :enabled-languages #{"Eng" "Ger"}})}
+           #'data.entities.reader-model/language-conf
+           {:start (fn []
+                     (mapv data.entities.reader-model/update!
+                           [#:data.spec.reader-model{:code       "Eng"
+                                                     :flag       "🇬🇧"
+                                                     :type       :language
+                                                     :name       "English"
+                                                     :available? true
+                                                     :enabled?   true}
+                            #:data.spec.reader-model{:code       "Ger"
+                                                     :flag       "🇩🇪"
+                                                     :type       :language
+                                                     :name       "German"
+                                                     :available? true
+                                                     :enabled?   true}]))}})
         (mount/only #{#'api.config/conf
                       #'data.entities.data-files/data-files-db
                       #'data.entities.document-plan/document-plans-db
