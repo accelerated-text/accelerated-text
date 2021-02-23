@@ -1,4 +1,3 @@
-
 (ns data.entities.data-files
   (:require [api.config :refer [conf]]
             [clojure.data.csv :as csv]
@@ -12,8 +11,8 @@
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 
-(defn binary->csv [data-file]
-  (assoc data-file :content (slurp (:content data-file))))
+(defn binary->csv [{content :content :as data-file}]
+  (assoc data-file :content (cond-> content (not (string? content)) (slurp))))
 
 (defn xlsx->csv [data-file]
   (let [content (:content data-file)]
@@ -26,8 +25,8 @@
                                    (map excel/cell-seq)
                                    (map #(map excel/read-cell %))
                                    (remove #(every? nil? %))
-                                   (map #(str/join "," %))
-                                   (str/join "\n")))))
+                                   (csv/write-csv *out*)
+                                   (with-out-str)))))
 
 (defn convert-file [data-file]
   (let [file-name (:filename data-file)
@@ -97,5 +96,5 @@
 
 (defn initialize []
   (doseq [f (utils/list-files (data-file-path))]
-    (store! {:filename (utils/get-name f)
-             :content  (slurp f)})))
+    (store! {:filename (.getName f)
+             :content  f})))
