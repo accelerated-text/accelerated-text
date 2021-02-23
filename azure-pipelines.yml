@@ -134,6 +134,7 @@ jobs:
           containerRegistry: dockerhub
           tags: |
             latest
+            $(Build.SourceVersion)
           arguments: --build-arg BUILDKIT_INLINE_CACHE=1
 
       - task: Docker@2
@@ -144,6 +145,7 @@ jobs:
           containerRegistry: dockerhub
           tags: |
             latest
+            $(Build.SourceVersion)
 
       - task: Docker@2
         displayName: Build front-end image
@@ -155,6 +157,7 @@ jobs:
           buildContext: .
           tags: |
             latest
+            $(Build.SourceVersion)
           arguments: --build-arg BUILDKIT_INLINE_CACHE=1 --build-arg ACC_TEXT_API_URL="http://localhost:3001" --build-arg ACC_TEXT_GRAPHQL_URL="http://localhost:3001/_graphql" --build-arg ACC_TEXT_DATA_FILES_BUCKET="http://localhost:3001/accelerated-text-data-files"
 
       - task: Docker@2
@@ -165,6 +168,7 @@ jobs:
           containerRegistry: dockerhub
           tags: |
             latest
+            $(Build.SourceVersion)
 
       - task: Docker@2
         displayName: Build api image
@@ -176,6 +180,7 @@ jobs:
           buildContext: .
           tags: |
             latest
+            $(Build.SourceVersion)
           arguments: --build-arg BUILDKIT_INLINE_CACHE=1
 
       - task: Docker@2
@@ -187,6 +192,7 @@ jobs:
           buildContext: .
           tags: |
             latest
+            $(Build.SourceVersion)
 
       - task: Docker@2
         displayName: Build gf image
@@ -197,6 +203,7 @@ jobs:
           containerRegistry: dockerhub
           tags: |
             latest
+            $(Build.SourceVersion)
           arguments: --build-arg BUILDKIT_INLINE_CACHE=1
 
       - task: Docker@2
@@ -207,3 +214,4 @@ jobs:
           containerRegistry: dockerhub
           tags: |
             latest
+            $(Build.SourceVersion)
