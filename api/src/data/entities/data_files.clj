@@ -106,4 +106,4 @@
 (defn initialize []
   (doseq [f (utils/list-files-in-dir (data-file-path))]
     (store! {:filename (.getName f)
-             :content  (slurp f)})))
+             :content  f})))
