@@ -1,4 +1,3 @@
-
 (ns data.entities.data-files
   (:require [api.config :refer [conf]]
             [clojure.data.csv :as csv]
@@ -7,64 +6,65 @@
             [clojure.tools.logging :as log]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]
-            [dk.ative.docjure.spreadsheet :as excel]))
+            [data.spec.data-file :as data-file]
+            [dk.ative.docjure.spreadsheet :as excel]
+            [mount.core :refer [defstate]]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 
-(defn binary->csv [data-file]
-  (assoc data-file :content (slurp (:content data-file))))
+(defn read-xlsx [content]
+  (with-open [is (io/input-stream content)]
+    (->> is
+         (excel/load-workbook-from-stream)
+         (excel/sheet-seq)
+         (first)
+         (excel/row-seq)
+         (remove nil?)
+         (map excel/cell-seq)
+         (map #(map excel/read-cell %))
+         (remove #(every? nil? %))
+         (csv/write-csv *out*)
+         (with-out-str))))
 
-(defn xlsx->csv [data-file]
-  (let [content (:content data-file)]
-    (assoc data-file :content (->> (io/input-stream content)
-                                   (excel/load-workbook-from-stream)
-                                   (excel/sheet-seq)
-                                   (first)
-                                   (excel/row-seq)
-                                   (remove nil?)
-                                   (map excel/cell-seq)
-                                   (map #(map excel/read-cell %))
-                                   (remove #(every? nil? %))
-                                   (map #(str/join "," %))
-                                   (str/join "\n")))))
+(defn convert-file [{file-name :filename :as data-file}]
+  (update data-file :content
+          #(cond
+             (instance? String %) %
+             (str/ends-with? file-name ".xlsx") (read-xlsx %)
+             :else (slurp %))))
 
-(defn convert-file [data-file]
-  (let [file-name (:filename data-file)
-        format    (cond
-                   (str/ends-with? file-name ".csv") :csv
-                   (str/ends-with? file-name ".xlsx") :xlsx
-                   :else                          :unknown)]
-    (case format
-          :csv     (binary->csv data-file)
-          :xlsx    (xlsx->csv data-file)
-          :unknown data-file)))
+(defn read-data-file [key]
+  (log/infof "Searching for data file: `%s`" key)
+  (db/read! data-files-db key))
+
+(defn delete-data-file! [key]
+  (log/infof "Deleting data file: `%s`" key)
+  (db/delete! data-files-db key))
 
 (defn store!
   "Expected keys are :filename and :content everything else is optional"
-  [data-file]
-  (let [id (utils/gen-uuid)]
-    (log/infof "Storing `%s` with id: `%s`" (:filename data-file) id)
-    (db/write! data-files-db id (convert-file data-file))
-    id))
-
-(defn read-data-file [key]
-  (db/read! data-files-db key))
+  [{file-name :filename :as data-file}]
+  (when (some? (read-data-file file-name))
+    (delete-data-file! file-name))
+  (log/infof "Storing data file: `%s`" file-name)
+  (db/write! data-files-db file-name (convert-file data-file))
+  file-name)
 
 (defn parse-data
-  ([data] (parse-data data 0 Integer/MAX_VALUE))
-  ([data offset limit]
-   (when (some? data)
-     (let [[header & rows] (->> (get data :content) (csv/read-csv) (map #(map str/trim %)))]
-       {:filename (get data :filename)
-        :header   (vec header)
-        :rows     (take limit (drop offset rows))
-        :offset   offset
-        :limit    limit
-        :total    (count rows)}))))
+  ([data-file]
+   (parse-data data-file 0 Integer/MAX_VALUE))
+  ([{::data-file/keys [id name content]} offset limit]
+   (let [[header & rows] (map #(map str/trim %) (cond-> content (some? content) (csv/read-csv)))]
+     {:id       id
+      :filename name
+      :header   (vec header)
+      :rows     (take limit (drop offset rows))
+      :offset   offset
+      :limit    limit
+      :total    (count rows)})))
 
-(defn fetch [id offset limit]
-  (when-let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data offset limit))]
+(defn read-content [data offset limit]
+  (let [{:keys [id filename header rows total]} (parse-data data offset limit)]
     {:id           id
      :fileName     filename
      :fieldNames   header
@@ -83,19 +83,27 @@
      :recordLimit  limit
      :recordCount  total}))
 
-(defn listing [offset limit recordOffset recordLimit]
-  (let [data-files (db/list! data-files-db Integer/MAX_VALUE)]
-    {:dataFiles  (map (fn [{id :id}]
-                        (fetch id recordOffset recordLimit))
-                      (->> data-files (drop offset) (take limit)))
-     :offset     offset
-     :limit      limit
-     :totalCount (count data-files)}))
+(defn fetch [id offset limit]
+  (some-> id
+          (read-data-file)
+          (read-content offset limit)))
+
+(defn listing
+  ([] (listing 0 Integer/MAX_VALUE 0 Integer/MAX_VALUE))
+  ([offset limit recordOffset recordLimit]
+   (let [data-files (db/list! data-files-db Integer/MAX_VALUE)]
+     {:dataFiles  (->> data-files
+                       (drop offset)
+                       (take limit)
+                       (map #(read-content % recordOffset recordLimit)))
+      :offset     offset
+      :limit      limit
+      :totalCount (count data-files)})))
 
 (defn data-file-path []
   (or (System/getenv "DATA_FILES") "resources/data-files"))
 
 (defn initialize []
-  (doseq [f (utils/list-files (data-file-path))]
-    (store! {:filename (utils/get-name f)
+  (doseq [f (utils/list-files-in-dir (data-file-path))]
+    (store! {:filename (.getName f)
              :content  (slurp f)})))

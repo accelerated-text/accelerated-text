@@ -1,28 +1,27 @@
 (ns data.datomic.entities.data-files
-  (:require [datomic.api :as d]))
+  (:require [data.spec.data-file :as data-file]
+            [datomic.api :as d]))
+
+(def pattern [::data-file/id
+              ::data-file/name
+              ::data-file/timestamp
+              ::data-file/content])
 
 (defn transact-item [conn key data-item]
-  @(d/transact conn [{:data-file/id       key
-                      :data-file/filename (:filename data-item)
-                      :data-file/content  (:content data-item)}]))
+  @(d/transact conn [#::data-file{:id key
+                                  :name (:filename data-item)
+                                  :timestamp (inst-ms (java.time.Instant/now))
+                                  :content  (:content data-item)}]))
 
 (defn pull-entity [conn key]
-  (let [data-file (ffirst (d/q '[:find (pull ?e [*])
-                                 :in $ ?key
-                                 :where
-                                 [?e :data-file/id ?key]]
-                               (d/db conn)
-                               key))]
-    (when data-file
-      {:id       (:data-file/id data-file)
-       :filename (:data-file/filename data-file)
-       :content  (:data-file/content data-file)})))
+  (d/pull (d/db conn) pattern [::data-file/id key]))
 
 (defn pull-n [conn limit]
-  (let [resp (map first (d/q '[:find (pull ?e [*])
-                               :where [?e :data-file/id]]
-                             (d/db conn)))]
+  (map first (take limit (d/q '[:find (pull ?e pattern)
+                                :in $ pattern
+                                :where
+                                [?e ::data-file/id]]
+                              (d/db conn) pattern))))
 
-    (map (fn [df] {:id       (:data-file/id df)
-                   :filename (:data-file/filename df)
-                   :content  (:data-file/content df)}) (take limit resp))))
+(defn delete [conn key]
+  @(d/transact conn [[:db.fn/retractEntity [::data-file/id key]]]))
