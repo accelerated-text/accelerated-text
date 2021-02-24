@@ -26,12 +26,11 @@
          (csv/write-csv *out*)
          (with-out-str))))
 
-(defn convert-file [{file-name :filename :as data-file}]
-  (update data-file :content
-          #(cond
-             (instance? String %) %
-             (str/ends-with? file-name ".xlsx") (read-xlsx %)
-             :else (slurp %))))
+(defn convert-file [{:keys [filename content]}]
+  (cond
+    (instance? String content) content
+    (str/ends-with? filename ".xlsx") (read-xlsx content)
+    :else (slurp content)))
 
 (defn read-data-file [key]
   (log/infof "Searching for data file: `%s`" key)
@@ -43,12 +42,15 @@
 
 (defn store!
   "Expected keys are :filename and :content everything else is optional"
-  [{file-name :filename :as data-file}]
-  (when (some? (read-data-file file-name))
-    (delete-data-file! file-name))
-  (log/infof "Storing data file: `%s`" file-name)
-  (db/write! data-files-db file-name (convert-file data-file))
-  file-name)
+  [{filename :filename :as data-file}]
+  (when (some? (read-data-file filename))
+    (delete-data-file! filename))
+  (log/infof "Storing data file: `%s`" filename)
+  (db/write! data-files-db filename
+             #::data-file{:name      filename
+                          :timestamp (utils/ts-now)
+                          :content   (convert-file data-file)})
+  filename)
 
 (defn parse-data
   ([data-file]
