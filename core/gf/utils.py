@@ -48,15 +48,15 @@ def json_response(fn):
         try:
             response = fn(environ, start_response, *args)
         except GFError as error:
-            # status = "400 Bad Request"
+            status = "400 Bad Request"
             response = {"error": error.message}
         except Exception as ex:
-            # status = "500 Internal Server Error"
+            status = "500 Internal Server Error"
             logger.error(ex)
             traceback.print_exc(file=sys.stdout)
             response = {"error": True, "message": str(ex)}
 
-        output = json.dumps(response, ensure_ascii=False).encode("UTF-8")
+        output = json.dumps(response).encode("UTF-8")
         response_headers = [
             ("Content-Type", "application/json"),
             ("Content-Length", str(len(output)))
