@@ -57,12 +57,12 @@ Tables, charts, pictures are all useful in understanding our data but often we n
 <img src="docs/assets/preview.gif" width="900"/>
 </div>
 
+## About
+
 [![made-with-Clojure](https://img.shields.io/badge/Made%20with-Clojure-1f425f.svg)](https://clojure.org/)
 [![Documentation Status](https://readthedocs.org/projects/accelerated-text/badge/?version=latest)](https://accelerated-text.readthedocs.io/en/latest/?badge=latest)
 [![GitHub release](https://img.shields.io/github/release/tokenmill/accelerated-text.svg)](https://github.com/tokenmill/accelerated-text/releases/)
 [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://acceleratedtext.com)
-
-## About
 
 Accelerated Text can work with all sorts of data:
 
