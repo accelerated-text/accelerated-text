@@ -7,7 +7,7 @@ services:
       context: .
     environment:
       GF_ENDPOINT: http://gf:8000
-    command: ["clojure", "-A:dev:test", "-i", "integration"]
+    command: ["clojure", "-A:dev:coverage"]
   gf:
     image: acctext/gf:test
     build:
