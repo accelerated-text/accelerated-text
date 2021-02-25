@@ -1,5 +1,12 @@
+import sys
 import json
 import six
+import traceback
+import logging
+
+from gf import GFError
+
+logger = logging.getLogger(__name__)
 
 routes = {}
 
@@ -9,8 +16,6 @@ def response_404(environ, start_response):
     response_headers = []
     start_response(status, response_headers)
     return ""
-
-
 
 
 def route(path, method):
@@ -46,7 +51,13 @@ def json_response(fn):
         status = "200 OK"
         try:
             response = fn(environ, start_response, *args)
+        except GFError as error:
+            status = "400 Bad Request"
+            response = {"error": error.message}
         except Exception as ex:
+            status = "500 Internal Server Error"
+            logger.error(ex)
+            traceback.print_exc(file=sys.stdout)
             response = {"error": True, "message": str(ex)}
 
         output = json.dumps(response, ensure_ascii=False).encode("UTF-8")

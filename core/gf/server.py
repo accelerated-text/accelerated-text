@@ -19,14 +19,8 @@ logger = logging.getLogger("server")
 def generate(environ, start_response, data):
     content = data["content"]
     name = data["module"]
-    try:
-        results = generate_results(name, content)
-        return {"results": results}
-    except GFError as error:
-        return {"error": error.message}
-    except Exception as ex:
-        logger.exception(ex)
-        return {"error": str(ex).strip()}
+    results = generate_results(name, content)
+    return {"results": results}
 
 
 
@@ -37,22 +31,14 @@ def parse(environ, start_response, data):
     content = data["content"]
     name = data["module"]
     text = data["text"]
-    try:
-        results = parse_text(name, content, text)
-        return {"results": results}
-    except GFError as error:
-        return {"error": error.message}
-    except Exception as ex:
-        logger.exception(ex)
-        return {"error": str(ex).strip()}
-
+    results = parse_text(name, content, text)
+    return {"results": results}
 
 
 @route("/health", "GET")
 @json_response
 def ping(*args):
     return {"status": "OK"}
-
 
 
 def application(environ, start_response):
