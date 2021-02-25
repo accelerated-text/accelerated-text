@@ -4,6 +4,9 @@ lint:
 unit-tests:
 	clojure -A:test -e:integration
 
+code-coverage:
+	clojure -A:coverage
+
 integration-tests:
 	docker-compose -p test -f docker-compose.test.yml down && \
 	docker-compose -p test -f docker-compose.test.yml build && \
