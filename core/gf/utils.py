@@ -23,10 +23,6 @@ def route(path, method):
         routes[(method, path)] = fn
         def wrapper(environ, *args, **kwargs):
             return fn(*args, **kwargs)
-            # if environ["REQUEST_METHOD"] == "POST":
-            #     return fn(environ, *args, **kwargs)
-            # else:
-            #     return response_404(environ, *args, **kwargs)
 
         return wrapper
     return inject
