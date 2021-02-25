@@ -1,4 +1,5 @@
 import json
+import six
 
 routes = {}
 
@@ -33,7 +34,8 @@ def json_request(fn):
         except ValueError:
             request_body_size = 0
 
-        request_body = environ["wsgi.input"].read(request_body_size)
+        request_body = six.text_type(environ["wsgi.input"].read(request_body_size).decode("UTF-8"))
+
         return fn(environ, start_response, json.loads(request_body))
 
     return wrapper
@@ -47,7 +49,7 @@ def json_response(fn):
         except Exception as ex:
             response = {"error": True, "message": str(ex)}
 
-        output = json.dumps(response).encode("UTF-8")
+        output = json.dumps(response, ensure_ascii=False).encode("UTF-8")
         response_headers = [
             ("Content-Type", "application/json"),
             ("Content-Length", str(len(output)))
