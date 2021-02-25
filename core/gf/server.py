@@ -8,7 +8,6 @@ from wsgiref.util import setup_testing_defaults
 from utils import (response_404, json_request, json_response, route, routes)
 from gf import generate_results, parse_text, GFError
 
-
 logger = logging.getLogger("server")
 
 
@@ -31,7 +30,7 @@ def parse(environ, start_response, data):
     content = data["content"]
     name = data["module"]
     text = data["text"]
-    results = parse_text(name, content, text)
+    results = list(parse_text(name, content, text))
     return {"results": results}
 
 
@@ -43,6 +42,7 @@ def ping(*args):
 
 def application(environ, start_response):
     setup_testing_defaults(environ)
+    logging.basicConfig(level=logging.INFO)
     for (m, p), fn in routes.items():
         if environ["REQUEST_METHOD"] == m and environ["PATH_INFO"] == p:
             return fn(environ, start_response)
