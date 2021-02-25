@@ -17,7 +17,7 @@ services:
     command: ["clojure", "-A:dev:test", "-i", "integration"]
     volumes:
       - ./resources/schema.graphql:/opt/schema.graphql
-      - ./resoutces/datomic-schema:/opt/datomic-schema
+      - ./resources/datomic-schema:/opt/datomic-schema
       - ./test/resources/data-files:/opt/data-files
       - ./test/resources/dictionary:/opt/dictionary
       - ./test/resources/document-plans:/opt/document-plans
