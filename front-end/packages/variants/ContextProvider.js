@@ -60,6 +60,7 @@ export default composeContexts({
                     }, () => {
                         getVariants({
                             dataId:             plan.dataSampleId != null ? plan.dataSampleId : undefined,
+                            sampleMethod:       plan.dataSampleMethod != null ? plan.dataSampleMethod : "relevant",
                             documentPlanId:     plan.id,
                             readerFlagValues:   reader.flagValues,
                         }).then( result => this.setState( state =>
