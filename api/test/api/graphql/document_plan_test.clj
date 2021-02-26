@@ -178,12 +178,13 @@
                                             :kind         "Document"
                                             :blocklyXml   "<>"
                                             :documentPlan "{}"}})]
-    (is (= [{:blocklyXml    "<>"
-             :dataSampleId  nil
-             :dataSampleRow nil
-             :examples      nil
-             :documentPlan  {}
-             :name          "test"
-             :kind          "Document"
-             :uid           "01"
-             :updateCount   0}] (map #(dissoc % :createdAt :updatedAt :id) (document-plan/list-document-plans))))))
+    (is (= [{:blocklyXml       "<>"
+             :dataSampleId     nil
+             :dataSampleMethod nil
+             :dataSampleRow    nil
+             :examples         nil
+             :documentPlan     {}
+             :name             "test"
+             :kind             "Document"
+             :uid              "01"
+             :updateCount      0}] (map #(dissoc % :createdAt :updatedAt :id) (document-plan/list-document-plans))))))
