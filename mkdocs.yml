@@ -23,6 +23,7 @@ nav:
         - Deployment: deployment.md
         - NLG API: nlg-api.md
         - GraphQL API: graphql.md
+    - Troubleshooting: troubleshooting.md
     - Contributing: contributing.md
 markdown_extensions:
     - toc
