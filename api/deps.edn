@@ -1,4 +1,4 @@
-{:deps      {accelerated-text/accelerated-text    {:local/root "../core"}
+{:deps      {accelerated-text/core                {:local/root "../core"}
              ch.qos.logback/logback-classic       {:mvn/version "1.2.3"}
              com.walmartlabs/lacinia              {:mvn/version "0.35.0"}
              http-kit/http-kit                    {:mvn/version "2.3.0"}
@@ -26,5 +26,5 @@
              :test
              {:extra-paths ["test"]
               :extra-deps  {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner"
-                                                       :sha     "76568540e7f40268ad2b646110f237a60295fa3c"}}
+                                                       :sha     "028a6d41ac9ac5d5c405dfc38e4da6b4cc1255d5"}}
               :main-opts   ["-m" "cognitect.test-runner"]}}}

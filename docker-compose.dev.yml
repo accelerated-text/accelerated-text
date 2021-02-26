@@ -5,17 +5,14 @@ services:
     build:
       context: .
       dockerfile: api/Dockerfile
-      cache_from:
-        - acctext/api:latest
   gf:
     build:
       context: ./core/gf
-      cache_from:
-        - acctext/gf:latest
   front-end:
-    image: acctext/frontend:latest
-    ports: ["8080:80"]
-    environment:
-      ACC_TEXT_API_URL: "http://localhost:3001"
-      ACC_TEXT_GRAPHQL_URL: "http://localhost:3001/_graphql"
-      ACC_TEXT_DATA_FILES_BUCKET: "http://localhost:3001/accelerated-text-data-files"
+    build:
+      context: .
+      dockerfile: front-end/Dockerfile.builder
+      args:
+        ACC_TEXT_API_URL: "http://localhost:3001"
+        ACC_TEXT_GRAPHQL_URL: "http://localhost:3001/_graphql"
+        ACC_TEXT_DATA_FILES_BUCKET: "http://localhost:3001/accelerated-text-data-files"

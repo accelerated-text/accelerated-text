@@ -2,11 +2,7 @@ version: '3.4'
 
 services:
   front-end:
-    build:
-      context: .
-      dockerfile: front-end/Dockerfile
-      cache_from:
-        - acctext/frontend:latest
+    image: acctext/frontend:latest
     ports: ["8080:80"]
     environment:
       ACC_TEXT_API_URL: "http://localhost:3001"

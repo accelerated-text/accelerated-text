@@ -6,8 +6,6 @@ services:
     build:
       context: ../
       dockerfile: api/Dockerfile
-      cache_from:
-        - acctext/api:latest
     environment:
       GF_ENDPOINT: "http://gf:8000"
       ENABLE_ENRICH: "FALSE"
@@ -25,5 +23,3 @@ services:
     image: acctext/core:test
     build:
       context: ../core/gf
-      cache_from:
-        - acctext/gf:latest
