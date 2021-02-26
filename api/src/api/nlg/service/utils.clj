@@ -28,9 +28,11 @@
        (remove nil?)
        (str/join "; ")))
 
-(defn get-data-row [data-id index]
+(defn get-data-row [data-id sample-method index]
   (when-not (str/blank? data-id)
-    (if-let [{[{fields :fields}] :records filename :fileName} (data-files/fetch data-id index 1)]
+    (if-let [{[{fields :fields}] :records filename :fileName} (case sample-method
+                                                                    "relevant" (nth (data-files/fetch-most-relevant data-id 0 20) index)
+                                                                    "first"    (data-files/fetch data-id index 1))]
       (cond->> (zipmap (map :fieldName fields) (map :value fields))
                (data-enrich/enable-enrich?) (data-enrich/enrich filename))
       (log/errorf "Data with id `%s` not found" data-id))))
