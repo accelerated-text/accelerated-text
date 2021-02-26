@@ -88,9 +88,9 @@
 
 (defn fetch-most-relevant [id offset limit]
   (let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data))
-        sampled-rows (row-selection/sample rows (:relevant-items-limit conf))
-        m (row-selection/distance-matrix sampled-rows)
-        selected-rows (drop offset (row-selection/select-rows m sampled-rows (+ offset limit)))]
+        sampled-rows                         (row-selection/sample rows (:relevant-items-limit conf))
+        m                                    (row-selection/distance-matrix sampled-rows)
+        selected-rows                        (drop offset (row-selection/select-rows m sampled-rows limit))]
     {:id           id
      :fileName     filename
      :fieldNames   header
@@ -103,7 +103,7 @@
                                         (range)
                                         header
                                         record)})
-                        (range offset (+ offset limit))
+                        (range 0 limit)
                         selected-rows)
      :recordOffset 0
      :recordLimit  limit
