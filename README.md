@@ -9,7 +9,6 @@
 
 
 ---
-
 *A picture is worth a thousand words.* Or is it? 
 Tables, charts, pictures are all useful in understanding our data but often we need a description – a story to tell us what are we looking at. 
 **Accelerated Text** is a natural language generation tool which allows you to define data descriptions and then generates multiple versions of those descriptions varying in wording and structure.
@@ -58,8 +57,13 @@ Tables, charts, pictures are all useful in understanding our data but often we n
 <img src="docs/assets/preview.gif" width="900"/>
 </div>
 
-
 ## About
+
+[![made-with-Clojure](https://img.shields.io/badge/Made%20with-Clojure-1f425f.svg)](https://clojure.org/)
+[![Documentation Status](https://readthedocs.org/projects/accelerated-text/badge/?version=latest)](https://accelerated-text.readthedocs.io/en/latest/?badge=latest)
+[![GitHub release](https://img.shields.io/github/release/tokenmill/accelerated-text.svg)](https://github.com/tokenmill/accelerated-text/releases/)
+[![codecov](https://codecov.io/gh/tokenmill/accelerated-text/branch/master/graph/badge.svg?token=rQIlPuvYID)](https://codecov.io/gh/tokenmill/accelerated-text)
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://acceleratedtext.com)
 
 Accelerated Text can work with all sorts of data:
 
