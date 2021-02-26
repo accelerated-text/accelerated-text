@@ -53,7 +53,7 @@ export default composeQueries({
                 ? <MessageTr>
                     <Loading />
                 </MessageTr>
-            : concepts
+            : (concepts && concepts.length > 0)
                 ? sortByLabel( concepts.amr ).map( concept =>
                     <ConceptRow key={ concept.id } concept={ concept } />
                 )

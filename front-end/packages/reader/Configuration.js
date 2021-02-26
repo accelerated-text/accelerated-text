@@ -35,7 +35,7 @@ export default composeQueries({
                     ? <Error message={ error } />
                 : loading
                     ? <Loading />
-                : readerFlags
+                : (readerFlags && readerFlags.length > 0)
                   ? sortFlags( readerFlags )
                        .map(flag => {
                          if(!(flag.id in flagValues) && flag.defaultUsage == "YES"){
