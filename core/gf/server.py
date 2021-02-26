@@ -30,8 +30,15 @@ def parse(environ, start_response, data):
     content = data["content"]
     name = data["module"]
     text = data["text"]
-    results = list(parse_text(name, content, text))
-    return {"results": results}
+    results = []
+    errors = []
+    for item in parse_text(name, content, text):
+        if "error" in item:
+            errors.append(item["error"])
+        elif "result" in item:
+            results.append(item["result"])
+
+    return {"results": results, "errors": errors if len(errors) > 0 else None}
 
 
 @route("/health", "GET")

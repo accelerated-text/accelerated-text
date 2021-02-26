@@ -117,7 +117,8 @@ def parse_text(name, content, text):
                 parse_result = concrete.parse(text.encode("UTF-8"))
             except Exception as ex:
                 logger.exception(ex)
+                yield {"error": str(ex)}
                 continue
-            yield k, [str(e) for p, e in parse_result]
+            yield {"result": (k, [str(e) for p, e in parse_result])}
     elif error:
         raise GFError(error)
