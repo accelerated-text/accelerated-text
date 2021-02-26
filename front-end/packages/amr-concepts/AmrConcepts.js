@@ -7,7 +7,7 @@ import {
 }                           from 'ramda';
 
 import { composeQueries  }  from '../graphql';
-import { Error, Loading }   from '../ui-messages/';
+import { Error, Loading, Info }   from '../ui-messages/';
 import LabelWithStatus      from '../label-with-status/LabelWithStatus';
 import { concepts }         from '../graphql/queries.graphql';
 
@@ -53,12 +53,12 @@ export default composeQueries({
                 ? <MessageTr>
                     <Loading />
                 </MessageTr>
-            : concepts
+            : (concepts && concepts.length > 0)
                 ? sortByLabel( concepts.amr ).map( concept =>
                     <ConceptRow key={ concept.id } concept={ concept } />
                 )
                 : <MessageTr>
-                    <Error message="No concepts found. Please contact your system administrator." />
+                    <Info message="No concepts found." />
                 </MessageTr>
             }
         </tbody>
