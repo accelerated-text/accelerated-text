@@ -1,8 +1,11 @@
 (ns api.nlg.parser-test
   (:require [acc-text.nlg.semantic-graph :as sg]
+            [api.db-fixtures :as db]
             [api.nlg.parser :as parser]
             [clojure.set :as set]
-            [clojure.test :refer [deftest testing is]]))
+            [clojure.test :refer [deftest testing is use-fixtures]]))
+
+(use-fixtures :each db/clean-db)
 
 (deftest document-plan-parsing
   (testing "Simple document plan parsing"

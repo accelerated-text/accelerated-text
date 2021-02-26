@@ -1,60 +1,65 @@
 (ns utils.document-plan
   (:gen-class)
   (:require [api.nlg.parser :refer [document-plan->semantic-graph]]
-            [jsonista.core :as json]
+            [clojure.java.io :as io]
             [clojure.pprint :refer [pprint]]
-            [utils.queries :as queries]
-            [mount.core :refer [defstate] :as mount]
-            [utils.config :refer [config]]
             [clojure.tools.logging :as log]
-            [org.httpkit.client :as http]))
+            [jsonista.core :as json]
+            [mount.core :as mount]
+            [org.httpkit.client :as http]
+            [utils.config :refer [config]]
+            [utils.queries :as queries]))
 
 (def read-mapper (json/object-mapper {:decode-key-fn true}))
 
-(defn ->semantic-graph [file-path]
-  (-> (slurp file-path)
-      (json/read-value read-mapper)
-      :documentPlan
-      (document-plan->semantic-graph)
-      (pprint)))
+(def write-mapper (json/object-mapper {:pretty true}))
 
-(defn ouput-document-plan [dir dp])
+(defn pprint-semantic-graph [file-path]
+  (let [{body :documentPlan :as document-plan} (json/read-value (slurp file-path) read-mapper)]
+    (-> document-plan
+        (cond-> (string? body) (update :documentPlan #(json/read-value % read-mapper)))
+        (document-plan->semantic-graph)
+        (pprint))))
+
+(defn doc->dir-name [{kind :kind}]
+  (condp = kind
+    "RGL" "dlg" "Document" "dp" "AMR" "amr"))
 
 (defn ->file [output-dir {:keys [id] :as document-plan}]
-  (let [fpath (format "%s/%s.json" output-dir id)]
-    (log/debugf "Writing to: %s" fpath)
-    (spit
-     fpath
-     (json/write-value-as-string document-plan))))
+  (let [dir (str output-dir "/" (doc->dir-name document-plan))]
+    (.mkdirs (io/file dir))
+    (log/infof "Writing: %s/%s.json" dir id)
+    (spit (format "%s/%s.json" dir id)
+          (json/write-value-as-string document-plan write-mapper))))
 
-(defn export-document-plan [name]
-  (let [{:keys [graphql-url]} config
-        {:keys [status body error]} @(http/post graphql-url {:headers {"Content-Type" "application/json"}
-                                                             :body (->> (queries/export-document-plan-query {:name name})
-                                                                        (log/spyf "Query Content: %s")
-                                                                        :graphql
-                                                                        (json/write-value-as-string))})]
-    (-> (json/read-value body read-mapper) :data :documentPlan (json/write-value-as-string) (pprint))))
+(defn run-query [url q]
+  @(http/post url {:headers {"Content-Type" "application/json"}
+                   :body    (->> q
+                                 :graphql
+                                 (json/write-value-as-string))}))
 
-(defn export-all-document-plans
-  ([] (export-all-document-plans "../api/resources/document-plans"))
-  ([output-dir]
-   (let [{:keys [graphql-url]} config
-         {:keys [status body error]} @(http/post graphql-url {:headers {"Content-Type" "application/json"}
-                                                              :body (->> (queries/export-document-plans-query {})
-                                                                         (log/spyf "Query Content: %s")
-                                                                         :graphql
-                                                                         (json/write-value-as-string))})]
-     (if error
-       (log/errorf "Failed, exception is: %s" error)
-       (doseq [dp (-> (json/read-value body read-mapper) :data :documentPlans :items)]
-         (->file output-dir dp))))))
+(defn pprint-document-plan [name]
+  (-> (run-query (:graphql-url config)
+                 (queries/export-document-plan-query {:name name}))
+      :body
+      (json/read-value read-mapper)
+      :data :documentPlan
+      (update :documentPlan #(json/read-value % read-mapper))
+      (json/write-value-as-string write-mapper)
+      (println)))
 
-(defn -main [& args]
+(defn export-all-document-plans [output-dir]
+  (let [{:keys [body error]} (run-query (:graphql-url config)
+                                        (queries/export-document-plans-query {}))]
+    (if error
+      (log/errorf "Failed with the error: %s" error)
+      (doseq [dp (-> (json/read-value body read-mapper)
+                     :data :documentPlans :items)]
+        (->file output-dir (update dp :documentPlan #(json/read-value % read-mapper)))))))
+
+(defn -main [action & args]
   (mount/start)
-  (println queries/query-map)
-  (let [[action & other] args]
-    (case action
-      "to-semantic-graph" (apply ->semantic-graph other)
-      "export" (apply export-document-plan other)
-      "export-all" (apply export-all-document-plans other))))
+  (case action
+    "print-graph" (apply pprint-semantic-graph args)
+    "print-plan" (apply pprint-document-plan args)
+    "export-plans" (export-all-document-plans (or (first args) "../api/resources/document-plans"))))
