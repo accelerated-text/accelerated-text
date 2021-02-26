@@ -71,6 +71,15 @@ jobs:
           projectName: $(Build.Repository.Name)
           dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from api
 
+      - script: |
+          python -m pip install --upgrade pip
+          pip install coverage
+          displayName: 'Install coverage'
+
+      - script: |
+      bash <(curl -s https://codecov.io/bash) -s .stats/coverage/api
+      displayName: 'Upload to codecov.io'
+
 
   - job: core_integration_tests
     pool:
@@ -89,6 +98,16 @@ jobs:
           dockerComposeFile: core/docker-compose.test.yml
           projectName: $(Build.Repository.Name)
           dockerComposeCommand: up --remove-orphans --abort-on-container-exit --exit-code-from core
+
+      - script: |
+          python -m pip install --upgrade pip
+          pip install coverage
+        displayName: 'Install coverage'
+
+      - script: |
+          bash <(curl -s https://codecov.io/bash) -s .stats/coverage/core
+        displayName: 'Upload to codecov.io'
+
 
   - job: eval
     pool:
