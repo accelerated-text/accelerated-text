@@ -53,7 +53,7 @@ def json_response(fn):
             status = "500 Internal Server Error"
             logger.error(ex)
             traceback.print_exc(file=sys.stdout)
-            response = {"error": True, "message": str(ex)}
+            response = {"error": str(ex)}
 
         output = json.dumps(response).encode("UTF-8")
         response_headers = [
