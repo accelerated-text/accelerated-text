@@ -15,6 +15,7 @@
                    ::request/documentPlanName
                    ::request/dataId
                    ::request/dataRow
+                   ::request/sampleMethod
                    ::request/readerFlagValues]))
 
 (s/def ::generate-request-bulk

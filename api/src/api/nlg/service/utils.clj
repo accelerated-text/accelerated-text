@@ -29,9 +29,10 @@
        (str/join "; ")))
 
 (defn get-data-row [data-id sample-method index]
+  (log/infof "Sample Method: %s" sample-method)
   (when-not (str/blank? data-id)
     (if-let [{[{fields :fields}] :records filename :fileName} (case sample-method
-                                                                    "relevant" (nth (data-files/fetch-most-relevant data-id 0 20) index)
+                                                                    "relevant" (data-files/fetch-most-relevant data-id index 1)
                                                                     "first"    (data-files/fetch data-id index 1))]
       (cond->> (zipmap (map :fieldName fields) (map :value fields))
                (data-enrich/enable-enrich?) (data-enrich/enrich filename))
