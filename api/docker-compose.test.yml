@@ -16,6 +16,8 @@ services:
       DOCUMENT_PLANS: "/opt/document-plans"
     command: ["clojure", "-A:dev:coverage", "--output", "/opt/coverage"]
     volumes:
+      - ./resources/schema.graphql:/opt/schema.graphql
+      - ./resources/datomic-schema:/opt/datomic-schema
       - ./test/resources/data-files:/opt/data-files
       - ./test/resources/dictionary:/opt/dictionary
       - ./test/resources/document-plans:/opt/document-plans

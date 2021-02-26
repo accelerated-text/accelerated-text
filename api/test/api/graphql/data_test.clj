@@ -3,7 +3,8 @@
             [api.db-fixtures :as db]
             [clojure.string :as str]
             [clojure.test :refer [deftest is use-fixtures testing]]
-            [data.entities.data-files :as data-files]))
+            [data.entities.data-files :as data-files]
+            [data.spec.data-file :as data-file]))
 
 (use-fixtures :each db/clean-db)
 
@@ -49,5 +50,5 @@
   (testing "Read books.csv headers"
     (let [data-file-id (load-data-file "books.csv")
           result (data-files/read-data-file data-file-id)
-          headers (-> result (get :content) (str/split-lines) (first) (str/split #",") (set))]
+          headers (-> result (get ::data-file/content) (str/split-lines) (first) (str/split #",") (set))]
       (is (= #{"authors" "categories" "pageCount" "publishedDate" "publisher" "subtitle" "title"} headers)))))

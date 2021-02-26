@@ -3,7 +3,8 @@
             [clojure.edn :as edn]
             [clojure.java.io :as io]
             [jsonista.core :as json])
-  (:import (java.io File PushbackReader)
+  (:import (clojure.lang PersistentHashSet)
+           (java.io File PushbackReader)
            (java.util UUID)
            (java.time Instant)))
 
@@ -49,11 +50,27 @@
     (cond-> filename
             (not= index -1) (subs 0 index))))
 
-(defn list-files [path]
-  (some->> path
-           (io/file)
-           (file-seq)
-           (filter #(.isFile ^File %))))
+(defn file-with-ext
+  [^File f ^PersistentHashSet ext]
+  (and (some? f) (.isFile f)
+       (or (empty? ext)
+           (contains? ext (get-ext f)))))
+
+(defn list-files
+  ([path] (list-files path #{}))
+  ([path ^PersistentHashSet ext]
+   (some->> path
+            (io/file)
+            (file-seq)
+            (filter #(file-with-ext % ext)))))
+
+(defn list-files-in-dir
+  ([path] (list-files-in-dir path #{}))
+  ([path ^PersistentHashSet ext]
+   (some->> path
+            (io/file)
+            (.listFiles)
+            (filter #(file-with-ext % ext)))))
 
 (defn list-directories [path]
   (some->> path

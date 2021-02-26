@@ -27,7 +27,7 @@
           {#'api.config/conf
            {:start (fn []
                      {:db-implementation :datomic
-                      :enabled-languages #{"Eng"}})}
+                      :enabled-languages #{"Eng" "Ger"}})}
            #'data.entities.reader-model/language-conf
            {:start (fn []
                      (mapv data.entities.reader-model/update!
