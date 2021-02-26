@@ -14,4 +14,4 @@ RUN mkdir /grammars && gf --output-dir=/grammars -n LangEng -make alltenses/Lang
 ADD *.py ./
 ADD test_grammars test_grammars/
 
-CMD ["gunicorn", "-b 0.0.0.0:8000", "server"]
+CMD ["gunicorn", "-b 0.0.0.0:8000", "server", "--access-logfile", "-", "--error-logfile", "-"]
