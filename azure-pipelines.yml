@@ -77,8 +77,8 @@ jobs:
           displayName: 'Install coverage'
 
       - script: |
-      bash <(curl -s https://codecov.io/bash) -s .stats/coverage/api
-      displayName: 'Upload to codecov.io'
+          bash <(curl -s https://codecov.io/bash) -s .stats/coverage/api
+          displayName: 'Upload to codecov.io'
 
 
   - job: core_integration_tests
@@ -107,7 +107,6 @@ jobs:
       - script: |
           bash <(curl -s https://codecov.io/bash) -s .stats/coverage/core
         displayName: 'Upload to codecov.io'
-
 
   - job: eval
     pool:
