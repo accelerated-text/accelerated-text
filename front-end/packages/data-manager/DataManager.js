@@ -54,7 +54,7 @@ export default PlanActions( composeQueries({
                     <Cells
                         className={ S.cells }
                         id={ plan.dataSampleId }
-                        method={ plan.dataSampleMethod ? plan.dataSampleMethod : "relevant" }
+                        method={ plan.dataSampleMethod ? plan.dataSampleMethod : "first" }
                         onChangeRow={ this.onChangeRow }
                         selectedRow={ plan.dataSampleRow }
                         onChangeMethod={ this.onChangeMethod }

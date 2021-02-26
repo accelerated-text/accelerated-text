@@ -43,13 +43,14 @@ export default composeQueries({
         onChangeMethod(method)
         refetch()
     }
+/*<SampleAlgorithm
+                    onChange={ refetchData }
+                    value={ method }
+                />*/
 
     return (
     <div>
-        <SampleAlgorithm
-            onChange={ refetchData }
-            value={ method }
-        />
+
         <table className={ classnames( S.className, className, QA.DATA_MANAGER_CELL_TABLE ) }>
             <thead>
                 <tr>
