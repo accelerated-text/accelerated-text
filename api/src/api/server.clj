@@ -21,7 +21,6 @@
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [reitit.dev.pretty :as pretty]
-
             [acc-text.nlg.gf.service :as gf-service]))
 
 (def headers {"Access-Control-Allow-Origin"  "*"
