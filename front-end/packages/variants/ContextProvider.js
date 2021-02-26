@@ -7,14 +7,14 @@ import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 import ReaderContext        from '../reader/Context';
 
 import Context              from './Context';
-import { getVariants }      from './api';
+import { getVariants, checkStatus }      from './api';
 
 
-const canGetResult = ( plan, file ) => (
-    plan
-    && plan.id
-    && plan.updatedAt
-);
+const canGetResult = async ( plan, file ) => {
+    const serverStatus = await checkStatus();
+
+    return {serverStatus, planAvailable: (plan && plan.id && plan.updatedAt)};
+};
 
 
 const getResultKey = ( plan, file, flagValues ) =>
@@ -46,32 +46,38 @@ export default composeContexts({
             reader,
         } = this.props;
 
-        if( canGetResult( plan, file )) {
-            const resultKey = getResultKey( plan, file, reader.flagValues );
-            if( this.state.resultKey !== resultKey ) {
-                this.setState({
-                    loading:                true,
-                    resultKey,
-                }, () => {
-                    getVariants({
-                        dataId:             plan.dataSampleId != null ? plan.dataSampleId : undefined,
-                        documentPlanId:     plan.id,
-                        readerFlagValues:   reader.flagValues,
-                    }).then( result => this.setState( state =>
-                        ( state.resultKey === resultKey ) && {
-                            error:          false,
-                            loading:        false,
-                            result,
-                        }
-                    )).catch( error => this.setState( state =>
-                        ( state.resultKey === resultKey ) && {
-                            error,
-                            loading:        false,
-                        }
-                    ));
-                });
+        canGetResult( plan, file ).then( s => {
+            const { serverStatus, planAvailable } = s;
+            if ( !serverStatus ) {
+                this.setState({loading: false, error: "API is in an unhealthy state. Please contact Administrator."})
             }
-        }
+            else if ( planAvailable ) {
+                const resultKey = getResultKey( plan, file, reader.flagValues );
+                if( this.state.resultKey !== resultKey ) {
+                    this.setState({
+                        loading:                true,
+                        resultKey,
+                    }, () => {
+                        getVariants({
+                            dataId:             plan.dataSampleId != null ? plan.dataSampleId : undefined,
+                            documentPlanId:     plan.id,
+                            readerFlagValues:   reader.flagValues,
+                        }).then( result => this.setState( state =>
+                            ( state.resultKey === resultKey ) && {
+                                error:          false,
+                                loading:        false,
+                                result,
+                            }
+                        )).catch( error => this.setState( state =>
+                            ( state.resultKey === resultKey ) && {
+                                error,
+                                loading:        false,
+                            }
+                        ));
+                    });
+                }
+            }
+        })
     }
 
     componentDidMount() {

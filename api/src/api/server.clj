@@ -20,7 +20,8 @@
             [reitit.ring.coercion :as coercion]
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.ring.middleware.muuntaja :as muuntaja]
-            [reitit.dev.pretty :as pretty]))
+            [reitit.dev.pretty :as pretty]
+            [acc-text.nlg.gf.service :as gf-service]))
 
 (def headers {"Access-Control-Allow-Origin"  "*"
               "Access-Control-Allow-Headers" "content-type, *"
@@ -28,6 +29,15 @@
               "Content-Type"                 "application/json"})
 
 (defn health [_] {:status 200, :body "Ok"})
+
+(defn status [_]
+  (let [main-deps {:gf (gf-service/ping)}
+        other-deps {}
+        color (cond
+               (some false? (vals main-deps))  :red
+               (some false? (vals other-deps)) :yellow
+               :else                           :green)]
+    {:status 200 :body {:color (name color) :services (merge main-deps other-deps)}}))
 
 (defn string-store [item]
   (-> (select-keys item [:filename :content-type])
@@ -89,7 +99,9 @@
                              :swagger {:info {:title       "nlg-api"
                                               :description "api description"}}
                              :handler (swagger/create-swagger-handler)}}]
-     ["/health" {:get health}]]
+     ["/health" {:get health}]
+     ["/status" {:get {:responses {200 {:body {:color string? :services coll?}}}
+                       :handler    status}}]]
     {:data      {
                  :muuntaja   m/instance
                  :middleware [swagger/swagger-feature
