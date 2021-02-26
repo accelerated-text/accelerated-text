@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import logging
 import argparse
 
@@ -6,7 +7,6 @@ from wsgiref.util import setup_testing_defaults
 
 from utils import (response_404, json_request, json_response, route, routes)
 from gf import generate_results, parse_text, GFError
-
 
 logger = logging.getLogger("server")
 
@@ -18,14 +18,8 @@ logger = logging.getLogger("server")
 def generate(environ, start_response, data):
     content = data["content"]
     name = data["module"]
-    try:
-        results = generate_results(name, content)
-        return {"results": results}
-    except GFError as error:
-        return {"error": error.message}
-    except Exception as ex:
-        logger.exception(ex)
-        return {"error": str(ex).strip()}
+    results = generate_results(name, content)
+    return {"results": results}
 
 
 
@@ -36,15 +30,8 @@ def parse(environ, start_response, data):
     content = data["content"]
     name = data["module"]
     text = data["text"]
-    try:
-        results = parse_text(name, content, text)
-        return {"results": results}
-    except GFError as error:
-        return {"error": error.message}
-    except Exception as ex:
-        logger.exception(ex)
-        return {"error": str(ex).strip()}
-
+    results = parse_text(name, content, text)
+    return {"results": results}
 
 
 @route("/health", "GET")
@@ -53,9 +40,9 @@ def ping(*args):
     return {"status": "OK"}
 
 
-
 def application(environ, start_response):
     setup_testing_defaults(environ)
+    logging.basicConfig(level=logging.INFO)
     for (m, p), fn in routes.items():
         if environ["REQUEST_METHOD"] == m and environ["PATH_INFO"] == p:
             return fn(environ, start_response)

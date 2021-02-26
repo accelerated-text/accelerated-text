@@ -44,6 +44,8 @@
   (data-files/pull-entity conn key))
 (defmethod pull-n :data-files [_ limit]
   (data-files/pull-n conn limit))
+(defmethod delete :data-files [_ key]
+  (data-files/delete conn key))
 
 (defmethod transact-item :dictionary [_ key data-item]
   (dictionary/transact-item conn key data-item))

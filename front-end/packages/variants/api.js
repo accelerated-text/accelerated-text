@@ -4,6 +4,21 @@ import * as nlgApi      from '../nlg-api/';
 const POLL_INTERVAL =   500;
 const PREFIX =          '/nlg';
 
+export const checkStatus = async ( ) => {
+    try {
+        const result = await nlgApi.GET("/status");
+        if( result.color == "green" ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    } catch ( err ) {
+        console.log(err);
+        return false;
+    }
+};
+
 
 const checkResult = async ( resultId, resolve, reject ) => {
 

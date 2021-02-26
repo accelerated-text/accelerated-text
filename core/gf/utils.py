@@ -1,4 +1,12 @@
+import sys
 import json
+import six
+import traceback
+import logging
+
+from gf import GFError
+
+logger = logging.getLogger(__name__)
 
 routes = {}
 
@@ -10,17 +18,11 @@ def response_404(environ, start_response):
     return ""
 
 
-
-
 def route(path, method):
     def inject(fn):
         routes[(method, path)] = fn
         def wrapper(environ, *args, **kwargs):
             return fn(*args, **kwargs)
-            # if environ["REQUEST_METHOD"] == "POST":
-            #     return fn(environ, *args, **kwargs)
-            # else:
-            #     return response_404(environ, *args, **kwargs)
 
         return wrapper
     return inject
@@ -33,7 +35,7 @@ def json_request(fn):
         except ValueError:
             request_body_size = 0
 
-        request_body = environ["wsgi.input"].read(request_body_size)
+        request_body = six.text_type(environ["wsgi.input"].read(request_body_size).decode("UTF-8"))
         return fn(environ, start_response, json.loads(request_body))
 
     return wrapper
@@ -44,8 +46,14 @@ def json_response(fn):
         status = "200 OK"
         try:
             response = fn(environ, start_response, *args)
+        except GFError as error:
+            status = "400 Bad Request"
+            response = {"error": error.message}
         except Exception as ex:
-            response = {"error": True, "message": str(ex)}
+            status = "500 Internal Server Error"
+            logger.error(ex)
+            traceback.print_exc(file=sys.stdout)
+            response = {"error": str(ex)}
 
         output = json.dumps(response).encode("UTF-8")
         response_headers = [
