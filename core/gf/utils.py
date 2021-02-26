@@ -36,7 +36,6 @@ def json_request(fn):
             request_body_size = 0
 
         request_body = six.text_type(environ["wsgi.input"].read(request_body_size).decode("UTF-8"))
-
         return fn(environ, start_response, json.loads(request_body))
 
     return wrapper

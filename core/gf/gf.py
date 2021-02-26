@@ -112,13 +112,7 @@ def parse_text(name, content, text):
     logger.debug("Grammar: {}".format(grammar))
     if grammar:
         logger.info("Parsing")
-        for k, concrete in grammar.languages.items():
-            try:
-                parse_result = concrete.parse(text.encode("UTF-8"))
-            except Exception as ex:
-                logger.exception(ex)
-                yield {"error": str(ex)}
-                continue
-            yield {"result": (k, [str(e) for p, e in parse_result])}
+        return [(k, [str(e) for p, e in concrete.parse(text)])
+                for k, concrete in grammar.languages.items()]
     elif error:
         raise GFError(error)
