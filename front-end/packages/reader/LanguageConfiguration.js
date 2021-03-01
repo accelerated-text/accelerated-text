@@ -35,7 +35,7 @@ export default composeQueries({
                     ? <Error message={ error } />
                 : loading
                     ? <Loading />
-                : (languages && Object.keys(languages).length > 0)
+                : (languages && Object.keys(languages.flags).length > 0)
                     ? sortFlags( languages )
                        .map(flag => {
                          if(!(flag.id in flagValues) && flag.defaultUsage == "YES"){
