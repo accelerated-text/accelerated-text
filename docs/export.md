@@ -1,3 +1,5 @@
+# Data export
+
 When document plan is ready, we can export generated text using one of utility functions that are included in Accelerated Text project.
 
 Go to `utils` folder located in project root, and run this command in the terminal:
@@ -24,3 +26,30 @@ INFO  u.generate - Data Text Processing with GATE has 4 variations
 ```
 
 Output file will contain original data as well as an additional `Variants` column at the end with text variants that were generated.
+
+# Document plan export
+
+Go to `utils` folder located in project root and type this command in the terminal:
+```
+make export-all-document-plans
+```
+
+This should produce output similar to this:
+```
+INFO  u.document-plan - Writing: ../api/resources/document-plans/dlg/uTbZELWTIRnxCfmWLGfq.json
+INFO  u.document-plan - Writing: ../api/resources/document-plans/dlg/AHOPQhdyQdcRpEngZjLk.json
+INFO  u.document-plan - Writing: ../api/resources/document-plans/dlg/FtrMQwvHjYCGwNJqtuWT.json
+INFO  u.document-plan - Writing: ../api/resources/document-plans/dlg/aRBRdMShfBCpwJRERXUZ.json
+INFO  u.document-plan - Writing: ../api/resources/document-plans/dlg/yQqvEjwWbHlZVXxJtqYE.json
+INFO  u.document-plan - Writing: ../api/resources/document-plans/amr/vNfPkkdMRhOpItYo.json
+INFO  u.document-plan - Writing: ../api/resources/document-plans/dlg/oITyUhfqXtrYcwtWBcrz.json
+INFO  u.document-plan - Writing: ../api/resources/document-plans/dp/fFOhndCHismNBnal.json
+INFO  u.document-plan - Writing: ../api/resources/document-plans/dlg/hfTnGajQTQkAQMHMzjPk.json
+INFO  u.document-plan - Writing: ../api/resources/document-plans/dlg/UYvoFHjkRcqynZROytYV.json
+INFO  u.document-plan - Writing: ../api/resources/document-plans/dp/dotafNstSKQPbfNt.json
+```
+
+The document plans will be saved in `api/resources/document-plans` by default. This can be changed by providing `dir` argument like this:
+```
+make export-all-document-plans dir=my-output-dir
+```
