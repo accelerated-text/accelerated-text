@@ -14,6 +14,8 @@ export const blocks = {
     OneOfSynonyms:          require( './One-of-synonyms' ).default,
     Quote:                  require( './Quote' ).default,
     Segment:                require( './Segment' ).default,
+    //RglFrame:               require( './RglFrame' ).default,
+    //Frame:                  require( './Frame' ).default,
     Sequence:               require( './Sequence' ).default,
     Shuffle:                require( './Shuffle' ).default,
     ValueComparison:        require( './Value-comparison' ).default,
@@ -22,6 +24,22 @@ export const blocks = {
 };
 
 
-export const provideBlocks = Blockly =>
+export const RglBlocks = {
+    Segment:               require( './RglFrame' ).default,
+};
+
+export const AmrBlocks = {
+    Segment:               require( './Frame' ).default,
+};
+
+export const provideDocumentPlanBlocks = Blockly =>
     Object.values( blocks )
+        .forEach( block => block( Blockly ));
+
+export const provideRglBlocks = Blockly =>
+    Object.values( Object.assign({}, blocks, RglBlocks ))
+        .forEach( block => block( Blockly ));
+
+export const provideAmrBlocks = Blockly =>
+    Object.values( Object.assign({}, blocks, AmrBlocks ))
         .forEach( block => block( Blockly ));

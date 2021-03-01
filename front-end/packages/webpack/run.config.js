@@ -16,6 +16,7 @@ export default config({
             DIST,
             ASSETS,
         ],
+        historyApiFallback: true,
         hot:            true,
         open:           false,
         proxy: {

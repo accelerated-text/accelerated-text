@@ -2,9 +2,9 @@ import  classnames          from 'classnames';
 import { h }                from 'preact';
 
 import composeContexts      from '../compose-contexts/';
-import PlanSelector         from '../plan-selector/PlanSelector';
-import Status               from '../status/Status';
-import UIContext            from '../accelerated-text/UIContext';
+import PlanSelector         from '../plan-selector/ParadigmsPlanSelector';
+import Status               from '../status/AmrStatus';
+import UIContext            from '../amr/UIContext';
 
 import S                    from './Header.sass';
 
@@ -21,7 +21,7 @@ export default composeContexts({
                 className={ S.logo }
                 onClick={ closeAll }
                 src="/accelerated-text-logo.png"
-                title="AMR Editor"
+                title="DLG Editor"
             />
         </div>
         <div className={ S.center }>

@@ -1,17 +1,3 @@
-import uuid             from 'uuid';
-
-import planTemplate     from './plan-template';
-
-
-export const createPlan = fields => ({
-    ...planTemplate,
-    ...fields,
-    createdAt:          +new Date,
-    id:                 undefined,
-    uid:                uuid.v4(),
-});
-
-
 export const preparePlanJson = plan => ({
     ...plan,
     documentPlan: (

@@ -1,7 +1,7 @@
 import { h, Component }     from 'preact';
 import { path }             from 'ramda';
 
-import { getDataFile }      from '../graphql/queries.graphql';
+import { getRelevantSamples }      from '../graphql/queries.graphql';
 import { Query }            from '../graphql/';
 
 import Context              from './OpenedDataFileContext';
@@ -16,17 +16,18 @@ export default class OpenedDataFileContextProvider extends Component {
 
     render({ children }, _, openedPlan ) {
         const id =          path([ 'plan', 'dataSampleId' ], openedPlan );
+        const method =      path([ 'plan', 'dataSampleMethod'], openedPlan );
         return (
             <Query
-                query={ getDataFile }
+                query={ getRelevantSamples }
                 skip={ ! id }
-                variables={{ id }}
+                variables={{ id, method }}
             >
                 { ({ error, data, loading }) =>
                     <Context.Provider
                         children={ children }
                         value={ Object.assign( this.value, {
-                            file:       data && data.getDataFile,
+                            file:       data && data.getRelevantSamples,
                             error,
                             loading,
                         }) }

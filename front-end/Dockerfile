@@ -1,13 +1,16 @@
 FROM node:11-slim
 
-RUN apt-get update -qq && apt-get install -y -qq build-essential chromium libatk-bridge2.0-0 libgtk-3-0 rsync
-RUN apt-get install -y python3-pip
-RUN pip3 install awscli --upgrade
+RUN apt-get update -qq && apt-get install -y -qq build-essential rsync nginx
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY . /usr/src/app
 
-RUN npm install && touch -m node_modules
+COPY front-end/package.json /usr/src/app
+COPY front-end/ /usr/src/app/
+COPY api/resources/schema.graphql /usr/src/app/packages/graphql/schema.graphql
 
-CMD ["npm", "start"]
+COPY front-end/nginx.conf /etc/nginx/nginx.conf
+
+RUN make setup
+
+CMD ["make", "run-w-proxy"]

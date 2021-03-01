@@ -4,14 +4,13 @@ import { h, Component }     from 'preact';
 import PropTypes            from 'prop-types';
 
 import BottomBar            from '../bottom-bar/BottomBar';
-import DocumentPlan         from '../nlg-blocks/Document-plan';
 import DropTarget           from '../drag-in-blocks/DropTarget';
-import { provideBlocks }    from '../nlg-blocks/';
+import { provideDocumentPlanBlocks }    from '../nlg-blocks/';
 import { QA }               from '../tests/constants';
 import ResizableBlockly     from '../preact-blockly/Resizable';
 import WorkspaceContext     from '../workspace-context/WorkspaceContext';
 import workspaceShortcuts   from '../shortcuts/workspace-shortcuts';
-
+import DocumentPlan         from '../nlg-blocks/Document-plan';
 import blockSvgOverride     from './block-svg-override';
 import S                    from './NlgWorkspace.sass';
 import { setCellOptions }   from './cell-options';
@@ -87,7 +86,7 @@ export default class NlgWorkspace extends Component {
         Blockly.HSV_VALUE =         0.6;
 
         blockSvgOverride( Blockly );
-        provideBlocks( Blockly );
+        provideDocumentPlanBlocks( Blockly );
 
         this.context.setBlockly( Blockly );
     };

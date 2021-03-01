@@ -10,6 +10,9 @@ test: setup
 run: setup
 	npm start
 
+run-w-proxy: setup
+	(nginx -g "daemon on;" && npm start)
+
 .PHONY: npm-audit
 npm-audit:
 	npm audit
@@ -38,6 +41,9 @@ copy-resources:
 
 compile-frontend-services: prepare-builder copy-resources
 
-publish-frontend-docker:
-	docker build -t ${FRONTEND_IMAGE} --build-arg ACC_TEXT_API_URL="http://localhost:3001" --build-arg ACC_TEXT_GRAPHQL_URL="http://localhost:3001/_graphql" --build-arg ACC_TEXT_DATA_FILES_BUCKET="http://localhost:3001/accelerated-text-data-files" -f Dockerfile.builder ../
+build-docker:
+	docker build -t ${FRONTEND_IMAGE} -f Dockerfile ../
+
+
+publish-frontend-docker: build-docker
 	docker push ${FRONTEND_IMAGE}

@@ -15,6 +15,7 @@
                    ::request/documentPlanName
                    ::request/dataId
                    ::request/dataRow
+                   ::request/sampleMethod
                    ::request/readerFlagValues]))
 
 (s/def ::generate-request-bulk
@@ -30,7 +31,7 @@
   (Boolean/valueOf (System/getenv "DISPLAY_ERROR")))
 
 (defn generate-request
-  [{data-id :dataId data-row :dataRow reader-model :readerFlagValues :as request}]
+  [{data-id :dataId sample-method :sampleMethod data-row :dataRow reader-model :readerFlagValues :as request}]
   (try
     (log/infof "Generate request with %s" (utils/request->text request))
     (let [{row-index :dataSampleRow :as document-plan} (utils/get-document-plan request)
@@ -39,7 +40,7 @@
                                :status :pending})
       (results/write (generate-text {:id            result-id
                                      :document-plan document-plan
-                                     :data          (or data-row (utils/get-data-row data-id (or row-index 0)) {})
+                                     :data          (or data-row (utils/get-data-row data-id (or sample-method "first") (or row-index 0)) {})
                                      :reader-model  (map reader-model/update! (utils/form-reader-model reader-model))}))
       {:status 200
        :body   {:resultId result-id}})
