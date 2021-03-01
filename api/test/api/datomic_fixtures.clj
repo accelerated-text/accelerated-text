@@ -26,8 +26,9 @@
     (-> (mount/swap-states
           {#'api.config/conf
            {:start (fn []
-                     {:db-implementation :datomic
-                      :enabled-languages #{"Eng" "Ger"}})}
+                     {:db-implementation    :datomic
+                      :enabled-languages    #{"Eng" "Ger"}
+                      :relevant-items-limit 100})}
            #'data.entities.reader-model/language-conf
            {:start (fn []
                      (mapv data.entities.reader-model/update!

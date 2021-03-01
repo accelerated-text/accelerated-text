@@ -26,6 +26,13 @@ export default PlanActions( composeQueries({
             dataSampleRow,
         });
 
+     onChangeMethod = dataSampleMethod =>
+         this.props.onUpdatePlan({
+             ...this.props.plan,
+             dataSampleRow: 0,
+             dataSampleMethod,
+         });
+
     render({
         listDataFiles: {
             error,
@@ -47,8 +54,10 @@ export default PlanActions( composeQueries({
                     <Cells
                         className={ S.cells }
                         id={ plan.dataSampleId }
+                        method={ plan.dataSampleMethod ? plan.dataSampleMethod : "first" }
                         onChangeRow={ this.onChangeRow }
                         selectedRow={ plan.dataSampleRow }
+                        onChangeMethod={ this.onChangeMethod }
                     />
                 }
             </div>

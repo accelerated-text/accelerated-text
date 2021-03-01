@@ -39,7 +39,6 @@ export default class DragInBlock extends Component {
     };
 
     onDragStart = evt => {
-
         const dt =          evt.dataTransfer;
         dt.setData( 'type', DT_TYPE );
         dt.setData(

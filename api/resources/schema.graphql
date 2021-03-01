@@ -210,6 +210,7 @@ type DocumentPlan {
     documentPlan:      String!
     dataSampleId:      ID
     dataSampleRow:     Int
+    dataSampleMethod:  String
     createdAt:         Int!
     updatedAt:         Int
     updateCount:       Int!
@@ -244,6 +245,12 @@ type Query {
     getDataFile(
         id:                 ID!
         recordOffset:       Int
+        recordLimit:        Int
+    ): DataFile
+
+    getRelevantSamples(
+        id:                 ID!
+        method:             String!
         recordLimit:        Int
     ): DataFile
 
@@ -355,6 +362,7 @@ type Mutation {
         documentPlan:       String!
         dataSampleId:       ID
         dataSampleRow:      Int
+        dataSampleMethod:   String
     ): DocumentPlan!
 
     deleteDocumentPlan(
@@ -370,6 +378,7 @@ type Mutation {
         documentPlan:       String
         dataSampleId:       ID
         dataSampleRow:      Int
+        dataSampleMethod:   String
     ): DocumentPlan!
 
     createPhrase(

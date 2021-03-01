@@ -3,7 +3,7 @@ import { h }                from 'preact';
 import BottomBarProvider    from '../bottom-bar/ContextProvider';
 import composeContexts      from '../compose-contexts/';
 import DictionaryEditor     from '../dictionary-editor/DictionaryEditor';
-import DocumentPlansProvider    from '../document-plans/ContextProvider';
+import { DPContextProvider }    from '../document-plans/ContextProvider';
 import EditorSidebar        from '../plan-editor/Sidebar';
 import GlobalShortcuts      from '../shortcuts/GlobalShortcuts';
 import { GraphQLProvider }  from '../graphql/';
@@ -52,7 +52,7 @@ export default () => [
     ModalProvider,
     BottomBarProvider,
     GraphQLProvider,
-    DocumentPlansProvider,
+    DPContextProvider,
     OpenedPlanProvider,
     OpenedFileProvider,
     ReaderContextProvider,

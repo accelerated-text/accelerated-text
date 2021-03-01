@@ -9,10 +9,18 @@ import {
 import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
 
 import {
-    createPlan,
     preparePlanJson,
 }                           from './functions';
+import planTemplate from './plan-template';
+import uuid from 'uuid';
 
+export const createPlan = fields => ({
+    ...planTemplate,
+    ...fields,
+    createdAt:          +new Date,
+    id:                 undefined,
+    uid:                uuid.v4(),
+});
 
 export default ChildComponent =>
     composeQueries({

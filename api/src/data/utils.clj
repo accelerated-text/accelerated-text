@@ -6,7 +6,8 @@
   (:import (clojure.lang PersistentHashSet)
            (java.io File PushbackReader)
            (java.util UUID)
-           (java.time Instant)))
+           (java.time Instant)
+           (org.apache.commons.codec.digest MurmurHash3)))
 
 (def char-list (map char (concat (range 65 91) (range 97 123))))
 
@@ -25,6 +26,7 @@
 (defn read-edn [^File f]
   (with-open [rdr (io/reader f)]
     (edn/read (PushbackReader. rdr))))
+
 
 (defn read-csv [^File f]
   (with-open [reader (io/reader f)]
@@ -84,3 +86,5 @@
                (assoc ns-m (keyword ns (name k)) v))
              {}
              m))
+
+(defn murmur-hash [key] (first (MurmurHash3/hash128x64 (.getBytes key))))

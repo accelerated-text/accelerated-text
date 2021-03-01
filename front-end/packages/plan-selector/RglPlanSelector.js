@@ -4,9 +4,9 @@ import PropTypes            from 'prop-types';
 import composeContexts      from '../compose-contexts/';
 import DocumentPlansContext from '../document-plans/Context';
 import { Error, Loading }   from '../ui-messages/';
-import OpenedPlanContext    from '../accelerated-text/OpenedPlanContext';
-import PlanActions          from '../document-plans/Actions';
-import planTemplate         from '../document-plans/plan-template';
+import OpenedPlanContext    from '../rgl/OpenedPlanContext';
+import PlanActions          from '../document-plans/RglActions';
+import planTemplate         from '../document-plans/rgl-plan-template';
 import { QA }               from '../tests/constants';
 import UnexpectedWarning    from '../ui-messages/UnexpectedWarning';
 

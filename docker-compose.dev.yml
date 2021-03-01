@@ -11,7 +11,7 @@ services:
   front-end:
     build:
       context: .
-      dockerfile: front-end/Dockerfile.builder
+      dockerfile: front-end/Dockerfile
       args:
         ACC_TEXT_API_URL: "http://localhost:3001"
         ACC_TEXT_GRAPHQL_URL: "http://localhost:3001/_graphql"
