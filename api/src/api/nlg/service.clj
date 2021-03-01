@@ -40,7 +40,7 @@
                                :status :pending})
       (results/write (generate-text {:id            result-id
                                      :document-plan document-plan
-                                     :data          (or data-row (utils/get-data-row data-id sample-method (or row-index 0)) {})
+                                     :data          (or data-row (utils/get-data-row data-id (or sample-method "first") (or row-index 0)) {})
                                      :reader-model  (map reader-model/update! (utils/form-reader-model reader-model))}))
       {:status 200
        :body   {:resultId result-id}})
