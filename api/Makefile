@@ -10,7 +10,7 @@ integration-tests:
 	docker-compose -p test -f docker-compose.test.yml up --remove-orphans --abort-on-container-exit --exit-code-from api
 
 run-local:
-	clojure -A:dev -m api.server
+	clojure -m api.server
 
 export-document-plan:
 	@curl -s -X POST http://localhost:3001/_graphql \
