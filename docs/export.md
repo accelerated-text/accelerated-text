@@ -1,4 +1,4 @@
-# Data export
+# Generated text export
 
 When document plan is ready, we can export generated text using one of utility functions that are included in Accelerated Text project.
 
