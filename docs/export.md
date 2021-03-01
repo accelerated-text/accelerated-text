@@ -29,7 +29,7 @@ Output file will contain original data as well as an additional `Variants` colum
 
 # Document plan export
 
-Go to `utils` folder located in project root and type this command in the terminal:
+To be able to share document plans or save them as a backup, go to `utils` folder located in project root and run this command in the terminal:
 ```
 make export-all-document-plans
 ```
@@ -53,3 +53,5 @@ The document plans will be saved in `api/resources/document-plans` by default. T
 ```
 make export-all-document-plans dir=my-output-dir
 ```
+
+Whenever document plans are exported and kept in the default directory (`api/resources/document-plans`), they will be initialized every time Accelerated Text is run.
