@@ -174,13 +174,13 @@ jobs:
         inputs:
           command: build
           repository: acctext/frontend
-          dockerfile: front-end/Dockerfile.builder
+          dockerfile: front-end/Dockerfile
           containerRegistry: dockerhub
           buildContext: .
           tags: |
             latest
             $(Build.SourceVersion)
-          arguments: --build-arg BUILDKIT_INLINE_CACHE=1 --build-arg ACC_TEXT_API_URL="http://localhost:3001" --build-arg ACC_TEXT_GRAPHQL_URL="http://localhost:3001/_graphql" --build-arg ACC_TEXT_DATA_FILES_BUCKET="http://localhost:3001/accelerated-text-data-files"
+          arguments: --build-arg BUILDKIT_INLINE_CACHE=1 
 
       - task: Docker@2
         displayName: Push front-end image
