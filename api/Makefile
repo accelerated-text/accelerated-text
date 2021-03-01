@@ -13,6 +13,7 @@ run-local:
 	clojure -m api.server
 
 export-document-plan:
+	@echo "WARNING: This rule will be removed soon, check https://accelerated-text.readthedocs.io/en/latest/export/ for export instructions."
 	@curl -s -X POST http://localhost:3001/_graphql \
 	     -H "Content-Type: application/json" \
 	     -d "{\"query\": \"{documentPlan(id:\\\"$(id)\\\",name:\\\"$(name)\\\",kind:\\\"Document\\\"){id uid name kind blocklyXml documentPlan}}\"}" | \
@@ -20,6 +21,7 @@ export-document-plan:
 	jq '.documentPlan = (.documentPlan | fromjson)'
 
 export-all-document-plans:
+	@echo "WARNING: This rule will be removed soon, check https://accelerated-text.readthedocs.io/en/latest/export/ for export instructions."
 	@curl -s -X POST http://localhost:3001/_graphql \
          -H "Content-Type: application/json" \
          -d "{\"query\": \"{documentPlans{items{id uid name kind blocklyXml documentPlan}}}\"}" | \
