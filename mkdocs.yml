@@ -15,7 +15,7 @@ nav:
         - Creating a dictionary: dictionary.md
         - Adding operations: operations.md
         - Selecting languages: languages.md
-        - Exporting data: export.md
+        - Exporting: export.md
     - Advanced Topics:
         - Blocks: blocks.md
         - Reader Model: reader-models.md
