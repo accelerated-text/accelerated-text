@@ -9,4 +9,8 @@
   {:function "SelfNP",
    :type ["NP" "NP"],
    :example "the president himself (is at home)",
+   :label "mkNP"}
+  {:function "ExtAdvNP",
+   :type ["NP" "Adv" "NP"],
+   :example "Paris, always",
    :label "mkNP"}]}
