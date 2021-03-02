@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "accelerated-text-bdd",
+  "version": "1.0.0",
+  "description": "BDD tests for Accelerated Text Front-End",
+  "main": "index.js",
+  "scripts": {
+    "bdd": "./node_modules/.bin/cucumber-js --require-module @babel/register --require-module @babel/polyfill -f json:cucumber_report.json -f progress -r step-definitions/index.js"
+  },
+  "dependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/register": "^7.13.8",
+    "@cucumber/cucumber": "^7.0.0"
+  }
+}
