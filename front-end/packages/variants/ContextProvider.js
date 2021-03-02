@@ -42,7 +42,7 @@ export default composeContexts({
     onUpdates = () => {
         const {
             openedDataFile: { file },
-            openedPlan: { plan },
+            openedPlan: { plan, previewData },
             reader,
         } = this.props;
 
@@ -59,7 +59,7 @@ export default composeContexts({
                         resultKey,
                     }, () => {
                         getVariants({
-                            dataRow:            {},
+                            dataRow:            previewData,
                             documentPlanId:     plan.id,
                             readerFlagValues:   reader.flagValues,
                         }).then( result => this.setState( state =>

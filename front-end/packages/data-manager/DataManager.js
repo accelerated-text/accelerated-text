@@ -34,7 +34,7 @@ export default PlanActions( composeQueries({
          });
 
      onChangePreviewData = data => {
-        console.log(data);
+        this.props.onUpdatePreview(data);
      }
 
     render({
