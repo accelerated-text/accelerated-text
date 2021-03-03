@@ -4,4 +4,4 @@ Feature: Create new DocumentPlan in DocumentPlan View
     Given I am on "DocumentPlan" view
     Given Workspace is empty
     When I click on "NewDocumentPlan"
-    Then "NewDocumentPlan" dialog appears
+    Then "Document plan" appears in workspace
