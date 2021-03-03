@@ -1,6 +1,7 @@
-Feature: Dummy test to check if we do see UI with required components
+Feature: Create new DocumentPlan in DocumentPlan View
 
   Scenario: See Empty Editor
     Given I am on "DocumentPlan" view
+    Given Workspace is empty
     When I click on "NewDocumentPlan"
     Then "NewDocumentPlan" dialog appears
