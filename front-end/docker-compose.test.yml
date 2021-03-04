@@ -19,7 +19,7 @@ services:
 
   front-end:
     image: acctext/frontend:latest
-    ports: ["8080:8080"]
+    ports: ["8080:80"]
     depends_on:
       - acc-text-api
     environment:
@@ -32,6 +32,8 @@ services:
       context: .
       dockerfile: Dockerfile.tests
     environment:
-      FRONTEND_URL: "http://front-end:8080"
+      FRONTEND_URL: "http://front-end"
+    command: ["./wait-for-it.sh", "-t", "60", "acc-text-api:3001", "--", "npm", "run", "bdd"]
     depends_on:
       - front-end
+      - acc-text-api
