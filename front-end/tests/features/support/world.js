@@ -1,8 +1,7 @@
 const { setWorldConstructor, World, setDefaultTimeout } = require('@cucumber/cucumber')
 var puppeteer = require('puppeteer');
 
-const ROOT = "http://localhost:8080";
-const HEADLESS = process.env.HEADLESS !== "false";
+const ROOT = process.env.FRONTEND_URL || "http://localhost:8080";
 setDefaultTimeout(30 * 1000);
 
 class CustomWorld extends World {
@@ -11,7 +10,7 @@ class CustomWorld extends World {
     }
 
     async openAcceleratedText() {
-        this.browser = await puppeteer.launch({ headless: HEADLESS });
+        this.browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
         this.page = await this.browser.newPage();
         await this.page.goto(ROOT);
     }

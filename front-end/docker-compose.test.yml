@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+  acc-text-api:
+    image: acctext/api:latest
+    ports: ["3001:3001"]
+    environment:
+      GF_ENDPOINT: "http://gf:8000"
+      DISPLAY_ERROR: "TRUE"
+      ENABLE_ENRICH: "FALSE"
+      ENABLE_REF_EXPR: "FALSE"
+      ENABLED_LANGUAGES: "Eng"
+      ENABLED_READERS: ""
+    depends_on:
+      - gf
+  gf:
+    image: acctext/gf:latest
+    ports: ["8001:8000"]
+
+  front-end:
+    image: acctext/frontend:latest
+    ports: ["8080:8080"]
+    depends_on:
+      - acc-text-api
+    environment:
+      ACC_TEXT_API_URL: "http://acc-text-api:3001"
+      ACC_TEXT_GRAPHQL_URL: "http://acc-text-api:3001/_graphql"
+      ACC_TEXT_DATA_FILES_BUCKET: "http://acc-text-api:3001/accelerated-text-data-files"
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.tests
+    environment:
+      FRONTEND_URL: "http://front-end:8080"
+    depends_on:
+      - front-end
