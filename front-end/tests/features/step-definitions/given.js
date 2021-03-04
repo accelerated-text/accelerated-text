@@ -13,7 +13,13 @@ Given("I am on {string} view", async function(view){
 });
 
 Given("Workspace is empty", async function(){
-    const results = await this.page.$(".qa-tests-add-example-segment");
+    const results = await this.page.waitForSelector(".qa-tests-add-example-segment");
 
     expect(results).to.exists;
+});
+
+Given("Workspace is without errors", async function(){
+    const results = await this.page.$(".qa-tests-ui-error");
+
+    expect(results).to.not.exists;
 });
