@@ -19,6 +19,7 @@ Given("Workspace is empty", async function(){
 });
 
 Given("Workspace is without errors", async function(){
+    await this.page.screenshot({ path: './output/image.jpg', type: 'jpeg' })
     const results = await this.page.$(".qa-tests-ui-error");
 
     expect(results).to.not.exists;
