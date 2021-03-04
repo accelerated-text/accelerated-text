@@ -33,7 +33,7 @@ services:
       dockerfile: Dockerfile.tests
     environment:
       FRONTEND_URL: "http://front-end"
-    command: ["./wait-for-it.sh", "-t", "60", "acc-text-api:3001", "--", "npm", "run", "bdd"]
+    command: ["./wait-for-it.sh", "-t", "120", "acc-text-api:3001", "--", "npm", "run", "bdd"]
     depends_on:
       - front-end
       - acc-text-api
