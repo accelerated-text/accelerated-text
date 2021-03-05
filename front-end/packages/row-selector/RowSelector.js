@@ -19,6 +19,10 @@ export default class RowSelector extends Component {
 
     onClickPrevious = () =>
         this.props.onChange( this.props.selected - 1 );
+
+    componentDidMount() {
+        this.props.onChange(0);
+    }
     
     render({
         className,
