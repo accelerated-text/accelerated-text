@@ -1,5 +1,6 @@
 (ns acc-text.nlg.paradigms.lang.eng
   (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.paradigms.utils :as utils]
             [acc-text.nlg.semantic-graph :as sg]
             [clojure.set :as set]
             [clojure.string :as str])
@@ -7,42 +8,33 @@
 
 (def module "ParadigmsEng")
 
-(defn gen-id []
-  (str (UUID/randomUUID)))
-
-(defn get-label [name args category]
-  (format "%s.%s/%s" module name (str/join "->" (conj (vec args) category))))
-
-(defn find-root [{::sg/keys [concepts relations]}]
-  (first (set/difference (set (map :id concepts)) (map :to relations))))
-
 (defmulti resolve-dict-item ::dict-item/category)
 
 (defmethod resolve-dict-item "N" [{::dict-item/keys [key forms attributes]}]
-  (let [concept (gen-id)
-        noun-concept (gen-id)
-        gender-concept (gen-id)
+  (let [concept (utils/gen-id)
+        noun-concept (utils/gen-id)
+        gender-concept (utils/gen-id)
         gender (get attributes "Gender" "nonhuman")
         arity (count forms)
-        args (take arity (repeatedly #(gen-id)))]
+        args (take arity (repeatedly #(utils/gen-id)))]
     #::sg{:id        key
           :concepts  (concat
                        [{:id       concept
                          :type     :operation
                          :name     "mkN"
-                         :label    (get-label "mkN" ["Gender" "N"] "N")
+                         :label    (utils/get-label module "mkN" ["Gender" "N"] "N")
                          :category "N"
                          :module   module}
                         {:id       gender-concept
                          :type     :operation
                          :name     gender
-                         :label    (get-label gender [] "Gender")
+                         :label    (utils/get-label module gender [] "Gender")
                          :category "Gender"
                          :module   module}
                         {:id       noun-concept
                          :type     :operation
                          :name     "mkN"
-                         :label    (get-label "mkN" (take arity (repeat "Str")) "N")
+                         :label    (utils/get-label module "mkN" (take arity (repeat "Str")) "N")
                          :category "N"
                          :module   module}]
                        (map (fn [arg form]
@@ -76,16 +68,16 @@
 
 (defmethod resolve-dict-item "PN" [dict-item]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "N"))
-        concept (gen-id)]
+        concept (utils/gen-id)]
     (-> child
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkPN"
-                                       :label    (get-label "mkPN" ["N"] "PN")
+                                       :label    (utils/get-label module "mkPN" ["N"] "PN")
                                        :category "PN"
                                        :module   module}])
         (update ::sg/relations concat [{:from     concept
-                                        :to       (find-root child)
+                                        :to       (utils/find-root child)
                                         :role     :arg
                                         :index    0
                                         :category "N"
@@ -93,13 +85,13 @@
 
 (defmethod resolve-dict-item "N2" [{::dict-item/keys [attributes] :as dict-item}]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "N"))
-        concept (gen-id)
-        arg (gen-id)]
+        concept (utils/gen-id)
+        arg (utils/gen-id)]
     (-> child
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkN2"
-                                       :label    (get-label "mkN2" ["N" "Str"] "N2")
+                                       :label    (utils/get-label module "mkN2" ["N" "Str"] "N2")
                                        :category "N2"
                                        :module   module}
                                       {:id       arg
@@ -107,7 +99,7 @@
                                        :value    (get attributes "Post" "to")
                                        :category "Str"}])
         (update ::sg/relations concat [{:from     concept
-                                        :to       (find-root child)
+                                        :to       (utils/find-root child)
                                         :role     :arg
                                         :index    0
                                         :category "N"
@@ -121,28 +113,28 @@
 
 (defmethod resolve-dict-item "N3" [{::dict-item/keys [attributes] :as dict-item}]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "N"))
-        concept (gen-id)
-        prep-concept (gen-id)
-        post-concept (gen-id)
-        prep-arg (gen-id)
-        post-arg (gen-id)]
+        concept (utils/gen-id)
+        prep-concept (utils/gen-id)
+        post-concept (utils/gen-id)
+        prep-arg (utils/gen-id)
+        post-arg (utils/gen-id)]
     (-> child
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkN3"
-                                       :label    (get-label "mkN3" ["N" "Prep" "Prep"] "N3")
+                                       :label    (utils/get-label module "mkN3" ["N" "Prep" "Prep"] "N3")
                                        :category "N3"
                                        :module   module}
                                       {:id       prep-concept
                                        :type     :operation
                                        :name     "mkPrep"
-                                       :label    (get-label "mkPrep" ["Str"] "Prep")
+                                       :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                                        :category "Prep"
                                        :module   module}
                                       {:id       post-concept
                                        :type     :operation
                                        :name     "mkPrep"
-                                       :label    (get-label "mkPrep" ["Str"] "Prep")
+                                       :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                                        :category "Prep"
                                        :module   module}
                                       {:id       prep-arg
@@ -154,7 +146,7 @@
                                        :value    (get attributes "Post" "to")
                                        :category "Str"}])
         (update ::sg/relations concat [{:from     concept
-                                        :to       (find-root child)
+                                        :to       (utils/find-root child)
                                         :role     :arg
                                         :index    0
                                         :category "N"
@@ -185,13 +177,13 @@
                                         :name     "Str"}]))))
 
 (defmethod resolve-dict-item "Prep" [{::dict-item/keys [key forms]}]
-  (let [concept (gen-id)
-        arg (gen-id)]
+  (let [concept (utils/gen-id)
+        arg (utils/gen-id)]
     #::sg{:id        key
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkPrep"
-                       :label    (get-label "mkPrep" ["Str"] "Prep")
+                       :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                        :category "Prep"
                        :module   module}
                       {:id       arg
@@ -206,13 +198,13 @@
                        :name     "Str"}]}))
 
 (defmethod resolve-dict-item "Post" [{::dict-item/keys [key forms]}]
-  (let [concept (gen-id)
-        arg (gen-id)]
+  (let [concept (utils/gen-id)
+        arg (utils/gen-id)]
     #::sg{:id        key
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkPost"
-                       :label    (get-label "mkPost" ["Str"] "Prep")
+                       :label    (utils/get-label module "mkPost" ["Str"] "Prep")
                        :category "Prep"
                        :module   module}
                       {:id       arg
@@ -227,22 +219,22 @@
                        :name     "Str"}]}))
 
 (defmethod resolve-dict-item "Pron" [{::dict-item/keys [key forms attributes]}]
-  (let [concept (gen-id)
+  (let [concept (utils/gen-id)
         arity (count forms)
-        args (take arity (repeatedly #(gen-id)))
+        args (take arity (repeatedly #(utils/gen-id)))
         arg-types (concat (take arity (repeat "Str")) ["Number" "Person" "Gender"])
-        number-concept (gen-id)
+        number-concept (utils/gen-id)
         number (get attributes "Number" "singular")
-        person-concept (gen-id)
+        person-concept (utils/gen-id)
         person (get attributes "Person" "P3")
-        gender-concept (gen-id)
+        gender-concept (utils/gen-id)
         gender (get attributes "Gender" "nonhuman")]
     #::sg{:id        key
           :concepts  (cons
                        {:id       concept
                         :type     :operation
                         :name     "mkPron"
-                        :label    (get-label "mkPron" arg-types "Pron")
+                        :label    (utils/get-label module "mkPron" arg-types "Pron")
                         :category "Pron"
                         :module   module}
                        (concat
@@ -256,19 +248,19 @@
                          [{:id       number-concept
                            :type     :operation
                            :name     number
-                           :label    (get-label number [] "Number")
+                           :label    (utils/get-label module number [] "Number")
                            :category "Number"
                            :module   module}
                           {:id       person-concept
                            :type     :operation
                            :name     person
-                           :label    (get-label person [] "Person")
+                           :label    (utils/get-label module person [] "Person")
                            :category "Person"
                            :module   module}
                           {:id       gender-concept
                            :type     :operation
                            :name     gender
-                           :label    (get-label gender [] "Gender")
+                           :label    (utils/get-label module gender [] "Gender")
                            :category "Gender"
                            :module   module}]))
           :relations (concat
@@ -300,15 +292,15 @@
                          :name     "Gender"}])}))
 
 (defmethod resolve-dict-item "Quant" [{::dict-item/keys [key forms]}]
-  (let [concept (gen-id)
+  (let [concept (utils/gen-id)
         arity (count forms)
-        args (take arity (repeatedly #(gen-id)))]
+        args (take arity (repeatedly #(utils/gen-id)))]
     #::sg{:id        key
           :concepts  (cons
                        {:id       concept
                         :type     :operation
                         :name     "mkQuant"
-                        :label    (get-label "mkQuant" (take arity (repeat "Str")) "Quant")
+                        :label    (utils/get-label module "mkQuant" (take arity (repeat "Str")) "Quant")
                         :category "Quant"
                         :module   module}
                        (concat
@@ -329,13 +321,13 @@
                                   args)}))
 
 (defmethod resolve-dict-item "Subj" [{::dict-item/keys [key forms]}]
-  (let [concept (gen-id)
-        arg (gen-id)]
+  (let [concept (utils/gen-id)
+        arg (utils/gen-id)]
     #::sg{:id        key
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkSubj"
-                       :label    (get-label "mkSubj" ["Str"] "Subj")
+                       :label    (utils/get-label module "mkSubj" ["Str"] "Subj")
                        :category "Subj"
                        :module   module}
                       {:id       arg
@@ -350,13 +342,13 @@
                        :name     "Str"}]}))
 
 (defmethod resolve-dict-item "Interj" [{::dict-item/keys [key forms]}]
-  (let [concept (gen-id)
-        arg (gen-id)]
+  (let [concept (utils/gen-id)
+        arg (utils/gen-id)]
     #::sg{:id        key
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkInterj"
-                       :label    (get-label "mkInterj" ["Str"] "Interj")
+                       :label    (utils/get-label module "mkInterj" ["Str"] "Interj")
                        :category "Interj"
                        :module   module}
                       {:id       arg
@@ -371,15 +363,15 @@
                        :name     "Str"}]}))
 
 (defmethod resolve-dict-item "V" [{::dict-item/keys [key forms]}]
-  (let [concept (gen-id)
+  (let [concept (utils/gen-id)
         arity (count forms)
-        args (take arity (repeatedly #(gen-id)))]
+        args (take arity (repeatedly #(utils/gen-id)))]
     #::sg{:id        key
           :concepts  (cons
                        {:id       concept
                         :type     :operation
                         :name     "mkV"
-                        :label    (get-label "mkV" (take arity (repeat "Str")) "V")
+                        :label    (utils/get-label module "mkV" (take arity (repeat "Str")) "V")
                         :category "V"
                         :module   module}
                        (map (fn [arg form]
@@ -400,13 +392,13 @@
 
 (defmethod resolve-dict-item "V2" [{::dict-item/keys [attributes] :as dict-item}]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (gen-id)
-        arg (gen-id)]
+        concept (utils/gen-id)
+        arg (utils/gen-id)]
     (-> child
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkV2"
-                                       :label    (get-label "mkV2" ["V" "Str"] "V2")
+                                       :label    (utils/get-label module "mkV2" ["V" "Str"] "V2")
                                        :category "V2"
                                        :module   module}
                                       {:id       arg
@@ -414,7 +406,7 @@
                                        :value    (get attributes "Post" "in")
                                        :category "Str"}])
         (update ::sg/relations concat [{:from     concept
-                                        :to       (find-root child)
+                                        :to       (utils/find-root child)
                                         :role     :arg
                                         :index    0
                                         :category "V"
@@ -428,11 +420,11 @@
 
 (defmethod resolve-dict-item "V3" [{::dict-item/keys [attributes] :as dict-item}]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (gen-id)
-        prep-concept (gen-id)
-        post-concept (gen-id)
-        prep-arg (gen-id)
-        post-arg (gen-id)
+        concept (utils/gen-id)
+        prep-concept (utils/gen-id)
+        post-concept (utils/gen-id)
+        prep-arg (utils/gen-id)
+        post-arg (utils/gen-id)
         prep-attribute (get attributes "Prep")
         post-attribute (get attributes "Post")
         arity (cond-> 1
@@ -447,14 +439,14 @@
                 [{:id       concept
                   :type     :operation
                   :name     "mkV3"
-                  :label    (get-label "mkV3" arg-types "V3")
+                  :label    (utils/get-label module "mkV3" arg-types "V3")
                   :category "V3"
                   :module   module}]
                 (when (< 1 arity)
                   [{:id       prep-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (get-label "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       prep-arg
@@ -465,7 +457,7 @@
                   [{:id       post-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (get-label "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       post-arg
@@ -474,7 +466,7 @@
                     :category "Str"}]))
         (update ::sg/relations concat
                 [{:from     concept
-                  :to       (find-root child)
+                  :to       (utils/find-root child)
                   :role     :arg
                   :index    0
                   :category "V"
@@ -508,16 +500,16 @@
 
 (defmethod resolve-dict-item "VA" [dict-item]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (gen-id)]
+        concept (utils/gen-id)]
     (-> child
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVA"
-                                       :label    (get-label "mkVA" ["V"] "VA")
+                                       :label    (utils/get-label module "mkVA" ["V"] "VA")
                                        :category "VA"
                                        :module   module}])
         (update ::sg/relations concat [{:from     concept
-                                        :to       (find-root child)
+                                        :to       (utils/find-root child)
                                         :role     :arg
                                         :index    0
                                         :category "V"
@@ -525,11 +517,11 @@
 
 (defmethod resolve-dict-item "V2A" [{::dict-item/keys [attributes] :as dict-item}]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (gen-id)
-        prep-concept (gen-id)
-        post-concept (gen-id)
-        prep-arg (gen-id)
-        post-arg (gen-id)
+        concept (utils/gen-id)
+        prep-concept (utils/gen-id)
+        post-concept (utils/gen-id)
+        prep-arg (utils/gen-id)
+        post-arg (utils/gen-id)
         prep-attribute (get attributes "Prep")
         post-attribute (get attributes "Post")
         arity (cond-> 1
@@ -544,14 +536,14 @@
                 [{:id       concept
                   :type     :operation
                   :name     "mkV2A"
-                  :label    (get-label "mkV2A" arg-types "V2A")
+                  :label    (utils/get-label module "mkV2A" arg-types "V2A")
                   :category "V2A"
                   :module   module}]
                 (when (< 1 arity)
                   [{:id       prep-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (get-label "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       prep-arg
@@ -562,7 +554,7 @@
                   [{:id       post-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (get-label "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       post-arg
@@ -571,7 +563,7 @@
                     :category "Str"}]))
         (update ::sg/relations concat
                 [{:from     concept
-                  :to       (find-root child)
+                  :to       (utils/find-root child)
                   :role     :arg
                   :index    0
                   :category "V"
@@ -605,16 +597,16 @@
 
 (defmethod resolve-dict-item "VQ" [dict-item]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (gen-id)]
+        concept (utils/gen-id)]
     (-> child
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVQ"
-                                       :label    (get-label "mkVQ" ["V"] "VQ")
+                                       :label    (utils/get-label module "mkVQ" ["V"] "VQ")
                                        :category "VQ"
                                        :module   module}])
         (update ::sg/relations concat [{:from     concept
-                                        :to       (find-root child)
+                                        :to       (utils/find-root child)
                                         :role     :arg
                                         :index    0
                                         :category "V"
@@ -622,22 +614,22 @@
 
 (defmethod resolve-dict-item "V2Q" [{::dict-item/keys [attributes] :as dict-item}]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (gen-id)
-        prep-concept (gen-id)
-        prep-arg (gen-id)
+        concept (utils/gen-id)
+        prep-concept (utils/gen-id)
+        prep-arg (utils/gen-id)
         prep-attribute (get attributes "Prep" "as")]
     (-> child
         (update ::sg/concepts concat
                 [{:id       concept
                   :type     :operation
                   :name     "mkV2Q"
-                  :label    (get-label "mkV2Q" ["V" "Prep"] "V2Q")
+                  :label    (utils/get-label module "mkV2Q" ["V" "Prep"] "V2Q")
                   :category "V2Q"
                   :module   module}
                  {:id       prep-concept
                   :type     :operation
                   :name     "mkPrep"
-                  :label    (get-label "mkPrep" ["Str"] "Prep")
+                  :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                   :category "Prep"
                   :module   module}
                  {:id       prep-arg
@@ -646,7 +638,7 @@
                   :category "Str"}])
         (update ::sg/relations concat
                 [{:from     concept
-                  :to       (find-root child)
+                  :to       (utils/find-root child)
                   :role     :arg
                   :index    0
                   :category "V"
@@ -666,16 +658,16 @@
 
 (defmethod resolve-dict-item "VS" [dict-item]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (gen-id)]
+        concept (utils/gen-id)]
     (-> child
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVS"
-                                       :label    (get-label "mkVS" ["V"] "VS")
+                                       :label    (utils/get-label module "mkVS" ["V"] "VS")
                                        :category "VS"
                                        :module   module}])
         (update ::sg/relations concat [{:from     concept
-                                        :to       (find-root child)
+                                        :to       (utils/find-root child)
                                         :role     :arg
                                         :index    0
                                         :category "V"
@@ -683,22 +675,22 @@
 
 (defmethod resolve-dict-item "V2S" [{::dict-item/keys [attributes] :as dict-item}]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (gen-id)
-        prep-concept (gen-id)
-        prep-arg (gen-id)
+        concept (utils/gen-id)
+        prep-concept (utils/gen-id)
+        prep-arg (utils/gen-id)
         prep-attribute (get attributes "Prep" "as")]
     (-> child
         (update ::sg/concepts concat
                 [{:id       concept
                   :type     :operation
                   :name     "mkV2S"
-                  :label    (get-label "mkV2S" ["V" "Prep"] "V2Q")
+                  :label    (utils/get-label module "mkV2S" ["V" "Prep"] "V2Q")
                   :category "V2S"
                   :module   module}
                  {:id       prep-concept
                   :type     :operation
                   :name     "mkPrep"
-                  :label    (get-label "mkPrep" ["Str"] "Prep")
+                  :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                   :category "Prep"
                   :module   module}
                  {:id       prep-arg
@@ -707,7 +699,7 @@
                   :category "Str"}])
         (update ::sg/relations concat
                 [{:from     concept
-                  :to       (find-root child)
+                  :to       (utils/find-root child)
                   :role     :arg
                   :index    0
                   :category "V"
@@ -727,16 +719,16 @@
 
 (defmethod resolve-dict-item "VV" [dict-item]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (gen-id)]
+        concept (utils/gen-id)]
     (-> child
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVV"
-                                       :label    (get-label "mkVV" ["V"] "VV")
+                                       :label    (utils/get-label module "mkVV" ["V"] "VV")
                                        :category "VV"
                                        :module   module}])
         (update ::sg/relations concat [{:from     concept
-                                        :to       (find-root child)
+                                        :to       (utils/find-root child)
                                         :role     :arg
                                         :index    0
                                         :category "V"
@@ -744,11 +736,11 @@
 
 (defmethod resolve-dict-item "V2V" [{::dict-item/keys [attributes] :as dict-item}]
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (gen-id)
-        prep-concept (gen-id)
-        post-concept (gen-id)
-        prep-arg (gen-id)
-        post-arg (gen-id)
+        concept (utils/gen-id)
+        prep-concept (utils/gen-id)
+        post-concept (utils/gen-id)
+        prep-arg (utils/gen-id)
+        post-arg (utils/gen-id)
         prep-attribute (get attributes "Prep")
         post-attribute (get attributes "Post")
         arity (cond-> 1 (and (some? prep-attribute) (some? post-attribute)) (+ 2))
@@ -760,14 +752,14 @@
                 [{:id       concept
                   :type     :operation
                   :name     "mkV2V"
-                  :label    (get-label "mkV2V" arg-types "V2V")
+                  :label    (utils/get-label module "mkV2V" arg-types "V2V")
                   :category "V2V"
                   :module   module}]
                 (when (< 1 arity)
                   [{:id       prep-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (get-label "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       prep-arg
@@ -778,7 +770,7 @@
                   [{:id       post-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (get-label "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       post-arg
@@ -787,7 +779,7 @@
                     :category "Str"}]))
         (update ::sg/relations concat
                 [{:from     concept
-                  :to       (find-root child)
+                  :to       (utils/find-root child)
                   :role     :arg
                   :index    0
                   :category "V"
