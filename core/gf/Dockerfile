@@ -2,7 +2,7 @@ FROM haskell:8.8.3
 
 RUN apt-get update && apt-get install wget python libtinfo5 -y
 
-RUN curl https://bootstrap.pypa.io/2.7/get-pip.py | python
+RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python
 
 RUN pip install backports.tempfile gunicorn pytest
 
