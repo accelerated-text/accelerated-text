@@ -1,10 +1,7 @@
 (ns acc-text.nlg.paradigms.lang.eng
   (:require [acc-text.nlg.dictionary.item :as dict-item]
             [acc-text.nlg.paradigms.utils :as utils]
-            [acc-text.nlg.semantic-graph :as sg]
-            [clojure.set :as set]
-            [clojure.string :as str])
-  (:import (java.util UUID)))
+            [acc-text.nlg.semantic-graph :as sg]))
 
 (def module "ParadigmsEng")
 
