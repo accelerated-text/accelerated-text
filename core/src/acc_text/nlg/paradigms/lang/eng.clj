@@ -224,7 +224,7 @@
                        :category "Str"
                        :name     "Str"}]}))
 
-(defmethod resolve-dict-item "Pron" [{::dict-item/keys [key forms attributes]}]
+(defmethod resolve-dict-item "Pron" [{::dict-item/keys [key forms language attributes]}]
   (let [concept (utils/gen-id)
         arity (count forms)
         args (take arity (repeatedly #(utils/gen-id)))
@@ -244,7 +244,7 @@
                         :name     "mkPron"
                         :label    (utils/get-label module "mkPron" arg-types "Pron")
                         :category "Pron"
-                        :module   module}
+                        :module   (str "Morpho" language)}
                        (concat
                          (map (fn [arg form]
                                 {:id       arg
@@ -264,7 +264,7 @@
                            :name     person
                            :label    (utils/get-label module person [] "Person")
                            :category "Person"
-                           :module   module}
+                           :module   (str "Res" language)}
                           {:id       gender-concept
                            :type     :operation
                            :name     gender

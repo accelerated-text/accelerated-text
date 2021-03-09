@@ -27,10 +27,12 @@
                        cat))))
 
 (defn ->incomplete [lang {::grammar/keys [module cat fun lincat lin]}]
-  (format "incomplete concrete %sBody of %s = open Syntax, Grammar, %sLex, Paradigms%s in {%s\n}"
+  (format "incomplete concrete %sBody of %s = open Syntax, Grammar, %sLex, Morpho%s, Res%s, Paradigms%s in {%s\n}"
           module
           module
           module
+          lang
+          lang
           lang
           (join-body
             "lincat" (->> lincat
