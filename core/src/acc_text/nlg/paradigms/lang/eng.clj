@@ -14,7 +14,9 @@
         gender (get attributes "Gender" "nonhuman")
         arity (count forms)
         args (take arity (repeatedly #(utils/gen-id)))]
-    #::sg{:id        key
+    #::sg{:id        (utils/gen-id)
+          :name      key
+          :category  "N"
           :concepts  (concat
                        [{:id       concept
                          :type     :operation
@@ -67,6 +69,7 @@
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "N"))
         concept (utils/gen-id)]
     (-> child
+        (assoc ::sg/category "PN")
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkPN"
@@ -85,6 +88,7 @@
         concept (utils/gen-id)
         arg (utils/gen-id)]
     (-> child
+        (assoc ::sg/category "N2")
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkN2"
@@ -116,6 +120,7 @@
         prep-arg (utils/gen-id)
         post-arg (utils/gen-id)]
     (-> child
+        (assoc ::sg/category "N3")
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkN3"
@@ -176,7 +181,9 @@
 (defmethod resolve-dict-item "Prep" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
         arg (utils/gen-id)]
-    #::sg{:id        key
+    #::sg{:id        (utils/gen-id)
+          :name      key
+          :category  "Prep"
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkPrep"
@@ -197,7 +204,9 @@
 (defmethod resolve-dict-item "Post" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
         arg (utils/gen-id)]
-    #::sg{:id        key
+    #::sg{:id        (utils/gen-id)
+          :name      key
+          :category  "Prep"
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkPost"
@@ -226,7 +235,9 @@
         person (get attributes "Person" "P3")
         gender-concept (utils/gen-id)
         gender (get attributes "Gender" "nonhuman")]
-    #::sg{:id        key
+    #::sg{:id        (utils/gen-id)
+          :name      key
+          :category  "Pron"
           :concepts  (cons
                        {:id       concept
                         :type     :operation
@@ -292,7 +303,9 @@
   (let [concept (utils/gen-id)
         arity (count forms)
         args (take arity (repeatedly #(utils/gen-id)))]
-    #::sg{:id        key
+    #::sg{:id        (utils/gen-id)
+          :name      key
+          :category  "Quant"
           :concepts  (cons
                        {:id       concept
                         :type     :operation
@@ -320,7 +333,9 @@
 (defmethod resolve-dict-item "Subj" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
         arg (utils/gen-id)]
-    #::sg{:id        key
+    #::sg{:id        (utils/gen-id)
+          :name      key
+          :category  "Subj"
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkSubj"
@@ -341,7 +356,9 @@
 (defmethod resolve-dict-item "Interj" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
         arg (utils/gen-id)]
-    #::sg{:id        key
+    #::sg{:id        (utils/gen-id)
+          :name      key
+          :category  "Interj"
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkInterj"
@@ -363,7 +380,9 @@
   (let [concept (utils/gen-id)
         arity (count forms)
         args (take arity (repeatedly #(utils/gen-id)))]
-    #::sg{:id        key
+    #::sg{:id        (utils/gen-id)
+          :name      key
+          :category  "V"
           :concepts  (cons
                        {:id       concept
                         :type     :operation
@@ -392,6 +411,7 @@
         concept (utils/gen-id)
         arg (utils/gen-id)]
     (-> child
+        (assoc ::sg/category "V2")
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkV2"
@@ -432,6 +452,7 @@
                     2 ["V" "Prep"]
                     3 ["V" "Prep" "Prep"])]
     (-> child
+        (assoc ::sg/category "V3")
         (update ::sg/concepts concat
                 [{:id       concept
                   :type     :operation
@@ -499,6 +520,7 @@
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
         concept (utils/gen-id)]
     (-> child
+        (assoc ::sg/category "VA")
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVA"
@@ -529,6 +551,7 @@
                     2 ["V" "Prep"]
                     3 ["V" "Prep" "Prep"])]
     (-> child
+        (assoc ::sg/category "V2A")
         (update ::sg/concepts concat
                 [{:id       concept
                   :type     :operation
@@ -596,6 +619,7 @@
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
         concept (utils/gen-id)]
     (-> child
+        (assoc ::sg/category "VQ")
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVQ"
@@ -616,6 +640,7 @@
         prep-arg (utils/gen-id)
         prep-attribute (get attributes "Prep" "as")]
     (-> child
+        (assoc ::sg/category "V2Q")
         (update ::sg/concepts concat
                 [{:id       concept
                   :type     :operation
@@ -657,6 +682,7 @@
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
         concept (utils/gen-id)]
     (-> child
+        (assoc ::sg/category "VS")
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVS"
@@ -677,6 +703,7 @@
         prep-arg (utils/gen-id)
         prep-attribute (get attributes "Prep" "as")]
     (-> child
+        (assoc ::sg/category "V2S")
         (update ::sg/concepts concat
                 [{:id       concept
                   :type     :operation
@@ -718,6 +745,7 @@
   (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
         concept (utils/gen-id)]
     (-> child
+        (assoc ::sg/category "VV")
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVV"
@@ -745,6 +773,7 @@
                     1 ["V"]
                     3 ["V" "Prep" "Prep"])]
     (-> child
+        (assoc ::sg/category "V2V")
         (update ::sg/concepts concat
                 [{:id       concept
                   :type     :operation
