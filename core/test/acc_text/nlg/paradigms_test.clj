@@ -31,7 +31,7 @@
                            :language "Eng"
                            :forms    ["good" "better" "best" "well"]}
 
-    ["Absent."] #::dict-item{:key      "good_A2"
+    ["Absent."] #::dict-item{:key      "absent_A2"
                              :category "A2"
                              :language "Eng"
                              :forms    ["absent"]}
