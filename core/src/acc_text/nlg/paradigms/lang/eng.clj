@@ -7,6 +7,65 @@
 
 (defmulti resolve-dict-item ::dict-item/category)
 
+(defmethod resolve-dict-item "A" [{::dict-item/keys [key forms]}]
+  (let [concept (utils/gen-id)
+        arity (count forms)
+        args (take arity (repeatedly #(utils/gen-id)))]
+    #::sg{:id        (utils/gen-id)
+          :name      key
+          :category  "A"
+          :concepts  (cons
+                       {:id       concept
+                        :type     :operation
+                        :name     "mkA"
+                        :label    (utils/get-label module "mkA" (take arity (repeat "Str")) "A")
+                        :category "A"
+                        :module   module}
+                       (map (fn [arg form]
+                              {:id       arg
+                               :type     :quote
+                               :value    form
+                               :category "Str"})
+                            args
+                            forms))
+          :relations (map-indexed (fn [i arg]
+                                    {:from     concept
+                                     :to       arg
+                                     :role     :arg
+                                     :index    i
+                                     :category "Str"
+                                     :name     "Str"})
+                                  args)}))
+
+(defmethod resolve-dict-item "A2" [{::dict-item/keys [attributes] :as dict-item}]
+  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "A"))
+        concept (utils/gen-id)
+        arg (utils/gen-id)]
+    (-> child
+        (assoc ::sg/category "A2")
+        (update ::sg/concepts concat [{:id       concept
+                                       :type     :operation
+                                       :name     "mkA2"
+                                       :label    (utils/get-label module "mkA2" ["A" "Str"] "A2")
+                                       :category "A2"
+                                       :module   module}
+                                      {:id       arg
+                                       :type     :quote
+                                       :value    (get attributes "Post" "from")
+                                       :category "Str"}])
+        (update ::sg/relations concat [{:from     concept
+                                        :to       (utils/find-root child)
+                                        :role     :arg
+                                        :index    0
+                                        :category "A"
+                                        :name     "A"}
+                                       {:from     concept
+                                        :to       arg
+                                        :role     :arg
+                                        :index    1
+                                        :category "Str"
+                                        :name     "Str"}]))))
+
 (defmethod resolve-dict-item "N" [{::dict-item/keys [key forms attributes]}]
   (let [concept (utils/gen-id)
         noun-concept (utils/gen-id)

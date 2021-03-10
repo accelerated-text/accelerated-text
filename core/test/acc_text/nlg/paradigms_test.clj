@@ -26,6 +26,16 @@
                                                              :index 0}]))]
       (is (= result (map :text (generate-text semantic-graph {} "Eng")))))
 
+    ["Good."] #::dict-item{:key      "good_A"
+                           :category "A"
+                           :language "Eng"
+                           :forms    ["good" "better" "best" "well"]}
+
+    ["Absent."] #::dict-item{:key      "good_A2"
+                             :category "A2"
+                             :language "Eng"
+                             :forms    ["absent"]}
+
     ["Cat."] #::dict-item{:key        "cat_N"
                           :category   "N"
                           :language   "Eng"

@@ -2,7 +2,7 @@
   (:require [acc-text.nlg.dictionary.item :as dict-item]
             [acc-text.nlg.paradigms.lang.eng :as eng]))
 
-(def dict-categories #{"mkA" "mkA2" "mkAV"
+(def dict-categories #{"mkA" "mkA2"
                        "mkAdA" "mkAdN" "mkAdV" "mkAdv"
                        "mkConj"
                        "mkIP"
