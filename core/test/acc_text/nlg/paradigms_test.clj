@@ -51,6 +51,40 @@
                           :attributes {"Prep" "from"
                                        "Post" "to"}}
 
+    ["It."] #::dict-item{:key        "it_NP"
+                         :category   "NP"
+                         :language   "Eng"
+                         :forms      ["it" "it" "its"]
+                         :attributes {"Number" "singular"
+                                      "Person" "P3"
+                                      "Gender" "nonhuman"}}
+
+    ["What."] #::dict-item{:key        "what_IP"
+                           :category   "IP"
+                           :language   "Eng"
+                           :forms      ["what" "what" "what's"]
+                           :attributes {"Number" "singular"}}
+
+    ["Quite."] #::dict-item{:key      "quite_AdA"
+                            :category "AdA"
+                            :language "Eng"
+                            :forms    ["quite"]}
+
+    ["Almost."] #::dict-item{:key      "almost_AdN"
+                             :category "AdN"
+                             :language "Eng"
+                             :forms    ["almost"]}
+
+    ["Always."] #::dict-item{:key      "always_AdV"
+                             :category "AdV"
+                             :language "Eng"
+                             :forms    ["always"]}
+
+    ["Today."] #::dict-item{:key      "today_Adv"
+                            :category "Adv"
+                            :language "Eng"
+                            :forms    ["today"]}
+
     ["At."] #::dict-item{:key      "at_Prep"
                          :category "Prep"
                          :language "Eng"
@@ -587,4 +621,65 @@
                                                              :category "VP"
                                                              :index    2}]))]
       (is (= ["To beg for her to have herself."]
+             (map :text (generate-text semantic-graph {} "Eng"))))))
+
+  (testing "Conj"
+    (let [dict-item #::dict-item{:key        "and_Conj"
+                                 :category   "Conj"
+                                 :language   "Eng"
+                                 :forms      ["and"]
+                                 :attributes {"Number" "singular"}}
+          dict-item-graph (resolve-dict-item dict-item)
+          document-plan (gen-id)
+          segment (gen-id)
+          operation (gen-id)
+          arg2 (gen-id)
+          arg3 (gen-id)
+          semantic-graph (-> dict-item-graph
+                             (update ::sg/concepts concat [{:id   document-plan
+                                                            :type :document-plan}
+                                                           {:id   segment
+                                                            :type :segment}
+                                                           {:id       operation
+                                                            :type     :operation
+                                                            :name     "mkAdv"
+                                                            :label    "Syntax.mkAdv/Conj->Adv->Adv->Adv"
+                                                            :category "Adv"
+                                                            :module   "Syntax"}
+                                                           {:id       arg2
+                                                            :type     :operation
+                                                            :name     "here_Adv"
+                                                            :label    "Syntax.here_Adv/Adv"
+                                                            :category "Adv"
+                                                            :module   "Syntax"}
+                                                           {:id       arg3
+                                                            :type     :operation
+                                                            :name     "there_Adv"
+                                                            :label    "Syntax.there_Adv/Adv"
+                                                            :category "Adv"
+                                                            :module   "Syntax"}])
+                             (update ::sg/relations concat [{:from  document-plan
+                                                             :to    segment
+                                                             :role  :segment
+                                                             :index 0}
+                                                            {:from  segment
+                                                             :to    operation
+                                                             :role  :instance
+                                                             :index 0}
+                                                            {:from     operation
+                                                             :to       (find-root dict-item-graph)
+                                                             :role     :arg
+                                                             :category "Conj"
+                                                             :index    0}
+                                                            {:from     operation
+                                                             :to       arg2
+                                                             :role     :arg
+                                                             :category "Adv"
+                                                             :index    1}
+                                                            {:from     operation
+                                                             :to       arg3
+                                                             :role     :arg
+                                                             :category "Adv"
+                                                             :index    2}]))]
+      (is (= ["Here and there."]
              (map :text (generate-text semantic-graph {} "Eng")))))))
