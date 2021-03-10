@@ -61,6 +61,7 @@ DATA_FILES: "/opt/data-files"
 DICT_PATH: "/opt/dictionary"
 DOCUMENT_PLANS: "/opt/document-plans"
 ENABLED_LANGUAGES: "eng"
+SHOW_FLAGS: "true"
 ```
 
 ### Front-End
