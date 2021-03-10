@@ -75,7 +75,7 @@
                                                 :dataId           (if (some? data-file-name)
                                                                     (load-data-file data-file-name)
                                                                     "")
-                                                :async            async})]
+                                                :async            (or async false)})]
     (when (= 200 status)
       (get-result (:resultId body)))))
 
