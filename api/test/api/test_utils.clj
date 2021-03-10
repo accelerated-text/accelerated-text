@@ -69,12 +69,13 @@
           (< 10 retry-count) (throw (Exception. "Result was not ready after 10 seconds."))
           :else (do (Thread/sleep 1000) (recur (inc retry-count) (request!))))))))
 
-(defn generate-text [{:keys [document-plan-name data-file-name reader-flags]}]
+(defn generate-text [{:keys [document-plan-name data-file-name reader-flags async]}]
   (let [{:keys [status body]} (q "/nlg/" :post {:documentPlanId   (load-document-plan document-plan-name)
                                                 :readerFlagValues (or reader-flags {"Eng" true})
                                                 :dataId           (if (some? data-file-name)
                                                                     (load-data-file data-file-name)
-                                                                    "")})]
+                                                                    "")
+                                                :async            async})]
     (when (= 200 status)
       (get-result (:resultId body)))))
 
