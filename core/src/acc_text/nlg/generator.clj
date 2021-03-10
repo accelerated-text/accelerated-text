@@ -31,7 +31,7 @@
           module
           module
           module
-          lang
+          (if (= lang "Lav") "Eng" lang)
           lang
           lang
           (join-body

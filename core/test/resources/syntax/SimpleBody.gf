@@ -1,4 +1,4 @@
-incomplete concrete SimpleBody of Simple = open Syntax, Grammar, SimpleLex, ParadigmsEng in {
+incomplete concrete SimpleBody of Simple = open Syntax, Grammar, SimpleLex, MorphoEng, ResEng, ParadigmsEng in {
     lincat
         DocumentPlan01, Segment02, Frame03, Frame04 = Str ;
         Operation11 = N ;
