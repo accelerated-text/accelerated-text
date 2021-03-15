@@ -1,7 +1,7 @@
-(ns acc-text.nlg.paradigms.lang.eng
+(ns acc-text.nlg.dictionary.lang.eng
   (:require [acc-text.nlg.dictionary.item :as dict-item]
-            [acc-text.nlg.paradigms.utils :as utils]
-            [acc-text.nlg.semantic-graph :as sg]))
+            [acc-text.nlg.semantic-graph :as sg]
+            [acc-text.nlg.semantic-graph.utils :as utils]))
 
 (def module "ParadigmsEng")
 
@@ -18,7 +18,7 @@
                        {:id       concept
                         :type     :operation
                         :name     "mkA"
-                        :label    (utils/get-label module "mkA" (take arity (repeat "Str")) "A")
+                        :label    (utils/get-operation-label module "mkA" (take arity (repeat "Str")) "A")
                         :category "A"
                         :module   module}
                        (map (fn [arg form]
@@ -46,7 +46,7 @@
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkA2"
-                                       :label    (utils/get-label module "mkA2" ["A" "Str"] "A2")
+                                       :label    (utils/get-operation-label module "mkA2" ["A" "Str"] "A2")
                                        :category "A2"
                                        :module   module}
                                       {:id       arg
@@ -80,19 +80,19 @@
                        [{:id       concept
                          :type     :operation
                          :name     "mkN"
-                         :label    (utils/get-label module "mkN" ["Gender" "N"] "N")
+                         :label    (utils/get-operation-label module "mkN" ["Gender" "N"] "N")
                          :category "N"
                          :module   module}
                         {:id       gender-concept
                          :type     :operation
                          :name     gender
-                         :label    (utils/get-label module gender [] "Gender")
+                         :label    (utils/get-operation-label module gender [] "Gender")
                          :category "Gender"
                          :module   module}
                         {:id       noun-concept
                          :type     :operation
                          :name     "mkN"
-                         :label    (utils/get-label module "mkN" (take arity (repeat "Str")) "N")
+                         :label    (utils/get-operation-label module "mkN" (take arity (repeat "Str")) "N")
                          :category "N"
                          :module   module}]
                        (map (fn [arg form]
@@ -132,7 +132,7 @@
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkPN"
-                                       :label    (utils/get-label module "mkPN" ["N"] "PN")
+                                       :label    (utils/get-operation-label module "mkPN" ["N"] "PN")
                                        :category "PN"
                                        :module   module}])
         (update ::sg/relations concat [{:from     concept
@@ -151,7 +151,7 @@
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkN2"
-                                       :label    (utils/get-label module "mkN2" ["N" "Str"] "N2")
+                                       :label    (utils/get-operation-label module "mkN2" ["N" "Str"] "N2")
                                        :category "N2"
                                        :module   module}
                                       {:id       arg
@@ -183,19 +183,19 @@
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkN3"
-                                       :label    (utils/get-label module "mkN3" ["N" "Prep" "Prep"] "N3")
+                                       :label    (utils/get-operation-label module "mkN3" ["N" "Prep" "Prep"] "N3")
                                        :category "N3"
                                        :module   module}
                                       {:id       prep-concept
                                        :type     :operation
                                        :name     "mkPrep"
-                                       :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                                       :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                                        :category "Prep"
                                        :module   module}
                                       {:id       post-concept
                                        :type     :operation
                                        :name     "mkPrep"
-                                       :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                                       :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                                        :category "Prep"
                                        :module   module}
                                       {:id       prep-arg
@@ -255,7 +255,7 @@
                        {:id       concept
                         :type     :operation
                         :name     "mkNP"
-                        :label    (utils/get-label module "mkNP" arg-types "NP")
+                        :label    (utils/get-operation-label module "mkNP" arg-types "NP")
                         :category "NP"
                         :module   (str "Res" language)}
                        (concat
@@ -269,19 +269,19 @@
                          [{:id       number-concept
                            :type     :operation
                            :name     number
-                           :label    (utils/get-label module number [] "Number")
+                           :label    (utils/get-operation-label module number [] "Number")
                            :category "Number"
                            :module   module}
                           {:id       person-concept
                            :type     :operation
                            :name     person
-                           :label    (utils/get-label module person [] "Person")
+                           :label    (utils/get-operation-label module person [] "Person")
                            :category "Person"
                            :module   (str "Res" language)}
                           {:id       gender-concept
                            :type     :operation
                            :name     gender
-                           :label    (utils/get-label module gender [] "Gender")
+                           :label    (utils/get-operation-label module gender [] "Gender")
                            :category "Gender"
                            :module   module}]))
           :relations (concat
@@ -326,7 +326,7 @@
                        {:id       concept
                         :type     :operation
                         :name     "mkIP"
-                        :label    (utils/get-label module "mkIP" arg-types "IP")
+                        :label    (utils/get-operation-label module "mkIP" arg-types "IP")
                         :category "IP"
                         :module   (str "Res" language)}
                        (concat
@@ -340,7 +340,7 @@
                          [{:id       number-concept
                            :type     :operation
                            :name     number
-                           :label    (utils/get-label module number [] "Number")
+                           :label    (utils/get-operation-label module number [] "Number")
                            :category "Number"
                            :module   module}]))
           :relations (concat
@@ -373,7 +373,7 @@
                        {:id       concept
                         :type     :operation
                         :name     "mkConj"
-                        :label    (utils/get-label module "mkConj" arg-types "Conj")
+                        :label    (utils/get-operation-label module "mkConj" arg-types "Conj")
                         :category "Conj"
                         :module   module}
                        (concat
@@ -388,7 +388,7 @@
                            [{:id       number-concept
                              :type     :operation
                              :name     number
-                             :label    (utils/get-label module number [] "Number")
+                             :label    (utils/get-operation-label module number [] "Number")
                              :category "Number"
                              :module   module}])))
           :relations (concat
@@ -417,7 +417,7 @@
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkAdA"
-                       :label    (utils/get-label module "mkAdA" ["Str"] "AdA")
+                       :label    (utils/get-operation-label module "mkAdA" ["Str"] "AdA")
                        :category "AdA"
                        :module   module}
                       {:id       arg
@@ -440,7 +440,7 @@
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkAdN"
-                       :label    (utils/get-label module "mkAdN" ["Str"] "AdN")
+                       :label    (utils/get-operation-label module "mkAdN" ["Str"] "AdN")
                        :category "AdN"
                        :module   module}
                       {:id       arg
@@ -463,7 +463,7 @@
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkAdV"
-                       :label    (utils/get-label module "mkAdV" ["Str"] "AdV")
+                       :label    (utils/get-operation-label module "mkAdV" ["Str"] "AdV")
                        :category "AdV"
                        :module   module}
                       {:id       arg
@@ -486,7 +486,7 @@
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkAdv"
-                       :label    (utils/get-label module "mkAdv" ["Str"] "Adv")
+                       :label    (utils/get-operation-label module "mkAdv" ["Str"] "Adv")
                        :category "Adv"
                        :module   module}
                       {:id       arg
@@ -509,7 +509,7 @@
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkPrep"
-                       :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                       :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                        :category "Prep"
                        :module   module}
                       {:id       arg
@@ -532,7 +532,7 @@
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkPost"
-                       :label    (utils/get-label module "mkPost" ["Str"] "Prep")
+                       :label    (utils/get-operation-label module "mkPost" ["Str"] "Prep")
                        :category "Prep"
                        :module   module}
                       {:id       arg
@@ -564,7 +564,7 @@
                        {:id       concept
                         :type     :operation
                         :name     "mkPron"
-                        :label    (utils/get-label module "mkPron" arg-types "Pron")
+                        :label    (utils/get-operation-label module "mkPron" arg-types "Pron")
                         :category "Pron"
                         :module   (str "Morpho" language)}
                        (concat
@@ -578,19 +578,19 @@
                          [{:id       number-concept
                            :type     :operation
                            :name     number
-                           :label    (utils/get-label module number [] "Number")
+                           :label    (utils/get-operation-label module number [] "Number")
                            :category "Number"
                            :module   module}
                           {:id       person-concept
                            :type     :operation
                            :name     person
-                           :label    (utils/get-label module person [] "Person")
+                           :label    (utils/get-operation-label module person [] "Person")
                            :category "Person"
                            :module   (str "Res" language)}
                           {:id       gender-concept
                            :type     :operation
                            :name     gender
-                           :label    (utils/get-label module gender [] "Gender")
+                           :label    (utils/get-operation-label module gender [] "Gender")
                            :category "Gender"
                            :module   module}]))
           :relations (concat
@@ -632,7 +632,7 @@
                        {:id       concept
                         :type     :operation
                         :name     "mkQuant"
-                        :label    (utils/get-label module "mkQuant" (take arity (repeat "Str")) "Quant")
+                        :label    (utils/get-operation-label module "mkQuant" (take arity (repeat "Str")) "Quant")
                         :category "Quant"
                         :module   module}
                        (concat
@@ -661,7 +661,7 @@
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkSubj"
-                       :label    (utils/get-label module "mkSubj" ["Str"] "Subj")
+                       :label    (utils/get-operation-label module "mkSubj" ["Str"] "Subj")
                        :category "Subj"
                        :module   module}
                       {:id       arg
@@ -684,7 +684,7 @@
           :concepts  [{:id       concept
                        :type     :operation
                        :name     "mkInterj"
-                       :label    (utils/get-label module "mkInterj" ["Str"] "Interj")
+                       :label    (utils/get-operation-label module "mkInterj" ["Str"] "Interj")
                        :category "Interj"
                        :module   module}
                       {:id       arg
@@ -709,7 +709,7 @@
                        {:id       concept
                         :type     :operation
                         :name     "mkV"
-                        :label    (utils/get-label module "mkV" (take arity (repeat "Str")) "V")
+                        :label    (utils/get-operation-label module "mkV" (take arity (repeat "Str")) "V")
                         :category "V"
                         :module   module}
                        (map (fn [arg form]
@@ -737,7 +737,7 @@
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkV2"
-                                       :label    (utils/get-label module "mkV2" ["V" "Str"] "V2")
+                                       :label    (utils/get-operation-label module "mkV2" ["V" "Str"] "V2")
                                        :category "V2"
                                        :module   module}
                                       {:id       arg
@@ -779,14 +779,14 @@
                 [{:id       concept
                   :type     :operation
                   :name     "mkV3"
-                  :label    (utils/get-label module "mkV3" arg-types "V3")
+                  :label    (utils/get-operation-label module "mkV3" arg-types "V3")
                   :category "V3"
                   :module   module}]
                 (when (< 1 arity)
                   [{:id       prep-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       prep-arg
@@ -797,7 +797,7 @@
                   [{:id       post-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       post-arg
@@ -846,7 +846,7 @@
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVA"
-                                       :label    (utils/get-label module "mkVA" ["V"] "VA")
+                                       :label    (utils/get-operation-label module "mkVA" ["V"] "VA")
                                        :category "VA"
                                        :module   module}])
         (update ::sg/relations concat [{:from     concept
@@ -878,14 +878,14 @@
                 [{:id       concept
                   :type     :operation
                   :name     "mkV2A"
-                  :label    (utils/get-label module "mkV2A" arg-types "V2A")
+                  :label    (utils/get-operation-label module "mkV2A" arg-types "V2A")
                   :category "V2A"
                   :module   module}]
                 (when (< 1 arity)
                   [{:id       prep-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       prep-arg
@@ -896,7 +896,7 @@
                   [{:id       post-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       post-arg
@@ -945,7 +945,7 @@
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVQ"
-                                       :label    (utils/get-label module "mkVQ" ["V"] "VQ")
+                                       :label    (utils/get-operation-label module "mkVQ" ["V"] "VQ")
                                        :category "VQ"
                                        :module   module}])
         (update ::sg/relations concat [{:from     concept
@@ -967,13 +967,13 @@
                 [{:id       concept
                   :type     :operation
                   :name     "mkV2Q"
-                  :label    (utils/get-label module "mkV2Q" ["V" "Prep"] "V2Q")
+                  :label    (utils/get-operation-label module "mkV2Q" ["V" "Prep"] "V2Q")
                   :category "V2Q"
                   :module   module}
                  {:id       prep-concept
                   :type     :operation
                   :name     "mkPrep"
-                  :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                  :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                   :category "Prep"
                   :module   module}
                  {:id       prep-arg
@@ -1008,7 +1008,7 @@
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVS"
-                                       :label    (utils/get-label module "mkVS" ["V"] "VS")
+                                       :label    (utils/get-operation-label module "mkVS" ["V"] "VS")
                                        :category "VS"
                                        :module   module}])
         (update ::sg/relations concat [{:from     concept
@@ -1030,13 +1030,13 @@
                 [{:id       concept
                   :type     :operation
                   :name     "mkV2S"
-                  :label    (utils/get-label module "mkV2S" ["V" "Prep"] "V2Q")
+                  :label    (utils/get-operation-label module "mkV2S" ["V" "Prep"] "V2Q")
                   :category "V2S"
                   :module   module}
                  {:id       prep-concept
                   :type     :operation
                   :name     "mkPrep"
-                  :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                  :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                   :category "Prep"
                   :module   module}
                  {:id       prep-arg
@@ -1071,7 +1071,7 @@
         (update ::sg/concepts concat [{:id       concept
                                        :type     :operation
                                        :name     "mkVV"
-                                       :label    (utils/get-label module "mkVV" ["V"] "VV")
+                                       :label    (utils/get-operation-label module "mkVV" ["V"] "VV")
                                        :category "VV"
                                        :module   module}])
         (update ::sg/relations concat [{:from     concept
@@ -1100,14 +1100,14 @@
                 [{:id       concept
                   :type     :operation
                   :name     "mkV2V"
-                  :label    (utils/get-label module "mkV2V" arg-types "V2V")
+                  :label    (utils/get-operation-label module "mkV2V" arg-types "V2V")
                   :category "V2V"
                   :module   module}]
                 (when (< 1 arity)
                   [{:id       prep-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       prep-arg
@@ -1118,7 +1118,7 @@
                   [{:id       post-concept
                     :type     :operation
                     :name     "mkPrep"
-                    :label    (utils/get-label module "mkPrep" ["Str"] "Prep")
+                    :label    (utils/get-operation-label module "mkPrep" ["Str"] "Prep")
                     :category "Prep"
                     :module   module}
                    {:id       post-arg
