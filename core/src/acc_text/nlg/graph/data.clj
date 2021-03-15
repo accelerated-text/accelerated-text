@@ -1,6 +1,5 @@
 (ns acc-text.nlg.graph.data
-  (:require [acc-text.nlg.dictionary.item :as dict-item]
-            [acc-text.nlg.graph.utils :refer [find-nodes get-in-edge]]
+  (:require [acc-text.nlg.graph.utils :refer [find-nodes get-in-edge]]
             [loom.attr :refer [attrs]]))
 
 (defn get-data [data key]
