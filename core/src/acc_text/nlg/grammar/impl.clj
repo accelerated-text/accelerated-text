@@ -148,9 +148,9 @@
          (let [resolved-item (dictionary/resolve-dict-item dict-item)]
            [(str/replace key #"-" "_")
             category
-            (if (contains? resolved-item :acc-text.nlg.semantic-graph/name)
-              (str (graph->tree (semantic-graph->ubergraph resolved-item)))
-              resolved-item)]))
+            (if (string? resolved-item)
+              resolved-item
+              (str (graph->tree (semantic-graph->ubergraph resolved-item))))]))
        (vals (:dictionary context))))
 
 (defn build-grammar
