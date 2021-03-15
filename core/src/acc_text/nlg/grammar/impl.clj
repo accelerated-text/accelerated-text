@@ -1,7 +1,6 @@
 (ns acc-text.nlg.grammar.impl
   (:require [acc-text.nlg.dictionary.impl :as dictionary]
             [acc-text.nlg.dictionary.item :as dict-item]
-            [acc-text.nlg.grammar.dictionary-item :refer [build-dictionary-item]]
             [acc-text.nlg.graph.amr :refer [attach-amrs]]
             [acc-text.nlg.graph.categories :refer [resolve-categories]]
             [acc-text.nlg.graph.condition :refer [determine-conditions]]
@@ -10,7 +9,7 @@
             [acc-text.nlg.graph.modifier :refer [resolve-modifiers]]
             [acc-text.nlg.graph.paths :refer [resolve-paths]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
-            [acc-text.nlg.graph.utils :refer [add-concept-position find-root-id find-root-nodes get-in-edge get-successors prune-graph graph->tree]]
+            [acc-text.nlg.graph.utils :refer [add-concept-position find-root-id get-successors prune-graph graph->tree]]
             [acc-text.nlg.graph.variables :refer [resolve-variables]]
             [acc-text.nlg.graph.segment :refer [add-paragraph-symbol]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
