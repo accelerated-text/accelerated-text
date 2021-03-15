@@ -1,5 +1,6 @@
 (ns acc-text.nlg.dictionary.lang.other
   (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [clojure.string :as str]))
 
 (defn escape-string [s]

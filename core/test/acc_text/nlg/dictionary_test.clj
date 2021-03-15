@@ -1,14 +1,18 @@
-(ns acc-text.nlg.paradigms-test
-  (:require [acc-text.nlg.paradigms.lang :refer [resolve-dict-item]]
-            [acc-text.nlg.paradigms.utils :refer [find-root gen-id]]
+(ns acc-text.nlg.dictionary-test
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.dictionary.item.form :as dict-item-form]
+            [acc-text.nlg.dictionary.impl :refer [resolve-dict-item]]
+            [acc-text.nlg.semantic-graph.utils :refer [find-root gen-id]]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.core :refer [generate-text]]
-            [acc-text.nlg.dictionary.item :as dict-item]
             [clojure.test :refer [deftest is are testing]]))
+
+(defn add-ns [dict-item]
+  (update dict-item ::dict-item/forms #(mapv (fn [form] #::dict-item-form{:value form}) %)))
 
 (deftest ^:integration dictionary-item-generation
   (are [result dict-item]
-    (let [dict-item-graph (resolve-dict-item dict-item)
+    (let [dict-item-graph (resolve-dict-item (add-ns dict-item))
           document-plan (gen-id)
           segment (gen-id)
           semantic-graph (-> dict-item-graph
@@ -136,12 +140,12 @@
 
 (deftest ^:integration complex-dict-item-generation
   (testing "V3"
-    (let [dict-item #::dict-item{:key        "speak_V3"
-                                 :category   "V3"
-                                 :language   "Eng"
-                                 :forms      ["speak" "spoke" "spoken"]
-                                 :attributes {"Prep" "with"
-                                              "Post" "about"}}
+    (let [dict-item (add-ns #::dict-item{:key        "speak_V3"
+                                         :category   "V3"
+                                         :language   "Eng"
+                                         :forms      ["speak" "spoke" "spoken"]
+                                         :attributes {"Prep" "with"
+                                                      "Post" "about"}})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)
@@ -198,10 +202,10 @@
              (map :text (generate-text semantic-graph {} "Eng"))))))
 
   (testing "VA"
-    (let [dict-item #::dict-item{:key      "become_VA"
-                                 :category "VA"
-                                 :language "Eng"
-                                 :forms    ["become" "became" "become"]}
+    (let [dict-item (add-ns #::dict-item{:key      "become_VA"
+                                         :category "VA"
+                                         :language "Eng"
+                                         :forms    ["become" "became" "become"]})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)
@@ -245,12 +249,12 @@
              (map :text (generate-text semantic-graph {} "Eng"))))))
 
   (testing "V2A"
-    (let [dict-item #::dict-item{:key        "paint_V2A"
-                                 :category   "V2A"
-                                 :language   "Eng"
-                                 :forms      ["paint"]
-                                 :attributes {"Prep" "above"
-                                              "Post" "with"}}
+    (let [dict-item (add-ns #::dict-item{:key        "paint_V2A"
+                                         :category   "V2A"
+                                         :language   "Eng"
+                                         :forms      ["paint"]
+                                         :attributes {"Prep" "above"
+                                                      "Post" "with"}})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)
@@ -306,10 +310,10 @@
              (map :text (generate-text semantic-graph {} "Eng"))))))
 
   (testing "VQ"
-    (let [dict-item #::dict-item{:key      "wonder_VQ"
-                                 :category "VQ"
-                                 :language "Eng"
-                                 :forms    ["wonder" "wondered"]}
+    (let [dict-item (add-ns #::dict-item{:key      "wonder_VQ"
+                                         :category "VQ"
+                                         :language "Eng"
+                                         :forms    ["wonder" "wondered"]})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)
@@ -354,11 +358,11 @@
              (map :text (generate-text semantic-graph {} "Eng"))))))
 
   (testing "V2Q"
-    (let [dict-item #::dict-item{:key        "ask_V2Q"
-                                 :category   "V2Q"
-                                 :language   "Eng"
-                                 :forms      ["ask"]
-                                 :attributes {"Prep" "about"}}
+    (let [dict-item (add-ns #::dict-item{:key        "ask_V2Q"
+                                         :category   "V2Q"
+                                         :language   "Eng"
+                                         :forms      ["ask"]
+                                         :attributes {"Prep" "about"}})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)
@@ -415,10 +419,10 @@
              (map :text (generate-text semantic-graph {} "Eng"))))))
 
   (testing "VS"
-    (let [dict-item #::dict-item{:key      "hope_VS"
-                                 :category "VS"
-                                 :language "Eng"
-                                 :forms    ["hope"]}
+    (let [dict-item (add-ns #::dict-item{:key      "hope_VS"
+                                         :category "VS"
+                                         :language "Eng"
+                                         :forms    ["hope"]})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)
@@ -463,11 +467,11 @@
              (map :text (generate-text semantic-graph {} "Eng"))))))
 
   (testing "V2S"
-    (let [dict-item #::dict-item{:key        "answer_V2S"
-                                 :category   "V2S"
-                                 :language   "Eng"
-                                 :forms      ["answer"]
-                                 :attributes {"Prep" "about"}}
+    (let [dict-item (add-ns #::dict-item{:key        "answer_V2S"
+                                         :category   "V2S"
+                                         :language   "Eng"
+                                         :forms      ["answer"]
+                                         :attributes {"Prep" "about"}})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)
@@ -524,10 +528,10 @@
              (map :text (generate-text semantic-graph {} "Eng"))))))
 
   (testing "VV"
-    (let [dict-item #::dict-item{:key      "want_VV"
-                                 :category "VV"
-                                 :language "Eng"
-                                 :forms    ["want"]}
+    (let [dict-item (add-ns #::dict-item{:key      "want_VV"
+                                         :category "VV"
+                                         :language "Eng"
+                                         :forms    ["want"]})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)
@@ -572,12 +576,12 @@
              (map :text (generate-text semantic-graph {} "Eng"))))))
 
   (testing "V2V"
-    (let [dict-item #::dict-item{:key        "beg_V2V"
-                                 :category   "V2V"
-                                 :language   "Eng"
-                                 :forms      ["beg"]
-                                 :attributes {"Prep" "for"
-                                              "Post" "to"}}
+    (let [dict-item (add-ns #::dict-item{:key        "beg_V2V"
+                                         :category   "V2V"
+                                         :language   "Eng"
+                                         :forms      ["beg"]
+                                         :attributes {"Prep" "for"
+                                                      "Post" "to"}})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)
@@ -634,11 +638,11 @@
              (map :text (generate-text semantic-graph {} "Eng"))))))
 
   (testing "Conj"
-    (let [dict-item #::dict-item{:key        "and_Conj"
-                                 :category   "Conj"
-                                 :language   "Eng"
-                                 :forms      ["and"]
-                                 :attributes {"Number" "singular"}}
+    (let [dict-item (add-ns #::dict-item{:key        "and_Conj"
+                                         :category   "Conj"
+                                         :language   "Eng"
+                                         :forms      ["and"]
+                                         :attributes {"Number" "singular"}})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)

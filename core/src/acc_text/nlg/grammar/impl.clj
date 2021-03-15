@@ -1,15 +1,16 @@
 (ns acc-text.nlg.grammar.impl
-  (:require [acc-text.nlg.grammar.dictionary-item :refer [build-dictionary-item]]
+  (:require [acc-text.nlg.dictionary.impl :as dictionary]
+            [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.grammar.dictionary-item :refer [build-dictionary-item]]
             [acc-text.nlg.graph.amr :refer [attach-amrs]]
             [acc-text.nlg.graph.categories :refer [resolve-categories]]
             [acc-text.nlg.graph.condition :refer [determine-conditions]]
             [acc-text.nlg.graph.data :refer [resolve-data]]
-            [acc-text.nlg.graph.dictionary-item :refer [resolve-dictionary-items]]
             [acc-text.nlg.graph.lists :refer [resolve-lists]]
             [acc-text.nlg.graph.modifier :refer [resolve-modifiers]]
             [acc-text.nlg.graph.paths :refer [resolve-paths]]
             [acc-text.nlg.graph.polarity :refer [resolve-polarity]]
-            [acc-text.nlg.graph.utils :refer [add-concept-position find-root-id get-in-edge get-successors prune-graph]]
+            [acc-text.nlg.graph.utils :refer [add-concept-position find-root-id find-root-nodes get-in-edge get-successors prune-graph graph->tree]]
             [acc-text.nlg.graph.variables :refer [resolve-variables]]
             [acc-text.nlg.graph.segment :refer [add-paragraph-symbol]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
@@ -21,9 +22,11 @@
 (def data-types #{:data :quote :dictionary-item})
 
 (defn node->cat [graph node-id]
-  (let [{:keys [type position]} (attrs graph node-id)]
-    (str (str/replace (name type) #"-" "_")
-         (format "%02d" (or position 0)))))
+  (let [{:keys [type position] :as attrs} (attrs graph node-id)]
+    (case type
+      :dictionary-item (:label attrs)
+      (str (str/replace (name type) #"-" "_")
+           (format "%02d" (or position 0))))))
 
 (defn s-node? [graph node-id]
   (let [category (:category (attrs graph node-id))]
@@ -81,18 +84,8 @@
     #:acc-text.nlg.grammar
         {:oper [[cat "Str" (format "\"%s\"" (str/replace value #"\"" "\\\\\""))]]}))
 
-(defmethod build-node :dictionary-item [graph node-id]
-  (let [cat (node->cat graph node-id)
-        in-edge-category (get-in graph [:attrs (:id (get-in-edge graph node-id)) :category])
-        {category :category :as attrs} (attrs graph node-id)]
-    #:acc-text.nlg.grammar
-        {:oper [[cat
-                 (cond
-                   (= "Str" in-edge-category) "Str"
-                   (= "Str" category) "{s : Str}"
-                   (nil? in-edge-category) "Text"
-                   :else category)
-                 (build-dictionary-item in-edge-category attrs)]]}))
+(defmethod build-node :dictionary-item [_ _]
+  #:acc-text.nlg.grammar{})
 
 (defmethod build-node :synonyms [graph node-id]
   (let [successors (get-successors graph node-id)
@@ -146,11 +139,18 @@
       (resolve-lists context)
       (resolve-modifiers context)
       (resolve-categories)
-      (resolve-dictionary-items context)
       (resolve-data context)
       (resolve-polarity)
       (resolve-paths context)
       (add-concept-position)))
+
+(defn build-dictionary-operations [context]
+  (map (fn [{::dict-item/keys [key category] :as dict-item}]
+         (let [resolved-item (dictionary/resolve-dict-item dict-item)]
+           [key category (if (contains? resolved-item :acc-text.nlg.semantic-graph/name)
+                           (str (graph->tree (semantic-graph->ubergraph resolved-item)))
+                           resolved-item)]))
+       (vals (:dictionary context))))
 
 (defn build-grammar
   ([semantic-graph context]
@@ -174,5 +174,5 @@
                   :fun      {}
                   :lincat   {}
                   :lin      {}
-                  :oper     []}
+                  :oper     (build-dictionary-operations context)}
              (pre-traverse graph start-id)))))

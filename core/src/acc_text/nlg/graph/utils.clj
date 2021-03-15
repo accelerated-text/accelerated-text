@@ -1,10 +1,11 @@
 (ns acc-text.nlg.graph.utils
   (:require [acc-text.nlg.semantic-graph :as sg]
+            [clojure.set :as set]
+            [clojure.string :as str]
             [loom.alg :as alg]
             [loom.attr :refer [attrs]]
             [loom.graph :as graph]
-            [ubergraph.core :as uber]
-            [clojure.set :as set]))
+            [ubergraph.core :as uber]))
 
 (defn id-seq []
   (map #(keyword (format "%02d" %)) (rest (range))))
@@ -46,6 +47,9 @@
 (defn find-root-id [g]
   (ffirst (find-nodes g {:type :document-plan})))
 
+(defn find-root-nodes [g]
+  (filter #(nil? (get-in-edge g %)) (graph/nodes g)))
+
 (defn prune-detached-nodes [g root-id]
   (apply graph/remove-nodes g
          (set/difference
@@ -85,6 +89,18 @@
                           (map (fn [[id concept]]
                                  (merge {:id (uuid->id id)} concept)))
                           (sort-by :id))}))
+
+(defn escape-string [s]
+  (str/replace s #"\"" "\\\\\""))
+
+(defn graph->tree
+  ([g] (graph->tree g (first (find-root-nodes g))))
+  ([g root-node]
+   (let [{:keys [type name module value]} (attrs g root-node)]
+     (case type
+       :quote (escape-string value)
+       :operation (cons (symbol (str module "." name))
+                        (map #(graph->tree g %) (get-successors g root-node)))))))
 
 (defn save-graph [graph filename]
   (uber/viz-graph graph {:auto-label true :save {:format :png :filename filename}}))

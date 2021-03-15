@@ -1,5 +1,6 @@
 (ns acc-text.nlg.dictionary.lang.eng
   (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as utils]))
 
@@ -21,7 +22,7 @@
                         :label    (utils/get-operation-label module "mkA" (take arity (repeat "Str")) "A")
                         :category "A"
                         :module   module}
-                       (map (fn [arg form]
+                       (map (fn [arg {form ::dict-item-form/value}]
                               {:id       arg
                                :type     :quote
                                :value    form
@@ -95,7 +96,7 @@
                          :label    (utils/get-operation-label module "mkN" (take arity (repeat "Str")) "N")
                          :category "N"
                          :module   module}]
-                       (map (fn [arg form]
+                       (map (fn [arg {form ::dict-item-form/value}]
                               {:id       arg
                                :type     :quote
                                :value    form
@@ -259,7 +260,7 @@
                         :category "NP"
                         :module   (str "Res" language)}
                        (concat
-                         (map (fn [arg form]
+                         (map (fn [arg {form ::dict-item-form/value}]
                                 {:id       arg
                                  :type     :quote
                                  :value    form
@@ -330,7 +331,7 @@
                         :category "IP"
                         :module   (str "Res" language)}
                        (concat
-                         (map (fn [arg form]
+                         (map (fn [arg {form ::dict-item-form/value}]
                                 {:id       arg
                                  :type     :quote
                                  :value    form
@@ -377,7 +378,7 @@
                         :category "Conj"
                         :module   module}
                        (concat
-                         (map (fn [arg form]
+                         (map (fn [arg {form ::dict-item-form/value}]
                                 {:id       arg
                                  :type     :quote
                                  :value    form
@@ -422,7 +423,7 @@
                        :module   module}
                       {:id       arg
                        :type     :quote
-                       :value    (first forms)
+                       :value    (::dict-item-form/value (first forms))
                        :category "Str"}]
           :relations [{:from     concept
                        :to       arg
@@ -445,7 +446,7 @@
                        :module   module}
                       {:id       arg
                        :type     :quote
-                       :value    (first forms)
+                       :value    (::dict-item-form/value (first forms))
                        :category "Str"}]
           :relations [{:from     concept
                        :to       arg
@@ -468,7 +469,7 @@
                        :module   module}
                       {:id       arg
                        :type     :quote
-                       :value    (first forms)
+                       :value    (::dict-item-form/value (first forms))
                        :category "Str"}]
           :relations [{:from     concept
                        :to       arg
@@ -491,7 +492,7 @@
                        :module   module}
                       {:id       arg
                        :type     :quote
-                       :value    (first forms)
+                       :value    (::dict-item-form/value (first forms))
                        :category "Str"}]
           :relations [{:from     concept
                        :to       arg
@@ -514,7 +515,7 @@
                        :module   module}
                       {:id       arg
                        :type     :quote
-                       :value    (first forms)
+                       :value    (::dict-item-form/value (first forms))
                        :category "Str"}]
           :relations [{:from     concept
                        :to       arg
@@ -537,7 +538,7 @@
                        :module   module}
                       {:id       arg
                        :type     :quote
-                       :value    (first forms)
+                       :value    (::dict-item-form/value (first forms))
                        :category "Str"}]
           :relations [{:from     concept
                        :to       arg
@@ -568,7 +569,7 @@
                         :category "Pron"
                         :module   (str "Morpho" language)}
                        (concat
-                         (map (fn [arg form]
+                         (map (fn [arg {form ::dict-item-form/value}]
                                 {:id       arg
                                  :type     :quote
                                  :value    form
@@ -636,7 +637,7 @@
                         :category "Quant"
                         :module   module}
                        (concat
-                         (map (fn [arg form]
+                         (map (fn [arg {form ::dict-item-form/value}]
                                 {:id       arg
                                  :type     :quote
                                  :value    form
@@ -666,7 +667,7 @@
                        :module   module}
                       {:id       arg
                        :type     :quote
-                       :value    (first forms)
+                       :value    (::dict-item-form/value (first forms))
                        :category "Str"}]
           :relations [{:from     concept
                        :to       arg
@@ -689,7 +690,7 @@
                        :module   module}
                       {:id       arg
                        :type     :quote
-                       :value    (first forms)
+                       :value    (::dict-item-form/value (first forms))
                        :category "Str"}]
           :relations [{:from     concept
                        :to       arg
@@ -712,7 +713,7 @@
                         :label    (utils/get-operation-label module "mkV" (take arity (repeat "Str")) "V")
                         :category "V"
                         :module   module}
-                       (map (fn [arg form]
+                       (map (fn [arg {form ::dict-item-form/value}]
                               {:id       arg
                                :type     :quote
                                :value    form
