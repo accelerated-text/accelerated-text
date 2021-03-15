@@ -15,10 +15,17 @@
 (s/def ::definition string?)
 
 (s/def ::category
-  #{"A" "A2" "Adv"
-    "N" "N2" "N3"
-    "PN" "Prep"
-    "V" "V0" "V2" "V3" "V2A" "V2Q" "V2S" "V2V" "VA" "VP" "VQ" "VS" "VV"})
+  #{"A" "A2"
+    "AdA" "AdN" "AdV" "Adv"
+    "Conj"
+    "IP"
+    "Interj"
+    "N" "N2" "N3" "NP" "PN"
+    "Post" "Prep"
+    "Pron"
+    "Quant"
+    "Subj"
+    "V" "V2" "V2A" "V2S" "V2V" "V2Q" "V3" "VA" "VQ" "VS" "VV"})
 
 (s/def ::language #{"Eng" "Ger" "Est" "Lit" "Lav" "Rus"})
 
