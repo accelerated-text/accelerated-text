@@ -52,7 +52,7 @@
                                        :module   module}
                                       {:id       arg
                                        :type     :quote
-                                       :value    (get attributes "Post" "from")
+                                       :value    (get attributes "Post" "to")
                                        :category "Str"}])
         (update ::sg/relations concat [{:from     concept
                                         :to       (utils/find-root child)
@@ -765,7 +765,7 @@
         post-concept (utils/gen-id)
         prep-arg (utils/gen-id)
         post-arg (utils/gen-id)
-        prep-attribute (get attributes "Prep")
+        prep-attribute (get attributes "Prep" "to")
         post-attribute (get attributes "Post")
         arity (cond-> 1
                       (some? prep-attribute) (inc)
@@ -1024,7 +1024,7 @@
         concept (utils/gen-id)
         prep-concept (utils/gen-id)
         prep-arg (utils/gen-id)
-        prep-attribute (get attributes "Prep" "as")]
+        prep-attribute (get attributes "Prep" "to")]
     (-> child
         (assoc ::sg/category "V2S")
         (update ::sg/concepts concat
@@ -1089,11 +1089,12 @@
         post-concept (utils/gen-id)
         prep-arg (utils/gen-id)
         post-arg (utils/gen-id)
-        prep-attribute (get attributes "Prep")
-        post-attribute (get attributes "Post")
+        prep-attribute (get attributes "Prep" "")
+        post-attribute (get attributes "Post" "to")
         arity (cond-> 1 (and (some? prep-attribute) (some? post-attribute)) (+ 2))
         arg-types (case arity
                     1 ["V"]
+                    2 ["V" "Prep" "Prep"]
                     3 ["V" "Prep" "Prep"])]
     (-> child
         (assoc ::sg/category "V2V")
