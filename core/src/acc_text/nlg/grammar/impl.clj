@@ -23,7 +23,7 @@
 (defn node->cat [graph node-id]
   (let [{:keys [type position] :as attrs} (attrs graph node-id)]
     (case type
-      :dictionary-item (:label attrs)
+      :dictionary-item (str/replace (:label attrs) #"-" "_")
       (str (str/replace (name type) #"-" "_")
            (format "%02d" (or position 0))))))
 
@@ -146,9 +146,11 @@
 (defn build-dictionary-operations [context]
   (map (fn [{::dict-item/keys [key category] :as dict-item}]
          (let [resolved-item (dictionary/resolve-dict-item dict-item)]
-           [key category (if (contains? resolved-item :acc-text.nlg.semantic-graph/name)
-                           (str (graph->tree (semantic-graph->ubergraph resolved-item)))
-                           resolved-item)]))
+           [(str/replace key #"-" "_")
+            category
+            (if (contains? resolved-item :acc-text.nlg.semantic-graph/name)
+              (str (graph->tree (semantic-graph->ubergraph resolved-item)))
+              resolved-item)]))
        (vals (:dictionary context))))
 
 (defn build-grammar
