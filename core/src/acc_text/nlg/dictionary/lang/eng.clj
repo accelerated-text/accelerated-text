@@ -1094,7 +1094,6 @@
         arity (cond-> 1 (and (some? prep-attribute) (some? post-attribute)) (+ 2))
         arg-types (case arity
                     1 ["V"]
-                    2 ["V" "Prep" "Prep"]
                     3 ["V" "Prep" "Prep"])]
     (-> child
         (assoc ::sg/category "V2V")
