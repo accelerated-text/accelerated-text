@@ -11,27 +11,44 @@ enum Usage {
     DONT_CARE
 }
 
-#   Taken from: https://www.clips.uantwerpen.be/pages/mbsp-tags
+enum Language {
+    Eng
+    Ger
+    Est
+    Lit
+    Lav
+    Rus
+    Spa
+}
+
 enum PartOfSpeech {
    A
    A2
-   compoundA
+   AdA
+   AdN
+   AdV
    Adv
+   Conj
+   IP
+   Interj
    N
    N2
    N3
+   NP
    PN
+   Post
    Prep
+   Pron
+   Quant
+   Subj
    V
-   V0
    V2
-   V3
    V2A
-   V2Q
    V2S
    V2V
+   V2Q
+   V3
    VA
-   VP
    VQ
    VS
    VV
@@ -143,12 +160,22 @@ type DictionaryResults {
     totalCount:         Int!
 }
 
+type DictionaryItemAttribute {
+    id:                 ID!
+    name:               String!
+    value:              String!
+}
+
 type DictionaryItem {
     id:                 ID!
     name:               String!
     partOfSpeech:       PartOfSpeech
     phrases:            [ Phrase! ]
     concept:            Concept
+    language:           Language
+    sense:              String
+    definition:         String
+    attributes:         [ DictionaryItemAttribute ]
 }
 
 type Phrase {
@@ -324,6 +351,12 @@ type Query {
 
 ### Mutations ------------------------------------------------------------------
 
+input Attribute {
+    id:                     ID
+    name:                   String!
+    value:                  String!
+}
+
 type Mutation {
 
     ### Dictionary
@@ -331,16 +364,27 @@ type Mutation {
     createDictionaryItem(
         id:                 ID
         name:               String!
-        partOfSpeech:       PartOfSpeech  # default = VB
+        partOfSpeech:       PartOfSpeech  # default = V
+        key:                String
+        forms:              [ String ]
+        language:           Language
+        sense:              String
+        definition:         String
+        attributes:         [ Attribute ]
     ):  DictionaryItem!
 
     updateDictionaryItem(
         id:                 ID!
         name:               String
         partOfSpeech:       PartOfSpeech
+        key:                String
+        language:           Language
+        sense:              String
+        definition:         String
+        attributes:         [ Attribute ]
     ):  DictionaryItem!
 
-    deleteDictionaryItem(
+deleteDictionaryItem(
         id:                 ID!
     ): Boolean!
 
