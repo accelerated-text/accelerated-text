@@ -1,25 +1,89 @@
-#:acc-text.nlg.semantic-graph{:relations ({:from :01 :to :02 :role :segment :index 0}
-                                          {:from :02 :to :03 :role :instance :index 0}
-                                          {:from :03 :to :04 :role :arg :index 0 :category "Str" :name "item1"}
-                                          {:from :03 :to :05 :role :arg :index 1 :category "Str" :name "item2"}
-                                          {:from :03 :to :06 :role :arg :index 2 :category "Str" :name "item3"}
-                                          {:from :03 :to :07 :role :arg :index 3 :category "N" :name "item4"}
-                                          {:from :03 :to :08 :role :arg :index 4 :category "N" :name "item5"}
-                                          {:from :03 :to :09 :role :arg :index 5 :category "N" :name "item6"})
-                              :concepts  ({:id :01 :type :document-plan}
-                                          {:id :02 :type :segment}
-                                          {:id :03 :type :amr :name "hERvMWwdMLUrgzAq"}
-                                          {:id    :04
-                                           :type  :dictionary-item
-                                           :name  "41d0ddcd-9b82-4181-b3c2-63b93f5276dc"
-                                           :label "bill"
-                                           :category "N"}
-                                          {:id :05 :type :quote :value "door"}
-                                          {:id :06 :type :data :name "product"}
-                                          {:id    :07
-                                           :type  :dictionary-item
-                                           :name  "ae1a289c-9f4a-471b-ae36-36c4089cc865"
-                                           :label "noise"
-                                           :category "N"}
-                                          {:id :08 :type :quote :value "interior"}
-                                          {:id :09 :type :data :name "fridge"})}
+#:acc-text.nlg.semantic-graph{:id          "PYcOTyZKuefDNQeT"
+                              :uid         "21ba062c-b50f-47d3-908e-812687762ffd"
+                              :name        "test-amr"
+                              :kind        "Document"
+                              :category    "Str"
+                              :description ""
+                              :relations   ({:from  "3(=+`_V3%UyMxP3-:CjP"
+                                             :to    "!VDZbrjX{gDT1LgqD7qm"
+                                             :role  :segment
+                                             :index 0}
+                                            {:from  "!VDZbrjX{gDT1LgqD7qm"
+                                             :to    "lm60?h@F)0n+OqgAT@Ej"
+                                             :role  :instance
+                                             :index 0}
+                                            {:from     "lm60?h@F)0n+OqgAT@Ej"
+                                             :to       "qE@bA6abG8ui8TyE!U$v"
+                                             :role     :arg
+                                             :index    0
+                                             :category "Str"
+                                             :name     "item1"}
+                                            {:from     "lm60?h@F)0n+OqgAT@Ej"
+                                             :to       "1Z`fA`2UY9WSy)80-pWH"
+                                             :role     :arg
+                                             :index    1
+                                             :category "Str"
+                                             :name     "item2"}
+                                            {:from     "lm60?h@F)0n+OqgAT@Ej"
+                                             :to       "[mw:[9Z#)$8v6$M@4uTl"
+                                             :role     :arg
+                                             :index    2
+                                             :category "Str"
+                                             :name     "item3"}
+                                            {:from     "lm60?h@F)0n+OqgAT@Ej"
+                                             :to       "3Moqn(#A!SP3:P(ReHqW"
+                                             :role     :arg
+                                             :index    3
+                                             :category "N"
+                                             :name     "item4"}
+                                            {:from     "lm60?h@F)0n+OqgAT@Ej"
+                                             :to       "G_XgP*[pmI39v@I|=2|n"
+                                             :role     :arg
+                                             :index    4
+                                             :category "N"
+                                             :name     "item5"}
+                                            {:from     "lm60?h@F)0n+OqgAT@Ej"
+                                             :to       "K+SK7m3TmL5/(Zrkp(V"
+                                             :role     :arg
+                                             :index    5
+                                             :category "N"
+                                             :name     "item6"})
+                              :concepts    ({:id "3(=+`_V3%UyMxP3-:CjP" :position 1 :type :document-plan}
+                                            {:id "!VDZbrjX{gDT1LgqD7qm" :position 2 :type :segment}
+                                            {:id       "lm60?h@F)0n+OqgAT@Ej"
+                                             :position 3
+                                             :type     :amr
+                                             :label    "test-amr"
+                                             :name     "oekHacwDHvSqGeDe"
+                                             :category "Str"}
+                                            {:id       "qE@bA6abG8ui8TyE!U$v"
+                                             :position 4
+                                             :type     :quote
+                                             :value    "bill"
+                                             :category "Str"}
+                                            {:id       "1Z`fA`2UY9WSy)80-pWH"
+                                             :position 5
+                                             :type     :quote
+                                             :value    "door"
+                                             :category "Str"}
+                                            {:id       "[mw:[9Z#)$8v6$M@4uTl"
+                                             :position 6
+                                             :type     :data
+                                             :name     "product"
+                                             :category "Str"}
+                                            {:id       "3Moqn(#A!SP3:P(ReHqW"
+                                             :position 7
+                                             :type     :dictionary-item
+                                             :name     "noise_N_Eng"
+                                             :label    "noise"
+                                             :category "N"}
+                                            {:id       "G_XgP*[pmI39v@I|=2|n"
+                                             :position 8
+                                             :type     :quote
+                                             :value    "interior"
+                                             :category "Str"}
+                                            {:id       "K+SK7m3TmL5/(Zrkp(V"
+                                             :position 9
+                                             :type     :data
+                                             :name     "fridge"
+                                             :category "Str"})}
