@@ -22,36 +22,36 @@ enum Language {
 }
 
 enum PartOfSpeech {
-   A
-   A2
-   AdA
-   AdN
-   AdV
-   Adv
-   Conj
-   IP
-   Interj
-   N
-   N2
-   N3
-   NP
-   PN
-   Post
-   Prep
-   Pron
-   Quant
-   Subj
-   V
-   V2
-   V2A
-   V2S
-   V2V
-   V2Q
-   V3
-   VA
-   VQ
-   VS
-   VV
+    A
+    A2
+    AdA
+    AdN
+    AdV
+    Adv
+    Conj
+    IP
+    Interj
+    N
+    N2
+    N3
+    NP
+    PN
+    Post
+    Prep
+    Pron
+    Quant
+    Subj
+    V
+    V2
+    V2A
+    V2S
+    V2V
+    V2Q
+    V3
+    VA
+    VQ
+    VS
+    VV
 }
 
 ### Data -----------------------------------------------------------------------
@@ -238,6 +238,7 @@ type DocumentPlan {
     dataSampleId:      ID
     dataSampleRow:     Int
     dataSampleMethod:  String
+    examples:          [ String ]
     createdAt:         Int!
     updatedAt:         Int
     updateCount:       Int!
@@ -384,7 +385,7 @@ type Mutation {
         attributes:         [ Attribute ]
     ):  DictionaryItem!
 
-deleteDictionaryItem(
+    deleteDictionaryItem(
         id:                 ID!
     ): Boolean!
 
@@ -407,6 +408,7 @@ deleteDictionaryItem(
         dataSampleId:       ID
         dataSampleRow:      Int
         dataSampleMethod:   String
+        examples:           [ String ]
     ): DocumentPlan!
 
     deleteDocumentPlan(
@@ -423,6 +425,7 @@ deleteDictionaryItem(
         dataSampleId:       ID
         dataSampleRow:      Int
         dataSampleMethod:   String
+        examples:           [ String ]
     ): DocumentPlan!
 
     createPhrase(

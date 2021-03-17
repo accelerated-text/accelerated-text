@@ -24,12 +24,14 @@
        (map zip/node)
        (filter #(contains? types (:type %)))))
 
-(defn find-examples [{body :documentPlan blockly-xml :blocklyXml}]
+(defn find-examples [{body :documentPlan examples :examples blockly-xml :blocklyXml}]
   (let [labels (get-variable-labels blockly-xml)]
-    (->> (get-nodes-with-types body #{"Define-var"})
-         (filter #(and (= "Define-var" (:type %)) (= "*Description" (get labels (:name %)))))
-         (map (comp :text :value))
-         (remove nil?))))
+    (or (->> (get-nodes-with-types body #{"Define-var"})
+             (filter #(and (= "Define-var" (:type %)) (= "*Description" (get labels (:name %)))))
+             (map (comp :text :value))
+             (remove nil?)
+             (seq))
+        examples)))
 
 (defn find-variables [{body :documentPlan} labels]
   (->> (get-nodes-with-types body #{"Define-var"})
