@@ -24,7 +24,7 @@
 
 (defn find-categories [roles]
   (reduce-kv (fn [m k v]
-               (assoc m k (paths/get-intersection (map :category v))))
+               (assoc m k (paths/get-intersection (map (comp #(str/replace % #"[()]" "") :category) v))))
              {}
              (group-by :name roles)))
 
