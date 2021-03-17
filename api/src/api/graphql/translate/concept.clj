@@ -34,7 +34,7 @@
     (->> roles
          (group-by :name)
          (vals)
-         (map (comp #(assoc % :category (get role-category (:name %) (:category %))) first))
+         (map (comp #(assoc % :category (or (get role-category (:name %)) "Str")) first))
          (sort-by (comp role-position :name)))))
 
 (defn amr->schema [{::sg/keys [id category description name] :as entity}]
