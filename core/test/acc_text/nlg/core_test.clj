@@ -118,3 +118,9 @@
   (let [semantic-graph (test-utils/load-test-semantic-graph "reader-model-test")]
     (is (= ["Some text... Some text for specific reader..."]
            (map :text (core/generate-text semantic-graph {:readers #{"Dc"}} "Eng"))))))
+
+(deftest ^:integration complex-amr-generation
+  (let [semantic-graph (test-utils/load-test-semantic-graph "complex-amr-test")
+        context (test-utils/load-test-context "complex-amr-test")]
+    (is (= ["House on the hill. Cat on the hill. Big house on the hill. Big cat on the hill."]
+           (map :text (core/generate-text semantic-graph context "Eng"))))))
