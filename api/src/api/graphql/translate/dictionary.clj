@@ -1,6 +1,7 @@
 (ns api.graphql.translate.dictionary
   (:require [acc-text.nlg.dictionary.item :as dict-item]
             [acc-text.nlg.dictionary.item.form :as dict-item-form]
+            [acc-text.nlg.dictionary.item.attr :as dict-item-attr]
             [data.entities.reader-model :as reader-model]
             [data.utils :as utils]))
 
@@ -19,23 +20,42 @@
                   :defaultUsage (if enabled? "YES" "NO")}})
        (reader-model/available-languages)))
 
-(defn dictionary-item->schema [{::dict-item/keys [id key category forms language]}]
+(defn dictionary-item->schema [{::dict-item/keys [id key category forms language definition sense attributes]}]
   {:id           (or id (utils/gen-uuid))
    :name         key
    :partOfSpeech category
+   :language     language
+   :sense        sense
+   :definition   definition
    :phrases      (map (fn [{::dict-item-form/keys [id value default?]}]
                         {:id              id
                          :text            value
                          :defaultUsage    (if default? "YES" "NO")
                          :readerFlagUsage (build-reader-model-user-flags language)})
-                      forms)})
+                      forms)
+   :attributes   (map (fn [{::dict-item-attr/keys [id name value]}]
+                        {:id    id
+                         :name  name
+                         :value value})
+                      attributes)})
 
-(defn schema->dictionary-item [{id :id item-name :name pos :partOfSpeech}]
-  #::dict-item{:id       (or id (utils/gen-uuid))
-               :key      (if (some? pos)
-                           (format "%s_%s" item-name (name pos))
-                           item-name)
-               :category (name pos)
-               :sense    "1"
-               :language "Eng"
-               :forms    [#::dict-item-form{:id (utils/gen-uuid) :value item-name}]})
+(defn schema->dictionary-item
+  [{id :id item-name :name key :key pos :partOfSpeech forms :forms lang :language sense :sense definition :definition attrs :attributes}]
+  #::dict-item{:id         (or id (utils/gen-uuid))
+               :key        (cond
+                             (some? key) key
+                             (some? pos) (format "%s_%s" item-name (name pos))
+                             :else item-name)
+               :category   (if (some? pos) (name pos) "V")
+               :sense      (or sense "1")
+               :definition (or definition "")
+               :language   (if (some? lang) (name lang) "Eng")
+               :forms      (map (fn [form]
+                                  #::dict-item-form{:id    (utils/gen-uuid)
+                                                    :value form})
+                                (or (seq forms) [item-name]))
+               :attributes (map (fn [{:keys [id name value]}]
+                                  #::dict-item-attr{:id    (or id (utils/gen-uuid))
+                                                    :name  name
+                                                    :value value})
+                                attrs)})

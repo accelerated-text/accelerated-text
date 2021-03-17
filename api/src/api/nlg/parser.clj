@@ -394,7 +394,7 @@
 
 (defn select-kind [kinds]
   (cond
-    (= 1 (count kinds)) (first kinds)))
+    (= 1 (count (set kinds))) (first kinds)))
 
 (defn post-add-kind [{:keys [name type kind] :as node} {variables :variables}]
   (let [kinds (map :kind (remove definition? (dp-zip/get-children node)))

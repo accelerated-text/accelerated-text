@@ -1,5 +1,6 @@
 (ns acc-text.nlg.core
-  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.dictionary.item.attr :as dict-item-attr]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.gf.service :as gf-service]
             [acc-text.nlg.grammar :as grammar]
@@ -12,9 +13,14 @@
       (update :amr #(zipmap (map ::sg/id %) %))
       (assoc :constants {"*Language" lang
                          "*Reader"   (str/join "," (:readers context))})
-      (update :dictionary #(zipmap (map (fn [{::dictionary-item/keys [key category]}]
-                                          [key category])
-                                        %)
+      (update :dictionary #(reduce (fn [m {::dict-item/keys [key category] :as dict-item}]
+                                     (assoc m [key category]
+                                              (update dict-item ::dict-item/attributes
+                                                      (fn [attrs]
+                                                        (into {} (map (fn [{::dict-item-attr/keys [name value]}]
+                                                                        [name value])
+                                                                      attrs))))))
+                                   {}
                                    %))))
 
 (defn generate-text [semantic-graph context lang]
