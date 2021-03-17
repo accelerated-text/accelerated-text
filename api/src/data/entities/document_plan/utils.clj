@@ -2,7 +2,8 @@
   (:require [data.entities.document-plan.zip :as dp-zip]
             [clojure.zip :as zip]
             [clojure.java.io :as io]
-            [clojure.data.xml :as xml]))
+            [clojure.data.xml :as xml]
+            [clojure.string :as str]))
 
 (defn get-variable-labels [blockly-xml]
   (when (some? blockly-xml)
@@ -29,9 +30,9 @@
     (or (->> (get-nodes-with-types body #{"Define-var"})
              (filter #(and (= "Define-var" (:type %)) (= "*Description" (get labels (:name %)))))
              (map (comp :text :value))
-             (remove nil?)
+             (remove str/blank?)
              (seq))
-        examples)))
+        (remove str/blank? examples))))
 
 (defn find-variables [{body :documentPlan} labels]
   (->> (get-nodes-with-types body #{"Define-var"})
