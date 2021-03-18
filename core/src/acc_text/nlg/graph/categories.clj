@@ -1,5 +1,6 @@
 (ns acc-text.nlg.graph.categories
-  (:require [acc-text.nlg.graph.utils :as utils]
+  (:require [acc-text.nlg.gf.paths :as paths]
+            [acc-text.nlg.graph.utils :as utils]
             [loom.alg :as alg]
             [loom.graph :as graph]))
 
@@ -21,6 +22,8 @@
               (case (count categories)
                 0 g
                 1 (set-category g node-id (first categories))
-                (throw (Exception. (format "Ambiguous categories for id `%s`" node-id))))))
+                (if-let [intersection (paths/get-intersection categories)]
+                  (set-category g node-id intersection)
+                  (throw (Exception. (format "Ambiguous categories for id `%s`" node-id)))))))
           g
           (alg/pre-traverse g (utils/find-root-id g))))

@@ -51,6 +51,27 @@
     (is (= "test_V" name))
     (is (= "V" partOfSpeech))))
 
+(deftest ^:integration create-complex-dict-item-test
+  (let [query "mutation CreateDictionaryItem($name: String!, $partOfSpeech: PartOfSpeech, $key: String, $forms: [String], $language: Language, $sense: String, $definition: String, $attributes: [Attribute]) { createDictionaryItem(name: $name, partOfSpeech: $partOfSpeech, key: $key, forms: $forms, language: $language, sense: $sense, definition: $definition, attributes: $attributes) { name partOfSpeech language sense definition phrases { id text } attributes { id name value } } } "
+        {{{{:keys [name partOfSpeech language sense definition phrases attributes]} :createDictionaryItem} :data errors :errors} :body}
+        (q "/_graphql" :post {:query query :variables {:name         "test"
+                                                       :partOfSpeech "N"
+                                                       :key          "test_key"
+                                                       :language     "Eng"
+                                                       :sense        "test"
+                                                       :definition   "test"
+                                                       :forms        ["test" "tests"]
+                                                       :attributes   [{:name  "Gender"
+                                                                       :value "nonhuman"}]}})]
+    (is (nil? errors))
+    (is (= "test_key" name))
+    (is (= "N" partOfSpeech))
+    (is (= language "Eng"))
+    (is (= sense "test"))
+    (is (= definition "test"))
+    (is (= ["test" "tests"] (map :text phrases)))
+    (is (= {"Gender" "nonhuman"} (into {} (map (fn [{:keys [name value]}] [name value]) attributes))))))
+
 (deftest ^:integration delete-dict-item-test
   (let [query "mutation DeleteDictionaryItem($id:ID!){deleteDictionaryItem(id:$id)}"
         {{{response :deleteDictionaryItem} :data errors :errors} :body}
