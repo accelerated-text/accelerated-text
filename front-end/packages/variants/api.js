@@ -3,18 +3,29 @@ import * as nlgApi      from '../nlg-api/';
 
 const POLL_INTERVAL =   500;
 const PREFIX =          '/nlg';
+var LAST_STATUS_CHECK = 0;
+var LAST_RESULT = true;
 
-export const checkStatus = async ( ) => {
+export const checkStatus = async () => {
+    let now = new Date().valueOf();
+    if(now - LAST_STATUS_CHECK < POLL_INTERVAL * 5){
+        return LAST_RESULT;
+    }
+
+    LAST_STATUS_CHECK = new Date().valueOf();
     try {
         const result = await nlgApi.GET("/status");
+
         if( result.color == "green" ) {
-            return true;
+            LAST_RESULT = true;
         }
         else {
-            return false;
+            LAST_RESULT = false;
         }
+        return LAST_RESULT;
     } catch ( err ) {
         console.log(err);
+        LAST_RESULT = false;
         return false;
     }
 };
