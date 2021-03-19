@@ -1,5 +1,6 @@
 import classnames           from 'classnames';
 import { h }                from 'preact';
+import { useEffect }        from 'preact/hooks';
 import { pathOr }           from 'ramda';
 
 import CellBlock            from '../nlg-blocks/Cell';
@@ -36,20 +37,29 @@ export default composeQueries({
     onChangeMethod,
     onChangePreviewData,
 }) => {
+
+    useEffect(() => {
+        onChangeData(0);
+    }, [getRelevantSamples]);
+
     const valueDict = dataFieldsToObj(
         pathOr([], [ 'records', selectedRow, 'fields' ], getRelevantSamples ),
     );
 
     const onChangeData = (idx) => {
+        if(getRelevantSamples === undefined){
+            return;
+        }
         const data = Object.assign({}, ...getRelevantSamples.records[idx].fields.map( f => ({[f.fieldName]: f.value}) ));
         onChangePreviewData(data);
-        onChangeRow(idx)
-    }
+        onChangeRow(idx);
+    };
 
     const refetchData = (method) => {
-        onChangeMethod(method)
-        refetch()
-    }
+        onChangeMethod(method);
+        refetch();
+    };
+
     return (
     <div>
         <SampleAlgorithm
