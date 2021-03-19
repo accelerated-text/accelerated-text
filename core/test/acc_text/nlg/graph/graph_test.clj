@@ -117,6 +117,6 @@
         white  (-> g (utils/find-nodes {:category "A"}) first)
         ;;fridge is not in the dict
         fridge (-> g (utils/find-nodes {:type :quote}) first)]
-    (is (= ["white"] (-> white second :forms)))
+    (is (= "white" (-> white second :label)))
     (is (= :dictionary-item (-> white second :type)))
     (is (= "fridge" (-> fridge second :value)))))

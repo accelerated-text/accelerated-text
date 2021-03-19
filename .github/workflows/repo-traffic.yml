@@ -28,5 +28,5 @@ jobs:
         with:
           author_name: AccTextBot
           message: "GitHub traffic"
-          add: "./.stats/traffic/*"
+          add: "./traffic/*"
           ref: "master"
