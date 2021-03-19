@@ -16,3 +16,5 @@
 (s/def ::dataRows (s/map-of ::id ::dataRow))
 
 (s/def ::readerFlagValues (s/map-of string? boolean?))
+
+(s/def ::async boolean?)

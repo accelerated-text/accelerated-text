@@ -1,7 +1,7 @@
 (ns api.nlg.service
   (:require [api.nlg.core :refer [generate-text]]
-            [api.nlg.format :refer [use-format with-default-format]]
             [api.nlg.service.request :as request]
+            [api.nlg.service.response :as response]
             [api.nlg.service.utils :as utils]
             [api.utils :refer [gen-uuid]]
             [clojure.spec.alpha :as s]
@@ -16,7 +16,8 @@
                    ::request/dataId
                    ::request/dataRow
                    ::request/sampleMethod
-                   ::request/readerFlagValues]))
+                   ::request/readerFlagValues
+                   ::request/async]))
 
 (s/def ::generate-request-bulk
   (s/keys :req-un [::request/dataRows]
@@ -24,26 +25,38 @@
                    ::request/documentPlanName
                    ::request/readerFlagValues]))
 
+(s/def ::generate-response
+  (s/keys :req-un [::response/resultId]
+          :opt-un [::response/offset
+                   ::response/totalCount
+                   ::response/ready
+                   ::response/updatedAt
+                   ::response/variants]))
+
 (s/def ::get-result
   (s/keys :opt-un [::request/format]))
 
-(defn display-error? []
-  (Boolean/valueOf (System/getenv "DISPLAY_ERROR")))
-
 (defn generate-request
-  [{data-id :dataId sample-method :sampleMethod data-row :dataRow reader-model :readerFlagValues :as request}]
+  [{data-id :dataId sample-method :sampleMethod data-row :dataRow reader-model :readerFlagValues async :async :as request :or {async true}}]
   (try
     (log/infof "Generate request with %s" (utils/request->text request))
     (let [{row-index :dataSampleRow :as document-plan} (utils/get-document-plan request)
-          result-id (gen-uuid)]
+          result-id (gen-uuid)
+          body {:id            result-id
+                :document-plan document-plan
+                :data          (or data-row (utils/get-data-row data-id (or sample-method "first") (or row-index 0)) {})
+                :reader-model  (map reader-model/update! (utils/form-reader-model reader-model))}]
       (results/write #::result{:id     result-id
                                :status :pending})
-      (results/write (generate-text {:id            result-id
-                                     :document-plan document-plan
-                                     :data          (or data-row (utils/get-data-row data-id (or sample-method "first") (or row-index 0)) {})
-                                     :reader-model  (map reader-model/update! (utils/form-reader-model reader-model))}))
-      {:status 200
-       :body   {:resultId result-id}})
+      (if (true? async)
+        (do
+          (future (results/write (generate-text body)))
+          {:status 200
+           :body   {:resultId result-id}})
+        (do
+          (results/write (generate-text body))
+          {:status 200
+           :body   (utils/translate-result (results/fetch result-id) {:format "raw"})})))
     (catch Exception e
       (utils/error-response e "Generate request failure"))))
 
@@ -73,16 +86,9 @@
 (defn get-result [{{{request-id :id} :path {result-format :format} :query} :parameters}]
   (try
     (log/infof "Result request with id `%s`" request-id)
-    (if-let [{::result/keys [rows status timestamp] :as result} (results/fetch request-id)]
+    (if-let [result (results/fetch request-id)]
       {:status 200
-       :body   {:offset     0
-                :totalCount (count rows)
-                :ready      (not= status :pending)
-                :updatedAt  timestamp
-                :variants   (cond
-                              (some? result-format) (use-format result-format result)
-                              (and (= :error status) (display-error?)) (use-format "error" result)
-                              :else (with-default-format result))}}
+       :body   (utils/translate-result result {:format result-format})}
       (do
         (log/warnf "Result with id `%s` not found" request-id)
         {:status 404}))
