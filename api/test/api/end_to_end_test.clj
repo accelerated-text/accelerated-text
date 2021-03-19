@@ -10,11 +10,11 @@
   (is (= {"test" []} (generate-text-bulk {:document-plan-name "Untitled plan"
                                           :data-rows          {"test" {}}}))))
 
-(deftest ^:integration async-text-generation
+(deftest ^:integration non-async-text-generation
   (is (= ["Building Search Applications is authored by Manu Konchady."]
-         (generate-text {:document-plan-name "Authorship"
-                         :data-file-name     "books.csv"
-                         :async              true}))))
+         (:variants (generate-text {:document-plan-name "Authorship"
+                                    :data-file-name     "books.csv"
+                                    :async              false})))))
 
 (deftest ^:integration text-generation-with-simple-plan
   (is (= ["Building Search Applications is authored by Manu Konchady."]

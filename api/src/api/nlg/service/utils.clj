@@ -1,10 +1,24 @@
 (ns api.nlg.service.utils
-  (:require [api.nlg.enrich.data :as data-enrich]
+  (:require [api.config :refer [conf]]
+            [api.nlg.enrich.data :as data-enrich]
+            [api.nlg.format :refer [use-format with-default-format]]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as dp]
-            [data.entities.reader-model :as reader-model]))
+            [data.entities.reader-model :as reader-model]
+            [data.spec.result :as result]))
+
+(defn translate-result [{::result/keys [id status timestamp rows] :as result} {result-format :format}]
+  {:resultId   id
+   :offset     0
+   :totalCount (count rows)
+   :ready      (not= status :pending)
+   :updatedAt  timestamp
+   :variants   (cond
+                 (some? result-format) (use-format result-format result)
+                 (and (= :error status) (:display-error conf)) (use-format "error" result)
+                 :else (with-default-format result))})
 
 (defn error-response
   ([exception] (error-response exception nil))
@@ -32,8 +46,8 @@
   (log/infof "Sample Method: %s" sample-method)
   (when-not (str/blank? data-id)
     (if-let [{[{fields :fields}] :records filename :fileName} (case sample-method
-                                                                    "relevant" (data-files/fetch-most-relevant data-id index 20)
-                                                                    "first"    (data-files/fetch data-id index 1))]
+                                                                "relevant" (data-files/fetch-most-relevant data-id index 20)
+                                                                "first" (data-files/fetch data-id index 1))]
       (cond->> (zipmap (map :fieldName fields) (map :value fields))
                (data-enrich/enable-enrich?) (data-enrich/enrich filename))
       (log/errorf "Data with id `%s` not found" data-id))))
