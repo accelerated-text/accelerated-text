@@ -34,9 +34,9 @@
   (let [main-deps {:gf (gf-service/ping)}
         other-deps {}
         color (cond
-               (some false? (vals main-deps))  :red
-               (some false? (vals other-deps)) :yellow
-               :else                           :green)]
+                (some false? (vals main-deps)) :red
+                (some false? (vals other-deps)) :yellow
+                :else :green)]
     {:status 200 :body {:color (name color) :services (merge main-deps other-deps)}}))
 
 (defn string-store [item]
@@ -62,7 +62,7 @@
                              :summary "GraphQL endpoint"}
                    :options cors-handler}]
      ["/nlg/" {:post    {:parameters {:body ::service/generate-request}
-                         :responses  {200 {:body {:resultId string?}}}
+                         :responses  {200 {:body ::service/generate-response}}
                          :summary    "Registers document plan for generation"
                          :coercion   reitit.coercion.spec/coercion
                          :middleware [muuntaja/format-request-middleware
@@ -101,7 +101,7 @@
                              :handler (swagger/create-swagger-handler)}}]
      ["/health" {:get health}]
      ["/status" {:get {:responses {200 {:body {:color string? :services coll?}}}
-                       :handler    status}}]]
+                       :handler   status}}]]
     {:data      {
                  :muuntaja   m/instance
                  :middleware [swagger/swagger-feature
