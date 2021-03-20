@@ -8,10 +8,13 @@
        (utils/get-successors g node)))
 
 (defn add-paragraph-symbol [g]
-  (let [symbol-node (UUID/randomUUID)]
-    (reduce (fn [g [node _]]
-              (if-let [index (some->> (get-instance-indices g node) (seq) (apply min) (dec))]
-                (utils/add-edges g [[^:edge node symbol-node {:role :instance :index index}]])
-                g))
-            (uber/add-nodes-with-attrs g [symbol-node {:type :quote :value "¶" :category "Str"}])
-            (rest (sort-by :position (utils/find-nodes g {:type :segment}))))))
+  (let [segments (rest (sort-by :position (utils/find-nodes g {:type :segment})))
+        symbol-node (UUID/randomUUID)]
+    (if (seq segments)
+      (reduce (fn [g [node _]]
+                (if-let [index (some->> (get-instance-indices g node) (seq) (apply min) (dec))]
+                  (utils/add-edges g [[^:edge node symbol-node {:role :instance :index index}]])
+                  g))
+              (uber/add-nodes-with-attrs g [symbol-node {:type :quote :value "¶" :category "Str"}])
+              (rest (sort-by :position (utils/find-nodes g {:type :segment}))))
+      g)))
