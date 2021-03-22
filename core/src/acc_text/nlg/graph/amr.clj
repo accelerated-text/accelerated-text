@@ -57,7 +57,7 @@
            (filter (fn [[_ {amr-name :name} _]] (contains? (:amr context) amr-name)))
            (map #(build-amr % context))))))
 
-(defn build-amr-graph [g context]
+(defn attach-amrs [g context]
   (let [amrs-with-args (get-amrs-with-args g)]
     (apply
       uber/multidigraph
@@ -68,8 +68,3 @@
            (filter (fn [[_ {amr-name :name} _]] (contains? (:amr context) amr-name)))
            (pmap (comp #(build-operation-graph % context) #(build-amr % context)))
            (apply concat)))))
-
-(defn attach-amrs [g context]
-  (let [g (build-amr-graph g context)]
-    (uber/viz-graph g {:auto-label true})
-    g))
