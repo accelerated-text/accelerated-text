@@ -31,16 +31,17 @@
                                                            [:type :name :category :module]))))
                g)))
 
-(defn build-amr [[node {amr-name :name} amr-args] context]
+(defn build-amr [[node {amr-name :name category :category} amr-args] context]
   (let [amr (semantic-graph->ubergraph (get-in context [:amr amr-name]))
         amr-root (find-root-id amr)
         references (filter (fn [[_ {reference-name :name}]]
                              (contains? amr-args reference-name))
                            (find-nodes amr {:type :reference}))]
     (-> amr
+        (substitute-operations (get-amrs-with-args amr))
         (assoc-in [:attrs amr-root :type] :amr-plan)
         (add-edges (cons
-                     [^:edge node amr-root {:role :pointer}]
+                     [^:edge node amr-root {:role :pointer :category category}]
                      (for [[reference-id {reference-name :name}] references
                            {id :id src :src} (graph/in-edges amr reference-id)
                            {dest :dest} (get amr-args reference-name)]
