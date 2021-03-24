@@ -67,7 +67,7 @@
           (remove-redundant-edges context amrs-with-args))
       (->> amrs-with-args
            (filter (fn [[_ {amr-name :name} _]] (contains? (:amr context) amr-name)))
-           (pmap #(build-amr % context))))))
+           (map #(build-amr % context))))))
 
 (defn attach-amrs [g context]
   (let [amrs-with-args (get-amrs-with-args g)]
@@ -79,5 +79,5 @@
             (remove-redundant-edges context amrs-with-args))
         (->> amrs-with-args
              (filter (fn [[_ {amr-name :name} _]] (contains? (:amr context) amr-name)))
-             (pmap (comp #(build-operation-graph % context) #(build-amr % context)))
+             (map (comp #(build-operation-graph % context) #(build-amr % context)))
              (apply concat))))))
