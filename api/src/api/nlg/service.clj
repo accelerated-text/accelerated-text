@@ -85,7 +85,7 @@
 
 (defn get-result [{{{request-id :id} :path {result-format :format} :query} :parameters}]
   (try
-    (log/infof "Result request with id `%s`" request-id)
+    (log/debugf "Result request with id `%s`" request-id)
     (if-let [result (results/fetch request-id)]
       {:status 200
        :body   (utils/translate-result result {:format result-format})}
