@@ -14,17 +14,21 @@
                                             (vec)
                                             (conj category)))})
 
+(defn normalize-category [cat]
+  (when-not (str/blank? cat)
+    (str/replace cat #"[()]" "")))
+
 (defn operation->schema [{:keys [id label category args example]}]
   {:id       id
    :kind     category
-   :roles    (map #(role->schema {:name % :category (str/replace % #"[()]" "")}) args)
+   :roles    (map #(role->schema {:name % :category (normalize-category %)}) args)
    :helpText (str example)
    :label    label
    :name     (str/join " -> " (conj args category))})
 
 (defn find-categories [roles]
   (reduce-kv (fn [m k v]
-               (assoc m k (paths/get-intersection (map (comp #(str/replace % #"[()]" "") :category) v))))
+               (assoc m k (paths/get-intersection (map (comp normalize-category :category) v))))
              {}
              (group-by :name roles)))
 
