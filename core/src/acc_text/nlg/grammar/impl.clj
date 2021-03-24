@@ -52,7 +52,7 @@
                                                         (s-node? graph %)) (str ".s"))
                                              successors))]}}))
 
-(defmethod build-node :amr-plan [graph node-id]
+(defmethod build-node :amr [graph node-id]
   (let [successors (get-successors graph node-id)
         category (get (attrs graph node-id) :category "Str")
         cat (node->cat graph node-id)]

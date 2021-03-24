@@ -22,6 +22,17 @@
        (mapcat (fn [[_ _ edges]] (apply concat (vals edges))))
        (graph/remove-edges* g)))
 
+(defn finalize-amr-nodes [g]
+  (reduce (fn [g [node _]]
+            (let [amr (first (graph/successors g node))]
+              (-> g
+                  (assoc-in [:attrs amr :type] :amr)
+                  (remove-nodes [node])
+                  (add-edges (for [{src :src :as in-edge} (graph/in-edges g node)]
+                               [^:edge src amr (attrs g in-edge)])))))
+          g
+          (find-nodes g {:type :amr})))
+
 (defn substitute-operations [g amrs-with-args]
   (->> amrs-with-args
        (filter (fn [[_ {amr-name :name} _]] (contains? ops/operation-map amr-name)))
@@ -31,7 +42,7 @@
                                                            [:type :name :category :module]))))
                g)))
 
-(defn build-amr [[node {amr-name :name category :category} amr-args] context]
+(defn build-amr [[node {amr-name :name} amr-args] context]
   (let [amr (semantic-graph->ubergraph (get-in context [:amr amr-name]))
         amr-root (find-root-id amr)
         references (filter (fn [[_ {reference-name :name}]]
@@ -41,7 +52,7 @@
         (substitute-operations (get-amrs-with-args amr))
         (assoc-in [:attrs amr-root :type] :amr-plan)
         (add-edges (cons
-                     [^:edge node amr-root {:role :pointer :category category}]
+                     [^:edge node amr-root {:role :pointer}]
                      (for [[reference-id {reference-name :name}] references
                            {src :src :as in-edge} (graph/in-edges amr reference-id)
                            {dest :dest} (get amr-args reference-name)]
@@ -56,16 +67,17 @@
           (remove-redundant-edges context amrs-with-args))
       (->> amrs-with-args
            (filter (fn [[_ {amr-name :name} _]] (contains? (:amr context) amr-name)))
-           (map #(build-amr % context))))))
+           (pmap #(build-amr % context))))))
 
 (defn attach-amrs [g context]
   (let [amrs-with-args (get-amrs-with-args g)]
-    (apply
-      uber/multidigraph
-      (-> g
-          (substitute-operations amrs-with-args)
-          (remove-redundant-edges context amrs-with-args))
-      (->> amrs-with-args
-           (filter (fn [[_ {amr-name :name} _]] (contains? (:amr context) amr-name)))
-           (pmap (comp #(build-operation-graph % context) #(build-amr % context)))
-           (apply concat)))))
+    (finalize-amr-nodes
+      (apply
+        uber/multidigraph
+        (-> g
+            (substitute-operations amrs-with-args)
+            (remove-redundant-edges context amrs-with-args))
+        (->> amrs-with-args
+             (filter (fn [[_ {amr-name :name} _]] (contains? (:amr context) amr-name)))
+             (pmap (comp #(build-operation-graph % context) #(build-amr % context)))
+             (apply concat))))))
