@@ -2,13 +2,13 @@
   (:require [acc-text.nlg.gf.operations :as ops]
             [acc-text.nlg.graph.utils :refer [find-root-id find-nodes add-edges remove-nodes]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
+            [loom.attr :refer [attrs]]
             [loom.graph :as graph]
             [ubergraph.core :as uber]))
 
 (defn get-out-edge-map [g node]
-  (group-by (fn [{edge-id :id}]
-              (let [{:keys [name category]} (get-in g [:attrs edge-id])]
-                (or name category)))
+  (group-by #(let [{:keys [name category]} (attrs g %)]
+               (or name category))
             (graph/out-edges g node)))
 
 (defn get-amrs-with-args [g]
@@ -43,9 +43,9 @@
         (add-edges (cons
                      [^:edge node amr-root {:role :pointer :category category}]
                      (for [[reference-id {reference-name :name}] references
-                           {id :id src :src} (graph/in-edges amr reference-id)
+                           {src :src :as in-edge} (graph/in-edges amr reference-id)
                            {dest :dest} (get amr-args reference-name)]
-                       [^:edge src dest (get-in amr [:attrs id])])))
+                       [^:edge src dest (attrs amr in-edge)])))
         (remove-nodes (map first references)))))
 
 (defn build-operation-graph [g context]
