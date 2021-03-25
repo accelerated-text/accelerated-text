@@ -1,6 +1,5 @@
 (ns data.entities.dictionary
-  (:require [api.config :refer [conf]]
-            [acc-text.nlg.dictionary.item :as dict-item]
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
             [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [api.config :refer [conf]]
             [clojure.edn :as edn]
