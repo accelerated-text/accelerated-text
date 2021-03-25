@@ -1,7 +1,5 @@
 (ns data.entities.document-plan
   (:require [api.config :refer [conf]]
-            [clojure.java.io :as io]
-            [clojure.string :as string]
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
