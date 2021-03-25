@@ -33,10 +33,6 @@
       (some? category)
       (not= category "Str"))))
 
-(defn ->cat [c]
-  (cond->> c
-           (not= "Str" c) (format "%s.%s" "Syntax")))
-
 (defn remove-data-types [graph node-ids]
   (remove #(contains? data-types (:type (attrs graph %))) node-ids))
 
@@ -49,7 +45,7 @@
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-         :lincat {cat (->cat category)}
+         :lincat {cat category}
          :lin    {cat [(str/join " ++ " (map #(cond-> (node->cat graph %)
                                                       (and
                                                         (= category "Str")
@@ -63,7 +59,7 @@
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-         :lincat {cat (->cat category)}
+         :lincat {cat category}
          :lin    {cat [(str/join " | " (map #(cond-> (node->cat graph %)
                                                      (and
                                                        (= category "Str")
@@ -77,7 +73,7 @@
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-         :lincat {cat (->cat (or (:category (attrs graph node-id)) "Text"))}
+         :lincat {cat (or (:category (attrs graph node-id)) "Text")}
          :lin    {cat [(cond-> (str module "." name)
                                (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))]}}))
 
@@ -97,7 +93,7 @@
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-         :lincat {cat (->cat (or category "Str"))}
+         :lincat {cat (or category "Str")}
          :lin    {cat (map #(cond-> (node->cat graph %)
                                     (and (s-node? graph %) (nil? category)) (str ".s"))
                            successors)}}))
@@ -109,7 +105,7 @@
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-         :lincat {cat (->cat (or category "Str"))}
+         :lincat {cat (or category "Str")}
          :lin    {cat (map #(cond-> (node->cat graph %)
                                     (and (s-node? graph %) (nil? category)) (str ".s"))
                            successors)}}))
@@ -121,7 +117,7 @@
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
-         :lincat {cat (->cat (or category "Str"))}
+         :lincat {cat (or category "Str")}
          :lin    {cat [(str/join " | " (->> (permutations successors)
                                             (remove empty?)
                                             (map (fn [group]
