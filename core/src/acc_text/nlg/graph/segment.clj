@@ -1,7 +1,6 @@
 (ns acc-text.nlg.graph.segment
   (:require [acc-text.nlg.graph.utils :as utils]
-            [ubergraph.core :as uber]
-            [clojure.tools.logging :as log])
+            [ubergraph.core :as uber])
   (:import (java.util UUID)))
 
 (defn get-instance-indices [g node]
