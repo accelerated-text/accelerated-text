@@ -29,7 +29,7 @@
   (db/update! document-plans-db document-plan-id document-plan))
 
 (defn document-plan-path []
-  (get conf :document-plan-path (io/resource "document-plans")))
+  (get conf :document-plan-path))
 
 (defn load-document-plan [f]
   (let [dp (utils/read-json f)]
@@ -37,8 +37,6 @@
 
 (defn initialize []
   (doseq [{id :id :as dp}
-          (->> (document-plan-path)
-               (utils/list-files)
-               (filter #(string/ends-with? (.getName %) ".json"))
+          (->> (utils/list-files (document-plan-path) #{".json"})
                (map load-document-plan))]
     (add-document-plan dp id)))
