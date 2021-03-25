@@ -16,6 +16,12 @@
             [data.spec.result.annotation :as annotation]
             [data.spec.result.row :as row]))
 
+(defn remove-duplicates? []
+  (Boolean/valueOf ^String (or (System/getenv "REMOVE_DUPLICATES") "TRUE")))
+
+(defn deduplicate [results]
+  (map first (vals (group-by :text results))))
+
 (defn add-annotations [{text ::row/text :as row}]
   (assoc row ::row/annotations (mapv (fn [{:keys [idx text]}]
                                        #::annotation{:id   (utils/gen-uuid)
@@ -54,7 +60,8 @@
                                                      :readers    readers
                                                      :dictionary (get dictionaries lang [])}]
                                         (cond-> (nlg/generate-text semantic-graph context lang)
-                                                (and (= "Eng" lang) (enable-enrich?)) (enrich data)))))
+                                                (and (= "Eng" lang) (enable-enrich?)) (enrich data)
+                                                (remove-duplicates?) (deduplicate)))))
                             (remove #(str/blank? (:text %)))
                             (map ->result-row)
                             (map add-annotations))
