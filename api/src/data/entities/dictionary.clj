@@ -1,5 +1,6 @@
 (ns data.entities.dictionary
-  (:require [acc-text.nlg.dictionary.item :as dict-item]
+  (:require [api.config :refer [conf]]
+            [acc-text.nlg.dictionary.item :as dict-item]
             [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [api.config :refer [conf]]
             [clojure.edn :as edn]
@@ -61,6 +62,7 @@
     (doall
       (for [dict-item (edn/read (PushbackReader. r))]
         (-> (utils/add-ns-to-map "acc-text.nlg.dictionary.item" dict-item)
+            (update ::dict-item/language #(cond->> % (nil? %) (get conf :default-language)))
             (update ::dict-item/forms (fn [forms]
                                         (map #(utils/add-ns-to-map
                                                 "acc-text.nlg.dictionary.item.form"

@@ -13,6 +13,7 @@
                            (keyword db-implementation))
    :db-uri               (System/getenv "DB_URI")
    :display-error        (Boolean/valueOf (System/getenv "DISPLAY_ERROR"))
+   :default-language     (or (System/getenv "DEFAULT_LANGUAGE") "Eng")
    :enabled-languages    (set (read-conf-line (or (System/getenv "ENABLED_LANGUAGES") "Eng")))
    :enabled-readers      (set (read-conf-line (or (System/getenv "ENABLED_READERS") "")))
    :config-path          (or (System/getenv "CONFIG_PATH") (io/resource "config"))
