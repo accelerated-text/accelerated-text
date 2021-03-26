@@ -1,6 +1,7 @@
 (ns api.auth.service
-    (:require [clojure.tools.logging :as log]))
+    (:require [clojure.tools.logging :as log]
+              [api.config :refer [conf]]))
 
 (defn auth-enabled?
-  [config]
-  (not (nil? (:auth-url config))))
+  []
+  (not (nil? (:auth-url conf))))
