@@ -10,9 +10,9 @@
        (walk/keywordize-keys)))
 
 (defn append-auth-info [{:keys [headers] :as req}]
-  (let [token (:auth-token (normalize-headers headers))]
-    (log/infof "Look, I'm doing something!. Token: %s" token))
-  req)
+  (let [token (:auth-token (normalize-headers headers))
+        info  (service/request token)]
+    (assoc req :auth-info info)))
 
 (defn wrapper
   [handler]
