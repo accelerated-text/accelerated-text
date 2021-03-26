@@ -18,6 +18,7 @@
    :config-path          (or (System/getenv "CONFIG_PATH") (io/resource "config"))
    :dictionary-path      (or (System/getenv "DICT_PATH") (io/resource "dictionary"))
    :document-plan-path   (or (System/getenv "DOCUMENT_PLANS") (io/resource "document-plans"))
-   :relevant-items-limit (or (System/getenv "RELEVANT_ITEMS_MATRIX_LIMIT") 100)})
+   :relevant-items-limit (or (System/getenv "RELEVANT_ITEMS_MATRIX_LIMIT") 100)
+   :auth-url             (System/getenv "AUTH_URL")})
 
 (defstate conf :start (load-config))
