@@ -1,0 +1,16 @@
+FROM node:11-slim
+
+RUN apt-get update -qq && apt-get install -y -qq build-essential chromium libatk-bridge2.0-0 libgtk-3-0 libnss3
+
+RUN mkdir -p /usr/src/tests
+WORKDIR /usr/src/tests
+
+COPY tests/ /usr/src/tests
+COPY wait-for-it.sh wait-for-it.sh
+
+RUN chmod +x wait-for-it.sh
+
+RUN npm install puppeteer
+RUN npm install
+
+CMD ["npm", "run", "bdd"]

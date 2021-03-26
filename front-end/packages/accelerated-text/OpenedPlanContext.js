@@ -7,4 +7,5 @@ export default createContext({
     openPlan:               null,
     openPlanUid:            null,
     plan:                   null,
+    previewData:            null,
 });
