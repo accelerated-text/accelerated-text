@@ -21,6 +21,7 @@
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [reitit.dev.pretty :as pretty]
+            [api.auth.middleware :as auth]
             [acc-text.nlg.gf.service :as gf-service]))
 
 (def headers {"Access-Control-Allow-Origin"  "*"
@@ -107,6 +108,7 @@
                  :middleware [swagger/swagger-feature
                               muuntaja/format-negotiate-middleware
                               parameters/parameters-middleware
+                              auth/auth-middleware
                               wrap-response
                               muuntaja/format-response-middleware
                               errors/exception-middleware]}
