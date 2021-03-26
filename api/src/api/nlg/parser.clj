@@ -452,7 +452,9 @@
              (sg-utils/prune-unrelated-branches)
              (sg-utils/add-category)
              (sg-utils/remove-nil-categories)
-             (sg-utils/sort-semantic-graph))
+             (sg-utils/sort-semantic-graph)
+             (update ::sg/concepts set)
+             (update ::sg/relations set))
          (let [{:keys [type name] :as node} (add-category semantic-graph (zip/node loc) (merge dp context))]
            (recur
              (sg-utils/merge-semantic-graphs

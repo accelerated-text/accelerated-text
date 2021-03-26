@@ -10,6 +10,7 @@
             [clojure.tools.logging :as log]
             [data.entities.amr :refer [find-amrs]]
             [data.entities.dictionary :refer [build-dictionaries]]
+            [data.entities.results :as results]
             [data.entities.reader-model :refer [available-reader-model]]
             [data.spec.reader-model :as reader-model]
             [data.spec.result :as result]
@@ -48,17 +49,17 @@
         amrs (find-amrs semantic-graph)
         semantic-graphs (cons semantic-graph amrs)
         dictionary-keys (set (concat (vals data) (mapcat get-dictionary-keys semantic-graphs)))
-        dictionaries (build-dictionaries dictionary-keys languages)]
+        context {:amr        amrs
+                 :data       data
+                 :readers    readers
+                 :dictionary (build-dictionaries dictionary-keys languages)}]
     (try
       #::result{:id     id
                 :status :ready
                 :rows   (transduce
                           (comp
                             (mapcat (fn [lang]
-                                      (let [context {:amr        amrs
-                                                     :data       data
-                                                     :readers    readers
-                                                     :dictionary (get dictionaries lang [])}]
+                                      (let [context (update context :dictionary #(get % lang []))]
                                         (cond-> (nlg/generate-text semantic-graph context lang)
                                                 (and (= "Eng" lang) (enable-enrich?)) (enrich data)
                                                 (remove-duplicates?) (deduplicate)))))
