@@ -56,7 +56,7 @@
 
 (def routes
   (ring/router
-    [["/_graphql" {:post    {:handler (fn [{raw :body}]
+    [["/_graphql" {:post    {:handler (fn [{raw :body auth-info :auth-info}]
                                         (let [body (utils/read-json-is raw)]
                                           {:status 200
                                            :body   (graphql/handle body)}))
@@ -92,7 +92,7 @@
                   :delete  service/delete-result
                   :options cors-handler}]
      ["/accelerated-text-data-files/" {:post (fn [request]
-                                               (let [{params :params} (multipart-handler request)
+                                               (let [{params :params auth-info :auth-info} (multipart-handler request)
                                                      id (data-files/store! (get params "file"))]
                                                  {:status 200
                                                   :body   {:message "Succesfully uploaded file" :id id}}))}]

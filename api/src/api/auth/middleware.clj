@@ -14,13 +14,15 @@
         info  (service/request token)]
     (assoc req :auth-info info)))
 
+(defn dummy-auth-info [req]
+  (assoc req :auth-info {:group-id 0 :username "default"}))
+
 (defn wrapper
   [handler]
   (fn [req]
     (if (service/auth-enabled?)
       (handler (append-auth-info req))
-      (handler req))
-    (handler req)))
+      (handler (dummy-auth-info req)))))
 
 
 (def auth-middleware
