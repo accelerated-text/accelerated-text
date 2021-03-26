@@ -1,5 +1,6 @@
 (ns api.nlg.core
-  (:require [acc-text.nlg.core :as nlg]
+  (:require [api.config :refer [conf]]
+            [acc-text.nlg.core :as nlg]
             [acc-text.nlp.utils :as nlp]
             [acc-text.nlg.semantic-graph.utils :refer [get-dictionary-keys]]
             [api.nlg.ref-expr :refer [enable-ref-expr? apply-ref-expressions]]
@@ -17,17 +18,11 @@
             [data.spec.result.annotation :as annotation]
             [data.spec.result.row :as row]))
 
-(defn remove-duplicates? []
-  (Boolean/valueOf ^String (or (System/getenv "REMOVE_DUPLICATES") "TRUE")))
-
 (defn deduplicate [results]
   (map first (vals (group-by :text results))))
 
-(defn enable-cache? []
-  (Boolean/valueOf ^String (or (System/getenv "ENABLE_CACHE") "TRUE")))
-
 (defn with-cache [request-hash {id ::result/id :as result}]
-  (when (enable-cache?)
+  (when (:enable-cache conf)
     (log/debugf "Caching result `%s`" id)
     (results/write-cached-result request-hash id))
   result)
@@ -64,7 +59,7 @@
                  :dictionary (build-dictionaries dictionary-keys languages)}
         request-hash (hash [semantic-graph context languages])]
     (try
-      (if-let [cached-result (when (enable-cache?) (results/fetch-cached-result request-hash))]
+      (if-let [cached-result (when (:enable-cache conf) (results/fetch-cached-result request-hash))]
         (do
           (log/infof "Found cached result `%s`" (::result/id cached-result))
           (assoc cached-result ::result/id id))
@@ -78,7 +73,7 @@
                                           (let [context (update context :dictionary #(get % lang []))]
                                             (cond-> (nlg/generate-text semantic-graph context lang)
                                                     (and (= "Eng" lang) (enable-enrich?)) (enrich data)
-                                                    (remove-duplicates?) (deduplicate)))))
+                                                    (:remove-duplicates conf) (deduplicate)))))
                                 (remove #(str/blank? (:text %)))
                                 (map ->result-row)
                                 (map add-annotations))
