@@ -28,9 +28,8 @@
 
 (defn with-cache [request-hash {id ::result/id :as result}]
   (when (enable-cache?)
-    (do
-      (log/debugf "Caching result `%s`" id)
-      (results/write-cached-result request-hash id)))
+    (log/debugf "Caching result `%s`" id)
+    (results/write-cached-result request-hash id))
   result)
 
 (defn add-annotations [{text ::row/text :as row}]
