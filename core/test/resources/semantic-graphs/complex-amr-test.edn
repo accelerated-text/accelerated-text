@@ -1,0 +1,132 @@
+#:acc-text.nlg.semantic-graph{:id          "jWJGiQSPWvLxZnLY",
+                              :uid         "319b939c-117c-4059-9814-816dcf0c82e1",
+                              :name        "on the hill",
+                              :kind        "Document",
+                              :category    "Str",
+                              :description "Big house on the hill.",
+                              :relations   ({:from  "AzEAXEtZEgEtiGvMqoSq",
+                                             :to    "LjMVUFCMwNVqklQBXcvj",
+                                             :role  :segment,
+                                             :index 0}
+                                            {:from  "LjMVUFCMwNVqklQBXcvj",
+                                             :to    "rpJlFSJZBomAqFmfESQs",
+                                             :role  :instance,
+                                             :index 0}
+                                            {:from  "LjMVUFCMwNVqklQBXcvj",
+                                             :to    "BxtBCo[Bu|ja{FNo#TRT",
+                                             :role  :instance,
+                                             :index 1}
+                                            {:from  "LjMVUFCMwNVqklQBXcvj",
+                                             :to    "r_v~Hzlsn[QUX#3nCZGt",
+                                             :role  :instance,
+                                             :index 2}
+                                            {:from  "LjMVUFCMwNVqklQBXcvj",
+                                             :to    "*L]V2pLnAnI2q#m:,00O",
+                                             :role  :instance,
+                                             :index 3}
+                                            {:from     "rpJlFSJZBomAqFmfESQs",
+                                             :to       "ZcEoEtjSBHWKhRGmZyoP",
+                                             :role     :arg,
+                                             :index    0,
+                                             :category "N",
+                                             :name     "thing"}
+                                            {:from     "BxtBCo[Bu|ja{FNo#TRT",
+                                             :to       "b0P_YC:2.XnFuVuWU4=}",
+                                             :role     :arg,
+                                             :index    0,
+                                             :category "N",
+                                             :name     "thing"}
+                                            {:from     "r_v~Hzlsn[QUX#3nCZGt",
+                                             :to       "cDgsgTYCdyzvYGhCMGMb",
+                                             :role     :arg,
+                                             :index    0,
+                                             :category "N",
+                                             :name     "thing"}
+                                            {:from     "cDgsgTYCdyzvYGhCMGMb",
+                                             :to       ".3]l/;RF*ubHBD=I,bKO",
+                                             :role     :child,
+                                             :category "N"}
+                                            {:from     "cDgsgTYCdyzvYGhCMGMb",
+                                             :to       "`Y!doaoPq7d*fW(+BLk)",
+                                             :role     :modifier,
+                                             :index    0,
+                                             :category "A"}
+                                            {:from     "*L]V2pLnAnI2q#m:,00O",
+                                             :to       "yPGGlPfwXcUFNSawIgpC",
+                                             :role     :arg,
+                                             :index    0,
+                                             :category "N",
+                                             :name     "thing"}
+                                            {:from     "yPGGlPfwXcUFNSawIgpC",
+                                             :to       "K9I(~h[)8LW8nT|rU)uE",
+                                             :role     :child,
+                                             :category "N"}
+                                            {:from     "yPGGlPfwXcUFNSawIgpC",
+                                             :to       "ga@_n*8CqI35;M0:GD[Y",
+                                             :role     :modifier,
+                                             :index    0,
+                                             :category "A"}),
+                              :concepts    ({:id "AzEAXEtZEgEtiGvMqoSq", :position 1, :type :document-plan}
+                                            {:id "LjMVUFCMwNVqklQBXcvj", :position 2, :type :segment}
+                                            {:id       "rpJlFSJZBomAqFmfESQs",
+                                             :position 3,
+                                             :type     :amr,
+                                             :label    "on the hill",
+                                             :name     "SVFYrwSyyZwXMjZw",
+                                             :category "Text"}
+                                            {:id       "ZcEoEtjSBHWKhRGmZyoP",
+                                             :position 4,
+                                             :type     :dictionary-item,
+                                             :name     "house_N_N_",
+                                             :label    "house_N",
+                                             :category "N"}
+                                            {:id       "BxtBCo[Bu|ja{FNo#TRT",
+                                             :position 5,
+                                             :type     :amr,
+                                             :label    "on the hill",
+                                             :name     "SVFYrwSyyZwXMjZw",
+                                             :category "Text"}
+                                            {:id       "b0P_YC:2.XnFuVuWU4=}",
+                                             :position 6,
+                                             :type     :dictionary-item,
+                                             :name     "cat_N",
+                                             :label    "cat_N",
+                                             :category "N"}
+                                            {:id       "r_v~Hzlsn[QUX#3nCZGt",
+                                             :position 7,
+                                             :type     :amr,
+                                             :label    "on the hill",
+                                             :name     "SVFYrwSyyZwXMjZw",
+                                             :category "Text"}
+                                            {:id "cDgsgTYCdyzvYGhCMGMb", :position 8, :type :modifier, :category "N"}
+                                            {:id       ".3]l/;RF*ubHBD=I,bKO",
+                                             :position 9,
+                                             :type     :dictionary-item,
+                                             :name     "house_N",
+                                             :label    "house_N",
+                                             :category "N"}
+                                            {:id       "`Y!doaoPq7d*fW(+BLk)",
+                                             :position 10,
+                                             :type     :dictionary-item,
+                                             :name     "big_A",
+                                             :label    "big_A",
+                                             :category "A"}
+                                            {:id       "*L]V2pLnAnI2q#m:,00O",
+                                             :position 11,
+                                             :type     :amr,
+                                             :label    "on the hill",
+                                             :name     "SVFYrwSyyZwXMjZw",
+                                             :category "Text"}
+                                            {:id "yPGGlPfwXcUFNSawIgpC", :position 12, :type :modifier, :category "N"}
+                                            {:id       "K9I(~h[)8LW8nT|rU)uE",
+                                             :position 13,
+                                             :type     :dictionary-item,
+                                             :name     "cat_N",
+                                             :label    "cat_N",
+                                             :category "N"}
+                                            {:id       "ga@_n*8CqI35;M0:GD[Y",
+                                             :position 14,
+                                             :type     :dictionary-item,
+                                             :name     "big_A",
+                                             :label    "big_A",
+                                             :category "A"})}

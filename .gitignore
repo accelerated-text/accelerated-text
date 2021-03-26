@@ -3,6 +3,7 @@ node_modules
 front-end/dist
 front-end/*.log
 **/.idea/*
+**/.stats/*
 api/.nrepl-port
 api/output-sam.yaml
 api/api.iml

@@ -2,42 +2,82 @@
   (:require [acc-text.nlg.gf.operations :as ops]
             [acc-text.nlg.graph.utils :refer [find-root-id find-nodes add-edges remove-nodes]]
             [acc-text.nlg.semantic-graph.utils :refer [semantic-graph->ubergraph]]
+            [loom.attr :refer [attrs]]
             [loom.graph :as graph]
             [ubergraph.core :as uber]))
 
-(defn attach-amr [g amr-node-id sg]
-  (let [amr-g (semantic-graph->ubergraph sg)
-        amr-root-id (find-root-id amr-g)
-        out-edge-map (group-by (fn [{edge-id :id}]
-                                 (let [{:keys [name category]} (get-in g [:attrs edge-id])]
-                                   (or name category)))
-                               (graph/out-edges g amr-node-id))
-        reference-nodes (filter (fn [[_ {reference-name :name}]]
-                                  (contains? out-edge-map reference-name))
-                                (find-nodes amr-g {:type :reference}))]
-    (-> (uber/build-graph g amr-g)
-        (assoc-in [:attrs amr-root-id :type] :amr)
-        (remove-nodes (concat [amr-node-id] (map first reference-nodes)))
-        (add-edges (concat
-                     (for [[reference-id {reference-name :name}] reference-nodes
-                           {id :id src :src} (graph/in-edges amr-g reference-id)
-                           {dest :dest} (get out-edge-map reference-name)]
-                       [^:edge src dest (get-in amr-g [:attrs id])])
-                     (for [{id :id src :src} (graph/in-edges g amr-node-id)]
-                       [^:edge src amr-root-id (get-in g [:attrs id])]))))))
+(defn get-out-edge-map [g node]
+  (group-by #(let [{:keys [name category]} (attrs g %)]
+               (or name category))
+            (graph/out-edges g node)))
 
-(defn attach-rgl [g node-id name]
-  (update-in g [:attrs node-id] (fn [_]
-                                  (select-keys (get ops/operation-map name)
-                                               [:type :name :category :module]))))
+(defn get-amrs-with-args [g]
+  (map (fn [[node attrs]]
+         [node attrs (get-out-edge-map g node)])
+       (find-nodes g {:type :amr})))
 
-(defn attach-amrs [g {amr-map :amr :as context}]
-  (reduce (fn [g [node-id {amr-name :name}]]
-            (let [sg (get amr-map amr-name)]
-              (cond
-                (nil? amr-name) g
-                (contains? ops/operation-map amr-name) (attach-rgl g node-id amr-name)
-                (some? sg) (-> g (attach-amr node-id sg) (attach-amrs context))
-                :else (throw (Exception. (format "AMR not found in context: `%s`" amr-name))))))
+(defn remove-redundant-edges [g context amrs-with-args]
+  (->> amrs-with-args
+       (filter (fn [[_ {amr-name :name} _]] (contains? (:amr context) amr-name)))
+       (mapcat (fn [[_ _ edges]] (apply concat (vals edges))))
+       (graph/remove-edges* g)))
+
+(defn finalize-amr-nodes [g]
+  (reduce (fn [g [node _]]
+            (let [amr (first (graph/successors g node))]
+              (-> g
+                  (assoc-in [:attrs amr :type] :amr)
+                  (remove-nodes [node])
+                  (add-edges (for [{src :src :as in-edge} (graph/in-edges g node)]
+                               [^:edge src amr (attrs g in-edge)])))))
           g
           (find-nodes g {:type :amr})))
+
+(defn substitute-operations [g amrs-with-args]
+  (->> amrs-with-args
+       (filter (fn [[_ {amr-name :name} _]] (contains? ops/operation-map amr-name)))
+       (reduce (fn [g [node {amr-name :name} _]]
+                 (update-in g [:attrs node] (fn [_]
+                                              (select-keys (get ops/operation-map amr-name)
+                                                           [:type :name :category :module]))))
+               g)))
+
+(defn build-amr [[node {amr-name :name} amr-args] context]
+  (let [amr (semantic-graph->ubergraph (get-in context [:amr amr-name]))
+        amr-root (find-root-id amr)
+        references (filter (fn [[_ {reference-name :name}]]
+                             (contains? amr-args reference-name))
+                           (find-nodes amr {:type :reference}))]
+    (-> amr
+        (substitute-operations (get-amrs-with-args amr))
+        (assoc-in [:attrs amr-root :type] :amr-plan)
+        (add-edges (cons
+                     [^:edge node amr-root {:role :pointer}]
+                     (for [[reference-id {reference-name :name}] references
+                           {src :src :as in-edge} (graph/in-edges amr reference-id)
+                           {dest :dest} (get amr-args reference-name)]
+                       [^:edge src dest (attrs amr in-edge)])))
+        (remove-nodes (map first references)))))
+
+(defn build-operation-graph [g context]
+  (let [amrs-with-args (get-amrs-with-args g)]
+    (cons
+      (-> g
+          (substitute-operations amrs-with-args)
+          (remove-redundant-edges context amrs-with-args))
+      (->> amrs-with-args
+           (filter (fn [[_ {amr-name :name} _]] (contains? (:amr context) amr-name)))
+           (map #(build-amr % context))))))
+
+(defn attach-amrs [g context]
+  (let [amrs-with-args (get-amrs-with-args g)]
+    (finalize-amr-nodes
+      (apply
+        uber/multidigraph
+        (-> g
+            (substitute-operations amrs-with-args)
+            (remove-redundant-edges context amrs-with-args))
+        (->> amrs-with-args
+             (filter (fn [[_ {amr-name :name} _]] (contains? (:amr context) amr-name)))
+             (map (comp #(build-operation-graph % context) #(build-amr % context)))
+             (apply concat))))))
