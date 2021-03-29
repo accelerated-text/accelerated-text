@@ -370,10 +370,10 @@
 (defn rearrange-modifiers [node index]
   (loop [zipper (dp-zip/make-zipper node)
          modifiers []]
-    (let [{:keys [type child] :as node} (zip/node zipper)]
+    (let [{:keys [id type child] :as node} (zip/node zipper)]
       (if-not (and (contains? #{"Dictionary-item-modifier" "Cell-modifier"} type) (some? child))
         (if (seq modifiers)
-          (-> {:type "Modifier"}
+          (-> {:id (str id "/mod") :type "Modifier"}
               (dp-zip/make-node (cons node modifiers))
               (preprocess-node index))
           node)
