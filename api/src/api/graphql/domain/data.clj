@@ -22,7 +22,7 @@
 
 (defn list-data-files [_ {:keys [offset limit recordOffset recordLimit]
                           :or   {offset 0 limit 20 recordOffset 0 recordLimit 20}} _]
-  (resolve-as (data-files/listing offset limit recordOffset recordLimit)))
+  (resolve-as (data-files/listing 0 offset limit recordOffset recordLimit)))
 
 (defn create-data-file [_ request _]
   (resolve-as {:id (data-files/store! request)}))

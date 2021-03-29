@@ -13,7 +13,6 @@
             [data.entities.user-group :as user-group]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
-(defstate user-group-db :start (db/db-access :user-group conf))
 
 (defn build-key [filename group-id]
   (str group-id "#" filename))
@@ -57,7 +56,8 @@
     (db/write! data-files-db key
                #::data-file{:name      filename
                             :timestamp (utils/ts-now)
-                            :content   (convert-file data-file)}))
+                            :content   (convert-file data-file)})
+    (user-group/link-file group-id key))
   filename)
 
 (defn parse-data
@@ -122,9 +122,10 @@
           (read-content offset limit)))
 
 (defn listing
-  ([] (listing 0 Integer/MAX_VALUE 0 Integer/MAX_VALUE))
-  ([offset limit recordOffset recordLimit]
-   (let [data-files (db/list! data-files-db Integer/MAX_VALUE)]
+  ([group-id] (listing group-id 0 Integer/MAX_VALUE 0 Integer/MAX_VALUE))
+  ([group-id offset limit recordOffset recordLimit]
+   (let [;data-files (db/list! data-files-db Integer/MAX_VALUE)
+          data-files (->> (user-group/get-or-create-group group-id) :data-files (map read-data-file))]
      {:dataFiles  (->> data-files
                        (drop offset)
                        (take limit)
