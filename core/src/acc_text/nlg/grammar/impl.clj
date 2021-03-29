@@ -151,7 +151,7 @@
 
 (defn build-dictionary-operations [context]
   (map (fn [{::dict-item/keys [key category] :as dict-item}]
-         (let [resolved-item (dictionary/resolve-dict-item dict-item)]
+         (let [resolved-item (or (dictionary/resolve-operation dict-item) (dictionary/resolve-dict-item dict-item))]
            [(get-dict-item-name {:label key :category category})
             category
             (if (string? resolved-item)
