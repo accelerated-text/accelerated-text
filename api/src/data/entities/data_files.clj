@@ -9,7 +9,8 @@
             [data.entities.data-files.row-selection :as row-selection]
             [data.spec.data-file :as data-file]
             [dk.ative.docjure.spreadsheet :as excel]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]]
+            [data.entities.user-group :as user-group]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 (defstate user-group-db :start (db/db-access :user-group conf))
@@ -139,4 +140,4 @@
   (doseq [f (utils/list-files-in-dir (data-file-path))]
     (store! {:filename (.getName f)
              :content  f}
-            0)))
+            user-group/DUMMY-USER-GROUP-ID)))
