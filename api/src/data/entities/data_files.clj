@@ -12,6 +12,7 @@
             [mount.core :refer [defstate]]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
+(defstate user-group-db :start (db/db-access :user-group conf))
 
 (defn read-xlsx [content]
   (with-open [is (io/input-stream content)]
@@ -132,4 +133,5 @@
 (defn initialize []
   (doseq [f (utils/list-files-in-dir (data-file-path))]
     (store! {:filename (.getName f)
-             :content  f})))
+             :content  f}
+            0)))
