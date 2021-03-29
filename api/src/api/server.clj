@@ -59,7 +59,7 @@
     [["/_graphql" {:post    {:handler (fn [{raw :body auth-info :auth-info}]
                                         (let [body (utils/read-json-is raw)]
                                           {:status 200
-                                           :body   (graphql/handle body)}))
+                                           :body   (graphql/handle body auth-info)}))
                              :summary "GraphQL endpoint"}
                    :options cors-handler}]
      ["/nlg/" {:post    {:parameters {:body ::service/generate-request}

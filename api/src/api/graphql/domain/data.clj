@@ -1,6 +1,7 @@
 (ns api.graphql.domain.data
   (:require [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-            [data.entities.data-files :as data-files]))
+            [data.entities.data-files :as data-files]
+            [clojure.tools.logging :as log]))
 
 (defn- resolve-as-not-found-file [id]
   (resolve-as nil {:message (format "Cannot find data file with id `%s`." id)}))
@@ -20,9 +21,11 @@
       (resolve-as data-file)
       (resolve-as-not-found-file id))))
 
-(defn list-data-files [_ {:keys [offset limit recordOffset recordLimit]
-                          :or   {offset 0 limit 20 recordOffset 0 recordLimit 20}} _]
-  (resolve-as (data-files/listing 0 offset limit recordOffset recordLimit)))
+(defn list-data-files [{:keys [auth-info]}
+                       {:keys [offset limit recordOffset recordLimit]
+                        :or   {offset 0 limit 20 recordOffset 0 recordLimit 20}}
+                       _]
+  (resolve-as (data-files/listing (:group-id auth-info) offset limit recordOffset recordLimit)))
 
 (defn create-data-file [_ request _]
   (resolve-as {:id (data-files/store! request)}))

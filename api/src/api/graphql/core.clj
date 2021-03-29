@@ -71,6 +71,6 @@
                               :create-data-file            #'data-domain/create-data-file})
       schema/compile))
 
-(defn handle [{:keys [query variables context] :as request}]
-  (log/debugf "The request is: %s" request)
-  (execute nlg-schema query variables context {}))
+(defn handle [{:keys [query variables context] :as request} auth-info]
+  (log/debugf "The request is: %s, auth info: %s" request auth-info)
+  (execute nlg-schema query variables (assoc context :auth-info auth-info) {}))
