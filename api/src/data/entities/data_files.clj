@@ -10,7 +10,8 @@
             [data.spec.data-file :as data-file]
             [dk.ative.docjure.spreadsheet :as excel]
             [mount.core :refer [defstate]]
-            [data.entities.user-group :as user-group]))
+            [data.entities.user-group :as user-group]
+            [data.spec.user-group :as ug]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 
@@ -124,8 +125,7 @@
 (defn listing
   ([group-id] (listing group-id 0 Integer/MAX_VALUE 0 Integer/MAX_VALUE))
   ([group-id offset limit recordOffset recordLimit]
-   (let [;data-files (db/list! data-files-db Integer/MAX_VALUE)
-          data-files (->> (user-group/get-or-create-group group-id) :data-files (map read-data-file))]
+   (let [data-files (-> (user-group/get-or-create-group group-id) ::ug/data-files)]
      {:dataFiles  (->> data-files
                        (drop offset)
                        (take limit)

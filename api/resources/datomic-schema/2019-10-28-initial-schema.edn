@@ -8,7 +8,12 @@
            :db/valueType   :db.type/ref
            :db/isComponent true
            :db/cardinality :db.cardinality/many
-           :db/doc         "Data-Files under group id"}]
+           :db/doc         "Data-Files under group id"}
+          {:db/ident       :data.spec.user-group/document-plans
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Document Plans under group id"}]
 
          [{:db/ident       :data.spec.data-file/id
            :db/unique      :db.unique/identity
