@@ -14,6 +14,10 @@
 (defstate data-files-db :start (db/db-access :data-files conf))
 (defstate user-group-db :start (db/db-access :user-group conf))
 
+(defn build-key [filename group-id]
+  (str group-id "#" filename))
+
+
 (defn read-xlsx [content]
   (with-open [is (io/input-stream content)]
     (->> is
@@ -34,24 +38,25 @@
     (str/ends-with? filename ".xlsx") (read-xlsx content)
     :else (slurp content)))
 
-(defn read-data-file [key group-id]
+(defn read-data-file [key]
   (log/infof "Searching for data file: `%s`" key)
   (db/read! data-files-db key))
 
-(defn delete-data-file! [key group-id]
+(defn delete-data-file! [key]
   (log/infof "Deleting data file: `%s`" key)
   (db/delete! data-files-db key))
 
 (defn store!
   "Expected keys are :filename and :content everything else is optional"
   [{filename :filename :as data-file} group-id]
-  (when (some? (read-data-file filename group-id))
-    (delete-data-file! filename group-id))
-  (log/infof "Storing data file: `%s`" filename)
-  (db/write! data-files-db filename
-             #::data-file{:name      filename
-                          :timestamp (utils/ts-now)
-                          :content   (convert-file data-file)})
+  (let [key (build-key filename group-id)]
+    (when (some? (read-data-file key))
+          (delete-data-file! key))
+    (log/infof "Storing data file: `%s`" filename)
+    (db/write! data-files-db key
+               #::data-file{:name      filename
+                            :timestamp (utils/ts-now)
+                            :content   (convert-file data-file)}))
   filename)
 
 (defn parse-data
