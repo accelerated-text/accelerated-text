@@ -16,7 +16,7 @@
 (defstate dictionary-db :start (db/db-access :dictionary conf))
 
 (defn list-dictionary-items
-  ([] (list-dictionary-items 100))
+  ([] (list-dictionary-items Integer/MAX_VALUE))
   ([limit]
    (db/list! dictionary-db limit)))
 
