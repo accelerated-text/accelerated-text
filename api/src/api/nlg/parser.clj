@@ -1,10 +1,12 @@
 (ns api.nlg.parser
-  (:require [acc-text.nlg.gf.operations :as ops]
+  (:require [acc-text.nlg.dictionary.item :as dict-item]
+            [acc-text.nlg.gf.operations :as ops]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.spec.alpha :as s]
             [clojure.string :as str]
             [clojure.zip :as zip]
+            [data.entities.dictionary :as dict-entity]
             [data.entities.document-plan :as dp-entity]
             [data.entities.document-plan.utils :as dp-utils]
             [data.entities.document-plan.zip :as dp-zip]
@@ -136,13 +138,15 @@
         :relations []})
 
 (defmethod build-semantic-graph :Dictionary-item [{:keys [id itemId name kind position]} _]
-  #::sg{:concepts  [{:id       id
-                     :position position
-                     :type     :dictionary-item
-                     :name     itemId
-                     :label    name
-                     :category kind}]
-        :relations []})
+  #::sg {:concepts  [{:id       id
+                      :position position
+                      :type     :dictionary-item
+                      :name     itemId
+                      :label    name
+                      :category (if-not (nil? kind)         ;; TODO: fix nil category when attaching from quick menu
+                                  kind
+                                  (::dict-item/category (dict-entity/get-dictionary-item itemId)))}]
+         :relations []})
 
 (defmethod build-semantic-graph :Dictionary-item-modifier [{:keys [id itemId name kind position]} _]
   #::sg{:concepts  [{:id       id
@@ -150,7 +154,9 @@
                      :type     :dictionary-item
                      :name     itemId
                      :label    name
-                     :category kind}]
+                     :category (if-not (nil? kind)
+                                 kind
+                                 (::dict-item/category (dict-entity/get-dictionary-item itemId)))}]
         :relations []})
 
 (defmethod build-semantic-graph :Cell-modifier [{:keys [id name position]} _]
