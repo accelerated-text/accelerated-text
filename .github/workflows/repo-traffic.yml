@@ -24,7 +24,7 @@ jobs:
           TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }}
           
       - name: Move traffic files
-        run: mv ./traffic/* ./.stats/traffic/
+        run: sudo mv ./traffic/* ./.stats/traffic/
 
       # Commits files to repository
       - name: Commit changes
