@@ -93,7 +93,7 @@
                   :options cors-handler}]
      ["/accelerated-text-data-files/" {:post (fn [request]
                                                (let [{params :params auth-info :auth-info} (multipart-handler request)
-                                                     id (data-files/store! (get params "file"))]
+                                                     id (data-files/store! (get params "file") (:group-id auth-info))]
                                                  {:status 200
                                                   :body   {:message "Succesfully uploaded file" :id id}}))}]
      ["/swagger.json" {:get {:no-doc  true

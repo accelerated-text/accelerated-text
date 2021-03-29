@@ -3,7 +3,12 @@
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/long
            :db/cardinality :db.cardinality/one
-           :db/doc         "User group Id"}]
+           :db/doc         "User group Id"}
+          {:db/ident       :data.spec.user-group/data-files
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Data-Files under group id"}]
 
          [{:db/ident       :data.spec.data-file/id
            :db/unique      :db.unique/identity

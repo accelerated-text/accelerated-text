@@ -33,19 +33,19 @@
     (str/ends-with? filename ".xlsx") (read-xlsx content)
     :else (slurp content)))
 
-(defn read-data-file [key]
+(defn read-data-file [key group-id]
   (log/infof "Searching for data file: `%s`" key)
   (db/read! data-files-db key))
 
-(defn delete-data-file! [key]
+(defn delete-data-file! [key group-id]
   (log/infof "Deleting data file: `%s`" key)
   (db/delete! data-files-db key))
 
 (defn store!
   "Expected keys are :filename and :content everything else is optional"
-  [{filename :filename :as data-file}]
-  (when (some? (read-data-file filename))
-    (delete-data-file! filename))
+  [{filename :filename :as data-file} group-id]
+  (when (some? (read-data-file filename group-id))
+    (delete-data-file! filename group-id))
   (log/infof "Storing data file: `%s`" filename)
   (db/write! data-files-db filename
              #::data-file{:name      filename
