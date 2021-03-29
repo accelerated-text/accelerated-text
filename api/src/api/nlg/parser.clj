@@ -365,9 +365,9 @@
 
 (declare preprocess-node)
 
-(defn gen-id [{id :srcId :as node}]
+(defn gen-id [{:keys [id srcId] :as node}]
   (-> node
-      (assoc :id (or id (utils/gen-rand-str 20)))
+      (assoc :id (or id srcId (utils/gen-rand-str 20)))
       (dissoc :srcId)))
 
 (defn nil->placeholder [node]
@@ -376,10 +376,10 @@
 (defn rearrange-modifiers [node index]
   (loop [zipper (dp-zip/make-zipper node)
          modifiers []]
-    (let [{:keys [id type child] :as node} (zip/node zipper)]
+    (let [{:keys [type child] :as node} (zip/node zipper)]
       (if-not (and (contains? #{"Dictionary-item-modifier" "Cell-modifier"} type) (some? child))
         (if (seq modifiers)
-          (-> {:id (str id "/mod") :type "Modifier"}
+          (-> {:srcId (str (:srcId node) "/mod") :type "Modifier"}
               (dp-zip/make-node (cons node modifiers))
               (preprocess-node index))
           node)
