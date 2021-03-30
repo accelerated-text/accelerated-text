@@ -79,6 +79,7 @@
   :start (doseq [f (utils/list-files (:dictionary-path conf) #{".edn"})
                  dict-item (read-dictionary-items-from-file f)]
            (let [id (or (::dict-item/id dict-item) (gen-id dict-item))]
-             (create-dictionary-item (assoc dict-item ::dict-item/id id))))
+             (when-not (some? (get-dictionary-item id))
+               (create-dictionary-item (assoc dict-item ::dict-item/id id)))))
   :stop (doseq [{id ::dict-item/id} (list-dictionary-items Integer/MAX_VALUE)]
           (delete-dictionary-item id)))
