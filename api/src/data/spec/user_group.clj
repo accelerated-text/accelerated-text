@@ -6,4 +6,4 @@
 
 (s/def ::data-files (s/coll-of ::data-file/id))
 
-(s/def ::document-plans (s/coll-of string?))
+(s/def ::document-plans (s/coll-of :document-plan/id))

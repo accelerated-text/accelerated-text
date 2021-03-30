@@ -4,14 +4,15 @@
             [clojure.string :as string]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]]
+            [data.entities.user-group :as user-group]))
 
 (defstate document-plans-db :start (db/db-access :document-plan conf))
 
 (defn list-document-plans
-  ([]
+  ([group-id]
    (db/scan! document-plans-db {}))
-  ([kind]
+  ([kind group-id]
    (sort-by :name (filter #(= kind (:kind %)) (db/scan! document-plans-db {})))))
 
 (defn get-document-plan [document-plan-id]
@@ -21,9 +22,11 @@
   (db/delete! document-plans-db document-plan-id))
 
 (defn add-document-plan
-  ([document-plan] (add-document-plan document-plan (or (:id document-plan) (utils/gen-rand-str 16))))
-  ([document-plan provided-id]
-   (db/write! document-plans-db provided-id document-plan true)))
+  ([document-plan group-id] (add-document-plan document-plan (or (:id document-plan) (utils/gen-rand-str 16)) group-id))
+  ([document-plan provided-id group-id]
+   (let [plan (db/write! document-plans-db provided-id document-plan true)]
+     (user-group/link-dp group-id provided-id)
+     plan)))
 
 (defn update-document-plan [document-plan-id document-plan]
   (db/update! document-plans-db document-plan-id document-plan))
