@@ -8,7 +8,8 @@
             [data.entities.document-plan :as dp-entity]
             [data.entities.document-plan.utils :as dp-utils]
             [data.entities.document-plan.zip :as dp-zip]
-            [data.utils :as utils]))
+            [data.utils :as utils]
+            [clojure.tools.logging :as log]))
 
 (def constants #{"*Language" "*Definition" "*Reader"})
 
@@ -431,7 +432,12 @@
               (some? kind) (assoc :kind kind)))))
 
 (defn document-plan->semantic-graph
-  ([{id :id uid :uid name :name kind :kind body :documentPlan blockly-xml :blocklyXml :as dp}]
+  ([{id :document-plan/id
+     uid :document-plan/uid
+     name :document-plan/name
+     kind :document-plan/kind
+     body :document-plan/documentPlan
+     blockly-xml :document-plan/blocklyXml :as dp}]
    (let [labels (dp-utils/get-variable-labels blockly-xml)
          variables (dp-utils/find-variables dp labels)
          context {:labels labels :variables variables}]

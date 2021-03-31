@@ -5,15 +5,16 @@
             [data.db :as db]
             [data.utils :as utils]
             [mount.core :refer [defstate]]
-            [data.entities.user-group :as user-group]))
+            [data.entities.user-group :as user-group]
+            [data.spec.user-group :as ug]))
 
 (defstate document-plans-db :start (db/db-access :document-plan conf))
 
 (defn list-document-plans
   ([group-id]
-   (db/scan! document-plans-db {}))
+   (-> (user-group/get-or-create-group group-id) ::ug/document-plans))
   ([kind group-id]
-   (sort-by :name (filter #(= kind (:kind %)) (db/scan! document-plans-db {})))))
+   (sort-by :name (filter #(= kind (:document-plan/kind %)) (list-document-plans group-id)))))
 
 (defn get-document-plan [document-plan-id]
   (db/read! document-plans-db document-plan-id))
