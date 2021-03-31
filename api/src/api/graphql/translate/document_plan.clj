@@ -17,22 +17,3 @@
 
 (defn dp->schema [dp]
   (update dp :documentPlan json/write-value-as-string))
-
-(defn structured-dp->schema [{id                 :document-plan/id
-                              uid                :document-plan/uid
-                              name               :document-plan/name
-                              kind               :document-plan/kind
-                              blockly-xml        :document-plan/blockly-xml
-                              document-plan      :document-plan/document-plan
-                              data-sample-id     :document-plan/data-sample-id
-                              data-sample-row    :document-plan/data-sample-row
-                              data-sample-method :document-plan/data-sample-method :as dp}]
-  {:id               id
-   :uid              uid
-   :name             name
-   :kind             kind
-   :blocklyXml       blockly-xml
-   :documentPlan     (json/write-value-as-string document-plan)
-   :dataSampleId     data-sample-id
-   :dataSampleRow    data-sample-row
-   :dataSampleMethod data-sample-method})

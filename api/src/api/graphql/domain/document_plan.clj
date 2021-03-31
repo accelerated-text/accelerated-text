@@ -3,6 +3,7 @@
             [clojure.string :as str]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.entities.document-plan :as dp]
+            [data.datomic.entities.document-plan :as dp-e]
             [clojure.tools.logging :as log]))
 
 (defn- resolve-as-not-found-document-plan [id]
@@ -17,16 +18,16 @@
 
 (defn list-document-plans [{:keys [auth-info]} {:keys [offset limit kind] :or {offset 0 limit 100}} _]
   (let [items (if (some? kind) (dp/list-document-plans kind (:group-id auth-info)) (dp/list-document-plans (:group-id auth-info)))]
-    (resolve-as {:items      (->> items
+    (resolve-as (log/spyf :info "List result: %s" {:items      (->> items
                                   (drop offset)
                                   (take limit)
-                                  (map translate-dp/structured-dp->schema)
-                                  (vec)
-                                  (log/spyf :info "Items: %s"))
+                                  (map dp-e/dp->dp)
+                                  (map translate-dp/dp->schema)
+                                  (vec))
                  :kind       kind
                  :limit      limit
                  :offset     offset
-                 :totalCount (count items)})))
+                 :totalCount (count items)}))))
 
 (defn add-document-plan [{:keys [auth-info]} args _]
   (-> (translate-dp/schema->dp args)
