@@ -39,9 +39,9 @@
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
     (testing "Shuffle"
       (let [semantic-graph (test-utils/load-test-semantic-graph "shuffle-test")]
-        (is (= #{"Cafe, pub and restaurant." "Cafe, restaurant and pub."
-                 "Pub, cafe and restaurant." "Pub, restaurant and cafe."
-                 "Restaurant, cafe and pub." "Restaurant, pub and cafe."}
+        (is (= #{"Cafe pub restaurant." "Cafe restaurant pub."
+                 "Pub cafe restaurant." "Pub restaurant cafe."
+                 "Restaurant cafe pub." "Restaurant pub cafe."}
                (into #{} (map :text (core/generate-text semantic-graph {} "Eng")))))))))
 
 (deftest ^:integration amr-generation
