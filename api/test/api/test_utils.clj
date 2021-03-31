@@ -6,6 +6,7 @@
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
             [data.entities.document-plan :as dp]
+            [data.entities.user-group :as user-group]
             [jsonista.core :as json])
   (:import (org.httpkit BytesInputStream)))
 
@@ -53,7 +54,7 @@
 (defn load-document-plan [filename]
   (log/infof "Loading test document plan `%s`" filename)
   (let [{id :id :as dp} (dp/load-document-plan (io/file (format "test/resources/document-plans/%s.json" filename)))]
-    (dp/add-document-plan dp id)
+    (dp/add-document-plan dp id user-group/DUMMY-USER-GROUP-ID)
     id))
 
 (defn load-dictionary [filename]

@@ -2,7 +2,8 @@
   (:require [api.test-utils :refer [q]]
             [api.db-fixtures :as db-fixtures]
             [clojure.test :refer [deftest is use-fixtures]]
-            [data.entities.document-plan :as document-plan]))
+            [data.entities.document-plan :as document-plan]
+            [data.entities.user-group :as user-group]))
 
 (use-fixtures :each db-fixtures/clean-db)
 
@@ -170,7 +171,7 @@
                     :documentPlan))))))
 
 (deftest ^:integration listing-empty-doc-plans
-  (is (= [] (document-plan/list-document-plans)))
+  (is (= [] (document-plan/list-document-plans user-group/DUMMY-USER-GROUP-ID)))
   (let [query "mutation createDocumentPlan($uid: ID! $name: String! $kind: String $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name kind: $kind blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
         _ (q "/_graphql" :post {:query     query
                                 :variables {:uid          "01"
@@ -187,4 +188,4 @@
              :name             "test"
              :kind             "Document"
              :uid              "01"
-             :updateCount      0}] (map #(dissoc % :createdAt :updatedAt :id) (document-plan/list-document-plans))))))
+             :updateCount      0}] (map #(dissoc % :createdAt :updatedAt :id) (document-plan/list-document-plans user-group/DUMMY-USER-GROUP-ID))))))

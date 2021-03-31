@@ -43,4 +43,4 @@
   (doseq [{id :id :as dp}
           (->> (utils/list-files (document-plan-path) #{".json"})
                (map load-document-plan))]
-    (add-document-plan dp id)))
+    (add-document-plan dp id user-group/DUMMY-USER-GROUP-ID)))
