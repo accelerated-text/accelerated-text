@@ -99,7 +99,33 @@
                                          (or (= src dest) (contains? (get path-map lang) [src dest]))))
                                      (graph/successors g node)))
               dest))
-          ["NP" "AP" "Adv" "S"])))
+          ["CN" "NP" "AP" "Adv" "IAdv" "AdV" "RS" "S"])))
+
+(defn get-module [cat]
+  (if (contains? #{"CN" "IAdv" "AdV"} cat)
+    "Grammar"
+    "Syntax"))
+
+(defn base-list [category]
+  (let [module (get-module category)]
+    {:type     :operation
+     :name     (str (if (= "Syntax" module) "mkList" "Base") category)
+     :category (str "List" category)
+     :module   module}))
+
+(defn cons-list [category]
+  (let [module (get-module category)]
+    {:type     :operation
+     :name     (str (if (= "Syntax" module) "mkList" "Cons") category)
+     :category (str "List" category)
+     :module   module}))
+
+(defn conj-list [category]
+  (let [module (get-module category)]
+    {:type     :operation
+     :name     (str (if (= "Syntax" module) "mk" "Conj") category)
+     :category category
+     :module   module}))
 
 (defn build-gf-list-graph [g node lang]
   (let [category (determine-list-category g node lang)]
@@ -109,18 +135,12 @@
              g (let [conj-node (UUID/randomUUID)]
                  (-> g
                      (graph/remove-nodes node)
-                     (uber/add-nodes-with-attrs* [[^:node node {:type     :operation
-                                                                :name     (str "mk" category)
-                                                                :category category
-                                                                :module   "Syntax"}]
+                     (uber/add-nodes-with-attrs* [[^:node node (conj-list category)]
                                                   [^:node conj-node {:type     :operation
                                                                      :name     "and_Conj"
                                                                      :category "Conj"
                                                                      :module   "Syntax"}]
-                                                  [^:node list-node {:type     :operation
-                                                                     :name     (str "mkList" category)
-                                                                     :category (str "List" category)
-                                                                     :module   "Syntax"}]])
+                                                  [^:node list-node (cons-list category)]])
                      (uber/add-directed-edges* (concat
                                                  [[^:edge node conj-node {:role     :arg
                                                                           :index    0
@@ -143,10 +163,7 @@
               successors
               child-node
               (-> g
-                  (uber/add-nodes-with-attrs* [[^:node child-node {:type     :operation
-                                                                   :name     (str "mkList" category)
-                                                                   :category (str "List" category)
-                                                                   :module   "Syntax"}]])
+                  (uber/add-nodes-with-attrs* [[^:node child-node (base-list category)]])
                   (uber/add-directed-edges* [[^:edge list-node successor {:role     :arg
                                                                           :index    0
                                                                           :category category}]
@@ -178,7 +195,8 @@
                       (and
                         (= :synonyms type)
                         (has-str-child? g node)) (restructure-synonym-node node)
-                      (= :sequence type) (build-gf-list-graph node lang))))
+                      (= :sequence type) (build-gf-list-graph node lang)
+                      (= :shuffle type) (build-gf-shuffle-graph node lang))))
           g
           (filter #(let [{type :type} (attrs g %)]
                      (contains? #{:sequence :shuffle :synonyms} type))
