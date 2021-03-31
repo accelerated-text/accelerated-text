@@ -1,0 +1,58 @@
+#:acc-text.nlg.semantic-graph{:id          "PAsZpdZxlPXLjggI",
+                              :uid         "a7a452df-26f5-4113-a3df-5895b1a83a79",
+                              :name        "conditions test",
+                              :kind        "Document",
+                              :category    "Str",
+                              :description "",
+                              :relations   ({:from  "rviqrSdvHPXTyKGwFhQt",
+                                             :to    "PnmqkUxnotmTNrcQJUaI",
+                                             :role  :segment,
+                                             :index 0}
+                                            {:from  "PnmqkUxnotmTNrcQJUaI",
+                                             :to    "B8~qRx`3h;!/%?OET*7e",
+                                             :role  :instance,
+                                             :index 0}
+                                            {:from  "PnmqkUxnotmTNrcQJUaI",
+                                             :to    "PcXg+rL5qp+o^P))Xe(T",
+                                             :role  :instance,
+                                             :index 1}
+                                            {:from  "PcXg+rL5qp+o^P))Xe(T",
+                                             :to    "zJjqYjGHmYlLRefdCgvo",
+                                             :role  :statement,
+                                             :index 0}
+                                            {:from  "PcXg+rL5qp+o^P))Xe(T",
+                                             :to    "RoPYctglDoDubiLYLiFN",
+                                             :role  :statement,
+                                             :index 1}
+                                            {:from "zJjqYjGHmYlLRefdCgvo", :to "B~MYRCE``=QaI%^5-kX,", :role :predicate}
+                                            {:from "zJjqYjGHmYlLRefdCgvo",
+                                             :to   "}T8e:aUbbD-bFgxn7k6[",
+                                             :role :then-expression}
+                                            {:from "RoPYctglDoDubiLYLiFN",
+                                             :to   "r$-a9{F[Bze.jP:U*YqH",
+                                             :role :then-expression}),
+                              :concepts    ({:id "rviqrSdvHPXTyKGwFhQt", :position 1, :type :document-plan}
+                                            {:id "PnmqkUxnotmTNrcQJUaI", :position 2, :type :segment}
+                                            {:id       "B8~qRx`3h;!/%?OET*7e",
+                                             :position 3,
+                                             :type     :data,
+                                             :name     "a",
+                                             :category "Str"}
+                                            {:id "PcXg+rL5qp+o^P))Xe(T", :position 4, :type :condition}
+                                            {:id "zJjqYjGHmYlLRefdCgvo", :position 5, :type :if-statement}
+                                            {:id       "B~MYRCE``=QaI%^5-kX,",
+                                             :position 6,
+                                             :type     :data,
+                                             :name     "c",
+                                             :category "Str"}
+                                            {:id       "}T8e:aUbbD-bFgxn7k6[",
+                                             :position 7,
+                                             :type     :data,
+                                             :name     "c",
+                                             :category "Str"}
+                                            {:id "RoPYctglDoDubiLYLiFN", :position 8, :type :else-statement}
+                                            {:id       "r$-a9{F[Bze.jP:U*YqH",
+                                             :position 9,
+                                             :type     :data,
+                                             :name     "b",
+                                             :category "Str"})}
