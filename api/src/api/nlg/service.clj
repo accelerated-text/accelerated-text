@@ -37,10 +37,11 @@
   (s/keys :opt-un [::request/format]))
 
 (defn generate-request
-  [{data-id :dataId sample-method :sampleMethod data-row :dataRow reader-model :readerFlagValues async :async :as request :or {async true}}]
+  [{data-id :dataId sample-method :sampleMethod data-row :dataRow reader-model :readerFlagValues async :async :as request :or {async true}}
+   {group-id :group-id}]
   (try
     (log/infof "Generate request with %s" (utils/request->text request))
-    (let [{row-index :dataSampleRow :as document-plan} (utils/get-document-plan request)
+    (let [{row-index :dataSampleRow :as document-plan} (utils/get-document-plan request group-id)
           result-id (gen-uuid)
           body {:id            result-id
                 :document-plan document-plan
@@ -61,10 +62,10 @@
       (utils/error-response e "Generate request failure"))))
 
 (defn generate-request-bulk
-  [{reader-model :readerFlagValues data-rows :dataRows :as request}]
+  [{reader-model :readerFlagValues data-rows :dataRows :as request} {group-id :group-id}]
   (try
     (log/infof "Bulk generate request with %s" (utils/request->text request))
-    (let [document-plan (utils/get-document-plan request)]
+    (let [document-plan (utils/get-document-plan request group-id)]
       (doseq [result-id (keys data-rows)]
         (results/write #::result{:id     result-id
                                  :status :pending}))

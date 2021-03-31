@@ -69,8 +69,8 @@
                          :middleware [muuntaja/format-request-middleware
                                       coercion/coerce-request-middleware
                                       coercion/coerce-response-middleware]
-                         :handler    (fn [{{body :body} :parameters}]
-                                       (service/generate-request body))}
+                         :handler    (fn [{{body :body} :parameters auth-info :auth-info}]
+                                       (service/generate-request body auth-info))}
                :options cors-handler}]
      ["/nlg/_bulk/" {:post    {:parameters {:body ::service/generate-request-bulk}
                                :responses  {200 {:body {:resultIds coll?}}}
@@ -79,8 +79,8 @@
                                :middleware [muuntaja/format-request-middleware
                                             coercion/coerce-request-middleware
                                             coercion/coerce-response-middleware]
-                               :handler    (fn [{{body :body} :parameters}]
-                                             (service/generate-request-bulk body))}
+                               :handler    (fn [{{body :body} :parameters auth-info :auth-info}]
+                                             (service/generate-request-bulk body auth-info))}
                      :options cors-handler}]
      ["/nlg/:id" {:get     {:parameters {:query ::service/get-result
                                          :path  {:id string?}}
