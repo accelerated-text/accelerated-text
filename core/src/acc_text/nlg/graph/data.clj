@@ -1,8 +1,6 @@
 (ns acc-text.nlg.graph.data
   (:require [acc-text.nlg.graph.utils :refer [find-nodes get-in-edge]]
-            [loom.attr :refer [attrs]]
-            [clojure.tools.logging :as log]
-            [clojure.string :as str]))
+            [loom.attr :refer [attrs]]))
 
 (defn get-data [data key]
   (if (contains? data key)
