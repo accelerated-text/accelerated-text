@@ -4,12 +4,12 @@
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [data.entities.amr :as amr-entity]))
 
-(defn list-concepts [_ _ _]
+(defn list-concepts [{:keys [auth-info]} _ _]
   (resolve-as
     (merge
       {:id         "concepts"
        :concepts   []
-       :amr        (->> (amr-entity/list-amrs)
+       :amr        (->> (amr-entity/list-amrs (:group-id auth-info))
                         (map concept-translate/amr->schema)
                         (sort-by :id))
        :rgl        (->> (concat ops/syntax ops/extra)
@@ -17,7 +17,7 @@
                         (map concept-translate/operation->schema))
        :structural (map concept-translate/operation->schema ops/structural-words)
        :grammar    (map concept-translate/operation->schema ops/grammar)
-       :paradigms  (->> (amr-entity/list-rgls)
+       :paradigms  (->> (amr-entity/list-rgls (:group-id auth-info))
                         (map concept-translate/amr->schema)
                         (sort-by :id))}
       (->> ops/paradigms

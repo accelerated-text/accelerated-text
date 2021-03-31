@@ -7,11 +7,11 @@
 (defn get-amr [id]
   (some-> id (dp/get-document-plan) (document-plan->semantic-graph)))
 
-(defn list-amrs []
-  (map document-plan->semantic-graph (dp/list-document-plans "AMR" user-group/DUMMY-USER-GROUP-ID)))
+(defn list-amrs [group-id]
+  (map document-plan->semantic-graph (dp/list-document-plans "AMR" group-id)))
 
-(defn list-rgls []
-  (map document-plan->semantic-graph (dp/list-document-plans "RGL" user-group/DUMMY-USER-GROUP-ID)))
+(defn list-rgls [group-id]
+  (map document-plan->semantic-graph (dp/list-document-plans "RGL" group-id)))
 
 (defn find-amrs [semantic-graph]
   (loop [amr-ids (sg-utils/get-amr-ids semantic-graph)
