@@ -104,11 +104,16 @@ export default ChildComponent =>
             });
         };
 
+        onUpdatePreview = data => {
+            this.context.previewData = data;
+        }
+
         render = ( props, state ) =>
             <ChildComponent
                 onCreatePlan={ this.onCreate }
                 onDeletePlan={ this.onDelete }
                 onUpdatePlan={ this.onUpdate }
+                onUpdatePreview={ this.onUpdatePreview }
                 planStatus={ state }
                 { ...props }
             />;

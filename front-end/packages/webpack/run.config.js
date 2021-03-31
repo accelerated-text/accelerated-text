@@ -16,6 +16,7 @@ export default config({
             DIST,
             ASSETS,
         ],
+        disableHostCheck: true,
         historyApiFallback: true,
         hot:            true,
         open:           false,

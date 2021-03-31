@@ -52,6 +52,7 @@
                       #'data.entities.reader-model/language-conf
                       #'data.entities.dictionary/dictionary-db
                       #'data.entities.results/results-db
+                      #'data.entities.results/results-cache
                       #'data.datomic.impl/conn})
         (mount/start)))
   (f))

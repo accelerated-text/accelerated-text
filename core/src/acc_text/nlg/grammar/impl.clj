@@ -20,10 +20,16 @@
 
 (def data-types #{:data :quote :dictionary-item})
 
+(defn get-dict-item-name [{:keys [label category]}]
+  (-> label
+      (str/replace #"-" "_")
+      (cond-> (not (re-find (re-pattern (format "_%s$" category)) label))
+              (str "_" category))))
+
 (defn node->cat [graph node-id]
   (let [{:keys [type position] :as attrs} (attrs graph node-id)]
     (case type
-      :dictionary-item (str/replace (:label attrs) #"-" "_")
+      :dictionary-item (get-dict-item-name attrs)
       (str (str/replace (name type) #"-" "_")
            (format "%02d" (or position 0))))))
 
@@ -145,8 +151,8 @@
 
 (defn build-dictionary-operations [context]
   (map (fn [{::dict-item/keys [key category] :as dict-item}]
-         (let [resolved-item (dictionary/resolve-dict-item dict-item)]
-           [(str/replace key #"-" "_")
+         (let [resolved-item (or (dictionary/resolve-operation dict-item) (dictionary/resolve-dict-item dict-item))]
+           [(get-dict-item-name {:label key :category category})
             category
             (if (string? resolved-item)
               resolved-item

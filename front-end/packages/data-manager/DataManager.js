@@ -33,6 +33,10 @@ export default PlanActions( composeQueries({
              dataSampleMethod,
          });
 
+     onChangePreviewData = data => {
+        this.props.onUpdatePreview(data);
+     }
+
     render({
         listDataFiles: {
             error,
@@ -58,6 +62,7 @@ export default PlanActions( composeQueries({
                         onChangeRow={ this.onChangeRow }
                         selectedRow={ plan.dataSampleRow }
                         onChangeMethod={ this.onChangeMethod }
+                        onChangePreviewData={ this.onChangePreviewData }
                     />
                 }
             </div>

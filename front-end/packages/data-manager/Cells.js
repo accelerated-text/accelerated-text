@@ -1,5 +1,6 @@
 import classnames           from 'classnames';
 import { h }                from 'preact';
+import { useEffect }        from 'preact/hooks';
 import { pathOr }           from 'ramda';
 
 import CellBlock            from '../nlg-blocks/Cell';
@@ -34,23 +35,37 @@ export default composeQueries({
     onChangeRow,
     selectedRow,
     onChangeMethod,
+    onChangePreviewData,
 }) => {
+
+    useEffect(() => {
+        onChangeData(0);
+    }, [getRelevantSamples]);
+
     const valueDict = dataFieldsToObj(
         pathOr([], [ 'records', selectedRow, 'fields' ], getRelevantSamples ),
     );
 
+    const onChangeData = (idx) => {
+        if(getRelevantSamples === undefined){
+            return;
+        }
+        const data = Object.assign({}, ...getRelevantSamples.records[idx].fields.map( f => ({[f.fieldName]: f.value}) ));
+        onChangePreviewData(data);
+        onChangeRow(idx);
+    };
+
     const refetchData = (method) => {
-        onChangeMethod(method)
-        refetch()
-    }
-/*<SampleAlgorithm
-                    onChange={ refetchData }
-                    value={ method }
-                />*/
+        onChangeMethod(method);
+        refetch();
+    };
 
     return (
     <div>
-
+        <SampleAlgorithm
+                onChange={ refetchData }
+                value={ method }
+         />
         <table className={ classnames( S.className, className, QA.DATA_MANAGER_CELL_TABLE ) }>
             <thead>
                 <tr>
@@ -66,7 +81,7 @@ export default composeQueries({
                             ? <RowSelector
                                 nextClassName={ QA.DATA_MANAGER_ROW_NEXT }
                                 previousClassName={ QA.DATA_MANAGER_ROW_PREVIOUS }
-                                onChange={ onChangeRow }
+                                onChange={ onChangeData }
                                 rows={ getRelevantSamples.records }
                                 selectClassName={ classnames( S.selectRow, QA.DATA_MANAGER_ROW_SELECT ) }
                                 selected={ selectedRow }

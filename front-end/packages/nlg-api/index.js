@@ -8,7 +8,7 @@ export const fetch = async ( path, options = {}) => {
 
     const response =    await unfetch( `${ BASE_URL }${ path }`, {
         mode:           'cors',
-        credentials:    'omit',
+        credentials:    process.env.ACC_TEXT_CREDENTIALS || 'omit',
         cache:          'no-cache',
         ...options,
     });

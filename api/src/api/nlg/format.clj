@@ -10,7 +10,7 @@
 (def default-format-type "annotated-text-shallow")
 
 (defn show-flags? []
-  (Boolean/valueOf ^String (or (System/getenv "SHOW_FLAGS") "true")))
+  (Boolean/valueOf ^String (or (System/getenv "SHOW_FLAGS") "false")))
 
 (def error-flag {:type "FLAG"
                  :id   "ERROR"

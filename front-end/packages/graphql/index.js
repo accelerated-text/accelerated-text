@@ -20,7 +20,7 @@ export const cache =        new InMemoryCache({
 
 export const client = new ApolloClient({
     cache,
-    credentials:            'omit',
+    credentials:            process.env.ACC_TEXT_CREDENTIALS || 'omit',
     typeDefs,
     uri:                    process.env.ACC_TEXT_GRAPHQL_URL,
 });
