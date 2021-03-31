@@ -7,9 +7,7 @@
 (defn get-data [data key]
   (if (contains? data key)
     (get data key)
-    (do
-      (log/warnf "Missing value for data cell: `%s`" key)
-      "")))
+    (throw (Exception. (format "Missing value for data cell: `%s`" key)))))
 
 (defn find-data-category [g node-id]
   (let [edge-attrs (->> node-id (get-in-edge g) (attrs g))
@@ -28,7 +26,7 @@
   (reduce (fn [g [node-id {key :name}]]
             (let [category (find-data-category g node-id)
                   value (get-data data key)]
-              (update-in g [:attrs node-id] #(merge % (if (and (not (str/blank? value)) (contains? dictionary [value category]))
+              (update-in g [:attrs node-id] #(merge % (if (contains? dictionary [value category])
                                                         {:type     :dictionary-item
                                                          :name     (format "%s_%s_%s" value category lang)
                                                          :label    value
