@@ -15,7 +15,7 @@
 (defn dictionary [_ _ _]
   (->> (dict-entity/list-dictionary-items)
        (map translate-dict/dictionary-item->schema)
-       (sort-by :name)
+       (sort-by #(-> [(:partOfSpeech %) (:name %)]))
        (translate-core/paginated-response)
        (resolve-as)))
 

@@ -1,5 +1,6 @@
 (ns api.nlg.core
-  (:require [acc-text.nlg.core :as nlg]
+  (:require [api.config :refer [conf]]
+            [acc-text.nlg.core :as nlg]
             [acc-text.nlp.utils :as nlp]
             [acc-text.nlg.semantic-graph.utils :refer [get-dictionary-keys]]
             [api.nlg.ref-expr :refer [enable-ref-expr? apply-ref-expressions]]
@@ -10,11 +11,21 @@
             [clojure.tools.logging :as log]
             [data.entities.amr :refer [find-amrs]]
             [data.entities.dictionary :refer [build-dictionaries]]
+            [data.entities.results :as results]
             [data.entities.reader-model :refer [available-reader-model]]
             [data.spec.reader-model :as reader-model]
             [data.spec.result :as result]
             [data.spec.result.annotation :as annotation]
             [data.spec.result.row :as row]))
+
+(defn deduplicate [results]
+  (map first (vals (group-by :text results))))
+
+(defn with-cache [request-hash {id ::result/id :as result}]
+  (when (:enable-cache conf)
+    (log/debugf "Caching result `%s`" id)
+    (results/write-cached-result request-hash id))
+  result)
 
 (defn add-annotations [{text ::row/text :as row}]
   (assoc row ::row/annotations (mapv (fn [{:keys [idx text]}]
@@ -42,24 +53,32 @@
         amrs (find-amrs semantic-graph)
         semantic-graphs (cons semantic-graph amrs)
         dictionary-keys (set (concat (vals data) (mapcat get-dictionary-keys semantic-graphs)))
-        dictionaries (build-dictionaries dictionary-keys languages)]
+        context {:amr        amrs
+                 :data       data
+                 :readers    readers
+                 :dictionary (build-dictionaries dictionary-keys languages)}
+        request-hash (hash [semantic-graph context languages])]
     (try
-      #::result{:id     id
-                :status :ready
-                :rows   (transduce
-                          (comp
-                            (mapcat (fn [lang]
-                                      (let [context {:amr        amrs
-                                                     :data       data
-                                                     :readers    readers
-                                                     :dictionary (get dictionaries lang [])}]
-                                        (cond-> (nlg/generate-text semantic-graph context lang)
-                                                (and (= "Eng" lang) (enable-enrich?)) (enrich data)))))
-                            (remove #(str/blank? (:text %)))
-                            (map ->result-row)
-                            (map add-annotations))
-                          conj
-                          languages)}
+      (if-let [cached-result (when (:enable-cache conf) (results/fetch-cached-result request-hash))]
+        (do
+          (log/infof "Found cached result `%s`" (::result/id cached-result))
+          (assoc cached-result ::result/id id))
+        (with-cache
+          request-hash
+          #::result{:id     id
+                    :status :ready
+                    :rows   (transduce
+                              (comp
+                                (mapcat (fn [lang]
+                                          (let [context (update context :dictionary #(get % lang []))]
+                                            (cond-> (nlg/generate-text semantic-graph context lang)
+                                                    (and (= "Eng" lang) (enable-enrich?)) (enrich data)
+                                                    (:remove-duplicates conf) (deduplicate)))))
+                                (remove #(str/blank? (:text %)))
+                                (map ->result-row)
+                                (map add-annotations))
+                              conj
+                              languages)}))
       (catch Exception e
         (log/error (.getMessage e))
         (log/trace (str/join "\n" (.getStackTrace e)))

@@ -60,8 +60,9 @@
                         oper))))
 
 (defn ->resource [lang {::grammar/keys [module oper]}]
-  (format "resource %sLex%s = open Syntax%s, Grammar%s, Paradigms%s, Morpho%s in {%s\n}"
+  (format "resource %sLex%s = open Syntax%s, Grammar%s, Paradigms%s, Res%s, Morpho%s in {%s\n}"
           module
+          lang
           lang
           lang
           lang
