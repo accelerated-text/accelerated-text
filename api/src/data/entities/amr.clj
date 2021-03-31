@@ -16,7 +16,7 @@
   (loop [amr-ids (sg-utils/get-amr-ids semantic-graph)
          output '()]
     (if-not (seq amr-ids)
-      (vec output)
+      (set output)
       (let [amrs (map get-amr amr-ids)]
         (recur
           (remove nil? (mapcat sg-utils/get-amr-ids amrs))

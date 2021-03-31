@@ -641,8 +641,7 @@
     (let [dict-item (add-ns #::dict-item{:key        "and_Conj"
                                          :category   "Conj"
                                          :language   "Eng"
-                                         :forms      ["and"]
-                                         :attributes {"Number" "singular"}})
+                                         :forms      ["and"]})
           dict-item-graph (resolve-dict-item dict-item)
           document-plan (gen-id)
           segment (gen-id)

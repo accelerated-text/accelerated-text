@@ -29,17 +29,21 @@ enum PartOfSpeech {
     AdV
     Adv
     Conj
+    Det
     IP
     Interj
     N
     N2
     N3
     NP
+    PConj
     PN
     Post
+    Predet
     Prep
     Pron
     Quant
+    RP
     Subj
     V
     V2
@@ -52,6 +56,7 @@ enum PartOfSpeech {
     VQ
     VS
     VV
+    Voc
 }
 
 ### Data -----------------------------------------------------------------------
