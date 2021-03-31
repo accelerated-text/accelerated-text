@@ -12,7 +12,7 @@
    :db-implementation    (when-let [db-implementation (or (System/getenv "DB_IMPLEMENTATION") "datomic")]
                            (keyword db-implementation))
    :db-uri               (System/getenv "DB_URI")
-   :display-error        (Boolean/valueOf (System/getenv "DISPLAY_ERROR"))
+   :display-error        (Boolean/valueOf ^String (or (System/getenv "DISPLAY_ERROR") "TRUE"))
    :enabled-languages    (set (read-conf-line (or (System/getenv "ENABLED_LANGUAGES") "Eng")))
    :enabled-readers      (set (read-conf-line (or (System/getenv "ENABLED_READERS") "")))
    :config-path          (or (System/getenv "CONFIG_PATH") (io/resource "config"))
