@@ -438,12 +438,7 @@
               (some? kind) (assoc :kind kind)))))
 
 (defn document-plan->semantic-graph
-  ([{id :document-plan/id
-     uid :document-plan/uid
-     name :document-plan/name
-     kind :document-plan/kind
-     body :document-plan/documentPlan
-     blockly-xml :document-plan/blocklyXml :as dp}]
+  ([{id :id uid :uid name :name kind :kind body :documentPlan blockly-xml :blocklyXml :as dp}]
    (let [labels (dp-utils/get-variable-labels blockly-xml)
          variables (dp-utils/find-variables dp labels)
          context {:labels labels :variables variables}]
