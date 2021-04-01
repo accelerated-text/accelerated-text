@@ -30,6 +30,7 @@ enum PartOfSpeech {
     Adv
     Conj
     Det
+    IAdv
     IP
     Interj
     N
