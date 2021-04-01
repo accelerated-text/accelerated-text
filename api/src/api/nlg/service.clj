@@ -45,7 +45,7 @@
           result-id (gen-uuid)
           body {:id            result-id
                 :document-plan document-plan
-                :data          (or data-row (utils/get-data-row data-id (or sample-method "first") (or row-index 0)) {})
+                :data          (or data-row (utils/get-data-row data-id (or sample-method "first") (or row-index 0) group-id) {})
                 :reader-model  (map reader-model/update! (utils/form-reader-model reader-model))}]
       (results/write #::result{:id     result-id
                                :status :pending})

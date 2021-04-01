@@ -4,7 +4,8 @@
             [clojure.string :as str]
             [clojure.test :refer [deftest is use-fixtures testing]]
             [data.entities.data-files :as data-files]
-            [data.spec.data-file :as data-file]))
+            [data.spec.data-file :as data-file]
+            [data.entities.user-group :as user-group]))
 
 (use-fixtures :each db/clean-db)
 
@@ -49,6 +50,6 @@
 (deftest ^:integration reading-data-file-contents
   (testing "Read books.csv headers"
     (let [data-file-id (load-data-file "books.csv")
-          result (data-files/read-data-file data-file-id)
+          result (data-files/read-data-file data-file-id user-group/DUMMY-USER-GROUP-ID)
           headers (-> result (get ::data-file/content) (str/split-lines) (first) (str/split #",") (set))]
       (is (= #{"authors" "categories" "pageCount" "publishedDate" "publisher" "subtitle" "title"} headers)))))

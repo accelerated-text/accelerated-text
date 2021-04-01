@@ -18,7 +18,6 @@
 (defn build-key [filename group-id]
   (str group-id "#" filename))
 
-
 (defn read-xlsx [content]
   (with-open [is (io/input-stream content)]
     (->> is
@@ -39,20 +38,20 @@
     (str/ends-with? filename ".xlsx") (read-xlsx content)
     :else (slurp content)))
 
-(defn read-data-file [key]
+(defn read-data-file [key group-id]
   (log/infof "Searching for data file: `%s`" key)
-  (db/read! data-files-db key))
+  (db/read! data-files-db (build-key key group-id)))
 
-(defn delete-data-file! [key]
+(defn delete-data-file! [key group-id]
   (log/infof "Deleting data file: `%s`" key)
-  (db/delete! data-files-db key))
+  (db/delete! data-files-db (build-key key group-id)))
 
 (defn store!
   "Expected keys are :filename and :content everything else is optional"
   [{filename :filename :as data-file} group-id]
   (let [key (build-key filename group-id)]
-    (when (some? (read-data-file key))
-          (delete-data-file! key))
+    (when (some? (read-data-file filename group-id))
+          (delete-data-file! filename group-id))
     (log/infof "Storing data file: `%s`" filename)
     (db/write! data-files-db key
                #::data-file{:name      filename
@@ -94,8 +93,8 @@
      :recordLimit  limit
      :recordCount  total}))
 
-(defn fetch-most-relevant [id offset limit]
-  (let [{:keys [filename header rows total]} (some-> id (read-data-file) (parse-data))
+(defn fetch-most-relevant [id offset limit group-id]
+  (let [{:keys [filename header rows total]} (some-> (read-data-file id group-id) (parse-data))
         sampled-rows                         (row-selection/sample rows (:relevant-items-limit conf))
         m                                    (row-selection/distance-matrix sampled-rows)
         selected-rows                        (drop offset (row-selection/select-rows m sampled-rows limit))]
@@ -117,9 +116,8 @@
      :recordLimit  limit
      :recordCount  total}))
 
-(defn fetch [id offset limit]
-  (some-> id
-          (read-data-file)
+(defn fetch [id offset limit group-id]
+  (some-> (read-data-file id group-id)
           (read-content offset limit)))
 
 (defn listing

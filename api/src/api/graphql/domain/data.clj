@@ -9,16 +9,16 @@
 (defn get-data-file [{:keys [auth-info]}
                      {:keys [id recordOffset recordLimit]
                       :or   {recordOffset 0 recordLimit 20}} _]
-  (if-let [data-file (data-files/fetch (str (:group-id auth-info) "#" id) recordOffset recordLimit)]
+  (if-let [data-file (data-files/fetch id recordOffset recordLimit (:group-id auth-info))]
     (resolve-as data-file)
     (resolve-as-not-found-file id)))
 
-(defn get-relevant-samples [_ {:keys [id method recordOffset recordLimit]
+(defn get-relevant-samples [{:keys [auth-info]} {:keys [id method recordOffset recordLimit]
                                :or {recordOffset 0 recordLimit 20 method "relevant"}} _]
   (let [data-fn (case method
                       "relevant" data-files/fetch-most-relevant
                       "first"    data-files/fetch)]
-    (if-let [data-file (data-fn id recordOffset recordLimit)]
+    (if-let [data-file (data-fn id recordOffset recordLimit (:group-id auth-info))]
       (resolve-as data-file)
       (resolve-as-not-found-file id))))
 
