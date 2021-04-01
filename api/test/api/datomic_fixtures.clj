@@ -7,6 +7,7 @@
             [data.entities.document-plan]
             [data.entities.reader-model]
             [data.entities.results]
+            [data.entities.user-group]
             [datomic.api :as d]
             [mount.core :as mount])
   (:import (java.util UUID)))
@@ -53,6 +54,7 @@
                       #'data.entities.dictionary/dictionary-db
                       #'data.entities.results/results-db
                       #'data.entities.results/results-cache
+                      #'data.entities.user-group/user-group-db
                       #'data.datomic.impl/conn})
         (mount/start)))
   (f))

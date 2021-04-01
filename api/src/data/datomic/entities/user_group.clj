@@ -11,7 +11,6 @@
   (d/pull (d/db conn) pattern [::user-group/id key]))
 
 (defn update! [conn key data]
-  (println data)
   @(d/transact conn [(remove-nil-vals
                       {:db/id                      [::user-group/id key]
                        ::user-group/data-files     (::user-group/data-files data)

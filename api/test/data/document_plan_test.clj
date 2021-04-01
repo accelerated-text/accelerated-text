@@ -24,7 +24,7 @@
              (set (keys resp))))
       (is (string? id))
 
-      (let [{doc-plan :documentPlan} (document-plan/get-document-plan id user-group/DUMMY-USER-GROUP-ID)]
+      (let [{doc-plan :documentPlan} (document-plan/get-document-plan id)]
         (is (= {:segments
                        [{:children [{:name "title" :type "Cell" :srcId "isiyTw"}]
                          :type     "Segment"
@@ -58,7 +58,7 @@
              (set (keys resp))))
       (is (string? id))
 
-      (let [{doc-plan :documentPlan} (document-plan/get-document-plan id user-group/DUMMY-USER-GROUP-ID)]
+      (let [{doc-plan :documentPlan} (document-plan/get-document-plan id)]
         (is (= {:segments [{:children [{:conceptId      "author"
                                         :dictionaryItem {:itemId "VB-author"
                                                          :name   "author"
@@ -98,7 +98,7 @@
            (set (keys resp))))
     (is (string? id))
 
-    (let [{doc-plan :documentPlan} (document-plan/get-document-plan id user-group/DUMMY-USER-GROUP-ID)]
+    (let [{doc-plan :documentPlan} (document-plan/get-document-plan id)]
       (is (= {:segments [{:children [{:child  {:name  "title"
                                                :srcId "k1*3(#7IWxHal=%)AdyQ"
                                                :type  "Cell"}
