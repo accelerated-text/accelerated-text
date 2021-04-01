@@ -163,7 +163,8 @@
               successors
               child-node
               (-> g
-                  (uber/add-nodes-with-attrs* [[^:node child-node (cons-list category)]])
+                  (uber/add-nodes-with-attrs* [[^:node list-node (cons-list category)]
+                                               [^:node child-node (base-list category)]])
                   (uber/add-directed-edges* [[^:edge list-node successor {:role     :arg
                                                                           :index    0
                                                                           :category category}]

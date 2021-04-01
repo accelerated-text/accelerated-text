@@ -42,7 +42,19 @@
         (is (= #{"Cafe, pub and restaurant." "Cafe, restaurant and pub."
                  "Pub, cafe and restaurant." "Pub, restaurant and cafe."
                  "Restaurant, cafe and pub." "Restaurant, pub and cafe."}
-               (into #{} (map :text (core/generate-text semantic-graph {} "Eng")))))))))
+               (into #{} (map :text (core/generate-text semantic-graph {} "Eng")))))))
+    (testing "List with different arity"
+      (let [semantic-graph (test-utils/load-test-semantic-graph "list-arity-test")]
+        (is (= #{"Cat. Cat and house. Cat, house and apple."}
+               (into #{} (map :text (core/generate-text semantic-graph {} "Eng")))))))
+    (testing "List categories"
+      (let [semantic-graph (test-utils/load-test-semantic-graph "list-categories-test")
+            context (test-utils/load-test-context "list-categories-test")]
+        (is (= (set (list (str/join " " ["Cat and house." "Cat and house." "Nobody and nothing." "Big and friendly."
+                                         "Everywhere and somewhere." "Where and when. Always and always."
+                                         "House such that there is a cat and such that there is an apple."
+                                         "There is a cat and there is an apple."])))
+               (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))))
 
 (deftest ^:integration amr-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "amr-test")

@@ -1,0 +1,104 @@
+#:acc-text.nlg.semantic-graph{:id          "PAsZpdZxlPXLjggI",
+                              :uid         "a7a452df-26f5-4113-a3df-5895b1a83a79",
+                              :name        "on the hill",
+                              :kind        "Document",
+                              :category    "Str",
+                              :description "Big house on the hill.",
+                              :relations   #{{:from  "j@~x,qUZV+h|ru5HuQfI",
+                                              :to    "T{A}6g5_@q9az6ZO7Fg8",
+                                              :role  :item,
+                                              :index 0}
+                                             {:from  "j@~x,qUZV+h|ru5HuQfI",
+                                              :to    "7-7bf}u=@_@bficM(nZ0",
+                                              :role  :item,
+                                              :index 1}
+                                             {:from  "#EToZy,tQ_F-O.d2McJ@",
+                                              :to    ".OCp})CYB!r3Toe{2Vtq",
+                                              :role  :instance,
+                                              :index 1}
+                                             {:from  "#EToZy,tQ_F-O.d2McJ@",
+                                              :to    "=,pa%v)FrI.(IUI]#$vv",
+                                              :role  :instance,
+                                              :index 4}
+                                             {:from  ".OCp})CYB!r3Toe{2Vtq",
+                                              :to    "P6Ia18{ULaJa{d*{Z_Gc",
+                                              :role  :item,
+                                              :index 0}
+                                             {:from  "#EToZy,tQ_F-O.d2McJ@",
+                                              :to    "P2U;+-(kw75Rxa[L!;PT",
+                                              :role  :instance,
+                                              :index 5}
+                                             {:from  "#EToZy,tQ_F-O.d2McJ@",
+                                              :to    "M0qnZ7IP:p3b!Umi7UMW",
+                                              :role  :instance,
+                                              :index 0}
+                                             {:from  "P2U;+-(kw75Rxa[L!;PT",
+                                              :to    "/gePiACV(mEonJV=z4s9",
+                                              :role  :item,
+                                              :index 0}
+                                             {:from  "P2U;+-(kw75Rxa[L!;PT",
+                                              :to    "EEVzpT}LPIPIw%+NOdR;",
+                                              :role  :item,
+                                              :index 2}
+                                             {:from  "rviqrSdvHPXTyKGwFhQt",
+                                              :to    "#EToZy,tQ_F-O.d2McJ@",
+                                              :role  :segment,
+                                              :index 0}
+                                             {:from  "P2U;+-(kw75Rxa[L!;PT",
+                                              :to    "]Tw8;y24aWZvC?aW{yC-",
+                                              :role  :item,
+                                              :index 1}
+                                             {:from  "#EToZy,tQ_F-O.d2McJ@",
+                                              :to    "j@~x,qUZV+h|ru5HuQfI",
+                                              :role  :instance,
+                                              :index 3}
+                                             {:from  "#EToZy,tQ_F-O.d2McJ@",
+                                              :to    "NIwpJQF_FK4FhO8p;;B(",
+                                              :role  :instance,
+                                              :index 2}},
+                              :concepts    #{{:id "rviqrSdvHPXTyKGwFhQt", :position 1, :type :document-plan}
+                                             {:id       "NIwpJQF_FK4FhO8p;;B(",
+                                              :position 6,
+                                              :type     :quote,
+                                              :value    ".",
+                                              :category "Str"}
+                                             {:id       "/gePiACV(mEonJV=z4s9",
+                                              :position 12,
+                                              :type     :quote,
+                                              :value    "cat",
+                                              :category "Str"}
+                                             {:id       "P6Ia18{ULaJa{d*{Z_Gc",
+                                              :position 5,
+                                              :type     :quote,
+                                              :value    "cat",
+                                              :category "Str"}
+                                             {:id "j@~x,qUZV+h|ru5HuQfI", :position 7, :type :sequence}
+                                             {:id "P2U;+-(kw75Rxa[L!;PT", :position 11, :type :sequence}
+                                             {:id "#EToZy,tQ_F-O.d2McJ@", :position 2, :type :segment}
+                                             {:id "M0qnZ7IP:p3b!Umi7UMW", :position 3, :type :sequence}
+                                             {:id       "T{A}6g5_@q9az6ZO7Fg8",
+                                              :position 8,
+                                              :type     :quote,
+                                              :value    "cat",
+                                              :category "Str"}
+                                             {:id ".OCp})CYB!r3Toe{2Vtq", :position 4, :type :sequence}
+                                             {:id       "]Tw8;y24aWZvC?aW{yC-",
+                                              :position 13,
+                                              :type     :quote,
+                                              :value    "house",
+                                              :category "Str"}
+                                             {:id       "7-7bf}u=@_@bficM(nZ0",
+                                              :position 9,
+                                              :type     :quote,
+                                              :value    "house",
+                                              :category "Str"}
+                                             {:id       "=,pa%v)FrI.(IUI]#$vv",
+                                              :position 10,
+                                              :type     :quote,
+                                              :value    ".",
+                                              :category "Str"}
+                                             {:id       "EEVzpT}LPIPIw%+NOdR;",
+                                              :position 14,
+                                              :type     :quote,
+                                              :value    "apple",
+                                              :category "Str"}}}
