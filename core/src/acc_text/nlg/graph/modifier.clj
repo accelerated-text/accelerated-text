@@ -88,7 +88,7 @@
       (cond
         (= "Punct" modifier-cat) (uber/multidigraph
                                    [^:node node {:type :operation, :name "mkText", :category "Text", :module "Syntax"}]
-                                   [^:edge node child {:role :arg :index 0 :category "Text"}]
+                                   [^:edge node child {:role :arg :index 0 :category "Utt"}]
                                    [^:edge node modifier {:role :arg :index 1}])
         (and
           (some? child-node)
