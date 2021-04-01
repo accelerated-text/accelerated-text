@@ -6,9 +6,10 @@
 (defn- resolve-as-not-found-file [id]
   (resolve-as nil {:message (format "Cannot find data file with id `%s`." id)}))
 
-(defn get-data-file [_ {:keys [id recordOffset recordLimit]
-                        :or   {recordOffset 0 recordLimit 20}} _]
-  (if-let [data-file (data-files/fetch id recordOffset recordLimit)]
+(defn get-data-file [{:keys [auth-info]}
+                     {:keys [id recordOffset recordLimit]
+                      :or   {recordOffset 0 recordLimit 20}} _]
+  (if-let [data-file (data-files/fetch (str (:group-id auth-info) "#" id) recordOffset recordLimit)]
     (resolve-as data-file)
     (resolve-as-not-found-file id)))
 
