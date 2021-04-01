@@ -140,7 +140,7 @@
                                                                      :name     "and_Conj"
                                                                      :category "Conj"
                                                                      :module   "Syntax"}]
-                                                  [^:node list-node (cons-list category)]])
+                                                  [^:node list-node (base-list category)]])
                      (uber/add-directed-edges* (concat
                                                  [[^:edge node conj-node {:role     :arg
                                                                           :index    0
@@ -163,7 +163,7 @@
               successors
               child-node
               (-> g
-                  (uber/add-nodes-with-attrs* [[^:node child-node (base-list category)]])
+                  (uber/add-nodes-with-attrs* [[^:node child-node (cons-list category)]])
                   (uber/add-directed-edges* [[^:edge list-node successor {:role     :arg
                                                                           :index    0
                                                                           :category category}]
@@ -185,7 +185,7 @@
                   (build-gf-list-graph list-node lang))))
           (-> g
               (graph/remove-edges* (graph/out-edges g node))
-              (assoc-in [:attrs node :type] :synonyms))
+              (update-in [:attrs node] #(-> % (assoc :type :synonyms) (dissoc :category))))
           (remove empty? (permutations (graph/successors g node)))))
 
 (defn resolve-lists [g {{lang "*Language"} :constants}]
