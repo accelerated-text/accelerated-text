@@ -67,22 +67,26 @@
     ["Adv" "N"] ["Adv" "S"]
     ["Adv" "Str"] ["Adv" "S"]
     ["Adv" "A"] ["Adv" "S"]
-    ["Punct" "Phr"] ["Punct" "Phr"]
     (->> (cartesian-product (find-path-to-utt lang modifier-cat) (find-path-to-utt lang child-cat))
          (some #(when (contains? (get modifier-map lang) %) %))
          (validate-cats lang [modifier-cat child-cat]))))
 
 (defn resolve-modifier [g node modifier child lang]
-  (let [[modifier-cat child-cat] (sync-categories
-                                   lang
-                                   (find-category g modifier)
-                                   (find-category g child))]
+  (let [modifier-cat (find-category g modifier)
+        child-cat (find-category g child)]
     (uber/build-graph
       g
-      (uber/multidigraph
-        [^:node node (first (get-in modifier-map [lang [modifier-cat child-cat]]))]
-        [^:edge node modifier {:role :arg :index 0 :category modifier-cat}]
-        [^:edge node child {:role :arg :index 1 :category child-cat}]))))
+      (cond
+        (= "Punct" modifier-cat) (uber/multidigraph
+                                   [^:node node {:type :operation, :name "mkText", :category "Text", :module "Syntax"}]
+                                   [^:edge node child {:role :arg :index 0 :category "Text"}]
+                                   [^:edge node modifier {:role :arg :index 1 :category modifier-cat}])
+        :else (let [[modifier-cat child-cat] (sync-categories lang modifier-cat child-cat)
+                    {category :category :as attributes} (first (get-in modifier-map [lang [modifier-cat child-cat]]))]
+                (uber/multidigraph
+                  [^:node node attributes]
+                  [^:edge node modifier {:role :arg :index 0 :category category}]
+                  [^:edge node child {:role :arg :index 1 :category child-cat}]))))))
 
 (defn resolve-modifiers [g {{lang "*Language"} :constants}]
   (reduce (fn [g modifier-node]
