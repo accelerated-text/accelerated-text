@@ -20,7 +20,7 @@
    :dictionary-path      (or (System/getenv "DICT_PATH") (io/resource "dictionary"))
    :document-plan-path   (or (System/getenv "DOCUMENT_PLANS") (io/resource "document-plans"))
    :remove-duplicates    (Boolean/valueOf ^String (or (System/getenv "REMOVE_DUPLICATES") "TRUE"))
-   :enable-cache         (Boolean/valueOf ^String (or (System/getenv "ENABLE_CACHE") "TRUE"))
+   :enable-cache         (Boolean/valueOf ^String (or (System/getenv "ENABLE_CACHE") "FALSE"))
    :relevant-items-limit (or (System/getenv "RELEVANT_ITEMS_MATRIX_LIMIT") 100)})
 
 (defstate conf :start (load-config))
