@@ -109,8 +109,11 @@
   (testing "Complex modifiers"
     (let [semantic-graph (test-utils/load-test-semantic-graph "complex-modifiers")
           context (test-utils/load-test-context "complex-modifiers")]
-      (is (= #{"Big house such that there is a cat or such that there is an apple?"}
-             (set (map :text (core/generate-text semantic-graph context "Eng"))))))))
+      (is (= #{"Big house because there are these cats please."
+               "Big house because there are these cats."
+               "Big house such that there is an apple and such that there is a cat?"
+               "Our house that is bigger than that house behind us."}
+             (set (str/split (first (map :text (core/generate-text semantic-graph context "Eng"))) #"\n")))))))
 
 (deftest ^:integration template-amr
   (let [semantic-graph (test-utils/load-test-semantic-graph "template-amr")

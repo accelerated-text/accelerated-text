@@ -50,26 +50,28 @@
        (cons cat)))
 
 (defn sync-categories [lang modifier-cat child-cat]
-  (case [modifier-cat child-cat]
-    ["Str" "Str"] ["A" "N"]
-    ["A" "Str"] ["A" "N"]
-    ["A" "A"] ["AP" "VP"]
-    ["A" "AP"] ["AP" "VP"]
-    ["A" "Adv"] ["AP" "VP"]
-    ["A" "Cl"] ["AP" "S"]
-    ["N" "Str"] ["CN" "NP"]
-    ["V" "V"] ["VV" "VP"]
-    ["V" "VP"] ["VV" "VP"]
-    ["V" "N"] ["VV" "VP"]
-    ["V" "CN"] ["VV" "VP"]
-    ["V" "Str"] ["VV" "VP"]
-    ["Adv" "V"] ["Adv" "S"]
-    ["Adv" "N"] ["Adv" "S"]
-    ["Adv" "Str"] ["Adv" "S"]
-    ["Adv" "A"] ["Adv" "S"]
-    (->> (cartesian-product (find-path-to-utt lang modifier-cat) (find-path-to-utt lang child-cat))
-         (some #(when (contains? (get modifier-map lang) %) %))
-         (validate-cats lang [modifier-cat child-cat]))))
+  (cond
+    (= "RCl" child-cat) [modifier-cat "RS"]
+    :else (case [modifier-cat child-cat]
+            ["Str" "Str"] ["A" "N"]
+            ["A" "Str"] ["A" "N"]
+            ["A" "A"] ["AP" "VP"]
+            ["A" "AP"] ["AP" "VP"]
+            ["A" "Adv"] ["AP" "VP"]
+            ["A" "Cl"] ["AP" "S"]
+            ["N" "Str"] ["CN" "NP"]
+            ["V" "V"] ["VV" "VP"]
+            ["V" "VP"] ["VV" "VP"]
+            ["V" "N"] ["VV" "VP"]
+            ["V" "CN"] ["VV" "VP"]
+            ["V" "Str"] ["VV" "VP"]
+            ["Adv" "V"] ["Adv" "S"]
+            ["Adv" "N"] ["Adv" "S"]
+            ["Adv" "Str"] ["Adv" "S"]
+            ["Adv" "A"] ["Adv" "S"]
+            (->> (cartesian-product (find-path-to-utt lang modifier-cat) (find-path-to-utt lang child-cat))
+                 (some #(when (contains? (get modifier-map lang) %) %))
+                 (validate-cats lang [modifier-cat child-cat])))))
 
 (defn find-nearest-node [g child category]
   (->> child
@@ -90,6 +92,14 @@
                                    [^:node node {:type :operation, :name "mkText", :category "Text", :module "Syntax"}]
                                    [^:edge node child {:role :arg :index 0 :category "Utt"}]
                                    [^:edge node modifier {:role :arg :index 1}])
+        (= "Subj" modifier-cat) (uber/multidigraph
+                                  [^:node node {:type :operation, :name "mkAdv", :category "Adv", :module "Syntax"}]
+                                  [^:edge node modifier {:role :arg :index 0 :category "Subj"}]
+                                  [^:edge node child {:role :arg :index 1 :category "S"}])
+        (= "Voc" modifier-cat) (uber/multidigraph
+                                 [^:node node {:type :operation, :name "mkPhr", :category "Phr", :module "Syntax"}]
+                                 [^:edge node child {:role :arg :index 1 :category "Utt"}]
+                                 [^:edge node modifier {:role :arg :index 2 :category "Voc"}])
         (and
           (some? child-node)
           (= "Conj" modifier-cat)) (apply uber/multidigraph

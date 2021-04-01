@@ -4,26 +4,93 @@
                               :kind        "Document",
                               :category    "Str",
                               :description "",
-                              :relations   #{{:from     "qGxauTKx}:z#]1GG}:l7",
-                                              :to       "_LS3bqXa-nhM[[fiNsP~",
-                                              :role     :item,
+                              :relations   #{{:from     "ri0xw!0I%YzsGEqFwr#,/mod",
+                                              :to       "9EN9Ev3Hx8Q.~.LLIT?.",
+                                              :role     :modifier,
                                               :index    0,
-                                              :category "RS"}
+                                              :category "Pron"}
+                                             {:from  "V.{:l?Il_n_L6r|^]oBV",
+                                              :to    "65TlgWQ-;jL+GoMV[Y$6/mod",
+                                              :role  :modifier,
+                                              :index 0}
+                                             {:from  "xHK:JCiE}1#rU5xKvS_p",
+                                              :to    "sH@K[?j0wQxeVNe,M3wg/mod",
+                                              :role  :modifier,
+                                              :index 0}
+                                             {:from "ri0xw!0I%YzsGEqFwr#,/mod", :to "ri0xw!0I%YzsGEqFwr#,", :role :child}
+                                             {:from     "OKijRQ=bT%x1)q[o9Wdk/mod",
+                                              :to       "OKijRQ=bT%x1)q[o9Wdk",
+                                              :role     :child,
+                                              :category "NP"}
+                                             {:from     "OKijRQ=bT%x1)q[o9Wdk/mod",
+                                              :to       "T+aDIKZ,KnaVC^Ng[Ff:",
+                                              :role     :modifier,
+                                              :index    0,
+                                              :category "RP"}
                                              {:from  "#EToZy,tQ_F-O.d2McJ@",
                                               :to    "xHK:JCiE}1#rU5xKvS_p/mod",
                                               :role  :instance,
                                               :index 0}
+                                             {:from     "sH@K[?j0wQxeVNe,M3wg/mod",
+                                              :to       "sH@K[?j0wQxeVNe,M3wg",
+                                              :role     :child,
+                                              :category "N"}
+                                             {:from     "65TlgWQ-;jL+GoMV[Y$6/mod",
+                                              :to       "IOf7e@Q[eGVqmYi)a7xH",
+                                              :role     :modifier,
+                                              :index    0,
+                                              :category "A"}
                                              {:from     ".U+U#he^!.LmFe/-.kt2/mod",
-                                              :to       "f+2W6{gEu67L!P9tzuUu",
+                                              :to       "]PbQa@@p+X8tAhcW?U%^",
+                                              :role     :modifier,
+                                              :index    1,
+                                              :category "Det"}
+                                             {:from     "V.{:l?Il_n_L6r|^]oBV/mod",
+                                              :to       "yvDs+]_I%g~5%V~ygC2*",
+                                              :role     :modifier,
+                                              :index    0,
+                                              :category "Voc"}
+                                             {:from     "OKijRQ=bT%x1)q[o9Wdk/mod",
+                                              :to       ".xNW:,H0+ZLy!nuS,Va#",
+                                              :role     :modifier,
+                                              :index    4,
+                                              :category "Prep"}
+                                             {:from     ".^2X;V@DNW0q?[vTHHY)/mod",
+                                              :to       "u]bUJV-+=w9gJi}8Y.@P",
                                               :role     :modifier,
                                               :index    0,
                                               :category "Det"}
+                                             {:from     "65TlgWQ-;jL+GoMV[Y$6/mod",
+                                              :to       "65TlgWQ-;jL+GoMV[Y$6",
+                                              :role     :child,
+                                              :category "N"}
+                                             {:from     "OKijRQ=bT%x1)q[o9Wdk/mod",
+                                              :to       "h8%P[O)4Xv~$#Ija[@^H",
+                                              :role     :modifier,
+                                              :index    1,
+                                              :category "A"}
+                                             {:from  "rviqrSdvHPXTyKGwFhQt",
+                                              :to    "AIag6A-aXW:9E0;n:TOz",
+                                              :role  :segment,
+                                              :index 1}
                                              {:from     "qGxauTKx}:z#]1GG}:l7",
-                                              :to       "me^LdYr45D;3waTVoQzk",
+                                              :to       "_LS3bqXa-nhM[[fiNsP~",
                                               :role     :item,
                                               :index    1,
                                               :category "RS"}
+                                             {:from "Z:CnekcT@i4bt,K#Vrn*", :to ".U+U#he^!.LmFe/-.kt2/mod", :role :child}
+                                             {:from     "_LS3bqXa-nhM[[fiNsP~",
+                                              :to       ".^2X;V@DNW0q?[vTHHY)/mod",
+                                              :role     :arg,
+                                              :index    0,
+                                              :category "Cl",
+                                              :name     "item"}
                                              {:from "xHK:JCiE}1#rU5xKvS_p/mod", :to "xHK:JCiE}1#rU5xKvS_p", :role :child}
+                                             {:from "V.{:l?Il_n_L6r|^]oBV", :to "n~QSo`KmDpQLKE`ssJvw/mod", :role :child}
+                                             {:from  "Z:CnekcT@i4bt,K#Vrn*",
+                                              :to    "rCn|$E%n;~)PdWmb1^aT/mod",
+                                              :role  :modifier,
+                                              :index 0}
                                              {:from     "rCn|$E%n;~)PdWmb1^aT/mod",
                                               :to       ".84ifr+x0lEK;d)kYW,c",
                                               :role     :modifier,
@@ -33,22 +100,62 @@
                                               :to       "rCn|$E%n;~)PdWmb1^aT",
                                               :role     :child,
                                               :category "N"}
-                                             {:from     "qGxauTKx}:z#]1GG}:l7/mod",
-                                              :to       "qGxauTKx}:z#]1GG}:l7",
-                                              :role     :child,
-                                              :category "RS"}
+                                             {:from     "OKijRQ=bT%x1)q[o9Wdk/mod",
+                                              :to       "*mk[AW4e37#xgSTQ/jwg",
+                                              :role     :modifier,
+                                              :index    2,
+                                              :category "Quant"}
+                                             {:from  "rviqrSdvHPXTyKGwFhQt",
+                                              :to    "dP!1u~|i%chR61O}u.5a",
+                                              :role  :segment,
+                                              :index 3}
+                                             {:from "V.{:l?Il_n_L6r|^]oBV/mod", :to "V.{:l?Il_n_L6r|^]oBV", :role :child}
                                              {:from     "Sf=*G44*0c:7Kz~Bw_X}/mod",
                                               :to       "Sf=*G44*0c:7Kz~Bw_X}",
+                                              :role     :child,
+                                              :category "N"}
+                                             {:from     ".^2X;V@DNW0q?[vTHHY)/mod",
+                                              :to       ".^2X;V@DNW0q?[vTHHY)",
                                               :role     :child,
                                               :category "N"}
                                              {:from  "rviqrSdvHPXTyKGwFhQt",
                                               :to    "#EToZy,tQ_F-O.d2McJ@",
                                               :role  :segment,
                                               :index 0}
-                                             {:from  "xHK:JCiE}1#rU5xKvS_p",
-                                              :to    "rCn|$E%n;~)PdWmb1^aT/mod",
-                                              :role  :modifier,
+                                             {:from     "qGxauTKx}:z#]1GG}:l7",
+                                              :to       "me^LdYr45D;3waTVoQzk",
+                                              :role     :item,
+                                              :index    0,
+                                              :category "RS"}
+                                             {:from  "dP!1u~|i%chR61O}u.5a",
+                                              :to    "ri0xw!0I%YzsGEqFwr#,/mod",
+                                              :role  :instance,
                                               :index 0}
+                                             {:from     ".U+U#he^!.LmFe/-.kt2/mod",
+                                              :to       "Q7R#Y1I[yY*.?uvDy-Ao",
+                                              :role     :modifier,
+                                              :index    0,
+                                              :category "Subj"}
+                                             {:from     "n~QSo`KmDpQLKE`ssJvw/mod",
+                                              :to       "yq;Mda;oUm5EsgrpGEcz",
+                                              :role     :modifier,
+                                              :index    0,
+                                              :category "Subj"}
+                                             {:from "ri0xw!0I%YzsGEqFwr#,", :to "OKijRQ=bT%x1)q[o9Wdk/mod", :role :child}
+                                             {:from     "xHK:JCiE}1#rU5xKvS_p",
+                                              :to       "qGxauTKx}:z#]1GG}:l7",
+                                              :role     :child,
+                                              :category "RS"}
+                                             {:from     "ri0xw!0I%YzsGEqFwr#,",
+                                              :to       "%eP.NJQ2`x|ZB$)@4Y?}",
+                                              :role     :modifier,
+                                              :index    0,
+                                              :category "N"}
+                                             {:from     "OKijRQ=bT%x1)q[o9Wdk/mod",
+                                              :to       "-00lJm[)/so)mr?6g5NV",
+                                              :role     :modifier,
+                                              :index    3,
+                                              :category "N"}
                                              {:from     ".U+U#he^!.LmFe/-.kt2/mod",
                                               :to       ".U+U#he^!.LmFe/-.kt2",
                                               :role     :child,
@@ -58,98 +165,232 @@
                                               :role     :modifier,
                                               :index    0,
                                               :category "Det"}
+                                             {:from  "8ht;}hSwWK{*%/4^N:3)",
+                                              :to    "V.{:l?Il_n_L6r|^]oBV/mod",
+                                              :role  :instance,
+                                              :index 0}
                                              {:from     "xHK:JCiE}1#rU5xKvS_p/mod",
                                               :to       "fqrOeu5Xm1%/Zv.KLmT;",
                                               :role     :modifier,
                                               :index    0,
                                               :category "Punct"}
-                                             {:from     "_LS3bqXa-nhM[[fiNsP~",
-                                              :to       ".U+U#he^!.LmFe/-.kt2/mod",
-                                              :role     :arg,
-                                              :index    0,
-                                              :category "Cl",
-                                              :name     "item"}
+                                             {:from  "rviqrSdvHPXTyKGwFhQt",
+                                              :to    "8ht;}hSwWK{*%/4^N:3)",
+                                              :role  :segment,
+                                              :index 2}
                                              {:from     "me^LdYr45D;3waTVoQzk",
                                               :to       "Sf=*G44*0c:7Kz~Bw_X}/mod",
                                               :role     :arg,
                                               :index    0,
                                               :category "Cl",
                                               :name     "item"}
-                                             {:from     "qGxauTKx}:z#]1GG}:l7/mod",
-                                              :to       "N-g.s.CJIRJ%fEV_FML+",
+                                             {:from     "sH@K[?j0wQxeVNe,M3wg/mod",
+                                              :to       "R6ca~7*cIkcAqTIkJipO",
                                               :role     :modifier,
                                               :index    0,
-                                              :category "Conj"}
-                                             {:from "xHK:JCiE}1#rU5xKvS_p", :to "qGxauTKx}:z#]1GG}:l7/mod", :role :child}},
+                                              :category "A"}
+                                             {:from     "n~QSo`KmDpQLKE`ssJvw/mod",
+                                              :to       "n~QSo`KmDpQLKE`ssJvw",
+                                              :role     :child,
+                                              :category "N"}
+                                             {:from     "n~QSo`KmDpQLKE`ssJvw/mod",
+                                              :to       "}5.[+3pxpzp7Z7B6Gjr|",
+                                              :role     :modifier,
+                                              :index    1,
+                                              :category "Det"}
+                                             {:from  "AIag6A-aXW:9E0;n:TOz",
+                                              :to    "Z:CnekcT@i4bt,K#Vrn*",
+                                              :role  :instance,
+                                              :index 0}},
                               :concepts    #{{:id "rviqrSdvHPXTyKGwFhQt", :position 1, :type :document-plan}
                                              {:id "xHK:JCiE}1#rU5xKvS_p", :position 4, :type :modifier}
-                                             {:id       "Sf=*G44*0c:7Kz~Bw_X}/mod",
-                                              :position 12,
-                                              :type     :modifier,
-                                              :category "Cl"}
-                                             {:id       "rCn|$E%n;~)PdWmb1^aT",
-                                              :position 17,
+                                             {:id       ".xNW:,H0+ZLy!nuS,Va#",
+                                              :position 47,
                                               :type     :dictionary-item,
-                                              :name     "house_N_Eng",
-                                              :label    "house",
-                                              :category "N"}
-                                             {:id "qGxauTKx}:z#]1GG}:l7", :position 6, :type :sequence, :category "RS"}
-                                             {:id       ".U+U#he^!.LmFe/-.kt2",
-                                              :position 9,
-                                              :type     :dictionary-item,
-                                              :name     "cat_N_Eng",
-                                              :label    "cat",
-                                              :category "N"}
-                                             {:id       "me^LdYr45D;3waTVoQzk",
-                                              :position 11,
-                                              :type     :amr,
-                                              :label    "RS",
-                                              :name     "RuXMZNtiZKidVwCw",
-                                              :category "RS"}
-                                             {:id       "N-g.s.CJIRJ%fEV_FML+",
-                                              :position 15,
-                                              :type     :dictionary-item,
-                                              :name     "or_Conj_Eng",
-                                              :label    "or",
-                                              :category "Conj"}
-                                             {:id       "fqrOeu5Xm1%/Zv.KLmT;",
-                                              :position 19,
-                                              :type     :dictionary-item,
-                                              :name     "questMark_Punct_Eng",
-                                              :label    "questMark",
-                                              :category "Punct"}
-                                             {:id "#EToZy,tQ_F-O.d2McJ@", :position 2, :type :segment}
-                                             {:id       "f+2W6{gEu67L!P9tzuUu",
-                                              :position 10,
-                                              :type     :dictionary-item,
-                                              :name     "a_Det_Eng",
-                                              :label    "a",
-                                              :category "Det"}
-                                             {:id "qGxauTKx}:z#]1GG}:l7/mod", :position 5, :type :modifier}
-                                             {:id "rCn|$E%n;~)PdWmb1^aT/mod", :position 16, :type :modifier}
-                                             {:id       "_LS3bqXa-nhM[[fiNsP~",
-                                              :position 7,
-                                              :type     :amr,
-                                              :label    "RS",
-                                              :name     "RuXMZNtiZKidVwCw",
-                                              :category "RS"}
-                                             {:id       "fpeHf5XA.TG:Ou%J!AFq",
-                                              :position 14,
-                                              :type     :dictionary-item,
-                                              :name     "a_Det_Eng",
-                                              :label    "a",
-                                              :category "Det"}
-                                             {:id ".U+U#he^!.LmFe/-.kt2/mod", :position 8, :type :modifier, :category "Cl"}
-                                             {:id       ".84ifr+x0lEK;d)kYW,c",
-                                              :position 18,
+                                              :name     "behind_Prep_Eng",
+                                              :label    "behind",
+                                              :category "Prep"}
+                                             {:id       "R6ca~7*cIkcAqTIkJipO",
+                                              :position 16,
                                               :type     :dictionary-item,
                                               :name     "big_A_Eng",
                                               :label    "big",
                                               :category "A"}
-                                             {:id "xHK:JCiE}1#rU5xKvS_p/mod", :position 3, :type :modifier}
-                                             {:id       "Sf=*G44*0c:7Kz~Bw_X}",
+                                             {:id       "h8%P[O)4Xv~$#Ija[@^H",
+                                              :position 44,
+                                              :type     :dictionary-item,
+                                              :name     "big_A_Eng",
+                                              :label    "big",
+                                              :category "A"}
+                                             {:id       ".^2X;V@DNW0q?[vTHHY)/mod",
+                                              :position 11,
+                                              :type     :modifier,
+                                              :category "Cl"}
+                                             {:id "V.{:l?Il_n_L6r|^]oBV/mod", :position 28, :type :modifier}
+                                             {:id       "sH@K[?j0wQxeVNe,M3wg",
+                                              :position 15,
+                                              :type     :dictionary-item,
+                                              :name     "house_N_Eng",
+                                              :label    "house",
+                                              :category "N"}
+                                             {:id       "]PbQa@@p+X8tAhcW?U%^",
+                                              :position 23,
+                                              :type     :dictionary-item,
+                                              :name     "these_Det_Eng",
+                                              :label    "these",
+                                              :category "Det"}
+                                             {:id       "*mk[AW4e37#xgSTQ/jwg",
+                                              :position 45,
+                                              :type     :dictionary-item,
+                                              :name     "that_Quant_Eng",
+                                              :label    "that",
+                                              :category "Quant"}
+                                             {:id       "%eP.NJQ2`x|ZB$)@4Y?}",
+                                              :position 48,
+                                              :type     :dictionary-item,
+                                              :name     "house_N_Eng",
+                                              :label    "house",
+                                              :category "N"}
+                                             {:id "ri0xw!0I%YzsGEqFwr#,/mod", :position 39, :type :modifier}
+                                             {:id       "yq;Mda;oUm5EsgrpGEcz",
+                                              :position 32,
+                                              :type     :dictionary-item,
+                                              :name     "because_Subj_Eng",
+                                              :label    "because",
+                                              :category "Subj"}
+                                             {:id       "T+aDIKZ,KnaVC^Ng[Ff:",
+                                              :position 43,
+                                              :type     :dictionary-item,
+                                              :name     "which_RP_Eng",
+                                              :label    "which",
+                                              :category "RP"}
+                                             {:id ".U+U#he^!.LmFe/-.kt2/mod", :position 20, :type :modifier}
+                                             {:id       "OKijRQ=bT%x1)q[o9Wdk",
+                                              :position 42,
+                                              :type     :dictionary-item,
+                                              :name     "we_NP_Eng",
+                                              :label    "we",
+                                              :category "NP"}
+                                             {:id       ".^2X;V@DNW0q?[vTHHY)",
+                                              :position 12,
+                                              :type     :dictionary-item,
+                                              :name     "cat_N_Eng",
+                                              :label    "cat",
+                                              :category "N"}
+                                             {:id "AIag6A-aXW:9E0;n:TOz", :position 18, :type :segment}
+                                             {:id       "-00lJm[)/so)mr?6g5NV",
+                                              :position 46,
+                                              :type     :dictionary-item,
+                                              :name     "house_N_Eng",
+                                              :label    "house",
+                                              :category "N"}
+                                             {:id       "fpeHf5XA.TG:Ou%J!AFq",
+                                              :position 9,
+                                              :type     :dictionary-item,
+                                              :name     "a_Det_Eng",
+                                              :label    "a",
+                                              :category "Det"}
+                                             {:id       "u]bUJV-+=w9gJi}8Y.@P",
                                               :position 13,
+                                              :type     :dictionary-item,
+                                              :name     "a_Det_Eng",
+                                              :label    "a",
+                                              :category "Det"}
+                                             {:id "8ht;}hSwWK{*%/4^N:3)", :position 27, :type :segment}
+                                             {:id       "_LS3bqXa-nhM[[fiNsP~",
+                                              :position 10,
+                                              :type     :amr,
+                                              :label    "RS",
+                                              :name     "RuXMZNtiZKidVwCw",
+                                              :category "RS"}
+                                             {:id       ".84ifr+x0lEK;d)kYW,c",
+                                              :position 26,
+                                              :type     :dictionary-item,
+                                              :name     "big_A_Eng",
+                                              :label    "big",
+                                              :category "A"}
+                                             {:id       "IOf7e@Q[eGVqmYi)a7xH",
+                                              :position 36,
+                                              :type     :dictionary-item,
+                                              :name     "big_A_Eng",
+                                              :label    "big",
+                                              :category "A"}
+                                             {:id       "}5.[+3pxpzp7Z7B6Gjr|",
+                                              :position 33,
+                                              :type     :dictionary-item,
+                                              :name     "these_Det_Eng",
+                                              :label    "these",
+                                              :category "Det"}
+                                             {:id       "65TlgWQ-;jL+GoMV[Y$6",
+                                              :position 35,
+                                              :type     :dictionary-item,
+                                              :name     "house_N_Eng",
+                                              :label    "house",
+                                              :category "N"}
+                                             {:id       "9EN9Ev3Hx8Q.~.LLIT?.",
+                                              :position 49,
+                                              :type     :dictionary-item,
+                                              :name     "we_Pron_Eng",
+                                              :label    "we",
+                                              :category "Pron"}
+                                             {:id       "me^LdYr45D;3waTVoQzk",
+                                              :position 6,
+                                              :type     :amr,
+                                              :label    "RS",
+                                              :name     "RuXMZNtiZKidVwCw",
+                                              :category "RS"}
+                                             {:id       "yvDs+]_I%g~5%V~ygC2*",
+                                              :position 37,
+                                              :type     :dictionary-item,
+                                              :name     "please_Voc_Eng",
+                                              :label    "please",
+                                              :category "Voc"}
+                                             {:id "#EToZy,tQ_F-O.d2McJ@", :position 2, :type :segment}
+                                             {:id       "fqrOeu5Xm1%/Zv.KLmT;",
+                                              :position 17,
+                                              :type     :dictionary-item,
+                                              :name     "questMark_Punct_Eng",
+                                              :label    "questMark",
+                                              :category "Punct"}
+                                             {:id "65TlgWQ-;jL+GoMV[Y$6/mod", :position 34, :type :modifier}
+                                             {:id "n~QSo`KmDpQLKE`ssJvw/mod", :position 30, :type :modifier}
+                                             {:id "rCn|$E%n;~)PdWmb1^aT/mod", :position 24, :type :modifier}
+                                             {:id "OKijRQ=bT%x1)q[o9Wdk/mod", :position 41, :type :modifier}
+                                             {:id "qGxauTKx}:z#]1GG}:l7", :position 5, :type :sequence, :category "RS"}
+                                             {:id "dP!1u~|i%chR61O}u.5a", :position 38, :type :segment}
+                                             {:id "Z:CnekcT@i4bt,K#Vrn*", :position 19, :type :modifier}
+                                             {:id       "Sf=*G44*0c:7Kz~Bw_X}",
+                                              :position 8,
                                               :type     :dictionary-item,
                                               :name     "apple_N_Eng",
                                               :label    "apple",
+                                              :category "N"}
+                                             {:id "sH@K[?j0wQxeVNe,M3wg/mod", :position 14, :type :modifier}
+                                             {:id "V.{:l?Il_n_L6r|^]oBV", :position 29, :type :modifier}
+                                             {:id "ri0xw!0I%YzsGEqFwr#,", :position 40, :type :modifier}
+                                             {:id "xHK:JCiE}1#rU5xKvS_p/mod", :position 3, :type :modifier}
+                                             {:id "Sf=*G44*0c:7Kz~Bw_X}/mod", :position 7, :type :modifier, :category "Cl"}
+                                             {:id       ".U+U#he^!.LmFe/-.kt2",
+                                              :position 21,
+                                              :type     :dictionary-item,
+                                              :name     "cat_N_Eng",
+                                              :label    "cat",
+                                              :category "N"}
+                                             {:id       "Q7R#Y1I[yY*.?uvDy-Ao",
+                                              :position 22,
+                                              :type     :dictionary-item,
+                                              :name     "because_Subj_Eng",
+                                              :label    "because",
+                                              :category "Subj"}
+                                             {:id       "rCn|$E%n;~)PdWmb1^aT",
+                                              :position 25,
+                                              :type     :dictionary-item,
+                                              :name     "house_N_Eng",
+                                              :label    "house",
+                                              :category "N"}
+                                             {:id       "n~QSo`KmDpQLKE`ssJvw",
+                                              :position 31,
+                                              :type     :dictionary-item,
+                                              :name     "cat_N_Eng",
+                                              :label    "cat",
                                               :category "N"}}}
