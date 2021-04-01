@@ -71,16 +71,33 @@
          (some #(when (contains? (get modifier-map lang) %) %))
          (validate-cats lang [modifier-cat child-cat]))))
 
+(defn find-nearest-node [g child category]
+  (->> child
+       (alg/pre-traverse g)
+       (map #(uber/node-with-attrs g %))
+       (some (fn [[node {cat :category}]]
+               (when (= category cat) node)))))
+
 (defn resolve-modifier [g node modifier child lang]
-  (let [modifier-cat (find-category g modifier)
-        child-cat (find-category g child)]
+  (let [modifier-attrs (attrs g modifier)
+        modifier-cat (find-category g modifier)
+        child-cat (find-category g child)
+        child-node (find-nearest-node g child modifier-cat)]
     (uber/build-graph
       g
       (cond
         (= "Punct" modifier-cat) (uber/multidigraph
                                    [^:node node {:type :operation, :name "mkText", :category "Text", :module "Syntax"}]
                                    [^:edge node child {:role :arg :index 0 :category "Text"}]
-                                   [^:edge node modifier {:role :arg :index 1 :category modifier-cat}])
+                                   [^:edge node modifier {:role :arg :index 1}])
+        (and
+          (some? child-node)
+          (= "Conj" modifier-cat)) (apply uber/multidigraph
+                                          (concat
+                                            (list
+                                              [^:node node {:type :modifier :category child-cat}]
+                                              [^:node child-node (dissoc modifier-attrs :position)]
+                                              [^:edge node child {:type :instance :category child-cat}])))
         :else (let [[modifier-cat child-cat] (sync-categories lang modifier-cat child-cat)
                     {category :category :as attributes} (first (get-in modifier-map [lang [modifier-cat child-cat]]))]
                 (uber/multidigraph
