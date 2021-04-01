@@ -16,9 +16,7 @@
             [clojure.math.combinatorics :refer [permutations]]
             [clojure.string :as str]
             [loom.alg :refer [pre-traverse]]
-            [loom.attr :refer [attrs]]
-            [ubergraph.core :as uber]
-            [acc-text.nlg.gf.utils :as utils]))
+            [loom.attr :refer [attrs]]))
 
 (def data-types #{:data :quote :dictionary-item})
 
@@ -167,7 +165,6 @@
   ([module instance semantic-graph context]
    (let [graph (->graph semantic-graph context)
          start-id (find-root-id graph)]
-     (utils/save-graph graph "/home/tokenmill/graph.png")
      (reduce (fn [grammar node-id]
                (merge-with (fn [acc val]
                              (cond
