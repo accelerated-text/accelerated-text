@@ -98,11 +98,10 @@
                                               [^:node node {:type :modifier :category child-cat}]
                                               [^:node child-node (dissoc modifier-attrs :position)]
                                               [^:edge node child {:type :instance :category child-cat}])))
-        :else (let [[modifier-cat child-cat] (sync-categories lang modifier-cat child-cat)
-                    {category :category :as attributes} (first (get-in modifier-map [lang [modifier-cat child-cat]]))]
+        :else (let [[modifier-cat child-cat] (sync-categories lang modifier-cat child-cat)]
                 (uber/multidigraph
-                  [^:node node attributes]
-                  [^:edge node modifier {:role :arg :index 0 :category category}]
+                  [^:node node (first (get-in modifier-map [lang [modifier-cat child-cat]]))]
+                  [^:edge node modifier {:role :arg :index 0 :category modifier-cat}]
                   [^:edge node child {:role :arg :index 1 :category child-cat}]))))))
 
 (defn resolve-modifiers [g {{lang "*Language"} :constants}]
