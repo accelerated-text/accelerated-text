@@ -27,5 +27,5 @@
                        _]
   (resolve-as (data-files/listing (:group-id auth-info) offset limit recordOffset recordLimit)))
 
-(defn create-data-file [_ request _]
-  (resolve-as {:id (data-files/store! request)}))
+(defn create-data-file [{:keys [auth-info]} request _]
+  (resolve-as {:id (data-files/store! request (:group-id auth-info))}))

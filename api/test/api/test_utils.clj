@@ -49,7 +49,7 @@
   (data-files/store!
     {:filename filename
      :content  (io/file (format "test/resources/data-files/%s" filename))}
-   0))
+   user-group/DUMMY-USER-GROUP-ID))
 
 (defn load-document-plan [filename]
   (log/infof "Loading test document plan `%s`" filename)
