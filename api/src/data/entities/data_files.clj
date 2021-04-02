@@ -120,6 +120,9 @@
   (some-> (read-data-file id group-id)
           (read-content offset limit)))
 
+(defn swap-data-id [{:keys [fileName] :as data}]
+  (assoc data :id fileName))
+
 (defn listing
   ([group-id] (listing group-id 0 Integer/MAX_VALUE 0 Integer/MAX_VALUE))
   ([group-id offset limit recordOffset recordLimit]
@@ -127,7 +130,8 @@
      {:dataFiles  (->> data-files
                        (drop offset)
                        (take limit)
-                       (map #(read-content % recordOffset recordLimit)))
+                       (map #(read-content % recordOffset recordLimit))
+                       (map swap-data-id))
       :offset     offset
       :limit      limit
       :totalCount (count data-files)})))
