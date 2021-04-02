@@ -4,12 +4,19 @@
             [clojure.zip :as zip]
             [clojure.java.io :as io]
             [clojure.data.xml :as xml]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.tools.logging :as log]))
+
+(defn parse-blockly-xml [is]
+  (try
+    (xml/parse is)
+    (catch Exception _
+      (log/error "Failed to parse blockly xml."))))
 
 (defn get-variable-labels [blockly-xml]
   (when (some? blockly-xml)
     (with-open [is (io/input-stream (.getBytes blockly-xml))]
-      (let [{[{vars :content}] :content} (xml/parse is)]
+      (let [{[{vars :content}] :content} (parse-blockly-xml is)]
         (reduce (fn [m {{var-id :id} :attrs
                         [var-name]   :content}]
                   (cond-> m
@@ -22,7 +29,7 @@
 (defn ensure-dictionary-item-categories [blockly-xml]
   (when (some? blockly-xml)
     (with-open [is (io/input-stream (.getBytes blockly-xml))]
-      (loop [loc (zip/xml-zip (xml/parse is))]
+      (loop [loc (zip/xml-zip (parse-blockly-xml is))]
         (if (zip/end? loc)
           (xml/emit-str (zip/root loc))
           (-> loc

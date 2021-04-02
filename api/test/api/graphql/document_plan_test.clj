@@ -13,7 +13,7 @@
                               :variables {:uid          "01"
                                           :name         "test"
                                           :kind         "Document"
-                                          :blocklyXml   "<>"
+                                          :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
                                           :documentPlan "\"{}\""}})]
     (is (nil? errors))
     (is (string? id))))
@@ -24,7 +24,7 @@
                                 :variables {:uid          "01"
                                             :name         "test"
                                             :kind         "Document"
-                                            :blocklyXml   "<>"
+                                            :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
                                             :documentPlan "\"{}\""}})
         query "{documentPlans(offset:%s limit:%s){items{id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount} offset limit totalCount}}"
         {{{{:keys [items offset limit totalCount]} :documentPlans} :data errors :errors} :body}
@@ -42,7 +42,7 @@
                               :variables {:uid          "01"
                                           :name         "test"
                                           :kind         "Document"
-                                          :blocklyXml   "<>"
+                                          :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
                                           :documentPlan "{}"}})
         query "{documentPlan(id:\"%s\"){id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"
         {{{{:keys [id uid name blocklyXml documentPlan createdAt updatedAt updateCount]} :documentPlan} :data errors :errors} :body}
@@ -51,7 +51,7 @@
     (is (string? id))
     (is (= "01" uid))
     (is (= "test" name))
-    (is (= "<>" blocklyXml))
+    (is (= "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>" blocklyXml))
     (is (= "{}" documentPlan))
     (is (pos-int? createdAt))
     (is (= createdAt updatedAt))
@@ -64,7 +64,7 @@
                               :variables {:uid          "01"
                                           :name         "test"
                                           :kind         "Document"
-                                          :blocklyXml   "<>"
+                                          :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
                                           :documentPlan "{}"}})
         query "{documentPlan(name:\"%s\"){id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"
         {{{{:keys [id uid name blocklyXml documentPlan createdAt updatedAt updateCount]} :documentPlan} :data errors :errors} :body}
@@ -73,7 +73,7 @@
     (is (string? id))
     (is (= "01" uid))
     (is (= "test" name))
-    (is (= "<>" blocklyXml))
+    (is (= "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>" blocklyXml))
     (is (= "{}" documentPlan))
     (is (pos-int? createdAt))
     (is (= createdAt updatedAt))
@@ -86,7 +86,7 @@
                               :variables {:uid          "01"
                                           :name         "test"
                                           :kind         "Document"
-                                          :blocklyXml   "<>"
+                                          :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
                                           :documentPlan "{}"}})
         query "{documentPlan{id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"
         {{errors :errors} :body}
@@ -100,13 +100,13 @@
                               :variables {:uid          "02"
                                           :name         "test"
                                           :kind         "Document"
-                                          :blocklyXml   "<>"
+                                          :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
                                           :documentPlan "{}"}})]
     (is (nil? errors))
     (is (string? id))
     (is (= "02" uid))
     (is (= "test" name))
-    (is (= "<>" blocklyXml))
+    (is (= "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>" blocklyXml))
     (is (= "{}" documentPlan))
     (is (nil? dataSampleRow))
     (is (pos-int? createdAt))
@@ -120,7 +120,7 @@
                               :variables {:uid          "01"
                                           :name         "test"
                                           :kind         "Document"
-                                          :blocklyXml   "<>"
+                                          :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
                                           :documentPlan "{}"}})
 
         query "mutation updateDocumentPlan($id: ID! $uid: ID $name: String $blocklyXml: String $documentPlan: String $dataSampleRow: Int){updateDocumentPlan(id: $id uid: $uid name: $name blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount}}"
@@ -129,14 +129,14 @@
                               :variables {:id            id
                                           :uid           "01"
                                           :name          "test-updated"
-                                          :blocklyXml    "<>"
+                                          :blocklyXml    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
                                           :documentPlan  "{}"
                                           :dataSampleRow 0}})]
     (is (nil? errors))
     (is (string? id))
     (is (= "01" uid))
     (is (= "test-updated" name))
-    (is (= "<>" blocklyXml))
+    (is (= "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>" blocklyXml))
     (is (= "{}" documentPlan))
     (is (zero? dataSampleRow))
     (is (nil? dataSampleId))
@@ -151,7 +151,7 @@
                               :variables {:uid          "01"
                                           :name         "test"
                                           :kind         "Document"
-                                          :blocklyXml   "<>"
+                                          :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
                                           :documentPlan "\"{}\""}})
 
         query "{documentPlan(id:\"%s\"){id uid name blocklyXml documentPlan createdAt updatedAt updateCount}}"]
@@ -176,9 +176,9 @@
                                 :variables {:uid          "01"
                                             :name         "test"
                                             :kind         "Document"
-                                            :blocklyXml   "<>"
+                                            :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
                                             :documentPlan "{}"}})]
-    (is (= [{:blocklyXml       "<>"
+    (is (= [{:blocklyXml       "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
              :dataSampleId     nil
              :dataSampleMethod nil
              :dataSampleRow    nil
