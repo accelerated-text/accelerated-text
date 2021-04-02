@@ -2,7 +2,6 @@
   (:require [api.utils :refer [read-mapper]]
             [clojure.string :as str]
             [data.entities.document-plan.utils :as dp-utils]
-            [data.entities.dictionary :as dict]
             [jsonista.core :as json]))
 
 (defn schema->dp [{:keys [id uid name kind examples blocklyXml documentPlan dataSampleId dataSampleRow dataSampleMethod]}]

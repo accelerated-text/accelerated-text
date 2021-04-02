@@ -1,6 +1,5 @@
 (ns api.nlg.parser
-  (:require [acc-text.nlg.dictionary.item :as dict-item]
-            [acc-text.nlg.gf.operations :as ops]
+  (:require [acc-text.nlg.gf.operations :as ops]
             [acc-text.nlg.semantic-graph :as sg]
             [acc-text.nlg.semantic-graph.utils :as sg-utils]
             [clojure.spec.alpha :as s]

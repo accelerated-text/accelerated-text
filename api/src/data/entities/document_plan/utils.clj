@@ -4,8 +4,7 @@
             [clojure.zip :as zip]
             [clojure.java.io :as io]
             [clojure.data.xml :as xml]
-            [clojure.string :as str]
-            [clojure.tools.logging :as log]))
+            [clojure.string :as str]))
 
 (defn get-variable-labels [blockly-xml]
   (when (some? blockly-xml)
