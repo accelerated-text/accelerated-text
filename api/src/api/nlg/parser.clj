@@ -142,7 +142,7 @@
                       :type     :dictionary-item
                       :name     itemId
                       :label    name
-                      :category (if-not (= "null" kind)     ;; TODO: fix nil category when attaching from quick menu
+                      :category (if-not (or (nil? kind) (= "null" kind)) ;; TODO: fix nil category when attaching from quick menu
                                   kind
                                   (dict-entity/get-dictionary-item-category itemId))}]
          :relations []})
@@ -153,7 +153,7 @@
                      :type     :dictionary-item
                      :name     itemId
                      :label    name
-                     :category (if-not (= "null" kind)
+                     :category (if-not (or (nil? kind) (= "null" kind))
                                  kind
                                  (dict-entity/get-dictionary-item-category itemId))}]
         :relations []})
