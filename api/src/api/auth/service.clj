@@ -1,6 +1,5 @@
 (ns api.auth.service
-    (:require [clojure.tools.logging :as log]
-              [api.config :refer [conf]]
+    (:require [api.config :refer [conf]]
               [org.httpkit.client :as client]
               [jsonista.core :as json]))
 

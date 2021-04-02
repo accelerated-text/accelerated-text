@@ -10,8 +10,7 @@
             [data.entities.document-plan :as dp-entity]
             [data.entities.document-plan.utils :as dp-utils]
             [data.entities.document-plan.zip :as dp-zip]
-            [data.utils :as utils]
-            [clojure.tools.logging :as log]))
+            [data.utils :as utils]))
 
 (def constants #{"*Language" "*Definition" "*Reader"})
 

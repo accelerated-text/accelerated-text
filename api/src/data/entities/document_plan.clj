@@ -5,8 +5,7 @@
             [mount.core :refer [defstate]]
             [data.entities.user-group :as user-group]
             [data.spec.user-group :as ug]
-            [data.datomic.entities.document-plan :as dp-e]
-            [clojure.tools.logging :as log]))
+            [data.datomic.entities.document-plan :as dp-e]))
 
 (defstate document-plans-db :start (db/db-access :document-plan conf))
 

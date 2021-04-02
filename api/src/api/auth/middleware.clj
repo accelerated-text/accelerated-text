@@ -1,6 +1,5 @@
 (ns api.auth.middleware
-    (:require [clojure.tools.logging :as log]
-              [api.auth.service :as service]
+    (:require [api.auth.service :as service]
               [clojure.walk :as walk]
               [clojure.string :as str]))
 

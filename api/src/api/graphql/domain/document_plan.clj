@@ -43,7 +43,7 @@
       (or id name) (resolve-as-not-found-document-plan (or id name))
       :else (resolve-as-id-not-provided))))
 
-(defn update-document-plan [{:keys [auth-info]} {:keys [id] :as args} _]
+(defn update-document-plan [_ {:keys [id] :as args} _]
   (if-let [document-plan (dp/update-document-plan id (translate-dp/schema->dp args))]
     (resolve-as (translate-dp/dp->schema document-plan))
     (resolve-as-not-found-document-plan id)))
