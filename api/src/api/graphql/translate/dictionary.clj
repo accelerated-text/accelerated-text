@@ -3,7 +3,6 @@
             [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [acc-text.nlg.dictionary.item.attr :as dict-item-attr]
             [acc-text.nlg.semantic-graph :as sg]
-            [api.graphql.domain.concept :as concept]
             [api.graphql.translate.concept :as concept-translate]
             [data.entities.amr :as amr-entity]
             [data.entities.reader-model :as reader-model]

@@ -5,7 +5,6 @@
             [clojure.spec.alpha :as s]
             [clojure.string :as str]
             [clojure.zip :as zip]
-            [data.entities.dictionary :as dict-entity]
             [data.entities.document-plan :as dp-entity]
             [data.entities.document-plan.utils :as dp-utils]
             [data.entities.document-plan.zip :as dp-zip]
@@ -142,9 +141,7 @@
                       :type     :dictionary-item
                       :name     itemId
                       :label    name
-                      :category (if-not (or (nil? kind) (= "null" kind)) ;; TODO: fix nil category when attaching from quick menu
-                                  kind
-                                  (dict-entity/get-dictionary-item-category itemId))}]
+                      :category kind}]
          :relations []})
 
 (defmethod build-semantic-graph :Dictionary-item-modifier [{:keys [id itemId name kind position]} _]
@@ -153,9 +150,7 @@
                      :type     :dictionary-item
                      :name     itemId
                      :label    name
-                     :category (if-not (or (nil? kind) (= "null" kind))
-                                 kind
-                                 (dict-entity/get-dictionary-item-category itemId))}]
+                     :category kind}]
         :relations []})
 
 (defmethod build-semantic-graph :Cell-modifier [{:keys [id name position]} _]

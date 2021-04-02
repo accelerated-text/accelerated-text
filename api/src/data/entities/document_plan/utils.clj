@@ -1,22 +1,14 @@
 (ns data.entities.document-plan.utils
   (:require [data.entities.document-plan.zip :as dp-zip]
-            [data.entities.dictionary :refer [get-dictionary-item-category]]
             [clojure.zip :as zip]
             [clojure.java.io :as io]
             [clojure.data.xml :as xml]
-            [clojure.string :as str]
-            [clojure.tools.logging :as log]))
-
-(defn parse-blockly-xml [is]
-  (try
-    (xml/parse is)
-    (catch Exception _
-      (log/error "Failed to parse blockly xml."))))
+            [clojure.string :as str]))
 
 (defn get-variable-labels [blockly-xml]
   (when (some? blockly-xml)
     (with-open [is (io/input-stream (.getBytes blockly-xml))]
-      (let [{[{vars :content}] :content} (parse-blockly-xml is)]
+      (let [{[{vars :content}] :content} (xml/parse is)]
         (reduce (fn [m {{var-id :id} :attrs
                         [var-name]   :content}]
                   (cond-> m
@@ -25,19 +17,6 @@
                             (some? var-name)) (assoc var-id var-name)))
                 {}
                 vars)))))
-
-(defn ensure-dictionary-item-categories [blockly-xml]
-  (when (some? blockly-xml)
-    (with-open [is (io/input-stream (.getBytes blockly-xml))]
-      (loop [loc (zip/xml-zip (parse-blockly-xml is))]
-        (if (zip/end? loc)
-          (xml/emit-str (zip/root loc))
-          (-> loc
-              (zip/edit (fn [{{:keys [id pos]} :attrs :as node}]
-                          (cond-> node
-                                  (= "null" pos) (assoc-in [:attrs :pos] (get-dictionary-item-category id)))))
-              (zip/next)
-              (recur)))))))
 
 (defn get-nodes-with-types [body types]
   (->> (dp-zip/make-zipper body)
