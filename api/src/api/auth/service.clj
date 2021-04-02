@@ -11,7 +11,7 @@
 
 (defn request
   [token]
-  (let [request-url (str (:auth-url conf) "/user/me")
+  (let [request-url (:auth-url conf)
         {body :body request-error :error}
         @(client/request {:url     request-url
                           :method  :get
