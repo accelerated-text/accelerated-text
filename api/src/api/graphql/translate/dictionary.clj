@@ -2,6 +2,10 @@
   (:require [acc-text.nlg.dictionary.item :as dict-item]
             [acc-text.nlg.dictionary.item.form :as dict-item-form]
             [acc-text.nlg.dictionary.item.attr :as dict-item-attr]
+            [acc-text.nlg.semantic-graph :as sg]
+            [api.graphql.domain.concept :as concept]
+            [api.graphql.translate.concept :as concept-translate]
+            [data.entities.amr :as amr-entity]
             [data.entities.reader-model :as reader-model]
             [data.utils :as utils]))
 
@@ -20,6 +24,14 @@
                   :defaultUsage (if enabled? "YES" "NO")}})
        (reader-model/available-languages)))
 
+(defn get-concept [attributes]
+  (when-let [concept-name (some #(when (= "Concept" (::dict-item-attr/name %))
+                                   (::dict-item-attr/value %))
+                                attributes)]
+    (some #(when (= concept-name (::sg/name %))
+             (concept-translate/amr->schema %))
+          (amr-entity/list-amrs))))
+
 (defn dictionary-item->schema [{::dict-item/keys [id key category forms language definition sense attributes]}]
   {:id           (or id (utils/gen-uuid))
    :name         key
@@ -33,6 +45,7 @@
                          :defaultUsage    (if default? "YES" "NO")
                          :readerFlagUsage (build-reader-model-user-flags language)})
                       forms)
+   :concept      (get-concept attributes)
    :attributes   (map (fn [{::dict-item-attr/keys [id name value]}]
                         {:id    id
                          :name  name
