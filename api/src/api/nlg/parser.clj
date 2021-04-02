@@ -143,9 +143,9 @@
                       :type     :dictionary-item
                       :name     itemId
                       :label    name
-                      :category (if-not (nil? kind)         ;; TODO: fix nil category when attaching from quick menu
+                      :category (if-not (= "null" kind)     ;; TODO: fix nil category when attaching from quick menu
                                   kind
-                                  (::dict-item/category (dict-entity/get-dictionary-item itemId)))}]
+                                  (dict-entity/get-dictionary-item-category itemId))}]
          :relations []})
 
 (defmethod build-semantic-graph :Dictionary-item-modifier [{:keys [id itemId name kind position]} _]
@@ -154,9 +154,9 @@
                      :type     :dictionary-item
                      :name     itemId
                      :label    name
-                     :category (if-not (nil? kind)
+                     :category (if-not (= "null" kind)
                                  kind
-                                 (::dict-item/category (dict-entity/get-dictionary-item itemId)))}]
+                                 (dict-entity/get-dictionary-item-category itemId))}]
         :relations []})
 
 (defmethod build-semantic-graph :Cell-modifier [{:keys [id name position]} _]
