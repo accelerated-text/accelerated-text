@@ -7,7 +7,8 @@
             [loom.alg :as alg]
             [loom.attr :refer [attrs]]
             [loom.graph :as graph]
-            [ubergraph.core :as uber])
+            [ubergraph.core :as uber]
+            [clojure.tools.logging :as log])
   (:import (java.util UUID)))
 
 (defn validate-cats [lang cats synced-cats]
@@ -51,6 +52,7 @@
 
 (defn sync-categories [lang modifier-cat child-cat]
   (cond
+    (= "Cl" child-cat) [modifier-cat "RS"]
     (= "RCl" child-cat) [modifier-cat "RS"]
     :else (case [modifier-cat child-cat]
             ["Str" "Str"] ["A" "N"]
@@ -100,6 +102,10 @@
                                  [^:node node {:type :operation, :name "mkPhr", :category "Phr", :module "Syntax"}]
                                  [^:edge node child {:role :arg :index 1 :category "Utt"}]
                                  [^:edge node modifier {:role :arg :index 2 :category "Voc"}])
+        (= "Cl" modifier-cat child-cat) (uber/multidigraph
+                                          [^:node node {:type :operation, :name "RelS", :category "S", :module "Grammar"}]
+                                          [^:edge node modifier {:role :arg :index 0 :category "S"}]
+                                          [^:edge node child {:role :arg :index 1 :category "RS"}])
         (and
           (some? child-node)
           (= "Conj" modifier-cat)) (apply uber/multidigraph
