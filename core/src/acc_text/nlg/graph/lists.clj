@@ -99,7 +99,7 @@
                                          (or (= src dest) (contains? (get path-map lang) [src dest]))))
                                      (graph/successors g node)))
               dest))
-          ["CN" "NP" "AP" "Adv" "IAdv" "AdV" "RS" "S"])))
+          ["CN" "NP" "AP" "Adv" "IAdv" "AdV" "S" "RS"])))
 
 (defn get-module [cat]
   (if (contains? #{"CN" "IAdv" "AdV"} cat)
