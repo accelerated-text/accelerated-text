@@ -8208,7 +8208,12 @@
                                  :to :02,
                                  :role :arg,
                                  :index 0,
-                                 :category "NP"}),
+                                 :category "NP"}
+                                {:from :02,
+                                 :to :03,
+                                 :role :arg,
+                                 :index 0,
+                                 :category "N"}),
                                :concepts
                                ({:id :01,
                                  :type :operation,
@@ -8219,6 +8224,11 @@
                                  :type :operation,
                                  :name "mkNP",
                                  :category "NP",
+                                 :module "Syntax"}
+                                {:id :03,
+                                 :type :operation,
+                                 :name "mkCN",
+                                 :category "CN",
                                  :module "Syntax"})},
  ["VPSlash" "VP"]
  #:acc-text.nlg.semantic-graph{:relations (),
