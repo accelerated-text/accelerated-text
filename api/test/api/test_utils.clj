@@ -55,7 +55,7 @@
 (defn load-document-plan [filename]
   (log/infof "Loading test document plan `%s`" filename)
   (let [{id :id :as dp} (dp/load-document-plan (io/file (format "test/resources/document-plans/%s.json" filename)))]
-    (dp/add-document-plan dp id user-group/DUMMY-USER-GROUP-ID)
+    (dp/add-document-plan dp user-group/DUMMY-USER-GROUP-ID)
     id))
 
 (defn load-dictionary [filename]

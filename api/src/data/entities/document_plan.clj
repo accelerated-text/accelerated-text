@@ -16,14 +16,14 @@
    (sort-by :name (filter #(= kind (:kind %)) (list-document-plans group-id)))))
 
 (defn get-document-plan [document-plan-id]
-      (db/read! document-plans-db document-plan-id))
+  (db/read! document-plans-db document-plan-id))
 
 (defn delete-document-plan [document-plan-id]
   (db/delete! document-plans-db document-plan-id))
 
 (defn add-document-plan
-  ([document-plan group-id] (add-document-plan document-plan (or (:id document-plan) (utils/gen-rand-str 16)) group-id))
-  ([document-plan provided-id group-id]
+  ([document-plan group-id] (add-document-plan document-plan group-id (or (:id document-plan) (utils/gen-rand-str 16))))
+  ([document-plan group-id provided-id]
    (let [plan (db/write! document-plans-db provided-id document-plan true)]
      (user-group/link-dp group-id provided-id)
      plan)))
@@ -39,9 +39,8 @@
     (cond-> dp (string? (:documentPlan dp)) (update :documentPlan utils/read-json-str))))
 
 (defstate document-plans
-  :start (doseq [{id :id :as dp}
-                 (->> (utils/list-files (document-plan-path) #{".json"})
-                      (map load-document-plan))]
-           (add-document-plan dp id))
+  :start (doseq [dp (->> (utils/list-files (document-plan-path) #{".json"})
+                         (map load-document-plan))]
+           (add-document-plan dp user-group/DUMMY-USER-GROUP-ID))
   :stop (doseq [{id :id} (list-document-plans user-group/DUMMY-USER-GROUP-ID)]
           (delete-document-plan id)))

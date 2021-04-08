@@ -5,6 +5,7 @@
             [acc-text.nlg.semantic-graph :as sg]
             [api.graphql.translate.concept :as concept-translate]
             [data.entities.amr :as amr-entity]
+            [data.entities.user-group :as user-group]
             [data.entities.reader-model :as reader-model]
             [data.utils :as utils]))
 
@@ -29,7 +30,7 @@
                                 attributes)]
     (some #(when (= concept-name (::sg/name %))
              (concept-translate/amr->schema %))
-          (amr-entity/list-amrs))))
+          (amr-entity/list-amrs user-group/DUMMY-USER-GROUP-ID))))
 
 (defn dictionary-item->schema [{::dict-item/keys [id key category forms language definition sense attributes]}]
   {:id           (or id (utils/gen-uuid))
