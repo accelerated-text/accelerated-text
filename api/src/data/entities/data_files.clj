@@ -139,8 +139,10 @@
 (defn data-file-path []
   (or (System/getenv "DATA_FILES") "resources/data-files"))
 
-(defn initialize []
-  (doseq [f (utils/list-files-in-dir (data-file-path))]
-    (store! {:filename (.getName f)
-             :content  f}
-            user-group/DUMMY-USER-GROUP-ID)))
+(defstate data-files
+  :start (doseq [f (utils/list-files (data-file-path) #{".csv" ".xlsx"})]
+           (store! {:filename (.getName f)
+                    :content  f}
+                   user-group/DUMMY-USER-GROUP-ID))
+  :stop (doseq [{id :id} (:dataFiles (listing user-group/DUMMY-USER-GROUP-ID))]
+          (delete-data-file! id user-group/DUMMY-USER-GROUP-ID)))

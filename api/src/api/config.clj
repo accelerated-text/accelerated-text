@@ -22,6 +22,7 @@
    :relevant-items-limit (or (System/getenv "RELEVANT_ITEMS_MATRIX_LIMIT") 100)
    :auth-url             (System/getenv "AUTH_URL")
    :remove-duplicates    (Boolean/valueOf ^String (or (System/getenv "REMOVE_DUPLICATES") "TRUE"))
-   :enable-cache         (Boolean/valueOf ^String (or (System/getenv "ENABLE_CACHE") "TRUE"))})
+   :enable-cache         (Boolean/valueOf ^String (or (System/getenv "ENABLE_CACHE") "FALSE"))
+   :relevant-items-limit (or (System/getenv "RELEVANT_ITEMS_MATRIX_LIMIT") 100)})
 
 (defstate conf :start (load-config))

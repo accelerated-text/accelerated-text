@@ -30,6 +30,7 @@ enum PartOfSpeech {
     Adv
     Conj
     Det
+    IAdv
     IP
     Interj
     N
@@ -42,6 +43,7 @@ enum PartOfSpeech {
     Predet
     Prep
     Pron
+    Punct
     Quant
     RP
     Subj

@@ -10,6 +10,7 @@ services:
     environment:
       GF_ENDPOINT: "http://gf:8000"
       DISPLAY_ERROR: "TRUE"
+      ENABLE_CACHE: "TRUE"
       SHOW_FLAGS: "FALSE"
       ENABLE_ENRICH: "FALSE"
       ENABLE_REF_EXPR: "FALSE"

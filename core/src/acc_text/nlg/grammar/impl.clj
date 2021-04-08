@@ -5,6 +5,7 @@
             [acc-text.nlg.graph.categories :refer [resolve-categories]]
             [acc-text.nlg.graph.condition :refer [determine-conditions]]
             [acc-text.nlg.graph.data :refer [resolve-data]]
+            [acc-text.nlg.graph.dictionary :refer [ensure-dictionary-items]]
             [acc-text.nlg.graph.lists :refer [resolve-lists]]
             [acc-text.nlg.graph.modifier :refer [resolve-modifiers]]
             [acc-text.nlg.graph.paths :refer [resolve-paths]]
@@ -141,6 +142,7 @@
       (resolve-variables)
       (determine-conditions context)
       (prune-graph)
+      (ensure-dictionary-items context)
       (resolve-lists context)
       (resolve-modifiers context)
       (resolve-categories)
