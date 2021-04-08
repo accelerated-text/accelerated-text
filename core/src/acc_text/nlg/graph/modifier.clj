@@ -50,30 +50,38 @@
        (reverse)
        (cons cat)))
 
-(defn sync-categories [lang modifier-cat child-cat]
-  (cond
-    (= "Cl" child-cat) [modifier-cat "RS"]
-    (= "RCl" child-cat) [modifier-cat "RS"]
-    :else (case [modifier-cat child-cat]
-            ["Str" "Str"] ["A" "N"]
-            ["A" "Str"] ["A" "N"]
-            ["A" "A"] ["AP" "VP"]
-            ["A" "AP"] ["AP" "VP"]
-            ["A" "Adv"] ["AP" "VP"]
-            ["A" "Cl"] ["AP" "S"]
-            ["N" "Str"] ["CN" "NP"]
-            ["V" "V"] ["VV" "VP"]
-            ["V" "VP"] ["VV" "VP"]
-            ["V" "N"] ["VV" "VP"]
-            ["V" "CN"] ["VV" "VP"]
-            ["V" "Str"] ["VV" "VP"]
-            ["Adv" "V"] ["Adv" "S"]
-            ["Adv" "N"] ["Adv" "S"]
-            ["Adv" "Str"] ["Adv" "S"]
-            ["Adv" "A"] ["Adv" "S"]
-            (->> (cartesian-product (find-path-to-utt lang modifier-cat) (find-path-to-utt lang child-cat))
-                 (some #(when (contains? (get modifier-map lang) %) %))
-                 (validate-cats lang [modifier-cat child-cat])))))
+(defn sync-categories [lang [modifier-cat child-cat]]
+  (->> (cartesian-product (find-path-to-utt lang modifier-cat) (find-path-to-utt lang child-cat))
+       (some #(when (contains? (get modifier-map lang) %) %))
+       (validate-cats lang [modifier-cat child-cat])))
+
+(defn determine-categories [lang [modifier-cat child-cat]]
+  (sync-categories
+    lang
+    (cond
+      (= "QCl" child-cat) [modifier-cat "QS"]
+      (and
+        (contains? #{"Cl" "S" "RCl"} child-cat)
+        (not (contains? #{"Adv" "A"} modifier-cat))) [modifier-cat "RS"]
+      :else (case [modifier-cat child-cat]
+              ["Str" "Str"] ["A" "N"]
+              ["A" "Str"] ["A" "N"]
+              ["A" "A"] ["AP" "VP"]
+              ["A" "AP"] ["AP" "VP"]
+              ["A" "Adv"] ["AP" "VP"]
+              ["A" "Cl"] ["AP" "S"]
+              ["N" "Str"] ["CN" "NP"]
+              ["N" "A"] ["NP" "A"]
+              ["V" "V"] ["VV" "VP"]
+              ["V" "VP"] ["VV" "VP"]
+              ["V" "N"] ["VV" "VP"]
+              ["V" "CN"] ["VV" "VP"]
+              ["V" "Str"] ["VV" "VP"]
+              ["Adv" "V"] ["Adv" "S"]
+              ["Adv" "N"] ["Adv" "S"]
+              ["Adv" "Str"] ["Adv" "S"]
+              ["Adv" "A"] ["Adv" "S"]
+              [modifier-cat child-cat]))))
 
 (defn find-nearest-node [g child category]
   (->> child
@@ -102,10 +110,12 @@
                                  [^:node node {:type :operation, :name "mkPhr", :category "Phr", :module "Syntax"}]
                                  [^:edge node child {:role :arg :index 1 :category "Utt"}]
                                  [^:edge node modifier {:role :arg :index 2 :category "Voc"}])
-        (= "Cl" modifier-cat child-cat) (uber/multidigraph
-                                          [^:node node {:type :operation, :name "RelS", :category "S", :module "Grammar"}]
-                                          [^:edge node modifier {:role :arg :index 0 :category "S"}]
-                                          [^:edge node child {:role :arg :index 1 :category "RS"}])
+        (and
+          (contains? #{"Cl" "S"} modifier-cat)
+          (contains? #{"Cl" "RCl" "RS"} child-cat)) (uber/multidigraph
+                                                      [^:node node {:type :operation, :name "RelS", :category "S", :module "Grammar"}]
+                                                      [^:edge node modifier {:role :arg :index 0 :category "S"}]
+                                                      [^:edge node child {:role :arg :index 1 :category "RS"}])
         (and
           (some? child-node)
           (= "Conj" modifier-cat)) (apply uber/multidigraph
@@ -114,11 +124,11 @@
                                               [^:node node {:type :modifier :category child-cat}]
                                               [^:node child-node (dissoc modifier-attrs :position)]
                                               [^:edge node child {:type :instance :category child-cat}])))
-        :else (let [[modifier-cat child-cat] (sync-categories lang modifier-cat child-cat)]
+        :else (let [[synced-modifier-cat synced-child-cat] (determine-categories lang [modifier-cat child-cat])]
                 (uber/multidigraph
-                  [^:node node (first (get-in modifier-map [lang [modifier-cat child-cat]]))]
-                  [^:edge node modifier {:role :arg :index 0 :category modifier-cat}]
-                  [^:edge node child {:role :arg :index 1 :category child-cat}]))))))
+                  [^:node node (first (get-in modifier-map [lang [synced-modifier-cat synced-child-cat]]))]
+                  [^:edge node modifier {:role :arg :index 0 :category synced-modifier-cat}]
+                  [^:edge node child {:role :arg :index 1 :category synced-child-cat}]))))))
 
 (defn resolve-modifiers [g {{lang "*Language"} :constants}]
   (reduce (fn [g modifier-node]
