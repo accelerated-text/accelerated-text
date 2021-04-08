@@ -7,8 +7,7 @@
             [loom.alg :as alg]
             [loom.attr :refer [attrs]]
             [loom.graph :as graph]
-            [ubergraph.core :as uber]
-            [clojure.tools.logging :as log])
+            [ubergraph.core :as uber])
   (:import (java.util UUID)))
 
 (defn validate-cats [lang cats synced-cats]
