@@ -35,10 +35,12 @@
 
 (defn find-category [g node]
   (->> node
-       (iterate #(let [successors (get-successors g %)]
-                   (or (when (= :modifier (:type (attrs g node)))
-                         (second successors))
-                       (first successors))))
+       (iterate #(let [[fist-child second-child] (get-successors g %)]
+                   (or (when (and
+                               (= :modifier (:type (attrs g node)))
+                               (not= "Conj" (:category (attrs g second-child))))
+                         second-child)
+                       fist-child)))
        (take-while some?)
        (some #(let [{:keys [category type]} (attrs g %)]
                 (if (contains? #{:quote :data} type)
@@ -87,7 +89,7 @@
 
 (defn find-nearest-node [g child category]
   (->> child
-       (alg/pre-traverse g)
+       (alg/post-traverse g)
        (map #(uber/node-with-attrs g %))
        (some (fn [[node {cat :category}]]
                (when (= category cat) node)))))
@@ -121,9 +123,9 @@
         (and
           (some? child-node)
           (= "Conj" modifier-cat)) (uber/multidigraph
-                                             [^:node node {:type :modifier :category child-cat}]
-                                             [^:node child-node (dissoc modifier-attrs :position)]
-                                             [^:edge node child {:type :instance :category child-cat}])
+                                     [^:node node {:type :modifier :category child-cat}]
+                                     [^:node child-node (dissoc modifier-attrs :position)]
+                                     [^:edge node child {:type :instance :category child-cat}])
         :else (let [[synced-modifier-cat synced-child-cat] (determine-categories lang [modifier-cat child-cat])]
                 (uber/multidigraph
                   [^:node node (first (get-in modifier-map [lang [synced-modifier-cat synced-child-cat]]))]
