@@ -33,8 +33,10 @@
   (let [dp (utils/read-json f)]
     (cond-> dp (string? (:documentPlan dp)) (update :documentPlan utils/read-json-str))))
 
-(defn initialize []
-  (doseq [{id :id :as dp}
-          (->> (utils/list-files (document-plan-path) #{".json"})
-               (map load-document-plan))]
-    (add-document-plan dp id)))
+(defstate document-plans
+  :start (doseq [{id :id :as dp}
+                 (->> (utils/list-files (document-plan-path) #{".json"})
+                      (map load-document-plan))]
+           (add-document-plan dp id))
+  :stop (doseq [{id :id} (list-document-plans)]
+          (delete-document-plan id)))

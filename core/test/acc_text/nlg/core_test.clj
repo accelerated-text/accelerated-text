@@ -39,10 +39,27 @@
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
     (testing "Shuffle"
       (let [semantic-graph (test-utils/load-test-semantic-graph "shuffle-test")]
-        (is (= #{"Cafe pub restaurant." "Cafe restaurant pub."
-                 "Pub cafe restaurant." "Pub restaurant cafe."
-                 "Restaurant cafe pub." "Restaurant pub cafe."}
-               (into #{} (map :text (core/generate-text semantic-graph {} "Eng")))))))))
+        (is (= #{"Cafe, pub and restaurant." "Cafe, restaurant and pub."
+                 "Pub, cafe and restaurant." "Pub, restaurant and cafe."
+                 "Restaurant, cafe and pub." "Restaurant, pub and cafe."}
+               (into #{} (map :text (core/generate-text semantic-graph {} "Eng")))))))
+    (testing "List with different arity"
+      (let [semantic-graph (test-utils/load-test-semantic-graph "list-arity-test")]
+        (is (= #{"Cat. Cat and house. Cat, house and apple."}
+               (into #{} (map :text (core/generate-text semantic-graph {} "Eng")))))))
+    (testing "List categories"
+      (let [semantic-graph (test-utils/load-test-semantic-graph "list-categories-test")
+            context (test-utils/load-test-context "list-categories-test")]
+        (is (= (set (list (str/join " " ["Cat and house." "Cat and house." "Nobody and nothing." "Big and friendly."
+                                         "Everywhere and somewhere." "Where and when. Always and always."
+                                         "House such that there is a cat and such that there is an apple."
+                                         "There is a cat and there is an apple."])))
+               (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
+    (testing "Nested lists"
+      (let [semantic-graph (test-utils/load-test-semantic-graph "nested-lists")
+            context (test-utils/load-test-context "nested-lists")]
+        (is (= ["If a house or hills then cats and big cats."]
+               (map :text (core/generate-text semantic-graph context "Eng"))))))))
 
 (deftest ^:integration amr-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "amr-test")
@@ -84,15 +101,24 @@
     (is (= ["One has one. One has a two.\nOne has a three."] (map :text (core/generate-text semantic-graph context "Eng"))))))
 
 (deftest ^:integration modifier-test
-  (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
-        context (test-utils/load-test-context "modifier-test")]
-    (is (= (->> ["Good eatery" "good chinese eatery" "cafe is nice" "nice cafe"
-                 "excellent to find" "it is here that it looks" "to look here" "venue there"
-                 "it is here that there is restaurant" "delicious to try" "excellent that eatery is a delicious decent cafe"
-                 "it is in family-friendly Alimentum that there is italian food and the beautiful door is made of traditional oriental wood."]
-                (str/join " ")
-                (vector))
-           (map :text (core/generate-text semantic-graph context "Eng"))))))
+  (testing "Simple modifiers"
+    (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
+          context (test-utils/load-test-context "modifier-test")]
+      (is (= (->> ["Good eatery" "good chinese eatery" "cafe is nice" "nice cafe"
+                   "excellent to find" "it is here that it looks" "to look here" "venue there"
+                   "it is here that there is restaurant" "delicious to try" "excellent that eatery is a delicious decent cafe"
+                   "it is in family-friendly Alimentum that there is italian food and the beautiful door is made of traditional oriental wood."]
+                  (str/join " ")
+                  (vector))
+             (map :text (core/generate-text semantic-graph context "Eng"))))))
+  (testing "Complex modifiers"
+    (let [semantic-graph (test-utils/load-test-semantic-graph "complex-modifiers")
+          context (test-utils/load-test-context "complex-modifiers")]
+      (is (= #{"Big house because there are these cats please."
+               "Big house because there are these cats."
+               "Big house such that there is an apple and such that there is a cat?"
+               "Our house that is bigger than that house behind us."}
+             (set (str/split (first (map :text (core/generate-text semantic-graph context "Eng"))) #"\n")))))))
 
 (deftest ^:integration template-amr
   (let [semantic-graph (test-utils/load-test-semantic-graph "template-amr")

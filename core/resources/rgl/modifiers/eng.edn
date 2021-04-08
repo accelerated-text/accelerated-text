@@ -55,8 +55,7 @@
                      {:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
  ["IP" "ClSlash"]   ({:type :operation :name "mkQCl" :category "QCl" :module "Syntax"})
  ["Gender" "N"]     ({:type :operation :name "mkN" :category "N" :module "ParadigmsEng"})
- ["NP" "AP"]        ({:type :operation :name "mkVP" :category "VP" :module "Syntax"}
-                     {:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
+ ["NP" "AP"]        ({:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
  ["AP" "S"]         ({:type :operation :name "mkAP" :category "AP" :module "Syntax"})
  ["SC" "VP"]        ({:type :operation :name "mkCl" :category "Cl" :module "Syntax"})
  ["Digits" "N"]     ({:type :operation :name "mkNP" :category "NP" :module "Syntax"})

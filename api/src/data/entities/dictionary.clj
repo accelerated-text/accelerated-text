@@ -53,6 +53,9 @@
     (db/write! dictionary-db item-id item)
     (get-dictionary-item item-id)))
 
+(defn get-dictionary-item-category [id]
+  (::dict-item/category (get-dictionary-item id)))
+
 (defn build-dictionaries [dict-keys language-codes]
   (let [dictionaries (group-by ::dict-item/language (scan-dictionary dict-keys language-codes))]
     (zipmap (keys dictionaries) (map set (vals dictionaries)))))
