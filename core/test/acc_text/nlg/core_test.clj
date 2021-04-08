@@ -54,7 +54,12 @@
                                          "Everywhere and somewhere." "Where and when. Always and always."
                                          "House such that there is a cat and such that there is an apple."
                                          "There is a cat and there is an apple."])))
-               (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))))
+               (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
+    (testing "Nested lists"
+      (let [semantic-graph (test-utils/load-test-semantic-graph "nested-lists")
+            context (test-utils/load-test-context "nested-lists")]
+        (is (= ["If a house or hills then cats and big cats."]
+               (map :text (core/generate-text semantic-graph context "Eng"))))))))
 
 (deftest ^:integration amr-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "amr-test")
