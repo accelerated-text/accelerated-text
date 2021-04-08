@@ -35,7 +35,10 @@
 
 (defn find-category [g node]
   (->> node
-       (iterate #(first (get-successors g %)))
+       (iterate #(let [successors (get-successors g %)]
+                   (or (when (= :modifier (:type (attrs g node)))
+                         (second successors))
+                       (first successors))))
        (take-while some?)
        (some #(let [{:keys [category type]} (attrs g %)]
                 (if (contains? #{:quote :data} type)
@@ -117,12 +120,10 @@
                                                       [^:edge node child {:role :arg :index 1 :category "RS"}])
         (and
           (some? child-node)
-          (= "Conj" modifier-cat)) (apply uber/multidigraph
-                                          (concat
-                                            (list
-                                              [^:node node {:type :modifier :category child-cat}]
-                                              [^:node child-node (dissoc modifier-attrs :position)]
-                                              [^:edge node child {:type :instance :category child-cat}])))
+          (= "Conj" modifier-cat)) (uber/multidigraph
+                                             [^:node node {:type :modifier :category child-cat}]
+                                             [^:node child-node (dissoc modifier-attrs :position)]
+                                             [^:edge node child {:type :instance :category child-cat}])
         :else (let [[synced-modifier-cat synced-child-cat] (determine-categories lang [modifier-cat child-cat])]
                 (uber/multidigraph
                   [^:node node (first (get-in modifier-map [lang [synced-modifier-cat synced-child-cat]]))]
