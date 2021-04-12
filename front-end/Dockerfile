@@ -11,14 +11,6 @@ COPY api/resources/schema.graphql /usr/src/app/packages/graphql/schema.graphql
 
 COPY front-end/nginx.conf /etc/nginx/nginx.conf
 
-ARG ACC_TEXT_API_URL
-ARG ACC_TEXT_GRAPHQL_URL
-ARG ACC_TEXT_DATA_FILES_BUCKET
-
-ENV ACC_TEXT_API_URL=$ACC_TEXT_API_URL
-ENV ACC_TEXT_GRAPHQL_URL=$ACC_TEXT_GRAPHQL_URL
-ENV DATA_FILES_BUCKET=$ACC_TEXT_DATA_FILES_BUCKET
-
 RUN make setup
 
 CMD ["make", "run-w-proxy"]
