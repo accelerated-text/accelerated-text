@@ -17,4 +17,6 @@
 
 (s/def ::readerFlagValues (s/map-of string? boolean?))
 
+(s/def ::sampleMethod #{"first" "relevant"})
+
 (s/def ::async boolean?)

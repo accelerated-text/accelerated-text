@@ -101,8 +101,7 @@
      ["/health" {:get health}]
      ["/status" {:get {:responses {200 {:body {:color string? :services coll?}}}
                        :handler   status}}]]
-    {:data      {
-                 :muuntaja   m/instance
+    {:data      {:muuntaja   m/instance
                  :middleware [swagger/swagger-feature
                               muuntaja/format-negotiate-middleware
                               parameters/parameters-middleware
