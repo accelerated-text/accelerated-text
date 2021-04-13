@@ -2,6 +2,7 @@
   (:gen-class)
   (:require [api.config :refer [conf]]
             [api.graphql.core :as graphql]
+            [api.graphql.query :as graphql-query]
             [api.nlg.service :as service]
             [api.utils :as utils]
             [api.error :as errors]
@@ -54,7 +55,7 @@
 
 (def routes
   (ring/router
-    [["/_graphql" {:post    {:parameters {:body any?}
+    [["/_graphql" {:post    {:parameters {:body ::graphql-query/body}
                              :coercion   reitit.coercion.spec/coercion
                              :handler    (fn [{{body :body} :parameters}]
                                            {:status 200
