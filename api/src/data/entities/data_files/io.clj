@@ -1,4 +1,4 @@
-(ns data.entities.data-files
+(ns data.entities.data-files.io
   (:require [api.config :refer [conf]]
             [clojure.data.csv :as csv]
             [clojure.string :as str]
@@ -13,6 +13,25 @@
 
 (defstate data-files-db :start (db/db-access :data-files conf))
 
+(defn transpose [m] (apply mapv vector m))
+
+(defn coerce-ints [coll]
+  (if (every? #(and (str/ends-with? (str %) ".0")
+                    (number? %)) coll)
+    (map int coll)
+    coll))
+
+(defn coerce-data-types
+  "When reading Excel files ints are converted to floats.
+  There might be other similar data type mismatches.
+  Detect such cases here and convert accordingly.
+  Expecting `rows` to have a header row"
+  [rows]
+  (->> rows
+       (transpose)
+       (map (fn [[head & items]] (cons head (coerce-ints items))))
+       (transpose)))
+
 (defn read-xlsx [content]
   (with-open [is (io/input-stream content)]
     (->> is
@@ -24,6 +43,7 @@
          (map excel/cell-seq)
          (map #(map excel/read-cell %))
          (remove #(every? nil? %))
+         (coerce-data-types)
          (csv/write-csv *out*)
          (with-out-str))))
 

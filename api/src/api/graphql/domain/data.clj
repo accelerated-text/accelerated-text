@@ -1,6 +1,6 @@
 (ns api.graphql.domain.data
   (:require [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-            [data.entities.data-files :as data-files]))
+            [data.entities.data-files.io :as data-files]))
 
 (defn- resolve-as-not-found-file [id]
   (resolve-as nil {:message (format "Cannot find data file with id `%s`." id)}))

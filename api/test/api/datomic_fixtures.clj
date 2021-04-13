@@ -1,15 +1,15 @@
 (ns api.datomic-fixtures
-  (:require [api.config]
-            [data.datomic.impl]
-            [data.entities.amr]
-            [data.entities.data-files]
-            [data.entities.dictionary]
-            [data.entities.document-plan]
-            [data.entities.reader-model]
-            [data.entities.results]
+  (:require api.config
+            data.datomic.impl
+            data.entities.amr
+            data.entities.data-files.io
+            data.entities.dictionary
+            data.entities.document-plan
+            data.entities.reader-model
+            data.entities.results
             [datomic.api :as d]
             [mount.core :as mount])
-  (:import (java.util UUID)))
+  (:import java.util.UUID))
 
 (defn scratch-conn
   "Creates an in-memory Datomic connection.
@@ -45,7 +45,7 @@
                                                      :available? true
                                                      :enabled?   true}]))}})
         (mount/only #{#'api.config/conf
-                      #'data.entities.data-files/data-files-db
+                      #'data.entities.data-files.io/data-files-db
                       #'data.entities.document-plan/document-plans-db
                       #'data.entities.reader-model/reader-model-db
                       #'data.entities.reader-model/reader-conf
