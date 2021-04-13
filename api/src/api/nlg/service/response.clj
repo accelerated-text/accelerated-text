@@ -11,7 +11,7 @@
 
 (s/def ::updatedAt number?)
 
-(s/def ::variants sequential?)
+(s/def ::variants (s/coll-of string?))
 
 (s/def ::error boolean?)
 
