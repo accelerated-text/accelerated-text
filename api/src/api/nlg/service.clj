@@ -35,6 +35,9 @@
                    ::response/error
                    ::response/message]))
 
+(s/def ::generate-response-bulk
+  (s/keys :req-un [::response/resultIds]))
+
 (s/def ::get-result
   (s/keys :opt-un [::request/format]))
 

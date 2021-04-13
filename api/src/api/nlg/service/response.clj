@@ -3,6 +3,8 @@
 
 (s/def ::resultId string?)
 
+(s/def ::resultIds (s/coll-of ::resultId))
+
 (s/def ::offset int?)
 
 (s/def ::totalCount int?)

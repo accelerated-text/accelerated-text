@@ -76,7 +76,7 @@
                                        (service/generate-request body))}
                :options cors-handler}]
      ["/nlg/_bulk/" {:post    {:parameters {:body ::service/generate-request-bulk}
-                               :responses  {200 {:body {:resultIds coll?}}}
+                               :responses  {200 {:body ::service/generate-response-bulk}}
                                :summary    "Bulk generation"
                                :coercion   reitit.coercion.spec/coercion
                                :middleware [muuntaja/format-request-middleware
@@ -105,8 +105,7 @@
                                        :responses  {200 {:body {:message string?
                                                                 :id      string?}}}}]
      ["/swagger.json" {:get {:no-doc  true
-                             :swagger {:info {:title       "nlg-api"
-                                              :description "api description"}}
+                             :swagger {:info {:title       "nlg-api"}}
                              :handler (swagger/create-swagger-handler)}}]
      ["/health" {:get      {:summary   "Check API health"
                             :handler   health
