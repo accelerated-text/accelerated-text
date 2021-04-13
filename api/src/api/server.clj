@@ -54,11 +54,14 @@
 
 (def routes
   (ring/router
-    [["/_graphql" {:post    {:handler (fn [{raw :body}]
-                                        (let [body (utils/read-json-is raw)]
-                                          {:status 200
-                                           :body   (graphql/handle body)}))
-                             :summary "GraphQL endpoint"}
+    [["/_graphql" {:post    {:parameters {:body any?}
+                             :coercion   reitit.coercion.spec/coercion
+                             :handler    (fn [{{body :body} :parameters}]
+                                           {:status 200
+                                            :body   (graphql/handle body)})
+                             :middleware [muuntaja/format-request-middleware
+                                          coercion/coerce-request-middleware]
+                             :summary    "GraphQL endpoint"}
                    :options cors-handler}]
      ["/nlg/" {:post    {:parameters {:body ::service/generate-request}
                          :responses  {200 {:body ::service/generate-response}}
