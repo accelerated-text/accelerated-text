@@ -31,7 +31,9 @@
                    ::response/totalCount
                    ::response/ready
                    ::response/updatedAt
-                   ::response/variants]))
+                   ::response/variants
+                   ::response/error
+                   ::response/message]))
 
 (s/def ::get-result
   (s/keys :opt-un [::request/format]))
