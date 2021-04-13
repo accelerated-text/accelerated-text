@@ -4,6 +4,7 @@
             [api.graphql.core :as graphql]
             [api.graphql.query :as graphql-query]
             [api.nlg.service :as service]
+            [api.resource :refer [response-examples]]
             [api.utils :as utils]
             [api.error :as errors]
             [clojure.tools.logging :as log]
@@ -67,7 +68,8 @@
                    :options {:handler cors-handler
                              :no-doc  true}}]
      ["/nlg/" {:post    {:parameters {:body ::service/generate-request}
-                         :responses  {200 {:body ::service/generate-response}}
+                         :responses  {200 {:body     ::service/generate-response
+                                           :examples (get-in response-examples [:nlg :get])}}
                          :summary    "Registers document plan for generation"
                          :coercion   reitit.coercion.spec/coercion
                          :middleware [muuntaja/format-request-middleware
@@ -78,7 +80,8 @@
                :options {:handler cors-handler
                          :no-doc  true}}]
      ["/nlg/_bulk/" {:post    {:parameters {:body ::service/generate-request-bulk}
-                               :responses  {200 {:body ::service/generate-response-bulk}}
+                               :responses  {200 {:body     ::service/generate-response-bulk
+                                                 :examples (get-in response-examples [:nlg-bulk :post])}}
                                :summary    "Bulk generation"
                                :coercion   reitit.coercion.spec/coercion
                                :middleware [muuntaja/format-request-middleware
@@ -90,15 +93,16 @@
                                :no-doc  true}}]
      ["/nlg/:id" {:get     {:parameters {:query ::service/get-result
                                          :path  {:id string?}}
-                            :responses  {200 {:body ::service/generate-response}}
+                            :responses  {200 {:body     ::service/generate-response
+                                              :examples (get-in response-examples [:nlg :get])}}
                             :coercion   reitit.coercion.spec/coercion
                             :summary    "Get NLG result"
                             :middleware [muuntaja/format-request-middleware
                                          coercion/coerce-request-middleware]
                             :handler    service/get-result}
-                  :delete  {:parameters {:query ::service/get-result
-                                         :path  {:id string?}}
-                            :responses  {200 {:body ::service/generate-response}}
+                  :delete  {:parameters {:path {:id string?}}
+                            :responses  {200 {:body     ::service/generate-response
+                                              :examples (get-in response-examples [:nlg :get])}}
                             :coercion   reitit.coercion.spec/coercion
                             :summary    "Delete NLG result"
                             :middleware [muuntaja/format-request-middleware
@@ -116,21 +120,19 @@
                                        :summary    "Upload a file"
                                        :responses  {200 {:body     {:message string?
                                                                     :id      string?}
-                                                         :examples {:application/json {:message "Succesfully uploaded file"
-                                                                                       :id      "40a65df2-1f23-492d-aff2-3db0e62d371d"}}}}}]
+                                                         :examples (get-in response-examples [:accelerated-text-data-files :post])}}}]
      ["/swagger.json" {:get {:no-doc  true
                              :swagger {:info {:title "nlg-api"}}
                              :handler (swagger/create-swagger-handler)}}]
      ["/health" {:get      {:summary   "Check API health"
                             :handler   health
                             :responses {200 {:body     {:health string?}
-                                             :examples {:application/json {:health "Ok"}}}}}
+                                             :examples (get-in response-examples [:health :get])}}}
                  :coercion reitit.coercion.spec/coercion}]
      ["/status" {:get      {:summary   "Check service status"
                             :handler   status
                             :responses {200 {:body     {:color string? :services coll?}
-                                             :examples {:application/json {:color    "green"
-                                                                           :services {"service" true}}}}}}
+                                             :examples (get-in response-examples [:status :get])}}}
                  :coercion reitit.coercion.spec/coercion}]]
     {:data      {:muuntaja   m/instance
                  :middleware [swagger/swagger-feature
