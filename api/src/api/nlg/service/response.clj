@@ -13,7 +13,7 @@
 
 (s/def ::updatedAt number?)
 
-(s/def ::variants (s/coll-of string?))
+(s/def ::variants (s/coll-of (s/or :raw string? :annotated map?)))
 
 (s/def ::error boolean?)
 

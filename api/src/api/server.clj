@@ -87,6 +87,7 @@
                      :options cors-handler}]
      ["/nlg/:id" {:get     {:parameters {:query ::service/get-result
                                          :path  {:id string?}}
+                            :responses   {200 {:body ::service/generate-response}}
                             :coercion   reitit.coercion.spec/coercion
                             :summary    "Get NLG result"
                             :middleware [muuntaja/format-request-middleware
@@ -105,7 +106,7 @@
                                        :responses  {200 {:body {:message string?
                                                                 :id      string?}}}}]
      ["/swagger.json" {:get {:no-doc  true
-                             :swagger {:info {:title       "nlg-api"}}
+                             :swagger {:info {:title "nlg-api"}}
                              :handler (swagger/create-swagger-handler)}}]
      ["/health" {:get      {:summary   "Check API health"
                             :handler   health
