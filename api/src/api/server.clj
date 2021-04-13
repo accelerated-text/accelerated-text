@@ -108,12 +108,14 @@
                              :swagger {:info {:title       "nlg-api"
                                               :description "api description"}}
                              :handler (swagger/create-swagger-handler)}}]
-     ["/health" {:get       {:summary "Check API health"
-                             :handler health}
-                 :coercion  reitit.coercion.spec/coercion
-                 :responses {200 {:body {:health string?}}}}]
-     ["/status" {:get {:responses {200 {:body {:color string? :services coll?}}}
-                       :handler   status}}]]
+     ["/health" {:get      {:summary   "Check API health"
+                            :handler   health
+                            :responses {200 {:body {:health string?}}}}
+                 :coercion reitit.coercion.spec/coercion}]
+     ["/status" {:get      {:summary   "Check service status"
+                            :handler   status
+                            :responses {200 {:body {:color string? :services coll?}}}}
+                 :coercion reitit.coercion.spec/coercion}]]
     {:data      {:muuntaja   m/instance
                  :middleware [swagger/swagger-feature
                               muuntaja/format-negotiate-middleware
