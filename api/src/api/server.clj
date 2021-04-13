@@ -96,8 +96,14 @@
                             :middleware [muuntaja/format-request-middleware
                                          coercion/coerce-request-middleware]
                             :handler    service/get-result}
-                  :delete  {:handler service/delete-result
-                            :summary "Delete NLG result"}
+                  :delete  {:parameters {:query ::service/get-result
+                                         :path  {:id string?}}
+                            :responses  {200 {:body ::service/generate-response}}
+                            :coercion   reitit.coercion.spec/coercion
+                            :summary    "Delete NLG result"
+                            :middleware [muuntaja/format-request-middleware
+                                         coercion/coerce-request-middleware]
+                            :handler    service/delete-result}
                   :options {:handler cors-handler
                             :no-doc  true}}]
      ["/accelerated-text-data-files/" {:parameters {:multipart {:file multipart/bytes-part}}
@@ -108,18 +114,23 @@
                                                         :body   {:message "Succesfully uploaded file" :id id}}))
                                        :coercion   reitit.coercion.spec/coercion
                                        :summary    "Upload a file"
-                                       :responses  {200 {:body {:message string?
-                                                                :id      string?}}}}]
+                                       :responses  {200 {:body     {:message string?
+                                                                    :id      string?}
+                                                         :examples {:application/json {:message "Succesfully uploaded file"
+                                                                                       :id      "40a65df2-1f23-492d-aff2-3db0e62d371d"}}}}}]
      ["/swagger.json" {:get {:no-doc  true
                              :swagger {:info {:title "nlg-api"}}
                              :handler (swagger/create-swagger-handler)}}]
      ["/health" {:get      {:summary   "Check API health"
                             :handler   health
-                            :responses {200 {:body {:health string?}}}}
+                            :responses {200 {:body     {:health string?}
+                                             :examples {:application/json {:health "Ok"}}}}}
                  :coercion reitit.coercion.spec/coercion}]
      ["/status" {:get      {:summary   "Check service status"
                             :handler   status
-                            :responses {200 {:body {:color string? :services coll?}}}}
+                            :responses {200 {:body     {:color string? :services coll?}
+                                             :examples {:application/json {:color    "green"
+                                                                           :services {"service" true}}}}}}
                  :coercion reitit.coercion.spec/coercion}]]
     {:data      {:muuntaja   m/instance
                  :middleware [swagger/swagger-feature

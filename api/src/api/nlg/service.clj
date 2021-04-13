@@ -107,7 +107,7 @@
       (do
         (results/delete request-id)
         {:status 200
-         :body   item})
+         :body   (utils/translate-result item {:format "raw"})})
       (do
         (log/warnf "Result with id `%s` not found" request-id)
         {:status 404}))
