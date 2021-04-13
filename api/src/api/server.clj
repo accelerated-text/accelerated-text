@@ -19,6 +19,7 @@
             [muuntaja.core :as m]
             [reitit.ring.coercion :as coercion]
             [reitit.ring.middleware.parameters :as parameters]
+            [reitit.ring.middleware.multipart :as multipart]
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [reitit.dev.pretty :as pretty]
             [acc-text.nlg.gf.service :as gf-service]))
@@ -28,7 +29,7 @@
               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
               "Content-Type"                 "application/json"})
 
-(defn health [_] {:status 200, :body "Ok"})
+(defn health [_] {:status 200, :body {:health "Ok"}})
 
 (defn status [_]
   (let [main-deps {:gf (gf-service/ping)}
@@ -93,16 +94,24 @@
                             :handler    service/get-result}
                   :delete  service/delete-result
                   :options cors-handler}]
-     ["/accelerated-text-data-files/" {:post (fn [request]
-                                               (let [{params :params} (multipart-handler request)
-                                                     id (data-files/store! (get params "file"))]
-                                                 {:status 200
-                                                  :body   {:message "Succesfully uploaded file" :id id}}))}]
+     ["/accelerated-text-data-files/" {:parameters {:multipart {:file multipart/bytes-part}}
+                                       :post       (fn [request]
+                                                     (let [{params :params} (multipart-handler request)
+                                                           id (data-files/store! (get params "file"))]
+                                                       {:status 200
+                                                        :body   {:message "Succesfully uploaded file" :id id}}))
+                                       :coercion   reitit.coercion.spec/coercion
+                                       :summary    "Upload a file"
+                                       :responses  {200 {:body {:message string?
+                                                                :id      string?}}}}]
      ["/swagger.json" {:get {:no-doc  true
                              :swagger {:info {:title       "nlg-api"
                                               :description "api description"}}
                              :handler (swagger/create-swagger-handler)}}]
-     ["/health" {:get health}]
+     ["/health" {:get       {:summary "Check API health"
+                             :handler health}
+                 :coercion  reitit.coercion.spec/coercion
+                 :responses {200 {:body {:health string?}}}}]
      ["/status" {:get {:responses {200 {:body {:color string? :services coll?}}}
                        :handler   status}}]]
     {:data      {:muuntaja   m/instance
