@@ -64,7 +64,8 @@
                              :middleware [muuntaja/format-request-middleware
                                           coercion/coerce-request-middleware]
                              :summary    "GraphQL endpoint"}
-                   :options cors-handler}]
+                   :options {:handler cors-handler
+                             :no-doc  true}}]
      ["/nlg/" {:post    {:parameters {:body ::service/generate-request}
                          :responses  {200 {:body ::service/generate-response}}
                          :summary    "Registers document plan for generation"
@@ -74,7 +75,8 @@
                                       coercion/coerce-response-middleware]
                          :handler    (fn [{{body :body} :parameters}]
                                        (service/generate-request body))}
-               :options cors-handler}]
+               :options {:handler cors-handler
+                         :no-doc  true}}]
      ["/nlg/_bulk/" {:post    {:parameters {:body ::service/generate-request-bulk}
                                :responses  {200 {:body ::service/generate-response-bulk}}
                                :summary    "Bulk generation"
@@ -84,17 +86,20 @@
                                             coercion/coerce-response-middleware]
                                :handler    (fn [{{body :body} :parameters}]
                                              (service/generate-request-bulk body))}
-                     :options cors-handler}]
+                     :options {:handler cors-handler
+                               :no-doc  true}}]
      ["/nlg/:id" {:get     {:parameters {:query ::service/get-result
                                          :path  {:id string?}}
-                            :responses   {200 {:body ::service/generate-response}}
+                            :responses  {200 {:body ::service/generate-response}}
                             :coercion   reitit.coercion.spec/coercion
                             :summary    "Get NLG result"
                             :middleware [muuntaja/format-request-middleware
                                          coercion/coerce-request-middleware]
                             :handler    service/get-result}
-                  :delete  service/delete-result
-                  :options cors-handler}]
+                  :delete  {:handler service/delete-result
+                            :summary "Delete NLG result"}
+                  :options {:handler cors-handler
+                            :no-doc  true}}]
      ["/accelerated-text-data-files/" {:parameters {:multipart {:file multipart/bytes-part}}
                                        :post       (fn [request]
                                                      (let [{params :params} (multipart-handler request)
