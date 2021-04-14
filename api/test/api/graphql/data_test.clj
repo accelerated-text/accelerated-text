@@ -3,7 +3,7 @@
             [api.test-utils :refer [load-data-file q]]
             [clojure.string :as str]
             [clojure.test :refer [deftest is testing use-fixtures]]
-            [data.entities.data-files.io :as data-files]
+            [data.entities.data-files :as data-files]
             [data.spec.data-file :as data-file]))
 
 (use-fixtures :each db/clean-db)

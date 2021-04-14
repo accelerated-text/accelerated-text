@@ -2,7 +2,7 @@
   (:require [api.db-fixtures :as fixtures]
             [api.test-utils :refer [q]]
             [clojure.test :refer [deftest is testing use-fixtures]]
-            [data.entities.data-files.io :as data-files]
+            [data.entities.data-files :as data-files]
             [data.entities.document-plan :as dp]))
 
 (use-fixtures :each fixtures/clean-db)

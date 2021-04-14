@@ -1,4 +1,4 @@
-(ns data.entities.data-files.io
+(ns data.entities.data-files
   (:require [api.config :refer [conf]]
             [clojure.data.csv :as csv]
             [clojure.string :as str]

@@ -1,7 +1,7 @@
-(ns data.data-files.io-test
-  (:require [clojure.test :refer [deftest is]]
-            [clojure.java.io :as io]
-            [data.entities.data-files.io :refer [coerce-ints read-xlsx]]))
+(ns data.data-files-test
+  (:require [clojure.java.io :as io]
+            [clojure.test :refer [deftest is]]
+            [data.entities.data-files :refer [coerce-ints read-xlsx]]))
 
 (deftest int-coercion
   (is (= [1 2 3] (coerce-ints [1.0 2.0 3.0])))

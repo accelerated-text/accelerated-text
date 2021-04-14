@@ -4,7 +4,7 @@
             [api.nlg.format :refer [use-format with-default-format]]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
-            [data.entities.data-files.io :as data-files]
+            [data.entities.data-files :as data-files]
             [data.entities.document-plan :as dp]
             [data.entities.reader-model :as reader-model]
             [data.spec.result :as result]))

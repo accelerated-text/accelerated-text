@@ -7,7 +7,7 @@
             [api.nlg.service :as service]
             [api.utils :as utils]
             [clojure.tools.logging :as log]
-            [data.entities.data-files.io :as data-files]
+            [data.entities.data-files :as data-files]
             [mount.core :as mount :refer [defstate]]
             [muuntaja.core :as m]
             [org.httpkit.server :as server]
