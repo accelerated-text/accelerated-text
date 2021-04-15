@@ -1,6 +1,13 @@
 lint:
 	clojure -Sdeps '{:deps {clj-kondo {:mvn/version "RELEASE"}}}' -m clj-kondo.main --lint src test
 
+fmt-check:
+	clojure -Sdeps '{:deps {cljfmt/cljfmt {:mvn/version "0.7.0"}}}' -m cljfmt.main check
+
+fmt-fix:
+	clojure -Sdeps '{:deps {cljfmt/cljfmt {:mvn/version "0.7.0"}}}' -m cljfmt.main check
+
+
 unit-tests:
 	clojure -A:test -e:integration
 
