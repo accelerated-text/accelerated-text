@@ -1,6 +1,6 @@
 (ns api.server-test
-  (:require [api.test-utils :refer [q]]
-            [api.db-fixtures :as fixtures]
+  (:require [api.db-fixtures :as fixtures]
+            [api.test-utils :refer [q]]
             [clojure.test :refer [deftest is testing use-fixtures]]
             [data.entities.data-files :as data-files]
             [data.entities.document-plan :as dp]))

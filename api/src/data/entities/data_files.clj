@@ -1,17 +1,19 @@
 (ns data.entities.data-files
   (:require [api.config :refer [conf]]
             [clojure.data.csv :as csv]
-            [clojure.string :as str]
             [clojure.java.io :as io]
+            [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.db :as db]
-            [data.utils :as utils]
+            [data.entities.data-files.format-coercion :as format-coercion]
             [data.entities.data-files.row-selection :as row-selection]
             [data.spec.data-file :as data-file]
+            [data.utils :as utils]
             [dk.ative.docjure.spreadsheet :as excel]
             [mount.core :refer [defstate]]))
 
 (defstate data-files-db :start (db/db-access :data-files conf))
+
 
 (defn read-xlsx [content]
   (with-open [is (io/input-stream content)]
@@ -24,6 +26,7 @@
          (map excel/cell-seq)
          (map #(map excel/read-cell %))
          (remove #(every? nil? %))
+         (format-coercion/coerce-data-types)
          (csv/write-csv *out*)
          (with-out-str))))
 

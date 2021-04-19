@@ -1,28 +1,28 @@
 (ns api.server
   (:gen-class)
-  (:require [api.config :refer [conf]]
+  (:require [acc-text.nlg.gf.service :as gf-service]
+            [api.config :refer [conf]]
+            [api.error :as errors]
             [api.graphql.core :as graphql]
             [api.nlg.service :as service]
             [api.resource :refer [response-examples]]
             [api.utils :as utils]
-            [api.error :as errors]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
-            [mount.core :refer [defstate] :as mount]
-            [org.httpkit.server :as server]
-            [ring.middleware.multipart-params :as multipart-params]
-            [reitit.coercion.spec]
-            [reitit.ring :as ring]
-            [reitit.coercion.schema]
-            [reitit.swagger :as swagger]
-            [reitit.swagger-ui :as swagger-ui]
+            [mount.core :as mount :refer [defstate]]
             [muuntaja.core :as m]
+            [org.httpkit.server :as server]
+            [reitit.coercion.schema]
+            [reitit.coercion.spec]
+            [reitit.dev.pretty :as pretty]
+            [reitit.ring :as ring]
             [reitit.ring.coercion :as coercion]
-            [reitit.ring.middleware.parameters :as parameters]
             [reitit.ring.middleware.multipart :as multipart]
             [reitit.ring.middleware.muuntaja :as muuntaja]
-            [reitit.dev.pretty :as pretty]
-            [acc-text.nlg.gf.service :as gf-service]))
+            [reitit.ring.middleware.parameters :as parameters]
+            [reitit.swagger :as swagger]
+            [reitit.swagger-ui :as swagger-ui]
+            [ring.middleware.multipart-params :as multipart-params]))
 
 (def headers {"Access-Control-Allow-Origin"  "*"
               "Access-Control-Allow-Headers" "content-type, *"
