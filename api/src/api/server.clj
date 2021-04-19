@@ -2,7 +2,6 @@
   (:gen-class)
   (:require [api.config :refer [conf]]
             [api.graphql.core :as graphql]
-            [api.graphql.query :as graphql-query]
             [api.nlg.service :as service]
             [api.resource :refer [response-examples]]
             [api.utils :as utils]
@@ -57,14 +56,11 @@
 
 (def routes
   (ring/router
-    [["/_graphql" {:post    {:parameters {:body ::graphql-query/body}
-                             :coercion   reitit.coercion.spec/coercion
-                             :handler    (fn [{{body :body} :parameters}]
-                                           {:status 200
-                                            :body   (graphql/handle body)})
-                             :middleware [muuntaja/format-request-middleware
-                                          coercion/coerce-request-middleware]
-                             :summary    "GraphQL endpoint"}
+    [["/_graphql" {:post    {:handler (fn [{raw :body}]
+                                        (let [body (utils/read-json-is raw)]
+                                          {:status 200
+                                           :body   (graphql/handle body)}))
+                             :summary "GraphQL endpoint"}
                    :options {:handler cors-handler
                              :no-doc  true}}]
      ["/nlg/" {:post    {:parameters {:body ::service/generate-request}
