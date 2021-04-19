@@ -12,8 +12,8 @@
             [mount.core :as mount :refer [defstate]]
             [muuntaja.core :as m]
             [org.httpkit.server :as server]
-            reitit.coercion.schema
-            reitit.coercion.spec
+            [reitit.coercion.schema]
+            [reitit.coercion.spec]
             [reitit.dev.pretty :as pretty]
             [reitit.ring :as ring]
             [reitit.ring.coercion :as coercion]
