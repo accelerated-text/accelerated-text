@@ -16,80 +16,39 @@ language_tabs:
 
 <h1 id="">nlg-api v</h1>
 
-> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+> Scroll down for code samples, example requests and responses.
 
-<h1 id="-default">Default</h1>
-
-## post___graphql
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X POST /_graphql \
-  -H 'Content-Type: application/json'
-
-```
-
-`POST /_graphql`
+## POST /_graphql
 
 *GraphQL endpoint*
 
-> Body parameter
+Refer to ![GraphQl API](graphql.md)
 
-```json
-{}
-```
+## POST /nlg/
 
-<h3 id="post___graphql-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|true|none|
-
-<h3 id="post___graphql-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|default|Default|none|None|
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-## post__nlg_
+*Registers document plan for generation*
 
 > Code samples
 
 ```shell
-# You can also use wget
 curl -X POST /nlg/ \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
-
 ```
 
-`POST /nlg/`
-
-*Registers document plan for generation*
-
-> Body parameter
+> Body example
 
 ```json
 {
-  "documentPlanId": "string",
-  "documentPlanName": "string",
-  "dataId": "string",
+  "documentPlanName": "MyDocumentPlan",
   "dataRow": {
     "property1": "string",
     "property2": "string"
   },
-  "sampleMethod": "relevant",
   "readerFlagValues": {
-    "property1": true,
-    "property2": true
+    "Eng": true
   },
-  "async": true
+  "async": false
 }
 ```
 
@@ -130,18 +89,14 @@ curl -X POST /nlg/ \
 }
 ```
 
-> 200 Response
-
 ```json
 {
-  "resultId": "string",
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
   "offset": 0,
   "totalCount": 0,
   "ready": true,
   "updatedAt": 0,
-  "variants": [
-    "string"
-  ],
+  "variants": [],
   "error": true,
   "message": "string"
 }
@@ -187,45 +142,36 @@ Status Code **200**
 |» error|boolean|false|none|none|
 |» message|string|false|none|none|
 
-<aside class="success">
-This operation does not require authentication
-</aside>
+## POST /nlg/_bulk/
 
-## post__nlg__bulk_
+*Bulk generation*
 
 > Code samples
 
 ```shell
-# You can also use wget
 curl -X POST /nlg/_bulk/ \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
 
 ```
 
-`POST /nlg/_bulk/`
-
-*Bulk generation*
-
 > Body parameter
 
 ```json
 {
+  "documentPlanName": "string",
   "dataRows": {
-    "property1": {
+    "30619541-1033-479f-b8ff-af2c21b080fb": {
       "property1": "string",
       "property2": "string"
     },
-    "property2": {
+    "7ea468d9-d2c3-46b2-af1d-a998d397a8c8": {
       "property1": "string",
       "property2": "string"
     }
   },
-  "documentPlanId": "string",
-  "documentPlanName": "string",
   "readerFlagValues": {
-    "property1": true,
-    "property2": true
+    "Eng": true
   }
 }
 ```
@@ -248,26 +194,8 @@ curl -X POST /nlg/_bulk/ \
 ```json
 {
   "resultIds": [
-    "d881852b-8b33-4213-95a1-118ce9ec816d",
-    "44f797a0-bdf7-4ce3-a5c2-0bc058e54904",
-    "4a09300a-4e24-4d72-9569-f1c52c7e5f5b",
-    "3ec1d762-e632-40f2-b8d7-88f4450e07dd",
-    "843711ca-26e9-4627-9b23-038c022cf2ed",
-    "54c6a41c-4b28-4cd6-91ab-d4ac7f2b4e69",
-    "87d43ffa-e671-4029-b81f-08eeedb59372",
-    "5c1379cf-d1f4-456e-ba88-ebdf2fde1f84",
-    "a63eb1e0-af28-4f7a-9803-e18cdc70f5cb",
-    "c9e244dd-6170-4929-91a9-ab88fdf23e6e"
-  ]
-}
-```
-
-> 200 Response
-
-```json
-{
-  "resultIds": [
-    "string"
+    "30619541-1033-479f-b8ff-af2c21b080fb",
+    "7ea468d9-d2c3-46b2-af1d-a998d397a8c8"
   ]
 }
 ```
@@ -288,24 +216,17 @@ Status Code **200**
 |---|---|---|---|---|
 |» resultIds|[string]|true|none|none|
 
-<aside class="success">
-This operation does not require authentication
-</aside>
+## GET /nlg/{id}
 
-## get__nlg_{id}
+*Get NLG result*
 
 > Code samples
 
 ```shell
-# You can also use wget
 curl -X GET /nlg/{id} \
   -H 'Accept: application/json'
 
 ```
-
-`GET /nlg/{id}`
-
-*Get NLG result*
 
 <h3 id="get__nlg_{id}-parameters">Parameters</h3>
 
@@ -337,18 +258,14 @@ curl -X GET /nlg/{id} \
 }
 ```
 
-> 200 Response
-
 ```json
 {
-  "resultId": "string",
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
   "offset": 0,
   "totalCount": 0,
   "ready": true,
   "updatedAt": 0,
-  "variants": [
-    "string"
-  ],
+  "variants": [],
   "error": true,
   "message": "string"
 }
@@ -394,24 +311,16 @@ Status Code **200**
 |» error|boolean|false|none|none|
 |» message|string|false|none|none|
 
-<aside class="success">
-This operation does not require authentication
-</aside>
+## DELETE /nlg/{id}
 
-## delete__nlg_{id}
+*Delete NLG result*
 
 > Code samples
 
 ```shell
-# You can also use wget
 curl -X DELETE /nlg/{id} \
   -H 'Accept: application/json'
-
 ```
-
-`DELETE /nlg/{id}`
-
-*Delete NLG result*
 
 <h3 id="delete__nlg_{id}-parameters">Parameters</h3>
 
@@ -434,18 +343,14 @@ curl -X DELETE /nlg/{id} \
 }
 ```
 
-> 200 Response
-
 ```json
 {
-  "resultId": "string",
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
   "offset": 0,
   "totalCount": 0,
   "ready": true,
   "updatedAt": 0,
-  "variants": [
-    "string"
-  ],
+  "variants": [],
   "error": true,
   "message": "string"
 }
@@ -491,25 +396,18 @@ Status Code **200**
 |» error|boolean|false|none|none|
 |» message|string|false|none|none|
 
-<aside class="success">
-This operation does not require authentication
-</aside>
+## POST /accelerated-text-data-files/
 
-## post__accelerated-text-data-files_
+*Upload a file*
 
 > Code samples
 
 ```shell
-# You can also use wget
 curl -X POST /accelerated-text-data-files/ \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json'
 
 ```
-
-`POST /accelerated-text-data-files/`
-
-*Upload a file*
 
 > Body parameter
 
@@ -534,15 +432,6 @@ file: string
 }
 ```
 
-> 200 Response
-
-```json
-{
-  "message": "string",
-  "id": "string"
-}
-```
-
 <h3 id="post__accelerated-text-data-files_-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
@@ -558,38 +447,23 @@ Status Code **200**
 |» message|string|true|none|none|
 |» id|string|true|none|none|
 
-<aside class="success">
-This operation does not require authentication
-</aside>
+## GET /health
 
-## get__health
+*Check API health*
 
 > Code samples
 
 ```shell
-# You can also use wget
 curl -X GET /health \
   -H 'Accept: application/json'
 
 ```
-
-`GET /health`
-
-*Check API health*
 
 > Example responses
 
 ```json
 {
   "health": "Ok"
-}
-```
-
-> 200 Response
-
-```json
-{
-  "health": "string"
 }
 ```
 
@@ -607,24 +481,17 @@ Status Code **200**
 |---|---|---|---|---|
 |» health|string|true|none|none|
 
-<aside class="success">
-This operation does not require authentication
-</aside>
+## GET /status
 
-## get__status
+*Check service status*
 
 > Code samples
 
 ```shell
-# You can also use wget
 curl -X GET /status \
   -H 'Accept: application/json'
 
 ```
-
-`GET /status`
-
-*Check service status*
 
 > Example responses
 
@@ -634,15 +501,6 @@ curl -X GET /status \
   "services": {
     "service": true
   }
-}
-```
-
-> 200 Response
-
-```json
-{
-  "color": "string",
-  "services": {}
 }
 ```
 
@@ -660,8 +518,3 @@ Status Code **200**
 |---|---|---|---|---|
 |» color|string|true|none|none|
 |» services|object|true|none|none|
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
