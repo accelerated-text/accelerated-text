@@ -5,6 +5,7 @@
             [api.error :as errors]
             [api.graphql.core :as graphql]
             [api.nlg.service :as service]
+            [api.resource :refer [response-examples]]
             [api.utils :as utils]
             [clojure.tools.logging :as log]
             [data.entities.data-files :as data-files]
@@ -16,6 +17,7 @@
             [reitit.dev.pretty :as pretty]
             [reitit.ring :as ring]
             [reitit.ring.coercion :as coercion]
+            [reitit.ring.middleware.multipart :as multipart]
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.swagger :as swagger]
@@ -27,7 +29,7 @@
               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
               "Content-Type"                 "application/json"})
 
-(defn health [_] {:status 200, :body "Ok"})
+(defn health [_] {:status 200, :body {:health "Ok"}})
 
 (defn status [_]
   (let [main-deps {:gf (gf-service/ping)}
@@ -54,14 +56,18 @@
 
 (def routes
   (ring/router
-    [["/_graphql" {:post    {:handler (fn [{raw :body}]
-                                        (let [body (utils/read-json-is raw)]
-                                          {:status 200
-                                           :body   (graphql/handle body)}))
-                             :summary "GraphQL endpoint"}
-                   :options cors-handler}]
+    [["/_graphql" {:post    {:parameters {:body map?}
+                             :coercion   reitit.coercion.spec/coercion
+                             :handler    (fn [{raw :body}]
+                                           (let [body (utils/read-json-is raw)]
+                                             {:status 200
+                                              :body   (graphql/handle body)}))
+                             :summary    "GraphQL endpoint"}
+                   :options {:handler cors-handler
+                             :no-doc  true}}]
      ["/nlg/" {:post    {:parameters {:body ::service/generate-request}
-                         :responses  {200 {:body ::service/generate-response}}
+                         :responses  {200 {:body     ::service/generate-response
+                                           :examples (get-in response-examples [:nlg :get])}}
                          :summary    "Registers document plan for generation"
                          :coercion   reitit.coercion.spec/coercion
                          :middleware [muuntaja/format-request-middleware
@@ -69,9 +75,11 @@
                                       coercion/coerce-response-middleware]
                          :handler    (fn [{{body :body} :parameters}]
                                        (service/generate-request body))}
-               :options cors-handler}]
+               :options {:handler cors-handler
+                         :no-doc  true}}]
      ["/nlg/_bulk/" {:post    {:parameters {:body ::service/generate-request-bulk}
-                               :responses  {200 {:body {:resultIds coll?}}}
+                               :responses  {200 {:body     ::service/generate-response-bulk
+                                                 :examples (get-in response-examples [:nlg-bulk :post])}}
                                :summary    "Bulk generation"
                                :coercion   reitit.coercion.spec/coercion
                                :middleware [muuntaja/format-request-middleware
@@ -79,30 +87,52 @@
                                             coercion/coerce-response-middleware]
                                :handler    (fn [{{body :body} :parameters}]
                                              (service/generate-request-bulk body))}
-                     :options cors-handler}]
+                     :options {:handler cors-handler
+                               :no-doc  true}}]
      ["/nlg/:id" {:get     {:parameters {:query ::service/get-result
                                          :path  {:id string?}}
+                            :responses  {200 {:body     ::service/generate-response
+                                              :examples (get-in response-examples [:nlg :get])}}
                             :coercion   reitit.coercion.spec/coercion
                             :summary    "Get NLG result"
                             :middleware [muuntaja/format-request-middleware
                                          coercion/coerce-request-middleware]
                             :handler    service/get-result}
-                  :delete  service/delete-result
-                  :options cors-handler}]
-     ["/accelerated-text-data-files/" {:post (fn [request]
-                                               (let [{params :params} (multipart-handler request)
-                                                     id (data-files/store! (get params "file"))]
-                                                 {:status 200
-                                                  :body   {:message "Succesfully uploaded file" :id id}}))}]
+                  :delete  {:parameters {:path {:id string?}}
+                            :responses  {200 {:body     ::service/generate-response
+                                              :examples (get-in response-examples [:nlg :get])}}
+                            :coercion   reitit.coercion.spec/coercion
+                            :summary    "Delete NLG result"
+                            :middleware [muuntaja/format-request-middleware
+                                         coercion/coerce-request-middleware]
+                            :handler    service/delete-result}
+                  :options {:handler cors-handler
+                            :no-doc  true}}]
+     ["/accelerated-text-data-files/" {:parameters {:multipart {:file multipart/bytes-part}}
+                                       :post       (fn [request]
+                                                     (let [{params :params} (multipart-handler request)
+                                                           id (data-files/store! (get params "file"))]
+                                                       {:status 200
+                                                        :body   {:message "Succesfully uploaded file" :id id}}))
+                                       :coercion   reitit.coercion.spec/coercion
+                                       :summary    "Upload a file"
+                                       :responses  {200 {:body     {:message string?
+                                                                    :id      string?}
+                                                         :examples (get-in response-examples [:accelerated-text-data-files :post])}}}]
      ["/swagger.json" {:get {:no-doc  true
-                             :swagger {:info {:title       "nlg-api"
-                                              :description "api description"}}
+                             :swagger {:info {:title "nlg-api"}}
                              :handler (swagger/create-swagger-handler)}}]
-     ["/health" {:get health}]
-     ["/status" {:get {:responses {200 {:body {:color string? :services coll?}}}
-                       :handler   status}}]]
-    {:data      {
-                 :muuntaja   m/instance
+     ["/health" {:get      {:summary   "Check API health"
+                            :handler   health
+                            :responses {200 {:body     {:health string?}
+                                             :examples (get-in response-examples [:health :get])}}}
+                 :coercion reitit.coercion.spec/coercion}]
+     ["/status" {:get      {:summary   "Check service status"
+                            :handler   status
+                            :responses {200 {:body     {:color string? :services coll?}
+                                             :examples (get-in response-examples [:status :get])}}}
+                 :coercion reitit.coercion.spec/coercion}]]
+    {:data      {:muuntaja   m/instance
                  :middleware [swagger/swagger-feature
                               muuntaja/format-negotiate-middleware
                               parameters/parameters-middleware

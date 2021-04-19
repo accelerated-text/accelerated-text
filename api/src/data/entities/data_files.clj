@@ -33,7 +33,7 @@
 (defn convert-file [{:keys [filename content]}]
   (cond
     (instance? String content) content
-    (str/ends-with? filename ".xlsx") (read-xlsx content)
+    (and (some? filename) (str/ends-with? filename ".xlsx")) (read-xlsx content)
     :else (slurp content)))
 
 (defn read-data-file [key]
