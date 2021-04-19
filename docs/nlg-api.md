@@ -1,312 +1,667 @@
-#   NLG APIs
+---
+title: nlg-api v
+language_tabs:
+- shell: Shell
+  language_clients:
+- shell: ""
+  toc_footers: []
+  includes: []
+  search: true
+  highlight_theme: darkula
+  headingLevel: 2
 
-*   [**Document Plans**](#document-plans)
-    *   [GET /document-plans](#list-document-plans)
-    *   [POST /document-plans](#create-a-document-plan)
-    *   [PUT /document-plans/{id}](#update-a-document-plan)
-    *   [GET /document-plans/{id}](#get-a-document-plan)
-    *   [DELETE /document-plans/{id}](#delete-a-document-plan)
-*   [**Data Samples**](#data-samples)
-    *   [GET /data-samples](#list-data-samples)
-    *   [POST /data-samples](#create-a-data-sample)
-    *   [PUT /data-samples/{id}](#update-a-data-sample)
-    *   [GET /data-samples/{id}](#get-a-data-sample)
-    *   [DELETE /data-samples/{id}](#delete-a-data-sample)
-*   [**Text Variants**](#text-variants)
-    *   [POST /text-variants/from-data-sample](#create-variants-from-a-data-sample)
-    *   [POST /text-variants/from-record](#create-variants-from-a-record)
+---
 
+<!-- Generator: Widdershins v4.0.1 -->
 
-##  Document Plans
+<h1 id="">nlg-api v</h1>
 
-### List Document Plans
+> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-####    Request:
-```yaml
-# HTTP:
-GET:            /document-plans
+<h1 id="-default">Default</h1>
+
+## post___graphql
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST /_graphql \
+  -H 'Content-Type: application/json'
+
 ```
 
-####    Response:
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-items:
-    -
-        id:     uuid-0001
-        name:   Document Plan One
-    -
-        id:     uuid-0002
-        name:   Document Plan Two
+`POST /_graphql`
+
+*GraphQL endpoint*
+
+> Body parameter
+
+```json
+{}
 ```
 
-### Create a Document Plan
+<h3 id="post___graphql-parameters">Parameters</h3>
 
-####    Request:
-```yaml
-# HTTP:
-POST:           /document-plans
-# Body:
-name:           Document Plan One
-blocklyXml:     "..."
-gremlinCode:    "..."
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|none|
+
+<h3 id="post___graphql-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|default|Default|none|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## post__nlg_
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST /nlg/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
 ```
 
-####    Response:
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-id:             uuid-0001
-name:           Document Plan One
-blocklyXml:     "..."
-gremlinCode:    "..."
+`POST /nlg/`
+
+*Registers document plan for generation*
+
+> Body parameter
+
+```json
+{
+  "documentPlanId": "string",
+  "documentPlanName": "string",
+  "dataId": "string",
+  "dataRow": {
+    "property1": "string",
+    "property2": "string"
+  },
+  "sampleMethod": "relevant",
+  "readerFlagValues": {
+    "property1": true,
+    "property2": true
+  },
+  "async": true
+}
 ```
 
-### Update a Document Plan
+<h3 id="post__nlg_-parameters">Parameters</h3>
 
-####    Request:
-```yaml
-# HTTP:
-PUT:            /document-plans/uuid-0002
-# Body:
-id:             uuid-0002
-name:           Document Plan Two
-blocklyXml:     "..."
-gremlinCode:    "..."
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|none|
+|» documentPlanId|body|string|false|none|
+|» documentPlanName|body|string|false|none|
+|» dataId|body|string|false|none|
+|» dataRow|body|object|false|none|
+|»» **additionalProperties**|body|string|false|none|
+|» sampleMethod|body|string|false|none|
+|» readerFlagValues|body|object|false|none|
+|»» **additionalProperties**|body|boolean|false|none|
+|» async|body|boolean|false|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|» sampleMethod|relevant|
+|» sampleMethod|first|
+
+> Example responses
+
+```json
+{
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
+  "offset": 0,
+  "totalCount": 1,
+  "ready": true,
+  "updatedAt": 1618818434,
+  "variants": [
+    "Text value."
+  ]
+}
 ```
 
-####    Response:
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-id:             uuid-0002
-name:           Document Plan Two
-blocklyXml:     "..."
-gremlinCode:    "..."
+> 200 Response
+
+```json
+{
+  "resultId": "string",
+  "offset": 0,
+  "totalCount": 0,
+  "ready": true,
+  "updatedAt": 0,
+  "variants": [
+    "string"
+  ],
+  "error": true,
+  "message": "string"
+}
 ```
 
-### Get a Document Plan
+<h3 id="post__nlg_-responses">Responses</h3>
 
-####    Request
-```yaml
-# HTTP:
-GET:            /document-plans/uuid-0003
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
+
+<h3 id="post__nlg_-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+*api.nlg.service/generate-response*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» resultId|string|true|none|none|
+|» offset|integer(int64)|false|none|none|
+|» totalCount|integer(int64)|false|none|none|
+|» ready|boolean|false|none|none|
+|» updatedAt|number(double)|false|none|none|
+|» variants|[anyOf]|false|none|none|
+
+*anyOf*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|string|false|none|none|
+
+*or*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|object|false|none|none|
+
+*continued*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» error|boolean|false|none|none|
+|» message|string|false|none|none|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## post__nlg__bulk_
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST /nlg/_bulk/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
 ```
 
-####    Response
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-id:             uuid-0003
-name:           Document Plan Three
-blocklyXml:     "..."
-gremlinCode:    "..."
+`POST /nlg/_bulk/`
+
+*Bulk generation*
+
+> Body parameter
+
+```json
+{
+  "dataRows": {
+    "property1": {
+      "property1": "string",
+      "property2": "string"
+    },
+    "property2": {
+      "property1": "string",
+      "property2": "string"
+    }
+  },
+  "documentPlanId": "string",
+  "documentPlanName": "string",
+  "readerFlagValues": {
+    "property1": true,
+    "property2": true
+  }
+}
 ```
 
-### Delete a Document Plan
+<h3 id="post__nlg__bulk_-parameters">Parameters</h3>
 
-####    Request
-```yaml
-# HTTP:
-DELETE:         /document-plans/uuid-0004
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true|none|
+|» dataRows|body|object|true|none|
+|»» api.nlg.service.request/dataRow|body|object|false|none|
+|»»» **additionalProperties**|body|string|false|none|
+|» documentPlanId|body|string|false|none|
+|» documentPlanName|body|string|false|none|
+|» readerFlagValues|body|object|false|none|
+|»» **additionalProperties**|body|boolean|false|none|
+
+> Example responses
+
+```json
+{
+  "resultIds": [
+    "d881852b-8b33-4213-95a1-118ce9ec816d",
+    "44f797a0-bdf7-4ce3-a5c2-0bc058e54904",
+    "4a09300a-4e24-4d72-9569-f1c52c7e5f5b",
+    "3ec1d762-e632-40f2-b8d7-88f4450e07dd",
+    "843711ca-26e9-4627-9b23-038c022cf2ed",
+    "54c6a41c-4b28-4cd6-91ab-d4ac7f2b4e69",
+    "87d43ffa-e671-4029-b81f-08eeedb59372",
+    "5c1379cf-d1f4-456e-ba88-ebdf2fde1f84",
+    "a63eb1e0-af28-4f7a-9803-e18cdc70f5cb",
+    "c9e244dd-6170-4929-91a9-ab88fdf23e6e"
+  ]
+}
 ```
 
-####    Response
-```yaml
-# HTTP:
-Status:         200
-# Headers:
-Content-Type:   application/json
-# Body:
-"ok"
+> 200 Response
+
+```json
+{
+  "resultIds": [
+    "string"
+  ]
+}
 ```
 
-##  Data Samples
+<h3 id="post__nlg__bulk_-responses">Responses</h3>
 
-### List Data Samples 
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
 
-####    Request
-```yaml
-# HTTP:
-GET:            /data-samples
+<h3 id="post__nlg__bulk_-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+*api.nlg.service/generate-response-bulk*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» resultIds|[string]|true|none|none|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## get__nlg_{id}
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET /nlg/{id} \
+  -H 'Accept: application/json'
+
 ```
 
-####    Response:
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-items:
-    -
-        id:         uuid-0001
-        filename:   t-shirts.csv
-    -
-        id:         uuid-0002
-        filename:   hotels.csv
+`GET /nlg/{id}`
+
+*Get NLG result*
+
+<h3 id="get__nlg_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|format|query|string|false|none|
+|id|path|string|true|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|format|annotated-text-shallow|
+|format|annotated-text|
+|format|raw|
+
+> Example responses
+
+```json
+{
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
+  "offset": 0,
+  "totalCount": 1,
+  "ready": true,
+  "updatedAt": 1618818434,
+  "variants": [
+    "Text value."
+  ]
+}
 ```
 
-### Create a Data Sample
+> 200 Response
 
-####    Request
-```yaml
-# HTTP:
-POST:           /data-samples
-# Headers:
-Content-Type: multipart/form-data; boundary=----RandomString1234567890
-# Body:
-------RandomString1234567890
-Content-Disposition: form-data; name="data_sample"; filename="t-shirts.csv"
-Content-Type: text/csv
-
-"color","material"
-"red","cotton"
-"blue","wool"
-------RandomString1234567890--
+```json
+{
+  "resultId": "string",
+  "offset": 0,
+  "totalCount": 0,
+  "ready": true,
+  "updatedAt": 0,
+  "variants": [
+    "string"
+  ],
+  "error": true,
+  "message": "string"
+}
 ```
 
-####    Response
-```yaml
-# HTTP:
-Status:         200
-# Headers:
-Content-Type:   text/csv
-# Body:
-"color","material"
-"red","cotton"
-"blue","wool"
+<h3 id="get__nlg_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
+
+<h3 id="get__nlg_{id}-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+*api.nlg.service/generate-response*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» resultId|string|true|none|none|
+|» offset|integer(int64)|false|none|none|
+|» totalCount|integer(int64)|false|none|none|
+|» ready|boolean|false|none|none|
+|» updatedAt|number(double)|false|none|none|
+|» variants|[anyOf]|false|none|none|
+
+*anyOf*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|string|false|none|none|
+
+*or*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|object|false|none|none|
+
+*continued*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» error|boolean|false|none|none|
+|» message|string|false|none|none|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## delete__nlg_{id}
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE /nlg/{id} \
+  -H 'Accept: application/json'
+
 ```
 
-### Update a Data Sample
+`DELETE /nlg/{id}`
 
-####    Request
-```yaml
-# HTTP:
-PUT:            /data-samples/uuid-0000
-# Headers:
-Content-Type: multipart/form-data; boundary=----RandomString1234567890
-# Body:
-------RandomString1234567890
-Content-Disposition: form-data; name="data_sample"; filename="t-shirts2.csv"
-Content-Type: text/csv
+*Delete NLG result*
 
-"color","material"
-"red","cotton"
-"blue","wool"
-------RandomString1234567890--
+<h3 id="delete__nlg_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|none|
+
+> Example responses
+
+```json
+{
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
+  "offset": 0,
+  "totalCount": 1,
+  "ready": true,
+  "updatedAt": 1618818434,
+  "variants": [
+    "Text value."
+  ]
+}
 ```
 
-####    Response
-```yaml
-# HTTP:
-Status:         200
-# Headers:
-Content-Type:   text/csv
-# Body:
-"color","material"
-"red","cotton"
-"blue","wool"
+> 200 Response
+
+```json
+{
+  "resultId": "string",
+  "offset": 0,
+  "totalCount": 0,
+  "ready": true,
+  "updatedAt": 0,
+  "variants": [
+    "string"
+  ],
+  "error": true,
+  "message": "string"
+}
 ```
 
-### Get a Data Sample
+<h3 id="delete__nlg_{id}-responses">Responses</h3>
 
-####    Request
-```yaml
-# HTTP:
-GET:            /data-samples/uuid-0000
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
+
+<h3 id="delete__nlg_{id}-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+*api.nlg.service/generate-response*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» resultId|string|true|none|none|
+|» offset|integer(int64)|false|none|none|
+|» totalCount|integer(int64)|false|none|none|
+|» ready|boolean|false|none|none|
+|» updatedAt|number(double)|false|none|none|
+|» variants|[anyOf]|false|none|none|
+
+*anyOf*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|string|false|none|none|
+
+*or*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|object|false|none|none|
+
+*continued*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» error|boolean|false|none|none|
+|» message|string|false|none|none|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## post__accelerated-text-data-files_
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST /accelerated-text-data-files/ \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Accept: application/json'
+
 ```
 
-####    Response
+`POST /accelerated-text-data-files/`
+
+*Upload a file*
+
+> Body parameter
+
 ```yaml
-# Headers:
-Content-Type:   text/csv
-# Body:
-"color","material"
-"red","cotton"
-"blue","wool"
+file: string
+
 ```
 
-### Delete a Data Sample
+<h3 id="post__accelerated-text-data-files_-parameters">Parameters</h3>
 
-####    Request
-```yaml
-# HTTP:
-DELETE:         /data-samples/uuid-0000
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|false|none|
+|» file|body|string(binary)|false|none|
+
+> Example responses
+
+```json
+{
+  "message": "Succesfully uploaded file",
+  "id": "b01970e3-8a66-4881-ad88-312c22be3c85"
+}
 ```
 
-####    Response
-```yaml
-# HTTP:
-Status:         200
-# Headers:
-Content-Type:   application/json
-# Body:
-"ok"
+> 200 Response
+
+```json
+{
+  "message": "string",
+  "id": "string"
+}
 ```
 
-##  Text Variants
+<h3 id="post__accelerated-text-data-files_-responses">Responses</h3>
 
-### Create Variants from a Data Sample
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
 
-####    Request
-```yaml
-# HTTP:
-POST:           /text-variants/from-data-sample
-# Headers:
-Accept:         application/json
-Content-Type:   application/json
-# Body:
-documentPlanId: uuid-0001
-dataSampleId:   uuid-0002
+<h3 id="post__accelerated-text-data-files_-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» message|string|true|none|none|
+|» id|string|true|none|none|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## get__health
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET /health \
+  -H 'Accept: application/json'
+
 ```
 
-####    Response
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-offset:         0
-totalCount:     1234567
-variants:       [ ...Annotated Text Elements... ]
+`GET /health`
+
+*Check API health*
+
+> Example responses
+
+```json
+{
+  "health": "Ok"
+}
 ```
 
-_See [full JSON example][Variants]._
+> 200 Response
 
-_See [Annotated Text JSON (ATJ) docs][ATJ] for more details._
-
-### Create Variants from a Record
-
-####    Request
-```yaml
-# HTTP:
-POST:           /text-variants/from-record
-# Headers:
-Accept:         application/json
-Content-Type:   application/json
-# Body:
-documentPlanId: uuid-0001
-record:
-    attr1:      value1
-    attrTwo:    another_value
+```json
+{
+  "health": "string"
+}
 ```
 
-####    Response
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-offset:         0
-totalCount:     1234567
-variants:       [ ...Annotated Text Elements... ]
+<h3 id="get__health-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
+
+<h3 id="get__health-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» health|string|true|none|none|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## get__status
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET /status \
+  -H 'Accept: application/json'
+
 ```
 
-_See [full JSON example][Variants]._
+`GET /status`
 
-_See [Annotated Text JSON (ATJ) docs][ATJ] for more details._
+*Check service status*
 
+> Example responses
 
-[ATJ]:          annotated-text-json.md
-[Variants]:     examples/variants-example.json
+```json
+{
+  "color": "green",
+  "services": {
+    "service": true
+  }
+}
+```
+
+> 200 Response
+
+```json
+{
+  "color": "string",
+  "services": {}
+}
+```
+
+<h3 id="get__status-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
+
+<h3 id="get__status-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» color|string|true|none|none|
+|» services|object|true|none|none|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
