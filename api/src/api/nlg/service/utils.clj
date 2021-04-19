@@ -9,16 +9,17 @@
             [data.entities.reader-model :as reader-model]
             [data.spec.result :as result]))
 
-(defn translate-result [{::result/keys [id status timestamp rows] :as result} {result-format :format}]
-  {:resultId   id
-   :offset     0
-   :totalCount (count rows)
-   :ready      (not= status :pending)
-   :updatedAt  timestamp
-   :variants   (cond
-                 (some? result-format) (use-format result-format result)
-                 (and (= :error status) (:display-error conf)) (use-format "error" result)
-                 :else (with-default-format result))})
+(defn translate-result [{::result/keys [id status timestamp rows error-message] :as result} {result-format :format}]
+  (cond-> {:resultId   id
+           :offset     0
+           :totalCount (count rows)
+           :ready      (not= status :pending)
+           :updatedAt  timestamp
+           :variants   (cond
+                         (some? result-format) (use-format result-format result)
+                         (and (= :error status) (:display-error conf)) (use-format "error" result)
+                         :else (with-default-format result))}
+          (= :error status) (assoc :error true :message error-message)))
 
 (defn error-response
   ([exception] (error-response exception nil))

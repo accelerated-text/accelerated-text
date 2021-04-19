@@ -1,13 +1,14 @@
 (ns data.entities.data-files
   (:require [api.config :refer [conf]]
             [clojure.data.csv :as csv]
-            [clojure.string :as str]
             [clojure.java.io :as io]
+            [clojure.string :as str]
             [clojure.tools.logging :as log]
             [data.db :as db]
-            [data.utils :as utils]
+            [data.entities.data-files.format-coercion :as format-coercion]
             [data.entities.data-files.row-selection :as row-selection]
             [data.spec.data-file :as data-file]
+            [data.utils :as utils]
             [dk.ative.docjure.spreadsheet :as excel]
             [mount.core :refer [defstate]]
             [data.entities.user-group :as user-group]
@@ -29,13 +30,14 @@
          (map excel/cell-seq)
          (map #(map excel/read-cell %))
          (remove #(every? nil? %))
+         (format-coercion/coerce-data-types)
          (csv/write-csv *out*)
          (with-out-str))))
 
 (defn convert-file [{:keys [filename content]}]
   (cond
     (instance? String content) content
-    (str/ends-with? filename ".xlsx") (read-xlsx content)
+    (and (some? filename) (str/ends-with? filename ".xlsx")) (read-xlsx content)
     :else (slurp content)))
 
 (defn read-data-file [key group-id]

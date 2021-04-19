@@ -1,8 +1,8 @@
 (ns api.graphql.data-test
-  (:require [api.test-utils :refer [q load-data-file]]
-            [api.db-fixtures :as db]
+  (:require [api.db-fixtures :as db]
+            [api.test-utils :refer [load-data-file q]]
             [clojure.string :as str]
-            [clojure.test :refer [deftest is use-fixtures testing]]
+            [clojure.test :refer [deftest is testing use-fixtures]]
             [data.entities.data-files :as data-files]
             [data.spec.data-file :as data-file]
             [data.entities.user-group :as user-group]))

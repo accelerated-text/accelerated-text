@@ -31,7 +31,12 @@
                    ::response/totalCount
                    ::response/ready
                    ::response/updatedAt
-                   ::response/variants]))
+                   ::response/variants
+                   ::response/error
+                   ::response/message]))
+
+(s/def ::generate-response-bulk
+  (s/keys :req-un [::response/resultIds]))
 
 (s/def ::get-result
   (s/keys :opt-un [::request/format]))
@@ -103,7 +108,7 @@
       (do
         (results/delete request-id)
         {:status 200
-         :body   item})
+         :body   (utils/translate-result item {:format "raw"})})
       (do
         (log/warnf "Result with id `%s` not found" request-id)
         {:status 404}))
