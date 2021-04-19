@@ -56,11 +56,13 @@
 
 (def routes
   (ring/router
-    [["/_graphql" {:post    {:handler (fn [{raw :body}]
-                                        (let [body (utils/read-json-is raw)]
-                                          {:status 200
-                                           :body   (graphql/handle body)}))
-                             :summary "GraphQL endpoint"}
+    [["/_graphql" {:post    {:parameters {:body map?}
+                             :coercion   reitit.coercion.spec/coercion
+                             :handler    (fn [{raw :body}]
+                                           (let [body (utils/read-json-is raw)]
+                                             {:status 200
+                                              :body   (graphql/handle body)}))
+                             :summary    "GraphQL endpoint"}
                    :options {:handler cors-handler
                              :no-doc  true}}]
      ["/nlg/" {:post    {:parameters {:body ::service/generate-request}
