@@ -1,10 +1,32 @@
 (ns api.resource
   (:require [api.utils :as utils]
+            [data.utils :refer [ts-now]]
             [clojure.tools.logging :as log]
             [clojure.java.io :as io]
             [jsonista.core :as json])
   (:import (java.io BufferedWriter)
            (java.net URLDecoder)))
+
+(def response-examples
+  {:nlg                         {:post {:application/json {:resultId   (utils/gen-uuid),
+                                                           :offset     0,
+                                                           :totalCount 1,
+                                                           :ready      true,
+                                                           :updatedAt  (ts-now),
+                                                           :variants   ["Text value."]}}
+                                 :get  {:application/json {:resultId   (utils/gen-uuid),
+                                                           :offset     0,
+                                                           :totalCount 1,
+                                                           :ready      true,
+                                                           :updatedAt  (ts-now),
+                                                           :variants   ["Text value."]}}}
+   :nlg-bulk                    {:post {:application/json {:resultIds (take 10 (repeatedly utils/gen-uuid))}}}
+   :accelerated-text-data-files {:post {:application/json {:message "Succesfully uploaded file"
+                                                           :id      (utils/gen-uuid)}}}
+   :health                      {:get {:application/json {:health "Ok"}}}
+   :status                      {:get {:application/json {:color    "green"
+                                                          :services {"service" true}}}}})
+
 
 (defn- dummy [& _]
   {:status 200

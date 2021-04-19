@@ -1,4 +1,6 @@
-Here we will describe Accelerated Text GraphQL API usage in order to fetch generated texts. For this purpose we will need to pass two bits of information to the NLG backend: *document plan identifier* and *data item identifier*.
+GraphQl schema is available at [api/resources/schema.graphql](https://github.com/tokenmill/accelerated-text/blob/master/api/resources/schema.graphql).
+
+Here we will demonstrate usage of Accelerated Text GraphQL API in order to fetch generated texts. For this purpose we will need to pass two bits of information to the NLG backend: *document plan identifier* and *data item identifier*.
 
 The GraphQL endpoint is accessible at `http://localhost:3001/_graphql`. CURL will be used to illustrate the calls to the back end.
 
@@ -31,7 +33,7 @@ This will return a list of document plans:
 ```
 
 The `id` field gives document plan id, and the `dataSampleId` field specifies which data to use. Using these fields we construct a text generation request.
-With this, a second call has to be made to get the results identifier for actual sentence polling. Polling is used because text is not generated right away, NLG process for a more complcated plans can take some time.
+With this, a second call has to be made to get the results identifier for actual sentence polling. Polling is used because text is not generated right away, NLG process for a more complicated plans can take some time.
 
 ```
 curl -XPOST -H "Content-Type: application/json" \

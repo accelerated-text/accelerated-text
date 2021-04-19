@@ -1,312 +1,482 @@
-#   NLG APIs
+<!-- Generator: Widdershins v4.0.1 -->
 
-*   [**Document Plans**](#document-plans)
-    *   [GET /document-plans](#list-document-plans)
-    *   [POST /document-plans](#create-a-document-plan)
-    *   [PUT /document-plans/{id}](#update-a-document-plan)
-    *   [GET /document-plans/{id}](#get-a-document-plan)
-    *   [DELETE /document-plans/{id}](#delete-a-document-plan)
-*   [**Data Samples**](#data-samples)
-    *   [GET /data-samples](#list-data-samples)
-    *   [POST /data-samples](#create-a-data-sample)
-    *   [PUT /data-samples/{id}](#update-a-data-sample)
-    *   [GET /data-samples/{id}](#get-a-data-sample)
-    *   [DELETE /data-samples/{id}](#delete-a-data-sample)
-*   [**Text Variants**](#text-variants)
-    *   [POST /text-variants/from-data-sample](#create-variants-from-a-data-sample)
-    *   [POST /text-variants/from-record](#create-variants-from-a-record)
+# nlg-api
 
+Open [http://localhost:3001](http://localhost:3001) to access [Swagger UI](https://swagger.io/tools/swagger-ui/).
 
-##  Document Plans
+Scroll down for code samples, example requests and responses.
 
-### List Document Plans
+## POST /_graphql
 
-####    Request:
-```yaml
-# HTTP:
-GET:            /document-plans
+*GraphQL endpoint*
+
+Refer to [GraphQl API](graphql.md).
+
+## POST /nlg/
+
+*Registers document plan for generation*
+
+```shell
+curl -X POST /nlg/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -d '{"documentPlanName": "MyDocumentPlan",
+       "dataRow": {
+         "property1": "string",
+         "property2": "string"
+       },
+       "readerFlagValues": {
+         "Eng": true
+       },
+       "async": false
+     }'
 ```
 
-####    Response:
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-items:
-    -
-        id:     uuid-0001
-        name:   Document Plan One
-    -
-        id:     uuid-0002
-        name:   Document Plan Two
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true||
+|» documentPlanId|body|string|false|either id or document plan name must be provided|
+|» documentPlanName|body|string|false||
+|» dataId|body|string|false|id of existing data file|
+|» dataRow|body|object|false|actual cells and their values|
+|»» **additionalProperties**|body|string|false||
+|» sampleMethod|body|string|false|only valid, when generating with existing data file|
+|» readerFlagValues|body|object|false|defines enabled languages and reader models|
+|»» **additionalProperties**|body|boolean|false||
+|» async|body|boolean|false|when enabled, returns result id instantly without waiting for generation to complete|
+
+<br/>
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|» sampleMethod|relevant|
+|» sampleMethod|first|
+
+<br/>
+
+> Example responses
+
+```json
+{
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
+  "offset": 0,
+  "totalCount": 1,
+  "ready": true,
+  "updatedAt": 1618818434,
+  "variants": [
+    "Text value."
+  ]
+}
 ```
 
-### Create a Document Plan
-
-####    Request:
-```yaml
-# HTTP:
-POST:           /document-plans
-# Body:
-name:           Document Plan One
-blocklyXml:     "..."
-gremlinCode:    "..."
+```json
+{
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
+  "offset": 0,
+  "totalCount": 0,
+  "ready": true,
+  "updatedAt": 0,
+  "variants": [],
+  "error": true,
+  "message": "string"
+}
 ```
 
-####    Response:
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-id:             uuid-0001
-name:           Document Plan One
-blocklyXml:     "..."
-gremlinCode:    "..."
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK||Inline|
+
+<br/>
+
+### Response Schema
+
+Status Code **200**
+
+*api.nlg.service/generate-response*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» resultId|string|true|||
+|» offset|integer(int64)|false|||
+|» totalCount|integer(int64)|false|||
+|» ready|boolean|false|||
+|» updatedAt|number(double)|false|||
+|» variants|[anyOf]|false|||
+|» error|boolean|false|||
+|» message|string|false|||
+
+<br/>
+
+## POST /nlg/_bulk/
+
+*Bulk generation*
+
+```shell
+curl -X POST /nlg/_bulk/ \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -d '{"documentPlanName": "string",
+       "dataRows": {
+         "30619541-1033-479f-b8ff-af2c21b080fb": {
+           "property1": "string",
+           "property2": "string"
+         },
+         "7ea468d9-d2c3-46b2-af1d-a998d397a8c8": {
+           "property1": "string",
+           "property2": "string"
+         }
+       },
+       "readerFlagValues": {
+         "Eng": true
+       }
+      }'
 ```
 
-### Update a Document Plan
+### Parameters
 
-####    Request:
-```yaml
-# HTTP:
-PUT:            /document-plans/uuid-0002
-# Body:
-id:             uuid-0002
-name:           Document Plan Two
-blocklyXml:     "..."
-gremlinCode:    "..."
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|true||
+|» dataRows|body|object|true||
+|»» api.nlg.service.request/dataRow|body|object|false||
+|»»» **additionalProperties**|body|string|false||
+|» documentPlanId|body|string|false||
+|» documentPlanName|body|string|false||
+|» readerFlagValues|body|object|false||
+|»» **additionalProperties**|body|boolean|false||
+
+<br/>
+
+> Example responses
+
+```json
+{
+  "resultIds": [
+    "30619541-1033-479f-b8ff-af2c21b080fb",
+    "7ea468d9-d2c3-46b2-af1d-a998d397a8c8"
+  ]
+}
 ```
 
-####    Response:
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-id:             uuid-0002
-name:           Document Plan Two
-blocklyXml:     "..."
-gremlinCode:    "..."
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK||Inline|
+
+<br/>
+
+### Response Schema
+
+Status Code **200**
+
+*api.nlg.service/generate-response-bulk*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» resultIds|[string]|true|||
+
+<br/>
+
+## GET /nlg/{id}
+
+*Get NLG result*
+
+> Code samples
+
+```shell
+curl -X GET /nlg/{id} \
+  -H 'Accept: application/json'
+
 ```
 
-### Get a Document Plan
+### Parameters
 
-####    Request
-```yaml
-# HTTP:
-GET:            /document-plans/uuid-0003
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|format|query|string|false||
+|id|path|string|true||
+
+<br/>
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|format|annotated-text-shallow|
+|format|annotated-text|
+|format|raw|
+
+<br/>
+
+> Example responses
+
+```json
+{
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
+  "offset": 0,
+  "totalCount": 1,
+  "ready": true,
+  "updatedAt": 1618818434,
+  "variants": [
+    "Text value."
+  ]
+}
 ```
 
-####    Response
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-id:             uuid-0003
-name:           Document Plan Three
-blocklyXml:     "..."
-gremlinCode:    "..."
+```json
+{
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
+  "offset": 0,
+  "totalCount": 0,
+  "ready": true,
+  "updatedAt": 0,
+  "variants": [],
+  "error": true,
+  "message": "string"
+}
 ```
 
-### Delete a Document Plan
+### Responses
 
-####    Request
-```yaml
-# HTTP:
-DELETE:         /document-plans/uuid-0004
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK||Inline|
+
+<br/>
+
+### Response Schema
+
+Status Code **200**
+
+*api.nlg.service/generate-response*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» resultId|string|true|||
+|» offset|integer(int64)|false|||
+|» totalCount|integer(int64)|false|||
+|» ready|boolean|false|||
+|» updatedAt|number(double)|false|||
+|» variants|[anyOf]|false|||
+|» error|boolean|false|||
+|» message|string|false|||
+
+<br/>
+
+## DELETE /nlg/{id}
+
+*Delete NLG result*
+
+> Code samples
+
+```shell
+curl -X DELETE /nlg/{id} \
+  -H 'Accept: application/json'
 ```
 
-####    Response
-```yaml
-# HTTP:
-Status:         200
-# Headers:
-Content-Type:   application/json
-# Body:
-"ok"
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true||
+
+<br/>
+
+> Example responses
+
+```json
+{
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
+  "offset": 0,
+  "totalCount": 1,
+  "ready": true,
+  "updatedAt": 1618818434,
+  "variants": [
+    "Text value."
+  ]
+}
 ```
 
-##  Data Samples
-
-### List Data Samples 
-
-####    Request
-```yaml
-# HTTP:
-GET:            /data-samples
+```json
+{
+  "resultId": "cc17275a-67ac-4403-9b1c-840a19dd344f",
+  "offset": 0,
+  "totalCount": 0,
+  "ready": true,
+  "updatedAt": 0,
+  "variants": [],
+  "error": true,
+  "message": "string"
+}
 ```
 
-####    Response:
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-items:
-    -
-        id:         uuid-0001
-        filename:   t-shirts.csv
-    -
-        id:         uuid-0002
-        filename:   hotels.csv
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK||Inline|
+
+<br/>
+
+### Response Schema
+
+Status Code **200**
+
+*api.nlg.service/generate-response*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» resultId|string|true|||
+|» offset|integer(int64)|false|||
+|» totalCount|integer(int64)|false|||
+|» ready|boolean|false|||
+|» updatedAt|number(double)|false|||
+|» variants|[anyOf]|false|||
+|» error|boolean|false|||
+|» message|string|false|||
+
+<br/>
+
+## POST /accelerated-text-data-files/
+
+*Upload a file*
+
+> Code samples
+
+```shell
+curl -X POST /accelerated-text-data-files/ \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Accept: application/json'
+
 ```
 
-### Create a Data Sample
+> Body parameter
 
-####    Request
 ```yaml
-# HTTP:
-POST:           /data-samples
-# Headers:
-Content-Type: multipart/form-data; boundary=----RandomString1234567890
-# Body:
-------RandomString1234567890
-Content-Disposition: form-data; name="data_sample"; filename="t-shirts.csv"
-Content-Type: text/csv
+file: string
 
-"color","material"
-"red","cotton"
-"blue","wool"
-------RandomString1234567890--
 ```
 
-####    Response
-```yaml
-# HTTP:
-Status:         200
-# Headers:
-Content-Type:   text/csv
-# Body:
-"color","material"
-"red","cotton"
-"blue","wool"
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object|false||
+|» file|body|string(binary)|false||
+
+<br/>
+
+> Example responses
+
+```json
+{
+  "message": "Succesfully uploaded file",
+  "id": "b01970e3-8a66-4881-ad88-312c22be3c85"
+}
 ```
 
-### Update a Data Sample
+### Responses
 
-####    Request
-```yaml
-# HTTP:
-PUT:            /data-samples/uuid-0000
-# Headers:
-Content-Type: multipart/form-data; boundary=----RandomString1234567890
-# Body:
-------RandomString1234567890
-Content-Disposition: form-data; name="data_sample"; filename="t-shirts2.csv"
-Content-Type: text/csv
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK||Inline|
 
-"color","material"
-"red","cotton"
-"blue","wool"
-------RandomString1234567890--
+<br/>
+
+### Response Schema
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» message|string|true|||
+|» id|string|true|||
+
+<br/>
+
+## GET /health
+
+*Check API health*
+
+> Code samples
+
+```shell
+curl -X GET /health \
+  -H 'Accept: application/json'
+
 ```
 
-####    Response
-```yaml
-# HTTP:
-Status:         200
-# Headers:
-Content-Type:   text/csv
-# Body:
-"color","material"
-"red","cotton"
-"blue","wool"
+> Example responses
+
+```json
+{
+  "health": "Ok"
+}
 ```
 
-### Get a Data Sample
+### Responses
 
-####    Request
-```yaml
-# HTTP:
-GET:            /data-samples/uuid-0000
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK||Inline|
+
+<br/>
+
+### Response Schema
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» health|string|true|||
+
+<br/>
+
+## GET /status
+
+*Check service status*
+
+> Code samples
+
+```shell
+curl -X GET /status \
+  -H 'Accept: application/json'
+
 ```
 
-####    Response
-```yaml
-# Headers:
-Content-Type:   text/csv
-# Body:
-"color","material"
-"red","cotton"
-"blue","wool"
+> Example responses
+
+```json
+{
+  "color": "green",
+  "services": {
+    "service": true
+  }
+}
 ```
 
-### Delete a Data Sample
+### Responses
 
-####    Request
-```yaml
-# HTTP:
-DELETE:         /data-samples/uuid-0000
-```
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|OK||Inline|
 
-####    Response
-```yaml
-# HTTP:
-Status:         200
-# Headers:
-Content-Type:   application/json
-# Body:
-"ok"
-```
+<br/>
 
-##  Text Variants
+### Response Schema
 
-### Create Variants from a Data Sample
+Status Code **200**
 
-####    Request
-```yaml
-# HTTP:
-POST:           /text-variants/from-data-sample
-# Headers:
-Accept:         application/json
-Content-Type:   application/json
-# Body:
-documentPlanId: uuid-0001
-dataSampleId:   uuid-0002
-```
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» color|string|true|||
+|» services|object|true|||
 
-####    Response
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-offset:         0
-totalCount:     1234567
-variants:       [ ...Annotated Text Elements... ]
-```
-
-_See [full JSON example][Variants]._
-
-_See [Annotated Text JSON (ATJ) docs][ATJ] for more details._
-
-### Create Variants from a Record
-
-####    Request
-```yaml
-# HTTP:
-POST:           /text-variants/from-record
-# Headers:
-Accept:         application/json
-Content-Type:   application/json
-# Body:
-documentPlanId: uuid-0001
-record:
-    attr1:      value1
-    attrTwo:    another_value
-```
-
-####    Response
-```yaml
-# Headers:
-Content-Type:   application/json
-# Body:
-offset:         0
-totalCount:     1234567
-variants:       [ ...Annotated Text Elements... ]
-```
-
-_See [full JSON example][Variants]._
-
-_See [Annotated Text JSON (ATJ) docs][ATJ] for more details._
-
-
-[ATJ]:          annotated-text-json.md
-[Variants]:     examples/variants-example.json
+<br/>
