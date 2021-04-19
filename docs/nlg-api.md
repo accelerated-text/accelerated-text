@@ -2,9 +2,9 @@
 
 # nlg-api
 
-> Open [http://localhost:3001](http://localhost:3001) to access [Swagger UI](https://swagger.io/tools/swagger-ui/).
+Open [http://localhost:3001](http://localhost:3001) to access [Swagger UI](https://swagger.io/tools/swagger-ui/).
 
-> Scroll down for code samples, example requests and responses.
+Scroll down for code samples, example requests and responses.
 
 ## POST /_graphql
 
@@ -47,12 +47,16 @@ curl -X POST /nlg/ \
 |»» **additionalProperties**|body|boolean|false||
 |» async|body|boolean|false|when enabled, returns result id instantly without waiting for generation to complete|
 
+<br/>
+
 #### Enumerated Values
 
 |Parameter|Value|
 |---|---|
 |» sampleMethod|relevant|
 |» sampleMethod|first|
+
+<br/>
 
 > Example responses
 
@@ -88,6 +92,8 @@ curl -X POST /nlg/ \
 |---|---|---|---|
 |200|OK||Inline|
 
+<br/>
+
 ### Response Schema
 
 Status Code **200**
@@ -104,6 +110,8 @@ Status Code **200**
 |» variants|[anyOf]|false|||
 |» error|boolean|false|||
 |» message|string|false|||
+
+<br/>
 
 ## POST /nlg/_bulk/
 
@@ -143,6 +151,8 @@ curl -X POST /nlg/_bulk/ \
 |» readerFlagValues|body|object|false||
 |»» **additionalProperties**|body|boolean|false||
 
+<br/>
+
 > Example responses
 
 ```json
@@ -160,6 +170,8 @@ curl -X POST /nlg/_bulk/ \
 |---|---|---|---|
 |200|OK||Inline|
 
+<br/>
+
 ### Response Schema
 
 Status Code **200**
@@ -169,6 +181,8 @@ Status Code **200**
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |» resultIds|[string]|true|||
+
+<br/>
 
 ## GET /nlg/{id}
 
@@ -189,6 +203,8 @@ curl -X GET /nlg/{id} \
 |format|query|string|false||
 |id|path|string|true||
 
+<br/>
+
 #### Enumerated Values
 
 |Parameter|Value|
@@ -196,6 +212,8 @@ curl -X GET /nlg/{id} \
 |format|annotated-text-shallow|
 |format|annotated-text|
 |format|raw|
+
+<br/>
 
 > Example responses
 
@@ -231,6 +249,8 @@ curl -X GET /nlg/{id} \
 |---|---|---|---|
 |200|OK||Inline|
 
+<br/>
+
 ### Response Schema
 
 Status Code **200**
@@ -247,6 +267,8 @@ Status Code **200**
 |» variants|[anyOf]|false|||
 |» error|boolean|false|||
 |» message|string|false|||
+
+<br/>
 
 ## DELETE /nlg/{id}
 
@@ -265,6 +287,8 @@ curl -X DELETE /nlg/{id} \
 |---|---|---|---|---|
 |id|path|string|true||
 
+<br/>
+
 > Example responses
 
 ```json
@@ -299,6 +323,8 @@ curl -X DELETE /nlg/{id} \
 |---|---|---|---|
 |200|OK||Inline|
 
+<br/>
+
 ### Response Schema
 
 Status Code **200**
@@ -315,6 +341,8 @@ Status Code **200**
 |» variants|[anyOf]|false|||
 |» error|boolean|false|||
 |» message|string|false|||
+
+<br/>
 
 ## POST /accelerated-text-data-files/
 
@@ -343,6 +371,8 @@ file: string
 |body|body|object|false||
 |» file|body|string(binary)|false||
 
+<br/>
+
 > Example responses
 
 ```json
@@ -358,6 +388,8 @@ file: string
 |---|---|---|---|
 |200|OK||Inline|
 
+<br/>
+
 ### Response Schema
 
 Status Code **200**
@@ -366,6 +398,8 @@ Status Code **200**
 |---|---|---|---|---|
 |» message|string|true|||
 |» id|string|true|||
+
+<br/>
 
 ## GET /health
 
@@ -393,6 +427,8 @@ curl -X GET /health \
 |---|---|---|---|
 |200|OK||Inline|
 
+<br/>
+
 ### Response Schema
 
 Status Code **200**
@@ -400,6 +436,8 @@ Status Code **200**
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |» health|string|true|||
+
+<br/>
 
 ## GET /status
 
@@ -430,6 +468,8 @@ curl -X GET /status \
 |---|---|---|---|
 |200|OK||Inline|
 
+<br/>
+
 ### Response Schema
 
 Status Code **200**
@@ -438,3 +478,5 @@ Status Code **200**
 |---|---|---|---|---|
 |» color|string|true|||
 |» services|object|true|||
+
+<br/>
