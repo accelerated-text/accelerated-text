@@ -50,6 +50,6 @@
         out-formatter (DateTimeFormatter/ofPattern output-format)]
     (try
       (.format out-formatter (.parse in-formatter date))
-      (catch Exception e
+      (catch Exception _
         (log/errorf "Date '%s' can't be parsed" date)
         ""))))
