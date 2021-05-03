@@ -18,6 +18,11 @@
                    :relation   :numberwords.domain/around}}
        {:function :api.nlg.enrich.data.transformations/add-symbol
         :args     {:symbol " USD" :position :back}}]}
+     {:name-pattern #"Date"
+      :transformations
+      [{:function :api.nlg.enrich.data.transformations/reformat-date
+        :args     {:input-format  "YYYYMMdd HH:mm"
+                   :output-format "YYYY-MM-dd"}}]}
      {:name-pattern #"Increase"
       :transformations
       [{:function :api.nlg.enrich.data.transformations/add-symbol
@@ -27,22 +32,25 @@
   [{"Account"            "Gross Sales (ID1220)"
     "CurrentPeriod (Q2)" "90447"
     "PriorPeriod (Q1)"   "82018"
-    "Increase"           "8429"}
+    "Increase"           "8429"
+    "Date"               "20210503 14:56"}
    {"Account"            "Advertising (ID3011)"
     "CurrentPeriod (Q2)" "1280"
     "PriorPeriod (Q1)"   "1982"
-    "Increase"           "-702"}])
+    "Increase"           "-702"
+    "Date"               "- BAD -"}])
 
 (deftest date-enrichment
   (with-redefs [read-rules (fn [] enrich-config)]
-    (is (= {"Account"            "Gross Sales",
-            "CurrentPeriod (Q2)" "around 90k USD",
-            "PriorPeriod (Q1)"   "around 82k USD",
-            "Increase"           "$8429"}
+    (is (= {"Account" "Gross Sales"
+            "CurrentPeriod (Q2)" "around 90k USD"
+            "PriorPeriod (Q1)" "around 82k USD"
+            "Increase" "$8429"
+            "Date" "2021-05-03"}
            (enrich "accounts.csv" (first accounts-data))))
-    (is (= {"Account"            "Advertising"
+    (is (= {"Account" "Advertising"
             "CurrentPeriod (Q2)" "around 1k USD"
-            "PriorPeriod (Q1)"   "around 1k USD"
-            "Increase"           "-$702"}
+            "PriorPeriod (Q1)" "around 1k USD"
+            "Increase" "-$702"
+            "Date" ""}
            (enrich "accounts.csv" (second accounts-data))))))
-
