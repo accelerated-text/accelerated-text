@@ -2,9 +2,7 @@
   (:require [clojure.string :as str]
             [clojure.tools.logging :as log]
             [numberwords.core :as nw])
-  (:import java.time.format.DateTimeFormatter
-
-           ))
+  (:import java.time.format.DateTimeFormatter))
 
 (defn string->num [^String n]
   (if (re-find #"[.]" n) (Float/valueOf n) (Integer/valueOf n)))
