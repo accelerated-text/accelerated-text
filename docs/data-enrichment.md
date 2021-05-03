@@ -67,3 +67,4 @@ Accelerated text provides a few transformation functions in its `api.nlg.enrich.
 * `number-approximation` - Using [Number Words](https://github.com/tokenmill/numberwords) package turn a number to its numeric expression
 * `add-symbol` - Add extra symbol to the front or the back of the value. Useful to add measurements or currency symbols
 * `cleanup` - Cleanup the string using clojure.string/replace
+* `reformat-date` - Change the date formatting. If your data is in _YYYY-MM-dd_ and you want to go to _YYYY/dd/MM_, use this function and specify correspoding formats in `input-format` and `output-format` arguments.
