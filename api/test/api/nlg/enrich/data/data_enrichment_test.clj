@@ -1,4 +1,4 @@
-(ns data.data-enrichment-test
+(ns api.nlg.enrich.data.data-enrichment-test
   (:require  [clojure.test :refer [deftest is]]
              [api.nlg.enrich.data :refer [enrich read-rules]]))
 
