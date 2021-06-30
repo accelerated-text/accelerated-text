@@ -13,7 +13,17 @@
            :db/valueType   :db.type/ref
            :db/isComponent true
            :db/cardinality :db.cardinality/many
-           :db/doc         "Document Plans under group id"}]
+           :db/doc         "Document Plans under group id"}
+          {:db/ident       :data.spec.user-group/dictionary
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Dictionary items under group id"}
+          {:db/ident       :data.spec.user-group/reader-models
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Reader models under group id"}]
 
          [{:db/ident       :data.spec.data-file/id
            :db/unique      :db.unique/identity
