@@ -10,7 +10,7 @@
 
 (s/def ::timestamp number?)
 
-(s/def ::row (s/keys ::req [::row/id ::row/text ::row/language]
-                     ::opt [::row/annotations ::row/enriched? ::row/readers]))
+(s/def ::row (s/keys :req [::row/id ::row/text ::row/language]
+                     :opt [::row/annotations ::row/enriched? ::row/readers]))
 
 (s/def ::rows (s/coll-of ::row))

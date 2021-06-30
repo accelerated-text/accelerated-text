@@ -1,7 +1,8 @@
 (ns api.nlg.enrich.data.transformations
   (:require [clojure.string :as str]
             [clojure.tools.logging :as log]
-            [numberwords.core :as nw]))
+            [numberwords.core :as nw])
+  (:import java.time.format.DateTimeFormatter))
 
 (defn string->num [^String n]
   (if (re-find #"[.]" n) (Float/valueOf n) (Integer/valueOf n)))
@@ -40,3 +41,15 @@
 (defn cleanup
   "Cleanup the string using clojure.string/replace"
   [s {:keys [regex replacement]}] (str/replace s regex replacement))
+
+(defn reformat-date
+  "Change input date provided in input formatting to the date formatted
+  with output format"
+  [date {:keys [input-format output-format]}]
+  (let [in-formatter  (DateTimeFormatter/ofPattern input-format)
+        out-formatter (DateTimeFormatter/ofPattern output-format)]
+    (try
+      (.format out-formatter (.parse in-formatter date))
+      (catch Exception _
+        (log/errorf "Date '%s' can't be parsed" date)
+        ""))))

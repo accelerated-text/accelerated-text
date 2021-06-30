@@ -1,4 +1,4 @@
-(ns data.transformations-test
+(ns api.nlg.enrich.data.transformations-test
   (:require  [clojure.test :refer [deftest is]]
              [api.nlg.enrich.data.transformations :as sut]))
 

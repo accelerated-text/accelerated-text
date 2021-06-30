@@ -12,6 +12,6 @@
 
 (s/def ::enriched? boolean?)
 
-(s/def ::annotation (s/keys ::req [::annotation/id ::annotation/idx ::annotation/text]))
+(s/def ::annotation (s/keys :req [::annotation/id ::annotation/idx ::annotation/text]))
 
 (s/def ::annotations (s/coll-of ::annotation))
