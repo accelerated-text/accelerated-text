@@ -21,7 +21,7 @@
      {:name-pattern #"Date"
       :transformations
       [{:function :api.nlg.enrich.data.transformations/reformat-date
-        :args     {:input-format  "YYYYMMdd HH:mm"
+        :args     {:input-format  "YYYY-MM-dd HH:mm"
                    :output-format "YYYY-MM-dd"}}]}
      {:name-pattern #"Increase"
       :transformations
@@ -33,7 +33,7 @@
     "CurrentPeriod (Q2)" "90447"
     "PriorPeriod (Q1)"   "82018"
     "Increase"           "8429"
-    "Date"               "20210503 14:56"}
+    "Date"               "2021-05-03 14:56"}
    {"Account"            "Advertising (ID3011)"
     "CurrentPeriod (Q2)" "1280"
     "PriorPeriod (Q1)"   "1982"
