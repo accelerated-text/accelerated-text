@@ -11,7 +11,8 @@
             [com.walmartlabs.lacinia :refer [execute]]
             [com.walmartlabs.lacinia.parser.schema :as parser]
             [com.walmartlabs.lacinia.schema :as schema]
-            [com.walmartlabs.lacinia.util :as util]))
+            [com.walmartlabs.lacinia.util :as util]
+            [data.entities.user-group :as user-group]))
 
 (def nlg-schema
   (-> "schema.graphql"
@@ -71,6 +72,8 @@
                               :create-data-file            #'data-domain/create-data-file})
       schema/compile))
 
-(defn handle [{:keys [query variables context] :as request} auth-info]
-  (log/debugf "The request is: %s, auth info: %s" request auth-info)
-  (execute nlg-schema query variables (assoc context :auth-info auth-info) {}))
+(defn handle
+  ([request] (handle request {:group-id user-group/DUMMY-USER-GROUP-ID}))
+  ([{:keys [query variables context] :as request} auth-info]
+   (log/debugf "The request is: %s, auth info: %s" request auth-info)
+   (execute nlg-schema query variables (assoc context :auth-info auth-info) {})))

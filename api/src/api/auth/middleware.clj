@@ -1,7 +1,8 @@
 (ns api.auth.middleware
   (:require [api.auth.service :as service]
             [clojure.walk :as walk]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [data.entities.user-group :as user-group]))
 
 (defn normalize-headers [headers]
   (->> (map (fn [[k v]] [(str/lower-case k) v]) headers)
@@ -14,7 +15,7 @@
     (assoc req :auth-info info)))
 
 (defn dummy-auth-info [req]
-  (assoc req :auth-info {:group-id 0 :username "default"}))
+  (assoc req :auth-info {:group-id user-group/DUMMY-USER-GROUP-ID :username "default"}))
 
 (defn wrapper
   [handler]
