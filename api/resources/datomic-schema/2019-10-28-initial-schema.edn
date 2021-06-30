@@ -14,7 +14,7 @@
            :db/isComponent true
            :db/cardinality :db.cardinality/many
            :db/doc         "Document Plans under group id"}
-          {:db/ident       :data.spec.user-group/dictionary
+          {:db/ident       :data.spec.user-group/dictionary-items
            :db/valueType   :db.type/ref
            :db/isComponent true
            :db/cardinality :db.cardinality/many
