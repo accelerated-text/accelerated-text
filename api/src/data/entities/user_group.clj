@@ -35,12 +35,12 @@
 
 (defn link-dict-item [group-id dict-item-ref]
   (let [group-info (get-or-create-group group-id)
-        linked-plans (get group-info ::user-group/document-plans [])]
+        linked-plans (get group-info ::user-group/dictionary-items [])]
     (log/debugf "Linking dictionary-item: `%s` to user group ID: %d" dict-item-ref group-id)
-    (db/update! user-group-db group-id (assoc group-info ::user-group/document-plans (conj linked-plans [::dictionary-item/id dict-item-ref])))))
+    (db/update! user-group-db group-id (assoc group-info ::user-group/dictionary-items (conj linked-plans [::dictionary-item/id dict-item-ref])))))
 
 (defn link-reader-model [group-id reader-model-ref]
   (let [group-info (get-or-create-group group-id)
-        linked-plans (get group-info ::user-group/document-plans [])]
+        linked-plans (get group-info ::user-group/reader-models [])]
     (log/debugf "Linking reader model: `%s` to user group ID: %d" reader-model-ref group-id)
-    (db/update! user-group-db group-id (assoc group-info ::user-group/document-plans (conj linked-plans [::reader-model/code reader-model-ref])))))
+    (db/update! user-group-db group-id (assoc group-info ::user-group/reader-models (conj linked-plans [::reader-model/code reader-model-ref])))))
