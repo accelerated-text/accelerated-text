@@ -1,7 +1,6 @@
 (ns api.graphql.domain.data
   (:require [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-            [data.entities.data-files :as data-files]
-            [clojure.tools.logging :as log]))
+            [data.entities.data-files :as data-files]))
 
 (defn- resolve-as-not-found-file [id]
   (resolve-as nil {:message (format "Cannot find data file with id `%s`." id)}))
@@ -16,7 +15,6 @@
 (defn get-relevant-samples [{:keys [auth-info]}
                             {:keys [id method recordOffset recordLimit]
                              :or {recordOffset 0 recordLimit 20 method "first"}} _]
-  (log/infof "Get relevant samples, id: %s" id)
   (let [data-fn (case method
                       "relevant" data-files/fetch-most-relevant
                       "first"    data-files/fetch)]
