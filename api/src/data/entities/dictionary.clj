@@ -6,6 +6,8 @@
             [clojure.java.io :as io]
             [clojure.string :as str]
             [data.db :as db]
+            [data.entities.user-group :as user-group]
+            [data.spec.user-group :as ug]
             [data.utils :as utils]
             [mount.core :refer [defstate]])
   (:import (java.io PushbackReader)))
@@ -16,15 +18,18 @@
 (defstate dictionary-db :start (db/db-access :dictionary conf))
 
 (defn list-dictionary-items
-  ([] (list-dictionary-items Integer/MAX_VALUE))
-  ([limit]
-   (db/list! dictionary-db limit)))
+  ([group-id] (list-dictionary-items group-id Integer/MAX_VALUE))
+  ([group-id limit]
+   (->> group-id
+        (user-group/get-or-create-group)
+        (::ug/dictionary-items)
+        (take limit))))
 
-(defn get-parent [{id ::dict-item-form/id}]
+(defn get-parent [{id ::dict-item-form/id} group-id]
   (some (fn [{forms ::dict-item/forms :as dict-item}]
           (when (contains? (set (map ::dict-item-form/id forms)) id)
             dict-item))
-        (list-dictionary-items)))
+        (list-dictionary-items group-id)))
 
 (defn get-dictionary-item [id]
   (db/read! dictionary-db id))
@@ -46,11 +51,12 @@
   ([keys languages categories]
    (db/scan! dictionary-db {:keys keys :languages languages :categories categories})))
 
-(defn create-dictionary-item [{id ::dict-item/id :as item}]
+(defn create-dictionary-item [{id ::dict-item/id :as item} group-id]
   (let [item-id (or id (gen-id item))]
     (when (some? (get-dictionary-item item-id))
       (delete-dictionary-item item-id))
     (db/write! dictionary-db item-id item)
+    (user-group/link-dict-item group-id item-id)
     (get-dictionary-item item-id)))
 
 (defn get-dictionary-item-category [id]
@@ -83,6 +89,6 @@
                  dict-item (read-dictionary-items-from-file f)]
            (let [id (or (::dict-item/id dict-item) (gen-id dict-item))]
              (when-not (some? (get-dictionary-item id))
-               (create-dictionary-item (assoc dict-item ::dict-item/id id)))))
+               (create-dictionary-item (assoc dict-item ::dict-item/id id) user-group/DUMMY-USER-GROUP-ID))))
   :stop (doseq [{id ::dict-item/id} (list-dictionary-items Integer/MAX_VALUE)]
           (delete-dictionary-item id)))

@@ -24,13 +24,14 @@
 
 (defn prepare-environment [f]
   (doseq [item [test-item-eng test-item-ger]]
-    (dictionary/create-dictionary-item item))
+    (dictionary/create-dictionary-item item 0))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)
 
 (deftest ^:integration list-dictionary-items
-  (is (= #{test-item-eng test-item-ger} (into #{} (dictionary/list-dictionary-items)))))
+  (is (= #{test-item-eng test-item-ger} (into #{} (dictionary/list-dictionary-items 0))))
+  (is (= [] (dictionary/list-dictionary-items 1))))
 
 (deftest ^:integration search-dictionary-items
   (is (= #{} (into #{} (dictionary/scan-dictionary #{} #{}))))
