@@ -37,8 +37,10 @@
 (defn delete-dictionary-item [id]
   (db/delete! dictionary-db id))
 
-(defn update-dictionary-item [{id ::dict-item/id :as item}]
-  (db/update! dictionary-db id item))
+(defn update-dictionary-item [{item-id ::dict-item/id :as item} group-id]
+  (let [result (db/update! dictionary-db item-id item)]
+    (user-group/link-dict-item group-id item-id)
+    result))
 
 (defn update-dictionary-item-form [{id ::dict-item-form/id :as form}]
   (db/update! dictionary-db id form))

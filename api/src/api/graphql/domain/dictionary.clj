@@ -7,19 +7,17 @@
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-            [data.entities.dictionary :as dict-entity]
-            [data.entities.user-group :as user-group]))
+            [data.entities.dictionary :as dict-entity]))
 
 (defn resolve-as-not-found-dict-item [id]
   (resolve-as nil {:message (format "Cannot find dictionary item with id `%s`." id)}))
 
 (defn dictionary [{:keys [auth-info]} _ _]
-  (let [group-id (get auth-info :group-id user-group/DUMMY-USER-GROUP-ID)]
-    (->> (dict-entity/list-dictionary-items group-id)
-         (map #(translate-dict/dictionary-item->schema (:group-id auth-info)))
-         (sort-by #(-> [(:partOfSpeech %) (:name %)]))
-         (translate-core/paginated-response)
-         (resolve-as))))
+  (->> (dict-entity/list-dictionary-items (:group-id auth-info))
+       (map translate-dict/dictionary-item->schema)
+       (sort-by #(-> [(:partOfSpeech %) (:name %)]))
+       (translate-core/paginated-response)
+       (resolve-as)))
 
 (defn dictionary-item [_ {id :id :as args} _]
   (log/debugf "Fetching dictionary item with args: %s" args)
@@ -37,25 +35,28 @@
   (dict-entity/delete-dictionary-item id)
   (resolve-as true))
 
-(defn update-dictionary-item [_ {id :id :as args} _]
-  (if-let [item (dict-entity/update-dictionary-item (translate-dict/schema->dictionary-item args))]
+(defn update-dictionary-item [{:keys [auth-info]} {id :id :as args} _]
+  (if-let [item (dict-entity/update-dictionary-item (translate-dict/schema->dictionary-item args) (:group-id auth-info))]
     (resolve-as (translate-dict/dictionary-item->schema item))
     (resolve-as-not-found-dict-item id)))
 
-(defn create-phrase [_ {:keys [dictionaryItemId text defaultUsage]} _]
+(defn create-phrase [{:keys [auth-info]} {:keys [dictionaryItemId text defaultUsage]} _]
   (if-let [item (dict-entity/get-dictionary-item dictionaryItemId)]
     (let [phrase (translate-dict/text->phrase text dictionaryItemId (= :YES defaultUsage))]
       (-> item
           (update ::dict-item/forms #(conj % phrase))
-          (dict-entity/update-dictionary-item)
+          (dict-entity/update-dictionary-item (:group-id auth-info))
           (translate-dict/dictionary-item->schema)
           (resolve-as)))
     (resolve-as-not-found-dict-item dictionaryItemId)))
 
-(defn update-phrase [{lang ::dict-item/language :as item} id mut-fn translate?]
-  (let [translate-fn (if (true? translate?) #(rm-translate/phrase->schema % lang) identity)]
-    (->> (update item ::dict-item/forms #(map (fn [phrase] (cond-> phrase (= id (::dict-item-form/id phrase)) (mut-fn))) %))
-         (dict-entity/update-dictionary-item)
+(defn update-phrase [{lang ::dict-item/language :as item} id group-id mut-fn translate?]
+  (let [translate-fn (if (true? translate?) #(rm-translate/phrase->schema % lang) identity)
+        updated-item (update item ::dict-item/forms #(map (fn [phrase]
+                                                            (cond-> phrase
+                                                                    (= id (::dict-item-form/id phrase)) (mut-fn)))
+                                                          %))]
+    (->> (dict-entity/update-dictionary-item updated-item group-id)
          (::dict-item/forms)
          (filter #(= id (::dict-item-form/id %)))
          (first)
@@ -69,13 +70,13 @@
 
 (defn update-phrase-text [{:keys [auth-info]} {:keys [id text]} _]
   (if-let [item (dict-entity/get-parent #::dict-item-form{:id id} (:group-id auth-info))]
-    (resolve-as (update-phrase item id #(assoc % ::dict-item-form/value text) true))
+    (resolve-as (update-phrase item id (:group-id auth-info) #(assoc % ::dict-item-form/value text) true))
     (resolve-as-not-found-phrase id)))
 
 (defn update-phrase-default-usage [{:keys [auth-info]} {:keys [id defaultUsage]} _]
   (if-let [item (dict-entity/get-parent #::dict-item-form{:id id} (:group-id auth-info))]
     (-> item
-        (update-phrase id #(assoc % ::dict-item-form/default? (= :YES defaultUsage)) true)
+        (update-phrase id (:group-id auth-info) #(assoc % ::dict-item-form/default? (= :YES defaultUsage)) true)
         (resolve-as))
     (resolve-as-not-found-phrase id)))
 
@@ -83,7 +84,7 @@
   (if-let [item (dict-entity/get-parent #::dict-item-form{:id id} (:group-id auth-info))]
     (-> item
         (update ::dict-item/forms #(remove (fn [form] (= id (::dict-item-form/id form))) %))
-        (dict-entity/update-dictionary-item)
+        (dict-entity/update-dictionary-item (:group-id auth-info))
         (translate-dict/dictionary-item->schema)
         (resolve-as))
     (resolve-as-not-found-phrase id)))
