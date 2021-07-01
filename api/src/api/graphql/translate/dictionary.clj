@@ -23,15 +23,15 @@
                   :defaultUsage (if enabled? "YES" "NO")}})
        (reader-model/available-languages)))
 
-(defn get-concept [attributes]
+(defn get-concept [attributes group-id]
   (when-let [concept-name (some #(when (= "Concept" (::dict-item-attr/name %))
                                    (::dict-item-attr/value %))
                                 attributes)]
     (some #(when (= concept-name (::sg/name %))
              (concept-translate/amr->schema %))
-          (amr-entity/list-amrs))))
+          (amr-entity/list-amrs group-id))))
 
-(defn dictionary-item->schema [{::dict-item/keys [id key category forms language definition sense attributes]}]
+(defn dictionary-item->schema [{::dict-item/keys [id key category forms language definition sense attributes]} group-id]
   {:id           (or id (utils/gen-uuid))
    :name         key
    :partOfSpeech category
@@ -44,7 +44,7 @@
                          :defaultUsage    (if default? "YES" "NO")
                          :readerFlagUsage (build-reader-model-user-flags language)})
                       forms)
-   :concept      (get-concept attributes)
+   :concept      (get-concept attributes group-id)
    :attributes   (map (fn [{::dict-item-attr/keys [id name value]}]
                         {:id    id
                          :name  name

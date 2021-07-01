@@ -5,6 +5,7 @@
             [api.db-fixtures :as fixtures]
             [clojure.test :refer [deftest is use-fixtures]]
             [data.entities.dictionary :as dict-entity]
+            [data.entities.user-group :as user-group]
             [api.utils :as utils]))
 
 (def test-dictionary-items #{#::dict-item{:id       "place_Eng"
@@ -24,7 +25,7 @@
 
 (defn prepare-environment [f]
   (doseq [item test-dictionary-items]
-    (dict-entity/create-dictionary-item item))
+    (dict-entity/create-dictionary-item item user-group/DUMMY-USER-GROUP-ID))
   (f))
 
 (use-fixtures :each fixtures/clean-db prepare-environment)

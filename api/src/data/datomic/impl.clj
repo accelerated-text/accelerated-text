@@ -6,6 +6,7 @@
             [data.datomic.entities.document-plan :as document-plan]
             [data.datomic.entities.reader-model :as reader-model]
             [data.datomic.entities.results :as results]
+            [data.datomic.entities.user-group :as user-group]
             [data.protocol :as protocol]
             [mount.core :refer [defstate]]
             [data.datomic.utils :as utils]))
@@ -84,6 +85,13 @@
   (results/transact-item conn data-item))
 (defmethod pull-entity :results [_ key]
   (results/pull-entity conn key))
+
+(defmethod pull-entity :user-group [_ group-id]
+  (user-group/pull-entity conn group-id))
+(defmethod update! :user-group [_ key data]
+  (user-group/update! conn key data))
+(defmethod transact-item :user-group [_ key data]
+  (user-group/transact-item conn key data))
 
 (defn db-access
   [resource-type config]

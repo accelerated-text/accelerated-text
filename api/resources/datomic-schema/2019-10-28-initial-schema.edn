@@ -1,5 +1,31 @@
 {:acc-text/data-file-schema
- {:txes [[{:db/ident       :data.spec.data-file/id
+ {:txes [[{:db/ident       :data.spec.user-group/id
+           :db/unique      :db.unique/identity
+           :db/valueType   :db.type/long
+           :db/cardinality :db.cardinality/one
+           :db/doc         "User group Id"}
+          {:db/ident       :data.spec.user-group/data-files
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Data-Files under group id"}
+          {:db/ident       :data.spec.user-group/document-plans
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Document Plans under group id"}
+          {:db/ident       :data.spec.user-group/dictionary-items
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Dictionary items under group id"}
+          {:db/ident       :data.spec.user-group/reader-models
+           :db/valueType   :db.type/ref
+           :db/isComponent true
+           :db/cardinality :db.cardinality/many
+           :db/doc         "Reader models under group id"}]
+
+         [{:db/ident       :data.spec.data-file/id
            :db/unique      :db.unique/identity
            :db/valueType   :db.type/string
            :db/cardinality :db.cardinality/one

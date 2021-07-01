@@ -19,6 +19,7 @@
    :config-path          (or (System/getenv "CONFIG_PATH") (io/resource "config"))
    :dictionary-path      (or (System/getenv "DICT_PATH") (io/resource "dictionary"))
    :document-plan-path   (or (System/getenv "DOCUMENT_PLANS") (io/resource "document-plans"))
+   :auth-url             (System/getenv "AUTH_URL")
    :remove-duplicates    (Boolean/valueOf ^String (or (System/getenv "REMOVE_DUPLICATES") "TRUE"))
    :enable-cache         (Boolean/valueOf ^String (or (System/getenv "ENABLE_CACHE") "FALSE"))
    :relevant-items-limit (or (System/getenv "RELEVANT_ITEMS_MATRIX_LIMIT") 100)})

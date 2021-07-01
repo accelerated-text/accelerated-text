@@ -6,6 +6,7 @@
             [data.entities.data-files :as data-files]
             [data.entities.dictionary :as dictionary]
             [data.entities.document-plan :as dp]
+            [data.entities.user-group :as user-group]
             [jsonista.core :as json])
   (:import (org.httpkit BytesInputStream)))
 
@@ -47,18 +48,20 @@
 (defn load-data-file [filename]
   (data-files/store!
     {:filename filename
-     :content  (io/file (format "test/resources/data-files/%s" filename))}))
+     :content  (io/file (format "test/resources/data-files/%s" filename))}
+    user-group/DUMMY-USER-GROUP-ID)
+  filename)
 
 (defn load-document-plan [filename]
   (log/infof "Loading test document plan `%s`" filename)
   (let [{id :id :as dp} (dp/load-document-plan (io/file (format "test/resources/document-plans/%s.json" filename)))]
-    (dp/add-document-plan dp id)
+    (dp/add-document-plan dp user-group/DUMMY-USER-GROUP-ID)
     id))
 
 (defn load-dictionary [filename]
   (log/infof "Loading test dictionary `%s`" filename)
   (doseq [dict-item (dictionary/read-dictionary-items-from-file (io/file (format "test/resources/dictionary/%s.edn" filename)))]
-    (dictionary/create-dictionary-item dict-item)))
+    (dictionary/create-dictionary-item dict-item user-group/DUMMY-USER-GROUP-ID)))
 
 (defn get-result [result-id]
   (when (some? result-id)

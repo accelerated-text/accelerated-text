@@ -1,7 +1,8 @@
 (ns data.document-plan-test
   (:require [api.db-fixtures :as fixtures]
             [clojure.test :refer [deftest is use-fixtures testing]]
-            [data.entities.document-plan :as document-plan]))
+            [data.entities.document-plan :as document-plan]
+            [data.entities.user-group :as user-group]))
 
 (use-fixtures :each fixtures/clean-db)
 
@@ -18,7 +19,7 @@
                                       :srcId "%!Y"}]
                              :type  "Document-plan"
                              :srcId "G=Rh"}}
-          {id :id :as resp} (document-plan/add-document-plan dp)]
+          {id :id :as resp} (document-plan/add-document-plan dp user-group/DUMMY-USER-GROUP-ID)]
       (is (= #{:updatedAt :uid :name :createdAt :id :documentPlan :updateCount}
              (set (keys resp))))
       (is (string? id))
@@ -52,7 +53,7 @@
                                       :srcId "}0Ci`hF%i?izegwAT[@J"}]
                              :type  "Document-plan"
                              :srcId "eoPNHZ1PSV{MJBwehL^Z"}}
-          {id :id :as resp} (document-plan/add-document-plan dp)]
+          {id :id :as resp} (document-plan/add-document-plan dp user-group/DUMMY-USER-GROUP-ID)]
       (is (= #{:updatedAt :uid :name :createdAt :id :documentPlan :updateCount}
              (set (keys resp))))
       (is (string? id))
@@ -92,7 +93,7 @@
                                        :type     "Segment"
                                        :srcId    "ujW*X(khAvxZNh!jF8c8"}]
                            :type     "Document-plan" :srcId "xlp%{tSm4kq9Y?|jz(7e"}}
-        {id :id :as resp} (document-plan/add-document-plan dp)]
+        {id :id :as resp} (document-plan/add-document-plan dp user-group/DUMMY-USER-GROUP-ID)]
     (is (= #{:updatedAt :uid :name :createdAt :id :documentPlan :updateCount}
            (set (keys resp))))
     (is (string? id))

@@ -2,15 +2,18 @@
   (:require [api.config :refer [conf]]
             [data.db :as db]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]]
+            [data.entities.user-group :as user-group]
+            [data.spec.user-group :as ug]
+            [data.datomic.entities.document-plan :as dp-e]))
 
 (defstate document-plans-db :start (db/db-access :document-plan conf))
 
 (defn list-document-plans
-  ([]
-   (db/scan! document-plans-db {}))
-  ([kind]
-   (sort-by :name (filter #(= kind (:kind %)) (db/scan! document-plans-db {})))))
+  ([group-id]
+   (->> (user-group/get-or-create-group group-id) ::ug/document-plans (map dp-e/dp->dp)))
+  ([kind group-id]
+   (sort-by :name (filter #(= kind (:kind %)) (list-document-plans group-id)))))
 
 (defn get-document-plan [document-plan-id]
   (db/read! document-plans-db document-plan-id))
@@ -19,9 +22,11 @@
   (db/delete! document-plans-db document-plan-id))
 
 (defn add-document-plan
-  ([document-plan] (add-document-plan document-plan (or (:id document-plan) (utils/gen-rand-str 16))))
-  ([document-plan provided-id]
-   (db/write! document-plans-db provided-id document-plan true)))
+  ([document-plan group-id] (add-document-plan document-plan group-id (or (:id document-plan) (utils/gen-rand-str 16))))
+  ([document-plan group-id provided-id]
+   (let [plan (db/write! document-plans-db provided-id document-plan true)]
+     (user-group/link-dp group-id provided-id)
+     plan)))
 
 (defn update-document-plan [document-plan-id document-plan]
   (db/update! document-plans-db document-plan-id document-plan))
@@ -34,9 +39,8 @@
     (cond-> dp (string? (:documentPlan dp)) (update :documentPlan utils/read-json-str))))
 
 (defstate document-plans
-  :start (doseq [{id :id :as dp}
-                 (->> (utils/list-files (document-plan-path) #{".json"})
-                      (map load-document-plan))]
-           (add-document-plan dp id))
-  :stop (doseq [{id :id} (list-document-plans)]
+  :start (doseq [dp (->> (utils/list-files (document-plan-path) #{".json"})
+                         (map load-document-plan))]
+           (add-document-plan dp user-group/DUMMY-USER-GROUP-ID))
+  :stop (doseq [{id :id} (list-document-plans user-group/DUMMY-USER-GROUP-ID)]
           (delete-document-plan id)))

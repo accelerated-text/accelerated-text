@@ -19,13 +19,13 @@
     (resolve-as (rm-translate/reader-model->reader-flag item))
     (resolve-as-not-found-reader-flag id)))
 
-(defn update-reader-flag-usage [_ {:keys [id usage]} _]
+(defn update-reader-flag-usage [{:keys [auth-info]} {:keys [id usage]} _]
   (if-let [item (dict-entity/get-dictionary-item (dict-domain/get-parent-id id))]
     (let [[parent-part phrase-part flag-id] (str/split id #"/")
           flag-key (keyword flag-id)
           phrase-id (format "%s/%s" parent-part phrase-part)
           select-pair (fn [flags] (list flag-key (get flags flag-key)))]
-      (->> (dict-domain/update-phrase item phrase-id #(assoc-in % [:flags flag-key] (keyword usage)) false)
+      (->> (dict-domain/update-phrase item phrase-id (:group-id auth-info) #(assoc-in % [:flags flag-key] (keyword usage)) false)
            (:flags)
            (select-pair)
            (rm-translate/reader-flag-usage->schema phrase-id)

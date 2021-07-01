@@ -1,6 +1,7 @@
 (ns api.server
   (:gen-class)
   (:require [acc-text.nlg.gf.service :as gf-service]
+            [api.auth.middleware :as auth]
             [api.config :refer [conf]]
             [api.error :as errors]
             [api.graphql.core :as graphql]
@@ -58,10 +59,10 @@
   (ring/router
     [["/_graphql" {:post    {:parameters {:body map?}
                              :coercion   reitit.coercion.spec/coercion
-                             :handler    (fn [{raw :body}]
+                             :handler    (fn [{raw :body auth-info :auth-info}]
                                            (let [body (utils/read-json-is raw)]
                                              {:status 200
-                                              :body   (graphql/handle body)}))
+                                              :body   (graphql/handle body auth-info)}))
                              :summary    "GraphQL endpoint"}
                    :options {:handler cors-handler
                              :no-doc  true}}]
@@ -73,8 +74,8 @@
                          :middleware [muuntaja/format-request-middleware
                                       coercion/coerce-request-middleware
                                       coercion/coerce-response-middleware]
-                         :handler    (fn [{{body :body} :parameters}]
-                                       (service/generate-request body))}
+                         :handler    (fn [{{body :body} :parameters auth-info :auth-info}]
+                                       (service/generate-request body auth-info))}
                :options {:handler cors-handler
                          :no-doc  true}}]
      ["/nlg/_bulk/" {:post    {:parameters {:body ::service/generate-request-bulk}
@@ -85,8 +86,8 @@
                                :middleware [muuntaja/format-request-middleware
                                             coercion/coerce-request-middleware
                                             coercion/coerce-response-middleware]
-                               :handler    (fn [{{body :body} :parameters}]
-                                             (service/generate-request-bulk body))}
+                               :handler    (fn [{{body :body} :parameters auth-info :auth-info}]
+                                             (service/generate-request-bulk body auth-info))}
                      :options {:handler cors-handler
                                :no-doc  true}}]
      ["/nlg/:id" {:get     {:parameters {:query ::service/get-result
@@ -110,8 +111,8 @@
                             :no-doc  true}}]
      ["/accelerated-text-data-files/" {:parameters {:multipart {:file multipart/bytes-part}}
                                        :post       (fn [request]
-                                                     (let [{params :params} (multipart-handler request)
-                                                           id (data-files/store! (get params "file"))]
+                                                     (let [{params :params auth-info :auth-info} (multipart-handler request)
+                                                           id (data-files/store! (get params "file") (:group-id auth-info))]
                                                        {:status 200
                                                         :body   {:message "Succesfully uploaded file" :id id}}))
                                        :coercion   reitit.coercion.spec/coercion
@@ -136,6 +137,7 @@
                  :middleware [swagger/swagger-feature
                               muuntaja/format-negotiate-middleware
                               parameters/parameters-middleware
+                              auth/auth-middleware
                               wrap-response
                               muuntaja/format-response-middleware
                               errors/exception-middleware]}

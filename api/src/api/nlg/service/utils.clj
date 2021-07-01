@@ -43,20 +43,19 @@
        (remove nil?)
        (str/join "; ")))
 
-(defn get-data-row [data-id sample-method index]
-  (log/infof "Sample Method: %s" sample-method)
+(defn get-data-row [data-id sample-method index group-id]
   (when-not (str/blank? data-id)
     (if-let [{[{fields :fields}] :records filename :fileName} (case sample-method
-                                                                "relevant" (data-files/fetch-most-relevant data-id index 20)
-                                                                "first" (data-files/fetch data-id index 1))]
+                                                                "relevant" (data-files/fetch-most-relevant data-id index 20 group-id)
+                                                                "first" (data-files/fetch data-id index 1 group-id))]
       (cond->> (zipmap (map :fieldName fields) (map :value fields))
                (data-enrich/enable-enrich?) (data-enrich/enrich filename))
       (log/errorf "Data with id `%s` not found" data-id))))
 
-(defn get-document-plan [{id :documentPlanId name :documentPlanName}]
+(defn get-document-plan [{id :documentPlanId name :documentPlanName} group-id]
   (cond
     (some? id) (dp/get-document-plan id)
-    (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans "Document"))
+    (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans "Document" group-id))
     :else (throw (Exception. "Must provide either document plan id or document plan name."))))
 
 (defn form-reader-model [reader-model]

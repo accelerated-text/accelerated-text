@@ -14,29 +14,30 @@
   (dp/delete-document-plan id)
   (resolve-as true))
 
-(defn list-document-plans [_ {:keys [offset limit kind] :or {offset 0 limit 100}} _]
-  (let [items (if (some? kind) (dp/list-document-plans kind) (dp/list-document-plans))]
+(defn list-document-plans [{:keys [auth-info]} {:keys [offset limit kind] :or {offset 0 limit 100}} _]
+  (let [items (if (some? kind) (dp/list-document-plans kind (:group-id auth-info)) (dp/list-document-plans (:group-id auth-info)))]
     (resolve-as {:items      (->> items
                                   (drop offset)
                                   (take limit)
-                                  (map translate-dp/dp->schema))
+                                  (map translate-dp/dp->schema)
+                                  (vec))
                  :kind       kind
                  :limit      limit
                  :offset     offset
                  :totalCount (count items)})))
 
-(defn add-document-plan [_ args _]
-  (->> (translate-dp/schema->dp args)
-       (dp/add-document-plan)
-       (translate-dp/dp->schema)
-       (resolve-as)))
+(defn add-document-plan [{:keys [auth-info]} args _]
+  (-> (translate-dp/schema->dp args)
+      (dp/add-document-plan (:group-id auth-info))
+      (translate-dp/dp->schema)
+      (resolve-as)))
 
-(defn get-document-plan [_ args _]
+(defn get-document-plan [{:keys [auth-info]} args _]
   (let [id (when-not (str/blank? (:id args)) (:id args))
         name (when-not (str/blank? (:name args)) (:name args))
         document-plan (cond
                         (some? id) (dp/get-document-plan id)
-                        (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans)))]
+                        (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans (:group-id auth-info))))]
     (cond
       (some? document-plan) (resolve-as (translate-dp/dp->schema document-plan))
       (or id name) (resolve-as-not-found-document-plan (or id name))
