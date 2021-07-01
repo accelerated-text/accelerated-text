@@ -14,21 +14,21 @@
 
 (defn dictionary [{:keys [auth-info]} _ _]
   (->> (dict-entity/list-dictionary-items (:group-id auth-info))
-       (map translate-dict/dictionary-item->schema)
+       (map #(translate-dict/dictionary-item->schema % (:group-id auth-info)))
        (sort-by #(-> [(:partOfSpeech %) (:name %)]))
        (translate-core/paginated-response)
        (resolve-as)))
 
-(defn dictionary-item [_ {id :id :as args} _]
+(defn dictionary-item [{:keys [auth-info]} {id :id :as args} _]
   (log/debugf "Fetching dictionary item with args: %s" args)
   (if-let [item (dict-entity/get-dictionary-item id)]
-    (resolve-as (translate-dict/dictionary-item->schema item))
+    (resolve-as (translate-dict/dictionary-item->schema item (:group-id auth-info)))
     (resolve-as-not-found-dict-item id)))
 
 (defn create-dictionary-item [{:keys [auth-info]} args _]
   (-> (translate-dict/schema->dictionary-item args)
       (dict-entity/create-dictionary-item (:group-id auth-info))
-      (translate-dict/dictionary-item->schema)
+      (translate-dict/dictionary-item->schema (:group-id auth-info))
       (resolve-as)))
 
 (defn delete-dictionary-item [_ {:keys [id]} _]
@@ -36,8 +36,10 @@
   (resolve-as true))
 
 (defn update-dictionary-item [{:keys [auth-info]} {id :id :as args} _]
-  (if-let [item (dict-entity/update-dictionary-item (translate-dict/schema->dictionary-item args) (:group-id auth-info))]
-    (resolve-as (translate-dict/dictionary-item->schema item))
+  (if-let [item (-> args
+                    (translate-dict/schema->dictionary-item)
+                    (dict-entity/update-dictionary-item (:group-id auth-info)))]
+    (resolve-as (translate-dict/dictionary-item->schema item (:group-id auth-info)))
     (resolve-as-not-found-dict-item id)))
 
 (defn create-phrase [{:keys [auth-info]} {:keys [dictionaryItemId text defaultUsage]} _]
@@ -46,7 +48,7 @@
       (-> item
           (update ::dict-item/forms #(conj % phrase))
           (dict-entity/update-dictionary-item (:group-id auth-info))
-          (translate-dict/dictionary-item->schema)
+          (translate-dict/dictionary-item->schema (:group-id auth-info))
           (resolve-as)))
     (resolve-as-not-found-dict-item dictionaryItemId)))
 
@@ -85,6 +87,6 @@
     (-> item
         (update ::dict-item/forms #(remove (fn [form] (= id (::dict-item-form/id form))) %))
         (dict-entity/update-dictionary-item (:group-id auth-info))
-        (translate-dict/dictionary-item->schema)
+        (translate-dict/dictionary-item->schema (:group-id auth-info))
         (resolve-as))
     (resolve-as-not-found-phrase id)))
