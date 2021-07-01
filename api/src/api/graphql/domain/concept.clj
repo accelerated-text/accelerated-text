@@ -2,8 +2,7 @@
   (:require [acc-text.nlg.gf.operations :as ops]
             [api.graphql.translate.concept :as concept-translate]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-            [data.entities.amr :as amr-entity]
-            [data.entities.user-group :as user-group]))
+            [data.entities.amr :as amr-entity]))
 
 (defn list-concepts [{:keys [auth-info]} _ _]
   (resolve-as
