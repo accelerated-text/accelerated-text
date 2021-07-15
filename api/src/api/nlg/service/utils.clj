@@ -53,10 +53,13 @@
       (log/errorf "Data with id `%s` not found" data-id))))
 
 (defn get-document-plan [{id :documentPlanId name :documentPlanName} group-id]
-  (cond
-    (some? id) (dp/get-document-plan id)
-    (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans "Document" group-id))
-    :else (throw (Exception. "Must provide either document plan id or document plan name."))))
+  (if-let [document-plan
+           (cond
+             (some? id) (dp/get-document-plan id)
+             (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans "Document" group-id))
+             :else (throw (Exception. "Must provide either document plan id or document plan name.")))]
+    document-plan
+    (throw (Exception. (format "Document plan `%s` does not exist." (or id name))))))
 
 (defn form-reader-model [reader-model]
   (map (fn [[code enabled?]]

@@ -23,3 +23,7 @@
                                                       ::result-annotation/idx
                                                       ::result-annotation/text]}]}]
           [::result/id key]))
+
+(defn delete [conn key]
+  @(d/transact conn [[:db.fn/retractEntity [::result/id key]]])
+  nil)
