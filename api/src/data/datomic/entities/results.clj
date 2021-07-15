@@ -25,5 +25,5 @@
           [::result/id key]))
 
 (defn delete [conn key]
-  @(d/transact conn [[:db.fn/retractEntity [:result/id key]]])
+  @(d/transact conn [[:db.fn/retractEntity [::result/id key]]])
   nil)
