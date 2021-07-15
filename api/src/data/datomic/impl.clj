@@ -85,6 +85,8 @@
   (results/transact-item conn data-item))
 (defmethod pull-entity :results [_ key]
   (results/pull-entity conn key))
+(defmethod delete :results [_ key]
+  (results/delete conn key))
 
 (defmethod pull-entity :user-group [_ group-id]
   (user-group/pull-entity conn group-id))
