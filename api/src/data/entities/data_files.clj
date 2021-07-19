@@ -62,9 +62,9 @@
     (user-group/link-file group-id key))
   filename)
 
-(defn drop-group-id [data-file-id]
-  (when (some? data-file-id)
-    (last (re-find #"(.+?)#(.+)" data-file-id))))
+(defn drop-group-id [key]
+  (when (some? key)
+    (last (re-find #"(.+?)#(.+)" key))))
 
 (defn parse-data
   ([data-file]
