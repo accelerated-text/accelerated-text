@@ -62,12 +62,16 @@
     (user-group/link-file group-id key))
   filename)
 
+(defn drop-group-id [data-file-id]
+  (when (some? data-file-id)
+    (last (re-find #"(.+?)#(.+)" data-file-id))))
+
 (defn parse-data
   ([data-file]
    (parse-data data-file 0 Integer/MAX_VALUE))
   ([{::data-file/keys [id name content]} offset limit]
    (let [[header & rows] (map #(map str/trim %) (cond-> content (some? content) (csv/read-csv)))]
-     {:id       id
+     {:id       (drop-group-id id)
       :filename name
       :header   (vec header)
       :rows     (take limit (drop offset rows))
@@ -122,9 +126,6 @@
   (some-> (read-data-file id group-id)
           (read-content offset limit)))
 
-(defn swap-data-id [{:keys [fileName] :as data}]
-  (assoc data :id fileName))
-
 (defn listing
   ([group-id] (listing group-id 0 Integer/MAX_VALUE 0 Integer/MAX_VALUE))
   ([group-id offset limit recordOffset recordLimit]
@@ -132,8 +133,7 @@
      {:dataFiles  (->> data-files
                        (drop offset)
                        (take limit)
-                       (map #(read-content % recordOffset recordLimit))
-                       (map swap-data-id))
+                       (map #(read-content % recordOffset recordLimit)))
       :offset     offset
       :limit      limit
       :totalCount (count data-files)})))
