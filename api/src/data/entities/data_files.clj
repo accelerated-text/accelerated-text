@@ -53,8 +53,7 @@
   "Expected keys are :filename and :content everything else is optional"
   [{filename :filename :as data-file} group-id]
   (let [key (build-key filename group-id)]
-    (when (some? (read-data-file filename group-id))
-      (delete-data-file! filename group-id))
+    (delete-data-file! filename group-id)
     (log/infof "Storing data file: `%s`" filename)
     (db/write! data-files-db key
                #::data-file{:name      filename
