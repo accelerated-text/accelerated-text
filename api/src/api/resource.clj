@@ -21,8 +21,10 @@
                                                            :updatedAt  (ts-now),
                                                            :variants   ["Text value."]}}}
    :nlg-bulk                    {:post {:application/json {:resultIds (take 10 (repeatedly utils/gen-uuid))}}}
-   :accelerated-text-data-files {:post {:application/json {:message "Succesfully uploaded file"
-                                                           :id      (utils/gen-uuid)}}}
+   :accelerated-text-data-files {:post   {:application/json {:message "Succesfully uploaded file"
+                                                             :id      (utils/gen-uuid)}}
+                                 :delete {:application/json {:message "Succesfully deleted file"
+                                                             :id      (utils/gen-uuid)}}}
    :health                      {:get {:application/json {:health "Ok"}}}
    :status                      {:get {:application/json {:color    "green"
                                                           :services {"service" true}}}}})
