@@ -46,8 +46,8 @@
 
 (defn delete-data-file! [key group-id]
   (when (read-data-file key group-id)
-    (do (log/infof "Deleting data file: `%s`" key)
-        (db/delete! data-files-db (build-key key group-id)))))
+    (log/infof "Deleting data file: `%s`" key)
+    (db/delete! data-files-db (build-key key group-id))))
 
 (defn store!
   "Expected keys are :filename and :content everything else is optional"
