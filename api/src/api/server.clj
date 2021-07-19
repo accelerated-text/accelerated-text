@@ -109,17 +109,34 @@
                             :handler    service/delete-result}
                   :options {:handler cors-handler
                             :no-doc  true}}]
-     ["/accelerated-text-data-files/" {:parameters {:multipart {:file multipart/bytes-part}}
-                                       :post       (fn [request]
-                                                     (let [{params :params auth-info :auth-info} (multipart-handler request)
-                                                           id (data-files/store! (get params "file") (:group-id auth-info))]
-                                                       {:status 200
-                                                        :body   {:message "Succesfully uploaded file" :id id}}))
-                                       :coercion   reitit.coercion.spec/coercion
-                                       :summary    "Upload a file"
-                                       :responses  {200 {:body     {:message string?
-                                                                    :id      string?}
-                                                         :examples (get-in response-examples [:accelerated-text-data-files :post])}}}]
+     ["/accelerated-text-data-files/"
+      {:post    {:parameters {:multipart {:file multipart/bytes-part}}
+                 :coercion   reitit.coercion.spec/coercion
+                 :summary    "Upload a file"
+                 :responses  {200 {:body     {:message string?
+                                              :id      string?}
+                                   :examples (get-in response-examples [:accelerated-text-data-files :post])}}
+                 :handler    (fn [request]
+                               (let [{params :params auth-info :auth-info} (multipart-handler request)
+                                     id (data-files/store! (get params "file") (:group-id auth-info))]
+                                 {:status 200
+                                  :body   {:message "Succesfully uploaded file" :id id}}))}
+       :delete  {:parameters {:body {:id string?}}
+                 :responses  {200 {:body {:message string?
+                                          :id      string?}
+                                   :examples (get-in response-examples [:accelerated-text-data-files :delete])}}
+                 :coercion   reitit.coercion.spec/coercion
+                 :summary    "Delete data file"
+                 :middleware [muuntaja/format-request-middleware
+                              coercion/coerce-request-middleware
+                              coercion/coerce-response-middleware]
+                 :handler    (fn [{{{id :id} :body} :parameters auth-info :auth-info}]
+                               (if (data-files/delete-data-file! id (:group-id auth-info))
+                                 {:status 200
+                                  :body   {:message "Succesfully deleted file" :id id}}
+                                 {:status 404}))}
+       :options {:handler cors-handler
+                 :no-doc  true}}]
      ["/swagger.json" {:get {:no-doc  true
                              :swagger {:info {:title "nlg-api"}}
                              :handler (swagger/create-swagger-handler)}}]
