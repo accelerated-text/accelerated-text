@@ -50,24 +50,24 @@
 (defn language-config-path []
   (io/file (get conf :config-path (io/resource "config")) "languages.edn"))
 
-(defstate reader-conf :start
-  (do
-    (doseq [reader (available-readers user-group/DUMMY-USER-GROUP-ID)] (delete! reader user-group/DUMMY-USER-GROUP-ID))
-    (->> (reader-model-config-path)
-         (utils/read-edn)
-         (filter ::reader-model/available?)
-         (mapv #(update! (assoc % ::reader-model/type :reader
-                                  ::reader-model/enabled? (contains? (:enabled-readers conf)
-                                                                     (str/capitalize (::reader-model/code %))))
-                         user-group/DUMMY-USER-GROUP-ID)))))
+(defstate reader-conf
+  :start (->> (reader-model-config-path)
+              (utils/read-edn)
+              (filter ::reader-model/available?)
+              (mapv #(update! (assoc % ::reader-model/type :reader
+                                       ::reader-model/enabled? (contains? (:enabled-readers conf)
+                                                                          (str/capitalize (::reader-model/code %))))
+                              user-group/DUMMY-USER-GROUP-ID)))
+  :stop (doseq [reader (available-readers user-group/DUMMY-USER-GROUP-ID)]
+          (delete! reader user-group/DUMMY-USER-GROUP-ID)))
 
-(defstate language-conf :start
-  (do
-    (doseq [lang (available-languages user-group/DUMMY-USER-GROUP-ID)] (delete! lang user-group/DUMMY-USER-GROUP-ID))
-    (->> (language-config-path)
-         (utils/read-edn)
-         (filter ::reader-model/available?)
-         (mapv #(update! (assoc % ::reader-model/type :language
-                                  ::reader-model/enabled? (contains? (:enabled-languages conf)
-                                                                     (str/capitalize (::reader-model/code %))))
-                         user-group/DUMMY-USER-GROUP-ID)))))
+(defstate language-conf
+  :start (->> (language-config-path)
+              (utils/read-edn)
+              (filter ::reader-model/available?)
+              (mapv #(update! (assoc % ::reader-model/type :language
+                                       ::reader-model/enabled? (contains? (:enabled-languages conf)
+                                                                          (str/capitalize (::reader-model/code %))))
+                              user-group/DUMMY-USER-GROUP-ID)))
+  :stop (doseq [lang (available-languages user-group/DUMMY-USER-GROUP-ID)]
+          (delete! lang user-group/DUMMY-USER-GROUP-ID)))
