@@ -7,7 +7,6 @@
             [clojure.string :as str]
             [data.db :as db]
             [data.entities.user-group :as user-group]
-            [data.spec.user-group :as ug]
             [data.utils :as utils]
             [mount.core :refer [defstate]])
   (:import (java.io PushbackReader)))
@@ -20,10 +19,7 @@
 (defn list-dictionary-items
   ([group-id] (list-dictionary-items group-id Integer/MAX_VALUE))
   ([group-id limit]
-   (->> group-id
-        (user-group/get-or-create-group)
-        (::ug/dictionary-items)
-        (take limit))))
+   (take limit (user-group/list-dictionary-items group-id))))
 
 (defn get-parent [{id ::dict-item-form/id} group-id]
   (some (fn [{forms ::dict-item/forms :as dict-item}]
@@ -39,7 +35,7 @@
 
 (defn update-dictionary-item [{item-id ::dict-item/id :as item} group-id]
   (let [result (db/update! dictionary-db item-id item)]
-    (user-group/link-dict-item group-id item-id)
+    (user-group/link-dictionary-item group-id item-id)
     result))
 
 (defn update-dictionary-item-form [{id ::dict-item-form/id :as form}]
@@ -58,7 +54,7 @@
     (when (some? (get-dictionary-item item-id))
       (delete-dictionary-item item-id))
     (db/write! dictionary-db item-id item)
-    (user-group/link-dict-item group-id item-id)
+    (user-group/link-dictionary-item group-id item-id)
     (get-dictionary-item item-id)))
 
 (defn get-dictionary-item-category [id]

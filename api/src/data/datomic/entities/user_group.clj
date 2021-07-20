@@ -21,3 +21,16 @@
 (defn transact-item [conn key data]
   @(d/transact conn [(assoc data ::user-group/id key)])
   (pull-entity conn key))
+
+(defn make-pattern [entities]
+  (vec (conj
+         (filter #(contains? entities (cond-> % (map? %) (-> (keys) (first))))
+                 (rest pattern))
+         (first pattern))))
+
+(defn scan [conn {:keys [group-id entities]}]
+  (ffirst (d/q '[:find (pull ?e pattern)
+                 :in $ ?group-id pattern
+                 :where [?e ::user-group/id ?group]
+                 [(= ?group-id ?group)]]
+               (d/db conn) group-id (make-pattern entities))))

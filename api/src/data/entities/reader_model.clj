@@ -5,7 +5,6 @@
             [data.db :as db]
             [data.entities.user-group :as user-group]
             [data.spec.reader-model :as reader-model]
-            [data.spec.user-group :as ug]
             [data.utils :as utils]
             [mount.core :refer [defstate]]))
 
@@ -29,7 +28,7 @@
 (defn list-reader-model
   ([group-id] (list-reader-model group-id 100))
   ([group-id limit]
-   (map drop-group-id (take limit (-> (user-group/get-or-create-group group-id) ::ug/reader-models)))))
+   (map drop-group-id (take limit (user-group/list-reader-models group-id)))))
 
 (defn available-readers [group-id]
   (filter (fn [{::reader-model/keys [type available?]}]
