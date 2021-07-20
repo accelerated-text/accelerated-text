@@ -6,7 +6,8 @@
             [data.entities.user-group :as user-group]
             [data.spec.reader-model :as reader-model]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]]
+            [clojure.tools.logging :as log]))
 
 (defstate reader-model-db :start (db/db-access :reader-model conf))
 
@@ -15,6 +16,7 @@
     (update reader ::reader-model/code #(last (re-find #"(.+?)#(.+)" %)))))
 
 (defn fetch [code group-id]
+  (log/infof "FETCHING %s %s" code group-id)
   (drop-group-id (db/read! reader-model-db (str group-id "#" code))))
 
 (defn update! [{code ::reader-model/code :as reader} group-id]
@@ -22,7 +24,7 @@
   (user-group/link-reader-model group-id (str group-id "#" code))
   (fetch code group-id))
 
-(defn delete! [{code ::reader-model/code} group-id]
+(defn delete! [code group-id]
   (db/delete! reader-model-db (str group-id "#" code)))
 
 (defn list-reader-model
@@ -58,7 +60,7 @@
                                                                           (str/capitalize (::reader-model/code %))))
                               user-group/DUMMY-USER-GROUP-ID)))
   :stop (doseq [reader (available-readers user-group/DUMMY-USER-GROUP-ID)]
-          (delete! reader user-group/DUMMY-USER-GROUP-ID)))
+          (delete! (::reader-model/code reader) user-group/DUMMY-USER-GROUP-ID)))
 
 (defstate language-conf
   :start (->> (language-config-path)
@@ -69,4 +71,4 @@
                                                                           (str/capitalize (::reader-model/code %))))
                               user-group/DUMMY-USER-GROUP-ID)))
   :stop (doseq [lang (available-languages user-group/DUMMY-USER-GROUP-ID)]
-          (delete! lang user-group/DUMMY-USER-GROUP-ID)))
+          (delete! (::reader-model/code lang) user-group/DUMMY-USER-GROUP-ID)))

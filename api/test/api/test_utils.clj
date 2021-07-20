@@ -23,8 +23,10 @@
               "accept-encoding"                "gzip, deflate"
               "dnt"                            "1"})
 
+(def write-mapper (json/object-mapper {:escape-non-ascii true}))
+
 (defn encode [body]
-  (let [content (json/write-value-as-string body)]
+  (let [content (json/write-value-as-string body write-mapper)]
     (BytesInputStream. (.getBytes content) (count content))))
 
 (defn log-failure [{:keys [status body] :as resp}]

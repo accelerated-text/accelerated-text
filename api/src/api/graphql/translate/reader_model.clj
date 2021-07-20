@@ -18,7 +18,16 @@
    :defaultUsage    (if default? "YES" "NO")
    :readerFlagUsage (dict-translate/build-reader-model-user-flags language group-id)})
 
-(defn reader-model->reader-flag [{::reader-model/keys [code name enabled?]}]
+(defn reader-model->reader-flag [{::reader-model/keys [code name flag enabled?]}]
   {:id           code
    :name         name
+   :flag         flag
    :defaultUsage (if (true? enabled?) "YES" "NO")})
+
+(defn reader-flag->reader-model [type {:keys [id flag defaultUsage] :as args}]
+  #::reader-model{:code       (name id)
+                  :name       (:name args)
+                  :flag       (or flag "🏳️")
+                  :type       type
+                  :enabled?   (= :YES defaultUsage)
+                  :available? true})
