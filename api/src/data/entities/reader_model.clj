@@ -16,7 +16,6 @@
     (update reader ::reader-model/code #(last (re-find #"(.+?)#(.+)" %)))))
 
 (defn fetch [code group-id]
-  (log/infof "FETCHING %s %s" code group-id)
   (drop-group-id (db/read! reader-model-db (str group-id "#" code))))
 
 (defn update! [{code ::reader-model/code :as reader} group-id]
