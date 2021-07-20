@@ -32,7 +32,7 @@
      :text (::reader-model/flag reader)}))
 
 (defn get-flags [{::row/keys [language enriched? readers]} group-id]
-  (cond-> (cons (get-lang-flag language group-id) (filter some? (map get-reader-flag readers)))
+  (cond-> (cons (get-lang-flag language group-id) (filter some? (map #(get-reader-flag % group-id) readers)))
           (true? enriched?) (conj enriched-flag)))
 
 (defn split-into-paragraphs [annotations]

@@ -32,7 +32,7 @@
                       :relevant-items-limit 100})}
            #'data.entities.reader-model/language-conf
            {:start (fn []
-                     (mapv data.entities.reader-model/update!
+                     (mapv #(data.entities.reader-model/update! % data.entities.user-group/DUMMY-USER-GROUP-ID)
                            [#:data.spec.reader-model{:code       "Eng"
                                                      :flag       "🇬🇧"
                                                      :type       :language
