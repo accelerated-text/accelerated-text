@@ -11,12 +11,12 @@
    :flag  {:id   (name k)
            :name (name k)}})
 
-(defn phrase->schema [{::dict-item-form/keys [id value default?] :as phrase} language]
+(defn phrase->schema [{::dict-item-form/keys [id value default?] :as phrase} language group-id]
   (log/tracef "Phrase: %s" phrase)
   {:id              id
    :text            value
    :defaultUsage    (if default? "YES" "NO")
-   :readerFlagUsage (dict-translate/build-reader-model-user-flags language)})
+   :readerFlagUsage (dict-translate/build-reader-model-user-flags language group-id)})
 
 (defn reader-model->reader-flag [{::reader-model/keys [code name enabled?]}]
   {:id           code

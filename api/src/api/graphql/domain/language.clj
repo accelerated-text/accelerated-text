@@ -6,16 +6,16 @@
             [data.entities.dictionary :as dict-entity]
             [data.entities.reader-model :as reader-model-entity]))
 
-(defn language-model [_ _ _]
+(defn language-model [{:keys [auth-info]} _ _]
   (resolve-as
     {:id    "default"
-     :flags (map rm-translate/reader-model->reader-flag (reader-model-entity/available-languages))}))
+     :flags (map rm-translate/reader-model->reader-flag (reader-model-entity/available-languages (:group-id auth-info)))}))
 
 (defn- resolve-as-not-found-language [id]
   (resolve-as nil {:message (format "Cannot find language with code `%s`." id)}))
 
-(defn language [_ {:keys [id]} _]
-  (if-let [item (reader-model-entity/fetch id)]
+(defn language [{:keys [auth-info]} {:keys [id]} _]
+  (if-let [item (reader-model-entity/fetch id (:group-id auth-info))]
     (resolve-as (rm-translate/reader-model->reader-flag item))
     (resolve-as-not-found-language id)))
 

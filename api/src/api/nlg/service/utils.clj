@@ -9,16 +9,16 @@
             [data.entities.reader-model :as reader-model]
             [data.spec.result :as result]))
 
-(defn translate-result [{::result/keys [id status timestamp rows error-message] :as result} {result-format :format}]
+(defn translate-result [{::result/keys [id status timestamp rows error-message] :as result} {result-format :format} group-id]
   (cond-> {:resultId   id
            :offset     0
            :totalCount (count rows)
            :ready      (not= status :pending)
            :updatedAt  timestamp
            :variants   (cond
-                         (some? result-format) (use-format result-format result)
-                         (and (= :error status) (:display-error conf)) (use-format "error" result)
-                         :else (with-default-format result))}
+                         (some? result-format) (use-format result-format result group-id)
+                         (and (= :error status) (:display-error conf)) (use-format "error" result group-id)
+                         :else (with-default-format result group-id))}
           (= :error status) (assoc :error true :message error-message)))
 
 (defn error-response
@@ -61,9 +61,9 @@
     document-plan
     (throw (Exception. (format "Document plan `%s` does not exist." (or id name))))))
 
-(defn form-reader-model [reader-model]
+(defn form-reader-model [reader-model group-id]
   (map (fn [[code enabled?]]
-         (if-let [rm (reader-model/fetch code)]
+         (if-let [rm (reader-model/fetch code group-id)]
            (assoc rm :data.spec.reader-model/enabled? enabled?)
            (throw (Exception. (format "Unknown reader model: `%s`" code)))))
        reader-model))
