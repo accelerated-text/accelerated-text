@@ -467,7 +467,7 @@ type Mutation {
     createReaderFlag(
         id:                 ID!
         name:               String!
-        flag:               String
+        flag:               String!
         defaultUsage:       Usage!
     ): ReaderFlag!
 
@@ -483,7 +483,7 @@ type Mutation {
     createLanguage(
         id:                 Language!
         name:               String!
-        flag:               String
+        flag:               String!
         defaultUsage:       Usage!
     ): ReaderFlag!
 

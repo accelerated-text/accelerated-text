@@ -27,7 +27,7 @@
 (defn reader-flag->reader-model [type {:keys [id flag defaultUsage] :as args}]
   #::reader-model{:code       (name id)
                   :name       (:name args)
-                  :flag       (or flag "🏳️")
+                  :flag       flag
                   :type       type
                   :enabled?   (= :YES defaultUsage)
                   :available? true})
