@@ -6,8 +6,7 @@
             [data.entities.user-group :as user-group]
             [data.spec.reader-model :as reader-model]
             [data.utils :as utils]
-            [mount.core :refer [defstate]]
-            [clojure.tools.logging :as log]))
+            [mount.core :refer [defstate]]))
 
 (defstate reader-model-db :start (db/db-access :reader-model conf))
 
