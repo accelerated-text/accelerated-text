@@ -46,7 +46,7 @@
                                                    :createReaderFlag         :create-reader-flag
                                                    :deleteReaderFlag         :delete-reader-flag
                                                    :updateReaderFlagUsage    :update-reader-flag-usage
-                                                   :createLanguage           :create-language
+                                                   :addLanguage              :add-language
                                                    :deleteLanguage           :delete-language
                                                    :updateLanguageUsage      :update-language-usage
                                                    :createDataFile           :create-data-file}}})
@@ -66,7 +66,7 @@
                               :update-reader-flag-usage    #'reader-model-domain/update-reader-flag-usage
                               :language                    #'language-domain/language
                               :languages                   #'language-domain/language-model
-                              :create-language             #'language-domain/create-language
+                              :add-language                #'language-domain/add-language
                               :delete-language             #'language-domain/delete-language
                               :update-language-usage       #'language-domain/update-language-usage
                               :document-plan               #'document-plan-domain/get-document-plan

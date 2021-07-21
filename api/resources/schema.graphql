@@ -480,10 +480,10 @@ type Mutation {
         usage:              Usage!
     ):  ReaderFlagUsage!
 
-    createLanguage(
+    addLanguage(
         id:                 Language!
         name:               String!
-        flag:               String!
+        flag:               String
         defaultUsage:       Usage!
     ): ReaderFlag!
 

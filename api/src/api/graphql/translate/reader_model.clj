@@ -24,10 +24,23 @@
    :flag         flag
    :defaultUsage (if (true? enabled?) "YES" "NO")})
 
+(defn get-language-flag [code]
+  (case (keyword code)
+    :Eng "🇬🇧"
+    :Ger "🇩🇪"
+    :Est "🇪🇪"
+    :Lav "🇱🇻"
+    :Lit "🇱🇹"
+    :Rus "🇷🇺"
+    :Spa "🇪🇸"
+    "🏳️"))
+
 (defn reader-flag->reader-model [type {:keys [id flag defaultUsage] :as args}]
   #::reader-model{:code       (name id)
                   :name       (:name args)
-                  :flag       flag
+                  :flag       (if (and (= :language type) (nil? flag))
+                                (get-language-flag id)
+                                flag)
                   :type       type
                   :enabled?   (= :YES defaultUsage)
                   :available? true})

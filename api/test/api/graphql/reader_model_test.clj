@@ -7,12 +7,11 @@
 
 (deftest ^:integration rw-languages
   (testing "Language creation"
-    (let [query "mutation createLanguage($id: Language! $name: String! $flag: String $defaultUsage: Usage!) { createLanguage(id: $id name: $name flag: $flag defaultUsage: $defaultUsage){ id name flag defaultUsage }}"
-          {{{{:keys [id name flag defaultUsage]} :createLanguage} :data errors :errors} :body}
+    (let [query "mutation addLanguage($id: Language! $name: String! $flag: String $defaultUsage: Usage!) { addLanguage(id: $id name: $name flag: $flag defaultUsage: $defaultUsage){ id name flag defaultUsage }}"
+          {{{{:keys [id name flag defaultUsage]} :addLanguage} :data errors :errors} :body}
           (q "/_graphql" :post {:query     query
                                 :variables {:id           "Ger"
                                             :name         "German"
-                                            :flag         "🇩🇪"
                                             :defaultUsage "NO"}})]
       (is (nil? errors))
       (is (= id "Ger"))
@@ -44,7 +43,7 @@
 
 (deftest ^:integration rw-readers
   (testing "Reader creation"
-    (let [query "mutation createReaderFlag($id: ID! $name: String! $flag: String $defaultUsage: Usage!) { createReaderFlag(id: $id name: $name flag: $flag defaultUsage: $defaultUsage){ id name flag defaultUsage }}"
+    (let [query "mutation createReaderFlag($id: ID! $name: String! $flag: String! $defaultUsage: Usage!) { createReaderFlag(id: $id name: $name flag: $flag defaultUsage: $defaultUsage){ id name flag defaultUsage }}"
           {{{{:keys [id name flag defaultUsage]} :createReaderFlag} :data errors :errors} :body}
           (q "/_graphql" :post {:query     query
                                 :variables {:id           "rdr"

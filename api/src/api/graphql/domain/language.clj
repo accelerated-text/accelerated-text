@@ -20,7 +20,7 @@
     (resolve-as (rm-translate/reader-model->reader-flag item))
     (resolve-as-not-found-language (name id))))
 
-(defn create-language [{:keys [auth-info]} args _]
+(defn add-language [{:keys [auth-info]} args _]
   (-> (rm-translate/reader-flag->reader-model :language args)
       (reader-model-entity/update! (:group-id auth-info))
       (rm-translate/reader-model->reader-flag)))
