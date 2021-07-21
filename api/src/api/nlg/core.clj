@@ -13,6 +13,7 @@
             [data.entities.dictionary :refer [build-dictionaries]]
             [data.entities.results :as results]
             [data.entities.reader-model :refer [available-reader-model]]
+            [data.entities.user-group :as user-group]
             [data.spec.reader-model :as reader-model]
             [data.spec.result :as result]
             [data.spec.result.annotation :as annotation]
@@ -47,7 +48,7 @@
      :readers   (set (map ::reader-model/code reader))}))
 
 (defn generate-text
-  [{:keys [id document-plan data reader-model] :or {id (utils/gen-uuid) data {} reader-model (available-reader-model)}}]
+  [{:keys [id document-plan data reader-model] :or {id (utils/gen-uuid) data {} reader-model (available-reader-model user-group/DUMMY-USER-GROUP-ID)}}]
   (let [{:keys [languages readers]} (select-enabled-readers reader-model)
         semantic-graph (document-plan->semantic-graph document-plan)
         amrs (find-amrs semantic-graph)

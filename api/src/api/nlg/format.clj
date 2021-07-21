@@ -20,19 +20,19 @@
                     :id   "ENRICHED"
                     :text "📙"})
 
-(defn get-lang-flag [code]
+(defn get-lang-flag [code group-id]
   {:type "FLAG"
    :id   code
-   :text (or (::reader-model/flag (reader-model-entity/fetch code)) "🏳️")})
+   :text (or (::reader-model/flag (reader-model-entity/fetch code group-id)) "🏳️")})
 
-(defn get-reader-flag [code]
-  (when-let [reader (reader-model-entity/fetch code)]
+(defn get-reader-flag [code group-id]
+  (when-let [reader (reader-model-entity/fetch code group-id)]
     {:type "FLAG"
      :id   code
      :text (::reader-model/flag reader)}))
 
-(defn get-flags [{::row/keys [language enriched? readers]}]
-  (cond-> (cons (get-lang-flag language) (filter some? (map get-reader-flag readers)))
+(defn get-flags [{::row/keys [language enriched? readers]} group-id]
+  (cond-> (cons (get-lang-flag language group-id) (filter some? (map #(get-reader-flag % group-id) readers)))
           (true? enriched?) (conj enriched-flag)))
 
 (defn split-into-paragraphs [annotations]
@@ -49,9 +49,9 @@
                         (cond-> [] (not (str/blank? text)) (conj (assoc ann ::annotation/text text))))
                       (conj segment ann)))))))
 
-(defn ->annotated-text-format [{rows ::result/rows}]
+(defn ->annotated-text-format [{rows ::result/rows} group-id]
   (map (fn [{annotations ::row/annotations :as row}]
-         (let [flags (when (show-flags?) (get-flags row))]
+         (let [flags (when (show-flags?) (get-flags row group-id))]
            {:type        "ANNOTATED_TEXT"
             :id          (utils/gen-uuid)
             :annotations []
@@ -72,9 +72,9 @@
                                                                            paragraph-annotations))}]})))}))
        rows))
 
-(defn ->annotated-text-shallow-format [{rows ::result/rows}]
+(defn ->annotated-text-shallow-format [{rows ::result/rows} group-id]
   (map (fn [{text ::row/text :as row}]
-         (let [flags (when (show-flags?) (str/join " " (map :text (get-flags row))))]
+         (let [flags (when (show-flags?) (str/join " " (map :text (get-flags row group-id))))]
            {:type        "ANNOTATED_TEXT"
             :id          (utils/gen-uuid)
             :annotations []
@@ -103,12 +103,12 @@
 (defn ->raw-format [{::result/keys [rows]}]
   (map #(str/replace (::row/text %) #"\s*\n+\s*" "\n") rows))
 
-(defn use-format [format-type result]
+(defn use-format [format-type result group-id]
   (case format-type
     "raw" (->raw-format result)
-    "annotated-text" (->annotated-text-format result)
-    "annotated-text-shallow" (->annotated-text-shallow-format result)
+    "annotated-text" (->annotated-text-format result group-id)
+    "annotated-text-shallow" (->annotated-text-shallow-format result group-id)
     "error" (->error result)))
 
-(defn with-default-format [result]
-  (use-format default-format-type result))
+(defn with-default-format [result group-id]
+  (use-format default-format-type result group-id))

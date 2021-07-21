@@ -44,7 +44,7 @@
 
 (defn create-phrase [{:keys [auth-info]} {:keys [dictionaryItemId text defaultUsage]} _]
   (if-let [item (dict-entity/get-dictionary-item dictionaryItemId)]
-    (let [phrase (translate-dict/text->phrase text dictionaryItemId (= :YES defaultUsage))]
+    (let [phrase (translate-dict/text->phrase text dictionaryItemId (= :YES defaultUsage) (:group-id auth-info))]
       (-> item
           (update ::dict-item/forms #(conj % phrase))
           (dict-entity/update-dictionary-item (:group-id auth-info))
@@ -53,7 +53,7 @@
     (resolve-as-not-found-dict-item dictionaryItemId)))
 
 (defn update-phrase [{lang ::dict-item/language :as item} id group-id mut-fn translate?]
-  (let [translate-fn (if (true? translate?) #(rm-translate/phrase->schema % lang) identity)
+  (let [translate-fn (if (true? translate?) #(rm-translate/phrase->schema % lang group-id) identity)
         updated-item (update item ::dict-item/forms #(map (fn [phrase]
                                                             (cond-> phrase
                                                                     (= id (::dict-item-form/id phrase)) (mut-fn)))

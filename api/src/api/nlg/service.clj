@@ -53,7 +53,7 @@
            body {:id            result-id
                  :document-plan document-plan
                  :data          (or data-row (utils/get-data-row data-id (or sample-method "first") (or row-index 0) group-id) {})
-                 :reader-model  (map reader-model/update! (utils/form-reader-model reader-model))}]
+                 :reader-model  (map #(reader-model/update! % group-id) (utils/form-reader-model reader-model group-id))}]
        (results/write #::result{:id     result-id
                                 :status :pending})
        (if (true? async)
@@ -64,7 +64,7 @@
          (do
            (results/write (generate-text body))
            {:status 200
-            :body   (utils/translate-result (results/fetch result-id) {:format "raw"})})))
+            :body   (utils/translate-result (results/fetch result-id) {:format "raw"} group-id)})))
      (catch Exception e
        (utils/error-response e "Generate request failure")))))
 
@@ -82,7 +82,7 @@
                     (-> {:id            request-id
                          :document-plan document-plan
                          :data          data-row
-                         :reader-model  (utils/form-reader-model reader-model)}
+                         :reader-model  (utils/form-reader-model reader-model group-id)}
                         (generate-text)
                         (results/write))))
             (doall)
@@ -92,26 +92,26 @@
      (catch Exception e
        (utils/error-response e "Bulk generate request failure")))))
 
-(defn get-result [{{{request-id :id} :path {result-format :format} :query} :parameters}]
+(defn get-result [{{{request-id :id} :path {result-format :format} :query} :parameters {group-id :group-id} :auth-info}]
   (try
     (log/infof "Result request with id `%s`" request-id)
     (if-let [result (results/fetch request-id)]
       {:status 200
-       :body   (utils/translate-result result {:format result-format})}
+       :body   (utils/translate-result result {:format result-format} group-id)}
       (do
         (log/warnf "Result with id `%s` not found" request-id)
         {:status 404}))
     (catch Exception e
       (utils/error-response e (format "Failed to get result with id `%s`" request-id)))))
 
-(defn delete-result [{{request-id :id} :path-params}]
+(defn delete-result [{{request-id :id} :path-params {group-id :group-id} :auth-info}]
   (try
     (log/infof "Delete result request with id `%s`" request-id)
     (if-let [item (results/fetch request-id)]
       (do
         (results/delete request-id)
         {:status 200
-         :body   (utils/translate-result item {:format "raw"})})
+         :body   (utils/translate-result item {:format "raw"} group-id)})
       (do
         (log/warnf "Result with id `%s` not found" request-id)
         {:status 404}))

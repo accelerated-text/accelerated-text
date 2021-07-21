@@ -90,6 +90,8 @@
 
 (defmethod pull-entity :user-group [_ group-id]
   (user-group/pull-entity conn group-id))
+(defmethod scan :user-group [_ opts]
+  (user-group/scan conn opts))
 (defmethod update! :user-group [_ key data]
   (user-group/update! conn key data))
 (defmethod transact-item :user-group [_ key data]

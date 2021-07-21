@@ -9,19 +9,19 @@
             [data.utils :as utils]))
 
 (defn text->phrase
-  ([text parent-id default-usage]
-   (text->phrase text parent-id default-usage (reader-model/available-languages)))
-  ([text _ _ _]
+  ([text parent-id default-usage group-id]
+   (text->phrase text parent-id default-usage (reader-model/available-languages group-id) group-id))
+  ([text _ _ _ _]
    #::dict-item-form{:id (utils/gen-uuid) :value text}))
 
-(defn build-reader-model-user-flags [lang]
+(defn build-reader-model-user-flags [lang group-id]
   (map (fn [{:data.spec.reader-model/keys [code name enabled?]}]
          {:id    (utils/gen-uuid)
           :usage (if (= code lang) "YES" "NO")
           :flag  {:id           code
                   :name         name
                   :defaultUsage (if enabled? "YES" "NO")}})
-       (reader-model/available-languages)))
+       (reader-model/available-languages group-id)))
 
 (defn get-concept [attributes group-id]
   (when-let [concept-name (some #(when (= "Concept" (::dict-item-attr/name %))
@@ -42,7 +42,7 @@
                         {:id              id
                          :text            value
                          :defaultUsage    (if default? "YES" "NO")
-                         :readerFlagUsage (build-reader-model-user-flags language)})
+                         :readerFlagUsage (build-reader-model-user-flags language group-id)})
                       forms)
    :concept      (get-concept attributes group-id)
    :attributes   (map (fn [{::dict-item-attr/keys [id name value]}]

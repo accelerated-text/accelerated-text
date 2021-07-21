@@ -154,6 +154,7 @@ type Languages {
 type ReaderFlag {
     id:                 ID!
     name:               String!
+    flag:               String
     defaultUsage:       Usage!
 }
 
@@ -313,7 +314,15 @@ type Query {
 
     ### Reader
 
+    readerFlag(
+       id:                  ID!
+    ): ReaderFlag!
+
     readerFlags:            ReaderFlags!
+
+    language(
+        id:                 Language!
+    ): ReaderFlag!
 
     languages:              Languages!
 
@@ -455,10 +464,32 @@ type Mutation {
         defaultUsage:       DefaultUsage!
     ):  Phrase!
 
+    createReaderFlag(
+        id:                 ID!
+        name:               String!
+        flag:               String!
+        defaultUsage:       Usage!
+    ): ReaderFlag!
+
+    deleteReaderFlag(
+        id:                 ID!
+    ): Boolean!
+
     updateReaderFlagUsage(
         id:                 ID!
         usage:              Usage!
     ):  ReaderFlagUsage!
+
+    addLanguage(
+        id:                 Language!
+        name:               String!
+        flag:               String
+        defaultUsage:       Usage!
+    ): ReaderFlag!
+
+    deleteLanguage(
+        id:                 Language!
+    ): Boolean!
 
     updateLanguageUsage(
         id:                 ID!
