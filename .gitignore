@@ -8,6 +8,7 @@
 *.gfo
 *.lock
 *.pgf
+*.swp
 .clj-kondo/
 .lein-failures
 .lein-repl-history
@@ -22,7 +23,6 @@ api/resources/data-files
 api/resources/dictionary
 api/resources/document-plans
 api/server
-eval/
 front-end/*.log
 front-end/dist
 node_modules
