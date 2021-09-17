@@ -27,7 +27,6 @@ run-dev-no-api:
 	docker run --rm --net dev_default --name dev_gf -p 8001:8000 dev_gf
 
 run-eval:
-	git submodule update --init --recursive && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml down && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml build && \
 	docker-compose -p dev -f docker-compose.yml -f docker-compose.eval.yml up --remove-orphans --abort-on-container-exit --exit-code-from eval
