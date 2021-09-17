@@ -1,97 +1,155 @@
-import sys
 import os
-import csv
 import random
 import argparse
+import time
 
+import acctext
 import requests
+import sacrebleu
 
-# Hack to add custom path
-sys.path.append("e2e-metrics")
+from rouge import Rouge
 
-from itertools import dropwhile, takewhile, groupby
+from operator import itemgetter
+from itertools import groupby
 
-from metrics.pymteval import BLEUScore
-
-DOCUMENT_PLAN_NAME=os.getenv("DOCUMENT_PLAN_NAME", "Restaurants")
-NLG_ENDPOINT="{}/nlg".format(os.getenv("ACC_TEXT_URL", "http://localhost:3001"))
+NLG_ENDPOINT = os.getenv("ACC_TEXT_URL", "http://localhost:3001")
 
 
 def bleu_score(data):
-    bleu = BLEUScore()
-    for ref, base in data:
-        bleu.append(base, ref)
+    scores = []
+    for refs, sys in data:
+        bleu = sacrebleu.corpus_bleu([sys], [[ref] for ref in refs])
+        scores.append(bleu.score)
+    if scores:
+        return sum(scores) / len(scores)
+    else:
+        return 0
 
-    return bleu.score()
+
+def rouge_score(data):
+    rouge = Rouge()
+    scores = {'rouge-1': [], 'rouge-2': [], 'rouge-l': []}
+    for refs, sys in data:
+        for score in rouge.get_scores([sys] * len(refs), refs):
+            scores['rouge-1'].append(score['rouge-1']['f'])
+            scores['rouge-2'].append(score['rouge-2']['f'])
+            scores['rouge-l'].append(score['rouge-l']['f'])
+    n = len(scores['rouge-1'])
+    if n > 0:
+        return sum(scores['rouge-1']) / n, sum(scores['rouge-2']) / n, sum(scores['rouge-l']) / n
+    else:
+        return 0, 0, 0
 
 
-def not_empty_line(x):
-    return x != "\n"
+def load_data(at, filename, ref='ref'):
+    data = at.get_data_file(filename)
+    items = []
+    for row in data['rows']:
+        row = dict(zip(data['header'], row))
+        item = {"ref": row["ref"]}
+        row.pop("ref")
+        item["data"] = row
+        items.append(item)
+    items = sorted(items, key=lambda x: sorted(x['data'].items()))
+    return [(k, [item["ref"] for item in group]) for k, group in groupby(items, key=itemgetter('data'))]
 
-def generate_results(data, document_plan_name):
-    req = {
-        "documentPlanName": document_plan_name,
-        "readerFlagValues": {"Eng": True},
-        "dataRows": data
-    }
 
-    resp = requests.post("{url}/_bulk/".format(url=NLG_ENDPOINT), json=req)
-    results = {}
-    for result_id in resp.json()["resultIds"]:
-        result = requests.get("{url}/{result_id}?format=raw".format(
-            url=NLG_ENDPOINT,
-            result_id=result_id
-        )).json()
-        results[result_id] = result["variants"]
-    print("Results: {}".format(results))
-    return results
-
-def load_data():
-    with open("data/devset.csv", "r") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            item = {"ref": row["ref"]}
-            row.pop("ref")
-            item["data"] = row
-            yield item
-
-def group_data(data):
-    return [(k, list([item["ref"] for item in group]))
-            for k, group in groupby(data, key=lambda x: x["data"])]
+def wait_for_connection(at, timeout=60):
+    connected = False
+    while timeout > 0 and not connected:
+        try:
+            connected = at.health().get('health') == 'Ok'
+        except requests.exceptions.ConnectionError:
+            timeout -= 1
+            time.sleep(1)
+    if not connected:
+        raise ConnectionError('Failed to connect to Accelerated Text backend.')
 
 
 def main(args):
+    at = acctext.AcceleratedText(host=NLG_ENDPOINT)
     strategy = args.strategy.upper()
-    ref = []
-    data_rows = {}
 
-    items = list(group_data(load_data()))
+    wait_for_connection(at)
+    at.restore_state(args.state_file)
+    items = load_data(at, args.data_file_name, ref=args.ref_column)
 
-    for idx, (data, refs) in enumerate(items[:10]):
-        ref.append(refs)
-        data_rows[idx] = data
+    idx = list(range(len(items)))
+    random.Random(args.seed).shuffle(idx)
+    idx = sorted(idx[:args.n])
 
-    results = dict(generate_results(data_rows, DOCUMENT_PLAN_NAME))
+    refs = {}
+    data_rows = []
+    for i in idx:
+        data, ref = items[i]
+        refs[i] = ref
+        data_rows.append(data)
 
+    results = {i: x['variants'] for i, x in zip(idx, at.generate_bulk(args.document_plan_name, data_rows))}
+    for i, variants in results.items():
+        print('%d:' % i)
+        for variant in variants:
+            print(variant)
+        print()
+
+    pairs = []
     if strategy == "RANDOM":
-        pairs = list([(ref[int(k)], random.choice(r))
+        pairs = list([(refs[k], random.Random(args.seed).choice(r))
                       for k, r in results.items()
                       if len(r) > 0])
-
     elif strategy == "ALL":
-        pairs = list([(ref[int(k)], item)
+        pairs = list([(refs[k], item)
                       for k, r in results.items()
                       for item in r
                       if len(r) > 0])
 
-    score = bleu_score(pairs)
-    print("BLEU score: {0:.4f}".format(score))
+    print('\n-----\n')
+
+    bleu = bleu_score(pairs)
+    print("BLEU score: {0:.4f}".format(bleu))
+    assert bleu > 0
+    rouge_1, rouge_2, rouge_l = rouge_score(pairs)
+    assert rouge_1 > 0
+    print("ROUGE-1 score: {0:.4f}".format(rouge_1))
+    assert rouge_2 > 0
+    print("ROUGE-2 score: {0:.4f}".format(rouge_2))
+    assert rouge_l > 0
+    print("ROUGE-L score: {0:.4f}".format(rouge_l))
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        'document_plan_name',
+        help='Name of the document plan to be evaluated',
+    )
+    parser.add_argument(
+        'data_file_name',
+        help='Name of the data file with `ref` column for reference',
+    )
+    parser.add_argument(
+        'state_file',
+        help='Accelerated Text state file containing document plan and data file used in evaluation',
+    )
+    parser.add_argument(
+        "--ref_column",
+        help="Column name containing text reference",
+        type=int,
+        default=10
+    )
+    parser.add_argument(
+        "--n",
+        help="Number of instances to generate",
+        type=int,
+        default=10
+    )
+    parser.add_argument(
+        "--seed",
+        help="Random seed for data shuffling",
+        type=int,
+        default=42)
+    parser.add_argument(
         "--strategy",
         help="Choose strategy for eval. RANDOM - take random result from output and match with original. ALL - match all results with original, end result is basically an average",
-        default="RANDOM")
+        default="ALL")
     main(parser.parse_args())
