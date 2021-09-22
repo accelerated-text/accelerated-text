@@ -1,6 +1,6 @@
 (ns utils.config
   (:require [mount.core :refer [defstate]]))
 
-(defn load-config [] {:graphql-url (or (System/getenv "GRAPHQL_URL") "http://localhost:3001/_graphql")})
+(defn load-config [] {:api-url (or (System/getenv "API_URL") "http://0.0.0.0:3001")})
 
 (defstate config :start (load-config))
