@@ -1,8 +1,8 @@
 (ns data.spec.user-group
-    (:require [acc-text.nlg.dictionary.item :as dictionary-item]
-              [clojure.spec.alpha :as s]
-              [data.spec.data-file :as data-file]
-              [data.spec.reader-model :as reader-model]))
+  (:require [acc-text.nlg.dictionary.item :as dictionary-item]
+            [clojure.spec.alpha :as s]
+            [data.spec.data-file :as data-file]
+            [data.spec.reader-model :as reader-model]))
 
 (s/def ::id number?)
 

@@ -53,16 +53,16 @@
 (defn prune-detached-nodes [g root-id]
   (apply graph/remove-nodes g
          (set/difference
-           (set (graph/nodes g))
-           (alg/bf-traverse g root-id))))
+          (set (graph/nodes g))
+          (alg/bf-traverse g root-id))))
 
 (defn prune-empty-amrs [g root-id]
   (reduce (fn [g node]
             (let [{node-type :type} (attrs g node)]
               (cond-> g
-                      (and (contains? #{:amr :frame} node-type)
-                           (zero? (count (get-successors g node))))
-                      (graph/remove-nodes node))))
+                (and (contains? #{:amr :frame} node-type)
+                     (zero? (count (get-successors g node))))
+                (graph/remove-nodes node))))
           g
           (alg/post-traverse g root-id)))
 

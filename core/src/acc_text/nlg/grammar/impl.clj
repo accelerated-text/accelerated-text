@@ -25,7 +25,7 @@
   (-> label
       (str/replace #"-" "_")
       (cond-> (not (re-find (re-pattern (format "_%s$" category)) label))
-              (str "_" category))))
+        (str "_" category))))
 
 (defn node->cat [graph node-id]
   (let [{:keys [type position] :as attrs} (attrs graph node-id)]
@@ -37,8 +37,8 @@
 (defn s-node? [graph node-id]
   (let [category (:category (attrs graph node-id))]
     (and
-      (some? category)
-      (not= category "Str"))))
+     (some? category)
+     (not= category "Str"))))
 
 (defn remove-data-types [graph node-ids]
   (remove #(contains? data-types (:type (attrs graph %))) node-ids))
@@ -47,42 +47,42 @@
 
 (defmethod build-node :default [graph node-id]
   (let [successors (get-successors graph node-id)
-        category (get (attrs graph node-id) :category "Str")
-        cat (node->cat graph node-id)]
+        category   (get (attrs graph node-id) :category "Str")
+        cat        (node->cat graph node-id)]
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
          :lincat {cat category}
          :lin    {cat [(str/join " ++ " (map #(cond-> (node->cat graph %)
-                                                      (and
-                                                        (= category "Str")
-                                                        (s-node? graph %)) (str ".s"))
+                                                (and
+                                                 (= category "Str")
+                                                 (s-node? graph %)) (str ".s"))
                                              successors))]}}))
 
 (defmethod build-node :amr [graph node-id]
   (let [successors (get-successors graph node-id)
-        category (get (attrs graph node-id) :category "Str")
-        cat (node->cat graph node-id)]
+        category   (get (attrs graph node-id) :category "Str")
+        cat        (node->cat graph node-id)]
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
          :lincat {cat category}
          :lin    {cat [(str/join " | " (map #(cond-> (node->cat graph %)
-                                                     (and
-                                                       (= category "Str")
-                                                       (s-node? graph %)) (str ".s"))
+                                               (and
+                                                (= category "Str")
+                                                (s-node? graph %)) (str ".s"))
                                             successors))]}}))
 
 (defmethod build-node :operation [graph node-id]
   (let [{:keys [name module]} (attrs graph node-id)
         successors (get-successors graph node-id)
-        cat (node->cat graph node-id)]
+        cat        (node->cat graph node-id)]
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
          :lincat {cat (or (:category (attrs graph node-id)) "Text")}
          :lin    {cat [(cond-> (str module "." name)
-                               (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))]}}))
+                         (seq successors) (str " " (str/join " " (map #(node->cat graph %) successors))))]}}))
 
 (defmethod build-node :quote [graph node-id]
   (let [{:keys [value]} (attrs graph node-id)
@@ -95,32 +95,32 @@
 
 (defmethod build-node :synonyms [graph node-id]
   (let [successors (get-successors graph node-id)
-        category (:category (attrs graph node-id))
-        cat (node->cat graph node-id)]
+        category   (:category (attrs graph node-id))
+        cat        (node->cat graph node-id)]
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
          :lincat {cat (or category "Str")}
          :lin    {cat (map #(cond-> (node->cat graph %)
-                                    (and (s-node? graph %) (nil? category)) (str ".s"))
+                              (and (s-node? graph %) (nil? category)) (str ".s"))
                            successors)}}))
 
 (defmethod build-node :reference [graph node-id]
   (let [successors (get-successors graph node-id)
-        category (:category (attrs graph node-id))
-        cat (node->cat graph node-id)]
+        category   (:category (attrs graph node-id))
+        cat        (node->cat graph node-id)]
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
          :lincat {cat (or category "Str")}
          :lin    {cat (map #(cond-> (node->cat graph %)
-                                    (and (s-node? graph %) (nil? category)) (str ".s"))
+                              (and (s-node? graph %) (nil? category)) (str ".s"))
                            successors)}}))
 
 (defmethod build-node :shuffle [graph node-id]
   (let [successors (get-successors graph node-id)
-        category (:category (attrs graph node-id))
-        cat (node->cat graph node-id)]
+        category   (:category (attrs graph node-id))
+        cat        (node->cat graph node-id)]
     #:acc-text.nlg.grammar
         {:cat    [cat]
          :fun    {cat (->> successors (remove-data-types graph) (map #(node->cat graph %)))}
@@ -129,7 +129,7 @@
                                             (remove empty?)
                                             (map (fn [group]
                                                    (->> (map #(cond-> (node->cat graph %)
-                                                                      (and (s-node? graph %) (nil? category)) (str ".s"))
+                                                                (and (s-node? graph %) (nil? category)) (str ".s"))
                                                              group)
                                                         (str/join " ++ ")
                                                         (format "(%s)"))))))]}}))
@@ -165,7 +165,7 @@
   ([semantic-graph context]
    (build-grammar "Default" "Instance" semantic-graph context))
   ([module instance semantic-graph context]
-   (let [graph (->graph semantic-graph context)
+   (let [graph    (->graph semantic-graph context)
          start-id (find-root-id graph)]
      (reduce (fn [grammar node-id]
                (merge-with (fn [acc val]

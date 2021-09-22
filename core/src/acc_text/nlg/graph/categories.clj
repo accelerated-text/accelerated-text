@@ -8,8 +8,8 @@
   (reduce (fn [g node-or-edge-id]
             (let [{current-category :category type :type} (get-in g [:attrs node-or-edge-id])]
               (cond-> g
-                      (and (nil? current-category) (not (contains? #{:quote :data :dictionary-item} type)))
-                      (assoc-in [:attrs node-or-edge-id :category] category))))
+                (and (nil? current-category) (not (contains? #{:quote :data :dictionary-item} type)))
+                (assoc-in [:attrs node-or-edge-id :category] category))))
           g
           (cons node-id (map :id (graph/out-edges g node-id)))))
 

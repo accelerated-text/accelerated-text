@@ -18,7 +18,7 @@
                  (let [{:keys [module functions]} (utils/read-edn f)]
                    (for [{:keys [function label type example]} functions]
                      {:id       (cond->> (str function "/" (str/join "->" type))
-                                         (some? module) (str module "."))
+                                  (some? module) (str module "."))
                       :type     :operation
                       :name     function
                       :label    (or label function)
@@ -31,18 +31,18 @@
 
 (def structural-words (filter (fn [{:keys [category args]}]
                                 (and
-                                  (empty? args)
-                                  (not (contains? #{"Tense" "Punct" "Pol"
-                                                    "Num" "ImpForm" "Ant"}
-                                                  category))))
+                                 (empty? args)
+                                 (not (contains? #{"Tense" "Punct" "Pol"
+                                                   "Num" "ImpForm" "Ant"}
+                                                 category))))
                               operations))
 
 (def grammar (filter (fn [{:keys [category args]}]
                        (and
-                         (empty? args)
-                         (contains? #{"Tense" "Punct" "Pol"
-                                      "Num" "ImpForm" "Ant"}
-                                    category)))
+                        (empty? args)
+                        (contains? #{"Tense" "Punct" "Pol"
+                                     "Num" "ImpForm" "Ant"}
+                                   category)))
                      operations))
 
 (def syntax (filter (fn [{:keys [module]}]

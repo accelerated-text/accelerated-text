@@ -6,25 +6,25 @@
 
 (defn list-concepts [{:keys [auth-info]} _ _]
   (resolve-as
-    (merge
-      {:id         "concepts"
-       :concepts   []
-       :amr        (->> (amr-entity/list-amrs (:group-id auth-info))
-                        (map concept-translate/amr->schema)
-                        (sort-by :id))
-       :rgl        (->> (concat ops/syntax ops/extra)
-                        (sort-by #(-> [(:category %) (:args %) (:label %)]))
-                        (map concept-translate/operation->schema))
-       :structural (map concept-translate/operation->schema ops/structural-words)
-       :grammar    (map concept-translate/operation->schema ops/grammar)
-       :paradigms  (->> (amr-entity/list-rgls (:group-id auth-info))
-                        (map concept-translate/amr->schema)
-                        (sort-by :id))}
-      (->> ops/paradigms
-           (group-by :module)
-           (reduce-kv (fn [m k v]
-                        (assoc m (keyword k) (map concept-translate/operation->schema v)))
-                      {})))))
+   (merge
+    {:id         "concepts"
+     :concepts   []
+     :amr        (->> (amr-entity/list-amrs (:group-id auth-info))
+                      (map concept-translate/amr->schema)
+                      (sort-by :id))
+     :rgl        (->> (concat ops/syntax ops/extra)
+                      (sort-by #(-> [(:category %) (:args %) (:label %)]))
+                      (map concept-translate/operation->schema))
+     :structural (map concept-translate/operation->schema ops/structural-words)
+     :grammar    (map concept-translate/operation->schema ops/grammar)
+     :paradigms  (->> (amr-entity/list-rgls (:group-id auth-info))
+                      (map concept-translate/amr->schema)
+                      (sort-by :id))}
+    (->> ops/paradigms
+         (group-by :module)
+         (reduce-kv (fn [m k v]
+                      (assoc m (keyword k) (map concept-translate/operation->schema v)))
+                    {})))))
 
 (defn- resolve-as-not-found-concept [id]
   (resolve-as nil {:message (format "Cannot find concept with id `%s`." id)}))

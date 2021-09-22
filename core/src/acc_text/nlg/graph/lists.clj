@@ -59,13 +59,13 @@
 (defn construct-list-structure [g list-node gf-funct]
   (let [list-parent (first (gut/get-predecessors g gf-funct))
         g-with-new-list-edges
-        (-> g
-            (add-edge list-parent list-node (attrs-from-edge g list-parent gf-funct))
-            (remove-edge list-parent gf-funct))]
+                    (-> g
+                        (add-edge list-parent list-node (attrs-from-edge g list-parent gf-funct))
+                        (remove-edge list-parent gf-funct))]
     (-> (reduce                                             ;;go over children of list node and connect with parent
-          (fn [g child] (rearange-list-connections g list-node gf-funct child))
-          g-with-new-list-edges
-          (gut/get-successors g list-node))
+         (fn [g child] (rearange-list-connections g list-node gf-funct child))
+         g-with-new-list-edges
+         (gut/get-successors g list-node))
         (remove-edge gf-funct list-node)
         (remove-node gf-funct))))
 
@@ -85,11 +85,11 @@
 
 (defn restructure-synonym-node [g node]
   (update-list-categories
-    (reduce (fn [g parent]
-              (construct-list-structure g node parent))
-            g
-            (gf-parent-operations g node))
-    node))
+   (reduce (fn [g parent]
+             (construct-list-structure g node parent))
+           g
+           (gf-parent-operations g node))
+   node))
 
 (defn determine-list-category [g node lang]
   (when (pos-int? (graph/out-degree g node))
@@ -132,24 +132,24 @@
     (if (and (< 1 (graph/out-degree g node)) (some? category))
       (loop [[successor & successors] (gut/get-successors g node)
              list-node (UUID/randomUUID)
-             g (let [conj-node (UUID/randomUUID)]
-                 (-> g
-                     (graph/remove-nodes node)
-                     (uber/add-nodes-with-attrs* [[^:node node (conj-list category)]
-                                                  [^:node conj-node {:type     :operation
-                                                                     :name     "and_Conj"
-                                                                     :category "Conj"
-                                                                     :module   "Syntax"}]
-                                                  [^:node list-node (base-list category)]])
-                     (uber/add-directed-edges* (concat
-                                                 [[^:edge node conj-node {:role     :arg
-                                                                          :index    0
-                                                                          :category "Conj"}]
-                                                  [^:edge node list-node {:role     :arg
-                                                                          :index    1
-                                                                          :category (str "List" category)}]]
-                                                 (for [in-edge (graph/in-edges g node)]
-                                                   [^:edge (graph/src in-edge) node (attrs g in-edge)])))))]
+             g         (let [conj-node (UUID/randomUUID)]
+                         (-> g
+                             (graph/remove-nodes node)
+                             (uber/add-nodes-with-attrs* [[^:node node (conj-list category)]
+                                                          [^:node conj-node {:type     :operation
+                                                                             :name     "and_Conj"
+                                                                             :category "Conj"
+                                                                             :module   "Syntax"}]
+                                                          [^:node list-node (base-list category)]])
+                             (uber/add-directed-edges* (concat
+                                                        [[^:edge node conj-node {:role     :arg
+                                                                                 :index    0
+                                                                                 :category "Conj"}]
+                                                         [^:edge node list-node {:role     :arg
+                                                                                 :index    1
+                                                                                 :category (str "List" category)}]]
+                                                        (for [in-edge (graph/in-edges g node)]
+                                                          [^:edge (graph/src in-edge) node (attrs g in-edge)])))))]
         (if (= 1 (count successors))
           (-> g
               (uber/add-directed-edges* [[^:edge list-node successor {:role     :arg
@@ -160,17 +160,17 @@
                                                                                :category category}]]))
           (let [child-node (UUID/randomUUID)]
             (recur
-              successors
-              child-node
-              (-> g
-                  (uber/add-nodes-with-attrs* [[^:node list-node (cons-list category)]
-                                               [^:node child-node (base-list category)]])
-                  (uber/add-directed-edges* [[^:edge list-node successor {:role     :arg
-                                                                          :index    0
-                                                                          :category category}]
-                                             [^:edge list-node child-node {:role     :arg
-                                                                           :index    1
-                                                                           :category (str "List" category)}]]))))))
+             successors
+             child-node
+             (-> g
+                 (uber/add-nodes-with-attrs* [[^:node list-node (cons-list category)]
+                                              [^:node child-node (base-list category)]])
+                 (uber/add-directed-edges* [[^:edge list-node successor {:role     :arg
+                                                                         :index    0
+                                                                         :category category}]
+                                            [^:edge list-node child-node {:role     :arg
+                                                                          :index    1
+                                                                          :category (str "List" category)}]]))))))
       g)))
 
 (defn build-gf-shuffle-graph [g node lang]
@@ -179,10 +179,10 @@
               (-> g
                   (uber/add-nodes-with-attrs [^:node list-node {:type :sequence}])
                   (uber/add-directed-edges* (cons
-                                              [^:edge node list-node {:role :item}]
-                                              (map-indexed (fn [index successor]
-                                                             [^:edge list-node successor {:role :item :index index}])
-                                                           successors)))
+                                             [^:edge node list-node {:role :item}]
+                                             (map-indexed (fn [index successor]
+                                                            [^:edge list-node successor {:role :item :index index}])
+                                                          successors)))
                   (build-gf-list-graph list-node lang))))
           (-> g
               (graph/remove-edges* (graph/out-edges g node))
@@ -193,11 +193,11 @@
   (reduce (fn [g node]
             (let [{type :type} (attrs g node)]
               (cond-> g
-                      (and
-                        (= :synonyms type)
-                        (has-str-child? g node)) (restructure-synonym-node node)
-                      (= :sequence type) (build-gf-list-graph node lang)
-                      (= :shuffle type) (build-gf-shuffle-graph node lang))))
+                (and
+                 (= :synonyms type)
+                 (has-str-child? g node)) (restructure-synonym-node node)
+                (= :sequence type) (build-gf-list-graph node lang)
+                (= :shuffle type) (build-gf-shuffle-graph node lang))))
           g
           (filter #(let [{type :type} (attrs g %)]
                      (contains? #{:sequence :shuffle :synonyms} type))

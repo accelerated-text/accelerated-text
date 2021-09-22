@@ -23,7 +23,7 @@
 
 (defn ping []
   (let [service-host (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
-        request-url (str service-host "/health")
+        request-url  (str service-host "/health")
         {request-error :error} @(client/request {:url request-url :method :get})]
     (when (some? request-error)
       (log/tracef "GF service host: %s is unreachable. Are you sure it is started and reachable?" service-host))
@@ -31,8 +31,8 @@
 
 (defn request
   [{::grammar/keys [module instance lincat] :as grammar} lang]
-  (let [payload (generator/generate grammar (check-language lang))
-        request-url (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
+  (let [payload         (generator/generate grammar (check-language lang))
+        request-url     (or (System/getenv "GF_ENDPOINT") "http://localhost:8001")
         request-content {:module module :instance instance :content payload}]
     (log/debugf "Compiling grammar via %s" request-url)
     (log/debugf "** Abstract **\n%s\n" (get payload module))
@@ -49,6 +49,6 @@
                             :body    (json/write-value-as-string request-content write-mapper)})
           {[[_ results]] :results error :error} (json/read-value body read-mapper)]
       (cond
-       (some? request-error) (throw request-error)
-       (some? error) (throw (Exception. ^String error))
-       :else (map #(post-process lang lincat %) (distinct results))))))
+        (some? request-error) (throw request-error)
+        (some? error) (throw (Exception. ^String error))
+        :else (map #(post-process lang lincat %) (distinct results))))))

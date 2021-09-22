@@ -6,14 +6,14 @@
 
 (deftest ^:integration multi-language-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "language-test")
-        context (test-utils/load-test-context "language-test")]
+        context        (test-utils/load-test-context "language-test")]
     (are [lang result] (= result (map :text (core/generate-text semantic-graph context lang)))
-                       "Eng" ["There is a text."]
-                       "Est" ["On olemas text."]
-                       "Ger" ["Es gibt einen text."]
-                       "Lav" ["Ir text."]
-                       "Rus" ["Существует text."]
-                       "Spa" ["Hay un text."])))
+      "Eng" ["There is a text."]
+      "Est" ["On olemas text."]
+      "Ger" ["Es gibt einen text."]
+      "Lav" ["Ir text."]
+      "Rus" ["Существует text."]
+      "Spa" ["Hay un text."])))
 
 (deftest ^:integration list-generation
   (let [context {:data       {"product" "product." "fridge" "fridge."}
@@ -49,7 +49,7 @@
                (into #{} (map :text (core/generate-text semantic-graph {} "Eng")))))))
     (testing "List categories"
       (let [semantic-graph (test-utils/load-test-semantic-graph "list-categories-test")
-            context (test-utils/load-test-context "list-categories-test")]
+            context        (test-utils/load-test-context "list-categories-test")]
         (is (= (set (list (str/join " " ["Cat and house." "Cat and house." "Nobody and nothing." "Big and friendly."
                                          "Everywhere and somewhere." "Where and when. Always and always."
                                          "House such that there is a cat and such that there is an apple."
@@ -57,13 +57,13 @@
                (into #{} (map :text (core/generate-text semantic-graph context "Eng")))))))
     (testing "Nested lists"
       (let [semantic-graph (test-utils/load-test-semantic-graph "nested-lists")
-            context (test-utils/load-test-context "nested-lists")]
+            context        (test-utils/load-test-context "nested-lists")]
         (is (= ["If a house or hills then cats and big cats."]
                (map :text (core/generate-text semantic-graph context "Eng"))))))))
 
 (deftest ^:integration amr-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "amr-test")
-        context (test-utils/load-test-context "amr-test")]
+        context        (test-utils/load-test-context "amr-test")]
     (is (= #{"There is a bill." "There is a door." "There is a fridge." "There is a noise." "There is a product." "There is an interior."
              "There was a bill." "There was a door." "There was a fridge." "There was a noise." "There was a product." "There was an interior."
              "There will be a bill." "There will be a door." "There will be a fridge." "There will be a noise." "There will be a product." "There will be an interior."}
@@ -71,7 +71,7 @@
 
 (deftest ^:integration amr-combining
   (let [semantic-graph (test-utils/load-test-semantic-graph "amr-combine")
-        context (test-utils/load-test-context "amr-combine")]
+        context        (test-utils/load-test-context "amr-combine")]
     (is (= #{"It publishes and it writes."
              "It publishes and there is an author."
              "It writes and it publishes."
@@ -84,26 +84,26 @@
 
 (deftest ^:integration parallel-edge-test
   (let [semantic-graph (test-utils/load-test-semantic-graph "parallel-edge-test")
-        context (test-utils/load-test-context "parallel-edge-test")]
+        context        (test-utils/load-test-context "parallel-edge-test")]
     (is (= ["There is an item."] (map :text (core/generate-text semantic-graph context "Eng"))))))
 
 (deftest ^:integration one-of-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "one-of-with-str")
-        context (test-utils/load-test-context "one-of-with-str")]
+        context        (test-utils/load-test-context "one-of-with-str")]
     (is (= #{"Apple is green." "Apple is red."}
            (set (map :text
                      (core/generate-text
-                       semantic-graph context "Eng")))))))
+                      semantic-graph context "Eng")))))))
 
 (deftest ^:integration capitalize-test
   (let [semantic-graph (test-utils/load-test-semantic-graph "capitalize-test")
-        context (test-utils/load-test-context "capitalize-test")]
+        context        (test-utils/load-test-context "capitalize-test")]
     (is (= ["One has one. One has a two.\nOne has a three."] (map :text (core/generate-text semantic-graph context "Eng"))))))
 
 (deftest ^:integration modifier-test
   (testing "Simple modifiers"
     (let [semantic-graph (test-utils/load-test-semantic-graph "modifier-test")
-          context (test-utils/load-test-context "modifier-test")]
+          context        (test-utils/load-test-context "modifier-test")]
       (is (= (->> ["Good eatery" "good chinese eatery" "cafe is nice" "nice cafe"
                    "excellent to find" "it is here that it looks" "to look here" "venue there"
                    "it is here that there is restaurant" "delicious to try" "excellent that eatery is a delicious decent cafe"
@@ -113,7 +113,7 @@
              (map :text (core/generate-text semantic-graph context "Eng"))))))
   (testing "Complex modifiers"
     (let [semantic-graph (test-utils/load-test-semantic-graph "complex-modifiers")
-          context (test-utils/load-test-context "complex-modifiers")]
+          context        (test-utils/load-test-context "complex-modifiers")]
       (is (= #{"Big house because there are these cats please."
                "Big house because there are these cats."
                "Big house such that there is an apple and such that there is a cat?"
@@ -122,14 +122,14 @@
 
 (deftest ^:integration template-amr
   (let [semantic-graph (test-utils/load-test-semantic-graph "template-amr")
-        context (test-utils/load-test-context "template-amr")]
+        context        (test-utils/load-test-context "template-amr")]
     (is (= ["A house is built to last. An object is built to last."]
            (map :text (core/generate-text semantic-graph context "Eng"))))))
 
 (deftest ^:integration empty-amr-pruning
-  (let [semantic-graph (test-utils/load-test-semantic-graph "sequence-with-amrs")
+  (let [semantic-graph                (test-utils/load-test-semantic-graph "sequence-with-amrs")
         semantic-graph-with-empty-amr (test-utils/load-test-semantic-graph "sequence-with-amrs-empty")
-        context (test-utils/load-test-context "sequence-with-amrs")]
+        context                       (test-utils/load-test-context "sequence-with-amrs")]
     (is (= ["There is a thing, there is an other thing and there is a third thing."]
            (map :text (core/generate-text semantic-graph context "Eng"))))
     (is (= ["There is a thing and there is an other thing."]
@@ -147,7 +147,7 @@
 
 (deftest ^:integration complex-amr-generation
   (let [semantic-graph (test-utils/load-test-semantic-graph "complex-amr-test")
-        context (test-utils/load-test-context "complex-amr-test")]
+        context        (test-utils/load-test-context "complex-amr-test")]
     (is (= ["House on the hill. Cat on the hill. Big house on the hill. Big cat on the hill."]
            (map :text (core/generate-text semantic-graph context "Eng"))))))
 

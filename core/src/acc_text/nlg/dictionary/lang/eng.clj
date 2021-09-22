@@ -10,25 +10,25 @@
 
 (defmethod resolve-dict-item "A" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arity (count forms)
-        args (take arity (repeatedly #(utils/gen-id)))]
+        arity   (count forms)
+        args    (take arity (repeatedly #(utils/gen-id)))]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "A"
           :concepts  (cons
-                       {:id       concept
-                        :type     :operation
-                        :name     "mkA"
-                        :label    (utils/get-operation-label module "mkA" (take arity (repeat "Str")) "A")
-                        :category "A"
-                        :module   module}
-                       (map (fn [arg {form ::dict-item-form/value}]
-                              {:id       arg
-                               :type     :quote
-                               :value    form
-                               :category "Str"})
-                            args
-                            forms))
+                      {:id       concept
+                       :type     :operation
+                       :name     "mkA"
+                       :label    (utils/get-operation-label module "mkA" (take arity (repeat "Str")) "A")
+                       :category "A"
+                       :module   module}
+                      (map (fn [arg {form ::dict-item-form/value}]
+                             {:id       arg
+                              :type     :quote
+                              :value    form
+                              :category "Str"})
+                           args
+                           forms))
           :relations (map-indexed (fn [i arg]
                                     {:from     concept
                                      :to       arg
@@ -39,9 +39,9 @@
                                   args)}))
 
 (defmethod resolve-dict-item "A2" [{::dict-item/keys [attributes] :as dict-item}]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "A"))
+  (let [child   (resolve-dict-item (assoc dict-item ::dict-item/category "A"))
         concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     (-> child
         (assoc ::sg/category "A2")
         (update ::sg/concepts concat [{:id       concept
@@ -68,65 +68,65 @@
                                         :name     "Str"}]))))
 
 (defmethod resolve-dict-item "N" [{::dict-item/keys [key forms attributes]}]
-  (let [concept (utils/gen-id)
-        noun-concept (utils/gen-id)
+  (let [concept        (utils/gen-id)
+        noun-concept   (utils/gen-id)
         gender-concept (utils/gen-id)
-        gender (get attributes "Gender" "nonhuman")
-        arity (count forms)
-        args (take arity (repeatedly #(utils/gen-id)))]
+        gender         (get attributes "Gender" "nonhuman")
+        arity          (count forms)
+        args           (take arity (repeatedly #(utils/gen-id)))]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "N"
           :concepts  (concat
-                       [{:id       concept
-                         :type     :operation
-                         :name     "mkN"
-                         :label    (utils/get-operation-label module "mkN" ["Gender" "N"] "N")
-                         :category "N"
-                         :module   module}
-                        {:id       gender-concept
-                         :type     :operation
-                         :name     gender
-                         :label    (utils/get-operation-label module gender [] "Gender")
-                         :category "Gender"
-                         :module   module}
-                        {:id       noun-concept
-                         :type     :operation
-                         :name     "mkN"
-                         :label    (utils/get-operation-label module "mkN" (take arity (repeat "Str")) "N")
-                         :category "N"
-                         :module   module}]
-                       (map (fn [arg {form ::dict-item-form/value}]
-                              {:id       arg
-                               :type     :quote
-                               :value    form
-                               :category "Str"})
-                            args
-                            forms))
+                      [{:id       concept
+                        :type     :operation
+                        :name     "mkN"
+                        :label    (utils/get-operation-label module "mkN" ["Gender" "N"] "N")
+                        :category "N"
+                        :module   module}
+                       {:id       gender-concept
+                        :type     :operation
+                        :name     gender
+                        :label    (utils/get-operation-label module gender [] "Gender")
+                        :category "Gender"
+                        :module   module}
+                       {:id       noun-concept
+                        :type     :operation
+                        :name     "mkN"
+                        :label    (utils/get-operation-label module "mkN" (take arity (repeat "Str")) "N")
+                        :category "N"
+                        :module   module}]
+                      (map (fn [arg {form ::dict-item-form/value}]
+                             {:id       arg
+                              :type     :quote
+                              :value    form
+                              :category "Str"})
+                           args
+                           forms))
           :relations (concat
-                       [{:from     concept
-                         :to       gender-concept
-                         :role     :arg
-                         :index    0
-                         :category "Gender"
-                         :name     "Gender"}
-                        {:from     concept
-                         :to       noun-concept
-                         :role     :arg
-                         :index    1
-                         :category "N"
-                         :name     "N"}]
-                       (map-indexed (fn [i arg]
-                                      {:from     noun-concept
-                                       :to       arg
-                                       :role     :arg
-                                       :index    i
-                                       :category "Str"
-                                       :name     "Str"})
-                                    args))}))
+                      [{:from     concept
+                        :to       gender-concept
+                        :role     :arg
+                        :index    0
+                        :category "Gender"
+                        :name     "Gender"}
+                       {:from     concept
+                        :to       noun-concept
+                        :role     :arg
+                        :index    1
+                        :category "N"
+                        :name     "N"}]
+                      (map-indexed (fn [i arg]
+                                     {:from     noun-concept
+                                      :to       arg
+                                      :role     :arg
+                                      :index    i
+                                      :category "Str"
+                                      :name     "Str"})
+                                   args))}))
 
 (defmethod resolve-dict-item "PN" [dict-item]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "N"))
+  (let [child   (resolve-dict-item (assoc dict-item ::dict-item/category "N"))
         concept (utils/gen-id)]
     (-> child
         (assoc ::sg/category "PN")
@@ -144,9 +144,9 @@
                                         :name     "N"}]))))
 
 (defmethod resolve-dict-item "N2" [{::dict-item/keys [attributes] :as dict-item}]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "N"))
+  (let [child   (resolve-dict-item (assoc dict-item ::dict-item/category "N"))
         concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     (-> child
         (assoc ::sg/category "N2")
         (update ::sg/concepts concat [{:id       concept
@@ -173,12 +173,12 @@
                                         :name     "Str"}]))))
 
 (defmethod resolve-dict-item "N3" [{::dict-item/keys [attributes] :as dict-item}]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "N"))
-        concept (utils/gen-id)
+  (let [child        (resolve-dict-item (assoc dict-item ::dict-item/category "N"))
+        concept      (utils/gen-id)
         prep-concept (utils/gen-id)
         post-concept (utils/gen-id)
-        prep-arg (utils/gen-id)
-        post-arg (utils/gen-id)]
+        prep-arg     (utils/gen-id)
+        post-arg     (utils/gen-id)]
     (-> child
         (assoc ::sg/category "N3")
         (update ::sg/concepts concat [{:id       concept
@@ -239,179 +239,179 @@
                                         :name     "Str"}]))))
 
 (defmethod resolve-dict-item "NP" [{::dict-item/keys [key forms language attributes]}]
-  (let [concept (utils/gen-id)
-        arity (count forms)
-        args (take arity (repeatedly #(utils/gen-id)))
-        arg-types (concat (take arity (repeat "Str")) ["Number" "Person" "Gender"])
+  (let [concept        (utils/gen-id)
+        arity          (count forms)
+        args           (take arity (repeatedly #(utils/gen-id)))
+        arg-types      (concat (take arity (repeat "Str")) ["Number" "Person" "Gender"])
         number-concept (utils/gen-id)
-        number (get attributes "Number" "singular")
+        number         (get attributes "Number" "singular")
         person-concept (utils/gen-id)
-        person (get attributes "Person" "P3")
+        person         (get attributes "Person" "P3")
         gender-concept (utils/gen-id)
-        gender (get attributes "Gender" "nonhuman")]
+        gender         (get attributes "Gender" "nonhuman")]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "NP"
           :concepts  (cons
-                       {:id       concept
-                        :type     :operation
-                        :name     "mkNP"
-                        :label    (utils/get-operation-label module "mkNP" arg-types "NP")
-                        :category "NP"
-                        :module   (str "Res" language)}
-                       (concat
-                         (map (fn [arg {form ::dict-item-form/value}]
-                                {:id       arg
-                                 :type     :quote
-                                 :value    form
-                                 :category "Str"})
-                              args
-                              forms)
-                         [{:id       number-concept
-                           :type     :operation
-                           :name     number
-                           :label    (utils/get-operation-label module number [] "Number")
-                           :category "Number"
-                           :module   module}
-                          {:id       person-concept
-                           :type     :operation
-                           :name     person
-                           :label    (utils/get-operation-label module person [] "Person")
-                           :category "Person"
-                           :module   (str "Res" language)}
-                          {:id       gender-concept
-                           :type     :operation
-                           :name     gender
-                           :label    (utils/get-operation-label module gender [] "Gender")
-                           :category "Gender"
-                           :module   module}]))
-          :relations (concat
-                       (map-indexed (fn [i arg]
-                                      {:from     concept
-                                       :to       arg
-                                       :role     :arg
-                                       :index    i
-                                       :category "Str"
-                                       :name     "Str"})
-                                    args)
-                       [{:from     concept
-                         :to       number-concept
-                         :role     :arg
-                         :index    (+ arity 1)
+                      {:id       concept
+                       :type     :operation
+                       :name     "mkNP"
+                       :label    (utils/get-operation-label module "mkNP" arg-types "NP")
+                       :category "NP"
+                       :module   (str "Res" language)}
+                      (concat
+                       (map (fn [arg {form ::dict-item-form/value}]
+                              {:id       arg
+                               :type     :quote
+                               :value    form
+                               :category "Str"})
+                            args
+                            forms)
+                       [{:id       number-concept
+                         :type     :operation
+                         :name     number
+                         :label    (utils/get-operation-label module number [] "Number")
                          :category "Number"
-                         :name     "Number"}
-                        {:from     concept
-                         :to       person-concept
-                         :role     :arg
-                         :index    (+ arity 2)
+                         :module   module}
+                        {:id       person-concept
+                         :type     :operation
+                         :name     person
+                         :label    (utils/get-operation-label module person [] "Person")
                          :category "Person"
-                         :name     "Person"}
-                        {:from     concept
-                         :to       gender-concept
-                         :role     :arg
-                         :index    (+ arity 3)
+                         :module   (str "Res" language)}
+                        {:id       gender-concept
+                         :type     :operation
+                         :name     gender
+                         :label    (utils/get-operation-label module gender [] "Gender")
                          :category "Gender"
-                         :name     "Gender"}])}))
+                         :module   module}]))
+          :relations (concat
+                      (map-indexed (fn [i arg]
+                                     {:from     concept
+                                      :to       arg
+                                      :role     :arg
+                                      :index    i
+                                      :category "Str"
+                                      :name     "Str"})
+                                   args)
+                      [{:from     concept
+                        :to       number-concept
+                        :role     :arg
+                        :index    (+ arity 1)
+                        :category "Number"
+                        :name     "Number"}
+                       {:from     concept
+                        :to       person-concept
+                        :role     :arg
+                        :index    (+ arity 2)
+                        :category "Person"
+                        :name     "Person"}
+                       {:from     concept
+                        :to       gender-concept
+                        :role     :arg
+                        :index    (+ arity 3)
+                        :category "Gender"
+                        :name     "Gender"}])}))
 
 (defmethod resolve-dict-item "IP" [{::dict-item/keys [key forms language attributes]}]
-  (let [concept (utils/gen-id)
-        arity (count forms)
-        args (take arity (repeatedly #(utils/gen-id)))
-        arg-types (concat (take arity (repeat "Str")) ["Number"])
+  (let [concept        (utils/gen-id)
+        arity          (count forms)
+        args           (take arity (repeatedly #(utils/gen-id)))
+        arg-types      (concat (take arity (repeat "Str")) ["Number"])
         number-concept (utils/gen-id)
-        number (get attributes "Number" "singular")]
+        number         (get attributes "Number" "singular")]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "NP"
           :concepts  (cons
-                       {:id       concept
-                        :type     :operation
-                        :name     "mkIP"
-                        :label    (utils/get-operation-label module "mkIP" arg-types "IP")
-                        :category "IP"
-                        :module   (str "Res" language)}
-                       (concat
-                         (map (fn [arg {form ::dict-item-form/value}]
-                                {:id       arg
-                                 :type     :quote
-                                 :value    form
-                                 :category "Str"})
-                              args
-                              forms)
+                      {:id       concept
+                       :type     :operation
+                       :name     "mkIP"
+                       :label    (utils/get-operation-label module "mkIP" arg-types "IP")
+                       :category "IP"
+                       :module   (str "Res" language)}
+                      (concat
+                       (map (fn [arg {form ::dict-item-form/value}]
+                              {:id       arg
+                               :type     :quote
+                               :value    form
+                               :category "Str"})
+                            args
+                            forms)
+                       [{:id       number-concept
+                         :type     :operation
+                         :name     number
+                         :label    (utils/get-operation-label module number [] "Number")
+                         :category "Number"
+                         :module   module}]))
+          :relations (concat
+                      (map-indexed (fn [i arg]
+                                     {:from     concept
+                                      :to       arg
+                                      :role     :arg
+                                      :index    i
+                                      :category "Str"
+                                      :name     "Str"})
+                                   args)
+                      [{:from     concept
+                        :to       number-concept
+                        :role     :arg
+                        :index    (+ arity 1)
+                        :category "Number"
+                        :name     "Number"}])}))
+
+(defmethod resolve-dict-item "Conj" [{::dict-item/keys [key forms attributes]}]
+  (let [concept        (utils/gen-id)
+        arity          (count forms)
+        args           (take arity (repeatedly #(utils/gen-id)))
+        arg-types      (concat (take arity (repeat "Str")) ["Number"])
+        number-concept (utils/gen-id)
+        number         (get attributes "Number")]
+    #::sg{:id        (utils/gen-id)
+          :name      key
+          :category  "NP"
+          :concepts  (cons
+                      {:id       concept
+                       :type     :operation
+                       :name     "mkConj"
+                       :label    (utils/get-operation-label module "mkConj" arg-types "Conj")
+                       :category "Conj"
+                       :module   module}
+                      (concat
+                       (map (fn [arg {form ::dict-item-form/value}]
+                              {:id       arg
+                               :type     :quote
+                               :value    form
+                               :category "Str"})
+                            args
+                            forms)
+                       (when (some? number)
                          [{:id       number-concept
                            :type     :operation
                            :name     number
                            :label    (utils/get-operation-label module number [] "Number")
                            :category "Number"
-                           :module   module}]))
+                           :module   module}])))
           :relations (concat
-                       (map-indexed (fn [i arg]
-                                      {:from     concept
-                                       :to       arg
-                                       :role     :arg
-                                       :index    i
-                                       :category "Str"
-                                       :name     "Str"})
-                                    args)
-                       [{:from     concept
-                         :to       number-concept
-                         :role     :arg
-                         :index    (+ arity 1)
-                         :category "Number"
-                         :name     "Number"}])}))
-
-(defmethod resolve-dict-item "Conj" [{::dict-item/keys [key forms attributes]}]
-  (let [concept (utils/gen-id)
-        arity (count forms)
-        args (take arity (repeatedly #(utils/gen-id)))
-        arg-types (concat (take arity (repeat "Str")) ["Number"])
-        number-concept (utils/gen-id)
-        number (get attributes "Number")]
-    #::sg{:id        (utils/gen-id)
-          :name      key
-          :category  "NP"
-          :concepts  (cons
-                       {:id       concept
-                        :type     :operation
-                        :name     "mkConj"
-                        :label    (utils/get-operation-label module "mkConj" arg-types "Conj")
-                        :category "Conj"
-                        :module   module}
-                       (concat
-                         (map (fn [arg {form ::dict-item-form/value}]
-                                {:id       arg
-                                 :type     :quote
-                                 :value    form
-                                 :category "Str"})
-                              args
-                              forms)
-                         (when (some? number)
-                           [{:id       number-concept
-                             :type     :operation
-                             :name     number
-                             :label    (utils/get-operation-label module number [] "Number")
-                             :category "Number"
-                             :module   module}])))
-          :relations (concat
-                       (map-indexed (fn [i arg]
-                                      {:from     concept
-                                       :to       arg
-                                       :role     :arg
-                                       :index    i
-                                       :category "Str"
-                                       :name     "Str"})
-                                    args)
-                       (when (some? number)
-                         [{:from     concept
-                           :to       number-concept
-                           :role     :arg
-                           :index    (+ arity 1)
-                           :category "Number"
-                           :name     "Number"}]))}))
+                      (map-indexed (fn [i arg]
+                                     {:from     concept
+                                      :to       arg
+                                      :role     :arg
+                                      :index    i
+                                      :category "Str"
+                                      :name     "Str"})
+                                   args)
+                      (when (some? number)
+                        [{:from     concept
+                          :to       number-concept
+                          :role     :arg
+                          :index    (+ arity 1)
+                          :category "Number"
+                          :name     "Number"}]))}))
 
 (defmethod resolve-dict-item "AdA" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "AdA"
@@ -434,7 +434,7 @@
 
 (defmethod resolve-dict-item "AdN" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "AdN"
@@ -457,7 +457,7 @@
 
 (defmethod resolve-dict-item "AdV" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "AdV"
@@ -480,7 +480,7 @@
 
 (defmethod resolve-dict-item "Adv" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "Adv"
@@ -503,7 +503,7 @@
 
 (defmethod resolve-dict-item "Prep" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "Prep"
@@ -526,7 +526,7 @@
 
 (defmethod resolve-dict-item "Post" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "Prep"
@@ -548,102 +548,102 @@
                        :name     "Str"}]}))
 
 (defmethod resolve-dict-item "Pron" [{::dict-item/keys [key forms language attributes]}]
-  (let [concept (utils/gen-id)
-        arity (count forms)
-        args (take arity (repeatedly #(utils/gen-id)))
-        arg-types (concat (take arity (repeat "Str")) ["Number" "Person" "Gender"])
+  (let [concept        (utils/gen-id)
+        arity          (count forms)
+        args           (take arity (repeatedly #(utils/gen-id)))
+        arg-types      (concat (take arity (repeat "Str")) ["Number" "Person" "Gender"])
         number-concept (utils/gen-id)
-        number (get attributes "Number" "singular")
+        number         (get attributes "Number" "singular")
         person-concept (utils/gen-id)
-        person (get attributes "Person" "P3")
+        person         (get attributes "Person" "P3")
         gender-concept (utils/gen-id)
-        gender (get attributes "Gender" "nonhuman")]
+        gender         (get attributes "Gender" "nonhuman")]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "Pron"
           :concepts  (cons
-                       {:id       concept
-                        :type     :operation
-                        :name     "mkPron"
-                        :label    (utils/get-operation-label module "mkPron" arg-types "Pron")
-                        :category "Pron"
-                        :module   (str "Morpho" language)}
-                       (concat
-                         (map (fn [arg {form ::dict-item-form/value}]
-                                {:id       arg
-                                 :type     :quote
-                                 :value    form
-                                 :category "Str"})
-                              args
-                              forms)
-                         [{:id       number-concept
-                           :type     :operation
-                           :name     number
-                           :label    (utils/get-operation-label module number [] "Number")
-                           :category "Number"
-                           :module   module}
-                          {:id       person-concept
-                           :type     :operation
-                           :name     person
-                           :label    (utils/get-operation-label module person [] "Person")
-                           :category "Person"
-                           :module   (str "Res" language)}
-                          {:id       gender-concept
-                           :type     :operation
-                           :name     gender
-                           :label    (utils/get-operation-label module gender [] "Gender")
-                           :category "Gender"
-                           :module   module}]))
-          :relations (concat
-                       (map-indexed (fn [i arg]
-                                      {:from     concept
-                                       :to       arg
-                                       :role     :arg
-                                       :index    i
-                                       :category "Str"
-                                       :name     "Str"})
-                                    args)
-                       [{:from     concept
-                         :to       number-concept
-                         :role     :arg
-                         :index    (+ arity 1)
+                      {:id       concept
+                       :type     :operation
+                       :name     "mkPron"
+                       :label    (utils/get-operation-label module "mkPron" arg-types "Pron")
+                       :category "Pron"
+                       :module   (str "Morpho" language)}
+                      (concat
+                       (map (fn [arg {form ::dict-item-form/value}]
+                              {:id       arg
+                               :type     :quote
+                               :value    form
+                               :category "Str"})
+                            args
+                            forms)
+                       [{:id       number-concept
+                         :type     :operation
+                         :name     number
+                         :label    (utils/get-operation-label module number [] "Number")
                          :category "Number"
-                         :name     "Number"}
-                        {:from     concept
-                         :to       person-concept
-                         :role     :arg
-                         :index    (+ arity 2)
+                         :module   module}
+                        {:id       person-concept
+                         :type     :operation
+                         :name     person
+                         :label    (utils/get-operation-label module person [] "Person")
                          :category "Person"
-                         :name     "Person"}
-                        {:from     concept
-                         :to       gender-concept
-                         :role     :arg
-                         :index    (+ arity 3)
+                         :module   (str "Res" language)}
+                        {:id       gender-concept
+                         :type     :operation
+                         :name     gender
+                         :label    (utils/get-operation-label module gender [] "Gender")
                          :category "Gender"
-                         :name     "Gender"}])}))
+                         :module   module}]))
+          :relations (concat
+                      (map-indexed (fn [i arg]
+                                     {:from     concept
+                                      :to       arg
+                                      :role     :arg
+                                      :index    i
+                                      :category "Str"
+                                      :name     "Str"})
+                                   args)
+                      [{:from     concept
+                        :to       number-concept
+                        :role     :arg
+                        :index    (+ arity 1)
+                        :category "Number"
+                        :name     "Number"}
+                       {:from     concept
+                        :to       person-concept
+                        :role     :arg
+                        :index    (+ arity 2)
+                        :category "Person"
+                        :name     "Person"}
+                       {:from     concept
+                        :to       gender-concept
+                        :role     :arg
+                        :index    (+ arity 3)
+                        :category "Gender"
+                        :name     "Gender"}])}))
 
 (defmethod resolve-dict-item "Quant" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arity (count forms)
-        args (take arity (repeatedly #(utils/gen-id)))]
+        arity   (count forms)
+        args    (take arity (repeatedly #(utils/gen-id)))]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "Quant"
           :concepts  (cons
-                       {:id       concept
-                        :type     :operation
-                        :name     "mkQuant"
-                        :label    (utils/get-operation-label module "mkQuant" (take arity (repeat "Str")) "Quant")
-                        :category "Quant"
-                        :module   module}
-                       (concat
-                         (map (fn [arg {form ::dict-item-form/value}]
-                                {:id       arg
-                                 :type     :quote
-                                 :value    form
-                                 :category "Str"})
-                              args
-                              forms)))
+                      {:id       concept
+                       :type     :operation
+                       :name     "mkQuant"
+                       :label    (utils/get-operation-label module "mkQuant" (take arity (repeat "Str")) "Quant")
+                       :category "Quant"
+                       :module   module}
+                      (concat
+                       (map (fn [arg {form ::dict-item-form/value}]
+                              {:id       arg
+                               :type     :quote
+                               :value    form
+                               :category "Str"})
+                            args
+                            forms)))
           :relations (map-indexed (fn [i arg]
                                     {:from     concept
                                      :to       arg
@@ -655,7 +655,7 @@
 
 (defmethod resolve-dict-item "Subj" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "Subj"
@@ -678,7 +678,7 @@
 
 (defmethod resolve-dict-item "Interj" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "Interj"
@@ -701,25 +701,25 @@
 
 (defmethod resolve-dict-item "V" [{::dict-item/keys [key forms]}]
   (let [concept (utils/gen-id)
-        arity (count forms)
-        args (take arity (repeatedly #(utils/gen-id)))]
+        arity   (count forms)
+        args    (take arity (repeatedly #(utils/gen-id)))]
     #::sg{:id        (utils/gen-id)
           :name      key
           :category  "V"
           :concepts  (cons
-                       {:id       concept
-                        :type     :operation
-                        :name     "mkV"
-                        :label    (utils/get-operation-label module "mkV" (take arity (repeat "Str")) "V")
-                        :category "V"
-                        :module   module}
-                       (map (fn [arg {form ::dict-item-form/value}]
-                              {:id       arg
-                               :type     :quote
-                               :value    form
-                               :category "Str"})
-                            args
-                            forms))
+                      {:id       concept
+                       :type     :operation
+                       :name     "mkV"
+                       :label    (utils/get-operation-label module "mkV" (take arity (repeat "Str")) "V")
+                       :category "V"
+                       :module   module}
+                      (map (fn [arg {form ::dict-item-form/value}]
+                             {:id       arg
+                              :type     :quote
+                              :value    form
+                              :category "Str"})
+                           args
+                           forms))
           :relations (map-indexed (fn [i arg]
                                     {:from     concept
                                      :to       arg
@@ -730,9 +730,9 @@
                                   args)}))
 
 (defmethod resolve-dict-item "V2" [{::dict-item/keys [attributes] :as dict-item}]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
+  (let [child   (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
         concept (utils/gen-id)
-        arg (utils/gen-id)]
+        arg     (utils/gen-id)]
     (-> child
         (assoc ::sg/category "V2")
         (update ::sg/concepts concat [{:id       concept
@@ -759,21 +759,21 @@
                                         :name     "Str"}]))))
 
 (defmethod resolve-dict-item "V3" [{::dict-item/keys [attributes] :as dict-item}]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (utils/gen-id)
-        prep-concept (utils/gen-id)
-        post-concept (utils/gen-id)
-        prep-arg (utils/gen-id)
-        post-arg (utils/gen-id)
+  (let [child          (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
+        concept        (utils/gen-id)
+        prep-concept   (utils/gen-id)
+        post-concept   (utils/gen-id)
+        prep-arg       (utils/gen-id)
+        post-arg       (utils/gen-id)
         prep-attribute (get attributes "Prep" "to")
         post-attribute (get attributes "Post")
-        arity (cond-> 1
-                      (some? prep-attribute) (inc)
-                      (and (some? prep-attribute) (some? post-attribute)) (inc))
-        arg-types (case arity
-                    1 ["V"]
-                    2 ["V" "Prep"]
-                    3 ["V" "Prep" "Prep"])]
+        arity          (cond-> 1
+                         (some? prep-attribute) (inc)
+                         (and (some? prep-attribute) (some? post-attribute)) (inc))
+        arg-types      (case arity
+                         1 ["V"]
+                         2 ["V" "Prep"]
+                         3 ["V" "Prep" "Prep"])]
     (-> child
         (assoc ::sg/category "V3")
         (update ::sg/concepts concat
@@ -840,7 +840,7 @@
                     :name     "Str"}])))))
 
 (defmethod resolve-dict-item "VA" [dict-item]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
+  (let [child   (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
         concept (utils/gen-id)]
     (-> child
         (assoc ::sg/category "VA")
@@ -858,21 +858,21 @@
                                         :name     "V"}]))))
 
 (defmethod resolve-dict-item "V2A" [{::dict-item/keys [attributes] :as dict-item}]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (utils/gen-id)
-        prep-concept (utils/gen-id)
-        post-concept (utils/gen-id)
-        prep-arg (utils/gen-id)
-        post-arg (utils/gen-id)
+  (let [child          (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
+        concept        (utils/gen-id)
+        prep-concept   (utils/gen-id)
+        post-concept   (utils/gen-id)
+        prep-arg       (utils/gen-id)
+        post-arg       (utils/gen-id)
         prep-attribute (get attributes "Prep")
         post-attribute (get attributes "Post")
-        arity (cond-> 1
-                      (some? prep-attribute) (inc)
-                      (and (some? prep-attribute) (some? post-attribute)) (inc))
-        arg-types (case arity
-                    1 ["V"]
-                    2 ["V" "Prep"]
-                    3 ["V" "Prep" "Prep"])]
+        arity          (cond-> 1
+                         (some? prep-attribute) (inc)
+                         (and (some? prep-attribute) (some? post-attribute)) (inc))
+        arg-types      (case arity
+                         1 ["V"]
+                         2 ["V" "Prep"]
+                         3 ["V" "Prep" "Prep"])]
     (-> child
         (assoc ::sg/category "V2A")
         (update ::sg/concepts concat
@@ -939,7 +939,7 @@
                     :name     "Str"}])))))
 
 (defmethod resolve-dict-item "VQ" [dict-item]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
+  (let [child   (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
         concept (utils/gen-id)]
     (-> child
         (assoc ::sg/category "VQ")
@@ -957,10 +957,10 @@
                                         :name     "V"}]))))
 
 (defmethod resolve-dict-item "V2Q" [{::dict-item/keys [attributes] :as dict-item}]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (utils/gen-id)
-        prep-concept (utils/gen-id)
-        prep-arg (utils/gen-id)
+  (let [child          (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
+        concept        (utils/gen-id)
+        prep-concept   (utils/gen-id)
+        prep-arg       (utils/gen-id)
         prep-attribute (get attributes "Prep" "as")]
     (-> child
         (assoc ::sg/category "V2Q")
@@ -1002,7 +1002,7 @@
                   :name     "Str"}]))))
 
 (defmethod resolve-dict-item "VS" [dict-item]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
+  (let [child   (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
         concept (utils/gen-id)]
     (-> child
         (assoc ::sg/category "VS")
@@ -1020,10 +1020,10 @@
                                         :name     "V"}]))))
 
 (defmethod resolve-dict-item "V2S" [{::dict-item/keys [attributes] :as dict-item}]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (utils/gen-id)
-        prep-concept (utils/gen-id)
-        prep-arg (utils/gen-id)
+  (let [child          (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
+        concept        (utils/gen-id)
+        prep-concept   (utils/gen-id)
+        prep-arg       (utils/gen-id)
         prep-attribute (get attributes "Prep" "to")]
     (-> child
         (assoc ::sg/category "V2S")
@@ -1065,7 +1065,7 @@
                   :name     "Str"}]))))
 
 (defmethod resolve-dict-item "VV" [dict-item]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
+  (let [child   (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
         concept (utils/gen-id)]
     (-> child
         (assoc ::sg/category "VV")
@@ -1083,18 +1083,18 @@
                                         :name     "V"}]))))
 
 (defmethod resolve-dict-item "V2V" [{::dict-item/keys [attributes] :as dict-item}]
-  (let [child (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
-        concept (utils/gen-id)
-        prep-concept (utils/gen-id)
-        post-concept (utils/gen-id)
-        prep-arg (utils/gen-id)
-        post-arg (utils/gen-id)
+  (let [child          (resolve-dict-item (assoc dict-item ::dict-item/category "V"))
+        concept        (utils/gen-id)
+        prep-concept   (utils/gen-id)
+        post-concept   (utils/gen-id)
+        prep-arg       (utils/gen-id)
+        post-arg       (utils/gen-id)
         prep-attribute (get attributes "Prep" "")
         post-attribute (get attributes "Post" "to")
-        arity (cond-> 1 (and (some? prep-attribute) (some? post-attribute)) (+ 2))
-        arg-types (case arity
-                    1 ["V"]
-                    3 ["V" "Prep" "Prep"])]
+        arity          (cond-> 1 (and (some? prep-attribute) (some? post-attribute)) (+ 2))
+        arg-types      (case arity
+                         1 ["V"]
+                         3 ["V" "Prep" "Prep"])]
     (-> child
         (assoc ::sg/category "V2V")
         (update ::sg/concepts concat

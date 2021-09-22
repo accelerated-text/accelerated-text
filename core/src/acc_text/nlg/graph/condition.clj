@@ -34,16 +34,16 @@
 (defn normalize [xs]
   (letfn [(extract-number [s] (re-find #"[-\d.]+" s))]
     (sequence
-      (comp
-        (map #(cond-> % (string? %) (str/trim)))
-        (map #(cond-> % (string? %) (-> (extract-number) (or %))))
-        (map #(cond-> % (try
-                          (bigdec %)
-                          (catch Exception _)) (bigdec))))
-      xs)))
+     (comp
+      (map #(cond-> % (string? %) (str/trim)))
+      (map #(cond-> % (string? %) (-> (extract-number) (or %))))
+      (map #(cond-> % (try
+                        (bigdec %)
+                        (catch Exception _)) (bigdec))))
+     xs)))
 
 (defn comparison [operator args]
-  (let [operator-fn (operator->fn operator)
+  (let [operator-fn     (operator->fn operator)
         normalized-args (normalize args)]
     (when (and (< 1 (count args)) (or (contains? #{"=" "==" "!=" "in"} operator)
                                       (and (contains? #{"<" "<=" ">" ">="} operator)
@@ -55,7 +55,7 @@
 (defmethod evaluate-predicate :default [_ _ _] true)
 
 (defmethod evaluate-predicate :comparator [g node-id {:keys [data constants]}]
-  (let [operator (:value (attrs g node-id))
+  (let [operator   (:value (attrs g node-id))
         successors (get-successors g node-id)]
     (when (every? #(contains? #{:data :quote :constant} (:type (attrs g %))) successors)
       (comparison operator (for [{:keys [type value name]} (map #(attrs g %) successors)]
@@ -66,7 +66,7 @@
 
 (defmethod evaluate-predicate :boolean [g node-id context]
   (let [operator-fn (operator->fn (:value (attrs g node-id)))
-        successors (get-successors g node-id)]
+        successors  (get-successors g node-id)]
     (when (every? #(contains? #{:boolean :comparator :data :quote} (:type (attrs g %))) successors)
       (operator-fn (map #(evaluate-predicate g % context) successors)))))
 
@@ -93,12 +93,12 @@
 
 (defn determine-conditions [g context]
   (reduce (fn [g [node-id _]]
-            (let [in-edges (graph/in-edges g node-id)
+            (let [in-edges       (graph/in-edges g node-id)
                   truthful-edges (find-truthful-edges g node-id context)]
               (cond-> (remove-edges g in-edges)
-                      (some? truthful-edges) (add-edges
-                                               (for [in-edge in-edges
-                                                     out-edge truthful-edges]
-                                                 [^:edge (graph/src in-edge) (graph/dest out-edge) (attrs g in-edge)])))))
+                (some? truthful-edges) (add-edges
+                                        (for [in-edge  in-edges
+                                              out-edge truthful-edges]
+                                          [^:edge (graph/src in-edge) (graph/dest out-edge) (attrs g in-edge)])))))
           g
           (find-nodes g {:type :condition})))

@@ -9,8 +9,8 @@
 
 (defn reader-model [{:keys [auth-info]} _ _]
   (resolve-as
-    {:id    "default"
-     :flags (map rm-translate/reader-model->reader-flag (reader-model-entity/available-readers (:group-id auth-info)))}))
+   {:id    "default"
+    :flags (map rm-translate/reader-model->reader-flag (reader-model-entity/available-readers (:group-id auth-info)))}))
 
 (defn- resolve-as-not-found-reader-flag [id]
   (resolve-as nil {:message (format "Cannot find reader flag with id `%s`." id)}))
@@ -32,8 +32,8 @@
 (defn update-reader-flag-usage [{:keys [auth-info]} {:keys [id usage]} _]
   (if-let [item (dict-entity/get-dictionary-item (dict-domain/get-parent-id id))]
     (let [[parent-part phrase-part flag-id] (str/split id #"/")
-          flag-key (keyword flag-id)
-          phrase-id (format "%s/%s" parent-part phrase-part)
+          flag-key    (keyword flag-id)
+          phrase-id   (format "%s/%s" parent-part phrase-part)
           select-pair (fn [flags] (list flag-key (get flags flag-key)))]
       (->> (dict-domain/update-phrase item phrase-id (:group-id auth-info) #(assoc-in % [:flags flag-key] (keyword usage)) false)
            (:flags)

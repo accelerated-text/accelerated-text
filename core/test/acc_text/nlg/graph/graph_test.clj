@@ -48,12 +48,12 @@
         (resolve-data ctx))))
 
 (deftest list-with-quotes-attached
-  (let [g     (load-graph "one-of-with-str")
-        red   (-> g (utils/find-nodes {:value "red"}) (ffirst))
-        green (-> g (utils/find-nodes {:value "green"}) (ffirst))
+  (let [g                (load-graph "one-of-with-str")
+        red              (-> g (utils/find-nodes {:value "red"}) (ffirst))
+        green            (-> g (utils/find-nodes {:value "green"}) (ffirst))
 
-        mkA->red   (utils/get-predecessors g red)
-        mkA->green (utils/get-predecessors g green)
+        mkA->red         (utils/get-predecessors g red)
+        mkA->green       (utils/get-predecessors g green)
 
         list->mkA-red    (utils/get-predecessors g (first mkA->red))
         list->mkA-green  (utils/get-predecessors g (first mkA->green))
@@ -91,15 +91,15 @@
 (deftest list-with-the-quotes-attached
   ;;Different from the test above in that that data nodes will have determiners
   ;;in front of them. That is not 'Apple is red' but 'Murderer is in *the* city'
-  (let [g    (load-graph "one-of-with-the-str")
-        city (-> g (utils/find-nodes {:value "city"}) (ffirst))
-        town (-> g (utils/find-nodes {:value "town"}) (ffirst))
+  (let [g          (load-graph "one-of-with-the-str")
+        city       (-> g (utils/find-nodes {:value "city"}) (ffirst))
+        town       (-> g (utils/find-nodes {:value "town"}) (ffirst))
 
         mkNP->city (utils/get-predecessors g city)
         mkNP->town (utils/get-predecessors g town)
 
-        det->city (subset-of-edges-from g (first mkNP->city) #{city})
-        det->town (subset-of-edges-from g (first mkNP->town) #{town})]
+        det->city  (subset-of-edges-from g (first mkNP->city) #{city})
+        det->town  (subset-of-edges-from g (first mkNP->town) #{town})]
 
     (is (not (nil? city)))
     (is (not (nil? town)))

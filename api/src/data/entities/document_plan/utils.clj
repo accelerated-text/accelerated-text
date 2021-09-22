@@ -12,9 +12,9 @@
         (reduce (fn [m {{var-id :id} :attrs
                         [var-name]   :content}]
                   (cond-> m
-                          (and
-                            (some? var-id)
-                            (some? var-name)) (assoc var-id var-name)))
+                    (and
+                     (some? var-id)
+                     (some? var-name)) (assoc var-id var-name)))
                 {}
                 vars)))))
 

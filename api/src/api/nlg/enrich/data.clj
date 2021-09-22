@@ -18,8 +18,8 @@
 
 (defn select-rules [filename rules]
   (filter #(or
-             (and (some? (:filename %)) (= filename (:filename %)))
-             (and (some? (:filename-pattern %)) (re-matches (:filename-pattern %) filename)))
+            (and (some? (:filename %)) (= filename (:filename %)))
+            (and (some? (:filename-pattern %)) (re-matches (:filename-pattern %) filename)))
           rules))
 
 (defn build-transformations [tr]
@@ -56,4 +56,4 @@
   (let [rules (select-rules filename (read-rules))]
     (log/infof "%d rules matches filename `%s`" (count rules) filename)
     (cond-> data
-            (seq rules) (apply-rules rules))))
+      (seq rules) (apply-rules rules))))

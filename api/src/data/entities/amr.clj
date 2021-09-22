@@ -14,10 +14,10 @@
 
 (defn find-amrs [semantic-graph]
   (loop [amr-ids (sg-utils/get-amr-ids semantic-graph)
-         output '()]
+         output  '()]
     (if-not (seq amr-ids)
       (set output)
       (let [amrs (map get-amr amr-ids)]
         (recur
-          (remove nil? (mapcat sg-utils/get-amr-ids amrs))
-          (concat output amrs))))))
+         (remove nil? (mapcat sg-utils/get-amr-ids amrs))
+         (concat output amrs))))))

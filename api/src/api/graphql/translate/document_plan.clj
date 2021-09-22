@@ -11,13 +11,13 @@
 
 (defn dp-zipper [m]
   (zip/zipper
-    (fn [x] (or (map? x) (sequential? x)))
-    seq
-    (fn [p xs]
-      (if (isa? (type p) clojure.lang.MapEntry)
-        (into [] xs)
-        (into (empty p) xs)))
-    m))
+   (fn [x] (or (map? x) (sequential? x)))
+   seq
+   (fn [p xs]
+     (if (isa? (type p) clojure.lang.MapEntry)
+       (into [] xs)
+       (into (empty p) xs)))
+   m))
 
 (defn parse-blockly-xml [is]
   (try
@@ -28,8 +28,8 @@
 (defn ensure-blockly-categories [blockly-xml]
   (letfn [(edit [{{:keys [id concept_id pos concept_kind]} :attrs :as node}]
             (cond-> node
-                    (= "null" pos) (assoc-in [:attrs :pos] (get-dictionary-item-category id))
-                    (= "null" concept_kind) (assoc-in [:attrs :concept_kind] (:kind (get-amr-concept concept_id)))))]
+              (= "null" pos) (assoc-in [:attrs :pos] (get-dictionary-item-category id))
+              (= "null" concept_kind) (assoc-in [:attrs :concept_kind] (:kind (get-amr-concept concept_id)))))]
     (when (some? blockly-xml)
       (with-open [is (io/input-stream (.getBytes blockly-xml))]
         (loop [loc (zip/xml-zip (parse-blockly-xml is))]
@@ -46,12 +46,12 @@
               (let [{:keys [type kind itemId conceptId]} node]
                 (cond
                   (and
-                    (or (= "Dictionary-item" type)
-                        (= "Dictionary-item-modifier" type))
-                    (or (nil? kind) (= "null" kind))) (assoc node :kind (get-dictionary-item-category itemId))
+                   (or (= "Dictionary-item" type)
+                       (= "Dictionary-item-modifier" type))
+                   (or (nil? kind) (= "null" kind))) (assoc node :kind (get-dictionary-item-category itemId))
                   (and
-                    (= "AMR" type)
-                    (or (nil? kind) (= "null" kind))) (assoc node :kind (:kind (get-amr-concept conceptId)))
+                   (= "AMR" type)
+                   (or (nil? kind) (= "null" kind))) (assoc node :kind (:kind (get-amr-concept conceptId)))
                   :else node))
               node))]
     (loop [loc (dp-zipper document-plan)]

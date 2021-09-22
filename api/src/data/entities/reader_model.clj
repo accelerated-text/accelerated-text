@@ -54,8 +54,8 @@
               (utils/read-edn)
               (filter ::reader-model/available?)
               (mapv #(update! (assoc % ::reader-model/type :reader
-                                       ::reader-model/enabled? (contains? (:enabled-readers conf)
-                                                                          (str/capitalize (::reader-model/code %))))
+                                     ::reader-model/enabled? (contains? (:enabled-readers conf)
+                                                                        (str/capitalize (::reader-model/code %))))
                               user-group/DUMMY-USER-GROUP-ID)))
   :stop (doseq [reader (available-readers user-group/DUMMY-USER-GROUP-ID)]
           (delete! (::reader-model/code reader) user-group/DUMMY-USER-GROUP-ID)))
@@ -65,8 +65,8 @@
               (utils/read-edn)
               (filter ::reader-model/available?)
               (mapv #(update! (assoc % ::reader-model/type :language
-                                       ::reader-model/enabled? (contains? (:enabled-languages conf)
-                                                                          (str/capitalize (::reader-model/code %))))
+                                     ::reader-model/enabled? (contains? (:enabled-languages conf)
+                                                                        (str/capitalize (::reader-model/code %))))
                               user-group/DUMMY-USER-GROUP-ID)))
   :stop (doseq [lang (available-languages user-group/DUMMY-USER-GROUP-ID)]
           (delete! (::reader-model/code lang) user-group/DUMMY-USER-GROUP-ID)))

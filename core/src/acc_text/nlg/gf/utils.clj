@@ -63,17 +63,17 @@
 (defn- find-single-arity-functions [fns]
   (reduce (fn [acc {:keys [module functions]}]
             (concat acc (sequence
-                          (comp
-                            (map #(set/rename-keys % {:type :params}))
-                            (map #(assoc % :type (last (:params %))))
-                            (map #(assoc % :position (find-position (:params %))))
-                            (map #(update % :params (comp remove-optional-params butlast)))
-                            (remove #(not= 1 (count (:params %))))
-                            (map #(set/rename-keys % {:params :from}))
-                            (map #(update % :from first))
-                            (map #(assoc % :module module))
-                            (map #(select-keys % [:function :type :position :from :module])))
-                          functions)))
+                         (comp
+                          (map #(set/rename-keys % {:type :params}))
+                          (map #(assoc % :type (last (:params %))))
+                          (map #(assoc % :position (find-position (:params %))))
+                          (map #(update % :params (comp remove-optional-params butlast)))
+                          (remove #(not= 1 (count (:params %))))
+                          (map #(set/rename-keys % {:params :from}))
+                          (map #(update % :from first))
+                          (map #(assoc % :module module))
+                          (map #(select-keys % [:function :type :position :from :module])))
+                         functions)))
           []
           fns))
 
@@ -89,22 +89,22 @@
              (group-by :function fns)))
 
 (defn make-transformation-graph [& paths]
-  (let [fns (-> (apply read-rgl-functions paths) (find-single-arity-functions) (apply-function-filter) (group-single-arity-function-params))
+  (let [fns       (-> (apply read-rgl-functions paths) (find-single-arity-functions) (apply-function-filter) (group-single-arity-function-params))
         type->fns (group-by :type fns)]
     (apply uber/digraph (->> fns
                              (mapcat (fn [{:keys [function type from module position]}]
                                        (cons
-                                         [^:node function {:module module :type type :position position}]
-                                         (cons
-                                           [^:edge function type]
-                                           (->> (for [type from
-                                                      {from-function :function from-type :type} (cons {:type type}
-                                                                                                      (type->fns type))]
-                                                  [^:edge (or from-function from-type) function])
-                                                (filter #(not= (first %) (second %))))))))
+                                        [^:node function {:module module :type type :position position}]
+                                        (cons
+                                         [^:edge function type]
+                                         (->> (for [type from
+                                                    {from-function :function from-type :type} (cons {:type type}
+                                                                                                    (type->fns type))]
+                                                [^:edge (or from-function from-type) function])
+                                              (filter #(not= (first %) (second %))))))))
                              (concat (into #{} (concat
-                                                 (map :type fns)
-                                                 (mapcat :from fns))))))))
+                                                (map :type fns)
+                                                (mapcat :from fns))))))))
 (def op-map
   {"N"   #{"mkN" "mkN2" "mkN3" "mkCN" "mkPN"}
    "V"   #{"mkV" "mkV2" "mkV2A" "mkV3" "mkVA" "mkVQ" "mkVS" "mkVV"}
@@ -126,9 +126,9 @@
               "Str" #{"mkCN" "mkN"}
               #{}))
           (evaluate-path [src dest path]
-            (let [ops (get op-map (or (normalize-op src) (normalize-op dest)))
-                  required-ops (get-required-ops src)
-                  desired-ops (set/union #{"mkUtt"} ops)
+            (let [ops           (get op-map (or (normalize-op src) (normalize-op dest)))
+                  required-ops  (get-required-ops src)
+                  desired-ops   (set/union #{"mkUtt"} ops)
                   undesired-ops (set/union #{"mkImp" "mkQS" "mkQCl" "mkPost" "mkVPSlash"}
                                            (set/difference (apply set/union (vals op-map)) ops))]
               [(if (set/subset? required-ops (set path)) 0 1)
@@ -170,10 +170,10 @@
          (group-by #(vector (first %) (last %)))
          (reduce-kv (fn [m [src dest] paths]
                       (cond-> m
-                              (and
-                                (not= [src dest] ["Str" "Utt"])
-                                (not= src dest)) (assoc [src dest] (first (map (comp path->sg rest butlast)
-                                                                               (sort-by #(evaluate-path src dest %) paths))))))
+                        (and
+                         (not= [src dest] ["Str" "Utt"])
+                         (not= src dest)) (assoc [src dest] (first (map (comp path->sg rest butlast)
+                                                                        (sort-by #(evaluate-path src dest %) paths))))))
                     {}))))
 
 (defn save-graph [g output-path]
@@ -197,10 +197,10 @@
        (apply read-rgl-functions)
        (mapcat (fn [{:keys [module functions]}] (map #(assoc % :module module) functions)))
        (filter (fn [{:keys [type function]}] (and
-                                               (= 3 (count (filter #(re-matches #"\p{L}+" %) type)))
-                                               (re-matches #"^mk.+" function)
-                                               (not (re-matches #"^mkList.+" function))
-                                               (not= "Str" (first type) (second type)))))
+                                              (= 3 (count (filter #(re-matches #"\p{L}+" %) type)))
+                                              (re-matches #"^mk.+" function)
+                                              (not (re-matches #"^mkList.+" function))
+                                              (not= "Str" (first type) (second type)))))
        (map (fn [{:keys [function type module]}]
               (let [[x y z] (filter #(re-matches #"\p{L}+" %) type)]
                 {[x y] (list {:type :operation :name function :category z :module module})})))

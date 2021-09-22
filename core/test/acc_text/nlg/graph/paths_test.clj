@@ -5,7 +5,7 @@
 
 (deftest ^:integration path-completion
   (let [semantic-graph (load-test-semantic-graph "path-test")
-        context (load-test-context "path-test")]
+        context        (load-test-context "path-test")]
     (is (= #{"To be made of steel."
              "To be made."
              "To make itself."

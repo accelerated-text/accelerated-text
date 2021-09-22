@@ -8,7 +8,7 @@
        (utils/get-successors g node)))
 
 (defn add-paragraph-symbol [g]
-  (let [segments (rest (utils/get-successors g (utils/find-root-id g)))
+  (let [segments    (rest (utils/get-successors g (utils/find-root-id g)))
         symbol-node (UUID/randomUUID)]
     (if (seq segments)
       (reduce (fn [g node]

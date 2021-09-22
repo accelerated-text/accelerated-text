@@ -11,29 +11,29 @@
 (defn make-concept [{:keys [cat text]} lincat]
   (if (some? cat)
     (cond-> (get-attrs cat)
-            (contains? lincat cat) (assoc :category (get lincat cat)))
+      (contains? lincat cat) (assoc :category (get lincat cat)))
     {:type     :quote
      :value    text
      :category "Str"}))
 
 (defn make-zipper [t]
   (zip/zipper
-    map?
-    (fn [node]
-      (:children node))
-    (fn [node children]
-      (assoc node :children children))
-    t))
+   map?
+   (fn [node]
+     (:children node))
+   (fn [node children]
+     (assoc node :children children))
+   t))
 
 (defn get-concepts [tree lincat]
   (->> (make-zipper tree)
        (iterate zip/next)
        (take-while #(not (zip/end? %)))
        (map (comp
-              #(make-concept (cond->> %
-                                      (string? %) (hash-map :text))
-                             lincat)
-              zip/node))))
+             #(make-concept (cond->> %
+                              (string? %) (hash-map :text))
+                            lincat)
+             zip/node))))
 
 (defn emend [text]
   (->> (str/split text #"\s*¶+\s*")

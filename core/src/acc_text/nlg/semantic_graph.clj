@@ -9,13 +9,13 @@
 
 (s/def ::concepts
   (s/coll-of
-    (s/keys :req-un [::concept/id ::concept/type]
-            :opt-un [::concept/name ::concept/value ::concept/category ::concept/label ::concept/position])))
+   (s/keys :req-un [::concept/id ::concept/type]
+           :opt-un [::concept/name ::concept/value ::concept/category ::concept/label ::concept/position])))
 
 (s/def ::relations
   (s/coll-of
-    (s/keys :req-un [::relation/from ::relation/to ::relation/role]
-            :opt-un [::relation/index ::relation/category ::relation/name])))
+   (s/keys :req-un [::relation/from ::relation/to ::relation/role]
+           :opt-un [::relation/index ::relation/category ::relation/name])))
 
 (s/def ::name string?)
 

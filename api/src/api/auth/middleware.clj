@@ -11,7 +11,7 @@
 
 (defn append-auth-info [{:keys [headers] :as req}]
   (let [token (:auth-token (normalize-headers headers))
-        info (service/request token)]
+        info  (service/request token)]
     (assoc req :auth-info info)))
 
 (defn dummy-auth-info [req]

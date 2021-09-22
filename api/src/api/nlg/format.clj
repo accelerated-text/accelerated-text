@@ -33,21 +33,21 @@
 
 (defn get-flags [{::row/keys [language enriched? readers]} group-id]
   (cond-> (cons (get-lang-flag language group-id) (filter some? (map #(get-reader-flag % group-id) readers)))
-          (true? enriched?) (conj enriched-flag)))
+    (true? enriched?) (conj enriched-flag)))
 
 (defn split-into-paragraphs [annotations]
   (loop [[ann & anns] annotations
          segments []
-         segment []]
+         segment  []]
     (if (nil? ann)
       (cond-> segments (seq segment) (conj segment))
       (let [ending? (str/includes? (::annotation/text ann) "\n")]
         (recur
-          anns
-          (if ending? (conj segments segment) segments)
-          (if ending? (let [text (str/replace (::annotation/text ann) #"\s*\n+\s*" "")]
-                        (cond-> [] (not (str/blank? text)) (conj (assoc ann ::annotation/text text))))
-                      (conj segment ann)))))))
+         anns
+         (if ending? (conj segments segment) segments)
+         (if ending? (let [text (str/replace (::annotation/text ann) #"\s*\n+\s*" "")]
+                       (cond-> [] (not (str/blank? text)) (conj (assoc ann ::annotation/text text))))
+                     (conj segment ann)))))))
 
 (defn ->annotated-text-format [{rows ::result/rows} group-id]
   (map (fn [{annotations ::row/annotations :as row}]
@@ -64,12 +64,12 @@
                                               :children [{:type     "SENTENCE"
                                                           :id       (utils/gen-uuid)
                                                           :children (concat
-                                                                      (when (= i 0) flags)
-                                                                      (map (fn [{::annotation/keys [id text]}]
-                                                                             {:type "WORD"
-                                                                              :id   id
-                                                                              :text text})
-                                                                           paragraph-annotations))}]})))}))
+                                                                     (when (= i 0) flags)
+                                                                     (map (fn [{::annotation/keys [id text]}]
+                                                                            {:type "WORD"
+                                                                             :id   id
+                                                                             :text text})
+                                                                          paragraph-annotations))}]})))}))
        rows))
 
 (defn ->annotated-text-shallow-format [{rows ::result/rows} group-id]
@@ -85,20 +85,20 @@
                                              {:type "PARAGRAPH"
                                               :id   (utils/gen-uuid)
                                               :text (str/trim (cond->> paragraph
-                                                                       (= i 0) (str flags " ")))})))}))
+                                                                (= i 0) (str flags " ")))})))}))
        rows))
 
 (defn ->error [{::result/keys [error-message]}]
   (cond-> []
-          (and
-            (not (str/blank? error-message))
-            (not (str/includes? error-message "java.lang.NullPointerException"))
-            (re-matches #"^(?!tmp).*$" error-message))
-          (conj {:type     "ERROR"
-                 :id       (utils/gen-uuid)
-                 :children [error-flag {:type "MESSAGE"
-                                        :id   (utils/gen-uuid)
-                                        :text error-message}]})))
+    (and
+     (not (str/blank? error-message))
+     (not (str/includes? error-message "java.lang.NullPointerException"))
+     (re-matches #"^(?!tmp).*$" error-message))
+    (conj {:type     "ERROR"
+           :id       (utils/gen-uuid)
+           :children [error-flag {:type "MESSAGE"
+                                  :id   (utils/gen-uuid)
+                                  :text error-message}]})))
 
 (defn ->raw-format [{::result/keys [rows]}]
   (map #(str/replace (::row/text %) #"\s*\n+\s*" "\n") rows))

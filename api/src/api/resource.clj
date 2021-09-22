@@ -47,17 +47,17 @@
       (update :pathParameters decode-vals)
       (update :queryStringParameters decode-vals)
       (cond-> (true? decode-body?)
-              (update :body #(json/read-value % utils/read-mapper)))))
+        (update :body #(json/read-value % utils/read-mapper)))))
 
 (defn- generate-response [status-code body]
   (json/write-value-as-string
-    {:statusCode      status-code
-     :isBase64Encoded false
-     :body            (if (some? body) (json/write-value-as-string body) "")
-     :headers         (cond-> {"Access-Control-Allow-Origin"  "*"
-                               "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
-                               "Access-Control-Allow-Headers" "*, Content-Type"}
-                              (some? body) (assoc "Content-Type" "application/json"))}))
+   {:statusCode      status-code
+    :isBase64Encoded false
+    :body            (if (some? body) (json/write-value-as-string body) "")
+    :headers         (cond-> {"Access-Control-Allow-Origin"  "*"
+                              "Access-Control-Allow-Methods" "GET, POST, PUT, DELETE, OPTIONS"
+                              "Access-Control-Allow-Headers" "*, Content-Type"}
+                       (some? body) (assoc "Content-Type" "application/json"))}))
 
 (defn build-resource [{:keys [get-handler post-handler delete-handler put-handler]} decode-body?]
   (fn [_ is os _]

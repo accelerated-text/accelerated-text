@@ -19,7 +19,7 @@
                          (some? result-format) (use-format result-format result group-id)
                          (and (= :error status) (:display-error conf)) (use-format "error" result group-id)
                          :else (with-default-format result group-id))}
-          (= :error status) (assoc :error true :message error-message)))
+    (= :error status) (assoc :error true :message error-message)))
 
 (defn error-response
   ([exception] (error-response exception nil))
@@ -49,7 +49,7 @@
                                                                 "relevant" (data-files/fetch-most-relevant data-id index 20 group-id)
                                                                 "first" (data-files/fetch data-id index 1 group-id))]
       (cond->> (zipmap (map :fieldName fields) (map :value fields))
-               (data-enrich/enable-enrich?) (data-enrich/enrich filename))
+        (data-enrich/enable-enrich?) (data-enrich/enrich filename))
       (log/errorf "Data with id `%s` not found" data-id))))
 
 (defn get-document-plan [{id :documentPlanId name :documentPlanName} group-id]

@@ -1,6 +1,6 @@
 (ns data.row-selection-test
-    (:require [clojure.test :refer [deftest is]]
-              [data.entities.data-files.row-selection :as row-selection]))
+  (:require [clojure.test :refer [deftest is]]
+            [data.entities.data-files.row-selection :as row-selection]))
 
 (deftest test-jaccard-distance
   (is (= 2/3 (row-selection/jaccard-distance

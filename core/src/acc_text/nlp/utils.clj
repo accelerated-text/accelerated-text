@@ -25,12 +25,12 @@
 
 (defn wrap-sentence [s]
   (cond-> (str/trim s)
-          (re-find #"(?U)[^.?!\s]\s*$" s) (str ".")))
+    (re-find #"(?U)[^.?!\s]\s*$" s) (str ".")))
 
 (defn process-sentence [s]
   (if-not (str/blank? s)
     (wrap-sentence
-      (capitalize-first-word s))
+     (capitalize-first-word s))
     ""))
 
 (defn clean-whitespace-before-punct
@@ -49,10 +49,10 @@
 
 (defn annotate [text]
   (loop [[token & tokens] (tokenize-incl-space text)
-         idx 0
+         idx         0
          annotations []]
     (if (nil? token)
       annotations
       (recur tokens (+ idx (count token)) (cond-> annotations
-                                                  (re-matches #"[^\s]+" token) (conj {:text token
-                                                                                      :idx  idx}))))))
+                                            (re-matches #"[^\s]+" token) (conj {:text token
+                                                                                :idx  idx}))))))
