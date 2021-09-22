@@ -1,7 +1,7 @@
 lint:
 	clj -M:lint
 
-format:
+fix-format:
 	clojure -M:format fix
 
 unit-tests:
