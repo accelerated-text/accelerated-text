@@ -11,12 +11,12 @@
              ubergraph/ubergraph            {:mvn/version "0.8.1"}}
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://clojars.org/repo"}}
- :aliases   {:dev  {:extra-deps {org.clojure/test.check {:mvn/version "0.9.0"}}}
-             :test {:extra-paths ["test"]
-                    :extra-deps  {com.cognitect/test-runner
-                                  {:git/url "https://github.com/cognitect-labs/test-runner"
-                                   :sha     "028a6d41ac9ac5d5c405dfc38e4da6b4cc1255d5"}}
-                    :main-opts   ["-m" "cognitect.test-runner"]}
+ :aliases   {:dev      {:extra-deps {org.clojure/test.check {:mvn/version "0.9.0"}}}
+             :test     {:extra-paths ["test"]
+                        :extra-deps  {com.cognitect/test-runner
+                                      {:git/url "https://github.com/cognitect-labs/test-runner"
+                                       :sha     "028a6d41ac9ac5d5c405dfc38e4da6b4cc1255d5"}}
+                        :main-opts   ["-m" "cognitect.test-runner"]}
              :coverage {:extra-paths ["test"]
-                        :extra-deps {cloverage/cloverage {:mvn/version "1.2.2"}}
-                        :main-opts ["-m" "cloverage.coverage" "-p" "src" "-s" "test" "--codecov" "--runner" "clojure.test"]}}}
+                        :extra-deps  {cloverage/cloverage {:mvn/version "1.2.2"}}
+                        :main-opts   ["-m" "cloverage.coverage" "-p" "src" "-s" "test" "--codecov" "--runner" "clojure.test"]}}}
