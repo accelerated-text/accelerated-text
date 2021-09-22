@@ -19,4 +19,10 @@
                         :main-opts   ["-m" "cognitect.test-runner"]}
              :coverage {:extra-paths ["test"]
                         :extra-deps  {cloverage/cloverage {:mvn/version "1.2.2"}}
-                        :main-opts   ["-m" "cloverage.coverage" "-p" "src" "-s" "test" "--codecov" "--runner" "clojure.test"]}}}
+                        :main-opts   ["-m" "cloverage.coverage" "-p" "src" "-s" "test" "--codecov" "--runner" "clojure.test"]}
+             :lint     {:extra-paths ["test"]
+                        :extra-deps  {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+                        :main-opts   ["-m" "clj-kondo.main" "--lint" "src" "test"]}
+             :format   {:extra-paths ["test"]
+                        :extra-deps  {cljfmt/cljfmt {:mvn/version "0.8.0"}}
+                        :main-opts   ["-m" "cljfmt.main"]}}}
