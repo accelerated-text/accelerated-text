@@ -2,7 +2,11 @@
 
 When document plan is ready, we can export generated text using one of utility functions that are included in Accelerated Text project.
 
-Go to `utils` folder located in project root, and run this command in the terminal:
+To use these utils, [Clojure programming language](https://www.clojure.org/guides/getting_started) must be installed on the system.
+
+Alternatively, you can use our [Python wrapper for Accelerated Text](py-wrapper.md), which is especially recommended on Windows, since installing Clojure on this operating system may be tricky.
+
+After Clojure is installed, go to `utils` folder located in project root, and run this command in the terminal:
 
 ```
 clojure -A:generate \
