@@ -6,7 +6,6 @@
             [clojure.tools.logging :as log]
             [jsonista.core :as json]
             [mount.core :as mount]
-            [org.httpkit.client :as http]
             [utils.config :refer [config]]
             [utils.queries :as queries]))
 
@@ -32,15 +31,9 @@
     (spit (format "%s/%s.json" dir id)
           (json/write-value-as-string document-plan write-mapper))))
 
-(defn run-query [url q]
-  @(http/post url {:headers {"Content-Type" "application/json"}
-                   :body    (->> q
-                                 :graphql
-                                 (json/write-value-as-string))}))
-
 (defn pprint-document-plan [name]
-  (-> (run-query (:graphql-url config)
-                 (queries/export-document-plan-query {:name name}))
+  (-> (queries/run-query (format "%s/_graphql" (:api-url config))
+                         (queries/export-document-plan-query {:name name}))
       :body
       (json/read-value read-mapper)
       :data :documentPlan
@@ -49,8 +42,8 @@
       (println)))
 
 (defn export-all-document-plans [output-dir]
-  (let [{:keys [body error]} (run-query (:graphql-url config)
-                                        (queries/export-document-plans-query {}))]
+  (let [{:keys [body error]} (queries/run-query (format "%s/_graphql" (:api-url config))
+                                                (queries/export-document-plans-query {}))]
     (if error
       (log/errorf "Failed with the error: %s" error)
       (doseq [dp (-> (json/read-value body read-mapper)

@@ -4,7 +4,9 @@
             [clojure.string :as str]
             [clojure.tools.logging :as log]
             [jsonista.core :as json]
-            [org.httpkit.client :as http])
+            [org.httpkit.client :as http]
+            [utils.config :refer [config]]
+            [mount.core :as mount])
   (:import (java.io File)
            (java.util UUID)))
 
@@ -15,7 +17,7 @@
     (doall (csv/read-csv reader))))
 
 (defn- post-generate [body]
-  @(http/request {:url     "http://localhost:3001/nlg/_bulk/"
+  @(http/request {:url     (format "%s/nlg/_bulk/" (:api-url config))
                   :method  :post
                   :headers {"Content-Type" "application/json"}
                   :body    (json/write-value-as-string body)}
@@ -25,7 +27,7 @@
                      (log/error (.getMessage ^Throwable error))))))
 
 (defn- fetch-results [id]
-  @(http/request {:url (format "http://localhost:3001/nlg/%s?format=raw" id)}
+  @(http/request {:url (format "%s/nlg/%s?format=raw" (:api-url config) id)}
                  (fn [{:keys [status body error]}]
                    (cond
                      (not= status 200) (log/errorf "Failed to fetch result `%s` with status %d" id status)
@@ -48,12 +50,14 @@
   [document-plan language data]
   (log/infof "Generating text for %s data items" (count data))
   (let [ids      (take (count data) (repeatedly #(str (UUID/randomUUID))))
+        id->index (zipmap ids (range))
         id->data (zipmap ids data)]
     (->> {:documentPlanName document-plan
           :dataRows         id->data
           :readerFlagValues {language true}}
          (post-generate)
          (map get-results)
+         (sort-by (fn [[id _]] (get id->index id)))
          (map-indexed (fn [i [id variants]]
                         (log/infof "%.2f%% ready" (float (* 100 (/ (inc i) (count ids)))))
                         [(get id->data id) variants])))))
@@ -82,6 +86,7 @@
     (save-data-with-variants output-file results header)))
 
 (defn -main [& [document-plan data-path output-path language]]
+  (mount/start)
   (if (and document-plan data-path output-path)
     (data->text document-plan (io/file data-path) (io/file output-path) (if-not (str/blank? language) language "Eng"))
     (println "Usage: pass in four parameters: name of the document plan, path to a data file, path to an output file, and language code")))
