@@ -50,10 +50,10 @@
      (log/infof "Generate request with %s" (utils/request->text request))
      (let [{row-index :dataSampleRow :as document-plan} (utils/get-document-plan request group-id)
            result-id (gen-uuid)
-           body {:id            result-id
-                 :document-plan document-plan
-                 :data          (or data-row (utils/get-data-row data-id (or sample-method "first") (or row-index 0) group-id) {})
-                 :reader-model  (map #(reader-model/update! % group-id) (utils/form-reader-model reader-model group-id))}]
+           body      {:id            result-id
+                      :document-plan document-plan
+                      :data          (or data-row (utils/get-data-row data-id (or sample-method "first") (or row-index 0) group-id) {})
+                      :reader-model  (map #(reader-model/update! % group-id) (utils/form-reader-model reader-model group-id))}]
        (results/write #::result{:id     result-id
                                 :status :pending})
        (if (true? async)

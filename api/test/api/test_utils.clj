@@ -49,9 +49,9 @@
 
 (defn load-data-file [filename]
   (data-files/store!
-    {:filename filename
-     :content  (io/file (format "test/resources/data-files/%s" filename))}
-    user-group/DUMMY-USER-GROUP-ID)
+   {:filename filename
+    :content  (io/file (format "test/resources/data-files/%s" filename))}
+   user-group/DUMMY-USER-GROUP-ID)
   filename)
 
 (defn load-document-plan [filename]
@@ -80,7 +80,7 @@
                                                         :dataId           (if (some? data-file-name)
                                                                             (load-data-file data-file-name)
                                                                             "")}
-                                                       (false? async) (assoc :async false)))]
+                                                 (false? async) (assoc :async false)))]
     (when (= 200 status)
       (if (false? async) body (get-result (:resultId body))))))
 

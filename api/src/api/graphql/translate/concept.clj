@@ -9,10 +9,10 @@
   {:id         (utils/gen-rand-str 16)
    :fieldLabel (or name category "Str")
    :fieldType  (cond-> ["List" "Str"]
-                       (some? category) (-> (concat (get paths/possible-paths category))
-                                            (distinct)
-                                            (vec)
-                                            (conj category)))})
+                 (some? category) (-> (concat (get paths/possible-paths category))
+                                      (distinct)
+                                      (vec)
+                                      (conj category)))})
 
 (defn normalize-category [cat]
   (when-not (str/blank? cat)

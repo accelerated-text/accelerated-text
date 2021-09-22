@@ -14,10 +14,10 @@
 
 (defn get-relevant-samples [{:keys [auth-info]}
                             {:keys [id method recordOffset recordLimit]
-                             :or {recordOffset 0 recordLimit 20 method "first"}} _]
+                             :or   {recordOffset 0 recordLimit 20 method "first"}} _]
   (let [data-fn (case method
-                      "relevant" data-files/fetch-most-relevant
-                      "first"    data-files/fetch)]
+                  "relevant" data-files/fetch-most-relevant
+                  "first" data-files/fetch)]
     (if-let [data-file (data-fn id recordOffset recordLimit (:group-id auth-info))]
       (resolve-as data-file)
       (resolve-as-not-found-file id))))

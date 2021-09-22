@@ -14,14 +14,14 @@
 
 (defmulti build-semantic-graph (fn [{type :type concept-id :conceptId} {kind :kind}]
                                  (keyword
-                                   (case [kind type]
-                                     ["AMR" "Document-plan"] "AMR-plan"
-                                     ["RGL" "Document-plan"] "AMR-plan"
-                                     ["AMR" "Segment"] "Frame"
-                                     ["RGL" "Segment"] "Frame"
-                                     ["AMR" "AMR"] (if (contains? ops/operation-map concept-id) "Operation" "AMR")
-                                     ["RGL" "AMR"] (if (contains? ops/operation-map concept-id) "Operation" "AMR")
-                                     type))))
+                                  (case [kind type]
+                                    ["AMR" "Document-plan"] "AMR-plan"
+                                    ["RGL" "Document-plan"] "AMR-plan"
+                                    ["AMR" "Segment"] "Frame"
+                                    ["RGL" "Segment"] "Frame"
+                                    ["AMR" "AMR"] (if (contains? ops/operation-map concept-id) "Operation" "AMR")
+                                    ["RGL" "AMR"] (if (contains? ops/operation-map concept-id) "Operation" "AMR")
+                                    type))))
 
 (defn definition? [node]
   (= "Define-var" (:type node)))
@@ -368,7 +368,7 @@
   (cond-> node (nil? node) (assoc :type "placeholder")))
 
 (defn rearrange-modifiers [node index]
-  (loop [zipper (dp-zip/make-zipper node)
+  (loop [zipper    (dp-zip/make-zipper node)
          modifiers []]
     (let [{:keys [type child] :as node} (zip/node zipper)]
       (if-not (and (contains? #{"Dictionary-item-modifier" "Cell-modifier"} type) (some? child))
@@ -383,7 +383,7 @@
   (-> node (nil->placeholder) (rearrange-modifiers index) (assoc :position index) (gen-id)))
 
 (defn preprocess [root]
-  (loop [loc (dp-zip/make-zipper root)
+  (loop [loc   (dp-zip/make-zipper root)
          index 1]
     (if (zip/end? loc)
       (zip/node loc)
@@ -398,7 +398,7 @@
 
 (defn post-add-kind [{:keys [name type kind] :as node} {variables :variables}]
   (let [kinds (map :kind (remove definition? (dp-zip/get-children node)))
-        kind (or
+        kind  (or
                kind
                (cond
                  (= "Get-var" type) (select-kind (remove nil? (map :kind (get variables name))))
@@ -412,29 +412,29 @@
     (if (zip/end? loc)
       (zip/node loc)
       (recur
-        (-> loc
-            (zip/edit post-add-kind context)
-            (dp-zip/post-next))))))
+       (-> loc
+           (zip/edit post-add-kind context)
+           (dp-zip/post-next))))))
 
 (defn add-category [semantic-graph {:keys [id kind name] :as node} {variables :variables}]
   (let [in-relations (filter #(= (:to %) id) (::sg/relations semantic-graph))
-        kind (or
-               kind
-               (case (keyword type)
-                 :Get-var (or (select-kind (remove nil? (map :category in-relations)))
-                              (some #(when (contains? % :category)
-                                       (:category %))
-                                    (get variables name)))
-                 (select-kind (remove nil? (map :category in-relations)))))]
+        kind         (or
+                      kind
+                      (case (keyword type)
+                        :Get-var (or (select-kind (remove nil? (map :category in-relations)))
+                                     (some #(when (contains? % :category)
+                                              (:category %))
+                                           (get variables name)))
+                        (select-kind (remove nil? (map :category in-relations)))))]
     (when (some? node)
       (cond-> node
-              (some? kind) (assoc :kind kind)))))
+        (some? kind) (assoc :kind kind)))))
 
 (defn document-plan->semantic-graph
   ([{id :id uid :uid name :name kind :kind body :documentPlan blockly-xml :blocklyXml :as dp}]
-   (let [labels (dp-utils/get-variable-labels blockly-xml)
+   (let [labels    (dp-utils/get-variable-labels blockly-xml)
          variables (dp-utils/find-variables dp labels)
-         context {:labels labels :variables variables}]
+         context   {:labels labels :variables variables}]
      (loop [semantic-graph #::sg{:id          (or id (utils/gen-rand-str 16))
                                  :uid         uid
                                  :name        (str name)
@@ -443,8 +443,8 @@
                                  :description (str/join "\n" (dp-utils/find-examples dp))
                                  :relations   []
                                  :concepts    []}
-            loc (-> body (preprocess) (post-process context) (dp-zip/make-zipper))
-            context (assoc context :variables {})]
+            loc            (-> body (preprocess) (post-process context) (dp-zip/make-zipper))
+            context        (assoc context :variables {})]
        (if (or (zip/end? loc) (empty? body))
          (-> semantic-graph
              (sg-utils/prune-nil-relations)
@@ -457,16 +457,16 @@
              (update ::sg/relations set))
          (let [{:keys [type name] :as node} (add-category semantic-graph (zip/node loc) (merge dp context))]
            (recur
-             (sg-utils/merge-semantic-graphs
-               semantic-graph
-               (build-semantic-graph node (merge dp context)))
-             (-> loc
-                 (zip/replace node)
-                 (zip/next))
-             (-> context
-                 (update :variables #(if (= "Define-var" type)
-                                       (merge-with concat % {name [node]}) %))))))))))
+            (sg-utils/merge-semantic-graphs
+             semantic-graph
+             (build-semantic-graph node (merge dp context)))
+            (-> loc
+                (zip/replace node)
+                (zip/next))
+            (-> context
+                (update :variables #(if (= "Define-var" type)
+                                      (merge-with concat % {name [node]}) %))))))))))
 
 (s/fdef document-plan->semantic-graph
-        :args (s/cat :document-plan map?)
-        :ret ::sg/graph)
+  :args (s/cat :document-plan map?)
+  :ret ::sg/graph)

@@ -17,7 +17,7 @@
           (recur child-ids (set/union descendant-ids child-ids)))))))
 
 (defn get-child-with-relation [{::sg/keys [concepts relations]} {id :id} role]
-  (let [concept-map (zipmap (map :id concepts) concepts)
+  (let [concept-map  (zipmap (map :id concepts) concepts)
         relation-map (group-by :from relations)]
     (->> (get relation-map id)
          (some #(when (= role (:role %)) %))
@@ -88,13 +88,13 @@
          (sort-by :position)
          (map (fn [{:keys [id name category]}]
                 (let [category (or
-                                 category
-                                 (some (fn [{cat :category}]
-                                         (when (some? cat) cat))
-                                       (get to-relation-map id)))]
+                                category
+                                (some (fn [{cat :category}]
+                                        (when (some? cat) cat))
+                                      (get to-relation-map id)))]
                   (cond-> {:id   id
                            :name name}
-                          (some? category) (assoc :category category))))))))
+                    (some? category) (assoc :category category))))))))
 
 (defn merge-semantic-graphs [& graphs]
   (-> (first graphs)
@@ -106,17 +106,17 @@
                          (when (= :document-plan type) category))
                        concepts)]
     (cond-> semantic-graph
-            (some? category) (assoc ::sg/category category))))
+      (some? category) (assoc ::sg/category category))))
 
 (defn remove-nil-categories [semantic-graph]
   (-> semantic-graph
       (update ::sg/concepts #(map (fn [{cat :category :as concept}]
                                     (cond-> concept
-                                            (nil? cat) (dissoc :category)))
+                                      (nil? cat) (dissoc :category)))
                                   %))
       (update ::sg/relations #(map (fn [{cat :category :as relation}]
                                      (cond-> relation
-                                             (nil? cat) (dissoc :category)))
+                                       (nil? cat) (dissoc :category)))
                                    %))))
 
 (defn sort-semantic-graph [semantic-graph]
@@ -130,12 +130,12 @@
 (defn semantic-graph->ubergraph [{::sg/keys [concepts relations]} & {:keys [keep-ids?]}]
   (let [id->uuid (zipmap (map :id concepts) (if-not (true? keep-ids?) (repeatedly #(UUID/randomUUID)) (map :id concepts)))]
     (apply uber/multidigraph (concat
-                               (map (fn [{:keys [id] :as concept}]
-                                      [^:node (id->uuid id) (dissoc concept :id)])
-                                    concepts)
-                               (map (fn [{:keys [from to] :as relation}]
-                                      [^:edge (id->uuid from) (id->uuid to) (dissoc relation :from :to)])
-                                    relations)))))
+                              (map (fn [{:keys [id] :as concept}]
+                                     [^:node (id->uuid id) (dissoc concept :id)])
+                                   concepts)
+                              (map (fn [{:keys [from to] :as relation}]
+                                     [^:edge (id->uuid from) (id->uuid to) (dissoc relation :from :to)])
+                                   relations)))))
 
 (defn vizgraph [semantic-graph]
   (-> semantic-graph

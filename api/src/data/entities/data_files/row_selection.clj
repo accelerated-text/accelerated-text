@@ -1,7 +1,7 @@
 (ns data.entities.data-files.row-selection
-    (:require [clojure.set :as set]
-              [clojure.tools.logging :as log]
-              [data.utils :refer [murmur-hash]]))
+  (:require [clojure.set :as set]
+            [clojure.tools.logging :as log]
+            [data.utils :refer [murmur-hash]]))
 
 (defn hash-row [row]
   (map-indexed (fn [idx k] (murmur-hash (str idx ":" k))) row))
@@ -34,19 +34,18 @@
 
       (let [too-close?     (fn [[_ x]] (< x (/ 1 10)))
             available-rows (remove (fn [[idx _]] (contains? (set results) idx)) (get m next)) ;; Rows which are not yet in result
-            distant-rows   (remove (fn [[idx _]]  ;; Rows who are far enough from previous results
+            distant-rows   (remove (fn [[idx _]]            ;; Rows who are far enough from previous results
                                      (some too-close? (-> (get m idx) (select-keys (take-last 3 results)))))
                                    available-rows)
             k              (key (apply max-key val (if (empty? distant-rows) available-rows distant-rows)))]
         (recur (conj results k) k)))))
 
-
 (defn sample [col limit]
   (if (> (count col) limit)
     (let [l    (count col)
           step (- (/ l limit) 1)]
-      (loop [[head & tail]   col
-             result          []]
+      (loop [[head & tail] col
+             result []]
         (if (= (count result) limit)
           result
           (recur (drop step tail) (conj result head)))))

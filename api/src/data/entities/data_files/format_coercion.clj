@@ -1,7 +1,6 @@
 (ns data.entities.data-files.format-coercion
   (:require [clojure.string :as string]))
 
-
 (defn transpose [m] (apply mapv vector m))
 
 (defn coerce-ints [coll]

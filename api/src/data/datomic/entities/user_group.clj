@@ -24,9 +24,9 @@
 
 (defn make-pattern [entities]
   (vec (conj
-         (filter #(contains? entities (cond-> % (map? %) (-> (keys) (first))))
-                 (rest pattern))
-         (first pattern))))
+        (filter #(contains? entities (cond-> % (map? %) (-> (keys) (first))))
+                (rest pattern))
+        (first pattern))))
 
 (defn scan [conn {:keys [group-id entities]}]
   (ffirst (d/q '[:find (pull ?e pattern)

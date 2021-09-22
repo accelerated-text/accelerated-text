@@ -56,7 +56,7 @@
   (let [translate-fn (if (true? translate?) #(rm-translate/phrase->schema % lang group-id) identity)
         updated-item (update item ::dict-item/forms #(map (fn [phrase]
                                                             (cond-> phrase
-                                                                    (= id (::dict-item-form/id phrase)) (mut-fn)))
+                                                              (= id (::dict-item-form/id phrase)) (mut-fn)))
                                                           %))]
     (->> (dict-entity/update-dictionary-item updated-item group-id)
          (::dict-item/forms)

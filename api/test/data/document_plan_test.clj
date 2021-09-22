@@ -11,12 +11,12 @@
     (let [dp {:uid          "01"
               :name         "title-only"
               :documentPlan {:segments
-                                    [{:children
-                                             [{:name  "title"
-                                               :type  "Cell"
-                                               :srcId "isiyTw"}]
-                                      :type  "Segment"
-                                      :srcId "%!Y"}]
+                             [{:children
+                               [{:name  "title"
+                                 :type  "Cell"
+                                 :srcId "isiyTw"}]
+                               :type  "Segment"
+                               :srcId "%!Y"}]
                              :type  "Document-plan"
                              :srcId "G=Rh"}}
           {id :id :as resp} (document-plan/add-document-plan dp user-group/DUMMY-USER-GROUP-ID)]
@@ -26,9 +26,9 @@
 
       (let [{doc-plan :documentPlan} (document-plan/get-document-plan id)]
         (is (= {:segments
-                       [{:children [{:name "title" :type "Cell" :srcId "isiyTw"}]
-                         :type     "Segment"
-                         :srcId    "%!Y"}]
+                [{:children [{:name "title" :type "Cell" :srcId "isiyTw"}]
+                  :type     "Segment"
+                  :srcId    "%!Y"}]
                 :type  "Document-plan"
                 :srcId "G=Rh"}
                doc-plan))))))
@@ -38,19 +38,19 @@
     (let [dp {:uid          "02"
               :name         "authorship"
               :documentPlan {:segments
-                                    [{:children
-                                             [{:type           "AMR" :srcId "W}lSg%-S(rQ*nmVp3fFV"
-                                               :conceptId      "author"
-                                               :dictionaryItem {:name "author" :type "Dictionary-item" :srcId "jirq-V{WgCd+u[sdVWpd" :itemId "VB-author"}
-                                               :roles          [{:name     "agent"
-                                                                 :children [{:name  "authors"
-                                                                             :type  "Cell"
-                                                                             :srcId "uakxT`=!W@8/xV#^orHk"}]}
-                                                                {:name     "co-agent"
-                                                                 :children [{:name "title" :type "Cell" :srcId "X_CwogT+.Z)N@;Mhz.j/"}]}
-                                                                {:name "theme" :children [nil]}]}]
-                                      :type  "Segment"
-                                      :srcId "}0Ci`hF%i?izegwAT[@J"}]
+                             [{:children
+                               [{:type           "AMR" :srcId "W}lSg%-S(rQ*nmVp3fFV"
+                                 :conceptId      "author"
+                                 :dictionaryItem {:name "author" :type "Dictionary-item" :srcId "jirq-V{WgCd+u[sdVWpd" :itemId "VB-author"}
+                                 :roles          [{:name     "agent"
+                                                   :children [{:name  "authors"
+                                                               :type  "Cell"
+                                                               :srcId "uakxT`=!W@8/xV#^orHk"}]}
+                                                  {:name     "co-agent"
+                                                   :children [{:name "title" :type "Cell" :srcId "X_CwogT+.Z)N@;Mhz.j/"}]}
+                                                  {:name "theme" :children [nil]}]}]
+                               :type  "Segment"
+                               :srcId "}0Ci`hF%i?izegwAT[@J"}]
                              :type  "Document-plan"
                              :srcId "eoPNHZ1PSV{MJBwehL^Z"}}
           {id :id :as resp} (document-plan/add-document-plan dp user-group/DUMMY-USER-GROUP-ID)]

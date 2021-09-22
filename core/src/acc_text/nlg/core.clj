@@ -15,11 +15,11 @@
                          "*Reader"   (str/join "," (:readers context))})
       (update :dictionary #(reduce (fn [m {::dict-item/keys [key category] :as dict-item}]
                                      (assoc m [key category]
-                                              (update dict-item ::dict-item/attributes
-                                                      (fn [attrs]
-                                                        (into {} (map (fn [{::dict-item-attr/keys [name value]}]
-                                                                        [name value])
-                                                                      attrs))))))
+                                            (update dict-item ::dict-item/attributes
+                                                    (fn [attrs]
+                                                      (into {} (map (fn [{::dict-item-attr/keys [name value]}]
+                                                                      [name value])
+                                                                    attrs))))))
                                    {}
                                    %))))
 

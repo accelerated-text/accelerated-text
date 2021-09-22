@@ -32,7 +32,7 @@
 (defn enrich [gen-result data]
   (mapcat (fn [{:keys [enriched] :as result}]
             (if (some? enriched)
-              (let [item (dissoc result :enriched)
+              (let [item          (dissoc result :enriched)
                     enriched-item (assoc item :text enriched :enriched? true)]
                 [item enriched-item])
               [result]))

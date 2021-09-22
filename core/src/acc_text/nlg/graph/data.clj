@@ -9,10 +9,10 @@
 
 (defn find-data-category [g node-id]
   (let [edge-attrs (->> node-id (get-in-edge g) (attrs g))
-        category (get edge-attrs :category
-                      ;; in case the category is not supplied,
-                      ;; make it 'A' if we have modifier, and 'N' otherwise
-                      (if (= :modifier (:role edge-attrs)) "A" "N"))]
+        category   (get edge-attrs :category
+                        ;; in case the category is not supplied,
+                        ;; make it 'A' if we have modifier, and 'N' otherwise
+                        (if (= :modifier (:role edge-attrs)) "A" "N"))]
     (cond
       (contains? #{"A" "A2" "ACard" "AP"} category) "A"
       (contains? #{"AdA" "AdN" "AdV" "Adv" "CAdv"} category) "Adv"
@@ -23,7 +23,7 @@
 (defn resolve-data [g {data :data dictionary :dictionary {lang "*Language"} :constants}]
   (reduce (fn [g [node-id {key :name}]]
             (let [category (find-data-category g node-id)
-                  value (get-data data key)]
+                  value    (get-data data key)]
               (update-in g [:attrs node-id] #(merge % (if (contains? dictionary [value category])
                                                         {:type     :dictionary-item
                                                          :name     (format "%s_%s_%s" value category lang)

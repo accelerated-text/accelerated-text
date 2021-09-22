@@ -12,7 +12,7 @@
 (deftest comparison
   (testing "Result is true"
     (are [operator args]
-      (true? (condition/comparison operator args))
+         (true? (condition/comparison operator args))
       "=" [1 "1" "1.0"]
       "=" ["" "" " "]
       "=" ["Abc" "Abc"]
@@ -30,7 +30,7 @@
       ">=" [2.1 "2"]))
   (testing "Result is false"
     (are [operator args]
-      (false? (condition/comparison operator args))
+         (false? (condition/comparison operator args))
       "=" [1 "1" "1.0001"]
       "=" ["" " " "."]
       "=" ["Abc" "abc"]

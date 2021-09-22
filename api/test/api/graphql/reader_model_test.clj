@@ -40,7 +40,6 @@
                                 :variables {:id "Ger"}})]
       (is (= "Cannot find language with code `Ger`." message)))))
 
-
 (deftest ^:integration rw-readers
   (testing "Reader creation"
     (let [query "mutation createReaderFlag($id: ID! $name: String! $flag: String! $defaultUsage: Usage!) { createReaderFlag(id: $id name: $name flag: $flag defaultUsage: $defaultUsage){ id name flag defaultUsage }}"

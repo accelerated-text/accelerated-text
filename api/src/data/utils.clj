@@ -27,11 +27,10 @@
   (with-open [rdr (io/reader f)]
     (edn/read (PushbackReader. rdr))))
 
-
 (defn read-csv [^File f]
   (with-open [reader (io/reader f)]
     (doall
-      (csv/read-csv reader))))
+     (csv/read-csv reader))))
 
 (defn read-json [^File f]
   (with-open [f (io/reader f)]
@@ -42,15 +41,15 @@
 
 (defn get-ext [^File f]
   (let [filename (.getName f)
-        index (.lastIndexOf filename ".")]
+        index    (.lastIndexOf filename ".")]
     (when (not= index -1)
       (subs filename index (count filename)))))
 
 (defn get-name [^File f]
   (let [filename (.getName f)
-        index (.lastIndexOf filename ".")]
+        index    (.lastIndexOf filename ".")]
     (cond-> filename
-            (not= index -1) (subs 0 index))))
+      (not= index -1) (subs 0 index))))
 
 (defn file-with-ext
   [^File f ^PersistentHashSet ext]

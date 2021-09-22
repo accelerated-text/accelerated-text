@@ -21,12 +21,12 @@
 
 (deftest ^:integration document-plans-test
   (let [query "mutation createDocumentPlan($uid: ID! $name: String! $kind: String $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name kind: $kind blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
-        _ (q "/_graphql" :post {:query     query
-                                :variables {:uid          "01"
-                                            :name         "test"
-                                            :kind         "Document"
-                                            :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
-                                            :documentPlan "\"{}\""}})
+        _     (q "/_graphql" :post {:query     query
+                                    :variables {:uid          "01"
+                                                :name         "test"
+                                                :kind         "Document"
+                                                :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
+                                                :documentPlan "\"{}\""}})
         query "{documentPlans(offset:%s limit:%s){items{id uid name blocklyXml documentPlan dataSampleId dataSampleRow createdAt updatedAt updateCount} offset limit totalCount}}"
         {{{{:keys [items offset limit totalCount]} :documentPlans} :data errors :errors} :body}
         (q "/_graphql" :post {:query (format query 0 20)})]
@@ -173,12 +173,12 @@
 (deftest ^:integration listing-empty-doc-plans
   (is (= [] (document-plan/list-document-plans user-group/DUMMY-USER-GROUP-ID)))
   (let [query "mutation createDocumentPlan($uid: ID! $name: String! $kind: String $blocklyXml: String! $documentPlan: String! $dataSampleRow: Int){createDocumentPlan(uid: $uid name: $name kind: $kind blocklyXml: $blocklyXml documentPlan: $documentPlan dataSampleRow: $dataSampleRow){ id uid name blocklyXml documentPlan dataSampleRow createdAt updatedAt updateCount }}"
-        _ (q "/_graphql" :post {:query     query
-                                :variables {:uid          "01"
-                                            :name         "test"
-                                            :kind         "Document"
-                                            :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
-                                            :documentPlan "{}"}})]
+        _     (q "/_graphql" :post {:query     query
+                                    :variables {:uid          "01"
+                                                :name         "test"
+                                                :kind         "Document"
+                                                :blocklyXml   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
+                                                :documentPlan "{}"}})]
     (is (= [{:blocklyXml       "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>"
              :dataSampleId     nil
              :dataSampleMethod nil

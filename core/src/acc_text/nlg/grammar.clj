@@ -25,5 +25,5 @@
   (impl/build-grammar semantic-graph context))
 
 (s/fdef build-grammar
-        :args (s/cat :semantic-graph ::sg/graph :context map?)
-        :ret ::grammar)
+  :args (s/cat :semantic-graph ::sg/graph :context map?)
+  :ret ::grammar)

@@ -7,7 +7,7 @@
 (deftest descendant-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [parent-ids descendant-ids]
-      (= descendant-ids (sg-utils/find-descendant-ids semantic-graph parent-ids))
+         (= descendant-ids (sg-utils/find-descendant-ids semantic-graph parent-ids))
       #{:01} #{:02 :03 :04 :05 :06 :07 :08}
       #{:02} #{:03 :04 :05 :06 :07 :08}
       #{:03} #{:04 :05 :06 :07 :08}
@@ -20,14 +20,14 @@
 (deftest child-with-relation-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [concept role child]
-      (= child (sg-utils/get-child-with-relation semantic-graph concept role))
+         (= child (sg-utils/get-child-with-relation semantic-graph concept role))
       {:id :05 :type :data :value "authors"} :modifier {:id :07 :type :dictionary-item :value "good" :category "A"}
       {:id :02 :type :segment} :function nil)))
 
 (deftest child-concept-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [concept children]
-      (= children (sg-utils/get-children semantic-graph concept))
+         (= children (sg-utils/get-children semantic-graph concept))
       {:id :03 :type :amr :value "author"} [{:id :04 :type :dictionary-item :value "written" :category "V"}
                                             {:id :05 :type :modifier}
                                             {:id :08 :type :data :value "title"}]
@@ -36,7 +36,7 @@
 (deftest concept-with-type-search
   (let [semantic-graph (utils/load-test-semantic-graph "author-amr-with-adj")]
     (are [type concepts]
-      (= concepts (sg-utils/get-concepts-with-type semantic-graph type))
+         (= concepts (sg-utils/get-concepts-with-type semantic-graph type))
       :data [{:id :06 :type :data :value "authors"}
              {:id :08 :type :data :value "title"}]
       :boolean [])))

@@ -47,7 +47,7 @@
   first entry is original data and the second is a collection of variants."
   [document-plan language data]
   (log/infof "Generating text for %s data items" (count data))
-  (let [ids (take (count data) (repeatedly #(str (UUID/randomUUID))))
+  (let [ids      (take (count data) (repeatedly #(str (UUID/randomUUID))))
         id->data (zipmap ids data)]
     (->> {:documentPlanName document-plan
           :dataRows         id->data

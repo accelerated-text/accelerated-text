@@ -22,7 +22,7 @@
 (defn deduplicate [results]
   (map first (vals (group-by :text results))))
 
-(defn with-cache [request-hash {id ::result/id :as result}]
+(defn add-to-cache [request-hash {id ::result/id :as result}]
   (when (:enable-cache conf)
     (log/debugf "Caching result `%s`" id)
     (results/write-cached-result request-hash id))
@@ -50,36 +50,36 @@
 (defn generate-text
   [{:keys [id document-plan data reader-model] :or {id (utils/gen-uuid) data {} reader-model (available-reader-model user-group/DUMMY-USER-GROUP-ID)}}]
   (let [{:keys [languages readers]} (select-enabled-readers reader-model)
-        semantic-graph (document-plan->semantic-graph document-plan)
-        amrs (find-amrs semantic-graph)
+        semantic-graph  (document-plan->semantic-graph document-plan)
+        amrs            (find-amrs semantic-graph)
         semantic-graphs (cons semantic-graph amrs)
         dictionary-keys (set (concat (vals data) (mapcat get-dictionary-keys semantic-graphs)))
-        context {:amr        amrs
-                 :data       data
-                 :readers    readers
-                 :dictionary (build-dictionaries dictionary-keys languages)}
-        request-hash (hash [semantic-graph context languages])]
+        context         {:amr        amrs
+                         :data       data
+                         :readers    readers
+                         :dictionary (build-dictionaries dictionary-keys languages)}
+        request-hash    (hash [semantic-graph context languages])]
     (try
       (if-let [cached-result (when (:enable-cache conf) (results/fetch-cached-result request-hash))]
         (do
           (log/infof "Found cached result `%s`" (::result/id cached-result))
           (assoc cached-result ::result/id id))
-        (with-cache
-          request-hash
-          #::result{:id     id
-                    :status :ready
-                    :rows   (transduce
-                              (comp
-                                (mapcat (fn [lang]
-                                          (let [context (update context :dictionary #(get % lang []))]
-                                            (cond-> (nlg/generate-text semantic-graph context lang)
-                                                    (and (= "Eng" lang) (enable-enrich?)) (enrich data)
-                                                    (:remove-duplicates conf) (deduplicate)))))
-                                (remove #(str/blank? (:text %)))
-                                (map ->result-row)
-                                (map add-annotations))
-                              conj
-                              languages)}))
+        (add-to-cache
+         request-hash
+         #::result{:id     id
+                   :status :ready
+                   :rows   (transduce
+                            (comp
+                             (mapcat (fn [lang]
+                                       (let [context (update context :dictionary #(get % lang []))]
+                                         (cond-> (nlg/generate-text semantic-graph context lang)
+                                           (and (= "Eng" lang) (enable-enrich?)) (enrich data)
+                                           (:remove-duplicates conf) (deduplicate)))))
+                             (remove #(str/blank? (:text %)))
+                             (map ->result-row)
+                             (map add-annotations))
+                            conj
+                            languages)}))
       (catch Exception e
         (log/error (.getMessage e))
         (log/trace (str/join "\n" (.getStackTrace e)))

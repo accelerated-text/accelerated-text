@@ -19,7 +19,7 @@
 
 (defn list-files [group-id]
   (::user-group/data-files
-    (db/scan! user-group-db {:group-id group-id :entities #{::user-group/data-files}})))
+   (db/scan! user-group-db {:group-id group-id :entities #{::user-group/data-files}})))
 
 (defn link-document-plan [group-id dp-ref]
   (log/debugf "Linking document plan: `%s` to user group ID: %d" dp-ref group-id)
@@ -28,7 +28,7 @@
 (defn list-document-plans [group-id]
   (map dp-entity/dp->dp
        (::user-group/document-plans
-         (db/scan! user-group-db {:group-id group-id :entities #{::user-group/document-plans}}))))
+        (db/scan! user-group-db {:group-id group-id :entities #{::user-group/document-plans}}))))
 
 (defn link-dictionary-item [group-id dict-item-ref]
   (log/debugf "Linking dictionary-item: `%s` to user group ID: %d" dict-item-ref group-id)
@@ -36,7 +36,7 @@
 
 (defn list-dictionary-items [group-id]
   (::user-group/dictionary-items
-    (db/scan! user-group-db {:group-id group-id :entities #{::user-group/dictionary-items}})))
+   (db/scan! user-group-db {:group-id group-id :entities #{::user-group/dictionary-items}})))
 
 (defn link-reader-model [group-id reader-model-ref]
   (log/debugf "Linking reader model: `%s` to user group ID: %d" reader-model-ref group-id)
@@ -44,4 +44,4 @@
 
 (defn list-reader-models [group-id]
   (::user-group/reader-models
-    (db/scan! user-group-db {:group-id group-id :entities #{::user-group/reader-models}})))
+   (db/scan! user-group-db {:group-id group-id :entities #{::user-group/reader-models}})))

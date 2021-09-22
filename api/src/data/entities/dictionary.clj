@@ -67,23 +67,23 @@
 (defn read-dictionary-items-from-file [f]
   (with-open [r (io/reader f)]
     (doall
-      (for [dict-item (edn/read (PushbackReader. r))]
-        (-> (utils/add-ns-to-map "acc-text.nlg.dictionary.item" dict-item)
-            (update ::dict-item/language #(cond->> % (nil? %) (get conf :default-language)))
-            (update ::dict-item/forms (fn [forms]
-                                        (map #(utils/add-ns-to-map
-                                                "acc-text.nlg.dictionary.item.form"
-                                                {:id (utils/gen-uuid) :value % :default? true})
-                                             forms)))
-            (update ::dict-item/attributes (fn [attrs]
-                                             (map (fn [[name value]]
-                                                    (utils/add-ns-to-map
-                                                      "acc-text.nlg.dictionary.item.attr"
-                                                      {:id (utils/gen-uuid) :name name :value value}))
-                                                  attrs))))))))
+     (for [dict-item (edn/read (PushbackReader. r))]
+       (-> (utils/add-ns-to-map "acc-text.nlg.dictionary.item" dict-item)
+           (update ::dict-item/language #(cond->> % (nil? %) (get conf :default-language)))
+           (update ::dict-item/forms (fn [forms]
+                                       (map #(utils/add-ns-to-map
+                                              "acc-text.nlg.dictionary.item.form"
+                                              {:id (utils/gen-uuid) :value % :default? true})
+                                            forms)))
+           (update ::dict-item/attributes (fn [attrs]
+                                            (map (fn [[name value]]
+                                                   (utils/add-ns-to-map
+                                                    "acc-text.nlg.dictionary.item.attr"
+                                                    {:id (utils/gen-uuid) :name name :value value}))
+                                                 attrs))))))))
 
 (defstate dictionary
-  :start (doseq [f (utils/list-files (:dictionary-path conf) #{".edn"})
+  :start (doseq [f         (utils/list-files (:dictionary-path conf) #{".edn"})
                  dict-item (read-dictionary-items-from-file f)]
            (let [id (or (::dict-item/id dict-item) (gen-id dict-item))]
              (when-not (some? (get-dictionary-item id))

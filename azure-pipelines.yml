@@ -37,9 +37,33 @@ jobs:
       - script: |
           cd api
           clj-kondo --lint src test
+        displayName: 'Lint API'
+        condition: succeededOrFailed()
       - script: |
           cd core
           clj-kondo --lint src test
+        displayName: 'Lint Core'
+        condition: succeededOrFailed()
+
+  - job: check_format
+    continueOnError: true
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - script: |
+          curl -O https://download.clojure.org/install/linux-install-1.10.1.492.sh
+          chmod +x linux-install-1.10.1.492.sh
+          sudo ./linux-install-1.10.1.492.sh
+      - script: |
+          cd api
+          clojure -Sdeps '{:deps {cljfmt {:mvn/version "0.8.0"}}}' -m cljfmt.main check
+        displayName: 'Check API format'
+        condition: succeededOrFailed()
+      - script: |
+          cd core
+          clojure -Sdeps '{:deps {cljfmt {:mvn/version "0.8.0"}}}' -m cljfmt.main check
+        displayName: 'Check Core format'
+        condition: succeededOrFailed()
 
 # TODO: fix test timeout
 # - job: test_frontend

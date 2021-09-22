@@ -33,8 +33,8 @@
       (resolve-as)))
 
 (defn get-document-plan [{:keys [auth-info]} args _]
-  (let [id (when-not (str/blank? (:id args)) (:id args))
-        name (when-not (str/blank? (:name args)) (:name args))
+  (let [id            (when-not (str/blank? (:id args)) (:id args))
+        name          (when-not (str/blank? (:name args)) (:name args))
         document-plan (cond
                         (some? id) (dp/get-document-plan id)
                         (some? name) (some #(when (= name (:name %)) %) (dp/list-document-plans (:group-id auth-info))))]
