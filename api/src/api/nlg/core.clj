@@ -22,7 +22,7 @@
 (defn deduplicate [results]
   (map first (vals (group-by :text results))))
 
-(defn with-cache [request-hash {id ::result/id :as result}]
+(defn add-to-cache [request-hash {id ::result/id :as result}]
   (when (:enable-cache conf)
     (log/debugf "Caching result `%s`" id)
     (results/write-cached-result request-hash id))
@@ -64,7 +64,7 @@
         (do
           (log/infof "Found cached result `%s`" (::result/id cached-result))
           (assoc cached-result ::result/id id))
-        (with-cache
+        (add-to-cache
          request-hash
          #::result{:id     id
                    :status :ready

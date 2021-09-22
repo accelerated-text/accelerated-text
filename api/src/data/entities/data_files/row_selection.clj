@@ -40,7 +40,6 @@
             k              (key (apply max-key val (if (empty? distant-rows) available-rows distant-rows)))]
         (recur (conj results k) k)))))
 
-
 (defn sample [col limit]
   (if (> (count col) limit)
     (let [l    (count col)

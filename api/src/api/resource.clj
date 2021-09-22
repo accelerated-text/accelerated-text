@@ -29,7 +29,6 @@
    :status                      {:get {:application/json {:color    "green"
                                                           :services {"service" true}}}}})
 
-
 (defn- dummy [& _]
   {:status 200
    :body   {:text "I do nothing."}})

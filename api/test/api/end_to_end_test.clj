@@ -28,7 +28,6 @@
                                                    "1" {"authors" "William Mougayar"
                                                         "title"   "The Business Blockchain"}}}))))
 
-
 (deftest ^:integration text-generation-with-simple-plan-using-xlsx
   (is (= ["Building Search Applications is authored by Manu Konchady."]
          (generate-text {:document-plan-name "Authorship"

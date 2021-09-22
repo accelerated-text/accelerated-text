@@ -44,10 +44,12 @@
       (let [ending? (str/includes? (::annotation/text ann) "\n")]
         (recur
          anns
-         (if ending? (conj segments segment) segments)
-         (if ending? (let [text (str/replace (::annotation/text ann) #"\s*\n+\s*" "")]
-                       (cond-> [] (not (str/blank? text)) (conj (assoc ann ::annotation/text text))))
-                     (conj segment ann)))))))
+         (if ending?
+           (conj segments segment) segments)
+         (if ending?
+           (let [text (str/replace (::annotation/text ann) #"\s*\n+\s*" "")]
+             (cond-> [] (not (str/blank? text)) (conj (assoc ann ::annotation/text text))))
+           (conj segment ann)))))))
 
 (defn ->annotated-text-format [{rows ::result/rows} group-id]
   (map (fn [{annotations ::row/annotations :as row}]

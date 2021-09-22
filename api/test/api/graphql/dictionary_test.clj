@@ -94,8 +94,7 @@
 (deftest ^:integration get-dictionary-item-test
   (let [dict-item-id                 (utils/gen-uuid)
         create-dictionary-item-query "mutation CreateDictionaryItem($id: ID, $name:String! $partOfSpeech:PartOfSpeech){createDictionaryItem(id: $id name:$name partOfSpeech:$partOfSpeech){name partOfSpeech id}}"
-        _
-                                     (q "/_graphql" :post {:query create-dictionary-item-query :variables {:id dict-item-id :name "see", :partOfSpeech "V"}})
+        _                            (q "/_graphql" :post {:query create-dictionary-item-query :variables {:id dict-item-id :name "see", :partOfSpeech "V"}})
 
         create-phrase-query          "mutation CreatePhrase($dictionaryItemId:ID! $text:String! $defaultUsage:DefaultUsage){createPhrase(dictionaryItemId:$dictionaryItemId text:$text defaultUsage:$defaultUsage){phrases{id text}}}"
         _                            (q "/_graphql" :post {:query create-phrase-query :variables {:dictionaryItemId dict-item-id

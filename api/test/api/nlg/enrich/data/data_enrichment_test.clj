@@ -4,29 +4,28 @@
 
 (def enrich-config
   [{:filename-pattern #"accounts.csv"
-    :fields
-                      [{:name-pattern #"Account"
+    :fields           [{:name-pattern #"Account"
                         :transformations
-                                      [{:function :api.nlg.enrich.data.transformations/cleanup
-                                        :args     {:regex #" \(.*?\)" :replacement ""}}]}
+                        [{:function :api.nlg.enrich.data.transformations/cleanup
+                          :args     {:regex #" \(.*?\)" :replacement ""}}]}
                        {:name-pattern #".*Period .*"
                         :transformations
-                                      [{:function :api.nlg.enrich.data.transformations/number-approximation
-                                        :args     {:scale      1000
-                                                   :language   :en
-                                                   :formatting :numberwords.domain/bites
-                                                   :relation   :numberwords.domain/around}}
-                                       {:function :api.nlg.enrich.data.transformations/add-symbol
-                                        :args     {:symbol " USD" :position :back}}]}
+                        [{:function :api.nlg.enrich.data.transformations/number-approximation
+                          :args     {:scale      1000
+                                     :language   :en
+                                     :formatting :numberwords.domain/bites
+                                     :relation   :numberwords.domain/around}}
+                         {:function :api.nlg.enrich.data.transformations/add-symbol
+                          :args     {:symbol " USD" :position :back}}]}
                        {:name-pattern #"Date"
                         :transformations
-                                      [{:function :api.nlg.enrich.data.transformations/reformat-date
-                                        :args     {:input-format  "YYYY-MM-dd HH:mm"
-                                                   :output-format "YYYY-MM-dd"}}]}
+                        [{:function :api.nlg.enrich.data.transformations/reformat-date
+                          :args     {:input-format  "YYYY-MM-dd HH:mm"
+                                     :output-format "YYYY-MM-dd"}}]}
                        {:name-pattern #"Increase"
                         :transformations
-                                      [{:function :api.nlg.enrich.data.transformations/add-symbol
-                                        :args     {:symbol "$" :position :front :skip #{\- \+}}}]}]}])
+                        [{:function :api.nlg.enrich.data.transformations/add-symbol
+                          :args     {:symbol "$" :position :front :skip #{\- \+}}}]}]}])
 
 (def accounts-data
   [{"Account"            "Gross Sales (ID1220)"

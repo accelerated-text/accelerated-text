@@ -57,11 +57,10 @@
         (remove-edge list-node data-leaf))))
 
 (defn construct-list-structure [g list-node gf-funct]
-  (let [list-parent (first (gut/get-predecessors g gf-funct))
-        g-with-new-list-edges
-                    (-> g
-                        (add-edge list-parent list-node (attrs-from-edge g list-parent gf-funct))
-                        (remove-edge list-parent gf-funct))]
+  (let [list-parent           (first (gut/get-predecessors g gf-funct))
+        g-with-new-list-edges (-> g
+                                  (add-edge list-parent list-node (attrs-from-edge g list-parent gf-funct))
+                                  (remove-edge list-parent gf-funct))]
     (-> (reduce                                             ;;go over children of list node and connect with parent
          (fn [g child] (rearange-list-connections g list-node gf-funct child))
          g-with-new-list-edges

@@ -27,7 +27,6 @@
   (with-open [rdr (io/reader f)]
     (edn/read (PushbackReader. rdr))))
 
-
 (defn read-csv [^File f]
   (with-open [reader (io/reader f)]
     (doall

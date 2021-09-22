@@ -12,23 +12,23 @@
 
 (deftest ^:integration dictionary-item-generation
   (are [result dict-item]
-    (let [dict-item-graph (resolve-dict-item (add-ns dict-item))
-          document-plan   (gen-id)
-          segment         (gen-id)
-          semantic-graph  (-> dict-item-graph
-                              (update ::sg/concepts concat [{:id   document-plan
-                                                             :type :document-plan}
-                                                            {:id   segment
-                                                             :type :segment}])
-                              (update ::sg/relations concat [{:from  document-plan
-                                                              :to    segment
-                                                              :role  :segment
-                                                              :index 0}
-                                                             {:from  segment
-                                                              :to    (find-root dict-item-graph)
-                                                              :role  :instance
-                                                              :index 0}]))]
-      (is (= result (map :text (generate-text semantic-graph {} "Eng")))))
+       (let [dict-item-graph (resolve-dict-item (add-ns dict-item))
+             document-plan   (gen-id)
+             segment         (gen-id)
+             semantic-graph  (-> dict-item-graph
+                                 (update ::sg/concepts concat [{:id   document-plan
+                                                                :type :document-plan}
+                                                               {:id   segment
+                                                                :type :segment}])
+                                 (update ::sg/relations concat [{:from  document-plan
+                                                                 :to    segment
+                                                                 :role  :segment
+                                                                 :index 0}
+                                                                {:from  segment
+                                                                 :to    (find-root dict-item-graph)
+                                                                 :role  :instance
+                                                                 :index 0}]))]
+         (is (= result (map :text (generate-text semantic-graph {} "Eng")))))
 
     ["Good."] #::dict-item{:key      "good_A"
                            :category "A"

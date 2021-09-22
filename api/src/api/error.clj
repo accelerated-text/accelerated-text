@@ -3,10 +3,8 @@
             [clojure.tools.logging :as log]
             [clojure.stacktrace :as st]))
 
-
 (derive ::error ::exception)
 (derive ::failure ::exception)
-
 
 (defn exception-handler [type exception request]
   {:status 500
@@ -14,7 +12,6 @@
             :exception (.getClass exception)
             :data      (ex-data exception)
             :uri       (:uri request)}})
-
 
 (def exception-middleware
   (exception/create-exception-middleware
