@@ -17,6 +17,7 @@ nav:
         - Selecting languages: languages.md
         - Exporting: export.md
     - Advanced Topics:
+        - Python wrapper: py-wrapper.md
         - Blocks: blocks.md
         - Reader Model: reader-models.md
         - Data Enrichment: data-enrichment.md
