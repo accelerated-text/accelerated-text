@@ -8,4 +8,4 @@ Main functions of the wrapper include:
 * Text generation
 * Working with state
 
-We encourage using [Jupyter notebooks](https://jupyter.org/) alongside it.
+We encourage using the wrapper inside [Jupyter notebooks](https://jupyter.org/).
