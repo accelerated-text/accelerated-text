@@ -11,7 +11,7 @@
 
 (s/def ::format #{"raw" "annotated-text" "annotated-text-shallow"})
 
-(s/def ::dataRow (s/map-of string? string?))
+(s/def ::dataRow (s/map-of (s/or :s string? :n number?) (s/or :s string? :n number?)))
 
 (s/def ::dataRows (s/map-of ::id ::dataRow))
 
