@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 
 import { h }                from 'preact';
-import marked               from 'marked';
+import { marked }           from 'marked';
 
 import gettingStarted       from './getting-started.md';
 import keyMap               from './key-map.md';
