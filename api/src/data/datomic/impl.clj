@@ -102,17 +102,17 @@
   (log/debugf "Datomic for: %s with config %s" resource-type config)
   (reify
     protocol/DBAccess
-    (read-item [this key]
+    (read-item [_ key]
       (pull-entity resource-type key))
-    (write-item [this key data update-count?]
+    (write-item [_ key data _]
       (transact-item resource-type key data))
-    (update-item [this key data]
+    (update-item [_ key data]
       (try
         (update! resource-type key data)
         (catch Exception e
           (.printStackTrace e))))
-    (delete-item [this key] (delete resource-type key))
-    (list-items [this limit] (pull-n resource-type limit))
-    (scan-items [this opts] (scan resource-type opts))
-    (batch-read-items [this ids]
+    (delete-item [_ key] (delete resource-type key))
+    (list-items [_ limit] (pull-n resource-type limit))
+    (scan-items [_ opts] (scan resource-type opts))
+    (batch-read-items [_ _]
       (throw (RuntimeException. (format "DATOMIC BATCH-READ-ITEMS FOR '%s' NOT IMPLEMENTED" resource-type))))))
