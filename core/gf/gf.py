@@ -68,13 +68,15 @@ def compile_grammar(name, content):
 def serialize_bracket(bracket):
     if isinstance(bracket, str):
         return bracket
-
-    return {
-        "cat": bracket.cat,
-        "fid": bracket.fid,
-        "fun": bracket.fun,
-        "children": list([serialize_bracket(c) for c in bracket.children])
-    }
+    elif isinstance(bracket, list):
+        return [serialize_bracket(b) for b in bracket if not isinstance(b, pgf.BIND)]
+    else:
+        return {
+            "cat": bracket.cat,
+            "fid": bracket.fid,
+            "fun": bracket.fun,
+            "children": serialize_bracket(bracket.children)
+        }
 
 
 def generate_variants(expressions, concrete_grammar):
