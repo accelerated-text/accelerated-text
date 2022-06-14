@@ -13,6 +13,8 @@ RUN wget https://github.com/GrammaticalFramework/gf-rgl/releases/download/202011
 RUN unzip gf-rgl-20201114.zip -d /opt && rm gf-rgl-20201114.zip || true
 ENV GF_LIB_PATH=/opt/gf-rgl-20201114-test
 
+RUN mkdir /grammars && gf --output-dir=/grammars -n LangEng -make alltenses/LangEng.gfo
+
 ADD *.py ./
 ADD test_grammars test_grammars/
 
