@@ -45,8 +45,11 @@
                   (str/replace #"[^.?!]$" #(str % ".")))))
        (str/join "\n")))
 
+(defn bind [text]
+  (str/replace text #"\s*\<pgf\.BIND\>\s*" ""))
+
 (defn post-process [lang lincat {[tree] :tree}]
   (let [concepts (get-concepts tree lincat)]
-    {:text     (->> concepts (map :value) (remove nil?) (str/join " ") (emend))
+    {:text     (->> concepts (map :value) (remove nil?) (str/join " ") (emend) (bind))
      :concepts concepts
      :language lang}))

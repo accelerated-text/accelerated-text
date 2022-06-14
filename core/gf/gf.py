@@ -68,8 +68,10 @@ def compile_grammar(name, content):
 def serialize_bracket(bracket):
     if isinstance(bracket, str):
         return bracket
+    elif isinstance(bracket, pgf.BIND):
+        return "<pgf.BIND>"
     elif isinstance(bracket, list):
-        return [serialize_bracket(b) for b in bracket if not isinstance(b, pgf.BIND)]
+        return [serialize_bracket(b) for b in bracket]
     else:
         return {
             "cat": bracket.cat,
