@@ -45,7 +45,7 @@
   (load-document-plan "AuthorshipRGL")
   (load-document-plan "AuthorshipAMR")
   (is (= #{"Building Search Applications is written by Manu Konchady."
-           "Building Search Applications wird durch Manu Konchady geschrieben."}
+           "Building Search Applications wird geschrieben durch Manu Konchady."}
          (set (generate-text {:document-plan-name "AuthorshipMultiLang"
                               :data-file-name     "books.csv"
                               :reader-flags       {"Eng" true "Ger" true}})))))
