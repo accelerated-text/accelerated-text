@@ -68,8 +68,10 @@ def compile_grammar(name, content):
 def serialize_bracket(bracket):
     if isinstance(bracket, str):
         return bracket
+    elif isinstance(bracket, pgf.BIND):
+        return "<pgf.BIND>"
     elif isinstance(bracket, list):
-        return [serialize_bracket(b) for b in bracket if not isinstance(b, pgf.BIND)]
+        return [serialize_bracket(b) for b in bracket]
     else:
         return {
             "cat": bracket.cat,
@@ -105,7 +107,7 @@ def generate_results(name, content):
         raise GFError(error)
 
 
-def parse_text(name, content, text):
+def parse_text(name, content, text, n=10):
     error = None
     if content:
         (grammar, error) = compile_grammar(name, content)
@@ -114,7 +116,14 @@ def parse_text(name, content, text):
     logger.debug("Grammar: {}".format(grammar))
     if grammar:
         logger.info("Parsing")
-        return [(k, [str(e) for p, e in concrete.parse(text)])
-                for k, concrete in grammar.languages.items()]
+        results = []
+        for k, concrete in grammar.languages.items():
+            exprs = []
+            for i, (p, e) in enumerate(concrete.parse(text)):
+                if i >= n:  # limit the number of expressions to be returned
+                    break
+                exprs.append(str(e))
+            results.append((k, exprs))
+        return results
     elif error:
         raise GFError(error)
