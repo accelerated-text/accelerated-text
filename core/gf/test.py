@@ -46,34 +46,27 @@ def test_get_parse_tree(api_post):
     tree = result_objects[0]["tree"][0]
     assert tree == {
   "fun": "Function01",
-        "ann": "",
         "children": [
             {
                 "fun": "Function02",
-                "ann": "",
                 "children": [
                     {
                         "fun": "Function03",
-                        "ann": "",
                         "children": [
                             {
                                 "fun": "Function04",
-                                "ann": "",
                                 "children": [
                                     {
                                         "fun": "Function05",
-                                        "ann": "s",
                                         "children": [
                                             {
                                                 "fun": "Function06",
-                                                "ann": "s Pres Simul CPos (ODir False)",
                                                 "children": [
                                                     "there",
                                                     "is",
                                                     "an",
                                                     {
                                                         "fun": "Function07",
-                                                        "ann": "s Sg Nom",
                                                         "children": [
                                                             "item"
                                                         ],
