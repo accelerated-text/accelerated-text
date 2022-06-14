@@ -50,6 +50,6 @@
 
 (defn post-process [lang lincat {[tree] :tree}]
   (let [concepts (get-concepts tree lincat)]
-    {:text     (->> concepts (map :value) (remove nil?) (str/join " ") (emend) (bind))
+    {:text     (->> concepts (map :value) (remove nil?) (str/join " ") (bind) (emend))
      :concepts concepts
      :language lang}))
