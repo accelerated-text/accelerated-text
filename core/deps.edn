@@ -2,11 +2,8 @@
  :deps      {org.clojure/clojure            {:mvn/version "1.11.1"}
              org.clojure/tools.logging      {:mvn/version "1.2.4"}
              ch.qos.logback/logback-classic {:mvn/version "1.4.5"}
-             jdom/jdom                      {:mvn/version "1.1"}
              metosin/jsonista               {:mvn/version "0.3.7"}
              http-kit/http-kit              {:mvn/version "2.6.0"}
-             trove/trove                    {:mvn/version "2.1.1"}
-             org.clojure/data.xml           {:mvn/version "0.2.0-alpha6"}
              org.clojure/math.combinatorics {:mvn/version "0.1.6"}
              ubergraph/ubergraph            {:mvn/version "0.8.2"}}
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
