@@ -7,9 +7,9 @@ services:
       context: .
     environment:
       GF_ENDPOINT: http://gf:8000
-    command: ["clojure", "-A:dev:coverage", "--output", "/opt/coverage"]
+    command: ["clojure", "-A:dev:coverage", "--output", "/opt/acctext/coverage"]
     volumes:
-      - ./.stats/coverage/core:/opt/coverage
+      - ./.stats/coverage/core:/opt/acctext/coverage
   gf:
     image: acctext/gf:test
     build:

@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 COPY ./core/deps.edn /usr/src/core/
 COPY ./api/deps.edn /usr/src/app/
 
-RUN clojure -R:test || true
+RUN clojure -X:deps prep
 
 COPY ./api /usr/src/app
 COPY ./core /usr/src/core

@@ -1,28 +1,25 @@
 {:paths     ["resources" "src" "test"]
- :deps      {org.clojure/clojure            {:mvn/version "1.10.1"}
-             org.clojure/tools.logging      {:mvn/version "0.4.1"}
-             ch.qos.logback/logback-classic {:mvn/version "1.2.3"}
-             jdom/jdom                      {:mvn/version "1.0"}
-             metosin/jsonista               {:mvn/version "0.2.5"}
-             http-kit/http-kit              {:mvn/version "2.3.0"}
-             trove/trove                    {:mvn/version "1.1-beta-5"}
-             org.clojure/data.xml           {:mvn/version "0.2.0-alpha6"}
+ :deps      {org.clojure/clojure            {:mvn/version "1.11.1"}
+             org.clojure/tools.logging      {:mvn/version "1.2.4"}
+             ch.qos.logback/logback-classic {:mvn/version "1.4.5"}
+             metosin/jsonista               {:mvn/version "0.3.7"}
+             http-kit/http-kit              {:mvn/version "2.6.0"}
              org.clojure/math.combinatorics {:mvn/version "0.1.6"}
-             ubergraph/ubergraph            {:mvn/version "0.8.1"}}
+             ubergraph/ubergraph            {:mvn/version "0.8.2"}}
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://clojars.org/repo"}}
- :aliases   {:dev      {:extra-deps {org.clojure/test.check {:mvn/version "0.9.0"}}}
+ :aliases   {:dev      {:extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}}}
              :test     {:extra-paths ["test"]
                         :extra-deps  {com.cognitect/test-runner
                                       {:git/url "https://github.com/cognitect-labs/test-runner"
                                        :sha     "028a6d41ac9ac5d5c405dfc38e4da6b4cc1255d5"}}
                         :main-opts   ["-m" "cognitect.test-runner"]}
              :coverage {:extra-paths ["test"]
-                        :extra-deps  {cloverage/cloverage {:mvn/version "1.2.2"}}
+                        :extra-deps  {cloverage/cloverage {:mvn/version "1.2.3"}}
                         :main-opts   ["-m" "cloverage.coverage" "-p" "src" "-s" "test" "--codecov" "--runner" "clojure.test"]}
              :lint     {:extra-paths ["test"]
-                        :extra-deps  {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+                        :extra-deps  {clj-kondo/clj-kondo {:mvn/version "2022.12.10"}}
                         :main-opts   ["-m" "clj-kondo.main" "--lint" "src" "test"]}
              :format   {:extra-paths ["test"]
-                        :extra-deps  {cljfmt/cljfmt {:mvn/version "0.8.0"}}
+                        :extra-deps  {cljfmt/cljfmt {:mvn/version "0.9.0"}}
                         :main-opts   ["-m" "cljfmt.main"]}}}

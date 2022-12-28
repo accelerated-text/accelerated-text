@@ -7,7 +7,7 @@ pr:
 jobs:
   - job: unit_test_backend
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     steps:
       - script: |
           curl -O https://download.clojure.org/install/linux-install-1.10.1.492.sh
@@ -24,7 +24,7 @@ jobs:
 
   - job: lint_backend
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     steps:
       - script: |
           curl -O https://download.clojure.org/install/linux-install-1.10.1.492.sh
@@ -48,7 +48,7 @@ jobs:
   - job: check_format
     continueOnError: true
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     steps:
       - script: |
           curl -O https://download.clojure.org/install/linux-install-1.10.1.492.sh
@@ -68,7 +68,7 @@ jobs:
 # TODO: fix test timeout
 # - job: test_frontend
 #   pool:
-#     vmImage: 'ubuntu-latest'
+#     vmImage: 'ubuntu-20.04'
 #   steps:
 #     - task: NodeTool@0
 #       inputs:
@@ -79,7 +79,7 @@ jobs:
       
   - job: api_integration_tests
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     dependsOn:
       - unit_test_backend
     steps:
@@ -109,7 +109,7 @@ jobs:
 
   - job: core_integration_tests
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     dependsOn:
       - unit_test_backend
     steps:
@@ -138,7 +138,7 @@ jobs:
 
   - job: eval
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     steps:
       - checkout: self
         submodules: true
@@ -167,7 +167,7 @@ jobs:
       - eval
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     variables:
       DOCKER_BUILDKIT: 1
     steps:

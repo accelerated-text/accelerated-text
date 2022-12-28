@@ -11,17 +11,17 @@ services:
       ENABLE_ENRICH: "FALSE"
       ENABLE_REF_EXPR: "FALSE"
       DB_IMPLEMENTATION: "datomic"
-      DATA_FILES: "/opt/data-files"
-      DICT_PATH: "/opt/dictionary"
-      DOCUMENT_PLANS: "/opt/document-plans"
-    command: ["clojure", "-A:dev:coverage", "--output", "/opt/coverage"]
+      DATA_FILES: "/opt/acctext/data-files"
+      DICT_PATH: "/opt/acctext/dictionary"
+      DOCUMENT_PLANS: "/opt/acctext/document-plans"
+    command: ["clojure", "-A:dev:coverage", "--output", "/opt/acctext/coverage"]
     volumes:
-      - ./resources/schema.graphql:/opt/schema.graphql
-      - ./resources/datomic-schema:/opt/datomic-schema
-      - ./test/resources/data-files:/opt/data-files
-      - ./test/resources/dictionary:/opt/dictionary
-      - ./test/resources/document-plans:/opt/document-plans
-      - ./.stats/coverage/api:/opt/coverage
+      - ./resources/schema.graphql:/opt/acctext/schema.graphql
+      - ./resources/datomic-schema:/opt/acctext/datomic-schema
+      - ./test/resources/data-files:/opt/acctext/data-files
+      - ./test/resources/dictionary:/opt/acctext/dictionary
+      - ./test/resources/document-plans:/opt/acctext/document-plans
+      - ./.stats/coverage/api:/opt/acctext/coverage
   gf:
     image: acctext/core:test
     build:
