@@ -16,14 +16,14 @@ services:
       ENABLE_REF_EXPR: "FALSE"
       DB_IMPLEMENTATION: "datomic"
       DB_URI: "datomic:free://datomic-transactor:4334/acc-text?password=datomic"
-      CONFIG_PATH: "/opt/config"
-      DATA_FILES: "/opt/data-files"
-      DICT_PATH: "/opt/dictionary"
-      DOCUMENT_PLANS: "/opt/document-plans"
+      CONFIG_PATH: "/opt/acctext/config"
+      DATA_FILES: "/opt/acctext/data-files"
+      DICT_PATH: "/opt/acctext/dictionary"
+      DOCUMENT_PLANS: "/opt/acctext/document-plans"
       ENABLED_LANGUAGES: "Eng"
       ENABLED_READERS: ""
     volumes:
-      - ./api/resources:/opt
+      - ./api/resources:/opt/acctext
     depends_on:
       - datomic-transactor
       - gf
