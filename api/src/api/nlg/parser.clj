@@ -416,7 +416,7 @@
            (zip/edit post-add-kind context)
            (dp-zip/post-next))))))
 
-(defn add-category [semantic-graph {:keys [id kind name] :as node} {variables :variables}]
+(defn add-category [semantic-graph {:keys [id kind type name] :as node} {variables :variables}]
   (let [in-relations (filter #(= (:to %) id) (::sg/relations semantic-graph))
         kind         (or
                       kind
