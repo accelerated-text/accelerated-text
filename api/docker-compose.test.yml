@@ -14,7 +14,7 @@ services:
       DATA_FILES: "/opt/acctext/data-files"
       DICT_PATH: "/opt/acctext/dictionary"
       DOCUMENT_PLANS: "/opt/acctext/document-plans"
-    command: ["clojure", "-A:dev:coverage", "--output", "/opt/coverage"]
+    command: ["clojure", "-A:dev:coverage", "--output", "/opt/acctext/coverage"]
     volumes:
       - ./resources/schema.graphql:/opt/acctext/schema.graphql
       - ./resources/datomic-schema:/opt/acctext/datomic-schema
