@@ -1,22 +1,22 @@
 {:deps      {accelerated-text/core                {:local/root "../core"}
-             ch.qos.logback/logback-classic       {:mvn/version "1.2.3"}
-             com.walmartlabs/lacinia              {:mvn/version "0.38.0"}
-             http-kit/http-kit                    {:mvn/version "2.3.0"}
+             ch.qos.logback/logback-classic       {:mvn/version "1.4.5"}
+             com.walmartlabs/lacinia              {:mvn/version "1.1"}
+             http-kit/http-kit                    {:mvn/version "2.6.0"}
              javax.servlet/servlet-api            {:mvn/version "2.5"}
-             ring/ring-core                       {:mvn/version "1.7.1"}
-             net.sf.extjwnl/extjwnl               {:mvn/version "2.0.2"}
+             ring/ring-core                       {:mvn/version "1.9.6"}
+             net.sf.extjwnl/extjwnl               {:mvn/version "2.0.5"}
              net.sf.extjwnl/extjwnl-data-wn31     {:mvn/version "1.2"}
-             metosin/jsonista                     {:mvn/version "0.2.5"}
-             metosin/reitit                       {:mvn/version "0.5.12"}
-             mount/mount                          {:mvn/version "0.1.16"}
+             metosin/jsonista                     {:mvn/version "0.3.7"}
+             metosin/reitit                       {:mvn/version "0.5.18"}
+             mount/mount                          {:mvn/version "0.1.17"}
              com.datomic/datomic-free             {:mvn/version "0.9.5697"
                                                    :exclusions  [org.slf4j/slf4j-nop org.slf4j/slf4j-log4j12]}
-             io.rkn/conformity                    {:mvn/version "0.5.1"}
-             org.clojure/clojure                  {:mvn/version "1.10.1"}
-             org.clojure/data.csv                 {:mvn/version "0.1.4"}
-             org.clojure/tools.logging            {:mvn/version "0.5.0"}
+             io.rkn/conformity                    {:mvn/version "0.5.4"}
+             org.clojure/clojure                  {:mvn/version "1.11.1"}
+             org.clojure/data.csv                 {:mvn/version "1.0.1"}
+             org.clojure/tools.logging            {:mvn/version "1.2.4"}
              ai.tokenmill.numberwords/numberwords {:mvn/version "1.1.0"}
-             dk.ative/docjure                     {:mvn/version "1.14.0"}
+             dk.ative/docjure                     {:mvn/version "1.19.0"}
              commons-codec/commons-codec          {:mvn/version "1.15"}}
  :paths     ["src" "resources"]
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
@@ -27,11 +27,11 @@
                                                                  :sha     "028a6d41ac9ac5d5c405dfc38e4da6b4cc1255d5"}}
                         :main-opts   ["-m" "cognitect.test-runner"]}
              :coverage {:extra-paths ["test"]
-                        :extra-deps  {cloverage/cloverage {:mvn/version "1.2.2"}}
+                        :extra-deps  {cloverage/cloverage {:mvn/version "1.2.3"}}
                         :main-opts   ["-m" "cloverage.coverage" "-p" "src" "-s" "test" "--codecov" "--runner" "clojure.test"]}
              :lint     {:extra-paths ["test"]
-                        :extra-deps  {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+                        :extra-deps  {clj-kondo/clj-kondo {:mvn/version "2022.12.10"}}
                         :main-opts   ["-m" "clj-kondo.main" "--lint" "src" "test"]}
              :format   {:extra-paths ["test"]
-                        :extra-deps  {cljfmt/cljfmt {:mvn/version "0.8.0"}}
+                        :extra-deps  {cljfmt/cljfmt {:mvn/version "0.9.0"}}
                         :main-opts   ["-m" "cljfmt.main"]}}}
