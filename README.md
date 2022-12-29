@@ -13,7 +13,7 @@
 [![made-with-Clojure](https://img.shields.io/badge/Made%20with-Clojure-1f425f.svg)](https://clojure.org/)
 [![Documentation Status](https://readthedocs.org/projects/accelerated-text/badge/?version=latest)](https://accelerated-text.readthedocs.io/en/latest/?badge=latest)
 [![GitHub release](https://img.shields.io/github/release/tokenmill/accelerated-text.svg)](https://github.com/tokenmill/accelerated-text/releases/)
-[![codecov](https://codecov.io/gh/tokenmill/accelerated-text/branch/master/graph/badge.svg?token=rQIlPuvYID)](https://codecov.io/gh/tokenmill/accelerated-text)
+[![codecov](https://codecov.io/gh/accelerated-text/accelerated-text/branch/master/graph/badge.svg?token=rQIlPuvYID)](https://codecov.io/gh/accelerated-text/accelerated-text)
 [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://acceleratedtext.com)
 [![Gitter](https://badges.gitter.im/accelerated-text/community.svg)](https://gitter.im/accelerated-text/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
